@@ -3,11 +3,50 @@ Code for calculating annual integrated NDVI.
 """
 # Copyright 2017 Conservation International
 
-import ee
-import geojson
 
-# Initialize the Earth Engine object, using the authentication credentials.
-ee.Initialize()
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+import ee
+import json
+
+def get_region(geom):
+    """Return ee.Geometry from supplied GeoJSON object."""
+    poly = get_coords(geom)
+    ptype = get_type(geom)
+    if ptype.lower() == 'multipolygon':
+        region = ee.Geometry.MultiPolygon(poly)
+    else:
+        region = ee.Geometry.Polygon(poly)
+    return region
+
+
+def get_coords(geojson):
+    """."""
+    if geojson.get('features') is not None:
+        return geojson.get('features')[0].get('geometry').get('coordinates')
+    elif geojson.get('geometry') is not None:
+        return geojson.get('geometry').get('coordinates')
+    else:
+        return geojson.get('coordinates')
+
+
+def get_type(geojson):
+    """."""
+    if geojson.get('features') is not None:
+        return geojson.get('features')[0].get('geometry').get('type')
+    elif geojson.get('geometry') is not None:
+        return geojson.get('geometry').get('type')
+    else:
+        return geojson.get('type')
+
+
+def squaremeters_to_ha(value):
+    """."""
+    tmp = value/10000.
+    return float('{0:4.2f}'.format(tmp))
+
 
 def mann_kendall_stat(imageCollection):
     """Calculate Mann Kendall's S statistic.
@@ -41,7 +80,7 @@ def mann_kendall_stat(imageCollection):
     MKSstat = ConcordantSum.subtract(DiscordantSum)
     return MKSstat
 
-def run(params, logger):
+def ndvi_annual_integral(year_start, year_end, geojson):
     """Calculate annual trend of integrated NDVI.
 
     Calculates the trend of annual integrated NDVI using NDVI data from the
@@ -53,12 +92,13 @@ def run(params, logger):
             calculated over).
         year_end: The ending year (to define the period the trend is
             calculated over).
-        polygon: A polygon defining the area of interest, as a GeoJSON.
+        geojson: A polygon defining the area of interest.
 
     Returns:
         Output of google earth engine task.
     """
-    # year_start=2003, year_end=2015, polygon):
+
+    region = get_coords(geojson)
 
     # Load a MODIS NDVI collection 6 MODIS/MOD13Q1
     modis_16d_o = ee.ImageCollection('MODIS/006/MOD13Q1')
@@ -103,16 +143,28 @@ def run(params, logger):
     # Compute Kendall statistics
     mk_trend = mann_kendall_stat(ndvi_1yr_o.select('ndvi'))
 
-    export = {
-        'image': lf_trend.select('scale').where(mk_trend.abs().lte(kendall), -99999).where(lf_trend.select('scale').abs().lte(0.000001), -99999).unmask(-99999),
-        'description': '{}_modis_gee_data_gee_int_trends_{}_{}'.format(sa_name,year_start,year_end),
-        'bucket': 'ldmp-test',
-        'maxPixels': 10000000000,
-        'scale': 250,
-        'region': sa.getInfo()['features'][0]['geometry']['coordinates']}
+    export = {'image': lf_trend.select('scale').where(mk_trend.abs().lte(kendall), -99999).where(lf_trend.select('scale').abs().lte(0.000001), -99999).unmask(-99999),
+             'description': 'modis_gee_data_gee_int_trends_{}_{}'.format(year_start, year_end),
+             'bucket': 'ldmt',
+             'maxPixels': 10000000000,
+             'scale': 250,
+             'region': region}
 
     # Export final mosaic to assets
     task = ee.batch.Export.image.toCloudStorage(**export)
     task.start()
 
     return task
+
+def run(params, logger):
+    """."""
+    year_start = params.get('year_start', 2003)
+    year_end = params.get('year_end', 2015)
+    default_poly = json.loads('{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[-9.4921875,33.7243396617476],[-9.4921875,39.36827914916014],[2.8125,39.36827914916014],[2.8125,33.7243396617476],[-9.4921875,33.7243396617476]]]}}]}')
+    geojson = params.get('geojson', default_poly)
+
+    if not geojson:
+        return False
+
+    logger.debug('Done')
+    return ndvi_annual_integral(year_start, year_end, geojson)

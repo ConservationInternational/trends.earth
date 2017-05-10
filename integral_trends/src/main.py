@@ -3,7 +3,6 @@ Code for calculating annual integrated NDVI.
 """
 # Copyright 2017 Conservation International
 
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -139,6 +138,7 @@ def ndvi_annual_integral(year_start, year_end, geojson):
 
     export = {'image': lf_trend.select('scale').where(mk_trend.abs().lte(kendall), -99999).where(lf_trend.select('scale').abs().lte(0.000001), -99999).unmask(-99999),
              'description': 'modis_gee_data_gee_int_trends_{}_{}'.format(year_start, year_end),
+             'fileNamePrefix': 'modis_gee_data_gee_int_trends_{}_{}'.format(year_start, year_end),
              'bucket': 'ldmt',
              'maxPixels': 10000000000,
              'scale': 250,
@@ -146,6 +146,7 @@ def ndvi_annual_integral(year_start, year_end, geojson):
 
     # Export final mosaic to assets
     task = ee.batch.Export.image.toCloudStorage(**export)
+
     task.start()
 
     return task

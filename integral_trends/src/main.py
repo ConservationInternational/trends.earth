@@ -42,12 +42,6 @@ def get_type(geojson):
         return geojson.get('type')
 
 
-def squaremeters_to_ha(value):
-    """."""
-    tmp = value/10000.
-    return float('{0:4.2f}'.format(tmp))
-
-
 def mann_kendall_stat(imageCollection):
     """Calculate Mann Kendall's S statistic.
 

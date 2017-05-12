@@ -168,5 +168,5 @@ def run(params, logger):
     if not geojson:
         return False
 
-    logger.debug('Done')
+    logger.debug('Finished')
     return ndvi_annual_integral(year_start, year_end, geojson, EXECUTION_ID)

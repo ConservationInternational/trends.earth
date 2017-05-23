@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LDMPCalculate
+ DlgCalculate
                                  A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
                              -------------------
@@ -25,7 +25,7 @@ import os
 
 from PyQt4 import QtGui, uic
 
-from .ui.ui_DlgCaclculate import Ui_DlgCalculate as UiDialog
+from DlgCalculate import Ui_DlgCalculate as UiDialog
 
 class DlgCalculate(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):

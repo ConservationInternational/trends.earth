@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LDMPDownload</class>
- <widget class="QDialog" name="LDMPDownload">
+ <class>DlgDownload</class>
+ <widget class="QDialog" name="DlgDownload">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -204,7 +204,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>LDMPDownload</receiver>
+   <receiver>DlgDownload</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -220,7 +220,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>LDMPDownload</receiver>
+   <receiver>DlgDownload</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

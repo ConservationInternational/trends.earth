@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LDMPPlot
+ DlgPlot
                                  A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
                              -------------------
@@ -25,7 +25,7 @@ import os
 
 from PyQt4 import QtGui, uic
 
-from .ui.ui_DlgPlot import Ui_DlgPlot as UiDialog
+from DlgPlot import Ui_DlgPlot as UiDialog
 
 class DlgPlot(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):

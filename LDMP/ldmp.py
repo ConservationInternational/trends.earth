@@ -24,15 +24,16 @@ from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 # Initialize Qt resources from file resources.py
 import resources
-# Import the code for the dialogs
-from ldmp_settings import LDMPSettings
-from ldmp_download import LDMPDownload
-from ldmp_calculate import LDMPCalculate
-from ldmp_plot import LDMPPlot
-from ldmp_reporting import LDMPSettings
-from ldmp_about import LDMPAbout
-import os.path
 
+# Import the code for the dialogs
+from settings import DlgSettings
+from download import DlgDownload
+from calculate import DlgCalculate
+from plot import DlgPlot
+from reporting import DlgReporting
+from about import DlgAbout
+
+import os.path
 
 class LDMP:
     """QGIS Plugin Implementation."""
@@ -173,42 +174,42 @@ class LDMP:
             ':/plugins/LDMP/icons/icon-wrench.png',
             text=self.tr(u'Settings'),
             callback=self.run,
-            dlg=LDMPSettings(),
+            dlg=DlgSettings(),
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-cloud-download.png',
             text=self.tr(u'Download data'),
             callback=self.run,
-            dlg=LDMPDownload(),
+            dlg=DlgDownload(),
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-calculator.png',
             text=self.tr(u'Calculate trends'),
             callback=self.run,
-            dlg=LDMPCalculate(),
+            dlg=DlgCalculate(),
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-graph.png',
             text=self.tr(u'Plot data'),
             callback=self.run,
-            dlg=LDMPPlot(),
+            dlg=DlgPlot(),
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-chart.png',
             text=self.tr(u'Reporting tool'),
             callback=self.run,
-            dlg=LDMPReporting(),
+            dlg=DlgReporting(),
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-info.png',
             text=self.tr(u'About'),
             callback=self.run,
-            dlg=LDMPAbout(),
+            dlg=DlgAbout(),
             parent=self.iface.mainWindow())
 
     def unload(self):

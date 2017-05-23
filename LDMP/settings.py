@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LDMPSettings
+ DlgSettings
                                  A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
                              -------------------
@@ -25,9 +25,10 @@ import os
 
 from PyQt4 import QtGui, uic
 
-from .ui.ui_DlgSettings import Ui_DlgSettings as UiDialog
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'DlgSettings.ui'))
 
-class DlgSettings (QtGui.QDialog, UiDialog):
+class DlgSettings (QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgSettings, self).__init__(parent)

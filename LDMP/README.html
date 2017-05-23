@@ -6,17 +6,20 @@ Congratulations! You just built a plugin for QGIS!<br/><br />
 
 <div id='help' style='font-size:.9em;'>
 Your plugin <b>LDMP</b> was created in:<br>
-&nbsp;&nbsp;<b>C:\Users\azvol\Code\VitalSigns\ldmp-qgis-plugin\LDMP</b>
+&nbsp;&nbsp;<b>C:\Users\azvol\Code\LandDegradation\ldmp-qgis-plugin\LDMP</b>
 <p>
 Your QGIS plugin directory is located at:<br>
 &nbsp;&nbsp;<b>C:/Users/azvol/.qgis2/python/plugins</b>
 <p>
 <h3>What's Next</h3>
 <ol>
+    <li>In your plugin directory, compile the resources file using pyrcc4 (simply run <b>make</b> if you have automake or use <b>pb_tool</b>)
     <li>Test the generated sources using <b>make test</b> (or run tests from your IDE)
     <li>Copy the entire directory containing your new plugin to the QGIS plugin directory (see Notes below)
-    <li>Test the plugin by enabling it in the QGIS plugin manager and enabling the provider in the Processing Options
-    <li>Customize it by editing the implementation file <b>land_degradation_algorithm.py</b>
+    <li>Test the plugin by enabling it in the QGIS plugin manager
+    <li>Customize it by editing the implementation file <b>ldmp.py</b>
+    <li>Create your own custom icon, replacing the default <b>icon.png</b>
+    <li>Modify your user interface by opening <b>ldmp_dialog_base.ui</b> in Qt Designer
 </ol>
 Notes:
 <ul>

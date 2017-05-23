@@ -1,12 +1,12 @@
 #/***************************************************************************
 # LDMP
 #
-# This plugin supports assessments of land degradation for UNCCD reporting and tracking progress of SDG Target 15.3.1.
+# This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
 #							 -------------------
-#		begin				: 2017-05-05
+#		begin				: 2017-05-23
 #		git sha				: $Format:%H$
 #		copyright			: (C) 2017 by Conservation International
-#		email				: gef-ldmp@conservation.org
+#		email				: GEF-LDMP@conservation.org
 # ***************************************************************************/
 #
 #/***************************************************************************
@@ -38,21 +38,21 @@ LOCALES =
 # translation
 SOURCES = \
 	__init__.py \
-	land_degradation.py 
+	ldmp.py ldmp_dialog.py
 
 PLUGINNAME = LDMP
 
 PY_FILES = \
 	__init__.py \
-	land_degradation.py 
+	ldmp.py ldmp_dialog.py
 
-UI_FILES = 
+UI_FILES = ldmp_dialog_base.ui
 
-EXTRAS = metadata.txt 
+EXTRAS = metadata.txt icon.png
 
 EXTRA_DIRS =
 
-COMPILED_RESOURCE_FILES = 
+COMPILED_RESOURCE_FILES = resources.py
 
 PEP8EXCLUDE=pydev,resources.py,conf.py,third_party,ui
 
@@ -65,7 +65,7 @@ HELP = help/build/html
 
 PLUGIN_UPLOAD = $(c)/plugin_upload.py
 
-RESOURCE_SRC=$(shell grep '^ *<file'  | sed 's@</file>@@g;s/.*>//g' | tr '\n' ' ')
+RESOURCE_SRC=$(shell grep '^ *<file' resources.qrc | sed 's@</file>@@g;s/.*>//g' | tr '\n' ' ')
 
 QGISDIR=.qgis2
 

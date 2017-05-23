@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LDMP
+ LDMPDialog
                                  A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
                              -------------------
         begin                : 2017-05-23
+        git sha              : $Format:%H$
         copyright            : (C) 2017 by Conservation International
         email                : GEF-LDMP@conservation.org
-        git sha              : $Format:%H$
  ***************************************************************************/
 
 /***************************************************************************
@@ -19,17 +19,23 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- This script initializes the plugin, making it known to QGIS.
 """
 
+import os
 
-# noinspection PyPep8Naming
-def classFactory(iface):  # pylint: disable=invalid-name
-    """Load LDMP class from file LDMP.
+from PyQt4 import QtGui, uic
 
-    :param iface: A QGIS interface instance.
-    :type iface: QgsInterface
-    """
-    #
-    from .ldmp import LDMP
-    return LDMP(iface)
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'ldmp_dialog_base.ui'))
+
+
+class LDMPDialog(QtGui.QDialog, FORM_CLASS):
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(LDMPDialog, self).__init__(parent)
+        # Set up the user interface from Designer.
+        # After setupUI you can access any designer object by doing
+        # self.<objectname>, and you can use autoconnect slots - see
+        # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
+        # #widgets-and-dialogs-with-auto-connect
+        self.setupUi(self)

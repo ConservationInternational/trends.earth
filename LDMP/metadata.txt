@@ -7,14 +7,14 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Land Degradation Monitoring Tools
-qgisMinimumVersion=2.16
-description=This plugin supports assessments of land degradation for UNCCD reporting and tracking progress of SDG Target 15.3.1.
+name=Land Degradation Monitoring Toolbox
+qgisMinimumVersion=2.18
+description=This plugin supports monitoring of land degradation in support of the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG) and for reporting to the UNCCD
 version=0.1
 author=Conservation International
-email=gef-ldmp@conservation.org
+email=GEF-LDMP@conservation.org
 
-about=An open source platform from the GEF Land Degradation Monitoring Project to support land degradation monitoring and reporting to the UNCCD, and achieving land degradation neutrality (LDN).
+about=An open source platform from the GEF Land Degradation Monitoring Project (LDMP) to support land degradation monitoring and reporting to the UNCCD, and achieving land degradation neutrality (LDN). The GEF-LDMP toolbox facilitates downloading, processing, and visualizing datasets for the three sub-indicators of land degradation under Sustainable Development Goal Target 15.3: soil carbon, land cover, and vegetation productivity.
 
 tracker=https://github.com/ConservationInternational/ldmp-qgis-plugin/issues
 repository=https://github.com/ConservationInternational/ldmp-qgis-plugin
@@ -26,13 +26,13 @@ repository=https://github.com/ConservationInternational/ldmp-qgis-plugin
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=land degradation, ldn, unccd, sdg, target 15.3, monitoring, reporting
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD
 
-homepage=http://vitalsigns.org/gef-ldmp
-category=Analysis
+homepage=https://github.com/ConservationInternational/ldmp-qgis-plugin
+category=Plugins
 icon=icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False

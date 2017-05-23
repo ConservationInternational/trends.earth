@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LDMPDialog
+ LDMPDownload
                                  A QGIS plugin
  This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
                              -------------------
@@ -25,14 +25,12 @@ import os
 
 from PyQt4 import QtGui, uic
 
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'ldmp_dialog_base.ui'))
+from .ui.ui_DlgDownload import Ui_DlgDownload as UiDialog
 
-
-class LDMPDialog(QtGui.QDialog, FORM_CLASS):
+class DlgDownload(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
-        super(LDMPDialog, self).__init__(parent)
+        super(DlgDownload, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see

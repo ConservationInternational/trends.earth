@@ -24,8 +24,13 @@ from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 # Initialize Qt resources from file resources.py
 import resources
-# Import the code for the dialog
-from ldmp_dialog import LDMPDialog
+# Import the code for the dialogs
+from ldmp_settings import LDMPSettings
+from ldmp_download import LDMPDownload
+from ldmp_calculate import LDMPCalculate
+from ldmp_plot import LDMPPlot
+from ldmp_reporting import LDMPSettings
+from ldmp_about import LDMPAbout
 import os.path
 
 
@@ -87,6 +92,7 @@ class LDMP:
         icon_path,
         text,
         callback,
+        dlg,
         enabled_flag=True,
         add_to_menu=True,
         add_to_toolbar=True,
@@ -104,6 +110,9 @@ class LDMP:
 
         :param callback: Function to be called when the action is triggered.
         :type callback: function
+
+        :param dlg: Dialog box to be called when the action is triggered.
+        :type callback: QDialog
 
         :param enabled_flag: A flag indicating if the action should be enabled
             by default. Defaults to True.
@@ -133,7 +142,7 @@ class LDMP:
         """
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = LDMPDialog()
+        self.dlg = dlg
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -160,14 +169,47 @@ class LDMP:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
-
-        icon_path = ':/plugins/LDMP/icon.png'
         self.add_action(
-            icon_path,
-            text=self.tr(u'Land Degradation Monitoring Toolbox'),
+            ':/plugins/LDMP/icons/icon-wrench.png',
+            text=self.tr(u'Settings'),
             callback=self.run,
+            dlg=LDMPSettings(),
             parent=self.iface.mainWindow())
 
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-cloud-download.png',
+            text=self.tr(u'Download data'),
+            callback=self.run,
+            dlg=LDMPDownload(),
+            parent=self.iface.mainWindow())
+
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-calculator.png',
+            text=self.tr(u'Calculate trends'),
+            callback=self.run,
+            dlg=LDMPCalculate(),
+            parent=self.iface.mainWindow())
+
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-graph.png',
+            text=self.tr(u'Plot data'),
+            callback=self.run,
+            dlg=LDMPPlot(),
+            parent=self.iface.mainWindow())
+
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-chart.png',
+            text=self.tr(u'Reporting tool'),
+            callback=self.run,
+            dlg=LDMPReporting(),
+            parent=self.iface.mainWindow())
+
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-info.png',
+            text=self.tr(u'About'),
+            callback=self.run,
+            dlg=LDMPAbout(),
+            parent=self.iface.mainWindow())
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""

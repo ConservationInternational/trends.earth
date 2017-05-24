@@ -11,4 +11,5 @@
 *.dll
 *.so
 .Rproj.user
-.pyc
+*.pyc
+*/help/build/*

@@ -24,7 +24,7 @@ the [QGIS plugin repository](http://plugins.qgis.org/plugins/teamqgis).
 
 ### Development version
 
-Add instructions on installing from github...
+TODO: Add instructions on installing from github...
 
 ## License
 

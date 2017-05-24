@@ -1,0 +1,14 @@
+.Rhistory
+.RData
+*.swp
+*.swo
+*.csv
+*.png
+*.rst
+*.rdb
+*.rdx
+*.o
+*.dll
+*.so
+.Rproj.user
+.pyc

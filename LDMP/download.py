@@ -1,23 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- DlgDownload
-                                 A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD and in support of the SDG Land Degradation Neutrality (LDN) target
-                             -------------------
+ LDMP - A QGIS plugin
+ This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ and in support of the SDG Land Degradation Neutrality (LDN) target.
+                              -------------------
         begin                : 2017-05-23
         git sha              : $Format:%H$
         copyright            : (C) 2017 by Conservation International
         email                : GEF-LDMP@conservation.org
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
  ***************************************************************************/
 """
 
@@ -37,13 +28,3 @@ class DlgDownload(QtGui.QDialog, UiDialog):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-
-    def run(self):
-        """Run method that performs all the real work"""
-        # show the dialog
-        self.dlg.show()
-        # Run the dialog event loop
-        result = self.dlg.exec_()
-        # See if OK was pressed
-        if result:
-            pass

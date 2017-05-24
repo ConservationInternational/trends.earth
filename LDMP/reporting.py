@@ -37,3 +37,13 @@ class DlgReporting(QtGui.QDialog, UiDialog):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+    def run(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.show()
+        # Run the dialog event loop
+        result = self.exec_()
+        # See if OK was pressed
+        if result:
+            pass

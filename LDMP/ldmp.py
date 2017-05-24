@@ -64,13 +64,19 @@ class LDMP:
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-
         # Declare instance attributes
         self.actions = []
         self.menu = self.tr(u'&Land Degradation Monitoring Toolbox')
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'LDMP')
         self.toolbar.setObjectName(u'LDMP')
+
+        self.dlg_settings = DlgSettings()
+        self.dlg_download = DlgDownload()
+        self.dlg_calculate = DlgCalculate()
+        self.dlg_plot = DlgPlot()
+        self.dlg_reporting = DlgReporting()
+        self.dlg_about = DlgAbout()
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -93,7 +99,6 @@ class LDMP:
         icon_path,
         text,
         callback,
-        dlg,
         enabled_flag=True,
         add_to_menu=True,
         add_to_toolbar=True,
@@ -111,9 +116,6 @@ class LDMP:
 
         :param callback: Function to be called when the action is triggered.
         :type callback: function
-
-        :param dlg: Dialog box to be called when the action is triggered.
-        :type callback: QDialog
 
         :param enabled_flag: A flag indicating if the action should be enabled
             by default. Defaults to True.
@@ -141,9 +143,6 @@ class LDMP:
             added to self.actions list.
         :rtype: QAction
         """
-
-        # Create the dialog (after translation) and keep reference
-        self.dlg = dlg
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -173,43 +172,37 @@ class LDMP:
         self.add_action(
             ':/plugins/LDMP/icons/icon-wrench.png',
             text=self.tr(u'Settings'),
-            callback=self.run,
-            dlg=DlgSettings(),
+            callback=self.run_settings,
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-cloud-download.png',
             text=self.tr(u'Download data'),
-            callback=self.run,
-            dlg=DlgDownload(),
+            callback=self.run_download,
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-calculator.png',
             text=self.tr(u'Calculate trends'),
-            callback=self.run,
-            dlg=DlgCalculate(),
+            callback=self.run_calculate,
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-graph.png',
             text=self.tr(u'Plot data'),
-            callback=self.run,
-            dlg=DlgPlot(),
+            callback=self.run_plot,
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-chart.png',
             text=self.tr(u'Reporting tool'),
-            callback=self.run,
-            dlg=DlgReporting(),
+            callback=self.run_reporting,
             parent=self.iface.mainWindow())
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-info.png',
             text=self.tr(u'About'),
-            callback=self.run,
-            dlg=DlgAbout(),
+            callback=self.run_about,
             parent=self.iface.mainWindow())
 
     def unload(self):
@@ -222,15 +215,62 @@ class LDMP:
         # remove the toolbar
         del self.toolbar
 
-
-    def run(self):
+    def run_settings(self):
         """Run method that performs all the real work"""
         # show the dialog
-        self.dlg.show()
+        self.dlg_settings.show()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.dlg_settings.exec_()
         # See if OK was pressed
         if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
+            pass
+
+    def run_download(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlg_download.show()
+        # Run the dialog event loop
+        result = self.dlg_download.exec_()
+        # See if OK was pressed
+        if result:
+            pass
+
+    def run_calculate(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlg_calculate.show()
+        # Run the dialog event loop
+        result = self.dlg_calculate.exec_()
+        # See if OK was pressed
+        if result:
+            pass
+
+    def run_plot(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlg_plot.show()
+        # Run the dialog event loop
+        result = self.dlg_plot.exec_()
+        # See if OK was pressed
+        if result:
+            pass
+
+    def run_reporting(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlg_reporting.show()
+        # Run the dialog event loop
+        result = self.dlg_reportying.exec_()
+        # See if OK was pressed
+        if result:
+            pass
+
+    def run_about(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlg_about.show()
+        # Run the dialog event loop
+        result = self.dlg_about.exec_()
+        # See if OK was pressed
+        if result:
             pass

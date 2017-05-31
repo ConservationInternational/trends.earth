@@ -12,6 +12,9 @@ import os
 import ee
 import json
 
+# Google cloud storage bucket for output
+BUCKET = "ldmt"
+
 def get_region(geom):
     """Return ee.Geometry from supplied GeoJSON object."""
     poly = get_coords(geom)
@@ -22,7 +25,6 @@ def get_region(geom):
         region = ee.Geometry.Polygon(poly)
     return region
 
-
 def get_coords(geojson):
     """."""
     if geojson.get('features') is not None:
@@ -32,7 +34,6 @@ def get_coords(geojson):
     else:
         return geojson.get('coordinates')
 
-
 def get_type(geojson):
     """."""
     if geojson.get('features') is not None:
@@ -41,7 +42,6 @@ def get_type(geojson):
         return geojson.get('geometry').get('type')
     else:
         return geojson.get('type')
-
 
 def mann_kendall_stat(imageCollection):
     """Calculate Mann Kendall's S statistic.
@@ -93,9 +93,6 @@ def ndvi_annual_integral(year_start, year_end, geojson, EXECUTION_ID):
         Output of google earth engine task.
     """
 
-    #EE_CREDENTIALS = ee.ServiceAccountCredentials(os.getenv('EE_SERVICE_ACCOUNT'), key_data=os.getenv('EE_PRIVATE_KEY'))
-    #ee.Initialize(EE_CREDENTIALS, 'https://earthengine.googleapis.com')
-
     region = get_coords(geojson)
 
     # Load a MODIS NDVI collection 6 MODIS/MOD13Q1
@@ -144,7 +141,7 @@ def ndvi_annual_integral(year_start, year_end, geojson, EXECUTION_ID):
     export = {'image': lf_trend.select('scale').where(mk_trend.abs().lte(kendall), -99999).where(lf_trend.select('scale').abs().lte(0.000001), -99999).unmask(-99999),
              'description': EXECUTION_ID,
              'fileNamePrefix': EXECUTION_ID,
-             'bucket': 'ldmt',
+             'bucket': BUCKET,
              'maxPixels': 10000000000,
              'scale': 250,
              'region': region}
@@ -152,9 +149,7 @@ def ndvi_annual_integral(year_start, year_end, geojson, EXECUTION_ID):
     # Export final mosaic to assets
     task = ee.batch.Export.image.toCloudStorage(**export)
 
-    task.start()
-
-    return task
+    return "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
 
 def run(params, logger):
     """."""

@@ -59,20 +59,16 @@ def restrend_pointwise(year_start, year_end, geojson, EXECUTION_ID, logger):
         ndvi = lf_clim_ndvi.select('offset').add((lf_clim_ndvi.select('scale').multiply(image))).set({'year': image.get('year')})
         return ee.List(list).add(ndvi)
 
-    # Function to compute residuals (ndvi obs - ndvi pred)
-    def ndvi_clim_r_img(year): 
-        ndvi_o = coll_1yr_o.filter(ee.Filter.eq('year', year)).select('ndvi').median()
-        ndvi_p = ndvi_1yr_p.filter(ee.Filter.eq('year', year)).median()
-        ndvi_r = ee.Image(year).float().addBands(ndvi_o.subtract(ndvi_p))
-        return ndvi_r.rename(['year','ndvi_res'])
 
-    # Function create image collection of residuals
-    def ndvi_clim_r_coll(year_start, year_end): 
-        res_list = ee.List([])
-        for i in range(year_start, year_end):
-            res_image = ndvi_clim_r_img(i)
-            res_list = res_list.add(res_image)
-        return ee.ImageCollection(res_list)
+    # Create image collection of residuals
+    def ndvi_res(year_start, year_end): 
+        img_coll = ee.List([])
+        for k in range(year_start, year_end):
+            ndvi_o = coll_1yr_o.filter(ee.Filter.eq('year', k)).select('ndvi').median()
+            ndvi_p = ndvi_1yr_p.filter(ee.Filter.eq('year', k)).median()
+            ndvi_r = ee.Image(k).float().addBands(ndvi_o.subtract(ndvi_p))
+            img_coll = img_coll.add(ndvi_r.rename(['year','ndvi_res']))
+        return ee.ImageCollection(img_coll)
 
     ndvi_1yr_o = preproc.modis_ndvi_annual_integral(year_start, year_end)
 
@@ -93,7 +89,7 @@ def restrend_pointwise(year_start, year_end, geojson, EXECUTION_ID, logger):
     ndvi_1yr_p = ee.ImageCollection(ee.List(coll_1yr_o.select('clim').iterate(ndvi_clim_p, first)))
 
     # Apply function to compute NDVI annual residuals
-    ndvi_1yr_r  = ndvi_clim_r_coll(year_start,year_end)
+    ndvi_1yr_r  = ndvi_res(year_start, year_end)
 
     # Fit a linear regression to the NDVI residuals
     lf_prest = ndvi_1yr_r.select(['year', 'ndvi_res']).reduce(ee.Reducer.linearFit())

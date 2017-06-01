@@ -35,15 +35,6 @@ def restrend_system(year_start, year_end, geojson, EXECUTION_ID, logger):
         Output of google earth engine task.
     """
 
-    # Function to integrate observed NDVI datasets at the annual level
-    def int_16d_1yr_o(ndvi_coll):
-        img_coll = ee.List([])
-        for k in range(year_start, year_end):
-            ndvi_img = ndvi_coll.select('NDVI').filterDate('{}-01-01'.format(k), '{}-12-31'.format(k)).reduce(ee.Reducer.mean()).multiply(0.0001)
-            img = ndvi_img.addBands(ee.Image(k).float()).rename(['ndvi','year']).set({'year': k})
-            img_coll = img_coll.add(img)
-        return ee.ImageCollection(img_coll)
-    
     # Function to integrate NDVI dataset from 15d to 1yr
     def int_15d_1yr_p(img_stack):
         img_coll = ee.List([])
@@ -52,14 +43,14 @@ def restrend_system(year_start, year_end, geojson, EXECUTION_ID, logger):
             img_coll = img_coll.add(ndvi_lyr)
         return ee.ImageCollection(img_coll)
     
-    # Function to compute differences between observed and predicted NDVI and comilation in an image collection
-    def ndvi_res(year_start, year_end):
+    # Create image collection of residuals
+    def ndvi_res(year_start, year_end): 
         img_coll = ee.List([])
         for k in range(year_start, year_end):
-            ndvi_o = ndvi_1yr_o.filter(ee.Filter.eq('year', k)).select('ndvi').median()
-            ndvi_p = ndvi_1yr_p.filter(ee.Filter.eq('year', k)).select('ndvi').median()
-            ndvi_r = ndvi_o.subtract(ndvi_p).float()
-            img = ndvi_r.addBands(ee.Image(k).float()).rename(['ndvi_res','year']).set({'year': k})
+            ndvi_o = coll_1yr_o.filter(ee.Filter.eq('year', k)).select('ndvi').median()
+            ndvi_p = ndvi_1yr_p.filter(ee.Filter.eq('year', k)).median()
+            ndvi_r = ee.Image(k).float().addBands(ndvi_o.subtract(ndvi_p))
+            img_coll = img_coll.add(ndvi_r.rename(['year','ndvi_res']))
         return ee.ImageCollection(img_coll)
    
     # Conversion of soil moisture to NDVI using equations developed by NASA presented in the report 1
@@ -100,7 +91,7 @@ def restrend_system(year_start, year_end, geojson, EXECUTION_ID, logger):
     export = {'image': lf_srest.select('scale').where(mk_srest.abs().lte(kendall), -99999).where(lf_srest.select('scale').abs().lte(0.000001), -99999).unmask(-99999),
              'description': EXECUTION_ID,
              'fileNamePrefix': EXECUTION_ID,
-             'bucket': 'ldmt',
+             'bucket': BUCKET,
              'maxPixels': 10000000000,
              'scale': 250,
              'region': util.get_coords(geojson)}

@@ -68,7 +68,7 @@ def restrend_system(year_start, year_end, geojson, EXECUTION_ID, logger):
     # Apply function to compute predicted NDVI annual integrals from 15d predicted NDVI data
     ndvi_1yr_p = int_15d_1yr_p(ndvi_15d_p)
 
-    ndvi_1yr_o = preproc.modis_ndvi_annual_integral(year_start, year_end)
+    coll_1yr_o = preproc.modis_ndvi_annual_integral(year_start, year_end)
 
     # Compute differences between observed and predicted NDVI annual integrals
     ndvi_1yr_r = ndvi_res(year_start, year_end)

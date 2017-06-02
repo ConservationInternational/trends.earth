@@ -80,7 +80,7 @@ def restrend_pointwise(year_start, year_end, geojson, EXECUTION_ID, logger):
     clim_1yr_o = int_15d_1yr_clim(clim_15d_o.divide(10000))
 
     # Apply function to create image collection with stack of NDVI int, climate int and year
-    coll_1yr_o = stack(year_start,year_end)
+    coll_1yr_o = stack(year_start, year_end)
 
     # Reduce the collection with the linear fit reducer (independent var are followed by dependent var)
     lf_clim_ndvi = coll_1yr_o.select(['clim', 'ndvi']).reduce(ee.Reducer.linearFit())

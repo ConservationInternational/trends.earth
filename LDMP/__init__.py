@@ -22,9 +22,3 @@ def classFactory(iface):  # pylint: disable=invalid-name
     #
     from .ldmp import LDMP
     return LDMP(iface)
-
-# TODO check global settings object and load:
-#  - adm_bounds level 1 (if sha hash of data varies from that stored in global 
-#  settings)
-#  - adm_bounds level 2 (if sha hash of data varies from that stored in global 
-#  settings)

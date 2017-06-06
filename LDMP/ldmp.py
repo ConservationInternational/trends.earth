@@ -252,7 +252,7 @@ class LDMP:
         # show the dialog
         self.dlg_reporting.show()
         # Run the dialog event loop
-        result = self.dlg_reportying.exec_()
+        result = self.dlg_reporting.exec_()
         # See if OK was pressed
         if result:
             pass

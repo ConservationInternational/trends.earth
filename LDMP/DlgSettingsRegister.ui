@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgSettings</class>
- <widget class="QDialog" name="DlgSettings">
+ <class>DlgSettingsRegister</class>
+ <widget class="QDialog" name="DlgSettingsRegister">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
-    <height>446</height>
+    <width>435</width>
+    <height>395</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,38 +22,18 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>421</width>
-     <height>426</height>
+     <x>9</x>
+     <y>9</y>
+     <width>411</width>
+     <height>372</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="sizeConstraint">
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
-    <item row="12" column="2">
-     <widget class="QPushButton" name="forgot_pwd">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Forgot password</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1" colspan="2">
-     <widget class="QLineEdit" name="email">
-      <property name="inputMethodHints">
-       <set>Qt::ImhEmailCharactersOnly</set>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLabel" name="label">
+    <item row="8" column="1">
+     <widget class="QLabel" name="label_3">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
         <horstretch>0</horstretch>
@@ -61,11 +41,18 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Password:</string>
+       <string>Organization:</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
+    <item row="2" column="1" colspan="2">
+     <widget class="QLineEdit" name="email">
+      <property name="inputMethodHints">
+       <set>Qt::ImhEmailCharactersOnly</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
      <widget class="QLabel" name="label_2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -78,61 +65,7 @@
       </property>
      </widget>
     </item>
-    <item row="8" column="1" colspan="2">
-     <widget class="QLineEdit" name="password">
-      <property name="echoMode">
-       <enum>QLineEdit::Password</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="1">
-     <widget class="QPushButton" name="update_profile">
-      <property name="text">
-       <string>Update Profile</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="1" colspan="2">
-     <widget class="QPushButton" name="cancel">
-      <property name="text">
-       <string>Cancel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1" colspan="2">
-     <widget class="QPushButton" name="login">
-      <property name="text">
-       <string>Login</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QPushButton" name="register_user">
-      <property name="text">
-       <string>Register</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="2">
-     <widget class="QLabel" name="label_3">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>New users:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="2">
+    <item row="10" column="1">
      <widget class="QLabel" name="label_4">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -140,18 +73,59 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
       <property name="text">
-       <string>Existing users:</string>
+       <string>Country:</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="9" column="1" colspan="2">
+     <widget class="QLineEdit" name="organization">
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1" colspan="2">
+     <widget class="QComboBox" name="country"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="name">
+      <property name="inputMethodHints">
+       <set>Qt::ImhNoAutoUppercase</set>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLabel" name="label_5">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Name:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="1">
+     <widget class="QPushButton" name="save">
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QPushButton" name="cancel">
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>

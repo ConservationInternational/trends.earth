@@ -4,7 +4,7 @@
 # embedding metadata in __init__.py will 
 # is no longer supported since version 2.0.
 
-# This file should be included when you package your plugin.# Mandatory items:
+# This file should be included when you package your plugin.
 
 [general]
 name=Land Degradation Monitoring Toolbox
@@ -18,9 +18,6 @@ about=An open source platform from the GEF Land Degradation Monitoring Project (
 
 tracker=https://github.com/ConservationInternational/ldmp-qgis-plugin/issues
 repository=https://github.com/ConservationInternational/ldmp-qgis-plugin
-# End of mandatory metadata
-
-# Recommended items:
 
 # Uncomment the following line and add your changelog:
 # changelog=
@@ -36,4 +33,3 @@ experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
-

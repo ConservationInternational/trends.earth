@@ -14,7 +14,7 @@
 
 import os
 
-from PyQt4.QtCore import QCoreApplication, QSettings
+from PyQt4.QtCore import QCoreApplication
 from PyQt4 import QtGui, uic
 
 DlgSettings_FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -45,14 +45,10 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
         self.cancel.clicked.connect(self.btn_cancel)
 
-        settings = QSettings()
-        email = settings.value("LDMP/email", None) 
-        if email:
-            self.email.setText(email)
-        password = settings.value("LDMP/password", None)
-        if password:
-            self.password.setText(password)
-
+        email = self.api.email
+        if email: self.email.setText(email)
+        password = self.api.password
+        if password: self.password.setText(password)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -109,10 +105,10 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
             self.close()
         try:
             self.api.login(self.email.text(), self.password.text())
-            QtGui.QMessageBox.critical(None, self.tr("Login successful"), 
+            QtGui.QMessageBox.information(None, self.tr("Login successful"), 
                     self.tr("Logged in to the LDMP server as {}.".format(self.email.text())), None)
             self.close()
-        except APIInvalidCredentials:
+        except APIInvalidCredentials as error:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Invalid username or password."), None)
         except APIError:
@@ -134,17 +130,24 @@ class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
 
     def btn_save(self):
         if not self.email.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter an email address to register."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
         elif not self.name.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name before registering."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
         elif not self.organization.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization before registering."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
         elif not self.country.currentText():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country before registering."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
         else:
-            #TODO: setup so this message can be translated    
-            QtGui.QMessageBox.information(None, self.tr("Registered"), self.tr("Registered {} as new user. Your password has been emailed to you.").format(self.email.text()), None)
-            self.close()
+            try:
+                self.api.register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+                QtGui.QMessageBox.information(None, self.tr("Registered"), self.tr("Registered {}. Your password has been emailed to you.").format(self.email.text()), None)
+                self.close()
+            except APIUserAlreadyExists as error:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("User already exists."), None)
+            except APIError:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Error connecting to the LDMP server."), None)
 
     def btn_cancel(self):
         self.close()
@@ -155,14 +158,17 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
         super(DlgSettingsUpdate, self).__init__(parent)
         self.setupUi(self)
 
-        # Login first to get token, then retrieve current values of email, 
-        # pass, name, organization, and country
-        settings = QSettings()
-        email = settings.value("LDMP/email", None) 
-        if email:
-            self.email.setText(email)
-        password = settings.value("LDMP/password", None)
-        if password:
+        # Login to API first to get token, and then retrieve current values of 
+        # email, pass, name, organization, and country
+        self.api = API()
+        self.api.login()
+        user = self.api.get_user(self.api.email)
+
+        self.email.setText(user['data']['email'])
+        self.name.setText(user['data']['name'])
+        self.organization.setText(user['data']['institution'])
+        #TODO: Handle country once I have the data list ready.
+        #self.country.setText(user['data']['country'])
 
         self.save.clicked.connect(self.btn_save)
         self.cancel.clicked.connect(self.btn_cancel)
@@ -174,16 +180,15 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
 
     def btn_save(self):
         if not self.email.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter an email address to register."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
         elif not self.name.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name before registering."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
         elif not self.organization.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization before registering."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
         elif not self.country.currentText():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country before registering."), None)
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
         else:
-            #TODO: setup so this message can be translated    
-            QtGui.QMessageBox.information(None, self.tr("Registered"), self.tr("Registered {} as new user. Your password has been emailed to you.").format(self.email.text()), None)
+            QtGui.QMessageBox.information(None, self.tr("Saved"), self.tr("Updated information for {}.").format(self.email.text()), None)
             self.close()
 
     def btn_cancel(self):

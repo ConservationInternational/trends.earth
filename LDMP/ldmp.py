@@ -12,12 +12,11 @@
  ***************************************************************************/
 """
 
+import os
+
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
-# Initialize Qt resources from file resources.py
-import resources
 
-# Import the code for the dialogs
 from settings import DlgSettings
 from download import DlgDownload
 from calculate import DlgCalculate
@@ -25,7 +24,8 @@ from plot import DlgPlot
 from reporting import DlgReporting
 from about import DlgAbout
 
-import os.path
+# Initialize Qt resources from file resources.py
+import resources
 
 class LDMP:
     """QGIS Plugin Implementation."""

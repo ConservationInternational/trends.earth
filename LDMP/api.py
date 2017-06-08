@@ -1,5 +1,7 @@
 import requests
 
+from jwt import InvalidTokenError
+
 from PyQt4.QtCore import QSettings
 
 # DEBUG ONLY:
@@ -13,6 +15,9 @@ class APIInvalidCredentials(APIError):
     pass
 
 class APIUserAlreadyExists(APIError):
+    pass
+
+class APICredentialsUndefined(APIError):
     pass
 
 class APIUserNotFound(APIError):
@@ -36,11 +41,42 @@ class API:
                 # (in case bad username and password are stored in QSettings)
                 pass
 
+    def _call_api(self, endpoint, action='get', payload={}):
+        
+        # Flag to retry if token is needed
+        TOKEN_TRIES = 0
+        while TOKEN_TRIES <= 1:
+            try:
+                if action == 'get':
+                    resp = requests.get(API_URL + endpoint, json=payload)
+                elif action == 'post':
+                    resp = requests.post(API_URL + endpoint, json=payload)
+                elif action == 'update':
+                    resp = requests.update(API_URL + endpoint, json=payload)
+                elif action == 'delete':
+                    resp = requests.delete(API_URL + endpoint, json=payload)
+                else:
+                    raise ValueError("Unrecognized action: {}".format(action))
+            except requests.ConnectionError:
+                raise APIError('Error connecting to LDMP server.')
+            except InvalidTokenError:
+                self.login()
+                TOKEN_TRIES += 1
+
+        if resp.status_code == 500:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')
+
+        return resp
+
     def login(self, email=None, password=None):
         if (email == None): email = self.email
         if (password == None): password = self.password
+
+        if not self.email or not self.password:
+            raise APICredentialsUndefined('Enter a valid username and password for the LDMP server.')
+
         creds = {"email" : email, "password" : password}
-        resp = requests.post(API_URL + '/auth', json=creds)
+        resp = self._call_api('/auth', 'post', creds)
         if resp.status_code == 200:
             self.email = email
             self.password = password
@@ -50,20 +86,16 @@ class API:
             self.settings.setValue("LDMP/token", self.token)
         elif resp.status_code == 401:
             raise APIInvalidCredentials('Invalid username or password.')
-        else:
-            raise APIError('Error connecting to LDMP server.')
 
     def recover_pwd(self, email):
-        resp = requests.post(API_URL + '/api/v1/user/{}/recover-password'.format(email))
+        resp = self._call_api('/api/v1/user/{}/recover-password'.format(email), 'post')
         if resp.status_code == 200:
             return
         elif resp.status_code == 404:
             raise APIUserNotFound('Invalid username.')
-        else:
-            raise APIError('Error connecting to LDMP server.')
 
     def get_user(self, email):
-        resp = requests.get(API_URL + '/api/v1/user/{}'.format(email), {'token': self.token})
+        resp = self._call_api('/api/v1/user/{}'.format(email), 'get', {'token': self.token})
         if resp.status_code == 200:
             return resp.json()
         elif resp.status_code == 401:
@@ -71,16 +103,12 @@ class API:
             raise APIError('Invalid token.')
         elif resp.status_code == 404:
             raise APIUserNotFound('Invalid username.')
-        else:
-            raise APIError('Error connecting to LDMP server.')
 
     def register(self, email, name, organization, country):
         payload = {"email" : email, "name" : name, "institution": institution, "country": country}
-        resp = requests.post(API_URL + '/auth', json=payload)
+        resp = self._call_api('/auth', 'post', payload)
         if resp.status_code == 200:
             self.email = email
             self.settings.setValue("LDMP/email", email)
         if resp.status_code == 400:
             raise APIUserAlreadyExists('User already exists')
-        else:
-            raise APIError('Error connecting to LDMP server.')

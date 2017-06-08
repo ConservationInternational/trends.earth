@@ -158,17 +158,16 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
         super(DlgSettingsUpdate, self).__init__(parent)
         self.setupUi(self)
 
-        # Login to API first to get token, and then retrieve current values of 
-        # email, pass, name, organization, and country
         self.api = API()
-        self.api.login()
-        user = self.api.get_user(self.api.email)
 
-        self.email.setText(user['data']['email'])
-        self.name.setText(user['data']['name'])
-        self.organization.setText(user['data']['institution'])
-        #TODO: Handle country once I have the data list ready.
-        #self.country.setText(user['data']['country'])
+        if self.api.email:
+            user = self.api.get_user(self.api.email)
+
+            self.email.setText(user['data']['email'])
+            self.name.setText(user['data']['name'])
+            self.organization.setText(user['data']['institution'])
+            #TODO: Handle country once I have the data list ready.
+            #self.country.setText(user['data']['country'])
 
         self.save.clicked.connect(self.btn_save)
         self.cancel.clicked.connect(self.btn_cancel)

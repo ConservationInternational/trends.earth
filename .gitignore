@@ -13,3 +13,5 @@
 .Rproj.user
 *.pyc
 */help/build/*
+*/ext-libs/*
+*/ext-src/*

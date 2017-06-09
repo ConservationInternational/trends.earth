@@ -1,0 +1,5 @@
+requests>=2.5.0
+
+https://github.com/ConservationInternational/landdegradation.git#egg=landdegradation
+
+# test requirements

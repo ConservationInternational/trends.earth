@@ -14,7 +14,7 @@
 
 import os
 
-from PyQt4.QtCore import QCoreApplication
+from PyQt4.QtCore import QCoreApplication, QSettings
 from PyQt4 import QtGui, uic
 
 DlgSettings_FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -34,6 +34,8 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
 
         self.api = API()
 
+        self.settings = QSettings()
+
         self.setupUi(self)
         
         self.dlg_settingsregister = DlgSettingsRegister()
@@ -45,9 +47,9 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
         self.cancel.clicked.connect(self.btn_cancel)
 
-        email = self.api.email
+        email = self.settings.value("LDMP/email", None)
         if email: self.email.setText(email)
-        password = self.api.password
+        password = self.settings.value("LDMP/password", None)
         if password: self.password.setText(password)
 
     # noinspection PyMethodMayBeStatic
@@ -63,12 +65,27 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Enter your password to update your user details."), None)
         else:
+            user = self.api.get_user(self.email.text())
+
+            self.dlg_settingsupdate.email.setText(user['data']['email'])
+            self.dlg_settingsupdate.password.setText(self.settings.value("LDMP/password"))
+            self.dlg_settingsupdate.name.setText(user['data']['name'])
+            self.dlg_settingsupdate.organization.setText(user['data']['institution'])
+            #TODO: Handle country once I have the data list ready.
+            self.dlg_settingsupdate.country.addItems(['not set', 'Kenya' ,'Senegal', 
+                'Tanzania', 'Uganda', 'United States'])
+            index = self.dlg_settingsupdate.country.findData(user['data']['institution'])
+            if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index);
+
             result = self.dlg_settingsupdate.exec_()
             # See if OK was pressed
             if result:
                 pass
 
     def btn_register(self):
+        #TODO: Handle country once I have the data list ready.
+        self.dlg_settingsupdate.country.addItems(['not set', 'Kenya' ,'Senegal', 
+            'Tanzania', 'Uganda', 'United States'])
         result = self.dlg_settingsregister.exec_()
         # See if OK was pressed
         if result:
@@ -159,15 +176,6 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
         self.setupUi(self)
 
         self.api = API()
-
-        if self.api.email:
-            user = self.api.get_user(self.api.email)
-
-            self.email.setText(user['data']['email'])
-            self.name.setText(user['data']['name'])
-            self.organization.setText(user['data']['institution'])
-            #TODO: Handle country once I have the data list ready.
-            #self.country.setText(user['data']['country'])
 
         self.save.clicked.connect(self.btn_save)
         self.cancel.clicked.connect(self.btn_cancel)

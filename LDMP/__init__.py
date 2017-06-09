@@ -12,6 +12,11 @@
  ***************************************************************************/
 """
 
+import os
+import site
+
+site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
+
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name
     """Load LDMP class from file LDMP.
@@ -19,6 +24,6 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
-    #
+
     from .ldmp import LDMP
     return LDMP(iface)

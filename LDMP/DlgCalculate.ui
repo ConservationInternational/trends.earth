@@ -29,7 +29,7 @@
     <attribute name="title">
      <string>Calculate</string>
     </attribute>
-    <widget class="QLineEdit" name="dl_dest">
+    <widget class="QLineEdit" name="data_folder">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -136,7 +136,7 @@ p, li { white-space: pre-wrap; }
       <string>How to run calculations:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="boundary_note">
      <property name="geometry">
       <rect>
        <x>270</x>
@@ -149,35 +149,6 @@ p, li { white-space: pre-wrap; }
       <string>TODO: note on boundaries</string>
      </property>
     </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>340</y>
-       <width>441</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QRadioButton" name="radioButton_2">
-        <property name="text">
-         <string>Run locally</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="radioButton">
-        <property name="text">
-         <string>Run on Google Earth Engine</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
@@ -187,9 +158,9 @@ p, li { white-space: pre-wrap; }
        <height>201</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="projarea">
       <item>
-       <widget class="QRadioButton" name="dl_projarea_useadmin">
+       <widget class="QRadioButton" name="projarea_admin">
         <property name="text">
          <string>Administrative area</string>
         </property>
@@ -226,7 +197,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QComboBox" name="comboBox_2">
+         <widget class="QComboBox" name="admin1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -261,7 +232,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="admin0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -308,16 +279,16 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item>
-       <widget class="QRadioButton" name="dl_projarea_useshp">
+       <widget class="QRadioButton" name="projarea_shp">
         <property name="text">
          <string>Shapefile</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_3">
+       <layout class="QGridLayout" name="shapefile">
         <item row="0" column="1">
-         <widget class="QLineEdit" name="dl_projarea_shp">
+         <widget class="QLineEdit" name="shapefile_2">
           <property name="placeholderText">
            <string>Choose a shapefile...</string>
           </property>
@@ -343,7 +314,7 @@ p, li { white-space: pre-wrap; }
       </item>
      </layout>
     </widget>
-    <widget class="QComboBox" name="comboBox_3">
+    <widget class="QComboBox" name="calculation">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -384,6 +355,73 @@ p, li { white-space: pre-wrap; }
       <string>Calculation:</string>
      </property>
     </widget>
+    <widget class="QGroupBox" name="runon">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>340</y>
+       <width>441</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>441</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="runon_layout">
+       <item>
+        <widget class="QRadioButton" name="runon_local">
+         <property name="text">
+          <string>Run locally</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="runon_gee">
+         <property name="text">
+          <string>Run on Google Earth Engine</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <zorder>runon_local</zorder>
+     <zorder>runon_local</zorder>
+     <zorder>runon_gee</zorder>
+     <zorder>horizontalLayoutWidget</zorder>
+    </widget>
+    <zorder>data_folder</zorder>
+    <zorder>buttonBox</zorder>
+    <zorder>label_2</zorder>
+    <zorder>textBrowser</zorder>
+    <zorder>label</zorder>
+    <zorder>label_7</zorder>
+    <zorder>boundary_note</zorder>
+    <zorder>verticalLayoutWidget</zorder>
+    <zorder>calculation</zorder>
+    <zorder>label_8</zorder>
+    <zorder>runon</zorder>
+    <zorder>runon_local</zorder>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -408,7 +446,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: INSERT EXPLANATORY TEXT&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateEdit">
+    <widget class="QDateEdit" name="date_end">
      <property name="geometry">
       <rect>
        <x>350</x>
@@ -425,7 +463,7 @@ p, li { white-space: pre-wrap; }
       </date>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateEdit_2">
+    <widget class="QDateEdit" name="date_start">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -511,7 +549,7 @@ p, li { white-space: pre-wrap; }
       <string>Spatial resolution:</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox_5">
+    <widget class="QComboBox" name="resolution">
      <property name="geometry">
       <rect>
        <x>200</x>
@@ -540,7 +578,7 @@ p, li { white-space: pre-wrap; }
       <string>Add output to map?</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="add_to_map">
      <property name="geometry">
       <rect>
        <x>260</x>

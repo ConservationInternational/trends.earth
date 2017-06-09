@@ -17,6 +17,8 @@ import json
 
 from PyQt4 import QtGui, uic
 
+from PyQt4.QtCore import QSettings
+
 from DlgCalculate import Ui_DlgCalculate as UiDialog
 
 from api import API
@@ -30,28 +32,51 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         self.setupUi(self)
 
-        
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'scripts.json')) as script_file:
             scripts = json.load(script_file)
-
         self.calc_scripts = [x['scripts'] for x in scripts if x['tool'] == 'calculate'][0]
         self.calculation.addItems([x['name'] for x in self.calc_scripts])
 
-        # TODO: Get list of admin0 from shapefile
-        self.admin0.addItems(['Kenya',
-            'Senegal',
-            'Tanzania',
-            'Uganda'])
+        self.admin0 = json.loads(QSettings().value('LDMP/admin0', None))
+        self.admin1 = json.loads(QSettings().value('LDMP/admin1', None))
+        if not self.admin0 or not self.admin1:
+            raise ValueError('Admin boundaries not available')
+        self.projarea_admin0.addItems(sorted(self.admin0.keys()))
+        self.populate_admin1()
         
-        self.admin0.currentIndexChanged.connect(self.populate_admin1)
+        self.projarea_admin0.currentIndexChanged.connect(self.populate_admin1)
 
         self.buttonBox.accepted.connect(self.btn_ok)
         self.buttonBox.rejected.connect(self.btn_cancel)
+        self.shapefile_browse.clicked.connect(self.open_shp_browse)
+        self.projarea_admin.toggled.connect(self.projarea_admin_toggle)
+        self.projarea_shp.toggled.connect(self.projarea_shp_toggle)
+
+    def projarea_admin_toggle(self):
+        if self.projarea_admin.isChecked():
+            self.projarea_admin0.setEnabled(True)
+            self.projarea_admin1.setEnabled(True)
+        else:
+            self.projarea_admin0.setEnabled(False)
+            self.projarea_admin1.setEnabled(False)
+
+    def projarea_shp_toggle(self):
+        if self.projarea_shp.isChecked():
+            self.shapefile.setEnabled(True)
+            self.shapefile_browse.setEnabled(True)
+        else:
+            self.shapefile.setEnabled(False)
+            self.shapefile_browse.setEnabled(False)
+
+    def open_shp_browse(self):
+        shpfile = QtGui.QFileDialog.getOpenFileName()
+        self.shapefile.setText(shpfile)
 
     def populate_admin1(self):
-        # TODO: Get list of admin1 from shapefile, populate admin1 on change of 
-        # admin0 selection
-        pass
+        adm0_a3 = self.admin0[self.projarea_admin0.currentText()]['ADM0_A3']
+        self.projarea_admin1.clear()
+        self.projarea_admin1.addItems(['All regions'])
+        self.projarea_admin1.addItems([x['NAME'] for x in self.admin1 if x['ADM0_A3'] == adm0_a3])
 
     def btn_cancel(self):
         self.close()

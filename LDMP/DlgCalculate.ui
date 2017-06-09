@@ -197,7 +197,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QComboBox" name="admin1">
+         <widget class="QComboBox" name="projarea_admin1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -232,7 +232,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QComboBox" name="admin0">
+         <widget class="QComboBox" name="projarea_admin0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -286,9 +286,12 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="shapefile">
+       <layout class="QGridLayout" name="shp_horiz_layout">
         <item row="0" column="1">
-         <widget class="QLineEdit" name="shapefile_2">
+         <widget class="QLineEdit" name="shapefile">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="placeholderText">
            <string>Choose a shapefile...</string>
           </property>
@@ -309,6 +312,16 @@ p, li { white-space: pre-wrap; }
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="shapefile_browse">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -405,23 +418,7 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <zorder>runon_local</zorder>
-     <zorder>runon_local</zorder>
-     <zorder>runon_gee</zorder>
-     <zorder>horizontalLayoutWidget</zorder>
     </widget>
-    <zorder>data_folder</zorder>
-    <zorder>buttonBox</zorder>
-    <zorder>label_2</zorder>
-    <zorder>textBrowser</zorder>
-    <zorder>label</zorder>
-    <zorder>label_7</zorder>
-    <zorder>boundary_note</zorder>
-    <zorder>verticalLayoutWidget</zorder>
-    <zorder>calculation</zorder>
-    <zorder>label_8</zorder>
-    <zorder>runon</zorder>
-    <zorder>runon_local</zorder>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">

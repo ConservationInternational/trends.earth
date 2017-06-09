@@ -1,0 +1,32 @@
+[
+    {
+        "tool": "calculate",
+        "scripts": [
+            {
+                "name": "Integral trends",
+                "script": "integral_trends",
+                "description": "Calculate trend of annually integrated NDVI"
+            },
+            {
+                "name": "Pixel RESTREND (precipitation)",
+                "script": "restrend_pixel",
+                "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with precipitation"
+            },
+            {
+                "name": "Pixel RESTREND (soil moisture)",
+                "script": "restrend_pixel",
+                "description": "Calculate pixel RESTREND of annually integrated NDVI, after removing trend associated with soil moisture"
+            },
+            {
+                "name": "System RESTREND (soil moisture)",
+                "script": "restrend_system",
+                "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with soil moisture"
+            },
+            {
+                "name": "System RESTREND (soil moisture)",
+                "script": "restrend_system",
+                "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with soil moisture"
+            }
+        ] 
+    }
+]

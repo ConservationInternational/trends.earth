@@ -13,24 +13,25 @@
 """
 
 import os
-import site
+import gzip
 import json
+import site
+
 from PyQt4.QtCore import QSettings
 
 site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
-# On first load need to read the country lists into Qsettings
-admin0 = QSettings().value('LDMP/admin0', None)
-admin1 = QSettings().value('LDMP/admin1', None)
-# TODO: Below is commented out just for debugging:
-#if not admin0 or not admin1:
-with open(os.path.join('C:/Users/azvol/Code/LandDegradation/ldmp-qgis-plugin/LDMP', 'data', 'admin0.json')) as admin0_file:
-    admin0 = json.load(admin0_file)
-QSettings().setValue('LDMP/admin0', json.dumps(admin0))
+def read_json(file):
+    with gzip.GzipFile(os.path.join(os.path.dirname(__file__), 'data', file), 'r') as fin:
+        json_bytes = fin.read()
+        json_str = json_bytes.decode('utf-8')
+    return json.loads(json_str)
 
-with open(os.path.join('C:/Users/azvol/Code/LandDegradation/ldmp-qgis-plugin/LDMP', 'data', 'admin1.json')) as admin1_file:
-    admin1 = json.load(admin1_file)
-QSettings().setValue('LDMP/admin1', json.dumps(admin1))
+admin_0 = read_json('admin_0.json.gz')
+QSettings().setValue('LDMP/admin_0', json.dumps(admin_0))
+
+admin_1 = read_json('admin_1.json.gz')
+QSettings().setValue('LDMP/admin_1', json.dumps(admin_1))
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name

@@ -45,29 +45,41 @@ class API:
         TOKEN_TRIES = 0
         while TOKEN_TRIES <= 1:
             try:
-                if action == 'get':
-                    resp = requests.get(API_URL + endpoint, payload)
-                elif action == 'post':
-                    resp = requests.post(API_URL + endpoint, payload)
-                elif action == 'update':
-                    resp = requests.update(API_URL + endpoint, payload)
-                elif action == 'delete':
-                    resp = requests.delete(API_URL + endpoint, payload)
+                if payload.has_key('token'):
+                    if action == 'get':
+                        resp = requests.get(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
+                    elif action == 'post':
+                        resp = requests.post(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
+                    elif action == 'update':
+                        resp = requests.update(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
+                    elif action == 'delete':
+                        resp = requests.delete(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
+                    else:
+                        raise ValueError("Unrecognized action: {}".format(action))
                 else:
-                    raise ValueError("Unrecognized action: {}".format(action))
+                    if action == 'get':
+                        resp = requests.get(API_URL + endpoint, json=payload)
+                    elif action == 'post':
+                        resp = requests.post(API_URL + endpoint, json=payload)
+                    elif action == 'update':
+                        resp = requests.update(API_URL + endpoint, json=payload)
+                    elif action == 'delete':
+                        resp = requests.delete(API_URL + endpoint, json=payload)
+                    else:
+                        raise ValueError("Unrecognized action: {}".format(action))
             except requests.ConnectionError:
                 raise APIError('Error connecting to LDMP server. Check your internet connection.')
                 break
             except:
-                # If there was a failure and there is a token necessary for 
-                # this call, try to refresh the token once.
+                # Try to refresh the token once
                 if TOKEN_TRIES < 1 & payload.has_key('token'):
                     self.login()
                     payload['token'] = self.settings.value("LDMP/token", None)
+                else:
+                    raise APIError('Error connecting to LDMP server. Check your internet connection and login information.')
             TOKEN_TRIES += 1
         if resp.status_code == 500:
             raise APIError('Error connecting to LDMP server.')
-
         return resp
 
     def login(self, email=None, password=None):
@@ -96,7 +108,6 @@ class API:
 
     def get_user(self, email):
         resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'get', {'token': self.settings.value("LDMP/token", None)})
-        
         if resp.status_code == 200:
             return resp.json()
         elif resp.status_code == 401:
@@ -112,11 +123,27 @@ class API:
         if resp.status_code == 400:
             raise APIUserAlreadyExists('User already exists')
 
-    def calculate(self, script, params):
-        resp = self._call_api('/api/v1/script/{}/run'.format(script), 'get', params)
+    def calculate(self, script, params={}):
+        params['token'] = self.settings.value("LDMP/token", None)
+        resp = self._call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params)
         if resp.status_code == 200:
             return(resp.json()['data']['id'])
         if resp.status_code == 400:
             raise APIScriptStateNotValid
         if resp.status_code == 404:
             raise APIScriptNotFound
+        return resp.json()
+
+    def get_execution(self, id=None):
+        params = {'token': self.settings.value("LDMP/token", None)}
+        if id:
+            resp = self._call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', params)
+        else:
+            resp = self._call_api('/api/v1/execution', 'get', params)
+        if resp.status_code == 200:
+            return(resp.json())
+        if resp.status_code == 400:
+            raise APIScriptStateNotValid
+        if resp.status_code == 404:
+            raise APIScriptNotFound
+        return resp.json()

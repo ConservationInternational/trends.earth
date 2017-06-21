@@ -15,6 +15,8 @@
 import os
 import json
 
+from urllib import quote_plus
+
 from PyQt4 import QtGui, uic
 
 from PyQt4.QtCore import QSettings
@@ -22,6 +24,34 @@ from PyQt4.QtCore import QSettings
 from DlgCalculate import Ui_DlgCalculate as UiDialog
 
 from api import API
+
+from . import read_json
+
+def setup_area_selection(dlg):
+    dlg.admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
+    dlg.admin_1 = json.loads(QSettings().value('LDMP/admin_1', None))
+
+    if not dlg.admin_0 or not dlg.admin_1:
+        raise ValueError('Admin boundaries not available')
+    dlg.area_admin_0.addItems(sorted(dlg.admin_0.keys()))
+    dlg.populate_admin_1()
+    
+    dlg.area_admin_0.currentIndexChanged.connect(dlg.populate_admin_1)
+
+    dlg.area_fromfile_browse.clicked.connect(dlg.open_shp_browse)
+    dlg.area_admin.toggled.connect(dlg.area_admin_toggle)
+    dlg.area_fromfile.toggled.connect(dlg.area_fromfile_toggle)
+    return
+
+def load_admin_polys(dlg):
+    adm0_a3 = dlg.admin_0[dlg.area_admin_0.currentText()]['ADM0_A3']
+    if not dlg.area_admin_1.currentText() or dlg.area_admin_1.currentText() == 'All regions':
+        admin_0_polys = read_json('admin_0_polys.json.gz')
+        return admin_0_polys[adm0_a3]['geojson']
+    else:
+        admin_1_polys = read_json('admin_1_polys.json.gz')
+        admin_1_code = dlg.admin_1[adm0_a3][dlg.area_admin_1.currentText()]
+        return admin_1_polys[admin_1_code]['geojson']
 
 class DlgCalculate(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
@@ -34,62 +64,59 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'scripts.json')) as script_file:
             scripts = json.load(script_file)
-        self.calc_scripts = [x['scripts'] for x in scripts if x['tool'] == 'calculate'][0]
-        self.calculation.addItems([x['name'] for x in self.calc_scripts])
+            self.scripts = [x['scripts'] for x in scripts if x['tool'] == 'calculate'][0]
+        self.calculation.addItems(sorted(self.scripts.keys()))
 
-        self.admin0 = json.loads(QSettings().value('LDMP/admin0', None))
-        self.admin1 = json.loads(QSettings().value('LDMP/admin1', None))
-        if not self.admin0 or not self.admin1:
-            raise ValueError('Admin boundaries not available')
-        self.projarea_admin0.addItems(sorted(self.admin0.keys()))
-        self.populate_admin1()
-        
-        self.projarea_admin0.currentIndexChanged.connect(self.populate_admin1)
+        setup_area_selection(self)
 
         self.buttonBox.accepted.connect(self.btn_ok)
         self.buttonBox.rejected.connect(self.btn_cancel)
-        self.shapefile_browse.clicked.connect(self.open_shp_browse)
-        self.projarea_admin.toggled.connect(self.projarea_admin_toggle)
-        self.projarea_shp.toggled.connect(self.projarea_shp_toggle)
 
-    def projarea_admin_toggle(self):
-        if self.projarea_admin.isChecked():
-            self.projarea_admin0.setEnabled(True)
-            self.projarea_admin1.setEnabled(True)
+    def area_admin_toggle(self):
+        if self.area_admin.isChecked():
+            self.area_admin_0.setEnabled(True)
+            self.area_admin_1.setEnabled(True)
         else:
-            self.projarea_admin0.setEnabled(False)
-            self.projarea_admin1.setEnabled(False)
+            self.area_admin_0.setEnabled(False)
+            self.area_admin_1.setEnabled(False)
 
-    def projarea_shp_toggle(self):
-        if self.projarea_shp.isChecked():
-            self.shapefile.setEnabled(True)
-            self.shapefile_browse.setEnabled(True)
+    def area_fromfile_toggle(self):
+        if self.area_fromfile.isChecked():
+            self.area_fromfile_file.setEnabled(True)
+            self.area_fromfile_browse.setEnabled(True)
         else:
-            self.shapefile.setEnabled(False)
-            self.shapefile_browse.setEnabled(False)
+            self.area_fromfile_file.setEnabled(False)
+            self.area_fromfile_browse.setEnabled(False)
 
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName()
-        self.shapefile.setText(shpfile)
+        self.area_fromfile_file.setText(shpfile)
 
-    def populate_admin1(self):
-        adm0_a3 = self.admin0[self.projarea_admin0.currentText()]['ADM0_A3']
-        self.projarea_admin1.clear()
-        self.projarea_admin1.addItems(['All regions'])
-        self.projarea_admin1.addItems([x['NAME'] for x in self.admin1 if x['ADM0_A3'] == adm0_a3])
+    def populate_admin_1(self):
+        adm0_a3 = self.admin_0[self.area_admin_0.currentText()]['ADM0_A3']
+        self.area_admin_1.clear()
+        self.area_admin_1.addItems(['All regions'])
+        self.area_admin_1.addItems(sorted(self.admin_1[adm0_a3].keys()))
 
     def btn_cancel(self):
         self.close()
 
     def btn_ok(self):
-        if self.projarea_admin.isChecked():
-            if not self.projarea_admin0.currentText()():
+        if self.area_admin.isChecked():
+            # Get geojson for chosen bounds
+            if not self.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a first level administrative boundary."), None)
-        if not self.calculation.currentText()():
+            geojson = load_admin_polys(self)
+        if not self.calculation.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Choose a calculation to run."), None)
+            return
 
-        # Validate chosen dates
-        asdf
-        api.calculate(self.calculation.currentText())
+        gee_script = self.scripts[self.calculation.currentText()]['script']
+
+        # TODO:Validate chosen dates
+        
+        resp = self.api.calculate(gee_script, {'geojson': geojson})
+        QtGui.QMessageBox.information(None, self.tr("Success"), self.tr("Task submitted to Google Earth Engine."), None)
+        self.close()

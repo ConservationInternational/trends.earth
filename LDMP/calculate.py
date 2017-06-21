@@ -65,12 +65,26 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
             self.scripts = [x['scripts'] for x in scripts if x['tool'] == 'calculate'][0]
         self.calculation.addItems(sorted(self.scripts.keys()))
 
+        self.dataset.addItems(sorted(['AVHRR', 'MODIS']))
+        self.dataset_changed()
+
         setup_area_selection(self)
 
+        self.dataset.currentIndexChanged.connect(self.dataset_changed)
         self.buttonBox.accepted.connect(self.btn_ok)
         self.buttonBox.rejected.connect(self.btn_cancel)
         self.runon_gee.toggled.connect(self.runon_toggle)
 
+    def dataset_changed(self):
+        if self.dataset.currentText() == 'AVHRR':
+            self.sp_resolution.clear()
+            self.sp_resolution.addItems(['8 km', '16 km', '32 km'])
+        elif self.dataset.currentText() == 'MODIS':
+            self.sp_resolution.clear()
+            self.sp_resolution.addItems(['250 m', '500 m', '1 km', '2 km', '4 km', '8 km', '16 km', '32 km'])
+        else:
+            raise ValueError('Unknown dataset')
+            
     def runon_toggle(self):
         if self.runon_local.isChecked():
             self.add_to_map.setEnabled(True)

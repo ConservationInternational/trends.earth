@@ -72,16 +72,17 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
             self.dlg_settingsupdate.password.setText(self.settings.value("LDMP/password"))
             self.dlg_settingsupdate.name.setText(user['data']['name'])
             self.dlg_settingsupdate.organization.setText(user['data']['institution'])
+
+            # Add countries, and set index to currently chosen country
             admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
             self.dlg_settingsupdate.country.addItems(sorted(admin_0.keys()))
-
-            index = self.dlg_settingsupdate.country.findData(user['data']['institution'])
-            if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index);
+            index = self.dlg_settingsupdate.country.findText(user['data']['country'])
+            if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index)
 
             result = self.dlg_settingsupdate.exec_()
-            # See if OK was pressed
+
             if result:
-                pass
+                self.close()
 
     def btn_register(self):
         #TODO: Handle country once I have the data list ready.

@@ -71,6 +71,15 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         self.buttonBox.accepted.connect(self.btn_ok)
         self.buttonBox.rejected.connect(self.btn_cancel)
+        self.runon_gee.toggled.connect(self.runon_toggle)
+
+    def runon_toggle(self):
+        if self.runon_local.isChecked():
+            self.add_to_map.setEnabled(True)
+            self.add_to_map_label.setEnabled(True)
+        else:
+            self.add_to_map.setEnabled(False)
+            self.add_to_map_label.setEnabled(False)
 
     def area_admin_toggle(self):
         if self.area_admin.isChecked():
@@ -117,6 +126,15 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         # TODO:Validate chosen dates
         
-        resp = self.api.calculate(gee_script, {'geojson': geojson})
-        QtGui.QMessageBox.information(None, self.tr("Success"), self.tr("Task submitted to Google Earth Engine."), None)
-        self.close()
+        payload = {'geojson': geojson,
+                   'dataset': self.dataset.currentText(),
+                   'year_start': self.year_start.date(),
+                   'year_end': self.year_end.date(),
+                   'resolution': self.sp_resolution.currentText()}
+        
+        if self.runon_gee.isChecked():
+            resp = self.api.calculate(gee_script, payload)
+            QtGui.QMessageBox.information(None, self.tr("Success"), self.tr("Task submitted to Google Earth Engine."), None)
+            self.close()
+        else:
+            QtGui.QMessageBox.Critical(None, self.tr("Coming soon!"), self.tr("Support for local processing coming soon!"), None)

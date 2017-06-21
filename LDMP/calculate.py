@@ -17,7 +17,7 @@ import json
 from urllib import quote_plus
 
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, QDate
 
 from DlgCalculate import Ui_DlgCalculate as UiDialog
 
@@ -79,9 +79,17 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
         if self.dataset.currentText() == 'AVHRR':
             self.sp_resolution.clear()
             self.sp_resolution.addItems(['8 km', '16 km', '32 km'])
+            self.year_start.setMinimumDate(QDate(1982, 1, 1))
+            self.year_start.setMaximumDate(QDate(2010, 1, 1))
+            self.year_end.setMinimumDate(QDate(1987, 12, 31))
+            self.year_end.setMaximumDate(QDate(2015, 12, 31))
         elif self.dataset.currentText() == 'MODIS':
             self.sp_resolution.clear()
             self.sp_resolution.addItems(['250 m', '500 m', '1 km', '2 km', '4 km', '8 km', '16 km', '32 km'])
+            self.year_start.setMinimumDate(QDate(2001, 1, 1))
+            self.year_start.setMaximumDate(QDate(2010, 1, 1))
+            self.year_end.setMinimumDate(QDate(2005, 12, 31))
+            self.year_end.setMaximumDate(QDate(2015, 12, 31))
         else:
             raise ValueError('Unknown dataset')
             
@@ -136,12 +144,10 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         gee_script = self.scripts[self.calculation.currentText()]['script']
 
-        # TODO:Validate chosen dates
-        
         payload = {'geojson': geojson,
                    'dataset': self.dataset.currentText(),
-                   'year_start': self.year_start.date(),
-                   'year_end': self.year_end.date(),
+                   'year_start': self.year_start.date().year(),
+                   'year_end': self.year_end.date().year(),
                    'resolution': self.sp_resolution.currentText()}
         
         if self.runon_gee.isChecked():

@@ -40,44 +40,46 @@ class API:
     def __init__(self):
         self.settings = QSettings()
 
-    def _call_api(self, endpoint, action='get', payload={}):
+    def _call_api(self, endpoint, method='get', payload={}, use_token=False):
         # Flag to retry if token is needed
-        TOKEN_TRIES = 0
-        while TOKEN_TRIES <= 1:
+        if use_token:
+            TOKEN_TRIES = 0
+            while TOKEN_TRIES <= 1:
+                token = self.settings.value("LDMP/token", None)
+                try:
+                    if method == 'get':
+                        resp = requests.get(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
+                    elif method == 'post':
+                        resp = requests.post(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
+                    elif method == 'update':
+                        resp = requests.update(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
+                    elif method == 'delete':
+                        resp = requests.delete(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
+                    elif method == 'patch':
+                        resp = requests.patch(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
+                    else:
+                        raise ValueError("Unrecognized method: {}".format(method))
+                except requests.ConnectionError:
+                    raise APIError('Error connecting to LDMP server. Check your internet connection.')
+                if resp.status_code == 401:
+                    self.login()
+                TOKEN_TRIES += 1
+        else:
             try:
-                if payload.has_key('token'):
-                    if action == 'get':
-                        resp = requests.get(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
-                    elif action == 'post':
-                        resp = requests.post(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
-                    elif action == 'update':
-                        resp = requests.update(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
-                    elif action == 'delete':
-                        resp = requests.delete(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%payload['token']})
-                    else:
-                        raise ValueError("Unrecognized action: {}".format(action))
+                if method == 'get':
+                    resp = requests.get(API_URL + endpoint, json=payload)
+                elif method == 'post':
+                    resp = requests.post(API_URL + endpoint, json=payload)
+                elif method == 'update':
+                    resp = requests.update(API_URL + endpoint, json=payload)
+                elif method == 'delete':
+                    resp = requests.delete(API_URL + endpoint, json=payload)
+                elif method == 'patch':
+                    resp = requests.patch(API_URL + endpoint, json=payload)
                 else:
-                    if action == 'get':
-                        resp = requests.get(API_URL + endpoint, json=payload)
-                    elif action == 'post':
-                        resp = requests.post(API_URL + endpoint, json=payload)
-                    elif action == 'update':
-                        resp = requests.update(API_URL + endpoint, json=payload)
-                    elif action == 'delete':
-                        resp = requests.delete(API_URL + endpoint, json=payload)
-                    else:
-                        raise ValueError("Unrecognized action: {}".format(action))
+                    raise ValueError("Unrecognized method: {}".format(method))
             except requests.ConnectionError:
                 raise APIError('Error connecting to LDMP server. Check your internet connection.')
-                break
-            except:
-                # Try to refresh the token once
-                if TOKEN_TRIES < 1 & payload.has_key('token'):
-                    self.login()
-                    payload['token'] = self.settings.value("LDMP/token", None)
-                else:
-                    raise APIError('Error connecting to LDMP server. Check your internet connection and login information.')
-            TOKEN_TRIES += 1
         if resp.status_code == 500:
             raise APIError('Error connecting to LDMP server.')
         return resp
@@ -98,6 +100,8 @@ class API:
             self.settings.setValue("LDMP/token", resp.json()['access_token'])
         elif resp.status_code == 401:
             raise APIInvalidCredentials('Invalid username or password.')
+        else:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')
 
     def recover_pwd(self, email):
         resp = self._call_api('/api/v1/user/{}/recover-password'.format(email), 'post')
@@ -107,16 +111,21 @@ class API:
             raise APIUserNotFound('Invalid username.')
 
     def get_user(self, email):
-        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'get', {'token': self.settings.value("LDMP/token", None)})
+        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'get', use_token=True)
         if resp.status_code == 200:
             return resp.json()
         elif resp.status_code == 401:
             raise APIError('Invalid token.')
         elif resp.status_code == 404:
             raise APIUserNotFound('Invalid username.')
+        else:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')
 
     def register(self, email, name, organization, country):
-        payload = {"email" : email, "name" : name, "institution": institution, "country": country}
+        payload = {"email" : email,
+                   "name" : name,
+                   "institution": organization,
+                   "country": country}
         resp = self._call_api('/auth', 'post', payload)
         if resp.status_code == 200:
             self.settings.setValue("LDMP/email", email)
@@ -124,26 +133,42 @@ class API:
             raise APIUserAlreadyExists('User already exists')
 
     def calculate(self, script, params={}):
-        params['token'] = self.settings.value("LDMP/token", None)
-        resp = self._call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params)
+        resp = self._call_api('/api/v1/script/{}/run'.format(quote_plus(script)),
+                'post', params, use_token=True)
         if resp.status_code == 200:
-            return(resp.json()['data']['id'])
-        if resp.status_code == 400:
+            return
+        elif resp.status_code == 400:
             raise APIScriptStateNotValid
-        if resp.status_code == 404:
+        elif resp.status_code == 404:
             raise APIScriptNotFound
-        return resp.json()
+        else:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')
+
+    def update_user(self, email, name, organization, country):
+        payload = {"email" : email,
+                   "name" : name,
+                   "institution": organization,
+                   "country": country}
+        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+        if resp.status_code == 200:
+            return
+        elif resp.status_code == 400:
+            raise APIScriptStateNotValid
+        elif resp.status_code == 404:
+            raise APIScriptNotFound
+        else:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')
 
     def get_execution(self, id=None):
-        params = {'token': self.settings.value("LDMP/token", None)}
         if id:
-            resp = self._call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', params)
+            resp = self._call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', params, use_token=True)
         else:
-            resp = self._call_api('/api/v1/execution', 'get', params)
+            resp = self._call_api('/api/v1/execution', 'get', params, use_token=True)
         if resp.status_code == 200:
             return(resp.json())
-        if resp.status_code == 400:
+        elif resp.status_code == 400:
             raise APIScriptStateNotValid
-        if resp.status_code == 404:
+        elif resp.status_code == 404:
             raise APIScriptNotFound
-        return resp.json()
+        else:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')

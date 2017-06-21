@@ -14,11 +14,9 @@
 
 import os
 import json
-
 from urllib import quote_plus
 
 from PyQt4 import QtGui, uic
-
 from PyQt4.QtCore import QSettings
 
 from DlgCalculate import Ui_DlgCalculate as UiDialog

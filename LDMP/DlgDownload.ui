@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Download Land Degradation Data</string>
+   <string>Download data</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">

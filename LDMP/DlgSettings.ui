@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Land Degradation Monitoring Toolbox</string>
+   <string>Settings</string>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
@@ -170,6 +170,15 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>register_user</tabstop>
+  <tabstop>email</tabstop>
+  <tabstop>password</tabstop>
+  <tabstop>login</tabstop>
+  <tabstop>update_profile</tabstop>
+  <tabstop>forgot_pwd</tabstop>
+  <tabstop>cancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

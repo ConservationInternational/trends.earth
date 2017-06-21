@@ -13,6 +13,7 @@
 """
 
 import os
+import json
 
 from PyQt4.QtCore import QCoreApplication, QSettings
 from PyQt4 import QtGui, uic
@@ -71,9 +72,9 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
             self.dlg_settingsupdate.password.setText(self.settings.value("LDMP/password"))
             self.dlg_settingsupdate.name.setText(user['data']['name'])
             self.dlg_settingsupdate.organization.setText(user['data']['institution'])
-            #TODO: Handle country once I have the data list ready.
-            self.dlg_settingsupdate.country.addItems(['not set', 'Kenya' ,'Senegal', 
-                'Tanzania', 'Uganda', 'United States'])
+            admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
+            self.dlg_settingsupdate.country.addItems(sorted(admin_0.keys()))
+
             index = self.dlg_settingsupdate.country.findData(user['data']['institution'])
             if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index);
 
@@ -84,8 +85,8 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
 
     def btn_register(self):
         #TODO: Handle country once I have the data list ready.
-        self.dlg_settingsupdate.country.addItems(['not set', 'Kenya' ,'Senegal', 
-            'Tanzania', 'Uganda', 'United States'])
+        admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
+        self.dlg_settingsregister.country.addItems(sorted(admin_0.keys()))
         result = self.dlg_settingsregister.exec_()
         # See if OK was pressed
         if result:
@@ -136,6 +137,8 @@ class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
     def __init__(self, parent=None):
         super(DlgSettingsRegister, self).__init__(parent)
         self.setupUi(self)
+
+        self.api = API()
 
         self.save.clicked.connect(self.btn_save)
         self.cancel.clicked.connect(self.btn_cancel)
@@ -195,7 +198,11 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
         else:
-            QtGui.QMessageBox.information(None, self.tr("Saved"), self.tr("Updated information for {}.").format(self.email.text()), None)
+            self.api.update_user(self.email.text(), self.name.text(), 
+                    self.organization.text(), self.country.currentText())
+            
+            QtGui.QMessageBox.information(None, self.tr("Saved"),
+                    self.tr("Updated information for {}.").format(self.email.text()), None)
             self.close()
 
     def btn_cancel(self):

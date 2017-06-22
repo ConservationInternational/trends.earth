@@ -43,6 +43,7 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         self.dlg_settingsupdate = DlgSettingsUpdate()
 
         self.register_user.clicked.connect(self.btn_register)
+        self.delete_user.clicked.connect(self.btn_delete)
         self.login.clicked.connect(self.btn_login)
         self.update_profile.clicked.connect(self.btn_update_profile)
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
@@ -92,6 +93,11 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         # See if OK was pressed
         if result:
             pass
+
+    def btn_delete(self):
+        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Delete user functionality coming soon!"), None)
+        pass
 
     def btn_cancel(self):
         self.close()

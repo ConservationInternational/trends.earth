@@ -63,6 +63,21 @@ class JobsTableModel(QAbstractTableModel):
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
+        # Replace script IDs with script names
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'scripts.json')) as script_file:
+            scripts = json.load(script_file)
+        # The scripts file lists scripts by tool, so need to loop over the 
+        # tools to get all the scripts.
+        scripts_id_dict = {}
+        for tool in scripts.keys():
+            these_scripts = scripts[tool]
+            for script_name in these_scripts.keys():
+                scripts_id_dict[these_scripts[script_name]['id']] = script_name
+
+        # Replace script IDs with script names
+        for job in self.jobs:
+            job['script_id'] = scripts_id_dict[job['script_id']]
+
         # Pretty print dates
         for job in self.jobs:
             job['start_date'] = datetime.datetime.strftime(job['start_date'], '%a %b %d (%H:%M)')

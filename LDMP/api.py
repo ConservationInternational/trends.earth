@@ -135,8 +135,10 @@ class API:
         resp = self._call_api('/auth', 'post', payload)
         if resp.status_code == 200:
             self.settings.setValue("LDMP/email", email)
-        if resp.status_code == 400:
+        elif resp.status_code == 400:
             raise APIUserAlreadyExists('User already exists')
+        else:
+            raise APIError('Error connecting to LDMP server. Check your internet connection.')
 
     def calculate(self, script, params={}):
         resp = self._call_api('/api/v1/script/{}/run'.format(quote_plus(script)),
@@ -148,7 +150,7 @@ class API:
         elif resp.status_code == 404:
             raise APIScriptNotFound
         else:
-            raise APIError('Error connecting to LDMP server. Check your internet connection.')
+            raise APIError
 
     def update_user(self, email, name, organization, country):
         payload = {"email" : email,
@@ -200,3 +202,6 @@ class API:
             resp = self._call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
         else:
             resp = self._call_api('/api/v1/script', 'get', use_token=True)
+        if resp.status_code != 400:
+            raise APIScriptStateNotValid
+        return resp.json()['data']

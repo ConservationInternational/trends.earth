@@ -1,27 +1,24 @@
-[
-    {
-        "tool": "calculate",
-        "scripts": {
-            "Integral trends": {
-                "script": "integral-trends",
-                "description": "Calculate trend of annually integrated NDVI"
-            },
-            "Pixel RESTREND (precipitation)": {
-                "script": "restrend-pixel",
-                "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with precipitation."
-            },
-            "Pixel RESTREND (soil moisture)": {
-                "script": "restrend-pixel",
-                "description": "Calculate pixel RESTREND of annually integrated NDVI, after removing trend associated with soil moisture."
-            },
-            "System RESTREND (soil moisture)": {
-                "script": "restrend-system",
-                "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with soil moisture."
-            },
-            "System RESTREND (soil moisture)": {
-                "script": "restrend-system",
-                "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with soil moisture."
-            }
+{
+    "calculate": {
+        "Integral trends": {
+            "id": "79bb6fde-cd7a-4961-bcd4-aac4a96c1113",
+            "description": "Calculate trend of annually integrated NDVI."
+        },
+        "Pixel RESTREND (precipitation)": {
+            "id": "b9c00482-f76f-445d-b5a9-62e9903df32e",
+            "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with precipitation."
+        },
+        "Pixel RESTREND (soil moisture)": {
+            "id": "b9c00482-f76f-445d-b5a9-62e9903df32e",
+            "description": "Calculate pixel RESTREND of annually integrated NDVI, after removing trend associated with soil moisture."
+        },
+        "System RESTREND (precipitation)": {
+            "id": "e4c77f5c-ecd7-4ed0-86e1-1f51a9591eb6",
+            "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with precipitation."
+        },
+        "System RESTREND (soil moisture)": {
+            "id": "e4c77f5c-ecd7-4ed0-86e1-1f51a9591eb6",
+            "description": "Calculate system RESTREND of annually integrated NDVI, after removing trend associated with soil moisture."
         }
     }
-]
+}

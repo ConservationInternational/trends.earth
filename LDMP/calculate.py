@@ -75,7 +75,7 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'scripts.json')) as script_file:
             scripts = json.load(script_file)
-            self.scripts = [x['scripts'] for x in scripts if x['tool'] == 'calculate'][0]
+            self.scripts = scripts['calculate']
         self.calculation.addItems(sorted(self.scripts.keys()))
 
         self.dataset.addItems(sorted(['AVHRR', 'MODIS']))
@@ -165,7 +165,7 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
                     self.tr("Choose a calculation to run."), None)
             return
 
-        gee_script = self.scripts[self.calculation.currentText()]['script']
+        gee_script = self.scripts[self.calculation.currentText()]['id']
 
         payload = {'geojson': geojson,
                    'dataset': self.dataset.currentText(),

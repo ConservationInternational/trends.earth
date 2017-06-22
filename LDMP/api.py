@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+import datetime
+from dateutil import tz
 import requests
 
 from urllib import quote_plus
@@ -166,10 +168,23 @@ class API:
         else:
             resp = self._call_api('/api/v1/execution', 'get', use_token=True)
         if resp.status_code == 200:
+            resp = resp.json()['data']
+            # Sort responses in descending order using start time by default
+            resp = sorted(resp, key=lambda job: job['start_date'], reverse=True)
+            # Convert start/end dates into datatime objects in local time zone
+            for job in resp:
+                start_date = datetime.datetime.strptime(job['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
+                start_date = start_date.replace(tzinfo=tz.tzutc())
+                start_date = start_date.astimezone(tz.tzlocal())
+                job['start_date'] = start_date
+                end_date = datetime.datetime.strptime(job['end_date'], '%Y-%m-%dT%H:%M:%S.%f')
+                end_date = end_date.replace(tzinfo=tz.tzutc())
+                end_date = end_date.astimezone(tz.tzlocal())
+                job['end_date'] = end_date
             if user:
-                return [x for x in resp.json()['data'] if x['user_id'] == user]
+                return [x for x in resp if x['user_id'] == user]
             else:
-                return resp.json()['data']
+                return 
         elif resp.status_code == 400:
             raise APIScriptStateNotValid
         elif resp.status_code == 404:

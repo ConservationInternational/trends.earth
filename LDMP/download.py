@@ -18,6 +18,9 @@ from PyQt4 import QtGui, uic
 
 from DlgDownload import Ui_DlgDownload as UiDialog
 
+def download_data(urls):
+    pass
+
 class DlgDownload(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""

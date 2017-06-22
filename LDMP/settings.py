@@ -68,15 +68,15 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         else:
             user = self.api.get_user(self.email.text())
 
-            self.dlg_settingsupdate.email.setText(user['data']['email'])
+            self.dlg_settingsupdate.email.setText(user['email'])
             self.dlg_settingsupdate.password.setText(self.settings.value("LDMP/password"))
-            self.dlg_settingsupdate.name.setText(user['data']['name'])
-            self.dlg_settingsupdate.organization.setText(user['data']['institution'])
+            self.dlg_settingsupdate.name.setText(user['name'])
+            self.dlg_settingsupdate.organization.setText(user['institution'])
 
             # Add countries, and set index to currently chosen country
             admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
             self.dlg_settingsupdate.country.addItems(sorted(admin_0.keys()))
-            index = self.dlg_settingsupdate.country.findText(user['data']['country'])
+            index = self.dlg_settingsupdate.country.findText(user['country'])
             if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index)
 
             result = self.dlg_settingsupdate.exec_()

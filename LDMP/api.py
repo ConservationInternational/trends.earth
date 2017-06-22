@@ -98,6 +98,7 @@ class API:
             self.settings.setValue("LDMP/email", email)
             self.settings.setValue("LDMP/password", password)
             self.settings.setValue("LDMP/token", resp.json()['access_token'])
+            self.settings.setValue("LDMP/user_id", self.get_user(email)['id'])
         elif resp.status_code == 401:
             raise APIInvalidCredentials('Invalid username or password.')
         else:
@@ -113,7 +114,7 @@ class API:
     def get_user(self, email):
         resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'get', use_token=True)
         if resp.status_code == 200:
-            return resp.json()
+            return resp.json()['data']
         elif resp.status_code == 401:
             raise APIError('Invalid token.')
         elif resp.status_code == 404:
@@ -159,13 +160,16 @@ class API:
         else:
             raise APIError('Error connecting to LDMP server. Check your internet connection.')
 
-    def get_execution(self, id=None):
+    def get_execution(self, id=None, user=None):
         if id:
-            resp = self._call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', params, use_token=True)
+            resp = self._call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
         else:
-            resp = self._call_api('/api/v1/execution', 'get', params, use_token=True)
+            resp = self._call_api('/api/v1/execution', 'get', use_token=True)
         if resp.status_code == 200:
-            return(resp.json())
+            if user:
+                return [x for x in resp.json()['data'] if x['user_id'] == user]
+            else:
+                return resp.json()['data']
         elif resp.status_code == 400:
             raise APIScriptStateNotValid
         elif resp.status_code == 404:

@@ -20,6 +20,7 @@ from PyQt4.QtGui import QAction, QIcon
 from settings import DlgSettings
 from download import DlgDownload
 from calculate import DlgCalculate
+from jobs import DlgJobs
 from plot import DlgPlot
 from reporting import DlgReporting
 from about import DlgAbout
@@ -66,6 +67,7 @@ class LDMP:
         self.dlg_settings = DlgSettings()
         self.dlg_download = DlgDownload()
         self.dlg_calculate = DlgCalculate()
+        self.dlg_jobs = DlgJobs()
         self.dlg_plot = DlgPlot()
         self.dlg_reporting = DlgReporting()
         self.dlg_about = DlgAbout()
@@ -180,6 +182,12 @@ class LDMP:
             parent=self.iface.mainWindow())
 
         self.add_action(
+            ':/plugins/LDMP/icons/icon-cloud-download.png',
+            text=self.tr(u'View Google Earth Engine tasks'),
+            callback=self.run_jobs,
+            parent=self.iface.mainWindow())
+
+        self.add_action(
             ':/plugins/LDMP/icons/icon-graph.png',
             text=self.tr(u'Plot data'),
             callback=self.run_plot,
@@ -233,6 +241,16 @@ class LDMP:
         self.dlg_calculate.show()
         # Run the dialog event loop
         result = self.dlg_calculate.exec_()
+        # See if OK was pressed
+        if result:
+            pass
+
+    def run_jobs(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlg_jobs.show()
+        # Run the dialog event loop
+        result = self.dlg_jobs.exec_()
         # See if OK was pressed
         if result:
             pass

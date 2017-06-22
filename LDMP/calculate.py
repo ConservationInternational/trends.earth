@@ -36,6 +36,7 @@ def setup_area_selection(dlg):
     
     dlg.area_admin_0.currentIndexChanged.connect(dlg.populate_admin_1)
 
+    dlg.data_folder_browse.clicked.connect(dlg.open_data_folder_browse)
     dlg.area_fromfile_browse.clicked.connect(dlg.open_shp_browse)
     dlg.area_admin.toggled.connect(dlg.area_admin_toggle)
     dlg.area_fromfile.toggled.connect(dlg.area_fromfile_toggle)
@@ -59,6 +60,18 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
         self.api = API()
 
         self.setupUi(self)
+
+        # GEE needs to know resolutions in meters, but using m and km is more 
+        # friendly to users. This key will convert the user input into meters 
+        # for GEE.
+        self.resolution_key = {'250 m': 250,
+                               '500 m': 500,
+                               '1 km': 1000,
+                               '2 km': 2000,
+                               '4 km':4000,
+                               '8 km':8000,
+                               '16 km': 16000,
+                               '32 km': 32000}
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'scripts.json')) as script_file:
             scripts = json.load(script_file)
@@ -95,9 +108,15 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
             
     def runon_toggle(self):
         if self.runon_local.isChecked():
+            self.data_folder_label.setEnabled(True)
+            self.data_folder_path.setEnabled(True)
+            self.data_folder_browse.setEnabled(True)
             self.add_to_map.setEnabled(True)
             self.add_to_map_label.setEnabled(True)
         else:
+            self.data_folder_label.setEnabled(False)
+            self.data_folder_path.setEnabled(False)
+            self.data_folder_browse.setEnabled(False)
             self.add_to_map.setEnabled(False)
             self.add_to_map_label.setEnabled(False)
 
@@ -116,6 +135,10 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
         else:
             self.area_fromfile_file.setEnabled(False)
             self.area_fromfile_browse.setEnabled(False)
+
+    def open_data_folder_browse(self):
+        data_folder = QtGui.QFileDialog.getExistingDirectory()
+        self.data_folder_path.setText(data_folder)
 
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName()
@@ -148,7 +171,12 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
                    'dataset': self.dataset.currentText(),
                    'year_start': self.year_start.date().year(),
                    'year_end': self.year_end.date().year(),
-                   'resolution': self.sp_resolution.currentText()}
+                   'resolution': self.resolution_key[self.sp_resolution.currentText()]}
+
+        # TODO: check before submission whether this payload and script ID has 
+        # been sent recently - or even whether there are results already 
+        # available for it. Notify the user if this is the case to prevent, or 
+        # at least reduce, repeated identical submissions.
         
         if self.runon_gee.isChecked():
             resp = self.api.calculate(gee_script, payload)

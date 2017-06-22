@@ -36,16 +36,19 @@ class DlgJobs(QtGui.QDialog, UiDialog):
 
         self.api = API()
         self.api.login()
+        self.btn_refresh()
 
+        self.refresh.clicked.connect(self.btn_refresh)
+        self.download.clicked.connect(self.btn_download)
+
+    def btn_refresh(self):
         jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
         tablemodel = JobsTableModel(jobs, self)
         self.jobs_view.setModel(tablemodel)
 
-    def btn_cancel(self):
-        self.close()
-
-    def btn_ok(self):
-        self.close()
+    def btn_download(self):
+        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Download function coming soon!"), None)
 
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):

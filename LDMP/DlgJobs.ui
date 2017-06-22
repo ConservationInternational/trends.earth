@@ -42,7 +42,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="download_results">
+      <widget class="QPushButton" name="refresh">
+       <property name="text">
+        <string>Refresh list</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="download">
        <property name="text">
         <string>Download results</string>
        </property>

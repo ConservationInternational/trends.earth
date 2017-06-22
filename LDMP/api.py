@@ -45,8 +45,9 @@ class API:
     def _call_api(self, endpoint, method='get', payload={}, use_token=False):
         # Flag to retry if token is needed
         if use_token:
-            TOKEN_TRIES = 0
-            while TOKEN_TRIES <= 1:
+            MAX_TRIES = 1
+            token_tries = 0
+            while token_tries <= MAX_TRIES:
                 token = self.settings.value("LDMP/token", None)
                 try:
                     if method == 'get':
@@ -65,7 +66,9 @@ class API:
                     raise APIError('Error connecting to LDMP server. Check your internet connection.')
                 if resp.status_code == 401:
                     self.login()
-                TOKEN_TRIES += 1
+                    token_tries += 1
+                else:
+                    break
         else:
             try:
                 if method == 'get':
@@ -191,3 +194,9 @@ class API:
             raise APIScriptNotFound
         else:
             raise APIError('Error connecting to LDMP server. Check your internet connection.')
+
+    def get_script(self, id=None, user=None):
+        if id:
+            resp = self._call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
+        else:
+            resp = self._call_api('/api/v1/script', 'get', use_token=True)

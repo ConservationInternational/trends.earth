@@ -86,7 +86,6 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
                 self.close()
 
     def btn_register(self):
-        #TODO: Handle country once I have the data list ready.
         admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
         self.dlg_settingsregister.country.addItems(sorted(admin_0.keys()))
         result = self.dlg_settingsregister.exec_()

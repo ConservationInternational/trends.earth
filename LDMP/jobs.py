@@ -20,12 +20,11 @@ from urllib import quote_plus
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
-from DlgJobs import Ui_DlgJobs as UiDialog
+from DlgJobs import Ui_DlgJobs
+from download import download_file
 
 from api import API
-from download import download_data
-
-class DlgJobs(QtGui.QDialog, UiDialog):
+class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgJobs, self).__init__(parent)
@@ -42,13 +41,23 @@ class DlgJobs(QtGui.QDialog, UiDialog):
         self.download.clicked.connect(self.btn_download)
 
     def btn_refresh(self):
-        jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
-        tablemodel = JobsTableModel(jobs, self)
+        self.jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
+        tablemodel = JobsTableModel(self.jobs, self)
         self.jobs_view.setModel(tablemodel)
 
     def btn_download(self):
-        QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("Download function coming soon!"), None)
+        # Figure out which file(s) to download
+        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
+
+        for row in rows:
+            job = self.jobs[row]
+            #TODO: check that the job produced a geotiff as output
+            url = job['results'].get('urls', 'https://ldmt.storage.googleapis.com/340b1d75-002a-4064-8702-3ec908bf785d.tif')
+            dir = self.settings.value("LDMP/download_dir", None)
+            outfile = QtGui.QFileDialog.getSaveFileName(self, self.tr("Save file"), dir, self.tr("GeoTIFF (*.tif)"))
+            dir = self.settings.setValue("LDMP/download_dir", os.path.dirname(outfile))
+            self.close()
+            download_file(url, outfile)
 
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
@@ -56,8 +65,9 @@ class JobsTableModel(QAbstractTableModel):
         self.jobs = datain
 
         # Column names as tuples with json name in [0], pretty name in [1]
-        colname_tuples = [('start_date', 'Start time'),
-                          ('script_id', 'Job'),
+        colname_tuples = [('script_id', 'Job'),
+                          ('start_date', 'Start time'),
+                          ('end_date', 'End time'),
                           ('status', 'Status'),
                           ('progress', 'Progress')]
         self.colnames_pretty = [x[1] for x in colname_tuples]
@@ -81,6 +91,7 @@ class JobsTableModel(QAbstractTableModel):
         # Pretty print dates
         for job in self.jobs:
             job['start_date'] = datetime.datetime.strftime(job['start_date'], '%a %b %d (%H:%M)')
+            job['end_date'] = datetime.datetime.strftime(job['end_date'], '%a %b %d (%H:%M)')
 
     def rowCount(self, parent):
         return len(self.jobs)

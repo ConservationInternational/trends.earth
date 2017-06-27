@@ -17,10 +17,13 @@ from landdegradation import preproc
 from landdegradation import stats
 from landdegradation import util
 
+from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+
 # Google cloud storage bucket for output
 BUCKET = "ldmt"
 
-def restrend_system(year_start, year_end, geojson, EXECUTION_ID, logger):
+def restrend_system(year_start, year_end, geojson, resolution, dataset, 
+        EXECUTION_ID, logger):
     """Calculate temporal NDVI analysis.
     Calculates the trend of temporal NDVI using NDVI data from the
     MODIS Collection 6 MOD13Q1 dataset. Areas where changes are not significant
@@ -115,12 +118,23 @@ def run(params, logger):
     """."""
     year_start = params.get('year_start', 2003)
     year_end = params.get('year_end', 2015)
+    geojson = json.loads(params.get('geojson', util.sen_geojson))
+    resolution = params.get('resolution', 250)
+    dataset = params.get('dataset', 'AVHRR')
+    
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
-        EXECUTION_ID = str(random.randint(1, 1000000))
+        EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
-    default_poly = json.loads('{"type":"FeatureCollection","features":[{"type":"Feature","id":"SEN","properties":{"name":"Senegal"},"geometry":{"type":"Polygon","coordinates":[[[-16.713729,13.594959],[-17.126107,14.373516],[-17.625043,14.729541],[-17.185173,14.919477],[-16.700706,15.621527],[-16.463098,16.135036],[-16.12069,16.455663],[-15.623666,16.369337],[-15.135737,16.587282],[-14.577348,16.598264],[-14.099521,16.304302],[-13.435738,16.039383],[-12.830658,15.303692],[-12.17075,14.616834],[-12.124887,13.994727],[-11.927716,13.422075],[-11.553398,13.141214],[-11.467899,12.754519],[-11.513943,12.442988],[-11.658301,12.386583],[-12.203565,12.465648],[-12.278599,12.35444],[-12.499051,12.33209],[-13.217818,12.575874],[-13.700476,12.586183],[-15.548477,12.62817],[-15.816574,12.515567],[-16.147717,12.547762],[-16.677452,12.384852],[-16.841525,13.151394],[-15.931296,13.130284],[-15.691001,13.270353],[-15.511813,13.27857],[-15.141163,13.509512],[-14.712197,13.298207],[-14.277702,13.280585],[-13.844963,13.505042],[-14.046992,13.794068],[-14.376714,13.62568],[-14.687031,13.630357],[-15.081735,13.876492],[-15.39877,13.860369],[-15.624596,13.623587],[-16.713729,13.594959]]]}}]}')
-    geojson = params.get('geojson', default_poly)
 
-    return restrend_system(year_start, year_end, geojson, EXECUTION_ID, logger)
+    url = restrend_system(year_start, year_end, geojson, resolution, dataset, 
+            EXECUTION_ID, logger)
+
+    results_url = CloudUrl(url, 'TODO_HASH_GOES_HERE') 
+    cloud_dataset = CloudDataset('geotiff', 'integral_trends', results_url)
+    gee_results = GEEResults('cloud_dataset', cloud_dataset)
+    results_schema = GEEResultsSchema()
+    json_result = results_schema.dumps(gee_results)
+
+    return json_result.data

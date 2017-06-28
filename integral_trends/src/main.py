@@ -39,6 +39,7 @@ def integral_trend(year_start, year_end, geojson, resolution, dataset,
     Returns:
         Location of output on google cloud storage.
     """ 
+    logger.debug("Entering integral_trend function.')
 
     # Compute NDVI annual integrals from 15d observed NDVI data
     ndvi_1yr_o = preproc.modis_ndvi_annual_integral(year_start, year_end)
@@ -67,24 +68,28 @@ def integral_trend(year_start, year_end, geojson, resolution, dataset,
         'region': util.get_coords(geojson)
     }
 
-    # Export final mosaic to assets
+    logger.debug("Setting up task.')
     task = ee.batch.Export.image.toCloudStorage(**export)
 
-    # Task -> READY
+    logger.debug("Starting task.')
     task.start()
     task_state = task.status().get('state')
     while task_state == 'READY' or task_state == 'RUNNING':
         task_progress = task.status().get('progress', 0.0)
         # update GEF-EXECUTION progress
         logger.send_progress(task_progress)
+        logger.debug("Task progress {}.".format(task_progress))
         # update variable to check the condition
         task_state = task.status().get('state')
         sleep(5)
 
+    logger.debug("Leaving integral_trends function.")
     return "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
 
 def run(params, logger):
     """."""
+    logger.debug("Loading parameters.')
+
     year_start = params.get('year_start', 2003)
     year_end = params.get('year_end', 2015)
     geojson = json.loads(params.get('geojson', util.sen_geojson))
@@ -97,13 +102,16 @@ def run(params, logger):
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
+    logger.debug("Running main script.')
     url = integral_trend(year_start, year_end, geojson, resolution, dataset, 
             EXECUTION_ID, logger)
 
+    logger.debug("Setting up results JSON.')
     results_url = CloudUrl(url, 'TODO_HASH_GOES_HERE') 
     cloud_dataset = CloudDataset('geotiff', 'integral_trends', results_url)
     gee_results = GEEResults('cloud_dataset', cloud_dataset)
     results_schema = GEEResultsSchema()
-    json_result = results_schema.dumps(gee_results)
+    json_result = results_schema.dump(gee_results)
 
+    logger.debug("Leaving run function.')
     return json_result.data

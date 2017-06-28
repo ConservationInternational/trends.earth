@@ -37,6 +37,7 @@ def restrend_system(year_start, year_end, geojson, resolution, dataset,
     Returns:
         Output of google earth engine task.
     """
+    logger.debug("Entering restrend_system function.')
 
     # Function to integrate NDVI dataset from 15d to 1yr
     def int_15d_1yr_p(img_stack):
@@ -99,15 +100,17 @@ def restrend_system(year_start, year_end, geojson, resolution, dataset,
              'scale': 250,
              'region': util.get_coords(geojson)}
 
-    # Export final mosaic to assets
+    logger.debug("Setting up task.')
     task = ee.batch.Export.image.toCloudStorage(**export)
 
+    logger.debug("Starting task.')
     task.start()
     task_state = task.status().get('state')
     while task_state == 'READY' or task_state == 'RUNNING':
         task_progress = task.status().get('progress', 0.0)
         # update GEF-EXECUTION progress
         logger.send_progress(task_progress)
+        logger.debug("Task progress {}.".format(task_progress))
         # update variable to check the condition
         task_state = task.status().get('state')
         sleep(5)
@@ -116,6 +119,7 @@ def restrend_system(year_start, year_end, geojson, resolution, dataset,
 
 def run(params, logger):
     """."""
+    logger.debug("Loading parameters.')
     year_start = params.get('year_start', 2003)
     year_end = params.get('year_end', 2015)
     geojson = json.loads(params.get('geojson', util.sen_geojson))
@@ -128,13 +132,16 @@ def run(params, logger):
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
+    logger.debug("Running main script.')
     url = restrend_system(year_start, year_end, geojson, resolution, dataset, 
             EXECUTION_ID, logger)
 
+    logger.debug("Setting up results JSON.')
     results_url = CloudUrl(url, 'TODO_HASH_GOES_HERE') 
     cloud_dataset = CloudDataset('geotiff', 'integral_trends', results_url)
     gee_results = GEEResults('cloud_dataset', cloud_dataset)
     results_schema = GEEResultsSchema()
-    json_result = results_schema.dumps(gee_results)
+    json_result = results_schema.dump(gee_results)
 
+    logger.debug("Setting up results JSON.')
     return json_result.data

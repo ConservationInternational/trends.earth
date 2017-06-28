@@ -17,7 +17,9 @@ import json
 from urllib import quote_plus
 
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import QSettings, QDate
+from PyQt4.QtCore import QSettings, QDate, Qt
+
+from qgis.utils import iface
 
 from DlgCalculate import Ui_DlgCalculate as UiDialog
 
@@ -165,22 +167,33 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
                     self.tr("Choose a calculation to run."), None)
             return
 
-        gee_script = self.scripts[self.calculation.currentText()]['id']
-
-        payload = {'geojson': geojson,
-                   'dataset': self.dataset.currentText(),
-                   'year_start': self.year_start.date().year(),
-                   'year_end': self.year_end.date().year(),
-                   'resolution': self.resolution_key[self.sp_resolution.currentText()]}
-
-        # TODO: check before submission whether this payload and script ID has 
-        # been sent recently - or even whether there are results already 
-        # available for it. Notify the user if this is the case to prevent, or 
-        # at least reduce, repeated identical submissions.
-        
         if self.runon_gee.isChecked():
-            resp = self.api.calculate(gee_script, payload)
-            QtGui.QMessageBox.information(None, self.tr("Success"), self.tr("Task submitted to Google Earth Engine."), None)
+            # TODO: check before submission whether this payload and script ID 
+            # has been sent recently - or even whether there are results 
+            # already available for it. Notify the user if this is the case to 
+            # prevent, or at least reduce, repeated identical submissions.
+        
+            gee_script = self.scripts[self.calculation.currentText()]['id']
+
+            payload = {'geojson': geojson,
+                       'dataset': self.dataset.currentText(),
+                       'year_start': self.year_start.date().year(),
+                       'year_end': self.year_end.date().year(),
+                       'resolution': self.resolution_key[self.sp_resolution.currentText()]}
+
+            progressMessageBar = iface.messageBar().createMessage("Submitting {} task to Google Earth Engine...".format(self.calculation.currentText()))
+            spinner = QtGui.QLabel()
+            movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
+            spinner.setMovie(QtGui.QMovie())
+            spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+            progressMessageBar.layout().addWidget(spinner)
+            iface.messageBar().pushWidget(progressMessageBar, iface.messageBar().INFO)
+            movie.start()
             self.close()
+            resp = self.api.calculate(gee_script, payload)
+            iface.messageBar().popWidget(progressMessageBar)
+            iface.messageBar().pushMessage("Submitted",
+                    "{} task submitted to Google Earth Engine.".format(self.calculation.currentText()),
+                    level=0, duration=5)
         else:
-            QtGui.QMessageBox.Critical(None, self.tr("Coming soon!"), self.tr("Support for local processing coming soon!"), None)
+            QtGui.QMessageBox.critical(None, self.tr("Coming soon!"), self.tr("Support for local processing coming soon!"), None)

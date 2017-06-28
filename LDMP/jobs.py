@@ -52,7 +52,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         for row in rows:
             job = self.jobs[row]
             #TODO: check that the job produced a geotiff as output
-            url = job['results'].get('urls', 'https://ldmt.storage.googleapis.com/340b1d75-002a-4064-8702-3ec908bf785d.tif')
+            url = job['results'].get('urls')
             dir = self.settings.value("LDMP/download_dir", None)
             outfile = QtGui.QFileDialog.getSaveFileName(self, self.tr("Save file"), dir, self.tr("GeoTIFF (*.tif)"))
             dir = self.settings.setValue("LDMP/download_dir", os.path.dirname(outfile))

@@ -18,9 +18,9 @@ import requests
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import Qt
 
-from DlgDownload import Ui_DlgDownload
-
 from qgis.utils import iface
+
+from DlgDownload import Ui_DlgDownload
 
 class DownloadError(Exception):
      def __init__(self, message):
@@ -36,7 +36,6 @@ def download_file(url, filename):
         total_size_pretty = '{:.2f} KB'.format(round(total_size/1024, 2))
     else:
         total_size_pretty = '{:.2f} MB'.format(round(total_size*1e-6, 2))
-
     
     progressMessageBar = iface.messageBar().createMessage("Downloading {} ({})...".format(os.path.basename(filename), total_size_pretty))
     progress = QtGui.QProgressBar()

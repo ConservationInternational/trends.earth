@@ -85,10 +85,10 @@ def integral_trend(year_start, year_end, geojson, resolution, dataset,
 
 def run(params, logger):
     """."""
-    year_start = params.get('year_start', 2003)
+    year_start = params.get('year_start', 2009)
     year_end = params.get('year_end', 2015)
     geojson = json.loads(params.get('geojson', util.sen_geojson))
-    resolution = params.get('resolution', 250)
+    resolution = params.get('resolution', 8000)
     dataset = params.get('dataset', 'AVHRR')
 
     # Check the ENV. Are we running this locally or in prod?

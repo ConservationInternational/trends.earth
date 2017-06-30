@@ -6,8 +6,10 @@
         <file>icons/icon-cloud-download.png</file>
         <file>icons/icon-cog.png</file>
         <file>icons/icon-graph.png</file>
+        <file>icons/icon-globe.png</file>
         <file>icons/icon-info.png</file>
         <file>icons/icon-map-marker.png</file>
         <file>icons/icon-wrench.png</file>
+        <file>icons/spinner.gif</file>
     </qresource>
 </RCC>

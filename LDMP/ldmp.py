@@ -170,7 +170,7 @@ class LDMP:
             parent=self.iface.mainWindow())
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-cloud-download.png',
+            ':/plugins/LDMP/icons/icon-globe.png',
             text=self.tr(u'Download data'),
             callback=self.run_download,
             parent=self.iface.mainWindow())

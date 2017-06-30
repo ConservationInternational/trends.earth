@@ -247,13 +247,15 @@ class LDMP:
 
     def run_jobs(self):
         """Run method that performs all the real work"""
-        # show the dialog
-        self.dlg_jobs.show()
-        # Run the dialog event loop
-        result = self.dlg_jobs.exec_()
-        # See if OK was pressed
-        if result:
-            pass
+        # Preload the jobs, and only show the window if preload is successful
+        if self.dlg_jobs.btn_refresh():
+            # show the dialog
+            self.dlg_jobs.show()
+            # Run the dialog event loop
+            result = self.dlg_jobs.exec_()
+            # See if OK was pressed
+            if result:
+                pass
 
     def run_plot(self):
         """Run method that performs all the real work"""

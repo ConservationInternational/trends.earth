@@ -18,6 +18,9 @@ import json
 from PyQt4.QtCore import QCoreApplication, QSettings
 from PyQt4 import QtGui, uic
 
+from qgis.utils import iface
+mb = iface.messageBar()
+
 DlgSettings_FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'DlgSettings.ui'))
 
@@ -25,9 +28,6 @@ from DlgSettingsRegister import Ui_DlgSettingsRegister
 from DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
 from api import API
-from api import APIError
-from api import APIInvalidCredentials
-from api import APIUserAlreadyExists
 
 class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
     def __init__(self, parent=None):
@@ -69,6 +69,9 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         else:
             user = self.api.get_user(self.email.text())
 
+            if not user:
+                return
+
             self.dlg_settingsupdate.email.setText(user['email'])
             self.dlg_settingsupdate.password.setText(self.settings.value("LDMP/password"))
             self.dlg_settingsupdate.name.setText(user['name'])
@@ -106,17 +109,10 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Enter your email address to reset your password."), None)
-        try:
-            self.api.recover_pwd(self.email.text())
-            QtGui.QMessageBox.information(None, self.tr("Recover password"),
-                    self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), None)
+        resp = self.api.recover_pwd(self.email.text())
+        if resp:
+            mb.pushMessage("Success", self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)
             self.close()
-        except APIUserNotFound:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr('{} is not yet registered. Click "Register" to register this email.'), None)
-        except APIError:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Error connecting to the LDMP server."), None)
 
     def btn_login(self):
         if not self.email.text():
@@ -127,17 +123,10 @@ class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Enter your password."), None)
             self.close()
-        try:
-            self.api.login(self.email.text(), self.password.text())
-            QtGui.QMessageBox.information(None, self.tr("Login successful"), 
-                    self.tr("Logged in to the LDMP server as {}.".format(self.email.text())), None)
+        resp = self.api.login(self.email.text(), self.password.text())
+        if resp:
+            mb.pushMessage("Success", "Logged in to the LDMP server as {}.".format(self.email.text()), level=0)
             self.close()
-        except APIInvalidCredentials as error:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Invalid username or password."), None)
-        except APIError:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Error connecting to the LDMP server."), None)
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
     def __init__(self, parent=None):
@@ -164,16 +153,10 @@ class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
         else:
-            try:
-                self.api.register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
-                QtGui.QMessageBox.information(None, self.tr("Registered"), self.tr("Registered {}. Your password has been emailed to you.").format(self.email.text()), None)
+            resp = self.api.register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+            if resp:
+                mb.pushMessage("Success", "User {} registered. Your password has been emailed to you.".format(self.email.text()), level=0)
                 self.close()
-            except APIUserAlreadyExists as error:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("User already exists."), None)
-            except APIError:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Error connecting to the LDMP server."), None)
 
     def btn_cancel(self):
         self.close()

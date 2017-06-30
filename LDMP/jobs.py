@@ -20,10 +20,13 @@ from urllib import quote_plus
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
+from qgis.utils import iface
+mb = iface.messageBar()
+
 from DlgJobs import Ui_DlgJobs
 from download import download_file
-
 from api import API
+
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def __init__(self, parent=None):
         """Constructor."""
@@ -34,16 +37,19 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.setupUi(self)
 
         self.api = API()
-        self.api.login()
-        self.btn_refresh()
 
         self.refresh.clicked.connect(self.btn_refresh)
+        # TODO: only enable the download button if a job is selected
         self.download.clicked.connect(self.btn_download)
 
     def btn_refresh(self):
+        # TODO: Handle loss of internet and connection error on button refresh
         self.jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
-        tablemodel = JobsTableModel(self.jobs, self)
-        self.jobs_view.setModel(tablemodel)
+        if self.jobs:
+            tablemodel = JobsTableModel(self.jobs, self)
+            self.jobs_view.setModel(tablemodel)
+            return True
+        return False
 
     def btn_download(self):
         # Figure out which file(s) to download

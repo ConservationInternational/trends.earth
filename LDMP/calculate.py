@@ -20,6 +20,7 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QDate, Qt
 
 from qgis.utils import iface
+mb = iface.messageBar()
 
 from DlgCalculate import Ui_DlgCalculate as UiDialog
 
@@ -181,19 +182,23 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
                        'year_end': self.year_end.date().year(),
                        'resolution': self.resolution_key[self.sp_resolution.currentText()]}
 
-            progressMessageBar = iface.messageBar().createMessage("Submitting {} task to Google Earth Engine...".format(self.calculation.currentText()))
+            progressMessageBar = mb.createMessage("Submitting {} task to Google Earth Engine...".format(self.calculation.currentText()))
             spinner = QtGui.QLabel()
             movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
             spinner.setMovie(QtGui.QMovie())
             spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
             progressMessageBar.layout().addWidget(spinner)
-            iface.messageBar().pushWidget(progressMessageBar, iface.messageBar().INFO)
+            mb.pushWidget(progressMessageBar, mb.INFO)
             movie.start()
-            self.close()
             resp = self.api.calculate(gee_script, payload)
-            iface.messageBar().popWidget(progressMessageBar)
-            iface.messageBar().pushMessage("Submitted",
-                    "{} task submitted to Google Earth Engine.".format(self.calculation.currentText()),
-                    level=0, duration=5)
+            mb.popWidget(progressMessageBar)
+            if resp:
+                mb.pushMessage("Submitted",
+                        "{} task submitted to Google Earth Engine.".format(self.calculation.currentText()),
+                        level=0, duration=5)
+                self.close()
+            else:
+                mb.pushMessage("Error", "Unable to submit task to Google Earth Engine.".format(self.calculation.currentText()),
+                        level=1, duration=5)
         else:
             QtGui.QMessageBox.critical(None, self.tr("Coming soon!"), self.tr("Support for local processing coming soon!"), None)

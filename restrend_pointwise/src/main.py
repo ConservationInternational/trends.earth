@@ -128,6 +128,7 @@ def restrend_pointwise(year_start, year_end, geojson, resolution, dataset,
         task_progress = task.status().get('progress', 0.0)
         # update GEF-EXECUTION progress
         logger.send_progress(task_progress)
+        logger.debug("Task progress {}.".format(task_progress))
         # update variable to check the condition
         task_state = task.status().get('state')
         sleep(5)

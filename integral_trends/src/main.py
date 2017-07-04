@@ -69,10 +69,10 @@ def integral_trend(year_start, year_end, geojson, resolution, dataset,
         'region': util.get_coords(geojson)
     }
 
-    logger.debug("Setting up task.')
+    logger.debug("Setting up task.")
     task = ee.batch.Export.image.toCloudStorage(**export)
 
-    logger.debug("Starting task.')
+    logger.debug("Starting task.")
     task.start()
     task_state = task.status().get('state')
     while task_state == 'READY' or task_state == 'RUNNING':
@@ -89,7 +89,7 @@ def integral_trend(year_start, year_end, geojson, resolution, dataset,
 
 def run(params, logger):
     """."""
-    logger.debug("Loading parameters.')
+    logger.debug("Loading parameters.")
 
     year_start = params.get('year_start', 2003)
     year_end = params.get('year_end', 2015)
@@ -103,16 +103,16 @@ def run(params, logger):
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
-    logger.debug("Running main script.')
+    logger.debug("Running main script.")
     url = integral_trend(year_start, year_end, geojson, resolution, dataset, 
             EXECUTION_ID, logger)
 
-    logger.debug("Setting up results JSON.')
+    logger.debug("Setting up results JSON.")
     results_url = CloudUrl(url, 'TODO_HASH_GOES_HERE') 
     cloud_dataset = CloudDataset('geotiff', 'integral_trends', results_url)
     gee_results = GEEResults('cloud_dataset', cloud_dataset)
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)
 
-    logger.debug("Leaving run function.')
+    logger.debug("Leaving run function.")
     return json_result.data

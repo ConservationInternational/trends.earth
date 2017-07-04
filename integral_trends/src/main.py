@@ -39,7 +39,8 @@ def integral_trend(year_start, year_end, geojson, resolution, dataset,
     Returns:
         Location of output on google cloud storage.
     """ 
-    logger.debug("Entering integral_trend function.')
+
+    logger.debug("Entering integral_trend function.")
 
     # Compute NDVI annual integrals from 15d observed NDVI data
     ndvi_1yr_o = preproc.modis_ndvi_annual_integral(year_start, year_end)

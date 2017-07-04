@@ -23,6 +23,8 @@ from PyQt4.QtCore import QSettings
 from qgis.utils import iface
 mb = iface.messageBar()
 
+from qgis.core import QgsMessageLog
+
 API_URL = 'http://api.resilienceatlas.org'
 
 class API:
@@ -30,46 +32,40 @@ class API:
         self.settings = QSettings()
 
     def _call_api(self, endpoint, method='get', payload={}, use_token=False):
-        # Flag to retry if token is needed
         if use_token:
-            try:
-                resp = self.login()
-                if resp:
-                    token = resp.json()['access_token']
-                else: 
-                    return False
-                if method == 'get':
-                    resp = requests.get(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
-                elif method == 'post':
-                    resp = requests.post(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
-                elif method == 'update':
-                    resp = requests.update(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
-                elif method == 'delete':
-                    resp = requests.delete(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
-                elif method == 'patch':
-                    resp = requests.patch(API_URL + endpoint, json=payload, headers={'Authorization': 'Bearer %s'%token})
-                else:
-                    raise ValueError("Unrecognized method: {}".format(method))
-            except requests.ConnectionError:
-                mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
+            resp = self.login()
+            if resp:
+                headers = {'Authorization': 'Bearer %s'%resp.json()['access_token']}
+            else: 
                 return False
         else:
-            try:
-                if method == 'get':
-                    resp = requests.get(API_URL + endpoint, json=payload)
-                elif method == 'post':
-                    resp = requests.post(API_URL + endpoint, json=payload)
-                elif method == 'update':
-                    resp = requests.update(API_URL + endpoint, json=payload)
-                elif method == 'delete':
-                    resp = requests.delete(API_URL + endpoint, json=payload)
-                elif method == 'patch':
-                    resp = requests.patch(API_URL + endpoint, json=payload)
-                else:
-                    raise ValueError("Unrecognized method: {}".format(method))
-            except requests.ConnectionError:
-                mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-                return False
+            headers = {}
+
+        QgsMessageLog.logMessage("API _call_api loaded token.", tag="LDMP", level=QgsMessageLog.INFO)
+        # Strip password out of payload
+        clean_payload = payload.copy()
+        if clean_payload.has_key('password'):
+            clean_payload['password'] = '**REMOVED**'
+        QgsMessageLog.logMessage("API _call_api calling {} with payload: {}".format(endpoint, clean_payload), tag="LDMP", level=QgsMessageLog.INFO)
+
+        try:
+            if method == 'get':
+                resp = requests.get(API_URL + endpoint, json=payload, headers=headers)
+            elif method == 'post':
+                resp = requests.post(API_URL + endpoint, json=payload, headers=headers)
+            elif method == 'update':
+                resp = requests.update(API_URL + endpoint, json=payload, headers=headers)
+            elif method == 'delete':
+                resp = requests.delete(API_URL + endpoint, json=payload, headers=headers)
+            elif method == 'patch':
+                resp = requests.patch(API_URL + endpoint, json=payload, headers=headers)
+            else:
+                raise ValueError("Unrecognized method: {}".format(method))
+        except requests.ConnectionError:
+            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
+            return False
+
+        QgsMessageLog.logMessage("API _call_api response: {}".format(resp.text), tag="LDMP", level=QgsMessageLog.INFO)
 
         if resp.status_code == 500:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
@@ -83,16 +79,10 @@ class API:
         if not email or not password:
             mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
             return False
-        try:
-            resp = requests.post(API_URL + '/auth',
-                    json={"email" : email, "password" : password})
-        except requests.ConnectionError:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-            return False
+        resp = self._call_api('/auth', 'post', payload={"email" : email, "password" : password})
         if resp.status_code == 200:
             self.settings.setValue("LDMP/email", email)
             self.settings.setValue("LDMP/password", password)
-            self.settings.setValue("LDMP/user_id", self.get_user(email)['id'])
             return resp
         elif resp.status_code == 401:
             mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
@@ -192,6 +182,7 @@ class API:
                 end_date = end_date.astimezone(tz.tzlocal())
                 job['end_date'] = end_date
             if user:
+                user = self.get_user(self.settings.value("LDMP/email"))['id']
                 return [x for x in resp if x['user_id'] == user]
             else:
                 return []

@@ -225,7 +225,7 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
              'fileNamePrefix': EXECUTION_ID,
              'bucket': BUCKET,
              'maxPixels': 10000000000,
-             'scale': ee.Number(output.projection().nominalScale()).getInfo(),
+             'scale': ee.Number(ndvi_1yr.projection().nominalScale()).getInfo(),
              'region': util.get_coords(geojson)}
 
     logger.debug("Setting up GEE task.")

@@ -160,21 +160,22 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     logger.debug("Entering vegetation_productivity function.")
 
     # Climate
-    if (climate == 'et_mod16a2'):
+    if climate == 'et_mod16a2':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/et_modis_2000_2014")
-    elif (climate == 'prec_gpcp'):
+    elif climate == 'prec_gpcp':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/prec_gpcp23_1979_2016")
-    elif (climate == 'prec_gpcc'):
+    elif climate == 'prec_gpcc':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/prec_gpcc_1901_2016")
-    elif (climate == 'prec_chirps'):
+    elif climate == 'prec_chirps':
         climate_1yr =  ee.Image("users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2016")
-    elif (climate == 'prec_persian'):
+    elif climate == 'prec_persian':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/prec_persian_1983_2015")
-    elif (climate == 'soilm_merra2'):
+    elif climate == 'soilm_merra2':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/soilm_merra2_1980_2016")
-    elif (climate == 'soilm_erai'):
-        #TODO soilm_areai should be soilm_erai
+    elif climate == 'soilm_erai':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/soilm_erai_1979_2016")
+    elif climate == None:
+        pass
     else:
         raise GEEIOError("Unrecognized climate dataset '{}'".format(climate))
 

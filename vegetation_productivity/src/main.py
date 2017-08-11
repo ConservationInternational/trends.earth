@@ -193,8 +193,8 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     elif method == 'p_restrend':
         lf_trend, mk_trend = np_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
     elif method == 's_restrend':
-        #TODO: Need to implement/or raise if not found
-        pass
+        #TODO: need to code this
+        raise GEEIOError("Unrecognized method '{}'".format(method))
     elif method == 'ue':
         lf_trend, mk_trend = ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
     else:
@@ -209,6 +209,7 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     kendall = coefficients.get([period - 4])
 
     # Land cover data is used to mask water and urban
+    # TODO: Need to fix aggregation of the land cover data
     landc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015").select('y{}'.format(year_end))
 
     attri = ee.Image(0).where(lf_trend.select('scale').gt(0)and(mk_trend.abs().gte(kendall)),  1)\
@@ -219,9 +220,6 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
                            
     output = lf_trend.select('scale').addBands(attri).rename(['slope','attri'])
 
-    # code for finding resolution 
-    # 
-    # Create export function
     export = {'image': output.int16(),
              'description': EXECUTION_ID,
              'fileNamePrefix': EXECUTION_ID,

@@ -57,14 +57,15 @@ def ndvi_trend(year_start, year_end, ndvi_1yr, logger):
 
 def p_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
     logger.debug("Entering p_restrend function.")
+
     def f_img_coll(ndvi_stack):
         img_coll = ee.List([])
         for k in range(year_start, year_end):
-            ndvi = ndvi_1yr.filter(ee.Filter.eq('year', k)).select('ndvi').median()
-            clim = climate_1yr.filter(ee.Filter.eq('year', k)).select('ndvi').median()
-            img = ndvi.addBands(clim.addBands(ee.Image(k).float())).rename(['ndvi','clim','year']).set({'year': k})
-            img_coll = img_coll.add(img)
-            return ee.ImageCollection(img_coll)
+            ndvi_img = ndvi_stack.select('y{}'.format(k))\
+                .addBands(climate_1yr.select('y{}'.format(k)))\
+                .rename(['ndvi','clim']).set({'year': k})
+            img_coll = img_coll.add(ndvi_img)
+        return ee.ImageCollection(img_coll)
 
     ## Function to predict NDVI from climate
     first = ee.List([])
@@ -125,12 +126,14 @@ def s_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
 def ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
     logger.debug("Entering ue_trend function.")
     def f_img_coll(ndvi_stack):
+        img_coll = ee.List([])
         for k in range(year_start, year_end):
-            ndvi = ndvi_1yr.filter(ee.Filter.eq('year', k)).select('ndvi').median()
-            clim = climate_1yr.filter(ee.Filter.eq('year', k)).select('ndvi').median()
-            img = ndvi.addBands(clim.addBands(ee.Image(k).float())).rename(['ndvi','clim','year']).set({'year': k})
-            img_coll = img_coll.add(img)
-   
+            ndvi_img = ndvi_stack.select('y{}'.format(k)).divide(climate_1yr.select('y{}'.format(k)))\
+                                .addBands(ee.Image(k).float())\
+                                .rename(['ue','year']).set({'year': k})
+            img_coll = img_coll.add(ndvi_img)
+        return ee.ImageCollection(img_coll)
+
     ## Apply function to compute ue and store as a collection
     ue_1yr_coll = f_img_coll(ndvi_1yr)
 
@@ -175,7 +178,10 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     elif climate == 'soilm_erai':
         climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/soilm_erai_1979_2016")
     elif climate == None:
-        pass
+        if method == 'ndvi_trend':
+            pass
+        else: 
+            raise GEEIOError("Must specify a climate dataset")
     else:
         raise GEEIOError("Unrecognized climate dataset '{}'".format(climate))
 
@@ -191,10 +197,11 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     if method == 'ndvi_trend':
         lf_trend, mk_trend = ndvi_trend(year_start, year_end, ndvi_1yr, logger)
     elif method == 'p_restrend':
-        lf_trend, mk_trend = np_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
+        lf_trend, mk_trend = p_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
+        if climate_1yr == None: climate_1yr = precp_gpcc
     elif method == 's_restrend':
         #TODO: need to code this
-        raise GEEIOError("Unrecognized method '{}'".format(method))
+        raise GEEIOError("s_restrend method not yet supported")
     elif method == 'ue':
         lf_trend, mk_trend = ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
     else:
@@ -209,14 +216,22 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     kendall = coefficients.get([period - 4])
 
     # Land cover data is used to mask water and urban
-    # TODO: Need to fix aggregation of the land cover data
     landc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015").select('y{}'.format(year_end))
+    # Resample the land cover dataset to match ndvi projection
+    ndviProjection = ndvi_1yr.projection()
+    landc_reducer = {'reducer': ee.Reducer.mode(),
+                     'maxPixels': 1024}
+    landc_reproject = {'crs': ndviProjection.crs().getInfo(),
+                       'scale': ee.Number(ndviProjection.nominalScale()).getInfo()}
 
-    attri = ee.Image(0).where(lf_trend.select('scale').gt(0)and(mk_trend.abs().gte(kendall)),  1)\
-    .where(lf_trend.select('scale').lt(0)and(mk_trend.abs().gte(kendall)), -1)\
-    .where(mk_trend.abs().lte(kendall), 0)\
-    .where(landc.eq(210),2)\
-    .where(landc.eq(190),3)
+    landc_res = landc.reduceResolution(**landc_reducer)\
+            .reproject(**landc_reproject)
+ 
+    attri = ee.Image(0).where(lf_trend.select('scale').gt(0) and mk_trend.abs().gte(kendall),  1)\
+        .where(lf_trend.select('scale').lt(0) and mk_trend.abs().gte(kendall), -1)\
+        .where(mk_trend.abs().lte(kendall), 0)\
+        .where(landc_res.eq(210),2)\
+        .where(landc_res.eq(190),3)
                            
     output = lf_trend.select('scale').addBands(attri).rename(['slope','attri'])
 
@@ -225,7 +240,7 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
              'fileNamePrefix': EXECUTION_ID,
              'bucket': BUCKET,
              'maxPixels': 10000000000,
-             'scale': ee.Number(ndvi_1yr.projection().nominalScale()).getInfo(),
+             'scale': ee.Number(ndviProjection.nominalScale()).getInfo(),
              'region': util.get_coords(geojson)}
 
     logger.debug("Setting up GEE task.")
@@ -244,6 +259,12 @@ def run(params, logger):
     method = params.get('method', 'ndvi_trend')
     sensor = params.get('sensor', 'AVHRR')
     climate = params.get('climate', None)
+
+    # method = params.get('method', 'p_restrend')
+    # climate = params.get('climate', 'prec_gpcp')
+
+    # method = params.get('method', 'ue')
+    # climate = params.get('climate', 'prec_gpcp')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

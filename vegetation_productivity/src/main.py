@@ -253,18 +253,18 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_start = params.get('year_start', 1982)
+    year_start = params.get('year_start', 2002)
     year_end = params.get('year_end', 2015)
-    geojson = json.loads(params.get('geojson', util.sen_geojson))
+    geojson = json.loads(params.get('geojson', util.tza_geojson))
     method = params.get('method', 'ndvi_trend')
-    sensor = params.get('sensor', 'AVHRR')
+    sensor = params.get('sensor', 'MODIS')
     climate = params.get('climate', None)
 
     # method = params.get('method', 'p_restrend')
     # climate = params.get('climate', 'prec_gpcp')
 
-    # method = params.get('method', 'ue')
-    # climate = params.get('climate', 'prec_gpcp')
+    method = params.get('method', 'ue')
+    climate = params.get('climate', 'prec_gpcp')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

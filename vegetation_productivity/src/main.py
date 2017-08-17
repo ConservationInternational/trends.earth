@@ -124,6 +124,10 @@ def s_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
     logger.debug("Entering s_restrend function.")
 
 def ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
+    # Convert the climate layer to meters (for precip) so that RUE layer can be 
+    # scaled correctly
+    # TODO: Need to handle scaling for ET for WUE
+    climate_1yr = climate_1yr.divide(1000)
     logger.debug("Entering ue_trend function.")
     def f_img_coll(ndvi_stack):
         img_coll = ee.List([])
@@ -233,7 +237,7 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
         .where(landc_res.eq(210),2)\
         .where(landc_res.eq(190),3)
                            
-    output = lf_trend.select('scale').multiply(10000).addBands(attri).rename(['slope','attri'])
+    output = lf_trend.select('scale').addBands(attri).rename(['slope','attri'])
 
     export = {'image': output.int16(),
              'description': EXECUTION_ID,

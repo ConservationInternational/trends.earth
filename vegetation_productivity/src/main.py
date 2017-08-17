@@ -227,13 +227,13 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     landc_res = landc.reduceResolution(**landc_reducer)\
             .reproject(**landc_reproject)
  
-    attri = ee.Image(0).where(lf_trend.select('scale').gt(0) and mk_trend.abs().gte(kendall),  1)\
-        .where(lf_trend.select('scale').lt(0) and mk_trend.abs().gte(kendall), -1)\
+    attri = ee.Image(0).where(lf_trend.select('scale').gt(0).And(mk_trend.abs().gte(kendall)),  1)\
+        .where(lf_trend.select('scale').lt(0).And(mk_trend.abs().gte(kendall)), -1)\
         .where(mk_trend.abs().lte(kendall), 0)\
         .where(landc_res.eq(210),2)\
         .where(landc_res.eq(190),3)
                            
-    output = lf_trend.select('scale').addBands(attri).rename(['slope','attri'])
+    output = lf_trend.select('scale').multiply(10000).addBands(attri).rename(['slope','attri'])
 
     export = {'image': output.int16(),
              'description': EXECUTION_ID,
@@ -253,18 +253,17 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_start = params.get('year_start', 2002)
+    year_start = params.get('year_start', 2001)
     year_end = params.get('year_end', 2015)
-    geojson = json.loads(params.get('geojson', util.tza_geojson))
+    geojson_str = params.get('geojson', None)
     method = params.get('method', 'ndvi_trend')
     sensor = params.get('sensor', 'MODIS')
     climate = params.get('climate', None)
 
-    # method = params.get('method', 'p_restrend')
-    # climate = params.get('climate', 'prec_gpcp')
-
-    method = params.get('method', 'ue')
-    climate = params.get('climate', 'prec_gpcp')
+    if geojson_str is None:
+        raise GEEIOError("Must specify an input area")
+    else: 
+        geojson = json.loads(geojson_str)
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

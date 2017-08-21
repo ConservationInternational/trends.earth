@@ -23,7 +23,7 @@ from PyQt4.QtCore import QSettings
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from qgis.core import QgsMessageLog
+from . import log
 
 API_URL = 'http://api.resilienceatlas.org'
 
@@ -41,12 +41,12 @@ class API:
         else:
             headers = {}
 
-        QgsMessageLog.logMessage("API _call_api loaded token.", tag="LDMP", level=QgsMessageLog.INFO)
-        # Strip password out of payload
+        log("API _call_api loaded token.")
+        # Strip password out of payload for printing to QGIS logs
         clean_payload = payload.copy()
         if clean_payload.has_key('password'):
             clean_payload['password'] = '**REMOVED**'
-        QgsMessageLog.logMessage("API _call_api calling {} with payload: {}".format(endpoint, clean_payload), tag="LDMP", level=QgsMessageLog.INFO)
+        log("API _call_api calling {} with payload: {}".format(endpoint, clean_payload))
 
         try:
             if method == 'get':
@@ -65,7 +65,7 @@ class API:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
             return False
 
-        QgsMessageLog.logMessage("API _call_api response: {}".format(resp.text), tag="LDMP", level=QgsMessageLog.INFO)
+        log("API _call_api response: {}".format(resp.text))
 
         if resp.status_code == 500:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)

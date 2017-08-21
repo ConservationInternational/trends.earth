@@ -19,6 +19,8 @@ import site
 
 from PyQt4.QtCore import QSettings
 
+from qgis.core import QgsMessageLog
+
 site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 def read_json(file):
@@ -43,3 +45,6 @@ def classFactory(iface):  # pylint: disable=invalid-name
 
     from .ldmp import LDMP
     return LDMP(iface)
+
+def log(message, level=QgsMessageLog.INFO):
+    QgsMessageLog.logMessage(message, tag="LDMP", level=level)

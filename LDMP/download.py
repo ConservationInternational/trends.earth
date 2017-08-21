@@ -14,17 +14,36 @@
 
 import os
 import requests
+import re
+import crcmod.predefined
 
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import Qt
 
 from qgis.utils import iface
 
+from . import log
+
 from DlgDownload import Ui_DlgDownload
 
 class DownloadError(Exception):
      def __init__(self, message):
         self.message = message
+
+def check_hash(file, expected):
+    BUF_SIZE = 65536
+    crc = crcmod.predefined.mkCrcFun('crc-32-c')
+    with open(file, 'rb') as f:
+        while True:
+            data = f.read(BUF_SIZE)
+            if not data:
+                break
+            crc.update(data)
+    if crc.crcValue == expected:
+        return True
+    else:
+        log("Failed verification of file hash for {}. Expected {}, but got {}.".format(filename, expected, crc.crcValue), 2)
+        return False
 
 def download_file(url, filename):
     total_size = requests.get(url, stream=True).headers['Content-length']
@@ -53,7 +72,15 @@ def download_file(url, filename):
                 progress.setValue(float(bytes_dl) / total_size)
 
     if bytes_dl != total_size:
+        #TODO: have a cleaner download error message
         raise DownloadError
+
+    try:
+        expected_crc32c = re.search(r.headers['x-goog-hash'], 'crc32c=(.+?),md5=').group(1)
+        check_hash(filename, expected_crc32c)
+    except AttributeError:
+        log("CRC32c file hash not found in header for {}. Skipping hash check. WARNING file may not be complete.".format(filename), 2)
+        #TODO delete file and suggest attempting download again
 
     iface.messageBar().popWidget(progressMessageBar)
     iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)

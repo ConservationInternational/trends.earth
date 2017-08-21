@@ -71,8 +71,8 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
                                '500 m': 500,
                                '1 km': 1000,
                                '2 km': 2000,
-                               '4 km':4000,
-                               '8 km':8000,
+                               '4 km': 4000,
+                               '8 km': 8000,
                                '16 km': 16000,
                                '32 km': 32000}
 

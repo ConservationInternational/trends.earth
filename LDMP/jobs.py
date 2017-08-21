@@ -20,8 +20,14 @@ from urllib import quote_plus
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
+from . import log
+
+from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer
+
 from qgis.utils import iface
 mb = iface.messageBar()
+
+from qgis.gui import QgsMessageBar
 
 from DlgJobs import Ui_DlgJobs
 from download import download_file
@@ -38,12 +44,17 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         self.api = API()
 
+        self.bar = QgsMessageBar()
+        self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        self.layout().addWidget(self.bar)
+
         self.refresh.clicked.connect(self.btn_refresh)
         # TODO: only enable the download button if a job is selected
         self.download.clicked.connect(self.btn_download)
 
     def btn_refresh(self):
         # TODO: Handle loss of internet and connection error on button refresh
+        self.bar.pushMessage("Updating", "Contacting server to update job list.", level=QgsMessageBar.INFO)
         self.jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
         if self.jobs:
             tablemodel = JobsTableModel(self.jobs, self)
@@ -58,12 +69,49 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         for row in rows:
             job = self.jobs[row]
             #TODO: check that the job produced a geotiff as output
-            url = job['results'].get('urls')
             dir = self.settings.value("LDMP/download_dir", None)
             outfile = QtGui.QFileDialog.getSaveFileName(self, self.tr("Save file"), dir, self.tr("GeoTIFF (*.tif)"))
             dir = self.settings.setValue("LDMP/download_dir", os.path.dirname(outfile))
             self.close()
-            download_file(url, outfile)
+            for dataset in job['results'].get('datasets'):
+                for url in dataset.get('urls'):
+                    log("Downloading {}".format(url))
+                    #TODO Name output file based on url
+                    download_file(url['url'], outfile)
+                    #TODO Check hash of downloaded file
+                    #TODO style layer and set layer name based on the info in the dataset json file
+
+                    # Significance layer
+                    layer_signif = iface.addRasterLayer(outfile, 'NDVI Trends (significance)')
+                    fcn = QgsColorRampShader()
+                    fcn.setColorRampType(QgsColorRampShader.EXACT)
+                    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Significant decrease'),
+                           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), 'No significant change'),
+                           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Significant increase'),
+                           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
+                           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
+                    fcn.setColorRampItemList(lst)
+                    shader = QgsRasterShader()
+                    shader.setRasterShaderFunction(fcn)
+                    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
+                    layer_signif.setRenderer(pseudoRenderer)
+                    layer_signif.triggerRepaint()
+                    iface.legendInterface().refreshLayerSymbology(layer_signif)
+
+                    # Trends layer
+                    layer_ndvi = iface.addRasterLayer(outfile, 'NDVI Trends')
+                    fcn = QgsColorRampShader()
+                    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
+                    lst = [QgsColorRampShader.ColorRampItem(-100, QtGui.QColor(153, 51, 4), '-100 (declining)'),
+                           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), '0 (stable)'),
+                           QgsColorRampShader.ColorRampItem(100, QtGui.QColor(0, 140, 121), '100 (increasing)')]
+                    fcn.setColorRampItemList(lst)
+                    shader = QgsRasterShader()
+                    shader.setRasterShaderFunction(fcn)
+                    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
+                    layer_ndvi.setRenderer(pseudoRenderer)
+                    layer_ndvi.triggerRepaint()
+                    iface.legendInterface().refreshLayerSymbology(layer_ndvi)
 
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):

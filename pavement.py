@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
+import glob
+import subprocess
 import stat
 import xmlrpclib
 import zipfile
@@ -13,11 +15,14 @@ options(
         ext_libs = path('LDMP/ext-libs'),
         ext_src = path('LDMP/ext-src'),
         source_dir = path('LDMP'),
+        gui_dir = path('LDMP/gui'),
+        resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('.'),
         tests = ['test'],
         excludes = [
             '.DS_Store',  # on Mac
             'test-output',
+            'data_prep_scripts',
             'ext-src',
             'coverage*',
             'nose*',
@@ -102,6 +107,7 @@ def read_requirements():
 def _install(folder, options):
     '''install plugin to qgis'''
     builddocs(options)
+    compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
     dst = path('~').expanduser() / folder / 'python' / 'plugins' / plugin_name
@@ -263,3 +269,90 @@ def builddocs(options):
     os.chdir(options.sphinx.docroot)
     sh("make html")
     os.chdir(cwd)
+
+
+################################################
+# Below is based on pb_tool:
+# https://github.com/g-sherman/plugin_build_tool
+def check_path(app):
+    """ Adapted from StackExchange:
+        http://stackoverflow.com/questions/377017
+    """
+
+    def is_exe(fpath):
+        return os.path.exists(fpath) and os.access(fpath, os.X_OK)
+
+    def ext_candidates(fpath):
+        yield fpath
+        for ext in os.environ.get("PATHEXT", "").split(os.pathsep):
+            yield fpath + ext
+
+    fpath, fname = os.path.split(app)
+    if fpath:
+        if is_exe(app):
+            return app
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            exe_file = os.path.join(path, app)
+            for candidate in ext_candidates(exe_file):
+                if is_exe(candidate):
+                    return candidate
+
+    return None
+
+def file_changed(infile, outfile):
+    try:
+        infile_s = os.stat(infile)
+        outfile_s = os.stat(outfile)
+        return infile_s.st_mtime > outfile_s.st_mtime
+    except:
+        return True
+
+def compile_files(options):
+    # Compile all ui and resource files
+
+    # check to see if we have pyuic4
+    pyuic4 = check_path('pyuic4')
+
+    if not pyuic4:
+        print "pyuic4 is not in your path---unable to compile your ui files"
+    else:
+        ui_files = glob.glob('{}/*.ui'.format(options.plugin.gui_dir))
+        ui_count = 0
+        for ui in ui_files:
+            if os.path.exists(ui):
+                (base, ext) = os.path.splitext(ui)
+                output = "{0}.py".format(base)
+                if file_changed(ui, output):
+                    print "Compiling {0} to {1}".format(ui, output)
+                    subprocess.check_call([pyuic4, '-o', output, ui])
+                    ui_count += 1
+                else:
+                    print "Skipping {0} (unchanged)".format(ui)
+            else:
+                print "{0} does not exist---skipped".format(ui)
+        print "Compiled {0} UI files".format(ui_count)
+
+    # check to see if we have pyrcc4
+    pyrcc4 = check_path('pyrcc4')
+
+    if not pyrcc4:
+        click.secho(
+            "pyrcc4 is not in your path---unable to compile your resource file(s)",
+            fg='red')
+    else:
+        res_files = options.plugin.resource_files
+        res_count = 0
+        for res in res_files:
+            if os.path.exists(res):
+                (base, ext) = os.path.splitext(res)
+                output = "{0}.py".format(base)
+                if file_changed(res, output):
+                    print "Compiling {0} to {1}".format(res, output)
+                    subprocess.check_call([pyrcc4, '-o', output, res])
+                    res_count += 1
+                else:
+                    print "Skipping {0} (unchanged)".format(res)
+            else:
+                print "{0} does not exist---skipped".format(res)
+        print "Compiled {0} resource files".format(res_count)

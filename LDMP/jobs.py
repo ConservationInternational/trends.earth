@@ -59,8 +59,22 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.layout().addWidget(self.bar)
 
         self.refresh.clicked.connect(self.btn_refresh)
-        # TODO: only enable the download button if a job is selected
         self.download.clicked.connect(self.btn_download)
+
+        # Only enable download button if a job is selected
+        self.download.setEnabled(False)
+
+    def selection_changed(self):
+        if not self.jobs_view.selectedIndexes():
+            self.download.setEnabled(False)
+        else:
+            rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
+            for row in rows:
+                # Don't set button to enabled if any of the tasks aren't yet 
+                # finished
+                if self.jobs[row]['status'] != 'FINISHED':
+                    return
+            self.download.setEnabled(True)
 
     def btn_refresh(self):
         # TODO: Handle loss of internet and connection error on button refresh
@@ -89,6 +103,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.jobs_view.setModel(tablemodel)
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+            self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
             return True
         else:
             return False

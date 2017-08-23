@@ -184,7 +184,7 @@ class LDMP:
         self.add_action(
             ':/plugins/LDMP/icons/icon-cloud-download.png',
             text=self.tr(u'View Google Earth Engine tasks'),
-            callback=self.run_jobs,
+            callback=self.get_jobs,
             parent=self.iface.mainWindow())
 
         self.add_action(
@@ -245,17 +245,16 @@ class LDMP:
         if result:
             pass
 
-    def run_jobs(self):
+    def get_jobs(self):
         """Run method that performs all the real work"""
-        # Preload the jobs, and only show the window if preload is successful
-        if self.dlg_jobs.btn_refresh():
-            # show the dialog
-            self.dlg_jobs.show()
-            # Run the dialog event loop
-            result = self.dlg_jobs.exec_()
-            # See if OK was pressed
-            if result:
-                pass
+        jobs = self.dlg_jobs.btn_refresh()
+        # show the dialog
+        self.dlg_jobs.show()
+        # Run the dialog event loop
+        result = self.dlg_jobs.exec_()
+        # See if OK was pressed
+        if result:
+            pass
 
     def run_plot(self):
         """Run method that performs all the real work"""

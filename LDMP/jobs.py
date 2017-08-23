@@ -73,6 +73,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 # Don't set button to enabled if any of the tasks aren't yet 
                 # finished
                 if self.jobs[row]['status'] != 'FINISHED':
+                    self.download.setEnabled(False)
                     return
             self.download.setEnabled(True)
 

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import stat
 import xmlrpclib
 import zipfile
 
@@ -33,6 +34,17 @@ options(
     )
 )
 
+# Handle long filenames or readonly files on windows, see: 
+# http://bit.ly/2g58Yxu
+def rmtree(top):
+    for root, dirs, files in os.walk(top, topdown=False):
+        for name in files:
+            filename = os.path.join(root, name)
+            os.chmod(filename, stat.S_IWUSR)
+            os.remove(filename)
+        for name in dirs:
+            os.rmdir(os.path.join(root, name))
+    os.rmdir(top)  
 
 @task
 @cmdopts([
@@ -46,10 +58,10 @@ def setup(options):
     ext_libs = options.plugin.ext_libs
     ext_src = options.plugin.ext_src
     if clean:
-        ext_libs.rmtree()
+        rmtree(ext_libs)
     ext_libs.makedirs()
     runtime, test = read_requirements()
-    os.environ['PYTHONPATH']=ext_libs.abspath()
+    os.environ['PYTHONPATH'] = ext_libs.abspath()
     for req in runtime + test:
         if '#egg' in req:
             urlspec, req = req.split('#egg=')
@@ -96,7 +108,7 @@ def _install(folder, options):
     src = src.abspath()
     dst = dst.abspath()
     if not hasattr(os, 'symlink'):
-        dst.rmtree()
+        rmtree(dst)
         src.copytree(dst)
     elif not dst.exists():
         src.symlink(dst)

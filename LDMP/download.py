@@ -22,9 +22,9 @@ from PyQt4.QtCore import Qt
 
 from qgis.utils import iface
 
-from . import log
+from LDMP import log
 
-from DlgDownload import Ui_DlgDownload
+from LDMP.gui.DlgDownload import Ui_DlgDownload
 
 class DownloadError(Exception):
      def __init__(self, message):

@@ -37,14 +37,14 @@ QSettings().setValue('LDMP/admin_1', json.dumps(admin_1))
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name
-    """Load LDMP class from file LDMP.
+    """Load LDMPPlugin class from file LDMP.
 
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
 
-    from .ldmp import LDMP
-    return LDMP(iface)
+    from LDMP.ldmp import LDMPPlugin
+    return LDMPPlugin(iface)
 
 def log(message, level=QgsMessageLog.INFO):
     QgsMessageLog.logMessage(message, tag="LDMP", level=level)

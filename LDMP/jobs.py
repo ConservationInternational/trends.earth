@@ -20,7 +20,7 @@ from urllib import quote_plus
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
-from . import log
+from LDMP import log
 
 from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer
 
@@ -29,9 +29,10 @@ mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
 
-from DlgJobs import Ui_DlgJobs
-from download import download_file
-from api import API
+from gui.DlgJobs import Ui_DlgJobs
+
+from LDMP.download import download_file
+from LDMP.api import API
 
 def get_scripts(api):
     scripts = api.get_script()

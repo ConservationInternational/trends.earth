@@ -17,18 +17,18 @@ import os
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 
-from settings import DlgSettings
-from download import DlgDownload
-from calculate_prod import DlgCalculateProd
-from jobs import DlgJobs
-from plot import DlgPlot
-from reporting import DlgReporting
-from about import DlgAbout
+from LDMP.settings import DlgSettings
+from LDMP.download import DlgDownload
+from LDMP.calculate_prod import DlgCalculateProd
+from LDMP.jobs import DlgJobs
+from LDMP.plot import DlgPlot
+from LDMP.reporting import DlgReporting
+from LDMP.about import DlgAbout
 
 # Initialize Qt resources from file resources.py
-import resources
+import LDMP.resources
 
-class LDMP:
+class LDMPPlugin:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):

@@ -16,7 +16,7 @@ import os
 
 from PyQt4 import QtGui, uic
 
-from DlgAbout import Ui_DlgAbout as UiDialog
+from LDMP.gui.DlgAbout import Ui_DlgAbout as UiDialog
 
 class DlgAbout(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):

@@ -22,12 +22,12 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 DlgSettings_FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'DlgSettings.ui'))
+    os.path.dirname(__file__), 'gui/DlgSettings.ui'))
 
-from DlgSettingsRegister import Ui_DlgSettingsRegister
-from DlgSettingsUpdate import Ui_DlgSettingsUpdate
+from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
+from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
-from api import API
+from LDMP.api import API
 
 class DlgSettings (QtGui.QDialog, DlgSettings_FORM_CLASS):
     def __init__(self, parent=None):

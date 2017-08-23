@@ -16,7 +16,7 @@ import os
 
 from PyQt4 import QtGui, uic
 
-from DlgPlot import Ui_DlgPlot as UiDialog
+from LDMP.gui.DlgPlot import Ui_DlgPlot as UiDialog
 
 class DlgPlot(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):

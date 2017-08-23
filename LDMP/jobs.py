@@ -33,6 +33,16 @@ from DlgJobs import Ui_DlgJobs
 from download import download_file
 from api import API
 
+def get_scripts(api):
+    scripts = api.get_script()
+    # The scripts endpoint lists scripts in a list of dictionaries. Convert 
+    # this to a dictionary keyed by script id
+    scripts_dict = {}
+    for script in scripts:
+        script_id = script.pop('id')
+        scripts_dict[script_id] = script
+    return scripts_dict
+
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def __init__(self, parent=None):
         """Constructor."""
@@ -57,10 +67,31 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.bar.pushMessage("Updating", "Contacting server to update job list.", level=QgsMessageBar.INFO)
         self.jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
         if self.jobs:
+            # Add script names and descriptions to jobs list
+            self.scripts = get_scripts(self.api)
+            for job in self.jobs:
+                script = job.get('script_id', None)
+                if script:
+                    job['script_name'] = self.scripts[job['script_id']]['name']
+                    job['script_description'] = self.scripts[job['script_id']]['description']
+                else:
+                    # Handle case of scripts that have been removed or that are 
+                    # no longer supported
+                    job['script_name'] =  'Script not found'
+                    job['script_description'] = 'Script not found'
+
+            # Pretty print dates
+            for job in self.jobs:
+                job['start_date'] = datetime.datetime.strftime(job['start_date'], '%a %b %d (%H:%M)')
+                job['end_date'] = datetime.datetime.strftime(job['end_date'], '%a %b %d (%H:%M)')
+
             tablemodel = JobsTableModel(self.jobs, self)
             self.jobs_view.setModel(tablemodel)
+            self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+            self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
             return True
-        return False
+        else:
+            return False
 
     def btn_download(self):
         # Figure out which file(s) to download
@@ -119,33 +150,13 @@ class JobsTableModel(QAbstractTableModel):
         self.jobs = datain
 
         # Column names as tuples with json name in [0], pretty name in [1]
-        colname_tuples = [('script_id', 'Job'),
+        colname_tuples = [('script_name', 'Job'),
                           ('start_date', 'Start time'),
                           ('end_date', 'End time'),
                           ('status', 'Status'),
                           ('progress', 'Progress')]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
-
-        # Replace script IDs with script names
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'scripts.json')) as script_file:
-            scripts = json.load(script_file)
-        # The scripts file lists scripts by tool, so need to loop over the 
-        # tools to get all the scripts.
-        scripts_id_dict = {}
-        for tool in scripts.keys():
-            these_scripts = scripts[tool]
-            for script_name in these_scripts.keys():
-                scripts_id_dict[these_scripts[script_name]['id']] = script_name
-
-        # Replace script IDs with script names
-        for job in self.jobs:
-            job['script_id'] = scripts_id_dict[job['script_id']]
-
-        # Pretty print dates
-        for job in self.jobs:
-            job['start_date'] = datetime.datetime.strftime(job['start_date'], '%a %b %d (%H:%M)')
-            job['end_date'] = datetime.datetime.strftime(job['end_date'], '%a %b %d (%H:%M)')
 
     def rowCount(self, parent):
         return len(self.jobs)

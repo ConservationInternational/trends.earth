@@ -190,7 +190,7 @@ class API:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
         return False
 
-    def get_script(self, id=None, user=None):
+    def get_script(self, id=None):
         if id:
             resp = self._call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
         else:

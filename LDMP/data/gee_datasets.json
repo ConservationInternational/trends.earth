@@ -1,230 +1,200 @@
 {
     "Agro Ecological Zones": {
-        "Agro Ecological Zones V3.0": [
-            {
-                "Data source": "FAO - IIASA",
-                "Start year": 0,
-                "End year": 9999,
-                "Spatial": "8 km",
-                "Extent": "Global",
-                "Units/Description": "Agroecological zones",
-                "GEE Dataset": "gaez_iiasa",
-                "Source code": "Imported as assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "Agro Ecological Zones V3.0": {
+            "Data source": "FAO - IIASA",
+            "Start year": 0,
+            "End year": 9999,
+            "Spatial": "8 km",
+            "Extent": "Global",
+            "Units/Description": "Agroecological zones",
+            "GEE Dataset": "gaez_iiasa",
+            "Source code": "Imported as assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "Evapotranspiration": {
-        "MOD16A2": [
-            {
-                "Data source": "GEE",
-                "Start year": 2000,
-                "End year": 2014,
-                "Spatial": "1 km",
-                "Extent": "Global",
-                "Units/Description": "Annual ET km/m2 (=mm) * 10",
-                "GEE Dataset": "et_modis_2000_2014",
-                "Source code": "c03_et_modis_int_global_assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "MOD16A2": {
+            "Data source": "GEE",
+            "Start year": 2000,
+            "End year": 2014,
+            "Spatial": "1 km",
+            "Extent": "Global",
+            "Units/Description": "Annual ET km/m2 (=mm) * 10",
+            "GEE Dataset": "et_modis_2000_2014",
+            "Source code": "c03_et_modis_int_global_assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "Land cover": {
-        "ESA CCI": [
-            {
-                "Data source": "ESA",
-                "Start year": 1992,
-                "End year": 2015,
-                "Spatial": "300 m",
-                "Extent": "Global",
-                "Units/Description": "Land cover classes",
-                "GEE Dataset": "lcov_esacc_1992_2015",
-                "Source code": "c04_esa_cci_landcover_global_assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "ESA CCI": {
+            "Data source": "ESA",
+            "Start year": 1992,
+            "End year": 2015,
+            "Spatial": "300 m",
+            "Extent": "Global",
+            "Units/Description": "Land cover classes",
+            "GEE Dataset": "lcov_esacc_1992_2015",
+            "Source code": "c04_esa_cci_landcover_global_assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "NDVI": {
-        "AVHRR (GIMMS3g.v1)": [
-            {
-                "Data source": "https://ecocast.arc.nasa.gov/data/pub/gimms/3g.v1/",
-                "Start year": 1982,
-                "End year": 2015,
-                "Spatial": "8 km",
-                "Extent": "Global",
-                "Units/Description": "Mean anual NDVI * 10000",
-                "GEE Dataset": "ndvi_avhrr_1982_2015",
-                "Source code": "c01_ndvi_avhrr_nasa_int_global_assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ],
-        "MODIS (MOD13Q1, Collection 6)": [
-            {
-                "Data source": "GEE",
-                "Start year": 2001,
-                "End year": 2016,
-                "Spatial": "250 m",
-                "Extent": "Global",
-                "Units/Description": "Mean anual NDVI * 10000",
-                "GEE Dataset": "ndvi_modis_2001_2016",
-                "Source code": "c02_ndvi_modis_int_global_assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "AVHRR (GIMMS3g.v1)": {
+            "Data source": "https://ecocast.arc.nasa.gov/data/pub/gimms/3g.v1/",
+            "Start year": 1982,
+            "End year": 2015,
+            "Spatial": "8 km",
+            "Extent": "Global",
+            "Units/Description": "Mean anual NDVI * 10000",
+            "GEE Dataset": "ndvi_avhrr_1982_2015",
+            "Source code": "c01_ndvi_avhrr_nasa_int_global_assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        },
+        "MODIS (MOD13Q1, Collection 6)": {
+            "Data source": "GEE",
+            "Start year": 2001,
+            "End year": 2016,
+            "Spatial": "250 m",
+            "Extent": "Global",
+            "Units/Description": "Mean anual NDVI * 10000",
+            "GEE Dataset": "ndvi_modis_2001_2016",
+            "Source code": "c02_ndvi_modis_int_global_assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "Precipitation": {
-        "CHIRPS": [
-            {
-                "Data source": "GEE",
-                "Start year": 1981,
-                "End year": 2016,
-                "Spatial": "5 km",
-                "Extent": "50N-50S",
-                "Units/Description": "mm/year",
-                "GEE Dataset": "prec_chirps_1981_2016",
-                "Source code": "c05_precip_chirps_int_global_assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ],
-        "GPCC V7 (Global Precipitation Climatology Centre)": [
-            {
-                "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html",
-                "Start year": 1901,
-                "End year": 2016,
-                "Spatial": "Original 1 x 1 degree, in toolbox 5 km",
-                "Extent": "Global",
-                "Units/Description": "mm/year",
-                "GEE Dataset": "prec_gpcc_1901_2016",
-                "Source code": "c08_gpcc",
-                "Status": "Stored as assets",
-                "Comments": "Full V7 until Jan 2013; V4 monitoring after."
-            }
-        ],
-        "GPCP v2.2 5 day": [
-            {
-                "Data source": "https://www1.ncdc.noaa.gov/pub/data/gpcp/pentad-v2.2/data/",
-                "Start year": 1979,
-                "End year": 2014,
-                "Spatial": "Original 2.5 x 2.5 degrees, in toolbox 5 km",
-                "Extent": "Global",
-                "Units/Description": "mm/year",
-                "GEE Dataset": "not computed",
-                "Source code": "c07_precip_gpcp_v2.2_5d",
-                "Status": "not computed",
-                "Comments": "Need to fix coordinates - North and South reversed"
-            }
-        ],
-        "GPCP v2.3 1 month (Global Precipitation Climatology Project)": [
-            {
-                "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcp.html",
-                "Start year": 1979,
-                "End year": 2016,
-                "Spatial": "Original 2.5 x 2.5 degrees, in toolbox 5 km",
-                "Extent": "Global",
-                "Units/Description": "mm/year",
-                "GEE Dataset": "prec_gpcp23_1979_2016",
-                "Source code": "c07_precip_gpcp_v2.3_1m",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ],
-        "PERSIANN-CDR": [
-            {
-                "Data source": "GEE",
-                "Start year": 1983,
-                "End year": 2015,
-                "Spatial": "25 km",
-                "Extent": "60N-60S",
-                "Units/Description": "mm/year",
-                "GEE Dataset": "prec_persi_1983_2015",
-                "Source code": "c05_precip_presian_int_global_assets",
-                "Status": "Stored as assets",
-                "Comments": "Pre 1999 there are some gaps in the satellite coverage (South America and Russia)."
-            }
-        ]
+        "CHIRPS": {
+            "Data source": "GEE",
+            "Start year": 1981,
+            "End year": 2016,
+            "Spatial": "5 km",
+            "Extent": "50N-50S",
+            "Units/Description": "mm/year",
+            "GEE Dataset": "prec_chirps_1981_2016",
+            "Source code": "c05_precip_chirps_int_global_assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        },
+        "GPCC V7 (Global Precipitation Climatology Centre)": {
+            "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html",
+            "Start year": 1901,
+            "End year": 2016,
+            "Spatial": "Original 1 x 1 degree, in toolbox 5 km",
+            "Extent": "Global",
+            "Units/Description": "mm/year",
+            "GEE Dataset": "prec_gpcc_1901_2016",
+            "Source code": "c08_gpcc",
+            "Status": "Stored as assets",
+            "Comments": "Full V7 until Jan 2013; V4 monitoring after."
+        },
+        "GPCP v2.2 5 day": {
+            "Data source": "https://www1.ncdc.noaa.gov/pub/data/gpcp/pentad-v2.2/data/",
+            "Start year": 1979,
+            "End year": 2014,
+            "Spatial": "Original 2.5 x 2.5 degrees, in toolbox 5 km",
+            "Extent": "Global",
+            "Units/Description": "mm/year",
+            "GEE Dataset": "not computed",
+            "Source code": "c07_precip_gpcp_v2.2_5d",
+            "Status": "not computed",
+            "Comments": "Need to fix coordinates - North and South reversed"
+        },
+        "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
+            "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcp.html",
+            "Start year": 1979,
+            "End year": 2016,
+            "Spatial": "Original 2.5 x 2.5 degrees, in toolbox 5 km",
+            "Extent": "Global",
+            "Units/Description": "mm/year",
+            "GEE Dataset": "prec_gpcp23_1979_2016",
+            "Source code": "c07_precip_gpcp_v2.3_1m",
+            "Status": "Stored as assets",
+            "Comments": ""
+        },
+        "PERSIANN-CDR": {
+            "Data source": "GEE",
+            "Start year": 1983,
+            "End year": 2015,
+            "Spatial": "25 km",
+            "Extent": "60N-60S",
+            "Units/Description": "mm/year",
+            "GEE Dataset": "prec_persi_1983_2015",
+            "Source code": "c05_precip_presian_int_global_assets",
+            "Status": "Stored as assets",
+            "Comments": "Pre 1999 there are some gaps in the satellite coverage (South America and Russia)."
+        }
     },
     "Soil moisture": {
-        "ERA I": [
-            {
-                "Data source": "http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=sfc/",
-                "Start year": 1979,
-                "End year": 2016,
-                "Spatial": "Original 0.75 x 0.75 degrees, in toolbox 5 km",
-                "Extent": "Global",
-                "Units/Description": "Volumetric Soil Water layer m3m-3 (0-7 cm)",
-                "GEE Dataset": "soilm_erai_1979_2017",
-                "Source code": "c06_soilm_erai",
-                "Status": "Stored as assets",
-                "Comments": "Does not cover small islands"
-            }
-        ],
-        "MERRA 2": [
-            {
-                "Data source": "https://disc.sci.gsfc.nasa.gov/datasets?page=1&keywords=M2TMNXLND_5.12.4",
-                "Start year": 1980,
-                "End year": 2016,
-                "Spatial": "Original 0.5 x 0.625 degrees, in toolbox 5 km",
-                "Extent": "Global",
-                "Units/Description": "Water root zone m3m-3 * 10000",
-                "GEE Dataset": "soilm_merra2_1980_2016",
-                "Source code": "c06_soilm_merra2",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "ERA I": {
+            "Data source": "http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=sfc/",
+            "Start year": 1979,
+            "End year": 2016,
+            "Spatial": "Original 0.75 x 0.75 degrees, in toolbox 5 km",
+            "Extent": "Global",
+            "Units/Description": "Volumetric Soil Water layer m3m-3 (0-7 cm)",
+            "GEE Dataset": "soilm_erai_1979_2017",
+            "Source code": "c06_soilm_erai",
+            "Status": "Stored as assets",
+            "Comments": "Does not cover small islands"
+        },
+        "MERRA 2": {
+            "Data source": "https://disc.sci.gsfc.nasa.gov/datasets?page=1&keywords=M2TMNXLND_5.12.4",
+            "Start year": 1980,
+            "End year": 2016,
+            "Spatial": "Original 0.5 x 0.625 degrees, in toolbox 5 km",
+            "Extent": "Global",
+            "Units/Description": "Water root zone m3m-3 * 10000",
+            "GEE Dataset": "soilm_merra2_1980_2016",
+            "Source code": "c06_soilm_merra2",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "Soil organic C": {
-        "Soil Grids 250": [
-            {
-                "Data source": "https://www.soilgrids.org",
-                "Start year": 0,
-                "End year": 9999,
-                "Spatial": "250 m",
-                "Extent": "Global",
-                "Units/Description": "Tons C/ha (0-30 cm depth)",
-                "GEE Dataset": "soca_sgrid_30cm",
-                "Source code": "Imported as assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "Soil Grids 250": {
+            "Data source": "https://www.soilgrids.org",
+            "Start year": 0,
+            "End year": 9999,
+            "Spatial": "250 m",
+            "Extent": "Global",
+            "Units/Description": "Tons C/ha (0-30 cm depth)",
+            "GEE Dataset": "soca_sgrid_30cm",
+            "Source code": "Imported as assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "Soil type - USDA": {
-        "Soil Grids 250": [
-            {
-                "Data source": "https://www.soilgrids.org",
-                "Start year": 0,
-                "End year": 9999,
-                "Spatial": "250 m",
-                "Extent": "Global",
-                "Units/Description": "USDA Soil Taxonomy suborders - 67 soil classes",
-                "GEE Dataset": "stax_sgrid_usda",
-                "Source code": "Imported as assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "Soil Grids 250": {
+            "Data source": "https://www.soilgrids.org",
+            "Start year": 0,
+            "End year": 9999,
+            "Spatial": "250 m",
+            "Extent": "Global",
+            "Units/Description": "USDA Soil Taxonomy suborders - 67 soil classes",
+            "GEE Dataset": "stax_sgrid_usda",
+            "Source code": "Imported as assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     },
     "Soil type - WRB": {
-        "Soil Grids 250": [
-            {
-                "Data source": "https://www.soilgrids.org",
-                "Start year": 0,
-                "End year": 9999,
-                "Spatial": "250 m",
-                "Extent": "Global",
-                "Units/Description": "World Reference Base (WRB) class - 118 unique soil classes",
-                "GEE Dataset": "stax_sgrid_wrba",
-                "Source code": "Imported as assets",
-                "Status": "Stored as assets",
-                "Comments": ""
-            }
-        ]
+        "Soil Grids 250": {
+            "Data source": "https://www.soilgrids.org",
+            "Start year": 0,
+            "End year": 9999,
+            "Spatial": "250 m",
+            "Extent": "Global",
+            "Units/Description": "World Reference Base (WRB) class - 118 unique soil classes",
+            "GEE Dataset": "stax_sgrid_wrba",
+            "Source code": "Imported as assets",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
     }
 }

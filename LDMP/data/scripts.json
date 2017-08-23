@@ -2,25 +2,25 @@
     "productivity": {
         "NDVI trends": {
             "script id": "13740fa7-4312-4cf2-829d-cdaee5a3d37c",
-            "params": ["method": "ndvi_trend"],
+            "params": {"method": "ndvi_trend"},
             "climate types": [],
             "description": "Calculate trend of annually integrated NDVI."
         },
         "Pixel RESTREND": {
             "script id": "13740fa7-4312-4cf2-829d-cdaee5a3d37c",
-            "params": ["method": "p_restrend"],
+            "params": {"method": "p_restrend"},
             "climate types": ["Precipitation", "Soil moisture"],
             "description": "Calculate pixel residual trend (RESTREND_ of annually integrated NDVI, after removing trend associated with a climate indicator."
         },
         "Water Use Efficiency (WUE)": {
             "script id": "13740fa7-4312-4cf2-829d-cdaee5a3d37c",
-            "params": ["method": "ue"],
+            "params": {"method": "ue"},
             "climate types": ["Evapotranspiration"],
             "description": "Calculate water use efficiency (evapotranspiration divided by NDVI)."
         },
         "Rain Use Efficiency (RUE)": {
             "script id": "13740fa7-4312-4cf2-829d-cdaee5a3d37c",
-            "params": ["method": "ue"],
+            "params": {"method": "ue"},
             "climate types": ["Precipitation"],
             "description": "Calculate rain use efficiency (precipitation divided by NDVI)."
         }

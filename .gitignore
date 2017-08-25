@@ -15,3 +15,5 @@
 */help/build/*
 */ext-libs/*
 */ext-src/*
+LDMP/gui/*.py
+LDMP/resources.py

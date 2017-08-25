@@ -149,8 +149,8 @@ def ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
 
     return (lf_trend, mk_trend)
 
-def vegetation_productivity(year_start, year_end, method, sensor, climate, 
-        geojson, EXECUTION_ID, logger):
+def vegetation_productivity(year_start, year_end, method, ndvi_dataset, 
+        climate_gee_dataset, geojson, EXECUTION_ID, logger):
     """Calculate temporal NDVI analysis.
     Calculates the trend of temporal NDVI using NDVI data from the
     MODIS Collection 6 MOD13Q1 dataset. Areas where changes are not significant
@@ -166,36 +166,12 @@ def vegetation_productivity(year_start, year_end, method, sensor, climate,
     """
     logger.debug("Entering vegetation_productivity function.")
 
-    # Climate
-    if climate == 'et_mod16a2':
-        climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/et_modis_2000_2014")
-    elif climate == 'prec_gpcp':
-        climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/prec_gpcp23_1979_2016")
-    elif climate == 'prec_gpcc':
-        climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/prec_gpcc_1901_2016")
-    elif climate == 'prec_chirps':
-        climate_1yr =  ee.Image("users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2016")
-    elif climate == 'prec_persian':
-        climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/prec_persian_1983_2015")
-    elif climate == 'soilm_merra2':
-        climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/soilm_merra2_1980_2016")
-    elif climate == 'soilm_erai':
-        climate_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/soilm_erai_1979_2016")
-    elif climate == None:
-        if method == 'ndvi_trend':
-            pass
-        else: 
-            raise GEEIOError("Must specify a climate dataset")
-    else:
-        raise GEEIOError("Unrecognized climate dataset '{}'".format(climate))
+    climate_1yr = ee.Image(climate_gee_dataset)
+    if climate_gee_dataset == None and method != 'ndvi_trend':
+        raise GEEIOError("Must specify a climate dataset")
 
-    # Sensors        
-    if (sensor == 'AVHRR'):
-        ndvi_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/ndvi_avhrr_1982_2015")
-    elif (sensor == 'MODIS'):
-        ndvi_1yr = ee.Image("users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016")
-    else:
-        raise GEEIOError("Unrecognized sensor '{}'".format(sensor))
+    if ndvi_dataset == None:
+        raise GEEIOError("Must specify an ndvi_dataset")
 
     # Run the selected algorithm
     if method == 'ndvi_trend':
@@ -261,8 +237,8 @@ def run(params, logger):
     year_end = params.get('year_end', 2015)
     geojson_str = params.get('geojson', None)
     method = params.get('method', 'ndvi_trend')
-    sensor = params.get('sensor', 'MODIS')
-    climate = params.get('climate', None)
+    ndvi_dataset = params.get('ndvi_dataset', 'MODIS')
+    climate_gee_dataset = params.get('climate_gee_dataset', None)
 
     if geojson_str is None:
         raise GEEIOError("Must specify an input area")
@@ -276,11 +252,11 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    url = vegetation_productivity(year_start, year_end, method, sensor, 
-            climate, geojson, EXECUTION_ID, logger)
+    url = vegetation_productivity(year_start, year_end, method, ndvi_dataset, 
+            climate_gee_dataset, geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")
-    results_url = CloudUrl(url, 'TODO_HASH_GOES_HERE') 
+    results_url = CloudUrl(url)
     cloud_dataset = CloudDataset('geotiff', method, [results_url])
     gee_results = GEEResults('cloud_dataset', [cloud_dataset])
     results_schema = GEEResultsSchema()

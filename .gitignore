@@ -17,3 +17,4 @@
 */ext-src/*
 LDMP/gui/*.py
 LDMP/resources.py
+LDMP/data_prep_scripts/*

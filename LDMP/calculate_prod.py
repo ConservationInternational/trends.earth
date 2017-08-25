@@ -254,28 +254,33 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
                     self.tr("Choose one or more indicators to calculate."), None)
             return
 
+
         #if self.runon_gee.isChecked():
         # TODO: check before submission whether this payload and script ID has 
         # been sent recently - or even whether there are results already 
         # available for it. Notify the user if this is the case to prevent, or 
         # at least reduce, repeated identical submissions.
+        #
+        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE dataset']
 
         if self.indic_select_traj.isChecked():
-            self.calculate_trajectory(geojson)
+            self.calculate_trajectory(geojson, ndvi_dataset)
 
         if self.indic_select_perf.isChecked():
-            self.calculate_performance(geojson)
+            self.calculate_performance(geojson, ndvi_dataset)
 
         if self.indic_select_state.isChecked():
-            self.calculate_state(geojson)
+            self.calculate_state(geojson, ndvi_dataset)
     
-    def calculate_trajectory(self, geojson):
+    def calculate_trajectory(self, geojson, ndvi_dataset):
+        climate_gee_dataset = self.datasets['NDVI'][self.traj_climate.currentText()]['GEE dataset']
+
         payload = {'year_start': self.traj_year_start.date().year(),
                    'year_end': self.traj_year_end.date().year(),
                    'geojson_str': geojson,
-                   'method': self.traj_indic.currentText(),
-                   'ndvi_dataset': self.dataset_ndvi.currentText(),
-                   'climate_gee_dataset': self.dataset_ndvi.currentText()}
+                   'ndvi_dataset': ndvi_dataset,
+                   'climate_gee_dataset': climate_gee_dataset}
+        #TODO Need to add keys from self.scripts[self.traj_indic.currentText()]['params'] to payload
 
         progressMessageBar = mb.createMessage("Submitting trajectory task to Google Earth Engine...")
         spinner = QtGui.QLabel()

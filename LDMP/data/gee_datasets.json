@@ -7,7 +7,7 @@
             "Spatial": "8 km",
             "Extent": "Global",
             "Units/Description": "Agroecological zones",
-            "GEE Dataset": "gaez_iiasa",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/gaez_iiasa",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -21,7 +21,7 @@
             "Spatial": "1 km",
             "Extent": "Global",
             "Units/Description": "Annual ET km/m2 (=mm) * 10",
-            "GEE Dataset": "et_modis_2000_2014",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/et_modis_2000_2014",
             "Source code": "c03_et_modis_int_global_assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -35,7 +35,7 @@
             "Spatial": "300 m",
             "Extent": "Global",
             "Units/Description": "Land cover classes",
-            "GEE Dataset": "lcov_esacc_1992_2015",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015",
             "Source code": "c04_esa_cci_landcover_global_assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -49,7 +49,7 @@
             "Spatial": "8 km",
             "Extent": "Global",
             "Units/Description": "Mean anual NDVI * 10000",
-            "GEE Dataset": "ndvi_avhrr_1982_2015",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_avhrr_1982_2015",
             "Source code": "c01_ndvi_avhrr_nasa_int_global_assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -61,7 +61,7 @@
             "Spatial": "250 m",
             "Extent": "Global",
             "Units/Description": "Mean anual NDVI * 10000",
-            "GEE Dataset": "ndvi_modis_2001_2016",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016",
             "Source code": "c02_ndvi_modis_int_global_assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -75,7 +75,7 @@
             "Spatial": "5 km",
             "Extent": "50N-50S",
             "Units/Description": "mm/year",
-            "GEE Dataset": "prec_chirps_1981_2016",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2016",
             "Source code": "c05_precip_chirps_int_global_assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -87,7 +87,7 @@
             "Spatial": "Original 1 x 1 degree, in toolbox 5 km",
             "Extent": "Global",
             "Units/Description": "mm/year",
-            "GEE Dataset": "prec_gpcc_1901_2016",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcc_1901_2016",
             "Source code": "c08_gpcc",
             "Status": "Stored as assets",
             "Comments": "Full V7 until Jan 2013; V4 monitoring after."
@@ -111,7 +111,7 @@
             "Spatial": "Original 2.5 x 2.5 degrees, in toolbox 5 km",
             "Extent": "Global",
             "Units/Description": "mm/year",
-            "GEE Dataset": "prec_gpcp23_1979_2016",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcp23_1979_2016",
             "Source code": "c07_precip_gpcp_v2.3_1m",
             "Status": "Stored as assets",
             "Comments": ""
@@ -123,7 +123,7 @@
             "Spatial": "25 km",
             "Extent": "60N-60S",
             "Units/Description": "mm/year",
-            "GEE Dataset": "prec_persi_1983_2015",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_persi_1983_2015",
             "Source code": "c05_precip_presian_int_global_assets",
             "Status": "Stored as assets",
             "Comments": "Pre 1999 there are some gaps in the satellite coverage (South America and Russia)."
@@ -137,7 +137,7 @@
             "Spatial": "Original 0.75 x 0.75 degrees, in toolbox 5 km",
             "Extent": "Global",
             "Units/Description": "Volumetric Soil Water layer m3m-3 (0-7 cm)",
-            "GEE Dataset": "soilm_erai_1979_2017",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soilm_erai_1979_2017",
             "Source code": "c06_soilm_erai",
             "Status": "Stored as assets",
             "Comments": "Does not cover small islands"
@@ -149,7 +149,7 @@
             "Spatial": "Original 0.5 x 0.625 degrees, in toolbox 5 km",
             "Extent": "Global",
             "Units/Description": "Water root zone m3m-3 * 10000",
-            "GEE Dataset": "soilm_merra2_1980_2016",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soilm_merra2_1980_2016",
             "Source code": "c06_soilm_merra2",
             "Status": "Stored as assets",
             "Comments": ""
@@ -163,7 +163,7 @@
             "Spatial": "250 m",
             "Extent": "Global",
             "Units/Description": "Tons C/ha (0-30 cm depth)",
-            "GEE Dataset": "soca_sgrid_30cm",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soca_sgrid_30cm",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -177,7 +177,7 @@
             "Spatial": "250 m",
             "Extent": "Global",
             "Units/Description": "USDA Soil Taxonomy suborders - 67 soil classes",
-            "GEE Dataset": "stax_sgrid_usda",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/stax_sgrid_usda",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
             "Comments": ""
@@ -191,7 +191,7 @@
             "Spatial": "250 m",
             "Extent": "Global",
             "Units/Description": "World Reference Base (WRB) class - 118 unique soil classes",
-            "GEE Dataset": "stax_sgrid_wrba",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/stax_sgrid_wrba",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
             "Comments": ""

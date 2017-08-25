@@ -30,12 +30,6 @@ options(
         ],
         # skip certain files inadvertently found by exclude pattern globbing
         skip_exclude = []
-    ),
-
-    sphinx = Bunch(
-        docroot = path('docs'),
-        sourcedir = path('docs/source'),
-        builddir = path('docs/build')
     )
 )
 
@@ -106,7 +100,6 @@ def read_requirements():
 
 def _install(folder, options):
     '''install plugin to qgis'''
-    builddocs(options)
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
@@ -118,14 +111,6 @@ def _install(folder, options):
         src.copytree(dst)
     elif not dst.exists():
         src.symlink(dst)
-        # Symlink the build folder to the parent
-        docs = path('..') / '..' / "docs" / 'build' / 'html'
-        docs_dest = path(__file__).dirname() / plugin_name / "docs"
-        docs_link = docs_dest / 'html'
-        if not docs_dest.exists():
-            docs_dest.mkdir()
-        if not docs_link.islink():
-            docs.symlink(docs_link)
 
 @task
 def install(options):
@@ -145,7 +130,6 @@ def install3(options):
 ])
 def package(options):
     """Create plugin package"""
-    builddocs(options)
     package_file = options.plugin.package_dir / ('%s.zip' % options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not hasattr(options.package, 'tests'):
@@ -255,21 +239,6 @@ def _make_zip(zipFile, options):
             relpath = os.path.relpath(root)
             zipFile.write(path(root) / f, path(relpath) / f)
         filter_excludes(root, dirs)
-
-    for root, dirs, files in os.walk(options.sphinx.builddir):
-        for f in files:
-            relpath = os.path.join(options.plugin.name, "docs", os.path.relpath(root, options.sphinx.builddir))
-            zipFile.write(path(root) / f, path(relpath) / f)
-
-@task
-def builddocs(options):
-    sh("git submodule init")
-    sh("git submodule update")
-    cwd = os.getcwd()
-    os.chdir(options.sphinx.docroot)
-    sh("make html")
-    os.chdir(cwd)
-
 
 ################################################
 # Below is based on pb_tool:

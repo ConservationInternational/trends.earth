@@ -56,7 +56,7 @@ plugins window that appears, click on "Installed", and then make sure there is
 a check in the box next to "Land Degradation Monitoring Tool". The plugin is 
 now installed and activated. Click "Close", and start using the plugin.
 
-### Installing from github
+#### Installing the very latest code from github
 
 Building the python `cryptography` package [requires having the OpenSSL headers 
 installed](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows). 
@@ -80,10 +80,11 @@ Navigate to the root folder of the newly cloned repository, and install
 pip install pavement
 ```
 
-Before installing the plugin, the external dependencies must be installed.  The 
-setup task will handle this. On Windows, use the below code in a command window 
-to run the setup task. Note that if you installed the OpenSSL headers to a 
-different folder, you will need to change the below commands accordingly:
+Before installing the plugin, several external dependencies must be installed.  
+The `paver setup` task will handle this. On Windows, use the below code in a 
+command window to run the setup task with `pavement`. Note that if you 
+installed the OpenSSL headers to a different folder, you will need to change 
+the below commands accordingly.
 
 ```
 set LIB=C:\openssl-win64-2010\lib;%LIB%
@@ -91,7 +92,7 @@ set INCLUDE=C:\openssl-win64-2010\include;%INCLUDE%
 paver setup
 ```
 
-Once the setup task has run, you can install the plugin using paver:
+Once `paver setup` has run, you can install the plugin using paver:
 
 ```
 paver install

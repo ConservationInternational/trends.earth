@@ -27,22 +27,24 @@ the [QGIS plugin repository](http://plugins.qgis.org/plugins/teamqgis).
 
 If you are interested in using the very latest version of the plugin, or in 
 contributing to the development of it, you will want to install the development 
-version. There are two ways to install the development version: 1) using a 
-packaged version (zipfile), or 2) cloning the github repository and installing 
-the latest code.
+version. There are two ways to install the development version:
 
-It is easier to install the plugin from a zipfile than from the github version, 
-but your version of the plugin might be slightly out of date (unlikely to be an 
-issue unless you have a specific need for the latest version of the plugin).  
-Installing the plugin from github is the only way to ensure you have the very 
-latest version of the code.
+* Using a packaged version (zipfile)
+
+* Cloning the github repository and installing the latest code.
+
+It is easier to install the plugin from a zipfile than from github, but your 
+version of the plugin might be slightly out of date if you use a packaged 
+version (unlikely to be an issue unless you have a specific need for the latest 
+version of the plugin).  Installing the plugin from github is the only way to 
+ensure you have the very latest version of the code.
 
 #### Installing the latest packaged version
 
 Download the latest`LDMT`zipfile from here: 
 https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip.
 
-Extract `LDMP.zip` to the python plugins folder for your installation of QGIS.  
+Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
 For example, if your username is "azvol", then this might be 
 'C:\Users\azvol\.qgis2\python\plugins` if you are using Windows. If you are 
 using a Mac and your username is "azvol", then this might be

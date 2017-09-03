@@ -271,8 +271,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         if len(features) != 0:
             log("Found {} features in geojson - using first feature only.".format(len(features)), 2)
-        hull = features[0].geometry().convexHull().exportToGeoJSON()
-
+        hull = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
 
         if self.indic_select_traj.isChecked():
             self.calculate_trajectory(hull, ndvi_dataset)

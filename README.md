@@ -2,15 +2,15 @@
 
 `ldmp-qgis-plugin` is the github repository for the Land Degradation Monitoring
 Toolbox (LDMT). The LDMT is produced by the Land Degradation Monitoring
-Project. The LDMT is a [Quantum GIS (QGIS)](http://www.qgis.org/) plugin used
+Project. The LDMT is a [Quantum GIS (QGIS)](http://www.qgis.org) plugin used
 to support monitoring of status and trends of land degradation.
 
 This toolbox was produced as an output of the Global Environment Facility
-(GEF)-funded project “Enabling the use of global data sources to assess and
-monitor land degradation at multiple scales”. The project aims to provide
-guidance on robust methods and a toolbox for assessing, monitoring status, and
-estimating trends in land degradation using remote sensing technology. For
-additional information on the project see http://vitalsigns.org/gef-ldmp.
+(GEF)-funded project [“Enabling the use of global data sources to assess and
+monitor land degradation at multiple scales”](http://vitalsigns.org/gef-ldmp).  
+The project aims to provide guidance on robust methods and a toolbox for 
+assessing, monitoring status, and estimating trends in land degradation using 
+remote sensing technology.
 
 The Land Degradation Monitoring Project is a collaboration of Conservation
 International, the National Aeronautics and Space Administration (NASA), and
@@ -19,6 +19,7 @@ Lund University.
 ## Installation
 
 ### Stable version (recommended)
+
 The latest release version of the plugin can be installed from within QGIS from 
 the [QGIS plugin repository](http://plugins.qgis.org/plugins/teamqgis).
 
@@ -37,11 +38,12 @@ Installing the plugin from github is the only way to ensure you have the very
 latest version of the code.
 
 #### Installing the latest packaged version
+
 Download the latest`LDMT`zipfile from here: 
 https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip.
 
 Extract `LDMP.zip` to the python plugins folder for your installation of QGIS.  
-For example, is your username is "azvol", then this might be 
+For example, if your username is "azvol", then this might be 
 'C:\Users\azvol\.qgis2\python\plugins` if you are using Windows. If you are 
 using a Mac and your username is "azvol", then this might be
 `/Users/azvol/.qgis2/python/plugins`.
@@ -55,8 +57,9 @@ a check in the box next to "Land Degradation Monitoring Tool". The plugin is
 now installed and activated. Click "Close", and start using the plugin.
 
 ### Installing from github
+
 Building the python `cryptography` package [requires having the OpenSSL headers 
-installed](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows).  
+installed](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows). 
 On Windows, the easiest way to install the OpenSSL headers is to download them 
 [from 
 here](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows).  

@@ -36,16 +36,17 @@ class API:
             resp = self.login()
             if resp:
                 headers = {'Authorization': 'Bearer %s'%resp.json()['access_token']}
+                log("API _call_api loaded token.")
             else: 
                 return False
         else:
             headers = {}
 
-        log("API _call_api loaded token.")
         # Strip password out of payload for printing to QGIS logs
         clean_payload = payload.copy()
         if clean_payload.has_key('password'):
             clean_payload['password'] = '**REMOVED**'
+
         log("API _call_api calling {} with payload: {}".format(endpoint, clean_payload))
 
         try:
@@ -91,7 +92,7 @@ class API:
         return False
 
     def recover_pwd(self, email):
-        resp = self._call_api('/api/v1/user/{}/recover-password'.format(email), 'post')
+        resp = self._call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -103,7 +104,7 @@ class API:
         return False
 
     def get_user(self, email):
-        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'get', use_token=True)
+        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -119,11 +120,10 @@ class API:
                    "name" : name,
                    "institution": organization,
                    "country": country}
-        resp = self._call_api('/auth', 'post', payload)
+        resp = self._call_api('/api/v1/user', method='post', payload=payload)
         if not resp:
             return False
         elif resp.status_code == 200:
-            self.settings.setValue("LDMP/email", email)
             return resp
         elif resp.status_code == 400:
             mb.pushMessage("Error", "User {} is already registered.".format(email), level=1, duration=5)

@@ -46,7 +46,7 @@ https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip.
 
 Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
 For example, if your username is "azvol", then this might be 
-'C:\Users\azvol\.qgis2\python\plugins` if you are using Windows. If you are 
+`C:\Users\azvol\.qgis2\python\plugins` if you are using Windows. If you are 
 using a Mac and your username is "azvol", then this might be
 `/Users/azvol/.qgis2/python/plugins`.
 

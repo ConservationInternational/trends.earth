@@ -266,5 +266,4 @@ def run(params, logger):
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)
 
-    logger.debug("Setting up results JSON.")
     return json_result.data

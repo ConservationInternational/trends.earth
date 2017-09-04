@@ -149,7 +149,7 @@ def ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
 
     return (lf_trend, mk_trend)
 
-def vegetation_productivity(year_start, year_end, method, ndvi_dataset, 
+def vegetation_productivity(year_start, year_end, method, ndvi_gee_dataset, 
         climate_gee_dataset, geojson, EXECUTION_ID, logger):
     """Calculate temporal NDVI analysis.
     Calculates the trend of temporal NDVI using NDVI data from the
@@ -167,23 +167,23 @@ def vegetation_productivity(year_start, year_end, method, ndvi_dataset,
     logger.debug("Entering vegetation_productivity function.")
 
     climate_1yr = ee.Image(climate_gee_dataset)
+
     if climate_gee_dataset == None and method != 'ndvi_trend':
         raise GEEIOError("Must specify a climate dataset")
 
-    if ndvi_dataset == None:
-        raise GEEIOError("Must specify an ndvi_dataset")
+    ndvi_dataset = ee.Image(ndvi_gee_dataset)
 
     # Run the selected algorithm
     if method == 'ndvi_trend':
-        lf_trend, mk_trend = ndvi_trend(year_start, year_end, ndvi_1yr, logger)
+        lf_trend, mk_trend = ndvi_trend(year_start, year_end, ndvi_dataset, logger)
     elif method == 'p_restrend':
-        lf_trend, mk_trend = p_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
+        lf_trend, mk_trend = p_restrend(year_start, year_end, ndvi_dataset, climate_1yr, logger)
         if climate_1yr == None: climate_1yr = precp_gpcc
     elif method == 's_restrend':
         #TODO: need to code this
         raise GEEIOError("s_restrend method not yet supported")
     elif method == 'ue':
-        lf_trend, mk_trend = ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger)
+        lf_trend, mk_trend = ue_trend(year_start, year_end, ndvi_dataset, climate_1yr, logger)
     else:
         raise GEEIOError("Unrecognized method '{}'".format(method))
 
@@ -198,7 +198,7 @@ def vegetation_productivity(year_start, year_end, method, ndvi_dataset,
     # Land cover data is used to mask water and urban
     landc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015").select('y{}'.format(year_end))
     # Resample the land cover dataset to match ndvi projection
-    ndviProjection = ndvi_1yr.projection()
+    ndviProjection = ndvi_dataset.projection()
     landc_reducer = {'reducer': ee.Reducer.mode(),
                      'maxPixels': 1024}
     landc_reproject = {'crs': ndviProjection.crs().getInfo(),
@@ -222,11 +222,11 @@ def vegetation_productivity(year_start, year_end, method, ndvi_dataset,
              'maxPixels': 10000000000,
              'scale': ee.Number(ndviProjection.nominalScale()).getInfo(),
              'region': util.get_coords(geojson)}
+             #'region': util.get_coords(geojson)}
 
     logger.debug("Setting up GEE task.")
-    task = ee.batch.Export.image.toCloudStorage(**export)
-
-    task_state = util.run_task(task, logger)
+    task = util.gee_task(ee.batch.Export.image.toCloudStorage(**export), logger)
+    task.join()
 
     return "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
 
@@ -235,15 +235,19 @@ def run(params, logger):
     logger.debug("Loading parameters.")
     year_start = params.get('year_start', 2001)
     year_end = params.get('year_end', 2015)
-    geojson_str = params.get('geojson', None)
+    geojson = params.get('geojson', None)
     method = params.get('method', 'ndvi_trend')
-    ndvi_dataset = params.get('ndvi_dataset', 'MODIS')
+    ndvi_gee_dataset = params.get('ndvi_gee_dataset', None)
     climate_gee_dataset = params.get('climate_gee_dataset', None)
 
-    if geojson_str is None:
+    logger.debug("Loading geojson.")
+    if geojson is None:
         raise GEEIOError("Must specify an input area")
-    else: 
-        geojson = json.loads(geojson_str)
+    else:
+        geojson = json.loads(geojson)
+
+    if ndvi_gee_dataset is None:
+        raise GEEIOError("Must specify an NDVI dataset")
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -252,7 +256,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    url = vegetation_productivity(year_start, year_end, method, ndvi_dataset, 
+    url = vegetation_productivity(year_start, year_end, method, ndvi_gee_dataset, 
             climate_gee_dataset, geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")

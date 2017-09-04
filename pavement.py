@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import os
 import glob
-import subprocess
+import json
 import stat
-import xmlrpclib
+import subprocess
+import tinys3
 import zipfile
 
 from paver.easy import *
@@ -130,13 +131,31 @@ def install3(options):
 ])
 def package(options):
     """Create plugin package"""
+    tests = getattr(options, 'tests', False)
     package_file = options.plugin.package_dir / ('%s.zip' % options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
-        if not hasattr(options.package, 'tests'):
+        if not tests:
             options.plugin.excludes.extend(options.plugin.tests)
         _make_zip(zf, options)
     return package_file
 
+
+@task
+@cmdopts([
+    ('tests', 't', 'Package tests with plugin'),
+    ('clean', 'c', 'Clean out dependencies first'),
+    ('develop', 'd', 'Do not alter source dependency git checkouts'),
+])
+def deploy(options):
+    setup(options)
+    package(options)
+    with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+        keys = json.load(fin)
+    conn = tinys3.Connection(keys['access_key_id'], keys['secret_access_key'])
+    f = open('LDMP.zip','rb')
+    print('Uploading package to S3')
+    conn.upload('Sharing/LDMP.zip', f, 'landdegradation', public=True)
+    print('Package uploaded')
 
 @task
 def install_devtools():
@@ -284,7 +303,7 @@ def compile_files(options):
     pyuic4 = check_path('pyuic4')
 
     if not pyuic4:
-        print "pyuic4 is not in your path---unable to compile your ui files"
+        print("pyuic4 is not in your path---unable to compile your ui files")
     else:
         ui_files = glob.glob('{}/*.ui'.format(options.plugin.gui_dir))
         ui_count = 0
@@ -293,14 +312,14 @@ def compile_files(options):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
                 if file_changed(ui, output):
-                    print "Compiling {0} to {1}".format(ui, output)
+                    print("Compiling {0} to {1}".format(ui, output))
                     subprocess.check_call([pyuic4, '-o', output, ui])
                     ui_count += 1
                 else:
-                    print "Skipping {0} (unchanged)".format(ui)
+                    print("Skipping {0} (unchanged)".format(ui))
             else:
-                print "{0} does not exist---skipped".format(ui)
-        print "Compiled {0} UI files".format(ui_count)
+                print("{0} does not exist---skipped".format(ui))
+        print("Compiled {0} UI files".format(ui_count))
 
     # check to see if we have pyrcc4
     pyrcc4 = check_path('pyrcc4')
@@ -317,11 +336,11 @@ def compile_files(options):
                 (base, ext) = os.path.splitext(res)
                 output = "{0}.py".format(base)
                 if file_changed(res, output):
-                    print "Compiling {0} to {1}".format(res, output)
+                    print("Compiling {0} to {1}".format(res, output))
                     subprocess.check_call([pyrcc4, '-o', output, res])
                     res_count += 1
                 else:
-                    print "Skipping {0} (unchanged)".format(res)
+                    print("Skipping {0} (unchanged)".format(res))
             else:
-                print "{0} does not exist---skipped".format(res)
-        print "Compiled {0} resource files".format(res_count)
+                print("{0} does not exist---skipped".format(res))
+        print("Compiled {0} resource files".format(res_count))

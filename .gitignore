@@ -1,5 +1,6 @@
 .Rhistory
 .RData
+aws_credentials.json
 *.swp
 *.swo
 *.csv

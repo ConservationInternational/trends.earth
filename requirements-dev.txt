@@ -1,3 +1,4 @@
+tinys3
 pylint
 pep8
 autopep8

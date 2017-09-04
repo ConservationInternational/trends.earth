@@ -44,7 +44,7 @@ ensure you have the very latest version of the code.
 Download the latest`LDMT`zipfile from here: 
 https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip.
 
-Extract `LDMP.zip` to the python plugins folder for your installation of QGIS.  
+Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
 For example, if you are using Windows and your username is "azvol", then this 
 might be `C:\Users\azvol\.qgis2\python\plugins`. If you are using a Mac and 
 your username is "azvol", then this might be

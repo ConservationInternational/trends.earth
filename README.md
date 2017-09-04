@@ -31,7 +31,7 @@ version. There are two ways to install the development version:
 
 * Using a packaged version (zipfile)
 
-* Cloning the github repository and installing the latest code.
+* Cloning the github repository and installing from that code
 
 It is easier to install the plugin from a zipfile than from github, but your 
 version of the plugin might be slightly out of date if you use a packaged 

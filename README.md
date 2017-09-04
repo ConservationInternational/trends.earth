@@ -7,7 +7,7 @@ to support monitoring of status and trends of land degradation.
 
 This toolbox was produced as an output of the Global Environment Facility
 (GEF)-funded project [“Enabling the use of global data sources to assess and
-monitor land degradation at multiple scales”](http://vitalsigns.org/gef-ldmp).  
+monitor land degradation at multiple scales”](http://vitalsigns.org/gef-ldmp). 
 The project aims to provide guidance on robust methods and a toolbox for 
 assessing, monitoring status, and estimating trends in land degradation using 
 remote sensing technology.
@@ -83,7 +83,7 @@ Navigate to the root folder of the newly cloned repository, and install
 pip install pavement
 ```
 
-Before installing the plugin, several external dependencies must be installed.  
+Before installing the plugin, several external dependencies must be installed. 
 The `paver setup` task will handle this. On Windows, use the below code in a 
 command window to run the setup task with `pavement`. Note that if you 
 installed the OpenSSL headers to a different folder, you will need to change 

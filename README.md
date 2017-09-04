@@ -44,10 +44,10 @@ ensure you have the very latest version of the code.
 Download the latest`LDMT`zipfile from here: 
 https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip.
 
-Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
-For example, if your username is "azvol", then this might be 
-`C:\Users\azvol\.qgis2\python\plugins` if you are using Windows. If you are 
-using a Mac and your username is "azvol", then this might be
+Extract `LDMP.zip` to the python plugins folder for your installation of QGIS.  
+For example, if you are using Windows and your username is "azvol", then this 
+might be `C:\Users\azvol\.qgis2\python\plugins`. If you are using a Mac and 
+your username is "azvol", then this might be
 `/Users/azvol/.qgis2/python/plugins`.
 
 Once you are finished, you should have a folder named "LDMP" within your 
@@ -60,7 +60,8 @@ now installed and activated. Click "Close", and start using the plugin.
 
 #### Installing the very latest code from github
 
-Building the python `cryptography` package [requires having the OpenSSL headers 
+The plugin depends on the Python `cryptography` package. Building the
+`cryptography` package [requires having the OpenSSL headers 
 installed](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows). 
 On Windows, the easiest way to install the OpenSSL headers is to download them 
 [from 

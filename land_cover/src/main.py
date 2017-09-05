@@ -67,52 +67,48 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, EXECUTION_ID,
 
     tasks = []
     # Create export function to export baseline land cover
-    export = {'image': lc_bl.clip(clip_geometry).int16(),
-	      #'description': sa_name+'_lc_change_bl_'+year_bl_start+'-'+year_bl_end+'_to_'+year_target+'_bl',
-	      'description': '{}_baseline_lc'.format(EXECUTION_ID),
-	      'fileNamePrefix': '{}_baseline_lc'.format(EXECUTION_ID),
-	      'bucket': BUCKET,
-	      'maxPixels': 10000000000,
-	      'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-	      'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export),
-        'lc_baseline', logger))
+    export_lc_baseline = {'image': lc_bl.clip(clip_geometry).int16(),
+                          'description': '{}_lc_baseline'.format(EXECUTION_ID),
+                          'fileNamePrefix': '{}_lc_baseline'.format(EXECUTION_ID),
+                          'bucket': BUCKET,
+                          'maxPixels': 10000000000,
+                          'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
+                          'region': util.get_coords(geojson)}
+    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_lc_baseline),
+                              'lc_baseline', logger))
 
     # Create export function to export target year land cover
-    export = {'image': lc_tg.clip(clip_geometry).int16(),
-	      #'description': sa_name+'_lc_change_bl_'+year_bl_start+'-'+year_bl_end+'_to_'+year_target+'_tg',
-	      'description': '{}_tgyear_lc'.format(EXECUTION_ID),
-	      'fileNamePrefix': '{}_tgyear_lc'.format(EXECUTION_ID),
-	      'bucket': BUCKET,
-	      'maxPixels': 10000000000,
-	      'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-	      'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export),
-        'lc_target', logger))
+    export_lc_target = {'image': lc_tg.clip(clip_geometry).int16(),
+                        'description': '{}_lc_target'.format(EXECUTION_ID),
+                        'fileNamePrefix': '{}_lc_target'.format(EXECUTION_ID),
+                        'bucket': BUCKET,
+                        'maxPixels': 10000000000,
+                        'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
+                        'region': util.get_coords(geojson)}
+    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_lc_target),
+                              'lc_target', logger))
 
     # Create export function to export land cover transition
-    export = {'image': lc_tr.clip(clip_geometry).int16(),
-	      #'description': sa_name+'_lc_change_bl_'+year_bl_start+'-'+year_bl_end+'_to_'+year_target+'_tr',
-	      'description': '{}_transition_lc'.format(EXECUTION_ID),
-	      'fileNamePrefix': '{}_transition_lc'.format(EXECUTION_ID),
-	      'bucket': BUCKET,
-	      'maxPixels': 10000000000,
-	      'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-	      'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export),
-        'lc_change', logger))
+    export_lc_change = {'image': lc_tr.clip(clip_geometry).int16(),
+                        'description': '{}_lc_change'.format(EXECUTION_ID),
+                        'fileNamePrefix': '{}_lc_change'.format(EXECUTION_ID),
+                        'bucket': BUCKET,
+                        'maxPixels': 10000000000,
+                        'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
+                        'region': util.get_coords(geojson)}
+    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_lc_change),
+                              'lc_change', logger))
 
-    logger.debug("Setting up GEE task for land degradation image.")
-    export = {'image': lc_dg.clip(clip_geometry).int16(),
-	      #'description': sa_name+'_lc_change_bl_'+year_bl_start+'-'+year_bl_end+'_to_'+year_target+'_dg',
-	      'description': '{}_land_degradation'.format(EXECUTION_ID),
-	      'fileNamePrefix': '{}_land_degradation'.format(EXECUTION_ID),
-	      'bucket': BUCKET,
-	      'maxPixels': 10000000000,
-	      'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-	      'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export),
-        'land_deg', logger))
+    # Create export function to export land deg image
+    export_land_deg = {'image': lc_dg.clip(clip_geometry).int16(),
+                       'description': '{}_land_deg'.format(EXECUTION_ID),
+                       'fileNamePrefix': '{}_land_deg'.format(EXECUTION_ID),
+                       'bucket': BUCKET,
+                       'maxPixels': 10000000000,
+                       'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
+                       'region': util.get_coords(geojson)}
+    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_land_deg),
+                              'land_deg', logger))
 
     logger.debug("Waiting for GEE tasks to complete.")
     cloud_datasets = []

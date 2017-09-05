@@ -154,7 +154,7 @@ class LDMPPlugin:
             self.toolbar.addAction(action)
 
         if add_to_menu:
-            self.iface.addPluginToMenu(
+            self.iface.addPluginToWebMenu(
                 self.menu,
                 action)
 
@@ -168,48 +168,55 @@ class LDMPPlugin:
             ':/plugins/LDMP/icons/icon-wrench.png',
             text=self.tr(u'Settings'),
             callback=self.run_settings,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('LDMT Settings'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-globe.png',
             text=self.tr(u'Download data'),
             callback=self.run_download,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Download land degradation datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-calculator.png',
             text=self.tr(u'Calculate indicators'),
             callback=self.run_calculate,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Calculate land degradation indicators'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-cloud-download.png',
             text=self.tr(u'View Google Earth Engine tasks'),
             callback=self.get_jobs,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('View cloud processing tasks'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-graph.png',
             text=self.tr(u'Plot data'),
             callback=self.run_plot,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Plot timeseries datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-chart.png',
             text=self.tr(u'Reporting tool'),
             callback=self.run_reporting,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Land degradation reporting'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-info.png',
             text=self.tr(u'About'),
             callback=self.run_about,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('About the land degradation monitoring toolbox'))
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginMenu(
+            self.iface.removePluginWebMenu(
                 self.tr(u'&Land Degradation Monitoring Toolbox'),
                 action)
             self.iface.removeToolBarIcon(action)

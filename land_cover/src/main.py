@@ -117,7 +117,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, EXECUTION_ID,
         cloud_datasets.append(CloudDataset('geotiff', task.name, ['{}_{}'.format(EXECUTION_ID, task.name)]))
 
     logger.debug("Setting up results JSON.")
-    gee_results = GEEResults('cloud_dataset', cloud_datasets)
+    gee_results = GEEResults('land_cover', cloud_datasets)
     results_schema = GEEResultsSchema()
     json_results = results_schema.dump(gee_results)
 

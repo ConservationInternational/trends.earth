@@ -263,7 +263,7 @@ def run(params, logger):
     logger.debug("Setting up results JSON.")
     results_url = CloudUrl(url)
     cloud_dataset = CloudDataset('geotiff', method, [results_url])
-    gee_results = GEEResults('cloud_dataset', [cloud_dataset])
+    gee_results = GEEResults('productivity_trajectory', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)
 

@@ -21,17 +21,6 @@ from PyQt4.QtCore import QSettings
 
 from qgis.core import QgsMessageLog
 
-
-locale = QSettings().value("locale/userLocale")[0:2]
-localePath = os.path.join(self.plugin_dir, 'i18n', 'tfdf_{}.qm'.format(locale))
-
-if os.path.exists(localePath):
-    self.translator = QTranslator()
-    self.translator.load(localePath)
-
-if qVersion() > '4.3.3':
-    QCoreApplication.installTranslator(self.translator)
-
 site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 def read_json(file):

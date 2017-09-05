@@ -265,22 +265,22 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         #
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
-        # Calculate convex hull of input polygon and then convert back to 
+        # Calculate bounding box of input polygon and then convert back to 
         # geojson
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         if len(features) != 0:
             log("Found {} features in geojson - using first feature only.".format(len(features)), 2)
-        hull = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
+        bounding = json.loads(features[0].geometry().boundingBox().exportToGeoJSON())
 
         if self.indic_select_traj.isChecked():
-            self.calculate_trajectory(hull, ndvi_dataset)
+            self.calculate_trajectory(bounding, ndvi_dataset)
 
         if self.indic_select_perf.isChecked():
-            self.calculate_performance(hull, ndvi_dataset)
+            self.calculate_performance(bounding, ndvi_dataset)
 
         if self.indic_select_state.isChecked():
-            self.calculate_state(hull, ndvi_dataset)
+            self.calculate_state(bounding, ndvi_dataset)
     
     def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":

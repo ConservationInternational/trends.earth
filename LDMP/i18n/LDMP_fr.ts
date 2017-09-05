@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fr_FR" sourcelanguage="en_US">
+<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en_US">
 <context>
     <name>Dialog</name>
     <message>
@@ -43,31 +42,6 @@
         <source>Stop processing</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../gui/DlgIndicators.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgIndicators.ui" line="42"/>
-        <source>Soil organic carbon (SOC)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgIndicators.ui" line="55"/>
-        <source>Land cover</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgIndicators.ui" line="68"/>
-        <source>Land productivity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgIndicators.ui" line="87"/>
-        <source>Indicator to calculate:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DlgAbout</name>
@@ -79,11 +53,6 @@
 </context>
 <context>
     <name>DlgCalculateProd</name>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="20"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="36"/>
         <source>Indicators</source>
@@ -239,6 +208,11 @@
         <source>Calculate</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="20"/>
+        <source>Calculate Productivity</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgDownload</name>
@@ -355,53 +329,42 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="61"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;GEF-LDMP Reporting Tool&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: INSERT FURTHER EXPLANATORY TEXT&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="83"/>
+        <location filename="../gui/DlgReporting.ui" line="64"/>
         <source>Administrative area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="113"/>
+        <location filename="../gui/DlgReporting.ui" line="94"/>
         <source>First level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="148"/>
+        <location filename="../gui/DlgReporting.ui" line="129"/>
         <source>Second level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="202"/>
+        <location filename="../gui/DlgReporting.ui" line="183"/>
         <source>Select from file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="214"/>
+        <location filename="../gui/DlgReporting.ui" line="195"/>
         <source>Choose a file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="240"/>
+        <location filename="../gui/DlgReporting.ui" line="221"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="264"/>
+        <location filename="../gui/DlgReporting.ui" line="245"/>
         <source>Folder with LDMT data:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="277"/>
+        <location filename="../gui/DlgReporting.ui" line="258"/>
         <source>Choose a folder...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -546,6 +509,119 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgTimeseries</name>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="14"/>
+        <source>Map Land Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="30"/>
+        <source>Map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="42"/>
+        <source>Choose a folder...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="77"/>
+        <source>Folder with GEF-LDMP data:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="90"/>
+        <source>Choose a shapefile...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="123"/>
+        <source>Shapefile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="142"/>
+        <source>Second level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="161"/>
+        <source>First level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="180"/>
+        <source>Area:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="193"/>
+        <source>Administrative area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="206"/>
+        <source>Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="232"/>
+        <source>Choose a point...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="251"/>
+        <source>y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="270"/>
+        <source>x:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="289"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="301"/>
+        <source>High resolution data indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="314"/>
+        <source>Legend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="330"/>
+        <source>Trend line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="346"/>
+        <source>Equation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="365"/>
+        <source>Plot options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="378"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="401"/>
+        <source>Plot each pixel as separate time series</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LDMPPlugin</name>
     <message>
         <location filename="../ldmp.py" line="212"/>
@@ -585,178 +661,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ldmp.py" line="203"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>calculate</name>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="14"/>
-        <source>Map Land Degradation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="30"/>
-        <source>Map</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="42"/>
-        <source>Choose a folder...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="77"/>
-        <source>Folder with GEF-LDMP data:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="90"/>
-        <source>Choose a shapefile...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="123"/>
-        <source>Shapefile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="142"/>
-        <source>Second level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="161"/>
-        <source>First level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_map.ui" line="174"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;GEF-LDMP Calculate Tool&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This tool calculates land degradation from data produced by the GEF-LDMP project. Prior to using this tool, use the GEF-LDMP download tool &lt;/span&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: LINK DIRECTLY TO TOOL&amp;gt;&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; to download data for your project area.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: INSERT FURTHER EXPLANATORY TEXT&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_map.ui" line="201"/>
-        <source>Project area:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="216"/>
-        <source>Administrative area</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="312"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="324"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Settings&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: INSERT EXPLANATORY TEXT&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_map.ui" line="257"/>
-        <source>Significance threshold:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_map.ui" line="298"/>
-        <source>Add layer to map?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_map.ui" line="330"/>
-        <source>Basemap:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="174"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;GEF-LDMP Calculate Tool&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This tool calculates land degradation from data produced by the GEF-LDMP project. Prior to using this tool, use the GEF-LDMP download tool &lt;/span&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: LINK DIRECTLY TO TOOL&amp;gt;&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; to download data for your project area.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: INSERT FURTHER EXPLANATORY TEXT&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; color:#ff0000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;&amp;lt;TODO: ADD MOUSE ICON TO POINT TOOL&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="203"/>
-        <source>Area:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="229"/>
-        <source>Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="255"/>
-        <source>Choose a point...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="274"/>
-        <source>y:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="293"/>
-        <source>x:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="343"/>
-        <source>High resolution data indicators</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="356"/>
-        <source>Legend</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="372"/>
-        <source>Trend line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="388"/>
-        <source>Equation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="407"/>
-        <source>Plot options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="420"/>
-        <source>Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/visualize_timeseries.ui" line="443"/>
-        <source>Plot each pixel as separate time series</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

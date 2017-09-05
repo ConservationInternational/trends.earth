@@ -1,15 +1,17 @@
 <RCC>
-    <qresource prefix="/plugins/LDMP" >
-        <file>icons/icon-calculator.png</file>
-        <file>icons/icon-chart.png</file>
-        <file>icons/icon-clipboard.png</file>
-        <file>icons/icon-cloud-download.png</file>
-        <file>icons/icon-cog.png</file>
-        <file>icons/icon-graph.png</file>
-        <file>icons/icon-globe.png</file>
-        <file>icons/icon-info.png</file>
-        <file>icons/icon-map-marker.png</file>
-        <file>icons/icon-wrench.png</file>
-        <file>icons/spinner.gif</file>
-    </qresource>
+  <qresource prefix="/plugins/LDMP">
+    <file>icons/CI_logo.png</file>
+    <file>icons/VS_logo.png</file>
+    <file>icons/icon-calculator.png</file>
+    <file>icons/icon-chart.png</file>
+    <file>icons/icon-clipboard.png</file>
+    <file>icons/icon-cloud-download.png</file>
+    <file>icons/icon-cog.png</file>
+    <file>icons/icon-graph.png</file>
+    <file>icons/icon-globe.png</file>
+    <file>icons/icon-info.png</file>
+    <file>icons/icon-map-marker.png</file>
+    <file>icons/icon-wrench.png</file>
+    <file>icons/spinner.gif</file>
+  </qresource>
 </RCC>

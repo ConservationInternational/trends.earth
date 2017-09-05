@@ -14,7 +14,7 @@
 
 import os
 
-from PyQt4 import QtGui, uic
+from PyQt4 import QtGui
 
 from LDMP.gui.DlgAbout import Ui_DlgAbout as UiDialog
 
@@ -28,3 +28,13 @@ class DlgAbout(QtGui.QDialog, UiDialog):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        VS_logo = QtGui.QPixmap(':/plugins/LDMP/icons/VS_logo.png')
+        self.VS_logo.setPixmap(VS_logo)
+        self.VS_logo.setMask(VS_logo.mask())
+        self.VS_logo.show()
+        
+        CI_logo = QtGui.QPixmap(':/plugins/LDMP/icons/CI_logo.png')
+        self.VS_logo.setPixmap(CI_logo)
+        self.VS_logo.setMask(CI_logo.mask())
+        self.CI_logo.show()

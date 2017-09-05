@@ -115,7 +115,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, EXECUTION_ID,
     for task in tasks:
         task.join()
         results_url = CloudUrl(task.url())
-        cloud_dataset = CloudDataset('geotiff', task.name(), [results_url])
+        cloud_dataset = CloudDataset('geotiff', task.name, [results_url])
         gee_results = GEEResults('cloud_dataset', [cloud_dataset])
 
     logger.debug("Setting up results JSON.")
@@ -130,7 +130,13 @@ def run(params, logger):
     year_bl_start = params.get('year_bl_start', 2002)
     year_bl_end = params.get('year_bl_end', 2015)
     year_target = params.get('year_target', 2015)
-    geojson = json.loads(params.get('geojson', util.tza_geojson))
+    geojson = params.get('geojson', util.tza_geojson)
+
+    logger.debug("Loading geojson.")
+    if geojson is None:
+        raise GEEIOError("Must specify an input area")
+    else:
+        geojson = json.loads(geojson)
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

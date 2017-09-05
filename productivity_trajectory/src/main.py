@@ -149,7 +149,7 @@ def ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
 
     return (lf_trend, mk_trend)
 
-def productivity_performance(year_start, year_end, method, ndvi_gee_dataset, 
+def productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset, 
         climate_gee_dataset, geojson, EXECUTION_ID, logger):
     """Calculate temporal NDVI analysis.
     Calculates the trend of temporal NDVI using NDVI data from the
@@ -164,7 +164,7 @@ def productivity_performance(year_start, year_end, method, ndvi_gee_dataset,
     Returns:
         Output of google earth engine task.
     """
-    logger.debug("Entering productivity_performance function.")
+    logger.debug("Entering productivity_trajectory function.")
 
     climate_1yr = ee.Image(climate_gee_dataset)
 
@@ -226,7 +226,7 @@ def productivity_performance(year_start, year_end, method, ndvi_gee_dataset,
 
     logger.debug("Setting up GEE task.")
     task = util.gee_task(ee.batch.Export.image.toCloudStorage(**export), 
-            'productivity_performance', logger)
+            'productivity_trajectory', logger)
     task.join()
 
     return "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
@@ -257,7 +257,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    url = productivity_performance(year_start, year_end, method, ndvi_gee_dataset, 
+    url = productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset, 
             climate_gee_dataset, geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")

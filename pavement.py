@@ -16,8 +16,9 @@ options(
         ext_libs = path('LDMP/ext-libs'),
         ext_src = path('LDMP/ext-src'),
         gui_dir = path('LDMP/gui'),
+        source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['ldmp_fr.ts'],
+        translations = ['LDMP_fr.ts'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('.'),
         tests = ['test'],
@@ -339,7 +340,6 @@ def compile_files(options):
 
     # check to see if we have pyrcc4
     pyrcc4 = check_path('pyrcc4')
-
     if not pyrcc4:
         click.secho(
             "pyrcc4 is not in your path---unable to compile your resource file(s)",

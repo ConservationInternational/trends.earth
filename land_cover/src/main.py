@@ -114,11 +114,10 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, EXECUTION_ID,
     cloud_datasets = []
     for task in tasks:
         task.join()
-        results_url = CloudUrl(task.url())
-        cloud_dataset = CloudDataset('geotiff', task.name, [results_url])
-        gee_results = GEEResults('cloud_dataset', [cloud_dataset])
+        cloud_datasets.append(CloudDataset('geotiff', task.name, ['{}_{}'.format(EXECUTION_ID, task.name)]))
 
     logger.debug("Setting up results JSON.")
+    gee_results = GEEResults('cloud_dataset', cloud_datasets)
     results_schema = GEEResultsSchema()
     json_results = results_schema.dump(gee_results)
 

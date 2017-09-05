@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Calculate Productivity</string>
   </property>
   <widget class="QTabWidget" name="TabBox">
    <property name="geometry">

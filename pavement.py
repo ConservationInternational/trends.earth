@@ -15,8 +15,9 @@ options(
         name = 'LDMP',
         ext_libs = path('LDMP/ext-libs'),
         ext_src = path('LDMP/ext-src'),
-        source_dir = path('LDMP'),
         gui_dir = path('LDMP/gui'),
+        i18n_dir = path('LDMP/i18n'),
+        translations = ['ldmp_fr.ts'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('.'),
         tests = ['test'],
@@ -82,6 +83,21 @@ def setup(options):
             'dep' : req
         })
 
+
+@task
+def translate(options):
+    pylupdate4 = check_path('pylupdate4')
+    if not pylupdate4:
+        print("pylupdate4 is not in your path---unable to gather strings for translation")
+    print("Gathering strings for translation using pylupdate4")
+    subprocess.check_call([pylupdate4, os.path.join(options.plugin.i18n_dir, 'i18n.pro')])
+
+    lrelease = check_path('lrelease')
+    if not lrelease:
+        print("lrelease is not in your path---unable to release translation files")
+    print("Releasing translations using lrelease")
+    for translation in options.plugin.translations:
+        subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, translation)])
 
 def read_requirements():
     """Return a list of runtime and list of test requirements"""

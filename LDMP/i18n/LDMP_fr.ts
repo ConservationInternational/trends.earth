@@ -3,51 +3,67 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../gui/status_processing.ui" line="14"/>
+        <location filename="../gui/DlgStatusProcessing.ui" line="14"/>
         <source>Downloading Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_processing.ui" line="45"/>
+        <location filename="../gui/DlgStatusProcessing.ui" line="45"/>
         <source>Elapsed time:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_processing.ui" line="64"/>
+        <location filename="../gui/DlgStatusProcessing.ui" line="64"/>
         <source>Estimated time remaining:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_processing.ui" line="83"/>
+        <location filename="../gui/DlgStatusProcessing.ui" line="83"/>
         <source>Progress:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_download.ui" line="113"/>
+        <location filename="../gui/DlgStatusDownload.ui" line="113"/>
         <source>Downloading data...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_download.ui" line="126"/>
+        <location filename="../gui/DlgStatusDownload.ui" line="126"/>
         <source>Stop downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_processing.ui" line="113"/>
+        <location filename="../gui/DlgStatusProcessing.ui" line="113"/>
         <source>Processing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/status_processing.ui" line="126"/>
+        <location filename="../gui/DlgStatusProcessing.ui" line="126"/>
         <source>Stop processing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>DlgAbout</name>
     <message>
         <location filename="../gui/DlgAbout.ui" line="14"/>
         <source>Land Degradation Monitoring Toolbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../gui/DlgAbout.ui" line="34"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Land Degradation Monitoring Toolbox (LDMT)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&lt;br /&gt;The Land Degradation Monitoring Toolbox (LDMT) is produced by the Global Environment Facility (GEF)-funded &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Land Degradation Monitoring Project&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; lead by Conservation International in partnership with NASA and Lund University. The LDMT is a Quantum GIS (QGIS) plugin to support monitoring of status and trend of land degradation.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This toolbox was produced as an output of the GEF-funded project “Enabling the use of global data sources to assess and monitor land degradation at multiple scales”. The project aims to provide guidance on robust methods and a toolbox for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;The LDMT is free and open-source. The code is available online at: &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:gef-ldmp@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;gef-ldmp@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or at &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -228,54 +244,41 @@
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="61"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;GEF-LDMP Download Tool&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This tool downloads raw land degradation data from the GEF-LDMP servers and saves it on your computer. Specify a project area by using the administrative boundary drop-downs, or use a shapefile to define the project area.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If your project area is large, the data can be quite large, and may take some time to download.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="82"/>
         <source>Choose a folder...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="101"/>
+        <location filename="../gui/DlgDownload.ui" line="80"/>
         <source>Folder with LDMT data:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="117"/>
+        <location filename="../gui/DlgDownload.ui" line="96"/>
         <source>Administrative area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="147"/>
+        <location filename="../gui/DlgDownload.ui" line="126"/>
         <source>First level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="182"/>
+        <location filename="../gui/DlgDownload.ui" line="161"/>
         <source>Second level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="236"/>
+        <location filename="../gui/DlgDownload.ui" line="215"/>
         <source>Select from file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="248"/>
+        <location filename="../gui/DlgDownload.ui" line="227"/>
         <source>Choose a file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="274"/>
+        <location filename="../gui/DlgDownload.ui" line="253"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
@@ -624,7 +627,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../ldmp.py" line="212"/>
+        <location filename="../ldmp.py" line="219"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation type="unfinished"></translation>
     </message>
@@ -634,33 +637,63 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="173"/>
+        <location filename="../ldmp.py" line="174"/>
         <source>Download data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="179"/>
+        <location filename="../ldmp.py" line="181"/>
         <source>Calculate indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="185"/>
+        <location filename="../ldmp.py" line="188"/>
         <source>View Google Earth Engine tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="191"/>
+        <location filename="../ldmp.py" line="195"/>
         <source>Plot data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="197"/>
+        <location filename="../ldmp.py" line="202"/>
         <source>Reporting tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="203"/>
+        <location filename="../ldmp.py" line="209"/>
         <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="174"/>
+        <source>Download land degradation datasets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="181"/>
+        <source>Calculate land degradation indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="188"/>
+        <source>View cloud processing tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="195"/>
+        <source>Plot timeseries datasets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="202"/>
+        <source>Land degradation reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="209"/>
+        <source>About the land degradation monitoring toolbox</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

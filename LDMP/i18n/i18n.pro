@@ -24,4 +24,4 @@ SOURCES = ../ldmp.py
 ../ldmp.py \
 ../plot.py
 
-TRANSLATIONS = ldmp_fr.ts
+TRANSLATIONS = LDMP_fr.ts

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en_US">
+<!DOCTYPE TS>
+<TS version="2.1" language="fr_FR" sourcelanguage="en_US">
 <context>
     <name>Dialog</name>
     <message>
@@ -547,42 +548,42 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../ldmp.py" line="211"/>
+        <location filename="../ldmp.py" line="212"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="166"/>
+        <location filename="../ldmp.py" line="167"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="172"/>
+        <location filename="../ldmp.py" line="173"/>
         <source>Download data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="178"/>
+        <location filename="../ldmp.py" line="179"/>
         <source>Calculate indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="184"/>
+        <location filename="../ldmp.py" line="185"/>
         <source>View Google Earth Engine tasks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="190"/>
+        <location filename="../ldmp.py" line="191"/>
         <source>Plot data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="196"/>
+        <location filename="../ldmp.py" line="197"/>
         <source>Reporting tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="203"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>

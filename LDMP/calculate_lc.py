@@ -25,7 +25,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 
-from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
+from gui.DlgCalculateLC import Ui_DlgCalculateLC as UiDialog
 
 from api import API
 
@@ -58,10 +58,10 @@ def load_admin_polys(dlg):
         admin_1_code = dlg.admin_1[adm0_a3][dlg.area_admin_1.currentText()]
         return admin_1_polys[admin_1_code]['geojson']
 
-class DlgCalculateProd(QtGui.QDialog, UiDialog):
+class DlgCalculateLC(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgCalculateProd, self).__init__(parent)
+        super(DlgCalculateLC, self).__init__(parent)
 
         self.api = API()
 

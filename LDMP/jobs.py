@@ -15,9 +15,8 @@
 import os
 import json
 import datetime
-from urllib import quote_plus
 
-from PyQt4 import QtGui, uic
+from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
 from LDMP import log
@@ -29,7 +28,7 @@ mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
 
-from gui.DlgJobs import Ui_DlgJobs
+from LDMP.gui.DlgJobs import Ui_DlgJobs
 
 from LDMP.download import download_file
 from LDMP.api import API

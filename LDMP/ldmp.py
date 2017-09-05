@@ -19,7 +19,7 @@ from PyQt4.QtGui import QAction, QIcon
 
 from LDMP.settings import DlgSettings
 from LDMP.download import DlgDownload
-from LDMP.calculate_prod import DlgCalculateProd
+from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.plot import DlgPlot
 from LDMP.reporting import DlgReporting
@@ -67,7 +67,7 @@ class LDMPPlugin:
 
         self.dlg_settings = DlgSettings()
         self.dlg_download = DlgDownload()
-        self.dlg_calculate_prod = DlgCalculateProd()
+        self.dlg_calculate = DlgCalculate()
         self.dlg_jobs = DlgJobs()
         self.dlg_plot = DlgPlot()
         self.dlg_reporting = DlgReporting()
@@ -239,9 +239,9 @@ class LDMPPlugin:
     def run_calculate(self):
         """Run method that performs all the real work"""
         # show the dialog
-        self.dlg_calculate_prod.show()
+        self.dlg_calculate.show()
         # Run the dialog event loop
-        result = self.dlg_calculate_prod.exec_()
+        result = self.dlg_calculate.exec_()
         # See if OK was pressed
         if result:
             pass

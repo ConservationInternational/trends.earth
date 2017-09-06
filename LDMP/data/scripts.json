@@ -1,5 +1,5 @@
 {
-    "productivity": {
+    "productivity_trajectory": {
         "NDVI trends": {
             "script id": "13740fa7-4312-4cf2-829d-cdaee5a3d37c",
             "params": {"method": "ndvi_trend"},

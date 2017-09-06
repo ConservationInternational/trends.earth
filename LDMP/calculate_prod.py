@@ -69,7 +69,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'scripts.json')) as script_file:
-            self.scripts = json.load(script_file)['productivity']
+            self.scripts = json.load(script_file)['productivity_trajectory']
             
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'gee_datasets.json')) as datasets_file:

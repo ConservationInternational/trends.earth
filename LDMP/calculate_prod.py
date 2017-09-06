@@ -93,8 +93,11 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
 
         self.indic_select_traj_changed()
-        self.indic_select_perf_changed()
-        self.indic_select_state_changed()
+        #TODO: when perf and state are added uncomment below two lines and delete the deactivations
+        # self.indic_select_perf_changed()
+        # self.indic_select_state_changed()
+        self.StateTab.setEnabled(False)
+        self.PerformanceTab.setEnabled(False)
 
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)
@@ -137,16 +140,22 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
             self.TrajectoryTab.setEnabled(False)
 
     def indic_select_perf_changed(self):
-        if self.indic_select_traj.isChecked():
-            self.PerformanceTab.setEnabled(True)
-        else:
-            self.PerformanceTab.setEnabled(False)
+        # if self.indic_select_perf.isChecked():
+        #     self.PerformanceTab.setEnabled(True)
+        # else:
+        #     self.PerformanceTab.setEnabled(False)
+        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Performance calculation coming soon!", None))
+        self.indic_select_perf.setChecked(False)
 
     def indic_select_state_changed(self):
-        if self.indic_select_traj.isChecked():
-            self.StateTab.setEnabled(True)
-        else:
-            self.StateTab.setEnabled(False)
+        # if self.indic_select_state.isChecked():
+        #     self.StateTab.setEnabled(True)
+        # else:
+        #     self.StateTab.setEnabled(False)
+        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                self.tr("State calculation coming soon!", None))
+        self.indic_select_state.setChecked(False)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()

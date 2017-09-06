@@ -110,55 +110,100 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             return False
 
     def btn_download(self):
-        # Figure out which file(s) to download
-        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
+        download_dir = self.settings.value("LDMP/download_dir", None)
+        while True:
+            download_dir = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Directory to save files"), download_dir)
+            if os.access(download_dir, os.W_OK):
+                self.settings.setValue("LDMP/download_dir", download_dir)
+                break
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
 
+        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
         for row in rows:
             job = self.jobs[row]
-            #TODO: check that the job produced a geotiff as output
-            dir = self.settings.value("LDMP/download_dir", None)
-            outfile = QtGui.QFileDialog.getSaveFileName(self, self.tr("Save file"), dir, self.tr("GeoTIFF (*.tif)"))
-            dir = self.settings.setValue("LDMP/download_dir", os.path.dirname(outfile))
-            self.close()
-            for dataset in job['results'].get('datasets'):
-                for url in dataset.get('urls'):
-                    log("Downloading {}".format(url))
-                    #TODO Name output file based on url
-                    download_file(url['url'], outfile)
-                    #TODO Check hash of downloaded file
-                    #TODO style layer and set layer name based on the info in the dataset json file
+            if job['results'].get('type') == 'productivity_trajectory':
+                download_prod_traj(job, download_dir)
+            elif job['results'].get('type') == 'land_cover':
+                download_land_cover(job, download_dir)
+        self.close()
 
-                    # Significance layer
-                    layer_signif = iface.addRasterLayer(outfile, 'NDVI Trends (significance)')
-                    fcn = QgsColorRampShader()
-                    fcn.setColorRampType(QgsColorRampShader.EXACT)
-                    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Significant decrease'),
-                           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), 'No significant change'),
-                           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Significant increase'),
-                           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
-                           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
-                    fcn.setColorRampItemList(lst)
-                    shader = QgsRasterShader()
-                    shader.setRasterShaderFunction(fcn)
-                    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
-                    layer_signif.setRenderer(pseudoRenderer)
-                    layer_signif.triggerRepaint()
-                    iface.legendInterface().refreshLayerSymbology(layer_signif)
+def download_land_cover(job, download_dir):
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            #TODO style layer and set layer name based on the info in the dataset json file
+            log("Downloading {}".format(url))
+            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+            #TODO: Check if this file was already downloaded
+            download_file(url['url'], outfile)
+            if dataset['dataset'] == 'lc_baseline':
+                style_land_cover_lc_baseline(outfile)
+            elif dataset['dataset'] == 'lc_target':
+                style_land_cover_lc_target(outfile)
+            elif dataset['dataset'] == 'lc_change':
+                style_land_cover_lc_change(outfile)
+            elif dataset['dataset'] == 'land_deg':
+                style_land_cover_land_deg(outfile)
+            else:
+                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
-                    # Trends layer
-                    layer_ndvi = iface.addRasterLayer(outfile, 'NDVI Trends')
-                    fcn = QgsColorRampShader()
-                    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-                    lst = [QgsColorRampShader.ColorRampItem(-100, QtGui.QColor(153, 51, 4), '-100 (declining)'),
-                           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), '0 (stable)'),
-                           QgsColorRampShader.ColorRampItem(100, QtGui.QColor(0, 140, 121), '100 (increasing)')]
-                    fcn.setColorRampItemList(lst)
-                    shader = QgsRasterShader()
-                    shader.setRasterShaderFunction(fcn)
-                    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
-                    layer_ndvi.setRenderer(pseudoRenderer)
-                    layer_ndvi.triggerRepaint()
-                    iface.legendInterface().refreshLayerSymbology(layer_ndvi)
+def style_land_cover_lc_baseline(outfile):
+    pass
+
+def style_land_cover_lc_target(outfile):
+    pass
+
+def style_land_cover_lc_change(outfile):
+    pass
+
+def style_land_cover_land_deg(outfile):
+    pass
+
+def download_prod_traj(job, download_dir):
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            #TODO style layer and set layer name based on the info in the dataset json file
+            log("Downloading {}".format(url))
+            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+            #TODO: Check if this file was already downloaded
+            download_file(url['url'], outfile)
+            style_prod_traj_trend(outfile)
+            style_prod_traj_signif(outfile)
+
+def style_prod_traj_trend(outfile):
+    # Significance layer
+    layer_signif = iface.addRasterLayer(outfile, 'NDVI Trends (significance)')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Significant decrease'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), 'No significant change'),
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Significant increase'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
+    layer_signif.setRenderer(pseudoRenderer)
+    layer_signif.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_signif)
+
+def style_prod_traj_signif(outfile):
+    # Trends layer
+    layer_ndvi = iface.addRasterLayer(outfile, 'NDVI Trends')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
+    lst = [QgsColorRampShader.ColorRampItem(-100, QtGui.QColor(153, 51, 4), '-100 (declining)'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), '0 (stable)'),
+           QgsColorRampShader.ColorRampItem(100, QtGui.QColor(0, 140, 121), '100 (increasing)')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
+    layer_ndvi.setRenderer(pseudoRenderer)
+    layer_ndvi.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_ndvi)
 
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):

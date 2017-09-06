@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>519</width>
-    <height>543</height>
+    <height>542</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,177 +25,24 @@
      <x>10</x>
      <y>10</y>
      <width>501</width>
-     <height>431</height>
+     <height>441</height>
     </rect>
+   </property>
+   <property name="tabShape">
+    <enum>QTabWidget::Rounded</enum>
    </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
-   <widget class="QWidget" name="IndicatorsTab">
+   <widget class="QWidget" name="SetupTab">
     <attribute name="title">
-     <string>Indicators</string>
-    </attribute>
-    <widget class="QLabel" name="label_25">
-     <property name="geometry">
-      <rect>
-       <x>9</x>
-       <y>10</y>
-       <width>166</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>290</y>
-       <width>471</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>NDVI dataset</string>
-     </property>
-     <widget class="QComboBox" name="dataset_ndvi">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>451</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>275</width>
-        <height>0</height>
-       </size>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>471</width>
-       <height>261</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>Indicators to calculate</string>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>16</x>
-        <y>21</y>
-        <width>441</width>
-        <height>231</height>
-       </rect>
-      </property>
-      <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_26">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <italic>true</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Trajectory is related to rate of change of  productivity over time</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_27">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <italic>true</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time.</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_28">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <italic>true</italic>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>State is a comparison of how current productivity in an area compares to past productivity in that area.</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="indic_select_traj">
-         <property name="text">
-          <string>Trajectory</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="indic_select_perf">
-         <property name="text">
-          <string>Performance</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="indic_select_state">
-         <property name="text">
-          <string>State</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="TrajectoryTab">
-    <attribute name="title">
-     <string>Trajectory</string>
+     <string>Setup</string>
     </attribute>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>10</y>
        <width>471</width>
        <height>101</height>
       </rect>
@@ -203,7 +50,7 @@
      <property name="title">
       <string>Baseline period</string>
      </property>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QWidget" name="layoutWidget_2">
       <property name="geometry">
        <rect>
         <x>140</x>
@@ -227,7 +74,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QDateEdit" name="traj_year_end">
+        <widget class="QDateEdit" name="year_bl_end">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -253,7 +100,7 @@
          </property>
          <property name="minimumDate">
           <date>
-           <year>1980</year>
+           <year>1992</year>
            <month>1</month>
            <day>1</day>
           </date>
@@ -277,7 +124,7 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QDateEdit" name="traj_year_start">
+        <widget class="QDateEdit" name="year_bl_start">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -291,6 +138,16 @@
            <day>1</day>
           </date>
          </property>
+         <property name="minimumDateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>1992</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
          <property name="maximumDate">
           <date>
            <year>2030</year>
@@ -300,7 +157,7 @@
          </property>
          <property name="minimumDate">
           <date>
-           <year>1980</year>
+           <year>1992</year>
            <month>1</month>
            <day>1</day>
           </date>
@@ -330,908 +187,264 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
+       <y>120</y>
        <width>471</width>
-       <height>61</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="title">
-      <string>Trajectory indicator</string>
+      <string>Target year</string>
      </property>
-     <widget class="QComboBox" name="traj_indic">
+     <widget class="QWidget" name="layoutWidget_3">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>431</width>
-        <height>27</height>
+        <x>210</x>
+        <y>18</y>
+        <width>71</width>
+        <height>61</height>
        </rect>
       </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>275</width>
-        <height>0</height>
-       </size>
-      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="1" column="0" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="label_18">
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Target</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QDateEdit" name="year_target">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="date">
+          <date>
+           <year>2015</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
+         <property name="minimumDateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>1992</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
+         <property name="maximumDate">
+          <date>
+           <year>2030</year>
+           <month>12</month>
+           <day>31</day>
+          </date>
+         </property>
+         <property name="minimumDate">
+          <date>
+           <year>1992</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
+         <property name="displayFormat">
+          <string>yyyy</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_5">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>190</y>
-       <width>471</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>Climate dataset</string>
-     </property>
-     <widget class="QComboBox" name="traj_climate">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>441</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>275</width>
-        <height>0</height>
-       </size>
-      </property>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="PerformanceTab">
-    <attribute name="title">
-     <string>Performance</string>
-    </attribute>
-    <widget class="QGroupBox" name="groupBox_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>471</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>Baseline period:</string>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>30</y>
-        <width>211</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QDateEdit" name="perf_year_start">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2000</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="maximumDate">
-          <date>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QDateEdit" name="perf_year_end">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2015</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_9">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_30">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>End</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="StateTab">
-    <attribute name="title">
-     <string>State</string>
-    </attribute>
-    <widget class="QGroupBox" name="groupBox_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>471</width>
-       <height>161</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>Existing degradation</string>
-     </property>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>24</y>
-        <width>311</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="3" column="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_15">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Early epoch:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Late epoch:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QDateEdit" name="state_existdeg_early_year_start">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumDate">
-          <date>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_8">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QDateEdit" name="state_existdeg_early_year_end">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2010</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </datetime>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QDateEdit" name="state_existdeg_late_year_end">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2015</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_16">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>End</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_12">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>End</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QDateEdit" name="state_existdeg_late_year_start">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2015</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>2011</year>
-           <month>1</month>
-           <day>1</day>
-          </datetime>
-         </property>
-         <property name="maximumDate">
-          <date>
-           <year>2015</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>2011</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QGroupBox" name="groupBox_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>190</y>
+       <y>220</y>
        <width>471</width>
        <height>191</height>
       </rect>
      </property>
      <property name="title">
-      <string>Emerging degradation</string>
+      <string>Area</string>
      </property>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>40</y>
-        <width>308</width>
-        <height>141</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Baseline period:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QDateEdit" name="state_emergedeg_base_year_start">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumDate">
-          <date>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QDateEdit" name="state_emergedeg_base_year_end">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2015</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </datetime>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_23">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_24">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>End</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_22">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Comparison period:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QDateEdit" name="state_emergedeg_comp_year_start">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2016</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>2011</year>
-           <month>1</month>
-           <day>1</day>
-          </datetime>
-         </property>
-         <property name="maximumDate">
-          <date>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>2011</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_19">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_21">
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>End</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QDateEdit" name="state_emergedeg_comp_year_end">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="date">
-          <date>
-           <year>2020</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="maximumDateTime">
-          <datetime>
-           <hour>23</hour>
-           <minute>59</minute>
-           <second>59</second>
-           <year>2030</year>
-           <month>12</month>
-           <day>31</day>
-          </datetime>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>1980</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>yyyy</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QGridLayout" name="gridLayout_7">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="area_admin_layout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item row="1" column="2">
+           <widget class="QComboBox" name="area_admin_1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Second level:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QComboBox" name="area_admin_0">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>250</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>First level:</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="4" column="0">
+         <layout class="QGridLayout" name="area_fromfile_layout">
+          <item row="0" column="1">
+           <widget class="QPushButton" name="area_fromfile_browse">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="area_fromfile_file">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="placeholderText">
+             <string>Choose a file...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0">
+         <widget class="QRadioButton" name="area_admin">
+          <property name="text">
+           <string>Administrative area</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QRadioButton" name="area_fromfile">
+          <property name="text">
+           <string>Area from file</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="AreaTab">
+   <widget class="QWidget" name="TransitionMatrixTab">
     <attribute name="title">
-     <string>Area</string>
+     <string>Transition Matrix</string>
     </attribute>
-    <widget class="QWidget" name="verticalLayoutWidget">
+    <widget class="QTableView" name="TransitionMatrixView">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
        <width>471</width>
-       <height>251</height>
+       <height>391</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="0">
-       <layout class="QGridLayout" name="area_admin_layout">
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>0</number>
-        </property>
-        <item row="1" column="2">
-         <widget class="QComboBox" name="area_admin_1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>250</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Second level:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QComboBox" name="area_admin_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>250</width>
-            <height>0</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>First level:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="4" column="0">
-       <layout class="QGridLayout" name="area_fromfile_layout">
-        <item row="0" column="1">
-         <widget class="QPushButton" name="area_fromfile_browse">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="area_fromfile_file">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="placeholderText">
-           <string>Choose a file...</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0">
-       <widget class="QRadioButton" name="area_admin">
-        <property name="text">
-         <string>Administrative area</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QRadioButton" name="area_fromfile">
-        <property name="text">
-         <string>Area from file</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
     </widget>
    </widget>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="layoutWidget_4">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>450</y>
+     <x>150</x>
+     <y>460</y>
      <width>235</width>
      <height>79</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
      <widget class="QPushButton" name="button_prev">
       <property name="text">

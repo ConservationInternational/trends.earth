@@ -69,32 +69,13 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'scripts.json')) as script_file:
-            self.scripts = json.load(script_file)['productivity']
+            self.script = json.load(script_file)['land_cover']
             
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
 
-        self.start_year_climate = 0
-        self.end_year_climate = 9999
-
-        self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
-        self.dataset_ndvi_changed()
-
-        self.traj_indic.addItems(self.scripts.keys())
-        self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
-
         setup_area_selection(self)
-
-        self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
-
-        self.indic_select_traj.stateChanged.connect(self.indic_select_traj_changed)
-        self.indic_select_perf.stateChanged.connect(self.indic_select_perf_changed)
-        self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
-
-        self.indic_select_traj_changed()
-        self.indic_select_perf_changed()
-        self.indic_select_state_changed()
 
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)
@@ -129,75 +110,6 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
         else:
             self.button_calculate.setEnabled(False)
 
-
-    def indic_select_traj_changed(self):
-        if self.indic_select_traj.isChecked():
-            self.TrajectoryTab.setEnabled(True)
-        else:
-            self.TrajectoryTab.setEnabled(False)
-
-    def indic_select_perf_changed(self):
-        if self.indic_select_traj.isChecked():
-            self.PerformanceTab.setEnabled(True)
-        else:
-            self.PerformanceTab.setEnabled(False)
-
-    def indic_select_state_changed(self):
-        if self.indic_select_traj.isChecked():
-            self.StateTab.setEnabled(True)
-        else:
-            self.StateTab.setEnabled(False)
-
-    def traj_indic_changed(self):
-        self.dataset_climate_update()
-
-    def dataset_climate_update(self):
-        self.traj_climate.clear()
-        climate_types = self.scripts[self.traj_indic.currentText()]['climate types']
-        for climate_type in climate_types:
-            self.traj_climate.addItems(self.datasets[climate_type].keys())
-
-    def dataset_ndvi_changed(self):
-        this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
-        self.start_year_ndvi = this_ndvi_dataset['Start year']
-        self.end_year_ndvi = this_ndvi_dataset['End year']
-
-        self.update_time_bounds()
-
-    def update_time_bounds(self):
-        start_year = QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
-        end_year = QDate(min(self.end_year_ndvi, self.end_year_climate), 12, 31)
-
-        # Trajectory
-        self.traj_year_start.setMinimumDate(start_year)
-        self.traj_year_start.setMaximumDate(end_year)
-        self.traj_year_end.setMinimumDate(start_year)
-        self.traj_year_end.setMaximumDate(end_year)
-
-        # State
-        self.perf_year_start.setMinimumDate(start_year)
-        self.perf_year_start.setMaximumDate(end_year)
-        self.perf_year_end.setMinimumDate(start_year)
-        self.perf_year_end.setMaximumDate(end_year)
-
-        # Performance
-        self.state_existdeg_early_year_start.setMinimumDate(start_year)
-        self.state_existdeg_early_year_start.setMaximumDate(end_year)
-        self.state_existdeg_early_year_end.setMinimumDate(start_year)
-        self.state_existdeg_early_year_end.setMaximumDate(end_year)
-        self.state_existdeg_late_year_start.setMinimumDate(start_year)
-        self.state_existdeg_late_year_start.setMaximumDate(end_year)
-        self.state_existdeg_late_year_end.setMinimumDate(start_year)
-        self.state_existdeg_late_year_end.setMaximumDate(end_year)
-        self.state_emergedeg_base_year_start.setMinimumDate(start_year)
-        self.state_emergedeg_base_year_start.setMaximumDate(end_year)
-        self.state_emergedeg_base_year_end.setMinimumDate(start_year)
-        self.state_emergedeg_base_year_end.setMaximumDate(end_year)
-        self.state_emergedeg_comp_year_start.setMinimumDate(start_year)
-        self.state_emergedeg_comp_year_start.setMaximumDate(end_year)
-        self.state_emergedeg_comp_year_end.setMinimumDate(start_year)
-        self.state_emergedeg_comp_year_end.setMaximumDate(end_year)
-            
     #def runon_toggle(self):
     #    if self.runon_local.isChecked():
     #        self.data_folder_label.setEnabled(True)
@@ -252,10 +164,6 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a first level administrative boundary."), None)
             geojson = load_admin_polys(self)
-        if not self.indic_select_traj.isChecked() or self.indic_select_perf.isChecked() or self.indic_select_state.isChecked():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Choose one or more indicators to calculate."), None)
-            return
 
         #if self.runon_gee.isChecked():
         # TODO: check before submission whether this payload and script ID has 
@@ -263,7 +171,6 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
         # available for it. Notify the user if this is the case to prevent, or 
         # at least reduce, repeated identical submissions.
         #
-        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         # Calculate bounding box of input polygon and then convert back to 
         # geojson
@@ -273,29 +180,12 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
             log("Found {} features in geojson - using first feature only.".format(len(features)), 2)
         bounding = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
 
-        if self.indic_select_traj.isChecked():
-            self.calculate_trajectory(bounding, ndvi_dataset)
+        payload = {'year_bl_start': self.year_bl_start.date().year(),
+                   'year_bl_end': self.year_bl_end.date().year(),
+                   'year_target': self.year_target.date().year(),
+                   'geojson': json.dumps(bounding)}
 
-        if self.indic_select_perf.isChecked():
-            self.calculate_performance(bounding, ndvi_dataset)
-
-        if self.indic_select_state.isChecked():
-            self.calculate_state(bounding, ndvi_dataset)
-    
-    def calculate_trajectory(self, geojson, ndvi_dataset):
-        if self.traj_climate.currentText() != "":
-            climate_gee_dataset = self.datasets['NDVI'][self.traj_climate.currentText()]['GEE Dataset']
-        else:
-            climate_gee_dataset = None
-
-        payload = {'year_start': self.traj_year_start.date().year(),
-                   'year_end': self.traj_year_end.date().year(),
-                   'geojson': json.dumps(geojson),
-                   'ndvi_gee_dataset': ndvi_dataset,
-                   'climate_gee_dataset': climate_gee_dataset}
-        payload.update(self.scripts[self.traj_indic.currentText()]['params'])
-
-        progressMessageBar = mb.createMessage("Submitting trajectory task to Google Earth Engine...")
+        progressMessageBar = mb.createMessage("Submitting land cover task to Google Earth Engine...")
         spinner = QtGui.QLabel()
         movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
         spinner.setMovie(QtGui.QMovie())
@@ -304,14 +194,14 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
         mb.pushWidget(progressMessageBar, mb.INFO)
         movie.start()
 
-        gee_script = self.scripts[self.traj_indic.currentText()]['script id']
+        gee_script = self.script['Land cover']['script id']
 
         resp = self.api.calculate(gee_script, payload)
 
         mb.popWidget(progressMessageBar)
         if resp:
             mb.pushMessage("Submitted",
-                    "Trajectory task submitted to Google Earth Engine.", level=0, duration=5)
+                    "Land cover task submitted to Google Earth Engine.", level=0, duration=5)
             self.close()
         else:
-            mb.pushMessage("Error", "Unable to submit trajectory task to Google Earth Engine.", level=1, duration=5)
+            mb.pushMessage("Error", "Unable to submit land cover task to Google Earth Engine.", level=1, duration=5)

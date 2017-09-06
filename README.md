@@ -1,9 +1,10 @@
 # Land Degradation Monitoring Toolbox (LDMT)
 
 `ldmp-qgis-plugin` is the github repository for the Land Degradation Monitoring
-Toolbox (LDMT). The LDMT is produced by the Land Degradation Monitoring
-Project. The LDMT is a [Quantum GIS (QGIS)](http://www.qgis.org) plugin used
-to support monitoring of status and trends of land degradation.
+Toolbox (LDMT). The LDMT is a [Quantum GIS (QGIS)](http://www.qgis.org) plugin 
+that can be used to support monitoring of land degradation for reporting to the 
+GEF and UNCCD, and for tracking progress towards achivement of Sustainable 
+Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
 
 This toolbox was produced as an output of the Global Environment Facility
 (GEF)-funded project [“Enabling the use of global data sources to assess and

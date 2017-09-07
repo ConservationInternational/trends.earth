@@ -22,8 +22,8 @@ from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResul
 # Google cloud storage bucket for output
 BUCKET = "ldmt"
 
-def land_cover(year_bl_start, year_bl_end, year_target, geojson, EXECUTION_ID, 
-        logger):
+def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix, 
+        EXECUTION_ID, logger):
     """
     Calculate land cover indicator.
     """
@@ -59,9 +59,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, EXECUTION_ID,
             .remap([11, 12, 13, 14, 15, 16, 21, 22, 23, 24, 25, 26, 31, 32, 33, 
                     34, 35, 36, 41, 42, 43, 44, 45, 46, 51, 52, 53, 54, 55, 56, 
                     61, 62, 63, 64, 65, 66],
-                   [0, 1, 1, 1, -1, 0, -1, 0, -1, -1, -1, -1, -1, 1, 0, 0, -1, 
-                    -1, -1, -1, -1, 0, -1, -1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1,
-                    -1, 0])
+                    trans_matrix)
 
     clip_geometry = ee.Geometry(geojson)
 
@@ -131,6 +129,16 @@ def run(params, logger):
     year_bl_end = params.get('year_bl_end', 2015)
     year_target = params.get('year_target', 2015)
     geojson = params.get('geojson', util.tza_geojson)
+    trans_matrix_default = [0,   1,  1,  1, -1,  0,
+                           -1,  0, -1, -1, -1, -1,
+                           -1,  1,  0,  0, -1, -1,
+                           -1, -1, -1,  0, -1, -1,
+                            1,  1,  1,  1,  0,  0,
+                            1,  1,  1,  1, -1,  0]
+    trans_matrix = params.get('trans_matrix', trans_matrix_default)
+
+    if len(trans_matrix) != 36:
+        raise GEEIOError("Transition matrix must be a list with 36 entries")
 
     logger.debug("Loading geojson.")
     if geojson is None:
@@ -146,6 +154,6 @@ def run(params, logger):
 
     logger.debug("Running main script.")
     json_results = land_cover(year_bl_start, year_bl_end, year_target, geojson, 
-                              EXECUTION_ID, logger)
+            trans_matrix, EXECUTION_ID, logger)
 
     return json_results.data

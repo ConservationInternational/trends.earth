@@ -149,16 +149,59 @@ def download_land_cover(job, download_dir):
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 def style_land_cover_lc_baseline(outfile):
-    pass
+    layer_lc_baseline = iface.addRasterLayer(outfile, 'Land cover (baseline)')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor(247, 165, 255), 'Cropland'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(0, 255, 0), 'Forest land'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(140, 72, 9), 'Grassland'),
+           QgsColorRampShader.ColorRampItem(4, QtGui.QColor(68, 79, 137), 'Wetlands'),
+           QgsColorRampShader.ColorRampItem(5, QtGui.QColor(0, 255, 255), 'Settlements'),
+           QgsColorRampShader.ColorRampItem(6, QtGui.QColor(0, 0, 0), 'Other land')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_baseline.dataProvider(), 1, shader)
+    layer_lc_baseline.setRenderer(pseudoRenderer)
+    layer_lc_baseline.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_lc_baseline)
 
 def style_land_cover_lc_target(outfile):
-    pass
+    layer_lc_target = iface.addRasterLayer(outfile, 'Land cover (target)')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor(247, 165, 255), 'Cropland'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(0, 255, 0), 'Forest land'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(140, 72, 9), 'Grassland'),
+           QgsColorRampShader.ColorRampItem(4, QtGui.QColor(68, 79, 137), 'Wetlands'),
+           QgsColorRampShader.ColorRampItem(5, QtGui.QColor(0, 255, 255), 'Settlements'),
+           QgsColorRampShader.ColorRampItem(6, QtGui.QColor(0, 0, 0), 'Other land')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_target.dataProvider(), 1, shader)
+    layer_lc_target.setRenderer(pseudoRenderer)
+    layer_lc_target.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_lc_target)
 
 def style_land_cover_lc_change(outfile):
     pass
 
 def style_land_cover_land_deg(outfile):
-    pass
+    layer_deg = iface.addRasterLayer(outfile, 'Land cover (degradation)')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    #TODO The GPG doesn't seem to allow for possibility of improvement...?
+    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Degradation'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), 'Stable'),
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Improvement')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_deg.dataProvider(), 1, shader)
+    layer_deg.setRenderer(pseudoRenderer)
+    layer_deg.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_deg)
 
 def download_prod_traj(job, download_dir):
     for dataset in job['results'].get('datasets'):

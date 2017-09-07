@@ -81,6 +81,15 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
         self.button_prev.clicked.connect(self.tab_back)
         self.button_next.clicked.connect(self.tab_forward)
 
+        # TODO: Rotate the column label on the transition matrix tab
+        # label_pixmap = self.label_lc_baseline_year.pixmap()
+        # rm = QtGui.QMatrix()
+        # rm.rotate(90)
+        # label_pixmap = label_pixmap.transformed(rm)
+        # self.label_lc_baseline_year.setPixmap(pixmap)
+        
+        #TODO: Use setCellWidget to assign QLineEdit and validator to each item
+
         # Start on first tab so button_prev and calculate should be disabled
         self.button_prev.setEnabled(False)
         self.button_calculate.setEnabled(False)

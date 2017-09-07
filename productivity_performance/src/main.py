@@ -31,8 +31,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     def f_img_coll(ndvi_stack, year_start, year_end):
         img_coll = ee.List([])
         for k in range(year_start, year_end):
-            ndvi_img = ndvi_stack.select('y{}'.format(k)).addBands(ee.Image(k).float()).rename(['ndvi', 'year'])
-            img_coll = img_coll.add(ndvi_img)
+            img_coll = img_coll.add(ndvi_stack.select('y{}'.format(k)).rename(['ndvi']))
         return ee.ImageCollection(img_coll)
 
     clip_geometry = ee.Geometry(geojson)
@@ -151,7 +150,7 @@ def run(params, logger):
 
     logger.debug("Setting up results JSON.")
     results_url = CloudUrl(url)
-    cloud_dataset = CloudDataset('geotiff', method, [results_url])
+    cloud_dataset = CloudDataset('geotiff', 'productivity_performance', [results_url])
     gee_results = GEEResults('productivity_performance', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)

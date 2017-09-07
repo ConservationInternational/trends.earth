@@ -31,8 +31,7 @@ def productivity_state(year_bl_start, year_bl_end, year_tg_start, year_tg_end,
     def f_img_coll(ndvi_stack, year_start, year_end):
         img_coll = ee.List([])
         for k in range(year_start, year_end):
-            ndvi_img = ndvi_stack.select('y' + str(k)).addBands(ee.Image(k).float()).rename(['ndvi', 'year'])
-            img_coll = img_coll.add(ndvi_img)
+            img_coll = img_coll.add(ndvi_stack.select('y{}'.format(k)).rename(['ndvi']))
         return ee.ImageCollection(img_coll)
 
     clip_geometry = ee.Geometry(geojson)

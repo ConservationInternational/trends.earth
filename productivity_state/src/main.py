@@ -24,7 +24,7 @@ BUCKET = "ldmt"
 
 def productivity_state(year_bl_start, year_bl_end, year_tg_start, year_tg_end,
 	ndvi_gee_dataset, geojson, EXECUTION_ID, logger):
-    logger.debug("Entering productivity_trajectory function.")
+    logger.debug("Entering productivity_state function.")
 
     ndvi_1yr = ee.Image(ndvi_gee_dataset)
 
@@ -45,8 +45,8 @@ def productivity_state(year_bl_start, year_bl_end, year_tg_start, year_tg_end,
     ndvi_tg_coll = f_img_coll(ndvi_1yr, year_tg_start, year_tg_end)
     ndvi_tg = ndvi_tg_coll.reduce(ee.Reducer.mean()).clip(clip_geometry)
 
-    perc_bl = ndvi_bl.reduce(ee.Reducer.percentile([10,20,30,40,50,60,70,80,90,100]))
-    perc_tg = ndvi_tg.reduce(ee.Reducer.percentile([10,20,30,40,50,60,70,80,90,100]))
+    perc_bl = ndvi_bl.reduce(ee.Reducer.percentile([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))
+    perc_tg = ndvi_tg.reduce(ee.Reducer.percentile([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))
                            
     tasks = []
     export_ndvi_bl  = {'image': ndvi_bl.int16(),

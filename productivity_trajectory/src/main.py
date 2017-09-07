@@ -222,7 +222,6 @@ def productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset,
              'maxPixels': 10000000000,
              'scale': ee.Number(ndviProjection.nominalScale()).getInfo(),
              'region': util.get_coords(geojson)}
-             #'region': util.get_coords(geojson)}
 
     logger.debug("Setting up GEE task.")
     task = util.gee_task(ee.batch.Export.image.toCloudStorage(**export), 

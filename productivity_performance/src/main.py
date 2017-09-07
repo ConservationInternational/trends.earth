@@ -146,8 +146,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = productivity_performance(year_start, year_end,
-	ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
+    url = productivity_performance(year_start, year_end, ndvi_gee_dataset, 
+            geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")
     results_url = CloudUrl(url)

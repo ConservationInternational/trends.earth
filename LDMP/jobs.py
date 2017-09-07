@@ -152,12 +152,12 @@ def style_land_cover_lc_baseline(outfile):
     layer_lc_baseline = iface.addRasterLayer(outfile, 'Land cover (baseline)')
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor(247, 165, 255), 'Cropland'),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(0, 255, 0), 'Forest land'),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(140, 72, 9), 'Grassland'),
-           QgsColorRampShader.ColorRampItem(4, QtGui.QColor(68, 79, 137), 'Wetlands'),
-           QgsColorRampShader.ColorRampItem(5, QtGui.QColor(0, 255, 255), 'Settlements'),
-           QgsColorRampShader.ColorRampItem(6, QtGui.QColor(0, 0, 0), 'Other land')]
+    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#a50f15'), 'Cropland'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor('#006d2c'), 'Forest land'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor('#d8d800'), 'Grassland'),
+           QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#08519c'), 'Wetlands'),
+           QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), 'Settlements'),
+           QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#252525'), 'Other land')]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -170,12 +170,12 @@ def style_land_cover_lc_target(outfile):
     layer_lc_target = iface.addRasterLayer(outfile, 'Land cover (target)')
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor(247, 165, 255), 'Cropland'),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(0, 255, 0), 'Forest land'),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(140, 72, 9), 'Grassland'),
-           QgsColorRampShader.ColorRampItem(4, QtGui.QColor(68, 79, 137), 'Wetlands'),
-           QgsColorRampShader.ColorRampItem(5, QtGui.QColor(0, 255, 255), 'Settlements'),
-           QgsColorRampShader.ColorRampItem(6, QtGui.QColor(0, 0, 0), 'Other land')]
+    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#a50f15'), 'Cropland'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor('#006d2c'), 'Forest land'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor('#d8d800'), 'Grassland'),
+           QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#08519c'), 'Wetlands'),
+           QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), 'Settlements'),
+           QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#252525'), 'Other land')]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -185,7 +185,53 @@ def style_land_cover_lc_target(outfile):
     iface.legendInterface().refreshLayerSymbology(layer_lc_target)
 
 def style_land_cover_lc_change(outfile):
-    pass
+    layer_lc_change = iface.addRasterLayer(outfile, 'Land cover change')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    lst = [QgsColorRampShader.ColorRampItem(11, QtGui.QColor('#a50f15'), 'Croplands-Croplands'),
+           QgsColorRampShader.ColorRampItem(12, QtGui.QColor('#de2d26'), 'Croplands-Forest land'),
+           QgsColorRampShader.ColorRampItem(13, QtGui.QColor('#fb6a4a'), 'Croplands-Grassland'),
+           QgsColorRampShader.ColorRampItem(14, QtGui.QColor('#fc9272'), 'Croplands-Wetlands'),
+           QgsColorRampShader.ColorRampItem(15, QtGui.QColor('#fcbba1'), 'Croplands-Settlements'),
+           QgsColorRampShader.ColorRampItem(16, QtGui.QColor('#fee5d9'), 'Croplands-Other land'),
+           QgsColorRampShader.ColorRampItem(22, QtGui.QColor('#006d2c'), 'Forest land-Forest land'),
+           QgsColorRampShader.ColorRampItem(21, QtGui.QColor('#31a354'), 'Forest land-Croplands'),
+           QgsColorRampShader.ColorRampItem(23, QtGui.QColor('#74c476'), 'Forest land-Grassland'),
+           QgsColorRampShader.ColorRampItem(24, QtGui.QColor('#a1d99b'), 'Forest land-Wetlands'),
+           QgsColorRampShader.ColorRampItem(25, QtGui.QColor('#c7e9c0'), 'Forest land-Settlements'),
+           QgsColorRampShader.ColorRampItem(26, QtGui.QColor('#edf8e9'), 'Forest land-Other land'),
+           QgsColorRampShader.ColorRampItem(33, QtGui.QColor('#d8d800'), 'Grassland-Grassland'),
+           QgsColorRampShader.ColorRampItem(31, QtGui.QColor('#bebe00'), 'Grassland-Croplands'),
+           QgsColorRampShader.ColorRampItem(32, QtGui.QColor('#a5a500'), 'Grassland-Forest land'),
+           QgsColorRampShader.ColorRampItem(34, QtGui.QColor('#8b8b00'), 'Grassland-Wetlands'),
+           QgsColorRampShader.ColorRampItem(35, QtGui.QColor('#727200'), 'Grassland-Settlements'),
+           QgsColorRampShader.ColorRampItem(36, QtGui.QColor('#585800'), 'Grassland-Other land'),
+           QgsColorRampShader.ColorRampItem(44, QtGui.QColor('#08519c'), 'Wetlands-Wetlands'),
+           QgsColorRampShader.ColorRampItem(41, QtGui.QColor('#3182bd'), 'Wetlands-Croplands'),
+           QgsColorRampShader.ColorRampItem(42, QtGui.QColor('#6baed6'), 'Wetlands-Forest land'),
+           QgsColorRampShader.ColorRampItem(43, QtGui.QColor('#9ecae1'), 'Wetlands-Grassland'),
+           QgsColorRampShader.ColorRampItem(45, QtGui.QColor('#c6dbef'), 'Wetlands-Settlements'),
+           QgsColorRampShader.ColorRampItem(46, QtGui.QColor('#eff3ff'), 'Wetlands-Other land'),
+           QgsColorRampShader.ColorRampItem(55, QtGui.QColor('#54278f'), 'Settlements-Settlements'),
+           QgsColorRampShader.ColorRampItem(51, QtGui.QColor('#756bb1'), 'Settlements-Croplands'),
+           QgsColorRampShader.ColorRampItem(52, QtGui.QColor('#9e9ac8'), 'Settlements-Forest land'),
+           QgsColorRampShader.ColorRampItem(53, QtGui.QColor('#bcbddc'), 'Settlements-Grassland'),
+           QgsColorRampShader.ColorRampItem(54, QtGui.QColor('#dadaeb'), 'Settlements-Wetlands'),
+           QgsColorRampShader.ColorRampItem(56, QtGui.QColor('#f2f0f7'), 'Settlements-Other land'),
+           QgsColorRampShader.ColorRampItem(66, QtGui.QColor('#252525'), 'Other land-Other land'),
+           QgsColorRampShader.ColorRampItem(61, QtGui.QColor('#636363'), 'Other land-Croplands'),
+           QgsColorRampShader.ColorRampItem(62, QtGui.QColor('#969696'), 'Other land-Forest land'),
+           QgsColorRampShader.ColorRampItem(63, QtGui.QColor('#bdbdbd'), 'Other land-Grassland'),
+           QgsColorRampShader.ColorRampItem(64, QtGui.QColor('#d9d9d9'), 'Other land-Wetlands'),
+           QgsColorRampShader.ColorRampItem(65, QtGui.QColor('#f7f7f7'), 'Other land-Settlements')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_change.dataProvider(), 1, shader)
+    layer_lc_change.setRenderer(pseudoRenderer)
+    layer_lc_change.triggerRepaint()
+    layer_lc_change.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_lc_change)
 
 def style_land_cover_land_deg(outfile):
     layer_deg = iface.addRasterLayer(outfile, 'Land cover (degradation)')

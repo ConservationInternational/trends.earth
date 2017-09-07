@@ -66,6 +66,7 @@ class API:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
             return False
 
+        #TODO: clean api token from response
         log("API _call_api response: {}".format(resp.text))
 
         if resp.status_code == 500:

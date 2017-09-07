@@ -89,11 +89,36 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
         # self.label_lc_baseline_year.setPixmap(pixmap)
         
         #TODO: Use setCellWidget to assign QLineEdit and validator to each item
+        # Extract trans_matrix from the QTableWidget
+        trans_matrix_default = [[0,   1,  1,  1, -1,  0],
+                                [-1,  0, -1, -1, -1, -1],
+                                [-1,  1,  0,  0, -1, -1],
+                                [-1, -1, -1,  0, -1, -1],
+                                [ 1,  1,  1,  1,  0,  0],
+                                [ 1,  1,  1,  1, -1,  0]]
+        for row in range(0, self.transMatrix.rowCount()):
+            for col in range(0, self.transMatrix.columnCount()):
+                line_edit = QtGui.QLineEdit()
+                line_edit.setValidator(QtGui.QIntValidator(-1, 1))
+                line_edit.setAlignment(Qt.AlignHCenter)
+                line_edit.setText(str(trans_matrix_default[row][col]))
+                #TODO: Get the prevention of empty cells working
+                #line_edit.textChanged.connect(self.trans_matrix_text_changed)
+                self.transMatrix.setCellWidget(row, col, line_edit)
+
+        #self.transMatrix.currentItemChanged.connect(self.trans_matrix_current_item_changed)
 
         # Start on first tab so button_prev and calculate should be disabled
         self.button_prev.setEnabled(False)
         self.button_calculate.setEnabled(False)
         self.TabBox.currentChanged.connect(self.tab_changed)
+
+    #TODO: Get the prevention of empty cells working
+    # def trans_matrix_text_changed(text):
+    #     if text not in ["-1", "0", "1"]:
+    #         QtGui.QMessageBox.critical(None, self.tr("Error"),
+    #                 self.tr("Enter -1 (degradation), 0 (stable), or 1 (improvement)."), None)
+    #     self.transMatrix.setCurrentItem(current)
 
     def tab_back(self):
         if self.TabBox.currentIndex() - 1 >= 0:
@@ -149,10 +174,6 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
             self.area_fromfile_file.setEnabled(False)
             self.area_fromfile_browse.setEnabled(False)
 
-    #def open_data_folder_browse(self):
-    #    data_folder = QtGui.QFileDialog.getExistingDirectory()
-    #    self.data_folder_path.setText(data_folder)
-
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName()
         self.area_fromfile_file.setText(shpfile)
@@ -189,10 +210,22 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
             log("Found {} features in geojson - using first feature only.".format(len(features)), 2)
         bounding = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
 
+        # Extract trans_matrix from the QTableWidget
+        trans_matrix = []
+        for row in range(0, self.transMatrix.rowCount()):
+            for col in range(0, self.transMatrix.columnCount()):
+                val = self.transMatrix.cellWidget(row, col).text()
+                if val == "":
+                    val = 0
+                else:
+                    val = int(val)
+                trans_matrix.append(val)
+
         payload = {'year_bl_start': self.year_bl_start.date().year(),
                    'year_bl_end': self.year_bl_end.date().year(),
                    'year_target': self.year_target.date().year(),
-                   'geojson': json.dumps(bounding)}
+                   'geojson': json.dumps(bounding),
+                   'trans_matrix': trans_matrix}
 
         progressMessageBar = mb.createMessage("Submitting land cover task to Google Earth Engine...")
         spinner = QtGui.QLabel()

@@ -21,8 +21,9 @@ Lund University.
 
 ### Stable version (recommended)
 
-The latest release version of the plugin can be installed from within QGIS from 
-the [QGIS plugin repository](http://plugins.qgis.org/plugins/teamqgis).
+Once the final version of the plugin is released, it will be installable from 
+within QGIS from the [QGIS plugin repository](http://plugins.qgis.org). The 
+first public release of the plugin will be October 1, 2017.
 
 ### Development version
 

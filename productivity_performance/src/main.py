@@ -116,7 +116,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
 
     logger.debug("Setting up GEE task.")
     task = util.gee_task(ee.batch.Export.image.toCloudStorage(**export), 
-            'productivity_trajectory', logger)
+            'productivity_performance', logger)
     task.join()
 
     return "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)

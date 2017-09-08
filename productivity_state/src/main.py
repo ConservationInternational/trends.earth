@@ -92,7 +92,7 @@ def productivity_state(year_bl_start, year_bl_end, year_tg_start, year_tg_end,
         cloud_datasets.append(CloudDataset('geotiff', task.name, [results_url]))
 
     logger.debug("Setting up results JSON.")
-    gee_results = GEEResults('land_cover', cloud_datasets)
+    gee_results = GEEResults('productivity_state', cloud_datasets)
     results_schema = GEEResultsSchema()
     json_results = results_schema.dump(gee_results)
 

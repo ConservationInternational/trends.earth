@@ -16,12 +16,14 @@ import os
 import json
 import datetime
 
+from math import floor, log10
+
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
 from LDMP import log
 
-from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer
+from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -42,6 +44,14 @@ def get_scripts(api):
         script_id = script.pop('id')
         scripts_dict[script_id] = script
     return scripts_dict
+
+def round_to_n(x, sf=3):
+    'Function to round a positive value to n significant figures'
+    return round(x, -int(floor(log10(x))) + (sf - 1))
+
+def get_extreme(mn, mx, sf=3):
+    'Function to get rounded extreme value for a centered colorbar'
+    return max([round_to_n(abs(mn), sf), round_to_n(abs(mx), sf)])
 
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def __init__(self, parent=None):
@@ -95,17 +105,29 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     job['script_name'] =  'Script not found'
                     job['script_description'] = 'Script not found'
 
-            # Pretty print dates
+            # Pretty print dates and pull the metadata sent as input params
             for job in self.jobs:
                 job['start_date'] = datetime.datetime.strftime(job['start_date'], '%a %b %d (%H:%M)')
                 job['end_date'] = datetime.datetime.strftime(job['end_date'], '%a %b %d (%H:%M)')
+                job['task_name'] = job['params'].get('task_name', '')
+                job['task_notes'] = job['params'].get('task_notes', '')
+                job['params'] = job['params']
 
-            tablemodel = JobsTableModel(self.jobs, self)
-            self.jobs_view.setModel(tablemodel)
+            table_model = JobsTableModel(self.jobs, self)
+            self.jobs_view.setModel(table_model)
+
+            # Add "Notes" buttons in cell
+            for row in range(0, len(self.jobs)):
+                job = self.jobs[row]
+                self.jobs_view.setIndexWidget(table_model.index(row, 6), QtGui.QPushButton("Notes"))
+                self.jobs_view.setIndexWidget(table_model.index(row, 7), QtGui.QPushButton("Input"))
+
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
+
             return True
+
         else:
             return False
 
@@ -119,17 +141,63 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
+        log("Downloading results to {}".format(download_dir))
 
         rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
         for row in rows:
             job = self.jobs[row]
+            log("Processing job {}".format(job))
             if job['results'].get('type') == 'productivity_trajectory':
                 download_prod_traj(job, download_dir)
+            elif job['results'].get('type') == 'productivity_state':
+                download_prod_state(job, download_dir)
+            elif job['results'].get('type') == 'productivity_performance':
+                download_prod_perf(job, download_dir)
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
+            else:
+                raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
         self.close()
 
+class JobsTableModel(QAbstractTableModel):
+    def __init__(self, datain, parent=None, *args):
+        QAbstractTableModel.__init__(self, parent, *args)
+        self.jobs = datain
+
+        # Column names as tuples with json name in [0], pretty name in [1]
+        # Note that the columns with json names set to to INVALID aren't loaded 
+        # into the shell, but shown from a widget.
+        colname_tuples = [('task_name', 'Task'),
+                          ('script_name', 'Job'),
+                          ('start_date', 'Start time'),
+                          ('end_date', 'End time'),
+                          ('status', 'Status'),
+                          ('progress', 'Progress'),
+                          ('INVALID', 'Notes'),
+                          ('INVALID', 'Input')]
+        self.colnames_pretty = [x[1] for x in colname_tuples]
+        self.colnames_json = [x[0] for x in colname_tuples]
+
+    def rowCount(self, parent):
+        return len(self.jobs)
+
+    def columnCount(self, parent):
+        return len(self.colnames_json)
+
+    def data(self, index, role):
+        if not index.isValid():
+            return None
+        elif role != Qt.DisplayRole:
+            return None
+        return self.jobs[index.row()].get(self.colnames_json[index.column()], '')
+
+    def headerData(self, section, orientation, role=Qt.DisplayRole):
+        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
+            return self.colnames_pretty[section]
+        return QAbstractTableModel.headerData(self, section, orientation, role)
+
 def download_land_cover(job, download_dir):
+    log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
             #TODO style layer and set layer name based on the info in the dataset json file
@@ -239,7 +307,7 @@ def style_land_cover_land_deg(outfile):
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     #TODO The GPG doesn't seem to allow for possibility of improvement...?
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Degradation'),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), 'Stable'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), 'Stable'),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Improvement')]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
@@ -250,23 +318,49 @@ def style_land_cover_land_deg(outfile):
     iface.legendInterface().refreshLayerSymbology(layer_deg)
 
 def download_prod_traj(job, download_dir):
+    log("Downloading productivity_trajectory results...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
-            #TODO style layer and set layer name based on the info in the dataset json file
-            log("Downloading {}".format(url))
-            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            #TODO: Check if this file was already downloaded
-            download_file(url['url'], outfile)
-            style_prod_traj_trend(outfile)
-            style_prod_traj_signif(outfile)
+            if dataset['dataset'] in ['ndvi_trend', 'ue', 'p_restrend']:
+                #TODO style layer and set layer name based on the info in the dataset json file
+                log("Downloading {}".format(url))
+                outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+                #TODO: Check if this file was already downloaded
+                download_file(url['url'], outfile)
+                style_prod_traj_trend(outfile)
+                style_prod_traj_signif(outfile)
+            else:
+                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 def style_prod_traj_trend(outfile):
+    # Trends layer
+    layer_ndvi = iface.addRasterLayer(outfile, 'NDVI Trends')
+    provider = layer_ndvi.dataProvider()
+    # Set a colormap centred on zero, going to the extreme value significant to 
+    # three figures
+    stats = provider.bandStatistics(1, QgsRasterBandStats.All)
+    #TODO: Make this a 2% stretch rather than simple linear stretch
+    extreme = get_extreme(stats.minimumValue, stats.maximumValue)
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
+    lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), '-{} (declining)'.format(extreme)),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), '0 (stable)'),
+           QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), '{} (increasing)'.format(extreme))]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
+    layer_ndvi.setRenderer(pseudoRenderer)
+    layer_ndvi.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_ndvi)
+
+def style_prod_traj_signif(outfile):
     # Significance layer
     layer_signif = iface.addRasterLayer(outfile, 'NDVI Trends (significance)')
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Significant decrease'),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), 'No significant change'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), 'No significant change'),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Significant increase'),
            QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
            QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
@@ -278,14 +372,39 @@ def style_prod_traj_trend(outfile):
     layer_signif.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_signif)
 
-def style_prod_traj_signif(outfile):
+def download_prod_state(job, download_dir):
+    log("downloading productivity_state results...")
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            #TODO style layer and set layer name based on the info in the dataset json file
+            log("Downloading {}".format(url))
+            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+            #TODO: Check if this file was already downloaded
+            download_file(url['url'], outfile)
+            if dataset['dataset'] == 'ndvi_bl':
+                style_prod_state_ndvi(outfile, 'NDVI (baseline)')
+            elif dataset['dataset'] == 'ndvi_tg':
+                style_prod_state_ndvi(outfile, 'NDVI (target)')
+            elif dataset['dataset'] == 'perc_bl':
+                style_prod_state_perc(outfile, 'Percentile (baseline)')
+            elif dataset['dataset'] == 'perc_tg':
+                style_prod_state_perc(outfile, 'Percentile (target)')
+            else:
+                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
+
+def style_prod_state_ndvi(outfile, title):
     # Trends layer
-    layer_ndvi = iface.addRasterLayer(outfile, 'NDVI Trends')
+    layer_ndvi = iface.addRasterLayer(outfile, title)
+    provider = layer_ndvi.dataProvider()
+    # Set a colormap centred on zero, going to the extreme value significant to 
+    # three figures
+    stats = provider.bandStatistics(1, QgsRasterBandStats.All)
+    mx = round_to_n(stats.maximumValue)
+    #TODO: Make this a 2% stretch rather than simple linear stretch
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-    lst = [QgsColorRampShader.ColorRampItem(-100, QtGui.QColor(153, 51, 4), '-100 (declining)'),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(245, 245, 219), '0 (stable)'),
-           QgsColorRampShader.ColorRampItem(100, QtGui.QColor(0, 140, 121), '100 (increasing)')]
+    lst = [QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), '0'),
+           QgsColorRampShader.ColorRampItem(mx, QtGui.QColor(0, 140, 121), '{}'.format(mx))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -294,34 +413,55 @@ def style_prod_traj_signif(outfile):
     layer_ndvi.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_ndvi)
 
-class JobsTableModel(QAbstractTableModel):
-    def __init__(self, datain, parent=None, *args):
-        QAbstractTableModel.__init__(self, parent, *args)
-        self.jobs = datain
+def style_prod_state_perc(outfile, title):
+    # Significance layer
+    layer_signif = iface.addRasterLayer(outfile, title)
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    lst = [QgsColorRampShader.ColorRampItem(10, QtGui.QColor('#a50026'), '10th percentile'),
+           QgsColorRampShader.ColorRampItem(20, QtGui.QColor('#d73027'), '20th percentile'),
+           QgsColorRampShader.ColorRampItem(30, QtGui.QColor('#f46d43'), '30th percentile'),
+           QgsColorRampShader.ColorRampItem(40, QtGui.QColor('#fdae61'), '40th percentile'),
+           QgsColorRampShader.ColorRampItem(50, QtGui.QColor('#fee090'), '50th percentile'),
+           QgsColorRampShader.ColorRampItem(60, QtGui.QColor('#e0f3f8'), '60th percentile'),
+           QgsColorRampShader.ColorRampItem(70, QtGui.QColor('#abd9e9'), '70th percentile'),
+           QgsColorRampShader.ColorRampItem(80, QtGui.QColor('#74add1'), '80th percentile'),
+           QgsColorRampShader.ColorRampItem(90, QtGui.QColor('#4575b4'), '90th percentile'),
+           QgsColorRampShader.ColorRampItem(100, QtGui.QColor('#313695'), '100th percentile')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
+    layer_signif.setRenderer(pseudoRenderer)
+    layer_signif.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_signif)
 
-        # Column names as tuples with json name in [0], pretty name in [1]
-        colname_tuples = [('script_name', 'Job'),
-                          ('start_date', 'Start time'),
-                          ('end_date', 'End time'),
-                          ('status', 'Status'),
-                          ('progress', 'Progress')]
-        self.colnames_pretty = [x[1] for x in colname_tuples]
-        self.colnames_json = [x[0] for x in colname_tuples]
+def download_prod_perf(job, download_dir):
+    log("downloading productivity_perf results...")
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            if dataset['dataset'] == 'productivity_performance':
+                #TODO style layer and set layer name based on the info in the dataset json file
+                log("Downloading {}".format(url))
+                outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+                #TODO: Check if this file was already downloaded
+                download_file(url['url'], outfile)
+                style_prod_perf(outfile)
+            else:
+                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
-    def rowCount(self, parent):
-        return len(self.jobs)
-
-    def columnCount(self, parent):
-        return len(self.colnames_json)
-
-    def data(self, index, role):
-        if not index.isValid():
-            return None
-        elif role != Qt.DisplayRole:
-            return None
-        return self.jobs[index.row()][self.colnames_json[index.column()]]
-
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
-            return self.colnames_pretty[section]
-        return QAbstractTableModel.headerData(self, section, orientation, role)
+def style_prod_perf(outfile):
+    layer_perf = iface.addRasterLayer(outfile, 'Performance (degradation)')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    #TODO The GPG doesn't seem to allow for possibility of improvement...?
+    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Degradation'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), 'Stable'),
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Improvement')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_perf.dataProvider(), 1, shader)
+    layer_perf.setRenderer(pseudoRenderer)
+    layer_perf.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer_perf)

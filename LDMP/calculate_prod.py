@@ -69,7 +69,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'scripts.json')) as script_file:
-            self.scripts = json.load(script_file)['productivity_trajectory']
+            self.scripts = json.load(script_file)
             
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'gee_datasets.json')) as datasets_file:
@@ -81,7 +81,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
         self.dataset_ndvi_changed()
 
-        self.traj_indic.addItems(self.scripts.keys())
+        self.traj_indic.addItems(self.scripts['productivity_trajectory'].keys())
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
         setup_area_selection(self)
@@ -93,9 +93,8 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
 
         self.indic_select_traj_changed()
-        #TODO: when perf and state are added uncomment below two lines and delete the deactivations
-        # self.indic_select_perf_changed()
-        # self.indic_select_state_changed()
+        self.indic_select_perf_changed()
+        self.indic_select_state_changed()
         self.StateTab.setEnabled(False)
         self.PerformanceTab.setEnabled(False)
 
@@ -140,29 +139,23 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
             self.TrajectoryTab.setEnabled(False)
 
     def indic_select_perf_changed(self):
-        # if self.indic_select_perf.isChecked():
-        #     self.PerformanceTab.setEnabled(True)
-        # else:
-        #     self.PerformanceTab.setEnabled(False)
-        QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("Performance calculation coming soon!", None))
-        self.indic_select_perf.setChecked(False)
+        if self.indic_select_perf.isChecked():
+            self.PerformanceTab.setEnabled(True)
+        else:
+            self.PerformanceTab.setEnabled(False)
 
     def indic_select_state_changed(self):
-        # if self.indic_select_state.isChecked():
-        #     self.StateTab.setEnabled(True)
-        # else:
-        #     self.StateTab.setEnabled(False)
-        QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("State calculation coming soon!", None))
-        self.indic_select_state.setChecked(False)
+        if self.indic_select_state.isChecked():
+            self.StateTab.setEnabled(True)
+        else:
+            self.StateTab.setEnabled(False)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
-        climate_types = self.scripts[self.traj_indic.currentText()]['climate types']
+        climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
         for climate_type in climate_types:
             self.traj_climate.addItems(self.datasets[climate_type].keys())
 
@@ -261,7 +254,9 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a first level administrative boundary."), None)
             geojson = load_admin_polys(self)
-        if not self.indic_select_traj.isChecked() or self.indic_select_perf.isChecked() or self.indic_select_state.isChecked():
+        if not (self.indic_select_traj.isChecked() or 
+                self.indic_select_perf.isChecked() or 
+                self.indic_select_state.isChecked()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Choose one or more indicators to calculate."), None)
             return
@@ -301,8 +296,10 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
                    'year_end': self.traj_year_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'climate_gee_dataset': climate_gee_dataset}
-        payload.update(self.scripts[self.traj_indic.currentText()]['params'])
+                   'climate_gee_dataset': climate_gee_dataset,
+                   'task_name': self.task_name.currentText(),
+                   'task_notes': self.task_notes.toPlainText()}
+        payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
 
         progressMessageBar = mb.createMessage("Submitting trajectory task to Google Earth Engine...")
         spinner = QtGui.QLabel()
@@ -313,7 +310,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         mb.pushWidget(progressMessageBar, mb.INFO)
         movie.start()
 
-        gee_script = self.scripts[self.traj_indic.currentText()]['script id']
+        gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']
 
         resp = self.api.calculate(gee_script, payload)
 
@@ -324,3 +321,61 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
             self.close()
         else:
             mb.pushMessage("Error", "Unable to submit trajectory task to Google Earth Engine.", level=1, duration=5)
+
+    def calculate_performance(self, geojson, ndvi_dataset):
+        payload = {'year_start': self.perf_year_start.date().year(),
+                   'year_end': self.perf_year_end.date().year(),
+                   'geojson': json.dumps(geojson),
+                   'ndvi_gee_dataset': ndvi_dataset,
+                   'task_name': self.task_name.currentText(),
+                   'task_notes': self.task_notes.toPlainText()}
+
+        progressMessageBar = mb.createMessage("Submitting productivity performance task to Google Earth Engine...")
+        spinner = QtGui.QLabel()
+        movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
+        spinner.setMovie(QtGui.QMovie())
+        spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        progressMessageBar.layout().addWidget(spinner)
+        mb.pushWidget(progressMessageBar, mb.INFO)
+        movie.start()
+
+        gee_script = self.scripts['productivity_performance']['script id']
+
+        resp = self.api.calculate(gee_script, payload)
+
+        mb.popWidget(progressMessageBar)
+        if resp:
+            mb.pushMessage("Submitted",
+                    "Productivity performance task submitted to Google Earth Engine.", level=0, duration=5)
+            self.close()
+        else:
+            mb.pushMessage("Error", "Unable to submit productivity performance task to Google Earth Engine.", level=1, duration=5)
+
+    def calculate_state(self, geojson, ndvi_dataset):
+        payload = {'year_bl_start': self.perf_year_start.date().year(),
+                   'year_bl_end': self.perf_year_end.date().year(),
+                   'geojson': json.dumps(geojson),
+                   'ndvi_gee_dataset': ndvi_dataset,
+                   'task_name': self.task_name.currentText(),
+                   'task_notes': self.task_notes.toPlainText()}
+
+        progressMessageBar = mb.createMessage("Submitting productivity state task to Google Earth Engine...")
+        spinner = QtGui.QLabel()
+        movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
+        spinner.setMovie(QtGui.QMovie())
+        spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        progressMessageBar.layout().addWidget(spinner)
+        mb.pushWidget(progressMessageBar, mb.INFO)
+        movie.start()
+
+        gee_script = self.scripts['productivity_state']['script id']
+
+        resp = self.api.calculate(gee_script, payload)
+
+        mb.popWidget(progressMessageBar)
+        if resp:
+            mb.pushMessage("Submitted",
+                    "Productivity state task submitted to Google Earth Engine.", level=0, duration=5)
+            self.close()
+        else:
+            mb.pushMessage("Error", "Unable to submit productivity state task to Google Earth Engine.", level=1, duration=5)

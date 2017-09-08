@@ -30,5 +30,13 @@
             "climate types": ["Precipitation"],
             "description": "Calculate rain use efficiency (precipitation divided by NDVI)."
         }
+    },
+    "productivity_state": {
+        "script id": "cd03646c-9d4c-44a9-89ae-3309ae7bade3",
+        "description": "Calculate productivity state."
+    },
+    "productivity_performance": {
+        "script id": "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82",
+        "description": "Calculate productivity performance."
     }
 }

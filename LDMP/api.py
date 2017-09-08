@@ -15,6 +15,7 @@
 import datetime
 from dateutil import tz
 import requests
+import json
 
 from urllib import quote_plus
 
@@ -66,8 +67,19 @@ class API:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
             return False
 
-        #TODO: clean api token from response
-        log("API _call_api response: {}".format(resp.text))
+        try:
+            # JSON conversion will fail if the server didn't return a json 
+            # response
+            response = resp.json().copy()
+            if response.has_key('password'):
+                response['password'] = '**REMOVED**'
+            if response.has_key('access_token'):
+                response['access_token'] = '**REMOVED**'
+            response = json.dumps(response, indent=4, sort_keys=True)
+        except ValueError:
+            response = resp.text
+
+        log("API _call_api response: {}".format(response))
 
         if resp.status_code == 500:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)

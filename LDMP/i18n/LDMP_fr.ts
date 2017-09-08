@@ -100,133 +100,148 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="192"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="231"/>
         <source>Trajectory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="402"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="441"/>
         <source>Performance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="542"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="581"/>
         <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="204"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="243"/>
         <source>Baseline period</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1028"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1067"/>
         <source>End</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1065"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1104"/>
         <source>yyyy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1015"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1054"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="339"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="378"/>
         <source>Trajectory indicator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="374"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="413"/>
         <source>Climate dataset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="842"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="881"/>
         <source>Baseline period:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="554"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="593"/>
         <source>Existing degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="588"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="627"/>
         <source>Early epoch:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="601"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="640"/>
         <source>Late epoch:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="821"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="860"/>
         <source>Emerging degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="948"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="987"/>
         <source>Comparison period:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1075"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1114"/>
         <source>Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1126"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1165"/>
         <source>Second level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1161"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1200"/>
         <source>First level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1175"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1214"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1185"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1224"/>
         <source>Choose a file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1194"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1233"/>
         <source>Administrative area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1204"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1243"/>
         <source>Area from file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1238"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1277"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1245"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1284"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1252"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1291"/>
         <source>Calculate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="20"/>
         <source>Calculate Productivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="199"/>
+        <source>Metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="215"/>
+        <source>Task name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="222"/>
+        <source>Notes:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

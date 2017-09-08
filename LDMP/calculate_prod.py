@@ -297,7 +297,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,
-                   'task_name': self.task_name.currentText(),
+                   'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
         payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
 
@@ -327,7 +327,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
                    'year_end': self.perf_year_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.currentText(),
+                   'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
         progressMessageBar = mb.createMessage("Submitting productivity performance task to Google Earth Engine...")
@@ -356,7 +356,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
                    'year_bl_end': self.perf_year_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.currentText(),
+                   'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
         progressMessageBar = mb.createMessage("Submitting productivity state task to Google Earth Engine...")

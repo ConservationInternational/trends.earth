@@ -226,7 +226,7 @@ class DlgCalculateLC(QtGui.QDialog, UiDialog):
                    'year_target': self.year_target.date().year(),
                    'geojson': json.dumps(bounding),
                    'trans_matrix': trans_matrix,
-                   'task_name': self.task_name.currentText(),
+                   'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
         progressMessageBar = mb.createMessage("Submitting land cover task to Google Earth Engine...")

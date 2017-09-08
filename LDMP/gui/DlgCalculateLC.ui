@@ -25,7 +25,7 @@
      <x>10</x>
      <y>10</y>
      <width>781</width>
-     <height>541</height>
+     <height>551</height>
     </rect>
    </property>
    <property name="tabShape">
@@ -271,7 +271,7 @@
        <x>10</x>
        <y>180</y>
        <width>751</width>
-       <height>311</height>
+       <height>191</height>
       </rect>
      </property>
      <property name="title">
@@ -415,6 +415,45 @@
          </spacer>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="metadataGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>751</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Metadata</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_9">
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="task_name">
+        <property name="maxLength">
+         <number>160</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QTextEdit" name="task_notes"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Task name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Notes:</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -872,6 +911,24 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>TabBox</tabstop>
+  <tabstop>year_bl_start</tabstop>
+  <tabstop>year_bl_end</tabstop>
+  <tabstop>year_target</tabstop>
+  <tabstop>area_admin</tabstop>
+  <tabstop>area_fromfile</tabstop>
+  <tabstop>area_admin_0</tabstop>
+  <tabstop>area_admin_1</tabstop>
+  <tabstop>area_fromfile_file</tabstop>
+  <tabstop>area_fromfile_browse</tabstop>
+  <tabstop>task_name</tabstop>
+  <tabstop>task_notes</tabstop>
+  <tabstop>button_prev</tabstop>
+  <tabstop>button_next</tabstop>
+  <tabstop>button_calculate</tabstop>
+  <tabstop>transMatrix</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

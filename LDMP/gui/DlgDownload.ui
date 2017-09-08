@@ -259,6 +259,16 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>area_admin</tabstop>
+  <tabstop>area_fromfile</tabstop>
+  <tabstop>area_admin_0</tabstop>
+  <tabstop>area_admin_1</tabstop>
+  <tabstop>area_fromfile_file</tabstop>
+  <tabstop>area_fromfile_browse</tabstop>
+  <tabstop>data_folder</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

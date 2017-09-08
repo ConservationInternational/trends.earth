@@ -141,12 +141,16 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
     def indic_select_perf_changed(self):
         if self.indic_select_perf.isChecked():
             self.PerformanceTab.setEnabled(True)
+            QtGui.QMessageBox.critical(None, self.tr("Warning"),
+                    self.tr("Productivity performance calculation code is still being tested. Use results at your own risk."), None)
         else:
             self.PerformanceTab.setEnabled(False)
 
     def indic_select_state_changed(self):
         if self.indic_select_state.isChecked():
             self.StateTab.setEnabled(True)
+            QtGui.QMessageBox.critical(None, self.tr("Warning"),
+                    self.tr("Productivity state calculation code is still being tested. Use results at your own risk."), None)
         else:
             self.StateTab.setEnabled(False)
 

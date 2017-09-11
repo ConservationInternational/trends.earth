@@ -31,6 +31,7 @@ mb = iface.messageBar()
 from qgis.gui import QgsMessageBar
 
 from LDMP.gui.DlgJobs import Ui_DlgJobs
+from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 
 from LDMP.download import download_file
 from LDMP.api import API
@@ -118,9 +119,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
             # Add "Notes" buttons in cell
             for row in range(0, len(self.jobs)):
-                job = self.jobs[row]
-                self.jobs_view.setIndexWidget(table_model.index(row, 6), QtGui.QPushButton("Notes"))
-                self.jobs_view.setIndexWidget(table_model.index(row, 7), QtGui.QPushButton("Input"))
+                btn = QtGui.QPushButton("Details")
+                btn.clicked.connect(self.btn_details)
+                self.jobs_view.setIndexWidget(table_model.index(row, 5), btn)
 
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
@@ -131,16 +132,39 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         else:
             return False
 
+    def btn_details(self):
+        button = self.sender()
+        index = self.jobs_view.indexAt(button.pos())
+
+        details_dlg = DlgJobsDetails()
+
+        job = self.jobs[index.row()]
+
+        details_dlg.task_name.setText(job.get('task_name', ''))
+        details_dlg.task_status.setText(job.get('status', ''))
+        details_dlg.comments.setText(job.get('task_notes', ''))
+        details_dlg.input.setText(json.dumps(job.get('params', ''), indent=4, sort_keys=True))
+        details_dlg.output.setText(json.dumps(job.get('results', ''), indent=4, sort_keys=True))
+
+        details_dlg.show()
+        details_dlg.exec_()
+
     def btn_download(self):
-        download_dir = self.settings.value("LDMP/download_dir", None)
         while True:
-            download_dir = QtGui.QFileDialog.getExistingDirectory(self, self.tr("Directory to save files"), download_dir)
-            if os.access(download_dir, os.W_OK):
-                self.settings.setValue("LDMP/download_dir", download_dir)
-                break
+            download_dir = QtGui.QFileDialog.getExistingDirectory(self, 
+                    self.tr("Directory to save files"),
+                    self.settings.value("LDMP/download_dir", None),
+                    QtGui.QFileDialog.ShowDirsOnly)
+            if download_dir:
+                if os.access(download_dir, os.W_OK):
+                    self.settings.setValue("LDMP/download_dir", download_dir)
+                    break
+                else:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                            self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
+                return False
+
         log("Downloading results to {}".format(download_dir))
 
         rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
@@ -159,6 +183,13 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
         self.close()
 
+class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(DlgJobsDetails, self).__init__(parent)
+
+        self.setupUi(self)
+
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
@@ -167,14 +198,12 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded 
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', 'Task'),
+        colname_tuples = [('task_name', 'Task name'),
                           ('script_name', 'Job'),
                           ('start_date', 'Start time'),
                           ('end_date', 'End time'),
                           ('status', 'Status'),
-                          ('progress', 'Progress'),
-                          ('INVALID', 'Notes'),
-                          ('INVALID', 'Input')]
+                          ('INVALID', 'Details')]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 

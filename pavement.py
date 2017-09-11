@@ -3,6 +3,7 @@ import os
 import glob
 import json
 import stat
+import shutil
 import subprocess
 import tinys3
 import zipfile
@@ -24,11 +25,11 @@ options(
         tests = ['test'],
         excludes = [
             '.DS_Store',  # on Mac
-            'test-output',
+            'admin_0_polys.json.gz',
+            'admin_1_polys.json.gz',
+            'test-output/*',
             'data_prep_scripts',
             'ext-src',
-            'coverage*',
-            'nose*',
             '*.pyc',
         ],
         # skip certain files inadvertently found by exclude pattern globbing
@@ -121,14 +122,22 @@ def _install(folder, options):
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
-    dst = path('~').expanduser() / folder / 'python' / 'plugins' / plugin_name
+    dst_plugins = path('~').expanduser() / folder / 'python' / 'plugins'
+    dst_this_plugin = dst_plugins / plugin_name
     src = src.abspath()
-    dst = dst.abspath()
+    dst_this_plugin = dst_this_plugin.abspath()
     if not hasattr(os, 'symlink'):
-        rmtree(dst)
-        src.copytree(dst)
-    elif not dst.exists():
-        src.symlink(dst)
+        if dst_this_plugin.exists():
+            rmtree(dst_this_plugin)
+        for root, dirs, files in os.walk(src):
+            relpath = os.path.relpath(root)
+            if not path(path(dst_plugins) / path(relpath)).exists():
+                os.makedirs(path(path(dst_plugins) / path(relpath)))
+            for f in _filter_excludes(root, files, options):
+                shutil.copy(path(root) / f, path(dst_plugins) / path(relpath) / f)
+            _filter_excludes(root, dirs, options)
+    elif not dst_this_plugin.exists():
+        src.symlink(dst_this_plugin)
 
 @task
 def install(options):
@@ -253,28 +262,29 @@ def pylint(args):
     lint.Run(args)
 
 
-def _make_zip(zipFile, options):
+def _filter_excludes(root, items, options):
     excludes = set(options.plugin.excludes)
     skips = options.plugin.skip_exclude
 
-    src_dir = options.plugin.source_dir
     exclude = lambda p: any([path(p).fnmatch(e) for e in excludes])
-    def filter_excludes(root, items):
-        if not items:
-            return []
-        # to prevent descending into dirs, modify the list in place
-        for item in list(items):  # copy list or iteration values change
-            itempath = path(os.path.relpath(root)) / item
-            if exclude(item) and item not in skips:
-                debug('Excluding %s' % itempath)
-                items.remove(item)
-        return items
+    if not items:
+        return []
 
+    # to prevent descending into dirs, modify the list in place
+    for item in list(items):  # copy list or iteration values change
+        itempath = path(os.path.relpath(root)) / item
+        if exclude(item) and item not in skips:
+            debug('Excluding %s' % itempath)
+            items.remove(item)
+    return items
+
+def _make_zip(zipFile, options):
+    src_dir = options.plugin.source_dir
     for root, dirs, files in os.walk(src_dir):
-        for f in filter_excludes(root, files):
+        for f in _filter_excludes(root, files, options):
             relpath = os.path.relpath(root)
             zipFile.write(path(root) / f, path(relpath) / f)
-        filter_excludes(root, dirs)
+        _filter_excludes(root, dirs, options)
 
 ################################################
 # Below is based on pb_tool:

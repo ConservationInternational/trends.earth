@@ -67,7 +67,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
-        self.layout().addWidget(self.bar)
+        self.layout().addWidget(self.bar, 0, 0, Qt.AlignTop)
 
         self.refresh.clicked.connect(self.btn_refresh)
         self.download.clicked.connect(self.btn_download)

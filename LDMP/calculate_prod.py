@@ -252,18 +252,18 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         self.close()
 
     def btn_calculate(self):
-        if self.area_admin.isChecked():
-            # Get geojson for chosen bounds
-            if not self.area_admin_0.currentText():
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose a first level administrative boundary."), None)
-            geojson = load_admin_polys(self)
         if not (self.indic_select_traj.isChecked() or 
                 self.indic_select_perf.isChecked() or 
                 self.indic_select_state.isChecked()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Choose one or more indicators to calculate."), None)
             return
+        if self.area_admin.isChecked():
+            # Get geojson for chosen bounds
+            if not self.area_admin_0.currentText():
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Choose a first level administrative boundary."), None)
+            geojson = load_admin_polys(self)
 
         #if self.runon_gee.isChecked():
         # TODO: check before submission whether this payload and script ID has 

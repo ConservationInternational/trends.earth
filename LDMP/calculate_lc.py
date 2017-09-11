@@ -50,7 +50,7 @@ def setup_area_selection(dlg):
 
 def load_admin_polys(dlg):
     adm0_a3 = dlg.admin_0[dlg.area_admin_0.currentText()]['ADM0_A3']
-    if not dlg.area_admin_1.currentText() or dlg.area_admin_1.currentText() == 'All regions':
+    if not dlg.area_admin_1.currentText() == 'All regions':
         admin_0_polys = read_json('admin_0_polys.json.gz')
         return admin_0_polys[adm0_a3]['geojson']
     else:

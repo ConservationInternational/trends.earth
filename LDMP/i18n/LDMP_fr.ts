@@ -306,12 +306,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="47"/>
+        <location filename="../gui/DlgJobs.ui" line="45"/>
         <source>Refresh list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="54"/>
+        <location filename="../gui/DlgJobs.ui" line="52"/>
         <source>Download results</source>
         <translation type="unfinished"></translation>
     </message>
@@ -395,52 +395,52 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="44"/>
+        <location filename="../gui/DlgSettings.ui" line="37"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="51"/>
+        <location filename="../gui/DlgSettings.ui" line="44"/>
         <source>Register</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="64"/>
+        <location filename="../gui/DlgSettings.ui" line="57"/>
         <source>Email:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="71"/>
+        <location filename="../gui/DlgSettings.ui" line="64"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="90"/>
+        <location filename="../gui/DlgSettings.ui" line="83"/>
         <source>Existing users:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="109"/>
+        <location filename="../gui/DlgSettings.ui" line="102"/>
         <source>New users:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="123"/>
+        <location filename="../gui/DlgSettings.ui" line="116"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="153"/>
+        <location filename="../gui/DlgSettings.ui" line="146"/>
         <source>Update profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="160"/>
+        <location filename="../gui/DlgSettings.ui" line="153"/>
         <source>Delete user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="173"/>
+        <location filename="../gui/DlgSettings.ui" line="166"/>
         <source>Forgot password</source>
         <translation type="unfinished"></translation>
     </message>

@@ -108,20 +108,22 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
             # Pretty print dates and pull the metadata sent as input params
             for job in self.jobs:
-                job['start_date'] = datetime.datetime.strftime(job['start_date'], '%a %b %d (%H:%M)')
-                job['end_date'] = datetime.datetime.strftime(job['end_date'], '%a %b %d (%H:%M)')
+                job['start_date'] = datetime.datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
+                job['end_date'] = datetime.datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
                 job['task_name'] = job['params'].get('task_name', '')
                 job['task_notes'] = job['params'].get('task_notes', '')
                 job['params'] = job['params']
 
             table_model = JobsTableModel(self.jobs, self)
-            self.jobs_view.setModel(table_model)
+            proxy_model = QtGui.QSortFilterProxyModel()
+            proxy_model.setSourceModel(table_model)
+            self.jobs_view.setModel(proxy_model)
 
             # Add "Notes" buttons in cell
             for row in range(0, len(self.jobs)):
                 btn = QtGui.QPushButton("Details")
                 btn.clicked.connect(self.btn_details)
-                self.jobs_view.setIndexWidget(table_model.index(row, 5), btn)
+                self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)

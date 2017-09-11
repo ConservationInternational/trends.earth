@@ -21,8 +21,6 @@ from math import floor, log10
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
-from LDMP import log
-
 from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
 
 from qgis.utils import iface
@@ -33,7 +31,8 @@ from qgis.gui import QgsMessageBar
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 
-from LDMP.download import download_file
+from LDMP import log, download_file
+from LDMP.download import check_goog_cloud_store_hash
 from LDMP.api import API
 
 def get_scripts(api):
@@ -236,6 +235,7 @@ def download_land_cover(job, download_dir):
             outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
             #TODO: Check if this file was already downloaded
             download_file(url['url'], outfile)
+            check_goog_cloud_store_hash(url['url'], outfile)
             if dataset['dataset'] == 'lc_baseline':
                 style_land_cover_lc_baseline(outfile)
             elif dataset['dataset'] == 'lc_target':
@@ -358,6 +358,7 @@ def download_prod_traj(job, download_dir):
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
                 #TODO: Check if this file was already downloaded
                 download_file(url['url'], outfile)
+                check_goog_cloud_store_hash(url['url'], outfile)
                 style_prod_traj_trend(outfile)
                 style_prod_traj_signif(outfile)
             else:
@@ -412,6 +413,7 @@ def download_prod_state(job, download_dir):
             outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
             #TODO: Check if this file was already downloaded
             download_file(url['url'], outfile)
+            check_goog_cloud_store_hash(url['url'], outfile)
             if dataset['dataset'] == 'ndvi_bl':
                 style_prod_state_ndvi(outfile, 'NDVI (baseline)')
             elif dataset['dataset'] == 'ndvi_tg':
@@ -477,6 +479,7 @@ def download_prod_perf(job, download_dir):
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
                 #TODO: Check if this file was already downloaded
                 download_file(url['url'], outfile)
+                check_goog_cloud_store_hash(url['url'], outfile)
                 style_prod_perf(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))

@@ -23,6 +23,8 @@ from qgis.core import QgsMessageLog
 
 site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
+debug = QSettings().value('LDMP/debug', False)
+
 def read_json(file):
     with gzip.GzipFile(os.path.join(os.path.dirname(__file__), 'data', file), 'r') as fin:
         json_bytes = fin.read()
@@ -47,4 +49,5 @@ def classFactory(iface):  # pylint: disable=invalid-name
     return LDMPPlugin(iface)
 
 def log(message, level=QgsMessageLog.INFO):
-    QgsMessageLog.logMessage(message, tag="LDMP", level=level)
+    if debug:
+        QgsMessageLog.logMessage(message, tag="LDMP", level=level)

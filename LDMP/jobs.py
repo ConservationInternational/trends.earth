@@ -90,7 +90,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def btn_refresh(self):
         # TODO: Handle loss of internet and connection error on button refresh
         self.bar.pushMessage("Updating", "Contacting server to update job list.", level=QgsMessageBar.INFO)
-        self.jobs = self.api.get_execution(user=self.settings.value("LDMP/user_id", None))
+        self.jobs = self.api.get_execution(user=self.settings.value("LDMP/email", None))
         if self.jobs:
             # Add script names and descriptions to jobs list
             self.scripts = get_scripts(self.api)

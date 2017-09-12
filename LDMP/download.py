@@ -26,7 +26,7 @@ from LDMP import log, download_file
 
 from LDMP.gui.DlgDownload import Ui_DlgDownload
 
-def check_goog_cloud_store_hash(file, url):
+def check_goog_cloud_store_hash(url, filename):
     h = requests.head(url)
     try:
         #TODO not sure why this isn't working...

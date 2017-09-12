@@ -15,7 +15,7 @@
 import os
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon
+from PyQt4.QtGui import QAction, QIcon, QMessageBox
 
 from LDMP.settings import DlgSettings
 from LDMP.download import DlgDownload
@@ -235,13 +235,15 @@ class LDMPPlugin:
 
     def run_download(self):
         """Run method that performs all the real work"""
-        # show the dialog
-        self.dlg_download.show()
-        # Run the dialog event loop
-        result = self.dlg_download.exec_()
-        # See if OK was pressed
-        if result:
-            pass
+        # # show the dialog
+        # self.dlg_download.show()
+        # # Run the dialog event loop
+        # result = self.dlg_download.exec_()
+        # # See if OK was pressed
+        # if result:
+        #     pass
+        QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Raw data download coming soon!"), None)
 
     def run_calculate(self):
         """Run method that performs all the real work"""
@@ -266,23 +268,27 @@ class LDMPPlugin:
 
     def run_plot(self):
         """Run method that performs all the real work"""
-        # show the dialog
-        self.dlg_plot.show()
-        # Run the dialog event loop
-        result = self.dlg_plot.exec_()
-        # See if OK was pressed
-        if result:
-            pass
+        # # show the dialog
+        # self.dlg_plot.show()
+        # # Run the dialog event loop
+        # result = self.dlg_plot.exec_()
+        # # See if OK was pressed
+        # if result:
+        #     pass
+        QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Timeseries analysis coming soon!"), None)
 
     def run_reporting(self):
         """Run method that performs all the real work"""
-        # show the dialog
-        self.dlg_reporting.show()
-        # Run the dialog event loop
-        result = self.dlg_reporting.exec_()
-        # See if OK was pressed
-        if result:
-            pass
+        # # show the dialog
+        # self.dlg_reporting.show()
+        # # Run the dialog event loop
+        # result = self.dlg_reporting.exec_()
+        # # See if OK was pressed
+        # if result:
+        #     pass
+        QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Reporting functionality coming soon!"), None)
 
     def run_about(self):
         """Run method that performs all the real work"""

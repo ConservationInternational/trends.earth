@@ -287,7 +287,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         if len(features) > 1:
-            log("Found {} features in geojson - using first feature only.".format(len(features)), 2)
+            log("Found {} features in geojson - using first feature only.".format(len(features)))
         bounding = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
 
         if self.indic_select_traj.isChecked():

@@ -92,18 +92,6 @@
             "Status": "Stored as assets",
             "Comments": "Full V7 until Jan 2013; V4 monitoring after."
         },
-        "GPCP v2.2 5 day": {
-            "Data source": "https://www1.ncdc.noaa.gov/pub/data/gpcp/pentad-v2.2/data/",
-            "Start year": 1979,
-            "End year": 2014,
-            "Spatial": "Original 2.5 x 2.5 degrees, in toolbox 5 km",
-            "Extent": "Global",
-            "Units/Description": "mm/year",
-            "GEE Dataset": "not computed",
-            "Source code": "c07_precip_gpcp_v2.2_5d",
-            "Status": "not computed",
-            "Comments": "Need to fix coordinates - North and South reversed"
-        },
         "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
             "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcp.html",
             "Start year": 1979,

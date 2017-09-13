@@ -103,8 +103,17 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
     def btn_refresh(self):
         # TODO: Handle loss of internet and connection error on button refresh
-        self.bar.pushMessage("Updating", "Contacting server to update job list.", level=QgsMessageBar.INFO)
+        # progressMessageBar = mb.createMessage("Contacting server to update job list.")
+        # progress = QtGui.QProgressBar()
+        # progress.setRange(0, 0)
+        # progress.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        # progressMessageBar.layout().addWidget(progress)
+        # self.bar.pushWidget(progressMessageBar, iface.messageBar().INFO)
+
         self.jobs = self.api.get_execution(user=get_user_email())
+
+        #mb.popWidget(progressMessageBar)
+
         if self.jobs:
             # Add script names and descriptions to jobs list
             self.scripts = get_scripts(self.api)

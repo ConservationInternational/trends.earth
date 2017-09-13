@@ -16,6 +16,7 @@ import datetime
 from dateutil import tz
 import requests
 import json
+import threading
 
 from urllib import quote_plus
 
@@ -38,12 +39,43 @@ def get_user_email():
         return email
 
 
-class API:
-    def __init__(self):
+class API_Call(threading.Thread):
+    """Run earth engine task against the ldmp API"""
+    def __init__(self, endpoint, method='get', payload={}, use_token=False, start_now=True):
+        threading.Thread.__init__(self)
+
         self.settings = QSettings()
 
-    def _call_api(self, endpoint, method='get', payload={}, use_token=False):
-        if use_token:
+        self.endpoint = endpoint
+        self.method = method
+        self.payload = payload
+        self.use_token = use_token
+
+        if start_now: self.start()
+
+    def login(self, email=None, password=None):
+        if (email == None):
+            email = get_user_email()
+        if (password == None):
+            password = self.settings.value("LDMP/password", None)
+        if not email or not password:
+            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
+            return False
+        resp = requests.post(API_URL + '/auth', json={"email" : email, "password" : password})
+
+        if resp.status_code == 200:
+            self.settings.setValue("LDMP/email", email)
+            self.settings.setValue("LDMP/password", password)
+            return resp
+        elif resp.status_code == 401:
+            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
+            return False
+        else:
+            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
+            return False
+
+    def run(self):
+        if self.use_token:
             resp = self.login()
             if resp:
                 headers = {'Authorization': 'Bearer %s'%resp.json()['access_token']}
@@ -54,25 +86,25 @@ class API:
             headers = {}
 
         # Strip password out of payload for printing to QGIS logs
-        clean_payload = payload.copy()
+        clean_payload = self.payload.copy()
         if clean_payload.has_key('password'):
             clean_payload['password'] = '**REMOVED**'
 
-        log('API _call_api calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
+        log('API _call_api calling {} with method "{}" and payload: {}'.format(self.endpoint, self.method, clean_payload))
 
         try:
-            if method == 'get':
-                resp = requests.get(API_URL + endpoint, json=payload, headers=headers)
-            elif method == 'post':
-                resp = requests.post(API_URL + endpoint, json=payload, headers=headers)
-            elif method == 'update':
-                resp = requests.update(API_URL + endpoint, json=payload, headers=headers)
-            elif method == 'delete':
-                resp = requests.delete(API_URL + endpoint, json=payload, headers=headers)
-            elif method == 'patch':
-                resp = requests.patch(API_URL + endpoint, json=payload, headers=headers)
+            if self.method == 'get':
+                resp = requests.get(API_URL + self.endpoint, json=self.payload, headers=headers)
+            elif self.method == 'post':
+                resp = requests.post(API_URL + self.endpoint, json=self.payload, headers=headers)
+            elif self.method == 'update':
+                resp = requests.update(API_URL + self.endpoint, json=self.payload, headers=headers)
+            elif self.method == 'delete':
+                resp = requests.delete(API_URL + self.endpoint, json=self.payload, headers=headers)
+            elif self.method == 'patch':
+                resp = requests.patch(API_URL + self.endpoint, json=self.payload, headers=headers)
             else:
-                raise ValueError("Unrecognized method: {}".format(method))
+                raise ValueError("Unrecognized method: {}".format(self.method))
         except requests.ConnectionError:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
             return False
@@ -89,33 +121,25 @@ class API:
         except ValueError:
             response = resp.text
 
-        log('API _call_api response from "{}" request: {}'.format(method, response))
+        log('API _call_api response from "{}" request: {}'.format(self.method, response))
 
         if resp.status_code == 500:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
             return False
 
-        return resp
+        self.resp = resp
 
-    def login(self, email=None, password=None):
-        if (email == None): email = get_user_email()
-        if (password == None): password = self.settings.value("LDMP/password", None)
-        if not email or not password:
-            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
-            return False
-        resp = self._call_api('/auth', 'post', payload={"email" : email, "password" : password})
-        if resp.status_code == 200:
-            self.settings.setValue("LDMP/email", email)
-            self.settings.setValue("LDMP/password", password)
-            return resp
-        elif resp.status_code == 401:
-            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
+    def get_resp(self):
+        self.join()
+        return self.resp
+
+class API:
+    def __init__(self):
+        self.settings = QSettings()
 
     def recover_pwd(self, email):
-        resp = self._call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+        call = API_Call('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+        resp = call.get_resp()
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -127,7 +151,8 @@ class API:
         return False
 
     def get_user(self, email):
-        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+        call = API_Call('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+        resp = call.get_resp()
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -143,7 +168,8 @@ class API:
                    "name" : name,
                    "institution": organization,
                    "country": country}
-        resp = self._call_api('/api/v1/user', method='post', payload=payload)
+        call = API_Call('/api/v1/user', method='post', payload=payload)
+        resp = call.get_resp()
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -155,8 +181,9 @@ class API:
         return False
 
     def calculate(self, script, params={}):
-        resp = self._call_api('/api/v1/script/{}/run'.format(quote_plus(script)),
+        call = API_Call('/api/v1/script/{}/run'.format(quote_plus(script)), 
                 'post', params, use_token=True)
+        resp = call.get_resp()
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -174,7 +201,8 @@ class API:
                    "name" : name,
                    "institution": organization,
                    "country": country}
-        resp = self._call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+        call = API_Call('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+        resp = call.get_resp()
         if not resp:
             return False
         if resp.status_code == 200:
@@ -185,9 +213,11 @@ class API:
 
     def get_execution(self, id=None, user=None):
         if id:
-            resp = self._call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
+            call = API_Call('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
+            resp = call.get_resp()
         else:
-            resp = self._call_api('/api/v1/execution', 'get', use_token=True)
+            call = API_Call('/api/v1/execution', 'get', use_token=True)
+            resp = call.get_resp()
         if not resp:
             return False
         elif resp.status_code == 200:
@@ -216,9 +246,11 @@ class API:
 
     def get_script(self, id=None):
         if id:
-            resp = self._call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
+            call = API_Call('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
+            resp = call.get_resp()
         else:
-            resp = self._call_api('/api/v1/script', 'get', use_token=True)
+            call = API_Call('/api/v1/script', 'get', use_token=True)
+            resp = call.get_resp()
         if not resp:
             return False
         return resp.json()['data']

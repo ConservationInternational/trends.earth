@@ -159,9 +159,11 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
+        self.climate_datasets = {}
         climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
         for climate_type in climate_types:
             self.traj_climate.addItems(self.datasets[climate_type].keys())
+            self.climate_datasets.update(self.datasets[climate_type])
 
     def dataset_ndvi_changed(self):
         this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
@@ -284,7 +286,7 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
         # geojson
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
-        if len(features) != 0:
+        if len(features) > 1:
             log("Found {} features in geojson - using first feature only.".format(len(features)), 2)
         bounding = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
 
@@ -299,7 +301,9 @@ class DlgCalculateProd(QtGui.QDialog, UiDialog):
     
     def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
-            climate_gee_dataset = self.datasets['NDVI'][self.traj_climate.currentText()]['GEE Dataset']
+            log('self.climate_datasets {}'.format(self.climate_datasets))
+            climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
+            log('climate_gee_dataset {}'.format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 

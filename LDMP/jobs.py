@@ -74,6 +74,20 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
 
+        # Set a variable used to record the necessary window width to view all 
+        # columns
+        self._full_width = None
+
+    def resizeWindowToColumns(self):
+        if not self._full_width:
+            margins = self.layout().contentsMargins()
+            self._full_width = margins.left() + margins.right() + \
+                self.jobs_view.frameWidth() * 2 + \
+                self.jobs_view.verticalHeader().width() + \
+                self.jobs_view.horizontalHeader().length() + \
+                self.jobs_view.style().pixelMetric(QtGui.QStyle.PM_ScrollBarExtent)
+        self.resize(self._full_width, self.height())
+
     def selection_changed(self):
         if not self.jobs_view.selectedIndexes():
             self.download.setEnabled(False)
@@ -127,6 +141,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
+
+            self.resizeWindowToColumns()
 
             return True
 

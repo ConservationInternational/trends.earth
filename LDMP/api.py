@@ -28,6 +28,16 @@ from . import log
 
 API_URL = 'http://api.resilienceatlas.org'
 
+def get_user_email():
+    email = QSettings().value("LDMP/email", None)
+    if email is None:
+        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                self.tr("Please register with the Land Degradation Monitoring Toolbox before using this function."))
+        return False
+    else:
+        return email
+
+
 class API:
     def __init__(self):
         self.settings = QSettings()
@@ -48,7 +58,7 @@ class API:
         if clean_payload.has_key('password'):
             clean_payload['password'] = '**REMOVED**'
 
-        log("API _call_api calling {} with payload: {}".format(endpoint, clean_payload))
+        log('API _call_api calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
 
         try:
             if method == 'get':
@@ -79,7 +89,7 @@ class API:
         except ValueError:
             response = resp.text
 
-        log("API _call_api response: {}".format(response))
+        log('API _call_api response from "{}" request: {}'.format(method, response))
 
         if resp.status_code == 500:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
@@ -88,7 +98,7 @@ class API:
         return resp
 
     def login(self, email=None, password=None):
-        if (email == None): email = self.settings.value("LDMP/email", None)
+        if (email == None): email = get_user_email()
         if (password == None): password = self.settings.value("LDMP/password", None)
         if not email or not password:
             mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
@@ -122,7 +132,7 @@ class API:
             return False
         elif resp.status_code == 200:
             return resp.json()['data']
-        elif resp.status_code == 404:
+        elif resp.status_code in [403, 404]:
             mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
         else:
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
@@ -195,8 +205,9 @@ class API:
                 end_date = end_date.astimezone(tz.tzlocal())
                 job['end_date'] = end_date
             if user:
-                user = self.get_user(self.settings.value("LDMP/email"))['id']
-                return [x for x in resp if x['user_id'] == user]
+                log('Username is {}'.format(user))
+                user_id = self.get_user(user)['id']
+                return [x for x in resp if x['user_id'] == user_id]
             else:
                 return []
         else:

@@ -26,7 +26,7 @@ from LDMP.gui.DlgSettings import Ui_DlgSettings as UiDialog
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
-from LDMP.api import API
+from LDMP.api import API, get_user_email
 
 class DlgSettings (QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
@@ -48,7 +48,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
         self.cancel.clicked.connect(self.btn_cancel)
 
-        email = self.settings.value("LDMP/email", None)
+        email = get_user_email()
         if email: self.email.setText(email)
         password = self.settings.value("LDMP/password", None)
         if password: self.password.setText(password)

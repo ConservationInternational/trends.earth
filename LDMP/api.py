@@ -38,6 +38,52 @@ def get_user_email():
     else:
         return email
 
+def clean_api_response(resp):
+    try:
+        # JSON conversion will fail if the server didn't return a json 
+        # response
+        response = resp.json().copy()
+        if response.has_key('password'):
+            response['password'] = '**REMOVED**'
+        if response.has_key('access_token'):
+            response['access_token'] = '**REMOVED**'
+        response = json.dumps(response, indent=4, sort_keys=True)
+    except ValueError:
+        response = resp.text
+    return response
+
+def get_error_status(resp):
+    status = resp.get('status', None)
+    if not status:
+        status = resp.get('status_code', 'None')
+    desc = resp.get('detail', None)
+    if not desc:
+        desc = resp.get('description', 'Generic error')
+    return (desc, status)
+
+def login(email=None, password=None):
+    if (email == None):
+        email = get_user_email()
+    if (password == None):
+        password = QSettings().value("LDMP/password", None)
+    if not email or not password:
+        mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
+        return False
+
+    log('API trying login for user {}'.format(email))
+    resp = requests.post(API_URL + '/auth', json={"email" : email, "password" : password})
+    log('API response to login for user {}: {}'.format(email, clean_api_response(resp)))
+
+    if resp.status_code == 200:
+        QSettings().setValue("LDMP/email", email)
+        QSettings().setValue("LDMP/password", password)
+        return resp
+    else:
+        resp = resp.json()
+        desc, status = get_error_status(resp)
+        mb.pushMessage("Error: {} (status {}).".format(desc, status),
+                level=1, duration=5)
+        return False
 
 class API_Call(threading.Thread):
     """Run earth engine task against the ldmp API"""
@@ -53,30 +99,9 @@ class API_Call(threading.Thread):
 
         if start_now: self.start()
 
-    def login(self, email=None, password=None):
-        if (email == None):
-            email = get_user_email()
-        if (password == None):
-            password = self.settings.value("LDMP/password", None)
-        if not email or not password:
-            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
-            return False
-        resp = requests.post(API_URL + '/auth', json={"email" : email, "password" : password})
-
-        if resp.status_code == 200:
-            self.settings.setValue("LDMP/email", email)
-            self.settings.setValue("LDMP/password", password)
-            return resp
-        elif resp.status_code == 401:
-            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
-            return False
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-            return False
-
     def run(self):
         if self.use_token:
-            resp = self.login()
+            resp = login()
             if resp:
                 headers = {'Authorization': 'Bearer %s'%resp.json()['access_token']}
                 log("API _call_api loaded token.")
@@ -109,25 +134,16 @@ class API_Call(threading.Thread):
             mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
             return False
 
-        try:
-            # JSON conversion will fail if the server didn't return a json 
-            # response
-            response = resp.json().copy()
-            if response.has_key('password'):
-                response['password'] = '**REMOVED**'
-            if response.has_key('access_token'):
-                response['access_token'] = '**REMOVED**'
-            response = json.dumps(response, indent=4, sort_keys=True)
-        except ValueError:
-            response = resp.text
+        log('API _call_api response from "{}" request: {}'.format(self.method, clean_api_response(resp)))
 
-        log('API _call_api response from "{}" request: {}'.format(self.method, response))
-
-        if resp.status_code == 500:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-            return False
-
-        self.resp = resp
+        if resp.status_code != 200:
+            resp = resp.json()
+            desc, status = get_error_status(resp)
+            mb.pushMessage("Error: {} (status {}).".format(desc, status),
+                    level=1, duration=5)
+            self.resp = None
+        else:
+            self.resp = resp.json()
 
     def get_resp(self):
         self.join()
@@ -139,29 +155,11 @@ class API:
 
     def recover_pwd(self, email):
         call = API_Call('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
-        resp = call.get_resp()
-        if not resp:
-            return False
-        elif resp.status_code == 200:
-            return resp
-        elif resp.status_code == 404:
-            mb.pushMessage("Error", "{} is not a registered user.".format(email), level=1, duration=5)
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
+        return call.get_resp()
 
     def get_user(self, email):
         call = API_Call('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
-        resp = call.get_resp()
-        if not resp:
-            return False
-        elif resp.status_code == 200:
-            return resp.json()['data']
-        elif resp.status_code in [403, 404]:
-            mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
+        return call.get_resp()['data']
 
     def register(self, email, name, organization, country):
         payload = {"email" : email,
@@ -169,32 +167,12 @@ class API:
                    "institution": organization,
                    "country": country}
         call = API_Call('/api/v1/user', method='post', payload=payload)
-        resp = call.get_resp()
-        if not resp:
-            return False
-        elif resp.status_code == 200:
-            return resp
-        elif resp.status_code == 400:
-            mb.pushMessage("Error", "User {} is already registered.".format(email), level=1, duration=5)
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
+        return call.get_resp()
 
     def calculate(self, script, params={}):
         call = API_Call('/api/v1/script/{}/run'.format(quote_plus(script)), 
                 'post', params, use_token=True)
-        resp = call.get_resp()
-        if not resp:
-            return False
-        elif resp.status_code == 200:
-            return resp
-        elif resp.status_code == 400:
-            mb.pushMessage("Error", "LDMP server error (script state not valid).".format(email), level=1, duration=5)
-        elif resp.status_code == 404:
-            mb.pushMessage("Error", "LDMP server error (script not found).".format(email), level=1, duration=5)
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
+        return call.get_resp()
 
     def update_user(self, email, name, organization, country):
         payload = {"email" : email,
@@ -202,30 +180,22 @@ class API:
                    "institution": organization,
                    "country": country}
         call = API_Call('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
-        resp = call.get_resp()
-        if not resp:
-            return False
-        if resp.status_code == 200:
-            return resp
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
+        return call.get_resp()
 
     def get_execution(self, id=None, user=None):
         if id:
             call = API_Call('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
-            resp = call.get_resp()
         else:
             call = API_Call('/api/v1/execution', 'get', use_token=True)
-            resp = call.get_resp()
+        resp = call.get_resp()
         if not resp:
-            return False
-        elif resp.status_code == 200:
-            resp = resp.json()['data']
+            return None
+        else:
+            data = resp['data']
             # Sort responses in descending order using start time by default
-            resp = sorted(resp, key=lambda job: job['start_date'], reverse=True)
+            data = sorted(data, key=lambda job: job['start_date'], reverse=True)
             # Convert start/end dates into datatime objects in local time zone
-            for job in resp:
+            for job in data:
                 start_date = datetime.datetime.strptime(job['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
                 start_date = start_date.replace(tzinfo=tz.tzutc())
                 start_date = start_date.astimezone(tz.tzlocal())
@@ -237,20 +207,13 @@ class API:
             if user:
                 log('Username is {}'.format(user))
                 user_id = self.get_user(user)['id']
-                return [x for x in resp if x['user_id'] == user_id]
+                return [x for x in data if x['user_id'] == user_id]
             else:
                 return []
-        else:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        return False
 
     def get_script(self, id=None):
         if id:
             call = API_Call('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
-            resp = call.get_resp()
         else:
             call = API_Call('/api/v1/script', 'get', use_token=True)
-            resp = call.get_resp()
-        if not resp:
-            return False
-        return resp.json()['data']
+        return call.get_resp()['data']

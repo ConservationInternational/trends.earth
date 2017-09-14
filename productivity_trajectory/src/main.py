@@ -39,7 +39,7 @@ def ndvi_trend(year_start, year_end, ndvi_1yr, logger):
 
     def f_img_coll(ndvi_stack):
         img_coll = ee.List([])
-        for k in range(year_start, year_end):
+        for k in range(year_start, year_end + 1):
             ndvi_img = ndvi_stack.select('y' + str(k)).addBands(ee.Image(k).float()).rename(['ndvi', 'year'])
             img_coll = img_coll.add(ndvi_img)
         return ee.ImageCollection(img_coll)
@@ -60,7 +60,7 @@ def p_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
 
     def f_img_coll(ndvi_stack):
         img_coll = ee.List([])
-        for k in range(year_start, year_end):
+        for k in range(year_start, year_end + 1):
             ndvi_img = ndvi_stack.select('y{}'.format(k))\
                 .addBands(climate_1yr.select('y{}'.format(k)))\
                 .rename(['ndvi','clim']).set({'year': k})
@@ -83,7 +83,7 @@ def p_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
     # Function to compute differences between observed and predicted NDVI and compilation in an image collection
     def stack(year_start, year_end):
         img_coll = ee.List([])
-        for k in range(year_start, year_end):
+        for k in range(year_start, year_end + 1):
             ndvi = ndvi_1yr_o.filter(ee.Filter.eq('year', k)).select('ndvi').median()
             clim = clim_1yr_o.filter(ee.Filter.eq('year', k)).select('ndvi').median()
             img = ndvi.addBands(clim.addBands(ee.Image(k).float())).rename(['ndvi','clim','year']).set({'year': k})
@@ -94,7 +94,7 @@ def p_restrend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
     def f_ndvi_clim_r_coll(year_start, year_end): 
         res_list = ee.List([])
         #for(i = year_start i <= year_end i += 1):
-        for i in range(year_start, year_end):
+        for i in range(year_start, year_end + 1):
             res_image = f_ndvi_clim_r_img(i)
             res_list = res_list.add(res_image)
         return ee.ImageCollection(res_list)
@@ -131,7 +131,7 @@ def ue_trend(year_start, year_end, ndvi_1yr, climate_1yr, logger):
     logger.debug("Entering ue_trend function.")
     def f_img_coll(ndvi_stack):
         img_coll = ee.List([])
-        for k in range(year_start, year_end):
+        for k in range(year_start, year_end + 1):
             ndvi_img = ndvi_stack.select('y{}'.format(k)).divide(climate_1yr.select('y{}'.format(k)))\
                                 .addBands(ee.Image(k).float())\
                                 .rename(['ue','year']).set({'year': k})

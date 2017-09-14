@@ -30,7 +30,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
 
     def f_img_coll(ndvi_stack, year_start, year_end):
         img_coll = ee.List([])
-        for k in range(year_start, year_end):
+        for k in range(year_start, year_end + 1):
             img_coll = img_coll.add(ndvi_stack.select('y{}'.format(k)).rename(['ndvi']))
         return ee.ImageCollection(img_coll)
 

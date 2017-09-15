@@ -14,8 +14,8 @@
 
 import os
 import json
-import datetime
 
+from datetime import date, datetime
 from math import floor, log10
 
 from PyQt4 import QtGui
@@ -34,6 +34,18 @@ from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP import log, download_file
 from LDMP.download import check_goog_cloud_store_hash
 from LDMP.api import API, get_user_email
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+def create_json_metadata(job, outfile):
+    outfile = os.path.splitext(outfile)[0] + '.json'
+    with open(outfile, 'w') as outfile:
+        json.dump(job['raw'], outfile, default=json_serial, sort_keys=True, 
+                indent=4, separators=(',', ': '))
 
 def get_scripts(api):
     scripts = api.get_script()
@@ -118,6 +130,10 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             # Add script names and descriptions to jobs list
             self.scripts = get_scripts(self.api)
             for job in self.jobs:
+                # self.jobs will have prettified data for usage in table, so 
+                # save a backup of the original data under key 'original'
+                job['raw'] = job.copy()
+       
                 script = job.get('script_id', None)
                 if script:
                     job['script_name'] = self.scripts[job['script_id']]['name']
@@ -130,8 +146,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
             # Pretty print dates and pull the metadata sent as input params
             for job in self.jobs:
-                job['start_date'] = datetime.datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
-                job['end_date'] = datetime.datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
+                job['start_date'] = datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
+                job['end_date'] = datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
                 job['task_name'] = job['params'].get('task_name', '')
                 job['task_notes'] = job['params'].get('task_notes', '')
                 job['params'] = job['params']
@@ -260,6 +276,7 @@ def download_land_cover(job, download_dir):
             outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
             #TODO: Check if this file was already downloaded
             download_file(url['url'], outfile)
+            create_json_metadata(job, outfile)
             check_goog_cloud_store_hash(url['url'], outfile)
             if dataset['dataset'] == 'lc_baseline':
                 style_land_cover_lc_baseline(outfile)
@@ -383,6 +400,7 @@ def download_prod_traj(job, download_dir):
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
                 #TODO: Check if this file was already downloaded
                 download_file(url['url'], outfile)
+                create_json_metadata(job, outfile)
                 check_goog_cloud_store_hash(url['url'], outfile)
                 style_prod_traj_trend(outfile)
                 style_prod_traj_signif(outfile)
@@ -438,6 +456,7 @@ def download_prod_state(job, download_dir):
             outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
             #TODO: Check if this file was already downloaded
             download_file(url['url'], outfile)
+            create_json_metadata(job, outfile)
             check_goog_cloud_store_hash(url['url'], outfile)
             if dataset['dataset'] == 'ndvi_bl':
                 style_prod_state_ndvi(outfile, 'NDVI (baseline)')
@@ -504,6 +523,7 @@ def download_prod_perf(job, download_dir):
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
                 #TODO: Check if this file was already downloaded
                 download_file(url['url'], outfile)
+                create_json_metadata(job, outfile)
                 check_goog_cloud_store_hash(url['url'], outfile)
                 style_prod_perf(outfile)
             else:

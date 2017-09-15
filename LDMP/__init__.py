@@ -28,6 +28,10 @@ site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 debug = QSettings().value('LDMP/debug', True)
 
+def log(message, level=QgsMessageLog.INFO):
+    if debug:
+        QgsMessageLog.logMessage(message, tag="LDMP", level=level)
+
 class DownloadError(Exception):
      def __init__(self, message):
         self.message = message
@@ -43,6 +47,8 @@ def download_file(url, filename):
     else:
         total_size_pretty = '{:.2f} MB'.format(round(total_size*1e-6, 2))
     
+    log('Downloading {} ({}) to {}'.format(url, total_size_pretty, filename))
+
     progressMessageBar = iface.messageBar().createMessage("Downloading {} ({})...".format(os.path.basename(filename), total_size_pretty))
     progress = QtGui.QProgressBar()
     progress.setMaximum(1)
@@ -60,6 +66,9 @@ def download_file(url, filename):
 
     if bytes_dl != total_size:
         raise DownloadError('Final file size does not match expected')
+        log("Download {} file size didn't match expected".format(url))
+
+    log("Download of {} complete".format(url))
 
     iface.messageBar().popWidget(progressMessageBar)
     iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
@@ -98,7 +107,3 @@ def classFactory(iface):  # pylint: disable=invalid-name
 
     from LDMP.ldmp import LDMPPlugin
     return LDMPPlugin(iface)
-
-def log(message, level=QgsMessageLog.INFO):
-    if debug:
-        QgsMessageLog.logMessage(message, tag="LDMP", level=level)

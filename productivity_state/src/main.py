@@ -34,15 +34,13 @@ def productivity_state(year_bl_start, year_bl_end, year_tg_start, year_tg_end,
             img_coll = img_coll.add(ndvi_stack.select('y{}'.format(k)).rename(['ndvi']))
         return ee.ImageCollection(img_coll)
 
-    clip_geometry = ee.Geometry(geojson)
-
     # compute mean ndvi for the baseline period
     ndvi_bl_coll = f_img_coll(ndvi_1yr, year_bl_start, year_bl_end)
-    ndvi_bl = ndvi_bl_coll.reduce(ee.Reducer.mean()).clip(clip_geometry)
+    ndvi_bl = ndvi_bl_coll.reduce(ee.Reducer.mean())
 
     # compute mean ndvi for the target period
     ndvi_tg_coll = f_img_coll(ndvi_1yr, year_tg_start, year_tg_end)
-    ndvi_tg = ndvi_tg_coll.reduce(ee.Reducer.mean()).clip(clip_geometry)
+    ndvi_tg = ndvi_tg_coll.reduce(ee.Reducer.mean())
 
     perc_bl = ndvi_bl.reduce(ee.Reducer.percentile([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))
     perc_tg = ndvi_tg.reduce(ee.Reducer.percentile([10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))

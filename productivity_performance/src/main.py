@@ -34,8 +34,6 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
             img_coll = img_coll.add(ndvi_stack.select('y{}'.format(k)).rename(['ndvi']))
         return ee.ImageCollection(img_coll)
 
-    clip_geometry = ee.Geometry(geojson)
-
     # compute mean ndvi for the baseline period
     ndvi_1yr = f_img_coll(ndvi_1yr, year_start, year_end)
     avg_ndvi = ndvi_1yr.reduce(ee.Reducer.mean()).rename(['ndvi'])
@@ -83,7 +81,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     # compute 90th percentile by unit
     perc90_group_reducer = ee.Reducer.percentile([90]).group(groupField=1, groupName='code')
     perc90_reducer = {'reducer': perc90_group_reducer,
-                      'geometry': clip_geometry,
+                      'region': util.get_coords(geojson),
                       'scale': ee.Number(modis_proj.nominalScale()).getInfo(),
                       'maxPixels': 1e13}
     perc90 = ndvi_id.reduceRegion(**perc90_reducer)

@@ -61,11 +61,9 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                     61, 62, 63, 64, 65, 66],
                     trans_matrix)
 
-    clip_geometry = ee.Geometry(geojson)
-
     tasks = []
     # Create export function to export baseline land cover
-    export_lc_baseline = {'image': lc_bl.clip(clip_geometry).int16(),
+    export_lc_baseline = {'image': lc_bl.int16(),
                           'description': '{}_lc_baseline'.format(EXECUTION_ID),
                           'fileNamePrefix': '{}_lc_baseline'.format(EXECUTION_ID),
                           'bucket': BUCKET,
@@ -76,7 +74,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                               'lc_baseline', logger))
 
     # Create export function to export target year land cover
-    export_lc_target = {'image': lc_tg.clip(clip_geometry).int16(),
+    export_lc_target = {'image': lc_tg.int16(),
                         'description': '{}_lc_target'.format(EXECUTION_ID),
                         'fileNamePrefix': '{}_lc_target'.format(EXECUTION_ID),
                         'bucket': BUCKET,
@@ -87,7 +85,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                               'lc_target', logger))
 
     # Create export function to export land cover transition
-    export_lc_change = {'image': lc_tr.clip(clip_geometry).int16(),
+    export_lc_change = {'image': lc_tr.int16(),
                         'description': '{}_lc_change'.format(EXECUTION_ID),
                         'fileNamePrefix': '{}_lc_change'.format(EXECUTION_ID),
                         'bucket': BUCKET,
@@ -98,7 +96,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                               'lc_change', logger))
 
     # Create export function to export land deg image
-    export_land_deg = {'image': lc_dg.clip(clip_geometry).int16(),
+    export_land_deg = {'image': lc_dg.int16(),
                        'description': '{}_land_deg'.format(EXECUTION_ID),
                        'fileNamePrefix': '{}_land_deg'.format(EXECUTION_ID),
                        'bucket': BUCKET,

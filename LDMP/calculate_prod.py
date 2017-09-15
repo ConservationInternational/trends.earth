@@ -34,16 +34,22 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.setupUi(self)
 
-        self.start_year_climate = 0
-        self.end_year_climate = 9999
-
-        self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
-        self.dataset_ndvi_changed()
-
         self.traj_indic.addItems(self.scripts['productivity_trajectory'].keys())
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
+        self.dataset_climate_update()
+        self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
+
+        self.start_year_climate = 0
+        self.end_year_climate = 9999
+        self.start_year_ndvi = 0
+        self.end_year_ndvi = 9999
+
+        self.dataset_ndvi_changed()
+        self.traj_climate_changed()
+
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
+        self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
         self.indic_select_traj.stateChanged.connect(self.indic_select_traj_changed)
         self.indic_select_perf.stateChanged.connect(self.indic_select_perf_changed)
@@ -52,8 +58,6 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.indic_select_traj_changed()
         self.indic_select_perf_changed()
         self.indic_select_state_changed()
-        self.StateTab.setEnabled(False)
-        self.PerformanceTab.setEnabled(False)
 
         self.setup_dialog()
 
@@ -87,8 +91,17 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.climate_datasets = {}
         climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
         for climate_type in climate_types:
-            self.traj_climate.addItems(self.datasets[climate_type].keys())
             self.climate_datasets.update(self.datasets[climate_type])
+            self.traj_climate.addItems(self.datasets[climate_type].keys())
+
+    def traj_climate_changed(self):
+        if self.traj_climate.currentText() == "":
+            self.start_year_climate = 0
+            self.end_year_climate = 9999
+        else:
+            self.start_year_climate = self.climate_datasets[self.traj_climate.currentText()]['Start year']
+            self.end_year_climate = self.climate_datasets[self.traj_climate.currentText()]['End year']
+        self.update_time_bounds()
 
     def dataset_ndvi_changed(self):
         this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
@@ -157,7 +170,6 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
     
     def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
-            log('self.climate_datasets {}'.format(self.climate_datasets))
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
             log('climate_gee_dataset {}'.format(climate_gee_dataset))
         else:

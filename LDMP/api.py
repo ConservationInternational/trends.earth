@@ -170,6 +170,11 @@ class API:
         return call.get_resp()
 
     def calculate(self, script, params={}):
+        # TODO: check before submission whether this payload and script ID has 
+        # been sent recently - or even whether there are results already 
+        # available for it. Notify the user if this is the case to prevent, or 
+        # at least reduce, repeated identical submissions.
+
         call = API_Call('/api/v1/script/{}/run'.format(quote_plus(script)), 
                 'post', params, use_token=True)
         return call.get_resp()

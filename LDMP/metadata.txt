@@ -9,7 +9,7 @@
 [general]
 name=Land Degradation Monitoring Toolbox
 qgisMinimumVersion=2.18
-description=This plugin supports monitoring of land degradation in support of the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG) and for reporting to the UNCCD
+description=This plugin supports monitoring of land degradation in support of the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG) and for reporting to the United Nations Convention to Combat Desertification (UNCCD)
 version=0.2
 author=Conservation International
 email=GEF-LDMP@conservation.org
@@ -23,7 +23,7 @@ repository=https://github.com/ConservationInternational/ldmp-qgis-plugin
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
 
 homepage=https://github.com/ConservationInternational/ldmp-qgis-plugin
 category=Plugins

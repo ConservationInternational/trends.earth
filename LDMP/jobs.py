@@ -409,7 +409,7 @@ def download_prod_traj(job, download_dir):
 
 def style_prod_traj_trend(outfile):
     # Trends layer
-    layer_ndvi = iface.addRasterLayer(outfile, 'NDVI Trends')
+    layer_ndvi = iface.addRasterLayer(outfile, 'Productivity trajectory trend')
     provider = layer_ndvi.dataProvider()
     # Set a colormap centred on zero, going to the extreme value significant to 
     # three figures
@@ -431,7 +431,7 @@ def style_prod_traj_trend(outfile):
 
 def style_prod_traj_signif(outfile):
     # Significance layer
-    layer_signif = iface.addRasterLayer(outfile, 'NDVI Trends (significance)')
+    layer_signif = iface.addRasterLayer(outfile, 'Productivity trajectory trend (significance)')
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Significant decrease'),
@@ -458,60 +458,93 @@ def download_prod_state(job, download_dir):
             download_file(url['url'], outfile)
             create_json_metadata(job, outfile)
             check_goog_cloud_store_hash(url['url'], outfile)
-            if dataset['dataset'] == 'ndvi_bl':
-                style_prod_state_ndvi(outfile, 'NDVI (baseline)')
-            elif dataset['dataset'] == 'ndvi_tg':
-                style_prod_state_ndvi(outfile, 'NDVI (target)')
-            elif dataset['dataset'] == 'perc_bl':
-                style_prod_state_perc(outfile, 'Percentile (baseline)')
-            elif dataset['dataset'] == 'perc_tg':
-                style_prod_state_perc(outfile, 'Percentile (target)')
+            if dataset['dataset'] == 'ini_degr':
+                style_prod_state_init(outfile)
+            elif dataset['dataset'] == 'eme_degr':
+                style_prod_state_emerg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
-def style_prod_state_ndvi(outfile, title):
-    # Trends layer
-    layer_ndvi = iface.addRasterLayer(outfile, title)
-    provider = layer_ndvi.dataProvider()
-    # Set a colormap centred on zero, going to the extreme value significant to 
-    # three figures
-    stats = provider.bandStatistics(1, QgsRasterBandStats.All)
-    mx = round_to_n(stats.maximumValue)
-    #TODO: Make this a 2% stretch rather than simple linear stretch
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-    lst = [QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), '0'),
-           QgsColorRampShader.ColorRampItem(mx, QtGui.QColor(0, 140, 121), '{}'.format(mx))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
-    layer_ndvi.setRenderer(pseudoRenderer)
-    layer_ndvi.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_ndvi)
-
-def style_prod_state_perc(outfile, title):
+def style_prod_state_init(outfile):
     # Significance layer
-    layer_signif = iface.addRasterLayer(outfile, title)
+    layer = iface.addRasterLayer(outfile, 'Productivity state (initial)')
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(10, QtGui.QColor('#a50026'), '10th percentile'),
-           QgsColorRampShader.ColorRampItem(20, QtGui.QColor('#d73027'), '20th percentile'),
-           QgsColorRampShader.ColorRampItem(30, QtGui.QColor('#f46d43'), '30th percentile'),
-           QgsColorRampShader.ColorRampItem(40, QtGui.QColor('#fdae61'), '40th percentile'),
-           QgsColorRampShader.ColorRampItem(50, QtGui.QColor('#fee090'), '50th percentile'),
-           QgsColorRampShader.ColorRampItem(60, QtGui.QColor('#e0f3f8'), '60th percentile'),
-           QgsColorRampShader.ColorRampItem(70, QtGui.QColor('#abd9e9'), '70th percentile'),
-           QgsColorRampShader.ColorRampItem(80, QtGui.QColor('#74add1'), '80th percentile'),
-           QgsColorRampShader.ColorRampItem(90, QtGui.QColor('#4575b4'), '90th percentile'),
-           QgsColorRampShader.ColorRampItem(100, QtGui.QColor('#313695'), '100th percentile')]
+    lst = [QgsColorRampShader.ColorRampItem(-2, QtGui.QColor(0, 0, 0), 'No data'),
+           QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Potentially degraded'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), 'Stable'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
-    layer_signif.setRenderer(pseudoRenderer)
-    layer_signif.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_signif)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+    layer.setRenderer(pseudoRenderer)
+    layer.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer)
+
+def style_prod_state_emerg(outfile):
+    # Significance layer
+    layer = iface.addRasterLayer(outfile, 'Productivity state (emerging)')
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.EXACT)
+    lst = [QgsColorRampShader.ColorRampItem(-2, QtGui.QColor(0, 0, 0), 'No data'),
+           QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Significant decrease'),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), 'No significant change'),
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Significant increase'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+    layer.setRenderer(pseudoRenderer)
+    layer.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer)
+
+# def style_prod_state_ndvi(outfile, title):
+#     # Trends layer
+#     layer_ndvi = iface.addRasterLayer(outfile, title)
+#     provider = layer_ndvi.dataProvider()
+#     # Set a colormap centred on zero, going to the extreme value significant to 
+#     # three figures
+#     stats = provider.bandStatistics(1, QgsRasterBandStats.All)
+#     mx = round_to_n(stats.maximumValue)
+#     #TODO: Make this a 2% stretch rather than simple linear stretch
+#     fcn = QgsColorRampShader()
+#     fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
+#     lst = [QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), '0'),
+#            QgsColorRampShader.ColorRampItem(mx, QtGui.QColor(0, 140, 121), '{}'.format(mx))]
+#     fcn.setColorRampItemList(lst)
+#     shader = QgsRasterShader()
+#     shader.setRasterShaderFunction(fcn)
+#     pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
+#     layer_ndvi.setRenderer(pseudoRenderer)
+#     layer_ndvi.triggerRepaint()
+#     iface.legendInterface().refreshLayerSymbology(layer_ndvi)
+
+# def style_prod_state_perc(outfile, title):
+#     # Significance layer
+#     layer_signif = iface.addRasterLayer(outfile, title)
+#     fcn = QgsColorRampShader()
+#     fcn.setColorRampType(QgsColorRampShader.EXACT)
+#     lst = [QgsColorRampShader.ColorRampItem(10, QtGui.QColor('#a50026'), '10th percentile'),
+#            QgsColorRampShader.ColorRampItem(20, QtGui.QColor('#d73027'), '20th percentile'),
+#            QgsColorRampShader.ColorRampItem(30, QtGui.QColor('#f46d43'), '30th percentile'),
+#            QgsColorRampShader.ColorRampItem(40, QtGui.QColor('#fdae61'), '40th percentile'),
+#            QgsColorRampShader.ColorRampItem(50, QtGui.QColor('#fee090'), '50th percentile'),
+#            QgsColorRampShader.ColorRampItem(60, QtGui.QColor('#e0f3f8'), '60th percentile'),
+#            QgsColorRampShader.ColorRampItem(70, QtGui.QColor('#abd9e9'), '70th percentile'),
+#            QgsColorRampShader.ColorRampItem(80, QtGui.QColor('#74add1'), '80th percentile'),
+#            QgsColorRampShader.ColorRampItem(90, QtGui.QColor('#4575b4'), '90th percentile'),
+#            QgsColorRampShader.ColorRampItem(100, QtGui.QColor('#313695'), '100th percentile')]
+#     fcn.setColorRampItemList(lst)
+#     shader = QgsRasterShader()
+#     shader.setRasterShaderFunction(fcn)
+#     pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
+#     layer_signif.setRenderer(pseudoRenderer)
+#     layer_signif.triggerRepaint()
+#     iface.legendInterface().refreshLayerSymbology(layer_signif)
 
 def download_prod_perf(job, download_dir):
     log("downloading productivity_perf results...")
@@ -530,7 +563,7 @@ def download_prod_perf(job, download_dir):
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 def style_prod_perf(outfile):
-    layer_perf = iface.addRasterLayer(outfile, 'Performance (degradation)')
+    layer_perf = iface.addRasterLayer(outfile, 'Productivity performance (degradation)')
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     #TODO The GPG doesn't seem to allow for possibility of improvement...?

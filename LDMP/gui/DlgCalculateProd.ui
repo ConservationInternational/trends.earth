@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>515</width>
-    <height>669</height>
+    <height>878</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -588,7 +588,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="3" column="1">
-           <widget class="QDateEdit" name="state_existdeg_early_year_start">
+           <widget class="QDateEdit" name="state_year_init_bl_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -627,7 +627,7 @@
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QDateEdit" name="state_existdeg_early_year_end">
+           <widget class="QDateEdit" name="state_year_init_bl_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -648,7 +648,7 @@
             </property>
             <property name="date">
              <date>
-              <year>2010</year>
+              <year>2012</year>
               <month>12</month>
               <day>31</day>
              </date>
@@ -706,7 +706,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Late epoch</string>
+             <string>Comparison period</string>
             </property>
            </widget>
           </item>
@@ -750,7 +750,7 @@
            </widget>
           </item>
           <item row="6" column="1">
-           <widget class="QDateEdit" name="state_existdeg_late_year_start">
+           <widget class="QDateEdit" name="state_year_init_tg_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -768,6 +768,13 @@
               <width>120</width>
               <height>35</height>
              </size>
+            </property>
+            <property name="date">
+             <date>
+              <year>2013</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
             </property>
             <property name="maximumDateTime">
              <datetime>
@@ -809,7 +816,7 @@
            </widget>
           </item>
           <item row="6" column="2">
-           <widget class="QDateEdit" name="state_existdeg_late_year_end">
+           <widget class="QDateEdit" name="state_year_init_tg_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -872,7 +879,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Early epoch</string>
+             <string>Baseline period</string>
             </property>
            </widget>
           </item>
@@ -882,7 +889,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_8">
          <property name="title">
-          <string>Existing degradation</string>
+          <string>Emerging degradation</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_6">
           <item row="5" column="1">
@@ -912,7 +919,7 @@
            </widget>
           </item>
           <item row="6" column="2">
-           <widget class="QDateEdit" name="state_emergedeg_comp_year_end">
+           <widget class="QDateEdit" name="state_year_emerg_tg_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -980,7 +987,7 @@
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QDateEdit" name="state_emergedeg_base_year_end">
+           <widget class="QDateEdit" name="state_year_emerg_bl_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -1058,7 +1065,7 @@
            </widget>
           </item>
           <item row="6" column="1">
-           <widget class="QDateEdit" name="state_emergedeg_comp_year_start">
+           <widget class="QDateEdit" name="state_year_emerg_tg_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -1143,7 +1150,7 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QDateEdit" name="state_emergedeg_base_year_start">
+           <widget class="QDateEdit" name="state_year_emerg_bl_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>

@@ -21,9 +21,10 @@ Lund University.
 
 ### Stable version (recommended)
 
-Once the final version of the plugin is released, it will be installable from 
-within QGIS from the [QGIS plugin repository](http://plugins.qgis.org). The 
-first public release of the plugin will be October 1, 2017.
+The easiest way to install the plugin is from within QGIS, using the [QGIS 
+plugin repository](http://plugins.qgis.org/plugins/LDMP/). A beta version of 
+the plugin is available now - the first public release of the plugin will be 
+October 1, 2017.
 
 ### Development version
 

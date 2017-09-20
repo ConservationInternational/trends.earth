@@ -48,7 +48,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
         self.cancel.clicked.connect(self.btn_cancel)
 
-        email = get_user_email()
+        email = QSettings().value("LDMP/email", None)
         if email: self.email.setText(email)
         password = self.settings.value("LDMP/password", None)
         if password: self.password.setText(password)

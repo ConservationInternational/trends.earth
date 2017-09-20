@@ -20,6 +20,7 @@ import threading
 
 from urllib import quote_plus
 
+from PyQt4 import QtGui 
 from PyQt4.QtCore import QSettings
 
 from qgis.utils import iface
@@ -29,12 +30,11 @@ from . import log
 
 API_URL = 'http://api.resilienceatlas.org'
 
-def get_user_email():
+def get_user_email(warn=True):
     email = QSettings().value("LDMP/email", None)
-    if email is None:
-        QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("Please register with the Land Degradation Monitoring Toolbox before using this function."))
-        return False
+    if warn and email is None:
+        QtGui.QMessageBox.critical(None, "Error", "Please register with the Land Degradation Monitoring Toolbox before using this function.")
+        return None
     else:
         return email
 

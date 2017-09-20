@@ -122,57 +122,55 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         # progressMessageBar.layout().addWidget(progress)
         # self.bar.pushWidget(progressMessageBar, iface.messageBar().INFO)
 
-        self.jobs = self.api.get_execution(user=get_user_email())
+        email = get_user_email()
+        if email:
+            self.jobs = self.api.get_execution(user=email)
+            #mb.popWidget(progressMessageBar)
+            if self.jobs:
+                # Add script names and descriptions to jobs list
+                self.scripts = get_scripts(self.api)
+                for job in self.jobs:
+                    # self.jobs will have prettified data for usage in table, so 
+                    # save a backup of the original data under key 'original'
+                    job['raw'] = job.copy()
+           
+                    script = job.get('script_id', None)
+                    if script:
+                        job['script_name'] = self.scripts[job['script_id']]['name']
+                        job['script_description'] = self.scripts[job['script_id']]['description']
+                    else:
+                        # Handle case of scripts that have been removed or that are 
+                        # no longer supported
+                        job['script_name'] =  'Script not found'
+                        job['script_description'] = 'Script not found'
 
-        #mb.popWidget(progressMessageBar)
+                # Pretty print dates and pull the metadata sent as input params
+                for job in self.jobs:
+                    job['start_date'] = datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
+                    job['end_date'] = datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
+                    job['task_name'] = job['params'].get('task_name', '')
+                    job['task_notes'] = job['params'].get('task_notes', '')
+                    job['params'] = job['params']
 
-        if self.jobs:
-            # Add script names and descriptions to jobs list
-            self.scripts = get_scripts(self.api)
-            for job in self.jobs:
-                # self.jobs will have prettified data for usage in table, so 
-                # save a backup of the original data under key 'original'
-                job['raw'] = job.copy()
-       
-                script = job.get('script_id', None)
-                if script:
-                    job['script_name'] = self.scripts[job['script_id']]['name']
-                    job['script_description'] = self.scripts[job['script_id']]['description']
-                else:
-                    # Handle case of scripts that have been removed or that are 
-                    # no longer supported
-                    job['script_name'] =  'Script not found'
-                    job['script_description'] = 'Script not found'
+                table_model = JobsTableModel(self.jobs, self)
+                proxy_model = QtGui.QSortFilterProxyModel()
+                proxy_model.setSourceModel(table_model)
+                self.jobs_view.setModel(proxy_model)
 
-            # Pretty print dates and pull the metadata sent as input params
-            for job in self.jobs:
-                job['start_date'] = datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
-                job['end_date'] = datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
-                job['task_name'] = job['params'].get('task_name', '')
-                job['task_notes'] = job['params'].get('task_notes', '')
-                job['params'] = job['params']
+                # Add "Notes" buttons in cell
+                for row in range(0, len(self.jobs)):
+                    btn = QtGui.QPushButton("Details")
+                    btn.clicked.connect(self.btn_details)
+                    self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
-            table_model = JobsTableModel(self.jobs, self)
-            proxy_model = QtGui.QSortFilterProxyModel()
-            proxy_model.setSourceModel(table_model)
-            self.jobs_view.setModel(proxy_model)
+                self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+                self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+                self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
-            # Add "Notes" buttons in cell
-            for row in range(0, len(self.jobs)):
-                btn = QtGui.QPushButton("Details")
-                btn.clicked.connect(self.btn_details)
-                self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
+                self.resizeWindowToColumns()
 
-            self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
-            self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-            self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
-
-            self.resizeWindowToColumns()
-
-            return True
-
-        else:
-            return False
+                return True
+        return False
 
     def btn_details(self):
         button = self.sender()

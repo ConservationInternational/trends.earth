@@ -2,46 +2,6 @@
 <!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en_US">
 <context>
     <name>Dialog</name>
-    <message>
-        <location filename="../gui/DlgStatusProcessing.ui" line="14"/>
-        <source>Downloading Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusProcessing.ui" line="45"/>
-        <source>Elapsed time:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusProcessing.ui" line="64"/>
-        <source>Estimated time remaining:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusProcessing.ui" line="83"/>
-        <source>Progress:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusDownload.ui" line="113"/>
-        <source>Downloading data...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusDownload.ui" line="126"/>
-        <source>Stop downloading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusProcessing.ui" line="113"/>
-        <source>Processing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgStatusProcessing.ui" line="126"/>
-        <source>Stop processing</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context encoding="UTF-8">
     <name>DlgAbout</name>
@@ -75,37 +35,37 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="67"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="141"/>
         <source>NDVI dataset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="102"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="42"/>
         <source>Indicators to calculate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="124"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="68"/>
         <source>Trajectory is related to rate of change of  productivity over time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="141"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="98"/>
         <source>Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="158"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="128"/>
         <source>State is a comparison of how current productivity in an area compares to past productivity in that area.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="231"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="225"/>
         <source>Trajectory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="441"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="431"/>
         <source>Performance</source>
         <translation type="unfinished"></translation>
     </message>
@@ -115,133 +75,123 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="243"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="985"/>
         <source>Baseline period</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1067"/>
-        <source>End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1104"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1187"/>
         <source>yyyy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1054"/>
-        <source>Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="378"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="237"/>
         <source>Trajectory indicator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="413"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="392"/>
         <source>Climate dataset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="881"/>
-        <source>Baseline period:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="593"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="587"/>
         <source>Existing degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="627"/>
-        <source>Early epoch:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="640"/>
-        <source>Late epoch:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="860"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="892"/>
         <source>Emerging degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="987"/>
-        <source>Comparison period:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1114"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1211"/>
         <source>Area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1165"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1241"/>
         <source>Second level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1200"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1266"/>
         <source>First level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1214"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1301"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1224"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1349"/>
         <source>Choose a file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1233"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1363"/>
         <source>Administrative area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1243"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1356"/>
         <source>Area from file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1277"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1409"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1284"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1395"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1291"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="1402"/>
         <source>Calculate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="20"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="26"/>
         <source>Calculate Productivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="199"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="166"/>
         <source>Metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="215"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="172"/>
         <source>Task name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="222"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="192"/>
         <source>Notes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="1050"/>
+        <source>Starting year:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="1063"/>
+        <source>Ending year:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="1148"/>
+        <source>Comparison period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="1217"/>
+        <source>Area to run calculations for</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -301,17 +251,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgJobs</name>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="14"/>
+        <location filename="../gui/DlgJobs.ui" line="26"/>
         <source>Download results from Earth Engine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="45"/>
+        <location filename="../gui/DlgJobs.ui" line="57"/>
         <source>Refresh list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="52"/>
+        <location filename="../gui/DlgJobs.ui" line="64"/>
         <source>Download results</source>
         <translation type="unfinished"></translation>
     </message>
@@ -337,53 +287,28 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReporting</name>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="14"/>
-        <source>Land Degradation Reporting</source>
+        <location filename="../gui/DlgReporting.ui" line="20"/>
+        <source>Calculate Indicators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="48"/>
-        <source>Reporting strata:</source>
+        <location filename="../gui/DlgReporting.ui" line="32"/>
+        <source>Choose an indicator to report on:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="64"/>
-        <source>Administrative area</source>
+        <location filename="../gui/DlgReporting.ui" line="45"/>
+        <source>Productivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="94"/>
-        <source>First level:</source>
+        <location filename="../gui/DlgReporting.ui" line="58"/>
+        <source>Land Cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="129"/>
-        <source>Second level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="183"/>
-        <source>Select from file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="195"/>
-        <source>Choose a file...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="221"/>
-        <source>Browse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="245"/>
-        <source>Folder with LDMT data:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="258"/>
-        <source>Choose a folder...</source>
+        <location filename="../gui/DlgReporting.ui" line="71"/>
+        <source>Soil Carbon</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -395,52 +320,52 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="37"/>
+        <location filename="../gui/DlgSettings.ui" line="74"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="44"/>
+        <location filename="../gui/DlgSettings.ui" line="100"/>
         <source>Register</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="57"/>
+        <location filename="../gui/DlgSettings.ui" line="61"/>
         <source>Email:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="64"/>
+        <location filename="../gui/DlgSettings.ui" line="32"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="83"/>
+        <location filename="../gui/DlgSettings.ui" line="196"/>
         <source>Existing users:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="102"/>
+        <location filename="../gui/DlgSettings.ui" line="177"/>
         <source>New users:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="116"/>
+        <location filename="../gui/DlgSettings.ui" line="209"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="146"/>
+        <location filename="../gui/DlgSettings.ui" line="145"/>
         <source>Update profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="153"/>
+        <location filename="../gui/DlgSettings.ui" line="87"/>
         <source>Delete user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="166"/>
+        <location filename="../gui/DlgSettings.ui" line="132"/>
         <source>Forgot password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -453,32 +378,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="38"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="152"/>
         <source>Register user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="84"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
         <source>Email:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="97"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="113"/>
         <source>Country:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="107"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="165"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="120"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="84"/>
         <source>Organization:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="133"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="58"/>
         <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -491,37 +416,37 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="44"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="90"/>
         <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="57"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="145"/>
         <source>Country:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="86"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="32"/>
         <source>Email:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="99"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="116"/>
         <source>Organization:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="115"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="61"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="159"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="184"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="166"/>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="197"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -709,6 +634,26 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ldmp.py" line="209"/>
         <source>About the land degradation monitoring toolbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="290"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="245"/>
+        <source>Raw data download coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="278"/>
+        <source>Timeseries analysis coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="290"/>
+        <source>Reporting functionality coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

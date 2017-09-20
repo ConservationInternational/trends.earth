@@ -30,7 +30,7 @@ def check_goog_cloud_store_hash(url, filename):
     h = requests.head(url)
     try:
         #TODO not sure why this isn't working...
-        expected_crc32c = re.search('crc32c=(.+?), md5=', h.headers['x-goog-hash']).group(1)
+        expected_crc32c = re.search('crc32c=(.+?), md5=', h.headers.get('x-goog-hash', '')).group(1)
         if not check_hash(filename, expected_crc32c):
             log("File hash doesn't match expected value for {}.".format(filename), 2)
         else:

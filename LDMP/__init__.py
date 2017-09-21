@@ -64,14 +64,15 @@ def download_file(url, filename):
                 bytes_dl += len(chunk)
                 progress.setValue(float(bytes_dl) / total_size)
 
+    iface.messageBar().popWidget(progressMessageBar)
+    iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
+
     if bytes_dl != total_size:
         raise DownloadError('Final file size does not match expected')
         log("Download {} file size didn't match expected".format(url))
-
-    log("Download of {} complete".format(url))
-
-    iface.messageBar().popWidget(progressMessageBar)
-    iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
+        return False
+    else:
+        log("Download of {} complete".format(url))
 
 def read_json(file):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)

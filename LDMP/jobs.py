@@ -33,7 +33,7 @@ from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 
 from LDMP import log, download_file
 from LDMP.download import check_goog_cloud_store_hash
-from LDMP.api import API, get_user_email
+from LDMP.api import get_script, get_user_email, get_execution
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -47,8 +47,8 @@ def create_json_metadata(job, outfile):
         json.dump(job['raw'], outfile, default=json_serial, sort_keys=True, 
                 indent=4, separators=(',', ': '))
 
-def get_scripts(api):
-    scripts = api.get_script()
+def get_scripts():
+    scripts = get_script()
     # The scripts endpoint lists scripts in a list of dictionaries. Convert 
     # this to a dictionary keyed by script id
     scripts_dict = {}
@@ -73,8 +73,6 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.settings = QSettings()
 
         self.setupUi(self)
-
-        self.api = API()
 
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
@@ -124,11 +122,11 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         email = get_user_email()
         if email:
-            self.jobs = self.api.get_execution(user=email)
+            self.jobs = get_execution(user=email)
             #mb.popWidget(progressMessageBar)
             if self.jobs:
                 # Add script names and descriptions to jobs list
-                self.scripts = get_scripts(self.api)
+                self.scripts = get_scripts()
                 for job in self.jobs:
                     # self.jobs will have prettified data for usage in table, so 
                     # save a backup of the original data under key 'original'

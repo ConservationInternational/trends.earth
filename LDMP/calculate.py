@@ -21,7 +21,6 @@ from PyQt4.QtCore import QSettings, QTextCodec
 from qgis.core import QgsJSONUtils
 
 from LDMP import read_json
-from LDMP.api import API
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
 
 class DlgCalculate(QtGui.QDialog, UiDialog):
@@ -54,9 +53,6 @@ class DlgCalculateBase(QtGui.QDialog):
     """Base class for individual indicator calculate dialogs"""
     def __init__(self, parent=None):
         super(DlgCalculateBase, self).__init__(parent)
-
-        self.api = API()
-
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'scripts.json')) as script_file:
             self.scripts = json.load(script_file)

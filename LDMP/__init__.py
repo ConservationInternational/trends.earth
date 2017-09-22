@@ -56,22 +56,26 @@ def download_file(url, filename):
     progressMessageBar.layout().addWidget(progress)
     iface.messageBar().pushWidget(progressMessageBar, iface.messageBar().INFO)
 
-    r = requests.get(url, stream=True)
-    with open(filename, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=8192): 
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
-                bytes_dl += len(chunk)
-                progress.setValue(float(bytes_dl) / total_size)
+    try:
+        r = requests.get(url, stream=True)
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192): 
+                if chunk: # filter out keep-alive new chunks
+                    f.write(chunk)
+                    bytes_dl += len(chunk)
+                    progress.setValue(float(bytes_dl) / total_size)
+    except requests.exceptions.ChunkedEncodingError:
+        raise DownloadError('Connection failed during download.')
+        log("Download {} file size didn't match expected".format(url))
 
     iface.messageBar().popWidget(progressMessageBar)
-    iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
 
     if bytes_dl != total_size:
         raise DownloadError('Final file size does not match expected')
         log("Download {} file size didn't match expected".format(url))
         return False
     else:
+        iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
         log("Download of {} complete".format(url))
 
 def read_json(file):

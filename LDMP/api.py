@@ -39,17 +39,21 @@ def get_user_email(warn=True):
         return email
 
 def clean_api_response(resp):
-    try:
-        # JSON conversion will fail if the server didn't return a json 
-        # response
-        response = resp.json().copy()
-        if response.has_key('password'):
-            response['password'] = '**REMOVED**'
-        if response.has_key('access_token'):
-            response['access_token'] = '**REMOVED**'
-        response = json.dumps(response, indent=4, sort_keys=True)
-    except ValueError:
-        response = resp.text
+    if resp == None:
+        # Return 'None' unmodified
+        response = resp
+    else:
+        try:
+            # JSON conversion will fail if the server didn't return a json 
+            # response
+            response = resp.json().copy()
+            if response.has_key('password'):
+                response['password'] = '**REMOVED**'
+            if response.has_key('access_token'):
+                response['access_token'] = '**REMOVED**'
+            response = json.dumps(response, indent=4, sort_keys=True)
+        except ValueError:
+            response = resp.text
     return response
 
 def get_error_status(resp):
@@ -74,11 +78,10 @@ def login(email=None, password=None):
         password = QtCore.QSettings().value("LDMP/password", None)
     if not email or not password:
         log('API unable to login - check username/password')
-	# TODO: this creates a problem when it is called from within a thread
         mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
         return False
 
-    log('API trying login for user {}'.format(email))
+    log('API trying login for user: {}'.format(email))
     try:
         resp = requests.post(API_URL + '/auth', json={"email" : email, "password" : password}, timeout=TIMEOUT)
         log('API response to login for user {}: {}'.format(email, clean_api_response(resp)))
@@ -96,20 +99,11 @@ def login(email=None, password=None):
                 level=1, duration=5)
         return False
 
-class API_Call_Worker(QtCore.QObject):
-    """Run earth engine task against the ldmp API"""
-    def __init__(self, endpoint, method='get', payload={}, use_token=False):
-        QtCore.QObject.__init__(self)
-        self.endpoint = endpoint
-        self.method = method
-        self.payload = payload
-        self.use_token = use_token
-
-    def run(self):
-        if self.use_token:
+def call_api(endpoint, method='get', payload={}, use_token=False):
+        if use_token:
             try:
                 resp = login()
-                headers = {'Authorization': 'Bearer %s'%resp.json()['access_token']}
+                headers = {'Authorization': 'Bearer {}'.format(resp.json()['access_token'])}
                 log("API loaded token.")
             except:
                 resp = None
@@ -117,149 +111,86 @@ class API_Call_Worker(QtCore.QObject):
             headers = {}
 
         # Only continue if don't need token or if token load was successful
-        if (not self.use_token) or (resp):
+        if (not use_token) or (resp):
             # Strip password out of payload for printing to QGIS logs
-            clean_payload = self.payload.copy()
+            clean_payload = payload.copy()
             if clean_payload.has_key('password'):
                 clean_payload['password'] = '**REMOVED**'
-            log('API calling {} with method "{}" and payload: {}'.format(self.endpoint, self.method, clean_payload))
+            log('API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
             try:
-                if self.method == 'get':
-                    resp = requests.get(API_URL + self.endpoint, json=self.payload, headers=headers, timeout=TIMEOUT)
-                elif self.method == 'post':
-                    resp = requests.post(API_URL + self.endpoint, json=self.payload, headers=headers, timeout=TIMEOUT)
-                elif self.method == 'update':
-                    resp = requests.update(API_URL + self.endpoint, json=self.payload, headers=headers, timeout=TIMEOUT)
-                elif self.method == 'delete':
-                    resp = requests.delete(API_URL + self.endpoint, json=self.payload, headers=headers, timeout=TIMEOUT)
-                elif self.method == 'patch':
-                    resp = requests.patch(API_URL + self.endpoint, json=self.payload, headers=headers, timeout=TIMEOUT)
+                if method == 'get':
+                    resp = requests.get(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
+                elif method == 'post':
+                    resp = requests.post(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
+                elif method == 'update':
+                    resp = requests.update(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
+                elif method == 'delete':
+                    resp = requests.delete(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
+                elif method == 'patch':
+                    resp = requests.patch(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
                 else:
-                    raise ValueError("Unrecognized method: {}".format(self.method))
-                log('API response from "{}" request: {}'.format(self.method, clean_api_response(resp)))
-            except Exception, e:
+                    raise ValueError("Unrecognized method: {}".format(method))
+                    resp = None
+                log('API response from "{}" request: {}'.format(method, clean_api_response(resp)))
+            except requests.exceptions.ConnectionError:
+                mb.pushMessage("Error", "Unable to login to LDMP server. Check your internet connection.", level=1, duration=5)
                 resp = None
-                log('API error: {}'.format(e))
-                # forward the exception upstream
-                self.error.emit(e, sys.exc_info())
-        self.finished.emit(resp)
+            except requests.exceptions.Timeout:
+                mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
+                resp = None
 
-    finished = QtCore.pyqtSignal(object)
-    error = QtCore.pyqtSignal(Exception, basestring)
-    progress = QtCore.pyqtSignal(float)
-
-class API_Call(QtCore.QObject):
-    def __init__(self, endpoint, method, payload, use_token):
-        QtCore.QObject.__init__(self)
-        self.settings = QtCore.QSettings()
-
-        self.endpoint = endpoint
-        self.method = method
-        self.payload = payload
-        self.use_token = use_token
-
-    def startWorker(self):
-        worker = API_Call_Worker(self.endpoint, self.method, self.payload, self.use_token)
-	messageBar = iface.messageBar().createMessage('Contacting LDMP server...')
-	progressBar = QtGui.QProgressBar()
-	progressBar.setAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-	messageBar.layout().addWidget(progressBar)
-	iface.messageBar().pushWidget(messageBar, iface.messageBar().INFO)
-	self.messageBar = messageBar
-
-        # start the worker in a new thread
-        thread = QtCore.QThread(self)
-        worker.moveToThread(thread)
-        worker.finished.connect(self.workerFinished)
-        worker.error.connect(self.workerError)
-        worker.progress.connect(progressBar.setValue)
-        thread.started.connect(worker.run)
-        thread.start()
-        self.thread = thread
-        self.worker = worker
-        self.worker_finished = False
-
-    def workerFinished(self, ret):
-	# clean up the worker and thread
-	self.worker.deleteLater()
-	self.thread.quit()
-	self.thread.wait()
-	self.thread.deleteLater()
-	# remove widget from message bar
-	iface.messageBar().popWidget(self.messageBar)
-        self.worker_finished = True
-        if ret == None:
-            self.resp = None
-        elif ret.status_code == 200:
-            self.resp = ret.json()
+        if resp != None:
+            if resp.status_code == 200:
+                ret = resp.json()
+            else:
+                desc, status = get_error_status(resp)
+                mb.pushMessage("Error: {} (status {}).".format(desc, status), level=1, duration=5)
+                ret = None
         else:
-            desc, status = get_error_status(ret)
-            mb.pushMessage("Error: {} (status {}).".format(desc, status), 
-                    level=1, duration=5)
-            self.resp = None
-        self.finished.emit()
+            ret = None
 
-    def workerError(self, e, exception_string):
-        if e == requests.ConnectionError:
-            mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
-        elif e == requests.exceptions.Timeout:
-            mb.pushMessage("Error", "Timed out attempting to connect to LDMP server.", level=1, duration=5)
-        else:
-            log('Worker thread raised an exception:\n'.format(exception_string), level=2)
-
-    finished = QtCore.pyqtSignal()
-
-################################################################################
-# Main function that makes an api call, first instantiating an API_Call 
-# instance and then starting it.
-def call_api(endpoint, method='get', payload={}, use_token=False):
-    api_call = API_Call(endpoint, method, payload, use_token)
-    pause = QtCore.QEventLoop()
-    api_call.finished.connect(pause.quit)
-    api_call.startWorker()
-    pause.exec_()
-    return api_call
+        return ret
 
 ################################################################################
 # Functions supporting access to individual api endpoints
 def recover_pwd(email):
-    api_call = call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
-    return api_call.resp
+    return call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
 
-def get_user(email):
-    api_call = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
-    return api_call.resp['data']
+def get_user(email='me'):
+    resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+    if resp:
+        return resp['data']
+    else:
+        return None
 
 def register(email, name, organization, country):
     payload = {"email" : email,
                "name" : name,
                "institution": organization,
                "country": country}
-    api_call = call_api('/api/v1/user', method='post', payload=payload)
-    return api_call.resp
+    return call_api('/api/v1/user', method='post', payload=payload)
 
-def calculate(script, params={}):
+def run_script(script, params={}):
     # TODO: check before submission whether this payload and script ID has 
     # been sent recently - or even whether there are results already 
     # available for it. Notify the user if this is the case to prevent, or 
     # at least reduce, repeated identical submissions.
-    api_call = call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params, use_token=True)
-    return api_call.resp
+    return call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params, use_token=True)
 
 def update_user(email, name, organization, country):
     payload = {"email" : email,
                "name" : name,
                "institution": organization,
                "country": country}
-    api_call = call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
-    return api_call.resp
+    return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
 def get_execution(id=None, user=None):
     if id:
-        api_call = call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
+        resp = call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
     else:
-        api_call = call_api('/api/v1/execution', 'get', use_token=True)
-    resp = api_call.resp
+        user_id = get_user()['id']
+        log('Fetching executions for user id: {}'.format(user_id))
+        resp = call_api('/api/v1/execution', 'get', {"user_id": user_id}, use_token=True)
     if not resp:
         return None
     else:
@@ -276,16 +207,14 @@ def get_execution(id=None, user=None):
             end_date = end_date.replace(tzinfo=tz.tzutc())
             end_date = end_date.astimezone(tz.tzlocal())
             job['end_date'] = end_date
-        if user:
-            log('Username is {}'.format(user))
-            user_id = self.get_user(user)['id']
-            return [x for x in data if x['user_id'] == user_id]
-        else:
-            return []
+        return data
 
 def get_script(id=None):
     if id:
-        api_call = call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
+        resp = call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
     else:
-        api_call = call_api('/api/v1/script', 'get', use_token=True)
-    return api_call.resp['data']
+        resp = call_api('/api/v1/script', 'get', use_token=True)
+    if resp:
+        return resp['data']
+    else:
+        return None

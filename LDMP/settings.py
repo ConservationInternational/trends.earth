@@ -26,7 +26,7 @@ from LDMP.gui.DlgSettings import Ui_DlgSettings as UiDialog
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
-from LDMP.api import get_user_email, get_user, login, register, update_user
+from LDMP.api import get_user_email, get_user, login, register, update_user, recover_pwd
 
 class DlgSettings (QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
@@ -105,6 +105,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Enter your email address to reset your password."), None)
+            return
         resp = recover_pwd(self.email.text())
         if resp != None:
             mb.pushMessage("Success", self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)

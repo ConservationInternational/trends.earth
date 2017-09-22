@@ -112,26 +112,16 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.download.setEnabled(True)
 
     def btn_refresh(self):
-        # TODO: Handle loss of internet and connection error on button refresh
-        # progressMessageBar = mb.createMessage("Contacting server to update job list.")
-        # progress = QtGui.QProgressBar()
-        # progress.setRange(0, 0)
-        # progress.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
-        # progressMessageBar.layout().addWidget(progress)
-        # self.bar.pushWidget(progressMessageBar, iface.messageBar().INFO)
-
         email = get_user_email()
         if email:
-            self.jobs = get_execution(user=email)
-            #mb.popWidget(progressMessageBar)
+            self.jobs = get_execution()
             if self.jobs:
                 # Add script names and descriptions to jobs list
                 self.scripts = get_scripts()
                 for job in self.jobs:
-                    # self.jobs will have prettified data for usage in table, so 
-                    # save a backup of the original data under key 'original'
+                    # self.jobs will have prettified data for usage in table, 
+                    # so save a backup of the original data under key 'raw'
                     job['raw'] = job.copy()
-           
                     script = job.get('script_id', None)
                     if script:
                         job['script_name'] = self.scripts[job['script_id']]['name']

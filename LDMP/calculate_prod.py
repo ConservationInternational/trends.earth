@@ -26,6 +26,7 @@ mb = iface.messageBar()
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
+from LDMP.api import run_script
 
 class DlgCalculateProd(DlgCalculateBase, UiDialog):
     def __init__(self, parent=None):
@@ -155,7 +156,12 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.close()
 
     def btn_calculate(self):
-        super(DlgCalculateProd, self).btn_calculate()
+        # Note that the super class has several tests in it - if they fail it 
+        # returns False, which would mean this function should stop execution 
+        # as well.
+        ret = super(DlgCalculateProd, self).btn_calculate()
+        if not ret:
+            return
 
         if not (self.indic_select_traj.isChecked() or 
                 self.indic_select_perf.isChecked() or 
@@ -202,7 +208,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']
 
-        resp = self.api.calculate(gee_script, payload)
+        resp = run_script(gee_script, payload)
 
         mb.popWidget(progressMessageBar)
         if resp:
@@ -231,7 +237,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         gee_script = self.scripts['productivity_performance']['script id']
 
-        resp = self.api.calculate(gee_script, payload)
+        resp = run_script(gee_script, payload)
 
         mb.popWidget(progressMessageBar)
         if resp:
@@ -266,7 +272,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         gee_script = self.scripts['productivity_state']['script id']
 
-        resp = self.api.calculate(gee_script, payload)
+        resp = run_script(gee_script, payload)
 
         mb.popWidget(progressMessageBar)
         if resp:

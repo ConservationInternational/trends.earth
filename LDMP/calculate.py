@@ -119,11 +119,17 @@ class DlgCalculateBase(QtGui.QDialog):
         adm0_a3 = self.admin_0[self.area_admin_0.currentText()]['ADM0_A3']
         if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
             admin_0_polys = read_json('admin_0_polys.json.gz')
-            return admin_0_polys[adm0_a3]['geojson']
+            if not admin_0_polys:
+                return None
+            else:
+                return admin_0_polys[adm0_a3]['geojson']
         else:
             admin_1_polys = read_json('admin_1_polys.json.gz')
-            admin_1_code = self.admin_1[adm0_a3][self.area_admin_1.currentText()]
-            return admin_1_polys[admin_1_code]['geojson']
+            if not admin_0_polys:
+                return None
+            else:
+                admin_1_code = self.admin_1[adm0_a3][self.area_admin_1.currentText()]
+                return admin_1_polys[admin_1_code]['geojson']
 
     def area_admin_toggle(self):
         if self.area_admin.isChecked():
@@ -156,13 +162,18 @@ class DlgCalculateBase(QtGui.QDialog):
             if not self.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a first level administrative boundary."), None)
+                return False
             geojson = self.load_admin_polys()
+            if not geojson:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Unable to load administrative boundaries."), None)
+                return False
         else:
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             if not layer:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose one or more indicators to calculate."), None)
-                return
+                        self.tr("Choose a file to define the area of interest."), None)
+                return False
             geojson = json.loads(QgsGeometry.fromRect(layer.extent()).exportToGeoJSON())
 
         # Calculate bounding box of input polygon and then convert back to 
@@ -172,6 +183,8 @@ class DlgCalculateBase(QtGui.QDialog):
         if len(features) > 1:
             log("Found {} features in geojson - using first feature only.".format(len(features)))
         self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
+
+        return True
 
 from LDMP.calculate_prod import DlgCalculateProd
 from LDMP.calculate_lc import DlgCalculateLC

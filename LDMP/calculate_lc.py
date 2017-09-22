@@ -25,6 +25,7 @@ mb = iface.messageBar()
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC as UiDialog
+from LDMP.api import run_script
 
 class DlgCalculateLC(DlgCalculateBase, UiDialog):
     def __init__(self, parent=None):
@@ -102,7 +103,7 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
 
         gee_script = self.scripts['land_cover']['Land cover']['script id']
 
-        resp = self.api.calculate(gee_script, payload)
+        resp = run_script(gee_script, payload)
 
         mb.popWidget(progressMessageBar)
         if resp:

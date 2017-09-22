@@ -24,8 +24,6 @@ from PyQt4.QtCore import Qt, QSettings
 from qgis.core import QgsMessageLog
 from qgis.utils import iface
 
-mb = iface.messageBar()
-
 site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 debug = QSettings().value('LDMP/debug', True)
@@ -82,7 +80,7 @@ def read_json(file):
         try:
             download_file('https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file), filename)
         except requests.exceptions.ConnectionError:
-            mb.pushMessage("Error", "Unable to access internet. Check your internet connection.", level=1, duration=5)
+            QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
             return None
     else:
         # If not found, offer to download the files from github or to load them 

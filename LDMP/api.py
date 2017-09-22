@@ -22,9 +22,6 @@ from urllib import quote_plus
 
 from PyQt4 import QtGui, QtCore
 
-from qgis.utils import iface
-mb = iface.messageBar()
-
 from . import log
 
 API_URL = 'http://api.resilienceatlas.org'
@@ -78,7 +75,7 @@ def login(email=None, password=None):
         password = QtCore.QSettings().value("LDMP/password", None)
     if not email or not password:
         log('API unable to login - check username/password')
-        mb.pushMessage("Error", "Unable to login to LDMP server. Check your username and password.", level=1, duration=5)
+        QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your username and password.")
         return False
 
     log('API trying login for user: {}'.format(email))
@@ -86,7 +83,8 @@ def login(email=None, password=None):
         resp = requests.post(API_URL + '/auth', json={"email" : email, "password" : password}, timeout=TIMEOUT)
         log('API response to login for user {}: {}'.format(email, clean_api_response(resp)))
     except requests.ConnectionError:
-        mb.pushMessage("Error", "Unable to login to LDMP server. Check your internet connection.", level=1, duration=5)
+        log('API unable to access server - check internet connection')
+        QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your internet connection.")
         return False
 
     if resp.status_code == 200:
@@ -95,8 +93,7 @@ def login(email=None, password=None):
         return resp
     else:
         desc, status = get_error_status(resp)
-        mb.pushMessage("Error: {} (status {}).".format(desc, status),
-                level=1, duration=5)
+        QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
         return False
 
 def call_api(endpoint, method='get', payload={}, use_token=False):
@@ -133,10 +130,12 @@ def call_api(endpoint, method='get', payload={}, use_token=False):
                     resp = None
                 log('API response from "{}" request: {}'.format(method, clean_api_response(resp)))
             except requests.exceptions.ConnectionError:
-                mb.pushMessage("Error", "Unable to login to LDMP server. Check your internet connection.", level=1, duration=5)
+                log('API unable to access server - check internet connection')
+                QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your internet connection.")
                 resp = None
             except requests.exceptions.Timeout:
-                mb.pushMessage("Error", "Unable to connect to LDMP server.", level=1, duration=5)
+                log('API unable to login - general error')
+                QtGui.QMessageBox.critical(None, "Error", "Unable to connect to LDMP server.")
                 resp = None
 
         if resp != None:
@@ -144,7 +143,7 @@ def call_api(endpoint, method='get', payload={}, use_token=False):
                 ret = resp.json()
             else:
                 desc, status = get_error_status(resp)
-                mb.pushMessage("Error: {} (status {}).".format(desc, status), level=1, duration=5)
+                QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
                 ret = None
         else:
             ret = None
@@ -184,13 +183,12 @@ def update_user(email, name, organization, country):
                "country": country}
     return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
-def get_execution(id=None, user=None):
+def get_execution(id=None):
     if id:
         resp = call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
     else:
-        user_id = get_user()['id']
-        log('Fetching executions for user id: {}'.format(user_id))
-        resp = call_api('/api/v1/execution', 'get', {"user_id": user_id}, use_token=True)
+        log('Fetching executions')
+        resp = call_api('/api/v1/execution', 'get', use_token=True)
     if not resp:
         return None
     else:

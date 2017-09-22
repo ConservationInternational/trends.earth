@@ -71,7 +71,12 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
     #     self.transMatrix.setCurrentItem(current)
 
     def btn_calculate(self):
-        super(DlgCalculateLC, self).btn_calculate()
+        # Note that the super class has several tests in it - if they fail it 
+        # returns False, which would mean this function should stop execution 
+        # as well.
+        ret = super(DlgCalculateLC, self).btn_calculate()
+        if not ret:
+            return
 
         # Extract trans_matrix from the QTableWidget
         trans_matrix = []

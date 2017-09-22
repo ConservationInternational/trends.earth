@@ -63,7 +63,9 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Enter your password to update your user details."), None)
         else:
-            user = get_user(self.email.text())
+            # Validate the email/password by logging in first
+            resp = login(self.email.text(), self.password.text())
+            user = get_user()
 
             if not user:
                 return
@@ -183,12 +185,12 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
         else:
-            update_user(self.email.text(), self.name.text(), 
+            resp = update_user(self.email.text(), self.name.text(), 
                     self.organization.text(), self.country.currentText())
-            
-            QtGui.QMessageBox.information(None, self.tr("Saved"),
-                    self.tr("Updated information for {}.").format(self.email.text()), None)
-            self.close()
+            if resp != None:
+                QtGui.QMessageBox.information(None, self.tr("Saved"),
+                        self.tr("Updated information for {}.").format(self.email.text()), None)
+                self.close()
 
     def btn_cancel(self):
         self.close()

@@ -65,14 +65,14 @@ def download_file(url, filename):
                     bytes_dl += len(chunk)
                     progress.setValue(float(bytes_dl) / total_size)
     except requests.exceptions.ChunkedEncodingError:
-        raise DownloadError('Connection failed during download.')
         log("Download {} file size didn't match expected".format(url))
 
     iface.messageBar().popWidget(progressMessageBar)
 
     if bytes_dl != total_size:
-        raise DownloadError('Final file size does not match expected')
         log("Download {} file size didn't match expected".format(url))
+        raise DownloadError('Final file size does not match expected')
+        os.remove(filename)
         return False
     else:
         iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
@@ -81,18 +81,20 @@ def download_file(url, filename):
 def read_json(file):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
     if not os.path.exists(filename):
-        try:
-            download_file('https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file), filename)
-        except requests.exceptions.ConnectionError:
-            QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
-            return None
-    else:
+        # TODO: Check a crc checksum on these files to catch partial downloads 
+        # other potential problems with the .JSONs. Delete the files if there 
+        # is an error.
+        #
         # If not found, offer to download the files from github or to load them 
         # from a local folder
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
-        pass
+        try:
+            download_file('https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file), filename)
+        except requests.exceptions.ConnectionError:
+            QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
+            return None
 
     with gzip.GzipFile(filename, 'r') as fin:
         json_bytes = fin.read()

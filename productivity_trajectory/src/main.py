@@ -196,7 +196,12 @@ def productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset,
     kendall = coefficients.get([period - 4])
 
     # Land cover data is used to mask water and urban
-    landc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015").select('y{}'.format(year_end))
+    year_end_esa_cci = year_end
+    if year_end > 2015:
+        year_end_esa_cci = 2015
+    elif year_end < 1992:
+        year_end_esa_cci = 1992
+    landc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015").select('y{}'.format(year_end_esa_cci))
     # Resample the land cover dataset to match ndvi projection
     ndviProjection = ndvi_dataset.projection()
     landc_reducer = {'reducer': ee.Reducer.mode(),

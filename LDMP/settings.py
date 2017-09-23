@@ -65,8 +65,9 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         else:
             # Validate the email/password by logging in first
             resp = login(self.email.text(), self.password.text())
+            if not resp:
+                return
             user = get_user()
-
             if not user:
                 return
 

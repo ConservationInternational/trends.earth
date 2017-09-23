@@ -37,8 +37,13 @@ class DownloadError(Exception):
         self.message = message
 
 def download_file(url, filename):
-    total_size = requests.get(url, stream=True).headers['Content-length']
-    # TODO: Set dialog box label to include size of file download
+    try:
+        total_size = requests.get(url, stream=True).headers['Content-length']
+    except requests.exceptions.ConnectionError:
+        log("Download failed due to connection error while retrieving headers")
+        QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
+        return False
+
     total_size = int(total_size)
     bytes_dl = 0
 
@@ -65,7 +70,10 @@ def download_file(url, filename):
                     bytes_dl += len(chunk)
                     progress.setValue(float(bytes_dl) / total_size)
     except requests.exceptions.ChunkedEncodingError:
-        log("Download {} file size didn't match expected".format(url))
+        log("Download failed due to ChunkedEncodingError - likely a connection loss")
+    except requests.exceptions.ConnectionError:
+        log("Download failed due to connection error")
+        QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
 
     iface.messageBar().popWidget(progressMessageBar)
 
@@ -77,6 +85,7 @@ def download_file(url, filename):
     else:
         iface.messageBar().pushMessage("Downloaded", "Finished downloading {}.".format(os.path.basename(filename)), level=0, duration=5)
         log("Download of {} complete".format(url))
+        return True
 
 def read_json(file):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
@@ -90,10 +99,8 @@ def read_json(file):
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
-        try:
-            download_file('https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file), filename)
-        except requests.exceptions.ConnectionError:
-            QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
+        resp = download_file('https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file), filename)
+        if not resp:
             return None
 
     with gzip.GzipFile(filename, 'r') as fin:

@@ -253,6 +253,14 @@ class JobsTableModel(QAbstractTableModel):
             return self.colnames_pretty[section]
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
+def download_result(url, outfile):
+    log("Downloading {}".format(url))
+    outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+    #TODO: Check if this file was already downloaded
+    resp = download_file(url['url'], outfile)
+    create_json_metadata(job, outfile)
+    check_goog_cloud_store_hash(url['url'], outfile)
+
 def download_land_cover(job, download_dir):
     log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):

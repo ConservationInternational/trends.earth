@@ -22,7 +22,7 @@ from PyQt4.QtCore import Qt
 
 from qgis.utils import iface
 
-from LDMP import log, download_file
+from LDMP import log
 
 from LDMP.gui.DlgDownload import Ui_DlgDownload
 

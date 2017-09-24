@@ -71,6 +71,8 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
     #     self.transMatrix.setCurrentItem(current)
 
     def btn_calculate(self):
+        self.close()
+
         # Note that the super class has several tests in it - if they fail it 
         # returns False, which would mean this function should stop execution 
         # as well.
@@ -114,6 +116,5 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
         if resp:
             mb.pushMessage("Submitted",
                     "Land cover task submitted to Google Earth Engine.", level=0, duration=5)
-            self.close()
         else:
             mb.pushMessage("Error", "Unable to submit land cover task to Google Earth Engine.", level=1, duration=5)

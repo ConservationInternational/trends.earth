@@ -31,7 +31,7 @@ from qgis.gui import QgsMessageBar
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 
-from LDMP import log, download_file
+from LDMP import log, Download
 from LDMP.download import check_goog_cloud_store_hash
 from LDMP.api import get_script, get_user_email, get_execution
 
@@ -193,6 +193,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             else:
                 return False
 
+        self.close()
+
         log("Downloading results to {}".format(download_dir))
 
         rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
@@ -209,7 +211,6 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 download_land_cover(job, download_dir)
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
-        self.close()
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
     def __init__(self, parent=None):
@@ -253,25 +254,26 @@ class JobsTableModel(QAbstractTableModel):
             return self.colnames_pretty[section]
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
-def download_result(url, outfile):
+def download_result(url, outfile, job):
     log("Downloading {}".format(url))
-    outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
     #TODO: Check if this file was already downloaded
-    resp = download_file(url['url'], outfile)
-    create_json_metadata(job, outfile)
-    check_goog_cloud_store_hash(url['url'], outfile)
+    worker = Download(url, outfile)
+    worker.start()
+    if worker.get_resp():
+        create_json_metadata(job, outfile)
+        check_goog_cloud_store_hash(url, outfile)
+        return True
+    else:
+        return None
 
 def download_land_cover(job, download_dir):
     log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
-            #TODO style layer and set layer name based on the info in the dataset json file
-            log("Downloading {}".format(url))
             outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            #TODO: Check if this file was already downloaded
-            download_file(url['url'], outfile)
-            create_json_metadata(job, outfile)
-            check_goog_cloud_store_hash(url['url'], outfile)
+            resp = download_result(url['url'], outfile, job)
+            if not resp:
+                return
             if dataset['dataset'] == 'lc_baseline':
                 style_land_cover_lc_baseline(outfile)
             elif dataset['dataset'] == 'lc_target':
@@ -390,12 +392,10 @@ def download_prod_traj(job, download_dir):
         for url in dataset.get('urls'):
             if dataset['dataset'] in ['ndvi_trend', 'ue', 'p_restrend']:
                 #TODO style layer and set layer name based on the info in the dataset json file
-                log("Downloading {}".format(url))
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-                #TODO: Check if this file was already downloaded
-                download_file(url['url'], outfile)
-                create_json_metadata(job, outfile)
-                check_goog_cloud_store_hash(url['url'], outfile)
+                resp = download_result(url['url'], outfile, job)
+                if not resp:
+                    return
                 style_prod_traj_trend(outfile)
                 style_prod_traj_signif(outfile)
             else:
@@ -446,12 +446,10 @@ def download_prod_state(job, download_dir):
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
             #TODO style layer and set layer name based on the info in the dataset json file
-            log("Downloading {}".format(url))
             outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            #TODO: Check if this file was already downloaded
-            download_file(url['url'], outfile)
-            create_json_metadata(job, outfile)
-            check_goog_cloud_store_hash(url['url'], outfile)
+            resp = download_result(url['url'], outfile, job)
+            if not resp:
+                return
             if dataset['dataset'] == 'ini_degr':
                 style_prod_state_init(outfile)
             elif dataset['dataset'] == 'eme_degr':
@@ -546,12 +544,10 @@ def download_prod_perf(job, download_dir):
         for url in dataset.get('urls'):
             if dataset['dataset'] == 'productivity_performance':
                 #TODO style layer and set layer name based on the info in the dataset json file
-                log("Downloading {}".format(url))
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-                #TODO: Check if this file was already downloaded
-                download_file(url['url'], outfile)
-                create_json_metadata(job, outfile)
-                check_goog_cloud_store_hash(url['url'], outfile)
+                resp = download_result(url['url'], outfile, job)
+                if not resp:
+                    return
                 style_prod_perf(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))

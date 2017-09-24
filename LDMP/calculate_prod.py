@@ -152,18 +152,20 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.close()
 
     def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it 
-        # returns False, which would mean this function should stop execution 
-        # as well.
-        ret = super(DlgCalculateProd, self).btn_calculate()
-        if not ret:
-            return
-
         if not (self.indic_select_traj.isChecked() or 
                 self.indic_select_perf.isChecked() or 
                 self.indic_select_state.isChecked()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Choose one or more indicators to calculate."), None)
+            return
+
+        self.close()
+
+        # Note that the super class has several tests in it - if they fail it 
+        # returns False, which would mean this function should stop execution 
+        # as well.
+        ret = super(DlgCalculateProd, self).btn_calculate()
+        if not ret:
             return
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
@@ -210,7 +212,6 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         if resp:
             mb.pushMessage("Submitted",
                     "Trajectory task submitted to Google Earth Engine.", level=0, duration=5)
-            self.close()
         else:
             mb.pushMessage("Error", "Unable to submit trajectory task to Google Earth Engine.", level=1, duration=5)
 
@@ -239,7 +240,6 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         if resp:
             mb.pushMessage("Submitted",
                     "Productivity performance task submitted to Google Earth Engine.", level=0, duration=5)
-            self.close()
         else:
             mb.pushMessage("Error", "Unable to submit productivity performance task to Google Earth Engine.", level=1, duration=5)
 
@@ -274,6 +274,5 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         if resp:
             mb.pushMessage("Submitted",
                     "Productivity state task submitted to Google Earth Engine.", level=0, duration=5)
-            self.close()
         else:
             mb.pushMessage("Error", "Unable to submit productivity state task to Google Earth Engine.", level=1, duration=5)

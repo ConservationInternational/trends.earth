@@ -163,7 +163,9 @@ class DlgCalculateBase(QtGui.QDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a first level administrative boundary."), None)
                 return False
+            self.button_calculate.setEnabled(False)
             geojson = self.load_admin_polys()
+            self.button_calculate.setEnabled(True)
             if not geojson:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Unable to load administrative boundaries."), None)

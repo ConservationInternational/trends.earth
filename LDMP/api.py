@@ -22,7 +22,11 @@ from urllib import quote_plus
 
 from PyQt4 import QtGui, QtCore
 
-from . import log
+from qgis.utils import iface
+
+from LDMP.worker import AbstractWorker, start_worker
+
+from LDMP import log
 
 API_URL = 'http://api.resilienceatlas.org'
 TIMEOUT=20
@@ -35,6 +39,79 @@ def get_user_email(warn=True):
     else:
         return email
 
+###############################################################################
+# Threading functions for calls to requests
+class RequestWorker(AbstractWorker):
+    """worker, implement the work method here and raise exceptions if needed"""
+    def __init__(self, url, method, payload, headers):
+        AbstractWorker.__init__(self)
+        self.url = url
+        self.method = method
+        self.payload = payload
+        self.headers = headers
+ 
+    def work(self):
+        self.toggle_show_progress.emit(False)
+        self.toggle_show_cancel.emit(False)
+        if self.method == 'get':
+            resp = requests.get(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'post':
+            resp = requests.post(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'update':
+            resp = requests.update(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'delete':
+            resp = requests.delete(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'patch':
+            resp = requests.patch(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        else:
+            raise ValueError("Unrecognized method: {}".format(method))
+            resp = None
+        return resp
+
+class Request(object):
+    def __init__(self, url, method='get', payload={}, headers={}):
+        self.resp = None
+        self.exception = None
+
+        self.url = url
+        self.method = method
+        self.payload = payload
+        self.headers = headers
+
+    def start(self):
+        try:
+            worker = RequestWorker(self.url, self.method, self.payload, self.headers)
+            pause = QtCore.QEventLoop()
+            worker.finished.connect(pause.quit)
+            worker.successfully_finished.connect(self.save_resp)
+            worker.error.connect(self.save_exception)
+            start_worker(worker, iface, 'Contacting LDMP server...')
+            pause.exec_()
+            if self.get_exception():
+                raise self.get_exception()
+        except requests.exceptions.ConnectionError:
+            log('API unable to access server - check internet connection')
+            QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your internet connection.")
+            resp = None
+        except requests.exceptions.Timeout:
+            log('API unable to login - general error')
+            QtGui.QMessageBox.critical(None, "Error", "Unable to connect to LDMP server.")
+            resp = None
+
+    def save_resp(self, resp):
+        self.resp = resp
+
+    def get_resp(self):
+        return self.resp
+
+    def save_exception(self, exception):
+        self.exception = exception
+
+    def get_exception(self):
+        return self.exception
+ 
+###############################################################################
+# Other helper functions for api calls
 def clean_api_response(resp):
     if resp == None:
         # Return 'None' unmodified
@@ -76,79 +153,50 @@ def login(email=None, password=None):
     if not email or not password:
         log('API unable to login - check username/password')
         QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your username and password.")
-        return False
+        resp = None
 
-    log('API trying login for user: {}'.format(email))
-    try:
-        resp = requests.post(API_URL + '/auth', json={"email" : email, "password" : password}, timeout=TIMEOUT)
-        log('API response to login for user {}: {}'.format(email, clean_api_response(resp)))
-    except requests.ConnectionError:
-        log('API unable to access server - check internet connection')
-        QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your internet connection.")
-        return False
+    resp = call_api('/auth', method='post', payload={"email" : email, "password" : password})
 
-    if resp.status_code == 200:
+    if resp != None:
         QtCore.QSettings().setValue("LDMP/email", email)
         QtCore.QSettings().setValue("LDMP/password", password)
-        return resp
-    else:
-        desc, status = get_error_status(resp)
-        QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
-        return False
+
+    return resp
 
 def call_api(endpoint, method='get', payload={}, use_token=False):
-        if use_token:
-            try:
-                resp = login()
-                headers = {'Authorization': 'Bearer {}'.format(resp.json()['access_token'])}
-                log("API loaded token.")
-            except:
-                resp = None
-        else:
-            headers = {}
+    if use_token:
+        login_resp = login()
+        log("API loaded token.")
+        headers = {'Authorization': 'Bearer {}'.format(login_resp['access_token'])}
+    else:
+        log("API no token required.")
+        headers = {}
 
-        # Only continue if don't need token or if token load was successful
-        if (not use_token) or (resp):
-            # Strip password out of payload for printing to QGIS logs
-            clean_payload = payload.copy()
-            if clean_payload.has_key('password'):
-                clean_payload['password'] = '**REMOVED**'
-            log('API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
-            try:
-                if method == 'get':
-                    resp = requests.get(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
-                elif method == 'post':
-                    resp = requests.post(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
-                elif method == 'update':
-                    resp = requests.update(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
-                elif method == 'delete':
-                    resp = requests.delete(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
-                elif method == 'patch':
-                    resp = requests.patch(API_URL + endpoint, json=payload, headers=headers, timeout=TIMEOUT)
-                else:
-                    raise ValueError("Unrecognized method: {}".format(method))
-                    resp = None
-                log('API response from "{}" request: {}'.format(method, clean_api_response(resp)))
-            except requests.exceptions.ConnectionError:
-                log('API unable to access server - check internet connection')
-                QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your internet connection.")
-                resp = None
-            except requests.exceptions.Timeout:
-                log('API unable to login - general error')
-                QtGui.QMessageBox.critical(None, "Error", "Unable to connect to LDMP server.")
-                resp = None
+    # Only continue if don't need token or if token load was successful
+    if (not use_token) or (login_resp):
+        # Strip password out of payload for printing to QGIS logs
+        clean_payload = payload.copy()
+        if clean_payload.has_key('password'):
+            clean_payload['password'] = '**REMOVED**'
+        log('API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
+        worker = Request(API_URL + endpoint, method, payload, headers)
+        worker.start()
+        resp = worker.get_resp()
+        log('API response from "{}" request: {}'.format(method, clean_api_response(resp)))
+    else:
+        resp = None
 
-        if resp != None:
-            if resp.status_code == 200:
-                ret = resp.json()
-            else:
-                desc, status = get_error_status(resp)
-                QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
-                ret = None
+    if resp != None:
+        if resp.status_code == 200:
+            ret = resp.json()
         else:
+            desc, status = get_error_status(resp)
+            QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
             ret = None
+    else:
+        ret = None
 
-        return ret
+    return ret
 
 ################################################################################
 # Functions supporting access to individual api endpoints
@@ -185,10 +233,10 @@ def update_user(email, name, organization, country):
 
 def get_execution(id=None):
     if id:
-        resp = call_api('/api/v1/execution/{}'.format(quote_plus(id)), 'get', use_token=True)
+        resp = call_api('/api/v1/execution/{}'.format(quote_plus(id)), method='get', use_token=True)
     else:
         log('Fetching executions')
-        resp = call_api('/api/v1/execution', 'get', use_token=True)
+        resp = call_api('/api/v1/execution', method='get', use_token=True)
     if not resp:
         return None
     else:

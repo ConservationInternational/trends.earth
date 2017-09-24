@@ -28,88 +28,78 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
 
     ndvi_1yr = ee.Image(ndvi_gee_dataset)
 
-    def f_img_coll(ndvi_stack, year_start, year_end):
-        img_coll = ee.List([])
-        for k in range(year_start, year_end + 1):
-            img_coll = img_coll.add(ndvi_stack.select('y{}'.format(k)).rename(['ndvi']))
-        return ee.ImageCollection(img_coll)
-
-    # compute mean ndvi for the baseline period
-    ndvi_1yr = f_img_coll(ndvi_1yr, year_start, year_end)
-    avg_ndvi = ndvi_1yr.reduce(ee.Reducer.mean()).rename(['ndvi'])
-
     # land cover data from esa cci
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
 
     # global agroecological zones from IIASA
     gaez = ee.Image("users/geflanddegradation/toolbox_datasets/gaez_iiasa")
 
-    lc_ipcc = lc.select('y{}'.format(year_start)) \
-                    .remap([10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72, 80, 
-                        81, 82, 90, 100, 160, 170, 110, 130, 180, 190, 120, 121, 
-                        122, 140, 150, 151, 152, 153, 200, 201, 202, 210],
-                        [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,  2,  
-                          2,  2,  3,  3,  4,  5,  6,  6,  6,  6,  6,  6,  6,  6,  
-                          6,  6,  6,  6])
+    # compute mean ndvi for the period
+    ndvi_avg = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_start, year_end + 1)])) \
+            .reduce(ee.Reducer.mean()).rename(['ndvi']).clip(geojson)
 
-    # resample to modis projection (only changing pixel size)
+    # reclassify lc to ipcc classes
+    lc_ipcc = lc.select('y{}'.format(year_start)) \
+		    .remap([10,11,12,20,30,40,50,60,61,62,70,71,72,80,81,82,90,100,160,170,110,130,180,190,120,121,122,140,150,151,152,153,200,201,202,210],
+			   [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,  2,  2,  2,  3,  3,  4,  5,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6])
+
+    # create a binary mask.
+    mask = ndvi_avg.neq(0)
+
+    # define modis projection attributes
     modis_proj =  ee.Image("users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016").projection()
 
-    landc_reducer = {'reducer': ee.Reducer.mode(),
-                     'maxPixels': 2000}
-    landc_reproject = {'crs': modis_proj.crs().getInfo(),
-                       'scale': ee.Number(modis_proj.nominalScale()).getInfo()}
-    landc_proj = lc_ipcc.reduceResolution(**landc_reducer)\
-            .reproject(**landc_reproject)
+    # reproject land cover, gaez and avhrr to modis resolution
+    lc_proj = lc_ipcc.reproject(crs=modis_proj)
+    gaez_proj = gaez.reproject(crs=modis_proj)
+    ndvi_avg_proj = ndvi_avg.reproject(crs=modis_proj)
 
-    gaez_reducer = {'reducer': ee.Reducer.mode(),
-                     'maxPixels': 2000}
-    gaez_reproject = {'crs': modis_proj.crs().getInfo(),
-                       'scale': ee.Number(modis_proj.nominalScale()).getInfo()}
-    gaez_proj = gaez.reduceResolution(**gaez_reducer)\
-            .reproject(**gaez_reproject)
+    # define unit of analysis as the intersect of gaez and land cover 
+    units = gaez_proj.multiply(1000).add(lc_proj)
 
-    # biophysical units (intersect of land cover ipcc and gaez)
-    units = gaez_proj.multiply(1000).add(landc_proj)
-
-    units_filt_reducer = {'reducer': ee.Reducer.mode(),
-                          'kernel': ee.Kernel.circle(10)}
-    units_filt = units.reduceNeighborhood(**units_filt_reducer)
-
-    ndvi_id = avg_ndvi.addBands(units_filt)
+    # create a 2 band raster to compute 90th percentile per unit (analysis restricted by mask and study area)
+    ndvi_id = ndvi_avg_proj.addBands(units).updateMask(mask)
 
     # compute 90th percentile by unit
-    perc90_group_reducer = ee.Reducer.percentile([90]).group(groupField=1, groupName='code')
-    perc90_reducer = {'reducer': perc90_group_reducer,
-                      'region': util.get_coords(geojson),
-                      'scale': ee.Number(modis_proj.nominalScale()).getInfo(),
-                      'maxPixels': 1e13}
-    perc90 = ndvi_id.reduceRegion(**perc90_reducer)
+    perc90 = ndvi_id.reduceRegion(reducer=ee.Reducer.percentile([90]). \
+            group(groupField=1, groupName='code'),
+            geometry=ee.Geometry(geojson),
+            scale=ee.Number(modis_proj.nominalScale()).getInfo(),
+            maxPixels=1e13)
 
     # Extract the cluster IDs and the 90th percentile
     groups = ee.List(perc90.get("groups"))
-    def get_code(d):
-        return ee.Dictionary(d).get('code')
-    ids = groups.map(get_code)
-    def get_p90(d):
-        return ee.Dictionary(d).get('p90')
-    perc = groups.map(get_p90)
+    ids = groups.map(lambda d: ee.Dictionary(d).get('code'))
+    perc = groups.map(lambda d: ee.Dictionary(d).get('p90'))
 
-    # remap the clustered baseline and target mean ndvi images to put the 
-    # clusters in order
+    # remap the units raster using their 90th percentile value
     raster_perc = units.remap(ids, perc)
 
-    obs_ratio = avg_ndvi.divide(raster_perc)
+    # compute the ration of observed ndvi to 90th for that class
+    obs_ratio = ndvi_avg_proj.divide(raster_perc)
 
-    degradation = ee.Image(0).where(obs_ratio.gte(0.5), 0)\
-            .where(obs_ratio.lte(0.5),-1)
+    # aggregate obs_ratio to original NDVI data resolution (for modis this step does not change anything)
+    obs_ratio_2 = obs_ratio.reduceResolution(reducer=ee.Reducer.mean(), maxPixels=2000) \
+            .reproject(crs=ndvi_1yr.projection())
 
-    export = {'image': degradation.int16(),
+    # select lc for final map and resample to ndvi data resolution (using original esa cci classes, not ipcc)
+    lc_proj_esa = lc.select('y{}'.format(year_start)) \
+            .reduceResolution(reducer=ee.Reducer.mode(), maxPixels=2000) \
+            .reproject(crs=ndvi_1yr.projection())
+
+    # create final degradation output layer (-2 is background), 0 is not 
+    # degreaded, -1 is degraded, 2 is water, and 3 is urban
+    lp_perf_deg = ee.Image(-2).where(obs_ratio_2.gte(0.5), 0) \
+            .where(obs_ratio_2.lte(0.5), -1) \
+            .where(lc_proj_esa.eq(210), 2) \
+            .where(lc_proj_esa.eq(190), 3)
+
+    export = {'image': lp_perf_deg.int16(),
               'description': EXECUTION_ID,
               'fileNamePrefix': EXECUTION_ID,
               'bucket': BUCKET,
               'maxPixels': 10000000000,
-              'scale': ee.Number(modis_proj.nominalScale()).getInfo(),
+              'scale': ee.Number(ndvi_1yr.projection().nominalScale()).getInfo(),
               'region': util.get_coords(geojson)}
 
     logger.debug("Setting up GEE task.")

@@ -24,84 +24,76 @@ BUCKET = "ldmt"
 
 def productivity_state(year_init_bl_start, year_init_bl_end, 
         year_init_tg_start, year_init_tg_end,
-        year_emerg_bl_start, year_emerg_bl_end, 
-        year_emerg_tg_start, year_emerg_tg_end,
         ndvi_gee_dataset, geojson, EXECUTION_ID, logger):
 
     logger.debug("Entering productivity_state function.")
 
     ndvi_1yr = ee.Image(ndvi_gee_dataset)
 
-    geojson_geometry = ee.Geometry(geojson)
+    # land cover data from esa cci
+    lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
+    # Handle case of end year that isn't included in the CCI data
+    year_end_esa_cci = year_init_tg_end
+    if year_init_tg_end > 2015:
+        year_end_esa_cci = 2015
+    elif year_init_tg_end < 1992:
+        year_end_esa_cci = 1992
+    # select lc for final map and resample to ndvi data resolution
+    lc_proj_esa = lc.select('y{}'.format(year_end_esa_cci)). \
+            reduceResolution(reducer=ee.Reducer.mode(), maxPixels=2000). \
+            reproject(crs=ndvi_1yr.projection())
 
-    sample_size = geojson_geometry.area().divide(1000000).divide(100).toLong() # 1 point every 100km2
+    # compute percentiles of annual ndvi for the baseline period
+    bl_ndvi_perc = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_init_bl_start, year_init_bl_end + 1)])) \
+            .reduce(ee.Reducer.percentile([10,20,30,40,50,60,70,80,90,100]))
 
-    # land cover
-    landc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015").select('y{}'.format(year_emerg_tg_end))
+    # compute mean ndvi for the baseline and target period period
+    bl_ndvi_mean = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_init_bl_start, year_init_bl_end + 1)])) \
+            .reduce(ee.Reducer.mean()).rename(['ndvi'])
+    tg_ndvi_mean = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_init_tg_start, year_init_tg_end + 1)])) \
+            .reduce(ee.Reducer.mean()).rename(['ndvi'])
 
-    # define pixel output size based on ndvi product used
-    pixel =  ee.Number(ndvi_1yr.projection().nominalScale()).getInfo()
+    # initial degradation
+    # reclassify mean ndvi for baseline period based on 50th percentile. -1 is 
+    # degreaded, 0 is not degreade, 2 is water ,and 3 is urban
+    ini_deg = ee.Image(-2).where(bl_ndvi_mean.lt(bl_ndvi_perc.select('p50')), -1) \
+            .where(bl_ndvi_mean.gte(bl_ndvi_perc.select('p50')), 0) \
+            .where(lc_proj_esa.eq(210),2) \
+            .where(lc_proj_esa.eq(190),3)
 
-    # define function to cluster ndvi data into 10 bins (using k-means)
-    def f_cluster_ndvi(bl_start,bl_end,tg_start,tg_end):
-        # compute mean ndvi for the baseline period
-        bl_ndvi = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(bl_start, bl_end + 1)])) \
-                          .reduce(ee.Reducer.mean()).clip(geojson_geometry).rename(['ndvi'])
-        # compute mean ndvi for the target period
-        tg_ndvi = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(tg_start, tg_end + 1)])) \
-                          .reduce(ee.Reducer.mean()).clip(geojson_geometry).rename(['ndvi'])
-        # make the training dataset for clustering using baseline ndvi
-        training = bl_ndvi.sample(region=geojson_geometry, scale=pixel, numPixels=sample_size)
-        # instantiate the clusterer and train it
-        clusterer = ee.Clusterer.wekaKMeans(10).train(training)
-        # cluster the baseline and target mean ndvi using the trained clusterer
-        bl_clusters = bl_ndvi.cluster(clusterer)
-        tg_clusters = tg_ndvi.cluster(clusterer)
-        # recluster the training data and compute the mean for each cluster
-        clusters = training.cluster(clusterer, "cluster")
-        groups = clusters.reduceColumns(ee.Reducer.mean().group(0), ["cluster", "ndvi"])
-        # Extract the cluster IDs and the means
-        groups = ee.List(groups.get("groups"))
-        ids = groups.map(lambda d: ee.Dictionary(d).get('group'))
-        means = groups.map(lambda d: ee.Dictionary(d).get('mean'))
+    # emerging degradation
+    # reclassify mean ndvi for baseline period based on the percentiles
+    bl_classes = ee.Image(1).where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p30')), 4) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p40')), 5) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p50')), 6) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p60')), 7) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p70')), 8) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p80')), 9) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p90')),10)
 
-        # sort the IDs using the means as keys
-        sorted = ee.Array(ids).sort(means).toList()
-
-        #print(means, ids,sorted)
-        # remap the clustered baseline and target mean ndvi images to put the clusters in order
-        bl_clusters_sort = bl_clusters.remap(sorted, ids)
-        tg_clusters_sort = tg_clusters.remap(sorted, ids)
-        result = bl_clusters_sort.addBands(tg_clusters_sort).rename(['bl','tg'])
-
-        return result
-
-    # resample the land cover dataset to match ndvi projection
-    ndviProjection = ndvi_1yr.projection()
-    lc_res = landc.reduceResolution(reducer=ee.Reducer.mode(), maxPixels=1024) \
-                  .reproject(crs=ndviProjection)
-
-    # call function to cluster ndvi data
-    ini_clusters = f_cluster_ndvi(year_init_bl_start, year_init_bl_end, year_init_tg_start, year_init_tg_end)
-    eme_clusters = f_cluster_ndvi(year_emerg_bl_start, year_emerg_bl_end, year_emerg_tg_start, year_emerg_tg_end)
-
-    # initial degradation: tg in ini_clusters <= 50%, then degraded
-    # reclassify state as potential degradation (-1), no change (0), water (2), or urban (3)
-    ini_degr = ee.Image(0).where(ini_clusters.select('tg').lte( 4), -1) \
-                          .where(lc_res.eq(210),2) \
-                          .where(lc_res.eq(190),3)
+    # reclassify mean ndvi for target period based on the percentiles
+    tg_classes = ee.Image(1).where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p30')), 4) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p40')), 5) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p50')), 6) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p60')), 7) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p70')), 8) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p80')), 9) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p90')),10) 
 
     # emerging degradation: difference between start and end clusters >= 2
-    eme_clusters_chg = eme_clusters.select('tg').subtract(eme_clusters.select('bl'))
-
-    # reclassify change as potential degradation (-1), no change (0), improvement (1), water (2), or urban (3)
-    eme_degr = ee.Image(0).where(eme_clusters_chg.gte( 2), 1) \
-                          .where(eme_clusters_chg.lte(-2), -1) \
-                          .where(lc_res.eq(210),2) \
-                          .where(lc_res.eq(190),3)
+    classes_chg = tg_classes.subtract(bl_classes)
+    eme_deg = ee.Image(-2).where(classes_chg.lte(-2),-1) \
+          .where(classes_chg.gte(-1).And(classes_chg.lte( 1)), 0) \
+          .where(classes_chg.gte( 2), 1) \
+          .where(lc_proj_esa.eq(210),2) \
+          .where(lc_proj_esa.eq(190),3)
 
     tasks = []
-    export_ini_degr = {'image': ini_degr.int16(),
+    export_ini_degr = {'image': ini_deg.int16(),
                        'description': '{}_ini_degr'.format(EXECUTION_ID),
                        'fileNamePrefix': '{}_ini_degr'.format(EXECUTION_ID),
                        'bucket': BUCKET,
@@ -110,7 +102,7 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
                        'region': util.get_coords(geojson)}
     tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_ini_degr), 'ini_degr', logger))
 
-    export_eme_degr = {'image': eme_degr.int16(),
+    export_eme_degr = {'image': eme_deg.int16(),
                        'description': '{}_eme_degr'.format(EXECUTION_ID),
                        'fileNamePrefix': '{}_eme_degr'.format(EXECUTION_ID),
                        'bucket': BUCKET,
@@ -137,13 +129,9 @@ def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
     year_init_bl_start = params.get('year_init_bl_start', 2001)
-    year_init_bl_end = params.get('year_init_bl_end', 2010)
-    year_init_tg_start = params.get('year_init_tg_start', 2012)
+    year_init_bl_end = params.get('year_init_bl_end', 2012)
+    year_init_tg_start = params.get('year_init_tg_start', 2013)
     year_init_tg_end = params.get('year_init_tg_end', 2015)
-    year_emerg_bl_start = params.get('year_emerg_bl_start', 2001)
-    year_emerg_bl_end = params.get('year_emerg_bl_end', 2011)
-    year_emerg_tg_start = params.get('year_emerg_tg_start', 2012)
-    year_emerg_tg_end = params.get('year_emerg_tg_end', 2015)
     geojson = params.get('geojson', None)
     ndvi_gee_dataset = params.get('ndvi_gee_dataset', None)
 
@@ -165,8 +153,6 @@ def run(params, logger):
     logger.debug("Running main script.")
     json_results = productivity_state(year_init_bl_start, year_init_bl_end, 
             year_init_tg_start, year_init_tg_end,
-            year_emerg_bl_start, year_emerg_bl_end,
-            year_emerg_tg_start, year_emerg_tg_end,
             ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
 
     return json_results.data

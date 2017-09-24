@@ -197,6 +197,7 @@ def productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset,
 
     # Land cover data is used to mask water and urban
     year_end_esa_cci = year_end
+    # Handle case of end year that isn't included in the CCI data
     if year_end > 2015:
         year_end_esa_cci = 2015
     elif year_end < 1992:

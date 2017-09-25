@@ -184,7 +184,8 @@ class DlgCalculateBase(QtGui.QDialog):
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         if len(features) > 1:
             log("Found {} features in geojson - using first feature only.".format(len(features)))
-        self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
+        #self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
+        self.bbox = json.loads(features[0].geometry().exportToGeoJSON())
 
         return True
 

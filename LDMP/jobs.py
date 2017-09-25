@@ -31,8 +31,8 @@ from qgis.gui import QgsMessageBar
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 
-from LDMP import log, Download
-from LDMP.download import check_goog_cloud_store_hash
+from LDMP import log
+from LDMP.download import Download, check_goog_cloud_store_hash
 from LDMP.api import get_script, get_user_email, get_execution
 
 def json_serial(obj):
@@ -494,50 +494,6 @@ def style_prod_state_emerg(outfile):
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
-# def style_prod_state_ndvi(outfile, title):
-#     # Trends layer
-#     layer_ndvi = iface.addRasterLayer(outfile, title)
-#     provider = layer_ndvi.dataProvider()
-#     # Set a colormap centred on zero, going to the extreme value significant to 
-#     # three figures
-#     stats = provider.bandStatistics(1, QgsRasterBandStats.All)
-#     mx = round_to_n(stats.maximumValue)
-#     #TODO: Make this a 2% stretch rather than simple linear stretch
-#     fcn = QgsColorRampShader()
-#     fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-#     lst = [QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), '0'),
-#            QgsColorRampShader.ColorRampItem(mx, QtGui.QColor(0, 140, 121), '{}'.format(mx))]
-#     fcn.setColorRampItemList(lst)
-#     shader = QgsRasterShader()
-#     shader.setRasterShaderFunction(fcn)
-#     pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
-#     layer_ndvi.setRenderer(pseudoRenderer)
-#     layer_ndvi.triggerRepaint()
-#     iface.legendInterface().refreshLayerSymbology(layer_ndvi)
-
-# def style_prod_state_perc(outfile, title):
-#     # Significance layer
-#     layer_signif = iface.addRasterLayer(outfile, title)
-#     fcn = QgsColorRampShader()
-#     fcn.setColorRampType(QgsColorRampShader.EXACT)
-#     lst = [QgsColorRampShader.ColorRampItem(10, QtGui.QColor('#a50026'), '10th percentile'),
-#            QgsColorRampShader.ColorRampItem(20, QtGui.QColor('#d73027'), '20th percentile'),
-#            QgsColorRampShader.ColorRampItem(30, QtGui.QColor('#f46d43'), '30th percentile'),
-#            QgsColorRampShader.ColorRampItem(40, QtGui.QColor('#fdae61'), '40th percentile'),
-#            QgsColorRampShader.ColorRampItem(50, QtGui.QColor('#fee090'), '50th percentile'),
-#            QgsColorRampShader.ColorRampItem(60, QtGui.QColor('#e0f3f8'), '60th percentile'),
-#            QgsColorRampShader.ColorRampItem(70, QtGui.QColor('#abd9e9'), '70th percentile'),
-#            QgsColorRampShader.ColorRampItem(80, QtGui.QColor('#74add1'), '80th percentile'),
-#            QgsColorRampShader.ColorRampItem(90, QtGui.QColor('#4575b4'), '90th percentile'),
-#            QgsColorRampShader.ColorRampItem(100, QtGui.QColor('#313695'), '100th percentile')]
-#     fcn.setColorRampItemList(lst)
-#     shader = QgsRasterShader()
-#     shader.setRasterShaderFunction(fcn)
-#     pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
-#     layer_signif.setRenderer(pseudoRenderer)
-#     layer_signif.triggerRepaint()
-#     iface.legendInterface().refreshLayerSymbology(layer_signif)
-
 def download_prod_perf(job, download_dir):
     log("downloading productivity_perf results...")
     for dataset in job['results'].get('datasets'):
@@ -559,7 +515,9 @@ def style_prod_perf(outfile):
     #TODO The GPG doesn't seem to allow for possibility of improvement...?
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), 'Degradation'),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), 'Stable'),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Improvement')]
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), 'Improvement'),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), 'Water'),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), 'Urban land cover')]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)

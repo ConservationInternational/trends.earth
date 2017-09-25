@@ -18,9 +18,9 @@ import json
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QTextCodec
 
-from qgis.core import QgsJSONUtils
+from qgis.core import QgsJSONUtils, QgsGeometry, QgsVectorLayer
 
-from LDMP import read_json
+from LDMP import read_json, log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
 
 class DlgCalculate(QtGui.QDialog, UiDialog):
@@ -185,7 +185,7 @@ class DlgCalculateBase(QtGui.QDialog):
         if len(features) > 1:
             log("Found {} features in geojson - using first feature only.".format(len(features)))
         #self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
-        self.bbox = json.loads(features[0].geometry().exportToGeoJSON())
+        self.bbox = json.loads(QgsGeometry.fromRect(features[0].geometry().boundingBox()).exportToGeoJSON())
 
         return True
 

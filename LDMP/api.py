@@ -210,6 +210,13 @@ def get_user(email='me'):
     else:
         return None
 
+def delete_user(email='me'):
+    resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), 'delete', use_token=True)
+    if resp:
+        return resp['data']
+    else:
+        return None
+
 def register(email, name, organization, country):
     payload = {"email" : email,
                "name" : name,

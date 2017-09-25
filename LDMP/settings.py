@@ -26,7 +26,7 @@ from LDMP.gui.DlgSettings import Ui_DlgSettings as UiDialog
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
-from LDMP.api import get_user_email, get_user, login, register, update_user, recover_pwd
+from LDMP.api import get_user_email, get_user, delete_user, login, register, update_user, recover_pwd
 
 class DlgSettings (QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
@@ -98,7 +98,18 @@ class DlgSettings (QtGui.QDialog, UiDialog):
     def btn_delete(self):
         QtGui.QMessageBox.critical(None, self.tr("Error"),
                 self.tr("Delete user functionality coming soon!"), None)
-        pass
+        return
+        #TODO: Add a confirmation screen
+        if not self.email.text():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("Enter an email address to update."), None)
+        resp = delete_user(self.email.text)
+        if resp:
+            mb.pushMessage("Success", "User {} deleted.".format(self.email.text()), level=0)
+            self.close()
+            return True
+        else:
+            return False
 
     def btn_cancel(self):
         self.close()

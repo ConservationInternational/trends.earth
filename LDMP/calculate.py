@@ -125,7 +125,7 @@ class DlgCalculateBase(QtGui.QDialog):
                 return admin_0_polys[adm0_a3]['geojson']
         else:
             admin_1_polys = read_json('admin_1_polys.json.gz')
-            if not admin_0_polys:
+            if not admin_1_polys:
                 return None
             else:
                 admin_1_code = self.admin_1[adm0_a3][self.area_admin_1.currentText()]

@@ -16,12 +16,12 @@ import os
 
 from PyQt4 import QtGui, uic
 
-from LDMP.gui.DlgPlot import Ui_DlgPlot as UiDialog
+from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries as UiDialog
 
-class DlgPlot(QtGui.QDialog, UiDialog):
+class DlgTimeseries(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgPlot, self).__init__(parent)
+        super(DlgTimeseries, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see

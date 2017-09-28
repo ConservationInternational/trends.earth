@@ -21,7 +21,7 @@ from LDMP.settings import DlgSettings
 from LDMP.download import DlgDownload
 from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
-from LDMP.plot import DlgPlot
+from LDMP.timeseries import DlgTimeseries
 from LDMP.reporting import DlgReporting
 from LDMP.about import DlgAbout
 
@@ -69,7 +69,7 @@ class LDMPPlugin:
         self.dlg_download = DlgDownload()
         self.dlg_calculate = DlgCalculate()
         self.dlg_jobs = DlgJobs()
-        self.dlg_plot = DlgPlot()
+        self.dlg_timeseries = DlgTimeseries()
         self.dlg_reporting = DlgReporting()
         self.dlg_about = DlgAbout()
 
@@ -268,15 +268,13 @@ class LDMPPlugin:
 
     def run_plot(self):
         """Run method that performs all the real work"""
-        # # show the dialog
-        # self.dlg_plot.show()
-        # # Run the dialog event loop
-        # result = self.dlg_plot.exec_()
-        # # See if OK was pressed
-        # if result:
-        #     pass
-        QMessageBox.critical(None, self.tr("Error"),
-                self.tr("Timeseries analysis coming soon!"), None)
+        # show the dialog
+        self.dlg_timeseries.show()
+        # Run the dialog event loop
+        result = self.dlg_timeseries.exec_()
+        # See if OK was pressed
+        if result:
+            pass
 
     def run_reporting(self):
         """Run method that performs all the real work"""

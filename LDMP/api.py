@@ -69,7 +69,7 @@ class RequestWorker(AbstractWorker):
         return resp
 
 class Request(object):
-    def __init__(self, url, method='get', payload={}, headers={}):
+    def __init__(self, url, method='get', payload=None, headers={}):
         self.resp = None
         self.exception = None
 
@@ -163,7 +163,7 @@ def login(email=None, password=None):
 
     return resp
 
-def call_api(endpoint, method='get', payload={}, use_token=False):
+def call_api(endpoint, method='get', payload=None, use_token=False):
     if use_token:
         login_resp = login()
         log("API loaded token.")
@@ -175,9 +175,12 @@ def call_api(endpoint, method='get', payload={}, use_token=False):
     # Only continue if don't need token or if token load was successful
     if (not use_token) or (login_resp):
         # Strip password out of payload for printing to QGIS logs
-        clean_payload = payload.copy()
-        if clean_payload.has_key('password'):
-            clean_payload['password'] = '**REMOVED**'
+        if payload:
+            clean_payload = payload.copy()
+            if clean_payload.has_key('password'):
+                clean_payload['password'] = '**REMOVED**'
+        else:
+            clean_payload = payload
         log('API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
@@ -239,10 +242,10 @@ def update_user(email, name, organization, country):
     return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
 def get_execution(id=None):
+    log('Fetching executions')
     if id:
         resp = call_api('/api/v1/execution/{}'.format(quote_plus(id)), method='get', use_token=True)
     else:
-        log('Fetching executions')
         resp = call_api('/api/v1/execution', method='get', use_token=True)
     if not resp:
         return None

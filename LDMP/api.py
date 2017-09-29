@@ -28,7 +28,7 @@ from LDMP.worker import AbstractWorker, start_worker
 
 from LDMP import log
 
-API_URL = 'http://api.resilienceatlas.org'
+API_URL = 'https://api.resilienceatlas.org'
 TIMEOUT=20
 
 def get_user_email(warn=True):

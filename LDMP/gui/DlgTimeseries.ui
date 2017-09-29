@@ -27,7 +27,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>NDVI dataset</string>
+          <string>Time series dataset</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>

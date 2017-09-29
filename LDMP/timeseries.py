@@ -47,6 +47,26 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setup_dialog()
 
+        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/icon-map-marker.png'))
+        self.choose_point.setIcon(icon)
+        self.choose_point.show()
+
+        self.area_from_point.toggled.connect(self.area_from_point_toggle)
+        self.area_from_point_toggle()
+
+    def area_from_point_toggle(self):
+        if self.area_from_point.isChecked():
+            self.point_x.setEnabled(True)
+            self.point_y.setEnabled(True)
+            self.choose_point.setEnabled(True)
+        else:
+            self.point_x.setEnabled(False)
+            self.point_y.setEnabled(False)
+            self.choose_point.setEnabled(False)
+
+    def open_shp_browse(self):
+        shpfile = QtGui.QFileDialog.getOpenFileName()
+
     def traj_indic_changed(self):
         self.dataset_climate_update()
 

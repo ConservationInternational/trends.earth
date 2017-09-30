@@ -65,7 +65,7 @@ class LDMPPlugin:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QApplication.translate('LDMPPlugin', u'&Land Degradation Monitoring Toolbox')
+        self.menu = QApplication.translate('LDMP', u'&Land Degradation Monitoring Toolbox')
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'LDMP')
         self.toolbar.setObjectName(u'LDMP')
@@ -171,58 +171,58 @@ class LDMPPlugin:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
             ':/plugins/LDMP/icons/icon-wrench.png',
-            text=QApplication.translate('LDMPPlugin', u'Settings'),
+            text=QApplication.translate('LDMP', u'Settings'),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'LDMT Settings'))
+            status_tip=QApplication.translate('LDMP', 'LDMT Settings'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-globe.png',
-            text=QApplication.translate('LDMPPlugin', u'Download data'),
+            text=QApplication.translate('LDMP', u'Download data'),
             callback=self.run_download,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'Download land degradation datasets'))
+            status_tip=QApplication.translate('LDMP', 'Download land degradation datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-calculator.png',
-            text=QApplication.translate('LDMPPlugin', u'Calculate indicators'),
+            text=QApplication.translate('LDMP', u'Calculate indicators'),
             callback=self.run_calculate,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'Calculate land degradation indicators'))
+            status_tip=QApplication.translate('LDMP', 'Calculate land degradation indicators'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-cloud-download.png',
-            text=QApplication.translate('LDMPPlugin', u'View Google Earth Engine tasks'),
+            text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
             callback=self.get_jobs,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'View cloud processing tasks'))
+            status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-graph.png',
-            text=QApplication.translate('LDMPPlugin', u'Plot data'),
+            text=QApplication.translate('LDMP', u'Plot data'),
             callback=self.run_plot,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'Plot timeseries datasets'))
+            status_tip=QApplication.translate('LDMP', 'Plot timeseries datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-chart.png',
-            text=QApplication.translate('LDMPPlugin', u'Reporting tool'),
+            text=QApplication.translate('LDMP', u'Reporting tool'),
             callback=self.run_reporting,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'Land degradation reporting'))
+            status_tip=QApplication.translate('LDMP', 'Land degradation reporting'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-info.png',
-            text=QApplication.translate('LDMPPlugin', u'About'),
+            text=QApplication.translate('LDMP', u'About'),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMPPlugin', 'About the land degradation monitoring toolbox'))
+            status_tip=QApplication.translate('LDMP', 'About the land degradation monitoring toolbox'))
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginWebMenu(
-                QApplication.translate('LDMPPlugin', u'&Land Degradation Monitoring Toolbox'),
+                QApplication.translate('LDMP', u'&Land Degradation Monitoring Toolbox'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
@@ -247,8 +247,8 @@ class LDMPPlugin:
         # # See if OK was pressed
         # if result:
         #     pass
-        QMessageBox.critical(None, QApplication.translate('LDMPPlugin', "Error"),
-                QApplication.translate('LDMPPlugin', "Raw data download coming soon!"), None)
+        QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
+                QApplication.translate('LDMP', "Raw data download coming soon!"), None)
 
     def run_calculate(self):
         """Run method that performs all the real work"""
@@ -290,8 +290,8 @@ class LDMPPlugin:
         # # See if OK was pressed
         # if result:
         #     pass
-        QMessageBox.critical(None, QApplication.translate('LDMPPlugin', "Error"),
-                QApplication.translate('LDMPPlugin', "Reporting functionality coming soon!"), None)
+        QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
+                QApplication.translate('LDMP', "Reporting functionality coming soon!"), None)
 
     def run_about(self):
         """Run method that performs all the real work"""

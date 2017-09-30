@@ -76,7 +76,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="176"/>
+        <location filename="../calculate.py" line="175"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -91,7 +91,7 @@ p, li { white-space: pre-wrap; }
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="176"/>
+        <location filename="../calculate.py" line="175"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
@@ -389,7 +389,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="26"/>
         <source>Calculate Productivity</source>
-        <translation>6. Calculez votre**Productivité**.</translation>
+        <translation>Calculez votre productivité</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="166"/>
@@ -595,7 +595,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="20"/>
+        <location filename="" line="0"/>
         <source>Choose an indicator to report on:</source>
         <translation type="obsolete">Choisissez un indicateur pour signaler:</translation>
     </message>
@@ -604,6 +604,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Productivité</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Land Cover</source>
         <translation type="obsolete">Couverture terrestre</translation>
     </message>
@@ -621,12 +622,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Réglages</translation>
     </message>
     <message>
-        <location filename="" line="14"/>
+        <location filename="" line="0"/>
         <source>Password:</source>
         <translation type="obsolete">Mot de passe:</translation>
     </message>
     <message>
-        <location filename="" line="14"/>
+        <location filename="" line="0"/>
         <source>Register</source>
         <translation type="obsolete">Registre</translation>
     </message>
@@ -645,6 +646,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Utilisateurs existants:</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>New users:</source>
         <translation type="obsolete">Nouveaux utilisateurs :</translation>
     </message>
@@ -787,52 +789,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgTimeseries</name>
     <message>
-        <location filename="../timeseries.py" line="220"/>
+        <location filename="../timeseries.py" line="215"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="154"/>
+        <location filename="../timeseries.py" line="151"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="161"/>
+        <location filename="../timeseries.py" line="158"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="167"/>
+        <location filename="../timeseries.py" line="163"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="174"/>
+        <location filename="../timeseries.py" line="171"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="78"/>
+        <location filename="../timeseries.py" line="76"/>
         <source>Point chooser</source>
         <translation>Choix de points</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="78"/>
+        <location filename="../timeseries.py" line="76"/>
         <source>Click the map to choose a point.</source>
         <translation>Cliquez sur la carte pour choisir un point.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="216"/>
+        <location filename="../timeseries.py" line="211"/>
         <source>Submitted</source>
         <translation>Soumis</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="216"/>
+        <location filename="../timeseries.py" line="211"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
         <translation>Tâche de calcul de la série temporelle soumise à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="220"/>
+        <location filename="../timeseries.py" line="215"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de calcul de séries temporelles à Google Earth Engine.</translation>
     </message>
@@ -840,7 +842,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../download.py" line="141"/>
+        <location filename="../ldmp.py" line="293"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -917,7 +919,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../download.py" line="116"/>
         <source>Downloading {}</source>
-        <translation>Téléchargement ...</translation>
+        <translation type="unfinished">Téléchargement {}</translation>
     </message>
     <message>
         <location filename="../download.py" line="141"/>
@@ -934,9 +936,6 @@ p, li { white-space: pre-wrap; }
         <source>Download timed out. Check your internet connection.</source>
         <translation>Le téléchargement a expiré. Vérifiez votre connection internet.</translation>
     </message>
-</context>
-<context>
-    <name>LDMPPlugin</name>
     <message>
         <location filename="../ldmp.py" line="224"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
@@ -948,34 +947,14 @@ p, li { white-space: pre-wrap; }
         <translation>Réglages</translation>
     </message>
     <message>
+        <location filename="../ldmp.py" line="172"/>
+        <source>LDMT Settings</source>
+        <translation>Paramètres LDMT</translation>
+    </message>
+    <message>
         <location filename="../ldmp.py" line="179"/>
         <source>Download data</source>
-        <translation>Download data</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="186"/>
-        <source>Calculate indicators</source>
-        <translation>Calculer les indicateurs</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="193"/>
-        <source>View Google Earth Engine tasks</source>
-        <translation>Afficher les tâches Google Earth Engine</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="200"/>
-        <source>Plot data</source>
-        <translation>Tracer des données</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="207"/>
-        <source>Reporting tool</source>
-        <translation>Outil de rapport</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="214"/>
-        <source>About</source>
-        <translation>Sur</translation>
+        <translation>Télécharger les données</translation>
     </message>
     <message>
         <location filename="../ldmp.py" line="179"/>
@@ -984,8 +963,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../ldmp.py" line="186"/>
+        <source>Calculate indicators</source>
+        <translation>Calculer les indicateurs</translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="186"/>
         <source>Calculate land degradation indicators</source>
         <translation>Calculer les indicateurs de dégradation des sols</translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="193"/>
+        <source>View Google Earth Engine tasks</source>
+        <translation>Afficher les tâches Google Earth Engine</translation>
     </message>
     <message>
         <location filename="../ldmp.py" line="193"/>
@@ -994,8 +983,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../ldmp.py" line="200"/>
+        <source>Plot data</source>
+        <translation>Tracer des données</translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="200"/>
         <source>Plot timeseries datasets</source>
         <translation>Ensembles de données timeshow</translation>
+    </message>
+    <message>
+        <location filename="../ldmp.py" line="207"/>
+        <source>Reporting tool</source>
+        <translation>Outil de rapport</translation>
     </message>
     <message>
         <location filename="../ldmp.py" line="207"/>
@@ -1004,13 +1003,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../ldmp.py" line="214"/>
-        <source>About the land degradation monitoring toolbox</source>
-        <translation>À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
+        <source>About</source>
+        <translation>Sur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="293"/>
-        <source>Error</source>
-        <translation>Erreur</translation>
+        <location filename="../ldmp.py" line="214"/>
+        <source>About the land degradation monitoring toolbox</source>
+        <translation>À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
     </message>
     <message>
         <location filename="../ldmp.py" line="250"/>
@@ -1022,10 +1021,96 @@ p, li { white-space: pre-wrap; }
         <source>Reporting functionality coming soon!</source>
         <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
+</context>
+<context>
+    <name>LDMPPlugin</name>
     <message>
-        <location filename="../ldmp.py" line="172"/>
+        <source>&amp;Land Degradation Monitoring Toolbox</source>
+        <translation type="obsolete">Boîte à outils de surveillance de la dégradation des terres</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Settings</source>
+        <translation type="obsolete">Réglages</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Download data</source>
+        <translation type="obsolete">Download data</translation>
+    </message>
+    <message>
+        <source>Calculate indicators</source>
+        <translation type="obsolete">Calculer les indicateurs</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>View Google Earth Engine tasks</source>
+        <translation type="obsolete">Afficher les tâches Google Earth Engine</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Plot data</source>
+        <translation type="obsolete">Tracer des données</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Reporting tool</source>
+        <translation type="obsolete">Outil de rapport</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>About</source>
+        <translation type="obsolete">Sur</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Download land degradation datasets</source>
+        <translation type="obsolete">Télécharger les jeux de données de dégradation des terres</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Calculate land degradation indicators</source>
+        <translation type="obsolete">Calculer les indicateurs de dégradation des sols</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>View cloud processing tasks</source>
+        <translation type="obsolete">Afficher les tâches de traitement en nuage</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Plot timeseries datasets</source>
+        <translation type="obsolete">Ensembles de données timeshow</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Land degradation reporting</source>
+        <translation type="obsolete">Déclaration de dégradation des terres</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>About the land degradation monitoring toolbox</source>
+        <translation type="obsolete">À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
+    </message>
+    <message>
+        <location filename="" line="72"/>
+        <source>Error</source>
+        <translation type="obsolete">Erreur</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Raw data download coming soon!</source>
+        <translation type="obsolete">Téléchargement brut des données à venir bientôt!</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Reporting functionality coming soon!</source>
+        <translation type="obsolete">Fonctionnalités de rapport à venir bientôt!</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
         <source>LDMT Settings</source>
-        <translation>Paramètres LDMT</translation>
+        <translation type="obsolete">Paramètres LDMT</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="133"/>
@@ -1070,22 +1155,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../jobs.py" line="310"/>
         <source>Cropland</source>
-        <translation type="unfinished">Les terres cultivées</translation>
+        <translation>Les terres cultivées</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="311"/>
         <source>Forest land</source>
-        <translation type="unfinished">Foret</translation>
+        <translation>Foret</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="312"/>
         <source>Grassland</source>
-        <translation type="unfinished">Prairie</translation>
+        <translation>Prairie</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="313"/>
         <source>Wetlands</source>
-        <translation type="unfinished">Les Paluns</translation>
+        <translation>Les Paluns</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="314"/>
@@ -1095,7 +1180,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../jobs.py" line="315"/>
         <source>Other land</source>
-        <translation type="unfinished">Autre terre</translation>
+        <translation>Autre terre</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="307"/>

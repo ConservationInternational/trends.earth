@@ -52,8 +52,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
-        self.setup_dialog()
-
         # Setup point chooser
         icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/icon-map-marker.png'))
         self.choose_point.setIcon(icon)
@@ -68,6 +66,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
         self.area_frompoint_toggle()
+
+        self.setup_dialog()
 
     def point_chooser(self):
         log("Choosing point from canvas...")

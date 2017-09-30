@@ -786,52 +786,52 @@ p, li { white-space: pre-wrap; }
         <translation>Mot de passe oublié</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="135"/>
+        <location filename="../settings.py" line="131"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="104"/>
+        <location filename="../settings.py" line="99"/>
         <source>Enter an email address to update.</source>
         <translation>Entrez une adresse email pour la mise à jour.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="63"/>
+        <location filename="../settings.py" line="58"/>
         <source>Enter your password to update your user details.</source>
         <translation>Entrez votre mot de passe pour mettre à jour vos informations utilisateur.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="99"/>
+        <location filename="../settings.py" line="94"/>
         <source>Delete user functionality coming soon!</source>
         <translation>Supprimez les fonctionnalités de l&apos;utilisateur à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="121"/>
+        <location filename="../settings.py" line="116"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="126"/>
+        <location filename="../settings.py" line="121"/>
         <source>The password has been reset for {}. Check your email for the new password.</source>
         <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre courrier électronique pour le nouveau mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="131"/>
+        <location filename="../settings.py" line="127"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="135"/>
+        <location filename="../settings.py" line="131"/>
         <source>Enter your password.</source>
         <translation>Entrez votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="140"/>
+        <location filename="../settings.py" line="136"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="140"/>
+        <location filename="../settings.py" line="136"/>
         <source>Logged in to the LDMP server as {}.</source>
         <translation>Connecté au serveur LDMP comme {}.</translation>
     </message>
@@ -839,27 +839,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsRegister</name>
     <message>
-        <location filename="../settings.py" line="164"/>
+        <location filename="../settings.py" line="156"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="158"/>
+        <location filename="../settings.py" line="150"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="160"/>
+        <location filename="../settings.py" line="152"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="162"/>
+        <location filename="../settings.py" line="154"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="164"/>
+        <location filename="../settings.py" line="156"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
@@ -902,37 +902,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsUpdate</name>
     <message>
-        <location filename="../settings.py" line="199"/>
+        <location filename="../settings.py" line="186"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="193"/>
+        <location filename="../settings.py" line="180"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="195"/>
+        <location filename="../settings.py" line="182"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="197"/>
+        <location filename="../settings.py" line="184"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="199"/>
+        <location filename="../settings.py" line="186"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="204"/>
+        <location filename="../settings.py" line="191"/>
         <source>Saved</source>
         <translation>Enregistré</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="204"/>
+        <location filename="../settings.py" line="191"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
     </message>
@@ -1338,6 +1338,7 @@ p, li { white-space: pre-wrap; }
         <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
     <message>
+        <location filename="../ldmp.py" line="293"/>
         <source>Script not found</source>
         <translation type="obsolete">Script non trouvé</translation>
     </message>
@@ -1352,6 +1353,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Emploi</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Start time</source>
         <translation type="obsolete">Heure de début</translation>
     </message>
@@ -1386,6 +1388,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Foret</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Grassland</source>
         <translation type="obsolete">Prairie</translation>
     </message>
@@ -1430,6 +1433,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Stable</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Improvement</source>
         <translation type="obsolete">Amélioration</translation>
     </message>
@@ -1449,6 +1453,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Stable</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>{} (increasing)</source>
         <translation type="obsolete">{} (augmenter)</translation>
     </message>
@@ -1468,6 +1473,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Pas de changement significatif</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Significant increase</source>
         <translation type="obsolete">Une augmentation significative</translation>
     </message>
@@ -1487,6 +1493,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">État de productivité (initial)</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>No data</source>
         <translation type="obsolete">Pas de données</translation>
     </message>
@@ -1501,6 +1508,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">État de productivité (émergents)</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Productivity performance (degradation)</source>
         <translation type="obsolete">Rendement de la productivité (dégradation)</translation>
     </message>
@@ -1518,6 +1526,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Réglages</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>Download data</source>
         <translation type="obsolete">Download data</translation>
     </message>
@@ -1592,6 +1601,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>LDMT Settings</source>
         <translation type="obsolete">Paramètres LDMT</translation>
     </message>
@@ -1771,12 +1781,12 @@ p, li { white-space: pre-wrap; }
         <translation>Rendement de la productivité (dégradation)</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="108"/>
+        <location filename="../settings.py" line="103"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="108"/>
+        <location filename="../settings.py" line="103"/>
         <source>User {} deleted.</source>
         <translation>Utilisateur {} supprimé.</translation>
     </message>

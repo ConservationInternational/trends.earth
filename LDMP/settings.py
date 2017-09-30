@@ -50,11 +50,6 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         password = self.settings.value("LDMP/password", None)
         if password: self.password.setText(password)
 
-    # noinspection PyMethodMayBeStatic
-    def tr(self, message):
-        # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('LDMP', message)
-
     def btn_update_profile(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -123,7 +118,8 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             return
         resp = recover_pwd(self.email.text())
         if resp != None:
-            mb.pushMessage("Success", self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)
+            mb.pushMessage(self.tr("Success"),
+                    self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)
             self.close()
 
     def btn_login(self):
@@ -137,7 +133,8 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             return
         resp = login(self.email.text(), self.password.text())
         if resp:
-            mb.pushMessage(self.tr("Success"), self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
+            mb.pushMessage(self.tr("Success"),
+                    self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
             self.close()
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
@@ -147,11 +144,6 @@ class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
 
         self.save.clicked.connect(self.btn_save)
         self.cancel.clicked.connect(self.btn_cancel)
-
-    # noinspection PyMethodMayBeStatic
-    def tr(self, message):
-        # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('LDMP', message)
 
     def btn_save(self):
         if not self.email.text():
@@ -182,11 +174,6 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
 
         self.save.clicked.connect(self.btn_save)
         self.cancel.clicked.connect(self.btn_cancel)
-
-    # noinspection PyMethodMayBeStatic
-    def tr(self, message):
-        # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('LDMP', message)
 
     def btn_save(self):
         if not self.email.text():

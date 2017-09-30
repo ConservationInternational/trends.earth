@@ -5,7 +5,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
-../gui/DlgPlot.ui
+../gui/DlgPlot.ui \
 ../gui/DlgReporting.ui \
 ../gui/DlgReportingLC.ui \
 ../gui/DlgSettings.ui \

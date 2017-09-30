@@ -1,8 +1,7 @@
 httplib2==0.8
 requests==2.5.0
 crcmod>=1.7.0
-numpy
-gdal
+matplotlib>=1.5
 
 https://github.com/ConservationInternational/landdegradation.git#egg=landdegradation
 

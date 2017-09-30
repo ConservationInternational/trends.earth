@@ -602,27 +602,130 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReporting.ui" line="20"/>
         <source>Calculate Indicators</source>
-        <translation type="obsolete">Calculer les indicateurs</translation>
+        <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="20"/>
+        <location filename="../gui/DlgReporting.ui" line="32"/>
         <source>Choose an indicator to report on:</source>
-        <translation type="obsolete">Choisissez un indicateur pour signaler:</translation>
+        <translation>Choisissez un indicateur pour signaler:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="20"/>
+        <location filename="../gui/DlgReporting.ui" line="45"/>
         <source>Productivity</source>
-        <translation type="obsolete">Productivité</translation>
+        <translation>Productivité</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgReporting.ui" line="58"/>
         <source>Land Cover</source>
-        <translation type="obsolete">Couverture terrestre</translation>
+        <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgReporting.ui" line="71"/>
         <source>Soil Carbon</source>
-        <translation type="obsolete">Sol Carbone</translation>
+        <translation>Sol Carbone</translation>
+    </message>
+</context>
+<context>
+    <name>DlgReportingLC</name>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="20"/>
+        <source>Calculate Land Cover Change</source>
+        <translation>Calculer le changement de couverture de terrain</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="39"/>
+        <source>Setup</source>
+        <translation>Installation</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="45"/>
+        <source>Time period</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="172"/>
+        <source>yyyy</source>
+        <translation>yyyy</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="103"/>
+        <source>Starting year:</source>
+        <translation>Année de commencement:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="116"/>
+        <source>Ending year:</source>
+        <translation>Année de fin d&apos;année:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="188"/>
+        <source>Metadata</source>
+        <translation>Métadonnées</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="194"/>
+        <source>Task name:</source>
+        <translation>Nom de la tâche:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="214"/>
+        <source>Notes:</source>
+        <translation>Remarques:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="254"/>
+        <source>Area</source>
+        <translation>Région</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="260"/>
+        <source>Area to run calculations for</source>
+        <translation>Zone pour exécuter des calculs pour</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="300"/>
+        <source>Second level:</source>
+        <translation>Deuxième niveau:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="322"/>
+        <source>Browse</source>
+        <translation>Feuilleter</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="338"/>
+        <source>Choose a file...</source>
+        <translation>Choisir une barre latérale...</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="363"/>
+        <source>First level:</source>
+        <translation>Premier niveau:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="386"/>
+        <source>Administrative area</source>
+        <translation>Zone Administrative</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="396"/>
+        <source>Area from file</source>
+        <translation>Zone du fichier</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="438"/>
+        <source>Calculate</source>
+        <translation>Calc</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="445"/>
+        <source>Previous</source>
+        <translation>Précédent</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReportingLC.ui" line="452"/>
+        <source>Next</source>
+        <translation>Suivant</translation>
     </message>
 </context>
 <context>
@@ -630,57 +733,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettings.ui" line="20"/>
         <source>Settings</source>
-        <translation type="obsolete">Réglages</translation>
+        <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="20"/>
+        <location filename="../gui/DlgSettings.ui" line="74"/>
         <source>Password:</source>
-        <translation type="obsolete">Mot de passe:</translation>
+        <translation>Mot de passe:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="20"/>
+        <location filename="../gui/DlgSettings.ui" line="100"/>
         <source>Register</source>
-        <translation type="obsolete">Registre</translation>
+        <translation>Registre</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgSettings.ui" line="61"/>
         <source>Email:</source>
-        <translation type="obsolete">Email:</translation>
+        <translation>Email:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgSettings.ui" line="32"/>
         <source>Cancel</source>
-        <translation type="obsolete">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="" line="138"/>
+        <location filename="../gui/DlgSettings.ui" line="196"/>
         <source>Existing users:</source>
-        <translation type="obsolete">Utilisateurs existants:</translation>
+        <translation>Utilisateurs existants:</translation>
     </message>
     <message>
-        <location filename="" line="138"/>
+        <location filename="../gui/DlgSettings.ui" line="177"/>
         <source>New users:</source>
-        <translation type="obsolete">Nouveaux utilisateurs :</translation>
+        <translation>Nouveaux utilisateurs:</translation>
     </message>
     <message>
-        <location filename="" line="138"/>
+        <location filename="../gui/DlgSettings.ui" line="209"/>
         <source>Login</source>
-        <translation type="obsolete">Se Connecter</translation>
+        <translation>Se Connecter</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgSettings.ui" line="145"/>
         <source>Update profile</source>
-        <translation type="obsolete">Mettre à jour le profil</translation>
+        <translation>Mettre à jour le profil</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgSettings.ui" line="87"/>
         <source>Delete user</source>
-        <translation type="obsolete">Supprimer l&apos;utilisateur</translation>
+        <translation>Supprimer l&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="" line="13"/>
+        <location filename="../gui/DlgSettings.ui" line="132"/>
         <source>Forgot password</source>
-        <translation type="obsolete">Mot de passe oublié</translation>
+        <translation>Mot de passe oublié</translation>
     </message>
     <message>
         <location filename="../settings.py" line="135"/>
@@ -760,6 +863,41 @@ p, li { white-space: pre-wrap; }
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="20"/>
+        <source>Register new user</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
+        <source>Email:</source>
+        <translation>Email:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="58"/>
+        <source>Name:</source>
+        <translation>Prénom:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="84"/>
+        <source>Organization:</source>
+        <translation>Organisation:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="113"/>
+        <source>Country:</source>
+        <translation>Pays:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="152"/>
+        <source>Register user</source>
+        <translation>Registre</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="165"/>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
 </context>
 <context>
     <name>DlgSettingsUpdate</name>
@@ -797,6 +935,46 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="204"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="20"/>
+        <source>Update user</source>
+        <translation>Mettre à jour l&apos;utilisateur</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="32"/>
+        <source>Email:</source>
+        <translation>Email:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="61"/>
+        <source>Password:</source>
+        <translation>Mot de passe:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="90"/>
+        <source>Name:</source>
+        <translation>Prenom:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="116"/>
+        <source>Organization:</source>
+        <translation>Organisation:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="145"/>
+        <source>Country:</source>
+        <translation>Pays:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="184"/>
+        <source>Save</source>
+        <translation>Enregistrer</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsUpdate.ui" line="197"/>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
     </message>
 </context>
 <context>
@@ -850,6 +1028,131 @@ p, li { white-space: pre-wrap; }
         <location filename="../timeseries.py" line="215"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de calcul de séries temporelles à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="14"/>
+        <source>Plot time series</source>
+        <translation>Faire le graphique</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="24"/>
+        <source>Dataset</source>
+        <translation>Ensemble de données</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="30"/>
+        <source>Time series dataset</source>
+        <translation>Ensemble de données de la série temporelle</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="55"/>
+        <source>Title</source>
+        <translation>Titre</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="78"/>
+        <source>Indicator</source>
+        <translation>Indicateur</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="90"/>
+        <source>Trajectory indicator</source>
+        <translation>Indicateur de trajectoire</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="115"/>
+        <source>Baseline period</source>
+        <translation>Période de référence</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="235"/>
+        <source>yyyy</source>
+        <translation>yyyy</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="173"/>
+        <source>Starting year:</source>
+        <translation>Année de commencement:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="186"/>
+        <source>Ending year:</source>
+        <translation>Année de fin d&apos;année:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="245"/>
+        <source>Climate dataset</source>
+        <translation>Ensemble de données climatiques</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="290"/>
+        <source>Area</source>
+        <translation>Région</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="325"/>
+        <source>Administrative area</source>
+        <translation>Zone Administrative</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="335"/>
+        <source>Area from file</source>
+        <translation>Zone du fichier</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="360"/>
+        <source>First level:</source>
+        <translation>Premier niveau:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="382"/>
+        <source>Browse</source>
+        <translation>Feuilleter</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="414"/>
+        <source>Choose a file...</source>
+        <translation>Choisir une barre latérale...</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="439"/>
+        <source>Second level:</source>
+        <translation>Deuxième niveau:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="448"/>
+        <source>Point</source>
+        <translation>Point</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="503"/>
+        <source>Choose a point...</source>
+        <translation>Choisissez un point...</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="474"/>
+        <source>x:</source>
+        <translation>x:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="487"/>
+        <source>y:</source>
+        <translation>y:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="541"/>
+        <source>Next</source>
+        <translation>Suivant</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="548"/>
+        <source>Previous</source>
+        <translation>Précédent</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="555"/>
+        <source>Calculate</source>
+        <translation>Calc</translation>
     </message>
 </context>
 <context>
@@ -1035,22 +1338,20 @@ p, li { white-space: pre-wrap; }
         <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="" line="43"/>
         <source>Script not found</source>
         <translation type="obsolete">Script non trouvé</translation>
     </message>
     <message>
-        <location filename="" line="43"/>
+        <location filename="" line="0"/>
         <source>Task name</source>
         <translation type="obsolete">Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="" line="43"/>
+        <location filename="" line="0"/>
         <source>Job</source>
         <translation type="obsolete">Emploi</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Start time</source>
         <translation type="obsolete">Heure de début</translation>
     </message>
@@ -1075,17 +1376,16 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Couverture terrestre (référence)</translation>
     </message>
     <message>
-        <location filename="" line="53"/>
+        <location filename="" line="0"/>
         <source>Cropland</source>
         <translation type="obsolete">Les terres cultivées</translation>
     </message>
     <message>
-        <location filename="" line="53"/>
+        <location filename="" line="0"/>
         <source>Forest land</source>
         <translation type="obsolete">Foret</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Grassland</source>
         <translation type="obsolete">Prairie</translation>
     </message>
@@ -1115,22 +1415,21 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Changement de couverture terrestre</translation>
     </message>
     <message>
-        <location filename="" line="31"/>
+        <location filename="" line="14"/>
         <source>Land cover (degradation)</source>
         <translation type="obsolete">Couverture terrestre (dégradation)</translation>
     </message>
     <message>
-        <location filename="" line="97"/>
+        <location filename="" line="66"/>
         <source>Degradation</source>
         <translation type="obsolete">Dégradation</translation>
     </message>
     <message>
-        <location filename="" line="97"/>
+        <location filename="" line="0"/>
         <source>Stable</source>
         <translation type="obsolete">Stable</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Improvement</source>
         <translation type="obsolete">Amélioration</translation>
     </message>
@@ -1145,12 +1444,11 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">- {} (en déclin)</translation>
     </message>
     <message>
-        <location filename="" line="12"/>
+        <location filename="" line="0"/>
         <source>0 (stable)</source>
         <translation type="obsolete">Stable</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>{} (increasing)</source>
         <translation type="obsolete">{} (augmenter)</translation>
     </message>
@@ -1160,17 +1458,16 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Tendance de la trajectoire de productivité (signification)</translation>
     </message>
     <message>
-        <location filename="" line="45"/>
+        <location filename="" line="35"/>
         <source>Significant decrease</source>
         <translation type="obsolete">Diminution significative</translation>
     </message>
     <message>
-        <location filename="" line="45"/>
+        <location filename="" line="0"/>
         <source>No significant change</source>
         <translation type="obsolete">Pas de changement significatif</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Significant increase</source>
         <translation type="obsolete">Une augmentation significative</translation>
     </message>
@@ -1180,32 +1477,30 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Eau</translation>
     </message>
     <message>
-        <location filename="" line="32"/>
+        <location filename="" line="0"/>
         <source>Urban land cover</source>
         <translation type="obsolete">Couverture terrestre urbaine</translation>
     </message>
     <message>
-        <location filename="" line="32"/>
+        <location filename="" line="0"/>
         <source>Productivity state (initial)</source>
         <translation type="obsolete">État de productivité (initial)</translation>
     </message>
     <message>
-        <location filename="" line="20"/>
         <source>No data</source>
         <translation type="obsolete">Pas de données</translation>
     </message>
     <message>
-        <location filename="" line="20"/>
+        <location filename="" line="0"/>
         <source>Potentially degraded</source>
         <translation type="obsolete">Potentiellement dégradé</translation>
     </message>
     <message>
-        <location filename="" line="20"/>
+        <location filename="" line="0"/>
         <source>Productivity state (emerging)</source>
         <translation type="obsolete">État de productivité (émergents)</translation>
     </message>
     <message>
-        <location filename="" line="18"/>
         <source>Productivity performance (degradation)</source>
         <translation type="obsolete">Rendement de la productivité (dégradation)</translation>
     </message>
@@ -1213,17 +1508,16 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="" line="18"/>
+        <location filename="" line="0"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation type="obsolete">Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="" line="18"/>
+        <location filename="" line="0"/>
         <source>Settings</source>
         <translation type="obsolete">Réglages</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Download data</source>
         <translation type="obsolete">Download data</translation>
     </message>
@@ -1288,17 +1582,16 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Erreur</translation>
     </message>
     <message>
-        <location filename="" line="72"/>
+        <location filename="" line="0"/>
         <source>Raw data download coming soon!</source>
         <translation type="obsolete">Téléchargement brut des données à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="" line="72"/>
+        <location filename="" line="0"/>
         <source>Reporting functionality coming soon!</source>
         <translation type="obsolete">Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>LDMT Settings</source>
         <translation type="obsolete">Paramètres LDMT</translation>
     </message>

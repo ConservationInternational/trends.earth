@@ -586,31 +586,49 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgPlot</name>
+    <message>
+        <location filename="../gui/DlgPlot.ui" line="14"/>
+        <source>Land Degradation Timeseries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgPlot.ui" line="26"/>
+        <source>Save image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgPlot.ui" line="39"/>
+        <source>Save data</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DlgReporting</name>
     <message>
         <location filename="../gui/DlgReporting.ui" line="20"/>
         <source>Calculate Indicators</source>
-        <translation>Calculer les indicateurs</translation>
+        <translation type="obsolete">Calculer les indicateurs</translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="32"/>
         <source>Choose an indicator to report on:</source>
-        <translation>Choisissez un indicateur pour signaler:</translation>
+        <translation type="obsolete">Choisissez un indicateur pour signaler:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="45"/>
         <source>Productivity</source>
-        <translation>Productivité</translation>
+        <translation type="obsolete">Productivité</translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="58"/>
         <source>Land Cover</source>
-        <translation>Couverture terrestre</translation>
+        <translation type="obsolete">Couverture terrestre</translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="71"/>
         <source>Soil Carbon</source>
-        <translation>Sol Carbone</translation>
+        <translation type="obsolete">Sol Carbone</translation>
     </message>
 </context>
 <context>
@@ -618,57 +636,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettings.ui" line="20"/>
         <source>Settings</source>
-        <translation>Réglages</translation>
+        <translation type="obsolete">Réglages</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="74"/>
         <source>Password:</source>
-        <translation>Mot de passe:</translation>
+        <translation type="obsolete">Mot de passe:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="100"/>
         <source>Register</source>
-        <translation>Registre</translation>
+        <translation type="obsolete">Registre</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="61"/>
         <source>Email:</source>
-        <translation>Email:</translation>
+        <translation type="obsolete">Email:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="32"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation type="obsolete">Annuler</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="196"/>
         <source>Existing users:</source>
-        <translation>Utilisateurs existants:</translation>
+        <translation type="obsolete">Utilisateurs existants:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="177"/>
         <source>New users:</source>
-        <translation>Nouveaux utilisateurs :</translation>
+        <translation type="obsolete">Nouveaux utilisateurs :</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="209"/>
         <source>Login</source>
-        <translation>Se Connecter</translation>
+        <translation type="obsolete">Se Connecter</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="145"/>
         <source>Update profile</source>
-        <translation>Mettre à jour le profil</translation>
+        <translation type="obsolete">Mettre à jour le profil</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="87"/>
         <source>Delete user</source>
-        <translation>Supprimer l&apos;utilisateur</translation>
+        <translation type="obsolete">Supprimer l&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="132"/>
         <source>Forgot password</source>
-        <translation>Mot de passe oublié</translation>
+        <translation type="obsolete">Mot de passe oublié</translation>
     </message>
     <message>
         <location filename="../settings.py" line="134"/>
@@ -808,92 +826,92 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../ldmp.py" line="219"/>
+        <location filename="../ldmp.py" line="225"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation>Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="167"/>
+        <location filename="../ldmp.py" line="173"/>
         <source>Settings</source>
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="174"/>
+        <location filename="../ldmp.py" line="180"/>
         <source>Download data</source>
         <translation>Download data</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="181"/>
+        <location filename="../ldmp.py" line="187"/>
         <source>Calculate indicators</source>
         <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location filename="../ldmp.py" line="194"/>
         <source>View Google Earth Engine tasks</source>
         <translation>Afficher les tâches Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location filename="../ldmp.py" line="201"/>
         <source>Plot data</source>
         <translation>Tracer des données</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="208"/>
         <source>Reporting tool</source>
         <translation>Outil de rapport</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location filename="../ldmp.py" line="215"/>
         <source>About</source>
         <translation>Sur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="174"/>
+        <location filename="../ldmp.py" line="180"/>
         <source>Download land degradation datasets</source>
         <translation>Télécharger les jeux de données de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="181"/>
+        <location filename="../ldmp.py" line="187"/>
         <source>Calculate land degradation indicators</source>
         <translation>Calculer les indicateurs de dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location filename="../ldmp.py" line="194"/>
         <source>View cloud processing tasks</source>
         <translation>Afficher les tâches de traitement en nuage</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location filename="../ldmp.py" line="201"/>
         <source>Plot timeseries datasets</source>
         <translation>Ensembles de données timeshow</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="208"/>
         <source>Land degradation reporting</source>
         <translation>Déclaration de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location filename="../ldmp.py" line="215"/>
         <source>About the land degradation monitoring toolbox</source>
         <translation>À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="288"/>
+        <location filename="../ldmp.py" line="294"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="245"/>
+        <location filename="../ldmp.py" line="251"/>
         <source>Raw data download coming soon!</source>
         <translation>Téléchargement brut des données à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="288"/>
+        <location filename="../ldmp.py" line="294"/>
         <source>Reporting functionality coming soon!</source>
         <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="167"/>
+        <location filename="../ldmp.py" line="173"/>
         <source>LDMT Settings</source>
         <translation type="unfinished"></translation>
     </message>

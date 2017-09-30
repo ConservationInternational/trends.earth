@@ -15,6 +15,8 @@
 import os
 import json
 
+import pyqtgraph as pg
+
 from PyQt4 import QtGui, uic
 
 from PyQt4.QtCore import QDate, QTextCodec
@@ -27,6 +29,8 @@ from LDMP.api import run_script
 from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils, QgsVectorLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
+
+mb = iface.messageBar()
 
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def __init__(self, parent=None):
@@ -203,7 +207,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # This will add in the method parameter
         payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
 
-        gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']
+        gee_script = self.scripts['timeseries']['script id']
 
         resp = run_script(gee_script, payload)
 

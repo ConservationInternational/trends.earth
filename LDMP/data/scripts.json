@@ -1,4 +1,8 @@
 {
+    "timeseries": {
+        "script id": "a1df0e61-8000-458c-9856-dec570127f1a",
+        "description": "Calculate time series."
+    },
     "land_cover": {
         "Land cover": {
             "script id": "9a6e5eb6-953d-4993-a1da-23169da0382e",

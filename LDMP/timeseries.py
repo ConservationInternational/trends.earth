@@ -13,13 +13,19 @@
 """
 
 import os
+import json
 
 from PyQt4 import QtGui, uic
 
-from PyQt4.QtCore import QDate
+from PyQt4.QtCore import QDate, QTextCodec
 
+from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
+
+from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils
+from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
+from qgis.utils import iface
 
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def __init__(self, parent=None):
@@ -47,15 +53,41 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setup_dialog()
 
+        # Setup point chooser
         icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/icon-map-marker.png'))
         self.choose_point.setIcon(icon)
-        self.choose_point.show()
+        self.choose_point.clicked.connect(self.point_chooser)
+        self.canvas = iface.mapCanvas()
+        self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
+        self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
+        #TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.point_x.setValidator(QtGui.QDoubleValidator())
+        #TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.point_y.setValidator(QtGui.QDoubleValidator())
 
-        self.area_from_point.toggled.connect(self.area_from_point_toggle)
-        self.area_from_point_toggle()
+        self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
+        self.area_frompoint_toggle()
 
-    def area_from_point_toggle(self):
-        if self.area_from_point.isChecked():
+    def point_chooser(self):
+        log("Choosing point from canvas...")
+        self.hide()
+        self.canvas.setMapTool(self.choose_point_tool)
+        QtGui.QMessageBox.critical(None, "Point chooser", "Click the map to choose a point.")
+
+    def set_point_coords(self, point, button):
+        log("Set point coords")
+        #TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
+        self.point = point
+        # Disable the choose point tool
+        self.canvas.setMapTool(QgsMapToolPan(self.canvas))
+        self.show()
+        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.point.x(), self.point.y())
+        log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
+        self.point_x.setText("{:.8f}".format(self.point.x()))
+        self.point_y.setText("{:.8f}".format(self.point.y()))
+
+    def area_frompoint_toggle(self):
+        if self.area_frompoint.isChecked():
             self.point_x.setEnabled(True)
             self.point_y.setEnabled(True)
             self.choose_point.setEnabled(True)
@@ -114,13 +146,48 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.close()
 
     def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it 
-        # returns False, which would mean this function should stop execution 
-        # as well.
-        ret = super(DlgTimeseries, self).btn_calculate()
-        if not ret:
-            return
+        if self.area_admin.isChecked():
+            if not self.area_admin_0.currentText():
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Choose a first level administrative boundary."), None)
+                return False
+            self.button_calculate.setEnabled(False)
+            geojson = self.load_admin_polys()
+            self.button_calculate.setEnabled(True)
+            if not geojson:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Unable to load administrative boundaries."), None)
+                return False
+        elif self.area_fromfile.isChecked():
+            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
+            if not layer:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Choose a file to define the area of interest."), None)
+                return False
+            geojson = json.loads(QgsGeometry.fromRect(layer.extent()).exportToGeoJSON())
+        else:
+            # Area from point
+            if not self.point_x.text() and not self.point_y.text():
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Choose a point to define the area of interest."), None)
+                return False
+            point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
+            geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
+
+        # Calculate bounding box of input polygon and then convert back to 
+        # geojson
+        fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
+        features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
+        if len(features) > 1:
+            log("Found {} features in geojson - using first feature only.".format(len(features)))
+        #self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
+        self.bbox = json.loads(QgsGeometry.fromRect(features[0].geometry().boundingBox()).exportToGeoJSON())
+        log("Calculating timeseries for: {}.".format(self.bbox))
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         self.calculate_timeseries(self.bbox, ndvi_dataset)
+
+    def calculate_timeseries(self, bbox, ndvi_dataset):
+        pass
+

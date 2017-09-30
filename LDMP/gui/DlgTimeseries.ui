@@ -443,7 +443,7 @@
           <item row="7" column="0" colspan="3">
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="1" column="0">
-             <widget class="QRadioButton" name="area_from_point">
+             <widget class="QRadioButton" name="area_frompoint">
               <property name="text">
                <string>Point</string>
               </property>
@@ -495,6 +495,9 @@
                 <width>0</width>
                 <height>0</height>
                </size>
+              </property>
+              <property name="inputMethodHints">
+               <set>Qt::ImhPreferNumbers</set>
               </property>
               <property name="placeholderText">
                <string>Choose a point...</string>

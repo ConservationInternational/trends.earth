@@ -132,8 +132,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     else:
                         # Handle case of scripts that have been removed or that are 
                         # no longer supported
-                        job['script_name'] =  QtGui.QApplication.translate('LDMPPlugin', 'Script not found')
-                        job['script_description'] = QtGui.QApplication.translate('LDMPPlugin', 'Script not found')
+                        job['script_name'] =  self.tr('Script not found')
+                        job['script_description'] = self.tr('Script not found')
 
                 # Pretty print dates and pull the metadata sent as input params
                 for job in self.jobs:
@@ -150,7 +150,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
                 # Add "Notes" buttons in cell
                 for row in range(0, len(self.jobs)):
-                    btn = QtGui.QPushButton("Details")
+                    btn = QtGui.QPushButton(self.tr("Details"))
                     btn.clicked.connect(self.btn_details)
                     self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 

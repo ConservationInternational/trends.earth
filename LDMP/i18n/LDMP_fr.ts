@@ -121,7 +121,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="103"/>
         <source>Starting year:</source>
-        <translation>Année de commencement</translation>
+        <translation>Année de commencement:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="116"/>
@@ -141,12 +141,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="259"/>
         <source>Task name:</source>
-        <translation>Nom de la tâche</translation>
+        <translation>Nom de la tâche:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="279"/>
         <source>Notes:</source>
-        <translation>Remarques : </translation>
+        <translation>Remarques:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="319"/>
@@ -231,7 +231,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="908"/>
         <source>Choose a file...</source>
-        <translation>Choisir une Barre latérale</translation>
+        <translation>Choisir une barre latérale...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="915"/>
@@ -359,7 +359,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1349"/>
         <source>Choose a file...</source>
-        <translation>Choisir une Barre latérale</translation>
+        <translation>Choisir une barre latérale...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1363"/>
@@ -399,17 +399,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="172"/>
         <source>Task name:</source>
-        <translation>Nom de la tâche</translation>
+        <translation>Nom de la tâche:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="192"/>
         <source>Notes:</source>
-        <translation>Remarques : </translation>
+        <translation>Remarques:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1050"/>
         <source>Starting year:</source>
-        <translation>Année de commencement</translation>
+        <translation>Année de commencement:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1063"/>
@@ -452,7 +452,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="61"/>
         <source>Choose a folder...</source>
-        <translation>Choisissez un répertoire</translation>
+        <translation>Choisissez un répertoire...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="80"/>
@@ -482,7 +482,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="227"/>
         <source>Choose a file...</source>
-        <translation>Choisir une Barre latérale</translation>
+        <translation>Choisir une barre latérale...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="253"/>
@@ -508,19 +508,29 @@ p, li { white-space: pre-wrap; }
         <translation>Télécharger les résultats</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="182"/>
+        <location filename="../jobs.py" line="185"/>
         <source>Directory to save files</source>
         <translation>Répertoire pour enregistrer des fichiers</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="191"/>
+        <location filename="../jobs.py" line="194"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="191"/>
+        <location filename="../jobs.py" line="194"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation>Impossible d&apos;écrire sur {}. Choisissez un autre dossier.</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="136"/>
+        <source>Script not found</source>
+        <translation>Script non trouvé</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="153"/>
+        <source>Details</source>
+        <translation>Détails</translation>
     </message>
 </context>
 <context>
@@ -551,7 +561,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="41"/>
         <source>Task name:</source>
-        <translation>Nom de la tâche</translation>
+        <translation>Nom de la tâche:</translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="48"/>
@@ -561,7 +571,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="55"/>
         <source>Input:</source>
-        <translation>TVA déductible</translation>
+        <translation>Les données:</translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="62"/>
@@ -584,7 +594,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgPlot.ui" line="39"/>
         <source>Save data</source>
-        <translation>Enregistrer les données?</translation>
+        <translation>Enregistrer les données</translation>
     </message>
 </context>
 <context>
@@ -595,7 +605,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgReporting.ui" line="20"/>
         <source>Choose an indicator to report on:</source>
         <translation type="obsolete">Choisissez un indicateur pour signaler:</translation>
     </message>
@@ -622,7 +632,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Réglages</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="../gui/DlgSettings.ui" line="20"/>
         <source>Password:</source>
         <translation type="obsolete">Mot de passe:</translation>
     </message>
@@ -646,7 +656,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Utilisateurs existants:</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="" line="138"/>
         <source>New users:</source>
         <translation type="obsolete">Nouveaux utilisateurs :</translation>
     </message>
@@ -670,52 +680,52 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mot de passe oublié</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="129"/>
+        <location filename="../settings.py" line="135"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="98"/>
+        <location filename="../settings.py" line="104"/>
         <source>Enter an email address to update.</source>
         <translation>Entrez une adresse email pour la mise à jour.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="57"/>
+        <location filename="../settings.py" line="63"/>
         <source>Enter your password to update your user details.</source>
         <translation>Entrez votre mot de passe pour mettre à jour vos informations utilisateur.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="93"/>
+        <location filename="../settings.py" line="99"/>
         <source>Delete user functionality coming soon!</source>
         <translation>Supprimez les fonctionnalités de l&apos;utilisateur à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="115"/>
+        <location filename="../settings.py" line="121"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="120"/>
+        <location filename="../settings.py" line="126"/>
         <source>The password has been reset for {}. Check your email for the new password.</source>
         <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre courrier électronique pour le nouveau mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="125"/>
+        <location filename="../settings.py" line="131"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="129"/>
+        <location filename="../settings.py" line="135"/>
         <source>Enter your password.</source>
         <translation>Entrez votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
+        <location filename="../settings.py" line="140"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
+        <location filename="../settings.py" line="140"/>
         <source>Logged in to the LDMP server as {}.</source>
         <translation>Connecté au serveur LDMP comme {}.</translation>
     </message>
@@ -723,27 +733,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsRegister</name>
     <message>
-        <location filename="../settings.py" line="153"/>
+        <location filename="../settings.py" line="164"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="147"/>
+        <location filename="../settings.py" line="158"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel</translation>
+        <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="149"/>
+        <location filename="../settings.py" line="160"/>
         <source>Enter your name.</source>
-        <translation>Entrez votre nom</translation>
+        <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="151"/>
+        <location filename="../settings.py" line="162"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="153"/>
+        <location filename="../settings.py" line="164"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
@@ -751,37 +761,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsUpdate</name>
     <message>
-        <location filename="../settings.py" line="183"/>
+        <location filename="../settings.py" line="199"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="177"/>
+        <location filename="../settings.py" line="193"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel</translation>
+        <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="179"/>
+        <location filename="../settings.py" line="195"/>
         <source>Enter your name.</source>
-        <translation>Entrez votre nom</translation>
+        <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="181"/>
+        <location filename="../settings.py" line="197"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="183"/>
+        <location filename="../settings.py" line="199"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="188"/>
+        <location filename="../settings.py" line="204"/>
         <source>Saved</source>
         <translation>Enregistré</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="188"/>
+        <location filename="../settings.py" line="204"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
     </message>
@@ -1021,6 +1031,171 @@ p, li { white-space: pre-wrap; }
         <source>Reporting functionality coming soon!</source>
         <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
+    <message>
+        <location filename="" line="43"/>
+        <source>Script not found</source>
+        <translation type="obsolete">Script non trouvé</translation>
+    </message>
+    <message>
+        <source>Task name</source>
+        <translation type="obsolete">Nom de la tâche</translation>
+    </message>
+    <message>
+        <source>Job</source>
+        <translation type="obsolete">Emploi</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Start time</source>
+        <translation type="obsolete">Heure de début</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>End time</source>
+        <translation type="obsolete">Heure de fin</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Status</source>
+        <translation type="obsolete">Statut</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Details</source>
+        <translation type="obsolete">Détails</translation>
+    </message>
+    <message>
+        <location filename="" line="53"/>
+        <source>Land cover (baseline)</source>
+        <translation type="obsolete">Couverture terrestre (référence)</translation>
+    </message>
+    <message>
+        <source>Cropland</source>
+        <translation type="obsolete">Les terres cultivées</translation>
+    </message>
+    <message>
+        <source>Forest land</source>
+        <translation type="obsolete">Foret</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Grassland</source>
+        <translation type="obsolete">Prairie</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Wetlands</source>
+        <translation type="obsolete">Les Paluns</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Settlements</source>
+        <translation type="obsolete">colo</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Other land</source>
+        <translation type="obsolete">Autre terre</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Land cover (target)</source>
+        <translation type="obsolete">Couverture terrestre (cible)</translation>
+    </message>
+    <message>
+        <location filename="" line="17"/>
+        <source>Land cover change</source>
+        <translation type="obsolete">Changement de couverture terrestre</translation>
+    </message>
+    <message>
+        <location filename="" line="31"/>
+        <source>Land cover (degradation)</source>
+        <translation type="obsolete">Couverture terrestre (dégradation)</translation>
+    </message>
+    <message>
+        <location filename="" line="97"/>
+        <source>Degradation</source>
+        <translation type="obsolete">Dégradation</translation>
+    </message>
+    <message>
+        <source>Stable</source>
+        <translation type="obsolete">Stable</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Improvement</source>
+        <translation type="obsolete">Amélioration</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Productivity trajectory trend</source>
+        <translation type="obsolete">Tendance de la trajectoire de productivité</translation>
+    </message>
+    <message>
+        <location filename="" line="12"/>
+        <source>-{} (declining)</source>
+        <translation type="obsolete">- {} (en déclin)</translation>
+    </message>
+    <message>
+        <source>0 (stable)</source>
+        <translation type="obsolete">Stable</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>{} (increasing)</source>
+        <translation type="obsolete">{} (augmenter)</translation>
+    </message>
+    <message>
+        <location filename="" line="10"/>
+        <source>Productivity trajectory trend (significance)</source>
+        <translation type="obsolete">Tendance de la trajectoire de productivité (signification)</translation>
+    </message>
+    <message>
+        <location filename="" line="45"/>
+        <source>Significant decrease</source>
+        <translation type="obsolete">Diminution significative</translation>
+    </message>
+    <message>
+        <source>No significant change</source>
+        <translation type="obsolete">Pas de changement significatif</translation>
+    </message>
+    <message>
+        <location filename="" line="0"/>
+        <source>Significant increase</source>
+        <translation type="obsolete">Une augmentation significative</translation>
+    </message>
+    <message>
+        <location filename="" line="32"/>
+        <source>Water</source>
+        <translation type="obsolete">Eau</translation>
+    </message>
+    <message>
+        <source>Urban land cover</source>
+        <translation type="obsolete">Couverture terrestre urbaine</translation>
+    </message>
+    <message>
+        <source>Productivity state (initial)</source>
+        <translation type="obsolete">État de productivité (initial)</translation>
+    </message>
+    <message>
+        <location filename="" line="20"/>
+        <source>No data</source>
+        <translation type="obsolete">Pas de données</translation>
+    </message>
+    <message>
+        <location filename="" line="20"/>
+        <source>Potentially degraded</source>
+        <translation type="obsolete">Potentiellement dégradé</translation>
+    </message>
+    <message>
+        <source>Productivity state (emerging)</source>
+        <translation type="obsolete">État de productivité (émergents)</translation>
+    </message>
+    <message>
+        <location filename="" line="18"/>
+        <source>Productivity performance (degradation)</source>
+        <translation type="obsolete">Rendement de la productivité (dégradation)</translation>
+    </message>
 </context>
 <context>
     <name>LDMPPlugin</name>
@@ -1029,7 +1204,6 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
         <source>Settings</source>
         <translation type="obsolete">Réglages</translation>
     </message>
@@ -1099,7 +1273,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Erreur</translation>
     </message>
     <message>
-        <location filename="" line="0"/>
+        <location filename="" line="72"/>
         <source>Raw data download coming soon!</source>
         <translation type="obsolete">Téléchargement brut des données à venir bientôt!</translation>
     </message>
@@ -1113,187 +1287,187 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Paramètres LDMT</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="133"/>
+        <location filename="" line="0"/>
         <source>Script not found</source>
-        <translation>Script non trouvé</translation>
+        <translation type="obsolete">Script non trouvé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="230"/>
+        <location filename="../jobs.py" line="233"/>
         <source>Task name</source>
         <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="231"/>
+        <location filename="../jobs.py" line="234"/>
         <source>Job</source>
         <translation>Emploi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="232"/>
+        <location filename="../jobs.py" line="235"/>
         <source>Start time</source>
         <translation>Heure de début</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="233"/>
+        <location filename="../jobs.py" line="236"/>
         <source>End time</source>
         <translation>Heure de fin</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="234"/>
+        <location filename="../jobs.py" line="237"/>
         <source>Status</source>
         <translation>Statut</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="235"/>
+        <location filename="../jobs.py" line="238"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="289"/>
+        <location filename="../jobs.py" line="292"/>
         <source>Land cover (baseline)</source>
         <translation>Couverture terrestre (référence)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="310"/>
+        <location filename="../jobs.py" line="313"/>
         <source>Cropland</source>
         <translation>Les terres cultivées</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="311"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Forest land</source>
         <translation>Foret</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="312"/>
+        <location filename="../jobs.py" line="315"/>
         <source>Grassland</source>
         <translation>Prairie</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="313"/>
+        <location filename="../jobs.py" line="316"/>
         <source>Wetlands</source>
         <translation>Les Paluns</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="314"/>
+        <location filename="../jobs.py" line="317"/>
         <source>Settlements</source>
-        <translation>colo</translation>
+        <translation>Colo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="315"/>
+        <location filename="../jobs.py" line="318"/>
         <source>Other land</source>
         <translation>Autre terre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="307"/>
+        <location filename="../jobs.py" line="310"/>
         <source>Land cover (target)</source>
         <translation>Couverture terrestre (cible)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="325"/>
+        <location filename="../jobs.py" line="328"/>
         <source>Land cover change</source>
         <translation>Changement de couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="374"/>
+        <location filename="../jobs.py" line="377"/>
         <source>Land cover (degradation)</source>
         <translation>Couverture terrestre (dégradation)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="517"/>
+        <location filename="../jobs.py" line="523"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="518"/>
+        <location filename="../jobs.py" line="524"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="519"/>
+        <location filename="../jobs.py" line="525"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="406"/>
+        <location filename="../jobs.py" line="409"/>
         <source>Productivity trajectory trend</source>
         <translation>Tendance de la trajectoire de productivité</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="416"/>
+        <location filename="../jobs.py" line="422"/>
         <source>-{} (declining)</source>
         <translation>- {} (en déclin)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="417"/>
+        <location filename="../jobs.py" line="423"/>
         <source>0 (stable)</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="418"/>
+        <location filename="../jobs.py" line="424"/>
         <source>{} (increasing)</source>
         <translation>{} (augmenter)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="429"/>
+        <location filename="../jobs.py" line="435"/>
         <source>Productivity trajectory trend (significance)</source>
         <translation>Tendance de la trajectoire de productivité (signification)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="485"/>
+        <location filename="../jobs.py" line="491"/>
         <source>Significant decrease</source>
         <translation>Diminution significative</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="486"/>
+        <location filename="../jobs.py" line="492"/>
         <source>No significant change</source>
         <translation>Pas de changement significatif</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="487"/>
+        <location filename="../jobs.py" line="493"/>
         <source>Significant increase</source>
         <translation>Une augmentation significative</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="520"/>
+        <location filename="../jobs.py" line="526"/>
         <source>Water</source>
         <translation>Eau</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="521"/>
+        <location filename="../jobs.py" line="527"/>
         <source>Urban land cover</source>
         <translation>Couverture terrestre urbaine</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="463"/>
+        <location filename="../jobs.py" line="469"/>
         <source>Productivity state (initial)</source>
         <translation>État de productivité (initial)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="484"/>
+        <location filename="../jobs.py" line="490"/>
         <source>No data</source>
         <translation>Pas de données</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="467"/>
+        <location filename="../jobs.py" line="473"/>
         <source>Potentially degraded</source>
         <translation>Potentiellement dégradé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="481"/>
+        <location filename="../jobs.py" line="487"/>
         <source>Productivity state (emerging)</source>
         <translation>État de productivité (émergents)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="513"/>
+        <location filename="../jobs.py" line="519"/>
         <source>Productivity performance (degradation)</source>
         <translation>Rendement de la productivité (dégradation)</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="102"/>
+        <location filename="../settings.py" line="108"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="102"/>
+        <location filename="../settings.py" line="108"/>
         <source>User {} deleted.</source>
         <translation>Utilisateur {} supprimé.</translation>
     </message>

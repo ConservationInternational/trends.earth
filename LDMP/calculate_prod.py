@@ -193,22 +193,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'climate_gee_dataset': climate_gee_dataset,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
+        # This will add in the method
         payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
-
-        progressMessageBar = mb.createMessage("Submitting trajectory task to Google Earth Engine...")
-        spinner = QtGui.QLabel()
-        movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
-        spinner.setMovie(QtGui.QMovie())
-        spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
-        progressMessageBar.layout().addWidget(spinner)
-        mb.pushWidget(progressMessageBar, mb.INFO)
-        movie.start()
 
         gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']
 
         resp = run_script(gee_script, payload)
 
-        mb.popWidget(progressMessageBar)
         if resp:
             mb.pushMessage("Submitted",
                     "Trajectory task submitted to Google Earth Engine.", level=0, duration=5)
@@ -223,20 +214,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
-        progressMessageBar = mb.createMessage("Submitting productivity performance task to Google Earth Engine...")
-        spinner = QtGui.QLabel()
-        movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
-        spinner.setMovie(QtGui.QMovie())
-        spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
-        progressMessageBar.layout().addWidget(spinner)
-        mb.pushWidget(progressMessageBar, mb.INFO)
-        movie.start()
-
         gee_script = self.scripts['productivity_performance']['script id']
 
         resp = run_script(gee_script, payload)
 
-        mb.popWidget(progressMessageBar)
         if resp:
             mb.pushMessage("Submitted",
                     "Productivity performance task submitted to Google Earth Engine.", level=0, duration=5)
@@ -257,20 +238,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
-        progressMessageBar = mb.createMessage("Submitting productivity state task to Google Earth Engine...")
-        spinner = QtGui.QLabel()
-        movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
-        spinner.setMovie(QtGui.QMovie())
-        spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
-        progressMessageBar.layout().addWidget(spinner)
-        mb.pushWidget(progressMessageBar, mb.INFO)
-        movie.start()
-
         gee_script = self.scripts['productivity_state']['script id']
 
         resp = run_script(gee_script, payload)
 
-        mb.popWidget(progressMessageBar)
         if resp:
             mb.pushMessage("Submitted",
                     "Productivity state task submitted to Google Earth Engine.", level=0, duration=5)

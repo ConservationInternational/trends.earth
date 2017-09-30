@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en_US">
-<context encoding="UTF-8">
+<!DOCTYPE TS>
+<TS version="2.0" language="fr_FR" sourcelanguage="en_US">
+<context>
     <name>DlgAbout</name>
     <message>
-        <location filename="../gui/DlgAbout.ui" line="14"/>
+        <location filename="../gui/DlgAbout.ui" line="+14"/>
         <source>Land Degradation Monitoring Toolbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
-    <message encoding="UTF-8">
-        <location filename="../gui/DlgAbout.ui" line="34"/>
+    <message>
+        <location line="+20"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -21,848 +22,860 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;The LDMT is free and open-source. The code is available online at: &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:gef-ldmp@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;gef-ldmp@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or at &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN &quot; &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; 
+ &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext &quot; content = &quot;1 &quot; /&gt; &lt;style type = &quot;text / css &quot;&gt; 
+ p, li {white-space: pre-wrap; } 
+ &lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal; &quot;&gt; 
+ &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot;font-size: 12pt; font-weight: 600; &quot;&gt; Boîte à outils de surveillance de la dégradation des terres (LDMT) &lt;/ span&gt; &lt;/ p&gt; 
+ &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot; font-size: 8pt; &quot; &gt; &lt;br /&gt; La boîte à outils de surveillance de la dégradation des terres (LDMT) est produite par le Fonds mondial pour l&apos;environnement (GEF) financé &lt;/ span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt; &lt; span style = &quot;font-size: 8pt; text-decoration: underline; couleur: # 0000ff; &quot;&gt; Projet de surveillance de la dégradation des terres &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt; &quot;&gt; dirigé par Conservation International en partenariat avec la NASA et l&apos;Université de Lund. Le LDMT est un plugin Quantum GIS (QGIS) pour soutenir la surveillance de l&apos;état et la tendance de la dégradation des terres. &lt;/ Span&gt; &lt;/ p&gt; 
+ &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; 
+ &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot; font-size: 8pt; &quot;&gt; Cette boîte à outils a été produite comme une sortie du projet financé par le FEM intitulé« Permettre l&apos;utilisation de sources de données globales pour évaluer et surveiller la dégradation des terres à plusieurs échelles ». Le projet vise à fournir des conseils sur les méthodes robustes et une boîte à outils pour évaluer, surveiller l&apos;état et estimer les tendances de la dégradation des terres en utilisant la technologie de télédétection. &lt;/ Span&gt; &lt;/ p&gt; 
+ &lt;p style = &quot;- qt-paragraph- type: vide; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; 
+ &lt;p style = &quot; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0 ; text-indent: 0px; &quot;&gt; &lt;span style = &quot; font-size: 8pt; &quot;&gt; Le LDMT est gratuit et open-source. Le code est disponible en ligne à: &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt; &lt;span style = &quot;font-size: 8pt; text-decoration : soulignement; couleur: # 0000ff; &quot;&gt; https://github.com/ConservationInternational/ldmp-qgis-plugin &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot; font-size: 8pt; &quot;&gt;. Le code est sous licence GNU General Public License, version 2.0 ou ultérieure. &lt;/ Span&gt; &lt;/ p&gt; 
+ &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom : 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; 
+ &lt; p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot;font-size: 8pt; &quot;&gt; Si vous rencontrez des problèmes ou avez des problèmes lors de l&apos;utilisation du plugin, contactez-nous à &lt;/ span&gt; &lt;a href = &quot;mailto: gef-ldmp@conservation.org &quot;&gt; &lt;span style = &quot; font-size: 8pt; text-decoration: underline; couleur: # 0000ff; &quot;&gt; gef-ldmp@conservation.org &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot; police -size: 8pt; &quot;&gt;, ou à &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt; &lt;span style = &quot; font-size : 8pt; text-decoration: souligné; couleur: # 0000ff; &quot;&gt; https://github.com/ConservationInternational/ldmp-qgis-plugin/issues. &lt;/ Span&gt; &lt;/a&gt; &lt;/ p&gt; &lt;/ corps &gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
     <name>DlgCalculate</name>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="20"/>
+        <location filename="../gui/DlgCalculate.ui" line="+20"/>
         <source>Calculate Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="32"/>
+        <location line="+12"/>
         <source>Choose an indicator to calculate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un indicateur pour calculer:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="45"/>
+        <location line="+13"/>
         <source>Productivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Productivité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="58"/>
+        <location line="+13"/>
         <source>Land Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="71"/>
+        <location line="+13"/>
         <source>Soil Carbon</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol Carbone</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="49"/>
+        <location filename="../calculate.py" line="+49"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="49"/>
+        <location line="+0"/>
         <source>SOC indicator calculation coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Le calcul de l&apos;indicateur SOC arrive bientôt!</translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="176"/>
+        <location line="+127"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="163"/>
+        <location line="-13"/>
         <source>Choose a first level administrative boundary.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="170"/>
+        <location line="+7"/>
         <source>Unable to load administrative boundaries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="176"/>
+        <location line="+6"/>
         <source>Choose a file to define the area of interest.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateLC</name>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="20"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="+20"/>
         <source>Calculate Land Cover Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculer le changement de couverture de terrain</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="39"/>
+        <location line="+19"/>
         <source>Setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Installation</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="45"/>
+        <location line="+6"/>
         <source>Baseline period</source>
-        <translation type="unfinished"></translation>
+        <translation>Période de référence</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="237"/>
+        <location line="+192"/>
         <source>yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation>yyyy</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="103"/>
+        <location line="-134"/>
         <source>Starting year:</source>
-        <translation type="unfinished"></translation>
+        <translation>Année de commencement</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="116"/>
+        <location line="+13"/>
         <source>Ending year:</source>
-        <translation type="unfinished"></translation>
+        <translation>Année de fin d&apos;année:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="182"/>
+        <location line="+66"/>
         <source>Target year</source>
-        <translation type="unfinished"></translation>
+        <translation>Année cible</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="253"/>
+        <location line="+71"/>
         <source>Metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>Métadonnées</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="259"/>
+        <location line="+6"/>
         <source>Task name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="279"/>
+        <location line="+20"/>
         <source>Notes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Remarques : </translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="319"/>
+        <location line="+40"/>
         <source>Transition Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrice de transition</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="349"/>
+        <location line="+30"/>
         <source>Land cover in target year </source>
-        <translation type="unfinished"></translation>
+        <translation>Couverture foncière dans l&apos;année cible </translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="435"/>
+        <location line="+86"/>
         <source>Cropland</source>
-        <translation type="unfinished"></translation>
+        <translation>Les terres cultivées</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="440"/>
+        <location line="+5"/>
         <source>Forest land</source>
-        <translation type="unfinished"></translation>
+        <translation>Foret</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="445"/>
+        <location line="+5"/>
         <source>Grassland</source>
-        <translation type="unfinished"></translation>
+        <translation>Prairie</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="450"/>
+        <location line="+5"/>
         <source>Wetlands</source>
-        <translation type="unfinished"></translation>
+        <translation>Les Paluns</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="455"/>
+        <location line="+5"/>
         <source>Settlement</source>
-        <translation type="unfinished"></translation>
+        <translation>Règlement</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="460"/>
+        <location line="+5"/>
         <source>Other land</source>
-        <translation type="unfinished"></translation>
+        <translation>Autre terre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="745"/>
+        <location line="+285"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="729"/>
+        <location line="-16"/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="737"/>
+        <location line="+8"/>
         <source>-1</source>
-        <translation type="unfinished"></translation>
+        <translation>-1</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="770"/>
+        <location line="+33"/>
         <source>Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Région</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="776"/>
+        <location line="+6"/>
         <source>Area to run calculations for</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone pour exécuter des calculs pour</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="800"/>
+        <location line="+24"/>
         <source>Second level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuxième niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="825"/>
+        <location line="+25"/>
         <source>First level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Premier niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="860"/>
+        <location line="+35"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuilleter</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="908"/>
+        <location line="+48"/>
         <source>Choose a file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une Barre latérale</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="915"/>
+        <location line="+7"/>
         <source>Area from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone du fichier</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="922"/>
+        <location line="+7"/>
         <source>Administrative area</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone Administrative</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="954"/>
+        <location line="+32"/>
         <source>Calculate</source>
-        <translation type="unfinished"></translation>
+        <translation>Calc</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="961"/>
+        <location line="+7"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Précédent</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="968"/>
+        <location line="+7"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateProd</name>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="36"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="+36"/>
         <source>Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="141"/>
+        <location line="+105"/>
         <source>NDVI dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensemble de données NDVI</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="42"/>
+        <location line="-99"/>
         <source>Indicators to calculate</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicateurs pour calculer</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="68"/>
+        <location line="+26"/>
         <source>Trajectory is related to rate of change of  productivity over time</source>
-        <translation type="unfinished"></translation>
+        <translation>La trajectoire est liée au taux de variation de la productivité au fil du temps</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="98"/>
+        <location line="+30"/>
         <source>Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time.</source>
-        <translation type="unfinished"></translation>
+        <translation>La performance est une comparaison de la façon dont la productivité dans une région se compare à la productivité dans des zones similaires au même moment.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="128"/>
+        <location line="+30"/>
         <source>State is a comparison of how current productivity in an area compares to past productivity in that area.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;état est une comparaison de la productivité actuelle d&apos;une région par rapport à la productivité passée dans cette zone.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="225"/>
+        <location line="+97"/>
         <source>Trajectory</source>
-        <translation type="unfinished"></translation>
+        <translation>trajectoire</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="431"/>
+        <location line="+206"/>
         <source>Performance</source>
-        <translation type="unfinished"></translation>
+        <translation>Performance</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="581"/>
+        <location line="+150"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>État</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="985"/>
+        <location line="+404"/>
         <source>Baseline period</source>
-        <translation type="unfinished"></translation>
+        <translation>Période de référence</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1187"/>
+        <location line="+202"/>
         <source>yyyy</source>
-        <translation type="unfinished"></translation>
+        <translation>yyyy</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="237"/>
+        <location line="-950"/>
         <source>Trajectory indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicateur de trajectoire</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="392"/>
+        <location line="+155"/>
         <source>Climate dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensemble de données climatiques</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="587"/>
+        <location line="+195"/>
         <source>Existing degradation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dégradation existante</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="892"/>
+        <location line="+305"/>
         <source>Emerging degradation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dégradation émergente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1211"/>
+        <location line="+319"/>
         <source>Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Région</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1241"/>
+        <location line="+30"/>
         <source>Second level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuxième niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1266"/>
+        <location line="+25"/>
         <source>First level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Premier niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1301"/>
+        <location line="+35"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuilleter</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1349"/>
+        <location line="+48"/>
         <source>Choose a file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une Barre latérale</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1363"/>
+        <location line="+14"/>
         <source>Administrative area</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone Administrative</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1356"/>
+        <location line="-7"/>
         <source>Area from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone du fichier</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1409"/>
+        <location line="+53"/>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Précédent</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1395"/>
+        <location line="-14"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Suivant</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1402"/>
+        <location line="+7"/>
         <source>Calculate</source>
-        <translation type="unfinished"></translation>
+        <translation>Calc</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="26"/>
+        <location line="-1376"/>
         <source>Calculate Productivity</source>
-        <translation type="unfinished"></translation>
+        <translation>6. Calculez votre**Productivité**.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="166"/>
+        <location line="+140"/>
         <source>Metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>Métadonnées</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="172"/>
+        <location line="+6"/>
         <source>Task name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="192"/>
+        <location line="+20"/>
         <source>Notes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Remarques : </translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1050"/>
+        <location line="+858"/>
         <source>Starting year:</source>
-        <translation type="unfinished"></translation>
+        <translation>Année de commencement</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1063"/>
+        <location line="+13"/>
         <source>Ending year:</source>
-        <translation type="unfinished"></translation>
+        <translation>Année de fin d&apos;année:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1148"/>
+        <location line="+85"/>
         <source>Comparison period</source>
-        <translation type="unfinished"></translation>
+        <translation>Période de comparaison</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1217"/>
+        <location line="+69"/>
         <source>Area to run calculations for</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone pour exécuter des calculs pour</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="158"/>
+        <location filename="../calculate_prod.py" line="+158"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="158"/>
+        <location line="+0"/>
         <source>Choose one or more indicators to calculate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un ou plusieurs indicateurs à calculer.</translation>
     </message>
 </context>
 <context>
     <name>DlgDownload</name>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="14"/>
+        <location filename="../gui/DlgDownload.ui" line="+14"/>
         <source>Download data</source>
-        <translation type="unfinished"></translation>
+        <translation>Download data</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="48"/>
+        <location line="+34"/>
         <source>Project area:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone du projet:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="61"/>
+        <location line="+13"/>
         <source>Choose a folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un répertoire</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="80"/>
+        <location line="+19"/>
         <source>Folder with LDMT data:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier avec données LDMT:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="96"/>
+        <location line="+16"/>
         <source>Administrative area</source>
-        <translation type="unfinished"></translation>
+        <translation>Zone Administrative</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="126"/>
+        <location line="+30"/>
         <source>First level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Premier niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="161"/>
+        <location line="+35"/>
         <source>Second level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuxième niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="215"/>
+        <location line="+54"/>
         <source>Select from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez le fichier</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="227"/>
+        <location line="+12"/>
         <source>Choose a file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une Barre latérale</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="253"/>
+        <location line="+26"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Feuilleter</translation>
     </message>
 </context>
 <context>
     <name>DlgJobs</name>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="26"/>
+        <location filename="../gui/DlgJobs.ui" line="+26"/>
         <source>Download results from Earth Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger les résultats de Earth Engine</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="57"/>
+        <location line="+31"/>
         <source>Refresh list</source>
-        <translation type="unfinished"></translation>
+        <translation>Rafraîchir la Liste</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="64"/>
+        <location line="+7"/>
         <source>Download results</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger les résultats</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="182"/>
+        <location filename="../jobs.py" line="+182"/>
         <source>Directory to save files</source>
-        <translation type="unfinished"></translation>
+        <translation>Répertoire pour enregistrer des fichiers</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="191"/>
+        <location line="+9"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="191"/>
+        <location line="+0"/>
         <source>Cannot write to {}. Choose a different folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;écrire sur {}. Choisissez un autre dossier.</translation>
     </message>
 </context>
 <context>
     <name>DlgJobsDetails</name>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="14"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="+14"/>
         <source>Google Earth Engine Task Detail</source>
-        <translation type="unfinished"></translation>
+        <translation>Détail des tâches Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="20"/>
+        <location line="+6"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN &quot; &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; 
+ &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext &quot; content = &quot;1 &quot; /&gt; &lt;style type = &quot;text / css &quot;&gt; 
+ p, li {white-space: pre-wrap; } 
+ &lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal; &quot;&gt; 
+ &lt;p style = &quot;- qt-paragraphe-type: vide; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; texte-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="34"/>
+        <location line="+14"/>
         <source>Comments:</source>
-        <translation type="unfinished"></translation>
+        <translation>Commentaires:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="41"/>
+        <location line="+7"/>
         <source>Task name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="48"/>
+        <location line="+7"/>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="55"/>
+        <location line="+7"/>
         <source>Input:</source>
-        <translation type="unfinished"></translation>
+        <translation>TVA déductible</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="62"/>
+        <location line="+7"/>
         <source>Status:</source>
-        <translation type="unfinished"></translation>
+        <translation>Statut:</translation>
     </message>
-</context>
-<context>
-    <name>DlgPlot</name>
 </context>
 <context>
     <name>DlgReporting</name>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="20"/>
+        <location filename="../gui/DlgReporting.ui" line="+20"/>
         <source>Calculate Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="32"/>
+        <location line="+12"/>
         <source>Choose an indicator to report on:</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un indicateur pour signaler:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="45"/>
+        <location line="+13"/>
         <source>Productivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Productivité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="58"/>
+        <location line="+13"/>
         <source>Land Cover</source>
-        <translation type="unfinished"></translation>
+        <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="71"/>
+        <location line="+13"/>
         <source>Soil Carbon</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol Carbone</translation>
     </message>
 </context>
 <context>
     <name>DlgSettings</name>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="20"/>
+        <location filename="../gui/DlgSettings.ui" line="+20"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="74"/>
+        <location line="+54"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="100"/>
+        <location line="+26"/>
         <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Registre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="61"/>
+        <location line="-39"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>Email:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="32"/>
+        <location line="-29"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="196"/>
+        <location line="+164"/>
         <source>Existing users:</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisateurs existants:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="177"/>
+        <location line="-19"/>
         <source>New users:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveaux utilisateurs :</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="209"/>
+        <location line="+32"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Se Connecter</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="145"/>
+        <location line="-64"/>
         <source>Update profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour le profil</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="87"/>
+        <location line="-58"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer l&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="132"/>
+        <location line="+45"/>
         <source>Forgot password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe oublié</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
+        <location filename="../settings.py" line="+134"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="104"/>
+        <location line="-30"/>
         <source>Enter an email address to update.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez une adresse email pour la mise à jour.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="63"/>
+        <location line="-41"/>
         <source>Enter your password to update your user details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre mot de passe pour mettre à jour vos informations utilisateur.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="99"/>
+        <location line="+36"/>
         <source>Delete user functionality coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimez les fonctionnalités de l&apos;utilisateur à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="120"/>
+        <location line="+21"/>
         <source>Enter your email address to reset your password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="125"/>
+        <location line="+5"/>
         <source>The password has been reset for {}. Check your email for the new password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre courrier électronique pour le nouveau mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="130"/>
+        <location line="+5"/>
         <source>Enter your email address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre adresse courriel</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
+        <location line="+4"/>
         <source>Enter your password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre mot de passe</translation>
     </message>
 </context>
 <context>
     <name>DlgSettingsRegister</name>
     <message>
-        <location filename="../settings.py" line="163"/>
+        <location line="+29"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="157"/>
+        <location line="-6"/>
         <source>Enter your email address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre adresse courriel</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="159"/>
+        <location line="+2"/>
         <source>Enter your name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre nom</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="161"/>
+        <location line="+2"/>
         <source>Enter your organization.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="163"/>
+        <location line="+2"/>
         <source>Enter your country.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre pays.</translation>
     </message>
 </context>
 <context>
     <name>DlgSettingsUpdate</name>
     <message>
-        <location filename="../settings.py" line="198"/>
+        <location line="+35"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="192"/>
+        <location line="-6"/>
         <source>Enter your email address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre adresse courriel</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="194"/>
+        <location line="+2"/>
         <source>Enter your name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre nom</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="196"/>
+        <location line="+2"/>
         <source>Enter your organization.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="198"/>
+        <location line="+2"/>
         <source>Enter your country.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez votre pays.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="203"/>
+        <location line="+5"/>
         <source>Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistré</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="203"/>
+        <location line="+0"/>
         <source>Updated information for {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Informations mises à jour pour {}.</translation>
     </message>
 </context>
 <context>
     <name>DlgTimeseries</name>
     <message>
-        <location filename="../timeseries.py" line="171"/>
+        <location filename="../timeseries.py" line="+171"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="151"/>
+        <location line="-20"/>
         <source>Choose a first level administrative boundary.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="158"/>
+        <location line="+7"/>
         <source>Unable to load administrative boundaries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="164"/>
+        <location line="+6"/>
         <source>Choose a file to define the area of interest.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="171"/>
+        <location line="+7"/>
         <source>Choose a point to define the area of interest.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
     </message>
 </context>
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../ldmp.py" line="219"/>
+        <location filename="../ldmp.py" line="+219"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="167"/>
+        <location line="-52"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="174"/>
+        <location line="+7"/>
         <source>Download data</source>
-        <translation type="unfinished"></translation>
+        <translation>Download data</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="181"/>
+        <location line="+7"/>
         <source>Calculate indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location line="+7"/>
         <source>View Google Earth Engine tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les tâches Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location line="+7"/>
         <source>Plot data</source>
-        <translation type="unfinished"></translation>
+        <translation>Tracer des données</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location line="+7"/>
         <source>Reporting tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Outil de rapport</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location line="+7"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Sur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="174"/>
+        <location line="-35"/>
         <source>Download land degradation datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger les jeux de données de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="181"/>
+        <location line="+7"/>
         <source>Calculate land degradation indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculer les indicateurs de dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location line="+7"/>
         <source>View cloud processing tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les tâches de traitement en nuage</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location line="+7"/>
         <source>Plot timeseries datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensembles de données timeshow</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location line="+7"/>
         <source>Land degradation reporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Déclaration de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location line="+7"/>
         <source>About the land degradation monitoring toolbox</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="288"/>
+        <location line="+79"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="245"/>
+        <location line="-43"/>
         <source>Raw data download coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Téléchargement brut des données à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="288"/>
+        <location line="+43"/>
         <source>Reporting functionality coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
 </context>
 </TS>

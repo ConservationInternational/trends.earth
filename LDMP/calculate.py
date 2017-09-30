@@ -171,11 +171,11 @@ class DlgCalculateBase(QtGui.QDialog):
                         self.tr("Unable to load administrative boundaries."), None)
                 return False
         else:
-            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
-            if not layer:
+            if not self.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a file to define the area of interest."), None)
                 return False
+            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             geojson = json.loads(QgsGeometry.fromRect(layer.extent()).exportToGeoJSON())
 
         # Calculate bounding box of input polygon and then convert back to 

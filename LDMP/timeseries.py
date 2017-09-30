@@ -22,8 +22,9 @@ from PyQt4.QtCore import QDate, QTextCodec
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
+from LDMP.api import run_script
 
-from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils
+from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils, QgsVectorLayer
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
 
@@ -67,9 +68,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
         self.area_frompoint_toggle()
-
-    def tr(self, message):
-        return QtGui.QCoreApplication.translate('LDMP', message)
 
     def point_chooser(self):
         log("Choosing point from canvas...")
@@ -143,7 +141,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.traj_year_start.setMaximumDate(end_year_traj)
         self.traj_year_end.setMinimumDate(start_year_traj)
         self.traj_year_end.setMaximumDate(end_year_traj)
-
             
     def btn_cancel(self):
         self.close()
@@ -162,11 +159,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                         self.tr("Unable to load administrative boundaries."), None)
                 return False
         elif self.area_fromfile.isChecked():
-            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
-            if not layer:
+            if not self.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Choose a file to define the area of interest."), None)
                 return False
+            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             geojson = json.loads(QgsGeometry.fromRect(layer.extent()).exportToGeoJSON())
         else:
             # Area from point
@@ -202,9 +199,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'year_end': self.traj_year_end.date().year(),
                    'geojson': json.dumps(self.bbox),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'climate_gee_dataset': climate_gee_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter
         payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
 

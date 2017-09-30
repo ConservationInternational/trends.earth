@@ -587,12 +587,12 @@ p, li { white-space: pre-wrap; }
         <translation>Times de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../gui/DlgPlot.ui" line="26"/>
+        <location filename="../gui/DlgPlot.ui" line="25"/>
         <source>Save image</source>
         <translation>Enregistrer l&apos;image</translation>
     </message>
     <message>
-        <location filename="../gui/DlgPlot.ui" line="39"/>
+        <location filename="../gui/DlgPlot.ui" line="32"/>
         <source>Save data</source>
         <translation>Enregistrer les données</translation>
     </message>
@@ -980,52 +980,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgTimeseries</name>
     <message>
-        <location filename="../timeseries.py" line="215"/>
+        <location filename="../timeseries.py" line="221"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="151"/>
+        <location filename="../timeseries.py" line="155"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="158"/>
+        <location filename="../timeseries.py" line="162"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="163"/>
+        <location filename="../timeseries.py" line="167"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="171"/>
+        <location filename="../timeseries.py" line="175"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="76"/>
+        <location filename="../timeseries.py" line="80"/>
         <source>Point chooser</source>
         <translation>Choix de points</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="76"/>
+        <location filename="../timeseries.py" line="80"/>
         <source>Click the map to choose a point.</source>
         <translation>Cliquez sur la carte pour choisir un point.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="211"/>
+        <location filename="../timeseries.py" line="217"/>
         <source>Submitted</source>
         <translation>Soumis</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="211"/>
+        <location filename="../timeseries.py" line="217"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
         <translation>Tâche de calcul de la série temporelle soumise à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="215"/>
+        <location filename="../timeseries.py" line="221"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de calcul de séries temporelles à Google Earth Engine.</translation>
     </message>
@@ -1611,172 +1611,172 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Script non trouvé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="233"/>
+        <location filename="../jobs.py" line="235"/>
         <source>Task name</source>
         <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="234"/>
+        <location filename="../jobs.py" line="236"/>
         <source>Job</source>
         <translation>Emploi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="235"/>
+        <location filename="../jobs.py" line="237"/>
         <source>Start time</source>
         <translation>Heure de début</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="236"/>
+        <location filename="../jobs.py" line="238"/>
         <source>End time</source>
         <translation>Heure de fin</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="237"/>
+        <location filename="../jobs.py" line="239"/>
         <source>Status</source>
         <translation>Statut</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="238"/>
+        <location filename="../jobs.py" line="240"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="292"/>
+        <location filename="../jobs.py" line="294"/>
         <source>Land cover (baseline)</source>
         <translation>Couverture terrestre (référence)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="313"/>
+        <location filename="../jobs.py" line="315"/>
         <source>Cropland</source>
         <translation>Les terres cultivées</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="314"/>
+        <location filename="../jobs.py" line="316"/>
         <source>Forest land</source>
         <translation>Foret</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="315"/>
+        <location filename="../jobs.py" line="317"/>
         <source>Grassland</source>
         <translation>Prairie</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="316"/>
+        <location filename="../jobs.py" line="318"/>
         <source>Wetlands</source>
         <translation>Les Paluns</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="317"/>
+        <location filename="../jobs.py" line="319"/>
         <source>Settlements</source>
         <translation>Colo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="318"/>
+        <location filename="../jobs.py" line="320"/>
         <source>Other land</source>
         <translation>Autre terre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="310"/>
+        <location filename="../jobs.py" line="312"/>
         <source>Land cover (target)</source>
         <translation>Couverture terrestre (cible)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="328"/>
+        <location filename="../jobs.py" line="330"/>
         <source>Land cover change</source>
         <translation>Changement de couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="377"/>
+        <location filename="../jobs.py" line="379"/>
         <source>Land cover (degradation)</source>
         <translation>Couverture terrestre (dégradation)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="523"/>
+        <location filename="../jobs.py" line="525"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="524"/>
+        <location filename="../jobs.py" line="526"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="525"/>
+        <location filename="../jobs.py" line="527"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="409"/>
+        <location filename="../jobs.py" line="411"/>
         <source>Productivity trajectory trend</source>
         <translation>Tendance de la trajectoire de productivité</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="422"/>
+        <location filename="../jobs.py" line="424"/>
         <source>-{} (declining)</source>
         <translation>- {} (en déclin)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="423"/>
+        <location filename="../jobs.py" line="425"/>
         <source>0 (stable)</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="424"/>
+        <location filename="../jobs.py" line="426"/>
         <source>{} (increasing)</source>
         <translation>{} (augmenter)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="435"/>
+        <location filename="../jobs.py" line="437"/>
         <source>Productivity trajectory trend (significance)</source>
         <translation>Tendance de la trajectoire de productivité (signification)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="491"/>
+        <location filename="../jobs.py" line="493"/>
         <source>Significant decrease</source>
         <translation>Diminution significative</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="492"/>
+        <location filename="../jobs.py" line="494"/>
         <source>No significant change</source>
         <translation>Pas de changement significatif</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="493"/>
+        <location filename="../jobs.py" line="495"/>
         <source>Significant increase</source>
         <translation>Une augmentation significative</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="526"/>
+        <location filename="../jobs.py" line="528"/>
         <source>Water</source>
         <translation>Eau</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="527"/>
+        <location filename="../jobs.py" line="529"/>
         <source>Urban land cover</source>
         <translation>Couverture terrestre urbaine</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="469"/>
+        <location filename="../jobs.py" line="471"/>
         <source>Productivity state (initial)</source>
         <translation>État de productivité (initial)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="490"/>
+        <location filename="../jobs.py" line="492"/>
         <source>No data</source>
         <translation>Pas de données</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="473"/>
+        <location filename="../jobs.py" line="475"/>
         <source>Potentially degraded</source>
         <translation>Potentiellement dégradé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="487"/>
+        <location filename="../jobs.py" line="489"/>
         <source>Productivity state (emerging)</source>
         <translation>État de productivité (émergents)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="519"/>
+        <location filename="../jobs.py" line="521"/>
         <source>Productivity performance (degradation)</source>
         <translation>Rendement de la productivité (dégradation)</translation>
     </message>

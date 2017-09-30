@@ -212,6 +212,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 download_prod_perf(job, download_dir)
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
+            elif job['results'].get('type') == 'timeseries':
+                download_data(job, download_dir)
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
 

@@ -174,8 +174,9 @@ def login(email=None, password=None):
 def call_api(endpoint, method='get', payload=None, use_token=False):
     if use_token:
         login_resp = login()
-        log("API loaded token.")
-        headers = {'Authorization': 'Bearer {}'.format(login_resp['access_token'])}
+        if login_resp:
+            log("API loaded token.")
+            headers = {'Authorization': 'Bearer {}'.format(login_resp['access_token'])}
     else:
         log("API no token required.")
         headers = {}

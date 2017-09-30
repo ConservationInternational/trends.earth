@@ -18,6 +18,9 @@ import json
 from datetime import date, datetime
 from math import floor, log10
 
+import numpy as np 
+from osgeo import gdal 
+
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
@@ -407,9 +410,13 @@ def style_prod_traj_trend(outfile):
     provider = layer_ndvi.dataProvider()
     # Set a colormap centred on zero, going to the extreme value significant to 
     # three figures
-    stats = provider.bandStatistics(1, QgsRasterBandStats.All)
-    #TODO: Make this a 2% stretch rather than simple linear stretch
-    extreme = get_extreme(stats.minimumValue, stats.maximumValue)
+
+    ds = gdal.Open(outfile) 
+    band1 = np.array(ds.GetRasterBand(1).ReadAsArray()) 
+    ds = None
+    cutoffs = np.percentile(band1, [2, 98])
+    extreme = get_extreme(cutoffs[0], cutoffs[1])
+
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
     lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', '-{} (declining)').format(extreme)),

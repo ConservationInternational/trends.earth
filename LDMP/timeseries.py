@@ -188,6 +188,32 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.calculate_timeseries(self.bbox, ndvi_dataset)
 
-    def calculate_timeseries(self, bbox, ndvi_dataset):
-        pass
+    def calculate_timeseries(self, geojson, ndvi_dataset):
+        if self.traj_climate.currentText() != "":
+            climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
+            log('climate_gee_dataset {}'.format(climate_gee_dataset))
+        else:
+            climate_gee_dataset = None
 
+        payload = {'year_start': self.traj_year_start.date().year(),
+                   'year_end': self.traj_year_end.date().year(),
+                   'geojson': json.dumps(self.bbox),
+                   'ndvi_gee_dataset': ndvi_dataset,
+                   'climate_gee_dataset': climate_gee_dataset,
+                   'task_name': self.task_name.text(),
+                   'task_notes': self.task_notes.toPlainText()}
+        # This will add in the method parameter
+        payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
+
+        gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']
+
+        resp = run_script(gee_script, payload)
+
+        if resp:
+            mb.pushMessage("Submitted",
+                    "Time series calculation task submitted to Google Earth Engine.",
+                    level=0, duration=5)
+        else:
+            mb.pushMessage("Error",
+                    "Unable to submit time series calculation task to Google Earth Engine.",
+                    level=1, duration=5)

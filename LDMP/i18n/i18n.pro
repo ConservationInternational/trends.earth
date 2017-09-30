@@ -8,7 +8,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgPlot.ui
 ../gui/DlgReporting.ui \
 ../gui/DlgReportingLC.ui \
-../gui/DlgSettings.ui
+../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \
 ../gui/DlgTimeseries.ui

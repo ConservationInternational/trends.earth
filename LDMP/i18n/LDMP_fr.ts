@@ -610,6 +610,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Choisissez un indicateur pour signaler:</translation>
     </message>
     <message>
+        <location filename="../gui/DlgReporting.ui" line="20"/>
         <source>Productivity</source>
         <translation type="obsolete">Productivité</translation>
     </message>
@@ -637,6 +638,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Mot de passe:</translation>
     </message>
     <message>
+        <location filename="../gui/DlgSettings.ui" line="20"/>
         <source>Register</source>
         <translation type="obsolete">Registre</translation>
     </message>
@@ -661,6 +663,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Nouveaux utilisateurs :</translation>
     </message>
     <message>
+        <location filename="" line="138"/>
         <source>Login</source>
         <translation type="obsolete">Se Connecter</translation>
     </message>
@@ -1037,10 +1040,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Script non trouvé</translation>
     </message>
     <message>
+        <location filename="" line="43"/>
         <source>Task name</source>
         <translation type="obsolete">Nom de la tâche</translation>
     </message>
     <message>
+        <location filename="" line="43"/>
         <source>Job</source>
         <translation type="obsolete">Emploi</translation>
     </message>
@@ -1070,10 +1075,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Couverture terrestre (référence)</translation>
     </message>
     <message>
+        <location filename="" line="53"/>
         <source>Cropland</source>
         <translation type="obsolete">Les terres cultivées</translation>
     </message>
     <message>
+        <location filename="" line="53"/>
         <source>Forest land</source>
         <translation type="obsolete">Foret</translation>
     </message>
@@ -1118,6 +1125,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Dégradation</translation>
     </message>
     <message>
+        <location filename="" line="97"/>
         <source>Stable</source>
         <translation type="obsolete">Stable</translation>
     </message>
@@ -1137,6 +1145,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">- {} (en déclin)</translation>
     </message>
     <message>
+        <location filename="" line="12"/>
         <source>0 (stable)</source>
         <translation type="obsolete">Stable</translation>
     </message>
@@ -1156,6 +1165,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Diminution significative</translation>
     </message>
     <message>
+        <location filename="" line="45"/>
         <source>No significant change</source>
         <translation type="obsolete">Pas de changement significatif</translation>
     </message>
@@ -1170,10 +1180,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Eau</translation>
     </message>
     <message>
+        <location filename="" line="32"/>
         <source>Urban land cover</source>
         <translation type="obsolete">Couverture terrestre urbaine</translation>
     </message>
     <message>
+        <location filename="" line="32"/>
         <source>Productivity state (initial)</source>
         <translation type="obsolete">État de productivité (initial)</translation>
     </message>
@@ -1188,6 +1200,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Potentiellement dégradé</translation>
     </message>
     <message>
+        <location filename="" line="20"/>
         <source>Productivity state (emerging)</source>
         <translation type="obsolete">État de productivité (émergents)</translation>
     </message>
@@ -1200,10 +1213,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
+        <location filename="" line="18"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation type="obsolete">Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
+        <location filename="" line="18"/>
         <source>Settings</source>
         <translation type="obsolete">Réglages</translation>
     </message>
@@ -1278,6 +1293,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Téléchargement brut des données à venir bientôt!</translation>
     </message>
     <message>
+        <location filename="" line="72"/>
         <source>Reporting functionality coming soon!</source>
         <translation type="obsolete">Fonctionnalités de rapport à venir bientôt!</translation>
     </message>

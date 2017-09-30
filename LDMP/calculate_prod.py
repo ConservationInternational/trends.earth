@@ -193,7 +193,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'climate_gee_dataset': climate_gee_dataset,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
-        # This will add in the method
+        # This will add in the method parameter
         payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
 
         gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']

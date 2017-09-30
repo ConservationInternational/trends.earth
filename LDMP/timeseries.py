@@ -178,6 +178,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
             geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
 
+        self.close()
+
         # Calculate bounding box of input polygon and then convert back to 
         # geojson
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))

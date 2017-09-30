@@ -68,11 +68,14 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
         self.area_frompoint_toggle()
 
+    def tr(self, message):
+        return QtGui.QCoreApplication.translate('LDMP', message)
+
     def point_chooser(self):
         log("Choosing point from canvas...")
         self.hide()
         self.canvas.setMapTool(self.choose_point_tool)
-        QtGui.QMessageBox.critical(None, "Point chooser", "Click the map to choose a point.")
+        QtGui.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
 
     def set_point_coords(self, point, button):
         log("Set point coords")
@@ -210,10 +213,10 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage("Submitted",
-                    "Time series calculation task submitted to Google Earth Engine.",
+            mb.pushMessage(self.tr("Submitted"),
+                    self.tr("Time series calculation task submitted to Google Earth Engine."),
                     level=0, duration=5)
         else:
-            mb.pushMessage("Error",
-                    "Unable to submit time series calculation task to Google Earth Engine.",
+            mb.pushMessage(self.tr("Error"),
+                    self.tr("Unable to submit time series calculation task to Google Earth Engine."),
                     level=1, duration=5)

@@ -99,22 +99,15 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
-        progressMessageBar = mb.createMessage("Submitting land cover task to Google Earth Engine...")
-        spinner = QtGui.QLabel()
-        movie = QtGui.QMovie(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'icons', 'spinner.gif'))
-        spinner.setMovie(QtGui.QMovie())
-        spinner.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
-        progressMessageBar.layout().addWidget(spinner)
-        mb.pushWidget(progressMessageBar, mb.INFO)
-        movie.start()
-
         gee_script = self.scripts['land_cover']['Land cover']['script id']
 
         resp = run_script(gee_script, payload)
 
-        mb.popWidget(progressMessageBar)
         if resp:
-            mb.pushMessage("Submitted",
-                    "Land cover task submitted to Google Earth Engine.", level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
+                    QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+                    level=0, duration=5)
         else:
-            mb.pushMessage("Error", "Unable to submit land cover task to Google Earth Engine.", level=1, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
+                    QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+                    level=0, duration=5)

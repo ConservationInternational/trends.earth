@@ -131,4 +131,3 @@ def toggle_worker_progress(show_progress, progress_bar):
         
 def toggle_worker_cancel(show_cancel, cancel_button):
     cancel_button.setVisible(show_cancel)
-

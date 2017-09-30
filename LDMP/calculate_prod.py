@@ -201,10 +201,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage("Submitted",
-                    "Trajectory task submitted to Google Earth Engine.", level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
+                    QtGui.QApplication.translate("LDMP", "Productivity trajectory task submitted to Google Earth Engine."),
+                    level=0, duration=5)
         else:
-            mb.pushMessage("Error", "Unable to submit trajectory task to Google Earth Engine.", level=1, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
+                    QtGui.QApplication.translate("LDMP", "Unable to submit productivity trajectory task to Google Earth Engine."),
+                    level=0, duration=5)
 
     def calculate_performance(self, geojson, ndvi_dataset):
         payload = {'year_start': self.perf_year_start.date().year(),
@@ -219,10 +222,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage("Submitted",
-                    "Productivity performance task submitted to Google Earth Engine.", level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
+                    QtGui.QApplication.translate("LDMP", "Productivity performance task submitted to Google Earth Engine."),
+                    level=0, duration=5)
         else:
-            mb.pushMessage("Error", "Unable to submit productivity performance task to Google Earth Engine.", level=1, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
+                    QtGui.QApplication.translate("LDMP", "Unable to submit productivity performance task to Google Earth Engine."),
+                    level=0, duration=5)
 
     def calculate_state(self, geojson, ndvi_dataset):
         payload = {'year_init_bl_start': self.state_year_init_bl_start.date().year(),
@@ -243,7 +249,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage("Submitted",
-                    "Productivity state task submitted to Google Earth Engine.", level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
+                    QtGui.QApplication.translate("LDMP", "Productivity state task submitted to Google Earth Engine."),
+                    level=0, duration=5)
         else:
-            mb.pushMessage("Error", "Unable to submit productivity state task to Google Earth Engine.", level=1, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
+                    QtGui.QApplication.translate("LDMP", "Unable to submit productivity state task to Google Earth Engine."),
+                    level=0, duration=5)

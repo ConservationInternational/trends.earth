@@ -34,7 +34,9 @@ TIMEOUT=20
 def get_user_email(warn=True):
     email = QtCore.QSettings().value("LDMP/email", None)
     if warn and email is None:
-        QtGui.QMessageBox.critical(None, "Error", "Please register with the Land Degradation Monitoring Toolbox before using this function.")
+        QtGui.QMessageBox.critical(None, 
+                QtGui.QApplication.translate("LDMP", "Error"), 
+                QtGui.QApplication.translate("LDMP", "Please register with the Land Degradation Monitoring Toolbox before using this function."))
         return None
     else:
         return email
@@ -85,17 +87,21 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, 'Contacting LDMP server...')
+            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", 'Contacting LDMP server...'))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
-            QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your internet connection.")
+            QtGui.QMessageBox.critical(None, 
+                    QtGui.QApplication.translate("LDMP", "Error"), 
+                    QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your internet connection."))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
-            QtGui.QMessageBox.critical(None, "Error", "Unable to connect to LDMP server.")
+            QtGui.QMessageBox.critical(None, 
+                    QtGui.QApplication.translate("LDMP", "Error"), 
+                    QtGui.QApplication.translate("LDMP", "Unable to connect to LDMP server."))
             resp = None
 
     def save_resp(self, resp):
@@ -152,7 +158,9 @@ def login(email=None, password=None):
         password = QtCore.QSettings().value("LDMP/password", None)
     if not email or not password:
         log('API unable to login - check username/password')
-        QtGui.QMessageBox.critical(None, "Error", "Unable to login to LDMP server. Check your username and password.")
+        QtGui.QMessageBox.critical(None, 
+                QtGui.QApplication.translate("LDMP", "Error"), 
+                QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your username and password."))
         resp = None
 
     resp = call_api('/auth', method='post', payload={"email" : email, "password" : password})

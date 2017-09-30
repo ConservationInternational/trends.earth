@@ -105,7 +105,8 @@ class DlgSettings (QtGui.QDialog, UiDialog):
                     self.tr("Enter an email address to update."), None)
         resp = delete_user(self.email.text)
         if resp:
-            mb.pushMessage("Success", "User {} deleted.".format(self.email.text()), level=0)
+            mb.pushMessage(QtGui.QApplication.translate('LDMPPlugin', "Success"),
+                    QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(self.email.text()), level=0)
             self.close()
             return True
         else:
@@ -136,7 +137,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             return
         resp = login(self.email.text(), self.password.text())
         if resp:
-            mb.pushMessage("Success", "Logged in to the LDMP server as {}.".format(self.email.text()), level=0)
+            mb.pushMessage(self.tr("Success"), self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
             self.close()
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):

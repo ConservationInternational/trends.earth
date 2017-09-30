@@ -113,25 +113,34 @@ class Download(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, 'Downloading {}'.format(self.url.rsplit('/', 1)[-1]))
+            start_worker(worker, iface,
+                    QtGui.QApplication.translate("LDMP", 'Downloading {}').format(self.url.rsplit('/', 1)[-1]))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ChunkedEncodingError:
             log("Download failed due to ChunkedEncodingError - likely a connection loss")
-            QtGui.QMessageBox.critical(None, "Error", "Download failed. Check your internet connection.")
+            QtGui.QMessageBox.critical(None,
+                    QtGui.QApplication.translate("LDMP", "Error"),
+                    QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
             return False
         except requests.exceptions.ConnectionError:
             log("Download failed due to connection error")
-            QtGui.QMessageBox.critical(None, "Error", "Unable to access internet. Check your internet connection.")
+            QtGui.QMessageBox.critical(None,
+                    QtGui.QApplication.translate("LDMP", "Error"),
+                    QtGui.QApplication.translate("LDMP", "Unable to access internet. Check your internet connection."))
             return False
         except requests.exceptions.Timeout:
             log('Download timed out')
-            QtGui.QMessageBox.critical(None, "Error", "Download timed out. Check your internet connection.")
+            QtGui.QMessageBox.critical(None,
+                    QtGui.QApplication.translate("LDMP", "Error"),
+                    QtGui.QApplication.translate("LDMP", "Download timed out. Check your internet connection."))
             return False
         except DownloadError:
             log("Download failed - file size doesn't match expected")
-            QtGui.QMessageBox.critical(None, "Error", "Download failed. Check your internet connection.")
+            QtGui.QMessageBox.critical(None,
+                    QtGui.QApplication.translate("LDMP", "Error"),
+                    QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
             return False
         return True
 

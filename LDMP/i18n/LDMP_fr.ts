@@ -25,6 +25,230 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgCalculate</name>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="20"/>
+        <source>Calculate Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="32"/>
+        <source>Choose an indicator to calculate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="45"/>
+        <source>Productivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="58"/>
+        <source>Land Cover</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="71"/>
+        <source>Soil Carbon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="49"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="49"/>
+        <source>SOC indicator calculation coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateBase</name>
+    <message>
+        <location filename="../calculate.py" line="176"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="163"/>
+        <source>Choose a first level administrative boundary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="170"/>
+        <source>Unable to load administrative boundaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="176"/>
+        <source>Choose a file to define the area of interest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateLC</name>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="20"/>
+        <source>Calculate Land Cover Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="39"/>
+        <source>Setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="45"/>
+        <source>Baseline period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="237"/>
+        <source>yyyy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="103"/>
+        <source>Starting year:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="116"/>
+        <source>Ending year:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="182"/>
+        <source>Target year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="253"/>
+        <source>Metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="259"/>
+        <source>Task name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="279"/>
+        <source>Notes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="319"/>
+        <source>Transition Matrix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="349"/>
+        <source>Land cover in target year </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="435"/>
+        <source>Cropland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="440"/>
+        <source>Forest land</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="445"/>
+        <source>Grassland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="450"/>
+        <source>Wetlands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="455"/>
+        <source>Settlement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="460"/>
+        <source>Other land</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="745"/>
+        <source>0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="729"/>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="737"/>
+        <source>-1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="770"/>
+        <source>Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="776"/>
+        <source>Area to run calculations for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="800"/>
+        <source>Second level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="825"/>
+        <source>First level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="860"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="908"/>
+        <source>Choose a file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="915"/>
+        <source>Area from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="922"/>
+        <source>Administrative area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="954"/>
+        <source>Calculate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="961"/>
+        <source>Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="968"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DlgCalculateProd</name>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="36"/>
@@ -191,6 +415,16 @@ p, li { white-space: pre-wrap; }
         <source>Area to run calculations for</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../calculate_prod.py" line="158"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="158"/>
+        <source>Choose one or more indicators to calculate.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgDownload</name>
@@ -262,24 +496,66 @@ p, li { white-space: pre-wrap; }
         <source>Download results</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../jobs.py" line="182"/>
+        <source>Directory to save files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="191"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="191"/>
+        <source>Cannot write to {}. Choose a different folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgJobsDetails</name>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="14"/>
+        <source>Google Earth Engine Task Detail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="20"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="34"/>
+        <source>Comments:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="41"/>
+        <source>Task name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="48"/>
+        <source>Output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="55"/>
+        <source>Input:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgJobsDetails.ui" line="62"/>
+        <source>Status:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgPlot</name>
-    <message>
-        <location filename="../gui/DlgPlot.ui" line="14"/>
-        <source>Land Degradation Timeseries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgPlot.ui" line="26"/>
-        <source>Save image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgPlot.ui" line="39"/>
-        <source>Save data</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DlgReporting</name>
@@ -366,198 +642,138 @@ p, li { white-space: pre-wrap; }
         <source>Forgot password</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../settings.py" line="134"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="104"/>
+        <source>Enter an email address to update.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="63"/>
+        <source>Enter your password to update your user details.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="99"/>
+        <source>Delete user functionality coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="120"/>
+        <source>Enter your email address to reset your password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="125"/>
+        <source>The password has been reset for {}. Check your email for the new password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="130"/>
+        <source>Enter your email address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="134"/>
+        <source>Enter your password.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgSettingsRegister</name>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="20"/>
-        <source>Register new user</source>
+        <location filename="../settings.py" line="163"/>
+        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="152"/>
-        <source>Register user</source>
+        <location filename="../settings.py" line="157"/>
+        <source>Enter your email address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
-        <source>Email:</source>
+        <location filename="../settings.py" line="159"/>
+        <source>Enter your name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="113"/>
-        <source>Country:</source>
+        <location filename="../settings.py" line="161"/>
+        <source>Enter your organization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="165"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="84"/>
-        <source>Organization:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="58"/>
-        <source>Name:</source>
+        <location filename="../settings.py" line="163"/>
+        <source>Enter your country.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgSettingsUpdate</name>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="20"/>
-        <source>Update user</source>
+        <location filename="../settings.py" line="198"/>
+        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="90"/>
-        <source>Name:</source>
+        <location filename="../settings.py" line="192"/>
+        <source>Enter your email address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="145"/>
-        <source>Country:</source>
+        <location filename="../settings.py" line="194"/>
+        <source>Enter your name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="32"/>
-        <source>Email:</source>
+        <location filename="../settings.py" line="196"/>
+        <source>Enter your organization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="116"/>
-        <source>Organization:</source>
+        <location filename="../settings.py" line="198"/>
+        <source>Enter your country.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="61"/>
-        <source>Password:</source>
+        <location filename="../settings.py" line="203"/>
+        <source>Saved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="184"/>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsUpdate.ui" line="197"/>
-        <source>Cancel</source>
+        <location filename="../settings.py" line="203"/>
+        <source>Updated information for {}.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgTimeseries</name>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="14"/>
-        <source>Map Land Degradation</source>
+        <location filename="../timeseries.py" line="171"/>
+        <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="30"/>
-        <source>Map</source>
+        <location filename="../timeseries.py" line="151"/>
+        <source>Choose a first level administrative boundary.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="42"/>
-        <source>Choose a folder...</source>
+        <location filename="../timeseries.py" line="158"/>
+        <source>Unable to load administrative boundaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="77"/>
-        <source>Folder with GEF-LDMP data:</source>
+        <location filename="../timeseries.py" line="164"/>
+        <source>Choose a file to define the area of interest.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="90"/>
-        <source>Choose a shapefile...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="123"/>
-        <source>Shapefile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="142"/>
-        <source>Second level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="161"/>
-        <source>First level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="180"/>
-        <source>Area:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="193"/>
-        <source>Administrative area</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="206"/>
-        <source>Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="232"/>
-        <source>Choose a point...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="251"/>
-        <source>y:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="270"/>
-        <source>x:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="289"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="301"/>
-        <source>High resolution data indicators</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="314"/>
-        <source>Legend</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="330"/>
-        <source>Trend line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="346"/>
-        <source>Equation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="365"/>
-        <source>Plot options:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="378"/>
-        <source>Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="401"/>
-        <source>Plot each pixel as separate time series</source>
+        <location filename="../timeseries.py" line="171"/>
+        <source>Choose a point to define the area of interest.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -634,7 +850,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="290"/>
+        <location filename="../ldmp.py" line="288"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -644,12 +860,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="278"/>
-        <source>Timeseries analysis coming soon!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="290"/>
+        <location filename="../ldmp.py" line="288"/>
         <source>Reporting functionality coming soon!</source>
         <translation type="unfinished"></translation>
     </message>

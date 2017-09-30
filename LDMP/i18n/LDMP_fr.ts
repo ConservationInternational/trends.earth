@@ -8,33 +8,6 @@
         <translation>Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="" line="20"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Land Degradation Monitoring Toolbox (LDMT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&lt;br /&gt;The Land Degradation Monitoring Toolbox (LDMT) is produced by the Global Environment Facility (GEF)-funded &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Land Degradation Monitoring Project&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; lead by Conservation International in partnership with NASA and Lund University. The LDMT is a Quantum GIS (QGIS) plugin to support monitoring of status and trend of land degradation.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This toolbox was produced as an output of the GEF-funded project ?Enabling the use of global data sources to assess and monitor land degradation at multiple scales?. The project aims to provide guidance on robust methods and a toolbox for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;The LDMT is free and open-source. The code is available online at: &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:gef-ldmp@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;gef-ldmp@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or at &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN &quot; &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; 
- &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext &quot; content = &quot;1 &quot; /&gt; &lt;style type = &quot;text / css &quot;&gt; 
- p, li {white-space: pre-wrap; } 
- &lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal; &quot;&gt; 
- &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot;font-size: 12pt; font-weight: 600; &quot;&gt; Boîte à outils de surveillance de la dégradation des terres (LDMT) &lt;/ span&gt; &lt;/ p&gt; 
- &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot; font-size: 8pt; &quot; &gt; &lt;br /&gt; La boîte à outils de surveillance de la dégradation des terres (LDMT) est produite par le Fonds mondial pour l&apos;environnement (GEF) financé &lt;/ span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt; &lt; span style = &quot;font-size: 8pt; text-decoration: underline; couleur: # 0000ff; &quot;&gt; Projet de surveillance de la dégradation des terres &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt; &quot;&gt; dirigé par Conservation International en partenariat avec la NASA et l&apos;Université de Lund. Le LDMT est un plugin Quantum GIS (QGIS) pour soutenir la surveillance de l&apos;état et la tendance de la dégradation des terres. &lt;/ Span&gt; &lt;/ p&gt; 
- &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; 
- &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot; font-size: 8pt; &quot;&gt; Cette boîte à outils a été produite comme une sortie du projet financé par le FEM intitulé« Permettre l&apos;utilisation de sources de données globales pour évaluer et surveiller la dégradation des terres à plusieurs échelles ». Le projet vise à fournir des conseils sur les méthodes robustes et une boîte à outils pour évaluer, surveiller l&apos;état et estimer les tendances de la dégradation des terres en utilisant la technologie de télédétection. &lt;/ Span&gt; &lt;/ p&gt; 
- &lt;p style = &quot;- qt-paragraph- type: vide; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; 
- &lt;p style = &quot; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0 ; text-indent: 0px; &quot;&gt; &lt;span style = &quot; font-size: 8pt; &quot;&gt; Le LDMT est gratuit et open-source. Le code est disponible en ligne à: &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt; &lt;span style = &quot;font-size: 8pt; text-decoration : soulignement; couleur: # 0000ff; &quot;&gt; https://github.com/ConservationInternational/ldmp-qgis-plugin &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot; font-size: 8pt; &quot;&gt;. Le code est sous licence GNU General Public License, version 2.0 ou ultérieure. &lt;/ Span&gt; &lt;/ p&gt; 
- &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom : 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; 
- &lt; p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px; &quot;&gt; &lt;span style = &quot;font-size: 8pt; &quot;&gt; Si vous rencontrez des problèmes ou avez des problèmes lors de l&apos;utilisation du plugin, contactez-nous à &lt;/ span&gt; &lt;a href = &quot;mailto: gef-ldmp@conservation.org &quot;&gt; &lt;span style = &quot; font-size: 8pt; text-decoration: underline; couleur: # 0000ff; &quot;&gt; gef-ldmp@conservation.org &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot; police -size: 8pt; &quot;&gt;, ou à &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt; &lt;span style = &quot; font-size : 8pt; text-decoration: souligné; couleur: # 0000ff; &quot;&gt; https://github.com/ConservationInternational/ldmp-qgis-plugin/issues. &lt;/ Span&gt; &lt;/a&gt; &lt;/ p&gt; &lt;/ corps &gt; &lt;/ html&gt;</translation>
-    </message>
-    <message encoding="UTF-8">
         <location filename="../gui/DlgAbout.ui" line="34"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -43,12 +16,23 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Land Degradation Monitoring Toolbox (LDMT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&lt;br /&gt;The Land Degradation Monitoring Toolbox (LDMT) is produced by the Global Environment Facility (GEF)-funded &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Land Degradation Monitoring Project&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; lead by Conservation International in partnership with NASA and Lund University. The LDMT is a Quantum GIS (QGIS) plugin to support monitoring of status and trend of land degradation.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This toolbox was produced as an output of the GEF-funded project “Enabling the use of global data sources to assess and monitor land degradation at multiple scales”. The project aims to provide guidance on robust methods and a toolbox for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This toolbox was produced as an output of the GEF-funded project &amp;quot;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;. The project aims to provide guidance on robust methods and a toolbox for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;The LDMT is free and open-source. The code is available online at: &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:gef-ldmp@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;gef-ldmp@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or at &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Boîte à outils de surveillance de la dégradation des terres (LDMT)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&lt;br /&gt;La boîte à outils de surveillance de la dégradation des terres (LDMT) est produite par le Fonds mondial pour l&apos;environnement (GEF) financé &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Projet de surveillance de la dégradation des terres&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; dirigé par Conservation International en partenariat avec la NASA et l&apos;Université de Lund. Le LDMT est un plugin Quantum GIS (QGIS) pour soutenir la surveillance de l&apos;état et la tendance de la dégradation des terres.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Cette boîte à outils a été produite en tant que sortie du projet financé par le FEM, intitulée &amp;quot;Permettre l&apos;utilisation de sources de données globales pour évaluer et surveiller la dégradation des terres à plusieurs échelles&amp;quot;. Le projet vise à fournir des conseils sur les méthodes robustes et une boîte à outils pour évaluer, surveiller l&apos;état et estimer les tendances de la dégradation des terres en utilisant la technologie de télédétection.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Le LDMT est gratuit et open-source. Le code est disponible en ligne à: &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. Le code est sous licence GNU General Public License, version 2.0 ou ultérieure.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Si vous rencontrez des problèmes ou avez des problèmes lors de l&apos;utilisation du plugin, contactez-nous à &lt;/span&gt;&lt;a href=&quot;mailto:gef-ldmp@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;gef-ldmp@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, ou à &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://github.com/ConservationInternational/ldmp-qgis-plugin/issues.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -590,17 +574,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgPlot.ui" line="14"/>
         <source>Land Degradation Timeseries</source>
-        <translation type="unfinished"></translation>
+        <translation>Times de dégradation des terres</translation>
     </message>
     <message>
         <location filename="../gui/DlgPlot.ui" line="26"/>
         <source>Save image</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer l&apos;image</translation>
     </message>
     <message>
         <location filename="../gui/DlgPlot.ui" line="39"/>
         <source>Save data</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer les données?</translation>
     </message>
 </context>
 <context>
@@ -611,22 +595,20 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="32"/>
+        <location filename="../gui/DlgReporting.ui" line="20"/>
         <source>Choose an indicator to report on:</source>
         <translation type="obsolete">Choisissez un indicateur pour signaler:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="45"/>
         <source>Productivity</source>
         <translation type="obsolete">Productivité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="58"/>
         <source>Land Cover</source>
         <translation type="obsolete">Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="71"/>
+        <location filename="" line="0"/>
         <source>Soil Carbon</source>
         <translation type="obsolete">Sol Carbone</translation>
     </message>
@@ -639,57 +621,54 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Réglages</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="74"/>
+        <location filename="" line="14"/>
         <source>Password:</source>
         <translation type="obsolete">Mot de passe:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="100"/>
+        <location filename="" line="14"/>
         <source>Register</source>
         <translation type="obsolete">Registre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="61"/>
         <source>Email:</source>
         <translation type="obsolete">Email:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="32"/>
+        <location filename="" line="0"/>
         <source>Cancel</source>
         <translation type="obsolete">Annuler</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="196"/>
+        <location filename="" line="138"/>
         <source>Existing users:</source>
         <translation type="obsolete">Utilisateurs existants:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="177"/>
         <source>New users:</source>
         <translation type="obsolete">Nouveaux utilisateurs :</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="209"/>
         <source>Login</source>
         <translation type="obsolete">Se Connecter</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="145"/>
+        <location filename="" line="0"/>
         <source>Update profile</source>
         <translation type="obsolete">Mettre à jour le profil</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="87"/>
+        <location filename="" line="0"/>
         <source>Delete user</source>
         <translation type="obsolete">Supprimer l&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="132"/>
+        <location filename="" line="13"/>
         <source>Forgot password</source>
         <translation type="obsolete">Mot de passe oublié</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
+        <location filename="../settings.py" line="135"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -709,50 +688,60 @@ p, li { white-space: pre-wrap; }
         <translation>Supprimez les fonctionnalités de l&apos;utilisateur à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="120"/>
+        <location filename="../settings.py" line="121"/>
         <source>Enter your email address to reset your password.</source>
-        <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe</translation>
+        <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="125"/>
+        <location filename="../settings.py" line="126"/>
         <source>The password has been reset for {}. Check your email for the new password.</source>
         <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre courrier électronique pour le nouveau mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="130"/>
+        <location filename="../settings.py" line="131"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel</translation>
+        <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
+        <location filename="../settings.py" line="135"/>
         <source>Enter your password.</source>
-        <translation>Entrez votre mot de passe</translation>
+        <translation>Entrez votre mot de passe.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="140"/>
+        <source>Success</source>
+        <translation>Succès</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="140"/>
+        <source>Logged in to the LDMP server as {}.</source>
+        <translation>Connecté au serveur LDMP comme {}.</translation>
     </message>
 </context>
 <context>
     <name>DlgSettingsRegister</name>
     <message>
-        <location filename="../settings.py" line="163"/>
+        <location filename="../settings.py" line="164"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="157"/>
+        <location filename="../settings.py" line="158"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="159"/>
+        <location filename="../settings.py" line="160"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="161"/>
+        <location filename="../settings.py" line="162"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="163"/>
+        <location filename="../settings.py" line="164"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
@@ -760,37 +749,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsUpdate</name>
     <message>
-        <location filename="../settings.py" line="198"/>
+        <location filename="../settings.py" line="199"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="192"/>
+        <location filename="../settings.py" line="193"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="194"/>
+        <location filename="../settings.py" line="195"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="196"/>
+        <location filename="../settings.py" line="197"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="198"/>
+        <location filename="../settings.py" line="199"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="203"/>
+        <location filename="../settings.py" line="204"/>
         <source>Saved</source>
         <translation>Enregistré</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="203"/>
+        <location filename="../settings.py" line="204"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
     </message>
@@ -798,122 +787,430 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgTimeseries</name>
     <message>
-        <location filename="../timeseries.py" line="171"/>
+        <location filename="../timeseries.py" line="220"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="151"/>
+        <location filename="../timeseries.py" line="154"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="158"/>
+        <location filename="../timeseries.py" line="161"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="164"/>
+        <location filename="../timeseries.py" line="167"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="171"/>
+        <location filename="../timeseries.py" line="174"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="78"/>
+        <source>Point chooser</source>
+        <translation>Choix de points</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="78"/>
+        <source>Click the map to choose a point.</source>
+        <translation>Cliquez sur la carte pour choisir un point.</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="216"/>
+        <source>Submitted</source>
+        <translation>Soumis</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="216"/>
+        <source>Time series calculation task submitted to Google Earth Engine.</source>
+        <translation>Tâche de calcul de la série temporelle soumise à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="220"/>
+        <source>Unable to submit time series calculation task to Google Earth Engine.</source>
+        <translation>Impossible de soumettre une tâche de calcul de séries temporelles à Google Earth Engine.</translation>
+    </message>
+</context>
+<context>
+    <name>LDMP</name>
+    <message>
+        <location filename="../download.py" line="141"/>
+        <source>Error</source>
+        <translation>Erreur</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="37"/>
+        <source>Please register with the Land Degradation Monitoring Toolbox before using this function.</source>
+        <translation>Veuillez vous inscrire à la boîte à outils de surveillance de la dégradation du sol avant d&apos;utiliser cette fonction.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="90"/>
+        <source>Contacting LDMP server...</source>
+        <translation>Contacter le serveur LDMP ...</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="96"/>
+        <source>Unable to login to LDMP server. Check your internet connection.</source>
+        <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre connection internet.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="102"/>
+        <source>Unable to connect to LDMP server.</source>
+        <translation>Impossible de se connecter au serveur LDMP.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="161"/>
+        <source>Unable to login to LDMP server. Check your username and password.</source>
+        <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre nom d&apos;utilisateur et votre mot de passe.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="252"/>
+        <source>Submitted</source>
+        <translation>Soumis</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="107"/>
+        <source>Land cover task submitted to Google Earth Engine.</source>
+        <translation>Tâche de couverture du sol soumise à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="111"/>
+        <source>Unable to submit land cover task to Google Earth Engine.</source>
+        <translation>Impossible de soumettre une tâche de couverture du terrain à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="204"/>
+        <source>Productivity trajectory task submitted to Google Earth Engine.</source>
+        <translation>Trajectoire de productivité soumise à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="208"/>
+        <source>Unable to submit productivity trajectory task to Google Earth Engine.</source>
+        <translation>Impossible de soumettre une tâche de trajectoire de productivité à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="225"/>
+        <source>Productivity performance task submitted to Google Earth Engine.</source>
+        <translation>La tâche de performance de productivité soumise à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="229"/>
+        <source>Unable to submit productivity performance task to Google Earth Engine.</source>
+        <translation>Impossible de soumettre une tâche de performance de productivité à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="252"/>
+        <source>Productivity state task submitted to Google Earth Engine.</source>
+        <translation>Tâche de l&apos;état de la productivité soumise à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="256"/>
+        <source>Unable to submit productivity state task to Google Earth Engine.</source>
+        <translation>Impossible de soumettre une tâche d&apos;état de productivité à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="116"/>
+        <source>Downloading {}</source>
+        <translation>Téléchargement ...</translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="141"/>
+        <source>Download failed. Check your internet connection.</source>
+        <translation>Échec du téléchargement. Vérifiez votre connection internet.</translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="129"/>
+        <source>Unable to access internet. Check your internet connection.</source>
+        <translation>Impossible d&apos;accéder à Internet. Vérifiez votre connection internet.</translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="135"/>
+        <source>Download timed out. Check your internet connection.</source>
+        <translation>Le téléchargement a expiré. Vérifiez votre connection internet.</translation>
     </message>
 </context>
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../ldmp.py" line="225"/>
+        <location filename="../ldmp.py" line="224"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation>Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="173"/>
+        <location filename="../ldmp.py" line="172"/>
         <source>Settings</source>
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="180"/>
+        <location filename="../ldmp.py" line="179"/>
         <source>Download data</source>
         <translation>Download data</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="187"/>
+        <location filename="../ldmp.py" line="186"/>
         <source>Calculate indicators</source>
         <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="194"/>
+        <location filename="../ldmp.py" line="193"/>
         <source>View Google Earth Engine tasks</source>
         <translation>Afficher les tâches Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="201"/>
+        <location filename="../ldmp.py" line="200"/>
         <source>Plot data</source>
         <translation>Tracer des données</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="208"/>
+        <location filename="../ldmp.py" line="207"/>
         <source>Reporting tool</source>
         <translation>Outil de rapport</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="215"/>
+        <location filename="../ldmp.py" line="214"/>
         <source>About</source>
         <translation>Sur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="180"/>
+        <location filename="../ldmp.py" line="179"/>
         <source>Download land degradation datasets</source>
         <translation>Télécharger les jeux de données de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="187"/>
+        <location filename="../ldmp.py" line="186"/>
         <source>Calculate land degradation indicators</source>
         <translation>Calculer les indicateurs de dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="194"/>
+        <location filename="../ldmp.py" line="193"/>
         <source>View cloud processing tasks</source>
         <translation>Afficher les tâches de traitement en nuage</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="201"/>
+        <location filename="../ldmp.py" line="200"/>
         <source>Plot timeseries datasets</source>
         <translation>Ensembles de données timeshow</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="208"/>
+        <location filename="../ldmp.py" line="207"/>
         <source>Land degradation reporting</source>
         <translation>Déclaration de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="215"/>
+        <location filename="../ldmp.py" line="214"/>
         <source>About the land degradation monitoring toolbox</source>
         <translation>À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="294"/>
+        <location filename="../ldmp.py" line="293"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="251"/>
+        <location filename="../ldmp.py" line="250"/>
         <source>Raw data download coming soon!</source>
         <translation>Téléchargement brut des données à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="294"/>
+        <location filename="../ldmp.py" line="293"/>
         <source>Reporting functionality coming soon!</source>
         <translation>Fonctionnalités de rapport à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="173"/>
+        <location filename="../ldmp.py" line="172"/>
         <source>LDMT Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres LDMT</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="133"/>
+        <source>Script not found</source>
+        <translation>Script non trouvé</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="230"/>
+        <source>Task name</source>
+        <translation>Nom de la tâche</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="231"/>
+        <source>Job</source>
+        <translation>Emploi</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="232"/>
+        <source>Start time</source>
+        <translation>Heure de début</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="233"/>
+        <source>End time</source>
+        <translation>Heure de fin</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="234"/>
+        <source>Status</source>
+        <translation>Statut</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="235"/>
+        <source>Details</source>
+        <translation>Détails</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="289"/>
+        <source>Land cover (baseline)</source>
+        <translation>Couverture terrestre (référence)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="310"/>
+        <source>Cropland</source>
+        <translation type="unfinished">Les terres cultivées</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="311"/>
+        <source>Forest land</source>
+        <translation type="unfinished">Foret</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="312"/>
+        <source>Grassland</source>
+        <translation type="unfinished">Prairie</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="313"/>
+        <source>Wetlands</source>
+        <translation type="unfinished">Les Paluns</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="314"/>
+        <source>Settlements</source>
+        <translation>colo</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="315"/>
+        <source>Other land</source>
+        <translation type="unfinished">Autre terre</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="307"/>
+        <source>Land cover (target)</source>
+        <translation>Couverture terrestre (cible)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="325"/>
+        <source>Land cover change</source>
+        <translation>Changement de couverture terrestre</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="374"/>
+        <source>Land cover (degradation)</source>
+        <translation>Couverture terrestre (dégradation)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="516"/>
+        <source>Degradation</source>
+        <translation>Dégradation</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="517"/>
+        <source>Stable</source>
+        <translation>Stable</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="518"/>
+        <source>Improvement</source>
+        <translation>Amélioration</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="406"/>
+        <source>Productivity trajectory trend</source>
+        <translation>Tendance de la trajectoire de productivité</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="415"/>
+        <source>-{} (declining)</source>
+        <translation>- {} (en déclin)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="416"/>
+        <source>0 (stable)</source>
+        <translation>Stable</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="417"/>
+        <source>{} (increasing)</source>
+        <translation>augmenter</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="428"/>
+        <source>Productivity trajectory trend (significance)</source>
+        <translation>Tendance de la trajectoire de productivité (signification)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="484"/>
+        <source>Significant decrease</source>
+        <translation>Diminution significative</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="485"/>
+        <source>No significant change</source>
+        <translation>Pas de changement significatif</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="486"/>
+        <source>Significant increase</source>
+        <translation>Une augmentation significative</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="519"/>
+        <source>Water</source>
+        <translation>Eau</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="520"/>
+        <source>Urban land cover</source>
+        <translation>Couverture terrestre urbaine</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="462"/>
+        <source>Productivity state (initial)</source>
+        <translation>État de productivité (initial)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="483"/>
+        <source>No data</source>
+        <translation>Pas de données</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="466"/>
+        <source>Potentially degraded</source>
+        <translation>Potentiellement dégradé</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="480"/>
+        <source>Productivity state (emerging)</source>
+        <translation>État de productivité (émergents)</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="512"/>
+        <source>Productivity performance (degradation)</source>
+        <translation>Rendement de la productivité (dégradation)</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="108"/>
+        <source>Success</source>
+        <translation>Succès</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="108"/>
+        <source>User {} deleted.</source>
+        <translation>Utilisateur {} supprimé.</translation>
     </message>
 </context>
 </TS>

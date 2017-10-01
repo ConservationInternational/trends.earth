@@ -41,8 +41,21 @@
             "Comments": ""
         }
     },
+    "NDVI (16 day)": {
+        "MODIS (MOD13Q1, 16 day)": {
+            "Data source": "GEE",
+            "Start year": 2001,
+            "End year": 2016,
+            "Spatial": "250 m",
+            "Extent": "Global",
+            "Units/Description": "NDVI * 10000",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_mod13q1_16d_20010101_20161218_globe",
+            "Status": "Stored as assets",
+            "Comments": ""
+        }
+    },
     "NDVI": {
-        "AVHRR (GIMMS3g.v1)": {
+        "AVHRR (GIMMS3g.v1, annual)": {
             "Data source": "https://ecocast.arc.nasa.gov/data/pub/gimms/3g.v1/",
             "Start year": 1982,
             "End year": 2015,
@@ -54,7 +67,7 @@
             "Status": "Stored as assets",
             "Comments": ""
         },
-        "MODIS (MOD13Q1, Collection 6)": {
+        "MODIS (MOD13Q1, annual)": {
             "Data source": "GEE",
             "Start year": 2001,
             "End year": 2016,

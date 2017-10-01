@@ -44,6 +44,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.dataset_climate_update()
         self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
+        self.dataset_ndvi.addItems(self.datasets['NDVI (16 day)'].keys())
 
         self.start_year_climate = 0
         self.end_year_climate = 9999

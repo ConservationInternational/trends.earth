@@ -191,18 +191,18 @@ class LDMPPlugin:
             status_tip=QApplication.translate('LDMP', 'Calculate land degradation indicators'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-cloud-download.png',
-            text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
-            callback=self.get_jobs,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
-
-        self.add_action(
             ':/plugins/LDMP/icons/icon-graph.png',
             text=QApplication.translate('LDMP', u'Plot data'),
             callback=self.run_plot,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Plot timeseries datasets'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-cloud-download.png',
+            text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
+            callback=self.get_jobs,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-chart.png',

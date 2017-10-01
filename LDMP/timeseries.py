@@ -26,7 +26,7 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
 from LDMP.api import run_script
 
-from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils, QgsVectorLayer
+from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
 
@@ -39,7 +39,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setupUi(self)
 
-        self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
+        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal'] == 'annual']
+        self.dataset_ndvi.addItems(ndvi_datasets)
 
         self.start_year_climate = 0
         self.end_year_climate = 9999
@@ -70,6 +71,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
         self.area_frompoint_toggle()
 
+        # TODO:Temporary until fixed:
+        self.TabBox.removeTab(1)
+
         self.setup_dialog()
 
     def point_chooser(self):
@@ -85,7 +89,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # Disable the choose point tool
         self.canvas.setMapTool(QgsMapToolPan(self.canvas))
         self.show()
-        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.point.x(), self.point.y())
+        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
         log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
         self.point_x.setText("{:.8f}".format(self.point.x()))
         self.point_y.setText("{:.8f}".format(self.point.y()))
@@ -189,6 +193,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                         self.tr("Choose a point to define the area of interest."), None)
                 return False
             point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
+            crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+            crs_dest = QgsCoordinateReferenceSystem(3857)
+            point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)
             geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
 
         self.close()

@@ -28,6 +28,9 @@ class DlgPlot(QtGui.QDialog, UiDialog):
 
         self.save_data.clicked.connect(self.save_data_clicked)
         self.save_image.clicked.connect(self.save_image_clicked)
+        #TODO: Temporary
+        self.save_data.hide()
+        self.save_image.hide()
     
     def plot_data(self, x, y, title=None):
         self.plot_window.plot(x, y, pen='b', brush='w')

@@ -203,7 +203,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         payload = {'year_start': self.traj_year_start.date().year(),
                    'year_end': self.traj_year_end.date().year(),
-                   'geojson': json.dumps(self.bbox),
+                   'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter

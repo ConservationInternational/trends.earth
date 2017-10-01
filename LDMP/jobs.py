@@ -33,6 +33,7 @@ from qgis.gui import QgsMessageBar
 
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
+from LDMP.plot import DlgPlot
 
 from LDMP import log
 from LDMP.download import Download, check_goog_cloud_store_hash
@@ -213,7 +214,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
             elif job['results'].get('type') == 'timeseries':
-                download_data(job, download_dir)
+                download_timeseries(job)
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
 
@@ -423,7 +424,9 @@ def style_prod_traj_trend(outfile):
     fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
     lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', '-{} (declining)').format(extreme)),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0 (stable)')),
-           QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{} (increasing)').format(extreme))]
+           QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{} (increasing)').format(extreme)),
+           QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -534,3 +537,14 @@ def style_prod_perf(outfile):
     layer_perf.setRenderer(pseudoRenderer)
     layer_perf.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_perf)
+
+def download_timeseries(job):
+    log("processing timeseries results...")
+    table = job['results'].get('table', None)
+    if not table:
+        return None
+    data = [x for x in table if x['name'] == 'mean'][0]
+    dlg_plot = DlgPlot()
+    dlg_plot.plot_data(data['time'], data['y'], '{} mean'.format(job['params']['ndvi_gee_dataset']))
+    dlg_plot.show()
+    dlg_plot.exec_()

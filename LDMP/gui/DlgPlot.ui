@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Land Degradation Timeseries</string>
+   <string>Timeseries</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="PlotWidget" name="graphicsView"/>
+    <widget class="PlotWidget" name="plot_window"/>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">

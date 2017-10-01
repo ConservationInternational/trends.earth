@@ -1,3 +1,2 @@
 earthengine-api==0.1.111
 git+git://github.com/conservationinternational/landdegradation.git#egg=landdegradation
-pandas

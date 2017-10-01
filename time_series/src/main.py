@@ -12,14 +12,13 @@ import re
 import json
 
 import ee
-import pandas as pd
 
 from landdegradation import preproc
 from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 # Google cloud storage bucket for output
 BUCKET = "ldmt"
@@ -75,9 +74,24 @@ def zonal_stats(year_start, year_end, method, gee_dataset, geojson,
         year = re.search('(?<=y)[0-9]{4}', key).group(0)
         if field not in res_clean:
             res_clean[field] = {}
-        res_clean[field][year] = value
+            res_clean[field]['value'] = []
+            res_clean[field]['year'] = []
+        res_clean[field]['value'].append(float(value))
+        res_clean[field]['year'].append(int(year))
 
-    return pd.DataFrame.from_dict(res_clean).to_json()
+    logger.debug("Setting up results JSON.")
+    timeseries = []
+    for key in res_clean.keys():
+        # Ensure the lists are in chronological order
+        year, value = zip(*sorted(zip(res_clean[key]['year'], res_clean[key]['value'])))
+        ts = TimeSeries(list(year), list(value), key)
+        timeseries.append(ts)
+
+    timeseries_table = TimeSeriesTable('timeseries', timeseries)
+    timeseries_table_schema = TimeSeriesTableSchema()
+    json_result = timeseries_table_schema.dump(timeseries_table)
+
+    return json_result
 
 def run(params, logger):
     """."""
@@ -105,9 +119,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    stats = zonal_stats(year_start, year_end, method, ndvi_gee_dataset, 
+    json_result = zonal_stats(year_start, year_end, method, ndvi_gee_dataset, 
             geojson, EXECUTION_ID, logger)
 
-    logger.debug("Setting up results JSON.")
-
-    return json.dumps(stats)
+    return json_result.data

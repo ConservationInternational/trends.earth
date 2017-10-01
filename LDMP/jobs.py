@@ -411,11 +411,12 @@ def style_prod_traj_trend(outfile):
     # Trends layer
     layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend'))
     provider = layer_ndvi.dataProvider()
-    # Set a colormap centred on zero, going to the extreme value significant to 
-    # three figures
 
+    # Set a colormap centred on zero, going to the extreme value significant to 
+    # three figures (after a 2 percent stretch)
     ds = gdal.Open(outfile) 
     band1 = np.array(ds.GetRasterBand(1).ReadAsArray()) 
+    band1[band1 >=9997] = 0
     ds = None
     cutoffs = np.percentile(band1, [2, 98])
     extreme = get_extreme(cutoffs[0], cutoffs[1])
@@ -425,6 +426,7 @@ def style_prod_traj_trend(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', '-{} (declining)').format(extreme)),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0 (stable)')),
            QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{} (increasing)').format(extreme)),
+           QgsColorRampShader.ColorRampItem(9997, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
            QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
            QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
     fcn.setColorRampItemList(lst)

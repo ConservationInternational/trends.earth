@@ -17,7 +17,7 @@ from landdegradation import util
 from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
-from landdegradation.productivity import ndvi_trend, p_restrend, s_restrend, ue_trend
+from landdegradation.productivity import ndvi_trend, p_restrend, s_restrend, ue_trend, productivity_trajectory
 
 # Google cloud storage bucket for output
 BUCKET = "ldmt"

@@ -182,7 +182,18 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         details_dlg.exec_()
 
     def btn_download(self):
-        while True:
+        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
+        # Check if we need a download directory - some tasks don't need to save 
+        # data, but if any of the chosen \tasks do, then we need to choose a 
+        # folder.
+        need_dir = False
+        for row in rows:
+            job = self.jobs[row]
+            if job['results'].get('type') != 'timeseries':
+                need_dir = True
+                break
+
+        if need_dir:
             download_dir = QtGui.QFileDialog.getExistingDirectory(self, 
                     self.tr("Directory to save files"),
                     self.settings.value("LDMP/download_dir", None),
@@ -190,18 +201,16 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             if download_dir:
                 if os.access(download_dir, os.W_OK):
                     self.settings.setValue("LDMP/download_dir", download_dir)
-                    break
+                    log("Downloading results to {}".format(download_dir))
                 else:
                     QtGui.QMessageBox.critical(None, self.tr("Error"),
                             self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
+                    return False
             else:
                 return False
 
         self.close()
 
-        log("Downloading results to {}".format(download_dir))
-
-        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
         for row in rows:
             job = self.jobs[row]
             log("Processing job {}".format(job))

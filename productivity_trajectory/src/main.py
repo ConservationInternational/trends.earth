@@ -213,13 +213,16 @@ def productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset,
     landc_res = landc.reduceResolution(**landc_reducer)\
             .reproject(**landc_reproject)
  
-    attri = ee.Image(0).where(lf_trend.select('scale').gt(0).And(mk_trend.abs().gte(kendall)),  1)\
-        .where(lf_trend.select('scale').lt(0).And(mk_trend.abs().gte(kendall)), -1)\
-        .where(mk_trend.abs().lte(kendall), 0)\
-        .where(landc_res.eq(210),2)\
-        .where(landc_res.eq(190),3)
-                           
-    output = lf_trend.select('scale').addBands(attri).rename(['slope','attri'])
+    attri = ee.Image(0).where(lf_trend.select('scale').gt(0).And(mk_trend.abs().gte(kendall)), 1) \
+        .where(lf_trend.select('scale').lt(0).And(mk_trend.abs().gte(kendall)), -1) \
+        .where(mk_trend.abs().lte(kendall), 0) \
+        .where(landc_res.eq(210), 2) \
+        .where(landc_res.eq(190), 3)
+
+    output = lf_trend.select('scale') \
+        .where(landc_res.eq(210), 9998) \
+        .where(landc_res.eq(190), 9999) \
+        .addBands(attri).rename(['slope','attri'])
 
     export = {'image': output.int16(),
              'description': EXECUTION_ID,

@@ -219,7 +219,7 @@ def productivity_trajectory(year_start, year_end, method, ndvi_gee_dataset,
         .where(landc_res.eq(210), 2) \
         .where(landc_res.eq(190), 3)
 
-    output = lf_trend.select('scale') \
+    output = ee.Image(0).where(lf_trend.select('scale').not(0),lf_trend.select('scale')) \
         .where(landc_res.eq(210), 9998) \
         .where(landc_res.eq(190), 9999) \
         .addBands(attri).rename(['slope','attri'])

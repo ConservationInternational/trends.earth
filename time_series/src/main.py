@@ -18,14 +18,14 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
+from landdegradation.productivity import productivity_trajectory
 from landdegradation.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 # Google cloud storage bucket for output
 BUCKET = "ldmt"
 
 
-def zonal_stats(year_start, year_end, method, gee_dataset, geojson, 
-        EXECUTION_ID, logger):
+def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
     logger.debug("Entering zonal_stats function.")
 
     region = ee.Geometry(geojson)
@@ -119,7 +119,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_result = zonal_stats(year_start, year_end, method, ndvi_gee_dataset, 
-            geojson, EXECUTION_ID, logger)
+    # output = productivity_trajectory(year_start, year_end, method, 
+    #         ndvi_gee_dataset, climate_gee_dataset, logger)
+    json_result = zonal_stats(ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
 
     return json_result.data

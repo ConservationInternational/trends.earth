@@ -39,12 +39,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setupUi(self)
 
-        self.traj_indic.addItems(self.scripts['productivity_trajectory'].keys())
-        self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
-
-        self.dataset_climate_update()
         self.dataset_ndvi.addItems(self.datasets['NDVI'].keys())
-        self.dataset_ndvi.addItems(self.datasets['NDVI (16 day)'].keys())
 
         self.start_year_climate = 0
         self.end_year_climate = 9999
@@ -53,6 +48,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
+        self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
+
+        self.dataset_climate_update()
 
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
@@ -111,10 +109,13 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
-        for climate_type in climate_types:
-            self.climate_datasets.update(self.datasets[climate_type])
-            self.traj_climate.addItems(self.datasets[climate_type].keys())
+        # Can't use any of the methods but NDVI Trends on the 16 day data, so 
+        # don't need climate datasets
+        if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal'] == 'annual':
+            climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
+            for climate_type in climate_types:
+                self.climate_datasets.update(self.datasets[climate_type])
+                self.traj_climate.addItems(self.datasets[climate_type].keys())
 
     def traj_climate_changed(self):
         if self.traj_climate.currentText() == "":
@@ -129,6 +130,17 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
         self.start_year_ndvi = this_ndvi_dataset['Start year']
         self.end_year_ndvi = this_ndvi_dataset['End year']
+
+        # Don't try to update the climate datasets while traj_indic is empty, 
+        # so block signals while clearing it.
+        self.traj_indic.blockSignals(True)
+        self.traj_indic.clear()
+        self.traj_indic.blockSignals(False)
+        # Can't use any of the methods but NDVI Trends on the 16 day data
+        if this_ndvi_dataset['Temporal'] == '16 day':
+            self.traj_indic.addItems(['NDVI trends'])
+        else:
+            self.traj_indic.addItems(self.scripts['productivity_trajectory'].keys())
 
         self.update_time_bounds()
 

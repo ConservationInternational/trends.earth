@@ -545,6 +545,6 @@ def download_timeseries(job):
         return None
     data = [x for x in table if x['name'] == 'mean'][0]
     dlg_plot = DlgPlot()
-    dlg_plot.plot_data(data['time'], data['y'], '{} mean'.format(job['params']['ndvi_gee_dataset']))
+    dlg_plot.plot_data(data['time'], data['y'], '{} (mean)'.format(job['script_name']))
     dlg_plot.show()
     dlg_plot.exec_()

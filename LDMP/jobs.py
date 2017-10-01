@@ -53,6 +53,8 @@ def create_json_metadata(job, outfile):
 
 def get_scripts():
     scripts = get_script()
+    if not scripts:
+        return None
     # The scripts endpoint lists scripts in a list of dictionaries. Convert 
     # this to a dictionary keyed by script id
     scripts_dict = {}
@@ -78,19 +80,24 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         self.setupUi(self)
 
+        # Set a variable used to record the necessary window width to view all 
+        # columns
+        self._full_width = None
+
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         self.layout().addWidget(self.bar, 0, 0, Qt.AlignTop)
+
+        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
+        if jobs_cache:
+            self.jobs = jobs_cache
+            self.update_jobs_table()
 
         self.refresh.clicked.connect(self.btn_refresh)
         self.download.clicked.connect(self.btn_download)
 
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
-
-        # Set a variable used to record the necessary window width to view all 
-        # columns
-        self._full_width = None
 
     def resizeWindowToColumns(self):
         if not self._full_width:
@@ -122,6 +129,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             if self.jobs:
                 # Add script names and descriptions to jobs list
                 self.scripts = get_scripts()
+                if not self.scripts:
+                    return False
                 for job in self.jobs:
                     # self.jobs will have prettified data for usage in table, 
                     # so save a backup of the original data under key 'raw'
@@ -144,25 +153,33 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     job['task_notes'] = job['params'].get('task_notes', '')
                     job['params'] = job['params']
 
-                table_model = JobsTableModel(self.jobs, self)
-                proxy_model = QtGui.QSortFilterProxyModel()
-                proxy_model.setSourceModel(table_model)
-                self.jobs_view.setModel(proxy_model)
+                # Cache jobs for later reuse
+                self.settings.setValue("LDMP/jobs_cache", self.jobs)
 
-                # Add "Notes" buttons in cell
-                for row in range(0, len(self.jobs)):
-                    btn = QtGui.QPushButton(self.tr("Details"))
-                    btn.clicked.connect(self.btn_details)
-                    self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
-
-                self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
-                self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-                self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
-
-                self.resizeWindowToColumns()
+                self.update_jobs_table()
 
                 return True
         return False
+
+    def update_jobs_table(self):
+        if self.jobs:
+            table_model = JobsTableModel(self.jobs, self)
+            proxy_model = QtGui.QSortFilterProxyModel()
+            proxy_model.setSourceModel(table_model)
+            self.jobs_view.setModel(proxy_model)
+
+            # Add "Notes" buttons in cell
+            for row in range(0, len(self.jobs)):
+                btn = QtGui.QPushButton(self.tr("Details"))
+                btn.clicked.connect(self.btn_details)
+                self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
+
+            self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+            self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+            self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
+
+            self.resizeWindowToColumns()
+
 
     def btn_details(self):
         button = self.sender()

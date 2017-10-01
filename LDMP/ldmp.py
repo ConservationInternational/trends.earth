@@ -262,7 +262,6 @@ class LDMPPlugin:
 
     def get_jobs(self):
         """Run method that performs all the real work"""
-        jobs = self.dlg_jobs.btn_refresh()
         # show the dialog
         self.dlg_jobs.show()
         # Run the dialog event loop

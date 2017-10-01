@@ -135,6 +135,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         if resp:
             mb.pushMessage(self.tr("Success"),
                     self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
+            self.settings.setValue("LDMP/jobs_cache", None)
             self.close()
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):

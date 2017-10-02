@@ -18,7 +18,7 @@ import json
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QTextCodec
 
-from qgis.core import QgsJSONUtils, QgsGeometry, QgsVectorLayer
+from qgis.core import QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
 from LDMP import read_json, log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
@@ -176,7 +176,11 @@ class DlgCalculateBase(QtGui.QDialog):
                         self.tr("Choose a file to define the area of interest."), None)
                 return False
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
-            geojson = json.loads(QgsGeometry.fromRect(layer.extent()).exportToGeoJSON())
+            crs_source = layer.crs()
+            crs_dest = QgsCoordinateReferenceSystem(4326)
+            extent = layer.extent()
+            extent_transformed = QgsCoordinateTransform(crs_source, crs_dest).transform(extent)
+            geojson = json.loads(QgsGeometry.fromRect(extent_transformed).exportToGeoJSON())
 
         # Calculate bounding box of input polygon and then convert back to 
         # geojson

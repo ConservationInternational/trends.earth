@@ -185,7 +185,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                         self.tr("Choose a file to define the area of interest."), None)
                 return False
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
-            geojson = json.loads(QgsGeometry.fromRect(layer.extent()).exportToGeoJSON())
+            crs_source = layer.crs()
+            crs_dest = QgsCoordinateReferenceSystem(4326)
+            extent = layer.extent()
+            extent_transformed = QgsCoordinateTransform(crs_source, crs_dest).transform(extent)
+            geojson = json.loads(QgsGeometry.fromRect(extent_transformed).exportToGeoJSON())
         else:
             # Area from point
             if not self.point_x.text() and not self.point_y.text():
@@ -194,7 +198,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                 return False
             point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
             crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
-            #crs_dest = QgsCoordinateReferenceSystem(3857)
             crs_dest = QgsCoordinateReferenceSystem(4326)
             point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)
             geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())

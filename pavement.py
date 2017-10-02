@@ -29,6 +29,8 @@ options(
             'admin_1_polys.json.gz',
             'test-output/*',
             'data_prep_scripts',
+            'ext-libs_32',
+            'ext-src_32',
             'ext-src',
             '*.pyc',
         ],

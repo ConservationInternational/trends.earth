@@ -44,13 +44,18 @@ ensure you have the very latest version of the code.
 
 #### Installing the latest packaged version
 
-Download the latest`LDMT`zipfile from here: 
-https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip.
+Download the latest `LDMT` zipfile:
 
-Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
-For example, if you are using Windows and your username is "azvol", then this 
-might be `C:\Users\azvol\.qgis2\python\plugins`. If you are using a Mac and 
-your username is "azvol", then this might be
+[LDMP_64](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_64.zip.) (64 
+
+[LDMP_32](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_32.zip.) (32 
+bit)
+
+Extract `LDMP_64.zip` (or `LDMP_32.zip` for 32 bit QGIS) to the python plugins 
+folder for your installation of QGIS. For example, if you are using Windows and 
+your username is "azvol", then this might be 
+`C:\Users\azvol\.qgis2\python\plugins`. If you are using a Mac and your 
+username is "azvol", then this might be
 `/Users/azvol/.qgis2/python/plugins`.
 
 Once you are finished, you should have a folder named "LDMP" within your 

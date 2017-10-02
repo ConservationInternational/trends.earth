@@ -47,6 +47,7 @@ ensure you have the very latest version of the code.
 Download the latest `LDMT` zipfile:
 
 [LDMP_64](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_64.zip.) (64 
+bit)
 
 [LDMP_32](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_32.zip.) (32 
 bit)

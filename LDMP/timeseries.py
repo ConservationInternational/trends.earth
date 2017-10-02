@@ -194,7 +194,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                 return False
             point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
             crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
-            crs_dest = QgsCoordinateReferenceSystem(3857)
+            #crs_dest = QgsCoordinateReferenceSystem(3857)
+            crs_dest = QgsCoordinateReferenceSystem(4326)
             point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)
             geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
 

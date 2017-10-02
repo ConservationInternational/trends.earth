@@ -21,6 +21,8 @@ SOURCES = ../about.py \
 ../download.py \
 ../jobs.py \
 ../ldmp.py \
+../plot.py \
+../timeseries.py \
 ../reporting.py \
 ../settings.py \
 ../timeseries.py \

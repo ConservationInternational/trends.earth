@@ -67,7 +67,6 @@ class DlgSettings (QtGui.QDialog, UiDialog):
                 return
 
             self.dlg_settingsupdate.email.setText(user['email'])
-            self.dlg_settingsupdate.password.setText(self.settings.value("LDMP/password"))
             self.dlg_settingsupdate.name.setText(user['name'])
             self.dlg_settingsupdate.organization.setText(user['institution'])
 
@@ -91,21 +90,30 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             self.close()
 
     def btn_delete(self):
-        QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("Delete user functionality coming soon!"), None)
-        return
-        #TODO: Add a confirmation screen
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter an email address to update."), None)
-        resp = delete_user(self.email.text)
-        if resp:
-            mb.pushMessage(QtGui.QApplication.translate('LDMPPlugin', "Success"),
-                    QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(self.email.text()), level=0)
-            self.close()
-            return True
-        else:
-            return False
+                    self.tr("Enter your email."), None)
+            return
+        if not self.password.text():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("Enter your password."), None)
+            return
+        reply = QtGui.QMessageBox.question(None, self.tr("Delete user?"),
+                    self.tr("Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using the toolbox."),
+                    QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        if reply == QtGui.QMessageBox.Yes:
+            resp = delete_user(self.email.text)
+            if resp:
+                mb.pushMessage(QtGui.QApplication.translate('LDMPPlugin', "Success"),
+                        QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(self.email.text()), level=0)
+                self.settings.setValue("LDMP/password", None)
+                self.settings.setValue("LDMP/email", None)
+                self.email.setText(None)
+                self.password.setText(None)
+                self.close()
+                return True
+            else:
+                return False
 
     def btn_cancel(self):
         self.close()

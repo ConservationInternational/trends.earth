@@ -223,9 +223,9 @@ def get_user(email='me'):
         return None
 
 def delete_user(email='me'):
-    resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), 'delete', use_token=True)
+    resp = call_api('/api/v1/user/me', 'delete', use_token=True)
     if resp:
-        return resp['data']
+        return True
     else:
         return None
 
@@ -244,6 +244,13 @@ def run_script(script, params={}):
     return call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params, use_token=True)
 
 def update_user(email, name, organization, country):
+    payload = {"email" : email,
+               "name" : name,
+               "institution": organization,
+               "country": country}
+    return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+
+def update_password(password, repeatPassword):
     payload = {"email" : email,
                "name" : name,
                "institution": organization,

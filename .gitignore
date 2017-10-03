@@ -16,6 +16,8 @@ aws_credentials.json
 */help/build/*
 */ext-libs/*
 */ext-src/*
+*/ext-libs_32/*
+*/ext-src_32/*
 LDMP/gui/*.py
 LDMP/resources.py
 LDMP/data_prep_scripts/*

@@ -19,6 +19,7 @@ import numpy as np
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings
 
+from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
@@ -92,11 +93,11 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
     def open_browse_output(self):
         output_dir = QtGui.QFileDialog.getExistingDirectory(self, 
                 self.tr("Directory to save files"),
-                QSettings.value("LDMP/output_dir", None),
+                QSettings().value("LDMP/output_dir", None),
                 QtGui.QFileDialog.ShowDirsOnly)
         if output_dir:
             if os.access(output_dir, os.W_OK):
-                QSettings.setValue("LDMP/output_dir", output_dir)
+                QSettings().setValue("LDMP/output_dir", output_dir)
                 log("outputing results to {}".format(output_dir))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),

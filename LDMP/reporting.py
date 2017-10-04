@@ -19,8 +19,8 @@ import numpy as np
 from PyQt4 import QtGui, uic
 
 from LDMP.gui.DlgReporting import Ui_DlgReporting
-from LDMP.gui.DlgReportingUNCCDprod import Ui_DlgReportingSDG
-from LDMP.gui.DlgReportingUNCCDprod import Ui_DlgReportingUNCCDprod
+from LDMP.gui.DlgReportingUNCCDSDG import Ui_DlgReportingSDG
+from LDMP.gui.DlgReportingUNCCDProd import Ui_DlgReportingUNCCDProd
 from LDMP.gui.DlgReportingUNCCDLC import Ui_DlgReportingUNCCDLC
 from LDMP.gui.DlgReportingUNCCDSOC import Ui_DlgReportingUNCCDSOC
 

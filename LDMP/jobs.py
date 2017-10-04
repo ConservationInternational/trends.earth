@@ -319,6 +319,9 @@ def download_land_cover(job, download_dir):
 
 def style_land_cover_lc_baseline(outfile):
     layer_lc_baseline = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (baseline)'))
+    if not layer_lc_baseline:
+        log('Failed to add layer')
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#a50f15'), QtGui.QApplication.translate('LDMPPlugin', 'Cropland')),
@@ -337,6 +340,9 @@ def style_land_cover_lc_baseline(outfile):
 
 def style_land_cover_lc_target(outfile):
     layer_lc_target = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (target)'))
+    if not layer_lc_target:
+        log('Failed to add layer')
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#a50f15'), QtGui.QApplication.translate('LDMPPlugin', 'Cropland')),
@@ -355,6 +361,9 @@ def style_land_cover_lc_target(outfile):
 
 def style_land_cover_lc_change(outfile):
     layer_lc_change = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover change'))
+    if not layer_lc_change:
+        log('Failed to add layer')
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(11, QtGui.QColor(246, 246, 234), 'Croplands-Croplands'),
@@ -404,6 +413,9 @@ def style_land_cover_lc_change(outfile):
 
 def style_land_cover_land_deg(outfile):
     layer_deg = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (degradation)'))
+    if not layer_deg:
+        log('Failed to add layer')
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     #TODO The GPG doesn't seem to allow for possibility of improvement...?
@@ -435,7 +447,10 @@ def download_prod_traj(job, download_dir):
 
 def style_prod_traj_trend(outfile):
     # Trends layer
-    layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend'))
+    layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend\n(slope of NDVI * 10000)'))
+    if not layer_ndvi:
+        log('Failed to add layer')
+        return None
     provider = layer_ndvi.dataProvider()
 
     # Set a colormap centred on zero, going to the extreme value significant to 
@@ -466,6 +481,9 @@ def style_prod_traj_trend(outfile):
 def style_prod_traj_signif(outfile):
     # Significance layer
     layer_signif = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend (significance)'))
+    if not layer_signif:
+        log('Failed to add layer')
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease')),
@@ -500,6 +518,8 @@ def download_prod_state(job, download_dir):
 def style_prod_state_init(outfile):
     # Significance layer
     layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity state (initial)'))
+    if not layer:
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(-2, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
@@ -518,6 +538,8 @@ def style_prod_state_init(outfile):
 def style_prod_state_emerg(outfile):
     # Significance layer
     layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity state (emerging)'))
+    if not layer:
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     lst = [QgsColorRampShader.ColorRampItem(-2, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
@@ -550,6 +572,9 @@ def download_prod_perf(job, download_dir):
 
 def style_prod_perf(outfile):
     layer_perf = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity performance (degradation)'))
+    if not layer_perf:
+        log('Failed to add layer')
+        return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
     #TODO The GPG doesn't seem to allow for possibility of improvement...?

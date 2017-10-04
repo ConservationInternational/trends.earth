@@ -17,9 +17,11 @@ import os
 import numpy as np
 
 from PyQt4 import QtGui, uic
+from PyQt4.QtCore import QSettings
 
+from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgReporting import Ui_DlgReporting
-from LDMP.gui.DlgReportingUNCCDSDG import Ui_DlgReportingSDG
+from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
 from LDMP.gui.DlgReportingUNCCDProd import Ui_DlgReportingUNCCDProd
 from LDMP.gui.DlgReportingUNCCDLC import Ui_DlgReportingUNCCDLC
 from LDMP.gui.DlgReportingUNCCDSOC import Ui_DlgReportingUNCCDSOC
@@ -35,42 +37,71 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.dlg_unncd_lc = DlgReportingUNCCDLC()
         self.dlg_unncd_soc = DlgReportingUNCCDSOC()
 
-        self.btn_sdg.clicked.connect(clicked_sdg)
-        self.btn_unccd_prod.clicked.connect(clicked_unccd_prod)
-        self.btn_unccd_lc.clicked.connect(clicked_unccd_lc)
-        self.btn_unccd_soc.clicked.connect(clicked_unccd_soc)
+        self.btn_sdg.clicked.connect(self.clicked_sdg)
+        self.btn_unccd_prod.clicked.connect(self.clicked_unccd_prod)
+        self.btn_unccd_lc.clicked.connect(self.clicked_unccd_lc)
+        self.btn_unccd_soc.clicked.connect(self.clicked_unccd_soc)
 
     def clicked_sdg(self):
-        result = self.dlg_sdg.exec_()
-        # See if OK was pressed
-        if result:
-            self.close()
+        self.close()
+        self.dlg_sdg.exec_()
 
     def clicked_unccd_prod(self):
-        result = self.dlg_unncd_prod.exec_()
-        # See if OK was pressed
-        if result:
-            self.close()
+        self.close()
+        self.dlg_unncd_prod.exec_()
 
     def clicked_unccd_lc(self):
+        self.close()
         result = self.dlg_unncd_lc.exec_()
-        # See if OK was pressed
-        if result:
-            self.close()
 
     def clicked_unccd_soc(self):
         QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
                 QApplication.translate('LDMP', "Raw data download coming soon!"), None)
-        # result = self.dlg_unncd_soc.exec_()
-        # # See if OK was pressed
-        # if result:
-        #     self.close()
+        # self.close()
+        # self.dlg_unncd_soc.exec_()
 
-class DlgReportingSDG(QtGui.QDialog, Ui_DlgReportingSDG):
+class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgReportingSDG, self).__init__(parent)
         self.setupUi(self)
+        self.setup_dialog()
+
+        self.browse_traj.clicked.connect(self.open_browse_traj)
+        self.browse_perf.clicked.connect(self.open_browse_perf)
+        self.browse_state.clicked.connect(self.open_browse_state)
+        self.browse_lc.clicked.connect(self.open_browse_lc)
+        self.browse_output.clicked.connect(self.open_browse_output)
+
+    def open_browse_traj(self):
+        shpfile = QtGui.QFileDialog.getOpenFileName()
+        self.file_traj.setText(shpfile)
+
+    def open_browse_perf(self):
+        shpfile = QtGui.QFileDialog.getOpenFileName()
+        self.file_perf.setText(shpfile)
+
+    def open_browse_state(self):
+        shpfile = QtGui.QFileDialog.getOpenFileName()
+        self.file_state.setText(shpfile)
+
+    def open_browse_lc(self):
+        shpfile = QtGui.QFileDialog.getOpenFileName()
+        self.file_lc.setText(shpfile)
+
+    def open_browse_output(self):
+        output_dir = QtGui.QFileDialog.getExistingDirectory(self, 
+                self.tr("Directory to save files"),
+                QSettings.value("LDMP/output_dir", None),
+                QtGui.QFileDialog.ShowDirsOnly)
+        if output_dir:
+            if os.access(output_dir, os.W_OK):
+                QSettings.setValue("LDMP/output_dir", output_dir)
+                log("outputing results to {}".format(output_dir))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Cannot write to {}. Choose a different folder.".format(output_dir), None))
+        self.folder_output.setText(output_dir)
 
     def calc_degradation(self):
         # Set a colormap centred on zero, going to the extreme value 

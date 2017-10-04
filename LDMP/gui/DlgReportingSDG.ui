@@ -52,7 +52,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="1" column="0">
-           <widget class="QLineEdit" name="file_traj_2">
+           <widget class="QLineEdit" name="file_traj">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -74,7 +74,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QPushButton" name="browse_traj_2">
+           <widget class="QPushButton" name="browse_traj">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -102,7 +102,7 @@
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QLineEdit" name="file_perf_2">
+           <widget class="QLineEdit" name="file_perf">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -124,7 +124,7 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QPushButton" name="browse_perf_2">
+           <widget class="QPushButton" name="browse_perf">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -152,7 +152,7 @@
            </widget>
           </item>
           <item row="5" column="0">
-           <widget class="QLineEdit" name="file_state_2">
+           <widget class="QLineEdit" name="file_state">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -174,7 +174,7 @@
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QPushButton" name="browse_state_2">
+           <widget class="QPushButton" name="browse_state">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -256,7 +256,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_9">
           <item row="0" column="0">
-           <widget class="QLineEdit" name="file_lc_2">
+           <widget class="QLineEdit" name="file_lc">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -278,7 +278,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="browse_lc_2">
+           <widget class="QPushButton" name="browse_lc">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -324,7 +324,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
-           <widget class="QLineEdit" name="file_soc_2">
+           <widget class="QLineEdit" name="file_soc">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -346,7 +346,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="browse_soc_2">
+           <widget class="QPushButton" name="browse_soc">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -386,7 +386,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_4">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="font">
           <font>
@@ -401,7 +401,7 @@
           <item row="0" column="0">
            <widget class="QLineEdit" name="folder_output">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="minimumSize">
              <size>
@@ -416,14 +416,14 @@
              </font>
             </property>
             <property name="placeholderText">
-             <string>Choose a file...</string>
+             <string>Choose a folder...</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="browse_output">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="minimumSize">
              <size>

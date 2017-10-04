@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgReportingLC</class>
- <widget class="QDialog" name="DlgReportingLC">
+ <class>DlgReportingUNCCDLC</class>
+ <widget class="QDialog" name="DlgReportingUNCCDLC">
   <property name="geometry">
    <rect>
     <x>0</x>

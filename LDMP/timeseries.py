@@ -106,6 +106,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName()
+        self.area_fromfile_file.setText(shpfile)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()

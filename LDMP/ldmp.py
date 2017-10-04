@@ -282,15 +282,13 @@ class LDMPPlugin:
 
     def run_reporting(self):
         """Run method that performs all the real work"""
-        # # show the dialog
-        # self.dlg_reporting.show()
-        # # Run the dialog event loop
-        # result = self.dlg_reporting.exec_()
-        # # See if OK was pressed
-        # if result:
-        #     pass
-        QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
-                QApplication.translate('LDMP', "Reporting functionality coming soon!"), None)
+        # show the dialog
+        self.dlg_reporting.show()
+        # Run the dialog event loop
+        result = self.dlg_reporting.exec_()
+        # See if OK was pressed
+        if result:
+            pass
 
     def run_about(self):
         """Run method that performs all the real work"""

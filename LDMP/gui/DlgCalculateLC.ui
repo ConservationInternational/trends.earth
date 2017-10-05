@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
-    <height>640</height>
+    <width>783</width>
+    <height>785</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -139,7 +139,7 @@
             </property>
             <property name="date">
              <date>
-              <year>2015</year>
+              <year>2014</year>
               <month>12</month>
               <day>31</day>
              </date>

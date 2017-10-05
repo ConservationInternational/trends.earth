@@ -176,6 +176,11 @@ class DlgCalculateBase(QtGui.QDialog):
                         self.tr("Choose a file to define the area of interest."), None)
                 return False
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
+            log('Loaded layer: {}'.format(layer.dataProvider().dataSourceUri()))
+            if not layer.isValid():
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Unable to read area file."), None)
+                return False
             crs_source = layer.crs()
             crs_dest = QgsCoordinateReferenceSystem(4326)
             extent = layer.extent()
@@ -190,6 +195,7 @@ class DlgCalculateBase(QtGui.QDialog):
             log("Found {} features in geojson - using first feature only.".format(len(features)))
         #self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
         self.bbox = json.loads(QgsGeometry.fromRect(features[0].geometry().boundingBox()).exportToGeoJSON())
+        self.bbox_geometry = QgsGeometry.fromRect(features[0].geometry().boundingBox())
 
         return True
 

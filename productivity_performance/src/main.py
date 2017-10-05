@@ -87,12 +87,12 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
             .reduceResolution(reducer=ee.Reducer.mode(), maxPixels=2000) \
             .reproject(crs=ndvi_1yr.projection())
 
-    # create final degradation output layer (-2 is background), 0 is not 
-    # degreaded, -1 is degraded, 2 is water, and 3 is urban
-    lp_perf_deg = ee.Image(-2).where(obs_ratio_2.gte(0.5), 0) \
+    # create final degradation output layer (9997 is background), 0 is not 
+    # degreaded, -1 is degraded, 9998 is water, and 9999 is urban
+    lp_perf_deg = ee.Image(9997).where(obs_ratio_2.gte(0.5), 0) \
             .where(obs_ratio_2.lte(0.5), -1) \
-            .where(lc_proj_esa.eq(210), 2) \
-            .where(lc_proj_esa.eq(190), 3)
+            .where(lc_proj_esa.eq(210), 9998) \
+            .where(lc_proj_esa.eq(190), 9999)
 
     export = {'image': lp_perf_deg.int16(),
               'description': EXECUTION_ID,

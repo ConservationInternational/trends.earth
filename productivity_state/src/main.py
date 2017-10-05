@@ -86,11 +86,13 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
 
     # emerging degradation: difference between start and end clusters >= 2
     classes_chg = tg_classes.subtract(bl_classes)
-    eme_deg = ee.Image(-2).where(classes_chg.lte(-2),-1) \
+    # create final degradation output layer (9997 is background), 0 is not 
+    # degreaded, -1 is degraded, 1 is degraded, 9998 is water, and 9999 is urban
+    eme_deg = ee.Image(9997).where(classes_chg.lte(-2),-1) \
           .where(classes_chg.gte(-1).And(classes_chg.lte( 1)), 0) \
           .where(classes_chg.gte( 2), 1) \
-          .where(lc_proj_esa.eq(210),2) \
-          .where(lc_proj_esa.eq(190),3)
+          .where(lc_proj_esa.eq(210),9998) \
+          .where(lc_proj_esa.eq(190),9999)
 
     tasks = []
     export_ini_degr = {'image': ini_deg.int16(),

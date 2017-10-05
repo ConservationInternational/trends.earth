@@ -66,7 +66,7 @@ def run(params, logger):
     task.join()
 
     logger.debug("Setting up results JSON.")
-    url = "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
+    url = "http://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
     results_url = CloudUrl(url)
     cloud_dataset = CloudDataset('geotiff', method, [results_url])
     gee_results = GEEResults('productivity_trajectory', [cloud_dataset])

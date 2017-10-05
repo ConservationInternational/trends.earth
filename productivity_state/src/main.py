@@ -115,7 +115,7 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
     cloud_datasets = []
     for task in tasks:
         task.join()
-        results_url = CloudUrl("https://{}.storage.googleapis.com/{}_{}.tif".format(BUCKET, EXECUTION_ID, task.name))
+        results_url = CloudUrl("http://{}.storage.googleapis.com/{}_{}.tif".format(BUCKET, EXECUTION_ID, task.name))
         cloud_datasets.append(CloudDataset('geotiff', task.name, [results_url]))
 
     logger.debug("Setting up results JSON.")

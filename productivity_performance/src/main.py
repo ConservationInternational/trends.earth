@@ -107,7 +107,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
             'productivity_performance', logger)
     task.join()
 
-    return "https://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
+    return "http://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
 
 def run(params, logger):
     """."""

@@ -102,52 +102,6 @@ def reproject_dataset(dataset, ref_dataset, pixel_spacing, from_wkt, epsg_to=432
         resample_alg)
     return dest
 
-def clip_and_crop(raster_layer, mask_layer, output_file):
-    processing.runandload("gdalogr:cliprasterbymasklayer",
-	raster_layer,
-	mask_layer,
-	"none",
-	False,
-	True,
-	True,
-	1,
-	2,
-	75,
-	6,
-	1,
-	False,
-	0,
-	False,
-	"",
-	output_file)
-
-def numpy_to_geotiff(values, model_ds, out_file):
-    # Setup geotransform
-    trans = model_ds.GetGeoTransform()
-    # Setup projection system
-    srs = osr.SpatialReference()
-    srs.SetWellKnownGeogCS("WGS84")
-
-    # Create the file, using the information from the original file
-    drv = gdal.GetDriverByName("GTiff")
-    [n, bands] = values.shape
-    rows = model_ds.RasterXSize
-    cols = model_ds.RasterYSize
-
-    dst_ds = drv.Create(str(out_file), rows, cols, bands, gdal.GDT_Int16)
-    # Write the array to the file, which is the original array in this example
-    for band in range(bands):
-        this_band = np.reshape(values[:, band], (cols, rows), order="F")
-        dst_ds.GetRasterBand(band + 1).WriteArray(this_band)
-
-    # Georeference the image
-    dst_ds.SetGeoTransform(trans)
-
-    # Write projection information
-    dst_ds.SetProjection(srs.ExportToWkt())
-    dst_ds.FlushCache()
-    dst_ds = None
-
 def _get_layers(node):
     l = []
     if isinstance(node, QgsLayerTreeGroup):

@@ -55,41 +55,28 @@ def get_file_type(data_file):
         return None
     return {'script_id': s, 'type': t}
 
-def reproject_dataset(dataset, ref_dataset, pixel_spacing, from_wkt, epsg_to=4326):
-    osng = osr.SpatialReference()
-    osng.ImportFromEPSG(epsg_to)
-    wgs84 = osr.SpatialReference()
-    wgs84.ImportFromWkt(from_wkt)
-    tx = osr.CoordinateTransformation(wgs84, osng)
-    # Up to here, all  the projection have been defined, as well as a 
-    # transformation from the from to the  to :)
-    # We now open the dataset
-    g_ref = gdal.Open(ref_dataset)
-    geo_t_ref = g_ref.GetGeoTransform()
-    g = gdal.Open(dataset)
-    # Get the Geotransform vector
-    geo_t = g.GetGeoTransform()
-    x_size = g_ref.RasterXSize # Raster xsize
-    y_size = g_ref.RasterYSize # Raster ysize
-    # Work out the boundaries of the new dataset in the target projection
-    (ulx, uly, ulz) = tx.TransformPoint(geo_t_ref[0], geo_t_ref[3])
-    (lrx, lry, lrz) = tx.TransformPoint(geo_t_ref[0] + geo_t_ref[1]*x_size,
-                                        geo_t_ref[3] + geo_t_ref[5]*y_size)
-    # Now, we create an in-memory raster
-    mem_drv = gdal.GetDriverByName('MEM')
-    # The size of the raster is given the new projection and pixel spacing
-    # Using the values we calculated above.
-    dest = mem_drv.Create('',
-            int((lrx - ulx)/pixel_spacing),
-            int((uly - lry)/pixel_spacing), 1, gdal.GDT_Int16)
-    # Calculate the new geotransform
-    new_geo = (ulx, pixel_spacing, geo_t[2],
-               uly, geo_t[4], -pixel_spacing)
-    # Set the geotransform
-    dest.SetGeoTransform(new_geo)
-    dest.SetProjection(osng.ExportToWkt())
+def reproject_dataset(src_dataset, ref_dataset):
+    ds_ref = gdal.Open(ref_dataset)
+    sr_dest = osr.SpatialReference()
+    sr_dest.ImportFromWkt(ds_ref.GetProjectionRef())
 
-    if pixel_spacing > geo_t[1]:
+    ds_src = gdal.Open(src_dataset)
+    sr_src = osr.SpatialReference()
+    sr_src.ImportFromWkt(ds_src.GetProjectionRef())
+
+    x_size = ds_ref.RasterXSize # Raster xsize
+    y_size = ds_ref.RasterYSize # Raster ysize
+
+    mem_drv = gdal.GetDriverByName('MEM')
+    ds_dest = mem_drv.Create('', x_size, y_size, 1, gdal.GDT_Int16)
+
+    gt_ref = ds_ref.GetGeoTransform()
+
+    ds_dest.SetGeoTransform(gt_ref)
+    ds_dest.SetProjection(sr_dest.ExportToWkt())
+
+    gt_src = ds_src.GetGeoTransform()
+    if gt_ref[1] > gt_src[1]:
         # If new dataset is a lower resolution than the source, use the MODE
         log('Resampling with: mode')
         resample_alg = gdal.GRA_Mode
@@ -97,10 +84,13 @@ def reproject_dataset(dataset, ref_dataset, pixel_spacing, from_wkt, epsg_to=432
         log('Resampling with: nearest neighour')
         resample_alg = gdal.GRA_NearestNeighbour
     # Perform the projection/resampling 
-    res = gdal.ReprojectImage(g, dest,
-        wgs84.ExportToWkt(), osng.ExportToWkt(),
-        resample_alg)
-    return dest
+    res = gdal.ReprojectImage(ds_src,
+            ds_dest,
+            sr_src.ExportToWkt(),
+            sr_dest.ExportToWkt(),
+            resample_alg)
+
+    return ds_dest
 
 def _get_layers(node):
     l = []
@@ -262,10 +252,10 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         if not ret:
             return
 
-        layer_traj = [l for l in self.layer_traj_list if l.name() == self.layer_traj.currentText()][0]
-        layer_state = [l for l in self.layer_state_list if l.name() == self.layer_state.currentText()][0]
-        layer_perf = [l for l in self.layer_perf_list if l.name() == self.layer_perf.currentText()][0]
-        layer_lc = [l for l in self.layer_lc_list if l.name() == self.layer_lc.currentText()][0]
+        layer_traj =  self.layer_traj_list[self.layer_traj.currentIndex()]
+        layer_state = self.layer_state_list[self.layer_state.currentIndex()]
+        layer_perf = self.layer_perf_list[self.layer_perf.currentIndex()]
+        layer_lc = self.layer_lc_list[self.layer_lc.currentIndex()]
         
         # Check that all of the layers have the same coordinate system and TODO 
         # are in 4326.
@@ -286,9 +276,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # layers:
         log('Reprojecting land cover...')
         ds_lc = reproject_dataset(layer_lc.dataProvider().dataSourceUri(), 
-                layer_traj.dataProvider().dataSourceUri(), 
-                layer_traj.rasterUnitsPerPixelX(),
-                layer_lc.crs().toWkt())
+                layer_traj.dataProvider().dataSourceUri())
         log('crs: {}'.format(layer_lc.crs().toWkt()))
         temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
         # ds_lc = gdal.Translate(temp_lc_file, 

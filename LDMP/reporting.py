@@ -55,7 +55,7 @@ def get_file_type(data_file):
         return None
     return {'script_id': s, 'type': t}
 
-def reproject_dataset(dataset, pixel_spacing, from_wkt, epsg_to=4326):
+def reproject_dataset(dataset, ref_dataset, pixel_spacing, from_wkt, epsg_to=4326):
     osng = osr.SpatialReference()
     osng.ImportFromEPSG(epsg_to)
     wgs84 = osr.SpatialReference()
@@ -64,15 +64,17 @@ def reproject_dataset(dataset, pixel_spacing, from_wkt, epsg_to=4326):
     # Up to here, all  the projection have been defined, as well as a 
     # transformation from the from to the  to :)
     # We now open the dataset
+    g_ref = gdal.Open(ref_dataset)
+    geo_t_ref = g_ref.GetGeoTransform()
     g = gdal.Open(dataset)
     # Get the Geotransform vector
     geo_t = g.GetGeoTransform()
-    x_size = g.RasterXSize # Raster xsize
-    y_size = g.RasterYSize # Raster ysize
+    x_size = g_ref.RasterXSize # Raster xsize
+    y_size = g_ref.RasterYSize # Raster ysize
     # Work out the boundaries of the new dataset in the target projection
-    (ulx, uly, ulz) = tx.TransformPoint(geo_t[0], geo_t[3])
-    (lrx, lry, lrz) = tx.TransformPoint(geo_t[0] + geo_t[1]*x_size,
-                                        geo_t[3] + geo_t[5]*y_size)
+    (ulx, uly, ulz) = tx.TransformPoint(geo_t_ref[0], geo_t_ref[3])
+    (lrx, lry, lrz) = tx.TransformPoint(geo_t_ref[0] + geo_t_ref[1]*x_size,
+                                        geo_t_ref[3] + geo_t_ref[5]*y_size)
     # Now, we create an in-memory raster
     mem_drv = gdal.GetDriverByName('MEM')
     # The size of the raster is given the new projection and pixel spacing
@@ -330,6 +332,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # layers:
         log('Reprojecting land cover...')
         ds_lc = reproject_dataset(layer_lc.dataProvider().dataSourceUri(), 
+                layer_traj.dataProvider().dataSourceUri(), 
                 layer_traj.rasterUnitsPerPixelX(),
                 layer_lc.crs().toWkt())
         log('crs: {}'.format(layer_lc.crs().toWkt()))
@@ -401,6 +404,11 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         perf_band = ds_perf.GetRasterBand(1)
         lc_band = ds_lc.GetRasterBand(1)
 
+        log('Traj size: {}, {}'.format(traj_band.XSize, traj_band.YSize))
+        log('State size: {}, {}'.format(state_band.XSize, state_band.YSize))
+        log('Perf size: {}, {}'.format(perf_band.XSize, perf_band.YSize))
+        log('LC size: {}, {}'.format(lc_band.XSize, lc_band.YSize))
+
         xsize = traj_band.XSize
         ysize = traj_band.YSize
         blocks = 0
@@ -418,6 +426,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                 state_array = state_band.ReadAsArray(x, y, cols, rows)
                 perf_array = perf_band.ReadAsArray(x, y, cols, rows)
                 lc_array = lc_band.ReadAsArray(x, y, cols, rows)
+
+                # log('type lc_deg: {}'.format(type(lc_deg)))
+                # log('type lc_array: {}'.format(type(lc_array)))
 
                 deg[lc_array == -1] = -1
                 deg[(state_array == -1) & (perf_array == -1)] = -1

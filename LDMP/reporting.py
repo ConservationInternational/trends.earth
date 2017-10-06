@@ -86,10 +86,18 @@ def reproject_dataset(dataset, pixel_spacing, from_wkt, epsg_to=4326):
     # Set the geotransform
     dest.SetGeoTransform(new_geo)
     dest.SetProjection(osng.ExportToWkt())
+
+    if pixel_spacing > geo_t[1]:
+        # If new dataset is a lower resolution than the source, use the MODE
+        log('Resampling with: mode')
+        resample_alg = gdal.GRA_Mode
+    else:
+        log('Resampling with: nearest neighour')
+        resample_alg = gdal.GRA_NearestNeighbour
     # Perform the projection/resampling 
     res = gdal.ReprojectImage(g, dest,
         wgs84.ExportToWkt(), osng.ExportToWkt(),
-        gdal.GRA_NearestNeighbour)
+        resample_alg)
     return dest
 
 def clip_and_crop(raster_layer, mask_layer, output_file):
@@ -324,11 +332,21 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         ds_lc = reproject_dataset(layer_lc.dataProvider().dataSourceUri(), 
                 layer_traj.rasterUnitsPerPixelX(),
                 layer_lc.crs().toWkt())
+        log('crs: {}'.format(layer_lc.crs().toWkt()))
+        temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
+        # ds_lc = gdal.Translate(temp_lc_file, 
+        #         layer_lc.dataProvider().dataSourceUri(),
+        #         format='GTiff', 
+        #         outputType=gdal.GDT_Int16, 
+        #         xRes=layer_traj.rasterUnitsPerPixelX, 
+        #         yRes=layer_traj.rasterUnitsPerPixelY,
+        #         outputSRS=layer_lc.crs().toWkt(),
+        #         resampleAlg=gdal.GRA_Mode)
         log('Reprojection of land cover finished.')
 
         # Check that all of the layers have the same resolution
         def res(layer):
-            return (layer.rasterUnitsPerPixelX(), layer.rasterUnitsPerPixelY())
+            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
         if res(layer_traj) != res(layer_state):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Resolutions of trajectory layer and state layer do not match."), None)

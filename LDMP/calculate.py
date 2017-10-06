@@ -176,16 +176,19 @@ class DlgCalculateBase(QtGui.QDialog):
                         self.tr("Choose a file to define the area of interest."), None)
                 return False
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
-            log('Loaded layer: {}'.format(layer.dataProvider().dataSourceUri()))
             if not layer.isValid():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Unable to read area file."), None)
                 return False
+            log('Loaded layer: {}'.format(layer.dataProvider().dataSourceUri()))
+            #TODO: Fix this kludge
+            for f in layer.getFeatures():
+                aoi = f.geometry()
+                break
             crs_source = layer.crs()
             crs_dest = QgsCoordinateReferenceSystem(4326)
-            extent = layer.extent()
-            extent_transformed = QgsCoordinateTransform(crs_source, crs_dest).transform(extent)
-            geojson = json.loads(QgsGeometry.fromRect(extent_transformed).exportToGeoJSON())
+            aoi.transform(QgsCoordinateTransform(crs_source, crs_dest))
+            geojson = json.loads(aoi.exportToGeoJSON())
 
         # Calculate bounding box of input polygon and then convert back to 
         # geojson
@@ -193,9 +196,9 @@ class DlgCalculateBase(QtGui.QDialog):
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         if len(features) > 1:
             log("Found {} features in geojson - using first feature only.".format(len(features)))
-        #self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
-        self.bbox = json.loads(QgsGeometry.fromRect(features[0].geometry().boundingBox()).exportToGeoJSON())
-        self.bbox_geometry = QgsGeometry.fromRect(features[0].geometry().boundingBox())
+        # Make a copy of this geometry
+        self.aoi = QgsGeometry(features[0].geometry())
+        self.bbox = json.loads(QgsGeometry.fromRect(self.aoi.boundingBox()).exportToGeoJSON())
 
         return True
 

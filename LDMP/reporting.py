@@ -64,14 +64,10 @@ def reproject_dataset(src_dataset, ref_dataset):
     sr_src = osr.SpatialReference()
     sr_src.ImportFromWkt(ds_src.GetProjectionRef())
 
-    x_size = ds_ref.RasterXSize # Raster xsize
-    y_size = ds_ref.RasterYSize # Raster ysize
-
     mem_drv = gdal.GetDriverByName('MEM')
-    ds_dest = mem_drv.Create('', x_size, y_size, 1, gdal.GDT_Int16)
+    ds_dest = mem_drv.Create('', ds_ref.RasterXSize, ds_ref.RasterYSize, 1, gdal.GDT_Int16)
 
     gt_ref = ds_ref.GetGeoTransform()
-
     ds_dest.SetGeoTransform(gt_ref)
     ds_dest.SetProjection(sr_dest.ExportToWkt())
 

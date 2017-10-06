@@ -44,6 +44,9 @@
    </item>
    <item row="1" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>UNCCD Reporting</string>
      </property>

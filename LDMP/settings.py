@@ -45,6 +45,8 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
         self.cancel.clicked.connect(self.btn_cancel)
 
+        self.admin_bounds_key = json.loads(QSettings().value('LDMP/admin_bounds_key', None))
+
         email = get_user_email(warn=False)
         if email: self.email.setText(email)
         password = self.settings.value("LDMP/password", None)
@@ -71,8 +73,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             self.dlg_settingsupdate.organization.setText(user['institution'])
 
             # Add countries, and set index to currently chosen country
-            admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
-            self.dlg_settingsupdate.country.addItems(sorted(admin_0.keys()))
+            self.dlg_settingsupdate.country.addItems(sorted(self.admin_bounds_key.keys()))
             index = self.dlg_settingsupdate.country.findText(user['country'])
             if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index)
 
@@ -82,8 +83,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
                 self.close()
 
     def btn_register(self):
-        admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
-        self.dlg_settingsregister.country.addItems(sorted(admin_0.keys()))
+        self.dlg_settingsregister.country.addItems(sorted(self.admin_bounds_key.keys()))
         result = self.dlg_settingsregister.exec_()
         # See if OK was pressed
         if result:

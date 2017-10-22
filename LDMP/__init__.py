@@ -56,11 +56,8 @@ def read_json(file):
 
     return json.loads(json_str)
 
-admin_0 = read_json('admin_0.json.gz')
-QtCore.QSettings().setValue('LDMP/admin_0', json.dumps(admin_0))
-
-admin_1 = read_json('admin_1.json.gz')
-QtCore.QSettings().setValue('LDMP/admin_1', json.dumps(admin_1))
+admin_bounds_key = read_json('admin_bounds_key.json.gz')
+QtCore.QSettings().setValue('LDMP/admin_bounds_key', json.dumps(admin_bounds_key))
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name

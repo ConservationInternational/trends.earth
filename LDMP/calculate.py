@@ -101,12 +101,11 @@ class DlgCalculateBase(QtGui.QDialog):
         self.close()
 
     def setup_area_selection(self):
-        self.admin_0 = json.loads(QSettings().value('LDMP/admin_0', None))
-        self.admin_1 = json.loads(QSettings().value('LDMP/admin_1', None))
-
-        if not self.admin_0 or not self.admin_1:
+        self.admin_bounds_key = json.loads(QSettings().value('LDMP/admin_bounds_key', None))
+        if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
-        self.area_admin_0.addItems(sorted(self.admin_0.keys()))
+
+        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
         self.populate_admin_1()
         
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
@@ -116,14 +115,14 @@ class DlgCalculateBase(QtGui.QDialog):
         self.area_fromfile.toggled.connect(self.area_fromfile_toggle)
 
     def load_admin_polys(self):
-        adm0_a3 = self.admin_0[self.area_admin_0.currentText()]['ADM0_A3']
+        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
         admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3))
         if not admin_polys:
             return None
         if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
             return admin_polys['geojson']
         else:
-            admin_1_code = self.admin_1[adm0_a3][self.area_admin_1.currentText()]
+            admin_1_code = self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'][self.area_admin_1.currentText()]['code']
             return admin_polys['admin1'][admin_1_code]['geojson']
 
     def area_admin_toggle(self):
@@ -147,10 +146,9 @@ class DlgCalculateBase(QtGui.QDialog):
         self.area_fromfile_file.setText(shpfile)
 
     def populate_admin_1(self):
-        adm0_a3 = self.admin_0[self.area_admin_0.currentText()]['ADM0_A3']
         self.area_admin_1.clear()
         self.area_admin_1.addItems(['All regions'])
-        self.area_admin_1.addItems(sorted(self.admin_1[adm0_a3].keys()))
+        self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
     def btn_calculate(self):
         if self.area_admin.isChecked():

@@ -32,16 +32,13 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
 
     # global agroecological zones from IIASA
-    gaez = ee.Image("users/geflanddegradation/toolbox_datasets/gaez_iiasa")
+    soil_tax_usda = ee.Image("users/geflanddegradation/toolbox_datasets/soil_tax_usda_sgrid");
 
     # compute mean ndvi for the period
     ndvi_avg = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_start, year_end + 1)])) \
             .reduce(ee.Reducer.mean()).rename(['ndvi']).clip(geojson)
 
-    # reclassify lc to ipcc classes
-    lc_ipcc = lc.select('y{}'.format(year_start)) \
-		    .remap([10,11,12,20,30,40,50,60,61,62,70,71,72,80,81,82,90,100,160,170,110,130,180,190,120,121,122,140,150,151,152,153,200,201,202,210],
-			   [ 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,  2,  2,  2,  3,  3,  4,  5,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6])
+    lc_start_year = lc.select('y{}'.format(year_start))
 
     # create a binary mask.
     mask = ndvi_avg.neq(0)
@@ -49,13 +46,13 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     # define modis projection attributes
     modis_proj =  ee.Image("users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016").projection()
 
-    # reproject land cover, gaez and avhrr to modis resolution
-    lc_proj = lc_ipcc.reproject(crs=modis_proj)
-    gaez_proj = gaez.reproject(crs=modis_proj)
+    # reproject land cover, soil_tax_usda and avhrr to modis resolution
+    lc_proj = lc_start_year.reproject(crs=modis_proj)
+    soil_tax_usda_proj = soil_tax_usda.reproject(crs=modis_proj)
     ndvi_avg_proj = ndvi_avg.reproject(crs=modis_proj)
 
-    # define unit of analysis as the intersect of gaez and land cover 
-    units = gaez_proj.multiply(1000).add(lc_proj)
+    # define unit of analysis as the intersect of soil_tax_usda and land cover 
+    units = soil_tax_usda_proj.multiply(1000).add(lc_proj)
 
     # create a 2 band raster to compute 90th percentile per unit (analysis restricted by mask and study area)
     ndvi_id = ndvi_avg_proj.addBands(units).updateMask(mask)

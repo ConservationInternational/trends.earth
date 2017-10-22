@@ -69,7 +69,12 @@ class DownloadWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        total_size = int(requests.get(self.url, stream=True).headers['Content-length'])
+        resp = requests.get(self.url, stream=True)
+        if resp.status_code != 200:
+            log('Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
+            raise DownloadError('Unable to start download of {}'.format(self.url))
+
+        total_size = int(resp.headers['Content-length'])
         if total_size < 1e5:
             total_size_pretty = '{:.2f} KB'.format(round(total_size/1024, 2))
         else:
@@ -95,6 +100,7 @@ class DownloadWorker(AbstractWorker):
             os.remove(self.outfile)
             if not self.killed:
                 raise DownloadError('Final file size of {} does not match expected'.format(self.url))
+            return None
         else:
             log("Download of {} complete".format(self.url))
             return True
@@ -131,13 +137,13 @@ class Download(object):
                     QtGui.QApplication.translate("LDMP", "Unable to access internet. Check your internet connection."))
             return False
         except requests.exceptions.Timeout:
-            log('Download timed out')
+            log('Download timed out.')
             QtGui.QMessageBox.critical(None,
                     QtGui.QApplication.translate("LDMP", "Error"),
                     QtGui.QApplication.translate("LDMP", "Download timed out. Check your internet connection."))
             return False
         except DownloadError:
-            log("Download failed - file size doesn't match expected")
+            log("Download failed.")
             QtGui.QMessageBox.critical(None,
                     QtGui.QApplication.translate("LDMP", "Error"),
                     QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))

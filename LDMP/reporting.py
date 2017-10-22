@@ -248,6 +248,23 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         if not ret:
             return
 
+        if len(self.layer_traj_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("You must add a productivity trajectory indicator layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_state_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("You must add a productivity state indicator layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_perf_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("You must add a productivity performance indicator layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_lc_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("You must add a land cover indicator layer to your map before you can use the reporting tool."), None)
+            return
+
         layer_traj =  self.layer_traj_list[self.layer_traj.currentIndex()]
         layer_state = self.layer_state_list[self.layer_state.currentIndex()]
         layer_perf = self.layer_perf_list[self.layer_perf.currentIndex()]

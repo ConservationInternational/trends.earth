@@ -117,19 +117,14 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def load_admin_polys(self):
         adm0_a3 = self.admin_0[self.area_admin_0.currentText()]['ADM0_A3']
+        admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3))
+        if not admin_polys:
+            return None
         if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
-            admin_0_polys = read_json('admin_0_polys.json.gz')
-            if not admin_0_polys:
-                return None
-            else:
-                return admin_0_polys[adm0_a3]['geojson']
+            return admin_polys['geojson']
         else:
-            admin_1_polys = read_json('admin_1_polys.json.gz')
-            if not admin_1_polys:
-                return None
-            else:
-                admin_1_code = self.admin_1[adm0_a3][self.area_admin_1.currentText()]
-                return admin_1_polys[admin_1_code]['geojson']
+            admin_1_code = self.admin_1[adm0_a3][self.area_admin_1.currentText()]
+            return admin_polys['admin1'][admin_1_code]['geojson']
 
     def area_admin_toggle(self):
         if self.area_admin.isChecked():

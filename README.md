@@ -46,10 +46,10 @@ ensure you have the very latest version of the code.
 
 Download the latest `LDMT` zipfile:
 
-[LDMP_64](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_64.zip.) (64 
+[LDMP_64](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_64.zip) (64 
 bit)
 
-[LDMP_32](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_32.zip.) (32 
+[LDMP_32](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_32.zip) (32 
 bit)
 
 Extract `LDMP_64.zip` (or `LDMP_32.zip` for 32 bit QGIS) to the python plugins 

@@ -55,7 +55,7 @@ def get_file_type(data_file):
         return None
     return {'script_id': s, 'type': t}
 
-def reproject_dataset(src_dataset, ref_dataset):
+def reproject_lc(src_dataset, ref_dataset):
     ds_ref = gdal.Open(ref_dataset)
     sr_dest = osr.SpatialReference()
     sr_dest.ImportFromWkt(ds_ref.GetProjectionRef())
@@ -288,7 +288,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # Resample the land cover data to match the resolutions of the other 
         # layers:
         log('Reprojecting land cover...')
-        ds_lc = reproject_dataset(layer_lc.dataProvider().dataSourceUri(), 
+        ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(), 
                 layer_traj.dataProvider().dataSourceUri())
         log('crs: {}'.format(layer_lc.crs().toWkt()))
         temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name

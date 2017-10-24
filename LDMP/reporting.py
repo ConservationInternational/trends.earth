@@ -414,7 +414,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         style_sdg_ld(out_file)
 
         # Calculate area degraded, improved, etc.
-        deg_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.shp').name
+        deg_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         ds_equal_area = gdal.Warp(deg_equal_area_tempfile, out_file, dstSRS='EPSG:54009')
         deg_gt = ds_equal_area.GetGeoTransform()
         res_x = deg_gt[1]

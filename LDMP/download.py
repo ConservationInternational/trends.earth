@@ -30,11 +30,8 @@ from LDMP.worker import AbstractWorker, start_worker
 
 def check_goog_cloud_store_hash(url, filename):
     h = requests.head(url)
-    #TODO not sure why this isn't working...
-    expected_crc32c = re.search('crc32c=(.+?), md5', h.headers.get('x-goog-hash', '')).group(1)
-    return check_hash(filename, expected_crc32c)
+    expected = re.search('crc32c=(.+?), md5', h.headers.get('x-goog-hash', '')).group(1)
 
-def check_hash(filename, expected):
     BUF_SIZE = 65536
     crc = crcmod.predefined.Crc('crc-32c')
     with open(filename, 'rb') as f:
@@ -44,11 +41,12 @@ def check_hash(filename, expected):
                 break
             crc.update(data)
     crcvalue = base64.b64encode(crc.digest())
+
     if crcvalue == expected:
-        log("File hash verified for {}.".format(filename))
+        log("File hash verified for {}".format(filename))
         return True
     else:
-        log("Failed verification of file hash for {}. Expected {}, but got {}.".format(filename, expected, crcvalue), 2)
+        log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, crcvalue), 2)
         return False
 
 class DownloadError(Exception):

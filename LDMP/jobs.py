@@ -15,7 +15,7 @@
 import os
 import json
 
-from datetime import date, datetime
+import datetime
 from math import floor, log10
 
 import numpy as np 
@@ -41,7 +41,7 @@ from LDMP.api import get_script, get_user_email, get_execution
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime, date)):
+    if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
     raise TypeError("Type %s not serializable" % type(obj))
 
@@ -125,7 +125,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def btn_refresh(self):
         email = get_user_email()
         if email:
-            self.jobs = get_execution()
+            start_date = datetime.datetime.now() + datetime.timedelta(-29)
+            self.jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if self.jobs:
                 # Add script names and descriptions to jobs list
                 self.scripts = get_scripts()
@@ -147,8 +148,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
                 # Pretty print dates and pull the metadata sent as input params
                 for job in self.jobs:
-                    job['start_date'] = datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
-                    job['end_date'] = datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
+                    job['start_date'] = datetime.datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
+                    job['end_date'] = datetime.datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
                     job['task_name'] = job['params'].get('task_name', '')
                     job['task_notes'] = job['params'].get('task_notes', '')
                     job['params'] = job['params']

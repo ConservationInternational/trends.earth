@@ -14,7 +14,7 @@
 
 import sys
 import time
-import datetime
+from datetime import datetime
 from dateutil import tz
 import requests
 import json
@@ -257,12 +257,19 @@ def update_password(password, repeatPassword):
                "country": country}
     return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
-def get_execution(id=None):
+def get_execution(id=None, date=None):
     log('Fetching executions')
+    query = []
     if id:
-        resp = call_api('/api/v1/execution/{}'.format(quote_plus(id)), method='get', use_token=True)
+        query.append('user_id={}'.format(quote_plus(id)))
+    if date:
+        query.append('updated_at={}'.format(date))
+    if len(query) > 0:
+        query = "?" + "&".join(query)
     else:
-        resp = call_api('/api/v1/execution', method='get', use_token=True)
+        query = ''
+
+    resp = call_api('/api/v1/execution{}'.format(query), method='get', use_token=True)
     if not resp:
         return None
     else:
@@ -271,11 +278,11 @@ def get_execution(id=None):
         data = sorted(data, key=lambda job: job['start_date'], reverse=True)
         # Convert start/end dates into datatime objects in local time zone
         for job in data:
-            start_date = datetime.datetime.strptime(job['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
+            start_date = datetime.strptime(job['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
             start_date = start_date.replace(tzinfo=tz.tzutc())
             start_date = start_date.astimezone(tz.tzlocal())
             job['start_date'] = start_date
-            end_date = datetime.datetime.strptime(job['end_date'], '%Y-%m-%dT%H:%M:%S.%f')
+            end_date = datetime.strptime(job['end_date'], '%Y-%m-%dT%H:%M:%S.%f')
             end_date = end_date.replace(tzinfo=tz.tzutc())
             end_date = end_date.astimezone(tz.tzlocal())
             job['end_date'] = end_date

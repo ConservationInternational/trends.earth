@@ -15,6 +15,8 @@
 import os
 import requests
 import re
+import base64
+
 import crcmod.predefined
 
 from PyQt4 import QtGui, uic, QtCore
@@ -28,30 +30,25 @@ from LDMP.worker import AbstractWorker, start_worker
 
 def check_goog_cloud_store_hash(url, filename):
     h = requests.head(url)
-    try:
-        #TODO not sure why this isn't working...
-        expected_crc32c = re.search('crc32c=(.+?), md5=', h.headers.get('x-goog-hash', '')).group(1)
-        if not check_hash(filename, expected_crc32c):
-            log("File hash doesn't match expected value for {}.".format(filename), 2)
-        else:
-            log("File hash verified for {}.".format(filename))
-    except AttributeError:
-        log("CRC32c file hash not found in header for {}. Skipping hash check. WARNING file may not be complete.".format(filename), 2)
-        #TODO delete file and suggest attempting download again
+    #TODO not sure why this isn't working...
+    expected_crc32c = re.search('crc32c=(.+?), md5', h.headers.get('x-goog-hash', '')).group(1)
+    return check_hash(filename, expected_crc32c)
 
-def check_hash(file, expected):
+def check_hash(filename, expected):
     BUF_SIZE = 65536
-    crc = crcmod.predefined.mkCrcFun('crc-32-c')
-    with open(file, 'rb') as f:
+    crc = crcmod.predefined.Crc('crc-32c')
+    with open(filename, 'rb') as f:
         while True:
             data = f.read(BUF_SIZE)
             if not data:
                 break
             crc.update(data)
-    if crc.crcValue == expected:
+    crcvalue = base64.b64encode(crc.digest())
+    if crcvalue == expected:
+        log("File hash verified for {}.".format(filename))
         return True
     else:
-        log("Failed verification of file hash for {}. Expected {}, but got {}.".format(filename, expected, crc.crcValue), 2)
+        log("Failed verification of file hash for {}. Expected {}, but got {}.".format(filename, expected, crcvalue), 2)
         return False
 
 class DownloadError(Exception):

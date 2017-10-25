@@ -289,13 +289,11 @@ class JobsTableModel(QAbstractTableModel):
 
 def download_result(url, outfile, job):
     log("Downloading {}".format(url))
-    #TODO: Check if this file was already downloaded
     worker = Download(url, outfile)
     worker.start()
     if worker.get_resp():
         create_json_metadata(job, outfile)
-        check_goog_cloud_store_hash(url, outfile)
-        return True
+        return check_goog_cloud_store_hash(url, outfile)
     else:
         return None
 

@@ -65,6 +65,8 @@ class RequestWorker(AbstractWorker):
             resp = requests.delete(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
         elif self.method == 'patch':
             resp = requests.patch(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'head':
+            resp = requests.head(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
         else:
             raise ValueError("Unrecognized method: {}".format(method))
             resp = None
@@ -209,6 +211,32 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         ret = None
 
     return ret
+
+def get_header(url):
+    worker = Request(url, 'head')
+    worker.start()
+    resp = worker.get_resp()
+    log('Response from "{}" header request: {}'.format(url, resp.status_code))
+
+    if resp != None:
+        if resp.status_code == 200:
+            ret = resp.headers
+        else:
+            desc, status = get_error_status(resp)
+            QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
+            ret = None
+    else:
+        ret = None
+
+    return ret
+
+################################################################################
+# Functions supporting access to individual api endpoints
+def recover_pwd(email):
+    return call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+
+def get_user(email='me'):
+    resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
 
 ################################################################################
 # Functions supporting access to individual api endpoints

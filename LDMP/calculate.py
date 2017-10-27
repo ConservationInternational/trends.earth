@@ -20,8 +20,9 @@ from PyQt4.QtCore import QSettings, QTextCodec
 
 from qgis.core import QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
-from LDMP import read_json, log
+from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
+from LDMP.download import read_json, get_admin_bounds
 
 class DlgCalculate(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
@@ -101,7 +102,7 @@ class DlgCalculateBase(QtGui.QDialog):
         self.close()
 
     def setup_area_selection(self):
-        self.admin_bounds_key = json.loads(QSettings().value('LDMP/admin_bounds_key', None))
+        self.admin_bounds_key = get_admin_bounds()
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 

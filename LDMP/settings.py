@@ -27,6 +27,7 @@ from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
 from LDMP.api import get_user_email, get_user, delete_user, login, register, update_user, recover_pwd
+from LDMP.download import get_admin_bounds
 
 class DlgSettings (QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
@@ -45,7 +46,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
         self.cancel.clicked.connect(self.btn_cancel)
 
-        self.admin_bounds_key = json.loads(QSettings().value('LDMP/admin_bounds_key', None))
+        self.admin_bounds_key = get_admin_bounds()
 
         email = get_user_email(warn=False)
         if email: self.email.setText(email)

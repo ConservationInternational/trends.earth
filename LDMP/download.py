@@ -13,9 +13,12 @@
 """
 
 import os
+import gzip
+import json
 import requests
 import re
 import base64
+import hashlib
 
 import crcmod.predefined
 
@@ -27,6 +30,20 @@ from LDMP import log
 
 from LDMP.gui.DlgDownload import Ui_DlgDownload
 from LDMP.worker import AbstractWorker, start_worker
+from LDMP.api import get_header
+
+def check_aws_s3_hash(url, filename):
+    h = get_header(url)
+    expected = h.get('ETag', '').strip('"')
+
+    md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
+
+    if md5hash == expected:
+        log("File hash verified for {}".format(filename))
+        return True
+    else:
+        log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
+        return False
 
 def check_goog_cloud_store_hash(url, filename):
     h = requests.head(url)
@@ -48,6 +65,37 @@ def check_goog_cloud_store_hash(url, filename):
     else:
         log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, crcvalue), 2)
         return False
+
+def read_json(file, verify=True):
+    filename = os.path.join(os.path.dirname(__file__), 'data', file)
+
+    if verify:
+        url = 'https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file)
+        if os.path.exists(filename):
+            if not check_aws_s3_hash(url, filename):
+                os.remove(filename)
+        else:
+            log('downloading json')
+            # TODO: Dialog box with two options:
+            #   1) Download
+            #   2) Load from local folder
+            worker = Download(url, filename)
+            worker.start()
+            resp = worker.get_resp()
+            if not resp:
+                return None
+            if not check_aws_s3_hash(url, filename):
+                return None
+
+    with gzip.GzipFile(filename, 'r') as fin:
+        json_bytes = fin.read()
+        json_str = json_bytes.decode('utf-8')
+
+    return json.loads(json_str)
+
+def get_admin_bounds():
+    admin_bounds_key = read_json('admin_bounds_key.json.gz', verify=False)
+    return admin_bounds_key
 
 class DownloadError(Exception):
      def __init__(self, message):

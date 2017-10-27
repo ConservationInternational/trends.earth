@@ -19,9 +19,6 @@ from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 
-# Google cloud storage bucket for output
-BUCKET = "ldmt"
-
 def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix, 
         EXECUTION_ID, logger):
     """
@@ -63,55 +60,30 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
 
     tasks = []
     # Create export function to export baseline land cover
-    export_lc_baseline = {'image': lc_bl.int16(),
-                          'description': '{}_lc_baseline'.format(EXECUTION_ID),
-                          'fileNamePrefix': '{}_lc_baseline'.format(EXECUTION_ID),
-                          'bucket': BUCKET,
-                          'maxPixels': 10000000000,
-                          'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-                          'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_lc_baseline),
-                              'lc_baseline', logger))
+    tasks.append(util.export_to_cloudstorage(lc_bl.int16(), 
+            lc.projection(), geojson, 'lc_baseline', logger, 
+            EXECUTION_ID))
 
     # Create export function to export target year land cover
-    export_lc_target = {'image': lc_tg.int16(),
-                        'description': '{}_lc_target'.format(EXECUTION_ID),
-                        'fileNamePrefix': '{}_lc_target'.format(EXECUTION_ID),
-                        'bucket': BUCKET,
-                        'maxPixels': 10000000000,
-                        'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-                        'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_lc_target),
-                              'lc_target', logger))
+    tasks.append(util.export_to_cloudstorage(lc_tg.int16(), 
+            lc.projection(), geojson, 'lc_target', logger, 
+            EXECUTION_ID))
 
     # Create export function to export land cover transition
-    export_lc_change = {'image': lc_tr.int16(),
-                        'description': '{}_lc_change'.format(EXECUTION_ID),
-                        'fileNamePrefix': '{}_lc_change'.format(EXECUTION_ID),
-                        'bucket': BUCKET,
-                        'maxPixels': 10000000000,
-                        'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-                        'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_lc_change),
-                              'lc_change', logger))
+    tasks.append(util.export_to_cloudstorage(lc_tr.int16(), 
+            lc.projection(), geojson, 'lc_change', logger, 
+            EXECUTION_ID))
 
     # Create export function to export land deg image
-    export_land_deg = {'image': lc_dg.int16(),
-                       'description': '{}_land_deg'.format(EXECUTION_ID),
-                       'fileNamePrefix': '{}_land_deg'.format(EXECUTION_ID),
-                       'bucket': BUCKET,
-                       'maxPixels': 10000000000,
-                       'scale': ee.Number(lc.projection().nominalScale()).getInfo(),
-                       'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_land_deg),
-                              'land_deg', logger))
+    tasks.append(util.export_to_cloudstorage(lc_dg.int16(), 
+            lc.projection(), geojson, 'land_deg', logger, 
+            EXECUTION_ID))
 
     logger.debug("Waiting for GEE tasks to complete.")
     cloud_datasets = []
     for task in tasks:
         task.join()
-        results_url = CloudUrl("http://{}.storage.googleapis.com/{}_{}.tif".format(BUCKET, EXECUTION_ID, task.name))
-        cloud_datasets.append(CloudDataset('geotiff', task.name, [results_url]))
+        cloud_datasets.append(CloudDataset('geotiff', task.name, [CloudUrl(task.url())]))
 
     logger.debug("Setting up results JSON.")
     gee_results = GEEResults('land_cover', cloud_datasets)

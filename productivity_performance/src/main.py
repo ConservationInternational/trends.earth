@@ -19,9 +19,6 @@ from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 
-# Google cloud storage bucket for output
-BUCKET = "ldmt"
-
 def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson, 
         EXECUTION_ID, logger):
     logger.debug("Entering productivity_performance function.")
@@ -32,7 +29,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
 
     # global agroecological zones from IIASA
-    soil_tax_usda = ee.Image("users/geflanddegradation/toolbox_datasets/soil_tax_usda_sgrid");
+    soil_tax_usda = ee.Image("users/geflanddegradation/toolbox_datasets/soil_tax_usda_sgrid")
 
     # compute mean ndvi for the period
     ndvi_avg = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_start, year_end + 1)])) \
@@ -62,7 +59,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
             group(groupField=1, groupName='code'),
             geometry=ee.Geometry(geojson),
             scale=ee.Number(modis_proj.nominalScale()).getInfo(),
-            maxPixels=1e13)
+            maxPixels=1e15)
 
     # Extract the cluster IDs and the 90th percentile
     groups = ee.List(perc90.get("groups"))
@@ -91,20 +88,12 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
             .where(lc_proj_esa.eq(210), 2) \
             .where(lc_proj_esa.eq(190), 3)
 
-    export = {'image': lp_perf_deg.int16(),
-              'description': EXECUTION_ID,
-              'fileNamePrefix': EXECUTION_ID,
-              'bucket': BUCKET,
-              'maxPixels': 10000000000,
-              'scale': ee.Number(ndvi_1yr.projection().nominalScale()).getInfo(),
-              'region': util.get_coords(geojson)}
-
-    logger.debug("Setting up GEE task.")
-    task = util.gee_task(ee.batch.Export.image.toCloudStorage(**export), 
-            'productivity_performance', logger)
+    task = util.export_to_cloudstorage(lp_perf_deg.int16(), 
+            ndvi_1yr.projection(), geojson, 'productivity_performance', logger, 
+            EXECUTION_ID)
     task.join()
 
-    return "http://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
+    return task.url()
 
 def run(params, logger):
     """."""
@@ -134,8 +123,7 @@ def run(params, logger):
             geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")
-    results_url = CloudUrl(url)
-    cloud_dataset = CloudDataset('geotiff', 'productivity_performance', [results_url])
+    cloud_dataset = CloudDataset('geotiff', 'productivity_performance', [CloudUrl(url)])
     gee_results = GEEResults('productivity_performance', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)

@@ -19,9 +19,6 @@ from landdegradation import GEEIOError
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 from landdegradation.productivity import productivity_trajectory
 
-# Google cloud storage bucket for output
-BUCKET = "ldmt"
-
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
@@ -52,23 +49,14 @@ def run(params, logger):
             ndvi_gee_dataset, climate_gee_dataset, logger)
 
     ndvi_projection = ee.Image(ndvi_gee_dataset).projection()
-    export = {'image': output.int16(),
-             'description': EXECUTION_ID,
-             'fileNamePrefix': EXECUTION_ID,
-             'bucket': BUCKET,
-             'maxPixels': 10000000000,
-             'scale': ee.Number(ndvi_projection.nominalScale()).getInfo(),
-             'region': util.get_coords(geojson)}
-
-    logger.debug("Setting up GEE task.")
-    task = util.gee_task(ee.batch.Export.image.toCloudStorage(**export), 
-            'productivity_trajectory', logger)
+    task = util.export_to_cloudstorage(output.int16(), 
+            ndvi_projection, geojson, 'productivity_trajectory', logger, 
+            EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
     url = "http://{}.storage.googleapis.com/{}.tif".format(BUCKET, EXECUTION_ID)
-    results_url = CloudUrl(url)
-    cloud_dataset = CloudDataset('geotiff', method, [results_url])
+    cloud_dataset = CloudDataset('geotiff', method, [CloudUrl(url)])
     gee_results = GEEResults('productivity_trajectory', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)

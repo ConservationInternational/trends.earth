@@ -19,9 +19,6 @@ from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 
-# Google cloud storage bucket for output
-BUCKET = "ldmt"
-
 def productivity_state(year_init_bl_start, year_init_bl_end, 
         year_init_tg_start, year_init_tg_end,
         ndvi_gee_dataset, geojson, EXECUTION_ID, logger):
@@ -93,30 +90,19 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
           .where(lc_proj_esa.eq(190),3)
 
     tasks = []
-    export_ini_degr = {'image': ini_deg.int16(),
-                       'description': '{}_ini_degr'.format(EXECUTION_ID),
-                       'fileNamePrefix': '{}_ini_degr'.format(EXECUTION_ID),
-                       'bucket': BUCKET,
-                       'maxPixels': 10000000000,
-                       'scale': ee.Number(ndvi_1yr.projection().nominalScale()).getInfo(),
-                       'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_ini_degr), 'ini_degr', logger))
+    tasks.append(util.export_to_cloudstorage(ini_deg.int16(), 
+            ndvi_1yr.projection(), geojson, 'ini_degr', logger, 
+            EXECUTION_ID))
 
-    export_eme_degr = {'image': eme_deg.int16(),
-                       'description': '{}_eme_degr'.format(EXECUTION_ID),
-                       'fileNamePrefix': '{}_eme_degr'.format(EXECUTION_ID),
-                       'bucket': BUCKET,
-                       'maxPixels': 10000000000,
-                       'scale': ee.Number(ndvi_1yr.projection().nominalScale()).getInfo(),
-                       'region': util.get_coords(geojson)}
-    tasks.append(util.gee_task(ee.batch.Export.image.toCloudStorage(**export_eme_degr), 'eme_degr', logger))
+    tasks.append(util.export_to_cloudstorage(eme_deg.int16(), 
+            ndvi_1yr.projection(), geojson, 'eme_degr', logger, 
+            EXECUTION_ID))
 
     logger.debug("Waiting for GEE tasks to complete.")
     cloud_datasets = []
     for task in tasks:
         task.join()
-        results_url = CloudUrl("http://{}.storage.googleapis.com/{}_{}.tif".format(BUCKET, EXECUTION_ID, task.name))
-        cloud_datasets.append(CloudDataset('geotiff', task.name, [results_url]))
+        cloud_datasets.append(CloudDataset('geotiff', task.name, [CloudUrl(url)]))
 
     logger.debug("Setting up results JSON.")
     gee_results = GEEResults('productivity_state', cloud_datasets)

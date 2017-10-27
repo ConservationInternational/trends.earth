@@ -55,8 +55,8 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
     # degreaded, 0 is not degreade, 2 is water ,and 3 is urban
     ini_deg = ee.Image(-2).where(bl_ndvi_mean.lt(bl_ndvi_perc.select('p50')), -1) \
             .where(bl_ndvi_mean.gte(bl_ndvi_perc.select('p50')), 0) \
-            .where(lc_proj_esa.eq(210),2) \
-            .where(lc_proj_esa.eq(190),3)
+            .where(lc_proj_esa.eq(210), 9998) \
+            .where(lc_proj_esa.eq(190), 9999)
 
     # emerging degradation
     # reclassify mean ndvi for baseline period based on the percentiles

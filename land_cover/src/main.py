@@ -99,7 +99,7 @@ def run(params, logger):
     year_bl_end = params.get('year_bl_end', 2015)
     year_target = params.get('year_target', 2015)
     geojson = params.get('geojson', util.tza_geojson)
-    trans_matrix_default = [0,   1,  1,  1, -1,  0,
+    trans_matrix_default = [0,  1,  1,  1, -1,  0,
                            -1,  0, -1, -1, -1, -1,
                            -1,  1,  0,  0, -1, -1,
                            -1, -1, -1,  0, -1, -1,

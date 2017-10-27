@@ -424,18 +424,20 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         area_deg = np.sum(deg_array == -1) * res_x * res_y / 1e6
         area_stable = np.sum(deg_array == 0) * res_x * res_y / 1e6
         area_imp = np.sum(deg_array == 1) * res_x * res_y / 1e6
-        area_water = np.sum(deg_array == 2) * res_x * res_y / 1e6
-        area_urban = np.sum(deg_array == 3) * res_x * res_y / 1e6
+        area_no_data = np.sum(deg_array == 9997) * res_x * res_y / 1e6
+        area_water = np.sum(deg_array == 9998) * res_x * res_y / 1e6
+        area_urban = np.sum(deg_array == 9999) * res_x * res_y / 1e6
 
 
-        header = ("Area Degraded", "Area Stable", "Area Improved", "Water Area", "Urban Area")
-        values = (area_deg, area_stable, area_imp, area_water, area_urban)
+        header = ("Area Degraded", "Area Stable", "Area Improved", "Water Area", "Urban Area", "No data")
+        values = (area_deg, area_stable, area_imp, area_water, area_urban, area_no_data)
         out_file_csv = os.path.join(self.folder_output.text(), 'sdg_15_3_degradation.csv')
         with open(out_file_csv, 'wb') as fh:
             writer = csv.writer(fh, delimiter=',')
             for row in zip(header, values):
                 writer.writerow(row)
-        log('Area deg: {}, stable: {}, imp: {}, water: {}, urban: {}'.format(area_deg, area_stable, area_imp, area_water, area_urban))
+        log('Area deg: {}, stable: {}, imp: {}, water: {}, urban: {}, no data: {}'.format(area_deg,
+            area_stable, area_imp, area_water, area_urban, area_no_data))
 
         self.close()
         

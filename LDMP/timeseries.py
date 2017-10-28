@@ -15,8 +15,6 @@
 import os
 import json
 
-import pyqtgraph as pg
-
 from PyQt4 import QtGui, uic
 
 from PyQt4.QtCore import QDate, QTextCodec

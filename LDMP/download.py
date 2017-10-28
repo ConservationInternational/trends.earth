@@ -75,7 +75,7 @@ def read_json(file, verify=True):
             if not check_aws_s3_hash(url, filename):
                 os.remove(filename)
         else:
-            log('downloading json')
+            log('Downloading json')
             # TODO: Dialog box with two options:
             #   1) Download
             #   2) Load from local folder

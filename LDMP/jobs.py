@@ -33,7 +33,7 @@ from qgis.gui import QgsMessageBar
 
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
-from LDMP.plot import DlgPlot
+from LDMP.plot import DlgPlotTimeries
 
 from LDMP import log
 from LDMP.download import Download, check_goog_cloud_store_hash
@@ -596,7 +596,7 @@ def download_timeseries(job):
     if not table:
         return None
     data = [x for x in table if x['name'] == 'mean'][0]
-    dlg_plot = DlgPlot()
+    dlg_plot = DlgPlotTimeries()
     dlg_plot.plot_data(data['time'], data['y'], job['task_name'])
     dlg_plot.show()
     dlg_plot.exec_()

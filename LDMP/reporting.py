@@ -34,6 +34,7 @@ import processing
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
+from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
 from LDMP.gui.DlgReportingUNCCDProd import Ui_DlgReportingUNCCDProd
@@ -290,7 +291,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         log('Reprojecting land cover...')
         ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(), 
                 layer_traj.dataProvider().dataSourceUri())
-        log('crs: {}'.format(layer_lc.crs().toWkt()))
         temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
         # ds_lc = gdal.Translate(temp_lc_file, 
         #         layer_lc.dataProvider().dataSourceUri(),
@@ -428,7 +428,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         area_water = np.sum(deg_array == 9998) * res_x * res_y / 1e6
         area_urban = np.sum(deg_array == 9999) * res_x * res_y / 1e6
 
-
         header = ("Area Degraded", "Area Stable", "Area Improved", "Water Area", "Urban Area", "No data")
         values = (area_deg, area_stable, area_imp, area_water, area_urban, area_no_data)
         out_file_csv = os.path.join(self.folder_output.text(), 'sdg_15_3_degradation.csv')
@@ -442,6 +441,10 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.close()
         
         # Open a table with the output
+        dlg_plot = DlgPlotBars()
+        dlg_plot.plot_data(header, values, "SDG 15.3.1 Indicator")
+        dlg_plot.show()
+        dlg_plot.exec_()
 
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):
     def __init__(self, parent=None):

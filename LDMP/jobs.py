@@ -455,10 +455,11 @@ def style_prod_traj_trend(outfile):
     # Set a colormap centred on zero, going to the extreme value significant to 
     # three figures (after a 2 percent stretch)
     ds = gdal.Open(outfile) 
-    band1 = np.array(ds.GetRasterBand(1).ReadAsArray()) 
-    band1[band1 >=9997] = 0
+    band1 = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
+    band1[band1 >= 9997] = np.nan
     ds = None
-    cutoffs = np.percentile(band1, [2, 98])
+    cutoffs = np.nanpercentile(band1, [2, 98])
+    log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
     extreme = get_extreme(cutoffs[0], cutoffs[1])
 
     fcn = QgsColorRampShader()

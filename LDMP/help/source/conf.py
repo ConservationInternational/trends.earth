@@ -25,7 +25,7 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.viewcode']
+extensions = ['rst2pdf.pdfbuilder', 'sphinx.ext.todo', 'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -40,8 +40,11 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'LDMP'
-copyright = u'2013, Conservation International'
+project = u'Land Degradation Monitoring Toolbox'
+copyright = u'2017, Conservation International'
+
+locale_dirs = ['locale/']
+gettext_compact = False 
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -64,7 +67,7 @@ release = '0.1'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = []
+exclude_patterns = ["../resources"]
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
@@ -86,12 +89,18 @@ pygments_style = 'sphinx'
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
+# -- Options for PDF output ---------------------------------------------------
+pdf_documents = [('index', u'LDMT_Documentation', u'Land Degradation Monitoring Toolbox Documentation', u'Conservation International'),]
+# index - master document
+# rst2pdf - name of the generated pdf
+# Sample rst2pdf doc - title of the pdf
+# Your Name - author name in the pdf
 
 # -- Options for HTML output ---------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'nature'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -178,7 +187,7 @@ htmlhelp_basename = 'TemplateClassdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'LDMP.tex', u'LDMP Documentation',
+  ('index', 'LDMP.tex', u'Land Degradation Monitoring Toolbox Documentation',
    u'Conservation International', 'manual'),
 ]
 
@@ -211,6 +220,6 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'TemplateClass', u'LDMP Documentation',
+    ('index', 'TemplateClass', u'Land Degradation Monitoring Toolbox Documentation',
      [u'Conservation International'], 1)
 ]

@@ -20,12 +20,14 @@ if "%1" == "help" (
 	echo.  dirhtml    to make HTML files named index.html in directories
 	echo.  singlehtml to make a single large HTML file
 	echo.  pickle     to make pickle files
+    echo.  gettext    to extract translatable strings
 	echo.  json       to make JSON files
 	echo.  htmlhelp   to make HTML files and a HTML help project
 	echo.  qthelp     to make HTML files and a qthelp project
 	echo.  devhelp    to make HTML files and a Devhelp project
 	echo.  epub       to make an epub
 	echo.  latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter
+    echo.  pdf        to make PDF files - requires having rst2pdf installed
 	echo.  text       to make text files
 	echo.  man        to make manual pages
 	echo.  changes    to make an overview over all changed/added/deprecated items
@@ -44,6 +46,13 @@ if "%1" == "html" (
 	%SPHINXBUILD% -b html %ALLSPHINXOPTS% %BUILDDIR%/html
 	echo.
 	echo.Build finished. The HTML pages are in %BUILDDIR%/html.
+	goto end
+)
+
+if "%1" == "gettext" (
+	%SPHINXBUILD% -b gettext %SPHINXOPTS% source %BUILDDIR%/gettext
+	echo.
+	echo.Build finished. The gettext output is in %BUILDDIR%/gettext.
 	goto end
 )
 
@@ -112,6 +121,13 @@ if "%1" == "latex" (
 	%SPHINXBUILD% -b latex %ALLSPHINXOPTS% %BUILDDIR%/latex
 	echo.
 	echo.Build finished; the LaTeX files are in %BUILDDIR%/latex.
+	goto end
+)
+
+if "%1" == "pdf" (
+	%SPHINXBUILD% -b pdf %ALLSPHINXOPTS% %BUILDDIR%/pdf
+	echo.
+	echo.Build finished; the PDF file is in %BUILDDIR%/pdf.
 	goto end
 )
 

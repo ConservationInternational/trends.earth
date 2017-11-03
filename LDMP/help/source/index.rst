@@ -13,18 +13,44 @@ toolbox was produced as part of the project "Enabling the use of global data
 sources to assess and monitor land degradation at multiple scales", funded by 
 the Global Environment Facility.
 
-| Authors:
-| Mariano Gonzalez-Roglich [1]_
-| Yengoh Genesis [2]_
-| Monica Noon [1]_
-| Lennart Olsson [2]_
-| Mariano Gonzalez-Roglich [1]_
-| Tristan Schnader [1]_
-| Anna Tengberg [2]_
-| Alex Zvoleff [1]_
+Authors
+-------
+| Yengoh Genesis [1]_
+| Mariano Gonzalez-Roglich [2]_
+| Monica Noon [2]_
+| Lennart Olsson [1]_
+| Tristan Schnader [2]_
+| Anna Tengberg [1]_
+| Alex Zvoleff [2]_
 
-.. [1] Conservation International
-.. [2] Lund University
+The Land Degradation Monitoring Project is a partnership of Conservation 
+International, Lund University, and the National Aeronautics and Space 
+Administration (NASA).
+
+.. |logoCI| image:: /static/common/logo_CI_square.png
+    :width: 95%
+    :target: http://www.conservation.org
+.. |logoLund| image:: /static/common/logo_Lund_square.png
+    :width: 95%
+    :target: http://www.lunduniversity.lu.se
+.. |logoNASA| image:: /static/common/logo_NASA_square.png
+    :width: 95%
+    :target: http://www.nasa.gov
+
++-----------+------------+------------+
+| |logoCI|  | |logoLund| | |logoNASA| |
++-----------+------------+------------+
+
+The toolbox uses `Google Earth Engine <https://earthengine.google.com>`_ to 
+compute indicators in the cloud.
+
+.. image:: /static/common/logo_earth_engine.png
+    :align: center
+    :width: 30%
+    :target: https://earthengine.google.com
+
+.. [1] `Lund University <http://www.lunduniversity.lu.se>`_
+.. [2] `Conservation International <http://www.conservation.org>`_
 
 Documentation
 -------------
@@ -41,3 +67,10 @@ Documentation
     Visualizing indicators <visualize_results/index>
     Plotting time series data <plot_data/index>
     Reporting (SDG and UNCCD) <reporting/index>
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

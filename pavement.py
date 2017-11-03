@@ -38,6 +38,14 @@ options(
         ],
         # skip certain files inadvertently found by exclude pattern globbing
         skip_exclude = []
+    ),
+
+    sphinx = Bunch(
+        docroot = path('LDMP/help'),
+        sourcedir = path('LDMP/help/source'),
+        builddir = path('LDMP/help/build'),
+        resourcedir = path('LDMP/help/resources'),
+        language = 'en'
     )
 )
 
@@ -123,6 +131,7 @@ def read_requirements():
 
 def _install(folder, options):
     '''install plugin to qgis'''
+    builddocs(options)
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
@@ -161,6 +170,7 @@ def install3(options):
 ])
 def package(options):
     """Create plugin package"""
+    builddocs(options)
     tests = getattr(options, 'tests', False)
     package_file = options.plugin.package_dir / ('%s.zip' % options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
@@ -374,3 +384,69 @@ def compile_files(options):
             else:
                 print("{0} does not exist---skipped".format(res))
         print("Compiled {0} resource files".format(res_count))
+
+@task
+@cmdopts([
+    ('clean', 'c', 'clean out built artifacts first'),
+    ('ignore_errors', 'i', 'ignore errors'),
+    ('sphinx_theme=', 's', 'Sphinx theme to use in documentation'),
+    ('lang', 'l', 'language'),
+])
+def builddocs(options):
+    try:
+        # May fail if not in a git repo
+        sh("git submodule init")
+        sh("git submodule update")
+    except:
+        pass
+    if getattr(options, 'lang', False):
+        options.sphinx.language = options.language
+    if getattr(options, 'clean', False):
+        options.sphinx.builddir.rmtree()
+    if getattr(options, 'sphinx_theme', False):
+        # overrides default theme by the one provided in command line
+        set_theme = "-D html_theme='{}'".format(options.sphinx_theme)
+    else:
+        # Uses default theme defined in conf.py
+        set_theme = ""
+
+    _localize_resources(options)
+
+    sh("sphinx-intl --config {sourcedir}/conf.py build --language={lang}".format(
+        sourcedir=options.sphinx.sourcedir, lang=options.sphinx.language))
+
+    # Build HTML docs
+    if options.sphinx.language != 'en' or options.ignore_errors:
+        sh("sphinx-build -b html -a {theme} {sourcedir} {builddir}/html/{lang}".format(theme=set_theme,
+            sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
+            lang=options.sphinx.language))
+    else:
+        sh("sphinx-build -n -W -b html -a {theme} {sourcedir} {builddir}/html/{lang}".format(theme=set_theme,
+            sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
+            lang=options.sphinx.language))
+    print "HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=options.sphinx.language, builddir=options.sphinx.builddir)
+
+    # Build PDF
+    sh("sphinx-build -b pdf {sourcedir} {builddir}/pdf/{lang}".format(theme=set_theme,
+        sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
+        lang=options.sphinx.language))
+
+def _localize_resources(options):
+    print "Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir)
+    if os.path.exists('{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir)):
+        rmtree('{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir))
+    print "Copy 'en' (base) static content to {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir)
+    if os.path.exists("{resourcedir}/en".format(resourcedir=options.sphinx.resourcedir)):
+        shutil.copytree('{resourcedir}/en'.format(resourcedir=options.sphinx.resourcedir),
+                        '{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir))
+    print "Copy localized '{lang}' static content to {sourcedir}/static.".format(lang=options.sphinx.language, sourcedir=options.sphinx.sourcedir)
+    if options.sphinx.language != 'en' and os.path.exists("{resourcedir}/{lang}".format(resourcedir=options.sphinx.resourcedir, lang=options.sphinx.language)):
+        src = '{resourcedir}/{lang}'.format(resourcedir=options.sphinx.resourcedir, lang=options.sphinx.language)
+        dst = '{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir)
+        for item in os.listdir(src):
+            s = os.path.join(src, item)
+            d = os.path.join(dst, item)
+            if os.path.isdir(s):
+                shutil.copytree(s, d)
+            else:
+                shutil.copy2(s, d)

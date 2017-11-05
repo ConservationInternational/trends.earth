@@ -12,6 +12,7 @@
     <file>icons/icon-info.png</file>
     <file>icons/icon-map-marker.png</file>
     <file>icons/icon-wrench.png</file>
+    <file>icons/question-mark.png</file>
     <file>icons/spinner.gif</file>
   </qresource>
 </RCC>

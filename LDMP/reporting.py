@@ -40,6 +40,7 @@ from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
 from LDMP.gui.DlgReportingUNCCDProd import Ui_DlgReportingUNCCDProd
 from LDMP.gui.DlgReportingUNCCDLC import Ui_DlgReportingUNCCDLC
 from LDMP.gui.DlgReportingUNCCDSOC import Ui_DlgReportingUNCCDSOC
+from LDMP.worker import AbstractWorker, start_worker
 
 # Checks the file type (land cover, state, etc...) for a LDMP output file using 
 # the JSON accompanying each file
@@ -152,6 +153,60 @@ def style_sdg_ld(outfile):
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
+class ProcessingWorker(AbstractWorker):
+    """worker, implement the work method here and raise exceptions if needed"""
+    def __init__(self, url, outfile):
+        AbstractWorker.__init__(self)
+        self.url = url
+        self.outfile = outfile
+ 
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        resp = requests.get(self.url, stream=True)
+        if resp.status_code != 200:
+            log('Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
+            raise DownloadError('Unable to start download of {}'.format(self.url))
+
+        total_size = int(resp.headers['Content-length'])
+        if total_size < 1e5:
+            total_size_pretty = '{:.2f} KB'.format(round(total_size/1024, 2))
+        else:
+            total_size_pretty = '{:.2f} MB'.format(round(total_size*1e-6, 2))
+        
+        log('Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
+
+        bytes_dl = 0
+        r = requests.get(self.url, stream=True)
+        with open(self.outfile, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192): 
+                if self.killed == True:
+                    log("Download {} killed by user".format(self.url))
+                    break
+                elif chunk: # filter out keep-alive new chunks
+                    f.write(chunk)
+                    bytes_dl += len(chunk)
+                    self.progress.emit(100* float(bytes_dl) / float(total_size))
+        f.close()
+
+        if bytes_dl != total_size:
+            log("Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
+            os.remove(self.outfile)
+            if not self.killed:
+                raise DownloadError('Final file size of {} does not match expected'.format(self.url))
+            return None
+        else:
+            log("Download of {} complete".format(self.url))
+            return True
+
+class Download(object):
+    def __init__(self, url, outfile):
+        self.resp = None
+
+
+
+
 class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
     def __init__(self, parent=None):
         """Constructor."""
@@ -193,7 +248,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.setupUi(self)
         self.setup_dialog()
 
-        self.browse_output.clicked.connect(self.select_output_folder)
+        self.browse_output_folder.clicked.connect(self.select_output_folder)
 
     def showEvent(self, event):
         super(DlgReportingSDG, self).showEvent(event)
@@ -234,12 +289,12 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Cannot write to {}. Choose a different folder.".format(output_dir), None))
-        self.folder_output.setText(output_dir)
+        self.output_folder.setText(output_dir)
 
     def btn_calculate(self):
-        if not self.folder_output.text():
+        if not self.output_folder.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Choose an output folder where the output will be saved."), None)
+                self.tr("Choose an output folder where the output will be saved."), None)
             return
 
         # Note that the super class has several tests in it - if they fail it 
@@ -264,6 +319,16 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         if len(self.layer_lc_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("You must add a land cover indicator layer to your map before you can use the reporting tool."), None)
+            return
+
+        if not self.plot_area_deg.isChecked() and not \
+                self.plot_area_stable.isChecked() and not \
+                self.plot_area_imp.isChecked() and not \
+                self.plot_area_water.isChecked() and not \
+                self.plot_area_urban.isChecked() and not \
+                self.plot_area_nodata.isChecked():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("Choose at least one indicator to plot."), None)
             return
 
         layer_traj =  self.layer_traj_list[self.layer_traj.currentIndex()]
@@ -407,7 +472,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
         QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file, "CP1250", None, "ESRI Shapefile")
 
-        out_file = os.path.join(self.folder_output.text(), 'sdg_15_3_degradation.tif')
+        out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
         gdal.Warp(out_file, temp_deg_file, format='GTiff', cutlineDSName=mask_layer_file, cropToCutline=True, dstNodata=9999)
 
         # Load the file add it to the map, and style it
@@ -421,30 +486,47 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         res_y = -deg_gt[5]
         deg_array = ds_equal_area.GetRasterBand(1).ReadAsArray()
 
-        area_deg = np.sum(deg_array == -1) * res_x * res_y / 1e6
-        area_stable = np.sum(deg_array == 0) * res_x * res_y / 1e6
-        area_imp = np.sum(deg_array == 1) * res_x * res_y / 1e6
-        area_no_data = np.sum(deg_array == 9997) * res_x * res_y / 1e6
-        area_water = np.sum(deg_array == 9998) * res_x * res_y / 1e6
-        area_urban = np.sum(deg_array == 9999) * res_x * res_y / 1e6
-
-        header = ("Area Degraded", "Area Stable", "Area Improved", "Water Area", "Urban Area", "No data")
-        values = (area_deg, area_stable, area_imp, area_water, area_urban, area_no_data)
-        out_file_csv = os.path.join(self.folder_output.text(), 'sdg_15_3_degradation.csv')
-        with open(out_file_csv, 'wb') as fh:
-            writer = csv.writer(fh, delimiter=',')
-            for row in zip(header, values):
-                writer.writerow(row)
-        log('Area deg: {}, stable: {}, imp: {}, water: {}, urban: {}, no data: {}'.format(area_deg,
-            area_stable, area_imp, area_water, area_urban, area_no_data))
-
+        self.deg = {"Area Degraded": np.sum(deg_array == -1) * res_x * res_y / 1e6,
+                "Area Stable": np.sum(deg_array == 0) * res_x * res_y / 1e6,
+                "Area Improved": np.sum(deg_array == 1) * res_x * res_y / 1e6,
+                "No Data": np.sum(deg_array == 9997) * res_x * res_y / 1e6,
+                "Water Area": np.sum(deg_array == 9998) * res_x * res_y / 1e6,
+                "Urban Area": np.sum(deg_array == 9999) * res_x * res_y / 1e6}
+        log('SDG 15.3.1 indicator: {}'.format(self.deg))
         self.close()
-        
-        # Open a table with the output
+
+        # Plot the output
+        x = []
+        y = []
+        if self.plot_area_deg.isChecked():
+            x.append('Area Degraded')
+            y.append(self.deg['Area Degraded'])
+        if self.plot_area_stable.isChecked():
+            x.append('Area Stable')
+            y.append(self.deg['Area Stable'])
+        if self.plot_area_imp.isChecked():
+            x.append('Area Improved')
+            y.append(self.deg['Area Improved'])
+        if self.plot_area_water.isChecked():
+            x.append('Water Area')
+            y.append(self.deg['Water Area'])
+        if self.plot_area_urban.isChecked():
+            x.append('Urban Area')
+            y.append(self.deg['Urban Area'])
+        if self.plot_area_nodata.isChecked():
+            x.append('No Data')
+            y.append(self.deg['No Data'])
+
         dlg_plot = DlgPlotBars()
-        dlg_plot.plot_data(header, values, "SDG 15.3.1 Indicator")
+        dlg_plot.plot_data(x, y, self.plot_title.text())
         dlg_plot.show()
         dlg_plot.exec_()
+
+        out_file_csv = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.csv')
+        with open(out_file_csv, 'wb') as fh:
+            writer = csv.writer(fh, delimiter=',')
+            for item in self.deg.items():
+                writer.writerow(item)
 
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):
     def __init__(self, parent=None):

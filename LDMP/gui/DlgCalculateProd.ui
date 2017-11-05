@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>878</height>
+    <width>515</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -137,6 +137,18 @@
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>80</height>
+          </size>
+         </property>
          <property name="title">
           <string>NDVI dataset</string>
          </property>
@@ -151,7 +163,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>275</width>
+              <width>0</width>
               <height>35</height>
              </size>
             </property>
@@ -216,7 +228,7 @@
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>16777215</height>
+              <height>100</height>
              </size>
             </property>
            </widget>
@@ -253,7 +265,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>275</width>
+              <width>0</width>
               <height>35</height>
              </size>
             </property>
@@ -408,7 +420,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>275</width>
+              <width>0</width>
               <height>35</height>
              </size>
             </property>
@@ -425,7 +437,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -575,7 +587,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>578</height>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -1205,7 +1217,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>0</height>
           </size>
          </property>
         </spacer>
@@ -1281,7 +1293,7 @@
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>30</height>
+              <height>0</height>
              </size>
             </property>
            </spacer>
@@ -1347,7 +1359,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>120</width>
+              <width>0</width>
               <height>35</height>
              </size>
             </property>
@@ -1384,7 +1396,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>0</height>
           </size>
          </property>
         </spacer>

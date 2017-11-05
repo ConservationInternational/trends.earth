@@ -4,7 +4,6 @@ aws_credentials.json
 *.swp
 *.swo
 *.csv
-*.png
 *.rst
 *.rdb
 *.rdx
@@ -21,3 +20,4 @@ aws_credentials.json
 LDMP/gui/*.py
 LDMP/resources.py
 LDMP/data_prep_scripts/*
+LDMP/help/source/static

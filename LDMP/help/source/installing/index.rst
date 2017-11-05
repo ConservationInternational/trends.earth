@@ -20,9 +20,9 @@ Then search for a plugin called `Land degradation monitoring tool` and select
    :align: center
 
 If your plugin has been installed properly, there will be a toolbox in the top 
-left of your browser
+left of your browser that looks like this:
 
-.. image:: /static/installing/ldmt_toolbar.png
+.. image:: /static/common/ldmt_toolbar.png
    :align: center
 
 Installing the development version

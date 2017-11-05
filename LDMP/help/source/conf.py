@@ -25,7 +25,8 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['rst2pdf.pdfbuilder', 'sphinx.ext.todo', 'sphinx.ext.viewcode']
+#extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -56,6 +57,26 @@ version = '0.14'
 release = '0.14'
 
 rst_epilog = """
+.. |iconCalculator| image:: /static/common/icon-calculator.png
+   :width: 2em
+.. |iconChart| image:: /static/common/icon-chart.png
+   :width: 2em
+.. |iconClipboard| image:: /static/common/icon-clipboard.png
+   :width: 2em
+.. |iconCloudDownload| image:: /static/common/icon-cloud-download.png
+   :width: 2em
+.. |iconCog| image:: /static/common/icon-cog.png
+   :width: 2em
+.. |iconGlobe| image:: /static/common/icon-globe.png
+   :width: 2em
+.. |iconGraph| image:: /static/common/icon-graph.png
+   :width: 2em
+.. |iconInfo| image:: /static/common/icon-info.png
+   :width: 2em
+.. |iconMarkMarker| image:: /static/common/icon-map-marker.png
+   :width: 2em
+.. |iconWrench| image:: /static/common/icon-wrench.png
+   :width: 2em
 .. |CURRENT| replace:: {current_version}
 .. |qgisMinVersion| replace:: 2.18
 """.format(current_version=version)
@@ -94,13 +115,6 @@ pygments_style = 'sphinx'
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
-# -- Options for PDF output ---------------------------------------------------
-pdf_documents = [('index', u'LDMT_Documentation', u'Land Degradation Monitoring Toolbox Documentation', u'Conservation International'),]
-# index - master document
-# rst2pdf - name of the generated pdf
-# Sample rst2pdf doc - title of the pdf
-# Your Name - author name in the pdf
-
 # -- Options for HTML output ---------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -124,7 +138,7 @@ html_theme = 'nature'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+#html_logo = '../resources/en/common/logo_CI.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -180,19 +194,20 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'TemplateClassdoc'
 
-
 # -- Options for LaTeX output --------------------------------------------------
 
 # The paper size ('letter' or 'a4').
-#latex_paper_size = 'letter'
+rinoh_paper_size = 'letter'
+
+rinoh_template = 'book'
 
 # The font size ('10pt', '11pt' or '12pt').
-#latex_font_size = '10pt'
+rinoh_font_size = '10pt'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
-latex_documents = [
-  ('index', 'LDMP.tex', u'Land Degradation Monitoring Toolbox Documentation',
+rinoh_documents = [
+  ('index', 'LDMT_Documentation.pdf', u'Land Degradation Monitoring Toolbox Documentation',
    u'Conservation International', 'manual'),
 ]
 

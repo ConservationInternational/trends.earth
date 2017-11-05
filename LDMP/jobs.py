@@ -36,7 +36,7 @@ from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
 
 from LDMP import log
-from LDMP.download import Download, check_goog_cloud_store_hash
+from LDMP.download import Download, check_hash_against_etag
 from LDMP.api import get_script, get_user_email, get_execution
 
 def json_serial(obj):
@@ -293,7 +293,7 @@ def download_result(url, outfile, job):
     worker.start()
     if worker.get_resp():
         create_json_metadata(job, outfile)
-        return check_goog_cloud_store_hash(url, outfile)
+        return check_hash_against_etag(url, outfile)
     else:
         return None
 

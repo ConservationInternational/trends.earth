@@ -20,8 +20,6 @@ import re
 import base64
 import hashlib
 
-import crcmod.predefined
-
 from PyQt4 import QtGui, uic, QtCore
 
 from qgis.utils import iface
@@ -32,7 +30,7 @@ from LDMP.gui.DlgDownload import Ui_DlgDownload
 from LDMP.worker import AbstractWorker, start_worker
 from LDMP.api import get_header
 
-def check_aws_s3_hash(url, filename):
+def check_hash_against_etag(url, filename):
     h = get_header(url)
     expected = h.get('ETag', '').strip('"')
 
@@ -45,34 +43,13 @@ def check_aws_s3_hash(url, filename):
         log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
         return False
 
-def check_goog_cloud_store_hash(url, filename):
-    h = requests.head(url)
-    expected = re.search('crc32c=(.+?), md5', h.headers.get('x-goog-hash', '')).group(1)
-
-    BUF_SIZE = 65536
-    crc = crcmod.predefined.Crc('crc-32c')
-    with open(filename, 'rb') as f:
-        while True:
-            data = f.read(BUF_SIZE)
-            if not data:
-                break
-            crc.update(data)
-    crcvalue = base64.b64encode(crc.digest())
-
-    if crcvalue == expected:
-        log("File hash verified for {}".format(filename))
-        return True
-    else:
-        log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, crcvalue), 2)
-        return False
-
 def read_json(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
 
     if verify:
         url = 'https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file)
         if os.path.exists(filename):
-            if not check_aws_s3_hash(url, filename):
+            if not check_hash_against_etag(url, filename):
                 os.remove(filename)
         else:
             log('Downloading json {}'.format(file))
@@ -84,7 +61,7 @@ def read_json(file, verify=True):
             resp = worker.get_resp()
             if not resp:
                 return None
-            if not check_aws_s3_hash(url, filename):
+            if not check_hash_against_etag(url, filename):
                 return None
 
     with gzip.GzipFile(filename, 'r') as fin:

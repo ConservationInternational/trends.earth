@@ -44,12 +44,11 @@ ensure you have the very latest version of the code.
 
 #### Installing the latest packaged version
 
-Download the latest `LDMT` zipfile:
+Download [the latest `LDMT` 
+zipfile](https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip).
 
-[LDMP](https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip)
-
-Note that there are no longer separate binaries for 32 and 64 bit - there are 
-no longer any architecture dependent binaries needed.
+*Note that there are no longer separate zipfiles for 32 and 64 bit QGIS 
+installs as the plugin no longer needs any architecture dependent binaries.*
 
 Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
 For example, if you are using Windows and your username is "azvol", then this 

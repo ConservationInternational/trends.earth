@@ -74,14 +74,14 @@ git clone https://github.com/ConservationInternational/ldmp-qgis-plugin
 ```
 
 Navigate to the root folder of the newly cloned repository, and install 
-`pavement`, a tool that assists with installing the plugin:
+`paver`, a tool that assists with installing the plugin:
 
 ```
-pip install pavement
+pip install paver
 ```
 
-Now run the setup task with `pavement` to pull in the external dependencies 
-needed for the project:
+Now run the setup task with `paver` to pull in the external dependencies needed 
+for the project:
 
 ```
 paver setup

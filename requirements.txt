@@ -1,4 +1,4 @@
-httplib2==0.8
+httplib2==0.10.3
 requests==2.5.0
 pyqtgraph>=0.10
 

@@ -92,13 +92,14 @@ def setup(options):
                     sh('git clone  %s %s' % (urlspec, localpath))
             req = localpath
 
-        # Don't install numpy with pyqtgraph - QGIS already has numpy
+        # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
+        # the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
-            no_deps = '--no-deps'
+            deps = '-N'
         else:
-            no_deps = ''
+            deps = '-a'
 
-        sh('easy_install {no_deps} -a -d {ext_libs} {dep}'.format(no_deps=no_deps,
+        sh('easy_install {deps} -d {ext_libs} {dep}'.format(deps=deps,
            ext_libs=ext_libs.abspath(), dep=req))
 
 

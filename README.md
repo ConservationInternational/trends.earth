@@ -74,7 +74,7 @@ The plugin depends on the Python `cryptography` package. Building the
 installed](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows). 
 On Windows, the easiest way to install the OpenSSL headers is to download them 
 [from 
-here](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows). 
+here](https://ci.cryptography.io/job/cryptography-support-jobs/job/openssl-release-1.1).  
 Take note of the folder where you install the OpenSSL headers - you will need 
 to refer to it later.
 

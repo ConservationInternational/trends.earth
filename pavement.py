@@ -27,6 +27,7 @@ options(
         excludes = [
             'LDMP/test',
             'LDMP/data_prep_scripts',
+            'LDMP/help/make.bat',
             'LDMP/help/source',
             'LDMP/help/resources',
             '*.pyc',
@@ -54,7 +55,7 @@ def rmtree(top):
             os.remove(filename)
         for name in dirs:
             os.rmdir(os.path.join(root, name))
-    os.rmdir(top)  
+    os.rmdir(top)
 
 @task
 @cmdopts([

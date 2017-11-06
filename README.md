@@ -46,17 +46,15 @@ ensure you have the very latest version of the code.
 
 Download the latest `LDMT` zipfile:
 
-[LDMP_64](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_64.zip) (64 
-bit)
+[LDMP](https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip)
 
-[LDMP_32](https://landdegradation.s3.amazonaws.com/Sharing/LDMP_32.zip) (32 
-bit)
+Note that there are no longer separate binaries for 32 and 64 bit - there are 
+no longer any architecture dependent binaries needed.
 
-Extract `LDMP_64.zip` (or `LDMP_32.zip` for 32 bit QGIS) to the python plugins 
-folder for your installation of QGIS. For example, if you are using Windows and 
-your username is "azvol", then this might be 
-`C:\Users\azvol\.qgis2\python\plugins`. If you are using a Mac and your 
-username is "azvol", then this might be
+Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
+For example, if you are using Windows and your username is "azvol", then this 
+might be `C:\Users\azvol\.qgis2\python\plugins`. If you are using a Mac and 
+your username is "azvol", then this might be
 `/Users/azvol/.qgis2/python/plugins`.
 
 Once you are finished, you should have a folder named "LDMP" within your 
@@ -69,17 +67,8 @@ now installed and activated. Click "Close", and start using the plugin.
 
 #### Installing the very latest code from github
 
-The plugin depends on the Python `cryptography` package. Building the
-`cryptography` package [requires having the OpenSSL headers 
-installed](https://cryptography.io/en/latest/installation/#building-cryptography-on-windows). 
-On Windows, the easiest way to install the OpenSSL headers is to download them 
-[from 
-here](https://ci.cryptography.io/job/cryptography-support-jobs/job/openssl-release-1.1).  
-Take note of the folder where you install the OpenSSL headers - you will need 
-to refer to it later.
-
-Once the OpenSSL headers are installed, open a terminal window and clone the 
-latest version of the repository from Github:
+Open a terminal window and clone the latest version of the repository from 
+Github:
 
 ```
 git clone https://github.com/ConservationInternational/ldmp-qgis-plugin
@@ -92,15 +81,10 @@ Navigate to the root folder of the newly cloned repository, and install
 pip install pavement
 ```
 
-Before installing the plugin, several external dependencies must be installed. 
-The `paver setup` task will handle this. On Windows, use the below code in a 
-command window to run the setup task with `pavement`. Note that if you 
-installed the OpenSSL headers to a different folder, you will need to change 
-the below commands accordingly.
+Now run the setup task with `pavement` to pull in the external dependencies 
+needed for the project:
 
 ```
-set LIB=C:\openssl-win64-2010\lib;%LIB%
-set INCLUDE=C:\openssl-win64-2010\include;%INCLUDE%
 paver setup
 ```
 
@@ -111,8 +95,8 @@ paver install
 ```
 
 If you modify the code, you need to run `paver install` to update the installed 
-plugin in QGIS.  You only need to rerun `paver setup` if you change or update 
-the plugin dependencies. After reinstaling the plugin you will need to restart 
+plugin in QGIS. You only need to rerun `paver setup` if you change or update 
+the plugin dependencies. After reinstalling the plugin you will need to restart 
 QGIS or reload the plugin. Install the "Plugin reloader" plugin if you plan on 
 making a log of changes (https://github.com/borysiasty/plugin_reloader).
 

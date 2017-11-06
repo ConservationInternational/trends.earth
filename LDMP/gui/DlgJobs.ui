@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>366</height>
+    <width>606</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -53,6 +53,12 @@
    </item>
    <item row="3" column="0">
     <widget class="QPushButton" name="download">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
      <property name="text">
       <string>Download results</string>
      </property>
@@ -60,6 +66,12 @@
    </item>
    <item row="2" column="0">
     <widget class="QPushButton" name="refresh">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
      <property name="text">
       <string>Refresh list</string>
      </property>

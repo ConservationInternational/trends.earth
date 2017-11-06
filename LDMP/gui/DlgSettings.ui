@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>327</width>
-    <height>401</height>
+    <width>235</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="text">
@@ -80,7 +80,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="text">
@@ -93,7 +93,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="text">
@@ -106,7 +106,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="inputMethodHints">
@@ -125,7 +125,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="text">
@@ -138,7 +138,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="text">
@@ -151,7 +151,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="echoMode">
@@ -202,7 +202,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>35</height>
+       <height>30</height>
       </size>
      </property>
      <property name="text">

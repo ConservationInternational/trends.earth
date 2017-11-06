@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>438</width>
-    <height>484</height>
+    <width>337</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
             <property name="minimumSize">
              <size>
               <width>275</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
            </widget>
@@ -60,7 +60,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maxLength">
@@ -101,7 +101,7 @@
             <property name="minimumSize">
              <size>
               <width>275</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
            </widget>
@@ -126,7 +126,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -198,7 +198,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -256,7 +256,7 @@
             <property name="minimumSize">
              <size>
               <width>275</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
            </widget>
@@ -301,7 +301,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
            </widget>
@@ -369,7 +369,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -394,7 +394,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
            </widget>
@@ -407,7 +407,7 @@
             <property name="minimumSize">
              <size>
               <width>120</width>
-              <height>35</height>
+              <height>30</height>
              </size>
             </property>
             <property name="placeholderText">
@@ -454,7 +454,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>0</height>
+                <height>30</height>
                </size>
               </property>
               <property name="placeholderText">
@@ -493,7 +493,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>0</height>
+                <height>30</height>
                </size>
               </property>
               <property name="inputMethodHints">
@@ -506,6 +506,12 @@
             </item>
             <item row="1" column="6">
              <widget class="QPushButton" name="choose_point">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -537,6 +543,12 @@
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="1">
       <widget class="QPushButton" name="button_next">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="text">
         <string>Next</string>
        </property>
@@ -544,6 +556,12 @@
      </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="button_prev">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="text">
         <string>Previous</string>
        </property>
@@ -551,6 +569,12 @@
      </item>
      <item row="1" column="0" colspan="2">
       <widget class="QPushButton" name="button_calculate">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="text">
         <string>Calculate</string>
        </property>

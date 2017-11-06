@@ -1,5 +1,5 @@
 httplib2==0.10.3
-requests==2.5.0
+requests==2.18.4
 pyqtgraph>=0.10
 
 https://github.com/ConservationInternational/landdegradation.git#egg=landdegradation

@@ -41,6 +41,7 @@ options(
         sourcedir = path('LDMP/help/source'),
         builddir = path('LDMP/help/build'),
         resourcedir = path('LDMP/help/resources'),
+        docs_s3_bucket = 'landdegradation-docs',
         language = 'en'
     )
 )
@@ -85,7 +86,7 @@ def setup(options):
                     sh('git pull')
                     os.chdir(cwd)
                 else:
-                    sh('git clone  %s %s' % (urlspec, localpath))
+                    sh('git clone  {} {}'.format(urlspec, localpath))
             req = localpath
 
         # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
@@ -124,7 +125,7 @@ def read_requirements():
         idx = lines.index(divider)
     except ValueError:
         raise BuildFailure(
-            'Expected to find "%s" in requirements.txt' % divider)
+            'Expected to find "{}" in requirements.txt'.format(divider))
 
     not_comments = lambda s,e: [ l for l in lines[s:e] if l[0] != '#']
     return not_comments(0, idx), not_comments(idx+1, None)
@@ -183,7 +184,7 @@ def package(options):
     """Create plugin package"""
     builddocs(options)
     tests = options.get('tests', False)
-    package_file = options.plugin.package_dir / ('%s.zip' % options.plugin.name)
+    package_file = options.plugin.package_dir / '{}.zip'.format(options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:
             options.plugin.excludes.extend(options.plugin.tests)
@@ -208,6 +209,39 @@ def deploy(options):
     print('Uploading package to S3')
     conn.upload('Sharing/LDMP.zip', f, 'landdegradation', public=True)
     print('Package uploaded')
+
+@task
+@cmdopts([
+    ('ignore_errors', 'i', 'ignore documentation errors'),
+])
+def deploy_docs(options):
+    builddocs(options)
+
+    with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+        keys = json.load(fin)
+    conn = tinys3.Connection(keys['access_key_id'], keys['secret_access_key'])
+
+    print('Clearing existing docs.')
+    pool = tinys3.Pool(keys['access_key_id'], keys['secret_access_key'], size=10)
+    deletions = []
+    for item in conn.list('', options.sphinx.docs_s3_bucket):
+        deletions.append(pool.delete(item['key'], options.sphinx.docs_s3_bucket))
+    pool.all_completed(deletions)
+    print('Existing docs deleted.')
+
+    print('Uploading docs to S3.')
+    requests = []
+    local_directory = options.sphinx.builddir / "html"
+    for root, dirs, files in os.walk(local_directory):
+        for filename in files:
+            local_path = os.path.join(root, filename)
+            relative_path = os.path.relpath(local_path, local_directory)
+            print local_path, relative_path, options.sphinx.docs_s3_bucket
+            f = open(local_path,'rb')
+            requests.append(pool.upload(relative_path.replace('\\', '/'), f, 
+                options.sphinx.docs_s3_bucket, public=True))
+    pool.all_completed(requests)
+    print('Docs uploaded.')
 
 @task
 def install_devtools():
@@ -300,7 +334,7 @@ def _filter_excludes(root, items, options):
     for item in list(items):  # copy list or iteration values change
         itempath = path(os.path.relpath(root)) / item
         if exclude(itempath) and item not in skips:
-            debug('Excluding %s' % itempath)
+            debug('Excluding {}'.format(itempath))
             items.remove(item)
     return items
 

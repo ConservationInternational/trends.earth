@@ -180,6 +180,7 @@ def install3(options):
 
 @task
 @cmdopts([
+    ('ignore_errors', 'i', 'ignore documentation errors'),
     ('tests', 't', 'Package tests with plugin'),
 ])
 def package(options):
@@ -198,6 +199,7 @@ def package(options):
 @cmdopts([
     ('tests', 't', 'Package tests with plugin'),
     ('clean', 'c', 'Clean out dependencies first'),
+    ('ignore_errors', 'i', 'ignore documentation errors'),
     ('develop', 'd', 'Do not alter source dependency git checkouts'),
 ])
 def deploy(options):

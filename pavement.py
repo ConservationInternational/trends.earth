@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import fnmatch
 import glob
 import json
 import stat
@@ -24,16 +25,10 @@ options(
         package_dir = path('.'),
         tests = ['test'],
         excludes = [
-            '.DS_Store',  # on Mac
-            'admin_0_polys.json.gz',
-            'admin_1_polys.json.gz',
-            'test-output/*',
-            'data_prep_scripts',
-            'ext-libs_64',
-            'ext-libs_32',
-            'ext-src_64',
-            'ext-src_32',
-            'ext-src',
+            'LDMP/test',
+            'LDMP/data_prep_scripts',
+            'LDMP/help/source',
+            'LDMP/help/resources',
             '*.pyc',
         ],
         # skip certain files inadvertently found by exclude pattern globbing
@@ -296,14 +291,14 @@ def _filter_excludes(root, items, options):
     excludes = set(options.plugin.excludes)
     skips = options.plugin.skip_exclude
 
-    exclude = lambda p: any([path(p).fnmatch(e) for e in excludes])
+    exclude = lambda p: any([fnmatch.fnmatch(p, e) for e in excludes])
     if not items:
         return []
 
     # to prevent descending into dirs, modify the list in place
     for item in list(items):  # copy list or iteration values change
         itempath = path(os.path.relpath(root)) / item
-        if exclude(item) and item not in skips:
+        if exclude(itempath) and item not in skips:
             debug('Excluding %s' % itempath)
             items.remove(item)
     return items
@@ -430,19 +425,16 @@ def builddocs(options):
 
     sh("sphinx-intl --config {sourcedir}/conf.py build --language={lang}".format(sphinx_opts=sphinx_opts,
         sourcedir=options.sphinx.sourcedir, lang=options.sphinx.language))
-    print('made it here 1')
 
     # Build HTML docs
     if options.sphinx.language != 'en' or ignore_errors:
         sh("sphinx-build -b html -a {sphinx_opts} {sourcedir} {builddir}/html/{lang}".format(sphinx_opts=sphinx_opts,
             sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
             lang=options.sphinx.language))
-        print('made it here 2')
     else:
         sh("sphinx-build -n -W -b html -a {sphinx_opts} {sourcedir} {builddir}/html/{lang}".format(sphinx_opts=sphinx_opts,
             sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
             lang=options.sphinx.language))
-        print('made it here 3')
     print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=options.sphinx.language, builddir=options.sphinx.builddir))
 
     # Build PDF

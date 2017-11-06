@@ -92,10 +92,14 @@ def setup(options):
                     sh('git clone  %s %s' % (urlspec, localpath))
             req = localpath
 
-        sh('easy_install -a -d %(ext_libs)s %(dep)s' % {
-            'ext_libs' : ext_libs.abspath(),
-            'dep' : req
-        })
+        # Don't install numpy with pyqtgraph - QGIS already has numpy
+        if 'pyqtgraph' in req:
+            no_deps = '--no-deps'
+        else:
+            no_deps = ''
+
+        sh('easy_install {no_deps} -a -d {ext_libs} {dep}'.format(no_deps=no_deps,
+           ext_libs=ext_libs.abspath(), dep=req))
 
 
 @task
@@ -374,9 +378,7 @@ def compile_files(options):
     # check to see if we have pyrcc4
     pyrcc4 = check_path('pyrcc4')
     if not pyrcc4:
-        click.secho(
-            "pyrcc4 is not in your path---unable to compile your resource file(s)",
-            fg='red')
+        print("pyrcc4 is not in your path---unable to compile your resource file(s)")
     else:
         res_files = options.plugin.resource_files
         res_count = 0

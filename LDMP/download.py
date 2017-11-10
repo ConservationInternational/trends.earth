@@ -16,7 +16,6 @@ import os
 import gzip
 import json
 import requests
-import re
 import base64
 import hashlib
 

@@ -1,11 +1,5 @@
 Interpreting Results
 ==================================
-To view the Reporting Tool, select the chart icon (|iconChart|). 
-This will open up the `Land degradation reporting` dialog box:
-   
-.. image:: /static/common/ldmt_toolbar_highlight_reporting.png
-   :align: center
-
 The three metrics (trend, state and performance) are aggregated to determine if land is degraded in 
 areas where productivity may be increasing but remains low relative to other areas with similar 
 land cover characteristics and climatic conditions. Areas with a statistically significant negative 

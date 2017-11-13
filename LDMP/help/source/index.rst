@@ -1,5 +1,5 @@
 Land Degradation Monitoring Toolbox
-====================================
+===================================
 
 **Monitor Indicators for SDG 15.3 and Land Degradation Reporting**
 
@@ -10,46 +10,31 @@ system.
 .. image:: /static/toolbox_demo.gif
     :width: 800
 
-The toolbox supports:
+The toolbox supports monitoring indicators for Sustainable Development Goal 
+(SDG) Target 15.3.1 (land degradation neutrality) including productivity, land 
+cover, and soil organic carbon, and also supports reporting to the United 
+Nations Convention to Combat Desertification (UNCCD).
 
-* Monitoring indicators for Sustainable Development Goal (SDG) Target 15.3.1 
-  (land degradation neutrality):
-    
-    * Productivity
-
-    * Land cover
-
-    * Soil carbon
-
-* Reporting to the United Nations Convention to Combat Desertification (UNCCD)
-
-* Plotting time series of productivity indicators
-  
-* Mapping indicators of land degradation for tracking impact of sustainable 
-  land management or other projects
-
-The toolbox was produced as part of the project "Enabling the use of global 
-data sources to assess and monitor land degradation at multiple scales", funded 
-by the Global Environment Facility.
+The toolbox also allows users to plot time series of key indicators, and to 
+produce maps and other graphics that can support tracking the impact of 
+sustainable land management or other projects.
 
 Documentation
 =============
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 2
 
-    Before installing the toolbox <before_installing/index>
-    Installing the toolbox <installing/index>
-    Setting up the toolbox <settings/index>
-    Downloading data <data_download/index>
-    Calculating indicators <calculate_indicators/index>
-    Managing calculation tasks <view_tasks/index>
-    Visualizing indicators <visualize_results/index>
-    Plotting time series data <plot_data/index>
-    Reporting (SDG and UNCCD) <reporting/index>
+    Toolbox User Guide <documentation/index>
+    Training Materials <demos/index>
+    Video Tutorials <webinars/index>
 
 Authors
 =======
+
+The toolbox was produced as part of the project "Enabling the use of global 
+data sources to assess and monitor land degradation at multiple scales", funded 
+by the Global Environment Facility.
 
 Contributors to the documentation and toolbox include Yengoh Genesis [1]_, 
 Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, Tristan 
@@ -57,7 +42,7 @@ Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_.
 
 The Land Degradation Monitoring Project is a partnership of Conservation 
 International, Lund University, and the National Aeronautics and Space 
-Administration (NASA), and is funded by the Global Environment Facility.
+Administration (NASA), and is funded by the Global Environment Facility (GEF).
 
 .. |logoCI| image:: /static/common/logo_CI_square.png
     :width: 150

@@ -7,7 +7,7 @@ http://www.qgis.org/en/site/forusers/download.html. Once the installer is
 downloaded from the website, it needs to be run (double click on it). Select 
 the options using the Default settings.
 
-.. image:: /static/before_installing/qgis_webpage.png
+.. image:: /static/documentation/before_installing/qgis_webpage.png
    :align: center
 
 .. toctree::

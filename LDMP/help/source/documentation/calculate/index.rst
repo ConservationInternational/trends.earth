@@ -31,7 +31,7 @@ degradation, stability or improvement.
 •	Soil carbon: under review following the Good Practice Guidance 
 (CSIRO, 9-2017).
    
-.. image:: /static/calculate/image021.png
+.. image:: /static/documentation/calculate/image021.png
    :align: center
    
 a) Productivity
@@ -71,13 +71,13 @@ full list of climate variables available in the toolbox).
 1) Check next to Trajectory
 2) Select NDVI dataset to use
 
-.. image:: /static/calculate/image022.png
+.. image:: /static/documentation/calculate/image022.png
    :align: center
 
 3) Assign a name to the task. Use descriptive names including study area, periods 
   analyzed and datasets used, to be able to refer to them later.
 
-.. image:: /static/calculate/image023.png
+.. image:: /static/documentation/calculate/image023.png
    :align: center
    
 4) In the tab “Trajectory”, select the method to be used to compute the productivity 
@@ -106,7 +106,7 @@ primary productivity independent of climate.
 * Water use efficiency (WUE):  refers to the ratio of water used in plant 
 metabolism to water lost by the plant through transpiration. 
 
-.. image:: /static/calculate/image024.png
+.. image:: /static/documentation/calculate/image024.png
    :align: center
 
 Productivity - Performance
@@ -129,7 +129,7 @@ degradation in this metric (CSIRO, 2017).
 degradation state and serves as a comparison to assess change in degradation 
 for each reporting period.
 
-.. image:: /static/calculate/image025.png
+.. image:: /static/documentation/calculate/image025.png
    :align: center
 
 2) The initial productivity performance is assessed in relation to the 90th 
@@ -161,7 +161,7 @@ the baseline and reporting period indicate significant productivity State change
 1) The user selects the baseline period and comparison period to determine the state 
 for both existing and emerging degradation.
 
-.. image:: /static/calculate/image026.png
+.. image:: /static/documentation/calculate/image026.png
    :align: center
 
 2) The baseline period classifies annual productivity measurements to determine 
@@ -185,10 +185,10 @@ outlying islands, there will be multiple geometries drawn separately. By merging
 polygons, the analysis will be run on the entire study area as opposed to a single 
 polygon.   
 
-.. image:: /static/calculate/image027.png
+.. image:: /static/documentation/calculate/image027.png
    :align: center
  
-.. image:: /static/calculate/image028.png
+.. image:: /static/documentation/calculate/image028.png
    :align: center
 
 **Submit task**
@@ -214,7 +214,7 @@ transitions indicate degradation, stability or improvement.
 1) Click on the Calculate Indicators button from the toolbox bar, then select 
 Land cover.
    
-.. image:: /static/calculate/image029.png
+.. image:: /static/documentation/calculate/image029.png
    :align: center
 
 2) Set up tab: Allows the user to select the starting year and ending year
@@ -223,7 +223,7 @@ date (e.g. 1/1/2000-12/31/2015).
 b) User selects target year. 
 c) Metadata: User enters unique task name and notes for the analyses.
    
-.. image:: /static/calculate/image030.png
+.. image:: /static/documentation/calculate/image030.png
    :align: center
    
 3) Transition matrix tab
@@ -238,7 +238,7 @@ or indicative of degradation (-1) or improvement (1).
 b) Users can keep the default values or create unique transition values of 
 their own.
    
-.. image:: /static/calculate/image031.png
+.. image:: /static/documentation/calculate/image031.png
    :align: center
    
 By default, and following the CSIRO best practices guidance document, the major 
@@ -272,7 +272,7 @@ completed in one of two ways:
 administrative boundary from a drop-down menu. 
 2. The user can upload a shapefile with an area of interest.
    
-.. image:: /static/calculate/image032.png
+.. image:: /static/documentation/calculate/image032.png
    :align: center
    
 c) Soil Carbon

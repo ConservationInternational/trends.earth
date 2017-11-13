@@ -10,13 +10,13 @@ The toolbox also supports plotting time series showing how a particular indicato
 over time. To use this feature, click on the Plot data button from the toolbox bar. Then select 
 a dataset, indicator, and area to plot:
    
-.. image:: /static/documentation/interpreting_results/image061.png
+.. image:: /static/documentation/plot_data/image061.png
    :align: center
 
-.. image:: /static/documentation/interpreting_results/image062.png
+.. image:: /static/documentation/plot_data/image062.png
    :align: center
 
-.. image:: /static/documentation/interpreting_results/image063.png
+.. image:: /static/documentation/plot_data/image063.png
    :align: center
 
 When all the parameters have been defined, click Calculate, and the task 
@@ -27,5 +27,5 @@ receive an email notifying you of the successful completion of the task.
 
 Use the Download tool described above to download and plot the results:
 
-.. image:: /static/documentation/interpreting_results/image064.png
+.. image:: /static/documentation/plot_data/image064.png
    :align: center

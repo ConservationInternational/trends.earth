@@ -34,8 +34,8 @@ degradation, stability or improvement.
 .. image:: /static/documentation/calculate/image021.png
    :align: center
    
-a) Productivity
-=========================
+Productivity
+------------
 **Summary**
 Productivity measures the trajectory, performance and state of primary 
 productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. 
@@ -46,8 +46,8 @@ area.
 NOTE: The valid date range is set by the NDVI dataset selected within the 
 first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016.
 
-Productivity - Trajectory
---------------------------
+Productivity Trajectory
+~~~~~~~~~~~~~~~~~~~~~~~
 1) Trajectory is related to the rate of change of productivity over time. 
 a) Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND 
 or Water Use Efficiency (WUE) to determine the trends in productivity over 
@@ -109,8 +109,8 @@ metabolism to water lost by the plant through transpiration.
 .. image:: /static/documentation/calculate/image024.png
    :align: center
 
-Productivity - Performance
---------------------------
+Productivity Performance
+~~~~~~~~~~~~~~~~~~~~~~~~
 Performance is a comparison of how productivity in an area compares to 
 productivity in similar areas at the same point in time.
 * Select the period of analysis. This determines the initial degradation 
@@ -141,8 +141,8 @@ lowest 50% of the historical range may indicate degradation in this metric
 calculated from an average of the years between the previous (or baseline) 
 assessment up to the current year (CSIRO, 2017).
 
-Productivity - State
----------------------
+Productivity State
+~~~~~~~~~~~~~~~~~~~~
 State is a comparison of how current productivity in an area compares to past 
 productivity in that area.
 * The user selects the baseline period and comparison period to determine the 
@@ -197,8 +197,8 @@ submitted to Google Earth Engine for computing. When the task is completed (proc
 time will vary depending on server usage, but for most countries it takes only a few 
 minutes most of the time), you’ll receive an email notifying the successful completion.
 
-b)	Land Cover
-========================
+Land Cover
+----------
 **Summary**
 Changes in land cover is one of the indicators used to track potential land 
 degradation which need to be reported to the UNCCD and to track progress towards SDG 
@@ -275,6 +275,6 @@ administrative boundary from a drop-down menu.
 .. image:: /static/documentation/calculate/image032.png
    :align: center
    
-c) Soil Carbon
-========================
+Soil Carbon
+-----------
 **Coming soon!**

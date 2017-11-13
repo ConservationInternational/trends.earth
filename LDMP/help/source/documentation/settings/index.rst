@@ -32,7 +32,3 @@ Enter your credentials and click `Login`.
 
 .. toctree::
    :maxdepth: 2
-
-Title
-------   
-Subtitle

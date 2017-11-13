@@ -14,13 +14,13 @@ degradation, the assessment indicates negative productivity as well. The LDMT al
 select the trajectory indicatory method to detect productivity. Selecting NDVI Trends for the 
 baseline period 2001-2016 will yield the following two outputs:
    
-.. image:: /static/interpreting_results/image071.png
+.. image:: /static/documentation/interpreting_results/image071.png
    :align: center
 
 (left) Productivity trajectory trend (significance) and (right) Productivity trajectory trend 
 (slope of NDVI) for East Africa and Senegal.
 	
-.. image:: /static/interpreting_results/image072.png
+.. image:: /static/documentation/interpreting_results/image072.png
    :align: center
    
 Performance is a measurement of local productivity relative to other similar vegetation types in 
@@ -28,7 +28,7 @@ similar land cover types and bioclimatic regions (areas of similar topographic, 
 climatic conditions). The initial baseline value for land productivity, from which future changes 
 are compared, is 2001-2015 in the above performance output.
 	
-.. image:: /static/interpreting_results/image073.png
+.. image:: /static/documentation/interpreting_results/image073.png
    :align: center
 
 State compares the current productivity level in a given area to historical observations of 
@@ -39,14 +39,14 @@ changes in productivity are considered negative when there is a statistically si
 trend over time, or when both the Performance and State assessments indicate potential degradation, 
 including in areas where the trend is not significantly negative (CSIRO 2017).
 	
-.. image:: /static/interpreting_results/image074.png
+.. image:: /static/documentation/interpreting_results/image074.png
    :align: center
 
 In order to interpret the likelihood of results indicating false positives or false negatives, a 
 lookup table is used to identify ‘support class’ combinations of metrics in each pixel (CSIRO 2017). 
 Classes 1-5 indicate degradation.
 	
-.. image:: /static/interpreting_results/image075.png
+.. image:: /static/documentation/interpreting_results/image075.png
    :align: center
 
 The assessment and evaluation of land cover changes are derived from the European Space Agency Climate 
@@ -58,7 +58,7 @@ reduction in the land’s capacity to provide resources for human livelihoods, 3
 biodiversity or ecosystem complexity, and 4) an increased vulnerability of population or 
 habitats to destruction at the national scale (CSIRO 2017).
 
-.. image:: /static/interpreting_results/image076.png
+.. image:: /static/documentation/interpreting_results/image076.png
    :align: center
 
 Land cover transitions are designated by the user via the transition matrix. This example, using 
@@ -67,10 +67,10 @@ remaining pixels highlighted demonstrate the transition from the baseline (2000-
 target year (2015). A closer look (below) shows transitions in central Tanzania of conversion 
 from croplands (red) or forest land (green) to other land cover classes.
 
-.. image:: /static/interpreting_results/image077.png
+.. image:: /static/documentation/interpreting_results/image077.png
    :align: center
 
-.. image:: /static/interpreting_results/image078.png
+.. image:: /static/documentation/interpreting_results/image078.png
    :align: center
 
 The transition matrix has both default values and the option to select the transition values 
@@ -82,7 +82,7 @@ stable (blue) or degradation (red) using land cover/land use change for the 6 IP
 change processes are identified as flows. Note that some transitions between classes will not 
 yield logical results.
 
-.. image:: /static/interpreting_results/image079.png
+.. image:: /static/documentation/interpreting_results/image079.png
    :align: center
 
 Calculating the final indicator is done using the pie chart symbol in the LDMT. The output layer 
@@ -91,7 +91,7 @@ can be selected using the existing layers within the map: Productivity trajector
 (degradation). These are aggregated to highlight degradation given the inputs and parameters 
 from former analyses.
 
-.. image:: /static/interpreting_results/image081.png
+.. image:: /static/documentation/interpreting_results/image081.png
    :align: center
 
 The final output show degradation in red and improvement in green excluding the urban and water 

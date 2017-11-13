@@ -11,15 +11,15 @@ the user, which analysis is running (job), the start time and end time of when t
 was started and completed and whether or not the task was successful. The Details page 
 outlines the reason a task may have failed.
    
-.. image:: /static/GEE_tasks/image034.png
+.. image:: /static/documentation/GEE_tasks/image034.png
    :align: center
    
-.. image:: /static/GEE_tasks/image035.png
+.. image:: /static/documentation/GEE_tasks/image035.png
    :align: center
       
 To download the results to the computer click on Download results and a window will pop 
 up, to select the location in which to store the raster files and click on Select Folder.
    
-.. image:: /static/GEE_tasks/image036.png
+.. image:: /static/documentation/GEE_tasks/image036.png
    :align: center
        

@@ -14,7 +14,7 @@ version=0.17
 author=Conservation International
 email=GEF-LDMP@conservation.org
 
-about=An open source platform from the GEF Land Degradation Monitoring Project (LDMP) to support land degradation monitoring and reporting to the UNCCD, and achieving land degradation neutrality (LDN). The GEF-LDMP toolbox facilitates downloading, processing, and visualizing datasets for the three sub-indicators of land degradation under Sustainable Development Goal Target 15.3: soil carbon, land cover, and vegetation productivity.
+about=An open source platform from the GEF Land Degradation Monitoring Project (LDMP) led by Conservation Internatonal to support land degradation monitoring and reporting to the UNCCD, and achieving land degradation neutrality (LDN). The GEF-LDMP toolbox facilitates downloading, processing, and visualizing datasets for the three sub-indicators of land degradation under Sustainable Development Goal Target 15.3: soil carbon, land cover, and vegetation productivity.
 
 tracker=https://github.com/ConservationInternational/ldmp-qgis-plugin/issues
 repository=https://github.com/ConservationInternational/ldmp-qgis-plugin

@@ -12,6 +12,7 @@
 # serve to show the default.
 
 import sys, os
+import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -44,7 +45,7 @@ master_doc = 'index'
 project = u'Land Degradation Monitoring Toolbox'
 copyright = u'2017, Conservation International'
 
-locale_dirs = ['locale/']
+locale_dirs = ['../i18n/']
 gettext_compact = False 
 
 # The version info for the project you're documenting, acts as replacement for
@@ -52,7 +53,7 @@ gettext_compact = False
 # built documents.
 #
 # The short X.Y version.
-version = '0.14'
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
 release = '0.14'
 
@@ -119,7 +120,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'nature'
+html_theme = "sphinx_rtd_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -127,7 +128,7 @@ html_theme = 'nature'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".

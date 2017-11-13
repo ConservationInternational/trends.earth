@@ -31,6 +31,7 @@ options(
             'LDMP/help/source',
             'LDMP/help/resources',
             'LDMP/help/build/gettext',
+            'LDMP/help/i18n',
             '*.pyc',
         ],
         # skip certain files inadvertently found by exclude pattern globbing

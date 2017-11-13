@@ -26,9 +26,25 @@ from LDMP.reporting import DlgReporting
 from LDMP.about import DlgAbout
 
 from qgis.core import QgsMessageLog
+from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
 import LDMP.resources
+
+def showHelp(file='index', section=None):
+    locale = QSettings().value('locale/userLocale')[0:2]
+    help_base_path = os.path.join(os.path.dirname(__file__), 'help', 'build', 'html')
+    locale_path = os.path.join(help_base_path, locale)
+    QgsMessageLog.logMessage('Checking for plugin help in {}'.format(locale_path), tag="LDMP", level=QgsMessageLog.INFO)
+    if os.path.exists(locale_path):
+        help_path = os.path.join(locale_path, file)
+    else:
+        help_path = os.path.join(help_base_path, 'en', file)
+    QgsMessageLog.logMessage('Showing plugin help from {}'.format(help_path), tag="LDMP", level=QgsMessageLog.INFO)
+    if section:
+        showPluginHelp(filename=help_path, section=section)
+    else:
+        showPluginHelp(filename=help_path)
 
 class LDMPPlugin:
     """QGIS Plugin Implementation."""
@@ -292,10 +308,10 @@ class LDMPPlugin:
 
     def run_about(self):
         """Run method that performs all the real work"""
-        # show the dialog
-        self.dlg_about.show()
-        # Run the dialog event loop
-        result = self.dlg_about.exec_()
-        # See if OK was pressed
-        if result:
-            pass
+        showHelp()
+        # self.dlg_about.show()
+        # # Run the dialog event loop
+        # result = self.dlg_about.exec_()
+        # # See if OK was pressed
+        # if result:
+        #     pass

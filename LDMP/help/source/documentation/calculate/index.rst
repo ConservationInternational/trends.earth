@@ -76,25 +76,11 @@ e) Climate datasets need to be selected to perform climate corrections using RES
    
 4) In the tab “Trajectory”, select the method to be used to compute the productivity trajectory analysis. The options are:
 
-* NDVI trend: This dataset shows the trend in annually integrated NDVI time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR 
-(8km; GIMMS3g.v1). The normalized difference vegetation index (NDVI) 
-is the ratio of the difference between near-infrared band (NIR) and the 
-red band (RED) and the sum of these two bands (Rouse et al., 1974; 
-Deering 1978) and reviewed in Tucker (1979). 
+* NDVI trend: This dataset shows the trend in annually integrated NDVI time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio of the difference between near-infrared band (NIR) and the red band (RED) and the sum of these two bands (Rouse et al., 1974; Deering 1978) and reviewed in Tucker (1979). 
 
-* Rain use efficiency (RUE): is defined as the ratio between net primary production (NPP), or aboveground NPP (ANPP), and rainfall. 
-It has been increasingly used to analyze the variability of vegetation 
-production in arid and semi-arid biomes, where rainfall is a major 
-limiting factor for plant growth
+* Rain use efficiency (RUE): is defined as the ratio between net primary production (NPP), or aboveground NPP (ANPP), and rainfall. It has been increasingly used to analyze the variability of vegetation production in arid and semi-arid biomes, where rainfall is a major limiting factor for plant growth
 
-* Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts to adjust the NDVI signals from the effect of particular 
-climatic drivers, such as rainfall or soil moisture, using a pixel-by-pixel 
-linear regression on the NDVI time series and the climate signal, in this 
-case precipitation from GCPC data at 250m resolution. The linear model and 
-the climatic data is used then to predict NDVI, and to compute the residuals
-between the observed and climate-predicted NDVI annual integrals. The NDVI 
-residual trend is finally plotted to spatially represent overall trends in 
-primary productivity independent of climate. 
+* Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts to adjust the NDVI signals from the effect of particular climatic drivers, such as rainfall or soil moisture, using a pixel-by-pixel linear regression on the NDVI time series and the climate signal, in this case precipitation from GCPC data at 250m resolution. The linear model and the climatic data is used then to predict NDVI, and to compute the residualsbetween the observed and climate-predicted NDVI annual integrals. The NDVI residual trend is finally plotted to spatially represent overall trends in primary productivity independent of climate. 
 
 * Water use efficiency (WUE):  refers to the ratio of water used in plant metabolism to water lost by the plant through transpiration. 
 
@@ -108,27 +94,17 @@ Performance is a comparison of how productivity in an area compares to productiv
 * Select the period of analysis. This determines the initial degradation state and serves as a comparison to assess change in degradation for each 
 reporting period.
 
-* The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline 
-period amongst pixels in the same land unit. The toolbox defines land units 
-as regions with the same combination of Global Agroecological Zones and 
-land cover (300m from ESA CCI). Pixels with an NPP performance in the 
-lowest 50% of the distribution for that particular unit may indicate 
-degradation in this metric (CSIRO, 2017).
+* The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. The toolbox defines land units as regions with the same combination of Global Agroecological Zones and land cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% of the distribution for that particular unit may indicate degradation in this metric (CSIRO, 2017).
 
 **Calculating Performance**
-1) Select the baseline period of comparison. This determines the initial degradation state and serves as a comparison to assess change in degradation 
-for each reporting period.
+1) Select the baseline period of comparison. This determines the initial degradation state and serves as a comparison to assess change in degradation for each reporting period.
 
 .. image:: /static/documentation/calculate/image025.png
    :align: center
 
-2) The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period 
-amongst pixels in the same land unit. Pixels with an NPP performance in the 
-lowest 50% of the historical range may indicate degradation in this metric 
-(CSIRO, 2017).
+2) The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. Pixels with an NPP performance in the lowest 50% of the historical range may indicate degradation in this metric (CSIRO, 2017).
 
-3) Contemporary Productivity Performance for each reporting period should be calculated from an average of the years between the previous (or baseline) 
-assessment up to the current year (CSIRO, 2017).
+3) Contemporary Productivity Performance for each reporting period should be calculated from an average of the years between the previous (or baseline) assessment up to the current year (CSIRO, 2017).
 
 Productivity State
 ~~~~~~~~~~~~~~~~~~~~
@@ -142,6 +118,7 @@ State is a comparison of how current productivity in an area compares to past pr
 * Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017).
 
 **Calculating State**
+
 1) The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
 
 .. image:: /static/documentation/calculate/image026.png

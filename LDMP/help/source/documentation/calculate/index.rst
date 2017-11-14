@@ -7,7 +7,8 @@ This will open up the `Calculate Indicator` dialog box:
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center
 
-**Summary**   
+**Summary**
+   
 Sustainable Development Goal 15.3 intends to combat desertification, 
 restore degraded land and soil, including land affected by desertification, 
 drought and floods, and strive to achieve a land degradation-neutral world 
@@ -75,21 +76,18 @@ e) Climate datasets need to be selected to perform climate corrections using RES
    
 4) In the tab “Trajectory”, select the method to be used to compute the productivity trajectory analysis. The options are:
 
-* NDVI trend: This dataset shows the trend in annually integrated NDVI 
-time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR 
+* NDVI trend: This dataset shows the trend in annually integrated NDVI time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR 
 (8km; GIMMS3g.v1). The normalized difference vegetation index (NDVI) 
 is the ratio of the difference between near-infrared band (NIR) and the 
 red band (RED) and the sum of these two bands (Rouse et al., 1974; 
 Deering 1978) and reviewed in Tucker (1979). 
 
-* Rain use efficiency (RUE): is defined as the ratio between net 
-primary production (NPP), or aboveground NPP (ANPP), and rainfall. 
+* Rain use efficiency (RUE): is defined as the ratio between net primary production (NPP), or aboveground NPP (ANPP), and rainfall. 
 It has been increasingly used to analyze the variability of vegetation 
 production in arid and semi-arid biomes, where rainfall is a major 
 limiting factor for plant growth
 
-* Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), 
-attempts to adjust the NDVI signals from the effect of particular 
+* Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts to adjust the NDVI signals from the effect of particular 
 climatic drivers, such as rainfall or soil moisture, using a pixel-by-pixel 
 linear regression on the NDVI time series and the climate signal, in this 
 case precipitation from GCPC data at 250m resolution. The linear model and 
@@ -98,23 +96,19 @@ between the observed and climate-predicted NDVI annual integrals. The NDVI
 residual trend is finally plotted to spatially represent overall trends in 
 primary productivity independent of climate. 
 
-* Water use efficiency (WUE):  refers to the ratio of water used in plant 
-metabolism to water lost by the plant through transpiration. 
+* Water use efficiency (WUE):  refers to the ratio of water used in plant metabolism to water lost by the plant through transpiration. 
 
 .. image:: /static/documentation/calculate/image024.png
    :align: center
 
 Productivity Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~
-Performance is a comparison of how productivity in an area compares to 
-productivity in similar areas at the same point in time.
+Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time.
 
-* Select the period of analysis. This determines the initial degradation 
-state and serves as a comparison to assess change in degradation for each 
+* Select the period of analysis. This determines the initial degradation state and serves as a comparison to assess change in degradation for each 
 reporting period.
 
-* The initial productivity performance is assessed in relation to the 90th 
-percentile of annual productivity values calculated over the baseline 
+* The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline 
 period amongst pixels in the same land unit. The toolbox defines land units 
 as regions with the same combination of Global Agroecological Zones and 
 land cover (300m from ESA CCI). Pixels with an NPP performance in the 
@@ -122,66 +116,55 @@ lowest 50% of the distribution for that particular unit may indicate
 degradation in this metric (CSIRO, 2017).
 
 **Calculating Performance**
-1) Select the baseline period of comparison. This determines the initial 
-degradation state and serves as a comparison to assess change in degradation 
+1) Select the baseline period of comparison. This determines the initial degradation state and serves as a comparison to assess change in degradation 
 for each reporting period.
 
 .. image:: /static/documentation/calculate/image025.png
    :align: center
 
-2) The initial productivity performance is assessed in relation to the 90th 
-percentile of annual productivity values calculated over the baseline period 
+2) The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period 
 amongst pixels in the same land unit. Pixels with an NPP performance in the 
 lowest 50% of the historical range may indicate degradation in this metric 
 (CSIRO, 2017).
 
-3) Contemporary Productivity Performance for each reporting period should be 
-calculated from an average of the years between the previous (or baseline) 
+3) Contemporary Productivity Performance for each reporting period should be calculated from an average of the years between the previous (or baseline) 
 assessment up to the current year (CSIRO, 2017).
 
 Productivity State
 ~~~~~~~~~~~~~~~~~~~~
-State is a comparison of how current productivity in an area compares to past 
-productivity in that area.
+State is a comparison of how current productivity in an area compares to past productivity in that area.
 
-* The user selects the baseline period and comparison period to determine the 
-state for both existing and emerging degradation.
+* The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
 
-* The baseline period classifies annual productivity measurements to determine 
-initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
+* The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
 (CSIRO, 2017).
 
-* Productivity State assessments for each reporting period should compare the 
-average of the annual productivity measurements over the reporting period (up to 
+* Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 
 4 years of new data) to the productivity classes calculated from the baseline 
 period. NPP State classifications that have changed by two or more classes between 
 the baseline and reporting period indicate significant productivity State change 
 (CSIRO, 2017).
 
 **Calculating State**
-1) The user selects the baseline period and comparison period to determine the state 
-for both existing and emerging degradation.
+1) The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
 
 .. image:: /static/documentation/calculate/image026.png
    :align: center
 
-2) The baseline period classifies annual productivity measurements to determine 
-initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
+2) The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
 (CSIRO, 2017).
 
-3) State assessments for each reporting period should compare the average of the 
-annual productivity measurements over the reporting period (up to 4 years of new 
+3) State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new 
 data) to the productivity classes calculated from the baseline period. NPP State 
 classifications that have changed by two or more classes between the baseline and 
 reporting period indicate significant productivity State change (CSIRO, 2017).
 
 **Productivity - Area of interest**
-The final step before submitting the task to Google Earth Engine, is to define the 
-study area on which to perform the analysis. The toolbox allows this task to be 
+
+The final step before submitting the task to Google Earth Engine, is to define the study area on which to perform the analysis. The toolbox allows this task to be 
 completed in one of two ways:
 
-1. The user selects first (i.e. country) and second (i.e. province or state) administrative 
-boundary from a drop down menu. 
+1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop down menu. 
 
 2. The user can upload a shapefile with an area of interest. 
 
@@ -197,6 +180,7 @@ polygon.
    :align: center
 
 **Submit task**
+
 When all the parameters have been defined, click Calculate, and the task will be 
 submitted to Google Earth Engine for computing. When the task is completed (processing 
 time will vary depending on server usage, but for most countries it takes only a few 
@@ -205,6 +189,7 @@ minutes most of the time), you’ll receive an email notifying the successful co
 Land Cover
 ----------
 **Summary**
+
 Changes in land cover is one of the indicators used to track potential land 
 degradation which need to be reported to the UNCCD and to track progress towards SDG 
 15.3.1. While some land cover transitions indicate, in most cases, processes of land 
@@ -216,16 +201,14 @@ change relative to a baseline period, enter a transition matrix indicating which
 transitions indicate degradation, stability or improvement.
 
 **Calculating Land cover changes**
-1) Click on the Calculate Indicators button from the toolbox bar, then select 
-Land cover.
+1) Click on the Calculate Indicators button from the toolbox bar, then select Land cover.
    
 .. image:: /static/documentation/calculate/image029.png
    :align: center
 
 2) Set up tab: Allows the user to select the starting year and ending year
 
-a) The baseline should be considered over an extended period over a single 
-date (e.g. 1/1/2000-12/31/2015).
+a) The baseline should be considered over an extended period over a single date (e.g. 1/1/2000-12/31/2015).
 
 b) User selects target year. 
 
@@ -236,20 +219,15 @@ c) Metadata: User enters unique task name and notes for the analyses.
    
 3) Transition matrix tab
 
-a) User selects the transition matrix value of land cover transitions for 
-each transition between the 6 IPCC land cover classes. For example: 
+a) User selects the transition matrix value of land cover transitions for each transition between the 6 IPCC land cover classes. For example: 
 
-i) The default for cropland to cropland is 0 because the land cover 
-stays the same and is therefore stable.
+i) The default for cropland to cropland is 0 because the land cover stays the same and is therefore stable.
 
-ii) The default for forest to cropland is -1 because forest is likely 
-cut to clear way for agriculture and would be considered deforestation.
+ii) The default for forest to cropland is -1 because forest is likely cut to clear way for agriculture and would be considered deforestation.
 
-iii) The transition can be defined as stable in terms of land degradation, 
-or indicative of degradation (-1) or improvement (1).
+iii) The transition can be defined as stable in terms of land degradation, or indicative of degradation (-1) or improvement (1).
 
-b) Users can keep the default values or create unique transition values of 
-their own.
+b) Users can keep the default values or create unique transition values of their own.
    
 .. image:: /static/documentation/calculate/image031.png
    :align: center
@@ -291,12 +269,12 @@ evaluated and adjusted considering the local conditions of the regions in for wh
 the analysis will be performed.
 
 **Land cover - Area of interest**
+
 The final step before submitting the task to Google Earth Engine, is to define the 
 study area on which to perform the analysis. The toolbox allows this task to be 
 completed in one of two ways:
 
-1. The user selects first (i.e. country) and second (i.e. province or state) 
-administrative boundary from a drop-down menu. 
+1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu. 
 
 2. The user can upload a shapefile with an area of interest.
    

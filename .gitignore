@@ -21,3 +21,4 @@ LDMP/gui/*.py
 LDMP/resources.py
 LDMP/data_prep_scripts/*
 LDMP/help/source/static
+LDMP/help/source/documentation/calculate/index.rst

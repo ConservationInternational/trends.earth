@@ -324,6 +324,5 @@ Soil Carbon
 -----------
 **Coming soon!**
 
-
 .. toctree::
    :maxdepth: 2

@@ -91,8 +91,7 @@ Productivity Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time.
 
-* Select the period of analysis. This determines the initial degradation state and serves as a comparison to assess change in degradation for each 
-reporting period.
+* Select the period of analysis. This determines the initial degradation state and serves as a comparison to assess change in degradation for each reporting period.
 
 * The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. The toolbox defines land units as regions with the same combination of Global Agroecological Zones and land cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% of the distribution for that particular unit may indicate degradation in this metric (CSIRO, 2017).
 
@@ -112,8 +111,7 @@ State is a comparison of how current productivity in an area compares to past pr
 
 * The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
 
-* The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
-(CSIRO, 2017).
+* The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation (CSIRO, 2017).
 
 * Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017).
 
@@ -163,6 +161,7 @@ change relative to a baseline period, enter a transition matrix indicating which
 transitions indicate degradation, stability or improvement.
 
 **Calculating Land cover changes**
+
 1) Click on the Calculate Indicators button from the toolbox bar, then select Land cover.
    
 .. image:: /static/documentation/calculate/image029.png

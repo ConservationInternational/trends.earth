@@ -24,15 +24,11 @@ transitions indicate degradation, stability, or improvement.
 
 Select which Indicator you would like to calculate
 
-•	Productivity: measures the trajectory, performance and state 
-of primary productivity
+•	Productivity: measures the trajectory, performance and state of primary productivity
 
-•	Land cover: calculates land cover change relative to a baseline 
-period, enter a transition matrix indicating which transitions indicate 
-degradation, stability or improvement.
+•	Land cover: calculates land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement.
 
-•	Soil carbon: under review following the Good Practice Guidance 
-(CSIRO, 9-2017).
+•	Soil carbon: under review following the Good Practice Guidance (CSIRO, 9-2017).
    
 .. image:: /static/documentation/calculate/image021.png
    :align: center
@@ -53,26 +49,15 @@ Productivity Trajectory
 ~~~~~~~~~~~~~~~~~~~~~~~
 1) Trajectory is related to the rate of change of productivity over time. 
 
-a) Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND 
-or Water Use Efficiency (WUE) to determine the trends in productivity over 
-the time period selected. 
+a) Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or Water Use Efficiency (WUE) to determine the trends in productivity over the time period selected. 
 
-b) The starting year and end year will determine de period on which to 
-perform the analysis.
+b) The starting year and end year will determine de period on which to perform the analysis.
 
-c) The initial trend is indicated by the slope of a linear regression fitted 
-across annual productivity measurements over the entire period as assessed 
-using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 
-(CSIRO, 2017).
+c) The initial trend is indicated by the slope of a linear regression fitted across annual productivity measurements over the entire period as assessed using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 (CSIRO, 2017).
 
-d) Degradation in each reporting period should be assessed by appending the 
-recent annual NPP values (measured in the toolbox as annual integral of NDVI) 
-to the baseline data and calculating the trend and significance over the 
-entire data series and the most recent 8 years of data (CSIRO, 2017).
+d) Degradation in each reporting period should be assessed by appending the recent annual NPP values (measured in the toolbox as annual integral of NDVI) to the baseline data and calculating the trend and significance over the entire data series and the most recent 8 years of data (CSIRO, 2017).
 
-e) Climate datasets need to be selected to perform climate corrections using 
-RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for 
-full list of climate variables available in the toolbox).
+e) Climate datasets need to be selected to perform climate corrections using RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for full list of climate variables available in the toolbox).
 
 **Calculating Trajectory**
 
@@ -83,14 +68,12 @@ full list of climate variables available in the toolbox).
 .. image:: /static/documentation/calculate/image022.png
    :align: center
 
-3) Assign a name to the task. Use descriptive names including study area, periods 
-analyzed and datasets used, to be able to refer to them later.
+3) Assign a name to the task. Use descriptive names including study area, periods analyzed and datasets used, to be able to refer to them later.
 
 .. image:: /static/documentation/calculate/image023.png
    :align: center
    
-4) In the tab “Trajectory”, select the method to be used to compute the productivity 
-trajectory analysis. The options are:
+4) In the tab “Trajectory”, select the method to be used to compute the productivity trajectory analysis. The options are:
 
 * NDVI trend: This dataset shows the trend in annually integrated NDVI 
 time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR 

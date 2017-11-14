@@ -96,6 +96,7 @@ Performance is a comparison of how productivity in an area compares to productiv
 * The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. The toolbox defines land units as regions with the same combination of Global Agroecological Zones and land cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% of the distribution for that particular unit may indicate degradation in this metric (CSIRO, 2017).
 
 **Calculating Performance**
+
 1) Select the baseline period of comparison. This determines the initial degradation state and serves as a comparison to assess change in degradation for each reporting period.
 
 .. image:: /static/documentation/calculate/image025.png

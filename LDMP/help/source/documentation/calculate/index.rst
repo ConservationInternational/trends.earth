@@ -37,6 +37,7 @@ Select which Indicator you would like to calculate
 Productivity
 ------------
 **Summary**
+
 Productivity measures the trajectory, performance and state of primary 
 productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. 
 The user can select one or multiple indicators to calculate, the NDVI dataset, 

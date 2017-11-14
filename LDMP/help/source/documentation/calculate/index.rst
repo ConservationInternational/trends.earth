@@ -139,11 +139,7 @@ State is a comparison of how current productivity in an area compares to past pr
 * The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
 (CSIRO, 2017).
 
-* Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 
-4 years of new data) to the productivity classes calculated from the baseline 
-period. NPP State classifications that have changed by two or more classes between 
-the baseline and reporting period indicate significant productivity State change 
-(CSIRO, 2017).
+* Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017).
 
 **Calculating State**
 1) The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
@@ -151,27 +147,19 @@ the baseline and reporting period indicate significant productivity State change
 .. image:: /static/documentation/calculate/image026.png
    :align: center
 
-2) The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation 
-(CSIRO, 2017).
+2) The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation (CSIRO, 2017).
 
-3) State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new 
-data) to the productivity classes calculated from the baseline period. NPP State 
-classifications that have changed by two or more classes between the baseline and 
-reporting period indicate significant productivity State change (CSIRO, 2017).
+3) State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017).
 
 **Productivity - Area of interest**
 
-The final step before submitting the task to Google Earth Engine, is to define the study area on which to perform the analysis. The toolbox allows this task to be 
-completed in one of two ways:
+The final step before submitting the task to Google Earth Engine, is to define the study area on which to perform the analysis. The toolbox allows this task to be completed in one of two ways:
 
 1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop down menu. 
 
 2. The user can upload a shapefile with an area of interest. 
 
-NOTE: This boundary should have only one polygon, i.e. when uploading a country with 
-outlying islands, there will be multiple geometries drawn separately. By merging the 
-polygons, the analysis will be run on the entire study area as opposed to a single 
-polygon.   
+NOTE: This boundary should have only one polygon, i.e. when uploading a country with outlying islands, there will be multiple geometries drawn separately. By merging the polygons, the analysis will be run on the entire study area as opposed to a single polygon.
 
 .. image:: /static/documentation/calculate/image027.png
    :align: center
@@ -181,10 +169,7 @@ polygon.
 
 **Submit task**
 
-When all the parameters have been defined, click Calculate, and the task will be 
-submitted to Google Earth Engine for computing. When the task is completed (processing 
-time will vary depending on server usage, but for most countries it takes only a few 
-minutes most of the time), you’ll receive an email notifying the successful completion.
+When all the parameters have been defined, click Calculate, and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion.
 
 Land Cover
 ----------

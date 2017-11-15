@@ -29,6 +29,7 @@ from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGr
     QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
     QgsCoordinateReferenceSystem, QgsVectorFileWriter
 from qgis.utils import iface
+mb = iface.messageBar()
 
 import processing
 
@@ -58,40 +59,6 @@ def get_file_type(data_file):
     if not s or not t:
         return None
     return {'script_id': s, 'type': t}
-
-
-def reproject_lc(src_dataset, ref_dataset):
-    ds_ref = gdal.Open(ref_dataset)
-    sr_dest = osr.SpatialReference()
-    sr_dest.ImportFromWkt(ds_ref.GetProjectionRef())
-
-    ds_src = gdal.Open(src_dataset)
-    sr_src = osr.SpatialReference()
-    sr_src.ImportFromWkt(ds_src.GetProjectionRef())
-
-    mem_drv = gdal.GetDriverByName('MEM')
-    ds_dest = mem_drv.Create('', ds_ref.RasterXSize, ds_ref.RasterYSize, 1, gdal.GDT_Int16)
-
-    gt_ref = ds_ref.GetGeoTransform()
-    ds_dest.SetGeoTransform(gt_ref)
-    ds_dest.SetProjection(sr_dest.ExportToWkt())
-
-    gt_src = ds_src.GetGeoTransform()
-    if gt_ref[1] > gt_src[1]:
-        # If new dataset is a lower resolution than the source, use the MODE
-        log('Resampling with: mode')
-        resample_alg = gdal.GRA_Mode
-    else:
-        log('Resampling with: nearest neighour')
-        resample_alg = gdal.GRA_NearestNeighbour
-    # Perform the projection/resampling
-    res = gdal.ReprojectImage(ds_src,
-                              ds_dest,
-                              sr_src.ExportToWkt(),
-                              sr_dest.ExportToWkt(),
-                              resample_alg)
-
-    return ds_dest
 
 
 def _get_layers(node):
@@ -163,24 +130,65 @@ def style_sdg_ld(outfile):
     iface.legendInterface().refreshLayerSymbology(layer)
 
 
-class DegradationWorker(AbstractWorker):
-    def __init__(self, out_file, ds_traj, ds_state, ds_perf, ds_lc, aoi):
+class ReprojectionWorker(AbstractWorker):
+    def __init__(self, src_dataset, ref_dataset):
         AbstractWorker.__init__(self)
 
-        self.exception = None
+        self.src_dataset = src_dataset
+        self.ref_dataset = ref_dataset
 
-        self.out_file = out_file
+    def work(self):
+        self.toggle_show_progress.emit(False)
+        self.toggle_show_cancel.emit(False)
+
+        ds_ref = gdal.Open(self.ref_dataset)
+        sr_dest = osr.SpatialReference()
+        sr_dest.ImportFromWkt(ds_ref.GetProjectionRef())
+
+        ds_src = gdal.Open(self.src_dataset)
+        sr_src = osr.SpatialReference()
+        sr_src.ImportFromWkt(ds_src.GetProjectionRef())
+
+        driver = gdal.GetDriverByName("GTiff")
+        temp_file = tempfile.NamedTemporaryFile(suffix='.tif').name
+        ds_dest = driver.Create(temp_file, ds_ref.RasterXSize, 
+                                ds_ref.RasterYSize, 1, gdal.GDT_Int16, 
+                                ['COMPRESS=LZW'])
+
+        gt_ref = ds_ref.GetGeoTransform()
+        ds_dest.SetGeoTransform(gt_ref)
+        ds_dest.SetProjection(sr_dest.ExportToWkt())
+
+        gt_src = ds_src.GetGeoTransform()
+        if gt_ref[1] > gt_src[1]:
+            # If new dataset is a lower resolution than the source, use the MODE
+            log('Resampling with: mode')
+            resample_alg = gdal.GRA_Mode
+        else:
+            log('Resampling with: nearest neighour')
+            resample_alg = gdal.GRA_NearestNeighbour
+        # Perform the projection/resampling
+        res = gdal.ReprojectImage(ds_src,
+                                  ds_dest,
+                                  sr_src.ExportToWkt(),
+                                  sr_dest.ExportToWkt(),
+                                  resample_alg)
+
+        return ds_dest
+
+
+class DegradationWorker(AbstractWorker):
+    def __init__(self, ds_traj, ds_state, ds_perf, ds_lc):
+        AbstractWorker.__init__(self)
+
         self.ds_traj = ds_traj
         self.ds_state = ds_state
         self.ds_perf = ds_perf
         self.ds_lc = ds_lc
-        self.aoi = aoi
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
-
-        log('Combining degradation layers...')
 
         # Note trajectory significance is band 2
         traj_band = self.ds_traj.GetRasterBand(2)
@@ -204,11 +212,6 @@ class DegradationWorker(AbstractWorker):
         perf_band = self.ds_perf.GetRasterBand(1)
         lc_band = self.ds_lc.GetRasterBand(1)
 
-        log('Traj size: {}, {}'.format(traj_band.XSize, traj_band.YSize))
-        log('State size: {}, {}'.format(state_band.XSize, state_band.YSize))
-        log('Perf size: {}, {}'.format(perf_band.XSize, perf_band.YSize))
-        log('LC size: {}, {}'.format(lc_band.XSize, lc_band.YSize))
-
         xsize = traj_band.XSize
         ysize = traj_band.YSize
         blocks = 0
@@ -220,7 +223,7 @@ class DegradationWorker(AbstractWorker):
                 rows = ysize - y
             for x in xrange(0, xsize, x_block_size):
                 if self.killed:
-                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.out_file, y, ysize))
+                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(temp_deg_file, y, ysize))
                     break
 
                 if x + x_block_size < xsize:
@@ -245,12 +248,24 @@ class DegradationWorker(AbstractWorker):
         self.ds_lc = None
 
         if self.killed:
-            os.remove(self.out_file)
+            os.remove(temp_deg_file)
             return None
         else:
-            log('Degradation layers combined.')
+            return temp_deg_file
 
-        log('Clipping and masking degradation layers.')
+
+class ClipWorker(AbstractWorker):
+    def __init__(self, in_file, out_file, aoi):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+        self.aoi = aoi
+
+    def work(self):
+        self.toggle_show_progress.emit(False)
+        self.toggle_show_cancel.emit(False)
+
         # Use 'processing' to clip and crop
         mask_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "mask", "memory")
         mask_pr = mask_layer.dataProvider()
@@ -261,10 +276,9 @@ class DegradationWorker(AbstractWorker):
         QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file,
                                                 "CP1250", None, "ESRI Shapefile")
 
-        gdal.Warp(self.out_file, temp_deg_file, format='GTiff',
+        gdal.Warp(self.out_file, self.in_file, format='GTiff',
                   cutlineDSName=mask_layer_file, cropToCutline=True,
                   dstNodata=9999)
-        log('Clipping and masking of degradation layers completed.')
 
         return True
 
@@ -281,19 +295,18 @@ class StartWorker(object):
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
         start_worker(self.worker, iface,
-                     QtGui.QApplication.translate("LDMP", 'Processing {}').format(process_name))
+                     QtGui.QApplication.translate("LDMP", 'Processing: {}').format(process_name))
         pause.exec_()
 
         if self.exception:
             raise self.exception
 
-        if not self.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Reporting calculation failed."), None)
-            return
-
-    def save_success(self):
+    def save_success(self, val=None):
+        self.return_val = val
         self.success = True
+
+    def get_return(self):
+        return self.return_val
 
     def save_exception(self, exception):
         self.exception = exception
@@ -485,18 +498,32 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         self.close()
 
-        # Resample the land cover data to match the resolutions of the other
-        # layers:
+        # Need to resample the 300m land cover data to match the resolutions of 
+        # the other layers:
         log('Reprojecting land cover...')
-        ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(),
-                             layer_traj.dataProvider().dataSourceUri())
-        temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Reprojection of land cover finished.')
+        reproj_worker = StartWorker(ReprojectionWorker, 'reprojecting land cover', 
+                                    layer_lc.dataProvider().dataSourceUri(),
+                                    layer_traj.dataProvider().dataSourceUri())
+        if not reproj_worker.success:
+            return
+        else:
+            ds_lc = reproj_worker.get_return()
 
+        log('Calculating degradation...')
+        deg_worker = StartWorker(DegradationWorker, 'calculating degradation',
+                                 ds_traj, ds_state, ds_perf, 
+                                 ds_lc)
+        if not deg_worker.success:
+            return
+        else:
+            deg_file = deg_worker.get_return()
+
+        log('Clipping and masking degradation layers...')
         out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
-        worker = StartWorker(DegradationWorker, out_file.rsplit('/', 1)[-1],
-                             out_file, ds_traj, ds_state, ds_perf, ds_lc, self.aoi)
-        if not worker.success:
+        clip_worker = StartWorker(ClipWorker, 'clipping and masking output',
+                                  deg_file, out_file, self.aoi)
+        log('Clipping and masking degradation layers COMPLETE, returning: {}'.format(clip_worker.success))
+        if not clip_worker.success:
             return
 
         style_sdg_ld(out_file)
@@ -542,7 +569,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         dlg_plot = DlgPlotBars()
         dlg_plot.plot_data(x, y, self.plot_title.text())
         dlg_plot.show()
-        dlg_plot.exec_()
 
         out_file_csv = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.csv')
         with open(out_file_csv, 'wb') as fh:
@@ -550,6 +576,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             for item in self.deg.items():
                 writer.writerow(item)
 
+        mb.pushMessage(QtGui.QApplication.translate("LDMP", "Processing Complete"),
+                       QtGui.QApplication.translate("LDMP", "Finished calculation of SDG 15.3.1 land degradation layer."),
+                       level=0, duration=5)
 
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):
     def __init__(self, parent=None):

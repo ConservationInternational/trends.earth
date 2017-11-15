@@ -29,29 +29,33 @@ from LDMP.worker import AbstractWorker, start_worker
 from LDMP import log
 
 API_URL = 'https://api.resilienceatlas.org'
-TIMEOUT=20
+TIMEOUT = 20
+
 
 def get_user_email(warn=True):
     email = QtCore.QSettings().value("LDMP/email", None)
     if warn and email is None:
-        QtGui.QMessageBox.critical(None, 
-                QtGui.QApplication.translate("LDMP", "Error"), 
-                QtGui.QApplication.translate("LDMP", "Please register with the Land Degradation Monitoring Toolbox before using this function."))
+        QtGui.QMessageBox.critical(None,
+                                   QtGui.QApplication.translate("LDMP", "Error"),
+                                   QtGui.QApplication.translate("LDMP", "Please register with the Land Degradation Monitoring Toolbox before using this function."))
         return None
     else:
         return email
 
 ###############################################################################
 # Threading functions for calls to requests
+
+
 class RequestWorker(AbstractWorker):
     """worker, implement the work method here and raise exceptions if needed"""
+
     def __init__(self, url, method, payload, headers):
         AbstractWorker.__init__(self)
         self.url = url
         self.method = method
         self.payload = payload
         self.headers = headers
- 
+
     def work(self):
         self.toggle_show_progress.emit(False)
         self.toggle_show_cancel.emit(False)
@@ -71,6 +75,7 @@ class RequestWorker(AbstractWorker):
             raise ValueError("Unrecognized method: {}".format(method))
             resp = None
         return resp
+
 
 class Request(object):
     def __init__(self, url, method='get', payload=None, headers={}):
@@ -95,15 +100,15 @@ class Request(object):
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
-            QtGui.QMessageBox.critical(None, 
-                    QtGui.QApplication.translate("LDMP", "Error"), 
-                    QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your internet connection."))
+            QtGui.QMessageBox.critical(None,
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your internet connection."))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
-            QtGui.QMessageBox.critical(None, 
-                    QtGui.QApplication.translate("LDMP", "Error"), 
-                    QtGui.QApplication.translate("LDMP", "Unable to connect to LDMP server."))
+            QtGui.QMessageBox.critical(None,
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Unable to connect to LDMP server."))
             resp = None
 
     def save_resp(self, resp):
@@ -117,16 +122,18 @@ class Request(object):
 
     def get_exception(self):
         return self.exception
- 
+
 ###############################################################################
 # Other helper functions for api calls
+
+
 def clean_api_response(resp):
     if resp == None:
         # Return 'None' unmodified
         response = resp
     else:
         try:
-            # JSON conversion will fail if the server didn't return a json 
+            # JSON conversion will fail if the server didn't return a json
             # response
             response = resp.json().copy()
             if response.has_key('password'):
@@ -138,9 +145,10 @@ def clean_api_response(resp):
             response = resp.text
     return response
 
+
 def get_error_status(resp):
     try:
-        # JSON conversion will fail if the server didn't return a json 
+        # JSON conversion will fail if the server didn't return a json
         # response
         resp = resp.json()
     except ValueError:
@@ -153,6 +161,7 @@ def get_error_status(resp):
         desc = resp.get('description', 'Generic error')
     return (desc, status)
 
+
 def login(email=None, password=None):
     if (email == None):
         email = get_user_email()
@@ -160,18 +169,19 @@ def login(email=None, password=None):
         password = QtCore.QSettings().value("LDMP/password", None)
     if not email or not password:
         log('API unable to login - check username/password')
-        QtGui.QMessageBox.critical(None, 
-                QtGui.QApplication.translate("LDMP", "Error"), 
-                QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your username and password."))
+        QtGui.QMessageBox.critical(None,
+                                   QtGui.QApplication.translate("LDMP", "Error"),
+                                   QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your username and password."))
         resp = None
 
-    resp = call_api('/auth', method='post', payload={"email" : email, "password" : password})
+    resp = call_api('/auth', method='post', payload={"email": email, "password": password})
 
     if resp != None:
         QtCore.QSettings().setValue("LDMP/email", email)
         QtCore.QSettings().setValue("LDMP/password", password)
 
     return resp
+
 
 def call_api(endpoint, method='get', payload=None, use_token=False):
     if use_token:
@@ -212,6 +222,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
 
     return ret
 
+
 def get_header(url):
     worker = Request(url, 'head')
     worker.start()
@@ -232,16 +243,22 @@ def get_header(url):
 
 ################################################################################
 # Functions supporting access to individual api endpoints
+
+
 def recover_pwd(email):
     return call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+
 
 def get_user(email='me'):
     resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
 
 ################################################################################
 # Functions supporting access to individual api endpoints
+
+
 def recover_pwd(email):
     return call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+
 
 def get_user(email='me'):
     resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
@@ -250,6 +267,7 @@ def get_user(email='me'):
     else:
         return None
 
+
 def delete_user(email='me'):
     resp = call_api('/api/v1/user/me', 'delete', use_token=True)
     if resp:
@@ -257,33 +275,38 @@ def delete_user(email='me'):
     else:
         return None
 
+
 def register(email, name, organization, country):
-    payload = {"email" : email,
-               "name" : name,
+    payload = {"email": email,
+               "name": name,
                "institution": organization,
                "country": country}
     return call_api('/api/v1/user', method='post', payload=payload)
 
+
 def run_script(script, params={}):
-    # TODO: check before submission whether this payload and script ID has 
-    # been sent recently - or even whether there are results already 
-    # available for it. Notify the user if this is the case to prevent, or 
+    # TODO: check before submission whether this payload and script ID has
+    # been sent recently - or even whether there are results already
+    # available for it. Notify the user if this is the case to prevent, or
     # at least reduce, repeated identical submissions.
     return call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params, use_token=True)
 
+
 def update_user(email, name, organization, country):
-    payload = {"email" : email,
-               "name" : name,
+    payload = {"email": email,
+               "name": name,
                "institution": organization,
                "country": country}
     return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
+
 def update_password(password, repeatPassword):
-    payload = {"email" : email,
-               "name" : name,
+    payload = {"email": email,
+               "name": name,
                "institution": organization,
                "country": country}
     return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+
 
 def get_execution(id=None, date=None):
     log('Fetching executions')
@@ -315,6 +338,7 @@ def get_execution(id=None, date=None):
             end_date = end_date.astimezone(tz.tzlocal())
             job['end_date'] = end_date
         return data
+
 
 def get_script(id=None):
     if id:

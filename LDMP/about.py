@@ -18,6 +18,7 @@ from PyQt4 import QtGui
 
 from LDMP.gui.DlgAbout import Ui_DlgAbout as UiDialog
 
+
 class DlgAbout(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
@@ -32,7 +33,7 @@ class DlgAbout(QtGui.QDialog, UiDialog):
         VS_logo = QtGui.QPixmap(':/plugins/LDMP/icons/VS_logo.png')
         self.VS_logo.setPixmap(VS_logo)
         self.VS_logo.show()
-        
+
         CI_logo = QtGui.QPixmap(':/plugins/LDMP/icons/CI_logo.png')
         self.CI_logo.setPixmap(CI_logo)
         self.CI_logo.show()

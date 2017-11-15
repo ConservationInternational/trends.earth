@@ -25,11 +25,14 @@ site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 debug = QtCore.QSettings().value('LDMP/debug', True)
 
+
 def log(message, level=QgsMessageLog.INFO):
     if debug:
         QgsMessageLog.logMessage(message, tag="LDMP", level=level)
 
 # noinspection PyPep8Naming
+
+
 def classFactory(iface):  # pylint: disable=invalid-name
     """Load LDMPPlugin class from file LDMP.
 

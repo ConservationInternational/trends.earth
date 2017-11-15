@@ -22,6 +22,7 @@ from PyQt4 import QtGui
 from LDMP import log
 from LDMP.gui.DlgPlot import Ui_DlgPlot as UiDialog
 
+
 class DlgPlot(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         super(DlgPlot, self).__init__(parent)
@@ -40,6 +41,7 @@ class DlgPlot(QtGui.QDialog, UiDialog):
     def save_image_clicked(self):
         pass
 
+
 class DlgPlotTimeries(DlgPlot):
     def __init__(self, parent=None):
         super(DlgPlotTimeries, self).__init__(parent)
@@ -55,11 +57,12 @@ class DlgPlotTimeries(DlgPlot):
         if title:
             self.plot_window.setTitle(title)
 
+
 class DlgPlotBars(DlgPlot):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgPlotBars, self).__init__(parent)
-    
+
     def plot_data(self, x, y, title=None):
         # dict to handle string x-axis labels
         xdict = dict(enumerate(x))

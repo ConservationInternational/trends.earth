@@ -30,6 +30,7 @@ from qgis.utils import iface
 
 mb = iface.messageBar()
 
+
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def __init__(self, parent=None):
         """Constructor."""
@@ -112,7 +113,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        # Can't use any of the methods but NDVI Trends on the 16 day data, so 
+        # Can't use any of the methods but NDVI Trends on the 16 day data, so
         # don't need climate datasets
         if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal'] == 'annual':
             climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
@@ -134,7 +135,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.start_year_ndvi = this_ndvi_dataset['Start year']
         self.end_year_ndvi = this_ndvi_dataset['End year']
 
-        # Don't try to update the climate datasets while traj_indic is empty, 
+        # Don't try to update the climate datasets while traj_indic is empty,
         # so block signals while clearing it.
         self.traj_indic.blockSignals(True)
         self.traj_indic.clear()
@@ -148,7 +149,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.update_time_bounds()
 
     def update_time_bounds(self):
-        # TODO: need to also account for GAEZ and/or CCI data dates for 
+        # TODO: need to also account for GAEZ and/or CCI data dates for
         # stratification
         start_year = QDate(self.start_year_ndvi, 1, 1)
         end_year = QDate(self.end_year_ndvi, 12, 31)
@@ -161,7 +162,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.traj_year_start.setMaximumDate(end_year_traj)
         self.traj_year_end.setMinimumDate(start_year_traj)
         self.traj_year_end.setMaximumDate(end_year_traj)
-            
+
     def btn_cancel(self):
         self.close()
 
@@ -169,19 +170,19 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if self.area_admin.isChecked():
             if not self.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose a first level administrative boundary."), None)
+                                           self.tr("Choose a first level administrative boundary."), None)
                 return False
             self.button_calculate.setEnabled(False)
             geojson = self.load_admin_polys()
             self.button_calculate.setEnabled(True)
             if not geojson:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Unable to load administrative boundaries."), None)
+                                           self.tr("Unable to load administrative boundaries."), None)
                 return False
         elif self.area_fromfile.isChecked():
             if not self.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose a file to define the area of interest."), None)
+                                           self.tr("Choose a file to define the area of interest."), None)
                 return False
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             crs_source = layer.crs()
@@ -193,7 +194,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             # Area from point
             if not self.point_x.text() and not self.point_y.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose a point to define the area of interest."), None)
+                                           self.tr("Choose a point to define the area of interest."), None)
                 return False
             point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
             crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
@@ -203,7 +204,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.close()
 
-        # Calculate bounding box of input polygon and then convert back to 
+        # Calculate bounding box of input polygon and then convert back to
         # geojson
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
@@ -239,9 +240,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         if resp:
             mb.pushMessage(self.tr("Submitted"),
-                    self.tr("Time series calculation task submitted to Google Earth Engine."),
-                    level=0, duration=5)
+                           self.tr("Time series calculation task submitted to Google Earth Engine."),
+                           level=0, duration=5)
         else:
             mb.pushMessage(self.tr("Error"),
-                    self.tr("Unable to submit time series calculation task to Google Earth Engine."),
-                    level=1, duration=5)
+                           self.tr("Unable to submit time series calculation task to Google Earth Engine."),
+                           level=1, duration=5)

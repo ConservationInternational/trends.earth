@@ -28,6 +28,7 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
 from LDMP.api import run_script
 
+
 class DlgCalculateProd(DlgCalculateBase, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
@@ -110,7 +111,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
     def update_time_bounds(self):
         # State and performance depend only on NDVI data
-        # TODO: need to also account for GAEZ and/or CCI data dates for 
+        # TODO: need to also account for GAEZ and/or CCI data dates for
         # stratification
         start_year = QDate(self.start_year_ndvi, 1, 1)
         end_year = QDate(self.end_year_ndvi, 12, 31)
@@ -148,22 +149,21 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.traj_year_end.setMinimumDate(start_year_traj)
         self.traj_year_end.setMaximumDate(end_year_traj)
 
-            
     def btn_cancel(self):
         self.close()
 
     def btn_calculate(self):
-        if not (self.indic_select_traj.isChecked() or 
-                self.indic_select_perf.isChecked() or 
+        if not (self.indic_select_traj.isChecked() or
+                self.indic_select_perf.isChecked() or
                 self.indic_select_state.isChecked()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Choose one or more indicators to calculate."), None)
+                                       self.tr("Choose one or more indicators to calculate."), None)
             return
 
         self.close()
 
-        # Note that the super class has several tests in it - if they fail it 
-        # returns False, which would mean this function should stop execution 
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgCalculateProd, self).btn_calculate()
         if not ret:
@@ -179,7 +179,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         if self.indic_select_state.isChecked():
             self.calculate_state(self.bbox, ndvi_dataset)
-    
+
     def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
@@ -202,13 +202,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
-                    QtGui.QApplication.translate("LDMP", "Productivity trajectory task submitted to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Productivity trajectory task submitted to Google Earth Engine."),
+                           level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
-                    QtGui.QApplication.translate("LDMP", "Unable to submit productivity trajectory task to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity trajectory task to Google Earth Engine."),
+                           level=0, duration=5)
 
     def calculate_performance(self, geojson, ndvi_dataset):
         payload = {'year_start': self.perf_year_start.date().year(),
@@ -223,13 +223,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
-                    QtGui.QApplication.translate("LDMP", "Productivity performance task submitted to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Productivity performance task submitted to Google Earth Engine."),
+                           level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
-                    QtGui.QApplication.translate("LDMP", "Unable to submit productivity performance task to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity performance task to Google Earth Engine."),
+                           level=0, duration=5)
 
     def calculate_state(self, geojson, ndvi_dataset):
         payload = {'year_init_bl_start': self.state_year_init_bl_start.date().year(),
@@ -250,10 +250,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
-                    QtGui.QApplication.translate("LDMP", "Productivity state task submitted to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Productivity state task submitted to Google Earth Engine."),
+                           level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
-                    QtGui.QApplication.translate("LDMP", "Unable to submit productivity state task to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity state task to Google Earth Engine."),
+                           level=0, duration=5)

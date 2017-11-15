@@ -28,6 +28,7 @@ from LDMP.gui.DlgDownload import Ui_DlgDownload
 from LDMP.worker import AbstractWorker, start_worker
 from LDMP.api import get_header
 
+
 def check_hash_against_etag(url, filename):
     h = get_header(url)
     expected = h.get('ETag', '').strip('"')
@@ -40,6 +41,7 @@ def check_hash_against_etag(url, filename):
     else:
         log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
         return False
+
 
 def read_json(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
@@ -68,21 +70,25 @@ def read_json(file, verify=True):
 
     return json.loads(json_str)
 
+
 def get_admin_bounds():
     admin_bounds_key = read_json('admin_bounds_key.json.gz', verify=False)
     return admin_bounds_key
 
+
 class DownloadError(Exception):
-     def __init__(self, message):
+    def __init__(self, message):
         self.message = message
+
 
 class DownloadWorker(AbstractWorker):
     """worker, implement the work method here and raise exceptions if needed"""
+
     def __init__(self, url, outfile):
         AbstractWorker.__init__(self)
         self.url = url
         self.outfile = outfile
- 
+
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
@@ -94,23 +100,23 @@ class DownloadWorker(AbstractWorker):
 
         total_size = int(resp.headers['Content-length'])
         if total_size < 1e5:
-            total_size_pretty = '{:.2f} KB'.format(round(total_size/1024, 2))
+            total_size_pretty = '{:.2f} KB'.format(round(total_size / 1024, 2))
         else:
-            total_size_pretty = '{:.2f} MB'.format(round(total_size*1e-6, 2))
-        
+            total_size_pretty = '{:.2f} MB'.format(round(total_size * 1e-6, 2))
+
         log('Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
         bytes_dl = 0
         r = requests.get(self.url, stream=True)
         with open(self.outfile, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192): 
+            for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:
                     log("Download {} killed by user".format(self.url))
                     break
                 elif chunk: # filter out keep-alive new chunks
                     f.write(chunk)
                     bytes_dl += len(chunk)
-                    self.progress.emit(100* float(bytes_dl) / float(total_size))
+                    self.progress.emit(100 * float(bytes_dl) / float(total_size))
         f.close()
 
         if bytes_dl != total_size:
@@ -122,6 +128,7 @@ class DownloadWorker(AbstractWorker):
         else:
             log("Download of {} complete".format(self.url))
             return True
+
 
 class Download(object):
     def __init__(self, url, outfile):
@@ -138,33 +145,33 @@ class Download(object):
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
             start_worker(worker, iface,
-                    QtGui.QApplication.translate("LDMP", 'Downloading {}').format(self.url.rsplit('/', 1)[-1]))
+                         QtGui.QApplication.translate("LDMP", 'Downloading {}').format(self.url.rsplit('/', 1)[-1]))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ChunkedEncodingError:
             log("Download failed due to ChunkedEncodingError - likely a connection loss")
             QtGui.QMessageBox.critical(None,
-                    QtGui.QApplication.translate("LDMP", "Error"),
-                    QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
             return False
         except requests.exceptions.ConnectionError:
             log("Download failed due to connection error")
             QtGui.QMessageBox.critical(None,
-                    QtGui.QApplication.translate("LDMP", "Error"),
-                    QtGui.QApplication.translate("LDMP", "Unable to access internet. Check your internet connection."))
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Unable to access internet. Check your internet connection."))
             return False
         except requests.exceptions.Timeout:
             log('Download timed out.')
             QtGui.QMessageBox.critical(None,
-                    QtGui.QApplication.translate("LDMP", "Error"),
-                    QtGui.QApplication.translate("LDMP", "Download timed out. Check your internet connection."))
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Download timed out. Check your internet connection."))
             return False
         except DownloadError:
             log("Download failed.")
             QtGui.QMessageBox.critical(None,
-                    QtGui.QApplication.translate("LDMP", "Error"),
-                    QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
             return False
         return True
 
@@ -179,6 +186,7 @@ class Download(object):
 
     def get_exception(self):
         return self.exception
+
 
 class DlgDownload(QtGui.QDialog, Ui_DlgDownload):
     def __init__(self, parent=None):

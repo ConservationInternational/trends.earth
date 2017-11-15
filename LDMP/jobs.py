@@ -18,8 +18,8 @@ import json
 import datetime
 from math import floor, log10
 
-import numpy as np 
-from osgeo import gdal 
+import numpy as np
+from osgeo import gdal
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
@@ -39,23 +39,26 @@ from LDMP import log
 from LDMP.download import Download, check_hash_against_etag
 from LDMP.api import get_script, get_user_email, get_execution
 
+
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
     raise TypeError("Type %s not serializable" % type(obj))
 
+
 def create_json_metadata(job, outfile):
     outfile = os.path.splitext(outfile)[0] + '.json'
     with open(outfile, 'w') as outfile:
-        json.dump(job['raw'], outfile, default=json_serial, sort_keys=True, 
-                indent=4, separators=(',', ': '))
+        json.dump(job['raw'], outfile, default=json_serial, sort_keys=True,
+                  indent=4, separators=(',', ': '))
+
 
 def get_scripts():
     scripts = get_script()
     if not scripts:
         return None
-    # The scripts endpoint lists scripts in a list of dictionaries. Convert 
+    # The scripts endpoint lists scripts in a list of dictionaries. Convert
     # this to a dictionary keyed by script id
     scripts_dict = {}
     for script in scripts:
@@ -63,13 +66,16 @@ def get_scripts():
         scripts_dict[script_id] = script
     return scripts_dict
 
+
 def round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
     return round(x, -int(floor(log10(x))) + (sf - 1))
 
+
 def get_extreme(mn, mx, sf=3):
     'Function to get rounded extreme value for a centered colorbar'
     return max([round_to_n(abs(mn), sf), round_to_n(abs(mx), sf)])
+
 
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def __init__(self, parent=None):
@@ -80,7 +86,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         self.setupUi(self)
 
-        # Set a variable used to record the necessary window width to view all 
+        # Set a variable used to record the necessary window width to view all
         # columns
         self._full_width = None
 
@@ -115,7 +121,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         else:
             rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
             for row in rows:
-                # Don't set button to enabled if any of the tasks aren't yet 
+                # Don't set button to enabled if any of the tasks aren't yet
                 # finished
                 if self.jobs[row]['status'] != 'FINISHED':
                     self.download.setEnabled(False)
@@ -133,7 +139,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 if not self.scripts:
                     return False
                 for job in self.jobs:
-                    # self.jobs will have prettified data for usage in table, 
+                    # self.jobs will have prettified data for usage in table,
                     # so save a backup of the original data under key 'raw'
                     job['raw'] = job.copy()
                     script = job.get('script_id', None)
@@ -141,9 +147,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                         job['script_name'] = self.scripts[job['script_id']]['name']
                         job['script_description'] = self.scripts[job['script_id']]['description']
                     else:
-                        # Handle case of scripts that have been removed or that are 
+                        # Handle case of scripts that have been removed or that are
                         # no longer supported
-                        job['script_name'] =  self.tr('Script not found')
+                        job['script_name'] = self.tr('Script not found')
                         job['script_description'] = self.tr('Script not found')
 
                 # Pretty print dates and pull the metadata sent as input params
@@ -181,7 +187,6 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
             self.resizeWindowToColumns()
 
-
     def btn_details(self):
         button = self.sender()
         index = self.jobs_view.indexAt(button.pos())
@@ -201,8 +206,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
     def btn_download(self):
         rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
-        # Check if we need a download directory - some tasks don't need to save 
-        # data, but if any of the chosen \tasks do, then we need to choose a 
+        # Check if we need a download directory - some tasks don't need to save
+        # data, but if any of the chosen \tasks do, then we need to choose a
         # folder.
         need_dir = False
         for row in rows:
@@ -212,17 +217,17 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 break
 
         if need_dir:
-            download_dir = QtGui.QFileDialog.getExistingDirectory(self, 
-                    self.tr("Directory to save files"),
-                    self.settings.value("LDMP/download_dir", None),
-                    QtGui.QFileDialog.ShowDirsOnly)
+            download_dir = QtGui.QFileDialog.getExistingDirectory(self,
+                                                                  self.tr("Directory to save files"),
+                                                                  self.settings.value("LDMP/download_dir", None),
+                                                                  QtGui.QFileDialog.ShowDirsOnly)
             if download_dir:
                 if os.access(download_dir, os.W_OK):
                     self.settings.setValue("LDMP/download_dir", download_dir)
                     log("Downloading results to {}".format(download_dir))
                 else:
                     QtGui.QMessageBox.critical(None, self.tr("Error"),
-                            self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
+                                               self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
                     return False
             else:
                 return False
@@ -245,6 +250,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
 
+
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
     def __init__(self, parent=None):
         """Constructor."""
@@ -252,13 +258,14 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
 
         self.setupUi(self)
 
+
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
         self.jobs = datain
 
         # Column names as tuples with json name in [0], pretty name in [1]
-        # Note that the columns with json names set to to INVALID aren't loaded 
+        # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
         colname_tuples = [('task_name', QtGui.QApplication.translate('LDMPPlugin', 'Task name')),
                           ('script_name', QtGui.QApplication.translate('LDMPPlugin', 'Job')),
@@ -287,6 +294,7 @@ class JobsTableModel(QAbstractTableModel):
             return self.colnames_pretty[section]
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
+
 def download_result(url, outfile, job):
     log("Downloading {}".format(url))
     worker = Download(url, outfile)
@@ -296,6 +304,7 @@ def download_result(url, outfile, job):
         return check_hash_against_etag(url, outfile)
     else:
         return None
+
 
 def download_land_cover(job, download_dir):
     log("downloading land_cover results...")
@@ -315,6 +324,7 @@ def download_land_cover(job, download_dir):
                 style_land_cover_land_deg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
+
 
 def style_land_cover_lc_baseline(outfile):
     layer_lc_baseline = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (baseline)'))
@@ -337,6 +347,7 @@ def style_land_cover_lc_baseline(outfile):
     layer_lc_baseline.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_lc_baseline)
 
+
 def style_land_cover_lc_target(outfile):
     layer_lc_target = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (target)'))
     if not layer_lc_target.isValid():
@@ -357,6 +368,7 @@ def style_land_cover_lc_target(outfile):
     layer_lc_target.setRenderer(pseudoRenderer)
     layer_lc_target.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_lc_target)
+
 
 def style_land_cover_lc_change(outfile):
     layer_lc_change = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover change'))
@@ -410,6 +422,7 @@ def style_land_cover_lc_change(outfile):
     layer_lc_change.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_lc_change)
 
+
 def style_land_cover_land_deg(outfile):
     layer_deg = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (degradation)'))
     if not layer_deg.isValid():
@@ -429,6 +442,7 @@ def style_land_cover_land_deg(outfile):
     layer_deg.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_deg)
 
+
 def download_prod_traj(job, download_dir):
     log("Downloading productivity_trajectory results...")
     for dataset in job['results'].get('datasets'):
@@ -444,6 +458,7 @@ def download_prod_traj(job, download_dir):
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
+
 def style_prod_traj_trend(outfile):
     # Trends layer
     layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend\n(slope of NDVI * 10000)'))
@@ -452,9 +467,9 @@ def style_prod_traj_trend(outfile):
         return None
     provider = layer_ndvi.dataProvider()
 
-    # Set a colormap centred on zero, going to the extreme value significant to 
+    # Set a colormap centred on zero, going to the extreme value significant to
     # three figures (after a 2 percent stretch)
-    ds = gdal.Open(outfile) 
+    ds = gdal.Open(outfile)
     band1 = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
     band1[band1 >= 9997] = np.nan
     ds = None
@@ -478,6 +493,7 @@ def style_prod_traj_trend(outfile):
     layer_ndvi.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_ndvi)
 
+
 def style_prod_traj_signif(outfile):
     # Significance layer
     layer_signif = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend (significance)'))
@@ -499,6 +515,7 @@ def style_prod_traj_signif(outfile):
     layer_signif.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_signif)
 
+
 def download_prod_state(job, download_dir):
     log("downloading productivity_state results...")
     for dataset in job['results'].get('datasets'):
@@ -514,6 +531,7 @@ def download_prod_state(job, download_dir):
                 style_prod_state_emerg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
+
 
 def style_prod_state_init(outfile):
     # Significance layer
@@ -534,6 +552,7 @@ def style_prod_state_init(outfile):
     layer.setRenderer(pseudoRenderer)
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
+
 
 def style_prod_state_emerg(outfile):
     # Significance layer
@@ -556,6 +575,7 @@ def style_prod_state_emerg(outfile):
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
+
 def download_prod_perf(job, download_dir):
     log("downloading productivity_perf results...")
     for dataset in job['results'].get('datasets'):
@@ -569,6 +589,7 @@ def download_prod_perf(job, download_dir):
                 style_prod_perf(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
+
 
 def style_prod_perf(outfile):
     layer_perf = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity performance (degradation)'))
@@ -590,6 +611,7 @@ def style_prod_perf(outfile):
     layer_perf.setRenderer(pseudoRenderer)
     layer_perf.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_perf)
+
 
 def download_timeseries(job):
     log("processing timeseries results...")

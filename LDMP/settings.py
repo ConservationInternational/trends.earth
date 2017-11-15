@@ -29,13 +29,14 @@ from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 from LDMP.api import get_user_email, get_user, delete_user, login, register, update_user, recover_pwd
 from LDMP.download import get_admin_bounds
 
+
 class DlgSettings (QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         super(DlgSettings, self).__init__(parent)
         self.settings = QSettings()
 
         self.setupUi(self)
-        
+
         self.dlg_settingsregister = DlgSettingsRegister()
         self.dlg_settingsupdate = DlgSettingsUpdate()
 
@@ -49,17 +50,19 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         self.admin_bounds_key = get_admin_bounds()
 
         email = get_user_email(warn=False)
-        if email: self.email.setText(email)
+        if email:
+            self.email.setText(email)
         password = self.settings.value("LDMP/password", None)
-        if password: self.password.setText(password)
+        if password:
+            self.password.setText(password)
 
     def btn_update_profile(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter an email address to update."), None)
+                                       self.tr("Enter an email address to update."), None)
         elif not self.password.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter your password to update your user details."), None)
+                                       self.tr("Enter your password to update your user details."), None)
         else:
             # Validate the email/password by logging in first
             resp = login(self.email.text(), self.password.text())
@@ -76,7 +79,8 @@ class DlgSettings (QtGui.QDialog, UiDialog):
             # Add countries, and set index to currently chosen country
             self.dlg_settingsupdate.country.addItems(sorted(self.admin_bounds_key.keys()))
             index = self.dlg_settingsupdate.country.findText(user['country'])
-            if index != -1: self.dlg_settingsupdate.country.setCurrentIndex(index)
+            if index != -1:
+                self.dlg_settingsupdate.country.setCurrentIndex(index)
 
             result = self.dlg_settingsupdate.exec_()
 
@@ -93,20 +97,20 @@ class DlgSettings (QtGui.QDialog, UiDialog):
     def btn_delete(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter your email."), None)
+                                       self.tr("Enter your email."), None)
             return
         if not self.password.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter your password."), None)
+                                       self.tr("Enter your password."), None)
             return
         reply = QtGui.QMessageBox.question(None, self.tr("Delete user?"),
-                    self.tr("Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using the toolbox."),
-                    QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+                                           self.tr("Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using the toolbox."),
+                                           QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
         if reply == QtGui.QMessageBox.Yes:
             resp = delete_user(self.email.text)
             if resp:
                 mb.pushMessage(QtGui.QApplication.translate('LDMPPlugin', "Success"),
-                        QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(self.email.text()), level=0)
+                               QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(self.email.text()), level=0)
                 self.settings.setValue("LDMP/password", None)
                 self.settings.setValue("LDMP/email", None)
                 self.email.setText(None)
@@ -123,29 +127,30 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         # Verify there is input for email
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter your email address to reset your password."), None)
+                                       self.tr("Enter your email address to reset your password."), None)
             return
         resp = recover_pwd(self.email.text())
         if resp != None:
             mb.pushMessage(self.tr("Success"),
-                    self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)
+                           self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)
             self.close()
 
     def btn_login(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter your email address."), None)
+                                       self.tr("Enter your email address."), None)
             return
         elif not self.password.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Enter your password."), None)
+                                       self.tr("Enter your password."), None)
             return
         resp = login(self.email.text(), self.password.text())
         if resp:
             mb.pushMessage(self.tr("Success"),
-                    self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
+                           self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
             self.settings.setValue("LDMP/jobs_cache", None)
             self.close()
+
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
     def __init__(self, parent=None):
@@ -176,6 +181,7 @@ class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
     def btn_cancel(self):
         self.close()
 
+
 class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
     def __init__(self, parent=None):
         """Constructor."""
@@ -195,11 +201,11 @@ class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
         else:
-            resp = update_user(self.email.text(), self.name.text(), 
-                    self.organization.text(), self.country.currentText())
+            resp = update_user(self.email.text(), self.name.text(),
+                               self.organization.text(), self.country.currentText())
             if resp != None:
                 QtGui.QMessageBox.information(None, self.tr("Saved"),
-                        self.tr("Updated information for {}.").format(self.email.text()), None)
+                                              self.tr("Updated information for {}.").format(self.email.text()), None)
                 self.close()
 
     def btn_cancel(self):

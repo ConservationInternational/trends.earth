@@ -24,6 +24,7 @@ from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
 from LDMP.download import read_json, get_admin_bounds
 
+
 class DlgCalculate(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
@@ -48,16 +49,18 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
     def btn_soc_clicked(self):
         QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("SOC indicator calculation coming soon!"), None)
+                                   self.tr("SOC indicator calculation coming soon!"), None)
+
 
 class DlgCalculateBase(QtGui.QDialog):
     """Base class for individual indicator calculate dialogs"""
+
     def __init__(self, parent=None):
         super(DlgCalculateBase, self).__init__(parent)
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'scripts.json')) as script_file:
             self.scripts = json.load(script_file)
-            
+
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
@@ -108,7 +111,7 @@ class DlgCalculateBase(QtGui.QDialog):
 
         self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
         self.populate_admin_1()
-        
+
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
 
         self.area_fromfile_browse.clicked.connect(self.open_shp_browse)
@@ -155,24 +158,24 @@ class DlgCalculateBase(QtGui.QDialog):
         if self.area_admin.isChecked():
             if not self.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose a first level administrative boundary."), None)
+                                           self.tr("Choose a first level administrative boundary."), None)
                 return False
             self.button_calculate.setEnabled(False)
             geojson = self.load_admin_polys()
             self.button_calculate.setEnabled(True)
             if not geojson:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Unable to load administrative boundaries."), None)
+                                           self.tr("Unable to load administrative boundaries."), None)
                 return False
         else:
             if not self.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Choose a file to define the area of interest."), None)
+                                           self.tr("Choose a file to define the area of interest."), None)
                 return False
             layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             if not layer.isValid():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Unable to read area file."), None)
+                                           self.tr("Unable to read area file."), None)
                 return False
             log('Loaded layer: {}'.format(layer.dataProvider().dataSourceUri()))
             #TODO: Fix this kludge
@@ -184,7 +187,7 @@ class DlgCalculateBase(QtGui.QDialog):
             aoi.transform(QgsCoordinateTransform(crs_source, crs_dest))
             geojson = json.loads(aoi.exportToGeoJSON())
 
-        # Calculate bounding box of input polygon and then convert back to 
+        # Calculate bounding box of input polygon and then convert back to
         # geojson
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
@@ -195,6 +198,7 @@ class DlgCalculateBase(QtGui.QDialog):
         self.bbox = json.loads(QgsGeometry.fromRect(self.aoi.boundingBox()).exportToGeoJSON())
 
         return True
+
 
 from LDMP.calculate_prod import DlgCalculateProd
 from LDMP.calculate_lc import DlgCalculateLC

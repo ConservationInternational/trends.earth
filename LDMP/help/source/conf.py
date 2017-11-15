@@ -11,7 +11,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -46,7 +47,7 @@ project = u'Land Degradation Monitoring Toolbox'
 copyright = u'2017, Conservation International'
 
 locale_dirs = ['../i18n/']
-gettext_compact = False 
+gettext_compact = False
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -208,8 +209,8 @@ rinoh_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 rinoh_documents = [
-  ('index', 'LDMT_Documentation.pdf', u'Land Degradation Monitoring Toolbox Documentation',
-   u'Conservation International', 'manual'),
+    ('index', 'LDMT_Documentation.pdf', u'Land Degradation Monitoring Toolbox Documentation',
+     u'Conservation International', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

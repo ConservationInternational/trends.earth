@@ -31,6 +31,7 @@ from qgis.utils import showPluginHelp
 # Initialize Qt resources from file resources.py
 import LDMP.resources
 
+
 def showHelp(file='index', section=None):
     locale = QSettings().value('locale/userLocale')[0:2]
     help_base_path = os.path.join(os.path.dirname(__file__), 'help', 'build', 'html')
@@ -45,6 +46,7 @@ def showHelp(file='index', section=None):
         showPluginHelp(filename=help_path, section=section)
     else:
         showPluginHelp(filename=help_path)
+
 
 class LDMPPlugin:
     """QGIS Plugin Implementation."""
@@ -68,16 +70,16 @@ class LDMPPlugin:
             self.plugin_dir,
             'i18n',
             'LDMP_{}.qm'.format(locale))
-        QgsMessageLog.logMessage('Using locale "{}" in path {}.'.format(locale, 
-            locale_path), tag="LDMP", level=QgsMessageLog.INFO)
+        QgsMessageLog.logMessage('Using locale "{}" in path {}.'.format(locale,
+                                                                        locale_path), tag="LDMP", level=QgsMessageLog.INFO)
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
             self.translator.load(locale_path)
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
-                QgsMessageLog.logMessage("Translator installed.", tag="LDMP", 
-                        level=QgsMessageLog.INFO)
+                QgsMessageLog.logMessage("Translator installed.", tag="LDMP",
+                                         level=QgsMessageLog.INFO)
 
         # Declare instance attributes
         self.actions = []
@@ -109,18 +111,17 @@ class LDMPPlugin:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('LDMP', message)
 
-
     def add_action(
-        self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        status_tip=None,
-        whats_this=None,
-        parent=None):
+            self,
+            icon_path,
+            text,
+            callback,
+            enabled_flag=True,
+            add_to_menu=True,
+            add_to_toolbar=True,
+            status_tip=None,
+            whats_this=None,
+            parent=None):
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -264,7 +265,7 @@ class LDMPPlugin:
         # if result:
         #     pass
         QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
-                QApplication.translate('LDMP', "Raw data download coming soon!"), None)
+                             QApplication.translate('LDMP', "Raw data download coming soon!"), None)
 
     def run_calculate(self):
         """Run method that performs all the real work"""

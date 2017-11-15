@@ -25,9 +25,9 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QEventLoop
 
 from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
-        QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
-        QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
-        QgsCoordinateReferenceSystem, QgsVectorFileWriter
+    QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
+    QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
+    QgsCoordinateReferenceSystem, QgsVectorFileWriter
 from qgis.utils import iface
 
 import processing
@@ -42,20 +42,23 @@ from LDMP.gui.DlgReportingUNCCDLC import Ui_DlgReportingUNCCDLC
 from LDMP.gui.DlgReportingUNCCDSOC import Ui_DlgReportingUNCCDSOC
 from LDMP.worker import AbstractWorker, start_worker
 
-# Checks the file type (land cover, state, etc...) for a LDMP output file using 
+# Checks the file type (land cover, state, etc...) for a LDMP output file using
 # the JSON accompanying each file
+
+
 def get_file_type(data_file):
-    json_file  = os.path.splitext(data_file)[0] + '.json'
+    json_file = os.path.splitext(data_file)[0] + '.json'
     try:
         with open(json_file) as f:
             d = json.load(f)
     except (OSError, IOError) as e:
         return None
     s = d.get('script_id', None)
-    t =  d.get('results', {}).get('type', None)
+    t = d.get('results', {}).get('type', None)
     if not s or not t:
         return None
     return {'script_id': s, 'type': t}
+
 
 def reproject_lc(src_dataset, ref_dataset):
     ds_ref = gdal.Open(ref_dataset)
@@ -81,14 +84,15 @@ def reproject_lc(src_dataset, ref_dataset):
     else:
         log('Resampling with: nearest neighour')
         resample_alg = gdal.GRA_NearestNeighbour
-    # Perform the projection/resampling 
+    # Perform the projection/resampling
     res = gdal.ReprojectImage(ds_src,
-            ds_dest,
-            sr_src.ExportToWkt(),
-            sr_dest.ExportToWkt(),
-            resample_alg)
+                              ds_dest,
+                              sr_src.ExportToWkt(),
+                              sr_dest.ExportToWkt(),
+                              resample_alg)
 
     return ds_dest
+
 
 def _get_layers(node):
     l = []
@@ -102,13 +106,14 @@ def _get_layers(node):
         l = node
     return l
 
+
 def get_ld_layers(layer_type):
     root = QgsProject.instance().layerTreeRoot()
     layers = _get_layers(root)
     layers_filtered = []
     for l in layers:
         if not isinstance(l, QgsRasterLayer):
-            # Allows skipping other layer types, like OpenLayers layers, that 
+            # Allows skipping other layer types, like OpenLayers layers, that
             # are irrelevant for the toolbox
             continue
         f = l.dataProvider().dataSourceUri()
@@ -121,19 +126,23 @@ def get_ld_layers(layer_type):
                 layers_filtered.append(l)
         elif layer_type == 'state':
             if m['script_id'] == "cd03646c-9d4c-44a9-89ae-3309ae7bade3":
-                if not '_eme_degr' in f: continue
+                if not '_eme_degr' in f:
+                    continue
                 layers_filtered.append(l)
         elif layer_type == 'perf':
             if m['script_id'] == "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82":
                 layers_filtered.append(l)
         elif layer_type == 'lc':
             if m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e":
-                if not '_land_deg' in f: continue
+                if not '_land_deg' in f:
+                    continue
                 layers_filtered.append(l)
     return layers_filtered
 
+
 def style_sdg_ld(outfile):
     # Significance layer
+    log('Loading layers onto map.')
     layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3 - without soil carbon)'))
     if not layer.isValid():
         log('Failed to add layer')
@@ -153,6 +162,7 @@ def style_sdg_ld(outfile):
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
+
 class DegradationWorker(AbstractWorker):
     def __init__(self, out_file, ds_traj, ds_state, ds_perf, ds_lc, aoi):
         AbstractWorker.__init__(self)
@@ -165,7 +175,7 @@ class DegradationWorker(AbstractWorker):
         self.ds_perf = ds_perf
         self.ds_lc = ds_lc
         self.aoi = aoi
- 
+
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
@@ -173,22 +183,22 @@ class DegradationWorker(AbstractWorker):
         log('Combining degradation layers...')
 
         # Note trajectory significance is band 2
-	traj_band = self.ds_traj.GetRasterBand(2)
-	block_sizes = traj_band.GetBlockSize()
-	x_block_size = block_sizes[0]
-	y_block_size = block_sizes[1]
-	xsize = traj_band.XSize
-	ysize = traj_band.YSize
+        traj_band = self.ds_traj.GetRasterBand(2)
+        block_sizes = traj_band.GetBlockSize()
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+        xsize = traj_band.XSize
+        ysize = traj_band.YSize
 
-	driver = gdal.GetDriverByName("GTiff")
+        driver = gdal.GetDriverByName("GTiff")
         temp_deg_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-	dst_ds = driver.Create(temp_deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
+        dst_ds = driver.Create(temp_deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
 
         lc_gt = self.ds_lc.GetGeoTransform()
-	dst_ds.SetGeoTransform(lc_gt)
+        dst_ds.SetGeoTransform(lc_gt)
         dst_srs = osr.SpatialReference()
         dst_srs.ImportFromWkt(self.ds_traj.GetProjectionRef())
-	dst_ds.SetProjection(dst_srs.ExportToWkt())
+        dst_ds.SetProjection(dst_srs.ExportToWkt())
 
         state_band = self.ds_state.GetRasterBand(1)
         perf_band = self.ds_perf.GetRasterBand(1)
@@ -248,15 +258,16 @@ class DegradationWorker(AbstractWorker):
         fet.setGeometry(self.aoi)
         mask_pr.addFeatures([fet])
         mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
-        QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file, 
-                "CP1250", None, "ESRI Shapefile")
+        QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file,
+                                                "CP1250", None, "ESRI Shapefile")
 
-        gdal.Warp(self.out_file, temp_deg_file, format='GTiff', 
-                cutlineDSName=mask_layer_file, cropToCutline=True, 
-                dstNodata=9999)
+        gdal.Warp(self.out_file, temp_deg_file, format='GTiff',
+                  cutlineDSName=mask_layer_file, cropToCutline=True,
+                  dstNodata=9999)
         log('Clipping and masking of degradation layers completed.')
 
         return True
+
 
 class StartWorker(object):
     def __init__(self, worker_class, process_name, *args):
@@ -270,7 +281,7 @@ class StartWorker(object):
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
         start_worker(self.worker, iface,
-                QtGui.QApplication.translate("LDMP", 'Processing {}').format(process_name))
+                     QtGui.QApplication.translate("LDMP", 'Processing {}').format(process_name))
         pause.exec_()
 
         if self.exception:
@@ -278,7 +289,7 @@ class StartWorker(object):
 
         if not self.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Reporting calculation failed."), None)
+                                       self.tr("Reporting calculation failed."), None)
             return
 
     def save_success(self):
@@ -289,6 +300,7 @@ class StartWorker(object):
 
     def get_exception(self):
         return self.exception
+
 
 class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
     def __init__(self, parent=None):
@@ -320,9 +332,10 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
 
     def clicked_unccd_soc(self):
         QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
-                QApplication.translate('LDMP', "Raw data download coming soon!"), None)
+                             QApplication.translate('LDMP', "Raw data download coming soon!"), None)
         # self.close()
         # self.dlg_unncd_soc.exec_()
+
 
 class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
     def __init__(self, parent=None):
@@ -361,27 +374,27 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.layer_lc.addItems([l.name() for l in self.layer_lc_list])
 
     def select_output_folder(self):
-        output_dir = QtGui.QFileDialog.getExistingDirectory(self, 
-                self.tr("Directory to save files"),
-                QSettings().value("LDMP/output_dir", None),
-                QtGui.QFileDialog.ShowDirsOnly)
+        output_dir = QtGui.QFileDialog.getExistingDirectory(self,
+                                                            self.tr("Directory to save files"),
+                                                            QSettings().value("LDMP/output_dir", None),
+                                                            QtGui.QFileDialog.ShowDirsOnly)
         if output_dir:
             if os.access(output_dir, os.W_OK):
                 QSettings().setValue("LDMP/output_dir", output_dir)
                 log("Outputing results to {}".format(output_dir))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Cannot write to {}. Choose a different folder.".format(output_dir), None))
+                                           self.tr("Cannot write to {}. Choose a different folder.".format(output_dir), None))
         self.output_folder.setText(output_dir)
 
     def btn_calculate(self):
         if not self.output_folder.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                self.tr("Choose an output folder where the output will be saved."), None)
+                                       self.tr("Choose an output folder where the output will be saved."), None)
             return
 
-        # Note that the super class has several tests in it - if they fail it 
-        # returns False, which would mean this function should stop execution 
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgReportingSDG, self).btn_calculate()
         if not ret:
@@ -389,19 +402,19 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         if len(self.layer_traj_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("You must add a productivity trajectory indicator layer to your map before you can use the reporting tool."), None)
+                                       self.tr("You must add a productivity trajectory indicator layer to your map before you can use the reporting tool."), None)
             return
         if len(self.layer_state_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("You must add a productivity state indicator layer to your map before you can use the reporting tool."), None)
+                                       self.tr("You must add a productivity state indicator layer to your map before you can use the reporting tool."), None)
             return
         if len(self.layer_perf_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("You must add a productivity performance indicator layer to your map before you can use the reporting tool."), None)
+                                       self.tr("You must add a productivity performance indicator layer to your map before you can use the reporting tool."), None)
             return
         if len(self.layer_lc_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("You must add a land cover indicator layer to your map before you can use the reporting tool."), None)
+                                       self.tr("You must add a land cover indicator layer to your map before you can use the reporting tool."), None)
             return
 
         if not self.plot_area_deg.isChecked() and not \
@@ -411,29 +424,29 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                 self.plot_area_urban.isChecked() and not \
                 self.plot_area_nodata.isChecked():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Choose at least one indicator to plot."), None)
+                                       self.tr("Choose at least one indicator to plot."), None)
             return
 
-        layer_traj =  self.layer_traj_list[self.layer_traj.currentIndex()]
+        layer_traj = self.layer_traj_list[self.layer_traj.currentIndex()]
         layer_state = self.layer_state_list[self.layer_state.currentIndex()]
         layer_perf = self.layer_perf_list[self.layer_perf.currentIndex()]
         layer_lc = self.layer_lc_list[self.layer_lc.currentIndex()]
-        
-        # Check that all of the layers have the same coordinate system and TODO 
+
+        # Check that all of the layers have the same coordinate system and TODO
         # are in 4326.
         if layer_traj.crs() != layer_state.crs():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Coordinate systems of trajectory layer and state layer do not match."), None)
+                                       self.tr("Coordinate systems of trajectory layer and state layer do not match."), None)
             return
         if layer_traj.crs() != layer_perf.crs():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
+                                       self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
             return
-        # TODO: this shouldn't be referencing layer_lc - it should be 
+        # TODO: this shouldn't be referencing layer_lc - it should be
         # referencing the extent of the reprojected land cover layer.
         if layer_traj.crs() != layer_lc.crs():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Coordinate systems of trajectory layer and land cover layer do not match."), None)
+                                       self.tr("Coordinate systems of trajectory layer and land cover layer do not match."), None)
             return
 
         # Check that all of the layers have the same resolution
@@ -441,29 +454,29 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
         if res(layer_traj) != res(layer_state):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Resolutions of trajectory layer and state layer do not match."), None)
+                                       self.tr("Resolutions of trajectory layer and state layer do not match."), None)
             return
         if res(layer_traj) != res(layer_perf):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Resolutions of trajectory layer and performance layer do not match."), None)
+                                       self.tr("Resolutions of trajectory layer and performance layer do not match."), None)
             return
 
         # Check that all of the layers cover the area of interest
         if not self.aoi.within(QgsGeometry.fromRect(layer_traj.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Area of interest is not entirely within the trajectory layer."), None)
+                                       self.tr("Area of interest is not entirely within the trajectory layer."), None)
             return
         if not self.aoi.within(QgsGeometry.fromRect(layer_state.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Area of interest is not entirely within the state layer."), None)
+                                       self.tr("Area of interest is not entirely within the state layer."), None)
             return
         if not self.aoi.within(QgsGeometry.fromRect(layer_perf.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Area of interest is not entirely within the performance layer."), None)
+                                       self.tr("Area of interest is not entirely within the performance layer."), None)
             return
         if not self.aoi.within(QgsGeometry.fromRect(layer_lc.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("Area of interest is not entirely within the land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
 
         ds_traj = gdal.Open(layer_traj.dataProvider().dataSourceUri())
@@ -472,17 +485,17 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         self.close()
 
-        # Resample the land cover data to match the resolutions of the other 
+        # Resample the land cover data to match the resolutions of the other
         # layers:
         log('Reprojecting land cover...')
-        ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(), 
-                layer_traj.dataProvider().dataSourceUri())
+        ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(),
+                             layer_traj.dataProvider().dataSourceUri())
         temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Reprojection of land cover finished.')
 
         out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
         worker = StartWorker(DegradationWorker, out_file.rsplit('/', 1)[-1],
-                out_file, ds_traj, ds_state, ds_perf, ds_lc, self.aoi)
+                             out_file, ds_traj, ds_state, ds_perf, ds_lc, self.aoi)
         if not worker.success:
             return
 
@@ -497,11 +510,11 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         deg_array = ds_equal_area.GetRasterBand(1).ReadAsArray()
 
         self.deg = {"Area Degraded": np.sum(deg_array == -1) * res_x * res_y / 1e6,
-                "Area Stable": np.sum(deg_array == 0) * res_x * res_y / 1e6,
-                "Area Improved": np.sum(deg_array == 1) * res_x * res_y / 1e6,
-                "No Data": np.sum(deg_array == 9997) * res_x * res_y / 1e6,
-                "Water Area": np.sum(deg_array == 9998) * res_x * res_y / 1e6,
-                "Urban Area": np.sum(deg_array == 9999) * res_x * res_y / 1e6}
+                    "Area Stable": np.sum(deg_array == 0) * res_x * res_y / 1e6,
+                    "Area Improved": np.sum(deg_array == 1) * res_x * res_y / 1e6,
+                    "No Data": np.sum(deg_array == 9997) * res_x * res_y / 1e6,
+                    "Water Area": np.sum(deg_array == 9998) * res_x * res_y / 1e6,
+                    "Urban Area": np.sum(deg_array == 9999) * res_x * res_y / 1e6}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
 
         # Plot the output
@@ -537,17 +550,20 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             for item in self.deg.items():
                 writer.writerow(item)
 
+
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgReportingUNCCDProd, self).__init__(parent)
         self.setupUi(self)
 
+
 class DlgReportingUNCCDLC(QtGui.QDialog, Ui_DlgReportingUNCCDLC):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgReportingUNCCDLC, self).__init__(parent)
         self.setupUi(self)
+
 
 class DlgReportingUNCCDSOC(QtGui.QDialog, Ui_DlgReportingUNCCDSOC):
     def __init__(self, parent=None):

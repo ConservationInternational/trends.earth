@@ -27,6 +27,7 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC as UiDialog
 from LDMP.api import run_script
 
+
 class DlgCalculateLC(DlgCalculateBase, UiDialog):
     def __init__(self, parent=None):
         """Constructor."""
@@ -40,15 +41,15 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
         # rm.rotate(90)
         # label_pixmap = label_pixmap.transformed(rm)
         # self.label_lc_baseline_year.setPixmap(pixmap)
-        
+
         #TODO: Use setCellWidget to assign QLineEdit and validator to each item
         # Extract trans_matrix from the QTableWidget
-        trans_matrix_default = [[0,   1,  1,  1, -1,  0],
-                                [-1,  0, -1, -1, -1, -1],
-                                [-1,  1,  0,  0, -1, -1],
-                                [-1, -1, -1,  0, -1, -1],
-                                [ 1,  1,  1,  1,  0,  0],
-                                [ 1,  1,  1,  1, -1,  0]]
+        trans_matrix_default = [[0, 1, 1, 1, -1, 0],
+                                [-1, 0, -1, -1, -1, -1],
+                                [-1, 1, 0, 0, -1, -1],
+                                [-1, -1, -1, 0, -1, -1],
+                                [1, 1, 1, 1, 0, 0],
+                                [1, 1, 1, 1, -1, 0]]
         for row in range(0, self.transMatrix.rowCount()):
             for col in range(0, self.transMatrix.columnCount()):
                 line_edit = QtGui.QLineEdit()
@@ -73,8 +74,8 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
     def btn_calculate(self):
         self.close()
 
-        # Note that the super class has several tests in it - if they fail it 
-        # returns False, which would mean this function should stop execution 
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgCalculateLC, self).btn_calculate()
         if not ret:
@@ -104,10 +105,10 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
         resp = run_script(gee_script, payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"), 
-                    QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+                           level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"), 
-                    QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
-                    level=0, duration=5)
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+                           level=0, duration=5)

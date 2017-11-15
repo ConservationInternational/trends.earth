@@ -44,24 +44,24 @@ def check_hash_against_etag(url, filename):
 
 def read_json(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
+    url = 'https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file)
 
-    if verify:
-        url = 'https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file)
-        if os.path.exists(filename):
-            if not check_hash_against_etag(url, filename):
-                os.remove(filename)
-        else:
-            log('Downloading json {}'.format(file))
-            # TODO: Dialog box with two options:
-            #   1) Download
-            #   2) Load from local folder
-            worker = Download(url, filename)
-            worker.start()
-            resp = worker.get_resp()
-            if not resp:
-                return None
-            if not check_hash_against_etag(url, filename):
-                return None
+    if os.path.exists(filename) and verify:
+        if not check_hash_against_etag(url, filename):
+            os.remove(filename)
+
+    if not os.path.exists(filename):
+        log('Downloading {}'.format(file))
+        # TODO: Dialog box with two options:
+        #   1) Download
+        #   2) Load from local folder
+        worker = Download(url, filename)
+        worker.start()
+        resp = worker.get_resp()
+        if not resp:
+            return None
+        if not check_hash_against_etag(url, filename):
+            return None
 
     with gzip.GzipFile(filename, 'r') as fin:
         json_bytes = fin.read()

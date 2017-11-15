@@ -117,7 +117,7 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def load_admin_polys(self):
         adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
-        admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3))
+        admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
         if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':

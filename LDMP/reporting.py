@@ -436,14 +436,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                     self.tr("Coordinate systems of trajectory layer and land cover layer do not match."), None)
             return
 
-        # Resample the land cover data to match the resolutions of the other 
-        # layers:
-        log('Reprojecting land cover...')
-        ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(), 
-                layer_traj.dataProvider().dataSourceUri())
-        temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Reprojection of land cover finished.')
-
         # Check that all of the layers have the same resolution
         def res(layer):
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
@@ -479,6 +471,14 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         ds_perf = gdal.Open(layer_perf.dataProvider().dataSourceUri())
 
         self.close()
+
+        # Resample the land cover data to match the resolutions of the other 
+        # layers:
+        log('Reprojecting land cover...')
+        ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(), 
+                layer_traj.dataProvider().dataSourceUri())
+        temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log('Reprojection of land cover finished.')
 
         out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
         worker = StartWorker(DegradationWorker, out_file.rsplit('/', 1)[-1],

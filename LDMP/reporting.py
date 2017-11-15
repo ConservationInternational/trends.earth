@@ -569,6 +569,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         dlg_plot = DlgPlotBars()
         dlg_plot.plot_data(x, y, self.plot_title.text())
         dlg_plot.show()
+        dlg_plot.exec_()
 
         out_file_csv = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.csv')
         with open(out_file_csv, 'wb') as fh:
@@ -576,9 +577,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             for item in self.deg.items():
                 writer.writerow(item)
 
-        mb.pushMessage(QtGui.QApplication.translate("LDMP", "Processing Complete"),
-                       QtGui.QApplication.translate("LDMP", "Finished calculation of SDG 15.3.1 land degradation layer."),
-                       level=0, duration=5)
 
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):
     def __init__(self, parent=None):

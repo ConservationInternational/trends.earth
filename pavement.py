@@ -44,7 +44,7 @@ options(
         builddir = path('LDMP/help/build'),
         resourcedir = path('LDMP/help/resources'),
         docs_s3_bucket = 'landdegradation-docs',
-        transifex_name = 'land_degradation_monitoring_toolbox_1_0',
+        transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
         language = 'en'
     )
 )
@@ -136,7 +136,8 @@ def read_requirements():
 
 def _install(folder, options):
     '''install plugin to qgis'''
-    builddocs(options)
+    if not options.get('fast', False):
+        builddocs(options)
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
@@ -160,6 +161,7 @@ def _install(folder, options):
 @task
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
+    ('fast', 'f', "don't build docs"),
 ])
 def install(options):
     _install(".qgis2", options)
@@ -167,6 +169,7 @@ def install(options):
 @task
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
+    ('fast', 'f', "don't build docs"),
 ])
 def installdev(options):
     _install(".qgis-dev", options)
@@ -174,6 +177,7 @@ def installdev(options):
 @task
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
+    ('fast', 'f', "don't build docs"),
 ])
 def install3(options):
     _install(".qgis3", options)

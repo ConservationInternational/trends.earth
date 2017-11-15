@@ -22,7 +22,7 @@ import numpy as np
 from osgeo import ogr, osr, gdal
 
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, QEventLoop
 
 from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
         QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
@@ -153,59 +153,142 @@ def style_sdg_ld(outfile):
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
-class ProcessingWorker(AbstractWorker):
-    """worker, implement the work method here and raise exceptions if needed"""
-    def __init__(self, url, outfile):
+class DegradationWorker(AbstractWorker):
+    def __init__(self, out_file, ds_traj, ds_state, ds_perf, ds_lc, aoi):
         AbstractWorker.__init__(self)
-        self.url = url
-        self.outfile = outfile
+
+        self.exception = None
+
+        self.out_file = out_file
+        self.ds_traj = ds_traj
+        self.ds_state = ds_state
+        self.ds_perf = ds_perf
+        self.ds_lc = ds_lc
+        self.aoi = aoi
  
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        resp = requests.get(self.url, stream=True)
-        if resp.status_code != 200:
-            log('Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
-            raise DownloadError('Unable to start download of {}'.format(self.url))
+        log('Combining degradation layers...')
 
-        total_size = int(resp.headers['Content-length'])
-        if total_size < 1e5:
-            total_size_pretty = '{:.2f} KB'.format(round(total_size/1024, 2))
-        else:
-            total_size_pretty = '{:.2f} MB'.format(round(total_size*1e-6, 2))
-        
-        log('Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
+        # Note trajectory significance is band 2
+	traj_band = self.ds_traj.GetRasterBand(2)
+	block_sizes = traj_band.GetBlockSize()
+	x_block_size = block_sizes[0]
+	y_block_size = block_sizes[1]
+	xsize = traj_band.XSize
+	ysize = traj_band.YSize
 
-        bytes_dl = 0
-        r = requests.get(self.url, stream=True)
-        with open(self.outfile, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192): 
-                if self.killed == True:
-                    log("Download {} killed by user".format(self.url))
+	driver = gdal.GetDriverByName("GTiff")
+        temp_deg_file = tempfile.NamedTemporaryFile(suffix='.tif').name
+	dst_ds = driver.Create(temp_deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
+
+        lc_gt = self.ds_lc.GetGeoTransform()
+	dst_ds.SetGeoTransform(lc_gt)
+        dst_srs = osr.SpatialReference()
+        dst_srs.ImportFromWkt(self.ds_traj.GetProjectionRef())
+	dst_ds.SetProjection(dst_srs.ExportToWkt())
+
+        state_band = self.ds_state.GetRasterBand(1)
+        perf_band = self.ds_perf.GetRasterBand(1)
+        lc_band = self.ds_lc.GetRasterBand(1)
+
+        log('Traj size: {}, {}'.format(traj_band.XSize, traj_band.YSize))
+        log('State size: {}, {}'.format(state_band.XSize, state_band.YSize))
+        log('Perf size: {}, {}'.format(perf_band.XSize, perf_band.YSize))
+        log('LC size: {}, {}'.format(lc_band.XSize, lc_band.YSize))
+
+        xsize = traj_band.XSize
+        ysize = traj_band.YSize
+        blocks = 0
+        for y in xrange(0, ysize, y_block_size):
+            self.progress.emit(100 * float(y) / ysize)
+            if y + y_block_size < ysize:
+                rows = y_block_size
+            else:
+                rows = ysize - y
+            for x in xrange(0, xsize, x_block_size):
+                if self.killed:
+                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.out_file, y, ysize))
                     break
-                elif chunk: # filter out keep-alive new chunks
-                    f.write(chunk)
-                    bytes_dl += len(chunk)
-                    self.progress.emit(100* float(bytes_dl) / float(total_size))
-        f.close()
 
-        if bytes_dl != total_size:
-            log("Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
-            os.remove(self.outfile)
-            if not self.killed:
-                raise DownloadError('Final file size of {} does not match expected'.format(self.url))
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+                deg = traj_band.ReadAsArray(x, y, cols, rows)
+                state_array = state_band.ReadAsArray(x, y, cols, rows)
+                perf_array = perf_band.ReadAsArray(x, y, cols, rows)
+                lc_array = lc_band.ReadAsArray(x, y, cols, rows)
+
+                deg[lc_array == -1] = -1
+                deg[(state_array == -1) & (perf_array == -1)] = -1
+
+                dst_ds.GetRasterBand(1).WriteArray(deg, x, y)
+                del deg
+                blocks += 1
+        dst_ds = None
+        self.ds_traj = None
+        self.ds_state = None
+        self.ds_perf = None
+        self.ds_lc = None
+
+        if self.killed:
+            os.remove(self.out_file)
             return None
         else:
-            log("Download of {} complete".format(self.url))
-            return True
+            log('Degradation layers combined.')
 
-class Download(object):
-    def __init__(self, url, outfile):
-        self.resp = None
+        log('Clipping and masking degradation layers.')
+        # Use 'processing' to clip and crop
+        mask_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "mask", "memory")
+        mask_pr = mask_layer.dataProvider()
+        fet = QgsFeature()
+        fet.setGeometry(self.aoi)
+        mask_pr.addFeatures([fet])
+        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
+        QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file, 
+                "CP1250", None, "ESRI Shapefile")
 
+        gdal.Warp(self.out_file, temp_deg_file, format='GTiff', 
+                cutlineDSName=mask_layer_file, cropToCutline=True, 
+                dstNodata=9999)
+        log('Clipping and masking of degradation layers completed.')
 
+        return True
 
+class StartWorker(object):
+    def __init__(self, worker_class, process_name, *args):
+        self.exception = None
+        self.success = None
+
+        self.worker = worker_class(*args)
+
+        pause = QEventLoop()
+        self.worker.finished.connect(pause.quit)
+        self.worker.successfully_finished.connect(self.save_success)
+        self.worker.error.connect(self.save_exception)
+        start_worker(self.worker, iface,
+                QtGui.QApplication.translate("LDMP", 'Processing {}').format(process_name))
+        pause.exec_()
+
+        if self.exception:
+            raise self.exception
+
+        if not self.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("Reporting calculation failed."), None)
+            return
+
+    def save_success(self):
+        self.success = True
+
+    def save_exception(self, exception):
+        self.exception = exception
+
+    def get_exception(self):
+        return self.exception
 
 class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
     def __init__(self, parent=None):
@@ -346,6 +429,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
             return
+        # TODO: this shouldn't be referencing layer_lc - it should be 
+        # referencing the extent of the reprojected land cover layer.
         if layer_traj.crs() != layer_lc.crs():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("Coordinate systems of trajectory layer and land cover layer do not match."), None)
@@ -357,14 +442,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         ds_lc = reproject_lc(layer_lc.dataProvider().dataSourceUri(), 
                 layer_traj.dataProvider().dataSourceUri())
         temp_lc_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-        # ds_lc = gdal.Translate(temp_lc_file, 
-        #         layer_lc.dataProvider().dataSourceUri(),
-        #         format='GTiff', 
-        #         outputType=gdal.GDT_Int16, 
-        #         xRes=layer_traj.rasterUnitsPerPixelX, 
-        #         yRes=layer_traj.rasterUnitsPerPixelY,
-        #         outputSRS=layer_lc.crs().toWkt(),
-        #         resampleAlg=gdal.GRA_Mode)
         log('Reprojection of land cover finished.')
 
         # Check that all of the layers have the same resolution
@@ -397,85 +474,18 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                     self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
 
-        log('Combining degradation layers...')
         ds_traj = gdal.Open(layer_traj.dataProvider().dataSourceUri())
         ds_state = gdal.Open(layer_state.dataProvider().dataSourceUri())
         ds_perf = gdal.Open(layer_perf.dataProvider().dataSourceUri())
 
-        # Note trajectory significance is band 2
-	traj_band = ds_traj.GetRasterBand(2)
-	block_sizes = traj_band.GetBlockSize()
-	x_block_size = block_sizes[0]
-	y_block_size = block_sizes[1]
-	xsize = traj_band.XSize
-	ysize = traj_band.YSize
-
-	driver = gdal.GetDriverByName("GTiff")
-        temp_deg_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-	dst_ds = driver.Create(temp_deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
-
-        lc_traj = ds_lc.GetGeoTransform()
-	dst_ds.SetGeoTransform(lc_traj)
-        dst_srs = osr.SpatialReference()
-        dst_srs.ImportFromWkt(ds_traj.GetProjectionRef())
-	dst_ds.SetProjection(dst_srs.ExportToWkt())
-
-        state_band = ds_state.GetRasterBand(1)
-        perf_band = ds_perf.GetRasterBand(1)
-        lc_band = ds_lc.GetRasterBand(1)
-
-        log('Traj size: {}, {}'.format(traj_band.XSize, traj_band.YSize))
-        log('State size: {}, {}'.format(state_band.XSize, state_band.YSize))
-        log('Perf size: {}, {}'.format(perf_band.XSize, perf_band.YSize))
-        log('LC size: {}, {}'.format(lc_band.XSize, lc_band.YSize))
-
-        xsize = traj_band.XSize
-        ysize = traj_band.YSize
-        blocks = 0
-        for y in xrange(0, ysize, y_block_size):
-            if y + y_block_size < ysize:
-                rows = y_block_size
-            else:
-                rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
-                if x + x_block_size < xsize:
-                    cols = x_block_size
-                else:
-                    cols = xsize - x
-                deg = traj_band.ReadAsArray(x, y, cols, rows)
-                state_array = state_band.ReadAsArray(x, y, cols, rows)
-                perf_array = perf_band.ReadAsArray(x, y, cols, rows)
-                lc_array = lc_band.ReadAsArray(x, y, cols, rows)
-
-                # log('type lc_deg: {}'.format(type(lc_deg)))
-                # log('type lc_array: {}'.format(type(lc_array)))
-
-                deg[lc_array == -1] = -1
-                deg[(state_array == -1) & (perf_array == -1)] = -1
-
-                dst_ds.GetRasterBand(1).WriteArray(deg, x, y)
-                del deg
-                blocks += 1
-        dst_ds = None
-        ds_traj = None
-        ds_state = None
-        ds_perf = None
-        ds_lc = None
-        log('Degradation layers combined.')
-
-        # Use 'processing' to clip and crop
-        mask_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "mask", "memory")
-        mask_pr = mask_layer.dataProvider()
-        fet = QgsFeature()
-        fet.setGeometry(self.aoi)
-        mask_pr.addFeatures([fet])
-        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
-        QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file, "CP1250", None, "ESRI Shapefile")
+        self.close()
 
         out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
-        gdal.Warp(out_file, temp_deg_file, format='GTiff', cutlineDSName=mask_layer_file, cropToCutline=True, dstNodata=9999)
+        worker = StartWorker(DegradationWorker, out_file.rsplit('/', 1)[-1],
+                out_file, ds_traj, ds_state, ds_perf, ds_lc, self.aoi)
+        if not worker.success:
+            return
 
-        # Load the file add it to the map, and style it
         style_sdg_ld(out_file)
 
         # Calculate area degraded, improved, etc.
@@ -493,7 +503,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                 "Water Area": np.sum(deg_array == 9998) * res_x * res_y / 1e6,
                 "Urban Area": np.sum(deg_array == 9999) * res_x * res_y / 1e6}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
-        self.close()
 
         # Plot the output
         x = []

@@ -16,7 +16,6 @@ import os
 import gzip
 import json
 import requests
-import base64
 import hashlib
 
 from PyQt4 import QtGui, uic, QtCore

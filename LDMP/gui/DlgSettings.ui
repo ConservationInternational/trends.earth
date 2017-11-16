@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>DlgSettings</class>
  <widget class="QDialog" name="DlgSettings">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -52,8 +55,6 @@
        </widget>
       </item>
      </layout>
-     <zorder>register_user</zorder>
-     <zorder>register_user</zorder>
     </widget>
    </item>
    <item>

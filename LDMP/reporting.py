@@ -27,7 +27,8 @@ from PyQt4.QtCore import QSettings, QEventLoop
 from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
     QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
     QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
-    QgsCoordinateReferenceSystem, QgsVectorFileWriter
+    QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
+    QgsVectorFileWriter
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -131,11 +132,15 @@ def style_sdg_ld(outfile):
 
 
 class ReprojectionWorker(AbstractWorker):
-    def __init__(self, src_dataset, ref_dataset):
+    def __init__(self, src_dataset, ref_dataset, out_file=None):
         AbstractWorker.__init__(self)
 
         self.src_dataset = src_dataset
         self.ref_dataset = ref_dataset
+        if out_file:
+            self.out_file = out_file
+        else:
+            self.out_file = tempfile.NamedTemporaryFile(suffix='.tif').name
 
     def work(self):
         self.toggle_show_progress.emit(False)
@@ -150,8 +155,7 @@ class ReprojectionWorker(AbstractWorker):
         sr_src.ImportFromWkt(ds_src.GetProjectionRef())
 
         driver = gdal.GetDriverByName("GTiff")
-        temp_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-        ds_dest = driver.Create(temp_file, ds_ref.RasterXSize, 
+        ds_dest = driver.Create(self.out_file, ds_ref.RasterXSize, 
                                 ds_ref.RasterYSize, 1, gdal.GDT_Int16, 
                                 ['COMPRESS=LZW'])
 
@@ -216,16 +220,15 @@ class DegradationWorker(AbstractWorker):
         ysize = traj_band.YSize
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
+            if self.killed:
+                log("Processing of {} killed by user after processing {} out of {} blocks.".format(temp_deg_file, y, ysize))
+                break
             self.progress.emit(100 * float(y) / ysize)
             if y + y_block_size < ysize:
                 rows = y_block_size
             else:
                 rows = ysize - y
             for x in xrange(0, xsize, x_block_size):
-                if self.killed:
-                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(temp_deg_file, y, ysize))
-                    break
-
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -253,21 +256,129 @@ class DegradationWorker(AbstractWorker):
         else:
             return temp_deg_file
 
+def xtab(*cols):
+    # Based on https://gist.github.com/alexland/d6d64d3f634895b9dc8e, but
+    # modified to ignore np.nan
+    if not all(len(col) == len(cols[0]) for col in cols[1:]):
+     raise ValueError("all arguments must be same size")
+
+    if len(cols) == 0:
+        raise TypeError("xtab() requires at least one argument")
+
+    fnx1 = lambda q: len(q.squeeze().shape)
+    if not all([fnx1(col) == 1 for col in cols]):
+        raise ValueError("all input arrays must be 1D")
+        
+    # Filter na values out of all columns
+    nafilter = ~np.any(np.isnan(cols), 0)
+
+    headers, idx = zip( *(np.unique(col[nafilter], return_inverse=True) for col in cols) )
+    shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
+    xt = np.zeros(shape_xt, dtype='uint')
+    np.add.at(xt, idx, 1)
+
+    return headers, xt
+
+
+def merge_xtabs(tab1, tab2):
+    """Function for merging two crosstabs - allows for block-by-block crosstabs"""
+    headers = tuple(np.array(np.unique(np.concatenate(header))) for header in zip(tab1[0], tab2[0]))
+    shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
+    # Make this array flat since it will be used later with ravelled indexing
+    xt = np.zeros(np.prod(shape_xt), dtype='uint')
+
+    # This handles combining a crosstab from a new block with an existing one 
+    # that has been maintained across blocks
+    def add_xt_block(xt_bl):
+        col_ind = np.tile(tuple(np.where(headers[0] == item) for item in xt_bl[0][0]), xt_bl[0][1].size)
+        row_ind = np.transpose(np.tile(tuple(np.where(headers[1] == item) for item in xt_bl[0][1]), xt_bl[0][0].size))
+        ind = np.ravel_multi_index((col_ind, row_ind), shape_xt)
+        np.add.at(xt, ind.ravel(), xt_bl[1].ravel())
+    add_xt_block(tab1)
+    add_xt_block(tab2)
+
+    return (headers, xt.reshape(shape_xt))
+
+
+class CrosstabWorker(AbstractWorker):
+    def __init__(self, ds_1, ds_2):
+        AbstractWorker.__init__(self)
+        self.ds_1 = ds_1
+        self.ds_2 = ds_2
+
+    def work(self):
+        ds_1_band = self.ds_1.GetRasterBand(1)
+        ds_2_band = self.ds_2.GetRasterBand(1)
+
+        #TODO: Check extents, resolutions, etc. match on both bands.
+
+        block_sizes = ds_1_band.GetBlockSize()
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+        xsize = ds_1_band.XSize
+        ysize = ds_1_band.YSize
+
+        blocks = 0
+        tab = None
+        for y in xrange(0, ysize, y_block_size):
+            if self.killed:
+                log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
+                break
+            self.progress.emit(100 * float(y) / ysize)
+            if y + y_block_size < ysize:
+                rows = y_block_size
+            else:
+                rows = ysize - y
+            for x in xrange(0, xsize, x_block_size):
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+
+                a1 = ds_1_band.ReadAsArray(x, y, cols, rows)
+                a2 = ds_2_band.ReadAsArray(x, y, cols, rows)
+
+                # Flatten the arrays before passing to xtab
+                this_tab = xtab(a1.ravel(), a2.ravel())
+                # Don't use this_tab if it is empty (could happen if take a 
+                # crosstab where all of the values are nan's)
+                if this_tab[0][0].size != 0:
+                    if tab == None:
+                        tab = this_tab
+                    else:
+                        tab = merge_xtabs(tab, this_tab)
+
+                blocks += 1
+        self.ds_1 = None
+        self.ds_2 = None
+
+        return tab
+
 
 class ClipWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, aoi):
+    def __init__(self, in_file, out_file, aoi, dstSRS=None):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
-        self.aoi = aoi
+        # Make a copy of the geometry so that we aren't modifying the CRS of 
+        # the original
+        self.aoi = QgsGeometry(aoi)
+        if dstSRS:
+            self.dstSRS = dstSRS
+        else:
+            self.dstSRS = 4326
 
     def work(self):
         self.toggle_show_progress.emit(False)
         self.toggle_show_cancel.emit(False)
+        
+        if self.dstSRS != 4326:
+            crs_src = QgsCoordinateReferenceSystem(4326)
+            crs_dest = QgsCoordinateReferenceSystem(self.dstSRS)
+            self.aoi.transform(QgsCoordinateTransform(crs_src, crs_dest))
 
-        # Use 'processing' to clip and crop
-        mask_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "mask", "memory")
+        mask_layer = QgsVectorLayer("Polygon?crs=epsg:{}".format(self.dstSRS), "mask", "memory")
         mask_pr = mask_layer.dataProvider()
         fet = QgsFeature()
         fet.setGeometry(self.aoi)
@@ -278,7 +389,7 @@ class ClipWorker(AbstractWorker):
 
         gdal.Warp(self.out_file, self.in_file, format='GTiff',
                   cutlineDSName=mask_layer_file, cropToCutline=True,
-                  dstNodata=9999)
+                  dstNodata=9999, dstSRS="epsg:{}".format(self.dstSRS))
 
         return True
 
@@ -501,10 +612,15 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # Need to resample the 300m land cover data to match the resolutions of 
         # the other layers:
         log('Reprojecting land cover...')
+        lc_reproj_file = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log('Saving lc reproj file to {}'.format(lc_reproj_file))
         reproj_worker = StartWorker(ReprojectionWorker, 'reprojecting land cover', 
                                     layer_lc.dataProvider().dataSourceUri(),
-                                    layer_traj.dataProvider().dataSourceUri())
+                                    layer_traj.dataProvider().dataSourceUri(),
+                                    lc_reproj_file)
         if not reproj_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error reprojecting land cover layer."), None)
             return
         else:
             ds_lc = reproj_worker.get_return()
@@ -514,28 +630,74 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                  ds_traj, ds_state, ds_perf, 
                                  ds_lc)
         if not deg_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error calculating degradation layer."), None)
             return
         else:
             deg_file = deg_worker.get_return()
 
         log('Clipping and masking degradation layers...')
+        # Clip a degradation layer for display
         out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
-        clip_worker = StartWorker(ClipWorker, 'clipping and masking output',
+        log('Saving degradation file to {}'.format(out_file))
+        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation',
                                   deg_file, out_file, self.aoi)
-        log('Clipping and masking degradation layers COMPLETE, returning: {}'.format(clip_worker.success))
         if not clip_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error clipping degradation layer."), None)
             return
 
-        style_sdg_ld(out_file)
-
-        # Calculate area degraded, improved, etc.
+        # Clip a degradation layer into an equal area projection (Mollweide) 
+        # for area calculation
         deg_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
-        ds_equal_area = gdal.Warp(deg_equal_area_tempfile, out_file, dstSRS='EPSG:54009')
-        deg_gt = ds_equal_area.GetGeoTransform()
+        log('Saving degradation equal area file to {}'.format(deg_equal_area_tempfile))
+        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation',
+                                  deg_file, deg_equal_area_tempfile, self.aoi,
+                                  54009)
+        if not clip_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error clipping equal-area degratation layer."), None)
+            return
+
+        #############################
+        #TODO: Check that I am not reprojecting the aoi layer twice, since I am likely passing a reference....
+        #############################
+
+        # Clip land cover layer into an equal area projection (Mollweide) for 
+        # area calculation
+        lc_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log('Saving lc equal area file to {}'.format(lc_equal_area_tempfile))
+        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation',
+                                  lc_reproj_file, lc_equal_area_tempfile, self.aoi,
+                                  54009)
+        if not clip_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error clipping equal-area land cover layer."), None)
+            return
+
+        deg_ds_equal_area = gdal.Open(deg_equal_area_tempfile)
+        lc_ds_equal_area = gdal.Open(lc_equal_area_tempfile)
+        deg_gt = deg_ds_equal_area.GetGeoTransform()
         res_x = deg_gt[1]
         res_y = -deg_gt[5]
-        deg_array = ds_equal_area.GetRasterBand(1).ReadAsArray()
 
+        log('Calculating areas and crosstabs...')
+        tab_worker = StartWorker(CrosstabWorker, 'calculating areas',
+                                 deg_ds_equal_area, lc_ds_equal_area)
+        if not tab_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error calculating degraded areas."), None)
+            return
+        else:
+            table = tab_worker.get_return()
+        # Convert from pixel counts to areas in sq km
+        table = list(table)
+        table[1] = table[1] * res_x * res_y / 1e6
+        log("Crosstab (in sq km): {}".format(table))
+        log("Crosstab sum (in sq km): {}".format(np.sum(table[1])))
+
+        #TODO: Get the below from the cross tab table
+        deg_array = deg_ds_equal_area.GetRasterBand(1).ReadAsArray()
         self.deg = {"Area Degraded": np.sum(deg_array == -1) * res_x * res_y / 1e6,
                     "Area Stable": np.sum(deg_array == 0) * res_x * res_y / 1e6,
                     "Area Improved": np.sum(deg_array == 1) * res_x * res_y / 1e6,
@@ -543,6 +705,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                     "Water Area": np.sum(deg_array == 9998) * res_x * res_y / 1e6,
                     "Urban Area": np.sum(deg_array == 9999) * res_x * res_y / 1e6}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
+
+        style_sdg_ld(out_file)
 
         # Plot the output
         x = []

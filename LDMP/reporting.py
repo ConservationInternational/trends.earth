@@ -145,8 +145,8 @@ class ReprojectionWorker(AbstractWorker):
             self.out_file = tempfile.NamedTemporaryFile(suffix='.tif').name
 
     def work(self):
-        self.toggle_show_progress.emit(False)
-        self.toggle_show_cancel.emit(False)
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
 
         ds_ref = gdal.Open(self.ref_dataset)
         sr_dest = osr.SpatialReference()
@@ -178,9 +178,19 @@ class ReprojectionWorker(AbstractWorker):
                                   ds_dest,
                                   sr_src.ExportToWkt(),
                                   sr_dest.ExportToWkt(),
-                                  resample_alg)
+                                  resample_alg,
+                                  callback=self.progress_callback)
+        if res == 0:
+            return ds_dest
+        else:
+            return None
 
-        return ds_dest
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
 
 
 class DegradationWorker(AbstractWorker):
@@ -356,7 +366,10 @@ class CrosstabWorker(AbstractWorker):
         self.ds_1 = None
         self.ds_2 = None
 
-        return tab
+        if self.killed:
+            return None
+        else:
+            return tab
 
 
 class ClipWorker(AbstractWorker):
@@ -373,15 +386,15 @@ class ClipWorker(AbstractWorker):
         else:
             self.dstSRS = 4326
 
-    def work(self):
-        self.toggle_show_progress.emit(False)
-        self.toggle_show_cancel.emit(False)
-        
         if self.dstSRS != 4326:
             crs_src = QgsCoordinateReferenceSystem(4326)
             crs_dest = QgsCoordinateReferenceSystem(self.dstSRS)
             self.aoi.transform(QgsCoordinateTransform(crs_src, crs_dest))
 
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+        
         mask_layer = QgsVectorLayer("Polygon?crs=epsg:{}".format(self.dstSRS), "mask", "memory")
         mask_pr = mask_layer.dataProvider()
         fet = QgsFeature()
@@ -391,11 +404,22 @@ class ClipWorker(AbstractWorker):
         QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file,
                                                 "CP1250", None, "ESRI Shapefile")
 
-        gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                  cutlineDSName=mask_layer_file, cropToCutline=True,
-                  dstNodata=9999, dstSRS="epsg:{}".format(self.dstSRS))
+        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                        cutlineDSName=mask_layer_file, cropToCutline=True,
+                        dstNodata=9999, dstSRS="epsg:{}".format(self.dstSRS),
+                        callback=self.progress_callback)
 
-        return True
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
 
 
 class StartWorker(object):
@@ -631,8 +655,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         log('Calculating degradation...')
         deg_worker = StartWorker(DegradationWorker, 'calculating degradation',
-                                 ds_traj, ds_state, ds_perf, 
-                                 ds_lc)
+                                 ds_traj, ds_state, ds_perf, ds_lc)
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degradation layer."), None)
@@ -642,10 +665,10 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         log('Clipping and masking degradation layers...')
         # Clip a degradation layer for display
-        out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
-        log('Saving degradation file to {}'.format(out_file))
-        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation',
-                                  deg_file, out_file, self.aoi)
+        deg_out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
+        log('Saving degradation file to {}'.format(deg_out_file))
+        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation layer',
+                                  deg_file, deg_out_file, self.aoi)
         if not clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error clipping degradation layer."), None)
@@ -655,7 +678,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # for area calculation
         deg_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving degradation equal area file to {}'.format(deg_equal_area_tempfile))
-        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation',
+        clip_worker = StartWorker(ClipWorker, 'preparing degradation layer for area calculation',
                                   deg_file, deg_equal_area_tempfile, self.aoi,
                                   54009)
         if not clip_worker.success:
@@ -667,7 +690,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # area calculation
         lc_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving lc equal area file to {}'.format(lc_equal_area_tempfile))
-        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation',
+        clip_worker = StartWorker(ClipWorker, 'clipping and masking land cover layer',
                                   lc_reproj_file, lc_equal_area_tempfile, self.aoi,
                                   54009)
         if not clip_worker.success:
@@ -717,7 +740,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                     "Urban Area":  get_area(9999, 9999)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
 
-        style_sdg_ld(out_file)
+        style_sdg_ld(deg_out_file)
 
         # Plot the output
         x = []

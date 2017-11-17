@@ -659,10 +659,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                        self.tr("Error clipping equal-area degratation layer."), None)
             return
 
-        #############################
-        #TODO: Check that I am not reprojecting the aoi layer twice, since I am likely passing a reference....
-        #############################
-
         # Clip land cover layer into an equal area projection (Mollweide) for 
         # area calculation
         lc_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name

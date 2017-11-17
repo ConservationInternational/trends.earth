@@ -1,4 +1,4 @@
-Land Degradation Monitoring Toolbox User Guide
+Land Degradation Monitoring Video Tutorials
 ==============================================
 
 .. toctree::

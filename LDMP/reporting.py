@@ -75,6 +75,8 @@ def _get_layers(node):
     return l
 
 
+# TODO: Should be determining layer types based on content of json, not on 
+# filenames
 def get_ld_layers(layer_type):
     root = QgsProject.instance().layerTreeRoot()
     layers = _get_layers(root)
@@ -244,6 +246,7 @@ class DegradationWorker(AbstractWorker):
                 dst_ds.GetRasterBand(1).WriteArray(deg, x, y)
                 del deg
                 blocks += 1
+        self.progress.emit(100)
         dst_ds = None
         self.ds_traj = None
         self.ds_state = None
@@ -349,6 +352,7 @@ class CrosstabWorker(AbstractWorker):
                         tab = merge_xtabs(tab, this_tab)
 
                 blocks += 1
+        self.progress.emit(100)
         self.ds_1 = None
         self.ds_2 = None
 
@@ -692,14 +696,25 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         log("Crosstab (in sq km): {}".format(table))
         log("Crosstab sum (in sq km): {}".format(np.sum(table[1])))
 
-        #TODO: Get the below from the cross tab table
-        deg_array = deg_ds_equal_area.GetRasterBand(1).ReadAsArray()
-        self.deg = {"Area Degraded": np.sum(deg_array == -1) * res_x * res_y / 1e6,
-                    "Area Stable": np.sum(deg_array == 0) * res_x * res_y / 1e6,
-                    "Area Improved": np.sum(deg_array == 1) * res_x * res_y / 1e6,
-                    "No Data": np.sum(deg_array == 9997) * res_x * res_y / 1e6,
-                    "Water Area": np.sum(deg_array == 9998) * res_x * res_y / 1e6,
-                    "Urban Area": np.sum(deg_array == 9999) * res_x * res_y / 1e6}
+        # Returns value from crosstab table for particular deg/lc class 
+        # combination
+        def get_area(deg_class, lc_class):
+            deg_ind = np.where(table[0][0] == deg_class)[0]
+            lc_ind = np.where(table[0][1] == lc_class)[0]
+
+            if deg_ind.size != 0 and lc_ind.size != 0:
+                return table[1][deg_ind, lc_ind]
+            else:
+                return 0
+
+        # TODO: Make sure no data, water areas, and urban areas are symmetric 
+        # across LD layer and lc layer
+        self.deg = {"Area Degraded": get_area(-1, 0),
+                    "Area Stable":  get_area(0, 0),
+                    "Area Improved":  get_area(1, 0),
+                    "No Data":  get_area(9997, 9997),
+                    "Water Area":  get_area(9998, 9998),
+                    "Urban Area":  get_area(9999, 9999)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
 
         style_sdg_ld(out_file)

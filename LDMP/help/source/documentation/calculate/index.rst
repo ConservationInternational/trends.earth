@@ -1,7 +1,6 @@
 Calculate Indicators
 =========================
-To select the methods and datasets to calculate the indicators that measured
-changes in primary productivity, select the globe icon (|iconCalculator|). 
+To select the methods and datasets to calculate the indicators that measured changes in primary productivity, select the globe icon (|iconCalculator|). 
 This will open up the `Calculate Indicator` dialog box:
    
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
@@ -9,19 +8,7 @@ This will open up the `Calculate Indicator` dialog box:
 
 **Summary**
    
-Sustainable Development Goal 15.3 intends to combat desertification, 
-restore degraded land and soil, including land affected by desertification, 
-drought and floods, and strive to achieve a land degradation-neutral world 
-by 2030. In order to address this, we are measuring primary productivity, 
-land cover and soil carbon to assess the annual change in degraded or 
-desertified arable land (% of ha). The “Calculate indicators” button brings 
-up a page that allows calculating datasets associated with the three 
-SDG Target 15.3 sub indicators. For productivity and land cover, the 
-toolbox implements the Tier 1 recommendations of the Good Practice Guidance 
-lead by CSIRO. For productivity, users can calculate trajectory, performance, 
-and state. For Land Cover, users can calculate land cover change relative 
-to a baseline period, and enter a transition matrix indicating which 
-transitions indicate degradation, stability, or improvement.
+Sustainable Development Goal 15.3 intends to combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods, and strive to achieve a land degradation-neutral world by 2030. In order to address this, we are measuring primary productivity, land cover and soil carbon to assess the annual change in degraded or desertified arable land (% of ha). The “Calculate indicators” button brings up a page that allows calculating datasets associated with the three SDG Target 15.3 sub indicators. For productivity and land cover, the toolbox implements the Tier 1 recommendations of the Good Practice Guidance lead by CSIRO. For productivity, users can calculate trajectory, performance, and state. For Land Cover, users can calculate land cover change relative to a baseline period, and enter a transition matrix indicating which transitions indicate degradation, stability, or improvement.
 
 Select which Indicator you would like to calculate
 
@@ -38,14 +25,9 @@ Productivity
 ------------
 **Summary**
 
-Productivity measures the trajectory, performance and state of primary 
-productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. 
-The user can select one or multiple indicators to calculate, the NDVI dataset, 
-name the tasks and enter in explanatory notes for their intended reporting 
-area.
+Productivity measures the trajectory, performance and state of primary productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. The user can select one or multiple indicators to calculate, the NDVI dataset, name the tasks and enter in explanatory notes for their intended reporting area.
 
-NOTE: The valid date range is set by the NDVI dataset selected within the 
-first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016.
+NOTE: The valid date range is set by the NDVI dataset selected within the first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016.
 
 Productivity Trajectory
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -152,15 +134,7 @@ Land Cover
 ----------
 **Summary**
 
-Changes in land cover is one of the indicators used to track potential land 
-degradation which need to be reported to the UNCCD and to track progress towards SDG 
-15.3.1. While some land cover transitions indicate, in most cases, processes of land 
-degradation, the interpretation of those transitions are for the most part context 
-specific. For that reason, this indicator requires the input of the user to identify 
-which changes in land cover will be considered as degradation, improvement or no 
-change in terms of degradation. The toolbox allows users to calculate land cover 
-change relative to a baseline period, enter a transition matrix indicating which 
-transitions indicate degradation, stability or improvement.
+Changes in land cover is one of the indicators used to track potential land degradation which need to be reported to the UNCCD and to track progress towards SDG 15.3.1. While some land cover transitions indicate, in most cases, processes of land degradation, the interpretation of those transitions are for the most part context specific. For that reason, this indicator requires the input of the user to identify which changes in land cover will be considered as degradation, improvement or no change in terms of degradation. The toolbox allows users to calculate land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement.
 
 **Calculating Land cover changes**
 
@@ -195,8 +169,7 @@ b) Users can keep the default values or create unique transition values of their
 .. image:: /static/documentation/calculate/image031.png
    :align: center
    
-By default, and following the CSIRO best practices guidance document, the major 
-land cover change processes that are classified as degradation are:
+By default, and following the CSIRO best practices guidance document, the major land cover change processes that are classified as degradation are:
 
 1) Deforestation (forest to cropland or settlements)
 
@@ -227,15 +200,11 @@ The major land cover change processes that are not considered degradation are:
 
 6) Withdrawal of settlements (settlements to otherland)
 
-It is important to remember that those are suggested interpretations, and should be 
-evaluated and adjusted considering the local conditions of the regions in for which 
-the analysis will be performed.
+It is important to remember that those are suggested interpretations, and should be evaluated and adjusted considering the local conditions of the regions in for which the analysis will be performed.
 
 **Land cover - Area of interest**
 
-The final step before submitting the task to Google Earth Engine, is to define the 
-study area on which to perform the analysis. The toolbox allows this task to be 
-completed in one of two ways:
+The final step before submitting the task to Google Earth Engine, is to define the study area on which to perform the analysis. The toolbox allows this task to be completed in one of two ways:
 
 1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu. 
 

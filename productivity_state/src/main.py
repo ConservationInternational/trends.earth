@@ -40,9 +40,17 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
             reduceResolution(reducer=ee.Reducer.mode(), maxPixels=2000). \
             reproject(crs=ndvi_1yr.projection())
 
-    # compute percentiles of annual ndvi for the baseline period
-    bl_ndvi_perc = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_init_bl_start, year_init_bl_end + 1)])) \
-            .reduce(ee.Reducer.percentile([10,20,30,40,50,60,70,80,90,100]))
+    # compute min and max of annual ndvi for the baseline period
+    bl_ndvi_range = ndvi_1yr.select(ee.List.sequence(bl_str,bl_end).map(function(i) {return ee.String('y').cat(ee.Number(i).int())}))
+                      .reduce(ee.Reducer.percentile([0,100]));
+    
+    # add two bands to the time series: one 5% lower than min and one 5% higher than max
+    bl_ndvi_ext = ndvi_1yr.select(ee.List.sequence(bl_str,bl_end).map(function(i) {return ee.String('y').cat(ee.Number(i).int())}))
+                          .addBands(bl_ndvi_range.select('p0').subtract((bl_ndvi_range.select('p100').subtract(bl_ndvi_range.select('p0'))).multiply(0.05)))
+                          .addBands(bl_ndvi_range.select('p100').add((bl_ndvi_range.select('p100').subtract(bl_ndvi_range.select('p0'))).multiply(0.05)));
+            
+    # compute percentiles of annual ndvi for the extended baseline period
+    bl_ndvi_perc = bl_ndvi_ext.reduce(ee.Reducer.percentile([10,20,30,40,50,60,70,80,90,100]))
 
     # compute mean ndvi for the baseline and target period period
     bl_ndvi_mean = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_init_bl_start, year_init_bl_end + 1)])) \
@@ -53,10 +61,10 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
     # initial degradation
     # reclassify mean ndvi for baseline period based on 50th percentile. -1 is 
     # degreaded, 0 is not degreade, 2 is water ,and 3 is urban
-    ini_deg = ee.Image(-2).where(bl_ndvi_mean.lt(bl_ndvi_perc.select('p50')), -1) \
-            .where(bl_ndvi_mean.gte(bl_ndvi_perc.select('p50')), 0) \
-            .where(lc_proj_esa.eq(210), 9998) \
-            .where(lc_proj_esa.eq(190), 9999)
+    #ini_deg = ee.Image(-2).where(bl_ndvi_mean.lt(bl_ndvi_perc.select('p50')), -1) \
+    #        .where(bl_ndvi_mean.gte(bl_ndvi_perc.select('p50')), 0) \
+    #        .where(lc_proj_esa.eq(210), 9998) \
+    #        .where(lc_proj_esa.eq(190), 9999)
 
     # emerging degradation
     # reclassify mean ndvi for baseline period based on the percentiles
@@ -92,9 +100,9 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
           .where(lc_proj_esa.eq(190),9999)
 
     tasks = []
-    tasks.append(util.export_to_cloudstorage(ini_deg.int16(), 
-            ndvi_1yr.projection(), geojson, 'ini_degr', logger, 
-            EXECUTION_ID))
+    #tasks.append(util.export_to_cloudstorage(ini_deg.int16(), 
+    #        ndvi_1yr.projection(), geojson, 'ini_degr', logger, 
+    #        EXECUTION_ID))
 
     tasks.append(util.export_to_cloudstorage(eme_deg.int16(), 
             ndvi_1yr.projection(), geojson, 'eme_degr', logger, 

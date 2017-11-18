@@ -41,13 +41,13 @@ def productivity_state(year_init_bl_start, year_init_bl_end,
             reproject(crs=ndvi_1yr.projection())
 
     # compute min and max of annual ndvi for the baseline period
-    bl_ndvi_range = ndvi_1yr.select(ee.List.sequence(bl_str,bl_end).map(function(i) {return ee.String('y').cat(ee.Number(i).int())}))
-                      .reduce(ee.Reducer.percentile([0,100]));
+    bl_ndvi_range = ndvi_1yr.select(ee.List.sequence(bl_str,bl_end).map(function(i) {return ee.String('y').cat(ee.Number(i).int())})). \
+                      reduce(ee.Reducer.percentile([0,100]));
     
     # add two bands to the time series: one 5% lower than min and one 5% higher than max
-    bl_ndvi_ext = ndvi_1yr.select(ee.List.sequence(bl_str,bl_end).map(function(i) {return ee.String('y').cat(ee.Number(i).int())}))
-                          .addBands(bl_ndvi_range.select('p0').subtract((bl_ndvi_range.select('p100').subtract(bl_ndvi_range.select('p0'))).multiply(0.05)))
-                          .addBands(bl_ndvi_range.select('p100').add((bl_ndvi_range.select('p100').subtract(bl_ndvi_range.select('p0'))).multiply(0.05)));
+    bl_ndvi_ext = ndvi_1yr.select(ee.List.sequence(bl_str,bl_end).map(function(i) {return ee.String('y').cat(ee.Number(i).int())})). \
+                          addBands(bl_ndvi_range.select('p0').subtract((bl_ndvi_range.select('p100').subtract(bl_ndvi_range.select('p0'))).multiply(0.05))). \
+                          addBands(bl_ndvi_range.select('p100').add((bl_ndvi_range.select('p100').subtract(bl_ndvi_range.select('p0'))).multiply(0.05)));
             
     # compute percentiles of annual ndvi for the extended baseline period
     bl_ndvi_perc = bl_ndvi_ext.reduce(ee.Reducer.percentile([10,20,30,40,50,60,70,80,90,100]))

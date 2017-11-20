@@ -1,0 +1,94 @@
+[main]
+host = https://www.transifex.com
+type = PO
+
+[land_degradation_monitoring_toolbox_docs_1_0.index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/index.po
+source_file = LDMP/help/i18n/pot/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.demos--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/demos/index.po
+source_file = LDMP/help/i18n/pot/demos/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/index.po
+source_file = LDMP/help/i18n/pot/documentation/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--before_installing--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/before_installing/index.po
+source_file = LDMP/help/i18n/pot/documentation/before_installing/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--calculate--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/calculate/index.po
+source_file = LDMP/help/i18n/pot/documentation/calculate/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--data_download--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/data_download/index.po
+source_file = LDMP/help/i18n/pot/documentation/data_download/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--GEE_tasks--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/GEE_tasks/index.po
+source_file = LDMP/help/i18n/pot/documentation/GEE_tasks/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--info--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/info/index.po
+source_file = LDMP/help/i18n/pot/documentation/info/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--installing--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/installing/index.po
+source_file = LDMP/help/i18n/pot/documentation/installing/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--interpreting_results--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/interpreting_results/index.po
+source_file = LDMP/help/i18n/pot/documentation/interpreting_results/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--plot_data--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/plot_data/index.po
+source_file = LDMP/help/i18n/pot/documentation/plot_data/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--reporting_tool--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/reporting_tool/index.po
+source_file = LDMP/help/i18n/pot/documentation/reporting_tool/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--settings--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/settings/index.po
+source_file = LDMP/help/i18n/pot/documentation/settings/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.documentation--visualizing_results--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/visualizing_results/index.po
+source_file = LDMP/help/i18n/pot/documentation/visualizing_results/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--visualizing_results--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/visualizing_results/index.po
+source_file = LDMP/help/i18n/pot/training/visualizing_results/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.videos--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/videos/index.po
+source_file = LDMP/help/i18n/pot/videos/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.videos--video_links--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/videos/video_links/index.po
+source_file = LDMP/help/i18n/pot/videos/video_links/index.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.webinars--index]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/webinars/index.po
+source_file = LDMP/help/i18n/pot/webinars/index.pot
+source_lang = en
+

@@ -38,37 +38,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculate</name>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="20"/>
+        <location filename="../gui/DlgCalculate.ui" line="23"/>
         <source>Calculate Indicators</source>
         <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="32"/>
+        <location filename="../gui/DlgCalculate.ui" line="35"/>
         <source>Choose an indicator to calculate:</source>
         <translation>Choisissez un indicateur pour calculer:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="45"/>
+        <location filename="../gui/DlgCalculate.ui" line="48"/>
         <source>Productivity</source>
         <translation>Productivité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="58"/>
+        <location filename="../gui/DlgCalculate.ui" line="61"/>
         <source>Land Cover</source>
         <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="71"/>
+        <location filename="../gui/DlgCalculate.ui" line="74"/>
         <source>Soil Carbon</source>
         <translation>carbone du sol</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="50"/>
+        <location filename="../calculate.py" line="51"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="50"/>
+        <location filename="../calculate.py" line="51"/>
         <source>SOC indicator calculation coming soon!</source>
         <translation>Le calcul de l&apos;indicateur SOC sera bientôt disponible!</translation>
     </message>
@@ -76,27 +76,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="174"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="157"/>
+        <location filename="../calculate.py" line="160"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier ordre.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="164"/>
+        <location filename="../calculate.py" line="167"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="169"/>
+        <location filename="../calculate.py" line="172"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="174"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Unable to read area file.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -513,27 +513,27 @@ p, li { white-space: pre-wrap; }
         <translation>Télécharger les résultats</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="215"/>
+        <location filename="../jobs.py" line="220"/>
         <source>Directory to save files</source>
         <translation>Répertoire pour enregistrer des fichiers</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="224"/>
+        <location filename="../jobs.py" line="229"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="224"/>
+        <location filename="../jobs.py" line="229"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation>Impossible d&apos;écrire sur {}. Choisissez un autre dossier.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="147"/>
+        <location filename="../jobs.py" line="153"/>
         <source>Script not found</source>
         <translation>Script non trouvé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="174"/>
+        <location filename="../jobs.py" line="180"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
@@ -615,7 +615,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReporting</name>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="20"/>
+        <location filename="../gui/DlgReporting.ui" line="23"/>
         <source>Land degradation reporting</source>
         <translation type="unfinished">Calculer les indicateurs</translation>
     </message>
@@ -625,32 +625,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Choisissez et indiquez votre résultat:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="89"/>
+        <location filename="../gui/DlgReporting.ui" line="92"/>
         <source>Productivity</source>
         <translation>Productivité</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="63"/>
+        <location filename="../gui/DlgReporting.ui" line="66"/>
         <source>Land Cover</source>
         <translation>Couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="76"/>
+        <location filename="../gui/DlgReporting.ui" line="79"/>
         <source>Soil Carbon</source>
         <translation>carbone du sol</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="26"/>
+        <location filename="../gui/DlgReporting.ui" line="29"/>
         <source>SDG Reporting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="38"/>
+        <location filename="../gui/DlgReporting.ui" line="41"/>
         <source>SDG Target 15.3.1 Indicator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReporting.ui" line="51"/>
+        <location filename="../gui/DlgReporting.ui" line="54"/>
         <source>UNCCD Reporting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -761,120 +761,150 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReportingSDG</name>
     <message>
-        <location filename="../reporting.py" line="356"/>
+        <location filename="../reporting.py" line="529"/>
         <source>Directory to save files</source>
         <translation type="unfinished">Répertoire pour enregistrer des fichiers</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="463"/>
+        <location filename="../reporting.py" line="711"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="365"/>
+        <location filename="../reporting.py" line="538"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation type="unfinished">Impossible d&apos;écrire sur {}. Choisissez un autre dossier.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="371"/>
+        <location filename="../reporting.py" line="544"/>
         <source>Choose an output folder where the output will be saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="383"/>
+        <location filename="../reporting.py" line="556"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the reporting tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="387"/>
+        <location filename="../reporting.py" line="560"/>
         <source>You must add a productivity state indicator layer to your map before you can use the reporting tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="391"/>
+        <location filename="../reporting.py" line="564"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="395"/>
+        <location filename="../reporting.py" line="568"/>
         <source>You must add a land cover indicator layer to your map before you can use the reporting tool.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="417"/>
+        <location filename="../reporting.py" line="590"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="421"/>
+        <location filename="../reporting.py" line="594"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="425"/>
+        <location filename="../reporting.py" line="600"/>
         <source>Coordinate systems of trajectory layer and land cover layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="441"/>
+        <location filename="../reporting.py" line="608"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="445"/>
+        <location filename="../reporting.py" line="612"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="451"/>
+        <location filename="../reporting.py" line="618"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="455"/>
+        <location filename="../reporting.py" line="622"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="459"/>
+        <location filename="../reporting.py" line="626"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="463"/>
+        <location filename="../reporting.py" line="630"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="405"/>
+        <location filename="../reporting.py" line="578"/>
         <source>Choose at least one indicator to plot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="650"/>
+        <source>Error reprojecting land cover layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="660"/>
+        <source>Error calculating degradation layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="673"/>
+        <source>Error clipping degradation layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="685"/>
+        <source>Error clipping equal-area degratation layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="697"/>
+        <source>Error clipping equal-area land cover layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="711"/>
+        <source>Error calculating degraded areas.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgSettings</name>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="20"/>
+        <location filename="../gui/DlgSettings.ui" line="23"/>
         <source>Settings</source>
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="136"/>
+        <location filename="../gui/DlgSettings.ui" line="137"/>
         <source>Password:</source>
         <translation>Mot de passe:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="50"/>
+        <location filename="../gui/DlgSettings.ui" line="53"/>
         <source>Register</source>
         <translation>Registre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="104"/>
+        <location filename="../gui/DlgSettings.ui" line="105"/>
         <source>Email:</source>
         <translation>Email:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="268"/>
+        <location filename="../gui/DlgSettings.ui" line="269"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -889,37 +919,37 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Nouveaux utilisateurs:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="191"/>
+        <location filename="../gui/DlgSettings.ui" line="192"/>
         <source>Login</source>
         <translation>Se Connecter</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="172"/>
+        <location filename="../gui/DlgSettings.ui" line="173"/>
         <source>Update profile</source>
         <translation>Mettre à jour le profil</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="235"/>
+        <location filename="../gui/DlgSettings.ui" line="236"/>
         <source>Delete user</source>
         <translation>Supprimer l&apos;utilisateur</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="216"/>
+        <location filename="../gui/DlgSettings.ui" line="217"/>
         <source>Forgot password</source>
         <translation>Mot de passe oublié</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="140"/>
+        <location filename="../settings.py" line="144"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="58"/>
+        <location filename="../settings.py" line="61"/>
         <source>Enter an email address to update.</source>
         <translation>Entrez une adresse email pour la mise à jour.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="61"/>
+        <location filename="../settings.py" line="64"/>
         <source>Enter your password to update your user details.</source>
         <translation>Entrez votre mot de passe pour mettre à jour vos informations utilisateur.</translation>
     </message>
@@ -929,57 +959,57 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Supprimez les fonctionnalités de l&apos;utilisateur à venir bientôt!</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="125"/>
+        <location filename="../settings.py" line="129"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="130"/>
+        <location filename="../settings.py" line="134"/>
         <source>The password has been reset for {}. Check your email for the new password.</source>
         <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre courrier électronique pour le nouveau mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="136"/>
+        <location filename="../settings.py" line="140"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="140"/>
+        <location filename="../settings.py" line="144"/>
         <source>Enter your password.</source>
         <translation>Entrez votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="145"/>
+        <location filename="../settings.py" line="149"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="145"/>
+        <location filename="../settings.py" line="149"/>
         <source>Logged in to the LDMP server as {}.</source>
         <translation>Connecté au serveur LDMP comme {}.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="95"/>
+        <location filename="../settings.py" line="99"/>
         <source>Enter your email.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="102"/>
+        <location filename="../settings.py" line="106"/>
         <source>Delete user?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="102"/>
+        <location filename="../settings.py" line="106"/>
         <source>Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using the toolbox.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="32"/>
+        <location filename="../gui/DlgSettings.ui" line="35"/>
         <source>New users</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="84"/>
+        <location filename="../gui/DlgSettings.ui" line="85"/>
         <source>Existing users</source>
         <translation type="unfinished"></translation>
     </message>
@@ -987,27 +1017,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsRegister</name>
     <message>
-        <location filename="../settings.py" line="166"/>
+        <location filename="../settings.py" line="171"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="160"/>
+        <location filename="../settings.py" line="165"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="162"/>
+        <location filename="../settings.py" line="167"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="164"/>
+        <location filename="../settings.py" line="169"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="166"/>
+        <location filename="../settings.py" line="171"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
@@ -1050,37 +1080,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSettingsUpdate</name>
     <message>
-        <location filename="../settings.py" line="196"/>
+        <location filename="../settings.py" line="202"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="190"/>
+        <location filename="../settings.py" line="196"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="192"/>
+        <location filename="../settings.py" line="198"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="194"/>
+        <location filename="../settings.py" line="200"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="196"/>
+        <location filename="../settings.py" line="202"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="201"/>
+        <location filename="../settings.py" line="207"/>
         <source>Saved</source>
         <translation>Enregistré</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="201"/>
+        <location filename="../settings.py" line="207"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
     </message>
@@ -1128,52 +1158,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgTimeseries</name>
     <message>
-        <location filename="../timeseries.py" line="245"/>
+        <location filename="../timeseries.py" line="246"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="171"/>
+        <location filename="../timeseries.py" line="172"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="178"/>
+        <location filename="../timeseries.py" line="179"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="183"/>
+        <location filename="../timeseries.py" line="184"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="195"/>
+        <location filename="../timeseries.py" line="196"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="81"/>
+        <location filename="../timeseries.py" line="82"/>
         <source>Point chooser</source>
         <translation>Choix de points</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="81"/>
+        <location filename="../timeseries.py" line="82"/>
         <source>Click the map to choose a point.</source>
         <translation>Cliquez sur la carte pour choisir un point.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="241"/>
+        <location filename="../timeseries.py" line="242"/>
         <source>Submitted</source>
         <translation>Soumis</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="241"/>
+        <location filename="../timeseries.py" line="242"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
         <translation>Tâche de calcul de la série temporelle soumise à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="245"/>
+        <location filename="../timeseries.py" line="246"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de calcul de séries temporelles à Google Earth Engine.</translation>
     </message>
@@ -1306,32 +1336,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="314"/>
+        <location filename="../reporting.py" line="486"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../api.py" line="37"/>
+        <location filename="../api.py" line="38"/>
         <source>Please register with the Land Degradation Monitoring Toolbox before using this function.</source>
         <translation>Veuillez vous inscrire à la boîte à outils de surveillance de la dégradation du sol avant d&apos;utiliser cette fonction.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="92"/>
+        <location filename="../api.py" line="97"/>
         <source>Contacting LDMP server...</source>
         <translation>Contacter le serveur LDMP ...</translation>
     </message>
     <message>
-        <location filename="../api.py" line="98"/>
+        <location filename="../api.py" line="103"/>
         <source>Unable to login to LDMP server. Check your internet connection.</source>
         <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="104"/>
+        <location filename="../api.py" line="109"/>
         <source>Unable to connect to LDMP server.</source>
         <translation>Impossible de se connecter au serveur LDMP.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="163"/>
+        <location filename="../api.py" line="172"/>
         <source>Unable to login to LDMP server. Check your username and password.</source>
         <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre nom d&apos;utilisateur et votre mot de passe.</translation>
     </message>
@@ -1341,12 +1371,12 @@ p, li { white-space: pre-wrap; }
         <translation>Soumis</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="107"/>
+        <location filename="../calculate_lc.py" line="108"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
         <translation>Tâche de couverture du sol soumise à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="111"/>
+        <location filename="../calculate_lc.py" line="112"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de couverture du terrain à Google Earth Engine.</translation>
     </message>
@@ -1381,102 +1411,102 @@ p, li { white-space: pre-wrap; }
         <translation>Impossible de soumettre une tâche d&apos;état de productivité à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="141"/>
+        <location filename="../download.py" line="147"/>
         <source>Downloading {}</source>
         <translation>Téléchargement {}</translation>
     </message>
     <message>
-        <location filename="../download.py" line="166"/>
+        <location filename="../download.py" line="172"/>
         <source>Download failed. Check your internet connection.</source>
         <translation>Échec du téléchargement. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="154"/>
+        <location filename="../download.py" line="160"/>
         <source>Unable to access internet. Check your internet connection.</source>
         <translation>Impossible d&apos;accéder à Internet. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../download.py" line="160"/>
+        <location filename="../download.py" line="166"/>
         <source>Download timed out. Check your internet connection.</source>
         <translation>Le téléchargement a expiré. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="240"/>
+        <location filename="../ldmp.py" line="241"/>
         <source>&amp;Land Degradation Monitoring Toolbox</source>
         <translation>Boîte à outils de surveillance de la dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location filename="../ldmp.py" line="189"/>
         <source>Settings</source>
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location filename="../ldmp.py" line="189"/>
         <source>LDMT Settings</source>
         <translation>Paramètres LDMT</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location filename="../ldmp.py" line="196"/>
         <source>Download data</source>
         <translation>Télécharger les données</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location filename="../ldmp.py" line="196"/>
         <source>Download land degradation datasets</source>
         <translation>Télécharger les jeux de données de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="203"/>
         <source>Calculate indicators</source>
         <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="203"/>
         <source>Calculate land degradation indicators</source>
         <translation>Calculer les indicateurs de dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="216"/>
+        <location filename="../ldmp.py" line="217"/>
         <source>View Google Earth Engine tasks</source>
         <translation>Afficher les tâches Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="216"/>
+        <location filename="../ldmp.py" line="217"/>
         <source>View cloud processing tasks</source>
         <translation>Afficher les tâches de traitement en nuage</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location filename="../ldmp.py" line="210"/>
         <source>Plot data</source>
         <translation>Tracer des données</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location filename="../ldmp.py" line="210"/>
         <source>Plot timeseries datasets</source>
         <translation>Ensembles de données timeshow</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="223"/>
+        <location filename="../ldmp.py" line="224"/>
         <source>Reporting tool</source>
         <translation>Outil de rapport</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="223"/>
+        <location filename="../ldmp.py" line="224"/>
         <source>Land degradation reporting</source>
         <translation>Déclaration de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="230"/>
+        <location filename="../ldmp.py" line="231"/>
         <source>About</source>
         <translation>Sur</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="230"/>
+        <location filename="../ldmp.py" line="231"/>
         <source>About the land degradation monitoring toolbox</source>
         <translation>À propos de la boîte à outils de surveillance de la dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="314"/>
+        <location filename="../reporting.py" line="486"/>
         <source>Raw data download coming soon!</source>
         <translation>Téléchargement brut des données à venir bientôt!</translation>
     </message>
@@ -1661,8 +1691,8 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Rendement de la productivité (dégradation)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="270"/>
-        <source>Processing {}</source>
+        <location filename="../reporting.py" line="436"/>
+        <source>Processing: {}</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1764,97 +1794,97 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Script non trouvé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="263"/>
+        <location filename="../jobs.py" line="270"/>
         <source>Task name</source>
         <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="264"/>
+        <location filename="../jobs.py" line="271"/>
         <source>Job</source>
         <translation>Emploi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="265"/>
+        <location filename="../jobs.py" line="272"/>
         <source>Start time</source>
         <translation>Heure de début</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="266"/>
+        <location filename="../jobs.py" line="273"/>
         <source>End time</source>
         <translation>Heure de fin</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="267"/>
+        <location filename="../jobs.py" line="274"/>
         <source>Status</source>
         <translation>Statut</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="268"/>
+        <location filename="../jobs.py" line="275"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="320"/>
+        <location filename="../jobs.py" line="330"/>
         <source>Land cover (baseline)</source>
         <translation>Couverture terrestre (référence)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="347"/>
+        <location filename="../jobs.py" line="358"/>
         <source>Cropland</source>
         <translation>Les terres cultivées</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="348"/>
+        <location filename="../jobs.py" line="359"/>
         <source>Forest land</source>
         <translation>Foret</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="349"/>
+        <location filename="../jobs.py" line="360"/>
         <source>Grassland</source>
         <translation>Prairie</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="350"/>
+        <location filename="../jobs.py" line="361"/>
         <source>Wetlands</source>
         <translation>Les Paluns</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="351"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Settlements</source>
         <translation>Colo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="352"/>
+        <location filename="../jobs.py" line="363"/>
         <source>Other land</source>
         <translation>Autre terre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="352"/>
         <source>Land cover (target)</source>
         <translation>Couverture terrestre (cible)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="362"/>
+        <location filename="../jobs.py" line="374"/>
         <source>Land cover change</source>
         <translation>Changement de couverture terrestre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="414"/>
+        <location filename="../jobs.py" line="427"/>
         <source>Land cover (degradation)</source>
         <translation>Couverture terrestre (dégradation)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="143"/>
+        <location filename="../reporting.py" line="122"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="144"/>
+        <location filename="../reporting.py" line="123"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="145"/>
+        <location filename="../reporting.py" line="124"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
@@ -1864,93 +1894,93 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Tendance de la trajectoire de productivité</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="467"/>
+        <location filename="../jobs.py" line="482"/>
         <source>-{} (declining)</source>
         <translation>- {} (en déclin)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="468"/>
+        <location filename="../jobs.py" line="483"/>
         <source>0 (stable)</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="469"/>
+        <location filename="../jobs.py" line="484"/>
         <source>{} (increasing)</source>
         <translation>{} (augmenter)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="483"/>
+        <location filename="../jobs.py" line="499"/>
         <source>Productivity trajectory trend (significance)</source>
         <translation>Tendance de la trajectoire de productivité (signification)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="545"/>
+        <location filename="../jobs.py" line="564"/>
         <source>Significant decrease</source>
         <translation>Diminution significative</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="546"/>
+        <location filename="../jobs.py" line="565"/>
         <source>No significant change</source>
         <translation>Pas de changement significatif</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="547"/>
+        <location filename="../jobs.py" line="566"/>
         <source>Significant increase</source>
         <translation>Une augmentation significative</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="146"/>
+        <location filename="../reporting.py" line="125"/>
         <source>Water</source>
         <translation>Eau</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="147"/>
+        <location filename="../reporting.py" line="126"/>
         <source>Urban land cover</source>
         <translation>Couverture terrestre urbaine</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="520"/>
+        <location filename="../jobs.py" line="538"/>
         <source>Productivity state (initial)</source>
         <translation>État de productivité (initial)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="548"/>
+        <location filename="../jobs.py" line="567"/>
         <source>No data</source>
         <translation>Pas de données</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="525"/>
+        <location filename="../jobs.py" line="543"/>
         <source>Potentially degraded</source>
         <translation>Potentiellement dégradé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="540"/>
+        <location filename="../jobs.py" line="559"/>
         <source>Productivity state (emerging)</source>
         <translation>État de productivité (émergents)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="574"/>
+        <location filename="../jobs.py" line="595"/>
         <source>Productivity performance (degradation)</source>
         <translation>Rendement de la productivité (dégradation)</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="108"/>
+        <location filename="../settings.py" line="112"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="108"/>
+        <location filename="../settings.py" line="112"/>
         <source>User {} deleted.</source>
         <translation>Utilisateur {} supprimé.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="449"/>
+        <location filename="../jobs.py" line="464"/>
         <source>Productivity trajectory trend
 (slope of NDVI * 10000)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="137"/>
+        <location filename="../reporting.py" line="116"/>
         <source>Degradation (SDG 15.3 - without soil carbon)</source>
         <translation type="unfinished"></translation>
     </message>

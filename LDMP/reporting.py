@@ -733,11 +733,11 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # TODO: Make sure no data, water areas, and urban areas are symmetric 
         # across LD layer and lc layer
         self.deg = {"Area Degraded": get_area(-1, 0),
-                    "Area Stable":  get_area(0, 0),
-                    "Area Improved":  get_area(1, 0),
-                    "No Data":  get_area(9997, 9997),
-                    "Water Area":  get_area(9998, 9998),
-                    "Urban Area":  get_area(9999, 9999)}
+                    "Area Stable": get_area(0, 0),
+                    "Area Improved": get_area(1, 0),
+                    "No Data": get_area(9997, 9997),
+                    "Water Area": get_area(9998, 9998),
+                    "Urban Area": get_area(9999, 9999)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
 
         style_sdg_ld(deg_out_file)

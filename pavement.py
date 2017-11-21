@@ -248,6 +248,11 @@ def deploy_docs(options):
             f = open(local_path,'rb')
             requests.append(pool.upload(relative_path.replace('\\', '/'), f, 
                 options.sphinx.docs_s3_bucket, public=True))
+            # Clear requests queue periodically to avoid python too many open 
+            # files errors.
+            if len(requests) > 100:
+                pool.all_completed(requests)
+                requests = []
     pool.all_completed(requests)
     print('Docs uploaded.')
 

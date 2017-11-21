@@ -7,8 +7,6 @@ The Land Degradation Monitoring Toolbox supports development of baselines and
 monitoring of land degradation using an innovative desktop and cloud-based 
 system.
 
-.. image:: /static/toolbox_demo.gif
-    :width: 800
 
 The toolbox supports monitoring indicators for Sustainable Development Goal 
 (SDG) Target 15.3.1 (land degradation neutrality) including productivity, land 
@@ -26,8 +24,8 @@ Documentation
     :maxdepth: 2
 
     Toolbox User Guide <documentation/index>
-    Training Materials <demos/index>
-    Video Tutorials <webinars/index>
+    Training Materials <training/index>
+    Video Tutorials <video/index>
 
 Authors
 =======

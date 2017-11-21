@@ -1,4 +1,0 @@
-Training Materials
-==================
-
-**Coming Soon!**

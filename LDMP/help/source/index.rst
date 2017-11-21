@@ -23,9 +23,9 @@ Documentation
 .. toctree::
     :maxdepth: 2
 
-    Toolbox User Guide <documentation/index>
-    Training Materials <training/index>
-    Video Tutorials <video/index>
+    documentation/index
+    training/index
+    video/index
 
 Authors
 =======

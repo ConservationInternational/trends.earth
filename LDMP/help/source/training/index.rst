@@ -1,8 +1,7 @@
-Land Degradation Monitoring Training Materials
-==============================================
+Training Materials
+==================
 
 .. toctree::
     :maxdepth: 3
 
-    Visualizing indicators <visualizing_results/index>
-
+    visualizing_results/index

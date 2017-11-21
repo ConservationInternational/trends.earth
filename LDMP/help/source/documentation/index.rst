@@ -10,7 +10,6 @@ Land Degradation Monitoring Toolbox User Guide
     Downloading data <data_download/index>
     Calculating indicators <calculate/index>
     Managing calculation tasks <GEE_tasks/index>
-    Visualizing indicators <visualizing_results/index>
     Plotting time series data <plot_data/index>
     Reporting (SDG and UNCCD) <reporting_tool/index>
 	Interpreting results <interpreting_results/index>

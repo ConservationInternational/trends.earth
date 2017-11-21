@@ -1,4 +1,0 @@
-Video Tutorials
-===============
-
-**Coming Soon!**

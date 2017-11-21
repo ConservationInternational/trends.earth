@@ -22,7 +22,7 @@ Then search for a plugin called `Land degradation monitoring tool` and select
 If your plugin has been installed properly, there will be a toolbox in the top 
 left of your browser that looks like this:
 
-.. image:: /static/documentation/common/ldmt_toolbar.png
+.. image:: /static/common/ldmt_toolbar.png
    :align: center
 
 Installing the development version

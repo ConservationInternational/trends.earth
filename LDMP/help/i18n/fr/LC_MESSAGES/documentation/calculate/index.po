@@ -1,0 +1,733 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-21 14:17-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Monica Noon <mnoon@conservation.org>, 2017\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/documentation/calculate/index.rst:2
+msgid "Calculate Indicators"
+msgstr "Calcul des indicateurs"
+
+#: ../../source/documentation/calculate/index.rst:3
+msgid ""
+"To select the methods and datasets to calculate the indicators that measured"
+" changes in primary productivity, select the globe icon (|iconCalculator|). "
+"This will open up the `Calculate Indicator` dialog box:"
+msgstr ""
+"Pour sélectionner les méthodes et les ensembles de données pour calculer les"
+" indicateurs mesurant les changements dans la productivité primaire, "
+"sélectionnez l'icône de globe. Cela ouvrira la boîte de dialogue `Calcul des"
+" indicateurs`:"
+
+#: ../../source/documentation/calculate/index.rst:9
+#: ../../source/documentation/calculate/index.rst:26
+#: ../../source/documentation/calculate/index.rst:135
+msgid "**Summary**"
+msgstr "**Résumé**"
+
+#: ../../source/documentation/calculate/index.rst:11
+msgid ""
+"Sustainable Development Goal 15.3 intends to combat desertification, restore"
+" degraded land and soil, including land affected by desertification, drought"
+" and floods, and strive to achieve a land degradation-neutral world by 2030."
+" In order to address this, we are measuring primary productivity, land cover"
+" and soil carbon to assess the annual change in degraded or desertified "
+"arable land (% of ha). The “Calculate indicators” button brings up a page "
+"that allows calculating datasets associated with the three SDG Target 15.3 "
+"sub indicators. For productivity and land cover, the toolbox implements the "
+"Tier 1 recommendations of the Good Practice Guidance lead by CSIRO. For "
+"productivity, users can calculate trajectory, performance, and state. For "
+"Land Cover, users can calculate land cover change relative to a baseline "
+"period, and enter a transition matrix indicating which transitions indicate "
+"degradation, stability, or improvement."
+msgstr ""
+"L’Objectif de développement durable 15.3 vise à lutter contre la "
+"désertification, à restaurer les terres et les sols dégradés, y compris ceux"
+" affectés par la désertification, la sécheresse et les inondations, et "
+"parvenir à la neutralité en matière de dégradation des terres à l’horizon "
+"2030. Dans ce but, nous mesurons la productivité primaire, la couverture "
+"terrestre et le carbone du sol, afin d’évaluer le changement annuel de "
+"terres arables dégradées ou désertifiées (% en ha). Le bouton « Calculate "
+"indicators » fait apparaître une page pour calculer les jeux de données "
+"associés aux trois sous-indicateurs de la cible 15.3 de l’ODD. Pour la "
+"productivité et la couverture terrestre, l’outil applique les "
+"recommandations de niveau 1 des directives en matière de bonnes pratiques de"
+" CSIRO. Pour la productivité, les utilisateurs peuvent calculer la "
+"trajectoire, la performance et l’état. Pour la couverture terrestre, les "
+"utilisateurs peuvent calculer le changement de couverture terrestre par "
+"rapport à une période de référence, et compléter une matrice de transition "
+"qui montre les transitions indicatrices d’une dégradation, d’une stabilité "
+"ou d’une amélioration."
+
+#: ../../source/documentation/calculate/index.rst:13
+msgid "Select which Indicator you would like to calculate"
+msgstr "Sélectionnez l'indicateur que vous souhaitez calculer"
+
+#: ../../source/documentation/calculate/index.rst:15
+msgid ""
+"Productivity: measures the trajectory, performance and state of primary "
+"productivity"
+msgstr ""
+"Productivité: mesure la trajectoire, la performance et l'état de la "
+"productivité primaire"
+
+#: ../../source/documentation/calculate/index.rst:17
+msgid ""
+"Land cover: calculates land cover change relative to a baseline period, "
+"enter a transition matrix indicating which transitions indicate degradation,"
+" stability or improvement."
+msgstr ""
+"Couverture terrestre: calcule le changement de couverture terrestre par "
+"rapport à une période de référence, complète une matrice de transition "
+"montrant les transitions indicatrices d’une dégradation, d’une stabilité ou "
+"d’une amélioration."
+
+#: ../../source/documentation/calculate/index.rst:19
+msgid ""
+"Soil carbon: under review following the Good Practice Guidance (CSIRO, "
+"9-2017)."
+msgstr ""
+"Carbone du sol: à l’étude, conformément aux directives en matière de bonnes "
+"pratiques (CSIRO, 9-2017)."
+
+#: ../../source/documentation/calculate/index.rst:25
+msgid "Productivity"
+msgstr "Productivité"
+
+#: ../../source/documentation/calculate/index.rst:28
+msgid ""
+"Productivity measures the trajectory, performance and state of primary "
+"productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. The "
+"user can select one or multiple indicators to calculate, the NDVI dataset, "
+"name the tasks and enter in explanatory notes for their intended reporting "
+"area."
+msgstr ""
+"La productivité mesure la trajectoire, la performance et l’état de la "
+"productivité primaire à l’aide des jeux de données GIMMS3g.v1 AVHRR à 8km ou"
+" MODIS à 250m. L’utilisateur peut sélectionner un ou plusieurs indicateurs à"
+" calculer, le jeu de données NDVI, nommer les tâches et saisir des notes "
+"explicatives pour le rapport voulu."
+
+#: ../../source/documentation/calculate/index.rst:30
+msgid ""
+"NOTE: The valid date range is set by the NDVI dataset selected within the "
+"first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
+msgstr ""
+"REMARQUE: La plage de dates valides est fixée par le jeu de données de NDVI "
+"sélectionné sur le premier onglet : les données AVHRR comparent la période "
+"1982-2015 et MODIS 2001-2016."
+
+#: ../../source/documentation/calculate/index.rst:33
+msgid "Productivity Trajectory"
+msgstr "Trajectoire de productivité"
+
+#: ../../source/documentation/calculate/index.rst:34
+msgid "Trajectory is related to the rate of change of productivity over time."
+msgstr ""
+"La trajectoire est liée au rythme de changement de la productivité dans le "
+"temps."
+
+#: ../../source/documentation/calculate/index.rst:36
+msgid ""
+"Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or "
+"Water Use Efficiency (WUE) to determine the trends in productivity over the "
+"time period selected."
+msgstr ""
+"Les utilisateurs peuvent sélectionner les tendances du NDVI, le coefficient "
+"d’efficacité pluviale (CEP ou RUE), Pixel RESTREND ou l’efficacité "
+"d’utilisation de l’eau (EUE ou WUE) pour déterminer les tendances de la "
+"productivité sur la période sélectionnée."
+
+#: ../../source/documentation/calculate/index.rst:38
+msgid ""
+"The starting year and end year will determine de period on which to perform "
+"the analysis."
+msgstr ""
+"L’année de début et l’année de fin détermineront la période de réalisation "
+"de l’analyse."
+
+#: ../../source/documentation/calculate/index.rst:40
+msgid ""
+"The initial trend is indicated by the slope of a linear regression fitted "
+"across annual productivity measurements over the entire period as assessed "
+"using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 "
+"(CSIRO, 2017)."
+msgstr ""
+"La tendance initiale est indiquée par la pente d’une régression linéaire sur"
+" des mesures annuelles de productivité pour toute la période, évaluée à "
+"l’aide de la note Z de Mann-Kendall là où la dégradation a lieu, avec z= ≤ "
+"-1,96 (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:42
+msgid ""
+"Degradation in each reporting period should be assessed by appending the "
+"recent annual NPP values (measured in the toolbox as annual integral of "
+"NDVI) to the baseline data and calculating the trend and significance over "
+"the entire data series and the most recent 8 years of data (CSIRO, 2017)."
+msgstr ""
+"La dégradation pour chaque période de notification doit être évaluée en "
+"ajoutant les valeurs annuelles récentes de la PPN (mesurées dans l’outil "
+"comme une intégrale annuelle du NDVI) aux données de référence et en "
+"calculant la tendance et la signification sur toute la série de données et "
+"des 8 dernières années de données (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:44
+msgid ""
+"Climate datasets need to be selected to perform climate corrections using "
+"RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for "
+"full list of climate variables available in the toolbox)."
+msgstr ""
+"Les jeux de données climatiques doivent être sélectionnés pour effectuer des"
+" corrections du climat à l’aide de RESTREND, RUE ou WUE (consultez le "
+"tableau 1 pour la liste complète des variables climatiques disponibles dans "
+"l’outil)."
+
+#: ../../source/documentation/calculate/index.rst:46
+msgid "**Calculating Trajectory**"
+msgstr "** Calcul de la trajectoire **"
+
+#: ../../source/documentation/calculate/index.rst:48
+msgid "Check next to Trajectory"
+msgstr "Vérifier à côté de Trajectoire"
+
+#: ../../source/documentation/calculate/index.rst:50
+msgid "Select NDVI dataset to use"
+msgstr "Sélectionnez le jeu de données NDVI à utiliser"
+
+#: ../../source/documentation/calculate/index.rst:55
+msgid ""
+"Assign a name to the task. Use descriptive names including study area, "
+"periods analyzed and datasets used, to be able to refer to them later."
+msgstr ""
+"Attribuez un nom à la tâche. Utilisez un nom descriptif, incluant la zone "
+"d’étude, les périodes analysées et les jeux de données utilisés, pour "
+"référence."
+
+#: ../../source/documentation/calculate/index.rst:60
+msgid ""
+"In the tab “Trajectory”, select the method to be used to compute the "
+"productivity trajectory analysis. The options are:"
+msgstr ""
+"Dans l'onglet \"Trajectoire\", sélectionnez la méthode à utiliser pour "
+"calculer l'analyse de trajectoire de productivité. Les options sont:"
+
+#: ../../source/documentation/calculate/index.rst:62
+msgid ""
+"NDVI trend: This dataset shows the trend in annually integrated NDVI time "
+"series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
+"GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio "
+"of the difference between near-infrared band (NIR) and the red band (RED) "
+"and the sum of these two bands (Rouse et al., 1974; Deering 1978) and "
+"reviewed in Tucker (1979)."
+msgstr ""
+"La tendance du NDVI : Ce jeu de données montre la tendance de la série "
+"temporelle annuellement intégrée de NDVI (2003-2015) à l’aide du jeu de "
+"données MODIS (250m ; MOD13Q1) ou AVHRR (8km ; GIMMS3g.v1). L’Indice de "
+"végétation par différence (NDVI) est le rapport de la différence entre la "
+"bande proche infrarouge (NIR) et la bande rouge (RED) et la somme de ces "
+"deux bandes (Rouse et al., 1974 ; Deering 1978 et révision dans Tucker, "
+"1979)."
+
+#: ../../source/documentation/calculate/index.rst:64
+msgid ""
+"Rain use efficiency (RUE): is defined as the ratio between net primary "
+"production (NPP), or aboveground NPP (ANPP), and rainfall. It has been "
+"increasingly used to analyze the variability of vegetation production in "
+"arid and semi-arid biomes, where rainfall is a major limiting factor for "
+"plant growth"
+msgstr ""
+"Le coefficient d’efficacité pluviale (CEP ou RUE) est le rapport entre la "
+"production primaire nette (PPN ou NPP), ou la PPN aérienne (ANPP), et la "
+"pluviométrie. Il est de plus en plus utilisé pour analyser la variabilité de"
+" la production végétale dans les biomes arides et semi-arides, où la pluie "
+"est un facteur limitant majeur de la croissance des plantes."
+
+#: ../../source/documentation/calculate/index.rst:66
+msgid ""
+"Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts"
+" to adjust the NDVI signals from the effect of particular climatic drivers, "
+"such as rainfall or soil moisture, using a pixel-by-pixel linear regression "
+"on the NDVI time series and the climate signal, in this case precipitation "
+"from GCPC data at 250m resolution. The linear model and the climatic data is"
+" used then to predict NDVI, and to compute the residualsbetween the observed"
+" and climate-predicted NDVI annual integrals. The NDVI residual trend is "
+"finally plotted to spatially represent overall trends in primary "
+"productivity independent of climate."
+msgstr ""
+"Pixel RESTREND : L’approche point par point des tendances résiduelles "
+"(P-RESTREND) s’efforce d’ajuster les signaux de NDVI pour prendre en compte "
+"l’effet de facteurs climatiques particuliers, comme les précipitations ou "
+"l’humidité du sol, à l’aide d’une régression linéaire pixel par pixel sur la"
+" série temporelle de NDVI et le signal climatique, dans ce cas, les "
+"précipitations à partir des données du GCPC avec une résolution de 250m. Le "
+"modèle linéaire et les données climatiques servent à prédire le NDVI et à "
+"calculer les résidus entre les intégrales annuelles de NDVI observées et "
+"prédites par le climat. La tendance résiduelle du NDVI est enfin tracée pour"
+" représenter dans l’espace les tendances globales de la productivité "
+"primaire, indépendamment du climat."
+
+#: ../../source/documentation/calculate/index.rst:68
+msgid ""
+"Water use efficiency (WUE):  refers to the ratio of water used in plant "
+"metabolism to water lost by the plant through transpiration."
+msgstr ""
+"Efficacité de l'utilisation de l'eau (EUE ou WUE): fait référence au rapport"
+" entre l’eau utilisée dans le métabolisme des plantes et l’eau perdue par "
+"les plantes par transpiration."
+
+#: ../../source/documentation/calculate/index.rst:74
+msgid "Productivity Performance"
+msgstr "Performance de productivité"
+
+#: ../../source/documentation/calculate/index.rst:75
+msgid ""
+"Performance is a comparison of how productivity in an area compares to "
+"productivity in similar areas at the same point in time."
+msgstr ""
+"La performance est une comparaison entre la productivité dans une zone et la"
+" productivité dans des zones similaires au même moment."
+
+#: ../../source/documentation/calculate/index.rst:77
+msgid ""
+"Select the period of analysis. This determines the initial degradation state"
+" and serves as a comparison to assess change in degradation for each "
+"reporting period."
+msgstr ""
+"Sélectionnez la période d’analyse. Elle détermine l’état initial de "
+"dégradation et permet la comparaison pour évaluer le changement de la "
+"dégradation pour chaque période de rapport."
+
+#: ../../source/documentation/calculate/index.rst:79
+msgid ""
+"The initial productivity performance is assessed in relation to the 90th "
+"percentile of annual productivity values calculated over the baseline period"
+" amongst pixels in the same land unit. The toolbox defines land units as "
+"regions with the same combination of Global Agroecological Zones and land "
+"cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% "
+"of the distribution for that particular unit may indicate degradation in "
+"this metric (CSIRO, 2017)."
+msgstr ""
+"La performance initiale de la productivité est évaluée en relation avec le "
+"90ème percentile des valeurs annuelles de productivité, calculées sur la "
+"période de référence dans les pixels de la même unité de terre. L’outil "
+"définit l’unité de terre comme une région avec la même combinaison de zones "
+"agroécologiques mondiales et de couverture terrestre (300m d’ESA CCI). Les "
+"pixels avec une performance de la PPN dans les 50 % inférieurs de la "
+"distribution pour cette unité particulière peuvent indiquer une dégradation "
+"dans cette métrique (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:81
+msgid "**Calculating Performance**"
+msgstr "** Calcul de la performance **"
+
+#: ../../source/documentation/calculate/index.rst:83
+msgid ""
+"Select the baseline period of comparison. This determines the initial "
+"degradation state and serves as a comparison to assess change in degradation"
+" for each reporting period."
+msgstr ""
+"Sélectionnez la période de référence pour la comparaison. Elle détermine "
+"l’état initial de dégradation et permet la comparaison pour évaluer le "
+"changement de la dégradation pour chaque période de rapport."
+
+#: ../../source/documentation/calculate/index.rst:88
+msgid ""
+"The initial productivity performance is assessed in relation to the 90th "
+"percentile of annual productivity values calculated over the baseline period"
+" amongst pixels in the same land unit. Pixels with an NPP performance in the"
+" lowest 50% of the historical range may indicate degradation in this metric "
+"(CSIRO, 2017)."
+msgstr ""
+"La performance initiale de la productivité est évaluée en relation avec le "
+"90ème percentile des valeurs annuelles de productivité, calculées sur la "
+"période de référence dans les pixels de la même unité de terre. Les pixels "
+"avec une performance de la PPN dans les 50 % inférieurs de la distribution "
+"pour cette unité particulière peuvent indiquer une dégradation dans cette "
+"métrique (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:90
+msgid ""
+"Contemporary Productivity Performance for each reporting period should be "
+"calculated from an average of the years between the previous (or baseline) "
+"assessment up to the current year (CSIRO, 2017)."
+msgstr ""
+"La performance contemporaine de la productivité pour chaque période de "
+"rapport doit être calculée à partir de la moyenne des années entre "
+"l’évaluation antérieure (ou référence) et l’année en cours (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:93
+msgid "Productivity State"
+msgstr "Etat de productivité"
+
+#: ../../source/documentation/calculate/index.rst:94
+msgid ""
+"State is a comparison of how current productivity in an area compares to "
+"past productivity in that area."
+msgstr ""
+"L’état est une comparaison entre la productivité actuelle dans une zone et "
+"la productivité passée dans cette zone."
+
+#: ../../source/documentation/calculate/index.rst:96
+#: ../../source/documentation/calculate/index.rst:104
+msgid ""
+"The user selects the baseline period and comparison period to determine the "
+"state for both existing and emerging degradation."
+msgstr ""
+"L’utilisateur sélectionne la période de référence et la période de "
+"comparaison pour déterminer l’état de dégradation existante et émergente."
+
+#: ../../source/documentation/calculate/index.rst:98
+#: ../../source/documentation/calculate/index.rst:109
+msgid ""
+"The baseline period classifies annual productivity measurements to determine"
+" initial degradation. Pixels in the lowest 50% of classes may indicate "
+"degradation (CSIRO, 2017)."
+msgstr ""
+"La période de référence catégorise les mesures annuelles de la productivité "
+"pour déterminer la dégradation initiale. Les pixels dans les 50 % inférieurs"
+" peuvent indiquer une dégradation (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:100
+msgid ""
+"Productivity State assessments for each reporting period should compare the "
+"average of the annual productivity measurements over the reporting period "
+"(up to 4 years of new data) to the productivity classes calculated from the "
+"baseline period. NPP State classifications that have changed by two or more "
+"classes between the baseline and reporting period indicate significant "
+"productivity State change (CSIRO, 2017)."
+msgstr ""
+"Les évaluations de l’état de la productivité pour chaque période de rapport "
+"doivent comparer la moyenne des mesures annuelles de la productivité sur la "
+"période de rapport (jusqu’à 4 ans de nouvelles données) aux classes de "
+"productivité calculées à partir de la période de référence. Les "
+"classifications de l’état de la PPN qui ont évolué de deux classes ou plus, "
+"entre la référence et la période de rapport, indiquent un changement majeur "
+"de l’état de la productivité (CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:102
+msgid "**Calculating State**"
+msgstr "** Calcul de l’état **"
+
+#: ../../source/documentation/calculate/index.rst:111
+msgid ""
+"State assessments for each reporting period should compare the average of "
+"the annual productivity measurements over the reporting period (up to 4 "
+"years of new data) to the productivity classes calculated from the baseline "
+"period. NPP State classifications that have changed by two or more classes "
+"between the baseline and reporting period indicate significant productivity "
+"State change (CSIRO, 2017)."
+msgstr ""
+"Les évaluations des États pour chaque période de déclaration doivent "
+"comparer la moyenne des mesures annuelles de la productivité au cours de la "
+"période de déclaration (jusqu'à quatre années de nouvelles données) aux "
+"classes de productivité calculées à partir de la période de référence. Les "
+"classifications d'état des centrales nucléaires qui ont été modifiées par "
+"deux ou plusieurs classes entre la période de référence et la période de "
+"déclaration indiquent un changement important de la productivité de l'État "
+"(CSIRO, 2017)."
+
+#: ../../source/documentation/calculate/index.rst:113
+msgid "**Productivity - Area of interest**"
+msgstr "** Productivité - Zone d'intérêt **"
+
+#: ../../source/documentation/calculate/index.rst:115
+#: ../../source/documentation/calculate/index.rst:207
+msgid ""
+"The final step before submitting the task to Google Earth Engine, is to "
+"define the study area on which to perform the analysis. The toolbox allows "
+"this task to be completed in one of two ways:"
+msgstr ""
+"L’étape finale avant de soumettre la tâche à Google Earth Engine est de "
+"définir la zone d’étude pour l’analyse. L’outil permet de compéter cette "
+"tâche de deux façons différentes:"
+
+#: ../../source/documentation/calculate/index.rst:117
+msgid ""
+"The user selects first (i.e. country) and second (i.e. province or state) "
+"administrative boundary from a drop down menu."
+msgstr ""
+"L'utilisateur sélectionne la première limite administrative (pays) puis une "
+"deuxième (province ou État) sur un menu déroulant."
+
+#: ../../source/documentation/calculate/index.rst:119
+#: ../../source/documentation/calculate/index.rst:211
+msgid "The user can upload a shapefile with an area of interest."
+msgstr ""
+"L'utilisateur peut télécharger un fichier de formes avec une zone d'intérêt."
+
+#: ../../source/documentation/calculate/index.rst:121
+msgid ""
+"NOTE: This boundary should have only one polygon, i.e. when uploading a "
+"country with outlying islands, there will be multiple geometries drawn "
+"separately. By merging the polygons, the analysis will be run on the entire "
+"study area as opposed to a single polygon."
+msgstr ""
+"REMARQUE: Cette limite ne doit comporter qu'un seul polygone, c'est-à-dire "
+"lors du téléchargement d'un pays avec des îles périphériques, plusieurs "
+"géométries seront dessinées séparément. En fusionnant les polygones, "
+"l'analyse sera effectuée sur l'ensemble de la zone d'étude par opposition à "
+"un seul polygone."
+
+#: ../../source/documentation/calculate/index.rst:129
+msgid "**Submit task**"
+msgstr "** Soumission de la tâche **"
+
+#: ../../source/documentation/calculate/index.rst:131
+msgid ""
+"When all the parameters have been defined, click Calculate, and the task "
+"will be submitted to Google Earth Engine for computing. When the task is "
+"completed (processing time will vary depending on server usage, but for most"
+" countries it takes only a few minutes most of the time), you’ll receive an "
+"email notifying the successful completion."
+msgstr ""
+"Tous les paramètres définis, cliquez sur Calculer, et la tâche sera soumise "
+"à Google Earth Engine pour traitement. Une fois la tâche finalisée (le temps"
+" de traitement varie en fonction de l’utilisation du serveur, mais dans la "
+"plupart du pays, il faut seulement quelques minutes), vous recevrez un "
+"message électronique indiquant son achèvement."
+
+#: ../../source/documentation/calculate/index.rst:134
+msgid "Land Cover"
+msgstr "Couverture terrestre"
+
+#: ../../source/documentation/calculate/index.rst:137
+msgid ""
+"Changes in land cover is one of the indicators used to track potential land "
+"degradation which need to be reported to the UNCCD and to track progress "
+"towards SDG 15.3.1. While some land cover transitions indicate, in most "
+"cases, processes of land degradation, the interpretation of those "
+"transitions are for the most part context specific. For that reason, this "
+"indicator requires the input of the user to identify which changes in land "
+"cover will be considered as degradation, improvement or no change in terms "
+"of degradation. The toolbox allows users to calculate land cover change "
+"relative to a baseline period, enter a transition matrix indicating which "
+"transitions indicate degradation, stability or improvement."
+msgstr ""
+"Le changement de la couverture terrestre est l’un des indicateurs utilisés "
+"pour suivre la dégradation potentielle des terres qu’il faut rapporter à la "
+"CNULCD et pour assurer la réalisation de l’ODD 15.3.1. Si certaines "
+"transitions de la couverture terrestre indiquent dans la plupart des cas des"
+" processus de dégradation des terres, l’interprétation de ces transitions "
+"dépend surtout du contexte. Pour cette raison, l’indicateur exige la "
+"contribution de l’utilisateur pour identifier les changements qui peuvent "
+"être considérés comme une dégradation, une amélioration ou une stabilité. "
+"L’outil permet à l’utilisateur de calculer le changement de la couverture "
+"terrestre par rapport à une période de référence et de compléter une matrice"
+" de transition qui montre les transitions indicatrices d’une dégradation, "
+"d’une stabilité ou d’une amélioration."
+
+#: ../../source/documentation/calculate/index.rst:139
+msgid "**Calculating Land cover changes**"
+msgstr "** Calcul des changements de la couverture terrestre **"
+
+#: ../../source/documentation/calculate/index.rst:141
+msgid ""
+"Click on the Calculate Indicators button from the toolbox bar, then select "
+"Land cover."
+msgstr ""
+"Cliquez sur le bouton Calculer les indicateurs dans la barre d'outils, puis "
+"sélectionnez Couverture du sol."
+
+#: ../../source/documentation/calculate/index.rst:146
+msgid ""
+"Set up tab: Allows the user to select the starting year and ending year"
+msgstr ""
+"Onglet Configurer: permet à l'utilisateur de sélectionner l'année de début "
+"et l'année de fin"
+
+#: ../../source/documentation/calculate/index.rst:148
+msgid ""
+"The baseline should be considered over an extended period over a single date"
+" (e.g. 1/1/2000-12/31/2015)."
+msgstr ""
+"La référence doit être considérée sur une période de temps (par exemple : "
+"1/1/2000-12/31/2015)."
+
+#: ../../source/documentation/calculate/index.rst:150
+msgid "User selects target year."
+msgstr "L'utilisateur sélectionne l'année cible."
+
+#: ../../source/documentation/calculate/index.rst:152
+msgid "Metadata: User enters unique task name and notes for the analyses."
+msgstr ""
+"Métadonnées: l'utilisateur saisit un nom de tâche et des notes uniques pour "
+"les analyses."
+
+#: ../../source/documentation/calculate/index.rst:157
+msgid "Transition matrix tab"
+msgstr "Onglet matrice de transition"
+
+#: ../../source/documentation/calculate/index.rst:159
+msgid ""
+"User selects the transition matrix value of land cover transitions for each "
+"transition between the 6 IPCC land cover classes. For example:"
+msgstr ""
+"L'utilisateur sélectionne la valeur de la matrice de transition des "
+"transitions de couverture terrestre pour chaque transition entre les 6 "
+"classes de couverture terrestre du GIEC. Par exemple:"
+
+#: ../../source/documentation/calculate/index.rst:161
+msgid ""
+"The default for cropland to cropland is 0 because the land cover stays the "
+"same and is therefore stable."
+msgstr ""
+"La valeur par défaut de terres cultivées à terres cultivées est de 0 puisque"
+" la couverture terrestre reste la même et donc stable."
+
+#: ../../source/documentation/calculate/index.rst:163
+msgid ""
+"The default for forest to cropland is -1 because forest is likely cut to "
+"clear way for agriculture and would be considered deforestation."
+msgstr ""
+"La valeur par défaut de forêts à terres cultivées est de -1 car la forêt a "
+"été probablement défrichée à des fins agricoles, ce qui serait considéré "
+"comme une déforestation."
+
+#: ../../source/documentation/calculate/index.rst:165
+msgid ""
+"The transition can be defined as stable in terms of land degradation, or "
+"indicative of degradation (-1) or improvement (1)."
+msgstr ""
+"La transition peut être définie comme stable en termes de dégradation des "
+"terres, ou révélatrice d’une dégradation (-1) ou d’une amélioration (1)."
+
+#: ../../source/documentation/calculate/index.rst:167
+msgid ""
+"Users can keep the default values or create unique transition values of "
+"their own."
+msgstr ""
+"Les utilisateurs peuvent conserver les valeurs par défaut ou créer leurs "
+"propres valeurs de transition."
+
+#: ../../source/documentation/calculate/index.rst:172
+msgid ""
+"By default, and following the CSIRO best practices guidance document, the "
+"major land cover change processes that are classified as degradation are:"
+msgstr ""
+"Par défaut, et conformément au document de directives en matière de "
+"meilleures pratiques de CSIRO, les principaux processus de changement de la "
+"couverture terrestre qui peuvent être considérés comme une dégradation sont "
+"les suivants:"
+
+#: ../../source/documentation/calculate/index.rst:174
+msgid "Deforestation (forest to cropland or settlements)"
+msgstr "Déforestation (forêts à terres cultivées ou lieux habités)"
+
+#: ../../source/documentation/calculate/index.rst:176
+msgid ""
+"Urban expansion (grassland, cropland wetlands or otherland to settlements)"
+msgstr ""
+"Expansion urbaine (prairies, terres cultivées, zones humides ou autres "
+"terres à lieux habités)"
+
+#: ../../source/documentation/calculate/index.rst:178
+msgid ""
+"Vegetation loss (forest to grassland, otherland or grassland, cropland to "
+"other land)"
+msgstr ""
+"Perte de la végétation (forêts à prairies, autres terres ou prairies, terres"
+" cultivées à autres terres)"
+
+#: ../../source/documentation/calculate/index.rst:180
+msgid "Inundation (forest, grassland, cropland to wetlands)"
+msgstr "Inondation (forêt, prairie, terres cultivées à zones humides)"
+
+#: ../../source/documentation/calculate/index.rst:182
+msgid "Wetland drainage (wetlands to cropland or grassland)"
+msgstr ""
+"Drainage de zones humides (zones humides à terres cultivées ou prairies)"
+
+#: ../../source/documentation/calculate/index.rst:184
+msgid "Withdrawal of agriculture (croplands to grassland)"
+msgstr "Retrait de l'agriculture (terres cultivées en prairies)"
+
+#: ../../source/documentation/calculate/index.rst:186
+msgid "Woody encroachment (wetlands to forest)"
+msgstr "Empiètement ligneux (zones humides à forêts)"
+
+#: ../../source/documentation/calculate/index.rst:189
+msgid ""
+"The major land cover change processes that are not considered degradation "
+"are:"
+msgstr ""
+"Les principaux processus de changement de couverture terrestre qui ne sont "
+"pas considérés comme étant une dégradation sont les suivants:"
+
+#: ../../source/documentation/calculate/index.rst:191
+msgid "Stable (land cover class remains the same over time period)"
+msgstr ""
+"Stabilité (la classe de couverture terrestre reste la même sur la période de"
+" temps)"
+
+#: ../../source/documentation/calculate/index.rst:193
+msgid "Afforestation (grassland, cropland to forest; settlements to forest)"
+msgstr ""
+"Boisement (prairies, terres cultivées à forêts ; lieux habités à forêts)"
+
+#: ../../source/documentation/calculate/index.rst:195
+msgid ""
+"Agricultural expansion (grassland to cropland; settlements or otherland to "
+"cropland)"
+msgstr ""
+"Expansion agricole (prairies à terres cultivées ; lieux habités ou autres "
+"terres à terres cultivées)"
+
+#: ../../source/documentation/calculate/index.rst:197
+msgid "Vegetation establishment (settlements or otherland to settlements)"
+msgstr ""
+"Établissement de la végétation (lieux habités ou autres terres à lieux "
+"habités)"
+
+#: ../../source/documentation/calculate/index.rst:199
+msgid "Wetland establishment (settlements or otherland to wetlands)"
+msgstr ""
+"Établissement de zones humides (lieux habités ou autres terres à zones "
+"humides)"
+
+#: ../../source/documentation/calculate/index.rst:201
+msgid "Withdrawal of settlements (settlements to otherland)"
+msgstr "Retrait des lieux habités (lieux habités à autres terres)"
+
+#: ../../source/documentation/calculate/index.rst:203
+msgid ""
+"It is important to remember that those are suggested interpretations, and "
+"should be evaluated and adjusted considering the local conditions of the "
+"regions in for which the analysis will be performed."
+msgstr ""
+"Il faut noter que ce sont de suggestions d’interprétation, qui doivent être "
+"évaluées et ajustées en fonction des conditions locales dans les régions où "
+"l’analyse est effectuée."
+
+#: ../../source/documentation/calculate/index.rst:205
+msgid "**Land cover - Area of interest**"
+msgstr "** Couverture terrestre - Zone d'intérêt **"
+
+#: ../../source/documentation/calculate/index.rst:209
+msgid ""
+"The user selects first (i.e. country) and second (i.e. province or state) "
+"administrative boundary from a drop-down menu."
+msgstr ""
+"L’utilisateur sélectionne une première limite administrative (pays) puis une"
+" deuxième (province ou État) sur un menu déroulant."
+
+#: ../../source/documentation/calculate/index.rst:217
+msgid "Soil Carbon"
+msgstr "Carbone du sol"
+
+#: ../../source/documentation/calculate/index.rst:218
+msgid "**Coming soon!**"
+msgstr "**Arrive bientôt!**"

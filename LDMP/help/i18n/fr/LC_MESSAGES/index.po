@@ -24,15 +24,15 @@ msgstr "Boîte à outils de surveillance de la dégradation des terres"
 
 #: ../../source/index.rst:5
 msgid "`English <../en/index.html>`_"
-msgstr "`English <../ en / index.html>` _"
+msgstr "`English <../en/index.html>`_"
 
 #: ../../source/index.rst:5
 msgid "`Francais <../fr/index.html>`_"
-msgstr "`Francais <../ fr / index.html>` _"
+msgstr "`Francais <../fr/index.html>`_"
 
 #: ../../source/index.rst:5
 msgid "`Español <../es/index.html>`_"
-msgstr "`Español <../ es / index.html>` _"
+msgstr "`Español <../es/index.html>`_"
 
 #: ../../source/index.rst:8
 msgid "**Monitor Indicators for SDG 15.3 and Land Degradation Reporting**"

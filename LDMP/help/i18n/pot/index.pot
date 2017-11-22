@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-21 15:15-0500\n"
+"POT-Creation-Date: 2017-11-22 13:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,67 +20,67 @@ msgstr ""
 msgid "Land Degradation Monitoring Toolbox"
 msgstr ""
 
-#: ../../source/index.rst:4
+#: ../../source/index.rst:5
+msgid "`English <../en/index.html>`_"
+msgstr ""
+
+#: ../../source/index.rst:5
+msgid "`Francais <../fr/index.html>`_"
+msgstr ""
+
+#: ../../source/index.rst:5
+msgid "`Español <../es/index.html>`_"
+msgstr ""
+
+#: ../../source/index.rst:8
 msgid "**Monitor Indicators for SDG 15.3 and Land Degradation Reporting**"
 msgstr ""
 
-#: ../../source/index.rst:6
+#: ../../source/index.rst:10
 msgid "The Land Degradation Monitoring Toolbox supports development of baselines and monitoring of land degradation using an innovative desktop and cloud-based system."
 msgstr ""
 
-#: ../../source/index.rst:11
+#: ../../source/index.rst:14
 msgid "The toolbox supports monitoring indicators for Sustainable Development Goal (SDG) Target 15.3.1 (land degradation neutrality) including productivity, land cover, and soil organic carbon, and also supports reporting to the United Nations Convention to Combat Desertification (UNCCD)."
 msgstr ""
 
-#: ../../source/index.rst:16
+#: ../../source/index.rst:19
 msgid "The toolbox also allows users to plot time series of key indicators, and to produce maps and other graphics that can support tracking the impact of sustainable land management or other projects."
 msgstr ""
 
-#: ../../source/index.rst:21
-msgid "Documentation"
+#: ../../source/index.rst:23
+msgid "The documentation and training materials, including a number of demonstration videos, are available on this website:"
 msgstr ""
 
-#: ../../source/index.rst:31
-msgid "Authors"
+#: ../../source/index.rst:26
+msgid ":ref:`user-docs`"
+msgstr ""
+
+#: ../../source/index.rst:27
+msgid ":ref:`training-materials`"
+msgstr ""
+
+#: ../../source/index.rst:28
+msgid ":ref:`videos`"
+msgstr ""
+
+#: ../../source/index.rst:29
+msgid ":ref:`about-docs`"
 msgstr ""
 
 #: ../../source/index.rst:33
-msgid "The toolbox was produced as part of the project \"Enabling the use of global data sources to assess and monitor land degradation at multiple scales\", funded by the Global Environment Facility."
+msgid "User Documentation"
 msgstr ""
 
-#: ../../source/index.rst:37
-msgid "Contributors to the documentation and toolbox include Yengoh Genesis [1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, Tristan Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_."
+#: ../../source/index.rst:49
+msgid "Training Materials"
 msgstr ""
 
-#: ../../source/index.rst:41
-msgid "The Land Degradation Monitoring Project is a partnership of Conservation International, Lund University, and the National Aeronautics and Space Administration (NASA), and is funded by the Global Environment Facility (GEF)."
+#: ../../source/index.rst:57
+msgid "Videos"
 msgstr ""
 
-#: ../../source/index.rst:63
-msgid "|logoCI|"
-msgstr ""
-
-#: ../../source/index.rst:63
-msgid "|logoLund|"
-msgstr ""
-
-#: ../../source/index.rst:63
-msgid "|logoNASA|"
-msgstr ""
-
-#: ../../source/index.rst:63
-msgid "|logoGEF|"
-msgstr ""
-
-#: ../../source/index.rst:66
-msgid "The toolbox uses `Google Earth Engine <https://earthengine.google.com>`_ to compute indicators in the cloud."
-msgstr ""
-
-#: ../../source/index.rst:74
-msgid "`Lund University <http://www.lunduniversity.lu.se>`_"
-msgstr ""
-
-#: ../../source/index.rst:75
-msgid "`Conservation International <http://www.conservation.org>`_"
+#: ../../source/index.rst:65
+msgid "About"
 msgstr ""
 

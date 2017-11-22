@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 13:28-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/video/video_links.rst:2
+msgid "Video Overviews"
+msgstr ""
+
+#: ../../source/video/video_links.rst:4
+msgid "`Installing QGIS (English) <https://youtu.be/d7qCSpauj0g>`_"
+msgstr ""
+
+#: ../../source/video/video_links.rst:5
+msgid "`Toolbox installation (English) <https://youtu.be/uSTvNMpZF4I>`_"
+msgstr "`Instalación de Toolbox (inglés) <https://youtu.be/uSTvNMpZF4I>` _"
+
+#: ../../source/video/video_links.rst:6
+msgid "`Toolbox setup (English) <https://youtu.be/qm5LFF-jhaM>`_"
+msgstr "`Configuración de Toolbox (inglés) <https://youtu.be/qm5LFF-jhaM>` _"
+
+#: ../../source/video/video_links.rst:7
+msgid "Download data (English)"
+msgstr "Descargar datos (Inglés)"
+
+#: ../../source/video/video_links.rst:8
+msgid ""
+"`Calculate Indicators - Productivity Part I (English) "
+"<https://youtu.be/RFPPz8s1IJA>`_"
+msgstr ""
+"`Calcular indicadores - Productividad Parte I (inglés) "
+"<https://youtu.be/RFPPz8s1IJA>` _"
+
+#: ../../source/video/video_links.rst:9
+msgid ""
+"`Calculate Indicators - Productivity Part II (English) "
+"<https://youtu.be/CHgGV5Xx7oc>`_"
+msgstr ""
+"`Calcular indicadores - Productividad Parte II (inglés) "
+"<https://youtu.be/CHgGV5Xx7oc>` _"
+
+#: ../../source/video/video_links.rst:10
+msgid ""
+"`Calculate Indicators - Land cover Part I (English) "
+"<https://youtu.be/cuWZFwEvXQQ>`_"
+msgstr ""
+"`Calcular indicadores: cobertura del suelo Parte I (inglés) "
+"<https://youtu.be/cuWZFwEvXQQ>` _"
+
+#: ../../source/video/video_links.rst:11
+msgid ""
+"`Calculate Indicators - Land cover Part II (English) "
+"<https://youtu.be/mn1p9Q5-Ibw>`_"
+msgstr ""
+"`Calcular indicadores: cobertura terrestre Parte II (inglés) "
+"<https://youtu.be/mn1p9Q5-Ibw>` _"
+
+#: ../../source/video/video_links.rst:12
+msgid "Calculate Indicators - Soil Carbon (English)"
+msgstr "Calcular indicadores - Carbón de suelo (inglés)"
+
+#: ../../source/video/video_links.rst:13
+msgid "Visualizing indicators (English)"
+msgstr "Visualización de indicadores (inglés)"
+
+#: ../../source/video/video_links.rst:14
+msgid "`Plotting time series data (English) <https://youtu.be/w3J6o9HMbJ0>`_"
+msgstr ""
+"`Trazar datos de series temporales (en inglés) "
+"<https://youtu.be/w3J6o9HMbJ0>` _"
+
+#: ../../source/video/video_links.rst:15
+msgid "Reporting SDG and UNCCD (English)"
+msgstr "Informes de ODS y CLD (inglés)"
+
+#: ../../source/video/video_links.rst:16
+msgid "Interpreting results (English)"
+msgstr "Interpretando los resultados (Inglés)"

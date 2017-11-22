@@ -61,3 +61,8 @@ source_lang = en
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/video/video_links.po
 source_file = LDMP/help/i18n/pot/video/video_links.pot
 source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.about]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about.po
+source_file = LDMP/help/i18n/pot/about.pot
+source_lang = en

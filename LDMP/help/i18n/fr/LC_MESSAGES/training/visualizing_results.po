@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 13:28-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Monica Noon <mnoon@conservation.org>, 2017\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/training/visualizing_results.rst:2
+msgid "Visualizing results in QGIS"
+msgstr "Visualisation des résultats dans QGIS"
+
+#: ../../source/training/visualizing_results.rst:4
+msgid ""
+"Once the results are downloaded (this could take a few minutes depending on "
+"the size of the area analyzed and the internet connection speed), they will "
+"automatically load in QGIS. The results from each analysis will be loaded "
+"with its corresponding symbology."
+msgstr ""
+"Une fois les résultats téléchargés (cela peut prendre quelques minutes en "
+"fonction de la taille de la zone analysée et de la vitesse de la connexion "
+"Internet), ils seront automatiquement chargés dans QGIS. Les résultats de "
+"chaque analyse seront chargés avec la symbologie correspondante."
+
+#: ../../source/training/visualizing_results.rst:9
+msgid "Visualizing results from Productivity - Trajectory Parameters used:"
+msgstr ""
+"Visualisation des résultats des paramètres Productivité - Trajectoire "
+"utilisés:"
+
+#: ../../source/training/visualizing_results.rst:24
+msgid ""
+"Visualizing in QGIS: The first layer is the Productivity trajectory trend "
+"layer:"
+msgstr ""
+"Visualisation dans QGIS: La première couche est la couche de tendance de la "
+"trajectoire de productivité:"
+
+#: ../../source/training/visualizing_results.rst:30
+msgid ""
+"The second layer added is a classified version of the layer above. The "
+"classes are:"
+msgstr ""
+"La deuxième couche ajoutée est une version classée de la couche ci-dessus. "
+"Les classes sont:"
+
+#: ../../source/training/visualizing_results.rst:36
+msgid "Visualizing results from Productivity - Performance Parameters used:"
+msgstr ""
+"Visualisation des résultats des paramètres Productivité - Performance "
+"utilisés:"
+
+#: ../../source/training/visualizing_results.rst:48
+msgid ""
+"Visualizing in QGIS: The productivity performance indicator layer output has"
+" 5 classes:"
+msgstr ""
+"Visualisation dans QGIS: La sortie de la couche d'indicateurs de performance"
+" de productivité a 5 classes:"
+
+#: ../../source/training/visualizing_results.rst:54
+msgid "Visualizing results from Productivity - State Parameters used:"
+msgstr ""
+"Visualisation des résultats de productivité - Paramètres d'état utilisés:"
+
+#: ../../source/training/visualizing_results.rst:66
+msgid ""
+"Visualizing in QGIS: The productivity state initial degradation indicator "
+"layer output has 5 classes:"
+msgstr ""
+"Visualisation dans QGIS: La sortie de la couche d'indicateur de dégradation "
+"initiale de l'état de productivité a 5 classes:"
+
+#: ../../source/training/visualizing_results.rst:75
+msgid "Visualizing results from Land Cover Change Parameters used:"
+msgstr ""
+"Visualisation des résultats des paramètres de changement de couverture "
+"terrestre utilisés:"
+
+#: ../../source/training/visualizing_results.rst:90
+msgid "Visualizing in QGIS:"
+msgstr "Visualisation dans QGIS:"
+
+#: ../../source/training/visualizing_results.rst:92
+msgid ""
+"The land cover change analysis produces four raster outputs. The land cover "
+"baseline and target layers have 6 classes: (Baseline land cover)"
+msgstr ""
+"L'analyse du changement de couverture terrestre produit quatre sorties de "
+"trame. La couche de base de la couverture terrestre et les couches cibles "
+"ont 6 classes: (Couverture terrestre de base)"
+
+#: ../../source/training/visualizing_results.rst:99
+msgid "(Target land cover)"
+msgstr "(Couverture terrestre cible)"
+
+#: ../../source/training/visualizing_results.rst:104
+msgid ""
+"The land cover change layer has 36 classes, where beige indicate regions in "
+"which land cover did not change between the baseline and target periods."
+msgstr ""
+"La couche de changement de couverture terrestre a 36 classes, où le beige "
+"indique les régions dans lesquelles la couverture terrestre n'a pas changé "
+"entre les périodes de référence et les périodes cibles."
+
+#: ../../source/training/visualizing_results.rst:114
+msgid "The land cover degradation layer has 3 classes:"
+msgstr "La couche de dégradation du couvert terrestre a trois classes:"

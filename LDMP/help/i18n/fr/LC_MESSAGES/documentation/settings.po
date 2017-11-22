@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 13:28-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Monica Noon <mnoon@conservation.org>, 2017\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/documentation/settings.rst:2
+msgid "Registration and settings"
+msgstr "Enregistrement et paramètres"
+
+#: ../../source/documentation/settings.rst:4
+msgid ""
+"The toolbox is free to use, but you must register an email address prior to "
+"using any of the cloud-based functions."
+msgstr ""
+"La boîte à outils est libre d'utiliser, mais vous devez enregistrer une "
+"adresse e-mail avant d'utiliser l'une des fonctions basées sur le cloud."
+
+#: ../../source/documentation/settings.rst:7
+msgid ""
+"To register your email address and obtain a free account, select the wrench "
+"icon (|iconWrench|). This will open up the `Settings` dialog box:"
+msgstr ""
+"Pour enregistrer votre adresse e-mail et obtenir un compte gratuit, "
+"sélectionnez l'icône de la clé (|iconWrench|). Cela ouvrira la boîte de "
+"dialogue `Paramètres`:"
+
+#: ../../source/documentation/settings.rst:13
+msgid ""
+"From the `Settings` screen you can register as a new user or `Login` if you "
+"already have a username and password:"
+msgstr ""
+"De l'écran `Paramètres` vous pouvez vous enregistrer en tant que nouvel "
+"utilisateur ou` Login` si vous avez déjà un nom d'utilisateur et un mot de "
+"passe:"
+
+#: ../../source/documentation/settings.rst:20
+msgid ""
+"To Register, select the `Register` button, enter your Email, Name, "
+"Organization and Country of residence and select `Register user`:"
+msgstr ""
+"Pour vous inscrire, sélectionnez le bouton «Enregistrer», entrez votre "
+"adresse électronique, votre nom, votre organisation et votre pays de "
+"résidence, puis sélectionnez «Enregistrer l'utilisateur»:"
+
+#: ../../source/documentation/settings.rst:27
+msgid ""
+"A password will be sent to your email. Please check your Junk folder if you "
+"cannot find it within your inbox. The email will come from ldmp-"
+"api@resilienceatlas.org."
+msgstr ""
+"Un mot de passe sera envoyé à votre email. Veuillez vérifier votre dossier "
+"de courrier indésirable si vous ne le trouvez pas dans votre boîte de "
+"réception. L'email viendra de ldmp-api@resilienceatlas.org."
+
+#: ../../source/documentation/settings.rst:31
+msgid "Enter your credentials and click `Login`."
+msgstr "Entrez vos informations d'identification et cliquez sur \"Connexion\"."

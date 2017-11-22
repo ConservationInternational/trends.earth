@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-22 13:28-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Monica Noon <mnoon@conservation.org>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/documentation/installing.rst:2
+msgid "Installing the toolbox"
+msgstr "Instalando la caja de herramientas"
+
+#: ../../source/documentation/installing.rst:4
+msgid ""
+"There are different ways to install the toolbox, depending on whether you "
+"want to install the stable version (recommended) or the development version."
+msgstr ""
+"Existen diferentes formas de instalar la caja de herramientas, dependiendo "
+"de si desea instalar la versión estable (recomendada) o la versión de "
+"desarrollo."
+
+#: ../../source/documentation/installing.rst:8
+msgid "Installing the stable version"
+msgstr "Instalando la versión estable"
+
+#: ../../source/documentation/installing.rst:9
+msgid ""
+"The preferred way to install the toolbox is through QGIS. To install from "
+"within QGIS, first launch QGIS, and then go to `Plugins` in the menu bar at "
+"the top of the program and select `Manage and install plugins`."
+msgstr ""
+"La forma preferida de instalar la caja de herramientas es a través de QGIS. "
+"Para instalar desde dentro de QGIS, primero inicie QGIS, y luego vaya a "
+"`Complementos` en la barra de menú en la parte superior del programa y "
+"seleccione` Administrar e instalar complementos`."
+
+#: ../../source/documentation/installing.rst:16
+msgid ""
+"Then search for a plugin called `Land degradation monitoring tool` and "
+"select `Install plugin` at the bottom right of the screen."
+msgstr ""
+"Luego busque un complemento llamado `Herramienta de monitoreo de la "
+"degradación de la tierra` y seleccione` Instalar complemento` en la parte "
+"inferior derecha de la pantalla."
+
+#: ../../source/documentation/installing.rst:22
+msgid ""
+"If your plugin has been installed properly, there will be a toolbox in the "
+"top left of your browser that looks like this:"
+msgstr ""
+"Si su complemento se ha instalado correctamente, habrá una caja de "
+"herramientas en la parte superior izquierda de su navegador que se ve así:"
+
+#: ../../source/documentation/installing.rst:29
+msgid "Installing the development version"
+msgstr "Instalando la versión de desarrollo"
+
+#: ../../source/documentation/installing.rst:31
+msgid ""
+"There are two ways to install the development version of the plugin. For "
+"more details, see the `README <https://github.com/ConservationInternational"
+"/ldmp-qgis-plugin#development-version>`_ for the Land Degradation Monitoring"
+" Toolbox."
+msgstr ""
+"Hay dos formas de instalar la versión de desarrollo del complemento. Para "
+"obtener más información, consulte el `README "
+"<https://github.com/ConservationInternational/ldmp-qgis-plugin#development-"
+"version>` _ para Land Depraction Monitoring Toolbox."

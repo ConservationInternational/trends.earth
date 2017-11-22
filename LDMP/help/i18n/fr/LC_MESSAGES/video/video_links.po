@@ -20,11 +20,11 @@ msgstr ""
 
 #: ../../source/video/video_links.rst:2
 msgid "Video Overviews"
-msgstr ""
+msgstr "Présentation de la vidéo"
 
 #: ../../source/video/video_links.rst:4
 msgid "`Installing QGIS (English) <https://youtu.be/d7qCSpauj0g>`_"
-msgstr ""
+msgstr "`Installation de QGIS (anglais) <https://youtu.be/d7qCSpauj0g>`_"
 
 #: ../../source/video/video_links.rst:5
 msgid "`Toolbox installation (English) <https://youtu.be/uSTvNMpZF4I>`_"

@@ -147,8 +147,9 @@ def _install(folder, options):
     src = src.abspath()
     dst_this_plugin = dst_this_plugin.abspath()
     if not hasattr(os, 'symlink') or (os.name == 'nt'):
-        if dst_this_plugin.exists():
-            rmtree(dst_this_plugin)
+        if not options.get('fast', False):
+            if dst_this_plugin.exists():
+                rmtree(dst_this_plugin)
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
             if not path(path(dst_plugins) / path(relpath)).exists():

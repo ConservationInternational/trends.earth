@@ -13,6 +13,7 @@
 """
 
 import os
+import re
 import csv
 import json
 import tempfile
@@ -407,6 +408,9 @@ class ClipWorker(AbstractWorker):
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=mask_layer_file, cropToCutline=True,
                         dstNodata=9999, dstSRS="epsg:{}".format(self.dstSRS),
+                        outputType=gdal.GDT_Int16,
+                        resampleAlg=gdal.GRA_NearestNeighbour,
+                        creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
 
         if res:
@@ -637,6 +641,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         self.close()
 
+        ######################################################################
+        #  Resample land cover
+
         # Need to resample the 300m land cover data to match the resolutions of 
         # the other layers:
         log('Reprojecting land cover...')
@@ -653,6 +660,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         else:
             ds_lc = reproj_worker.get_return()
 
+        ######################################################################
+        #  Calculate degradation
+        
         log('Calculating degradation...')
         deg_worker = StartWorker(DegradationWorker, 'calculating degradation',
                                  ds_traj, ds_state, ds_perf, ds_lc)
@@ -663,6 +673,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         else:
             deg_file = deg_worker.get_return()
 
+        ######################################################################
+        #  Clip layers and convert to equal area
+        
         log('Clipping and masking degradation layers...')
         # Clip a degradation layer for display
         deg_out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
@@ -683,15 +696,32 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                   54009)
         if not clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping equal-area degratation layer."), None)
+                                       self.tr("Error clipping equal-area degradation layer."), None)
             return
+
+        # TODO: Instead of using lc_target, use the lc transition layer
+        lc_trans_file = re.sub('land_deg', 'lc_target', layer_lc.dataProvider().dataSourceUri())
+
+        # Match lc_trans (in 300 m) to deg layer
+        lc_trans_reproj_file = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log('Saving lc transition reproj file to {}'.format(lc_trans_reproj_file))
+        lc_reproj_worker = StartWorker(ReprojectionWorker, 'reprojecting land cover transition layer', 
+                                       lc_trans_file,
+                                       layer_traj.dataProvider().dataSourceUri(),
+                                       lc_trans_reproj_file)
+        if not lc_reproj_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error reprojecting land cover transition layer."), None)
+            return
+        else:
+            ds_lc_trans = lc_reproj_worker.get_return()
 
         # Clip land cover layer into an equal area projection (Mollweide) for 
         # area calculation
         lc_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving lc equal area file to {}'.format(lc_equal_area_tempfile))
         clip_worker = StartWorker(ClipWorker, 'clipping and masking land cover layer',
-                                  lc_reproj_file, lc_equal_area_tempfile, self.aoi,
+                                  lc_trans_reproj_file, lc_equal_area_tempfile, self.aoi,
                                   54009)
         if not clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -699,14 +729,14 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             return
 
         deg_ds_equal_area = gdal.Open(deg_equal_area_tempfile)
-        lc_ds_equal_area = gdal.Open(lc_equal_area_tempfile)
+        ds_lc_equal_area = gdal.Open(lc_equal_area_tempfile)
         deg_gt = deg_ds_equal_area.GetGeoTransform()
         res_x = deg_gt[1]
         res_y = -deg_gt[5]
 
         log('Calculating areas and crosstabs...')
         tab_worker = StartWorker(CrosstabWorker, 'calculating areas',
-                                 deg_ds_equal_area, lc_ds_equal_area)
+                                 deg_ds_equal_area, ds_lc_equal_area)
         if not tab_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)

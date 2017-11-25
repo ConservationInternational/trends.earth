@@ -743,6 +743,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # Convert from pixel counts to areas in sq km
         table = list(table)
         table[1] = table[1] * res_x * res_y / 1e6
+        log('Crosstab: {}'.format(table))
 
         # TODO: Make sure no data, water areas, and urban areas are symmetric 
         # across LD layer and lc layer
@@ -755,6 +756,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
 
         style_sdg_ld(deg_out_file)
+
+        make_reporting_table(table,
+                os.path.join(self.output_folder.text(), 'reporting_table.csv'))
 
         # Plot the output
         x = []
@@ -783,11 +787,22 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         dlg_plot.show()
         dlg_plot.exec_()
 
-        out_file_csv = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.csv')
-        with open(out_file_csv, 'wb') as fh:
-            writer = csv.writer(fh, delimiter=',')
-            for item in self.deg.items():
-                writer.writerow(item)
+
+def get_report_row(table, name, transition):
+    return [name,
+            get_area(table, -1, transition),
+            get_area(table, 0, transition),
+            get_area(table, 1, transition)]
+
+
+def make_reporting_table(table, out_file):
+    rows = []
+    rows.append(get_report_row(table, 'Cropland >> Artificial areas', 15))
+    rows.append(get_report_row(table, 'Forest >> Artificial areas', 25))
+    with open(out_file, 'wb') as fh:
+        writer = csv.writer(fh, delimiter=',')
+        for row in rows:
+            writer.writerow(row)
 
 
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):

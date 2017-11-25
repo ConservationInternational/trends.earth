@@ -153,9 +153,9 @@ class ReprojectionWorker(AbstractWorker):
         sr_dest = osr.SpatialReference()
         sr_dest.ImportFromWkt(ds_ref.GetProjectionRef())
 
-        ds_src = gdal.Open(self.src_dataset)
+        src_ds = gdal.Open(self.src_dataset)
         sr_src = osr.SpatialReference()
-        sr_src.ImportFromWkt(ds_src.GetProjectionRef())
+        sr_src.ImportFromWkt(src_ds.GetProjectionRef())
 
         driver = gdal.GetDriverByName("GTiff")
         ds_dest = driver.Create(self.out_file, ds_ref.RasterXSize, 
@@ -166,7 +166,7 @@ class ReprojectionWorker(AbstractWorker):
         ds_dest.SetGeoTransform(gt_ref)
         ds_dest.SetProjection(sr_dest.ExportToWkt())
 
-        gt_src = ds_src.GetGeoTransform()
+        gt_src = src_ds.GetGeoTransform()
         if gt_ref[1] > gt_src[1]:
             # If new dataset is a lower resolution than the source, use the MODE
             log('Resampling with: mode')
@@ -175,7 +175,7 @@ class ReprojectionWorker(AbstractWorker):
             log('Resampling with: nearest neighour')
             resample_alg = gdal.GRA_NearestNeighbour
         # Perform the projection/resampling
-        res = gdal.ReprojectImage(ds_src,
+        res = gdal.ReprojectImage(src_ds,
                                   ds_dest,
                                   sr_src.ExportToWkt(),
                                   sr_dest.ExportToWkt(),
@@ -195,20 +195,22 @@ class ReprojectionWorker(AbstractWorker):
 
 
 class DegradationWorker(AbstractWorker):
-    def __init__(self, ds_traj, ds_state, ds_perf, ds_lc):
+    def __init__(self, src_file):
         AbstractWorker.__init__(self)
 
-        self.ds_traj = ds_traj
-        self.ds_state = ds_state
-        self.ds_perf = ds_perf
-        self.ds_lc = ds_lc
+        self.src_file = src_file
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        # Note trajectory significance is band 2
-        traj_band = self.ds_traj.GetRasterBand(2)
+        src_ds = gdal.Open(self.src_file)
+
+        traj_band = src_ds.GetRasterBand(1)
+        perf_band = src_ds.GetRasterBand(2)
+        state_band = src_ds.GetRasterBand(3)
+        lc_band = src_ds.GetRasterBand(4)
+
         block_sizes = traj_band.GetBlockSize()
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
@@ -219,15 +221,11 @@ class DegradationWorker(AbstractWorker):
         temp_deg_file = tempfile.NamedTemporaryFile(suffix='.tif').name
         dst_ds = driver.Create(temp_deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
 
-        lc_gt = self.ds_lc.GetGeoTransform()
-        dst_ds.SetGeoTransform(lc_gt)
+        src_gt = src_ds.GetGeoTransform()
+        dst_ds.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()
-        dst_srs.ImportFromWkt(self.ds_traj.GetProjectionRef())
+        dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
         dst_ds.SetProjection(dst_srs.ExportToWkt())
-
-        state_band = self.ds_state.GetRasterBand(1)
-        perf_band = self.ds_perf.GetRasterBand(1)
-        lc_band = self.ds_lc.GetRasterBand(1)
 
         xsize = traj_band.XSize
         ysize = traj_band.YSize
@@ -246,6 +244,9 @@ class DegradationWorker(AbstractWorker):
                     cols = x_block_size
                 else:
                     cols = xsize - x
+
+                # TODO: Could make this cleaner by reading all four bands at 
+                # same time from VRT
                 deg = traj_band.ReadAsArray(x, y, cols, rows)
                 state_array = state_band.ReadAsArray(x, y, cols, rows)
                 perf_array = perf_band.ReadAsArray(x, y, cols, rows)
@@ -258,11 +259,8 @@ class DegradationWorker(AbstractWorker):
                 del deg
                 blocks += 1
         self.progress.emit(100)
+        src_ds = None
         dst_ds = None
-        self.ds_traj = None
-        self.ds_state = None
-        self.ds_perf = None
-        self.ds_lc = None
 
         if self.killed:
             os.remove(temp_deg_file)
@@ -315,22 +313,22 @@ def merge_xtabs(tab1, tab2):
 
 
 class CrosstabWorker(AbstractWorker):
-    def __init__(self, ds_1, ds_2):
+    def __init__(self, in_file):
         AbstractWorker.__init__(self)
-        self.ds_1 = ds_1
-        self.ds_2 = ds_2
+        self.in_file = in_file
 
     def work(self):
-        ds_1_band = self.ds_1.GetRasterBand(1)
-        ds_2_band = self.ds_2.GetRasterBand(1)
+        ds = gdal.Open(self.in_file)
+        band_1 = ds.GetRasterBand(1)
+        band_2 = ds.GetRasterBand(2)
 
         #TODO: Check extents, resolutions, etc. match on both bands.
 
-        block_sizes = ds_1_band.GetBlockSize()
+        block_sizes = band_1.GetBlockSize()
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
-        xsize = ds_1_band.XSize
-        ysize = ds_1_band.YSize
+        xsize = band_1.XSize
+        ysize = band_1.YSize
 
         blocks = 0
         tab = None
@@ -349,8 +347,8 @@ class CrosstabWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                a1 = ds_1_band.ReadAsArray(x, y, cols, rows)
-                a2 = ds_2_band.ReadAsArray(x, y, cols, rows)
+                a1 = band_1.ReadAsArray(x, y, cols, rows)
+                a2 = band_2.ReadAsArray(x, y, cols, rows)
 
                 # Flatten the arrays before passing to xtab
                 this_tab = xtab(a1.ravel(), a2.ravel())
@@ -371,6 +369,17 @@ class CrosstabWorker(AbstractWorker):
             return None
         else:
             return tab
+
+
+# Returns value from crosstab table for particular deg/lc class combination
+def get_area(table, deg_class, lc_class):
+    deg_ind = np.where(table[0][0] == deg_class)[0]
+    lc_ind = np.where(table[0][1] == lc_class)[0]
+
+    if deg_ind.size != 0 and lc_ind.size != 0:
+        return table[1][deg_ind, lc_ind]
+    else:
+        return 0
 
 
 class ClipWorker(AbstractWorker):
@@ -635,37 +644,45 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
 
+        # If prod layers are lower res than the lc layer, then resample lc 
+        # using the mode. Otherwise use nearest neighbor:
+        ds_lc = gdal.Open(layer_lc.dataProvider().dataSourceUri())
         ds_traj = gdal.Open(layer_traj.dataProvider().dataSourceUri())
-        ds_state = gdal.Open(layer_state.dataProvider().dataSourceUri())
-        ds_perf = gdal.Open(layer_perf.dataProvider().dataSourceUri())
-
-        self.close()
-
-        ######################################################################
-        #  Resample land cover
-
-        # Need to resample the 300m land cover data to match the resolutions of 
-        # the other layers:
-        log('Reprojecting land cover...')
-        lc_reproj_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving lc reproj file to {}'.format(lc_reproj_file))
-        reproj_worker = StartWorker(ReprojectionWorker, 'reprojecting land cover', 
-                                    layer_lc.dataProvider().dataSourceUri(),
-                                    layer_traj.dataProvider().dataSourceUri(),
-                                    lc_reproj_file)
-        if not reproj_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error reprojecting land cover layer."), None)
-            return
+        lc_gt = ds_lc.GetGeoTransform()
+        traj_gt = ds_traj.GetGeoTransform()
+        if lc_gt[1] < traj_gt[1]:
+            log('Resampling with: mode')
+            resampleAlg = gdal.GRA_Mode
         else:
-            ds_lc = reproj_worker.get_return()
+            log('Resampling with: nearest neighour')
+            resampleAlg = gdal.GRA_NearestNeighbour
+
+        # Select from layer_traj using bandlist since signif is band 2
+        traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(traj_f, layer_traj.dataProvider().dataSourceUri(), bandList=[2])
+
+        # Combine rasters into a VRT and crop to the AOI
+        bb = self.aoi.boundingBox()
+        outputBounds = [bb.xMinimum(), bb.yMinimum(), bb.xMaximum(), bb.yMaximum()]
+        indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        log('Saving inidcator VRT to: {}'.format(indic_f))
+        gdal.BuildVRT(indic_f, 
+                      [traj_f,
+                       layer_perf.dataProvider().dataSourceUri(),
+                       layer_state.dataProvider().dataSourceUri(),
+                       layer_lc.dataProvider().dataSourceUri()],
+                      outputBounds=outputBounds,
+                      resolution='highest',
+                      resampleAlg=resampleAlg,
+                      separate=True)
+        self.close()
 
         ######################################################################
         #  Calculate degradation
         
         log('Calculating degradation...')
-        deg_worker = StartWorker(DegradationWorker, 'calculating degradation',
-                                 ds_traj, ds_state, ds_perf, ds_lc)
+        deg_worker = StartWorker(DegradationWorker, 'calculating degradation', 
+                                 indic_f)
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degradation layer."), None)
@@ -674,69 +691,49 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             deg_file = deg_worker.get_return()
 
         ######################################################################
-        #  Clip layers and convert to equal area
+        #  Clip layers and calculate areas
         
         log('Clipping and masking degradation layers...')
         # Clip a degradation layer for display
         deg_out_file = os.path.join(self.output_folder.text(), 'sdg_15_3_degradation.tif')
         log('Saving degradation file to {}'.format(deg_out_file))
-        clip_worker = StartWorker(ClipWorker, 'clipping and masking degradation layer',
+        clip_worker = StartWorker(ClipWorker, 'masking degradation layer',
                                   deg_file, deg_out_file, self.aoi)
         if not clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error clipping degradation layer."), None)
             return
 
-        # Clip a degradation layer into an equal area projection (Mollweide) 
-        # for area calculation
-        deg_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving degradation equal area file to {}'.format(deg_equal_area_tempfile))
-        clip_worker = StartWorker(ClipWorker, 'preparing degradation layer for area calculation',
-                                  deg_file, deg_equal_area_tempfile, self.aoi,
-                                  54009)
-        if not clip_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping equal-area degradation layer."), None)
-            return
-
+        ######################################################################
+        # Make a vrt with the lc transition layer and deg layer
         # TODO: Instead of using lc_target, use the lc transition layer
-        lc_trans_file = re.sub('land_deg', 'lc_target', layer_lc.dataProvider().dataSourceUri())
-
-        # Match lc_trans (in 300 m) to deg layer
-        lc_trans_reproj_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving lc transition reproj file to {}'.format(lc_trans_reproj_file))
-        lc_reproj_worker = StartWorker(ReprojectionWorker, 'reprojecting land cover transition layer', 
-                                       lc_trans_file,
-                                       layer_traj.dataProvider().dataSourceUri(),
-                                       lc_trans_reproj_file)
-        if not lc_reproj_worker.success:
+        lc_trans_file = re.sub('land_deg', 'lc_change', layer_lc.dataProvider().dataSourceUri())
+        deg_lc_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        log('Saving deg/lc VRT to: {}'.format(deg_lc_f))
+        gdal.BuildVRT(deg_lc_f, 
+                      [deg_out_file, lc_trans_file],
+                      outputBounds=outputBounds,
+                      resolution='highest',
+                      resampleAlg=resampleAlg,
+                      separate=True)
+        # Clip and mask the lc/deg layer before calculating crosstab
+        lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
+        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layer',
+                                         deg_lc_f, 
+                                         lc_clip_tempfile, self.aoi)
+        if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error reprojecting land cover transition layer."), None)
-            return
-        else:
-            ds_lc_trans = lc_reproj_worker.get_return()
-
-        # Clip land cover layer into an equal area projection (Mollweide) for 
-        # area calculation
-        lc_equal_area_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving lc equal area file to {}'.format(lc_equal_area_tempfile))
-        clip_worker = StartWorker(ClipWorker, 'clipping and masking land cover layer',
-                                  lc_trans_reproj_file, lc_equal_area_tempfile, self.aoi,
-                                  54009)
-        if not clip_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping equal-area land cover layer."), None)
+                                       self.tr("Error clipping land cover layer for area calculation."), None)
             return
 
-        deg_ds_equal_area = gdal.Open(deg_equal_area_tempfile)
-        ds_lc_equal_area = gdal.Open(lc_equal_area_tempfile)
-        deg_gt = deg_ds_equal_area.GetGeoTransform()
-        res_x = deg_gt[1]
-        res_y = -deg_gt[5]
+
+        # TODO: Calculate areas using a sphere
+        res_x = 250
+        res_y = 250
 
         log('Calculating areas and crosstabs...')
-        tab_worker = StartWorker(CrosstabWorker, 'calculating areas',
-                                 deg_ds_equal_area, ds_lc_equal_area)
+        tab_worker = StartWorker(CrosstabWorker, 'calculating areas', lc_clip_tempfile)
         if not tab_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)
@@ -746,28 +743,15 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # Convert from pixel counts to areas in sq km
         table = list(table)
         table[1] = table[1] * res_x * res_y / 1e6
-        log("Crosstab (in sq km): {}".format(table))
-        log("Crosstab sum (in sq km): {}".format(np.sum(table[1])))
-
-        # Returns value from crosstab table for particular deg/lc class 
-        # combination
-        def get_area(deg_class, lc_class):
-            deg_ind = np.where(table[0][0] == deg_class)[0]
-            lc_ind = np.where(table[0][1] == lc_class)[0]
-
-            if deg_ind.size != 0 and lc_ind.size != 0:
-                return table[1][deg_ind, lc_ind]
-            else:
-                return 0
 
         # TODO: Make sure no data, water areas, and urban areas are symmetric 
         # across LD layer and lc layer
-        self.deg = {"Area Degraded": get_area(-1, 0),
-                    "Area Stable": get_area(0, 0),
-                    "Area Improved": get_area(1, 0),
-                    "No Data": get_area(9997, 9997),
-                    "Water Area": get_area(9998, 9998),
-                    "Urban Area": get_area(9999, 9999)}
+        self.deg = {"Area Degraded": get_area(table, -1, 0),
+                    "Area Stable": get_area(table, 0, 0),
+                    "Area Improved": get_area(table, 1, 0),
+                    "No Data": get_area(table, 9997, 9997),
+                    "Water Area": get_area(table, 9998, 9998),
+                    "Urban Area": get_area(table, 9999, 9999)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
 
         style_sdg_ld(deg_out_file)

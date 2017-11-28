@@ -822,7 +822,10 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             y.append(self.deg['No Data'])
 
         dlg_plot = DlgPlotBars()
-        dlg_plot.plot_data(x, y, self.plot_title.text())
+        labels = {'title': self.plot_title.text(),
+                  'bottom': 'Land cover',
+                  'left': ['Area', 'km^2']}
+        dlg_plot.plot_data(x, y, labels)
         dlg_plot.show()
         dlg_plot.exec_()
 

@@ -620,6 +620,9 @@ def download_timeseries(job):
         return None
     data = [x for x in table if x['name'] == 'mean'][0]
     dlg_plot = DlgPlotTimeries()
-    dlg_plot.plot_data(data['time'], data['y'], job['task_name'])
+    labels = {'title': job['task_name'],
+              'bottom': 'Time',
+              'left': ['Integrated NDVI', 'NDVIx10000']}
+    dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()

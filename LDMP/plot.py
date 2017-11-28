@@ -46,7 +46,7 @@ class DlgPlotTimeries(DlgPlot):
     def __init__(self, parent=None):
         super(DlgPlotTimeries, self).__init__(parent)
 
-    def plot_data(self, x, y, title=None):
+    def plot_data(self, x, y, labels, autoSI=False):
         self.plot_window.plot(x, y, pen='b', brush='w')
         # Add trendline
         z = np.polyfit(x, y, 1)
@@ -54,8 +54,11 @@ class DlgPlotTimeries(DlgPlot):
         self.plot_window.plot(x, p(x), pen='r', brush='w')
         self.plot_window.setBackground('w')
         self.plot_window.showGrid(x=True, y=True)
-        if title:
-            self.plot_window.setTitle(title)
+        yaxis = self.plot_window.getPlotItem().getAxis('left')
+        yaxis.enableAutoSIPrefix(autoSI)
+
+        if labels:
+            self.plot_window.setLabels(**labels)
 
 
 class DlgPlotBars(DlgPlot):
@@ -63,7 +66,7 @@ class DlgPlotBars(DlgPlot):
         """Constructor."""
         super(DlgPlotBars, self).__init__(parent)
 
-    def plot_data(self, x, y, title=None):
+    def plot_data(self, x, y, labels, autoSI=False):
         # dict to handle string x-axis labels
         xdict = dict(enumerate(x))
 
@@ -74,5 +77,8 @@ class DlgPlotBars(DlgPlot):
         xaxis = self.plot_window.getPlotItem().getAxis('bottom')
         xaxis.setTicks([xdict.items()])
 
-        if title:
-            self.plot_window.setTitle(title)
+        yaxis = self.plot_window.getPlotItem().getAxis('left')
+        yaxis.enableAutoSIPrefix(autoSI)
+
+        if labels:
+            self.plot_window.setLabels(**labels)

@@ -76,6 +76,33 @@ def _get_layers(node):
     return l
 
 
+#  Calculate the area of a slice of the globe from the equator to the parallel 
+#  at latitude f (on WGS84 ellipsoid). Based on:
+# https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
+def _slice_area(f):
+    a = 6378137 # in meters
+    b =  6356752.3142 # in meters,
+    e = np.sqrt(1 - np.square(b / a))
+    zp = 1 + e * np.sin(f)
+    zm = 1 - e * np.sin(f)
+    return np.pi * np.square(b) * (2*np.arctanh(e * np.sin(f)) / (2 * e) + np.sin(f) / (zp * zm))
+
+
+# Formula to calculate area of a raster cell Convert the contents of this_tab 
+# to refer to areas in sq km, not to pixel counts, following:
+# https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
+def cell_area(ymin, ymax, x_width):
+    'Calculate cell area on WGS84 ellipsoid'
+    if ymin > ymax:
+        temp = ymax
+        ymax = ymin
+        ymin = temp
+    # ymin: minimum latitude
+    # ymax: maximum latitude
+    # x_width: width of cell in degrees
+    return (_slice_area(ymax) - _slice_area(ymin)) * (x_width / 360.)
+
+
 # TODO: Should be determining layer types based on content of json, not on 
 # filenames
 def get_ld_layers(layer_type):
@@ -180,6 +207,7 @@ class ReprojectionWorker(AbstractWorker):
                                   sr_src.ExportToWkt(),
                                   sr_dest.ExportToWkt(),
                                   resample_alg,
+                                  dstNodata=9999,
                                   callback=self.progress_callback)
         if res == 0:
             return ds_dest
@@ -289,7 +317,7 @@ def xtab(*cols):
     xt = np.zeros(shape_xt, dtype='uint')
     np.add.at(xt, idx, 1)
 
-    return headers, xt
+    return list((headers, xt))
 
 
 def merge_xtabs(tab1, tab2):
@@ -309,7 +337,7 @@ def merge_xtabs(tab1, tab2):
     add_xt_block(tab1)
     add_xt_block(tab2)
 
-    return (headers, xt.reshape(shape_xt))
+    return list((headers, xt.reshape(shape_xt)))
 
 
 class CrosstabWorker(AbstractWorker):
@@ -322,13 +350,21 @@ class CrosstabWorker(AbstractWorker):
         band_1 = ds.GetRasterBand(1)
         band_2 = ds.GetRasterBand(2)
 
-        #TODO: Check extents, resolutions, etc. match on both bands.
-
         block_sizes = band_1.GetBlockSize()
         x_block_size = block_sizes[0]
-        y_block_size = block_sizes[1]
+        # Need to process y line by line so that pixel area calculation can be 
+        # done accurately (to calculate area of each pixel based on latitude)
+        y_block_size = 1
         xsize = band_1.XSize
         ysize = band_1.YSize
+
+        gt = ds.GetGeoTransform()
+        # Width of cells in longitude
+        long_width = gt[1]
+        
+        lat = gt[3]
+        # Width of cells in latitude
+        lat_width = gt[5]
 
         blocks = 0
         tab = None
@@ -352,15 +388,18 @@ class CrosstabWorker(AbstractWorker):
 
                 # Flatten the arrays before passing to xtab
                 this_tab = xtab(a1.ravel(), a2.ravel())
+
                 # Don't use this_tab if it is empty (could happen if take a 
                 # crosstab where all of the values are nan's)
                 if this_tab[0][0].size != 0:
+                    this_tab[1] = this_tab[1] * cell_area(lat, lat + lat_width, long_width)
                     if tab == None:
                         tab = this_tab
                     else:
                         tab = merge_xtabs(tab, this_tab)
 
                 blocks += 1
+            lat += lat_width
         self.progress.emit(100)
         self.ds_1 = None
         self.ds_2 = None
@@ -372,12 +411,17 @@ class CrosstabWorker(AbstractWorker):
 
 
 # Returns value from crosstab table for particular deg/lc class combination
-def get_area(table, deg_class, lc_class):
+def get_area(table, deg_class=None, lc_class=None):
     deg_ind = np.where(table[0][0] == deg_class)[0]
     lc_ind = np.where(table[0][1] == lc_class)[0]
-
     if deg_ind.size != 0 and lc_ind.size != 0:
-        return table[1][deg_ind, lc_ind]
+        return float(table[1][deg_ind, lc_ind])
+    elif deg_ind.size != 0 and lc_class == None:
+        return float(np.sum(table[1][deg_ind, :]))
+    elif lc_ind.size != 0 and deg_class == None:
+        return float(np.sum(table[1][:, lc_ind]))
+    elif lc_class == None and deg_class == None:
+        return float(np.sum(table[1].ravel()))
     else:
         return 0
 
@@ -706,7 +750,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         ######################################################################
         # Make a vrt with the lc transition layer and deg layer
-        # TODO: Instead of using lc_target, use the lc transition layer
         lc_trans_file = re.sub('land_deg', 'lc_change', layer_lc.dataProvider().dataSourceUri())
         deg_lc_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc VRT to: {}'.format(deg_lc_f))
@@ -728,10 +771,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             return
 
 
-        # TODO: Calculate areas using a sphere
-        res_x = 250
-        res_y = 250
-
         log('Calculating areas and crosstabs...')
         tab_worker = StartWorker(CrosstabWorker, 'calculating areas', lc_clip_tempfile)
         if not tab_worker.success:
@@ -740,20 +779,19 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             return
         else:
             table = tab_worker.get_return()
-        # Convert from pixel counts to areas in sq km
-        table = list(table)
-        table[1] = table[1] * res_x * res_y / 1e6
-        log('Crosstab: {}'.format(table))
+        # Convert areas from sq meters to sq km
+        table[1] = table[1] * 1e-6
 
         # TODO: Make sure no data, water areas, and urban areas are symmetric 
         # across LD layer and lc layer
-        self.deg = {"Area Degraded": get_area(table, -1, 0),
-                    "Area Stable": get_area(table, 0, 0),
-                    "Area Improved": get_area(table, 1, 0),
-                    "No Data": get_area(table, 9997, 9997),
-                    "Water Area": get_area(table, 9998, 9998),
-                    "Urban Area": get_area(table, 9999, 9999)}
+        self.deg = {"Area Degraded": get_area(table, -1, None),
+                    "Area Stable": get_area(table, 0, None),
+                    "Area Improved": get_area(table, 1, None),
+                    "No Data": get_area(table, 9999, None),
+                    "Water Area": get_area(table, 2, None),
+                    "Urban Area": get_area(table, 3, None)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
+        log('SDG 15.3.1 indicator total area: {}'.format(get_area(table) - get_area(table, 9999, None)))
 
         style_sdg_ld(deg_out_file)
 
@@ -797,8 +835,19 @@ def get_report_row(table, name, transition):
 
 def make_reporting_table(table, out_file):
     rows = []
+    rows.append(['', 'Net land productivity dynamics trend (sq km)'])
+    rows.append(['Changing Land Use/Cover Category', 'Decline', 'Stable', 'Increase'])
+    rows.append(['Bare lands >> Artificial areas', np.nan, np.nan, np.nan])
     rows.append(get_report_row(table, 'Cropland >> Artificial areas', 15))
     rows.append(get_report_row(table, 'Forest >> Artificial areas', 25))
+    rows.append(['Forest >> Bare lands', np.nan, np.nan, np.nan])
+    rows.append(get_report_row(table, 'Forest >> Cropland', 21))
+    rows.append(get_report_row(table, 'Forest >> Grasslands', 23))
+    rows.append(['Shrubs, grasslands and sparsely vegetated areas>> Artificial areas', np.nan, np.nan, np.nan])
+    rows.append(['Shrubs, grasslands and sparsely vegetated areas >> Cropland', np.nan, np.nan, np.nan])
+    rows.append(get_report_row(table, 'Grasslands >> Forest', 32))
+    rows.append(get_report_row(table, 'Wetlands >> Artificial areas', 45))
+    rows.append(get_report_row(table, 'Wetlands >> Cropland', 41))
     with open(out_file, 'wb') as fh:
         writer = csv.writer(fh, delimiter=',')
         for row in rows:

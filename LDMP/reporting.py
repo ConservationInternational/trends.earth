@@ -85,7 +85,7 @@ def _slice_area(f):
     e = np.sqrt(1 - np.square(b / a))
     zp = 1 + e * np.sin(f)
     zm = 1 - e * np.sin(f)
-    return np.pi * np.square(b) * (2*np.arctanh(e * np.sin(f)) / (2 * e) + np.sin(f) / (zp * zm))
+    return np.pi * np.square(b) * ((2*np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
 
 
 # Formula to calculate area of a raster cell Convert the contents of this_tab 
@@ -100,7 +100,7 @@ def cell_area(ymin, ymax, x_width):
     # ymin: minimum latitude
     # ymax: maximum latitude
     # x_width: width of cell in degrees
-    return (_slice_area(ymax) - _slice_area(ymin)) * (x_width / 360.)
+    return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
 
 
 # TODO: Should be determining layer types based on content of json, not on 
@@ -314,7 +314,7 @@ def xtab(*cols):
 
     headers, idx = zip( *(np.unique(col[nafilter], return_inverse=True) for col in cols) )
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
-    xt = np.zeros(shape_xt, dtype='uint')
+    xt = np.zeros(shape_xt)
     np.add.at(xt, idx, 1)
 
     return list((headers, xt))
@@ -325,7 +325,7 @@ def merge_xtabs(tab1, tab2):
     headers = tuple(np.array(np.unique(np.concatenate(header))) for header in zip(tab1[0], tab2[0]))
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
     # Make this array flat since it will be used later with ravelled indexing
-    xt = np.zeros(np.prod(shape_xt), dtype='uint')
+    xt = np.zeros(np.prod(shape_xt))
 
     # This handles combining a crosstab from a new block with an existing one 
     # that has been maintained across blocks
@@ -362,9 +362,10 @@ class CrosstabWorker(AbstractWorker):
         # Width of cells in longitude
         long_width = gt[1]
         
+        # Set initial lat ot the top left corner latitude
         lat = gt[3]
         # Width of cells in latitude
-        lat_width = gt[5]
+        pixel_height = gt[5]
 
         blocks = 0
         tab = None
@@ -392,14 +393,14 @@ class CrosstabWorker(AbstractWorker):
                 # Don't use this_tab if it is empty (could happen if take a 
                 # crosstab where all of the values are nan's)
                 if this_tab[0][0].size != 0:
-                    this_tab[1] = this_tab[1] * cell_area(lat, lat + lat_width, long_width)
+                    this_tab[1] = this_tab[1] * cell_area(lat, lat + pixel_height, long_width)
                     if tab == None:
                         tab = this_tab
                     else:
                         tab = merge_xtabs(tab, this_tab)
 
                 blocks += 1
-            lat += lat_width
+            lat += pixel_height
         self.progress.emit(100)
         self.ds_1 = None
         self.ds_2 = None
@@ -709,7 +710,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         bb = self.aoi.boundingBox()
         outputBounds = [bb.xMinimum(), bb.yMinimum(), bb.xMaximum(), bb.yMaximum()]
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('Saving inidcator VRT to: {}'.format(indic_f))
+        log('Saving indicator VRT to: {}'.format(indic_f))
         gdal.BuildVRT(indic_f, 
                       [traj_f,
                        layer_perf.dataProvider().dataSourceUri(),
@@ -735,7 +736,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
             deg_file = deg_worker.get_return()
 
         ######################################################################
-        #  Clip layers and calculate areas
+        #  Clip final degradation layer
         
         log('Clipping and masking degradation layers...')
         # Clip a degradation layer for display
@@ -843,8 +844,8 @@ def make_reporting_table(table, out_file):
     rows.append(['Forest >> Bare lands', np.nan, np.nan, np.nan])
     rows.append(get_report_row(table, 'Forest >> Cropland', 21))
     rows.append(get_report_row(table, 'Forest >> Grasslands', 23))
-    rows.append(['Shrubs, grasslands and sparsely vegetated areas>> Artificial areas', np.nan, np.nan, np.nan])
-    rows.append(['Shrubs, grasslands and sparsely vegetated areas >> Cropland', np.nan, np.nan, np.nan])
+    rows.append(get_report_row(table, 'Grasslands >> Artificial areas', 35))
+    rows.append(get_report_row(table, 'Grasslands >> Cropland', 31))
     rows.append(get_report_row(table, 'Grasslands >> Forest', 32))
     rows.append(get_report_row(table, 'Wetlands >> Artificial areas', 45))
     rows.append(get_report_row(table, 'Wetlands >> Cropland', 41))

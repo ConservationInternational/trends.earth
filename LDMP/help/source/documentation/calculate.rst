@@ -1,5 +1,5 @@
 Calculate Indicators
-=========================
+========================
 To select the methods and datasets to calculate the indicators that measured changes in primary productivity, select the globe icon (|iconCalculator|). 
 This will open up the `Calculate Indicator` dialog box:
    

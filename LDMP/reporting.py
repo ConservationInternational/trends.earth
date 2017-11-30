@@ -209,7 +209,7 @@ class ReprojectionWorker(AbstractWorker):
                                   sr_src.ExportToWkt(),
                                   sr_dest.ExportToWkt(),
                                   resample_alg,
-                                  dstNodata=9999,
+                                  dstNodata=-9999,
                                   callback=self.progress_callback)
         if res == 0:
             return ds_dest
@@ -344,9 +344,17 @@ def merge_xtabs(tab1, tab2):
 
 def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""
-    n = np.bincount(a.ravel())
+    a_min = np.min(a)
+    if a_min < 0:
+        # Correctioni to add as bincount can only handle positive integers
+        correction = np.abs(a_min)
+    else:
+        correction = 0
+
+    n = np.bincount(a.ravel() + correction)
     this_vals = np.nonzero(n)[0]
-    this_area_table = list([this_vals, n[this_vals]])
+    # Subtract correction from this_vals so area table has correct values
+    this_area_table = list([this_vals - correction, n[this_vals]])
 
     # Don't use this_area_table if it is empty
     if this_area_table[0].size != 0:
@@ -509,7 +517,7 @@ class ClipWorker(AbstractWorker):
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=mask_layer_file, cropToCutline=True,
-                        dstNodata=9999, dstSRS="epsg:{}".format(self.dstSRS),
+                        dstNodata=-9999, dstSRS="epsg:{}".format(self.dstSRS),
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
@@ -941,7 +949,7 @@ def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
     worksheet.write_row('A7', ['Grasslands', get_lc_area(base_areas, 3), get_lc_area(target_areas, 3)], num_format)
     worksheet.write_row('A8', ['Croplands', get_lc_area(base_areas, 1), get_lc_area(target_areas, 1)], num_format)
     worksheet.write_row('A9', ['Wetlands', get_lc_area(base_areas, 4), get_lc_area(target_areas, 4)], num_format)
-    worksheet.write_row('A10', ['Artifical areas', get_lc_area(base_areas, 5), get_lc_area(target_areas, 5)], num_format)
+    worksheet.write_row('A10', ['Artificial areas', get_lc_area(base_areas, 5), get_lc_area(target_areas, 5)], num_format)
     worksheet.write_row('A11', ['Bare lands', get_lc_area(base_areas, 7), get_lc_area(target_areas, 7)], num_format)
     worksheet.write_row('A12', ['Water bodies', get_lc_area(base_areas, 9997), get_lc_area(target_areas, 9997)], num_format_bb)
     worksheet.write('D6', '=B6-C6', num_format)

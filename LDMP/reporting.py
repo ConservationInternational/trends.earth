@@ -856,31 +856,13 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                 os.path.join(self.output_folder.text(), 'reporting_table.xlsx'))
 
         # Plot the output
-        x = []
-        y = []
-        if self.plot_area_deg.isChecked():
-            x.append('Area Degraded')
-            y.append(self.deg['Area Degraded'])
-        if self.plot_area_stable.isChecked():
-            x.append('Area Stable')
-            y.append(self.deg['Area Stable'])
-        if self.plot_area_imp.isChecked():
-            x.append('Area Improved')
-            y.append(self.deg['Area Improved'])
-        if self.plot_area_water.isChecked():
-            x.append('Water Area')
-            y.append(self.deg['Water Area'])
-        if self.plot_area_urban.isChecked():
-            x.append('Urban Area')
-            y.append(self.deg['Urban Area'])
-        if self.plot_area_nodata.isChecked():
-            x.append('No Data')
-            y.append(self.deg['No Data'])
+        x = ['Area Degraded', 'Area Stable', 'Area Improved', 'No Data']
+        y = [self.deg['Area Degraded'], self.deg['Area Stable'], self.deg['Area Improved'], self.deg['No Data']]
 
         dlg_plot = DlgPlotBars()
         labels = {'title': self.plot_title.text(),
                   'bottom': 'Land cover',
-                  'left': ['Area', 'km^2']}
+                  'left': ['Area', 'km<sup>2</sup>']}
         dlg_plot.plot_data(x, y, labels)
         dlg_plot.show()
         dlg_plot.exec_()
@@ -963,14 +945,14 @@ def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
     worksheet.write_row('E9', get_lpd_row(trans_lpd_xtab, 44), num_format)
     worksheet.write_row('E10', get_lpd_row(trans_lpd_xtab, 55), num_format)
     worksheet.write_row('E11', get_lpd_row(trans_lpd_xtab, 77), num_format)
-    worksheet.write_row('E12', get_lpd_row(trans_lpd_xtab, 9997), num_format_bb)
+    worksheet.write_row('E12', ['', '', ''], num_format_bb)
     worksheet.write('H6', '=B6-SUM(E6:G6)', num_format)
     worksheet.write('H7', '=B7-SUM(E7:G7)', num_format)
     worksheet.write('H8', '=B8-SUM(E8:G8)', num_format)
     worksheet.write('H9', '=B9-SUM(E9:G9)', num_format)
     worksheet.write('H10', '=B10-SUM(E10:G10)', num_format)
     worksheet.write('H11', '=B11-SUM(E11:G11)', num_format)
-    worksheet.write('H12', '=B12-SUM(E12:G12)', num_format_bb)
+    worksheet.write('H12', '', num_format_bb)
 
     worksheet.write('A13', 'SOC average (ton/ha)', total_header_format)
     worksheet.write('A14', 'Percent of total land area', total_header_format)

@@ -846,9 +846,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.deg = {"Area Degraded": get_xtab_area(trans_lpd_xtab, -1, None),
                     "Area Stable": get_xtab_area(trans_lpd_xtab, 0, None),
                     "Area Improved": get_xtab_area(trans_lpd_xtab, 1, None),
-                    "No Data": get_xtab_area(trans_lpd_xtab, 9999, None),
-                    "Water Area": get_xtab_area(trans_lpd_xtab, 2, None),
-                    "Urban Area": get_xtab_area(trans_lpd_xtab, 3, None)}
+                    "No Data": get_xtab_area(trans_lpd_xtab, 9999, None)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
         log('SDG 15.3.1 indicator total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
 

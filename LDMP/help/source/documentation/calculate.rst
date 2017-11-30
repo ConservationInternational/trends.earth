@@ -1,6 +1,6 @@
 Calculate Indicators
 ========================
-To select the methods and datasets to calculate the indicators that measured changes in primary productivity, select the globe icon (|iconCalculator|). 
+To select the methods and datasets to calculate the indicators that measured changes in primary productivity, select the calculator icon (|iconCalculator|). 
 This will open up the `Calculate Indicator` dialog box:
    
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
@@ -16,7 +16,7 @@ Select which Indicator you would like to calculate
 
 •	Land cover: calculates land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement.
 
-•	Soil carbon: under review following the Good Practice Guidance (CSIRO, 9-2017).
+•	Soil carbon: under review following the Good Practice Guidance `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.
    
 .. image:: /static/documentation/calculate/image021.png
    :align: center
@@ -37,9 +37,9 @@ a) Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or Wa
 
 b) The starting year and end year will determine de period on which to perform the analysis.
 
-c) The initial trend is indicated by the slope of a linear regression fitted across annual productivity measurements over the entire period as assessed using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 (CSIRO, 2017).
+c) The initial trend is indicated by the slope of a linear regression fitted across annual productivity measurements over the entire period as assessed using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
-d) Degradation in each reporting period should be assessed by appending the recent annual NPP values (measured in the toolbox as annual integral of NDVI) to the baseline data and calculating the trend and significance over the entire data series and the most recent 8 years of data (CSIRO, 2017).
+d) Degradation in each reporting period should be assessed by appending the recent annual NPP values (measured in the toolbox as annual integral of NDVI) to the baseline data and calculating the trend and significance over the entire data series and the most recent 8 years of data `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
 e) Climate datasets need to be selected to perform climate corrections using RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for full list of climate variables available in the toolbox).
 
@@ -76,7 +76,7 @@ Performance is a comparison of how productivity in an area compares to productiv
 
 * Select the period of analysis. This determines the initial degradation state and serves as a comparison to assess change in degradation for each reporting period.
 
-* The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. The toolbox defines land units as regions with the same combination of Global Agroecological Zones and land cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% of the distribution for that particular unit may indicate degradation in this metric (CSIRO, 2017).
+* The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. The toolbox defines land units as regions with the same combination of Global Agroecological Zones and land cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% of the distribution for that particular unit may indicate degradation in this metric `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
 **Calculating Performance**
 
@@ -85,9 +85,9 @@ Performance is a comparison of how productivity in an area compares to productiv
 .. image:: /static/documentation/calculate/image025.png
    :align: center
 
-2) The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. Pixels with an NPP performance in the lowest 50% of the historical range may indicate degradation in this metric (CSIRO, 2017).
+2) The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. Pixels with an NPP performance in the lowest 50% of the historical range may indicate degradation in this metric `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
-3) Contemporary Productivity Performance for each reporting period should be calculated from an average of the years between the previous (or baseline) assessment up to the current year (CSIRO, 2017).
+3) Contemporary Productivity Performance for each reporting period should be calculated from an average of the years between the previous (or baseline) assessment up to the current year `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
 Productivity State
 ~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +95,7 @@ State is a comparison of how current productivity in an area compares to past pr
 
 * The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
 
-* The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation (CSIRO, 2017).
+* The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
 * Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017).
 
@@ -106,7 +106,7 @@ State is a comparison of how current productivity in an area compares to past pr
 .. image:: /static/documentation/calculate/image026.png
    :align: center
 
-2) The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation (CSIRO, 2017).
+2) The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
 3) State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017).
 
@@ -169,7 +169,7 @@ b) Users can keep the default values or create unique transition values of their
 .. image:: /static/documentation/calculate/image031.png
    :align: center
    
-By default, and following the CSIRO best practices guidance document, the major land cover change processes that are classified as degradation are:
+By default, and following the UNCCD best practices guidance document, the major land cover change processes that are classified as degradation are:
 
 1) Deforestation (forest to cropland or settlements)
 

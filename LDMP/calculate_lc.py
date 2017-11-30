@@ -22,7 +22,6 @@ from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC as UiDialog
 from LDMP.api import run_script
@@ -35,7 +34,6 @@ class VerticalLabel(QtGui.QLabel):
         painter = QtGui.QPainter(self)
         painter.translate(self.sizeHint().width(), self.sizeHint().height())
         painter.rotate(270)
-        log('Size hint: {}'.format(self.sizeHint()))
         painter.drawText(0, 0, self.text())
 
     def minimumSizeHint(self):
@@ -84,11 +82,20 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
 
         label_lc_baseline_year = VerticalLabel(self.TransitionMatrixTab)
         label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in baseline year ", None))
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_lc_target_year.sizePolicy().hasHeightForWidth())
+        label_lc_baseline_year.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
         label_lc_baseline_year.setFont(font)
         self.lc_trans_table_layout.addWidget(label_lc_baseline_year, 1, 0, 1, 1, Qt.AlignCenter)
+
+        self.transMatrix.setStyleSheet('QTableWidget {border: 0px;}')
+        self.transMatrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
+        self.transMatrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
 
     #TODO: Get the prevention of empty cells working
     # def trans_matrix_text_changed(text):

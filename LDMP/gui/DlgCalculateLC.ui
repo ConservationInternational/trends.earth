@@ -32,7 +32,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="SetupTab">
       <attribute name="title">
@@ -415,7 +415,7 @@
          <item row="2" column="1" alignment="Qt::AlignHCenter">
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>* The &quot;Grassland&quot; class consists of grassland, shrub, and sparsely vegetated areas (if the default aggregation is used).</string>
+            <string>*The &quot;Grassland&quot; class consists of grassland, shrub, and sparsely vegetated areas (if the default aggregation is used).</string>
            </property>
           </widget>
          </item>

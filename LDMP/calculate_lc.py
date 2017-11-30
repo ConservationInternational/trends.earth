@@ -23,7 +23,8 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP.calculate import DlgCalculateBase
-from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC as UiDialog
+from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
+from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.api import run_script
 
 class VerticalLabel(QtGui.QLabel):
@@ -44,19 +45,14 @@ class VerticalLabel(QtGui.QLabel):
         s = QtGui.QLabel.sizeHint(self)
         return QSize(s.height(), s.width())
 
-class DlgCalculateLC(DlgCalculateBase, UiDialog):
+class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgCalculateLC, self).__init__(parent)
 
         self.setupUi(self)
 
-        # TODO: Rotate the column label on the transition matrix tab
-        # label_pixmap = self.label_lc_baseline_year.pixmap()
-        # rm = QtGui.QMatrix()
-        # rm.rotate(90)
-        # label_pixmap = label_pixmap.transformed(rm)
-        # self.label_lc_baseline_year.setPixmap(pixmap)
+        self.dlg_calculate_lc_set_aggregation = DlgCalculateLCSetAggregation()
 
         # Extract trans_matrix from the QTableWidget
         trans_matrix_default = [[ 0,  1,  1,  1, -1,  0, -1],
@@ -96,6 +92,38 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
         self.transMatrix.setStyleSheet('QTableWidget {border: 0px;}')
         self.transMatrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
         self.transMatrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
+
+        self.lc_def_default.toggled.connect(self.lc_def_default_toggled)
+        self.lc_def_custom_file_browse.clicked.connect(self.open_lc_def_file)
+        self.lc_def_custom_create.clicked.connect(self.lc_def_create)
+
+    def lc_def_create(self):
+        f = self.dlg_calculate_lc_set_aggregation.exec_()
+        if f:
+            self.lc_def_custom_file.setText(f)
+
+    def lc_def_default_toggled(self):
+        if self.lc_def_custom.isChecked():
+            self.lc_def_custom_create.setEnabled(True)
+            self.lc_def_custom_file.setEnabled(True)
+            self.lc_def_custom_file_browse.setEnabled(True)
+        else:
+            self.lc_def_custom_create.setEnabled(False)
+            self.lc_def_custom_file.setEnabled(False)
+            self.lc_def_custom_file_browse.setEnabled(False)
+
+    def open_lc_def_file(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              'Select a land cover definition file',
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              'Land cover definition (*.json)')
+        if f:
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+        self.lc_def_custom_file.setText(f)
 
     #TODO: Get the prevention of empty cells working
     # def trans_matrix_text_changed(text):
@@ -145,3 +173,11 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                            QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
                            level=0, duration=5)
+
+
+class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(DlgCalculateLCSetAggregation, self).__init__(parent)
+
+        self.setupUi(self)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
-    <height>507</height>
+    <width>844</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,7 +32,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="SetupTab">
       <attribute name="title">
@@ -325,439 +325,503 @@
        <string>Transition Matrix</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_lc_target_year">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>35</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>35</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Land cover in target year </string>
-         </property>
-        </widget>
-       </item>
        <item>
-        <widget class="QTableWidget" name="transMatrix">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>700</width>
-           <height>275</height>
-          </size>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Panel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Sunken</enum>
-         </property>
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAsNeeded</enum>
-         </property>
-         <property name="gridStyle">
-          <enum>Qt::SolidLine</enum>
-         </property>
-         <property name="rowCount">
-          <number>6</number>
-         </property>
-         <property name="columnCount">
-          <number>6</number>
-         </property>
-         <attribute name="horizontalHeaderCascadingSectionResizes">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>100</number>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderDefaultSectionSize">
-          <number>40</number>
-         </attribute>
-         <attribute name="verticalHeaderMinimumSectionSize">
-          <number>40</number>
-         </attribute>
-         <attribute name="verticalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <row>
-          <property name="text">
-           <string>Cropland</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Forest land</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Grassland</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Wetlands</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Settlement</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>Other land</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>Cropland</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Forest land</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Grassland</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Wetlands</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Settlement</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Other land</string>
-          </property>
-         </column>
-         <item row="0" column="0">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
+        <layout class="QGridLayout" name="lc_trans_table_layout" rowminimumheight="0,0,0">
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>* The &quot;Grassland&quot; class consists of grassland, shrub, and sparsely vegetated areas (if the default aggregation is used).</string>
+           </property>
+          </widget>
          </item>
-         <item row="0" column="1">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="0" column="2">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="0" column="3">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="0" column="4">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="0" column="5">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="1" column="0">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
+         <item row="0" column="1" alignment="Qt::AlignHCenter">
+          <widget class="QLabel" name="label_lc_target_year">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Land cover in target year </string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
+          <widget class="QTableWidget" name="transMatrix">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>800</width>
+             <height>325</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAsNeeded</enum>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::SolidLine</enum>
+           </property>
+           <property name="rowCount">
+            <number>7</number>
+           </property>
+           <property name="columnCount">
+            <number>7</number>
+           </property>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>100</number>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>40</number>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>40</number>
+           </attribute>
+           <attribute name="verticalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>Forest</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Grassland*</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Cropland</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Wetland</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Artificial area</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Bare land</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Water body</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>Forest</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Grassland*</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Cropland</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Wetland</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Artificial area</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Bare land</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Water body</string>
+            </property>
+           </column>
+           <item row="0" column="0">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="0" column="1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="0" column="2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="0" column="3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="0" column="4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="0" column="5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="0" column="6">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item row="1" column="0">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="1" column="1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="1" column="2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="1" column="3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="1" column="4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="1" column="5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="1" column="6">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item row="2" column="0">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="2" column="1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="2" column="2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="2" column="3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="2" column="4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="2" column="5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="2" column="6">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item row="3" column="0">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="3" column="1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="3" column="2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="3" column="3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="3" column="4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="3" column="5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="3" column="6">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item row="4" column="0">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="4" column="1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="4" column="2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="4" column="3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="4" column="4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="4" column="5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="4" column="6">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item row="5" column="0">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="5" column="1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="5" column="2">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="5" column="3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="5" column="4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="5" column="5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </item>
+           <item row="5" column="6">
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+          </widget>
          </item>
-         <item row="1" column="2">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
+         <item row="0" column="0">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
-         <item row="1" column="3">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="1" column="4">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="1" column="5">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="0">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="1">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="2">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="3">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="4">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="2" column="5">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="0">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="1">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="2">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="3">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="4">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="3" column="5">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="4" column="0">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="4" column="1">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="4" column="2">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="4" column="3">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="4" column="4">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="4" column="5">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="5" column="0">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="5" column="1">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="5" column="2">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="5" column="3">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="5" column="4">
-          <property name="text">
-           <string>-1</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-         <item row="5" column="5">
-          <property name="text">
-           <string>0</string>
-          </property>
-          <property name="textAlignment">
-           <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-          </property>
-         </item>
-        </widget>
+        </layout>
        </item>
        <item>
         <spacer name="verticalSpacer_2">
@@ -957,6 +1021,19 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="button_next">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Next</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0" colspan="2">
       <widget class="QPushButton" name="button_calculate">
        <property name="minimumSize">
@@ -983,19 +1060,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="button_next">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Next</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>
@@ -1006,7 +1070,6 @@
   <tabstop>button_prev</tabstop>
   <tabstop>button_next</tabstop>
   <tabstop>button_calculate</tabstop>
-  <tabstop>transMatrix</tabstop>
  </tabstops>
  <resources/>
  <connections/>

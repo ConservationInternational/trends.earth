@@ -17,7 +17,7 @@ import json
 from urllib import quote_plus
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec
+from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -27,6 +27,24 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC as UiDialog
 from LDMP.api import run_script
 
+class VerticalLabel(QtGui.QLabel):
+    def __init__(self, parent=None):
+        super(VerticalLabel, self).__init__(parent)
+
+    def paintEvent(self, paint_event):
+        painter = QtGui.QPainter(self)
+        painter.translate(self.sizeHint().width(), self.sizeHint().height())
+        painter.rotate(270)
+        log('Size hint: {}'.format(self.sizeHint()))
+        painter.drawText(0, 0, self.text())
+
+    def minimumSizeHint(self):
+        s = QtGui.QLabel.minimumSizeHint(self)
+        return QSize(s.height(), s.width())
+
+    def sizeHint(self):
+        s = QtGui.QLabel.sizeHint(self)
+        return QSize(s.height(), s.width())
 
 class DlgCalculateLC(DlgCalculateBase, UiDialog):
     def __init__(self, parent=None):
@@ -42,14 +60,14 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
         # label_pixmap = label_pixmap.transformed(rm)
         # self.label_lc_baseline_year.setPixmap(pixmap)
 
-        #TODO: Use setCellWidget to assign QLineEdit and validator to each item
         # Extract trans_matrix from the QTableWidget
-        trans_matrix_default = [[0, 1, 1, 1, -1, 0],
-                                [-1, 0, -1, -1, -1, -1],
-                                [-1, 1, 0, 0, -1, -1],
-                                [-1, -1, -1, 0, -1, -1],
-                                [1, 1, 1, 1, 0, 0],
-                                [1, 1, 1, 1, -1, 0]]
+        trans_matrix_default = [[ 0,  1,  1,  1, -1,  0, -1],
+                                [-1,  0, -1, -1, -1, -1, -1],
+                                [-1,  1,  0,  0, -1, -1, -1],
+                                [-1, -1, -1,  0, -1, -1,  0],
+                                [ 1,  1,  1,  1,  0,  0, -1],
+                                [ 1,  1,  1,  1, -1,  0,  0],
+                                [ 1,  1,  0,  0,  0,  0,  0]]
         for row in range(0, self.transMatrix.rowCount()):
             for col in range(0, self.transMatrix.columnCount()):
                 line_edit = QtGui.QLineEdit()
@@ -63,6 +81,14 @@ class DlgCalculateLC(DlgCalculateBase, UiDialog):
         #self.transMatrix.currentItemChanged.connect(self.trans_matrix_current_item_changed)
 
         self.setup_dialog()
+
+        label_lc_baseline_year = VerticalLabel(self.TransitionMatrixTab)
+        label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in baseline year ", None))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        label_lc_baseline_year.setFont(font)
+        self.lc_trans_table_layout.addWidget(label_lc_baseline_year, 1, 0, 1, 1, Qt.AlignCenter)
 
     #TODO: Get the prevention of empty cells working
     # def trans_matrix_text_changed(text):

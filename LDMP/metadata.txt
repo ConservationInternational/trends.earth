@@ -7,17 +7,18 @@
 # This file should be included when you package your plugin.
 
 [general]
-name=Land Degradation Monitoring Toolbox
+name=earth.trends
 qgisMinimumVersion=2.18
 description=This plugin supports monitoring of land degradation in support of the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG) and for reporting to the United Nations Convention to Combat Desertification (UNCCD)
 version=0.17
 author=Conservation International
 email=GEF-LDMP@conservation.org
 
-about=An open source platform from the GEF Land Degradation Monitoring Project (LDMP) led by Conservation Internatonal to support land degradation monitoring and reporting to the UNCCD, and achieving land degradation neutrality (LDN). The GEF-LDMP toolbox facilitates downloading, processing, and visualizing datasets for the three sub-indicators of land degradation under Sustainable Development Goal Target 15.3: soil carbon, land cover, and vegetation productivity.
+about=`trends.earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for monitoring land change. `trends.earth` supports monitoring land change, including changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
 
-tracker=https://github.com/ConservationInternational/ldmp-qgis-plugin/issues
-repository=https://github.com/ConservationInternational/ldmp-qgis-plugin
+tracker=https://github.com/ConservationInternational/earth.trends/issues
+
+repository=https://github.com/ConservationInternational/earth.trends
 
 # Uncomment the following line and add your changelog:
 # changelog=
@@ -25,7 +26,7 @@ repository=https://github.com/ConservationInternational/ldmp-qgis-plugin
 # Tags are comma separated with spaces allowed
 tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
 
-homepage=https://github.com/ConservationInternational/ldmp-qgis-plugin
+homepage=https://github.com/ConservationInternational/earth.trends
 category=Plugins
 icon=icon.png
 # experimental flag

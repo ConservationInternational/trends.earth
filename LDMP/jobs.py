@@ -321,6 +321,7 @@ def download_land_cover(job, download_dir):
             elif dataset['dataset'] == 'lc_change':
                 # TODO: Fix color coding of transition layer.
                 #style_land_cover_transition(outfile)
+                pass
             elif dataset['dataset'] == 'land_deg':
                 style_land_cover_land_deg(outfile)
             else:
@@ -340,7 +341,7 @@ def style_land_cover(outfile, title):
            QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#71DEFD'), QtGui.QApplication.translate('LDMPPlugin', 'Wetland')),
            QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), QtGui.QApplication.translate('LDMPPlugin', 'Artificial area')),
            QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#DEB887'), QtGui.QApplication.translate('LDMPPlugin', 'Bare land')),
-           QgsColorRampShader.ColorRampItem(7, QtGui.QColor('#08519c'), QtGui.QApplication.translate('LDMPPlugin', 'Water body')),
+           QgsColorRampShader.ColorRampItem(7, QtGui.QColor('#3A4DD6'), QtGui.QApplication.translate('LDMPPlugin', 'Water body')),
            QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
@@ -482,9 +483,13 @@ def style_prod_traj_signif(outfile):
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease')),
+    lst = [QgsColorRampShader.ColorRampItem(-3, QtGui.QColor("#993304"), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease (p < .01)')),
+           QgsColorRampShader.ColorRampItem(-2, QtGui.QColor("#BB7757"), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease (p < .05)')),
+           QgsColorRampShader.ColorRampItem(-1, QtGui.QColor("#DDBBAB"), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease (p < .1)')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'No significant change')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase')),
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor("#AAD8D2"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .1)')),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor("#55B2A5"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .05)')),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor("#008C79"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .01)')),
            QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
@@ -504,7 +509,7 @@ def download_prod_state(job, download_dir):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-            if dataset['dataset'] == 'deg':
+            if dataset['dataset'] == 'productivity_state':
                 style_prod_state(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))

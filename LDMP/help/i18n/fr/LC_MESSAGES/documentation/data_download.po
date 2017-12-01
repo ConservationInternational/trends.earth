@@ -31,8 +31,8 @@ msgid ""
 "To download data, select the globe icon (|iconGlobe|). This will open up the"
 " `Download Data` dialog box:"
 msgstr ""
-"Pour télécharger des données, sélectionnez l'icône de globe. Cela ouvrira la"
-" boîte de dialogue `Téléchargement des données`:"
+"Pour télécharger des données, sélectionnez l'icône de globe (|iconGlobe|). "
+"Cela ouvrira la boîte de dialogue `Téléchargement des données`:"
 
 #: ../../source/documentation/data_download.rst:15
 msgid ""

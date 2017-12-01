@@ -606,7 +606,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="1" column="0">
-           <widget class="QDateEdit" name="state_year_init_bl_start">
+           <widget class="QDateEdit" name="state_year_bl_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -658,7 +658,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QDateEdit" name="state_year_init_bl_end">
+           <widget class="QDateEdit" name="state_year_bl_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -745,7 +745,7 @@
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QDateEdit" name="state_year_init_tg_start">
+           <widget class="QDateEdit" name="state_year_tg_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -811,7 +811,7 @@
            </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QDateEdit" name="state_year_init_tg_end">
+           <widget class="QDateEdit" name="state_year_tg_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>

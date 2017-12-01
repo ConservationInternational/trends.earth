@@ -123,22 +123,14 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.perf_year_end.setMaximumDate(end_year)
 
         # Performance
-        self.state_year_init_bl_start.setMinimumDate(start_year)
-        self.state_year_init_bl_start.setMaximumDate(end_year)
-        self.state_year_init_bl_end.setMinimumDate(start_year)
-        self.state_year_init_bl_end.setMaximumDate(end_year)
-        self.state_year_init_tg_start.setMinimumDate(start_year)
-        self.state_year_init_tg_start.setMaximumDate(end_year)
-        self.state_year_init_tg_end.setMinimumDate(start_year)
-        self.state_year_init_tg_end.setMaximumDate(end_year)
-        self.state_year_emerg_bl_start.setMinimumDate(start_year)
-        self.state_year_emerg_bl_start.setMaximumDate(end_year)
-        self.state_year_emerg_bl_end.setMinimumDate(start_year)
-        self.state_year_emerg_bl_end.setMaximumDate(end_year)
-        self.state_year_emerg_tg_start.setMinimumDate(start_year)
-        self.state_year_emerg_tg_start.setMaximumDate(end_year)
-        self.state_year_emerg_tg_end.setMinimumDate(start_year)
-        self.state_year_emerg_tg_end.setMaximumDate(end_year)
+        self.state_year_bl_start.setMinimumDate(start_year)
+        self.state_year_bl_start.setMaximumDate(end_year)
+        self.state_year_bl_end.setMinimumDate(start_year)
+        self.state_year_bl_end.setMaximumDate(end_year)
+        self.state_year_tg_start.setMinimumDate(start_year)
+        self.state_year_tg_start.setMaximumDate(end_year)
+        self.state_year_tg_end.setMinimumDate(start_year)
+        self.state_year_tg_end.setMaximumDate(end_year)
 
         # Trajectory - needs to also account for climate data
         start_year_traj = QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
@@ -232,14 +224,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                            level=0, duration=5)
 
     def calculate_state(self, geojson, ndvi_dataset):
-        payload = {'year_init_bl_start': self.state_year_init_bl_start.date().year(),
-                   'year_init_bl_end': self.state_year_init_bl_end.date().year(),
-                   'year_init_tg_start': self.state_year_init_tg_start.date().year(),
-                   'year_init_tg_end': self.state_year_init_tg_end.date().year(),
-                   'year_emerg_bl_start': self.state_year_emerg_bl_start.date().year(),
-                   'year_emerg_bl_end': self.state_year_emerg_bl_end.date().year(),
-                   'year_emerg_tg_start': self.state_year_emerg_tg_start.date().year(),
-                   'year_emerg_tg_end': self.state_year_emerg_tg_end.date().year(),
+        payload = {'year_bl_start': self.state_year_bl_start.date().year(),
+                   'year_bl_end': self.state_year_bl_end.date().year(),
+                   'year_tg_start': self.state_year_tg_start.date().year(),
+                   'year_tg_end': self.state_year_tg_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'task_name': self.task_name.text(),

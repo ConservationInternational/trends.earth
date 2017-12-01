@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>606</width>
-    <height>343</height>
+    <width>700</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,7 +38,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Save to file</string>
+      <string>Save definition</string>
      </property>
     </widget>
    </item>

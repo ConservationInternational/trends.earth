@@ -17,11 +17,12 @@ import json
 from urllib import quote_plus
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint
+from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint, QAbstractTableModel, pyqtSignal
 
 from qgis.utils import iface
 mb = iface.messageBar()
 
+from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
@@ -52,7 +53,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         self.setupUi(self)
 
-        self.dlg_calculate_lc_set_aggregation = DlgCalculateLCSetAggregation()
+        self.dlg_setup_classes = DlgCalculateLCSetAggregation(self)
 
         # Extract trans_matrix from the QTableWidget
         trans_matrix_default = [[ 0,  1,  1,  1, -1,  0, -1],
@@ -97,26 +98,39 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.lc_def_custom_file_browse.clicked.connect(self.open_lc_def_file)
         self.lc_def_custom_create.clicked.connect(self.lc_def_create)
 
+        self.dlg_setup_classes.lc_def_saved.connect(self.lc_def_file_update)
+        self.dlg_setup_classes.agg_matrix_changed.connect(self.agg_matrix_update)
+
+    def agg_matrix_update(self, agg_matrix):
+        self.agg_matrix = agg_matrix
+
+    def lc_def_file_update(self, f):
+        self.lc_def_custom_file.setText(f)
+
     def lc_def_create(self):
-        f = self.dlg_calculate_lc_set_aggregation.exec_()
+        f = self.dlg_setup_classes.exec_()
         if f:
-            self.lc_def_custom_file.setText(f)
+            self.lc_def_file_update(f)
 
     def lc_def_default_toggled(self):
         if self.lc_def_custom.isChecked():
             self.lc_def_custom_create.setEnabled(True)
             self.lc_def_custom_file.setEnabled(True)
             self.lc_def_custom_file_browse.setEnabled(True)
+            self.lc_def_label_new.setEnabled(True)
+            self.lc_def_label_saved.setEnabled(True)
         else:
             self.lc_def_custom_create.setEnabled(False)
             self.lc_def_custom_file.setEnabled(False)
             self.lc_def_custom_file_browse.setEnabled(False)
+            self.lc_def_label_new.setEnabled(False)
+            self.lc_def_label_saved.setEnabled(False)
 
     def open_lc_def_file(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
-                                              'Select a land cover definition file',
+                                              self.tr('Select a land cover definition file'),
                                               QSettings().value("LDMP/lc_def_dir", None),
-                                              'Land cover definition (*.json)')
+                                              self.tr('Land cover definition (*.json)'))
         if f:
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
@@ -158,6 +172,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                    'year_target': self.year_target.date().year(),
                    'geojson': json.dumps(self.bbox),
                    'trans_matrix': trans_matrix,
+                   'agg_matrix': self.agg_matrix,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
@@ -175,9 +190,150 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                            level=0, duration=5)
 
 
+class LCAggTableModel(QAbstractTableModel):
+    def __init__(self, datain, parent=None, *args):
+        QAbstractTableModel.__init__(self, parent, *args)
+        self.classes = datain
+
+        # Column names as tuples with json name in [0], pretty name in [1]
+        # Note that the columns with json names set to to INVALID aren't loaded
+        # into the shell, but shown from a widget.
+        colname_tuples = [('Initial_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Input cover class')),
+                          ('Final_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Output cover class'))]
+        self.colnames_json = [x[0] for x in colname_tuples]
+        self.colnames_pretty = [x[1] for x in colname_tuples]
+
+    def rowCount(self, parent):
+        return len(self.classes)
+
+    def columnCount(self, parent):
+        return len(self.colnames_json)
+
+    def data(self, index, role):
+        if not index.isValid():
+            return None
+        elif role != Qt.DisplayRole:
+            return None
+        return self.classes[index.row()].get(self.colnames_json[index.column()], '')
+
+    def headerData(self, section, orientation, role=Qt.DisplayRole):
+        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
+            return self.colnames_pretty[section]
+        return QAbstractTableModel.headerData(self, section, orientation, role)
+
+
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
+    lc_def_saved = pyqtSignal(str)
+    agg_matrix_changed = pyqtSignal(list)
+
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgCalculateLCSetAggregation, self).__init__(parent)
 
         self.setupUi(self)
+
+        self.final_classes = {'Forest': 1,
+                              'Grassland': 2,
+                              'Cropland': 3,
+                              'Wetland': 4,
+                              'Artificial area': 5,
+                              'Bare land': 6,
+                              'Water body': 7}
+
+        self.btn_save.clicked.connect(self.btn_save_pressed)
+
+        self.setup_class_table()
+        self.get_agg_matrix()
+
+    def btn_save_pressed(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              QtGui.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                           'Choose where to save this land cover definition'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              QtGui.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                           'Land cover definition (*.json)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                return
+
+
+            class_def = self.get_definition()
+
+            with open(f, 'w') as outfile:
+                json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+
+
+            agg_matrix = self.get_agg_matrix()
+            
+            # Emit the filename so it can be used to update the filename field 
+            # in the parent dialog
+            self.lc_def_saved.emit(f)
+
+            self.close()
+
+    def get_agg_matrix(self):
+        '''Returns a list describing how to aggregate the land cover data'''
+        out = [[], []]
+        for row in range(0, len(self.classes)):
+            initial_label = self.lc_agg_view.model().index(row, 0).data()
+            initial_code = [i['Initial_Code'] for i in self.classes if i['Initial_Label'] == initial_label]
+            if len(initial_code) > 1:
+                raise ValueError("more than one match found for initial label {}".format(initial_label))
+            initial_code = initial_code[0]
+
+            # Get the currently assigned label for this code
+            label_widget_index = self.lc_agg_view.model().index(row, 1)
+            label_widget = self.lc_agg_view.indexWidget(label_widget_index)
+            final_code = self.final_classes[label_widget.currentText()]
+            out[0].append(initial_code)
+            out[1].append(final_code)
+        self.agg_matrix_changed.emit(out)
+        return out
+
+    def get_definition(self):
+        '''Returns the chosen land cover definition as a dictionary'''
+        out = []
+        for row in range(0, len(self.classes)):
+            this_out = {}
+            initial_label = self.lc_agg_view.model().index(row, 0).data()
+            this_out['Initial_Label'] = initial_label
+            initial_code = [i['Initial_Code'] for i in self.classes if i['Initial_Label'] == initial_label]
+            if len(initial_code) > 1:
+                raise ValueError("more than one match found for initial label {}".format(initial_label))
+            this_out['Initial_Code'] = initial_code[0]
+            # Get the currently assigned label for this code
+            label_widget_index = self.lc_agg_view.model().index(row, 1)
+            label_widget = self.lc_agg_view.indexWidget(label_widget_index)
+            this_out['Final_Label'] = label_widget.currentText()
+            this_out['Final_Code'] = self.final_classes[this_out['Final_Label']]
+            out.append(this_out)
+        # Sort output by initial code
+        out = sorted(out, key=lambda k: k['Initial_Code'])
+        return out
+
+    def setup_class_table(self):
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'land_cover_classes.json')) as class_file:
+            self.classes = json.load(class_file)
+        table_model = LCAggTableModel(self.classes, self)
+        proxy_model = QtGui.QSortFilterProxyModel()
+        proxy_model.setSourceModel(table_model)
+        self.lc_agg_view.setModel(proxy_model)
+
+        # Add selector in cell
+        for row in range(0, len(self.classes)):
+            lc_classes = QtGui.QComboBox()
+            # Add the classes in order of their codes
+            lc_classes.addItems(sorted(self.final_classes.keys(), key=lambda k: self.final_classes[k]))
+            ind = lc_classes.findText(self.classes[row]['Final_Label'])
+            if ind != -1:
+                lc_classes.setCurrentIndex(ind)
+            self.lc_agg_view.setIndexWidget(proxy_model.index(row, 1), lc_classes)
+
+        self.lc_agg_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.lc_agg_view.setColumnWidth(0, 500)
+        self.lc_agg_view.horizontalHeader().setStretchLastSection(True)

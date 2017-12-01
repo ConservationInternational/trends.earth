@@ -83,7 +83,7 @@ class LDMPPlugin:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QApplication.translate('LDMP', u'&Land Degradation Monitoring Toolbox')
+        self.menu = QApplication.translate('LDMP', u'&earth.trends')
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'LDMP')
         self.toolbar.setObjectName(u'LDMP')
@@ -233,13 +233,13 @@ class LDMPPlugin:
             text=QApplication.translate('LDMP', u'About'),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'About the land degradation monitoring toolbox'))
+            status_tip=QApplication.translate('LDMP', 'About earth.trends'))
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginWebMenu(
-                QApplication.translate('LDMP', u'&Land Degradation Monitoring Toolbox'),
+                QApplication.translate('LDMP', u'&earth.trends'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar

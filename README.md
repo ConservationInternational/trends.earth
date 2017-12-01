@@ -1,15 +1,13 @@
-# ldmp-earthengine
-This repository stores Google Earth Engine scripts created by the GEF Land 
-Degradation Monitoring Project (LDMP) for use with the [Land Degradation 
-Monitoring 
-Toolbox](https://github.com/ConservationInternational/ldmp-qgis-plugin), a QGIS 
-plugin.
+# trends.earth.gee
+This repository stores Google Earth Engine scripts created for use with the 
+[trends.earth](https://github.com/ConservationInternational/trends.earth), a 
+QGIS plugin.
 
 The scripts in this repository are not intended to be run directly. They are 
 intended for use from within the QGIS plugin.
 
 # License
-`ldmp-earthengine` is free and open-source. It is released under the following 
+`trends.earth.gee` is free and open-source. It is released under the following 
 (MIT) license:
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 

@@ -126,7 +126,7 @@ def get_ld_layers(layer_type):
                 layers_filtered.append(l)
         elif layer_type == 'state':
             if m['script_id'] == "cd03646c-9d4c-44a9-89ae-3309ae7bade3":
-                if not '_eme_degr' in f:
+                if not '_deg' in f:
                     continue
                 layers_filtered.append(l)
         elif layer_type == 'perf':

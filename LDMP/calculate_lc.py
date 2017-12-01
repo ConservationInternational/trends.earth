@@ -99,10 +99,16 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.lc_def_custom_create.clicked.connect(self.lc_def_create)
 
         self.dlg_setup_classes.lc_def_saved.connect(self.lc_def_file_update)
-        self.dlg_setup_classes.agg_matrix_changed.connect(self.agg_matrix_update)
+        self.dlg_setup_classes.remap_matrix_changed.connect(self.remap_matrix_update)
 
-    def agg_matrix_update(self, agg_matrix):
-        self.agg_matrix = agg_matrix
+        # Setup the class table and run get_remap_matrix so that the 
+        # remap_matrix is defined if a user uses the default and never accesses 
+        # that dialog
+        self.dlg_setup_classes.setup_class_table()
+        self.dlg_setup_classes.get_remap_matrix()
+
+    def remap_matrix_update(self, remap_matrix):
+        self.remap_matrix = remap_matrix
 
     def lc_def_file_update(self, f):
         self.lc_def_custom_file.setText(f)
@@ -172,7 +178,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                    'year_target': self.year_target.date().year(),
                    'geojson': json.dumps(self.bbox),
                    'trans_matrix': trans_matrix,
-                   'agg_matrix': self.agg_matrix,
+                   'remap_matrix': self.remap_matrix,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
@@ -224,7 +230,7 @@ class LCAggTableModel(QAbstractTableModel):
 
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
     lc_def_saved = pyqtSignal(str)
-    agg_matrix_changed = pyqtSignal(list)
+    remap_matrix_changed = pyqtSignal(list)
 
     def __init__(self, parent=None):
         """Constructor."""
@@ -243,7 +249,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.btn_save.clicked.connect(self.btn_save_pressed)
 
         self.setup_class_table()
-        self.get_agg_matrix()
+        self.get_remap_matrix()
 
     def btn_save_pressed(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -267,7 +273,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                 json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
 
 
-            agg_matrix = self.get_agg_matrix()
+            remap_matrix = self.get_remap_matrix()
             
             # Emit the filename so it can be used to update the filename field 
             # in the parent dialog
@@ -275,7 +281,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             self.close()
 
-    def get_agg_matrix(self):
+    def get_remap_matrix(self):
         '''Returns a list describing how to aggregate the land cover data'''
         out = [[], []]
         for row in range(0, len(self.classes)):
@@ -291,7 +297,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             final_code = self.final_classes[label_widget.currentText()]
             out[0].append(initial_code)
             out[1].append(final_code)
-        self.agg_matrix_changed.emit(out)
+        self.remap_matrix_changed.emit(out)
         return out
 
     def get_definition(self):

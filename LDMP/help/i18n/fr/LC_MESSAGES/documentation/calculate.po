@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Pour sélectionner les méthodes et les ensembles de données pour calculer les"
 " indicateurs mesurant les changements dans la productivité primaire, "
-"sélectionnez l'icône de calculatrice (|iconCalculator|). Cela ouvrira la "
+"sélectionnez l'icône de calculatrice  (|iconCalculator|). Cela ouvrira la "
 "boîte de dialogue `Calcul des indicateurs`:"
 
 #: ../../source/documentation/calculate.rst:9
@@ -207,7 +207,7 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:46
 msgid "**Calculating Trajectory**"
-msgstr "** Calcul de la trajectoire **"
+msgstr "**Calcul de la trajectoire**"
 
 #: ../../source/documentation/calculate.rst:48
 msgid "Check next to Trajectory"
@@ -231,7 +231,7 @@ msgid ""
 "In the tab “Trajectory”, select the method to be used to compute the "
 "productivity trajectory analysis. The options are:"
 msgstr ""
-"Dans l'onglet \"Trajectoire\", sélectionnez la méthode à utiliser pour "
+"Dans l'onglet `Trajectoire`, sélectionnez la méthode à utiliser pour "
 "calculer l'analyse de trajectoire de productivité. Les options sont:"
 
 #: ../../source/documentation/calculate.rst:62
@@ -509,7 +509,7 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:129
 msgid "**Submit task**"
-msgstr "** Soumission de la tâche **"
+msgstr "**Soumission de la tâche**"
 
 #: ../../source/documentation/calculate.rst:131
 msgid ""
@@ -708,7 +708,7 @@ msgid ""
 "Agricultural expansion (grassland to cropland; settlements or otherland to "
 "cropland)"
 msgstr ""
-"Expansion agricole (prairies à terres cultivées ; lieux habités ou autres "
+"Expansion agricole (prairies à terres cultivées; lieux habités ou autres "
 "terres à terres cultivées)"
 
 #: ../../source/documentation/calculate.rst:197

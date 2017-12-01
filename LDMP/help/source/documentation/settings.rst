@@ -13,7 +13,7 @@ icon (|iconWrench|). This will open up the `Settings` dialog box:
 From the `Settings` screen you can register as a new user or `Login` if you 
 already have a username and password:
 
-.. image:: /static/documentation/settings/settings_filled.png
+.. image:: /static/documentation/settings/settings_filled.jpg
    :align: center
 
 

@@ -17,11 +17,12 @@ import json
 from urllib import quote_plus
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint
+from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint, QAbstractTableModel
 
 from qgis.utils import iface
 mb = iface.messageBar()
 
+from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
@@ -107,10 +108,14 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
             self.lc_def_custom_create.setEnabled(True)
             self.lc_def_custom_file.setEnabled(True)
             self.lc_def_custom_file_browse.setEnabled(True)
+            self.lc_def_label_new.setEnabled(True)
+            self.lc_def_label_saved.setEnabled(True)
         else:
             self.lc_def_custom_create.setEnabled(False)
             self.lc_def_custom_file.setEnabled(False)
             self.lc_def_custom_file_browse.setEnabled(False)
+            self.lc_def_label_new.setEnabled(False)
+            self.lc_def_label_saved.setEnabled(False)
 
     def open_lc_def_file(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
@@ -175,9 +180,72 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                            level=0, duration=5)
 
 
+class LCAggTableModel(QAbstractTableModel):
+    def __init__(self, datain, parent=None, *args):
+        QAbstractTableModel.__init__(self, parent, *args)
+        self.classes = datain
+
+        # Column names as tuples with json name in [0], pretty name in [1]
+        # Note that the columns with json names set to to INVALID aren't loaded
+        # into the shell, but shown from a widget.
+        colname_tuples = [('Initial_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Input cover class')),
+                          ('Final_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Output cover class'))]
+        self.colnames_json = [x[0] for x in colname_tuples]
+        self.colnames_pretty = [x[1] for x in colname_tuples]
+
+    def rowCount(self, parent):
+        return len(self.classes)
+
+    def columnCount(self, parent):
+        return len(self.colnames_json)
+
+    def data(self, index, role):
+        if not index.isValid():
+            return None
+        elif role != Qt.DisplayRole:
+            return None
+        return self.classes[index.row()].get(self.colnames_json[index.column()], '')
+
+    def headerData(self, section, orientation, role=Qt.DisplayRole):
+        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
+            return self.colnames_pretty[section]
+        return QAbstractTableModel.headerData(self, section, orientation, role)
+
+
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgCalculateLCSetAggregation, self).__init__(parent)
 
         self.setupUi(self)
+
+        self.setup_class_table()
+
+    def setup_class_table(self):
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'land_cover_classes.json')) as class_file:
+            self.classes = json.load(class_file)
+        table_model = LCAggTableModel(self.classes, self)
+        proxy_model = QtGui.QSortFilterProxyModel()
+        proxy_model.setSourceModel(table_model)
+        self.lc_agg_view.setModel(proxy_model)
+
+        # Add selector in cell
+        for row in range(0, len(self.classes)):
+            lc_classes = QtGui.QComboBox()
+            lc_classes.addItems(['Forest',
+                                 'Grassland',
+                                 'Cropland',
+                                 'Wetland',
+                                 'Artificial area',
+                                 'Bare land',
+                                 'Water body'])
+            ind = lc_classes.findText(self.classes[row]['Final_Label'])
+            if ind != -1:
+                lc_classes.setCurrentIndex(ind)
+            self.lc_agg_view.setIndexWidget(proxy_model.index(row, 1), lc_classes)
+
+        self.lc_agg_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.lc_agg_view.setColumnWidth(0, 550)
+        self.lc_agg_view.horizontalHeader().setStretchLastSection(True)
+

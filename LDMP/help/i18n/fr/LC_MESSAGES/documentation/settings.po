@@ -45,7 +45,7 @@ msgid ""
 "already have a username and password:"
 msgstr ""
 "De l'écran `Paramètres` vous pouvez vous enregistrer en tant que nouvel "
-"utilisateur ou` Login` si vous avez déjà un nom d'utilisateur et un mot de "
+"utilisateur ou `Login` si vous avez déjà un nom d'utilisateur et un mot de "
 "passe:"
 
 #: ../../source/documentation/settings.rst:20
@@ -53,9 +53,9 @@ msgid ""
 "To Register, select the `Register` button, enter your Email, Name, "
 "Organization and Country of residence and select `Register user`:"
 msgstr ""
-"Pour vous inscrire, sélectionnez le bouton «Enregistrer», entrez votre "
+"Pour vous inscrire, sélectionnez le bouton `Enregistrer`, entrez votre "
 "adresse électronique, votre nom, votre organisation et votre pays de "
-"résidence, puis sélectionnez «Enregistrer l'utilisateur»:"
+"résidence, puis sélectionnez `Enregistrer l'utilisateur`:"
 
 #: ../../source/documentation/settings.rst:27
 msgid ""
@@ -69,4 +69,4 @@ msgstr ""
 
 #: ../../source/documentation/settings.rst:31
 msgid "Enter your credentials and click `Login`."
-msgstr "Entrez vos informations d'identification et cliquez sur \"Connexion\"."
+msgstr "Entrez vos informations d'identification et cliquez sur `Connexion`."

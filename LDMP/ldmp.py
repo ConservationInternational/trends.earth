@@ -309,10 +309,10 @@ class LDMPPlugin:
 
     def run_about(self):
         """Run method that performs all the real work"""
-        showHelp()
-        # self.dlg_about.show()
-        # # Run the dialog event loop
-        # result = self.dlg_about.exec_()
-        # # See if OK was pressed
-        # if result:
-        #     pass
+        #showHelp()
+        self.dlg_about.show()
+        # Run the dialog event loop
+        result = self.dlg_about.exec_()
+        # See if OK was pressed
+        if result:
+            pass

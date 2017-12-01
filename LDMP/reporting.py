@@ -22,6 +22,8 @@ import numpy as np
 
 from osgeo import ogr, osr, gdal
 
+import xlsxwriter
+
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, QEventLoop
 
@@ -91,7 +93,7 @@ def _slice_area(f):
 # Formula to calculate area of a raster cell Convert the contents of this_tab 
 # to refer to areas in sq km, not to pixel counts, following:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
-def cell_area(ymin, ymax, x_width):
+def calc_cell_area(ymin, ymax, x_width):
     'Calculate cell area on WGS84 ellipsoid'
     if ymin > ymax:
         temp = ymax
@@ -207,7 +209,7 @@ class ReprojectionWorker(AbstractWorker):
                                   sr_src.ExportToWkt(),
                                   sr_dest.ExportToWkt(),
                                   resample_alg,
-                                  dstNodata=9999,
+                                  dstNodata=-9999,
                                   callback=self.progress_callback)
         if res == 0:
             return ds_dest
@@ -300,7 +302,7 @@ def xtab(*cols):
     # Based on https://gist.github.com/alexland/d6d64d3f634895b9dc8e, but
     # modified to ignore np.nan
     if not all(len(col) == len(cols[0]) for col in cols[1:]):
-     raise ValueError("all arguments must be same size")
+        raise ValueError("all arguments must be same size")
 
     if len(cols) == 0:
         raise TypeError("xtab() requires at least one argument")
@@ -321,7 +323,7 @@ def xtab(*cols):
 
 
 def merge_xtabs(tab1, tab2):
-    """Function for merging two crosstabs - allows for block-by-block crosstabs"""
+    """Mergies two crosstabs - allows for block-by-block crosstabs"""
     headers = tuple(np.array(np.unique(np.concatenate(header))) for header in zip(tab1[0], tab2[0]))
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
     # Make this array flat since it will be used later with ravelled indexing
@@ -340,23 +342,60 @@ def merge_xtabs(tab1, tab2):
     return list((headers, xt.reshape(shape_xt)))
 
 
-class CrosstabWorker(AbstractWorker):
+def calc_area_table(a, area_table, cell_area):
+    """Calculates an area table for an array"""
+    a_min = np.min(a)
+    if a_min < 0:
+        # Correctioni to add as bincount can only handle positive integers
+        correction = np.abs(a_min)
+    else:
+        correction = 0
+
+    n = np.bincount(a.ravel() + correction)
+    this_vals = np.nonzero(n)[0]
+    # Subtract correction from this_vals so area table has correct values
+    this_area_table = list([this_vals - correction, n[this_vals]])
+
+    # Don't use this_area_table if it is empty
+    if this_area_table[0].size != 0:
+        this_area_table[1] = this_area_table[1] * cell_area
+        if area_table == None:
+            area_table = this_area_table
+        else:
+            area_table = merge_area_tables(area_table, this_area_table)
+    return area_table
+
+
+def merge_area_tables(table1, table2):
+    vals = np.unique(np.concatenate([table1[0], table2[0]]))
+    count = np.zeros(vals.shape)
+    def add_area_table(table):
+        ind = np.concatenate(tuple(np.where(vals == item)[0] for item in table[0]))
+        np.add.at(count, ind, table[1])
+    add_area_table(table1)
+    add_area_table(table2)
+    return list((vals, count))
+
+
+class AreaWorker(AbstractWorker):
     def __init__(self, in_file):
         AbstractWorker.__init__(self)
         self.in_file = in_file
 
     def work(self):
         ds = gdal.Open(self.in_file)
-        band_1 = ds.GetRasterBand(1)
-        band_2 = ds.GetRasterBand(2)
+        band_deg = ds.GetRasterBand(1)
+        band_trans = ds.GetRasterBand(2)
+        band_base = ds.GetRasterBand(3)
+        band_target = ds.GetRasterBand(4)
 
-        block_sizes = band_1.GetBlockSize()
+        block_sizes = band_deg.GetBlockSize()
         x_block_size = block_sizes[0]
         # Need to process y line by line so that pixel area calculation can be 
-        # done accurately (to calculate area of each pixel based on latitude)
+        # done based on latitude, which varies by line
         y_block_size = 1
-        xsize = band_1.XSize
-        ysize = band_1.YSize
+        xsize = band_deg.XSize
+        ysize = band_deg.YSize
 
         gt = ds.GetGeoTransform()
         # Width of cells in longitude
@@ -368,7 +407,9 @@ class CrosstabWorker(AbstractWorker):
         pixel_height = gt[5]
 
         blocks = 0
-        tab = None
+        trans_xtab = None
+        area_table_base = None
+        area_table_target = None
         for y in xrange(0, ysize, y_block_size):
             if self.killed:
                 log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
@@ -384,35 +425,50 @@ class CrosstabWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                a1 = band_1.ReadAsArray(x, y, cols, rows)
-                a2 = band_2.ReadAsArray(x, y, cols, rows)
+                cell_area = calc_cell_area(lat, lat + pixel_height, long_width)
+
+                ################################
+                # Calculate transition crosstabs
+                a_deg = band_deg.ReadAsArray(x, y, cols, rows)
+                a_trans = band_trans.ReadAsArray(x, y, cols, rows)
 
                 # Flatten the arrays before passing to xtab
-                this_tab = xtab(a1.ravel(), a2.ravel())
+                this_trans_xtab = xtab(a_deg.ravel(), a_trans.ravel())
 
-                # Don't use this_tab if it is empty (could happen if take a 
+                # Don't use this_trans_xtab if it is empty (could happen if take a 
                 # crosstab where all of the values are nan's)
-                if this_tab[0][0].size != 0:
-                    this_tab[1] = this_tab[1] * cell_area(lat, lat + pixel_height, long_width)
-                    if tab == None:
-                        tab = this_tab
+                if this_trans_xtab[0][0].size != 0:
+                    this_trans_xtab[1] = this_trans_xtab[1] * cell_area
+                    if trans_xtab == None:
+                        trans_xtab = this_trans_xtab
                     else:
-                        tab = merge_xtabs(tab, this_tab)
+                        trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
+
+                #################################
+                # Calculate base and target areas
+                area_table_base = calc_area_table(band_base.ReadAsArray(x, y, cols, rows),
+                                                  area_table_base, cell_area)
+                area_table_target = calc_area_table(band_target.ReadAsArray(x, y, cols, rows),
+                                                    area_table_target, cell_area)
 
                 blocks += 1
             lat += pixel_height
         self.progress.emit(100)
-        self.ds_1 = None
-        self.ds_2 = None
+        self.ds = None
+
+        # Convert all tables from meters into square kilometers
+        area_table_base[1] = area_table_base[1] * 1e-6
+        area_table_target[1] = area_table_target[1] * 1e-6
+        trans_xtab[1] = trans_xtab[1] * 1e-6
 
         if self.killed:
             return None
         else:
-            return tab
+            return list((area_table_base, area_table_target, trans_xtab))
 
 
 # Returns value from crosstab table for particular deg/lc class combination
-def get_area(table, deg_class=None, lc_class=None):
+def get_xtab_area(table, deg_class=None, lc_class=None):
     deg_ind = np.where(table[0][0] == deg_class)[0]
     lc_ind = np.where(table[0][1] == lc_class)[0]
     if deg_ind.size != 0 and lc_ind.size != 0:
@@ -461,7 +517,7 @@ class ClipWorker(AbstractWorker):
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=mask_layer_file, cropToCutline=True,
-                        dstNodata=9999, dstSRS="epsg:{}".format(self.dstSRS),
+                        dstNodata=-9999, dstSRS="epsg:{}".format(self.dstSRS),
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
@@ -752,10 +808,15 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         ######################################################################
         # Make a vrt with the lc transition layer and deg layer
         lc_trans_file = re.sub('land_deg', 'lc_change', layer_lc.dataProvider().dataSourceUri())
+        lc_base_file = re.sub('land_deg', 'lc_baseline', layer_lc.dataProvider().dataSourceUri())
+        lc_target_file = re.sub('land_deg', 'lc_target', layer_lc.dataProvider().dataSourceUri())
         deg_lc_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc VRT to: {}'.format(deg_lc_f))
         gdal.BuildVRT(deg_lc_f, 
-                      [deg_out_file, lc_trans_file],
+                      [deg_out_file,
+                       lc_trans_file,
+                       lc_base_file,
+                       lc_target_file],
                       outputBounds=outputBounds,
                       resolution='highest',
                       resampleAlg=resampleAlg,
@@ -763,7 +824,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # Clip and mask the lc/deg layer before calculating crosstab
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
-        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layer',
+        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
                                          deg_lc_f, 
                                          lc_clip_tempfile, self.aoi)
         if not deg_lc_clip_worker.success:
@@ -771,91 +832,281 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                        self.tr("Error clipping land cover layer for area calculation."), None)
             return
 
-
-        log('Calculating areas and crosstabs...')
-        tab_worker = StartWorker(CrosstabWorker, 'calculating areas', lc_clip_tempfile)
-        if not tab_worker.success:
+        log('Calculating land cover crosstabulation...')
+        area_worker = StartWorker(AreaWorker, 'calculating areas', lc_clip_tempfile)
+        if not area_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)
             return
         else:
-            table = tab_worker.get_return()
-        # Convert areas from sq meters to sq km
-        table[1] = table[1] * 1e-6
+            base_areas, target_areas, trans_lpd_xtab = area_worker.get_return()
 
         # TODO: Make sure no data, water areas, and urban areas are symmetric 
         # across LD layer and lc layer
-        self.deg = {"Area Degraded": get_area(table, -1, None),
-                    "Area Stable": get_area(table, 0, None),
-                    "Area Improved": get_area(table, 1, None),
-                    "No Data": get_area(table, 9999, None),
-                    "Water Area": get_area(table, 2, None),
-                    "Urban Area": get_area(table, 3, None)}
+        self.deg = {"Area Degraded": get_xtab_area(trans_lpd_xtab, -1, None),
+                    "Area Stable": get_xtab_area(trans_lpd_xtab, 0, None),
+                    "Area Improved": get_xtab_area(trans_lpd_xtab, 1, None),
+                    "No Data": get_xtab_area(trans_lpd_xtab, 9999, None)}
         log('SDG 15.3.1 indicator: {}'.format(self.deg))
-        log('SDG 15.3.1 indicator total area: {}'.format(get_area(table) - get_area(table, 9999, None)))
+        log('SDG 15.3.1 indicator total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
 
         style_sdg_ld(deg_out_file)
 
-        make_reporting_table(table,
-                os.path.join(self.output_folder.text(), 'reporting_table.csv'))
+        make_reporting_table(base_areas, target_areas, trans_lpd_xtab,
+                os.path.join(self.output_folder.text(), 'reporting_table.xlsx'))
 
         # Plot the output
-        x = []
-        y = []
-        if self.plot_area_deg.isChecked():
-            x.append('Area Degraded')
-            y.append(self.deg['Area Degraded'])
-        if self.plot_area_stable.isChecked():
-            x.append('Area Stable')
-            y.append(self.deg['Area Stable'])
-        if self.plot_area_imp.isChecked():
-            x.append('Area Improved')
-            y.append(self.deg['Area Improved'])
-        if self.plot_area_water.isChecked():
-            x.append('Water Area')
-            y.append(self.deg['Water Area'])
-        if self.plot_area_urban.isChecked():
-            x.append('Urban Area')
-            y.append(self.deg['Urban Area'])
-        if self.plot_area_nodata.isChecked():
-            x.append('No Data')
-            y.append(self.deg['No Data'])
+        x = ['Area Degraded', 'Area Stable', 'Area Improved', 'No Data']
+        y = [self.deg['Area Degraded'], self.deg['Area Stable'], self.deg['Area Improved'], self.deg['No Data']]
 
         dlg_plot = DlgPlotBars()
         labels = {'title': self.plot_title.text(),
                   'bottom': 'Land cover',
-                  'left': ['Area', 'km^2']}
+                  'left': ['Area', 'km<sup>2</sup>']}
         dlg_plot.plot_data(x, y, labels)
         dlg_plot.show()
         dlg_plot.exec_()
 
 
-def get_report_row(table, name, transition):
-    return [name,
-            get_area(table, -1, transition),
-            get_area(table, 0, transition),
-            get_area(table, 1, transition)]
+def get_lc_area(table, code):
+    ind = np.where(table[0] == code)[0]
+    if ind.size == 0:
+        return 0
+    else:
+        return float(table[1][ind])
 
 
-def make_reporting_table(table, out_file):
-    rows = []
-    rows.append(['', 'Net land productivity dynamics trend (sq km)'])
-    rows.append(['Changing Land Use/Cover Category', 'Decline', 'Stable', 'Increase'])
-    rows.append(['Bare lands >> Artificial areas', np.nan, np.nan, np.nan])
-    rows.append(get_report_row(table, 'Cropland >> Artificial areas', 15))
-    rows.append(get_report_row(table, 'Forest >> Artificial areas', 25))
-    rows.append(['Forest >> Bare lands', np.nan, np.nan, np.nan])
-    rows.append(get_report_row(table, 'Forest >> Cropland', 21))
-    rows.append(get_report_row(table, 'Forest >> Grasslands', 23))
-    rows.append(get_report_row(table, 'Grasslands >> Artificial areas', 35))
-    rows.append(get_report_row(table, 'Grasslands >> Cropland', 31))
-    rows.append(get_report_row(table, 'Grasslands >> Forest', 32))
-    rows.append(get_report_row(table, 'Wetlands >> Artificial areas', 45))
-    rows.append(get_report_row(table, 'Wetlands >> Cropland', 41))
-    with open(out_file, 'wb') as fh:
-        writer = csv.writer(fh, delimiter=',')
-        for row in rows:
-            writer.writerow(row)
+def get_lpd_row(table, transition):
+    return [get_xtab_area(table, -1, transition),
+            get_xtab_area(table, 0, transition),
+            get_xtab_area(table, 1, transition)]
+
+
+def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
+    workbook = xlsxwriter.Workbook(out_file, {'nan_inf_to_errors': True})
+    worksheet = workbook.add_worksheet()
+
+    ########
+    # Formats
+    
+    title_format = workbook.add_format({'bold': 1,
+                                        'font_size': 18,
+                                        'font_color': '#2F75B5'})
+    subtitle_format = workbook.add_format({'bold': 1,
+                                           'font_size': 16})
+    header_format = workbook.add_format({'bold': 1,
+                                         'border': 1,
+                                         'align': 'center',
+                                         'valign': 'vcenter',
+                                         'fg_color': 'F2F2F2',
+                                         'text_wrap': 1})
+    total_header_format = workbook.add_format({'bold': 1, 'align': 'right'})
+    total_number_format = workbook.add_format({'bold': 1, 'align': 'right', 'num_format': '0.0'})
+    total_percent_format = workbook.add_format({'bold': 1, 'align': 'right', 'num_format': '0.0%'})
+    num_format = workbook.add_format({'num_format': '0.0'})
+    num_format_rb = workbook.add_format({'num_format': '0.0', 'right': 1})
+    num_format_bb = workbook.add_format({'num_format': '0.0', 'bottom': 1})
+    num_format_bb_rb = workbook.add_format({'num_format': '0.0', 'bottom': 1, 'right': 1})
+
+    ########
+    # Header
+    worksheet.write('A1', "LDN Target Setting Programme", title_format)
+    worksheet.write('A2',"Table 1 - Presentation of national basic data using the LDN indicators framework", subtitle_format)
+
+    ##########
+    # LC Table
+    worksheet.merge_range('A4:A5', 'Land Use/Cover Category', header_format)
+    worksheet.merge_range('E4:H4', 'Net land productivity dynamics** (sq km)',
+                          header_format)
+    worksheet.write_row('B4', ['Area (2000)', 'Area (2015)',
+                               'Net area change (2000-2015)'], header_format)
+    worksheet.write_row('B5', ['sq km*', 'sq km', 'sq km', 'Declining',
+                               'Stable', 'Increasing', 'No Data***', 'ton/ha'],
+                               header_format)
+    worksheet.write('I4', 'Soil organic carbon (2000)**', header_format)
+
+    worksheet.write_row('A6', ['Forest', get_lc_area(base_areas, 2), get_lc_area(target_areas, 2)], num_format)
+    worksheet.write_row('A7', ['Grasslands', get_lc_area(base_areas, 3), get_lc_area(target_areas, 3)], num_format)
+    worksheet.write_row('A8', ['Croplands', get_lc_area(base_areas, 1), get_lc_area(target_areas, 1)], num_format)
+    worksheet.write_row('A9', ['Wetlands', get_lc_area(base_areas, 4), get_lc_area(target_areas, 4)], num_format)
+    worksheet.write_row('A10', ['Artificial areas', get_lc_area(base_areas, 5), get_lc_area(target_areas, 5)], num_format)
+    worksheet.write_row('A11', ['Bare lands', get_lc_area(base_areas, 7), get_lc_area(target_areas, 7)], num_format)
+    worksheet.write_row('A12', ['Water bodies', get_lc_area(base_areas, 9997), get_lc_area(target_areas, 9997)], num_format_bb)
+    worksheet.write('D6', '=B6-C6', num_format)
+    worksheet.write('D7', '=B7-C7', num_format)
+    worksheet.write('D8', '=B8-C8', num_format)
+    worksheet.write('D9', '=B9-C9', num_format)
+    worksheet.write('D10', '=B10-C10', num_format)
+    worksheet.write('D11', '=B11-C11', num_format)
+    worksheet.write('D12', '=B12-C12', num_format_bb)
+    worksheet.write_row('E6', get_lpd_row(trans_lpd_xtab, 22), num_format)
+    worksheet.write_row('E7', get_lpd_row(trans_lpd_xtab, 33), num_format)
+    worksheet.write_row('E8', get_lpd_row(trans_lpd_xtab, 11), num_format)
+    worksheet.write_row('E9', get_lpd_row(trans_lpd_xtab, 44), num_format)
+    worksheet.write_row('E10', get_lpd_row(trans_lpd_xtab, 55), num_format)
+    worksheet.write_row('E11', get_lpd_row(trans_lpd_xtab, 77), num_format)
+    worksheet.write_row('E12', ['', '', ''], num_format_bb)
+    worksheet.write('H6', '=B6-SUM(E6:G6)', num_format)
+    worksheet.write('H7', '=B7-SUM(E7:G7)', num_format)
+    worksheet.write('H8', '=B8-SUM(E8:G8)', num_format)
+    worksheet.write('H9', '=B9-SUM(E9:G9)', num_format)
+    worksheet.write('H10', '=B10-SUM(E10:G10)', num_format)
+    worksheet.write('H11', '=B11-SUM(E11:G11)', num_format)
+    worksheet.write('H12', '', num_format_bb)
+
+    worksheet.write('A13', 'SOC average (ton/ha)', total_header_format)
+    worksheet.write('A14', 'Percent of total land area', total_header_format)
+    worksheet.write('A15', 'Total (sq km)*****', total_header_format)
+    worksheet.write('A15', 'Total (sq km)*****', total_header_format)
+
+    worksheet.write('B15', '=SUM(B6:B12)', total_number_format)
+    worksheet.write('C15', '=SUM(C6:C12)', total_number_format)
+    worksheet.write('D15', '=SUM(D6:D12)', total_number_format)
+    worksheet.write('E15', '=SUM(E6:E12)', total_number_format)
+    worksheet.write('F15', '=SUM(F6:F12)', total_number_format)
+    worksheet.write('G15', '=SUM(G6:G12)', total_number_format)
+    worksheet.write('H15', '=SUM(H6:H12)', total_number_format)
+
+    worksheet.write('I13', '=(B6*I6 + B7*I7 + B8*I8 + B9*I9 + B10*I10 + B11*I11 + B12*I12) / B15', total_percent_format)
+    worksheet.write('E14', '=E15/C15', total_percent_format)
+    worksheet.write('F14', '=F15/C15', total_percent_format)
+    worksheet.write('G14', '=G15/C15', total_percent_format)
+    worksheet.write('H14', '=H15/C15', total_percent_format)
+
+    ###########
+    # LPD Table
+    worksheet.merge_range('A18:A19', 'Changing Land Use/Cover Category', header_format)
+    worksheet.merge_range('B18:E18', 'Net land productivity dynamics trend (sq km)', header_format)
+    worksheet.write_row('B19', ['Declining', 'Stable', 'Increasing', 'Total^'], header_format)
+    worksheet.write_row('A20', ['Bare lands >> Artificial areas', np.nan, np.nan, np.nan], num_format)
+    worksheet.write_row('A21', ['Cropland >> Artificial areas'] + get_lpd_row(trans_lpd_xtab, 15), num_format)
+    worksheet.write_row('A22', ['Forest >> Artificial areas'] + get_lpd_row(trans_lpd_xtab, 25), num_format)
+    worksheet.write_row('A23', ['Forest >> Bare lands', np.nan, np.nan, np.nan], num_format)
+    worksheet.write_row('A24', ['Forest >> Cropland'] + get_lpd_row(trans_lpd_xtab, 21), num_format)
+    worksheet.write_row('A25', ['Forest >> Grasslands'] + get_lpd_row(trans_lpd_xtab, 23), num_format)
+    worksheet.write_row('A26', ['Grasslands >> Artificial areas'] + get_lpd_row(trans_lpd_xtab, 35), num_format)
+    worksheet.write_row('A27', ['Grasslands >> Cropland'] + get_lpd_row(trans_lpd_xtab, 31), num_format)
+    worksheet.write_row('A28', ['Grasslands >> Forest'] + get_lpd_row(trans_lpd_xtab, 32), num_format)
+    worksheet.write_row('A29', ['Wetlands >> Artificial areas'] + get_lpd_row(trans_lpd_xtab, 45), num_format)
+    worksheet.write_row('A30', ['Wetlands >> Cropland'] + get_lpd_row(trans_lpd_xtab, 41), num_format_bb)
+
+    worksheet.write('E20', '=sum(B20:D20)', num_format_rb)
+    worksheet.write('E21', '=sum(B21:D21)', num_format_rb)
+    worksheet.write('E22', '=sum(B22:D22)', num_format_rb)
+    worksheet.write('E23', '=sum(B23:D23)', num_format_rb)
+    worksheet.write('E24', '=sum(B24:D24)', num_format_rb)
+    worksheet.write('E25', '=sum(B25:D25)', num_format_rb)
+    worksheet.write('E26', '=sum(B26:D26)', num_format_rb)
+    worksheet.write('E27', '=sum(B27:D27)', num_format_rb)
+    worksheet.write('E28', '=sum(B28:D28)', num_format_rb)
+    worksheet.write('E29', '=sum(B29:D29)', num_format_rb)
+    worksheet.write('E30', '=sum(B30:D30)', num_format_bb_rb)
+
+    ############
+    # SOC Table
+    worksheet.merge_range('A33:A34', 'Changing Land Use/Cover Category', header_format)
+    worksheet.merge_range('C33:G33', 'Soil organic carbon 0 - 30 cm (2000-2015)', header_format)
+    worksheet.write('B33', 'Net area change^ (2000-2015)', header_format)
+    worksheet.write_row('B34', ['sq km', '2000 ton/ha', '2015 ton/ha',
+                                '2000 total (ton)', '2015 total (ton)****',
+                                '2000-2015 loss (ton)'], header_format)
+    # The "None" values below are used to return total areas across all classes 
+    # of degradation - this is just using the trans_lpd_xtab table as a 
+    # shortcut to get the areas of each transition class.
+    worksheet.write_row('A35', ['Bare lands >> Artificial areas', np.nan], num_format)
+    worksheet.write_row('A36', ['Cropland >> Artificial areas', get_xtab_area(trans_lpd_xtab, None, 15)], num_format)
+    worksheet.write_row('A37', ['Forest >> Artificial areas', get_xtab_area(trans_lpd_xtab, None, 25)], num_format)
+    worksheet.write_row('A38', ['Forest >> Bare lands', np.nan], num_format)
+    worksheet.write_row('A39', ['Forest >> Cropland', get_xtab_area(trans_lpd_xtab, None, 21)], num_format)
+    worksheet.write_row('A40', ['Forest >> Grasslands', get_xtab_area(trans_lpd_xtab, None, 23)], num_format)
+    worksheet.write_row('A41', ['Grasslands >> Artificial areas', get_xtab_area(trans_lpd_xtab, None, 35)], num_format)
+    worksheet.write_row('A42', ['Grasslands >> Cropland', get_xtab_area(trans_lpd_xtab, None, 31)], num_format)
+    worksheet.write_row('A43', ['Grasslands >> Forest', get_xtab_area(trans_lpd_xtab, None, 32)], num_format)
+    worksheet.write_row('A44', ['Wetlands >> Artificial areas', get_xtab_area(trans_lpd_xtab, None, 45)], num_format)
+    worksheet.write_row('A45', ['Wetlands >> Cropland', get_xtab_area(trans_lpd_xtab, None, 41)], num_format_bb)
+    worksheet.write('A46', 'Total', total_header_format)
+    worksheet.write('A47', 'Percent change total SOC stock (country)', total_header_format)
+
+    worksheet.write('D35', '=C35', num_format)
+    worksheet.write('D36', '=C36-((((C36-(0.1*C36))/20)*7.5))', num_format)
+    worksheet.write('D37', '=C37-((((C37-(0.1*C37))/20)*7.5))', num_format)
+    worksheet.write('D38', '=C38-((((C38-(0.1*C38))/20)*7.5))', num_format)
+    worksheet.write('D39', '=C39-((((C39-(0.57*C39))/20)*7.5)+(((C39-(0.91*C39))/20)*7.5))', num_format)
+    worksheet.write('D40', '=C40', num_format)
+    worksheet.write('D41', '=C41-((((C41-(0.1*C41))/20)*7.5))', num_format)
+    worksheet.write('D42', '=C42-((((C42-(0.57*C42))/20)*7.5)+(((C42-(0.91*C42))/20)*7.5))', num_format)
+    worksheet.write('D43', '=C43', num_format)
+    worksheet.write('D44', '=C44-((((C44-(0.1*C44))/20)*7.5))', num_format)
+    worksheet.write('D45', '=C45-((((C45-(0.1*C45))/20)*7.5))', num_format_bb)
+
+    worksheet.write('E35', '=B35*100*C35', num_format)
+    worksheet.write('E36', '=B36*100*C36', num_format)
+    worksheet.write('E37', '=B37*100*C37', num_format)
+    worksheet.write('E38', '=B38*100*C38', num_format)
+    worksheet.write('E39', '=B39*100*C39', num_format)
+    worksheet.write('E40', '=B40*100*C40', num_format)
+    worksheet.write('E41', '=B41*100*C41', num_format)
+    worksheet.write('E42', '=B42*100*C42', num_format)
+    worksheet.write('E43', '=B43*100*C43', num_format)
+    worksheet.write('E44', '=B44*100*C44', num_format)
+    worksheet.write('E45', '=B45*100*C45', num_format_bb)
+
+    worksheet.write('F35', '=B35*100*D35', num_format)
+    worksheet.write('F36', '=B36*100*D36', num_format)
+    worksheet.write('F37', '=B37*100*D37', num_format)
+    worksheet.write('F38', '=B38*100*D38', num_format)
+    worksheet.write('F39', '=B39*100*D39', num_format)
+    worksheet.write('F40', '=B40*100*D40', num_format)
+    worksheet.write('F41', '=B41*100*D41', num_format)
+    worksheet.write('F42', '=B42*100*D42', num_format)
+    worksheet.write('F43', '=B43*100*D43', num_format)
+    worksheet.write('F44', '=B44*100*D44', num_format)
+    worksheet.write('F45', '=B45*100*D45', num_format_bb)
+
+    worksheet.write('G35', '=F35-E35', num_format_rb)
+    worksheet.write('G36', '=F36-E36', num_format_rb)
+    worksheet.write('G37', '=F37-E37', num_format_rb)
+    worksheet.write('G38', '=F38-E38', num_format_rb)
+    worksheet.write('G39', '=F39-E39', num_format_rb)
+    worksheet.write('G40', '=F40-E40', num_format_rb)
+    worksheet.write('G41', '=F41-E41', num_format_rb)
+    worksheet.write('G42', '=F42-E42', num_format_rb)
+    worksheet.write('G43', '=F43-E43', num_format_rb)
+    worksheet.write('G44', '=F44-E44', num_format_rb)
+    worksheet.write('G45', '=F45-E45', num_format_bb_rb)
+
+    worksheet.write('B46', '=SUM(B35:B45)', total_number_format)
+    worksheet.write('E46', '=SUM(E35:E45)', total_number_format)
+    worksheet.write('F46', '=SUM(F35:F45)', total_number_format)
+    worksheet.write('G46', '=SUM(G35:G45)', total_number_format)
+    worksheet.write('G47', '=G46/(I13*B15*100)', total_percent_format)
+
+
+    ################################
+    # Set col widths and row heights
+    worksheet.set_column('A:A', 40)
+    worksheet.set_column('B:I', 17)
+    worksheet.set_row(3, 72)
+    worksheet.set_row(4, 30)
+    worksheet.set_row(17, 72)
+    worksheet.set_row(18, 30)
+    worksheet.set_row(32, 72)
+    worksheet.set_row(33, 30)
+
+    try:
+        workbook.close()
+        log('Indicator table saved to {}'.format(out_file))
+        QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
+                               QtGui.QApplication.translate("LDMP", "Indicator table saved to {}.".format(out_file)), None)
+    except IOError:
+        log('Error saving {}'.format(out_file))
+        QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
+                                   QtGui.QApplication.translate("LDMP", "Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+
+    # with open(out_file, 'wb') as fh:
+    #     writer = csv.writer(fh, delimiter=',')
+    #     for row in rows:
+    #         writer.writerow(row)
 
 
 class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):

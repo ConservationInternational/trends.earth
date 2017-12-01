@@ -1,17 +1,19 @@
-# Land Degradation Monitoring Toolbox (LDMT)
+# trends.earth 
 
-`ldmp-qgis-plugin` is the github repository for the Land Degradation Monitoring
-Toolbox (LDMT). The LDMT is a [Quantum GIS (QGIS)](http://www.qgis.org) plugin 
-that can be used to support monitoring of land degradation for reporting to the 
-GEF and UNCCD, and for tracking progress towards achivement of Sustainable 
-Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
+`trends.earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for 
+monitoring land change. `trends.earth` a [QGIS](http://www.qgis.org) plugin 
+that can be used to support monitoring of land change including changes in 
+productivity, land cover, and soil organic carbon. The tool can to support 
+monitoring land degradation for reporting to the Global Environment Facility 
+(GEF) and United Nations Convention to Combat Desertification (UNCCD), as well 
+as tracking progress towards achivement of Sustainable Development Goal (SDG) 
+target 15.3, Land Degradation Neutrality (LDN).
 
-This toolbox was produced as an output of the Global Environment Facility
-(GEF)-funded project [“Enabling the use of global data sources to assess and
-monitor land degradation at multiple scales”](http://vitalsigns.org/gef-ldmp). 
-The project aims to provide guidance on robust methods and a toolbox for 
-assessing, monitoring status, and estimating trends in land degradation using 
-remote sensing technology.
+This toolbox was produced as an output of the GEF-funded project [“Enabling the 
+use of global data sources to assess and monitor land degradation at multiple 
+scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide guidance 
+on robust methods and a toolbox for assessing, monitoring status, and 
+estimating trends in land degradation using remote sensing technology.
 
 The Land Degradation Monitoring Project is a collaboration of Conservation
 International, the National Aeronautics and Space Administration (NASA), and
@@ -70,7 +72,7 @@ Open a terminal window and clone the latest version of the repository from
 Github:
 
 ```
-git clone https://github.com/ConservationInternational/ldmp-qgis-plugin
+git clone https://github.com/ConservationInternational/earth.trends
 ```
 
 Navigate to the root folder of the newly cloned repository, and install 
@@ -101,5 +103,5 @@ making a log of changes (https://github.com/borysiasty/plugin_reloader).
 
 ## License
 
-The `ldmp-qgis-plugin` is free and open-source. It is licensed under the GNU 
-General Public License, version 2.0 or later.
+`earth.trends` is free and open-source. It is licensed under the GNU General 
+Public License, version 2.0 or later.

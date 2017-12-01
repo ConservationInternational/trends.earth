@@ -28,11 +28,7 @@ options(
         excludes = [
             'LDMP/test',
             'LDMP/data_prep_scripts',
-            'LDMP/help/make.bat',
-            'LDMP/help/source',
-            'LDMP/help/resources',
-            'LDMP/help/build/gettext',
-            'LDMP/help/i18n',
+            'LDMP/help',
             '*.pyc',
         ],
         # skip certain files inadvertently found by exclude pattern globbing

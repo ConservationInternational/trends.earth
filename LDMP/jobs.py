@@ -315,62 +315,43 @@ def download_land_cover(job, download_dir):
             if not resp:
                 return
             if dataset['dataset'] == 'lc_baseline':
-                style_land_cover_lc_baseline(outfile)
+                style_land_cover(outfile, 'Land cover (baseline)')
             elif dataset['dataset'] == 'lc_target':
-                style_land_cover_lc_target(outfile)
+                style_land_cover(outfile, 'Land cover (target)')
             elif dataset['dataset'] == 'lc_change':
-                style_land_cover_lc_change(outfile)
+                # TODO: Fix color coding of transition layer.
+                #style_land_cover_transition(outfile)
             elif dataset['dataset'] == 'land_deg':
                 style_land_cover_land_deg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 
-def style_land_cover_lc_baseline(outfile):
-    layer_lc_baseline = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (baseline)'))
-    if not layer_lc_baseline.isValid():
+def style_land_cover(outfile, title):
+    layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', title))
+    if not layer.isValid():
         log('Failed to add layer')
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#a50f15'), QtGui.QApplication.translate('LDMPPlugin', 'Cropland')),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor('#006d2c'), QtGui.QApplication.translate('LDMPPlugin', 'Forest land')),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor('#d8d800'), QtGui.QApplication.translate('LDMPPlugin', 'Grassland')),
-           QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#08519c'), QtGui.QApplication.translate('LDMPPlugin', 'Wetlands')),
-           QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), QtGui.QApplication.translate('LDMPPlugin', 'Settlements')),
-           QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#252525'), QtGui.QApplication.translate('LDMPPlugin', 'Other land'))]
+    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#006d2c'), QtGui.QApplication.translate('LDMPPlugin', 'Forest')),
+           QgsColorRampShader.ColorRampItem(2, QtGui.QColor('#d8d800'), QtGui.QApplication.translate('LDMPPlugin', 'Grassland')),
+           QgsColorRampShader.ColorRampItem(3, QtGui.QColor('#a50f15'), QtGui.QApplication.translate('LDMPPlugin', 'Cropland')),
+           QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#71DEFD'), QtGui.QApplication.translate('LDMPPlugin', 'Wetland')),
+           QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), QtGui.QApplication.translate('LDMPPlugin', 'Artificial area')),
+           QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#DEB887'), QtGui.QApplication.translate('LDMPPlugin', 'Bare land')),
+           QgsColorRampShader.ColorRampItem(7, QtGui.QColor('#08519c'), QtGui.QApplication.translate('LDMPPlugin', 'Water body')),
+           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_baseline.dataProvider(), 1, shader)
-    layer_lc_baseline.setRenderer(pseudoRenderer)
-    layer_lc_baseline.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_lc_baseline)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+    layer.setRenderer(pseudoRenderer)
+    layer.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(layer)
 
 
-def style_land_cover_lc_target(outfile):
-    layer_lc_target = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (target)'))
-    if not layer_lc_target.isValid():
-        log('Failed to add layer')
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#a50f15'), QtGui.QApplication.translate('LDMPPlugin', 'Cropland')),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor('#006d2c'), QtGui.QApplication.translate('LDMPPlugin', 'Forest land')),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor('#d8d800'), QtGui.QApplication.translate('LDMPPlugin', 'Grassland')),
-           QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#08519c'), QtGui.QApplication.translate('LDMPPlugin', 'Wetlands')),
-           QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), QtGui.QApplication.translate('LDMPPlugin', 'Settlements')),
-           QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#252525'), QtGui.QApplication.translate('LDMPPlugin', 'Other land'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_target.dataProvider(), 1, shader)
-    layer_lc_target.setRenderer(pseudoRenderer)
-    layer_lc_target.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_lc_target)
-
-
-def style_land_cover_lc_change(outfile):
+def style_land_cover_transition(outfile):
     layer_lc_change = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover change'))
     if not layer_lc_change.isValid():
         log('Failed to add layer')
@@ -433,7 +414,8 @@ def style_land_cover_land_deg(outfile):
     #TODO The GPG doesn't seem to allow for possibility of improvement...?
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement'))]
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
+           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -471,7 +453,7 @@ def style_prod_traj_trend(outfile):
     # three figures (after a 2 percent stretch)
     ds = gdal.Open(outfile)
     band1 = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
-    band1[band1 >= 9997] = np.nan
+    band1[band1 <= -9999] = np.nan
     ds = None
     cutoffs = np.nanpercentile(band1, [2, 98])
     log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
@@ -482,9 +464,7 @@ def style_prod_traj_trend(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', '-{} (declining)').format(extreme)),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0 (stable)')),
            QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{} (increasing)').format(extreme)),
-           QgsColorRampShader.ColorRampItem(9997, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
-           QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
+           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -505,8 +485,7 @@ def style_prod_traj_signif(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'No significant change')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase')),
-           QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
+           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -525,38 +504,15 @@ def download_prod_state(job, download_dir):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-            if dataset['dataset'] == 'ini_degr':
-                style_prod_state_init(outfile)
-            elif dataset['dataset'] == 'eme_degr':
-                style_prod_state_emerg(outfile)
+            if dataset['dataset'] == 'deg':
+                style_prod_state(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 
-def style_prod_state_init(outfile):
+def style_prod_state(outfile):
     # Significance layer
-    layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity state (initial)'))
-    if not layer.isValid():
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Potentially degraded')),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
-           QgsColorRampShader.ColorRampItem(9997, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
-           QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
-    layer.setRenderer(pseudoRenderer)
-    layer.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer)
-
-
-def style_prod_state_emerg(outfile):
-    # Significance layer
-    layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity state (emerging)'))
+    layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity state'))
     if not layer.isValid():
         return None
     fcn = QgsColorRampShader()
@@ -564,9 +520,7 @@ def style_prod_state_emerg(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'No significant change')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase')),
-           QgsColorRampShader.ColorRampItem(9997, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
-           QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
+           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -602,8 +556,7 @@ def style_prod_perf(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(9998, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
+           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)

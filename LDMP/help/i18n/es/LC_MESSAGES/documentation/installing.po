@@ -44,7 +44,7 @@ msgstr ""
 "La forma preferida de instalar la caja de herramientas es a través de QGIS. "
 "Para instalar desde dentro de QGIS, primero inicie QGIS, y luego vaya a "
 "`Complementos` en la barra de menú en la parte superior del programa y "
-"seleccione` Administrar e instalar complementos`."
+"seleccione `Administrar e instalar complementos`."
 
 #: ../../source/documentation/installing.rst:16
 msgid ""
@@ -52,7 +52,7 @@ msgid ""
 "select `Install plugin` at the bottom right of the screen."
 msgstr ""
 "Luego busque un complemento llamado `Herramienta de monitoreo de la "
-"degradación de la tierra` y seleccione` Instalar complemento` en la parte "
+"degradación de la tierra` y seleccione `Instalar complemento` en la parte "
 "inferior derecha de la pantalla."
 
 #: ../../source/documentation/installing.rst:22
@@ -77,4 +77,4 @@ msgstr ""
 "Hay dos formas de instalar la versión de desarrollo del complemento. Para "
 "obtener más información, consulte el `README "
 "<https://github.com/ConservationInternational/ldmp-qgis-plugin#development-"
-"version>` _ para Land Depraction Monitoring Toolbox."
+"version>` _ para Land Degradation Monitoring Toolbox."

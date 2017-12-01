@@ -35,6 +35,11 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     ndvi_avg = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_start, year_end + 1)])) \
             .reduce(ee.Reducer.mean()).rename(['ndvi']).clip(geojson)
 
+    # Handle case of year_start that isn't included in the CCI data
+    if year_start > 2015:
+        year_start = 2015
+    elif year_start < 1992:
+        year_start = 1992
     lc_start_year = lc.select('y{}'.format(year_start))
 
     # create a binary mask.
@@ -76,17 +81,10 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     obs_ratio_2 = obs_ratio.reduceResolution(reducer=ee.Reducer.mean(), maxPixels=2000) \
             .reproject(crs=ndvi_1yr.projection())
 
-    # select lc for final map and resample to ndvi data resolution (using original esa cci classes, not ipcc)
-    lc_proj_esa = lc.select('y{}'.format(year_start)) \
-            .reduceResolution(reducer=ee.Reducer.mode(), maxPixels=2000) \
-            .reproject(crs=ndvi_1yr.projection())
-
     # create final degradation output layer (9997 is background), 0 is not 
     # degreaded, -1 is degraded, 9998 is water, and 9999 is urban
     lp_perf_deg = ee.Image(9997).where(obs_ratio_2.gte(0.5), 0) \
-            .where(obs_ratio_2.lte(0.5), -1) \
-            .where(lc_proj_esa.eq(210), 9998) \
-            .where(lc_proj_esa.eq(190), 9999)
+            .where(obs_ratio_2.lte(0.5), -1)
 
     task = util.export_to_cloudstorage(lp_perf_deg.int16(), 
             ndvi_1yr.projection(), geojson, 'productivity_performance', logger, 

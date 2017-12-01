@@ -2,12 +2,12 @@
 
 `trends.earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for 
 monitoring land change. `trends.earth` is a [QGIS](http://www.qgis.org) plugin 
-that can be used to support monitoring of land change including changes in 
-productivity, land cover, and soil organic carbon. The tool can support 
-monitoring land degradation for reporting to the Global Environment Facility 
-(GEF) and United Nations Convention to Combat Desertification (UNCCD), as well 
-as tracking progress towards achivement of Sustainable Development Goal (SDG) 
-target 15.3, Land Degradation Neutrality (LDN).
+that supports monitoring of land change, including changes in productivity, 
+land cover, and soil organic carbon. The tool can support monitoring land 
+degradation for reporting to the Global Environment Facility (GEF) and United 
+Nations Convention to Combat Desertification (UNCCD), as well as tracking 
+progress towards achivement of Sustainable Development Goal (SDG) target 15.3, 
+Land Degradation Neutrality (LDN).
 
 This toolbox was produced as an output of the GEF-funded project [“Enabling the 
 use of global data sources to assess and monitor land degradation at multiple 

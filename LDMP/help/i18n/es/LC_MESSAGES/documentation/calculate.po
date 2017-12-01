@@ -25,7 +25,7 @@ msgstr "Calcular indicadores"
 #: ../../source/documentation/calculate.rst:3
 msgid ""
 "To select the methods and datasets to calculate the indicators that measured"
-" changes in primary productivity, select the calcuator icon (|iconCalculator|). "
+" changes in primary productivity, select the globe icon (|iconCalculator|). "
 "This will open up the `Calculate Indicator` dialog box:"
 msgstr ""
 "Para seleccionar los métodos y conjuntos de datos para calcular los "

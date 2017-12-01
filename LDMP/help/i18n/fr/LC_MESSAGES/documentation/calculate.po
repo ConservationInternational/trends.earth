@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Pour sélectionner les méthodes et les ensembles de données pour calculer les"
 " indicateurs mesurant les changements dans la productivité primaire, "
-"sélectionnez l'icône de globe. Cela ouvrira la boîte de dialogue `Calcul des"
-" indicateurs`:"
+"sélectionnez l'icône de calculatrice (|iconCalculator|). Cela ouvrira la "
+"boîte de dialogue `Calcul des indicateurs`:"
 
 #: ../../source/documentation/calculate.rst:9
 #: ../../source/documentation/calculate.rst:26
@@ -61,17 +61,19 @@ msgstr ""
 "parvenir à la neutralité en matière de dégradation des terres à l’horizon "
 "2030. Dans ce but, nous mesurons la productivité primaire, la couverture "
 "terrestre et le carbone du sol, afin d’évaluer le changement annuel de "
-"terres arables dégradées ou désertifiées (% en ha). Le bouton « Calculate "
-"indicators » fait apparaître une page pour calculer les jeux de données "
+"terres arables dégradées ou désertifiées (% en ha). Le bouton `Calculate "
+"indicators` fait apparaître une page pour calculer les jeux de données "
 "associés aux trois sous-indicateurs de la cible 15.3 de l’ODD. Pour la "
 "productivité et la couverture terrestre, l’outil applique les "
-"recommandations de niveau 1 des directives en matière de bonnes pratiques de"
-" CSIRO. Pour la productivité, les utilisateurs peuvent calculer la "
-"trajectoire, la performance et l’état. Pour la couverture terrestre, les "
-"utilisateurs peuvent calculer le changement de couverture terrestre par "
-"rapport à une période de référence, et compléter une matrice de transition "
-"qui montre les transitions indicatrices d’une dégradation, d’une stabilité "
-"ou d’une amélioration."
+"recommandations de niveau 1 des directives en matière de bonnes pratiques "
+"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" Pour la productivité, les utilisateurs peuvent calculer la trajectoire, la "
+"performance et l’état. Pour la couverture terrestre, les utilisateurs "
+"peuvent calculer le changement de couverture terrestre par rapport à une "
+"période de référence, et compléter une matrice de transition qui montre les "
+"transitions indicatrices d’une dégradation, d’une stabilité ou d’une "
+"amélioration."
 
 #: ../../source/documentation/calculate.rst:13
 msgid "Select which Indicator you would like to calculate"
@@ -102,7 +104,9 @@ msgid ""
 "9-2017)."
 msgstr ""
 "Carbone du sol: à l’étude, conformément aux directives en matière de bonnes "
-"pratiques (CSIRO, 9-2017)."
+"pratiques `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:25
 msgid "Productivity"
@@ -170,7 +174,9 @@ msgstr ""
 "La tendance initiale est indiquée par la pente d’une régression linéaire sur"
 " des mesures annuelles de productivité pour toute la période, évaluée à "
 "l’aide de la note Z de Mann-Kendall là où la dégradation a lieu, avec z= ≤ "
-"-1,96 (CSIRO, 2017)."
+"-1,96 `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:42
 msgid ""
@@ -183,7 +189,10 @@ msgstr ""
 "ajoutant les valeurs annuelles récentes de la PPN (mesurées dans l’outil "
 "comme une intégrale annuelle du NDVI) aux données de référence et en "
 "calculant la tendance et la signification sur toute la série de données et "
-"des 8 dernières années de données (CSIRO, 2017)."
+"des 8 dernières années de données `(UNCCD 2017) "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:44
 msgid ""
@@ -328,11 +337,14 @@ msgstr ""
 "agroécologiques mondiales et de couverture terrestre (300m d’ESA CCI). Les "
 "pixels avec une performance de la PPN dans les 50 % inférieurs de la "
 "distribution pour cette unité particulière peuvent indiquer une dégradation "
-"dans cette métrique (CSIRO, 2017)."
+"dans cette métrique `(UNCCD 2017) <http://www2.unccd.int/sites/default/files"
+"/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:81
 msgid "**Calculating Performance**"
-msgstr "** Calcul de la performance **"
+msgstr "**Calcul de la performance**"
 
 #: ../../source/documentation/calculate.rst:83
 msgid ""
@@ -357,7 +369,9 @@ msgstr ""
 "période de référence dans les pixels de la même unité de terre. Les pixels "
 "avec une performance de la PPN dans les 50 % inférieurs de la distribution "
 "pour cette unité particulière peuvent indiquer une dégradation dans cette "
-"métrique (CSIRO, 2017)."
+"métrique `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:90
 msgid ""
@@ -367,7 +381,10 @@ msgid ""
 msgstr ""
 "La performance contemporaine de la productivité pour chaque période de "
 "rapport doit être calculée à partir de la moyenne des années entre "
-"l’évaluation antérieure (ou référence) et l’année en cours (CSIRO, 2017)."
+"l’évaluation antérieure (ou référence) et l’année en cours `(UNCCD 2017) "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:93
 msgid "Productivity State"
@@ -399,7 +416,10 @@ msgid ""
 msgstr ""
 "La période de référence catégorise les mesures annuelles de la productivité "
 "pour déterminer la dégradation initiale. Les pixels dans les 50 % inférieurs"
-" peuvent indiquer une dégradation (CSIRO, 2017)."
+" peuvent indiquer une dégradation `(UNCCD 2017) "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:100
 msgid ""
@@ -416,11 +436,14 @@ msgstr ""
 "productivité calculées à partir de la période de référence. Les "
 "classifications de l’état de la PPN qui ont évolué de deux classes ou plus, "
 "entre la référence et la période de rapport, indiquent un changement majeur "
-"de l’état de la productivité (CSIRO, 2017)."
+"de l’état de la productivité `(UNCCD 2017) "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:102
 msgid "**Calculating State**"
-msgstr "** Calcul de l’état **"
+msgstr "**Calcul de l’état**"
 
 #: ../../source/documentation/calculate.rst:111
 msgid ""
@@ -438,11 +461,13 @@ msgstr ""
 "classifications d'état des centrales nucléaires qui ont été modifiées par "
 "deux ou plusieurs classes entre la période de référence et la période de "
 "déclaration indiquent un changement important de la productivité de l'État "
-"(CSIRO, 2017)."
+"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" "
 
 #: ../../source/documentation/calculate.rst:113
 msgid "**Productivity - Area of interest**"
-msgstr "** Productivité - Zone d'intérêt **"
+msgstr "**Productivité - Zone d'intérêt**"
 
 #: ../../source/documentation/calculate.rst:115
 #: ../../source/documentation/calculate.rst:207
@@ -532,7 +557,7 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:139
 msgid "**Calculating Land cover changes**"
-msgstr "** Calcul des changements de la couverture terrestre **"
+msgstr "**Calcul des changements de la couverture terrestre**"
 
 #: ../../source/documentation/calculate.rst:141
 msgid ""
@@ -619,7 +644,7 @@ msgid ""
 "major land cover change processes that are classified as degradation are:"
 msgstr ""
 "Par défaut, et conformément au document de directives en matière de "
-"meilleures pratiques de CSIRO, les principaux processus de changement de la "
+"meilleures pratiques de UNCCD, les principaux processus de changement de la "
 "couverture terrestre qui peuvent être considérés comme une dégradation sont "
 "les suivants:"
 
@@ -714,7 +739,7 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:205
 msgid "**Land cover - Area of interest**"
-msgstr "** Couverture terrestre - Zone d'intérêt **"
+msgstr "**Couverture terrestre - Zone d'intérêt**"
 
 #: ../../source/documentation/calculate.rst:209
 msgid ""

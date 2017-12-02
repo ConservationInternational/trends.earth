@@ -1,13 +1,13 @@
 FORMS = ../gui/DlgAbout.ui \ 
 ../gui/DlgCalculate.ui \
 ../gui/DlgCalculateLC.ui \
+../gui/DlgCalculateLCSetAggregation.ui \
 ../gui/DlgCalculateProd.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgReporting.ui \
-../gui/DlgReportingLC.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \
@@ -22,8 +22,8 @@ SOURCES = ../about.py \
 ../jobs.py \
 ../ldmp.py \
 ../plot.py \
-../timeseries.py \
 ../reporting.py \
+../timeseries.py \
 ../settings.py \
 ../timeseries.py \
 ../worker.py

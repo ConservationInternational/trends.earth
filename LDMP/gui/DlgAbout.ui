@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Land Degradation Monitoring Toolbox</string>
+   <string>About trends.earth</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="2">

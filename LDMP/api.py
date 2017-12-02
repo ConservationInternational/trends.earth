@@ -37,7 +37,7 @@ def get_user_email(warn=True):
     if warn and email is None:
         QtGui.QMessageBox.critical(None,
                                    QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Please register with the Land Degradation Monitoring Toolbox before using this function."))
+                                   QtGui.QApplication.translate("LDMP", "Please register with trends.earth before using this function."))
         return None
     else:
         return email

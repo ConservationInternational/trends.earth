@@ -21,7 +21,7 @@ options(
         gui_dir = path('LDMP/gui'),
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['LDMP_fr.ts'],
+        translations = ['LDMP_fr.ts', 'LDMP_es.ts'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('.'),
         tests = ['test'],

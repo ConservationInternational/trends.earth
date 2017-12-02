@@ -66,3 +66,9 @@ source_lang = en
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about.po
 source_file = LDMP/help/i18n/pot/about.pot
 source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.gui]
+file_filter = LDMP/i18n/LDMP_<lang>.ts
+source_file = LDMP/i18n/LDMP.ts
+source_lang = en
+type = QT

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/plugins/LDMP">
+    <file>trends_earth_logo_square.png</file>
     <file>icons/CI_logo.png</file>
     <file>icons/VS_logo.png</file>
     <file>icons/icon-calculator.png</file>

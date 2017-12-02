@@ -84,7 +84,6 @@ class LDMPPlugin:
         # Declare instance attributes
         self.actions = []
         self.menu = QApplication.translate('LDMP', u'&earth.trends')
-        # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'LDMP')
         self.toolbar.setObjectName(u'LDMP')
 

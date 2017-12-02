@@ -28,7 +28,7 @@ tags=land degradation, land degradation neutrality, soil carbon, productivity, l
 
 homepage=https://github.com/ConservationInternational/earth.trends
 category=Plugins
-icon=icon.png
+icon=trends_earth_logo_square.png
 # experimental flag
 experimental=False
 

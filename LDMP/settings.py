@@ -104,7 +104,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
                                        self.tr("Enter your password."), None)
             return
         reply = QtGui.QMessageBox.question(None, self.tr("Delete user?"),
-                                           self.tr("Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using the toolbox."),
+                                           self.tr("Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using earth.trends."),
                                            QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
         if reply == QtGui.QMessageBox.Yes:
             resp = delete_user(self.email.text)

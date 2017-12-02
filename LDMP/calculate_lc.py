@@ -101,11 +101,10 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.dlg_setup_classes.lc_def_saved.connect(self.lc_def_file_update)
         self.dlg_setup_classes.remap_matrix_changed.connect(self.remap_matrix_update)
 
-        # Setup the class table and run get_remap_matrix so that the 
+        # Setup the class table and run update_remap_matrix so that the 
         # remap_matrix is defined if a user uses the default and never accesses 
         # that dialog
         self.dlg_setup_classes.setup_class_table()
-        self.dlg_setup_classes.get_remap_matrix()
 
     def remap_matrix_update(self, remap_matrix):
         self.remap_matrix = remap_matrix
@@ -143,14 +142,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot read {}. Choose a different file.".format(f), None))
-        self.lc_def_custom_file.setText(f)
 
-    #TODO: Get the prevention of empty cells working
-    # def trans_matrix_text_changed(text):
-    #     if text not in ["-1", "0", "1"]:
-    #         QtGui.QMessageBox.critical(None, self.tr("Error"),
-    #                 self.tr("Enter -1 (degradation), 0 (stable), or 1 (improvement)."), None)
-    #     self.transMatrix.setCurrentItem(current)
+        ret = self.dlg_setup_classes.setup_class_table(f)
+
+        if ret:
+            self.lc_def_custom_file.setText(f)
+
 
     def btn_calculate(self):
         self.close()
@@ -249,7 +246,6 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.btn_save.clicked.connect(self.btn_save_pressed)
 
         self.setup_class_table()
-        self.get_remap_matrix()
 
     def btn_save_pressed(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -266,22 +262,19 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                                            self.tr("Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
-
             class_def = self.get_definition()
-
             with open(f, 'w') as outfile:
                 json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
 
+            self.update_remap_matrix()
 
-            remap_matrix = self.get_remap_matrix()
-            
             # Emit the filename so it can be used to update the filename field 
             # in the parent dialog
             self.lc_def_saved.emit(f)
 
             self.close()
 
-    def get_remap_matrix(self):
+    def update_remap_matrix(self):
         '''Returns a list describing how to aggregate the land cover data'''
         out = [[], []]
         for row in range(0, len(self.classes)):
@@ -298,7 +291,6 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             out[0].append(initial_code)
             out[1].append(final_code)
         self.remap_matrix_changed.emit(out)
-        return out
 
     def get_definition(self):
         '''Returns the chosen land cover definition as a dictionary'''
@@ -321,10 +313,29 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         out = sorted(out, key=lambda k: k['Initial_Code'])
         return out
 
-    def setup_class_table(self):
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'land_cover_classes.json')) as class_file:
-            self.classes = json.load(class_file)
+    def setup_class_table(self, f=None):
+        if not f:
+            f = os.path.join(os.path.dirname(os.path.realpath(__file__)), 
+                    'data', 'land_cover_classes.json')
+        with open(f) as class_file:
+            classes = json.load(class_file)
+        
+        if (not isinstance(classes, list)
+                or not len(classes) > 0
+                or not isinstance(classes[0], dict)
+                or not classes[0].has_key('Initial_Code')
+                or not classes[0].has_key('Initial_Label')
+                or not classes[0].has_key('Final_Code')
+                or not classes[0].has_key('Final_Label')):
+
+            QtGui.QMessageBox.critical(None,
+                                       QtGui.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
+                                       QtGui.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                    "{} does not appear to contain a valid class definition.".format(f)))
+            return None
+        else:
+            self.classes = classes
+
         table_model = LCAggTableModel(self.classes, self)
         proxy_model = QtGui.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
@@ -343,3 +354,8 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.lc_agg_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.lc_agg_view.setColumnWidth(0, 500)
         self.lc_agg_view.horizontalHeader().setStretchLastSection(True)
+
+        # Load and emit the new remap matrix
+        self.update_remap_matrix()
+
+        return True

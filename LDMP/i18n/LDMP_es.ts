@@ -336,6 +336,21 @@ p, li { white-space: pre-wrap; }
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../gui/DlgCalculateLCSetAggregation.ui" line="29"/>
+        <source>Setup aggregation of land cover data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLCSetAggregation.ui" line="66"/>
+        <source>Save definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLCSetAggregation.ui" line="79"/>
+        <source>Reset to default</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateProd</name>
@@ -712,7 +727,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="838"/>
+        <location filename="../reporting.py" line="828"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -747,72 +762,67 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="692"/>
-        <source>Choose at least one indicator to plot.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../reporting.py" line="704"/>
+        <location filename="../reporting.py" line="694"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="708"/>
+        <location filename="../reporting.py" line="698"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="714"/>
+        <location filename="../reporting.py" line="704"/>
         <source>Coordinate systems of trajectory layer and land cover layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="722"/>
+        <location filename="../reporting.py" line="712"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="726"/>
+        <location filename="../reporting.py" line="716"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="732"/>
+        <location filename="../reporting.py" line="722"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="736"/>
+        <location filename="../reporting.py" line="726"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="740"/>
+        <location filename="../reporting.py" line="730"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="744"/>
+        <location filename="../reporting.py" line="734"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="788"/>
+        <location filename="../reporting.py" line="778"/>
         <source>Error calculating degradation layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="804"/>
+        <location filename="../reporting.py" line="794"/>
         <source>Error clipping degradation layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="831"/>
+        <location filename="../reporting.py" line="821"/>
         <source>Error clipping land cover layer for area calculation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="838"/>
+        <location filename="../reporting.py" line="828"/>
         <source>Error calculating degraded areas.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1252,7 +1262,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="1103"/>
+        <location filename="../reporting.py" line="1093"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1432,7 +1442,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1099"/>
+        <location filename="../reporting.py" line="1089"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>

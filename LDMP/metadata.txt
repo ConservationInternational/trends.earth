@@ -10,7 +10,7 @@
 name=earth.trends
 qgisMinimumVersion=2.18
 description=This plugin supports monitoring of land change in support of the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG) and for reporting to the United Nations Convention to Combat Desertification (UNCCD)
-version=0.17
+version=0.18
 author=Conservation International
 email=GEF-LDMP@conservation.org
 

@@ -102,18 +102,13 @@ def setup(options):
 
 @task
 def translate(options):
-    pylupdate4 = check_path('pylupdate4')
-    if not pylupdate4:
-        print("pylupdate4 is not in your path---unable to gather strings for translation")
-    print("Gathering strings for translation using pylupdate4")
-    subprocess.check_call([pylupdate4, os.path.join(options.plugin.i18n_dir, 'i18n.pro')])
-
     lrelease = check_path('lrelease')
     if not lrelease:
         print("lrelease is not in your path---unable to release translation files")
     print("Releasing translations using lrelease")
     for translation in options.plugin.translations:
         subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, translation)])
+        subprocess.check_call(['tx', 'pull', '-s', '-l', translation])
 
 def read_requirements():
     """Return a list of runtime and list of test requirements"""
@@ -444,17 +439,23 @@ def update_transifex(options):
     print("Updating transifex...")
     sh("sphinx-intl update-txconfig-resources --pot-dir {docroot}/i18n/pot --transifex-project-name {transifex_name}".format(docroot=options.sphinx.docroot, transifex_name=options.sphinx.transifex_name))
 
+
 @task
-@cmdopts([
-    ('language=', 'l', 'language'),
-])
 def pretranslate(options):
     gettext(options)
-    if not options.get('language', False):
-        options.language = options.sphinx.language
     print("Generating the pot files for the LDMP toolbox help files.")
-    sh("sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}".format(sourcedir=options.sphinx.sourcedir,
-        docroot=options.sphinx.docroot, lang=options.language))
+    for translation in options.plugin.translations:
+        sh("sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}".format(sourcedir=options.sphinx.sourcedir,
+            docroot=options.sphinx.docroot, lang=translation))
+
+    pylupdate4 = check_path('pylupdate4')
+    if not pylupdate4:
+        print("pylupdate4 is not in your path---unable to gather strings for translation")
+    print("Gathering strings for translation using pylupdate4")
+    subprocess.check_call([pylupdate4, os.path.join(options.plugin.i18n_dir, 'i18n.pro')])
+
+    subprocess.check_call('tx push -s')
+
 
 @task
 @cmdopts([

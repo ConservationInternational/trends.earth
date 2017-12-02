@@ -98,12 +98,11 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.lc_def_custom_file_browse.clicked.connect(self.open_lc_def_file)
         self.lc_def_custom_create.clicked.connect(self.lc_def_create)
 
-        self.dlg_setup_classes.lc_def_saved.connect(self.lc_def_file_update)
+        self.dlg_setup_classes.lc_def_file_updated.connect(self.lc_def_file_update)
         self.dlg_setup_classes.remap_matrix_changed.connect(self.remap_matrix_update)
 
-        # Setup the class table and run update_remap_matrix so that the 
-        # remap_matrix is defined if a user uses the default and never accesses 
-        # that dialog
+        # Setup the class table so that the table is defined if a user uses the 
+        # default and never accesses that dialog
         self.dlg_setup_classes.setup_class_table()
 
     def remap_matrix_update(self, remap_matrix):
@@ -113,18 +112,22 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.lc_def_custom_file.setText(f)
 
     def lc_def_create(self):
+        if self.lc_def_custom_file.text():
+            self.dlg_setup_classes.setup_class_table(self.lc_def_custom_file.text())
         f = self.dlg_setup_classes.exec_()
         if f:
             self.lc_def_file_update(f)
 
     def lc_def_default_toggled(self):
         if self.lc_def_custom.isChecked():
+            self.dlg_setup_classes.setup_class_table(self.lc_def_custom_file.text())
             self.lc_def_custom_create.setEnabled(True)
             self.lc_def_custom_file.setEnabled(True)
             self.lc_def_custom_file_browse.setEnabled(True)
             self.lc_def_label_new.setEnabled(True)
             self.lc_def_label_saved.setEnabled(True)
         else:
+            self.dlg_setup_classes.setup_class_table()
             self.lc_def_custom_create.setEnabled(False)
             self.lc_def_custom_file.setEnabled(False)
             self.lc_def_custom_file_browse.setEnabled(False)
@@ -226,7 +229,7 @@ class LCAggTableModel(QAbstractTableModel):
 
 
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
-    lc_def_saved = pyqtSignal(str)
+    lc_def_file_updated = pyqtSignal(str)
     remap_matrix_changed = pyqtSignal(list)
 
     def __init__(self, parent=None):
@@ -244,8 +247,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                               'Water body': 7}
 
         self.btn_save.clicked.connect(self.btn_save_pressed)
-
-        self.setup_class_table()
+        self.btn_reset.clicked.connect(self.reset_class_table)
 
     def btn_save_pressed(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -270,7 +272,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             # Emit the filename so it can be used to update the filename field 
             # in the parent dialog
-            self.lc_def_saved.emit(f)
+            self.lc_def_file_updated.emit(f)
 
             self.close()
 
@@ -314,9 +316,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         return out
 
     def setup_class_table(self, f=None):
+        default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 
+                                          'data', 'land_cover_classes.json')
         if not f:
-            f = os.path.join(os.path.dirname(os.path.realpath(__file__)), 
-                    'data', 'land_cover_classes.json')
+            f = default_class_file
         with open(f) as class_file:
             classes = json.load(class_file)
         
@@ -335,6 +338,8 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             return None
         else:
             self.classes = classes
+
+        log('Loaded class definition from {}'.format(f))
 
         table_model = LCAggTableModel(self.classes, self)
         proxy_model = QtGui.QSortFilterProxyModel()
@@ -359,3 +364,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.update_remap_matrix()
 
         return True
+
+    def reset_class_table(self):
+        self.setup_class_table()
+        self.lc_def_file_updated.emit(None)

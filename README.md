@@ -9,10 +9,10 @@ Nations Convention to Combat Desertification (UNCCD), as well as tracking
 progress towards achivement of Sustainable Development Goal (SDG) target 15.3, 
 Land Degradation Neutrality (LDN).
 
-This toolbox was produced as an output of the GEF-funded project [“Enabling the 
-use of global data sources to assess and monitor land degradation at multiple 
-scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide guidance 
-on robust methods and a toolbox for assessing, monitoring status, and 
+`earth.trends` was produced as an output of the GEF-funded project [“Enabling 
+the use of global data sources to assess and monitor land degradation at 
+multiple scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide 
+guidance on robust methods and a tool for assessing, monitoring status, and 
 estimating trends in land degradation using remote sensing technology.
 
 The Land Degradation Monitoring Project is a collaboration of Conservation

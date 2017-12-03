@@ -890,6 +890,8 @@ def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
                                          'valign': 'vcenter',
                                          'fg_color': 'F2F2F2',
                                          'text_wrap': 1})
+    note_format = workbook.add_format({'italic': 1,
+                                       'text_wrap': 1})
     total_header_format = workbook.add_format({'bold': 1, 'align': 'right'})
     total_number_format = workbook.add_format({'bold': 1, 'align': 'right', 'num_format': '0.0'})
     total_percent_format = workbook.add_format({'bold': 1, 'align': 'right', 'num_format': '0.0%'})
@@ -900,8 +902,9 @@ def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
 
     ########
     # Header
-    worksheet.write('A1', "LDN Target Setting Programme", title_format)
-    worksheet.write('A2',"Table 1 - Presentation of national basic data using the LDN indicators framework", subtitle_format)
+    worksheet.write('A1', "trends.earth reporting table", title_format)
+    #worksheet.write('A1', "LDN Target Setting Programme", title_format)
+    #worksheet.write('A2',"Table 1 - Presentation of national basic data using the LDN indicators framework", subtitle_format)
 
     ##########
     # LC Table
@@ -1071,6 +1074,8 @@ def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
     worksheet.write('G46', '=SUM(G35:G45)', total_number_format)
     worksheet.write('G47', '=G46/(I13*B15*100)', total_percent_format)
 
+    worksheet.merge_range('A50:G50', "The boundaries, names, and designations used in this report do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.  This report is available under the terms of Creative Commons Attribution 4.0 International License (CC BY 4.0).", note_format)
+
 
     ################################
     # Set col widths and row heights
@@ -1082,6 +1087,7 @@ def make_reporting_table(base_areas, target_areas, trans_lpd_xtab, out_file):
     worksheet.set_row(18, 30)
     worksheet.set_row(32, 72)
     worksheet.set_row(33, 30)
+    worksheet.set_row(50, 30)
 
     try:
         workbook.close()

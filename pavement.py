@@ -21,7 +21,7 @@ options(
         gui_dir = path('LDMP/gui'),
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['LDMP_fr.ts', 'LDMP_es.ts'],
+        translations = ['fr', 'es'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('.'),
         tests = ['test'],
@@ -40,9 +40,10 @@ options(
         sourcedir = path('LDMP/help/source'),
         builddir = path('LDMP/help/build'),
         resourcedir = path('LDMP/help/resources'),
-        docs_s3_bucket = 'landdegradation-docs',
+        docs_s3_bucket = 'trends.earth',
+        docs_s3_prefix = '/docs/',
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
-        language = 'en'
+        base_language = 'en'
     )
 )
 
@@ -107,7 +108,7 @@ def translate(options):
         print("lrelease is not in your path---unable to release translation files")
     print("Releasing translations using lrelease")
     for translation in options.plugin.translations:
-        subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, translation)])
+        subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
         subprocess.check_call(['tx', 'pull', '-s', '-l', translation])
 
 def read_requirements():
@@ -213,6 +214,7 @@ def deploy(options):
 @task
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
+    ('fast', 'f', "only build english docs"),
 ])
 def deploy_docs(options):
     builddocs(options)
@@ -224,7 +226,7 @@ def deploy_docs(options):
     print('Clearing existing docs.')
     pool = tinys3.Pool(keys['access_key_id'], keys['secret_access_key'], size=10)
     deletions = []
-    for item in conn.list('', options.sphinx.docs_s3_bucket):
+    for item in conn.list(options.sphinx.docs_s3_prefix, options.sphinx.docs_s3_bucket):
         deletions.append(pool.delete(item['key'], options.sphinx.docs_s3_bucket))
     pool.all_completed(deletions)
     print('Existing docs deleted.')
@@ -463,8 +465,8 @@ def pretranslate(options):
 ])
 def gettext(options):
     if not options.get('language', False):
-        options.language = options.sphinx.language
-    SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=options.language,
+        language = options.sphinx.base_language
+    SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=language,
             sourcedir=options.sphinx.sourcedir)
     I18N_SPHINX_OPTS = '{sphinx_opts} {docroot}/i18n/pot'.format(docroot=options.sphinx.docroot, sphinx_opts=SPHINX_OPTS)
     sh("sphinx-build -b gettext -a {i18n_sphinx_opts}".format(i18n_sphinx_opts=I18N_SPHINX_OPTS))
@@ -473,39 +475,43 @@ def gettext(options):
 @cmdopts([
     ('clean', 'c', 'clean out built artifacts first'),
     ('ignore_errors', 'i', 'ignore documentation errors'),
-    ('language=', 'l', 'language'),
+    ('fast', 'f', "only build english docs"),
 ])
 def builddocs(options):
     if options.get('clean', False):
         options.sphinx.builddir.rmtree()
-    if not options.get('language', False):
-        options.language = options.sphinx.language
 
-    SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=options.language,
-            sourcedir=options.sphinx.sourcedir)
+    languages  = [options.sphinx.base_language]
+    if not options.get('fast', False):
+        languages.extend(options.plugin.translations)
 
-    ignore_errors = options.get('ignore_errors', False)
+    for language in languages:
+        print("\nBuilding {lang} documentation...".format(lang=language))
+        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=language,
+                sourcedir=options.sphinx.sourcedir)
 
-    _localize_resources(options)
+        ignore_errors = options.get('ignore_errors', False)
 
-    sh("sphinx-intl --config {sourcedir}/conf.py build --language={lang}".format(sourcedir=options.sphinx.sourcedir,
-        lang=options.language))
+        _localize_resources(options, language)
 
-    # Build HTML docs
-    if options.language != 'en' or ignore_errors:
-        sh("sphinx-build -b html -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
-            builddir=options.sphinx.builddir, lang=options.language))
-    else:
-        sh("sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
-            builddir=options.sphinx.builddir, lang=options.language))
-    print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=options.language, builddir=options.sphinx.builddir))
+        sh("sphinx-intl --config {sourcedir}/conf.py build --language={lang}".format(sourcedir=options.sphinx.sourcedir,
+            lang=language))
 
-    # Build PDF
-    # sh("sphinx-build -b rinoh -a {sphinx_opts} {builddir}/pdf/{lang}".format(sphinx_opts=SPHINX_OPTS,
-    #     sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
-    #     lang=options.language))
+        # Build HTML docs
+        if language != 'en' or ignore_errors:
+            sh("sphinx-build -b html -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
+                builddir=options.sphinx.builddir, lang=language))
+        else:
+            sh("sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
+                builddir=options.sphinx.builddir, lang=language))
+        print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=language, builddir=options.sphinx.builddir))
 
-def _localize_resources(options):
+        # Build PDF
+        # sh("sphinx-build -b rinoh -a {sphinx_opts} {builddir}/pdf/{lang}".format(sphinx_opts=SPHINX_OPTS,
+        #     sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
+        #     lang=language))
+
+def _localize_resources(options, language):
     print("Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir))
     if os.path.exists('{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir)):
         rmtree('{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir))
@@ -513,9 +519,9 @@ def _localize_resources(options):
     if os.path.exists("{resourcedir}/en".format(resourcedir=options.sphinx.resourcedir)):
         shutil.copytree('{resourcedir}/en'.format(resourcedir=options.sphinx.resourcedir),
                         '{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir))
-    print("Copy localized '{lang}' static content to {sourcedir}/static.".format(lang=options.language, sourcedir=options.sphinx.sourcedir))
-    if options.language != 'en' and os.path.exists("{resourcedir}/{lang}".format(resourcedir=options.sphinx.resourcedir, lang=options.language)):
-        src = '{resourcedir}/{lang}'.format(resourcedir=options.sphinx.resourcedir, lang=options.language)
+    print("Copy localized '{lang}' static content to {sourcedir}/static.".format(lang=language, sourcedir=options.sphinx.sourcedir))
+    if language != 'en' and os.path.exists("{resourcedir}/{lang}".format(resourcedir=options.sphinx.resourcedir, lang=language)):
+        src = '{resourcedir}/{lang}'.format(resourcedir=options.sphinx.resourcedir, lang=language)
         dst = '{sourcedir}/static'.format(sourcedir=options.sphinx.sourcedir)
         for item in os.listdir(src):
             s = os.path.join(src, item)

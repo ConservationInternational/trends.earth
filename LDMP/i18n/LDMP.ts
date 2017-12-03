@@ -1,5 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
+<context>
+    <name>@default</name>
+    <message>
+        <location filename="../reporting.py" line="907"/>
+        <source>trends.earth reporting table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="913"/>
+        <source>Land Use/Cover Category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="914"/>
+        <source>Net land productivity dynamics** (sq km)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="916"/>
+        <source>Area (2000)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="916"/>
+        <source>Area (2015)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="916"/>
+        <source>Net area change (2000-2015)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="920"/>
+        <source>sq km*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="920"/>
+        <source>sq km</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="920"/>
+        <source>Declining)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="983"/>
+        <source>Stable</source>
+        <translation type="unfinished">Stable</translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="983"/>
+        <source>Increasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="920"/>
+        <source>No Data***</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="920"/>
+        <source>ton/ha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="929"/>
+        <source>Soil organic carbon (2000)**</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="931"/>
+        <source>Forest</source>
+        <translation type="unfinished">Forest</translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="932"/>
+        <source>Grasslands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="933"/>
+        <source>Croplands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="934"/>
+        <source>Wetlands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="935"/>
+        <source>Artificial areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="936"/>
+        <source>Bare lands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="937"/>
+        <source>Water bodies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="960"/>
+        <source>SOC average (ton/ha)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="961"/>
+        <source>Percent of total land area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="963"/>
+        <source>Total (sq km)*****</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="981"/>
+        <source>Changing Land Use/Cover Category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="982"/>
+        <source>Net land productivity dynamics trend (sq km)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="983"/>
+        <source>Declining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="983"/>
+        <source>Total^</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="984"/>
+        <source>Bare lands &gt;&gt; Artificial areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="985"/>
+        <source>Cropland &gt;&gt; Artificial areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="986"/>
+        <source>Forest &gt;&gt; Artificial areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="987"/>
+        <source>Forest &gt;&gt; Bare lands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="988"/>
+        <source>Forest &gt;&gt; Cropland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="989"/>
+        <source>Forest &gt;&gt; Grasslands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="990"/>
+        <source>Grasslands &gt;&gt; Artificial areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="991"/>
+        <source>Grasslands &gt;&gt; Cropland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="992"/>
+        <source>Grasslands &gt;&gt; Forest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="993"/>
+        <source>Wetlands &gt;&gt; Artificial areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="994"/>
+        <source>Wetlands &gt;&gt; Cropland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="1090"/>
+        <source>The boundaries, names, and designations used in this report do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.  This report is available under the terms of Creative Commons Attribution 4.0 International License (CC BY 4.0).</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 <context encoding="UTF-8">
     <name>DlgAbout</name>
     <message>
@@ -1278,7 +1481,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="1099"/>
+        <location filename="../reporting.py" line="1112"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -1458,7 +1661,7 @@ p, li { white-space: pre-wrap; }
         <translation>Processing: {}</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1095"/>
+        <location filename="../reporting.py" line="1108"/>
         <source>Success</source>
         <translation>Success</translation>
     </message>

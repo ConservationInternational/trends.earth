@@ -21,7 +21,7 @@ options(
         gui_dir = path('LDMP/gui'),
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['fr', 'es'],
+        translations = ['fr', 'es', 'sw'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('.'),
         tests = ['test'],
@@ -108,8 +108,8 @@ def translate(options):
         print("lrelease is not in your path---unable to release translation files")
     print("Releasing translations using lrelease")
     for translation in options.plugin.translations:
-        subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
         subprocess.check_call(['tx', 'pull', '-s', '-l', translation])
+        subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
 
 def read_requirements():
     """Return a list of runtime and list of test requirements"""

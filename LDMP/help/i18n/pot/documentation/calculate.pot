@@ -2,13 +2,13 @@
 # Copyright (C) 2017, Conservation International
 # This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-02 17:08-0500\n"
+"POT-Creation-Date: 2017-12-03 17:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,695 +18,339 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:2
 msgid "Calculate Indicators"
-msgstr "Calculate Indicators"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:3
-msgid ""
-"To select the methods and datasets to calculate the indicators that measured"
-" changes in primary productivity, select the calculator icon "
-"(|iconCalculator|). This will open up the `Calculate Indicator` dialog box:"
+msgid "To select the methods and datasets to calculate the indicators that measured changes in primary productivity, select the calculator icon (|iconCalculator|). This will open up the `Calculate Indicator` dialog box:"
 msgstr ""
-"To select the methods and datasets to calculate the indicators that measured"
-" changes in primary productivity, select the calculator icon "
-"(|iconCalculator|). This will open up the `Calculate Indicator` dialog box:"
 
 #: ../../source/documentation/calculate.rst:9
 #: ../../source/documentation/calculate.rst:26
 #: ../../source/documentation/calculate.rst:135
 msgid "**Summary**"
-msgstr "**Summary**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:11
-msgid ""
-"Sustainable Development Goal 15.3 intends to combat desertification, restore"
-" degraded land and soil, including land affected by desertification, drought"
-" and floods, and strive to achieve a land degradation-neutral world by 2030."
-" In order to address this, we are measuring primary productivity, land cover"
-" and soil carbon to assess the annual change in degraded or desertified "
-"arable land (% of ha). The “Calculate indicators” button brings up a page "
-"that allows calculating datasets associated with the three SDG Target 15.3 "
-"sub indicators. For productivity and land cover, the toolbox implements the "
-"Tier 1 recommendations of the Good Practice Guidance lead by CSIRO. For "
-"productivity, users can calculate trajectory, performance, and state. For "
-"Land Cover, users can calculate land cover change relative to a baseline "
-"period, and enter a transition matrix indicating which transitions indicate "
-"degradation, stability, or improvement."
+msgid "Sustainable Development Goal 15.3 intends to combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods, and strive to achieve a land degradation-neutral world by 2030. In order to address this, we are measuring primary productivity, land cover and soil carbon to assess the annual change in degraded or desertified arable land (% of ha). The “Calculate indicators” button brings up a page that allows calculating datasets associated with the three SDG Target 15.3 sub indicators. For productivity and land cover, the toolbox implements the Tier 1 recommendations of the Good Practice Guidance lead by CSIRO. For productivity, users can calculate trajectory, performance, and state. For Land Cover, users can calculate land cover change relative to a baseline period, and enter a transition matrix indicating which transitions indicate degradation, stability, or improvement."
 msgstr ""
-"Sustainable Development Goal 15.3 intends to combat desertification, restore"
-" degraded land and soil, including land affected by desertification, drought"
-" and floods, and strive to achieve a land degradation-neutral world by 2030."
-" In order to address this, we are measuring primary productivity, land cover"
-" and soil carbon to assess the annual change in degraded or desertified "
-"arable land (% of ha). The “Calculate indicators” button brings up a page "
-"that allows calculating datasets associated with the three SDG Target 15.3 "
-"sub indicators. For productivity and land cover, the toolbox implements the "
-"Tier 1 recommendations of the Good Practice Guidance lead by CSIRO. For "
-"productivity, users can calculate trajectory, performance, and state. For "
-"Land Cover, users can calculate land cover change relative to a baseline "
-"period, and enter a transition matrix indicating which transitions indicate "
-"degradation, stability, or improvement."
 
 #: ../../source/documentation/calculate.rst:13
 msgid "Select which Indicator you would like to calculate"
-msgstr "Select which Indicator you would like to calculate"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:15
-msgid ""
-"Productivity: measures the trajectory, performance and state of primary "
-"productivity"
+msgid "Productivity: measures the trajectory, performance and state of primary productivity"
 msgstr ""
-"Productivity: measures the trajectory, performance and state of primary "
-"productivity"
 
 #: ../../source/documentation/calculate.rst:17
-msgid ""
-"Land cover: calculates land cover change relative to a baseline period, "
-"enter a transition matrix indicating which transitions indicate degradation,"
-" stability or improvement."
+msgid "Land cover: calculates land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement."
 msgstr ""
-"Land cover: calculates land cover change relative to a baseline period, "
-"enter a transition matrix indicating which transitions indicate degradation,"
-" stability or improvement."
 
 #: ../../source/documentation/calculate.rst:19
-msgid ""
-"Soil carbon: under review following the Good Practice Guidance `(UNCCD 2017)"
-" <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "Soil carbon: under review following the Good Practice Guidance `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"Soil carbon: under review following the Good Practice Guidance `(UNCCD 2017)"
-" <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:25
 msgid "Productivity"
-msgstr "Productivity"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:28
-msgid ""
-"Productivity measures the trajectory, performance and state of primary "
-"productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. The "
-"user can select one or multiple indicators to calculate, the NDVI dataset, "
-"name the tasks and enter in explanatory notes for their intended reporting "
-"area."
+msgid "Productivity measures the trajectory, performance and state of primary productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. The user can select one or multiple indicators to calculate, the NDVI dataset, name the tasks and enter in explanatory notes for their intended reporting area."
 msgstr ""
-"Productivity measures the trajectory, performance and state of primary "
-"productivity using either 8km GIMMS3g.v1 AVHRR or 250m MODIS datasets. The "
-"user can select one or multiple indicators to calculate, the NDVI dataset, "
-"name the tasks and enter in explanatory notes for their intended reporting "
-"area."
 
 #: ../../source/documentation/calculate.rst:30
-msgid ""
-"NOTE: The valid date range is set by the NDVI dataset selected within the "
-"first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
+msgid "NOTE: The valid date range is set by the NDVI dataset selected within the first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
 msgstr ""
-"NOTE: The valid date range is set by the NDVI dataset selected within the "
-"first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
 
 #: ../../source/documentation/calculate.rst:33
 msgid "Productivity Trajectory"
-msgstr "Productivity Trajectory"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:34
 msgid "Trajectory is related to the rate of change of productivity over time."
 msgstr ""
-"Trajectory is related to the rate of change of productivity over time."
 
 #: ../../source/documentation/calculate.rst:36
-msgid ""
-"Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or "
-"Water Use Efficiency (WUE) to determine the trends in productivity over the "
-"time period selected."
+msgid "Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or Water Use Efficiency (WUE) to determine the trends in productivity over the time period selected."
 msgstr ""
-"Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or "
-"Water Use Efficiency (WUE) to determine the trends in productivity over the "
-"time period selected."
 
 #: ../../source/documentation/calculate.rst:38
-msgid ""
-"The starting year and end year will determine de period on which to perform "
-"the analysis."
+msgid "The starting year and end year will determine de period on which to perform the analysis."
 msgstr ""
-"The starting year and end year will determine de period on which to perform "
-"the analysis."
 
 #: ../../source/documentation/calculate.rst:40
-msgid ""
-"The initial trend is indicated by the slope of a linear regression fitted "
-"across annual productivity measurements over the entire period as assessed "
-"using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 "
-"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "The initial trend is indicated by the slope of a linear regression fitted across annual productivity measurements over the entire period as assessed using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"The initial trend is indicated by the slope of a linear regression fitted "
-"across annual productivity measurements over the entire period as assessed "
-"using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 "
-"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:42
-msgid ""
-"Degradation in each reporting period should be assessed by appending the "
-"recent annual NPP values (measured in the toolbox as annual integral of "
-"NDVI) to the baseline data and calculating the trend and significance over "
-"the entire data series and the most recent 8 years of data `(UNCCD 2017) "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "Degradation in each reporting period should be assessed by appending the recent annual NPP values (measured in the toolbox as annual integral of NDVI) to the baseline data and calculating the trend and significance over the entire data series and the most recent 8 years of data `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"Degradation in each reporting period should be assessed by appending the "
-"recent annual NPP values (measured in the toolbox as annual integral of "
-"NDVI) to the baseline data and calculating the trend and significance over "
-"the entire data series and the most recent 8 years of data `(UNCCD 2017) "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:44
-msgid ""
-"Climate datasets need to be selected to perform climate corrections using "
-"RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for "
-"full list of climate variables available in the toolbox)."
+msgid "Climate datasets need to be selected to perform climate corrections using RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for full list of climate variables available in the toolbox)."
 msgstr ""
-"Climate datasets need to be selected to perform climate corrections using "
-"RESTREND, Rain Use Efficiency or Water Use Efficiency (refer to table 1 for "
-"full list of climate variables available in the toolbox)."
 
 #: ../../source/documentation/calculate.rst:46
 msgid "**Calculating Trajectory**"
-msgstr "**Calculating Trajectory**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:48
 msgid "Check next to Trajectory"
-msgstr "Check next to Trajectory"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:50
 msgid "Select NDVI dataset to use"
-msgstr "Select NDVI dataset to use"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:55
-msgid ""
-"Assign a name to the task. Use descriptive names including study area, "
-"periods analyzed and datasets used, to be able to refer to them later."
+msgid "Assign a name to the task. Use descriptive names including study area, periods analyzed and datasets used, to be able to refer to them later."
 msgstr ""
-"Assign a name to the task. Use descriptive names including study area, "
-"periods analyzed and datasets used, to be able to refer to them later."
 
 #: ../../source/documentation/calculate.rst:60
-msgid ""
-"In the tab “Trajectory”, select the method to be used to compute the "
-"productivity trajectory analysis. The options are:"
+msgid "In the tab “Trajectory”, select the method to be used to compute the productivity trajectory analysis. The options are:"
 msgstr ""
-"In the tab “Trajectory”, select the method to be used to compute the "
-"productivity trajectory analysis. The options are:"
 
 #: ../../source/documentation/calculate.rst:62
-msgid ""
-"NDVI trend: This dataset shows the trend in annually integrated NDVI time "
-"series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
-"GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio "
-"of the difference between near-infrared band (NIR) and the red band (RED) "
-"and the sum of these two bands (Rouse et al., 1974; Deering 1978) and "
-"reviewed in Tucker (1979)."
+msgid "NDVI trend: This dataset shows the trend in annually integrated NDVI time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio of the difference between near-infrared band (NIR) and the red band (RED) and the sum of these two bands (Rouse et al., 1974; Deering 1978) and reviewed in Tucker (1979)."
 msgstr ""
-"NDVI trend: This dataset shows the trend in annually integrated NDVI time "
-"series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
-"GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio "
-"of the difference between near-infrared band (NIR) and the red band (RED) "
-"and the sum of these two bands (Rouse et al., 1974; Deering 1978) and "
-"reviewed in Tucker (1979)."
 
 #: ../../source/documentation/calculate.rst:64
-msgid ""
-"Rain use efficiency (RUE): is defined as the ratio between net primary "
-"production (NPP), or aboveground NPP (ANPP), and rainfall. It has been "
-"increasingly used to analyze the variability of vegetation production in "
-"arid and semi-arid biomes, where rainfall is a major limiting factor for "
-"plant growth"
+msgid "Rain use efficiency (RUE): is defined as the ratio between net primary production (NPP), or aboveground NPP (ANPP), and rainfall. It has been increasingly used to analyze the variability of vegetation production in arid and semi-arid biomes, where rainfall is a major limiting factor for plant growth"
 msgstr ""
-"Rain use efficiency (RUE): is defined as the ratio between net primary "
-"production (NPP), or aboveground NPP (ANPP), and rainfall. It has been "
-"increasingly used to analyze the variability of vegetation production in "
-"arid and semi-arid biomes, where rainfall is a major limiting factor for "
-"plant growth"
 
 #: ../../source/documentation/calculate.rst:66
-msgid ""
-"Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts"
-" to adjust the NDVI signals from the effect of particular climatic drivers, "
-"such as rainfall or soil moisture, using a pixel-by-pixel linear regression "
-"on the NDVI time series and the climate signal, in this case precipitation "
-"from GCPC data at 250m resolution. The linear model and the climatic data is"
-" used then to predict NDVI, and to compute the residualsbetween the observed"
-" and climate-predicted NDVI annual integrals. The NDVI residual trend is "
-"finally plotted to spatially represent overall trends in primary "
-"productivity independent of climate."
+msgid "Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts to adjust the NDVI signals from the effect of particular climatic drivers, such as rainfall or soil moisture, using a pixel-by-pixel linear regression on the NDVI time series and the climate signal, in this case precipitation from GCPC data at 250m resolution. The linear model and the climatic data is used then to predict NDVI, and to compute the residualsbetween the observed and climate-predicted NDVI annual integrals. The NDVI residual trend is finally plotted to spatially represent overall trends in primary productivity independent of climate."
 msgstr ""
-"Pixel RESTREND: The pointwise residual trend approach (P-RESTREND), attempts"
-" to adjust the NDVI signals from the effect of particular climatic drivers, "
-"such as rainfall or soil moisture, using a pixel-by-pixel linear regression "
-"on the NDVI time series and the climate signal, in this case precipitation "
-"from GCPC data at 250m resolution. The linear model and the climatic data is"
-" used then to predict NDVI, and to compute the residualsbetween the observed"
-" and climate-predicted NDVI annual integrals. The NDVI residual trend is "
-"finally plotted to spatially represent overall trends in primary "
-"productivity independent of climate."
 
 #: ../../source/documentation/calculate.rst:68
-msgid ""
-"Water use efficiency (WUE):  refers to the ratio of water used in plant "
-"metabolism to water lost by the plant through transpiration."
+msgid "Water use efficiency (WUE):  refers to the ratio of water used in plant metabolism to water lost by the plant through transpiration."
 msgstr ""
-"Water use efficiency (WUE):  refers to the ratio of water used in plant "
-"metabolism to water lost by the plant through transpiration."
 
 #: ../../source/documentation/calculate.rst:74
 msgid "Productivity Performance"
-msgstr "Productivity Performance"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:75
-msgid ""
-"Performance is a comparison of how productivity in an area compares to "
-"productivity in similar areas at the same point in time."
+msgid "Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time."
 msgstr ""
-"Performance is a comparison of how productivity in an area compares to "
-"productivity in similar areas at the same point in time."
 
 #: ../../source/documentation/calculate.rst:77
-msgid ""
-"Select the period of analysis. This determines the initial degradation state"
-" and serves as a comparison to assess change in degradation for each "
-"reporting period."
+msgid "Select the period of analysis. This determines the initial degradation state and serves as a comparison to assess change in degradation for each reporting period."
 msgstr ""
-"Select the period of analysis. This determines the initial degradation state"
-" and serves as a comparison to assess change in degradation for each "
-"reporting period."
 
 #: ../../source/documentation/calculate.rst:79
-msgid ""
-"The initial productivity performance is assessed in relation to the 90th "
-"percentile of annual productivity values calculated over the baseline period"
-" amongst pixels in the same land unit. The toolbox defines land units as "
-"regions with the same combination of Global Agroecological Zones and land "
-"cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% "
-"of the distribution for that particular unit may indicate degradation in "
-"this metric `(UNCCD 2017) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. The toolbox defines land units as regions with the same combination of Global Agroecological Zones and land cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% of the distribution for that particular unit may indicate degradation in this metric `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"The initial productivity performance is assessed in relation to the 90th "
-"percentile of annual productivity values calculated over the baseline period"
-" amongst pixels in the same land unit. The toolbox defines land units as "
-"regions with the same combination of Global Agroecological Zones and land "
-"cover (300m from ESA CCI). Pixels with an NPP performance in the lowest 50% "
-"of the distribution for that particular unit may indicate degradation in "
-"this metric `(UNCCD 2017) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:81
 msgid "**Calculating Performance**"
-msgstr "**Calculating Performance**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:83
-msgid ""
-"Select the baseline period of comparison. This determines the initial "
-"degradation state and serves as a comparison to assess change in degradation"
-" for each reporting period."
+msgid "Select the baseline period of comparison. This determines the initial degradation state and serves as a comparison to assess change in degradation for each reporting period."
 msgstr ""
-"Select the baseline period of comparison. This determines the initial "
-"degradation state and serves as a comparison to assess change in degradation"
-" for each reporting period."
 
 #: ../../source/documentation/calculate.rst:88
-msgid ""
-"The initial productivity performance is assessed in relation to the 90th "
-"percentile of annual productivity values calculated over the baseline period"
-" amongst pixels in the same land unit. Pixels with an NPP performance in the"
-" lowest 50% of the historical range may indicate degradation in this metric "
-"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "The initial productivity performance is assessed in relation to the 90th percentile of annual productivity values calculated over the baseline period amongst pixels in the same land unit. Pixels with an NPP performance in the lowest 50% of the historical range may indicate degradation in this metric `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"The initial productivity performance is assessed in relation to the 90th "
-"percentile of annual productivity values calculated over the baseline period"
-" amongst pixels in the same land unit. Pixels with an NPP performance in the"
-" lowest 50% of the historical range may indicate degradation in this metric "
-"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:90
-msgid ""
-"Contemporary Productivity Performance for each reporting period should be "
-"calculated from an average of the years between the previous (or baseline) "
-"assessment up to the current year `(UNCCD 2017) "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "Contemporary Productivity Performance for each reporting period should be calculated from an average of the years between the previous (or baseline) assessment up to the current year `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"Contemporary Productivity Performance for each reporting period should be "
-"calculated from an average of the years between the previous (or baseline) "
-"assessment up to the current year `(UNCCD 2017) "
-"<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:93
 msgid "Productivity State"
-msgstr "Productivity State"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:94
-msgid ""
-"State is a comparison of how current productivity in an area compares to "
-"past productivity in that area."
+msgid "State is a comparison of how current productivity in an area compares to past productivity in that area."
 msgstr ""
-"State is a comparison of how current productivity in an area compares to "
-"past productivity in that area."
 
 #: ../../source/documentation/calculate.rst:96
 #: ../../source/documentation/calculate.rst:104
-msgid ""
-"The user selects the baseline period and comparison period to determine the "
-"state for both existing and emerging degradation."
+msgid "The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation."
 msgstr ""
-"The user selects the baseline period and comparison period to determine the "
-"state for both existing and emerging degradation."
 
 #: ../../source/documentation/calculate.rst:98
 #: ../../source/documentation/calculate.rst:109
-msgid ""
-"The baseline period classifies annual productivity measurements to determine"
-" initial degradation. Pixels in the lowest 50% of classes may indicate "
-"degradation `(UNCCD 2017) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "The baseline period classifies annual productivity measurements to determine initial degradation. Pixels in the lowest 50% of classes may indicate degradation `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"The baseline period classifies annual productivity measurements to determine"
-" initial degradation. Pixels in the lowest 50% of classes may indicate "
-"degradation `(UNCCD 2017) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:100
-msgid ""
-"Productivity State assessments for each reporting period should compare the "
-"average of the annual productivity measurements over the reporting period "
-"(up to 4 years of new data) to the productivity classes calculated from the "
-"baseline period. NPP State classifications that have changed by two or more "
-"classes between the baseline and reporting period indicate significant "
-"productivity State change (CSIRO, 2017)."
+msgid "Productivity State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017)."
 msgstr ""
-"Productivity State assessments for each reporting period should compare the "
-"average of the annual productivity measurements over the reporting period "
-"(up to 4 years of new data) to the productivity classes calculated from the "
-"baseline period. NPP State classifications that have changed by two or more "
-"classes between the baseline and reporting period indicate significant "
-"productivity State change (CSIRO, 2017)."
 
 #: ../../source/documentation/calculate.rst:102
 msgid "**Calculating State**"
-msgstr "**Calculating State**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:111
-msgid ""
-"State assessments for each reporting period should compare the average of "
-"the annual productivity measurements over the reporting period (up to 4 "
-"years of new data) to the productivity classes calculated from the baseline "
-"period. NPP State classifications that have changed by two or more classes "
-"between the baseline and reporting period indicate significant productivity "
-"State change (CSIRO, 2017)."
+msgid "State assessments for each reporting period should compare the average of the annual productivity measurements over the reporting period (up to 4 years of new data) to the productivity classes calculated from the baseline period. NPP State classifications that have changed by two or more classes between the baseline and reporting period indicate significant productivity State change (CSIRO, 2017)."
 msgstr ""
-"State assessments for each reporting period should compare the average of "
-"the annual productivity measurements over the reporting period (up to 4 "
-"years of new data) to the productivity classes calculated from the baseline "
-"period. NPP State classifications that have changed by two or more classes "
-"between the baseline and reporting period indicate significant productivity "
-"State change (CSIRO, 2017)."
 
 #: ../../source/documentation/calculate.rst:113
 msgid "**Productivity - Area of interest**"
-msgstr "**Productivity - Area of interest**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:115
 #: ../../source/documentation/calculate.rst:207
-msgid ""
-"The final step before submitting the task to Google Earth Engine, is to "
-"define the study area on which to perform the analysis. The toolbox allows "
-"this task to be completed in one of two ways:"
+msgid "The final step before submitting the task to Google Earth Engine, is to define the study area on which to perform the analysis. The toolbox allows this task to be completed in one of two ways:"
 msgstr ""
-"The final step before submitting the task to Google Earth Engine, is to "
-"define the study area on which to perform the analysis. The toolbox allows "
-"this task to be completed in one of two ways:"
 
 #: ../../source/documentation/calculate.rst:117
-msgid ""
-"The user selects first (i.e. country) and second (i.e. province or state) "
-"administrative boundary from a drop down menu."
+msgid "The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop down menu."
 msgstr ""
-"The user selects first (i.e. country) and second (i.e. province or state) "
-"administrative boundary from a drop down menu."
 
 #: ../../source/documentation/calculate.rst:119
 #: ../../source/documentation/calculate.rst:211
 msgid "The user can upload a shapefile with an area of interest."
-msgstr "The user can upload a shapefile with an area of interest."
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:121
-msgid ""
-"NOTE: This boundary should have only one polygon, i.e. when uploading a "
-"country with outlying islands, there will be multiple geometries drawn "
-"separately. By merging the polygons, the analysis will be run on the entire "
-"study area as opposed to a single polygon."
+msgid "NOTE: This boundary should have only one polygon, i.e. when uploading a country with outlying islands, there will be multiple geometries drawn separately. By merging the polygons, the analysis will be run on the entire study area as opposed to a single polygon."
 msgstr ""
-"NOTE: This boundary should have only one polygon, i.e. when uploading a "
-"country with outlying islands, there will be multiple geometries drawn "
-"separately. By merging the polygons, the analysis will be run on the entire "
-"study area as opposed to a single polygon."
 
 #: ../../source/documentation/calculate.rst:129
 msgid "**Submit task**"
-msgstr "**Submit task**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:131
-msgid ""
-"When all the parameters have been defined, click Calculate, and the task "
-"will be submitted to Google Earth Engine for computing. When the task is "
-"completed (processing time will vary depending on server usage, but for most"
-" countries it takes only a few minutes most of the time), you’ll receive an "
-"email notifying the successful completion."
+msgid "When all the parameters have been defined, click Calculate, and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion."
 msgstr ""
-"When all the parameters have been defined, click Calculate, and the task "
-"will be submitted to Google Earth Engine for computing. When the task is "
-"completed (processing time will vary depending on server usage, but for most"
-" countries it takes only a few minutes most of the time), you’ll receive an "
-"email notifying the successful completion."
 
 #: ../../source/documentation/calculate.rst:134
 msgid "Land Cover"
-msgstr "Land Cover"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:137
-msgid ""
-"Changes in land cover is one of the indicators used to track potential land "
-"degradation which need to be reported to the UNCCD and to track progress "
-"towards SDG 15.3.1. While some land cover transitions indicate, in most "
-"cases, processes of land degradation, the interpretation of those "
-"transitions are for the most part context specific. For that reason, this "
-"indicator requires the input of the user to identify which changes in land "
-"cover will be considered as degradation, improvement or no change in terms "
-"of degradation. The toolbox allows users to calculate land cover change "
-"relative to a baseline period, enter a transition matrix indicating which "
-"transitions indicate degradation, stability or improvement."
+msgid "Changes in land cover is one of the indicators used to track potential land degradation which need to be reported to the UNCCD and to track progress towards SDG 15.3.1. While some land cover transitions indicate, in most cases, processes of land degradation, the interpretation of those transitions are for the most part context specific. For that reason, this indicator requires the input of the user to identify which changes in land cover will be considered as degradation, improvement or no change in terms of degradation. The toolbox allows users to calculate land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement."
 msgstr ""
-"Changes in land cover is one of the indicators used to track potential land "
-"degradation which need to be reported to the UNCCD and to track progress "
-"towards SDG 15.3.1. While some land cover transitions indicate, in most "
-"cases, processes of land degradation, the interpretation of those "
-"transitions are for the most part context specific. For that reason, this "
-"indicator requires the input of the user to identify which changes in land "
-"cover will be considered as degradation, improvement or no change in terms "
-"of degradation. The toolbox allows users to calculate land cover change "
-"relative to a baseline period, enter a transition matrix indicating which "
-"transitions indicate degradation, stability or improvement."
 
 #: ../../source/documentation/calculate.rst:139
 msgid "**Calculating Land cover changes**"
-msgstr "**Calculating Land cover changes**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:141
-msgid ""
-"Click on the Calculate Indicators button from the toolbox bar, then select "
-"Land cover."
+msgid "Click on the Calculate Indicators button from the toolbox bar, then select Land cover."
 msgstr ""
-"Click on the Calculate Indicators button from the toolbox bar, then select "
-"Land cover."
 
 #: ../../source/documentation/calculate.rst:146
-msgid ""
-"Set up tab: Allows the user to select the starting year and ending year"
+msgid "Set up tab: Allows the user to select the starting year and ending year"
 msgstr ""
-"Set up tab: Allows the user to select the starting year and ending year"
 
 #: ../../source/documentation/calculate.rst:148
-msgid ""
-"The baseline should be considered over an extended period over a single date"
-" (e.g. 1/1/2000-12/31/2015)."
+msgid "The baseline should be considered over an extended period over a single date (e.g. 1/1/2000-12/31/2015)."
 msgstr ""
-"The baseline should be considered over an extended period over a single date"
-" (e.g. 1/1/2000-12/31/2015)."
 
 #: ../../source/documentation/calculate.rst:150
 msgid "User selects target year."
-msgstr "User selects target year."
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:152
 msgid "Metadata: User enters unique task name and notes for the analyses."
-msgstr "Metadata: User enters unique task name and notes for the analyses."
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:157
 msgid "Transition matrix tab"
-msgstr "Transition matrix tab"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:159
-msgid ""
-"User selects the transition matrix value of land cover transitions for each "
-"transition between the 6 IPCC land cover classes. For example:"
+msgid "User selects the transition matrix value of land cover transitions for each transition between the 6 IPCC land cover classes. For example:"
 msgstr ""
-"User selects the transition matrix value of land cover transitions for each "
-"transition between the 6 IPCC land cover classes. For example:"
 
 #: ../../source/documentation/calculate.rst:161
-msgid ""
-"The default for cropland to cropland is 0 because the land cover stays the "
-"same and is therefore stable."
+msgid "The default for cropland to cropland is 0 because the land cover stays the same and is therefore stable."
 msgstr ""
-"The default for cropland to cropland is 0 because the land cover stays the "
-"same and is therefore stable."
 
 #: ../../source/documentation/calculate.rst:163
-msgid ""
-"The default for forest to cropland is -1 because forest is likely cut to "
-"clear way for agriculture and would be considered deforestation."
+msgid "The default for forest to cropland is -1 because forest is likely cut to clear way for agriculture and would be considered deforestation."
 msgstr ""
-"The default for forest to cropland is -1 because forest is likely cut to "
-"clear way for agriculture and would be considered deforestation."
 
 #: ../../source/documentation/calculate.rst:165
-msgid ""
-"The transition can be defined as stable in terms of land degradation, or "
-"indicative of degradation (-1) or improvement (1)."
+msgid "The transition can be defined as stable in terms of land degradation, or indicative of degradation (-1) or improvement (1)."
 msgstr ""
-"The transition can be defined as stable in terms of land degradation, or "
-"indicative of degradation (-1) or improvement (1)."
 
 #: ../../source/documentation/calculate.rst:167
-msgid ""
-"Users can keep the default values or create unique transition values of "
-"their own."
+msgid "Users can keep the default values or create unique transition values of their own."
 msgstr ""
-"Users can keep the default values or create unique transition values of "
-"their own."
 
 #: ../../source/documentation/calculate.rst:172
-msgid ""
-"By default, and following the UNCCD best practices guidance document, the "
-"major land cover change processes that are classified as degradation are:"
+msgid "By default, and following the UNCCD best practices guidance document, the major land cover change processes that are classified as degradation are:"
 msgstr ""
-"By default, and following the UNCCD best practices guidance document, the "
-"major land cover change processes that are classified as degradation are:"
 
 #: ../../source/documentation/calculate.rst:174
 msgid "Deforestation (forest to cropland or settlements)"
-msgstr "Deforestation (forest to cropland or settlements)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:176
-msgid ""
-"Urban expansion (grassland, cropland wetlands or otherland to settlements)"
+msgid "Urban expansion (grassland, cropland wetlands or otherland to settlements)"
 msgstr ""
-"Urban expansion (grassland, cropland wetlands or otherland to settlements)"
 
 #: ../../source/documentation/calculate.rst:178
-msgid ""
-"Vegetation loss (forest to grassland, otherland or grassland, cropland to "
-"other land)"
+msgid "Vegetation loss (forest to grassland, otherland or grassland, cropland to other land)"
 msgstr ""
-"Vegetation loss (forest to grassland, otherland or grassland, cropland to "
-"other land)"
 
 #: ../../source/documentation/calculate.rst:180
 msgid "Inundation (forest, grassland, cropland to wetlands)"
-msgstr "Inundation (forest, grassland, cropland to wetlands)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:182
 msgid "Wetland drainage (wetlands to cropland or grassland)"
-msgstr "Wetland drainage (wetlands to cropland or grassland)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:184
 msgid "Withdrawal of agriculture (croplands to grassland)"
-msgstr "Withdrawal of agriculture (croplands to grassland)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:186
 msgid "Woody encroachment (wetlands to forest)"
-msgstr "Woody encroachment (wetlands to forest)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:189
-msgid ""
-"The major land cover change processes that are not considered degradation "
-"are:"
+msgid "The major land cover change processes that are not considered degradation are:"
 msgstr ""
-"The major land cover change processes that are not considered degradation "
-"are:"
 
 #: ../../source/documentation/calculate.rst:191
 msgid "Stable (land cover class remains the same over time period)"
-msgstr "Stable (land cover class remains the same over time period)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:193
 msgid "Afforestation (grassland, cropland to forest; settlements to forest)"
-msgstr "Afforestation (grassland, cropland to forest; settlements to forest)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:195
-msgid ""
-"Agricultural expansion (grassland to cropland; settlements or otherland to "
-"cropland)"
+msgid "Agricultural expansion (grassland to cropland; settlements or otherland to cropland)"
 msgstr ""
-"Agricultural expansion (grassland to cropland; settlements or otherland to "
-"cropland)"
 
 #: ../../source/documentation/calculate.rst:197
 msgid "Vegetation establishment (settlements or otherland to settlements)"
-msgstr "Vegetation establishment (settlements or otherland to settlements)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:199
 msgid "Wetland establishment (settlements or otherland to wetlands)"
-msgstr "Wetland establishment (settlements or otherland to wetlands)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:201
 msgid "Withdrawal of settlements (settlements to otherland)"
-msgstr "Withdrawal of settlements (settlements to otherland)"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:203
-msgid ""
-"It is important to remember that those are suggested interpretations, and "
-"should be evaluated and adjusted considering the local conditions of the "
-"regions in for which the analysis will be performed."
+msgid "It is important to remember that those are suggested interpretations, and should be evaluated and adjusted considering the local conditions of the regions in for which the analysis will be performed."
 msgstr ""
-"It is important to remember that those are suggested interpretations, and "
-"should be evaluated and adjusted considering the local conditions of the "
-"regions in for which the analysis will be performed."
 
 #: ../../source/documentation/calculate.rst:205
 msgid "**Land cover - Area of interest**"
-msgstr "**Land cover - Area of interest**"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:209
-msgid ""
-"The user selects first (i.e. country) and second (i.e. province or state) "
-"administrative boundary from a drop-down menu."
+msgid "The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu."
 msgstr ""
-"The user selects first (i.e. country) and second (i.e. province or state) "
-"administrative boundary from a drop-down menu."
 
 #: ../../source/documentation/calculate.rst:217
 msgid "Soil Carbon"
-msgstr "Soil Carbon"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:218
 msgid "**Coming soon!**"
-msgstr "**Coming soon!**"
+msgstr ""
+

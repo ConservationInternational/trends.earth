@@ -1266,7 +1266,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="1093"/>
+        <location filename="../reporting.py" line="1099"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -1446,7 +1446,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1089"/>
+        <location filename="../reporting.py" line="1095"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>

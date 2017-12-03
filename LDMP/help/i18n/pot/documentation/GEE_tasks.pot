@@ -2,7 +2,7 @@
 # Copyright (C) 2017, Conservation International
 # This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -18,17 +18,38 @@ msgstr ""
 
 #: ../../source/documentation/GEE_tasks.rst:2
 msgid "View Google Earth Engine Tasks"
-msgstr ""
+msgstr "View Google Earth Engine Tasks"
 
 #: ../../source/documentation/GEE_tasks.rst:3
-msgid "To view your Google Earth Engine (GEE) tasks, select the globe icon (|iconCloudDownload|). This will open up the `Download results from Earth Engine` dialog box:"
+msgid ""
+"To view your Google Earth Engine (GEE) tasks, select the globe icon "
+"(|iconCloudDownload|). This will open up the `Download results from Earth "
+"Engine` dialog box:"
 msgstr ""
+"To view your Google Earth Engine (GEE) tasks, select the globe icon "
+"(|iconCloudDownload|). This will open up the `Download results from Earth "
+"Engine` dialog box:"
 
 #: ../../source/documentation/GEE_tasks.rst:9
-msgid "Users can view their current and previous tasks here. The unique task name provided by the user, which analysis is running (job), the start time and end time of when the task was started and completed and whether or not the task was successful. The Details page outlines the reason a task may have failed."
+msgid ""
+"Users can view their current and previous tasks here. The unique task name "
+"provided by the user, which analysis is running (job), the start time and "
+"end time of when the task was started and completed and whether or not the "
+"task was successful. The Details page outlines the reason a task may have "
+"failed."
 msgstr ""
+"Users can view their current and previous tasks here. The unique task name "
+"provided by the user, which analysis is running (job), the start time and "
+"end time of when the task was started and completed and whether or not the "
+"task was successful. The Details page outlines the reason a task may have "
+"failed."
 
 #: ../../source/documentation/GEE_tasks.rst:20
-msgid "To download the results to the computer click on Download results and a window will pop up, to select the location in which to store the raster files and click on Select Folder."
+msgid ""
+"To download the results to the computer click on Download results and a "
+"window will pop up, to select the location in which to store the raster "
+"files and click on Select Folder."
 msgstr ""
-
+"To download the results to the computer click on Download results and a "
+"window will pop up, to select the location in which to store the raster "
+"files and click on Select Folder."

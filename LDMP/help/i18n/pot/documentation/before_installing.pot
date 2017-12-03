@@ -2,7 +2,7 @@
 # Copyright (C) 2017, Conservation International
 # This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -18,9 +18,18 @@ msgstr ""
 
 #: ../../source/documentation/before_installing.rst:2
 msgid "Before installing the toolbox"
-msgstr ""
+msgstr "Before installing the toolbox"
 
 #: ../../source/documentation/before_installing.rst:4
-msgid "Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs to be installed on the computer. QGIS can be downloaded from: http://www.qgis.org/en/site/forusers/download.html. Once the installer is downloaded from the website, it needs to be run (double click on it). Select the options using the Default settings."
+msgid ""
+"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
+" to be installed on the computer. QGIS can be downloaded from: "
+"http://www.qgis.org/en/site/forusers/download.html. Once the installer is "
+"downloaded from the website, it needs to be run (double click on it). Select"
+" the options using the Default settings."
 msgstr ""
-
+"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
+" to be installed on the computer. QGIS can be downloaded from: "
+"http://www.qgis.org/en/site/forusers/download.html. Once the installer is "
+"downloaded from the website, it needs to be run (double click on it). Select"
+" the options using the Default settings."

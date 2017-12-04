@@ -19,6 +19,11 @@ The Land Degradation Monitoring Project is a collaboration of Conservation
 International, the National Aeronautics and Space Administration (NASA), and
 Lund University.
 
+## Documentation
+
+See the [user guide](http://trends.earth/docs/en) for information on how to use 
+the plugin.
+
 ## Installation
 
 ### Stable version (recommended)

@@ -215,7 +215,10 @@ class DegradationWorker(AbstractWorker):
                 lc_array = lc_band.ReadAsArray(x, y, cols, rows)
 
                 # Capture trends that are at least 95% significant
-                deg = np.logical_and(deg >= -3, deg <= -2)
+                deg[deg == -1] = 0 # not signif at 95%
+                deg[deg == 1] = 0 # not signif at 95%
+                deg[np.logical_and(deg >= -3, deg <= -2)] = -1
+                deg[np.logical_and(deg >= 2, deg <= 3)] = 1
                 deg[lc_array == -1] = -1
                 deg[(state_array == -1) & (perf_array == -1)] = -1
 
@@ -483,7 +486,7 @@ class ClipWorker(AbstractWorker):
                                                 "CP1250", None, "ESRI Shapefile")
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=mask_layer_file, cropToCutline=True,
+                        cutlineDSName=mask_layer_file, 
                         dstNodata=-9999, dstSRS="epsg:{}".format(self.dstSRS),
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
@@ -728,9 +731,23 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(lc_deg_f, layer_lc.dataProvider().dataSourceUri(), bandList=[4], VRTNodata=-9999)
 
+        ######################################################################
         # Combine rasters into a VRT and crop to the AOI
+        
+        # Compute the pixel-aligned bounding box (slightly larger than aoi). 
+        # Use this instead of croptocutline in gdal.Warp in order to keep the 
+        # pixels aligned.
         bb = self.aoi.boundingBox()
-        outputBounds = [bb.xMinimum(), bb.yMinimum(), bb.xMaximum(), bb.yMaximum()]
+        minx = bb.xMinimum()
+        miny = bb.yMinimum()
+        maxx = bb.xMaximum()
+        maxy = bb.yMaximum()
+        left = minx - (minx - traj_gt[0]) % traj_gt[1]
+        right = maxx + (traj_gt[1] - ((maxx - traj_gt[0]) % traj_gt[1]))
+        bottom = miny + (traj_gt[5] - ((miny - traj_gt[3]) % traj_gt[5]))
+        top = maxy - (maxy - traj_gt[3]) % traj_gt[5]
+        outputBounds = [left, bottom, right, top]
+
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving indicator VRT to: {}'.format(indic_f))
         gdal.BuildVRT(indic_f, 

@@ -276,6 +276,30 @@ def merge_xtabs(tab1, tab2):
     return list((headers, xt.reshape(shape_xt)))
 
 
+def calc_total_table(a_trans, a_soc, total_table, cell_area):
+    """Calculates an total table for an array"""
+    if total_table:
+        # Add in totals for past total_table if one is provided
+        log('in calc_total_table')
+        transitions = np.unique(np.concatenate([a_trans.ravel(), total_table[0]]))
+        log('transitions: {}'.format(transitions))
+        ind = np.concatenate(tuple(np.where(transitions == item)[0] for item in total_table[0]))
+        log('ind: {}'.format(ind))
+        totals = np.zeros(transitions.shape)
+        log('totals: {}'.format(totals))
+        np.add.at(totals, ind, total_table[1])
+    else:
+        transitions = np.unique(np.concatenate(a_trans))
+        log('transitions: {}'.format(transitions))
+        totals = np.zeros(transitions.shape)
+        log('totals: {}'.format(totals))
+
+    for transition in transitions:
+        ind = np.where(transitions == transition)
+        np.add.at(totals, ind, np.sum(a_soc[a_trans == transition] * cell_area))
+
+    return list((transitions, totals))
+
 def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""
     a_min = np.min(a)
@@ -284,7 +308,6 @@ def calc_area_table(a, area_table, cell_area):
         correction = np.abs(a_min)
     else:
         correction = 0
-    log('min: {}, correction: {}'.format(a_min, correction))
 
     n = np.bincount(a.ravel() + correction)
     this_vals = np.nonzero(n)[0]
@@ -346,7 +369,7 @@ class AreaWorker(AbstractWorker):
         trans_xtab = None
         area_table_base = None
         area_table_target = None
-        area_table_soc = None
+        soc_totals_table = None
         for y in xrange(0, ysize, y_block_size):
             if self.killed:
                 log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
@@ -387,8 +410,10 @@ class AreaWorker(AbstractWorker):
                                                   area_table_base, cell_area)
                 area_table_target = calc_area_table(band_target.ReadAsArray(x, y, cols, rows),
                                                     area_table_target, cell_area)
-                area_table_soc = calc_area_table(band_soc.ReadAsArray(x, y, cols, rows),
-                                                    area_table_soc, cell_area)
+                soc_totals_table = calc_total_table(a_trans,
+                                                    band_soc.ReadAsArray(x, y, cols, rows),
+                                                    soc_totals_table, cell_area)
+                log('soc totals: {}'.format(soc_totals_table))
 
                 blocks += 1
             lat += pixel_height
@@ -398,13 +423,13 @@ class AreaWorker(AbstractWorker):
         # Convert all tables from meters into square kilometers
         area_table_base[1] = area_table_base[1] * 1e-6
         area_table_target[1] = area_table_target[1] * 1e-6
-        area_table_soc[1] = area_table_soc[1] * 1e-6
+        soc_totals_table[1] = soc_totals_table[1] * 1e-6
         trans_xtab[1] = trans_xtab[1] * 1e-6
 
         if self.killed:
             return None
         else:
-            return list((area_table_base, area_table_target, area_table_soc, 
+            return list((area_table_base, area_table_target, soc_totals_table, 
                          trans_xtab))
 
 
@@ -795,7 +820,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                        self.tr("Error calculating degraded areas."), None)
             return
         else:
-            base_areas, target_areas, soc_areas, trans_lpd_xtab = area_worker.get_return()
+            base_areas, target_areas, soc_totals, trans_lpd_xtab = area_worker.get_return()
 
         # TODO: Make sure no data, water areas, and urban areas are symmetric 
         # across LD layer and lc layer
@@ -808,7 +833,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         style_sdg_ld(deg_out_file)
 
-        make_reporting_table(base_areas, target_areas, soc_areas, 
+        make_reporting_table(base_areas, target_areas, soc_totals, 
                              trans_lpd_xtab, 
                              os.path.join(self.output_folder.text(), 
                                           'reporting_table.xlsx'))
@@ -839,7 +864,7 @@ def get_lpd_row(table, transition):
             get_xtab_area(table, 0, transition),
             get_xtab_area(table, 1, transition)]
 
-def make_reporting_table(base_areas, target_areas, soc_areas, trans_lpd_xtab, 
+def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab, 
                          out_file):
     def tr(s):
         return QtGui.QApplication.translate("make_reporting_table", s)

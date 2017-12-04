@@ -81,9 +81,9 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     obs_ratio_2 = obs_ratio.reduceResolution(reducer=ee.Reducer.mean(), maxPixels=2000) \
             .reproject(crs=ndvi_1yr.projection())
 
-    # create final degradation output layer (-9999 is background), 0 is not 
+    # create final degradation output layer (9999 is background), 0 is not 
     # degreaded, -1 is degraded
-    lp_perf_deg = ee.Image(-9999).where(obs_ratio_2.gte(0.5), 0) \
+    lp_perf_deg = ee.Image(9999).where(obs_ratio_2.gte(0.5), 0) \
             .where(obs_ratio_2.lte(0.5), -1)
 
     task = util.export_to_cloudstorage(lp_perf_deg.int16(), 

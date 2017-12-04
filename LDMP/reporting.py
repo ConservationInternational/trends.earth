@@ -1011,7 +1011,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write('G15', '=SUM(G6:G12)', total_number_format)
     worksheet.write('H15', '=SUM(H6:H12)', total_number_format)
 
-    worksheet.write('I13', '=(B6*I6 + B7*I7 + B8*I8 + B9*I9 + B10*I10 + B11*I11 + B12*I12) / B15', total_percent_format)
+    worksheet.write('I13', '=(B6*I6 + B7*I7 + B8*I8 + B9*I9 + B10*I10 + B11*I11 + B12*I12) / B15', total_number_format)
     worksheet.write('E14', '=E15/C15', total_percent_format)
     worksheet.write('F14', '=F15/C15', total_percent_format)
     worksheet.write('G14', '=G15/C15', total_percent_format)

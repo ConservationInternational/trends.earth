@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Timeseries</string>
+   <string>earth.trends plot</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

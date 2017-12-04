@@ -280,10 +280,11 @@ def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""
     a_min = np.min(a)
     if a_min < 0:
-        # Correctioni to add as bincount can only handle positive integers
+        # Correction to add as bincount can only handle positive integers
         correction = np.abs(a_min)
     else:
         correction = 0
+    log('min: {}, correction: {}'.format(a_min, correction))
 
     n = np.bincount(a.ravel() + correction)
     this_vals = np.nonzero(n)[0]
@@ -322,7 +323,7 @@ class AreaWorker(AbstractWorker):
         band_base = ds.GetRasterBand(2)
         band_target = ds.GetRasterBand(3)
         band_trans = ds.GetRasterBand(4)
-        band_soc = ds.GetRasterBand(6)
+        band_soc = ds.GetRasterBand(5)
 
         block_sizes = band_deg.GetBlockSize()
         x_block_size = block_sizes[0]
@@ -682,18 +683,24 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         lc_gt = ds_lc.GetGeoTransform()
         traj_gt = ds_traj.GetGeoTransform()
         if lc_gt[1] < traj_gt[1]:
-            log('Resampling with: mode')
+            # If the land cover is finer than the trajectory res, use mode to 
+            # match the lc to the lower res productivity data
+            log('Resampling with: mode, lowest')
             resampleAlg = gdal.GRA_Mode
+            resample_to = 'lowest'
         else:
-            log('Resampling with: nearest neighour')
+            # If the land cover is coarser than the trajectory res, use nearest 
+            # neighbor and match the lc to the higher res productivity data
+            log('Resampling with: nearest neighour, highest')
             resampleAlg = gdal.GRA_NearestNeighbour
+            resample_to = 'highest'
 
         # Select from layer_traj using bandlist since signif is band 2
         traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(traj_f, layer_traj.dataProvider().dataSourceUri(), bandList=[2])
+        gdal.BuildVRT(traj_f, layer_traj.dataProvider().dataSourceUri(), bandList=[2], VRTNodata=-9999)
         # Select lc deg layer using bandlist since that layer is band 4
         lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_deg_f, layer_lc.dataProvider().dataSourceUri(), bandList=[4])
+        gdal.BuildVRT(lc_deg_f, layer_lc.dataProvider().dataSourceUri(), bandList=[4], VRTNodata=-9999)
 
         # Combine rasters into a VRT and crop to the AOI
         bb = self.aoi.boundingBox()
@@ -706,9 +713,10 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                        layer_state.dataProvider().dataSourceUri(),
                        lc_deg_f],
                       outputBounds=outputBounds,
-                      resolution='highest',
+                      resolution=resample_to,
                       resampleAlg=resampleAlg,
-                      separate=True)
+                      separate=True,
+                      VRTNodata=-9999)
         self.close()
 
         ######################################################################
@@ -743,13 +751,32 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # TODO: Fix these to refer to the proper bands in the lc file
         deg_lc_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc VRT to: {}'.format(deg_lc_f))
+
+        # Select lc bands using bandlist since BuildVrt will otherwise only use 
+        # the first band of the file
+        lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_bl_f, layer_lc.dataProvider().dataSourceUri(), 
+                      bandList=[1], VRTNodata=-9999)
+        lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_tg_f, layer_lc.dataProvider().dataSourceUri(), 
+                      bandList=[2], VRTNodata=-9999)
+        lc_tr_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_tr_f, layer_lc.dataProvider().dataSourceUri(), 
+                      bandList=[3], VRTNodata=-9999)
+        lc_soc_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_soc_f, layer_lc.dataProvider().dataSourceUri(), 
+                      bandList=[5], srcNodata=-32768, VRTNodata=-9999)
+
         gdal.BuildVRT(deg_lc_f, 
                       [deg_out_file,
-                       layer_lc.dataProvider().dataSourceUri()],
+                       lc_bl_f,
+                       lc_tg_f,
+                       lc_tr_f,
+                       lc_soc_f],
                       outputBounds=outputBounds,
-                      resolution='highest',
+                      resolution=resample_to,
                       resampleAlg=resampleAlg,
-                      separate=True)
+                      separate=True, VRTNodata=-9999)
         # Clip and mask the lc/deg layer before calculating crosstab
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))

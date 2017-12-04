@@ -41,7 +41,7 @@ options(
         builddir = path('LDMP/help/build'),
         resourcedir = path('LDMP/help/resources'),
         docs_s3_bucket = 'trends.earth',
-        docs_s3_prefix = '/docs/',
+        docs_s3_prefix = 'docs/',
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
         base_language = 'en'
     )

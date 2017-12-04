@@ -2,13 +2,13 @@
 # Copyright (C) 2017, Conservation International
 # This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 17:54-0500\n"
+"POT-Creation-Date: 2017-12-03 20:56-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,69 +18,96 @@ msgstr ""
 
 #: ../../source/index.rst:2
 msgid "Land Degradation Monitoring Toolbox"
-msgstr ""
+msgstr "Land Degradation Monitoring Toolbox"
 
 #: ../../source/index.rst:5
 msgid "`English <../en/index.html>`_"
-msgstr ""
+msgstr "`English <../en/index.html>`_"
 
 #: ../../source/index.rst:5
 msgid "`Francais <../fr/index.html>`_"
-msgstr ""
+msgstr "`Francais <../fr/index.html>`_"
 
 #: ../../source/index.rst:5
 msgid "`Español <../es/index.html>`_"
-msgstr ""
+msgstr "`Español <../es/index.html>`_"
+
+#: ../../source/index.rst:5
+msgid "`Swahili <../sw/index.html>`_"
+msgstr "`Swahili <../sw/index.html>`_"
 
 #: ../../source/index.rst:8
 msgid "**Monitor Indicators for SDG 15.3 and Land Degradation Reporting**"
-msgstr ""
+msgstr "**Monitor Indicators for SDG 15.3 and Land Degradation Reporting**"
 
 #: ../../source/index.rst:10
-msgid "The Land Degradation Monitoring Toolbox supports development of baselines and monitoring of land degradation using an innovative desktop and cloud-based system."
+msgid ""
+"The Land Degradation Monitoring Toolbox supports development of baselines "
+"and monitoring of land degradation using an innovative desktop and cloud-"
+"based system."
 msgstr ""
+"The Land Degradation Monitoring Toolbox supports development of baselines "
+"and monitoring of land degradation using an innovative desktop and cloud-"
+"based system."
 
 #: ../../source/index.rst:14
-msgid "The toolbox supports monitoring indicators for Sustainable Development Goal (SDG) Target 15.3.1 (land degradation neutrality) including productivity, land cover, and soil organic carbon, and also supports reporting to the United Nations Convention to Combat Desertification (UNCCD)."
+msgid ""
+"The toolbox supports monitoring indicators for Sustainable Development Goal "
+"(SDG) Target 15.3.1 (land degradation neutrality) including productivity, "
+"land cover, and soil organic carbon, and also supports reporting to the "
+"United Nations Convention to Combat Desertification (UNCCD)."
 msgstr ""
+"The toolbox supports monitoring indicators for Sustainable Development Goal "
+"(SDG) Target 15.3.1 (land degradation neutrality) including productivity, "
+"land cover, and soil organic carbon, and also supports reporting to the "
+"United Nations Convention to Combat Desertification (UNCCD)."
 
 #: ../../source/index.rst:19
-msgid "The toolbox also allows users to plot time series of key indicators, and to produce maps and other graphics that can support tracking the impact of sustainable land management or other projects."
+msgid ""
+"The toolbox also allows users to plot time series of key indicators, and to "
+"produce maps and other graphics that can support tracking the impact of "
+"sustainable land management or other projects."
 msgstr ""
+"The toolbox also allows users to plot time series of key indicators, and to "
+"produce maps and other graphics that can support tracking the impact of "
+"sustainable land management or other projects."
 
 #: ../../source/index.rst:23
-msgid "The documentation and training materials, including a number of demonstration videos, are available on this website:"
+msgid ""
+"The documentation and training materials, including a number of "
+"demonstration videos, are available on this website:"
 msgstr ""
+"The documentation and training materials, including a number of "
+"demonstration videos, are available on this website:"
 
 #: ../../source/index.rst:26
 msgid ":ref:`user-docs`"
-msgstr ""
+msgstr ":ref:`user-docs`"
 
 #: ../../source/index.rst:27
 msgid ":ref:`training-materials`"
-msgstr ""
+msgstr ":ref:`training-materials`"
 
 #: ../../source/index.rst:28
 msgid ":ref:`videos`"
-msgstr ""
+msgstr ":ref:`videos`"
 
 #: ../../source/index.rst:29
 msgid ":ref:`about-docs`"
-msgstr ""
+msgstr ":ref:`about-docs`"
 
 #: ../../source/index.rst:33
 msgid "User Documentation"
-msgstr ""
+msgstr "User Documentation"
 
 #: ../../source/index.rst:49
 msgid "Training Materials"
-msgstr ""
+msgstr "Training Materials"
 
 #: ../../source/index.rst:57
 msgid "Videos"
-msgstr ""
+msgstr "Videos"
 
 #: ../../source/index.rst:65
 msgid "About"
-msgstr ""
-
+msgstr "About"

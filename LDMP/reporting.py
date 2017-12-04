@@ -89,8 +89,7 @@ def _slice_area(f):
     return np.pi * np.square(b) * ((2*np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
 
 
-# Formula to calculate area of a raster cell Convert the contents of this_tab 
-# to refer to areas in sq km, not to pixel counts, following:
+# Formula to calculate area of a raster cell, following
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
 def calc_cell_area(ymin, ymax, x_width):
     'Calculate cell area on WGS84 ellipsoid'
@@ -147,8 +146,7 @@ def style_sdg_ld(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor(58, 77, 214), QtGui.QApplication.translate('LDMPPlugin', 'Water')),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor(192, 105, 223), QtGui.QApplication.translate('LDMPPlugin', 'Urban land cover'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -216,6 +214,8 @@ class DegradationWorker(AbstractWorker):
                 perf_array = perf_band.ReadAsArray(x, y, cols, rows)
                 lc_array = lc_band.ReadAsArray(x, y, cols, rows)
 
+                # Capture trends that are at least 95% significant
+                deg = np.logical_and(deg >= -3, deg <= -2)
                 deg[lc_array == -1] = -1
                 deg[(state_array == -1) & (perf_array == -1)] = -1
 
@@ -280,23 +280,20 @@ def calc_total_table(a_trans, a_soc, total_table, cell_area):
     """Calculates an total table for an array"""
     if total_table:
         # Add in totals for past total_table if one is provided
-        log('in calc_total_table')
         transitions = np.unique(np.concatenate([a_trans.ravel(), total_table[0]]))
-        log('transitions: {}'.format(transitions))
         ind = np.concatenate(tuple(np.where(transitions == item)[0] for item in total_table[0]))
-        log('ind: {}'.format(ind))
         totals = np.zeros(transitions.shape)
-        log('totals: {}'.format(totals))
         np.add.at(totals, ind, total_table[1])
     else:
         transitions = np.unique(np.concatenate(a_trans))
-        log('transitions: {}'.format(transitions))
         totals = np.zeros(transitions.shape)
-        log('totals: {}'.format(totals))
 
     for transition in transitions:
         ind = np.where(transitions == transition)
-        np.add.at(totals, ind, np.sum(a_soc[a_trans == transition] * cell_area))
+        # Only sum values for this transition, and where soc has a valid value 
+        # (negative values are missing data flags)
+        vals = a_soc[np.logical_and(a_trans == transition, a_soc > 0)]
+        totals[ind] += np.sum(vals * cell_area)
 
     return list((transitions, totals))
 
@@ -410,20 +407,24 @@ class AreaWorker(AbstractWorker):
                                                   area_table_base, cell_area)
                 area_table_target = calc_area_table(band_target.ReadAsArray(x, y, cols, rows),
                                                     area_table_target, cell_area)
-                soc_totals_table = calc_total_table(a_trans,
-                                                    band_soc.ReadAsArray(x, y, cols, rows),
+
+                #################################
+                # Calculate SOC totals (converting soilgrids data from per ha 
+                # to per m)
+                a_soc = band_soc.ReadAsArray(x, y, cols, rows) * 1e-4
+                # Note final units of soc_totals_table are tons C (summed over 
+                # the total area of each class)
+                soc_totals_table = calc_total_table(a_trans, a_soc,
                                                     soc_totals_table, cell_area)
-                log('soc totals: {}'.format(soc_totals_table))
 
                 blocks += 1
             lat += pixel_height
         self.progress.emit(100)
         self.ds = None
 
-        # Convert all tables from meters into square kilometers
+        # Convert all area tables from meters into square kilometers
         area_table_base[1] = area_table_base[1] * 1e-6
         area_table_target[1] = area_table_target[1] * 1e-6
-        soc_totals_table[1] = soc_totals_table[1] * 1e-6
         trans_xtab[1] = trans_xtab[1] * 1e-6
 
         if self.killed:
@@ -864,6 +865,20 @@ def get_lpd_row(table, transition):
             get_xtab_area(table, 0, transition),
             get_xtab_area(table, 1, transition)]
 
+
+def get_soc_per_ha(soc_table, xtab_areas, transition):
+    # The "None" value below is used to return total area across all classes of 
+    # degradation - this is just using the trans_lpd_xtab table as a shortcut 
+    # to get the area of each transition class.
+    area = get_xtab_area(xtab_areas, None, transition)
+    ind = np.where(soc_table[0] == transition)[0]
+    if ind.size == 0 or area == 0:
+        return 0
+    else:
+        # The 1e2 is convert area from sq km to ha
+        return float(soc_table[1][ind]) / (area * 1e2)
+
+
 def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab, 
                          out_file):
     def tr(s):
@@ -880,6 +895,9 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
                                         'font_color': '#2F75B5'})
     subtitle_format = workbook.add_format({'bold': 1,
                                            'font_size': 16})
+    warning_format = workbook.add_format({'bold': 1,
+                                          'font_color': 'red',
+                                          'font_size': 16})
     header_format = workbook.add_format({'bold': 1,
                                          'border': 1,
                                          'align': 'center',
@@ -899,6 +917,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     ########
     # Header
     worksheet.write('A1', tr("trends.earth reporting table"), title_format)
+    worksheet.write('A2',"DRAFT - STILL UNDER REVIEW - DRAFT", warning_format)
     #worksheet.write('A1', "LDN Target Setting Programme", title_format)
     #worksheet.write('A2',"Table 1 - Presentation of national basic data using the LDN indicators framework", subtitle_format)
 
@@ -929,6 +948,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write_row('A10', [tr('Artificial areas'), get_lc_area(base_areas, 5), get_lc_area(target_areas, 5)], num_format)
     worksheet.write_row('A11', [tr('Bare lands'), get_lc_area(base_areas, 6), get_lc_area(target_areas, 6)], num_format)
     worksheet.write_row('A12', [tr('Water bodies'), get_lc_area(base_areas, 7), get_lc_area(target_areas, 7)], num_format_bb)
+
     worksheet.write('D6', '=B6-C6', num_format)
     worksheet.write('D7', '=B7-C7', num_format)
     worksheet.write('D8', '=B8-C8', num_format)
@@ -936,6 +956,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write('D10', '=B10-C10', num_format)
     worksheet.write('D11', '=B11-C11', num_format)
     worksheet.write('D12', '=B12-C12', num_format_bb)
+
     worksheet.write_row('E6', get_lpd_row(trans_lpd_xtab, 11), num_format)
     worksheet.write_row('E7', get_lpd_row(trans_lpd_xtab, 22), num_format)
     worksheet.write_row('E8', get_lpd_row(trans_lpd_xtab, 33), num_format)
@@ -943,6 +964,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write_row('E10', get_lpd_row(trans_lpd_xtab, 55), num_format)
     worksheet.write_row('E11', get_lpd_row(trans_lpd_xtab, 66), num_format)
     worksheet.write_row('E12', ['', '', ''], num_format_bb)
+
     worksheet.write('H6', '=B6-SUM(E6:G6)', num_format)
     worksheet.write('H7', '=B7-SUM(E7:G7)', num_format)
     worksheet.write('H8', '=B8-SUM(E8:G8)', num_format)
@@ -950,6 +972,14 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write('H10', '=B10-SUM(E10:G10)', num_format)
     worksheet.write('H11', '=B11-SUM(E11:G11)', num_format)
     worksheet.write('H12', '', num_format_bb)
+
+    worksheet.write('I6', get_soc_per_ha(soc_totals, trans_lpd_xtab, 11), num_format_rb)
+    worksheet.write('I7', get_soc_per_ha(soc_totals, trans_lpd_xtab, 22), num_format_rb)
+    worksheet.write('I8', get_soc_per_ha(soc_totals, trans_lpd_xtab, 33), num_format_rb)
+    worksheet.write('I9', get_soc_per_ha(soc_totals, trans_lpd_xtab, 44), num_format_rb)
+    worksheet.write('I10', get_soc_per_ha(soc_totals, trans_lpd_xtab, 55), num_format_rb)
+    worksheet.write('I11', get_soc_per_ha(soc_totals, trans_lpd_xtab, 66), num_format_rb)
+    worksheet.write('I12', '', num_format_bb_rb)
 
     worksheet.write('A13', tr('SOC average (ton/ha)'), total_header_format)
     worksheet.write('A14', tr('Percent of total land area'), total_header_format)
@@ -1027,6 +1057,18 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write('A46', tr('Total'), total_header_format)
     worksheet.write('A47', tr('Percent change total SOC stock (country)'), total_header_format)
 
+    worksheet.write('C35', get_soc_per_ha(soc_totals, trans_lpd_xtab, 65), num_format)
+    worksheet.write('C36', get_soc_per_ha(soc_totals, trans_lpd_xtab, 35), num_format)
+    worksheet.write('C37', get_soc_per_ha(soc_totals, trans_lpd_xtab, 15), num_format)
+    worksheet.write('C38', get_soc_per_ha(soc_totals, trans_lpd_xtab, 16), num_format)
+    worksheet.write('C39', get_soc_per_ha(soc_totals, trans_lpd_xtab, 13), num_format)
+    worksheet.write('C40', get_soc_per_ha(soc_totals, trans_lpd_xtab, 12), num_format)
+    worksheet.write('C41', get_soc_per_ha(soc_totals, trans_lpd_xtab, 25), num_format)
+    worksheet.write('C42', get_soc_per_ha(soc_totals, trans_lpd_xtab, 23), num_format)
+    worksheet.write('C43', get_soc_per_ha(soc_totals, trans_lpd_xtab, 21), num_format)
+    worksheet.write('C44', get_soc_per_ha(soc_totals, trans_lpd_xtab, 45), num_format)
+    worksheet.write('C45', get_soc_per_ha(soc_totals, trans_lpd_xtab, 43), num_format_bb)
+
     worksheet.write('D35', '=C35', num_format)
     worksheet.write('D36', '=C36-((((C36-(0.1*C36))/20)*7.5))', num_format)
     worksheet.write('D37', '=C37-((((C37-(0.1*C37))/20)*7.5))', num_format)
@@ -1094,7 +1136,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.set_row(18, 30)
     worksheet.set_row(32, 72)
     worksheet.set_row(33, 30)
-    worksheet.set_row(50, 30)
+    worksheet.set_row(49, 30)
 
     try:
         workbook.close()

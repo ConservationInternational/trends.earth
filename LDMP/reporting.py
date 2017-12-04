@@ -158,67 +158,6 @@ def style_sdg_ld(outfile):
     iface.legendInterface().refreshLayerSymbology(layer)
 
 
-class ReprojectionWorker(AbstractWorker):
-    def __init__(self, src_dataset, ref_dataset, out_file=None):
-        AbstractWorker.__init__(self)
-
-        self.src_dataset = src_dataset
-        self.ref_dataset = ref_dataset
-        if out_file:
-            self.out_file = out_file
-        else:
-            self.out_file = tempfile.NamedTemporaryFile(suffix='.tif').name
-
-    def work(self):
-        self.toggle_show_progress.emit(True)
-        self.toggle_show_cancel.emit(True)
-
-        ds_ref = gdal.Open(self.ref_dataset)
-        sr_dest = osr.SpatialReference()
-        sr_dest.ImportFromWkt(ds_ref.GetProjectionRef())
-
-        src_ds = gdal.Open(self.src_dataset)
-        sr_src = osr.SpatialReference()
-        sr_src.ImportFromWkt(src_ds.GetProjectionRef())
-
-        driver = gdal.GetDriverByName("GTiff")
-        ds_dest = driver.Create(self.out_file, ds_ref.RasterXSize, 
-                                ds_ref.RasterYSize, 1, gdal.GDT_Int16, 
-                                ['COMPRESS=LZW'])
-
-        gt_ref = ds_ref.GetGeoTransform()
-        ds_dest.SetGeoTransform(gt_ref)
-        ds_dest.SetProjection(sr_dest.ExportToWkt())
-
-        gt_src = src_ds.GetGeoTransform()
-        if gt_ref[1] > gt_src[1]:
-            # If new dataset is a lower resolution than the source, use the MODE
-            log('Resampling with: mode')
-            resample_alg = gdal.GRA_Mode
-        else:
-            log('Resampling with: nearest neighour')
-            resample_alg = gdal.GRA_NearestNeighbour
-        # Perform the projection/resampling
-        res = gdal.ReprojectImage(src_ds,
-                                  ds_dest,
-                                  sr_src.ExportToWkt(),
-                                  sr_dest.ExportToWkt(),
-                                  resample_alg,
-                                  dstNodata=-9999,
-                                  callback=self.progress_callback)
-        if res == 0:
-            return ds_dest
-        else:
-            return None
-
-    def progress_callback(self, fraction, message, data):
-        if self.killed:
-            return False
-        else:
-            self.progress.emit(100 * fraction)
-            return True
-
-
 class DegradationWorker(AbstractWorker):
     def __init__(self, src_file):
         AbstractWorker.__init__(self)

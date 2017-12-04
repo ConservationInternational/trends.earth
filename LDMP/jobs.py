@@ -338,7 +338,7 @@ def style_land_cover(outfile, band, title):
            QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), QtGui.QApplication.translate('LDMPPlugin', 'Artificial area')),
            QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#DEB887'), QtGui.QApplication.translate('LDMPPlugin', 'Bare land')),
            QgsColorRampShader.ColorRampItem(7, QtGui.QColor('#3A4DD6'), QtGui.QApplication.translate('LDMPPlugin', 'Water body')),
-           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -412,7 +412,7 @@ def style_land_cover_land_deg(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -450,7 +450,7 @@ def style_prod_traj_trend(outfile):
     # three figures (after a 2 percent stretch)
     ds = gdal.Open(outfile)
     band1 = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
-    band1[band1 <= -9999] = np.nan
+    band1[band1 == 9999] = np.nan
     ds = None
     cutoffs = np.nanpercentile(band1, [2, 98])
     log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
@@ -461,7 +461,7 @@ def style_prod_traj_trend(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', '-{} (declining)').format(extreme)),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0 (stable)')),
            QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{} (increasing)').format(extreme)),
-           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -486,7 +486,7 @@ def style_prod_traj_signif(outfile):
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor("#AAD8D2"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .1)')),
            QgsColorRampShader.ColorRampItem(2, QtGui.QColor("#55B2A5"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .05)')),
            QgsColorRampShader.ColorRampItem(3, QtGui.QColor("#008C79"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .01)')),
-           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -521,7 +521,7 @@ def style_prod_state(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'No significant change')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase')),
-           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -557,7 +557,7 @@ def style_prod_perf(outfile):
     lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
            QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(-9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)

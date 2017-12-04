@@ -87,7 +87,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
             .where(obs_ratio_2.lte(0.5), -1)
 
     task = util.export_to_cloudstorage(lp_perf_deg.int16(), 
-            ndvi_1yr.projection(), geojson, 'productivity_performance', logger, 
+            ndvi_1yr.projection(), geojson, 'prod_performance', logger, 
             EXECUTION_ID)
     task.join()
 
@@ -121,8 +121,8 @@ def run(params, logger):
             geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'productivity_performance', [CloudUrl(url)])
-    gee_results = GEEResults('productivity_performance', [cloud_dataset])
+    cloud_dataset = CloudDataset('geotiff', 'prod_performance', [CloudUrl(url)])
+    gee_results = GEEResults('prod_performance', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)
 

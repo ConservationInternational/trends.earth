@@ -40,7 +40,7 @@ options(
         sourcedir = path('LDMP/help/source'),
         builddir = path('LDMP/help/build'),
         resourcedir = path('LDMP/help/resources'),
-        docs_s3_bucket = 'trends.earth',
+        deploy_s3_bucket = 'trends.earth',
         docs_s3_prefix = 'docs/',
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
         base_language = 'en'
@@ -180,10 +180,12 @@ def install3(options):
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
     ('tests', 't', 'Package tests with plugin'),
+    ('fast', 'f', "don't build docs"),
 ])
 def package(options):
     """Create plugin package"""
-    builddocs(options)
+    if not options.get('fast', False):
+        builddocs(options)
     tests = options.get('tests', False)
     package_file = options.plugin.package_dir / '{}.zip'.format(options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
@@ -199,6 +201,7 @@ def package(options):
     ('clean', 'c', 'Clean out dependencies first'),
     ('ignore_errors', 'i', 'ignore documentation errors'),
     ('develop', 'd', 'Do not alter source dependency git checkouts'),
+    ('fast', 'f', "don't build docs"),
 ])
 def deploy(options):
     setup(options)
@@ -208,7 +211,7 @@ def deploy(options):
     conn = tinys3.Connection(keys['access_key_id'], keys['secret_access_key'])
     f = open('LDMP.zip','rb')
     print('Uploading package to S3')
-    conn.upload('Sharing/LDMP.zip', f, 'landdegradation', public=True)
+    conn.upload('sharing/LDMP.zip', f, options.sphinx.deploy_s3_bucket, public=True)
     print('Package uploaded')
 
 @task
@@ -226,8 +229,8 @@ def deploy_docs(options):
     print('Clearing existing docs.')
     pool = tinys3.Pool(keys['access_key_id'], keys['secret_access_key'], size=10)
     deletions = []
-    for item in conn.list(options.sphinx.docs_s3_prefix, options.sphinx.docs_s3_bucket):
-        deletions.append(pool.delete(item['key'], options.sphinx.docs_s3_bucket))
+    for item in conn.list(options.sphinx.docs_s3_prefix, options.sphinx.deploy_s3_bucket):
+        deletions.append(pool.delete(item['key'], options.sphinx.deploy_s3_bucket))
     pool.all_completed(deletions)
     print('Existing docs deleted.')
 
@@ -238,10 +241,9 @@ def deploy_docs(options):
         for filename in files:
             local_path = os.path.join(root, filename)
             relative_path = os.path.relpath(local_path, local_directory)
-            print local_path, relative_path, options.sphinx.docs_s3_bucket
             f = open(local_path,'rb')
             requests.append(pool.upload(relative_path.replace('\\', '/'), f, 
-                options.sphinx.docs_s3_bucket, public=True))
+                options.sphinx.deploy_s3_bucket, public=True))
             # Clear requests queue periodically to avoid python too many open 
             # files errors.
             if len(requests) > 100:

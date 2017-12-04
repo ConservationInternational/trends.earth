@@ -934,7 +934,7 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     ########
     # Header
     worksheet.write('A1', tr("trends.earth reporting table"), title_format)
-    worksheet.write('A2',"DRAFT - STILL UNDER REVIEW - DRAFT", warning_format)
+    worksheet.write('A2',"DRAFT - DATA UNDER REVIEW - DO NOT QUOTE", warning_format)
     #worksheet.write('A1', "LDN Target Setting Programme", title_format)
     #worksheet.write('A2',"Table 1 - Presentation of national basic data using the LDN indicators framework", subtitle_format)
 

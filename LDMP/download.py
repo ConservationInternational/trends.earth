@@ -45,7 +45,7 @@ def check_hash_against_etag(url, filename):
 
 def read_json(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
-    url = 'https://landdegradation.s3.amazonaws.com/Sharing/{}'.format(file)
+    url = 'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):

@@ -76,7 +76,7 @@ def productivity_state(year_bl_start, year_bl_end,
           .where(classes_chg.gte( 2), 1)
 
     task = util.export_to_cloudstorage(eme_deg.int16(), 
-            ndvi_1yr.projection(), geojson, 'deg', logger, 
+            ndvi_1yr.projection(), geojson, 'prod_state', logger, 
             EXECUTION_ID)
     task.join()
 
@@ -112,8 +112,8 @@ def run(params, logger):
             year_tg_end, ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
 
     logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'productivity_state', [CloudUrl(url)])
-    gee_results = GEEResults('productivity_state', [cloud_dataset])
+    cloud_dataset = CloudDataset('geotiff', 'prod_state', [CloudUrl(url)])
+    gee_results = GEEResults('prod_state', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)
 

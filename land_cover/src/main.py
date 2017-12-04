@@ -51,35 +51,20 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                          71, 72, 73, 74, 75, 76, 77],
                         trans_matrix)
 
-    tasks = []
-    # Create export function to export baseline land cover
-    tasks.append(util.export_to_cloudstorage(lc_bl.int16(), 
-            lc.projection(), geojson, 'lc_baseline', logger, 
-            EXECUTION_ID))
+    ## soc
+    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
 
-    # Create export function to export target year land cover
-    tasks.append(util.export_to_cloudstorage(lc_tg.int16(), 
-            lc.projection(), geojson, 'lc_target', logger, 
-            EXECUTION_ID))
-
-    # Create export function to export land cover transition
-    tasks.append(util.export_to_cloudstorage(lc_tr.int16(), 
-            lc.projection(), geojson, 'lc_change', logger, 
-            EXECUTION_ID))
+    lc_out = lc_bl.addBands(lc_tg).addBands(lc_tr).addBands(lc_dg).addBands(soc)
 
     # Create export function to export land deg image
-    tasks.append(util.export_to_cloudstorage(lc_dg.int16(), 
-            lc.projection(), geojson, 'land_deg', logger, 
-            EXECUTION_ID))
-
-    logger.debug("Waiting for GEE tasks to complete.")
-    cloud_datasets = []
-    for task in tasks:
-        task.join()
-        cloud_datasets.append(CloudDataset('geotiff', task.name, [CloudUrl(task.url())]))
+    task = util.export_to_cloudstorage(lc_out.int16(), 
+            lc.projection(), geojson, 'land_cover', logger, 
+            EXECUTION_ID)
+    task.join()
 
     logger.debug("Setting up results JSON.")
-    gee_results = GEEResults('land_cover', cloud_datasets)
+    cloud_dataset = CloudDataset('geotiff', 'land_cover', [CloudUrl(task.url())])
+    gee_results = GEEResults('land_cover', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_results = results_schema.dump(gee_results)
 

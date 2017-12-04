@@ -50,13 +50,13 @@ def run(params, logger):
 
     ndvi_projection = ee.Image(ndvi_gee_dataset).projection()
     task = util.export_to_cloudstorage(output.int16(), 
-            ndvi_projection, geojson, 'productivity_trajectory', logger, 
+            ndvi_projection, geojson, 'prod_trajectory', logger, 
             EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
     cloud_dataset = CloudDataset('geotiff', method, [CloudUrl(task.url())])
-    gee_results = GEEResults('productivity_trajectory', [cloud_dataset])
+    gee_results = GEEResults('prod_trajectory', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_result = results_schema.dump(gee_results)
 

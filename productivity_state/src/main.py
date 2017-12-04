@@ -69,9 +69,9 @@ def productivity_state(year_bl_start, year_bl_end,
 
     # difference between start and end clusters >= 2
     classes_chg = tg_classes.subtract(bl_classes)
-    # create final degradation output layer (-9999 is background), 0 is not 
+    # create final degradation output layer (9999 is background), 0 is not 
     # degraded, -1 is degraded, 1 is degraded
-    eme_deg = ee.Image(-9999).where(classes_chg.lte(-2),-1) \
+    eme_deg = ee.Image(9999).where(classes_chg.lte(-2),-1) \
           .where(classes_chg.gte(-1).And(classes_chg.lte( 1)), 0) \
           .where(classes_chg.gte( 2), 1)
 

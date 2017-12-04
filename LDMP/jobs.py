@@ -237,18 +237,18 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         for row in rows:
             job = self.jobs[row]
             log("Processing job {}".format(job))
-            if job['results'].get('type') == 'productivity_trajectory':
+            if job['results'].get('type') == 'prod_trajectory':
                 download_prod_traj(job, download_dir)
-            elif job['results'].get('type') == 'productivity_state':
+            elif job['results'].get('type') == 'prod_state':
                 download_prod_state(job, download_dir)
-            elif job['results'].get('type') == 'productivity_performance':
+            elif job['results'].get('type') == 'prod_performance':
                 download_prod_perf(job, download_dir)
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
             elif job['results'].get('type') == 'timeseries':
                 download_timeseries(job)
             else:
-                raise ValueError("Unrecognized result type in download results: {}".format(dataset['dataset']))
+                raise ValueError("Unrecognized result type in download results: {}".format(job['results'].get('type')))
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
@@ -314,21 +314,17 @@ def download_land_cover(job, download_dir):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-            if dataset['dataset'] == 'lc_baseline':
-                style_land_cover(outfile, 'Land cover (baseline)')
-            elif dataset['dataset'] == 'lc_target':
-                style_land_cover(outfile, 'Land cover (target)')
-            elif dataset['dataset'] == 'lc_change':
+            if dataset['dataset'] == 'land_cover':
+                style_land_cover(outfile, 1, 'Land cover (baseline)')
+                style_land_cover(outfile, 2, 'Land cover (target)')
                 # TODO: Fix color coding of transition layer.
                 #style_land_cover_transition(outfile)
-                pass
-            elif dataset['dataset'] == 'land_deg':
                 style_land_cover_land_deg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 
-def style_land_cover(outfile, title):
+def style_land_cover(outfile, band, title):
     layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', title))
     if not layer.isValid():
         log('Failed to add layer')
@@ -346,7 +342,7 @@ def style_land_cover(outfile, title):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), band, shader)
     layer.setRenderer(pseudoRenderer)
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
@@ -398,7 +394,7 @@ def style_land_cover_transition(outfile):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_change.dataProvider(), 1, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_change.dataProvider(), 3, shader)
     layer_lc_change.setRenderer(pseudoRenderer)
     layer_lc_change.triggerRepaint()
     layer_lc_change.triggerRepaint()
@@ -420,7 +416,7 @@ def style_land_cover_land_deg(outfile):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_deg.dataProvider(), 1, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_deg.dataProvider(), 4, shader)
     layer_deg.setRenderer(pseudoRenderer)
     layer_deg.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer_deg)
@@ -509,7 +505,7 @@ def download_prod_state(job, download_dir):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-            if dataset['dataset'] == 'productivity_state':
+            if dataset['dataset'] == 'prod_state':
                 style_prod_state(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
@@ -539,7 +535,7 @@ def download_prod_perf(job, download_dir):
     log("downloading productivity_perf results...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
-            if dataset['dataset'] == 'productivity_performance':
+            if dataset['dataset'] == 'prod_performance':
                 #TODO style layer and set layer name based on the info in the dataset json file
                 outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
                 resp = download_result(url['url'], outfile, job)
@@ -551,7 +547,7 @@ def download_prod_perf(job, download_dir):
 
 
 def style_prod_perf(outfile):
-    layer_perf = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity performance (degradation)'))
+    layer_perf = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity performance'))
     if not layer_perf.isValid():
         log('Failed to add layer')
         return None

@@ -46,7 +46,8 @@ def productivity_state(year_bl_start, year_bl_end,
             .reduce(ee.Reducer.mean()).rename(['ndvi'])
 
     # reclassify mean ndvi for baseline period based on the percentiles
-    bl_classes = ee.Image(1).where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
+    bl_classes = ee.Image(9999).where(bl_ndvi_mean.lte(bl_ndvi_perc.select('p10')), 1) \
+        .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p30')), 4) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p40')), 5) \
@@ -57,7 +58,8 @@ def productivity_state(year_bl_start, year_bl_end,
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p90')),10)
 
     # reclassify mean ndvi for target period based on the percentiles
-    tg_classes = ee.Image(1).where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
+    tg_classes = ee.Image(9999).where(tg_ndvi_mean.lte(tg_ndvi_perc.select('p10')), 1) \
+        .where(tg_ndvi_mean.gt(tg_ndvi_perc.select('p10')), 2) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p30')), 4) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p40')), 5) \

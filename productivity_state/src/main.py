@@ -46,7 +46,8 @@ def productivity_state(year_bl_start, year_bl_end,
             .reduce(ee.Reducer.mean()).rename(['ndvi'])
 
     # reclassify mean ndvi for baseline period based on the percentiles
-    bl_classes = ee.Image(9999).where(bl_ndvi_mean.lte(bl_ndvi_perc.select('p10')), 1) \
+    bl_classes = ee.Image(9999) \
+        .where(bl_ndvi_mean.lte(bl_ndvi_perc.select('p10')), 1) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p30')), 4) \
@@ -58,8 +59,9 @@ def productivity_state(year_bl_start, year_bl_end,
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p90')),10)
 
     # reclassify mean ndvi for target period based on the percentiles
-    tg_classes = ee.Image(9999).where(tg_ndvi_mean.lte(tg_ndvi_perc.select('p10')), 1) \
-        .where(tg_ndvi_mean.gt(tg_ndvi_perc.select('p10')), 2) \
+    tg_classes = ee.Image(9999) \
+        .where(tg_ndvi_mean.lte(bl_ndvi_perc.select('p10')), 1) \
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p30')), 4) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p40')), 5) \
@@ -67,14 +69,14 @@ def productivity_state(year_bl_start, year_bl_end,
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p60')), 7) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p70')), 8) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p80')), 9) \
-        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p90')),10) 
+        .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p90')),10)
 
     # difference between start and end clusters >= 2
     classes_chg = tg_classes.subtract(bl_classes)
     # create final degradation output layer (9999 is background), 0 is not 
     # degraded, -1 is degraded, 1 is degraded
     eme_deg = ee.Image(9999).where(classes_chg.lte(-2),-1) \
-          .where(classes_chg.gte(-1).And(classes_chg.lte( 1)), 0) \
+          .where(classes_chg.gte(-1).And(classes_chg.lte(1)), 0) \
           .where(classes_chg.gte( 2), 1)
 
     task = util.export_to_cloudstorage(eme_deg.int16(), 

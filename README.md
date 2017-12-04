@@ -46,8 +46,9 @@ ensure you have the very latest version of the code.
 
 #### Installing the latest packaged version
 
-Download [the latest `LDMT` 
-zipfile](https://landdegradation.s3.amazonaws.com/Sharing/LDMP.zip).
+Download [the latest `trends.earth` 
+zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip).
+
 
 *Note that there are no longer separate zipfiles for 32 and 64 bit QGIS 
 installs as the plugin no longer needs any architecture dependent binaries.*

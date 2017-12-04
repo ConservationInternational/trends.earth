@@ -9,7 +9,7 @@ Nations Convention to Combat Desertification (UNCCD), as well as tracking
 progress towards achivement of Sustainable Development Goal (SDG) target 15.3, 
 Land Degradation Neutrality (LDN).
 
-`earth.trends` was produced as an output of the GEF-funded project [“Enabling 
+`trends.earth` was produced as an output of the GEF-funded project [“Enabling 
 the use of global data sources to assess and monitor land degradation at 
 multiple scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide 
 guidance on robust methods and a tool for assessing, monitoring status, and 
@@ -73,7 +73,7 @@ Open a terminal window and clone the latest version of the repository from
 Github:
 
 ```
-git clone https://github.com/ConservationInternational/earth.trends
+git clone https://github.com/ConservationInternational/trends.earth
 ```
 
 Navigate to the root folder of the newly cloned repository, and install 
@@ -104,5 +104,5 @@ making a log of changes (https://github.com/borysiasty/plugin_reloader).
 
 ## License
 
-`earth.trends` is free and open-source. It is licensed under the GNU General 
+`trends.earth` is free and open-source. It is licensed under the GNU General 
 Public License, version 2.0 or later.

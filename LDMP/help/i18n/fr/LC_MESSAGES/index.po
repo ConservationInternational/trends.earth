@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# This file is distributed under the same license as the trends.earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Project-Id-Version: trends.earth 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:53-0500\n"
+"POT-Creation-Date: 2017-12-04 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Monica Noon <mnoon@conservation.org>, 2017\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../../source/index.rst:2
-msgid "Land Degradation Monitoring Toolbox"
-msgstr "Boîte à outils de surveillance de la dégradation des terres"
+msgid "trends.earth"
+msgstr ""
 
 #: ../../source/index.rst:5
 msgid "`English <../en/index.html>`_"
@@ -46,38 +46,25 @@ msgstr ""
 
 #: ../../source/index.rst:10
 msgid ""
-"The Land Degradation Monitoring Toolbox supports development of baselines "
-"and monitoring of land degradation using an innovative desktop and cloud-"
-"based system."
+"trends.earth (formerly the Land Degradation Monitoring Toolbox) supports "
+"development of baselines and monitoring of land degradation using an "
+"innovative desktop and cloud-based system."
 msgstr ""
-"La boîte à outils de surveillance de la dégradation des terres prend en "
-"charge le développement de lignes de base et le suivi de la dégradation des "
-"sols à l'aide d'un système innovant basé sur un environnement de bureau et "
-"un environnement cloud."
 
 #: ../../source/index.rst:14
 msgid ""
-"The toolbox supports monitoring indicators for Sustainable Development Goal "
-"(SDG) Target 15.3.1 (land degradation neutrality) including productivity, "
+"trends.earth supports monitoring indicators for Sustainable Development Goal"
+" (SDG) Target  15.3.1 (land degradation neutrality) including productivity, "
 "land cover, and soil organic carbon, and also supports reporting to the "
 "United Nations Convention to Combat Desertification (UNCCD)."
 msgstr ""
-"La boîte à outils soutient les indicateurs de suivi de la cible (SDG) 15.3.1"
-" (neutralité liée à la dégradation des terres), y compris la productivité, "
-"la couverture terrestre et le carbone organique du sol, et appuie la "
-"déclaration à la Convention des Nations Unies sur la lutte Contre la "
-"Désertification (UNCCD)."
 
 #: ../../source/index.rst:19
 msgid ""
-"The toolbox also allows users to plot time series of key indicators, and to "
-"produce maps and other graphics that can support tracking the impact of "
+"trends.earth also allows users to plot time series of key indicators, and to"
+" produce maps and other graphics that can support tracking the impact of "
 "sustainable land management or other projects."
 msgstr ""
-"La boîte à outils permet également aux utilisateurs de tracer des séries "
-"temporelles d'indicateurs clés, et de produire des cartes et d'autres "
-"graphiques qui peuvent aider à suivre l'impact de la gestion durable des "
-"terres ou d'autres projets."
 
 #: ../../source/index.rst:23
 msgid ""

@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# This file is distributed under the same license as the trends.earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Project-Id-Version: trends.earth 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:53-0500\n"
+"POT-Creation-Date: 2017-12-04 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -100,6 +100,10 @@ msgid ""
 " <http://www2.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
+"Carbón en el suelo: en revisión siguiendo la Guía de Buenas Prácticas "
+"`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version% "
+"201.0.pdf> `_."
 
 #: ../../source/documentation/calculate.rst:25
 msgid "Productivity"
@@ -362,6 +366,13 @@ msgid ""
 "`(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
+"El rendimiento de productividad inicial se evalúa en relación con el "
+"percentil 90 de los valores de productividad anual calculados durante el "
+"período de referencia entre los píxeles en la misma unidad de tierra. Los "
+"píxeles con un rendimiento de NPP en el 50% más bajo del rango histórico "
+"pueden indicar una degradación en este indicador `(UNCCD 2017) "
+"<http://www2.unccd.int/sites/default/files/relevant-links/2017-10/ Buena% "
+"20Práctica%20Guidance_SDG% 20Indicator% 2015.3.1_Version% 201.0.pdf> `_."
 
 #: ../../source/documentation/calculate.rst:90
 msgid ""
@@ -371,6 +382,11 @@ msgid ""
 "<http://www2.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
+"El rendimiento contemporáneo de la productividad para cada período de "
+"informe se debe calcular a partir de un promedio de los años transcurridos "
+"entre la evaluación previa (o de referencia) hasta el año actual (UNCCD "
+"2017) <http://www2.unccd.int/sites/default/files /relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/documentation/calculate.rst:93
 msgid "Productivity State"

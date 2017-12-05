@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# This file is distributed under the same license as the trends.earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Project-Id-Version: trends.earth 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:53-0500\n"
+"POT-Creation-Date: 2017-12-04 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/documentation/installing.rst:4
 msgid ""
-"There are different ways to install the toolbox, depending on whether you "
+"There are different ways to install trends.earth, depending on whether you "
 "want to install the stable version (recommended) or the development version."
 msgstr ""
 
@@ -33,20 +33,20 @@ msgstr ""
 
 #: ../../source/documentation/installing.rst:9
 msgid ""
-"The preferred way to install the toolbox is through QGIS. To install from "
-"within QGIS, first launch QGIS, and then go to `Plugins` in the menu bar at "
-"the top of the program and select `Manage and install plugins`."
+"The preferred way to install the trends.earth is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
 
 #: ../../source/documentation/installing.rst:16
 msgid ""
-"Then search for a plugin called `Land degradation monitoring tool` and "
-"select `Install plugin` at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
 msgstr ""
 
 #: ../../source/documentation/installing.rst:22
 msgid ""
-"If your plugin has been installed properly, there will be a toolbox in the "
+"If your plugin has been installed properly, there will be a menu bar in the "
 "top left of your browser that looks like this:"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 #: ../../source/documentation/installing.rst:31
 msgid ""
 "There are two ways to install the development version of the plugin. For "
-"more details, see the `README <https://github.com/ConservationInternational"
-"/ldmp-qgis-plugin#development-version>`_ for the Land Degradation Monitoring"
-" Toolbox."
+"more details, see the `README "
+"<https://github.com/ConservationInternational/trends.earth#development-"
+"version>`_ for trends.earth."
 msgstr ""

@@ -1,5 +1,5 @@
-Land Degradation Monitoring Toolbox
-===================================
+trends.earth
+============
 
 +-------------------------------+--------------------------------+-------------------------------+-------------------------------+
 | `English <../en/index.html>`_ | `Francais <../fr/index.html>`_ | `Español <../es/index.html>`_ | `Swahili <../sw/index.html>`_ |
@@ -7,16 +7,16 @@ Land Degradation Monitoring Toolbox
 
 **Monitor Indicators for SDG 15.3 and Land Degradation Reporting**
 
-The Land Degradation Monitoring Toolbox supports development of baselines and 
-monitoring of land degradation using an innovative desktop and cloud-based 
-system.
+trends.earht (formerly the Land Degradation Monitoring Toolbox) supports 
+development of baselines and monitoring of land degradation using an innovative 
+desktop and cloud-based system.
 
-The toolbox supports monitoring indicators for Sustainable Development Goal 
-(SDG) Target 15.3.1 (land degradation neutrality) including productivity, land 
+trends.earth supports monitoring indicators for Sustainable Development Goal 
+(SDG) Target  15.3.1 (land degradation neutrality) including productivity, land 
 cover, and soil organic carbon, and also supports reporting to the United 
 Nations Convention to Combat Desertification (UNCCD).
 
-The toolbox also allows users to plot time series of key indicators, and to 
+trends.earth also allows users to plot time series of key indicators, and to 
 produce maps and other graphics that can support tracking the impact of 
 sustainable land management or other projects.
 

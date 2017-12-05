@@ -28,10 +28,14 @@ msgid ""
 "global data sources to assess and monitor land degradation at multiple "
 "scales\", funded by the Global Environment Facility."
 msgstr ""
+"trends.earth a été réalisé dans le cadre du projet «Permettre l'utilisation "
+"de sources de données mondiales pour évaluer et surveiller la dégradation "
+"des terres à des échelles multiples», financé par le Fonds pour "
+"l'environnement mondial."
 
 #: ../../source/about.rst:9
 msgid "Contributors"
-msgstr ""
+msgstr "Contributeurs"
 
 #: ../../source/about.rst:11
 msgid ""
@@ -39,6 +43,10 @@ msgid ""
 "[1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, "
 "Tristan Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_."
 msgstr ""
+"Les contributeurs à la documentation et aux trends.earth incluent Yengoh "
+"Genesis [1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart "
+"Olsson [1]_, Tristan Schnader [2]_, Anna Tengberg [1] _, et Alex Zvoleff "
+"[2]_."
 
 #: ../../source/about.rst:15
 msgid ""
@@ -73,6 +81,8 @@ msgid ""
 "trends.earth uses `Google Earth Engine <https://earthengine.google.com>`_ to"
 " compute indicators in the cloud."
 msgstr ""
+"trends.earth utilise `Google Earth Engine <https://earthengine.google.com>`_"
+" pour calculer les indicateurs dans le cloud."
 
 #: ../../source/about.rst:48
 msgid "`Lund University <http://www.lunduniversity.lu.se>`_"
@@ -84,11 +94,11 @@ msgstr "`Conservation International <http://www.conservation.org>` _"
 
 #: ../../source/about.rst:52
 msgid "Data sources"
-msgstr ""
+msgstr "Les sources de données"
 
 #: ../../source/about.rst:55
 msgid "License"
-msgstr ""
+msgstr "Licence"
 
 #: ../../source/about.rst:57
 msgid ""
@@ -96,6 +106,9 @@ msgid ""
 "Public License, version 2.0 or later <https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html>`_."
 msgstr ""
+"trends.earth est gratuit et open-source. Il est sous licence GNU General "
+"Public License, version 2.0 ou ultérieure <https://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.en.html> `_."
 
 #: ../../source/about.rst:61
 msgid ""
@@ -106,3 +119,9 @@ msgid ""
 " endorsement or acceptance by Conservation International Foundation, or its "
 "partner organizations and contributors."
 msgstr ""
+"Ce site et les produits de trends.earth sont disponibles sous les termes de "
+"la licence Creative Commons International Attribution 4.0 (CC BY 4.0) "
+"<https://creativecommons.org/licenses/by/4.0> `_. Les limites et les noms "
+"utilisés, et les désignations utilisées, dans trends.earth n'impliquent pas "
+"l'approbation officielle ou l'acceptation par Conservation International "
+"Foundation, ou ses organisations partenaires et contributeurs."

@@ -7,8 +7,10 @@ import json
 import stat
 import shutil
 import subprocess
-import tinys3
+from multiprocessing.pool import ThreadPool
 import zipfile
+
+import boto3
 
 from paver.easy import *
 from paver.doctools import html
@@ -208,48 +210,59 @@ def deploy(options):
     package(options)
     with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
         keys = json.load(fin)
-    conn = tinys3.Connection(keys['access_key_id'], keys['secret_access_key'])
-    f = open('LDMP.zip','rb')
     print('Uploading package to S3')
-    conn.upload('sharing/LDMP.zip', f, options.sphinx.deploy_s3_bucket, public=True)
+    client = boto3.client('s3',
+                          aws_access_key_id=keys['access_key_id'],
+                          aws_secret_access_key=keys['secret_access_key'])
+    data = open('LDMP.zip', 'rb')
+    client.put_object(Key='sharing/LDMP.zip',
+                      Body=data, 
+                      Bucket=options.sphinx.deploy_s3_bucket)
     print('Package uploaded')
+
 
 @task
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
-    ('fast', 'f', "only build english docs"),
+    ('fast', 'f', "don't build docs"),
 ])
 def deploy_docs(options):
-    builddocs(options)
+    if not options.get('fast', False):
+        builddocs(options)
 
     with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
         keys = json.load(fin)
-    conn = tinys3.Connection(keys['access_key_id'], keys['secret_access_key'])
 
     print('Clearing existing docs.')
-    pool = tinys3.Pool(keys['access_key_id'], keys['secret_access_key'], size=10)
-    deletions = []
-    for item in conn.list(options.sphinx.docs_s3_prefix, options.sphinx.deploy_s3_bucket):
-        deletions.append(pool.delete(item['key'], options.sphinx.deploy_s3_bucket))
-    pool.all_completed(deletions)
+    s3 = boto3.resource('s3',
+                        aws_access_key_id=keys['access_key_id'],
+                        aws_secret_access_key=keys['secret_access_key'])
+
+    paginator = client.get_paginator('list_objects_v2')
+    pages = paginator.paginate(Bucket=options.sphinx.deploy_s3_bucket)
+    filtered_iterator = pages.search("Key[?Size > `100`][]")
+    for key_data in filtered_iterator:
+            print(key_data)
+
+    bucket = s3.Bucket(options.sphinx.deploy_s3_bucket)
+    objects_to_delete = []
+    for obj in bucket.objects.filter(Prefix='docs/'):
+        objects_to_delete.append({'Key': obj.key})
+    bucket.delete_objects(Delete={'Objects': objects_to_delete})
     print('Existing docs deleted.')
 
     print('Uploading docs to S3.')
-    requests = []
-    local_directory = options.sphinx.builddir / "html"
-    for root, dirs, files in os.walk(local_directory):
-        for filename in files:
-            local_path = os.path.join(root, filename)
-            relative_path = os.path.relpath(local_path, local_directory)
-            f = open(local_path,'rb')
-            requests.append(pool.upload(relative_path.replace('\\', '/'), f, 
-                options.sphinx.deploy_s3_bucket, public=True))
-            # Clear requests queue periodically to avoid python too many open 
-            # files errors.
-            if len(requests) > 100:
-                pool.all_completed(requests)
-                requests = []
-    pool.all_completed(requests)
+    filenames = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser(options.sphinx.builddir, 'html')) for f in fn]
+
+    print filenames[0]
+
+    # def upload(f):
+    #     bucket = conn.get_bucket(options.sphinx.deploy_s3_bucket)
+    #     s3.put_object(Key='html/LDMP.zip',
+    #                   Body=open(f, 'rb'), 
+    #                   Bucket=options.sphinx.deploy_s3_bucket)
+    # pool = ThreadPool(processes=10)
+    # pool.map(upload, filenames)
     print('Docs uploaded.')
 
 @task
@@ -343,7 +356,7 @@ def _filter_excludes(root, items, options):
     for item in list(items):  # copy list or iteration values change
         itempath = path(os.path.relpath(root)) / item
         if exclude(itempath) and item not in skips:
-            debug('Excluding {}'.format(itempath))
+            #debug('Excluding {}'.format(itempath))
             items.remove(item)
     return items
 

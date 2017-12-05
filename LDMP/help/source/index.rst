@@ -1,11 +1,16 @@
 trends.earth
 ============
+|
+
+.. image:: /static/common/trends_earth_logo_bl_1200.png
+   :align: center
+   :alt: trends.earth
+
+|
 
 +-------------------------------+--------------------------------+-------------------------------+-------------------------------+
 | `English <../en/index.html>`_ | `Francais <../fr/index.html>`_ | `Español <../es/index.html>`_ | `Swahili <../sw/index.html>`_ |
 +-------------------------------+--------------------------------+-------------------------------+-------------------------------+
-
-**Monitor Indicators for SDG 15.3 and Land Degradation Reporting**
 
 trends.earth (formerly the Land Degradation Monitoring Toolbox) supports 
 development of baselines and monitoring of land degradation using an innovative 

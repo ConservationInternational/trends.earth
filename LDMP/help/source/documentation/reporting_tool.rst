@@ -6,10 +6,11 @@ This will open up the `Land degradation reporting` dialog box:
 .. image:: /static/common/ldmt_toolbar_highlight_reporting.png
    :align: center
 
-Using the analyses from the former set of steps (under the Calculate indicators tab), there is a 
-set of outputs currently displayed within the QGIS window. Select the Reporting Tool in the LDMT. 
-The Land degradation reporting window will appear. Click on SDG Target 15.3.1 Indicator to 
-aggregate the analyses. 
+Using the analyses from the former set of steps (under the Calculate indicators 
+tab), there is a set of outputs currently displayed within the QGIS window. 
+Select the Reporting Tool in trends.earth. The Land degradation reporting 
+window will appear. Click on SDG Target 15.3.1 Indicator to aggregate the 
+analyses. 
    
 .. image:: /static/documentation/reporting_tool/image065.png
    :align: center

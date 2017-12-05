@@ -7,7 +7,7 @@ trends.earth
 
 **Monitor Indicators for SDG 15.3 and Land Degradation Reporting**
 
-trends.earht (formerly the Land Degradation Monitoring Toolbox) supports 
+trends.earth (formerly the Land Degradation Monitoring Toolbox) supports 
 development of baselines and monitoring of land degradation using an innovative 
 desktop and cloud-based system.
 

@@ -4,7 +4,7 @@ The three metrics (trend, state and performance) are aggregated to determine if 
 areas where productivity may be increasing but remains low relative to other areas with similar 
 land cover characteristics and climatic conditions. Areas with a statistically significant negative 
 trend over time indicate a decline in productivity. When both performance and state show potential 
-degradation, the assessment indicates negative productivity as well. The LDMT allows users to 
+degradation, the assessment indicates negative productivity as well. trends.earth allows users to 
 select the trajectory indicatory method to detect productivity. Selecting NDVI Trends for the 
 baseline period 2001-2016 will yield the following two outputs:
    
@@ -56,7 +56,7 @@ habitats to destruction at the national scale (CSIRO 2017).
    :align: center
 
 Land cover transitions are designated by the user via the transition matrix. This example, using 
-the default in the LDMT, the beige color indicate areas where no change has occurred. The 
+the default in trends.earth, the beige color indicate areas where no change has occurred. The 
 remaining pixels highlighted demonstrate the transition from the baseline (2000-2014) to the 
 target year (2015). A closer look (below) shows transitions in central Tanzania of conversion 
 from croplands (red) or forest land (green) to other land cover classes.
@@ -79,7 +79,7 @@ yield logical results.
 .. image:: /static/documentation/interpreting_results/image079.png
    :align: center
 
-Calculating the final indicator is done using the pie chart symbol in the LDMT. The output layer 
+Calculating the final indicator is done using the pie chart symbol in trends.earth. The output layer 
 can be selected using the existing layers within the map: Productivity trajectory trend 
 (significance), productivity performance (degradation), Productivity (emerging) and Land Cover 
 (degradation). These are aggregated to highlight degradation given the inputs and parameters 

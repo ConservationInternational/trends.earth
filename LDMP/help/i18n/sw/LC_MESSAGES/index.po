@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# This file is distributed under the same license as the trends.earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Project-Id-Version: trends.earth 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:53-0500\n"
+"POT-Creation-Date: 2017-12-04 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/index.rst:2
-msgid "Land Degradation Monitoring Toolbox"
-msgstr "Kitengo cha Ufuatiliaji wa Uharibifu wa Ardhi"
+msgid "trends.earth"
+msgstr ""
 
 #: ../../source/index.rst:5
 msgid "`English <../en/index.html>`_"
@@ -45,36 +45,25 @@ msgstr ""
 
 #: ../../source/index.rst:10
 msgid ""
-"The Land Degradation Monitoring Toolbox supports development of baselines "
-"and monitoring of land degradation using an innovative desktop and cloud-"
-"based system."
+"trends.earth (formerly the Land Degradation Monitoring Toolbox) supports "
+"development of baselines and monitoring of land degradation using an "
+"innovative desktop and cloud-based system."
 msgstr ""
-"Kitabu cha Ufuatiliaji wa Uharibifu wa Ardhi kinasaidia maendeleo ya msingi "
-"na ufuatiliaji wa uharibifu wa ardhi kwa kutumia desktop ya ubunifu na mfumo"
-" wa wingu."
 
 #: ../../source/index.rst:14
 msgid ""
-"The toolbox supports monitoring indicators for Sustainable Development Goal "
-"(SDG) Target 15.3.1 (land degradation neutrality) including productivity, "
+"trends.earth supports monitoring indicators for Sustainable Development Goal"
+" (SDG) Target  15.3.1 (land degradation neutrality) including productivity, "
 "land cover, and soil organic carbon, and also supports reporting to the "
 "United Nations Convention to Combat Desertification (UNCCD)."
 msgstr ""
-"Kitabu cha zana kinasaidia viashiria vya ufuatiliaji kwa lengo la kudumisha "
-"lengo la maendeleo (SDG) 15.3.1 (uharibifu wa ardhi usio na ustawi) ikiwa ni"
-" pamoja na uzalishaji, bomba la ardhi, na kaboni ya kaboni ya udongo, na pia"
-" inasaidia kutoa taarifa kwa Mkataba wa Umoja wa Mataifa wa Kupambana na "
-"Maafa (UNCCD)."
 
 #: ../../source/index.rst:19
 msgid ""
-"The toolbox also allows users to plot time series of key indicators, and to "
-"produce maps and other graphics that can support tracking the impact of "
+"trends.earth also allows users to plot time series of key indicators, and to"
+" produce maps and other graphics that can support tracking the impact of "
 "sustainable land management or other projects."
 msgstr ""
-"Bodi ya zana pia inaruhusu watumiaji kupanga mfululizo wa wakati wa "
-"viashiria muhimu, na kuzalisha ramani na graphics nyingine ambazo zinaweza "
-"kusaidia kufuatilia athari za usimamizi wa ardhi endelevu au miradi mingine."
 
 #: ../../source/index.rst:23
 msgid ""

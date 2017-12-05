@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# This file is distributed under the same license as the trends.earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Project-Id-Version: trends.earth 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:53-0500\n"
+"POT-Creation-Date: 2017-12-04 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,36 +18,21 @@ msgstr ""
 
 #: ../../source/documentation/data_download.rst:2
 msgid "Download data"
-msgstr "Download data"
+msgstr ""
 
 #: ../../source/documentation/data_download.rst:4
 msgid "**Coming soon!**"
-msgstr "**Coming soon!**"
+msgstr ""
 
 #: ../../source/documentation/data_download.rst:9
-msgid ""
-"To download data, select the globe icon (|iconGlobe|). This will open up the"
-" `Download Data` dialog box:"
+msgid "To download data, select the globe icon (|iconGlobe|). This will open up the `Download Data` dialog box:"
 msgstr ""
-"To download data, select the globe icon (|iconGlobe|). This will open up the"
-" `Download Data` dialog box:"
 
 #: ../../source/documentation/data_download.rst:15
-msgid ""
-"To work offline, you will be able to select an area of interest or upload a "
-"shapefile to download your relevant datasets and work in areas with limited "
-"or no internet access. This feature is currently unavailable."
+msgid "To work offline, you will be able to select an area of interest or upload a shapefile to download your relevant datasets and work in areas with limited or no internet access. This feature is currently unavailable."
 msgstr ""
-"To work offline, you will be able to select an area of interest or upload a "
-"shapefile to download your relevant datasets and work in areas with limited "
-"or no internet access. This feature is currently unavailable."
 
 #: ../../source/documentation/data_download.rst:22
-msgid ""
-"The table below describes all the data available through the toolbox. It "
-"specifies data sources, resolutions, coverage and the different indicators "
-"for which each data set is used."
+msgid "The table below describes all the data available through the toolbox. It specifies data sources, resolutions, coverage and the different indicators for which each data set is used."
 msgstr ""
-"The table below describes all the data available through the toolbox. It "
-"specifies data sources, resolutions, coverage and the different indicators "
-"for which each data set is used."
+

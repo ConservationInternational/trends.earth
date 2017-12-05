@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Land Degradation Monitoring Toolbox package.
+# This file is distributed under the same license as the trends.earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Land Degradation Monitoring Toolbox 1.0\n"
+"Project-Id-Version: trends.earth 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 22:53-0500\n"
+"POT-Creation-Date: 2017-12-04 22:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Monica Noon <mnoon@conservation.org>, 2017\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,27 +24,23 @@ msgstr "Sur"
 
 #: ../../source/about.rst:4
 msgid ""
-"The toolbox was produced as part of the project \"Enabling the use of global"
-" data sources to assess and monitor land degradation at multiple scales\", "
-"funded by the Global Environment Facility."
+"trends.earth was produced as part of the project \"Enabling the use of "
+"global data sources to assess and monitor land degradation at multiple "
+"scales\", funded by the Global Environment Facility."
 msgstr ""
-"La boîte à outils a été produite dans le cadre du projet `Permettre "
-"l'utilisation de sources de données mondiales pour évaluer et surveiller la "
-"dégradation des terres à des échelles multiples`, financé par le Fonds pour "
-"l'environnement mondial."
 
-#: ../../source/about.rst:8
+#: ../../source/about.rst:9
+msgid "Contributors"
+msgstr ""
+
+#: ../../source/about.rst:11
 msgid ""
-"Contributors to the documentation and toolbox include Yengoh Genesis [1]_, "
-"Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, "
+"Contributors to the documentation and trends.earth include Yengoh Genesis "
+"[1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, "
 "Tristan Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_."
 msgstr ""
-"Les contributeurs à la documentation et à la boîte à outils incluent Yengoh "
-"Genesis [1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart "
-"Olsson [1]_, Tristan Schnader [2]_, Anna Tengberg [1]_, et Alex Zvoleff "
-"[2]_."
 
-#: ../../source/about.rst:12
+#: ../../source/about.rst:15
 msgid ""
 "The Land Degradation Monitoring Project is a partnership of Conservation "
 "International, Lund University, and the National Aeronautics and Space "
@@ -56,35 +52,57 @@ msgstr ""
 "nationale de l'aéronautique et de l'espace (NASA), financé par le Fonds pour"
 " l'environnement mondial (FEM)."
 
-#: ../../source/about.rst:34
+#: ../../source/about.rst:37
 msgid "|logoCI|"
 msgstr "|logoCI|"
 
-#: ../../source/about.rst:34
+#: ../../source/about.rst:37
 msgid "|logoLund|"
 msgstr "|logoLund|"
 
-#: ../../source/about.rst:34
+#: ../../source/about.rst:37
 msgid "|logoNASA|"
 msgstr "|logoNASA|"
 
-#: ../../source/about.rst:34
+#: ../../source/about.rst:37
 msgid "|logoGEF|"
 msgstr "|logoGEF|"
 
-#: ../../source/about.rst:37
+#: ../../source/about.rst:40
 msgid ""
-"The toolbox uses `Google Earth Engine <https://earthengine.google.com>`_ to "
-"compute indicators in the cloud."
+"trends.earth uses `Google Earth Engine <https://earthengine.google.com>`_ to"
+" compute indicators in the cloud."
 msgstr ""
-"La boîte à outils utilise `Google Earth Engine "
-"<https://earthengine.google.com>` _ pour calculer les indicateurs dans le "
-"cloud."
 
-#: ../../source/about.rst:45
+#: ../../source/about.rst:48
 msgid "`Lund University <http://www.lunduniversity.lu.se>`_"
 msgstr "`Université de Lund <http://www.lunduniversity.lu.se>` _"
 
-#: ../../source/about.rst:46
+#: ../../source/about.rst:49
 msgid "`Conservation International <http://www.conservation.org>`_"
 msgstr "`Conservation International <http://www.conservation.org>` _"
+
+#: ../../source/about.rst:52
+msgid "Data sources"
+msgstr ""
+
+#: ../../source/about.rst:55
+msgid "License"
+msgstr ""
+
+#: ../../source/about.rst:57
+msgid ""
+"trends.earth is free and open-source. It is licensed under the `GNU General "
+"Public License, version 2.0 or later <https://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.en.html>`_."
+msgstr ""
+
+#: ../../source/about.rst:61
+msgid ""
+"This site and the products of trends.earth are made available under the "
+"terms of the `Creative Commons Attribution 4.0 International License (CC BY "
+"4.0) <https://creativecommons.org/licenses/by/4.0>`_. The boundaries and "
+"names used, and the designations used, in trends.earth do not imply official"
+" endorsement or acceptance by Conservation International Foundation, or its "
+"partner organizations and contributors."
+msgstr ""

@@ -1,11 +1,11 @@
 About
 =====
 
-The toolbox was produced as part of the project "Enabling the use of global 
+trends.earth was produced as part of the project "Enabling the use of global 
 data sources to assess and monitor land degradation at multiple scales", funded 
 by the Global Environment Facility.
 
-Contributors to the documentation and toolbox include Yengoh Genesis [1]_, 
+Contributors to the documentation and trends.earth include Yengoh Genesis [1]_, 
 Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, Tristan 
 Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_.
 
@@ -34,7 +34,7 @@ Administration (NASA), and is funded by the Global Environment Facility (GEF).
     |logoCI| |logoLund| |logoNASA| |logoGEF|
     ======== ========== ========== =========
 
-The toolbox uses `Google Earth Engine <https://earthengine.google.com>`_ to 
+trends.earth uses `Google Earth Engine <https://earthengine.google.com>`_ to 
 compute indicators in the cloud.
 
 .. image:: /static/common/logo_earth_engine.png

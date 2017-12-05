@@ -43,7 +43,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Land Degradation Monitoring Toolbox'
+project = u'trends.earth'
 copyright = u'2017, Conservation International'
 
 locale_dirs = ['../i18n/']
@@ -215,7 +215,7 @@ rinoh_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 rinoh_documents = [
-    ('index', 'LDMT_Documentation.pdf', u'Land Degradation Monitoring Toolbox Documentation',
+    ('index', 'trends-earth_Documentation.pdf', u'trends.earth',
      u'Conservation International', 'manual'),
 ]
 
@@ -248,6 +248,6 @@ rinoh_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'TemplateClass', u'Land Degradation Monitoring Toolbox Documentation',
+    ('index', 'TemplateClass', u'trends.earth documentation',
      [u'Conservation International'], 1)
 ]

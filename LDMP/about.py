@@ -29,11 +29,3 @@ class DlgAbout(QtGui.QDialog, UiDialog):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-
-        VS_logo = QtGui.QPixmap(':/plugins/LDMP/icons/VS_logo.png')
-        self.VS_logo.setPixmap(VS_logo)
-        self.VS_logo.show()
-
-        CI_logo = QtGui.QPixmap(':/plugins/LDMP/icons/CI_logo.png')
-        self.CI_logo.setPixmap(CI_logo)
-        self.CI_logo.show()

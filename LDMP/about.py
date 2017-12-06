@@ -34,6 +34,3 @@ class DlgAbout(QtGui.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-
-        self.textBrowser.setStyleSheet('table {width: 100%;} td {align: vertical-align: middle;}')
-        self.textBrowser.document().setDefaultStyleSheet('table {width: 100%;} td {vertical-align: middle;}')

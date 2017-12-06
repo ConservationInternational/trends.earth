@@ -474,7 +474,6 @@ def pretranslate(options):
         print("pylupdate4 is not in your path---unable to gather strings for translation")
     print("Gathering strings for translation using pylupdate4")
     subprocess.check_call([pylupdate4, os.path.join(options.plugin.i18n_dir, 'i18n.pro')])
-
     subprocess.check_call('tx push -s')
 
 

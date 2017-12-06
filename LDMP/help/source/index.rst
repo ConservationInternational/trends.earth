@@ -32,6 +32,9 @@ videos, are available on this website:
 * :ref:`videos`
 * :ref:`about-docs`
 
+.. note:: `Download this documentation as a PDF for offline use 
+   <trends-earth.pdf>`_
+
 .. _user-docs:
 
 .. toctree::

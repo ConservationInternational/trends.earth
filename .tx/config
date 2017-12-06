@@ -54,7 +54,7 @@ source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--indicator_15_3_1]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/indicator_15_3_1.po
-source_file = LDMP/help/i18n/pot/indicator_15_3_1.pot
+source_file = LDMP/help/i18n/pot/training/indicator_15_3_1.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--visualizing_results]

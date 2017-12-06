@@ -152,6 +152,8 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['static']
 
+html_show_sourcelink = False
+
 # Note the underscore SHOULD be used below as this is how the static folder is 
 # named by sphinx on generation.
 html_context = {

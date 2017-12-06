@@ -42,18 +42,51 @@ class DlgPlot(QtGui.QDialog, UiDialog):
         pass
 
 
+def polyfit(x, y, degree):
+    results = {}
+
+    coeffs = np.polyfit(x, y, degree)
+
+     # Polynomial Coefficients
+    results['polynomial'] = coeffs.tolist()
+
+    # r-squared
+    p = np.poly1d(coeffs)
+    # fit values, and mean
+    yhat = p(x)                         # or [p(z) for z in x]
+    ybar = np.sum(y)/len(y)          # or sum(y)/len(y)
+    ssreg = np.sum((yhat-ybar)**2)   # or sum([ (yihat - ybar)**2 for yihat in yhat])
+    sstot = np.sum((y - ybar)**2)    # or sum([ (yi - ybar)**2 for yi in y])
+    results['determination'] = ssreg / sstot
+
+    return results
+
+
 class DlgPlotTimeries(DlgPlot):
     def __init__(self, parent=None):
         super(DlgPlotTimeries, self).__init__(parent)
 
     def plot_data(self, x, y, labels, autoSI=False):
-        self.plot_window.plot(x, y, pen='b', brush='w')
+        line = pg.PlotCurveItem(x, y, pen='b', brush='w')
+        self.plot_window.addItem(line)
+
         # Add trendline
-        z = np.polyfit(x, y, 1)
-        p = np.poly1d(z)
-        self.plot_window.plot(x, p(x), pen='r', brush='w')
+        z = polyfit(x, y, 1)
+        p = np.poly1d(z['polynomial'])
+
+
+        trend = pg.PlotCurveItem(x, p(x), pen='r', brush='w')
+        self.plot_window.addItem(trend)
+
         self.plot_window.setBackground('w')
         self.plot_window.showGrid(x=True, y=True)
+
+        legend = pg.LegendItem()
+        legend.addItem(line, 'NDVI')
+        legend.addItem(trend, 'Linear trend (r<sup>2</sup> = {0:.2f})'.format(z['determination']))
+        legend.setParentItem(self.plot_window.getPlotItem())
+        legend.anchor((1, 0), (1, 0))
+
         yaxis = self.plot_window.getPlotItem().getAxis('left')
         yaxis.enableAutoSIPrefix(autoSI)
 

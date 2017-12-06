@@ -28,7 +28,8 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
+#extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -140,12 +141,13 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = '../resources/en/common/logo_CI.png'
+#html_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
+html_logo = '../resources/en/common/trends_earth_logo_square_32x32.ico'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-#html_favicon = None
+html_favicon = '../resources/en/common/trends_earth_logo_square_32x32.ico'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -206,24 +208,14 @@ htmlhelp_basename = 'TemplateClassdoc'
 
 # -- Options for LaTeX output --------------------------------------------------
 
-# The paper size ('letter' or 'a4').
-rinoh_paper_size = 'letter'
-
-rinoh_template = 'book'
-
-# The font size ('10pt', '11pt' or '12pt').
-rinoh_font_size = '10pt'
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, author, documentclass [howto/manual]).
-rinoh_documents = [
-    ('index', 'trends-earth_Documentation.pdf', u'trends.earth',
+pdf_documents = [
+    ('index', 'trends-earth', u'trends.earth documentation',
      u'Conservation International', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+latex_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

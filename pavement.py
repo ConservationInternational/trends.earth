@@ -525,10 +525,11 @@ def builddocs(options):
                 builddir=options.sphinx.builddir, lang=language))
         print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=language, builddir=options.sphinx.builddir))
 
+        PDF_OPTS = "-D pdf_documents='[(\'index\', \'trends.earth_{lang}\', \'Conservation International\', \'manual\')]".format(lang=language)
         # Build PDF
-        # sh("sphinx-build -b rinoh -a {sphinx_opts} {builddir}/pdf/{lang}".format(sphinx_opts=SPHINX_OPTS,
-        #     sourcedir=options.sphinx.sourcedir, builddir=options.sphinx.builddir,
-        #     lang=language))
+        sh("sphinx-build -b pdf -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
+            pdf_opts=PDF_OPTS, sourcedir=options.sphinx.sourcedir, 
+            builddir=options.sphinx.builddir, lang=language))
 
 def _localize_resources(options, language):
     print("Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir))

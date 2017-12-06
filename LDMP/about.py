@@ -13,13 +13,18 @@
 """
 
 import os
+import sys
 
-from PyQt4 import QtGui
+from PyQt4 import QtGui, uic
 
-from LDMP.gui.DlgAbout import Ui_DlgAbout as UiDialog
+# Need to use this below approach to load the dialog to about the import 
+# resources_rc problem you get with QGIS plugins when loading resources. See:
+# https://gis.stackexchange.com/a/202162/25916
+sys.path.append(os.path.dirname(__file__))
+FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'gui', 'DlgAbout.ui'),
+                               resource_suffix='')
 
-
-class DlgAbout(QtGui.QDialog, UiDialog):
+class DlgAbout(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgAbout, self).__init__(parent)
@@ -29,3 +34,6 @@ class DlgAbout(QtGui.QDialog, UiDialog):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        self.textBrowser.setStyleSheet('table {width: 100%;} td {align: vertical-align: middle;}')
+        self.textBrowser.document().setDefaultStyleSheet('table {width: 100%;} td {vertical-align: middle;}')

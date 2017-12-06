@@ -8,6 +8,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgJobsDetails.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgReporting.ui \
+../gui/DlgReportingSDG.ui \
+../gui/DlgReportingUNCCD.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \

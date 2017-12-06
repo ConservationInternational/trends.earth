@@ -3,6 +3,7 @@ import os
 import sys
 import fnmatch
 import glob
+import re
 import json
 import stat
 import shutil
@@ -234,35 +235,31 @@ def deploy_docs(options):
         keys = json.load(fin)
 
     print('Clearing existing docs.')
-    s3 = boto3.resource('s3',
-                        aws_access_key_id=keys['access_key_id'],
-                        aws_secret_access_key=keys['secret_access_key'])
-
+    client = boto3.client('s3',
+                          aws_access_key_id=keys['access_key_id'],
+                          aws_secret_access_key=keys['secret_access_key'])
     paginator = client.get_paginator('list_objects_v2')
-    pages = paginator.paginate(Bucket=options.sphinx.deploy_s3_bucket)
-    filtered_iterator = pages.search("Key[?Size > `100`][]")
-    for key_data in filtered_iterator:
-            print(key_data)
-
-    bucket = s3.Bucket(options.sphinx.deploy_s3_bucket)
-    objects_to_delete = []
-    for obj in bucket.objects.filter(Prefix='docs/'):
-        objects_to_delete.append({'Key': obj.key})
-    bucket.delete_objects(Delete={'Objects': objects_to_delete})
-    print('Existing docs deleted.')
+    pages = paginator.paginate(Bucket=options.sphinx.deploy_s3_bucket,
+                               Prefix='docs/')
+    for page in pages:
+        if page['KeyCount'] == 0:
+            break
+        objects = [{'Key': obj['Key']} for obj in page['Contents']]
+        client.delete_objects(Bucket=options.sphinx.deploy_s3_bucket,
+                              Delete={'Objects': objects})
+    print('Existing docs in s3 bucket {} deleted.'.format(options.sphinx.deploy_s3_bucket))
 
     print('Uploading docs to S3.')
-    filenames = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser(options.sphinx.builddir, 'html')) for f in fn]
-
-    print filenames[0]
-
-    # def upload(f):
-    #     bucket = conn.get_bucket(options.sphinx.deploy_s3_bucket)
-    #     s3.put_object(Key='html/LDMP.zip',
-    #                   Body=open(f, 'rb'), 
-    #                   Bucket=options.sphinx.deploy_s3_bucket)
-    # pool = ThreadPool(processes=10)
-    # pool.map(upload, filenames)
+    filenames = [os.path.normpath(os.path.join(dp, f)) for dp, dn, fn in os.walk(options.sphinx.builddir, 'html') for f in fn]
+    def upload(f):
+        key = f[f.find('\html'):]
+        key = key.replace('\\', '/')
+        key = re.sub('^/html', 'docs', key)
+        client.put_object(Key=key,
+                          Body=open(f, 'rb'), 
+                          Bucket=options.sphinx.deploy_s3_bucket)
+    pool = ThreadPool(processes=20)
+    pool.map(upload, filenames)
     print('Docs uploaded.')
 
 @task

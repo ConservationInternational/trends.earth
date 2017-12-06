@@ -4,6 +4,7 @@ import sys
 import fnmatch
 import glob
 import re
+import mimetypes
 import json
 import stat
 import shutil
@@ -255,9 +256,15 @@ def deploy_docs(options):
         key = f[f.find('\html'):]
         key = key.replace('\\', '/')
         key = re.sub('^/html', 'docs', key)
+        guessed_mime_type = mimetypes.guess_type(f)[0]
+        if guessed_mime_type:
+            extra_args = {'ContentType': guessed_mime_type}
+        else:
+            extra_args = {}
         client.put_object(Key=key,
                           Body=open(f, 'rb'), 
-                          Bucket=options.sphinx.deploy_s3_bucket)
+                          Bucket=options.sphinx.deploy_s3_bucket,
+                          **extra_args)
     pool = ThreadPool(processes=20)
     pool.map(upload, filenames)
     print('Docs uploaded.')

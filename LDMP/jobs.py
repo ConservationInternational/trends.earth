@@ -246,7 +246,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
             elif job['results'].get('type') == 'timeseries':
-                download_timeseries(job)
+                download_timeseries(job, self.tr)
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(job['results'].get('type')))
 
@@ -567,7 +567,7 @@ def style_prod_perf(outfile):
     iface.legendInterface().refreshLayerSymbology(layer_perf)
 
 
-def download_timeseries(job):
+def download_timeseries(job, tr):
     log("processing timeseries results...")
     table = job['results'].get('table', None)
     if not table:
@@ -575,8 +575,8 @@ def download_timeseries(job):
     data = [x for x in table if x['name'] == 'mean'][0]
     dlg_plot = DlgPlotTimeries()
     labels = {'title': job['task_name'],
-              'bottom': 'Time',
-              'left': ['Integrated NDVI', 'NDVI x 10000']}
+              'bottom': tr('Time'),
+              'left': [tr('Integrated NDVI'), tr('NDVI x 10000')]}
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()

@@ -840,14 +840,13 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         else:
             base_areas, target_areas, soc_totals, trans_lpd_xtab = area_worker.get_return()
 
-        # TODO: Make sure no data, water areas, and urban areas are symmetric 
-        # across LD layer and lc layer
-        self.deg = {"Area Degraded": get_xtab_area(trans_lpd_xtab, -1, None),
-                    "Area Stable": get_xtab_area(trans_lpd_xtab, 0, None),
-                    "Area Improved": get_xtab_area(trans_lpd_xtab, 1, None),
-                    "No Data": get_xtab_area(trans_lpd_xtab, 9999, None)}
-        log('SDG 15.3.1 indicator: {}'.format(self.deg))
+        x = [self.tr('Area Degraded'), self.tr('Area Stable'), self.tr('Area Improved'), self.tr('No Data')]
+        y = [get_xtab_area(trans_lpd_xtab, -1, None),
+             get_xtab_area(trans_lpd_xtab, 0, None),
+             get_xtab_area(trans_lpd_xtab, -1, None),
+             get_xtab_area(trans_lpd_xtab, 9999, None)]
         log('SDG 15.3.1 indicator total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
+        log('SDG 15.3.1 indicator areas (deg, stable, imp, no data): {}'.format(y))
 
         style_sdg_ld(deg_out_file)
 
@@ -856,14 +855,10 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                              os.path.join(self.output_folder.text(), 
                                           'reporting_table.xlsx'))
 
-        # Plot the output
-        x = ['Area Degraded', 'Area Stable', 'Area Improved', 'No Data']
-        y = [self.deg['Area Degraded'], self.deg['Area Stable'], self.deg['Area Improved'], self.deg['No Data']]
-
         dlg_plot = DlgPlotBars()
         labels = {'title': self.plot_title.text(),
-                  'bottom': 'Land cover',
-                  'left': ['Area', 'km<sup>2</sup>']}
+                  'bottom': self.tr('Land cover'),
+                  'left': [self.tr('Area'), self.tr('km<sup>2</sup>')]}
         dlg_plot.plot_data(x, y, labels)
         dlg_plot.show()
         dlg_plot.exec_()

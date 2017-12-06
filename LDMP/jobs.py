@@ -576,7 +576,7 @@ def download_timeseries(job):
     dlg_plot = DlgPlotTimeries()
     labels = {'title': job['task_name'],
               'bottom': 'Time',
-              'left': ['Integrated NDVI', 'NDVIx10000']}
+              'left': ['Integrated NDVI', 'NDVI x 10000']}
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()

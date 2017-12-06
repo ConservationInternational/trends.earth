@@ -111,8 +111,8 @@ def translate(options):
     if not lrelease:
         print("lrelease is not in your path---unable to release translation files")
     print("Releasing translations using lrelease")
+    subprocess.check_call(['tx', 'pull', '-s'])
     for translation in options.plugin.translations:
-        subprocess.check_call(['tx', 'pull', '-s', '-l', translation])
         subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
 
 def read_requirements():

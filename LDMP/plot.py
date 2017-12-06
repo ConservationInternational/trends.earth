@@ -74,7 +74,6 @@ class DlgPlotTimeries(DlgPlot):
         z = polyfit(x, y, 1)
         p = np.poly1d(z['polynomial'])
 
-
         trend = pg.PlotCurveItem(x, p(x), pen='r', brush='w')
         self.plot_window.addItem(trend)
 
@@ -83,7 +82,7 @@ class DlgPlotTimeries(DlgPlot):
 
         legend = pg.LegendItem()
         legend.addItem(line, 'NDVI')
-        legend.addItem(trend, 'Linear trend (r<sup>2</sup> = {0:.2f})'.format(z['determination']))
+        legend.addItem(trend, self.tr('Linear trend (r<sup>2</sup> = {0:.2f})').format(z['determination']))
         legend.setParentItem(self.plot_window.getPlotItem())
         legend.anchor((1, 0), (1, 0))
 

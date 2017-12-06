@@ -1,8 +1,11 @@
 <RCC>
   <qresource prefix="/plugins/LDMP">
     <file>trends_earth_logo_square.png</file>
-    <file>icons/CI_logo.png</file>
-    <file>icons/VS_logo.png</file>
+    <file>icons/trends_earth_logo_bl_small.png</file>
+    <file>icons/GEF_logo_small.png</file>
+    <file>icons/CI_logo_small.png</file>
+    <file>icons/NASA_logo_small.png</file>
+    <file>icons/LU_logo_small.png</file>
     <file>icons/icon-calculator.png</file>
     <file>icons/icon-chart.png</file>
     <file>icons/icon-clipboard.png</file>

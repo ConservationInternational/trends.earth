@@ -94,6 +94,9 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.transMatrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
         self.transMatrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
 
+        self.transMatrix.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        self.transMatrix.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+
         self.lc_def_default.toggled.connect(self.lc_def_default_toggled)
         self.lc_def_custom_file_browse.clicked.connect(self.open_lc_def_file)
         self.lc_def_custom_create.clicked.connect(self.lc_def_create)

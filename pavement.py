@@ -184,12 +184,9 @@ def install3(options):
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
     ('tests', 't', 'Package tests with plugin'),
-    ('fast', 'f', "don't build docs"),
 ])
 def package(options):
     """Create plugin package"""
-    if not options.get('fast', False):
-        builddocs(options)
     tests = options.get('tests', False)
     package_file = options.plugin.package_dir / '{}.zip'.format(options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
@@ -205,7 +202,6 @@ def package(options):
     ('clean', 'c', 'Clean out dependencies first'),
     ('ignore_errors', 'i', 'ignore documentation errors'),
     ('develop', 'd', 'Do not alter source dependency git checkouts'),
-    ('fast', 'f', "don't build docs"),
 ])
 def deploy(options):
     setup(options)

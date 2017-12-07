@@ -8,7 +8,7 @@ This will open up the `Calculate Indicator` dialog box:
 
 **Summary**
    
-Sustainable Development Goal 15.3 intends to combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods, and strive to achieve a land degradation-neutral world by 2030. In order to address this, we are measuring primary productivity, land cover and soil carbon to assess the annual change in degraded or desertified arable land (% of ha). The “Calculate indicators” button brings up a page that allows calculating datasets associated with the three SDG Target 15.3 sub indicators. For productivity and land cover, the toolbox implements the Tier 1 recommendations of the Good Practice Guidance lead by CSIRO. For productivity, users can calculate trajectory, performance, and state. For Land Cover, users can calculate land cover change relative to a baseline period, and enter a transition matrix indicating which transitions indicate degradation, stability, or improvement.
+Sustainable Development Goal 15.3 intends to combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods, and strive to achieve a land degradation-neutral world by 2030. In order to address this, we are measuring primary productivity, land cover and soil carbon to assess the annual change in degraded or desertified arable land (% area or km²). The `Calculate indicators` button brings up a page that allows calculating datasets associated with the three SDG Target 15.3 sub indicators. For productivity and land cover, the toolbox implements the Tier 1 recommendations of the Good Practice Guidance lead by CSIRO and UNCCD. For productivity, users can calculate trajectory, performance, and state. For Land Cover, users can calculate land cover change relative to a baseline period, and enter a transition matrix indicating which transitions indicate degradation, stability, or improvement.
 
 Select which Indicator you would like to calculate
 
@@ -35,7 +35,7 @@ Productivity Trajectory
 
 a) Users can select NDVI trends, Rain Use Efficiency (RUE), Pixel RESTREND or Water Use Efficiency (WUE) to determine the trends in productivity over the time period selected. 
 
-b) The starting year and end year will determine de period on which to perform the analysis.
+b) The starting year and end year will determine the period to perform the analysis.
 
 c) The initial trend is indicated by the slope of a linear regression fitted across annual productivity measurements over the entire period as assessed using the Mann-Kendall Z score where degradation occurs where z= ≤ -1.96 `(UNCCD 2017) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_. 
 
@@ -57,7 +57,7 @@ e) Climate datasets need to be selected to perform climate corrections using RES
 .. image:: /static/documentation/calculate/image023.png
    :align: center
    
-4) In the tab “Trajectory”, select the method to be used to compute the productivity trajectory analysis. The options are:
+4) In the tab `Trajectory`, select the method to be used to compute the productivity trajectory analysis. The options are:
 
 * NDVI trend: This dataset shows the trend in annually integrated NDVI time series (2003-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio of the difference between near-infrared band (NIR) and the red band (RED) and the sum of these two bands (Rouse et al., 1974; Deering 1978) and reviewed in Tucker (1979). 
 
@@ -101,7 +101,7 @@ State is a comparison of how current productivity in an area compares to past pr
 
 **Calculating State**
 
-1) The user selects the baseline period and comparison period to determine the state for both existing and emerging degradation.
+1) The user selects the baseline period and comparison period to determine the state.
 
 .. image:: /static/documentation/calculate/image026.png
    :align: center
@@ -114,21 +114,16 @@ State is a comparison of how current productivity in an area compares to past pr
 
 The final step before submitting the task to Google Earth Engine, is to define the study area on which to perform the analysis. The toolbox allows this task to be completed in one of two ways:
 
-1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop down menu. 
+1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu. 
 
 2. The user can upload a shapefile with an area of interest. 
-
-NOTE: This boundary should have only one polygon, i.e. when uploading a country with outlying islands, there will be multiple geometries drawn separately. By merging the polygons, the analysis will be run on the entire study area as opposed to a single polygon.
 
 .. image:: /static/documentation/calculate/image027.png
    :align: center
  
-.. image:: /static/documentation/calculate/image028.png
-   :align: center
-
 **Submit task**
 
-When all the parameters have been defined, click Calculate, and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion.
+When all the parameters have been defined, click `Calculate`, and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion.
 
 Land Cover
 ----------
@@ -154,9 +149,25 @@ c) Metadata: User enters unique task name and notes for the analyses.
 .. image:: /static/documentation/calculate/image030.png
    :align: center
    
-3) Transition matrix tab
+3)	Land cover definition
 
-a) User selects the transition matrix value of land cover transitions for each transition between the 6 IPCC land cover classes. For example: 
+a)	User can define their own aggregation of land cover classes from the 37 ESA land cover classes to the 7 UNCCD categories.
+
+i)	Select the dial button for the `Custom` option and select `Create new definition` 
+
+ii)	Edit the aggregation suitable for the area of interest
+
+iii)	Select `Save definition` and select Next
+
+.. image:: /static/documentation/calculate/image030b.png
+   :align: center
+   
+.. image:: /static/documentation/calculate/image030c.png
+   :align: center
+   
+4) Transition matrix tab
+
+a) User selects the transition matrix value of land cover transitions for each transition between the 7 UNCCD land cover classes. For example: 
 
 i) The default for cropland to cropland is 0 because the land cover stays the same and is therefore stable.
 
@@ -171,11 +182,11 @@ b) Users can keep the default values or create unique transition values of their
    
 By default, and following the UNCCD best practices guidance document, the major land cover change processes that are classified as degradation are:
 
-1) Deforestation (forest to cropland or settlements)
+1) Deforestation (forest to cropland or artificial area)
 
-2) Urban expansion (grassland, cropland wetlands or otherland to settlements)
+2) Urban expansion (grassland, cropland wetlands or bare land to artificial area)
 
-3) Vegetation loss (forest to grassland, otherland or grassland, cropland to other land)
+3) Vegetation loss (forest to grassland, bare land or grassland, cropland to other land)
 
 4) Inundation (forest, grassland, cropland to wetlands)
 
@@ -190,17 +201,17 @@ The major land cover change processes that are not considered degradation are:
 
 1) Stable (land cover class remains the same over time period)
 
-2) Afforestation (grassland, cropland to forest; settlements to forest)
+2) Afforestation (grassland, cropland to forest; artificial area to forest)
 
-3) Agricultural expansion (grassland to cropland; settlements or otherland to cropland)
+3) Agricultural expansion (grassland to cropland; artificial area or bare land to cropland)
 
-4) Vegetation establishment (settlements or otherland to settlements)
+4) Vegetation establishment (artificial area or bare land to artificial area)
 
-5) Wetland establishment (settlements or otherland to wetlands)
+5) Wetland establishment (artificial area or bare land to wetlands)
 
-6) Withdrawal of settlements (settlements to otherland)
+6) Withdrawal of artificial area (artificial area to bare land)
 
-It is important to remember that those are suggested interpretations, and should be evaluated and adjusted considering the local conditions of the regions in for which the analysis will be performed.
+It is important to remember that those are suggested interpretations, and should be evaluated and adjusted considering the local conditions of the regions where the analysis will be performed.
 
 **Land cover - Area of interest**
 

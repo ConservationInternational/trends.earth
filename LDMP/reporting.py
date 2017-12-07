@@ -41,9 +41,7 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
-from LDMP.gui.DlgReportingUNCCDProd import Ui_DlgReportingUNCCDProd
-from LDMP.gui.DlgReportingUNCCDLC import Ui_DlgReportingUNCCDLC
-from LDMP.gui.DlgReportingUNCCDSOC import Ui_DlgReportingUNCCDSOC
+from LDMP.gui.DlgReportingUNCCD import Ui_DlgReportingUNCCD
 from LDMP.worker import AbstractWorker, start_worker
 
 # Checks the file type (land cover, state, etc...) for a LDMP output file using
@@ -545,9 +543,7 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.setupUi(self)
 
         self.dlg_sdg = DlgReportingSDG()
-        self.dlg_unncd_prod = DlgReportingUNCCDProd()
-        self.dlg_unncd_lc = DlgReportingUNCCDLC()
-        self.dlg_unncd_soc = DlgReportingUNCCDSOC()
+        self.dlg_unncd_lc = DlgReportingUNCCD()
 
         self.btn_sdg.clicked.connect(self.clicked_sdg)
         self.btn_unccd_prod.clicked.connect(self.clicked_unccd_prod)
@@ -1166,22 +1162,8 @@ def make_reporting_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     #         writer.writerow(row)
 
 
-class DlgReportingUNCCDProd(QtGui.QDialog, Ui_DlgReportingUNCCDProd):
+class DlgReportingUNCCD(QtGui.QDialog, Ui_DlgReportingUNCCD):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgReportingUNCCDProd, self).__init__(parent)
-        self.setupUi(self)
-
-
-class DlgReportingUNCCDLC(QtGui.QDialog, Ui_DlgReportingUNCCDLC):
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(DlgReportingUNCCDLC, self).__init__(parent)
-        self.setupUi(self)
-
-
-class DlgReportingUNCCDSOC(QtGui.QDialog, Ui_DlgReportingUNCCDSOC):
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(DlgReportingUNCCDSOC, self).__init__(parent)
+        super(DlgReportingUNCCD, self).__init__(parent)
         self.setupUi(self)

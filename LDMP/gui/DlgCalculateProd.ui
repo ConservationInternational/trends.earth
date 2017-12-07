@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>515</width>
-    <height>581</height>
+    <height>955</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -322,7 +322,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -397,7 +397,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -497,7 +497,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -572,7 +572,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -640,7 +640,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -705,7 +705,7 @@
              </datetime>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -806,7 +806,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -855,7 +855,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>

@@ -3,6 +3,12 @@
 /*     margin-right: auto; */
 /*     text-align: center; */
 /* } */
+div.admonition.note {
+    background: #646464;
+}
+div.admonition.title {
+    background: #646464;
+}
 .wy-nav-top {
     background-color: #646464;
 }

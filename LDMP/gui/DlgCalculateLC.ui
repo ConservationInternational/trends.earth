@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>890</width>
-    <height>648</height>
+    <width>1287</width>
+    <height>999</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -87,7 +87,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -136,6 +136,9 @@
               <width>120</width>
               <height>35</height>
              </size>
+            </property>
+            <property name="accessibleName">
+             <string notr="true"/>
             </property>
             <property name="date">
              <date>
@@ -234,7 +237,7 @@
              </date>
             </property>
             <property name="displayFormat">
-             <string>yyyy</string>
+             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -514,17 +517,23 @@
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>100</number>
            </attribute>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>120</number>
+           </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderCascadingSectionResizes">
             <bool>true</bool>
            </attribute>
            <attribute name="verticalHeaderDefaultSectionSize">
-            <number>40</number>
+            <number>60</number>
            </attribute>
            <attribute name="verticalHeaderMinimumSectionSize">
             <number>40</number>
            </attribute>
            <attribute name="verticalHeaderStretchLastSection">
-            <bool>true</bool>
+            <bool>false</bool>
            </attribute>
            <row>
             <property name="text">
@@ -921,6 +930,9 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
@@ -935,6 +947,9 @@
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -965,6 +980,12 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>110</width>
@@ -989,6 +1010,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="maximumSize">
              <size>

@@ -133,8 +133,6 @@ def read_requirements():
 
 def _install(folder, options):
     '''install plugin to qgis'''
-    if not options.get('fast', False):
-        builddocs(options)
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
@@ -157,26 +155,14 @@ def _install(folder, options):
         src.symlink(dst_this_plugin)
 
 @task
-@cmdopts([
-    ('ignore_errors', 'i', 'ignore documentation errors'),
-    ('fast', 'f', "don't build docs"),
-])
 def install(options):
     _install(".qgis2", options)
 
 @task
-@cmdopts([
-    ('ignore_errors', 'i', 'ignore documentation errors'),
-    ('fast', 'f', "don't build docs"),
-])
 def installdev(options):
     _install(".qgis-dev", options)
 
 @task
-@cmdopts([
-    ('ignore_errors', 'i', 'ignore documentation errors'),
-    ('fast', 'f', "don't build docs"),
-])
 def install3(options):
     _install(".qgis3", options)
 

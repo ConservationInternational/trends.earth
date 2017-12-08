@@ -543,30 +543,18 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.setupUi(self)
 
         self.dlg_sdg = DlgReportingSDG()
-        self.dlg_unncd_lc = DlgReportingUNCCD()
+        self.dlg_unncd = DlgReportingUNCCD()
 
         self.btn_sdg.clicked.connect(self.clicked_sdg)
-        self.btn_unccd_prod.clicked.connect(self.clicked_unccd_prod)
-        self.btn_unccd_lc.clicked.connect(self.clicked_unccd_lc)
-        self.btn_unccd_soc.clicked.connect(self.clicked_unccd_soc)
+        self.btn_unccd.clicked.connect(self.clicked_unccd)
 
     def clicked_sdg(self):
         self.close()
         self.dlg_sdg.exec_()
 
-    def clicked_unccd_prod(self):
+    def clicked_unccd(self):
         self.close()
-        self.dlg_unncd_prod.exec_()
-
-    def clicked_unccd_lc(self):
-        self.close()
-        result = self.dlg_unncd_lc.exec_()
-
-    def clicked_unccd_soc(self):
-        QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
-                             QApplication.translate('LDMP', "Raw data download coming soon!"), None)
-        # self.close()
-        # self.dlg_unncd_soc.exec_()
+        self.dlg_unncd.exec_()
 
 
 class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):

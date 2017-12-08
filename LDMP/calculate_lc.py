@@ -52,14 +52,18 @@ class TransMatrixEdit(QtGui.QLineEdit):
         super(TransMatrixEdit, self).__init__(parent)
 
         self.textChanged.connect(self.transition_cell_changed)
+        self.old_text = None
 
     def transition_cell_changed(self, text):
+        if text in ['-1', '0', '1']:
+            # Save old, valid text for reuse if necessary
+            self.old_text = text
         if self.text() == '-1':
-            self.setStyleSheet('QLineEdit {background: #BB7757;}')
+            self.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
         elif self.text() == '1':
-            self.setStyleSheet('QLineEdit {background: #55B2A5;}')
+            self.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
         else:
-            self.setStyleSheet('QLineEdit {background: #F6F6EA;}')
+            self.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
 
 
 class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
@@ -72,7 +76,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.dlg_setup_classes = DlgCalculateLCSetAggregation(self)
 
         # Extract trans_matrix from the QTableWidget
-        trans_matrix_default = [[ 0,  1,  1,  1, -1,  0, -1],
+        trans_matrix_default = [[ 0,  1,  1,  1, -1, -1, -1],
                                 [-1,  0, -1, -1, -1, -1, -1],
                                 [-1,  1,  0,  0, -1, -1, -1],
                                 [-1, -1, -1,  0, -1, -1,  0],
@@ -119,6 +123,10 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         # Setup the class table so that the table is defined if a user uses the 
         # default and never accesses that dialog
         self.dlg_setup_classes.setup_class_table()
+
+        self.legend_deg.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
+        self.legend_imp.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
+        self.legend_stable.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
 
     def remap_matrix_update(self, remap_matrix):
         self.remap_matrix = remap_matrix

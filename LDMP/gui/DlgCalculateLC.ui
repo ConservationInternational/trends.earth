@@ -434,7 +434,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <layout class="QGridLayout" name="lc_trans_table_layout" rowminimumheight="0,0,0">
+        <layout class="QGridLayout" name="lc_trans_table_layout" rowminimumheight="0,0">
          <item row="0" column="1" alignment="Qt::AlignHCenter">
           <widget class="QLabel" name="label_lc_target_year">
            <property name="sizePolicy">
@@ -968,14 +968,20 @@
           <item row="0" column="2">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Improvement:</string>
+             <string>Improvement</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLineEdit" name="legend_deg">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="text">
-             <string notr="true">-1</string>
+             <string notr="true">-</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -990,8 +996,14 @@
           </item>
           <item row="1" column="2">
            <widget class="QLineEdit" name="legend_imp">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="text">
-             <string notr="true">1</string>
+             <string notr="true">+</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -1013,6 +1025,12 @@
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="legend_stable">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="text">
              <string notr="true">0</string>
             </property>

@@ -57,6 +57,7 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: Training Materials
 
+    training/UNCCD_reporting
     training/indicator_15_3_1
     training/visualizing_results
 

@@ -17,7 +17,7 @@ import json
 from urllib import quote_plus
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint, QAbstractTableModel, pyqtSignal
+from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec, QSize, QRect, QPoint, QAbstractTableModel, pyqtSignal, QRegExp
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -27,6 +27,9 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.api import run_script
+
+# Number of classes in land cover dataset
+NUM_CLASSES = 7
 
 class VerticalLabel(QtGui.QLabel):
     def __init__(self, parent=None):
@@ -54,12 +57,12 @@ class TransMatrixEdit(QtGui.QLineEdit):
         self.textChanged.connect(self.transition_cell_changed)
 
     def transition_cell_changed(self, text):
-        if self.text() == '-1':
-            self.setStyleSheet('QLineEdit {background: #BB7757;}')
-        elif self.text() == '1':
-            self.setStyleSheet('QLineEdit {background: #55B2A5;}')
+        if self.text() == '-':
+            self.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
+        elif self.text() == '+':
+            self.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
         else:
-            self.setStyleSheet('QLineEdit {background: #F6F6EA;}')
+            self.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
 
 
 class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
@@ -72,23 +75,23 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.dlg_setup_classes = DlgCalculateLCSetAggregation(self)
 
         # Extract trans_matrix from the QTableWidget
-        trans_matrix_default = [[ 0,  1,  1,  1, -1,  0, -1],
-                                [-1,  0, -1, -1, -1, -1, -1],
-                                [-1,  1,  0,  0, -1, -1, -1],
-                                [-1, -1, -1,  0, -1, -1,  0],
-                                [ 1,  1,  1,  1,  0,  0, -1],
-                                [ 1,  1,  1,  1, -1,  0,  0],
-                                [ 1,  1,  0,  0,  0,  0,  0]]
+        self.trans_matrix_default = [ 0,  1, -1, -1, -1, -1, -1, # forest
+                                      1,  0,  1, -1, -1, -1, -1, # grassland
+                                      1, -1,  0, -1, -1, -1, -1, # cropland
+                                     -1, -1, -1,  0, -1, -1, -1, # wetland
+                                      1,  1,  1,  1,  0, -1, -1, # artificial areas
+                                      1,  1,  1,  1,  1,  0, -1, # bare land
+                                      1,  1,  0,  0,  0,  0,  0] # water body
         for row in range(0, self.transMatrix.rowCount()):
             for col in range(0, self.transMatrix.columnCount()):
                 line_edit = TransMatrixEdit()
-                line_edit.setValidator(QtGui.QIntValidator(-1, 1))
+                line_edit.setValidator(QtGui.QRegExpValidator(QRegExp("[-0+]")))
                 line_edit.setAlignment(Qt.AlignHCenter)
-                line_edit.setText(str(trans_matrix_default[row][col]))
                 self.transMatrix.setCellWidget(row, col, line_edit)
-
+        self.trans_matrix_set()
         self.setup_dialog()
 
+        # Setup the verical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self.TransitionMatrixTab)
         label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in baseline year ", None))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
@@ -109,6 +112,11 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.transMatrix.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.transMatrix.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
 
+        self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
+        self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
+        self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
+
+        # Setup the aggregation table functions
         self.lc_def_default.toggled.connect(self.lc_def_default_toggled)
         self.lc_def_custom_file_browse.clicked.connect(self.open_lc_def_file)
         self.lc_def_custom_create.clicked.connect(self.lc_def_create)
@@ -119,6 +127,96 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         # Setup the class table so that the table is defined if a user uses the 
         # default and never accesses that dialog
         self.dlg_setup_classes.setup_class_table()
+
+        self.legend_deg.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
+        self.legend_imp.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
+        self.legend_stable.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
+
+    def trans_matrix_loadfile(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              self.tr('Select a transition matrix definition file'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              self.tr('Transition matrix definition (*.json)'))
+        if f:
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+        else:
+            return None
+
+        with open(f) as matrix_file:
+            matrix = json.load(matrix_file)
+        
+        flag = False
+        if isinstance(matrix, list) and len(matrix) == NUM_CLASSES*NUM_CLASSES:
+            flag = self.trans_matrix_set(matrix)
+
+        if not flag:
+            QtGui.QMessageBox.critical(None,
+                                       QtGui.QApplication.translate('DlgCalculateLC', "Error"),
+                                       QtGui.QApplication.translate('DlgCalculateLC',
+                                                                    "{} does not appear to contain a valid matrix definition.".format(f)))
+            return None
+        else:
+            return True
+
+    def trans_matrix_savefile(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              QtGui.QApplication.translate('DlgCalculateLC',
+                                                                           'Choose where to save this transition matrix definition'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              QtGui.QApplication.translate('DlgCalculateLC',
+                                                                           'Transition matrix definition (*.json)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                return
+
+            matrix = self.trans_matrix_get()
+            with open(f, 'w') as outfile:
+                json.dump(matrix, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+
+    def trans_matrix_set(self, matrix=None):
+        if not matrix:
+            matrix = self.trans_matrix_default
+        for row in range(0, self.transMatrix.rowCount()):
+            for col in range(0, self.transMatrix.columnCount()):
+                # Matrix is actually a list of length NUM_CLASSES * NUM_CLASSES
+                val = matrix[NUM_CLASSES * row + col]
+                if val == 0:
+                    val_str = '0'
+                elif val == -1:
+                    val_str = '-'
+                elif val == 1:
+                    val_str = '+'
+                else:
+                    log('unrecognized value "{}" when setting transition matrix'.format(val))
+                    return False
+                self.transMatrix.cellWidget(row, col).setText(val_str)
+        return True
+
+    def trans_matrix_get(self):
+        # Extract trans_matrix from the QTableWidget
+        trans_matrix = []
+        for row in range(0, self.transMatrix.rowCount()):
+            for col in range(0, self.transMatrix.columnCount()):
+                val = self.transMatrix.cellWidget(row, col).text()
+                if val == "" or val == "0":
+                    val = 0
+                elif val == "-":
+                    val = -1
+                elif val == "+":
+                    val = 1
+                else:
+                    log('unrecognized value "{}" when getting transition matrix'.format(val))
+                    raise ValueError('unrecognized value "{}" in transition matrix'.format(val))
+                trans_matrix.append(val)
+        return trans_matrix
 
     def remap_matrix_update(self, remap_matrix):
         self.remap_matrix = remap_matrix
@@ -166,7 +264,6 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         if ret:
             self.lc_def_custom_file.setText(f)
 
-
     def btn_calculate(self):
         self.close()
 
@@ -177,22 +274,11 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         if not ret:
             return
 
-        # Extract trans_matrix from the QTableWidget
-        trans_matrix = []
-        for row in range(0, self.transMatrix.rowCount()):
-            for col in range(0, self.transMatrix.columnCount()):
-                val = self.transMatrix.cellWidget(row, col).text()
-                if val == "":
-                    val = 0
-                else:
-                    val = int(val)
-                trans_matrix.append(val)
-
         payload = {'year_bl_start': self.year_bl_start.date().year(),
                    'year_bl_end': self.year_bl_end.date().year(),
                    'year_target': self.year_target.date().year(),
                    'geojson': json.dumps(self.bbox),
-                   'trans_matrix': trans_matrix,
+                   'trans_matrix': self.trans_matrix_get(),
                    'remap_matrix': self.remap_matrix,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}

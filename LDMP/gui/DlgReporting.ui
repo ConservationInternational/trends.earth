@@ -43,7 +43,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
+   <item row="3" column="0">
     <widget class="QPushButton" name="btn_sdg">
      <property name="minimumSize">
       <size>

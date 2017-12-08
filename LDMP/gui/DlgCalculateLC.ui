@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1287</width>
-    <height>999</height>
+    <width>890</width>
+    <height>648</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -377,7 +377,7 @@
              </size>
             </property>
             <property name="maxLength">
-             <number>160</number>
+             <number>60</number>
             </property>
            </widget>
           </item>
@@ -515,10 +515,10 @@
             <bool>true</bool>
            </attribute>
            <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>100</number>
+            <number>40</number>
            </attribute>
            <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>120</number>
+            <number>20</number>
            </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>false</bool>
@@ -527,7 +527,7 @@
             <bool>true</bool>
            </attribute>
            <attribute name="verticalHeaderDefaultSectionSize">
-            <number>60</number>
+            <number>40</number>
            </attribute>
            <attribute name="verticalHeaderMinimumSectionSize">
             <number>40</number>

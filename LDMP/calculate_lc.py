@@ -46,6 +46,22 @@ class VerticalLabel(QtGui.QLabel):
         s = QtGui.QLabel.sizeHint(self)
         return QSize(s.height(), s.width())
 
+
+class TransMatrixEdit(QtGui.QLineEdit):
+    def __init__(self, parent=None):
+        super(TransMatrixEdit, self).__init__(parent)
+
+        self.textChanged.connect(self.transition_cell_changed)
+
+    def transition_cell_changed(self, text):
+        if self.text() == '-1':
+            self.setStyleSheet('QLineEdit {background: #BB7757;}')
+        elif self.text() == '1':
+            self.setStyleSheet('QLineEdit {background: #55B2A5;}')
+        else:
+            self.setStyleSheet('QLineEdit {background: #F6F6EA;}')
+
+
 class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
     def __init__(self, parent=None):
         """Constructor."""
@@ -65,15 +81,11 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                 [ 1,  1,  0,  0,  0,  0,  0]]
         for row in range(0, self.transMatrix.rowCount()):
             for col in range(0, self.transMatrix.columnCount()):
-                line_edit = QtGui.QLineEdit()
+                line_edit = TransMatrixEdit()
                 line_edit.setValidator(QtGui.QIntValidator(-1, 1))
                 line_edit.setAlignment(Qt.AlignHCenter)
                 line_edit.setText(str(trans_matrix_default[row][col]))
-                #TODO: Get the prevention of empty cells working
-                #line_edit.textChanged.connect(self.trans_matrix_text_changed)
                 self.transMatrix.setCellWidget(row, col, line_edit)
-
-        #self.transMatrix.currentItemChanged.connect(self.trans_matrix_current_item_changed)
 
         self.setup_dialog()
 

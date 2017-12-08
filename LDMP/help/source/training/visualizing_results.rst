@@ -131,12 +131,31 @@ The land cover baseline and target layers have 8 classes (including a No data cl
 .. image:: /static/training/visualizing_results/image058.png
    :align: center
    
-.. image:: /static/training/visualizing_results/image059.png
-   :align: center
-   
 The land cover degradation layer has 4 classes:
    
-.. image:: /static/training/visualizing_results/image060.png
+.. image:: /static/training/visualizing_results/image061.png
    :align: center
    
+.. image:: /static/training/visualizing_results/image062.png
+   :align: center
 
+.. image:: /static/training/visualizing_results/image063.png
+   :align: center
+   
+.. image:: /static/training/visualizing_results/image064.png
+   :align: center
+   
+.. image:: /static/training/visualizing_results/image065.png
+   :align: center
+   
+.. image:: /static/training/visualizing_results/image066.png
+   :align: center
+
+.. image:: /static/training/visualizing_results/image067.png
+   :align: center
+   
+.. image:: /static/training/visualizing_results/image068.png
+   :align: center
+   
+.. image:: /static/training/visualizing_results/image069.png
+   :align: center

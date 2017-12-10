@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
-    <height>357</height>
+    <width>458</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -55,8 +55,8 @@
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="title">
@@ -104,8 +104,8 @@
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="title">
@@ -134,7 +134,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -150,27 +150,14 @@
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="title">
           <string>Soil Carbon:</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
-          <item>
-           <widget class="QLabel" name="label_11">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>NOTE: Soil carbon calculation is not yet supported</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="QComboBox" name="combo_layer_soc">
             <property name="sizePolicy">
@@ -259,7 +246,7 @@
              </size>
             </property>
             <property name="text">
-             <string>SDG Indicator 15.3.1</string>
+             <string>Summary of Land Productivity</string>
             </property>
             <property name="placeholderText">
              <string/>

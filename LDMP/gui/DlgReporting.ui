@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>727</width>
-    <height>324</height>
+    <width>375</width>
+    <height>150</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,8 +22,21 @@
   <property name="windowTitle">
    <string>Land degradation reporting</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPushButton" name="btn_create_map">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Create Map</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="btn_unccd">
      <property name="minimumSize">
       <size>
@@ -36,14 +49,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QPushButton" name="btn_create_map">
-     <property name="text">
-      <string>Create Map</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
+   <item>
     <widget class="QPushButton" name="btn_sdg">
      <property name="minimumSize">
       <size>

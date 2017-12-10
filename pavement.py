@@ -63,46 +63,44 @@ def rmtree(top):
             os.rmdir(os.path.join(root, name))
     os.rmdir(top)
 
+
 @task
 @cmdopts([
     ('clean', 'c', 'Clean out dependencies first'),
-    ('develop', 'd', 'Do not alter source dependency git checkouts'),
 ])
 def setup(options):
-    """Install run-time dependencies"""
-    clean = options.get('clean', False)
-    develop = options.get('develop', False)
+    '''install dependencies'''
+    clean = getattr(options, 'clean', False)
     ext_libs = options.plugin.ext_libs
     ext_src = options.plugin.ext_src
     if clean:
-        rmtree(ext_libs)
+        ext_libs.rmtree()
     ext_libs.makedirs()
     runtime, test = read_requirements()
-    os.environ['PYTHONPATH'] = ext_libs.abspath()
-    for req in runtime + test:
-        if '#egg' in req:
-            urlspec, req = req.split('#egg=')
-            localpath = ext_src / req
-            if not develop:
-                if localpath.exists():
-                    cwd = os.getcwd()
-                    os.chdir(localpath)
-                    print(localpath)
-                    sh('git pull')
-                    os.chdir(cwd)
-                else:
-                    sh('git clone  {} {}'.format(urlspec, localpath))
-            req = localpath
 
+    try:
+        import pip
+    except:
+        error('FATAL: Unable to import pip, please install it first!')
+        sys.exit(1)
+
+    os.environ['PYTHONPATH']=str(ext_libs.abspath())
+    for req in runtime + test:
         # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
         # the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
-            deps = '-N'
+	    pip.main(['install',
+		      '--upgrade',
+		      '--no-deps',
+		      '-t',
+		      ext_libs.abspath(),
+		      req])
         else:
-            deps = '-a'
-
-        sh('easy_install {deps} -d {ext_libs} {dep}'.format(deps=deps,
-           ext_libs=ext_libs.abspath(), dep=req))
+	    pip.main(['install',
+		      '--upgrade',
+		      '-t',
+		      ext_libs.abspath(),
+		      req])
 
 
 @task
@@ -187,7 +185,6 @@ def package(options):
     ('tests', 't', 'Package tests with plugin'),
     ('clean', 'c', 'Clean out dependencies first'),
     ('ignore_errors', 'i', 'ignore documentation errors'),
-    ('develop', 'd', 'Do not alter source dependency git checkouts'),
 ])
 def deploy(options):
     setup(options)

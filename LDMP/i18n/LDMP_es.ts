@@ -872,6 +872,89 @@ p, li {white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgCreateMap</name>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="14"/>
+        <source>Create Map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="24"/>
+        <source>Settings</source>
+        <translation type="unfinished">Configuraciones</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="42"/>
+        <source>Layer to display:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="77"/>
+        <source>Map title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="109"/>
+        <source>Author(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="135"/>
+        <source>Organization:</source>
+        <translation type="unfinished">Organización:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="156"/>
+        <source>Area</source>
+        <translation type="unfinished">Zona</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="186"/>
+        <source>First level:</source>
+        <translation type="unfinished">Primer nivel:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="222"/>
+        <source>Area from file</source>
+        <translation type="unfinished">Área desde archivo</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="244"/>
+        <source>Browse</source>
+        <translation type="unfinished">Vistazo</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="260"/>
+        <source>Choose a file...</source>
+        <translation type="unfinished">Escoge un archivo...</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="280"/>
+        <source>Administrative area</source>
+        <translation type="unfinished">Área administrativa</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="314"/>
+        <source>Second level:</source>
+        <translation type="unfinished">Segundo nivel:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="352"/>
+        <source>Next</source>
+        <translation type="unfinished">Siguiente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="365"/>
+        <source>Previous</source>
+        <translation type="unfinished">Anterior</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="378"/>
+        <source>Calculate</source>
+        <translation type="unfinished">Calcular</translation>
+    </message>
+</context>
+<context>
     <name>DlgDownload</name>
     <message>
         <location filename="../gui/DlgDownload.ui" line="14"/>

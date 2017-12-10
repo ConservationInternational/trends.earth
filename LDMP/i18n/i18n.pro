@@ -3,6 +3,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
 ../gui/DlgCalculateProd.ui \
+../gui/DlgCreateMap.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \

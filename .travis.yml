@@ -19,7 +19,7 @@ install:
 
     ###  Start custom mods to install requests==2.6.0
     # Extra step required
-    - docker exec -it qgis-testing-environment sh -c "apt-get remove -y python-pip && easy_install pip"
+    - docker exec -it qgis-testing-environment sh -c "easy_install pip"
     - docker exec -it qgis-testing-environment sh -c "/usr/local/bin/pip install requests==2.6.0"
     - docker exec -it qgis-testing-environment sh -c "/usr/local/bin/pip install paver"
     - docker exec -it qgis-testing-environment sh -c "/usr/local/bin/pip install boto3"

@@ -245,73 +245,32 @@ class LDMPPlugin:
         del self.toolbar
 
     def run_settings(self):
-        """Run method that performs all the real work"""
-        # show the dialog
         self.dlg_settings.show()
-        # Run the dialog event loop
         result = self.dlg_settings.exec_()
-        # See if OK was pressed
-        if result:
-            pass
 
     def run_download(self):
-        """Run method that performs all the real work"""
-        # # show the dialog
-        # self.dlg_download.show()
-        # # Run the dialog event loop
-        # result = self.dlg_download.exec_()
-        # # See if OK was pressed
-        # if result:
-        #     pass
-        QMessageBox.critical(None, QApplication.translate('LDMP', "Error"),
-                             QApplication.translate('LDMP', "Raw data download coming soon!"), None)
+        self.dlg_download.show()
+        result = self.dlg_download.exec_()
 
     def run_calculate(self):
-        """Run method that performs all the real work"""
         # show the dialog
         self.dlg_calculate.show()
-        # Run the dialog event loop
         result = self.dlg_calculate.exec_()
-        # See if OK was pressed
-        if result:
-            pass
 
     def get_jobs(self):
-        """Run method that performs all the real work"""
         # show the dialog
         self.dlg_jobs.show()
-        # Run the dialog event loop
         result = self.dlg_jobs.exec_()
-        # See if OK was pressed
-        if result:
-            pass
 
     def run_plot(self):
-        """Run method that performs all the real work"""
-        # show the dialog
         self.dlg_timeseries.show()
-        # Run the dialog event loop
         result = self.dlg_timeseries.exec_()
-        # See if OK was pressed
-        if result:
-            pass
 
     def run_reporting(self):
-        """Run method that performs all the real work"""
-        # show the dialog
         self.dlg_reporting.show()
-        # Run the dialog event loop
         result = self.dlg_reporting.exec_()
-        # See if OK was pressed
-        if result:
-            pass
 
     def run_about(self):
-        """Run method that performs all the real work"""
         #showHelp()
         self.dlg_about.show()
-        # Run the dialog event loop
         result = self.dlg_about.exec_()
-        # See if OK was pressed
-        if result:
-            pass

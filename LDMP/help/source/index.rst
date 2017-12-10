@@ -18,7 +18,7 @@ for monitoring land change using an innovative desktop and cloud-based system.
 The three sub-indicators for monitoring achievement of Land Degradation 
 Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported 
 by |trends.earth|: productivity, land cover, and soil organic carbon.  The tool 
-also  supports reporting to the United Nations Convention to Combat 
+also supports reporting to the United Nations Convention to Combat 
 Desertification (UNCCD).
 
 |trends.earth| allows users to plot time series of key indicators of land 

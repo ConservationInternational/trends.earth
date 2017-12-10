@@ -23,6 +23,7 @@ SOURCES = ../about.py \
 ../download.py \
 ../jobs.py \
 ../ldmp.py \
+../mapping.py \
 ../plot.py \
 ../reporting.py \
 ../timeseries.py \

@@ -1,0 +1,35 @@
+sudo: required
+services:
+    - docker
+env:
+  global:
+    - PLUGIN_NAME=LDMP
+  matrix:
+    - QGIS_VERSION_TAG=master
+    - QGIS_VERSION_TAG=release
+before_install:
+    - docker pull boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
+    - docker tag boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
+install:
+    - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis-testing-environment
+    - sleep 10
+
+    # Setup QGIS to avoid modals and install test auth db
+    - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
+
+    ###  Start custom mods to install requests==2.6.0
+    # Extra step required
+    - docker exec -it qgis-testing-environment sh -c "apt-get remove -y python-pip && easy_install pip"
+    - docker exec -it qgis-testing-environment sh -c "/usr/local/bin/pip install requests==2.6.0"
+    - docker exec -it qgis-testing-environment sh -c "/usr/local/bin/pip install paver"
+    - docker exec -it qgis-testing-environment sh -c "/usr/local/bin/pip install boto3"
+
+    # Build the plugin
+    # Installed in the custom extra step above  - docker exec -it qgis-testing-environment sh -c "pip install paver"
+    ### End custom mods to install requests==2.6.0
+    - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
+
+script:
+    # Run the unit tests
+    # This plugin has not yet any unit tests
+    - docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"

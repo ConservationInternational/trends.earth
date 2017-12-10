@@ -153,14 +153,23 @@ def _install(folder, options):
         src.symlink(dst_this_plugin)
 
 @task
+@cmdopts([
+    ('fast', 'f', "don't run rmtree"),
+])
 def install(options):
     _install(".qgis2", options)
 
 @task
+@cmdopts([
+    ('fast', 'f', "don't run rmtree"),
+])
 def installdev(options):
     _install(".qgis-dev", options)
 
 @task
+@cmdopts([
+    ('fast', 'f', "don't run rmtree"),
+])
 def install3(options):
     _install(".qgis3", options)
 

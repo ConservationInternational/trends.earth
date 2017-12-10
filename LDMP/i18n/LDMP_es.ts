@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" sourcelanguage="" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -270,7 +269,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here: &lt;/span&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
@@ -607,57 +606,57 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="940"/>
         <source>Legend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="946"/>
         <source>Degradation</source>
-        <translation type="unfinished">Degradación</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="953"/>
         <source>Improvement</source>
-        <translation type="unfinished">Mejora</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1033"/>
         <source>Stable</source>
-        <translation type="unfinished">Estable</translation>
+        <translation>Estable</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1053"/>
         <source>Load saved table...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1066"/>
         <source>Reset table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1079"/>
         <source>Save table to file...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="136"/>
         <source>Select a transition matrix definition file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="166"/>
         <source>Transition matrix definition (*.json)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="166"/>
         <source>Choose where to save this transition matrix definition</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="176"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">No se puede escribir en {}. Elija un archivo diferente.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -876,82 +875,82 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="14"/>
         <source>Create Map</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="24"/>
         <source>Settings</source>
-        <translation type="unfinished">Configuraciones</translation>
+        <translation>Configuraciones</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="42"/>
         <source>Layer to display:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="77"/>
         <source>Map title:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="109"/>
         <source>Author(s):</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="135"/>
         <source>Organization:</source>
-        <translation type="unfinished">Organización:</translation>
+        <translation>Organización:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="156"/>
         <source>Area</source>
-        <translation type="unfinished">Zona</translation>
+        <translation>Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="186"/>
         <source>First level:</source>
-        <translation type="unfinished">Primer nivel:</translation>
+        <translation>Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="222"/>
         <source>Area from file</source>
-        <translation type="unfinished">Área desde archivo</translation>
+        <translation>Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="244"/>
         <source>Browse</source>
-        <translation type="unfinished">Vistazo</translation>
+        <translation>Vistazo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="260"/>
         <source>Choose a file...</source>
-        <translation type="unfinished">Escoge un archivo...</translation>
+        <translation>Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="280"/>
         <source>Administrative area</source>
-        <translation type="unfinished">Área administrativa</translation>
+        <translation>Área administrativa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="314"/>
         <source>Second level:</source>
-        <translation type="unfinished">Segundo nivel:</translation>
+        <translation>Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="352"/>
         <source>Next</source>
-        <translation type="unfinished">Siguiente</translation>
+        <translation>Siguiente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="365"/>
         <source>Previous</source>
-        <translation type="unfinished">Anterior</translation>
+        <translation>Anterior</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="378"/>
         <source>Calculate</source>
-        <translation type="unfinished">Calcular</translation>
+        <translation>Calcular</translation>
     </message>
 </context>
 <context>
@@ -1067,7 +1066,7 @@ p, li {white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
@@ -1137,42 +1136,42 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReporting.ui" line="29"/>
         <source>SDG Reporting</source>
-        <translation type="obsolete">Informes de SDG</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="35"/>
         <source>SDG Target 15.3.1 Indicator</source>
-        <translation type="obsolete">Objetivo ODS 15.3.1 Indicador</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="48"/>
         <source>Calculate UNCCD Indicator</source>
-        <translation type="unfinished">Informes de la CNULD</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="66"/>
         <source>Land Cover</source>
-        <translation type="obsolete">Cubierta de tierra</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="79"/>
         <source>Soil Carbon</source>
-        <translation type="obsolete">Carbón del suelo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="92"/>
         <source>Productivity</source>
-        <translation type="obsolete">Productividad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="35"/>
         <source>Create Map</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="61"/>
         <source>Calculate SDG Target 15.3.1 Indicator</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1180,107 +1179,107 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../reporting.py" line="608"/>
         <source>Directory to save files</source>
-        <translation type="unfinished">Directorio para guardar archivos</translation>
+        <translation>Directorio para guardar archivos</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="765"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="617"/>
         <source>Cannot write to {}. Choose a different folder.</source>
-        <translation type="unfinished">No se puede escribir en {}. Elige una carpeta diferente.</translation>
+        <translation>No se puede escribir en {}. Elige una carpeta diferente.</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="623"/>
         <source>Choose an output folder where the output will be saved.</source>
-        <translation type="unfinished">Elija una carpeta de salida donde se guardará la salida.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="635"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="unfinished">Debe agregar una capa indicadora de trayectoria de productividad al mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="639"/>
         <source>You must add a productivity state indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="unfinished">Debe agregar una capa de indicador de estado de productividad a su mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="643"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="unfinished">Debe agregar una capa de indicador de rendimiento de productividad a su mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="647"/>
         <source>You must add a land cover indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="unfinished">Debe agregar una capa indicadora de cobertura terrestre a su mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="659"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
-        <translation type="unfinished">Los sistemas de coordenadas de la capa de trayectoria y la capa de estado no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="663"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
-        <translation type="unfinished">Los sistemas de coordenadas de la capa de trayectoria y la capa de rendimiento no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="669"/>
         <source>Coordinate systems of trajectory layer and land cover layer do not match.</source>
-        <translation type="unfinished">Los sistemas de coordenadas de la capa de trayectoria y la capa de cobertura terrestre no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="677"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
-        <translation type="unfinished">Las resoluciones de la capa de trayectoria y la capa de estado no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="681"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
-        <translation type="unfinished">Las resoluciones de la capa de trayectoria y la capa de rendimiento no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="687"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
-        <translation type="unfinished">El área de interés no está completamente dentro de la capa de trayectoria.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="691"/>
         <source>Area of interest is not entirely within the state layer.</source>
-        <translation type="unfinished">El área de interés no está completamente dentro de la capa de estado.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="695"/>
         <source>Area of interest is not entirely within the performance layer.</source>
-        <translation type="unfinished">El área de interés no está completamente dentro de la capa de rendimiento.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="699"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
-        <translation type="unfinished">El área de interés no está completamente dentro de la capa de cobertura terrestre.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="765"/>
         <source>Error clipping land cover layer for area calculation.</source>
-        <translation type="unfinished">Error al recortar la capa de cobertura del suelo para el cálculo del área.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="772"/>
         <source>Land cover</source>
-        <translation type="unfinished">Cubierta de tierra</translation>
+        <translation>Cubierta de tierra</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="773"/>
         <source>Area</source>
-        <translation type="unfinished">Zona</translation>
+        <translation>Zona</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="773"/>
         <source>km&lt;sup&gt;2&lt;/sup&gt;</source>
-        <translation type="unfinished">km &lt;sup&gt;2&lt;/sup&gt;</translation>
+        <translation>km &lt;sup&gt;2&lt;/sup&gt;</translation>
     </message>
 </context>
 <context>
@@ -1288,132 +1287,132 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../reporting.py" line="597"/>
         <source>Directory to save files</source>
-        <translation type="obsolete">Directorio para guardar archivos</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="821"/>
         <source>Error</source>
-        <translation type="obsolete">Error</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="606"/>
         <source>Cannot write to {}. Choose a different folder.</source>
-        <translation type="obsolete">No se puede escribir en {}. Elige una carpeta diferente.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="612"/>
         <source>Choose an output folder where the output will be saved.</source>
-        <translation type="obsolete">Elija una carpeta de salida donde se guardará la salida.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="624"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="obsolete">Debe agregar una capa indicadora de trayectoria de productividad al mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="628"/>
         <source>You must add a productivity state indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="obsolete">Debe agregar una capa de indicador de estado de productividad a su mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="632"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="obsolete">Debe agregar una capa de indicador de rendimiento de productividad a su mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="636"/>
         <source>You must add a land cover indicator layer to your map before you can use the reporting tool.</source>
-        <translation type="obsolete">Debe agregar una capa indicadora de cobertura terrestre a su mapa antes de poder usar la herramienta de informes.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="648"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
-        <translation type="obsolete">Los sistemas de coordenadas de la capa de trayectoria y la capa de estado no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="652"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
-        <translation type="obsolete">Los sistemas de coordenadas de la capa de trayectoria y la capa de rendimiento no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="658"/>
         <source>Coordinate systems of trajectory layer and land cover layer do not match.</source>
-        <translation type="obsolete">Los sistemas de coordenadas de la capa de trayectoria y la capa de cobertura terrestre no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="666"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
-        <translation type="obsolete">Las resoluciones de la capa de trayectoria y la capa de estado no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="670"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
-        <translation type="obsolete">Las resoluciones de la capa de trayectoria y la capa de rendimiento no coinciden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="676"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
-        <translation type="obsolete">El área de interés no está completamente dentro de la capa de trayectoria.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="680"/>
         <source>Area of interest is not entirely within the state layer.</source>
-        <translation type="obsolete">El área de interés no está completamente dentro de la capa de estado.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="684"/>
         <source>Area of interest is not entirely within the performance layer.</source>
-        <translation type="obsolete">El área de interés no está completamente dentro de la capa de rendimiento.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="688"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
-        <translation type="obsolete">El área de interés no está completamente dentro de la capa de cobertura terrestre.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="756"/>
         <source>Error calculating degradation layer.</source>
-        <translation type="obsolete">Error al calcular la capa de degradación.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="772"/>
         <source>Error clipping degradation layer.</source>
-        <translation type="obsolete">Error al recortar la capa de degradación.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="814"/>
         <source>Error clipping land cover layer for area calculation.</source>
-        <translation type="obsolete">Error al recortar la capa de cobertura del suelo para el cálculo del área.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="821"/>
         <source>Error calculating degraded areas.</source>
-        <translation type="obsolete">Error al calcular áreas degradadas</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="827"/>
         <source>Area Degraded</source>
-        <translation type="obsolete">Área degradada</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="827"/>
         <source>Area Stable</source>
-        <translation type="obsolete">Área Estable</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="827"/>
         <source>Area Improved</source>
-        <translation type="obsolete">Área mejorada</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="827"/>
         <source>No Data</source>
-        <translation type="obsolete">Sin datos</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="844"/>
         <source>Land cover</source>
-        <translation type="obsolete">Cubierta de tierra</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="360"/>
@@ -1423,12 +1422,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../reporting.py" line="845"/>
         <source>km&lt;sup&gt;2&lt;/sup&gt;</source>
-        <translation type="obsolete">km &lt;sup&gt;2&lt;/sup&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="20"/>
         <source>SDG Reporting Tool</source>
-        <translation type="unfinished">Calcular el indicador SDG</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="39"/>
@@ -1551,7 +1550,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="20"/>
         <source>UNCCD Reporting Tool</source>
-        <translation type="unfinished">Calcular el indicador SDG</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="39"/>
@@ -1561,22 +1560,22 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="63"/>
         <source>Productivity trajectory:</source>
-        <translation type="unfinished">Productividad</translation>
+        <translation>Productividad</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="75"/>
         <source>Trajectory:</source>
-        <translation type="obsolete">Trayectoria:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="104"/>
         <source>Performance:</source>
-        <translation type="obsolete">Actuación:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="133"/>
         <source>State:</source>
-        <translation type="obsolete">Estado:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="112"/>
@@ -1676,47 +1675,47 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../reporting.py" line="862"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="795"/>
         <source>Error calculating degradation layer.</source>
-        <translation type="unfinished">Error al calcular la capa de degradación.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="813"/>
         <source>Error clipping degradation layer.</source>
-        <translation type="unfinished">Error al recortar la capa de degradación.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="855"/>
         <source>Error clipping land cover layer for area calculation.</source>
-        <translation type="unfinished">Error al recortar la capa de cobertura del suelo para el cálculo del área.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="862"/>
         <source>Error calculating degraded areas.</source>
-        <translation type="unfinished">Error al calcular áreas degradadas</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="868"/>
         <source>Area Degraded</source>
-        <translation type="unfinished">Área degradada</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="868"/>
         <source>Area Stable</source>
-        <translation type="unfinished">Área Estable</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="868"/>
         <source>Area Improved</source>
-        <translation type="unfinished">Área mejorada</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="868"/>
         <source>No Data</source>
-        <translation type="unfinished">Sin datos</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -12,17 +12,18 @@ trends.earth
 | `English <../en/index.html>`_ | `Francais <../fr/index.html>`_ | `Español <../es/index.html>`_ | `Swahili <../sw/index.html>`_ |
 +-------------------------------+--------------------------------+-------------------------------+-------------------------------+
 
-trends.earth (formerly the Land Degradation Monitoring Toolbox) is a platform 
+|trends.earth| (formerly the Land Degradation Monitoring Toolbox) is a platform 
 for monitoring land change using an innovative desktop and cloud-based system.
 
-trends.earth supports monitoring the three sub-indicators for Sustainable 
-Development Goal (SDG) Target  15.3.1 (land degradation neutrality) including 
-productivity, land cover, and soil organic carbon, and also supports reporting 
-to the United Nations Convention to Combat Desertification (UNCCD).
+The three sub-indicators for monitoring achievement of Land Degradation 
+Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported 
+by |trends.earth|: productivity, land cover, and soil organic carbon. 
+|trends.earth| also  supports reporting to the United Nations Convention to 
+Combat Desertification (UNCCD).
 
-trends.earth also allows users to plot time series of key indicators of land 
-change, and to produce maps and other graphics that can support tracking the 
-impact of sustainable land management or other projects.
+|trends.earth| allows users to plot time series of key indicators of land 
+change, and to produce maps and other graphics that can support reporting, and 
+tracking the impact of sustainable land management or other projects.
 
 The documentation and training materials, including a number of demonstration 
 videos, are available on this website:

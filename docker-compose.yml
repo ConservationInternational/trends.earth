@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  boundless-test:
+    image: elpaso/suite-trusty:4.8.0
+    ports:
+    - "8080:8080"
+    - "8443:8443"
+    - "8432:5432"
+  qgis-testing-environment:
+    image: boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
+    volumes:
+        - /tmp/.X11-unix:/tmp/.X11-unix
+        - ./:/tests_directory
+    environment:
+        DISPLAY: ':99'
+        QT_X11_NO_MITSHM: '1'

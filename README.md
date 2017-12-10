@@ -1,5 +1,7 @@
 # trends.earth 
 
+[![trends.earth](https://github.com/ConservationInternational/trends.earth/LDMP/help/resources/en/common/trends_earth_logo_bl_1200.png)]
+
 [![Build 
 Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)
 

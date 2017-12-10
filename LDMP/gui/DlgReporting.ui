@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
-    <height>150</height>
+    <width>456</width>
+    <height>176</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,6 +24,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Choose a report type:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="btn_create_map">
      <property name="minimumSize">
       <size>
@@ -32,7 +45,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Create Map</string>
+      <string>Create Print Map</string>
      </property>
     </widget>
    </item>
@@ -45,7 +58,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Calculate UNCCD Indicator</string>
+      <string>UNCCD Reporting</string>
      </property>
     </widget>
    </item>
@@ -58,7 +71,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Calculate SDG Target 15.3.1 Indicator</string>
+      <string>SDG Indicator 15.3.1 Reporting</string>
      </property>
     </widget>
    </item>

@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  qgis-testing-environment:
-    image: boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
-    volumes:
-        - /tmp/.X11-unix:/tmp/.X11-unix
-        - ./:/tests_directory
+    qgis-testing-environment:
+        image: boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
+        volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - ./:/tests_directory

@@ -1,15 +1,20 @@
 sudo: required
+addons:
+    hosts:
+    - boundless-test
 services:
     - docker
 env:
   global:
     - PLUGIN_NAME=LDMP
   matrix:
-    - QGIS_VERSION_TAG=master
-    - QGIS_VERSION_TAG=release
+    - QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
+    - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
+    - QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
 matrix:
-    allow_failures:
-    - env QGIS_VERSION_TAG=master
+	allow_failures:
+	- env: QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
+	- env: QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
     - docker-compose up -d
     - docker-compose ps
@@ -17,11 +22,5 @@ before_install:
     - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
     - docker-compose exec qgis-testing-environment sh -c "pip install paver"
     - docker-compose exec qgis-testing-environment sh -c "pip install boto3"
-    - docker-compose exec qgis-testing-environment sh -c "pip install setuptools"
 script:
     - docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
-    - docker version
-    - docker-compose version
-    # Run the unit tests
-    # This plugin has not yet any unit tests
-    - docker-compose exec qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"

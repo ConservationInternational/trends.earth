@@ -89,18 +89,18 @@ def setup(options):
         # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
         # the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
-	    pip.main(['install',
-		      '--upgrade',
-		      '--no-deps',
-		      '-t',
-		      ext_libs.abspath(),
-		      req])
+            pip.main(['install',
+                      '--upgrade',
+                      '--no-deps',
+                      '-t',
+                      ext_libs.abspath(),
+                      req])
         else:
-	    pip.main(['install',
-		      '--upgrade',
-		      '-t',
-		      ext_libs.abspath(),
-		      req])
+            pip.main(['install',
+                      '--upgrade',
+                      '-t',
+                      ext_libs.abspath(),
+                      req])
 
 
 @task

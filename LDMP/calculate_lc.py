@@ -69,14 +69,90 @@ class TransMatrixEdit(QtGui.QLineEdit):
         self.selectAll()
 
 
-class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
+class DlgCalculateLCBase(DlgCalculateBase):
     def __init__(self, parent=None):
-        """Constructor."""
+        super(DlgCalculateLCBase, self).__init__(parent)
+
+        self.dlg_remap = DlgCalculateLCSetAggregation(self)
+
+    def showEvent(self, event):
+        super(DlgCalculateLCBase, self).showEvent(event)
+
+        self.setup_dialog()
+
+        # Setup the aggregation table functions
+        self.remap_default.toggled.connect(self.remap_default_toggled)
+        self.remap_custom_file_browse.clicked.connect(self.open_remap_file)
+        self.remap_custom_create.clicked.connect(self.remap_create)
+
+        self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
+        self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
+
+        # Setup the class table so that the table is defined if a user uses the 
+        # default and never accesses that dialog
+        self.dlg_remap.setup_class_table()
+
+    def remap_matrix_update(self, remap_matrix):
+        self.remap_matrix = remap_matrix
+
+    def remap_file_update(self, f):
+        self.remap_custom_file.setText(f)
+
+    def remap_create(self):
+        if self.remap_custom_file.text():
+            self.dlg_remap.setup_class_table(self.remap_custom_file.text())
+        f = self.dlg_remap.exec_()
+        if f:
+            self.remap_file_update(f)
+
+    def remap_default_toggled(self):
+        if self.remap_custom.isChecked():
+            self.dlg_remap.setup_class_table(self.remap_custom_file.text())
+            self.remap_custom_create.setEnabled(True)
+            self.remap_custom_file.setEnabled(True)
+            self.remap_custom_file_browse.setEnabled(True)
+            self.remap_label_new.setEnabled(True)
+            self.remap_label_saved.setEnabled(True)
+        else:
+            self.dlg_remap.setup_class_table()
+            self.remap_custom_create.setEnabled(False)
+            self.remap_custom_file.setEnabled(False)
+            self.remap_custom_file_browse.setEnabled(False)
+            self.remap_label_new.setEnabled(False)
+            self.remap_label_saved.setEnabled(False)
+
+    def open_remap_file(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              self.tr('Select a land cover definition file'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              self.tr('Land cover definition (*.json)'))
+        if f:
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+
+        ret = self.dlg_remap.setup_class_table(f)
+
+        if ret:
+            self.remap_custom_file.setText(f)
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateLCBase, self).btn_calculate()
+        if not ret:
+            return
+
+        return True
+
+class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
+    def __init__(self, parent=None):
         super(DlgCalculateLC, self).__init__(parent)
 
         self.setupUi(self)
-
-        self.dlg_setup_classes = DlgCalculateLCSetAggregation(self)
 
         # Extract trans_matrix from the QTableWidget
         self.trans_matrix_default = [ 0,  1, -1, -1, -1, -1, -1, # forest
@@ -93,7 +169,6 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                 line_edit.setAlignment(Qt.AlignHCenter)
                 self.transMatrix.setCellWidget(row, col, line_edit)
         self.trans_matrix_set()
-        self.setup_dialog()
 
         # Setup the verical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self.TransitionMatrixTab)
@@ -119,18 +194,6 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
-
-        # Setup the aggregation table functions
-        self.lc_def_default.toggled.connect(self.lc_def_default_toggled)
-        self.lc_def_custom_file_browse.clicked.connect(self.open_lc_def_file)
-        self.lc_def_custom_create.clicked.connect(self.lc_def_create)
-
-        self.dlg_setup_classes.lc_def_file_updated.connect(self.lc_def_file_update)
-        self.dlg_setup_classes.remap_matrix_changed.connect(self.remap_matrix_update)
-
-        # Setup the class table so that the table is defined if a user uses the 
-        # default and never accesses that dialog
-        self.dlg_setup_classes.setup_class_table()
 
         self.legend_deg.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
         self.legend_imp.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
@@ -222,61 +285,15 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                 trans_matrix.append(val)
         return trans_matrix
 
-    def remap_matrix_update(self, remap_matrix):
-        self.remap_matrix = remap_matrix
-
-    def lc_def_file_update(self, f):
-        self.lc_def_custom_file.setText(f)
-
-    def lc_def_create(self):
-        if self.lc_def_custom_file.text():
-            self.dlg_setup_classes.setup_class_table(self.lc_def_custom_file.text())
-        f = self.dlg_setup_classes.exec_()
-        if f:
-            self.lc_def_file_update(f)
-
-    def lc_def_default_toggled(self):
-        if self.lc_def_custom.isChecked():
-            self.dlg_setup_classes.setup_class_table(self.lc_def_custom_file.text())
-            self.lc_def_custom_create.setEnabled(True)
-            self.lc_def_custom_file.setEnabled(True)
-            self.lc_def_custom_file_browse.setEnabled(True)
-            self.lc_def_label_new.setEnabled(True)
-            self.lc_def_label_saved.setEnabled(True)
-        else:
-            self.dlg_setup_classes.setup_class_table()
-            self.lc_def_custom_create.setEnabled(False)
-            self.lc_def_custom_file.setEnabled(False)
-            self.lc_def_custom_file_browse.setEnabled(False)
-            self.lc_def_label_new.setEnabled(False)
-            self.lc_def_label_saved.setEnabled(False)
-
-    def open_lc_def_file(self):
-        f = QtGui.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a land cover definition file'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              self.tr('Land cover definition (*.json)'))
-        if f:
-            if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
-
-        ret = self.dlg_setup_classes.setup_class_table(f)
-
-        if ret:
-            self.lc_def_custom_file.setText(f)
-
     def btn_calculate(self):
-        self.close()
-
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgCalculateLC, self).btn_calculate()
         if not ret:
             return
+
+        self.close()
 
         payload = {'year_bl_start': self.year_bl_start.date().year(),
                    'year_bl_end': self.year_bl_end.date().year(),
@@ -334,11 +351,10 @@ class LCAggTableModel(QAbstractTableModel):
 
 
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
-    lc_def_file_updated = pyqtSignal(str)
+    remap_file_updated = pyqtSignal(str)
     remap_matrix_changed = pyqtSignal(list)
 
     def __init__(self, parent=None):
-        """Constructor."""
         super(DlgCalculateLCSetAggregation, self).__init__(parent)
 
         self.setupUi(self)
@@ -377,7 +393,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             # Emit the filename so it can be used to update the filename field 
             # in the parent dialog
-            self.lc_def_file_updated.emit(f)
+            self.remap_file_updated.emit(f)
 
             self.close()
 
@@ -385,15 +401,15 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         '''Returns a list describing how to aggregate the land cover data'''
         out = [[], []]
         for row in range(0, len(self.classes)):
-            initial_label = self.lc_agg_view.model().index(row, 0).data()
+            initial_label = self.remap_view.model().index(row, 0).data()
             initial_code = [i['Initial_Code'] for i in self.classes if i['Initial_Label'] == initial_label]
             if len(initial_code) > 1:
                 raise ValueError("more than one match found for initial label {}".format(initial_label))
             initial_code = initial_code[0]
 
             # Get the currently assigned label for this code
-            label_widget_index = self.lc_agg_view.model().index(row, 1)
-            label_widget = self.lc_agg_view.indexWidget(label_widget_index)
+            label_widget_index = self.remap_view.model().index(row, 1)
+            label_widget = self.remap_view.indexWidget(label_widget_index)
             final_code = self.final_classes[label_widget.currentText()]
             out[0].append(initial_code)
             out[1].append(final_code)
@@ -404,15 +420,15 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         out = []
         for row in range(0, len(self.classes)):
             this_out = {}
-            initial_label = self.lc_agg_view.model().index(row, 0).data()
+            initial_label = self.remap_view.model().index(row, 0).data()
             this_out['Initial_Label'] = initial_label
             initial_code = [i['Initial_Code'] for i in self.classes if i['Initial_Label'] == initial_label]
             if len(initial_code) > 1:
                 raise ValueError("more than one match found for initial label {}".format(initial_label))
             this_out['Initial_Code'] = initial_code[0]
             # Get the currently assigned label for this code
-            label_widget_index = self.lc_agg_view.model().index(row, 1)
-            label_widget = self.lc_agg_view.indexWidget(label_widget_index)
+            label_widget_index = self.remap_view.model().index(row, 1)
+            label_widget = self.remap_view.indexWidget(label_widget_index)
             this_out['Final_Label'] = label_widget.currentText()
             this_out['Final_Code'] = self.final_classes[this_out['Final_Label']]
             out.append(this_out)
@@ -449,7 +465,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         table_model = LCAggTableModel(self.classes, self)
         proxy_model = QtGui.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
-        self.lc_agg_view.setModel(proxy_model)
+        self.remap_view.setModel(proxy_model)
 
         # Add selector in cell
         for row in range(0, len(self.classes)):
@@ -459,11 +475,11 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             ind = lc_classes.findText(self.classes[row]['Final_Label'])
             if ind != -1:
                 lc_classes.setCurrentIndex(ind)
-            self.lc_agg_view.setIndexWidget(proxy_model.index(row, 1), lc_classes)
+            self.remap_view.setIndexWidget(proxy_model.index(row, 1), lc_classes)
 
-        self.lc_agg_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-        self.lc_agg_view.setColumnWidth(0, 500)
-        self.lc_agg_view.horizontalHeader().setStretchLastSection(True)
+        self.remap_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.remap_view.setColumnWidth(0, 500)
+        self.remap_view.horizontalHeader().setStretchLastSection(True)
 
         # Load and emit the new remap matrix
         self.update_remap_matrix()
@@ -472,4 +488,4 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
     def reset_class_table(self):
         self.setup_class_table()
-        self.lc_def_file_updated.emit(None)
+        self.remap_file_updated.emit(None)

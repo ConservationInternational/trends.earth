@@ -132,8 +132,8 @@ def get_ld_layers(layer_type):
                     l.renderer().usesBands() == [4]):
                 layers_filtered.append(l)
         elif layer_type == 'soc':
-            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
-                    l.renderer().usesBands() == [5]):
+            if (m['script_id'] == "3fc66de9-31cb-4e7f-9bd1-3fad8b1f89db" and
+                    l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
     return layers_filtered
 

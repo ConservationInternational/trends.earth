@@ -30,7 +30,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <widget class="QTableView" name="lc_agg_view">
+    <widget class="QTableView" name="remap_view">
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectItems</enum>
      </property>

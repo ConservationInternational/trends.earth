@@ -246,9 +246,6 @@ class DlgDownload(QtGui.QDialog, Ui_DlgDownload):
                              'title': title})
                 self.datasets.append(item)
 
-        self.data_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-        self.data_view.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-
         self.update_data_table()
 
     def update_data_table(self):
@@ -264,9 +261,41 @@ class DlgDownload(QtGui.QDialog, Ui_DlgDownload):
             self.data_view.setIndexWidget(proxy_model.index(row, 7), btn)
 
         self.data_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+
         self.data_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
 
     def btn_details(self):
         button = self.sender()
-        index = self.jobs_view.indexAt(button.pos())
+        index = self.data_view.indexAt(button.pos())
         #TODO: Code the details view
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgDownload, self).btn_calculate()
+        if not ret:
+            return
+
+        rows = list(set(index.row() for index in self.data_view.selectedIndexes()))
+
+        self.close()
+
+        payload = {'geojson': json.dumps(self.bbox),
+                   'asset': asset,
+                   'task_name': self.task_name.text(),
+                   'task_notes': self.task_notes.toPlainText()}
+
+        gee_script = self.scripts['download_data']['script id']
+
+        resp = run_script(gee_script, payload)
+
+        if resp:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Soil organic carbon submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit soil organic carbon task to Google Earth Engine."),
+                           level=0, duration=5)
+

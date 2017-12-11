@@ -8,9 +8,9 @@ by the Global Environment Facility.
 Contributors
 ------------
 
-Contributors to the documentation and |trends.earth| include Yengoh Genesis[1]_, 
-Mariano Gonzalez-Roglich[2]_, Monica Noon[2]_, Lennart Olsson[1]_, Tristan 
-Schnader[2]_, Anna Tengberg[1]_, and Alex Zvoleff[2]_.
+Contributors to the documentation and |trends.earth| include Yengoh Genesis 
+[1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, 
+Tristan Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_.
 
 The Land Degradation Monitoring Project is a partnership of Conservation 
 International, Lund University, and the National Aeronautics and Space 
@@ -126,7 +126,8 @@ Land cover
 | `ESA CCI Land Cover`_ | 1992-2015 | 300 m   | Global |         |
 +-----------------------+-----------+---------+--------+---------+
 
-.. _ESA CCI: https://www.esa-landcover-cci.org/
+.. _ESA CCI Land Cover: https://www.esa-landcover-cci.org/
+
 
 Soil carbon
 ~~~~~~~~~~~

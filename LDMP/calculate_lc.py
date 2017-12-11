@@ -64,6 +64,10 @@ class TransMatrixEdit(QtGui.QLineEdit):
         else:
             self.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
 
+    def focusInEvent(self, e):
+        super(TransMatrixEdit, self).focusInEvent(e)
+        self.selectAll()
+
 
 class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
     def __init__(self, parent=None):

@@ -46,5 +46,9 @@
     "soil_organic_carbon": {
         "script id": "3fc66de9-31cb-4e7f-9bd1-3fad8b1f89db",
         "description": "Calculate soil organic carbon."
+    },
+    "download_data": {
+        "script id": "67d2c614-aaac-4c38-9ca5-50be9ee83870",
+        "description": "Download data from Google Earth Engine assets."
     }
 }

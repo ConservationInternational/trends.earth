@@ -73,8 +73,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # TODO:Temporary until fixed:
         self.TabBox.removeTab(1)
 
-        self.setup_dialog()
-
     def point_chooser(self):
         log("Choosing point from canvas...")
         self.hide()

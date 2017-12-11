@@ -16,7 +16,7 @@ import os
 import json
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QTextCodec
+from PyQt4.QtCore import QTextCodec
 
 from qgis.core import QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
@@ -66,7 +66,9 @@ class DlgCalculateBase(QtGui.QDialog):
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
 
-    def setup_dialog(self):
+    def showEvent(self, event):
+        super(DlgCalculateBase, self).showEvent(event)
+
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)
         self.button_next.clicked.connect(self.tab_forward)
@@ -75,6 +77,8 @@ class DlgCalculateBase(QtGui.QDialog):
         self.button_prev.setEnabled(False)
         self.button_calculate.setEnabled(False)
         self.TabBox.currentChanged.connect(self.tab_changed)
+
+        self.TabBox.setCurrentIndex(0)
 
         self.setup_area_selection()
 

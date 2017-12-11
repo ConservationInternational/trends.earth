@@ -254,6 +254,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 download_soil_organic_carbon(job, download_dir)
             elif job['results'].get('type') == 'timeseries':
                 download_timeseries(job, self.tr)
+            elif job['results'].get('type') == 'download':
+                download_dataset(job, download_dir, self.tr)
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(job['results'].get('type')))
 
@@ -312,6 +314,20 @@ def download_result(url, outfile, job):
     else:
         return None
 
+
+def download_dataset(job, download_dir, tr):
+    log("downloading dataset...")
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            log('out_dir: {}'.format(download_dir))
+            log('out_file: {}'.format(url['url'].rsplit('/', 1)[-1]))
+            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+            resp = download_result(url['url'], outfile, job)
+            if not resp:
+                return
+            mb.pushMessage(tr("Submitted"),
+                           tr("Downloaded dataset to {}".format(outfile)),
+                           level=0, duration=5)
 
 def download_soil_organic_carbon(job, download_dir):
     log("downloading soil_organic_carbon results...")

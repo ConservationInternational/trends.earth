@@ -48,7 +48,7 @@
           </font>
          </property>
          <property name="text">
-          <string>NOTE: Calculation of change in soil organic carbon is not yet supported. This tool currently only supports downloading a soil organic map for a single point in time.</string>
+          <string>NOTE: Calculation of change in soil organic carbon is not yet supported. This tool currently only supports downloading a soil organic carbon map for a single point in time.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

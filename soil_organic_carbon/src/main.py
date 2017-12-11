@@ -57,8 +57,8 @@ def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'soc', [CloudUrl(task.url())])
-    gee_results = GEEResults('soc', [cloud_dataset])
+    cloud_dataset = CloudDataset('geotiff', 'soil_organic_carbon', [CloudUrl(task.url())])
+    gee_results = GEEResults('soil_organic_carbon', [cloud_dataset])
     results_schema = GEEResultsSchema()
     json_results = results_schema.dump(gee_results)
 

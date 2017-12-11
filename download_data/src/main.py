@@ -19,8 +19,7 @@ from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 
-def download(year_bl_start, year_bl_end, year_target, geojson, asset, 
-        EXECUTION_ID, logger):
+def download(geojson, asset, EXECUTION_ID, logger):
     """
     Download dataset from GEE assets.
     """
@@ -44,9 +43,6 @@ def download(year_bl_start, year_bl_end, year_target, geojson, asset,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_bl_start = params.get('year_bl_start', 2002)
-    year_bl_end = params.get('year_bl_end', 2015)
-    year_target = params.get('year_target', 2015)
     geojson = params.get('geojson', util.tza_geojson)
     asset = params.get('asset', None)
 
@@ -63,7 +59,6 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = download(year_bl_start, year_bl_end, year_target, geojson, 
-                            asset, EXECUTION_ID, logger)
+    json_results = download(geojson, asset, EXECUTION_ID, logger)
 
     return json_results.data

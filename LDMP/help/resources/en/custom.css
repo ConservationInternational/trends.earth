@@ -4,9 +4,9 @@
 /*     text-align: center; */
 /* } */
 div.admonition.note {
-    background: #646464;
+    background: #e5e5e5;
 }
-div.admonition.title {
+.rst-content .note .admonition-title {
     background: #646464;
 }
 .wy-nav-top {

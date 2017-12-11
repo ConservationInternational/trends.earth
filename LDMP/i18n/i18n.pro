@@ -33,4 +33,4 @@ SOURCES = ../about.py \
 ../timeseries.py \
 ../worker.py
 
-TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts
+TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts LDMP_sw.ts

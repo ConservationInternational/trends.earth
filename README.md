@@ -34,5 +34,4 @@ SOFTWARE.
 
 `trends.earth.gee` is part of trends.earth
 
-[![trends.earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_print_400width.png)](Part 
-of trends.earth)
+[![trends.earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_print_400width.png)](Part of trends.earth)

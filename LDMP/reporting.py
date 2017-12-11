@@ -99,8 +99,8 @@ def calc_cell_area(ymin, ymax, x_width):
     return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
 
 
-# TODO: Should be determining layer types based on content of json, not on 
-# filenames
+# Get a list of layers of a particular type, out of those in the TOC that were 
+# produced by trends.earth
 def get_ld_layers(layer_type):
     root = QgsProject.instance().layerTreeRoot()
     layers = _get_layers(root)
@@ -116,19 +116,24 @@ def get_ld_layers(layer_type):
             # Ignore any layers that don't have .json files
             continue
         if layer_type == 'traj':
-            if m['script_id'] == "13740fa7-4312-4cf2-829d-cdaee5a3d37c":
+            if (m['script_id'] == "13740fa7-4312-4cf2-829d-cdaee5a3d37c" and
+                    l.renderer().usesBands() == [2]):
                 layers_filtered.append(l)
         elif layer_type == 'state':
-            if m['script_id'] == "cd03646c-9d4c-44a9-89ae-3309ae7bade3":
+            if (m['script_id'] == "cd03646c-9d4c-44a9-89ae-3309ae7bade3" and
+                    l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
         elif layer_type == 'perf':
-            if m['script_id'] == "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82":
+            if (m['script_id'] == "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82" and
+                 l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
         elif layer_type == 'lc':
-            if m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e":
+            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
+                    l.renderer().usesBands() == [4]):
                 layers_filtered.append(l)
         elif layer_type == 'soc':
-            if m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e":
+            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
+                    l.renderer().usesBands() == [5]):
                 layers_filtered.append(l)
     return layers_filtered
 
@@ -590,6 +595,7 @@ class DlgReportingBase(DlgCalculateBase):
         super(DlgReportingBase, self).showEvent(event)
         self.populate_layers_traj()
         self.populate_layers_lc()
+        self.populate_layers_soc()
 
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
@@ -600,6 +606,11 @@ class DlgReportingBase(DlgCalculateBase):
         self.combo_layer_lc.clear()
         self.layer_lc_list = get_ld_layers('lc')
         self.combo_layer_lc.addItems([l.name() for l in self.layer_lc_list])
+
+    def populate_layers_soc(self):
+        self.combo_layer_soc.clear()
+        self.layer_soc_list = get_ld_layers('soc')
+        self.combo_layer_soc.addItems([l.name() for l in self.layer_soc_list])
 
     def select_output_folder(self):
         output_dir = QtGui.QFileDialog.getExistingDirectory(self,
@@ -636,15 +647,24 @@ class DlgReportingBase(DlgCalculateBase):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a land cover indicator layer to your map before you can use the reporting tool."), None)
             return
+        if len(self.layer_soc_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
+            return
 
         self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()]
         self.layer_lc = self.layer_lc_list[self.combo_layer_lc.currentIndex()]
+        self.layer_soc = self.layer_soc_list[self.combo_layer_soc.currentIndex()]
 
         # Check that all of the layers have the same coordinate system and
         # TODO that they are in 4326.
         if self.layer_traj.crs() != self.layer_lc.crs():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Coordinate systems of trajectory layer and land cover layer do not match."), None)
+            return
+        if self.layer_traj.crs() != self.layer_soc.crs():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Coordinate systems of trajectory layer and soil organic carbon layer do not match."), None)
             return
 
         # Check that all of the layers cover the area of interest
@@ -655,6 +675,10 @@ class DlgReportingBase(DlgCalculateBase):
         if not self.aoi.within(QgsGeometry.fromRect(self.layer_lc.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
+            return
+        if not self.aoi.within(QgsGeometry.fromRect(self.layer_soc.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return
 
         # If prod layers are lower res than the lc layer, then resample lc 
@@ -679,13 +703,16 @@ class DlgReportingBase(DlgCalculateBase):
         # Select from self.layer_traj using bandlist since signif is band 2
         self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(), bandList=[2], VRTNodata=-9999)
+
         # Select lc deg layer using bandlist since that layer is band 4
         self.lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(), bandList=[4], VRTNodata=-9999)
 
-        ######################################################################
-        # Combine rasters into a VRT and crop to the AOI
-        
+        # Select soc layer using bandlist since that layer is band 5
+        self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(), 
+                      bandList=[5], srcNodata=-32768, VRTNodata=-9999)
+
         # Compute the pixel-aligned bounding box (slightly larger than aoi). 
         # Use this instead of croptocutline in gdal.Warp in order to keep the 
         # pixels aligned.
@@ -763,6 +790,8 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                                        self.tr("Area of interest is not entirely within the performance layer."), None)
             return
 
+        ######################################################################
+        # Combine rasters into a VRT and crop to the AOI
         self.indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving indicator VRT to: {}'.format(self.indic_f))
         gdal.BuildVRT(self.indic_f, 
@@ -789,7 +818,6 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
 
         ######################################################################
         #  Calculate degradation
-        
         log('Calculating degradation...')
         deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation', 
                                  lc_clip_tempfile)
@@ -834,7 +862,8 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         self.close()
 
         ######################################################################
-        # Make a vrt with the traj layer, lc layers, and SOC layer
+        # Combine rasters into a VRT and crop to the AOI
+        
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc/soc VRT to: {}'.format(indic_f))
 
@@ -849,16 +878,13 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         lc_tr_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(lc_tr_f, self.layer_lc.dataProvider().dataSourceUri(), 
                       bandList=[3], VRTNodata=-9999)
-        lc_soc_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_soc_f, self.layer_lc.dataProvider().dataSourceUri(), 
-                      bandList=[5], srcNodata=-32768, VRTNodata=-9999)
 
         gdal.BuildVRT(indic_f, 
                       [self.traj_f,
                        lc_bl_f,
                        lc_tg_f,
                        lc_tr_f,
-                       lc_soc_f],
+                       self.soc_init_f],
                       outputBounds=self.outputBounds,
                       resolution=self.resample_to,
                       resampleAlg=self.resampleAlg,
@@ -875,6 +901,9 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
                                        self.tr("Error clipping land cover layer for area calculation."), None)
             return
 
+        ######################################################################
+        # Calculate area crosstabs
+        
         log('Calculating land cover crosstabulation...')
         area_worker = StartWorker(AreaWorker, 'calculating areas', lc_clip_tempfile)
         if not area_worker.success:

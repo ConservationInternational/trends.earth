@@ -242,17 +242,17 @@
         <translation>Porcentaje de cambio total de stock SOC (país)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="610"/>
+        <location filename="../jobs.py" line="630"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="611"/>
+        <location filename="../jobs.py" line="631"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="611"/>
+        <location filename="../jobs.py" line="631"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
@@ -360,7 +360,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate.py" line="51"/>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate.py" line="51"/>
@@ -579,27 +579,27 @@ p, li {white-space: pre-wrap; }
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="100"/>
+        <location filename="../calculate_lc.py" line="175"/>
         <source>Land cover in baseline year </source>
         <translation>Cobertura de la tierra en el año de referencia</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="255"/>
         <source>Select a land cover definition file</source>
-        <translation>Seleccione un archivo de definición de cubierta terrestre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="255"/>
         <source>Land cover definition (*.json)</source>
-        <translation>Definición de cobertura del suelo (* .json)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="263"/>
+        <location filename="../calculate_lc.py" line="243"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="263"/>
+        <location filename="../calculate_lc.py" line="211"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No puedo leer {}. Elija un archivo diferente.</translation>
     </message>
@@ -639,23 +639,46 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="140"/>
+        <location filename="../calculate_lc.py" line="203"/>
         <source>Select a transition matrix definition file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="170"/>
+        <location filename="../calculate_lc.py" line="233"/>
         <source>Transition matrix definition (*.json)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="170"/>
+        <location filename="../calculate_lc.py" line="233"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="180"/>
+        <location filename="../calculate_lc.py" line="243"/>
         <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateLCBase</name>
+    <message>
+        <location filename="../calculate_lc.py" line="125"/>
+        <source>Select a land cover definition file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="125"/>
+        <source>Land cover definition (*.json)</source>
+        <translation>Definición de cobertura del suelo (* .json)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="133"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="133"/>
+        <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -677,32 +700,32 @@ p, li {white-space: pre-wrap; }
         <translation>Restablecen a los predeterminados</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="312"/>
+        <location filename="../calculate_lc.py" line="329"/>
         <source>Input cover class</source>
         <translation>Clase de cubierta de entrada</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="313"/>
+        <location filename="../calculate_lc.py" line="330"/>
         <source>Output cover class</source>
         <translation>Clase de cubierta de salida</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="358"/>
+        <location filename="../calculate_lc.py" line="374"/>
         <source>Choose where to save this land cover definition</source>
         <translation>Elija dónde guardar esta definición de cobertura terrestre</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="358"/>
+        <location filename="../calculate_lc.py" line="374"/>
         <source>Land cover definition (*.json)</source>
         <translation>Definición de cobertura del suelo (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="439"/>
+        <location filename="../calculate_lc.py" line="455"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="368"/>
+        <location filename="../calculate_lc.py" line="384"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
@@ -883,124 +906,129 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="45"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="64"/>
         <source>Baseline period</source>
         <translation>Período de referencia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="103"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="122"/>
         <source>Starting year:</source>
         <translation>Año de inicio:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="116"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="135"/>
         <source>Ending year:</source>
         <translation>Año final:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="185"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="207"/>
         <source>Target year</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="250"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="275"/>
         <source>Land cover definition</source>
         <translation>Definición de cobertura terrestre</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="265"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="290"/>
         <source>Use a definition saved in a file...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="278"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="303"/>
         <source>Default (UNCCD LDN Target Setting Program system)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="297"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="322"/>
         <source>Create new definition</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="310"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="335"/>
         <source>Custom</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="535"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="560"/>
         <source>Browse</source>
         <translation>Vistazo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="342"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="367"/>
         <source>Create new definition:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="352"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="377"/>
         <source>Use saved definition:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="368"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="393"/>
         <source>Metadata</source>
         <translation>Metadata</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="387"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="412"/>
         <source>Notes:</source>
         <translation>Notas:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="433"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="458"/>
         <source>Area</source>
         <translation>Zona</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="439"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="464"/>
         <source>Area to run calculations for</source>
         <translation>Área para ejecutar cálculos para</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="469"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="494"/>
         <source>Second level:</source>
         <translation>Segundo nivel:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="500"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="525"/>
         <source>First level:</source>
         <translation>Primer nivel:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="583"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="608"/>
         <source>Choose a file...</source>
         <translation>Escoge un archivo...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="590"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="615"/>
         <source>Area from file</source>
         <translation>Área desde archivo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="597"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="622"/>
         <source>Administrative area</source>
         <translation>Área administrativa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="635"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="660"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="648"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="673"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="661"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="686"/>
         <source>Previous</source>
         <translation>Anterior</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="51"/>
+        <source>NOTE: Calculation of change in soil organic carbon is not yet supported. This tool currently only supports downloading a soil organic map for a single point in time.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1091,7 +1119,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="14"/>
         <source>Download data</source>
-        <translation>Descargar datos</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="48"/>
@@ -1179,9 +1207,14 @@ p, li {white-space: pre-wrap; }
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../download.py" line="262"/>
+        <location filename="../download.py" line="259"/>
         <source>Details</source>
         <translation>Detalles</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="96"/>
+        <source>Area to download</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1207,27 +1240,27 @@ p, li {white-space: pre-wrap; }
         <translation>Los trabajos caducan 30 días después de que se envían. Después de que un trabajo haya expirado, ya no aparecerá en esta lista.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="153"/>
+        <location filename="../jobs.py" line="155"/>
         <source>Script not found</source>
         <translation>Script no encontrado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="180"/>
+        <location filename="../jobs.py" line="184"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="220"/>
+        <location filename="../jobs.py" line="225"/>
         <source>Directory to save files</source>
         <translation>Directorio para guardar archivos</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="229"/>
+        <location filename="../jobs.py" line="234"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="229"/>
+        <location filename="../jobs.py" line="234"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation>No se puede escribir en {}. Elige una carpeta diferente.</translation>
     </message>
@@ -1703,7 +1736,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="262"/>
         <source>SDG Indicator 15.3.1</source>
-        <translation>Indicador SDG 15.3.1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="276"/>
@@ -2276,12 +2309,12 @@ p, li {white-space: pre-wrap; }
         <translation>Presentada</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="295"/>
+        <location filename="../calculate_lc.py" line="312"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
         <translation>Tarea de cobertura enviada a Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="299"/>
+        <location filename="../calculate_lc.py" line="316"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
         <translation>No se puede enviar la tarea de cobertura del terreno a Google Earth Engine.</translation>
     </message>
@@ -2429,67 +2462,67 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="270"/>
+        <location filename="../jobs.py" line="277"/>
         <source>Task name</source>
         <translation>Nombre de la tarea</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="271"/>
+        <location filename="../jobs.py" line="278"/>
         <source>Job</source>
         <translation>Trabajo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="272"/>
+        <location filename="../jobs.py" line="279"/>
         <source>Start time</source>
         <translation>Hora de inicio</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="273"/>
+        <location filename="../jobs.py" line="280"/>
         <source>End time</source>
         <translation>Hora de finalización</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="274"/>
+        <location filename="../jobs.py" line="281"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="275"/>
+        <location filename="../jobs.py" line="282"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="335"/>
+        <location filename="../jobs.py" line="355"/>
         <source>Forest</source>
         <translation>Bosque</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="336"/>
+        <location filename="../jobs.py" line="356"/>
         <source>Grassland</source>
         <translation>Pradera</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="337"/>
+        <location filename="../jobs.py" line="357"/>
         <source>Cropland</source>
         <translation>Tierras de cultivo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="338"/>
+        <location filename="../jobs.py" line="358"/>
         <source>Wetland</source>
         <translation>Humedal</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="359"/>
         <source>Artificial area</source>
         <translation>Área artificial</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="360"/>
         <source>Bare land</source>
         <translation>Tierra desolada</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="361"/>
         <source>Water body</source>
         <translation>Agua corporal</translation>
     </message>
@@ -2499,12 +2532,12 @@ p, li {white-space: pre-wrap; }
         <translation>Sin datos</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="353"/>
+        <location filename="../jobs.py" line="373"/>
         <source>Land cover change</source>
         <translation>Cambio en la cobertura terrestre</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="406"/>
+        <location filename="../jobs.py" line="426"/>
         <source>Land cover (degradation)</source>
         <translation>Cubierta terrestre (degradación)</translation>
     </message>
@@ -2530,77 +2563,77 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="462"/>
+        <location filename="../jobs.py" line="482"/>
         <source>-{} (declining)</source>
         <translation>- {} (declinando)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="463"/>
+        <location filename="../jobs.py" line="483"/>
         <source>0 (stable)</source>
         <translation>0 (estable)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="464"/>
+        <location filename="../jobs.py" line="484"/>
         <source>{} (increasing)</source>
         <translation>{} (aumentando)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="508"/>
+        <location filename="../jobs.py" line="528"/>
         <source>Productivity trajectory trend (significance)</source>
         <translation>Tendencia de trayectoria de productividad (significancia)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="514"/>
+        <location filename="../jobs.py" line="534"/>
         <source>Significant decrease (p &lt; .01)</source>
         <translation>Disminución significativa (p &lt;.01)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="515"/>
+        <location filename="../jobs.py" line="535"/>
         <source>Significant decrease (p &lt; .05)</source>
         <translation>Disminución significativa (p &lt;.05)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="516"/>
+        <location filename="../jobs.py" line="536"/>
         <source>Significant decrease (p &lt; .1)</source>
         <translation>Disminución significativa (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="554"/>
+        <location filename="../jobs.py" line="574"/>
         <source>No significant change</source>
         <translation>Sin cambios significativos</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="518"/>
+        <location filename="../jobs.py" line="538"/>
         <source>Significant increase (p &lt; .1)</source>
         <translation>Aumento significativo (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="519"/>
+        <location filename="../jobs.py" line="539"/>
         <source>Significant increase (p &lt; .05)</source>
         <translation>Aumento significativo (p &lt;.05)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="520"/>
+        <location filename="../jobs.py" line="540"/>
         <source>Significant increase (p &lt; .01)</source>
         <translation>Aumento significativo (p &lt;.01)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="548"/>
+        <location filename="../jobs.py" line="568"/>
         <source>Productivity state</source>
         <translation>Estado de productividad</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="553"/>
+        <location filename="../jobs.py" line="573"/>
         <source>Significant decrease</source>
         <translation>Disminución significativa</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="555"/>
+        <location filename="../jobs.py" line="575"/>
         <source>Significant increase</source>
         <translation>Aumento significante</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="582"/>
+        <location filename="../jobs.py" line="602"/>
         <source>Productivity performance</source>
         <translation>Rendimiento de productividad (degradación)</translation>
     </message>
@@ -2655,23 +2688,28 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="444"/>
+        <location filename="../jobs.py" line="464"/>
         <source>Productivity trajectory trend (slope of NDVI * 10000)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="494"/>
+        <location filename="../jobs.py" line="514"/>
         <source>0</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="495"/>
+        <location filename="../jobs.py" line="515"/>
         <source>{}</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="833"/>
         <source>SDG 15.3 Productivity Indicator</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="496"/>
+        <source>Soil organic carbon (Tons C/ha)</source>
         <translation type="unfinished"/>
     </message>
 </context>

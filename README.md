@@ -1,6 +1,6 @@
 # trends.earth 
 
-![trends.earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)
+[![trends.earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
 
 [![Build 
 Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)

@@ -319,6 +319,7 @@ def download_land_cover(job, download_dir):
                 style_land_cover(outfile, 2, 'Land cover (target)')
                 # TODO: Fix color coding of transition layer.
                 #style_land_cover_transition(outfile)
+                style_soc(outfile)
                 style_land_cover_land_deg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
@@ -327,7 +328,7 @@ def download_land_cover(job, download_dir):
 def style_land_cover(outfile, band, title):
     layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', title))
     if not layer.isValid():
-        log('Failed to add layer')
+        log('Failed to add land cover layer')
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
@@ -351,7 +352,7 @@ def style_land_cover(outfile, band, title):
 def style_land_cover_transition(outfile):
     layer_lc_change = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover change'))
     if not layer_lc_change.isValid():
-        log('Failed to add layer')
+        log('Failed to add land cover trans layer')
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
@@ -404,7 +405,7 @@ def style_land_cover_transition(outfile):
 def style_land_cover_land_deg(outfile):
     layer_deg = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (degradation)'))
     if not layer_deg.isValid():
-        log('Failed to add layer')
+        log('Failed to add land cover deg layer')
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
@@ -440,9 +441,9 @@ def download_prod_traj(job, download_dir):
 
 def style_prod_traj_trend(outfile):
     # Trends layer
-    layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend\n(slope of NDVI * 10000)'))
+    layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend (slope of NDVI * 10000)'))
     if not layer_ndvi.isValid():
-        log('Failed to add layer')
+        log('Failed to add prod traj trend layer')
         return None
     provider = layer_ndvi.dataProvider()
 
@@ -471,11 +472,42 @@ def style_prod_traj_trend(outfile):
     iface.legendInterface().refreshLayerSymbology(layer_ndvi)
 
 
+def style_soc(outfile):
+    l = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Soil organic carbon (Tons C/ha)'))
+    if not l.isValid():
+        log('Failed to add soc layer')
+        return None
+    provider = l.dataProvider()
+
+    # Set a colormap from zero to 98th percentile significant to
+    # three figures (after a 2 percent stretch)
+    ds = gdal.Open(outfile)
+    band5 = np.array(ds.GetRasterBand(5).ReadAsArray()).astype(np.float)
+    band5[band5 == 9999] = np.nan
+    ds = None
+    cutoff = round_to_n(np.nanpercentile(band5, [98]), 3)
+    log('Cutoffs for soc stretch: 0, {}'.format(cutoff))
+
+    fcn = QgsColorRampShader()
+    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
+    lst = [QgsColorRampShader.ColorRampItem(-32768, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
+           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0')),
+           QgsColorRampShader.ColorRampItem(cutoff, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{}').format(cutoff))]
+    fcn.setColorRampItemList(lst)
+    shader = QgsRasterShader()
+    shader.setRasterShaderFunction(fcn)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(), 5, shader)
+    l.setRenderer(pseudoRenderer)
+    l.triggerRepaint()
+    iface.legendInterface().refreshLayerSymbology(l)
+    iface.legendInterface().refreshLayerSymbology(l)
+
+
 def style_prod_traj_signif(outfile):
     # Significance layer
     layer_signif = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend (significance)'))
     if not layer_signif.isValid():
-        log('Failed to add layer')
+        log('Failed to add prod traj signif layer')
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
@@ -549,7 +581,7 @@ def download_prod_perf(job, download_dir):
 def style_prod_perf(outfile):
     layer_perf = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity performance'))
     if not layer_perf.isValid():
-        log('Failed to add layer')
+        log('Failed to add prod perf layer')
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)

@@ -15,7 +15,7 @@ Combat Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)
 providing recommendations on how to calculate SDG Indicator 15.3.1.
 
 This document provides a brief introduction to SDG Indicator 15.3.1 and 
-describes how each indicator is calculated by earth.trends.
+describes how each indicator is calculated by |trends.earth|.
 
 Background
 ----------

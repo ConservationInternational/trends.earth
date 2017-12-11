@@ -129,6 +129,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.download.setEnabled(True)
 
     def btn_refresh(self):
+        self.refresh.setEnabled(False)
         email = get_user_email()
         if email:
             start_date = datetime.datetime.now() + datetime.timedelta(-29)
@@ -137,6 +138,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 # Add script names and descriptions to jobs list
                 self.scripts = get_scripts()
                 if not self.scripts:
+                    self.refresh.setEnabled(True)
                     return False
                 for job in self.jobs:
                     # self.jobs will have prettified data for usage in table,
@@ -165,7 +167,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
                 self.update_jobs_table()
 
+                self.refresh.setEnabled(True)
                 return True
+        self.refresh.setEnabled(True)
         return False
 
     def update_jobs_table(self):
@@ -498,10 +502,10 @@ def style_soc(outfile):
     # Set a colormap from zero to 98th percentile significant to
     # three figures (after a 2 percent stretch)
     ds = gdal.Open(outfile)
-    band5 = np.array(ds.GetRasterBand(5).ReadAsArray()).astype(np.float)
-    band5[band5 == 9999] = np.nan
+    band = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
+    band[band == 9999] = np.nan
     ds = None
-    cutoff = round_to_n(np.nanpercentile(band5, [98]), 3)
+    cutoff = round_to_n(np.nanpercentile(band, [98]), 3)
     log('Cutoffs for soc stretch: 0, {}'.format(cutoff))
 
     fcn = QgsColorRampShader()
@@ -512,7 +516,7 @@ def style_soc(outfile):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(), 5, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(), 1, shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(l)

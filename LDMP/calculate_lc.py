@@ -393,7 +393,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             # Emit the filename so it can be used to update the filename field 
             # in the parent dialog
-            self.lc_def_file_updated.emit(f)
+            self.remap_file_updated.emit(f)
 
             self.close()
 
@@ -488,4 +488,4 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
     def reset_class_table(self):
         self.setup_class_table()
-        self.lc_def_file_updated.emit(None)
+        self.remap_file_updated.emit(None)

@@ -38,7 +38,7 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateLCBase, self).btn_calculate()
+        ret = super(DlgCalculateSOC, self).btn_calculate()
         if not ret:
             return
 

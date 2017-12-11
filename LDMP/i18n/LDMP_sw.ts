@@ -242,17 +242,17 @@
         <translation>Mabadiliko ya asilimia jumla ya hisa ya SOC (nchi)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="610"/>
+        <location filename="../jobs.py" line="630"/>
         <source>Time</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="611"/>
+        <location filename="../jobs.py" line="631"/>
         <source>Integrated NDVI</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="611"/>
+        <location filename="../jobs.py" line="631"/>
         <source>NDVI x 10000</source>
         <translation type="unfinished"/>
     </message>
@@ -330,7 +330,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate.py" line="51"/>
         <source>Error</source>
-        <translation>Hitilafu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate.py" line="51"/>
@@ -549,27 +549,27 @@ p, li { white-space: pre-wrap; }
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="100"/>
+        <location filename="../calculate_lc.py" line="175"/>
         <source>Land cover in baseline year </source>
         <translation>Bima ya ardhi katika mwaka wa msingi</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="255"/>
         <source>Select a land cover definition file</source>
-        <translation>Chagua faili ya ufafanuzi wa bima ya ardhi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="255"/>
         <source>Land cover definition (*.json)</source>
-        <translation>Ufafanuzi wa bima ya ardhi (* .json)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="263"/>
+        <location filename="../calculate_lc.py" line="243"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="263"/>
+        <location filename="../calculate_lc.py" line="211"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -609,23 +609,46 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="140"/>
+        <location filename="../calculate_lc.py" line="203"/>
         <source>Select a transition matrix definition file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="170"/>
+        <location filename="../calculate_lc.py" line="233"/>
         <source>Transition matrix definition (*.json)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="170"/>
+        <location filename="../calculate_lc.py" line="233"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="180"/>
+        <location filename="../calculate_lc.py" line="243"/>
         <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateLCBase</name>
+    <message>
+        <location filename="../calculate_lc.py" line="125"/>
+        <source>Select a land cover definition file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="125"/>
+        <source>Land cover definition (*.json)</source>
+        <translation>Ufafanuzi wa bima ya ardhi (* .json)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="133"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="133"/>
+        <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -647,32 +670,32 @@ p, li { white-space: pre-wrap; }
         <translation>Weka upya kwa default</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="312"/>
+        <location filename="../calculate_lc.py" line="329"/>
         <source>Input cover class</source>
         <translation>Chuo cha kufunika ya kuingiza</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="313"/>
+        <location filename="../calculate_lc.py" line="330"/>
         <source>Output cover class</source>
         <translation>Chuo cha bima ya utoaji</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="358"/>
+        <location filename="../calculate_lc.py" line="374"/>
         <source>Choose where to save this land cover definition</source>
         <translation>Chagua wapi kuokoa ufafanuzi wa bima hii ya ardhi</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="358"/>
+        <location filename="../calculate_lc.py" line="374"/>
         <source>Land cover definition (*.json)</source>
         <translation>Ufafanuzi wa bima ya ardhi (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="439"/>
+        <location filename="../calculate_lc.py" line="455"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="368"/>
+        <location filename="../calculate_lc.py" line="384"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -853,124 +876,129 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="45"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="64"/>
         <source>Baseline period</source>
         <translation>Kipindi cha msingi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="103"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="122"/>
         <source>Starting year:</source>
         <translation>Kuanzia mwaka:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="116"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="135"/>
         <source>Ending year:</source>
         <translation>Mwaka wa mwisho:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="185"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="207"/>
         <source>Target year</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="250"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="275"/>
         <source>Land cover definition</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="265"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="290"/>
         <source>Use a definition saved in a file...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="278"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="303"/>
         <source>Default (UNCCD LDN Target Setting Program system)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="297"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="322"/>
         <source>Create new definition</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="310"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="335"/>
         <source>Custom</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="535"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="560"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="342"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="367"/>
         <source>Create new definition:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="352"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="377"/>
         <source>Use saved definition:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="368"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="393"/>
         <source>Metadata</source>
         <translation>Metadata</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="387"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="412"/>
         <source>Notes:</source>
         <translation>Maelezo:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="433"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="458"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="439"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="464"/>
         <source>Area to run calculations for</source>
         <translation>Eneo la kuendesha mahesabu kwa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="469"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="494"/>
         <source>Second level:</source>
         <translation>Ngazi ya pili:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="500"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="525"/>
         <source>First level:</source>
         <translation>Ngazi ya kwanza:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="583"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="608"/>
         <source>Choose a file...</source>
         <translation>Chagua faili ...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="590"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="615"/>
         <source>Area from file</source>
         <translation>Simu kutoka faili</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="597"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="622"/>
         <source>Administrative area</source>
         <translation>Eneo la Utawala</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="635"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="660"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="648"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="673"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="661"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="686"/>
         <source>Previous</source>
         <translation>Kabla</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="51"/>
+        <source>NOTE: Calculation of change in soil organic carbon is not yet supported. This tool currently only supports downloading a soil organic map for a single point in time.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1061,7 +1089,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="14"/>
         <source>Download data</source>
-        <translation>Pakua data</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="48"/>
@@ -1149,9 +1177,14 @@ p, li { white-space: pre-wrap; }
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../download.py" line="262"/>
+        <location filename="../download.py" line="259"/>
         <source>Details</source>
         <translation>Maelezo</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="96"/>
+        <source>Area to download</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1177,27 +1210,27 @@ p, li { white-space: pre-wrap; }
         <translation>Kazi huisha siku 30 baada ya kuwasilishwa. Baada ya kazi imekamilika, haitaonekana tena katika orodha hii.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="153"/>
+        <location filename="../jobs.py" line="155"/>
         <source>Script not found</source>
         <translation>Hati haipatikani</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="180"/>
+        <location filename="../jobs.py" line="184"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="220"/>
+        <location filename="../jobs.py" line="225"/>
         <source>Directory to save files</source>
         <translation>Directory ili kuhifadhi faili</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="229"/>
+        <location filename="../jobs.py" line="234"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="229"/>
+        <location filename="../jobs.py" line="234"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua folda tofauti.</translation>
     </message>
@@ -2246,12 +2279,12 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Iliwasilishwa</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="295"/>
+        <location filename="../calculate_lc.py" line="312"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
         <translation>Kazi ya kifuniko cha ardhi iliyowasilishwa kwa Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="299"/>
+        <location filename="../calculate_lc.py" line="316"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
         <translation>Imeshindwa kuwasilisha kazi ya jalada la ardhi kwa Google Earth Engine.</translation>
     </message>
@@ -2399,67 +2432,67 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="270"/>
+        <location filename="../jobs.py" line="277"/>
         <source>Task name</source>
         <translation>Jina la Task</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="271"/>
+        <location filename="../jobs.py" line="278"/>
         <source>Job</source>
         <translation>Kazi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="272"/>
+        <location filename="../jobs.py" line="279"/>
         <source>Start time</source>
         <translation>Anza wakati</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="273"/>
+        <location filename="../jobs.py" line="280"/>
         <source>End time</source>
         <translation>Wakati wa mwisho</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="274"/>
+        <location filename="../jobs.py" line="281"/>
         <source>Status</source>
         <translation>Hali</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="275"/>
+        <location filename="../jobs.py" line="282"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="335"/>
+        <location filename="../jobs.py" line="355"/>
         <source>Forest</source>
         <translation>Msitu</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="336"/>
+        <location filename="../jobs.py" line="356"/>
         <source>Grassland</source>
         <translation>Grassland</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="337"/>
+        <location filename="../jobs.py" line="357"/>
         <source>Cropland</source>
         <translation>Cropland</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="338"/>
+        <location filename="../jobs.py" line="358"/>
         <source>Wetland</source>
         <translation>Mazingira</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="359"/>
         <source>Artificial area</source>
         <translation>Eneo la bandia</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="360"/>
         <source>Bare land</source>
         <translation>Nchi ya ardhi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="361"/>
         <source>Water body</source>
         <translation>Mwili wa maji</translation>
     </message>
@@ -2469,12 +2502,12 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Hakuna data</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="353"/>
+        <location filename="../jobs.py" line="373"/>
         <source>Land cover change</source>
         <translation>Mabadiliko ya bima ya ardhi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="406"/>
+        <location filename="../jobs.py" line="426"/>
         <source>Land cover (degradation)</source>
         <translation>Chanjo ya ardhi (uharibifu)</translation>
     </message>
@@ -2500,77 +2533,77 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="462"/>
+        <location filename="../jobs.py" line="482"/>
         <source>-{} (declining)</source>
         <translation>-{} (kupungua)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="463"/>
+        <location filename="../jobs.py" line="483"/>
         <source>0 (stable)</source>
         <translation>0 (imara)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="464"/>
+        <location filename="../jobs.py" line="484"/>
         <source>{} (increasing)</source>
         <translation>{} (kuongezeka)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="508"/>
+        <location filename="../jobs.py" line="528"/>
         <source>Productivity trajectory trend (significance)</source>
         <translation>Mwelekeo wa trajectory wa ufanisi (umuhimu)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="514"/>
+        <location filename="../jobs.py" line="534"/>
         <source>Significant decrease (p &lt; .01)</source>
         <translation>Kupungua kwa kiasi kikubwa (p &lt;.01)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="515"/>
+        <location filename="../jobs.py" line="535"/>
         <source>Significant decrease (p &lt; .05)</source>
         <translation>Kupungua kwa kiasi kikubwa (p &lt;.05)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="516"/>
+        <location filename="../jobs.py" line="536"/>
         <source>Significant decrease (p &lt; .1)</source>
         <translation>Kupungua kwa kiasi kikubwa (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="554"/>
+        <location filename="../jobs.py" line="574"/>
         <source>No significant change</source>
         <translation>Hakuna mabadiliko muhimu</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="518"/>
+        <location filename="../jobs.py" line="538"/>
         <source>Significant increase (p &lt; .1)</source>
         <translation>Ongezeko kubwa (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="519"/>
+        <location filename="../jobs.py" line="539"/>
         <source>Significant increase (p &lt; .05)</source>
         <translation>Ongezeko kubwa (p &lt;.05)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="520"/>
+        <location filename="../jobs.py" line="540"/>
         <source>Significant increase (p &lt; .01)</source>
         <translation>Ongezeko kubwa (p &lt;.01)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="548"/>
+        <location filename="../jobs.py" line="568"/>
         <source>Productivity state</source>
         <translation>Hali ya uzalishaji</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="553"/>
+        <location filename="../jobs.py" line="573"/>
         <source>Significant decrease</source>
         <translation>Kupungua kwa kiasi kikubwa</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="555"/>
+        <location filename="../jobs.py" line="575"/>
         <source>Significant increase</source>
         <translation>Ongezeko kubwa</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="582"/>
+        <location filename="../jobs.py" line="602"/>
         <source>Productivity performance</source>
         <translation>Utendaji wa ufanisi (uharibifu)</translation>
     </message>
@@ -2625,23 +2658,28 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="444"/>
+        <location filename="../jobs.py" line="464"/>
         <source>Productivity trajectory trend (slope of NDVI * 10000)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="494"/>
+        <location filename="../jobs.py" line="514"/>
         <source>0</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../jobs.py" line="495"/>
+        <location filename="../jobs.py" line="515"/>
         <source>{}</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="833"/>
         <source>SDG 15.3 Productivity Indicator</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="496"/>
+        <source>Soil organic carbon (Tons C/ha)</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -129,6 +129,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.download.setEnabled(True)
 
     def btn_refresh(self):
+        self.refresh.setEnabled(False)
         email = get_user_email()
         if email:
             start_date = datetime.datetime.now() + datetime.timedelta(-29)
@@ -137,6 +138,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 # Add script names and descriptions to jobs list
                 self.scripts = get_scripts()
                 if not self.scripts:
+                    self.refresh.setEnabled(True)
                     return False
                 for job in self.jobs:
                     # self.jobs will have prettified data for usage in table,
@@ -165,7 +167,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
                 self.update_jobs_table()
 
+                self.refresh.setEnabled(True)
                 return True
+        self.refresh.setEnabled(True)
         return False
 
     def update_jobs_table(self):
@@ -182,10 +186,11 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+            #self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
-            self.resizeWindowToColumns()
+            #self.resizeWindowToColumns()
 
     def btn_details(self):
         button = self.sender()
@@ -245,6 +250,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 download_prod_perf(job, download_dir)
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
+            elif job['results'].get('type') == 'soil_organic_carbon':
+                download_soil_organic_carbon(job, download_dir)
             elif job['results'].get('type') == 'timeseries':
                 download_timeseries(job, self.tr)
             else:
@@ -306,6 +313,20 @@ def download_result(url, outfile, job):
         return None
 
 
+def download_soil_organic_carbon(job, download_dir):
+    log("downloading soil_organic_carbon results...")
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+            resp = download_result(url['url'], outfile, job)
+            if not resp:
+                return
+            if dataset['dataset'] == 'soil_organic_carbon':
+                style_soc(outfile)
+            else:
+                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
+
+
 def download_land_cover(job, download_dir):
     log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):
@@ -319,7 +340,6 @@ def download_land_cover(job, download_dir):
                 style_land_cover(outfile, 2, 'Land cover (target)')
                 # TODO: Fix color coding of transition layer.
                 #style_land_cover_transition(outfile)
-                style_soc(outfile)
                 style_land_cover_land_deg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
@@ -482,10 +502,10 @@ def style_soc(outfile):
     # Set a colormap from zero to 98th percentile significant to
     # three figures (after a 2 percent stretch)
     ds = gdal.Open(outfile)
-    band5 = np.array(ds.GetRasterBand(5).ReadAsArray()).astype(np.float)
-    band5[band5 == 9999] = np.nan
+    band = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
+    band[band == 9999] = np.nan
     ds = None
-    cutoff = round_to_n(np.nanpercentile(band5, [98]), 3)
+    cutoff = round_to_n(np.nanpercentile(band, [98]), 3)
     log('Cutoffs for soc stretch: 0, {}'.format(cutoff))
 
     fcn = QgsColorRampShader()
@@ -496,7 +516,7 @@ def style_soc(outfile):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(), 5, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(), 1, shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(l)

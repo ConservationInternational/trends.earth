@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
-    <height>808</height>
+    <width>966</width>
+    <height>859</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,26 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QGroupBox" name="groupBox_9">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>NOTE: Calculation of change in soil organic carbon is not yet supported. This tool currently only supports downloading a soil organic map for a single point in time.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="baseline_box">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="title">
           <string>Baseline period</string>
          </property>
@@ -180,7 +199,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_4">
+        <widget class="QGroupBox" name="target_box">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="title">
           <string>Target year</string>
          </property>
@@ -245,13 +267,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="remap_box">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="title">
           <string>Land cover definition</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="4" column="1">
-           <widget class="QLineEdit" name="lc_def_custom_file">
+           <widget class="QLineEdit" name="remap_custom_file">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -267,7 +292,7 @@
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QRadioButton" name="lc_def_default">
+           <widget class="QRadioButton" name="remap_default">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -283,7 +308,7 @@
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QPushButton" name="lc_def_custom_create">
+           <widget class="QPushButton" name="remap_custom_create">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -299,7 +324,7 @@
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QRadioButton" name="lc_def_custom">
+           <widget class="QRadioButton" name="remap_custom">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -312,7 +337,7 @@
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="QPushButton" name="lc_def_custom_file_browse">
+           <widget class="QPushButton" name="remap_custom_file_browse">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -334,7 +359,7 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="lc_def_label_new">
+           <widget class="QLabel" name="remap_label_new">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -344,7 +369,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLabel" name="lc_def_label_saved">
+           <widget class="QLabel" name="remap_label_saved">
             <property name="enabled">
              <bool>false</bool>
             </property>

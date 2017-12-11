@@ -246,9 +246,6 @@ class DlgDownload(QtGui.QDialog, Ui_DlgDownload):
                              'title': title})
                 self.datasets.append(item)
 
-        self.data_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-        self.data_view.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-
         self.update_data_table()
 
     def update_data_table(self):
@@ -264,6 +261,7 @@ class DlgDownload(QtGui.QDialog, Ui_DlgDownload):
             self.data_view.setIndexWidget(proxy_model.index(row, 7), btn)
 
         self.data_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+
         self.data_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
 
     def btn_details(self):

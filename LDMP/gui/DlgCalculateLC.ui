@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>890</width>
-    <height>656</height>
+    <width>966</width>
+    <height>808</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -251,7 +251,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="4" column="1">
-           <widget class="QLineEdit" name="lc_def_custom_file">
+           <widget class="QLineEdit" name="remap_custom_file">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -267,7 +267,7 @@
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QRadioButton" name="lc_def_default">
+           <widget class="QRadioButton" name="remap_default">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -283,7 +283,7 @@
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QPushButton" name="lc_def_custom_create">
+           <widget class="QPushButton" name="remap_custom_create">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -299,7 +299,7 @@
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QRadioButton" name="lc_def_custom">
+           <widget class="QRadioButton" name="remap_custom">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -312,7 +312,7 @@
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="QPushButton" name="lc_def_custom_file_browse">
+           <widget class="QPushButton" name="remap_custom_file_browse">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -334,7 +334,7 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="lc_def_label_new">
+           <widget class="QLabel" name="remap_label_new">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -344,7 +344,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLabel" name="lc_def_label_saved">
+           <widget class="QLabel" name="remap_label_saved">
             <property name="enabled">
              <bool>false</bool>
             </property>

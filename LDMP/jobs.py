@@ -182,10 +182,11 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
             self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+            #self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
             self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
-            self.resizeWindowToColumns()
+            #self.resizeWindowToColumns()
 
     def btn_details(self):
         button = self.sender()
@@ -245,6 +246,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 download_prod_perf(job, download_dir)
             elif job['results'].get('type') == 'land_cover':
                 download_land_cover(job, download_dir)
+            elif job['results'].get('type') == 'soil_organic_carbon':
+                download_soil_organic_carbon(job, download_dir)
             elif job['results'].get('type') == 'timeseries':
                 download_timeseries(job, self.tr)
             else:
@@ -306,6 +309,20 @@ def download_result(url, outfile, job):
         return None
 
 
+def download_soil_organic_carbon(job, download_dir):
+    log("downloading soil_organic_carbon results...")
+    for dataset in job['results'].get('datasets'):
+        for url in dataset.get('urls'):
+            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
+            resp = download_result(url['url'], outfile, job)
+            if not resp:
+                return
+            if dataset['dataset'] == 'soil_organic_carbon':
+                style_soc(outfile)
+            else:
+                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
+
+
 def download_land_cover(job, download_dir):
     log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):
@@ -319,7 +336,6 @@ def download_land_cover(job, download_dir):
                 style_land_cover(outfile, 2, 'Land cover (target)')
                 # TODO: Fix color coding of transition layer.
                 #style_land_cover_transition(outfile)
-                style_soc(outfile)
                 style_land_cover_land_deg(outfile)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))

@@ -51,9 +51,8 @@ def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
     #lc_out = lc_bl.addBands(lc_tg).addBands(lc_tr).addBands(lc_dg).addBands(soc)
     lc_out = soc
 
-    # Create export function to export land deg image
     task = util.export_to_cloudstorage(lc_out.int16(), 
-            lc.projection(), geojson, 'soc', logger, 
+            lc_out.projection(), geojson, 'soc', logger, 
             EXECUTION_ID)
     task.join()
 

@@ -3,6 +3,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
 ../gui/DlgCalculateProd.ui \
+../gui/DlgCalculateSOC.ui \
+../gui/DlgCreateMap.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
@@ -23,6 +25,7 @@ SOURCES = ../about.py \
 ../download.py \
 ../jobs.py \
 ../ldmp.py \
+../mapping.py \
 ../plot.py \
 ../reporting.py \
 ../timeseries.py \
@@ -30,4 +33,4 @@ SOURCES = ../about.py \
 ../timeseries.py \
 ../worker.py
 
-TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts
+TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts LDMP_sw.ts

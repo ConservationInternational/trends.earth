@@ -34,6 +34,7 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
         self.dlg_calculate_prod = DlgCalculateProd()
         self.dlg_calculate_lc = DlgCalculateLC()
+        self.dlg_calculate_soc = DlgCalculateSOC()
 
         self.btn_prod.clicked.connect(self.btn_prod_clicked)
         self.btn_lc.clicked.connect(self.btn_lc_clicked)
@@ -48,8 +49,8 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
         result = self.dlg_calculate_lc.exec_()
 
     def btn_soc_clicked(self):
-        QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                   self.tr("SOC indicator calculation coming soon!"), None)
+        self.close()
+        result = self.dlg_calculate_soc.exec_()
 
 
 class DlgCalculateBase(QtGui.QDialog):
@@ -202,3 +203,4 @@ class DlgCalculateBase(QtGui.QDialog):
 
 from LDMP.calculate_prod import DlgCalculateProd
 from LDMP.calculate_lc import DlgCalculateLC
+from LDMP.calculate_soc import DlgCalculateSOC

@@ -44,7 +44,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="dataset_ndvi">
+        <widget class="QComboBox" name="combo_layers">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>

@@ -587,7 +587,6 @@ class DlgReportingBase(DlgCalculateBase):
         """Constructor."""
         super(DlgReportingBase, self).__init__(parent)
         self.setupUi(self)
-        self.setup_dialog()
 
         self.browse_output_folder.clicked.connect(self.select_output_folder)
 
@@ -708,10 +707,11 @@ class DlgReportingBase(DlgCalculateBase):
         self.lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(), bandList=[4], VRTNodata=-9999)
 
-        # Select soc layer using bandlist since that layer is band 5
+        # Select soc layer using bandlist since that layer has problematic 
+        # missing value coding
         self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(), 
-                      bandList=[5], srcNodata=-32768, VRTNodata=-9999)
+                      bandList=[1], srcNodata=-32768, VRTNodata=-9999)
 
         # Compute the pixel-aligned bounding box (slightly larger than aoi). 
         # Use this instead of croptocutline in gdal.Warp in order to keep the 
@@ -740,6 +740,21 @@ class DlgReportingBase(DlgCalculateBase):
 
 
 class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
+    def showEvent(self, event):
+        super(DlgReportingSDG, self).showEvent(event)
+        self.populate_layers_perf()
+        self.populate_layers_state()
+
+    def populate_layers_perf(self):
+        self.combo_layer_perf.clear()
+        self.layer_perf_list = get_ld_layers('perf')
+        self.combo_layer_perf.addItems([l.name() for l in self.layer_perf_list])
+
+    def populate_layers_state(self):
+        self.combo_layer_state.clear()
+        self.layer_state_list = get_ld_layers('state')
+        self.combo_layer_state.addItems([l.name() for l in self.layer_state_list])
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -833,23 +848,6 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         style_sdg_ld(prod_file, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3 Productivity Indicator'))
         style_sdg_ld(deg_file, QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3 - without soil carbon)'))
 
-
-    def showEvent(self, event):
-        super(DlgReportingSDG, self).showEvent(event)
-        self.populate_layers_perf()
-        self.populate_layers_state()
-
-    def populate_layers_perf(self):
-        self.combo_layer_perf.clear()
-        self.layer_perf_list = get_ld_layers('perf')
-        self.combo_layer_perf.addItems([l.name() for l in self.layer_perf_list])
-
-    def populate_layers_state(self):
-        self.combo_layer_state.clear()
-        self.layer_state_list = get_ld_layers('state')
-        self.combo_layer_state.addItems([l.name() for l in self.layer_state_list])
-
-
 class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -918,8 +916,8 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
              get_xtab_area(trans_lpd_xtab, 0, None),
              get_xtab_area(trans_lpd_xtab, -1, None),
              get_xtab_area(trans_lpd_xtab, 9999, None)]
-        log('SDG 15.3.1 indicator total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
-        log('SDG 15.3.1 indicator areas (deg, stable, imp, no data): {}'.format(y))
+        log('UNCCD repoting total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
+        log('UNCCD repoting areas (deg, stable, imp, no data): {}'.format(y))
 
         make_unccd_table(base_areas, target_areas, soc_totals, 
                          trans_lpd_xtab, 
@@ -1230,7 +1228,6 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         """Constructor."""
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)
-        self.setup_dialog()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

@@ -78,8 +78,6 @@ class DlgCalculateLCBase(DlgCalculateBase):
     def showEvent(self, event):
         super(DlgCalculateLCBase, self).showEvent(event)
 
-        self.setup_dialog()
-
         # Setup the aggregation table functions
         self.remap_default.toggled.connect(self.remap_default_toggled)
         self.remap_custom_file_browse.clicked.connect(self.open_remap_file)

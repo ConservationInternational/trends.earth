@@ -18,7 +18,7 @@ from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication
 
 from LDMP.settings import DlgSettings
-from LDMP.download import DlgDownload
+from LDMP.download_data import DlgDownload
 from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries

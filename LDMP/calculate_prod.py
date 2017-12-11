@@ -62,8 +62,6 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.indic_select_perf_changed()
         self.indic_select_state_changed()
 
-        self.setup_dialog()
-
     def indic_select_traj_changed(self):
         if self.indic_select_traj.isChecked():
             self.TrajectoryTab.setEnabled(True)

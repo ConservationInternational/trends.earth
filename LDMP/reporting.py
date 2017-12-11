@@ -101,7 +101,7 @@ def calc_cell_area(ymin, ymax, x_width):
 
 # Get a list of layers of a particular type, out of those in the TOC that were 
 # produced by trends.earth
-def get_ld_layers(layer_type):
+def get_ld_layers(layer_type=None):
     root = QgsProject.instance().layerTreeRoot()
     layers = _get_layers(root)
     layers_filtered = []
@@ -115,23 +115,39 @@ def get_ld_layers(layer_type):
         if not m:
             # Ignore any layers that don't have .json files
             continue
-        if layer_type == 'traj':
+        if not layer_type or layer_type == 'traj_trend':
+            if (m['script_id'] == "13740fa7-4312-4cf2-829d-cdaee5a3d37c" and
+                    l.renderer().usesBands() == [1]):
+                layers_filtered.append(l)
+        if not layer_type or layer_type == 'traj_sig':
             if (m['script_id'] == "13740fa7-4312-4cf2-829d-cdaee5a3d37c" and
                     l.renderer().usesBands() == [2]):
                 layers_filtered.append(l)
-        elif layer_type == 'state':
+        if not layer_type or layer_type == 'state':
             if (m['script_id'] == "cd03646c-9d4c-44a9-89ae-3309ae7bade3" and
                     l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
-        elif layer_type == 'perf':
+        if not layer_type or layer_type == 'perf':
             if (m['script_id'] == "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82" and
                  l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
-        elif layer_type == 'lc':
+        if not layer_type or layer_type == 'lc_bl':
+            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
+                    l.renderer().usesBands() == [1]):
+                layers_filtered.append(l)
+        if not layer_type or layer_type == 'lc_tg':
+            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
+                    l.renderer().usesBands() == [2]):
+                layers_filtered.append(l)
+        if not layer_type or layer_type == 'lc_tr':
+            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
+                    l.renderer().usesBands() == [3]):
+                layers_filtered.append(l)
+        if not layer_type or layer_type == 'lc_deg':
             if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
                     l.renderer().usesBands() == [4]):
                 layers_filtered.append(l)
-        elif layer_type == 'soc':
+        if not layer_type or layer_type == 'soc':
             if (m['script_id'] == "3fc66de9-31cb-4e7f-9bd1-3fad8b1f89db" and
                     l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
@@ -598,12 +614,12 @@ class DlgReportingBase(DlgCalculateBase):
 
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
-        self.layer_traj_list = get_ld_layers('traj')
+        self.layer_traj_list = get_ld_layers('traj_sig')
         self.combo_layer_traj.addItems([l.name() for l in self.layer_traj_list])
 
     def populate_layers_lc(self):
         self.combo_layer_lc.clear()
-        self.layer_lc_list = get_ld_layers('lc')
+        self.layer_lc_list = get_ld_layers('lc_deg')
         self.combo_layer_lc.addItems([l.name() for l in self.layer_lc_list])
 
     def populate_layers_soc(self):
@@ -1229,11 +1245,20 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)
 
+    def showEvent(self, event):
+        super(DlgCreateMap, self).showEvent(event)
+        self.populate_layers()
+
+    def populate_layers(self):
+        self.combo_layers.clear()
+        self.layers_list = get_ld_layers()
+        self.combo_layers.addItems([l.name() for l in self.layers_list])
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgReportingUNCCD, self).btn_calculate()
+        ret = super(DlgCreateMap, self).btn_calculate()
         if not ret:
             return
 

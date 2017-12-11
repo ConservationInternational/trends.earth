@@ -94,7 +94,7 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", 'Contacting LDMP server...'))
+            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", 'Contacting trends.earth server...'))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
@@ -102,13 +102,13 @@ class Request(object):
             log('API unable to access server - check internet connection')
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your internet connection."))
+                                       QtGui.QApplication.translate("LDMP", "Unable to login to trends.earth server. Check your internet connection."))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Unable to connect to LDMP server."))
+                                       QtGui.QApplication.translate("LDMP", "Unable to connect to trends.earth server."))
             resp = None
 
     def save_resp(self, resp):
@@ -171,7 +171,7 @@ def login(email=None, password=None):
         log('API unable to login - check username/password')
         QtGui.QMessageBox.critical(None,
                                    QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Unable to login to LDMP server. Check your username and password."))
+                                   QtGui.QApplication.translate("LDMP", "Unable to login to trends.earth server. Check your username and password."))
         resp = None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})

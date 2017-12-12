@@ -952,9 +952,17 @@ def get_lc_area(table, code):
 
 
 def get_lpd_row(table, transition):
-    return [get_xtab_area(table, -1, transition),
-            get_xtab_area(table, 0, transition),
-            get_xtab_area(table, 1, transition)]
+    # Remember that lpd is coded as:
+    # -3: 99% signif decline
+    # -2: 95% signif decline
+    # -1: 90% signif decline
+    #  0: stable
+    #  1: 90% signif increase
+    #  2: 95% signif increase
+    #  3: 99% signif increase
+    return [get_xtab_area(table, -3, transition) + get_xtab_area(table, -2, transition),
+            get_xtab_area(table, -1, transition) + get_xtab_area(table, 0, transition) + get_xtab_area(table, 1, transition),
+            get_xtab_area(table, 2, transition), get_xtab_area(table, 3, transition)]
 
 
 def get_soc_per_ha(soc_table, xtab_areas, transition):
@@ -1263,3 +1271,77 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
             return
 
         self.close()
+
+        # template = os.path.join(os.path.dirname(__file__), 'data', 
+        #                         'map_template_landscape.qpt')
+        #
+        # polyg_shapefile = os.path.join(shapefile_folder, 'polygon.shp')
+        # point_shapefile = os.path.join(shapefile_folder, 'point.shp') 
+        #
+        # mapname = "Test Map"
+        # srid = 4326
+        # provider_name = 'ogr'
+        # layerset = []
+        #
+        # #add layer 1
+        # vlayer_name= 'polygon layer'
+        # vdata_source = polyg_shapefile
+        # print "Loading EQ buffers"
+        # layer = QgsVectorLayer(vdata_source, vlayer_name, provider_name)
+        # print "Buffers loaded"
+        # QgsMapLayerRegistry.instance().addMapLayer(layer)
+        # layerset.append(layer.id())
+        #
+        # #add layer 2
+        # point_layer_name= 'point layer'
+        # point_data_source = point_shapefile
+        # point_layer = QgsVectorLayer(point_data_source, point_layer_name, provider_name)
+        # QgsMapLayerRegistry.instance().addMapLayer(point_layer)
+        # layerset.append(point_layer.id())
+        #
+        # # Set up the MapSetting object that will be assigned to the composition
+        # ms = QgsMapSettings()
+        # #preparing the map the extent - 3 times wider than the polygon layer's extent
+        # rect = layer.extent()
+        # rect.scale(3)
+        #
+        # # Enable on the fly CRS transformations
+        # ms.setCrsTransformEnabled(True)
+        #
+        # composition = QgsComposition(ms)
+        # #set WGS84 as destination crs
+        # map_projection = QgsCoordinateReferenceSystem(srid,             QgsCoordinateReferenceSystem.PostgisCrsId)
+        # map_projection_descr = map_projection.description()
+        # ms.setDestinationCrs(map_projection)
+        #
+        # #open the composer template and edit it
+        # with open(template, 'r') as f:
+        #     tree  = etree.parse(f)
+        #     #setting extent
+        #     for elem in tree.iter(tag = 'Extent'):
+        #         elem.attrib['xmax'] = str(rect.xMaximum())
+        #         elem.attrib['xmin'] = str(rect.xMinimum())
+        #         elem.attrib['ymax'] = str(rect.yMaximum())
+        #         elem.attrib['ymin'] = str(rect.yMinimum())
+        #     #editing the title
+        #     for elem in tree.iter(tag = 'ComposerLabel'):
+        #             for child in elem:
+        #                 if child.tag == 'ComposerItem':
+        #                     if child.attrib['id'] == "__maintitle__":
+        #                         elem.attrib['labelText'] = mapname
+        #     #save the edited composer as a new file
+        #     new_composer = os.path.join(xml_folder, mapname + "_composer.qpt")
+        #     tree.write(new_composer)
+        #
+        # #open the newly created composer
+        # new_composerfile = file(new_composer, 'rt')
+        # new_composer_content = new_composerfile.read()
+        # new_composerfile.close()
+        # document = QDomDocument()
+        # document.setContent(new_composer_content)
+        # result = composition.loadFromTemplate(document)
+        #
+        # # Get the main map canvas on the composition and set the layers
+        # composerMap = composition.getComposerMapById(0)
+        # composerMap.renderModeUpdateCachedImage()
+        # ms.setLayers(layerset)

@@ -133,10 +133,10 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
             if resp:
                 mb.pushMessage(QtGui.QApplication.translate("LDMP", "Sucess"),
-                               QtGui.QApplication.translate("LDMP", "Soil organic carbon submitted to Google Earth Engine."),
+                               QtGui.QApplication.translate("LDMP", "Download request submitted to Google Earth Engine."),
                                level=0, duration=5)
             else:
                 mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                               QtGui.QApplication.translate("LDMP", "Unable to submit soil organic carbon task to Google Earth Engine."),
+                               QtGui.QApplication.translate("LDMP", "Unable to submit download request to Google Earth Engine."),
                                level=0, duration=5)
 

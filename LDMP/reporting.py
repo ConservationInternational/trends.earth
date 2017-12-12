@@ -1337,6 +1337,8 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         datasets.setHtmlState(True)
         author = composition.getComposerItemById('te_authors')
         author.setText(self.authors.text())
-
+        logo = composition.getComposerItemById('te_logo')
+        logo_path = os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_600width.png')
+        logo.setPicturePath(logo_path)
         legend = composition.getComposerItemById('te_legend')
         legend.setAutoUpdateModel(True)

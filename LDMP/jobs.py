@@ -520,6 +520,7 @@ def style_soc(outfile):
     ds = gdal.Open(outfile)
     band = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
     band[band == 9999] = np.nan
+    band[band == -32768] = np.nan
     ds = None
     cutoff = round_to_n(np.nanpercentile(band, [98]), 3)
     log('Cutoffs for soc stretch: 0, {}'.format(cutoff))

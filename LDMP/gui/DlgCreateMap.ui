@@ -74,7 +74,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Map title:</string>
+          <string>Map name:</string>
          </property>
         </widget>
        </item>
@@ -87,7 +87,7 @@
           </size>
          </property>
          <property name="maxLength">
-          <number>45</number>
+          <number>40</number>
          </property>
         </widget>
        </item>
@@ -111,36 +111,33 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="author">
+        <widget class="QLineEdit" name="authors">
          <property name="maxLength">
-          <number>100</number>
+          <number>175</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_5">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>30</height>
-          </size>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Layout</string>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>33</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Organization:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="organization">
-         <property name="maxLength">
-          <number>45</number>
-         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QRadioButton" name="portrait_layout">
+            <property name="text">
+             <string>Portrait</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="landscape_layout">
+            <property name="text">
+             <string>Landscape</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

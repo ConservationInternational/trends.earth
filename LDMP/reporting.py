@@ -16,20 +16,26 @@ import os
 import json
 import tempfile
 
+try:
+        import xml.etree.cElementTree as ET
+except ImportError:
+        import xml.etree.ElementTree as ET
+
 import numpy as np
 
 from osgeo import ogr, osr, gdal
 
 import xlsxwriter
 
-from PyQt4 import QtGui, uic
+from PyQt4 import QtGui, uic, QtXml
 from PyQt4.QtCore import QSettings, QEventLoop
 
 from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
     QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
     QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
-    QgsVectorFileWriter
+    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition
+from qgis.gui import QgsComposerView
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -1272,76 +1278,45 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
 
         self.close()
 
-        # template = os.path.join(os.path.dirname(__file__), 'data', 
-        #                         'map_template_landscape.qpt')
-        #
-        # polyg_shapefile = os.path.join(shapefile_folder, 'polygon.shp')
-        # point_shapefile = os.path.join(shapefile_folder, 'point.shp') 
-        #
-        # mapname = "Test Map"
-        # srid = 4326
-        # provider_name = 'ogr'
-        # layerset = []
-        #
-        # #add layer 1
-        # vlayer_name= 'polygon layer'
-        # vdata_source = polyg_shapefile
-        # print "Loading EQ buffers"
-        # layer = QgsVectorLayer(vdata_source, vlayer_name, provider_name)
-        # print "Buffers loaded"
-        # QgsMapLayerRegistry.instance().addMapLayer(layer)
-        # layerset.append(layer.id())
-        #
-        # #add layer 2
-        # point_layer_name= 'point layer'
-        # point_data_source = point_shapefile
-        # point_layer = QgsVectorLayer(point_data_source, point_layer_name, provider_name)
-        # QgsMapLayerRegistry.instance().addMapLayer(point_layer)
-        # layerset.append(point_layer.id())
-        #
-        # # Set up the MapSetting object that will be assigned to the composition
-        # ms = QgsMapSettings()
-        # #preparing the map the extent - 3 times wider than the polygon layer's extent
-        # rect = layer.extent()
-        # rect.scale(3)
-        #
-        # # Enable on the fly CRS transformations
-        # ms.setCrsTransformEnabled(True)
-        #
-        # composition = QgsComposition(ms)
-        # #set WGS84 as destination crs
-        # map_projection = QgsCoordinateReferenceSystem(srid,             QgsCoordinateReferenceSystem.PostgisCrsId)
-        # map_projection_descr = map_projection.description()
-        # ms.setDestinationCrs(map_projection)
-        #
-        # #open the composer template and edit it
-        # with open(template, 'r') as f:
-        #     tree  = etree.parse(f)
-        #     #setting extent
-        #     for elem in tree.iter(tag = 'Extent'):
-        #         elem.attrib['xmax'] = str(rect.xMaximum())
-        #         elem.attrib['xmin'] = str(rect.xMinimum())
-        #         elem.attrib['ymax'] = str(rect.yMaximum())
-        #         elem.attrib['ymin'] = str(rect.yMinimum())
-        #     #editing the title
-        #     for elem in tree.iter(tag = 'ComposerLabel'):
-        #             for child in elem:
-        #                 if child.tag == 'ComposerItem':
-        #                     if child.attrib['id'] == "__maintitle__":
-        #                         elem.attrib['labelText'] = mapname
-        #     #save the edited composer as a new file
-        #     new_composer = os.path.join(xml_folder, mapname + "_composer.qpt")
-        #     tree.write(new_composer)
-        #
-        # #open the newly created composer
-        # new_composerfile = file(new_composer, 'rt')
-        # new_composer_content = new_composerfile.read()
-        # new_composerfile.close()
-        # document = QDomDocument()
-        # document.setContent(new_composer_content)
-        # result = composition.loadFromTemplate(document)
-        #
-        # # Get the main map canvas on the composition and set the layers
-        # composerMap = composition.getComposerMapById(0)
-        # composerMap.renderModeUpdateCachedImage()
-        # ms.setLayers(layerset)
+        template = os.path.join(os.path.dirname(__file__), 'data', 
+                                'map_template_landscape.qpt')
+
+        layerset = []
+
+        # Add area of interest
+        aoi_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "Area of interest", "memory")
+        mask_pr = aoi_layer.dataProvider()
+        fet = QgsFeature()
+        fet.setGeometry(self.aoi)
+        mask_pr.addFeatures([fet])
+        QgsMapLayerRegistry.instance().addMapLayer(aoi_layer)
+        layerset.append(aoi_layer.id())
+
+        #open the newly created composer
+        new_composerfile = file(template, 'rt')
+        new_composer_content = new_composerfile.read()
+        new_composerfile.close()
+        document = QtXml.QDomDocument()
+        document.setContent(new_composer_content)
+
+        if self.title.text():
+            title = self.title.text()
+        else:
+            title = 'trends.earth map'
+        comp_window = iface.createNewComposer(title)
+        composition = comp_window.composition()
+        composition.loadFromTemplate(document)
+
+        canvas = iface.mapCanvas()
+        map_item = composition.getComposerItemById('te_map')
+        map_item.setMapCanvas(canvas)
+        map_item.zoomToExtent(canvas.extent())
+        # map_item.setKeepLayerSet(True)
+        # map_item.setLayerSet(layerset)
+        map_item.renderModeUpdateCachedImage()
+
+        datasets = composition.getComposerItemById('te_datasets')
+        datasets.setText('Created using <a href="http://trends.earth">trends.earth</a>. Projection: decimal degrees, WGS84. Datasets derived from {{COMING SOON}}.')
+        datasets.setHtmlState(True)
+        author = composition.getComposerItemById('te_authors')
+        author.setText(self.authors.text())

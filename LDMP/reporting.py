@@ -649,7 +649,7 @@ class DlgReportingBase(DlgCalculateBase):
 
     def btn_calculate(self):
         if not self.output_folder.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtGui.QMessageBox.information(None, self.tr("Error"),
                                        self.tr("Choose an output folder where the output will be saved."), None)
             return
 
@@ -1262,6 +1262,17 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
     def showEvent(self, event):
         super(DlgCreateMap, self).showEvent(event)
         self.populate_layers()
+        QtGui.QMessageBox.warning(None, QtGui.QApplication.translate("LDMP", "Warning"),
+                               QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
+
+        #TODO: Remvoe the combo and area pages for now...
+        self.combo_layers.hide()
+        self.layer_combo_label.hide()
+        self.TabBox.removeTab(1)
+        self.button_prev.setEnabled(False)
+        self.button_next.setEnabled(False)
+        self.button_calculate.setEnabled(True)
+        self.TabBox.currentChanged.disconnect()
 
     def populate_layers(self):
         self.combo_layers.clear()
@@ -1272,30 +1283,25 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCreateMap, self).btn_calculate()
-        if not ret:
-            return
+        
+        #TODO Will need to reenable this if the area combo selector is used in the future
+        # ret = super(DlgCreateMap, self).btn_calculate()
+        # if not ret:
+        #     return
 
         self.close()
 
+        if self.portrait_layout.isChecked():
+            orientation = 'portrait'
+        else:
+            orientation = 'landscape'
+
         template = os.path.join(os.path.dirname(__file__), 'data', 
-                                'map_template_landscape.qpt')
+                                'map_template_{}.qpt'.format(orientation))
 
-        layerset = []
-
-        # Add area of interest
-        aoi_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "Area of interest", "memory")
-        mask_pr = aoi_layer.dataProvider()
-        fet = QgsFeature()
-        fet.setGeometry(self.aoi)
-        mask_pr.addFeatures([fet])
-        QgsMapLayerRegistry.instance().addMapLayer(aoi_layer)
-        layerset.append(aoi_layer.id())
-
-        #open the newly created composer
-        new_composerfile = file(template, 'rt')
-        new_composer_content = new_composerfile.read()
-        new_composerfile.close()
+        f = file(template, 'rt')
+        new_composer_content = f.read()
+        f.close()
         document = QtXml.QDomDocument()
         document.setContent(new_composer_content)
 
@@ -1311,8 +1317,19 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         map_item = composition.getComposerItemById('te_map')
         map_item.setMapCanvas(canvas)
         map_item.zoomToExtent(canvas.extent())
-        # map_item.setKeepLayerSet(True)
+
+        # Add area of interest
+        # layerset = []
+        # aoi_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "Area of interest", "memory")
+        # mask_pr = aoi_layer.dataProvider()
+        # fet = QgsFeature()
+        # fet.setGeometry(self.aoi)
+        # mask_pr.addFeatures([fet])
+        # QgsMapLayerRegistry.instance().addMapLayer(aoi_layer)
+        # layerset.append(aoi_layer.id())
         # map_item.setLayerSet(layerset)
+        # map_item.setKeepLayerSet(True)
+
         map_item.renderModeUpdateCachedImage()
 
         datasets = composition.getComposerItemById('te_datasets')
@@ -1320,3 +1337,6 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         datasets.setHtmlState(True)
         author = composition.getComposerItemById('te_authors')
         author.setText(self.authors.text())
+
+        legend = composition.getComposerItemById('te_legend')
+        legend.setAutoUpdateModel(True)

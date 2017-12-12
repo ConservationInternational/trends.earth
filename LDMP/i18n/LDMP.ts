@@ -3,242 +3,242 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../reporting.py" line="1018"/>
+        <location filename="../reporting.py" line="1024"/>
         <source>trends.earth reporting table</source>
         <translation>trends.earth reporting table</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1025"/>
+        <location filename="../reporting.py" line="1031"/>
         <source>Land Use/Cover Category</source>
         <translation>Land Use/Cover Category</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1026"/>
+        <location filename="../reporting.py" line="1032"/>
         <source>Net land productivity dynamics** (sq km)</source>
         <translation>Net land productivity dynamics** (sq km)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1028"/>
+        <location filename="../reporting.py" line="1034"/>
         <source>Area (2000)</source>
         <translation>Area (2000)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1028"/>
+        <location filename="../reporting.py" line="1034"/>
         <source>Area (2015)</source>
         <translation>Area (2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1028"/>
+        <location filename="../reporting.py" line="1034"/>
         <source>Net area change (2000-2015)</source>
         <translation>Net area change (2000-2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1032"/>
+        <location filename="../reporting.py" line="1038"/>
         <source>sq km*</source>
         <translation>sq km*</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1136"/>
+        <location filename="../reporting.py" line="1142"/>
         <source>sq km</source>
         <translation>sq km</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1106"/>
+        <location filename="../reporting.py" line="1112"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1106"/>
+        <location filename="../reporting.py" line="1112"/>
         <source>Increasing</source>
         <translation>Increasing</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1032"/>
+        <location filename="../reporting.py" line="1038"/>
         <source>No Data***</source>
         <translation>No Data***</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1032"/>
+        <location filename="../reporting.py" line="1038"/>
         <source>ton/ha</source>
         <translation>ton/ha</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1041"/>
+        <location filename="../reporting.py" line="1047"/>
         <source>Soil organic carbon (2000)**</source>
         <translation>Soil organic carbon (2000)**</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1043"/>
+        <location filename="../reporting.py" line="1049"/>
         <source>Forest</source>
         <translation>Forest</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1044"/>
+        <location filename="../reporting.py" line="1050"/>
         <source>Grasslands</source>
         <translation>Grasslands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1045"/>
+        <location filename="../reporting.py" line="1051"/>
         <source>Croplands</source>
         <translation>Croplands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1046"/>
+        <location filename="../reporting.py" line="1052"/>
         <source>Wetlands</source>
         <translation>Wetlands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1047"/>
+        <location filename="../reporting.py" line="1053"/>
         <source>Artificial areas</source>
         <translation>Artificial areas</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1048"/>
+        <location filename="../reporting.py" line="1054"/>
         <source>Bare lands</source>
         <translation>Bare lands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1049"/>
+        <location filename="../reporting.py" line="1055"/>
         <source>Water bodies</source>
         <translation>Water bodies</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1083"/>
+        <location filename="../reporting.py" line="1089"/>
         <source>SOC average (ton/ha)</source>
         <translation>SOC average (ton/ha)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1084"/>
+        <location filename="../reporting.py" line="1090"/>
         <source>Percent of total land area</source>
         <translation>Percent of total land area</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1086"/>
+        <location filename="../reporting.py" line="1092"/>
         <source>Total (sq km)*****</source>
         <translation>Total (sq km)*****</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1133"/>
+        <location filename="../reporting.py" line="1139"/>
         <source>Changing Land Use/Cover Category</source>
         <translation>Changing Land Use/Cover Category</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1105"/>
+        <location filename="../reporting.py" line="1111"/>
         <source>Net land productivity dynamics trend (sq km)</source>
         <translation>Net land productivity dynamics trend (sq km)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1106"/>
+        <location filename="../reporting.py" line="1112"/>
         <source>Declining</source>
         <translation>Declining</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1106"/>
+        <location filename="../reporting.py" line="1112"/>
         <source>Total^</source>
         <translation>Total^</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1145"/>
+        <location filename="../reporting.py" line="1151"/>
         <source>Bare lands &gt;&gt; Artificial areas</source>
         <translation>Bare lands &gt;&gt; Artificial areas</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1146"/>
+        <location filename="../reporting.py" line="1152"/>
         <source>Cropland &gt;&gt; Artificial areas</source>
         <translation>Cropland &gt;&gt; Artificial areas</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1147"/>
+        <location filename="../reporting.py" line="1153"/>
         <source>Forest &gt;&gt; Artificial areas</source>
         <translation>Forest &gt;&gt; Artificial areas</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1148"/>
+        <location filename="../reporting.py" line="1154"/>
         <source>Forest &gt;&gt; Bare lands</source>
         <translation>Forest &gt;&gt; Bare lands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1149"/>
+        <location filename="../reporting.py" line="1155"/>
         <source>Forest &gt;&gt; Cropland</source>
         <translation>Forest &gt;&gt; Cropland</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1150"/>
+        <location filename="../reporting.py" line="1156"/>
         <source>Forest &gt;&gt; Grasslands</source>
         <translation>Forest &gt;&gt; Grasslands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1151"/>
+        <location filename="../reporting.py" line="1157"/>
         <source>Grasslands &gt;&gt; Artificial areas</source>
         <translation>Grasslands &gt;&gt; Artificial areas</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1152"/>
+        <location filename="../reporting.py" line="1158"/>
         <source>Grasslands &gt;&gt; Cropland</source>
         <translation>Grasslands &gt;&gt; Cropland</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1153"/>
+        <location filename="../reporting.py" line="1159"/>
         <source>Grasslands &gt;&gt; Forest</source>
         <translation>Grasslands &gt;&gt; Forest</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1154"/>
+        <location filename="../reporting.py" line="1160"/>
         <source>Wetlands &gt;&gt; Artificial areas</source>
         <translation>Wetlands &gt;&gt; Artificial areas</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1155"/>
+        <location filename="../reporting.py" line="1161"/>
         <source>Wetlands &gt;&gt; Cropland</source>
         <translation>Wetlands &gt;&gt; Cropland</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1225"/>
+        <location filename="../reporting.py" line="1231"/>
         <source>The boundaries, names, and designations used in this report do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.  This report is available under the terms of Creative Commons Attribution 4.0 International License (CC BY 4.0).</source>
         <translation>The boundaries, names, and designations used in this report do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.  This report is available under the terms of Creative Commons Attribution 4.0 International License (CC BY 4.0).</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1134"/>
+        <location filename="../reporting.py" line="1140"/>
         <source>Soil organic carbon 0 - 30 cm (2000-2015)</source>
         <translation>Soil organic carbon 0 - 30 cm (2000-2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1135"/>
+        <location filename="../reporting.py" line="1141"/>
         <source>Net area change^ (2000-2015)</source>
         <translation>Net area change^ (2000-2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1136"/>
+        <location filename="../reporting.py" line="1142"/>
         <source>2000 ton/ha</source>
         <translation>2000 ton/ha</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1136"/>
+        <location filename="../reporting.py" line="1142"/>
         <source>2015 ton/ha</source>
         <translation>2015 ton/ha</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1136"/>
+        <location filename="../reporting.py" line="1142"/>
         <source>2000 total (ton)</source>
         <translation>2000 total (ton)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1136"/>
+        <location filename="../reporting.py" line="1142"/>
         <source>2015 total (ton)****</source>
         <translation>2015 total (ton)****</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1136"/>
+        <location filename="../reporting.py" line="1142"/>
         <source>2000-2015 loss (ton)</source>
         <translation>2000-2015 loss (ton)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1156"/>
+        <location filename="../reporting.py" line="1162"/>
         <source>Total</source>
         <translation>Total</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1157"/>
+        <location filename="../reporting.py" line="1163"/>
         <source>Percent change total SOC stock (country)</source>
         <translation>Percent change total SOC stock (country)</translation>
     </message>
@@ -1041,8 +1041,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="77"/>
-        <source>Map title:</source>
-        <translation>Map title:</translation>
+        <source>Map name:</source>
+        <translation type="unfinished">Map title:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="109"/>
@@ -1052,57 +1052,72 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="135"/>
         <source>Organization:</source>
-        <translation>Organization:</translation>
+        <translation type="obsolete">Organization:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="156"/>
+        <location filename="../gui/DlgCreateMap.ui" line="153"/>
         <source>Area</source>
         <translation>Area</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="186"/>
+        <location filename="../gui/DlgCreateMap.ui" line="183"/>
         <source>First level:</source>
         <translation>First level:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="222"/>
+        <location filename="../gui/DlgCreateMap.ui" line="219"/>
         <source>Area from file</source>
         <translation>Area from file</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="244"/>
+        <location filename="../gui/DlgCreateMap.ui" line="241"/>
         <source>Browse</source>
         <translation>Browse</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="260"/>
+        <location filename="../gui/DlgCreateMap.ui" line="257"/>
         <source>Choose a file...</source>
         <translation>Choose a file...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="280"/>
+        <location filename="../gui/DlgCreateMap.ui" line="277"/>
         <source>Administrative area</source>
         <translation>Administrative area</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="314"/>
+        <location filename="../gui/DlgCreateMap.ui" line="311"/>
         <source>Second level:</source>
         <translation>Second level:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="352"/>
+        <location filename="../gui/DlgCreateMap.ui" line="349"/>
         <source>Next</source>
         <translation>Next</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="365"/>
+        <location filename="../gui/DlgCreateMap.ui" line="362"/>
         <source>Previous</source>
         <translation>Previous</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="378"/>
+        <location filename="../gui/DlgCreateMap.ui" line="375"/>
         <source>Create</source>
         <translation>Calculate</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="123"/>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="129"/>
+        <source>Portrait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCreateMap.ui" line="136"/>
+        <source>Landscape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1359,77 +1374,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReportingBase</name>
     <message>
-        <location filename="../reporting.py" line="631"/>
+        <location filename="../reporting.py" line="637"/>
         <source>Directory to save files</source>
         <translation>Directory to save files</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="695"/>
+        <location filename="../reporting.py" line="701"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="640"/>
+        <location filename="../reporting.py" line="646"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation>Cannot write to {}. Choose a different folder.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="646"/>
+        <location filename="../reporting.py" line="652"/>
         <source>Choose an output folder where the output will be saved.</source>
         <translation>Choose an output folder where the output will be saved.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="658"/>
+        <location filename="../reporting.py" line="664"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the reporting tool.</source>
         <translation>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="662"/>
+        <location filename="../reporting.py" line="668"/>
         <source>You must add a land cover indicator layer to your map before you can use the reporting tool.</source>
         <translation>You must add a land cover indicator layer to your map before you can use the reporting tool.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="677"/>
+        <location filename="../reporting.py" line="683"/>
         <source>Coordinate systems of trajectory layer and land cover layer do not match.</source>
         <translation>Coordinate systems of trajectory layer and land cover layer do not match.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="687"/>
+        <location filename="../reporting.py" line="693"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>Area of interest is not entirely within the trajectory layer.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="691"/>
+        <location filename="../reporting.py" line="697"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>Area of interest is not entirely within the land cover layer.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="751"/>
+        <location filename="../reporting.py" line="757"/>
         <source>Land cover</source>
         <translation>Land cover</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="752"/>
+        <location filename="../reporting.py" line="758"/>
         <source>Area</source>
         <translation>Area</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="752"/>
+        <location filename="../reporting.py" line="758"/>
         <source>km&lt;sup&gt;2&lt;/sup&gt;</source>
         <translation>km&lt;sup&gt;2&lt;/sup&gt;</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="666"/>
+        <location filename="../reporting.py" line="672"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the reporting tool.</source>
         <translation>You must add a soil organic carbon indicator layer to your map before you can use the reporting tool.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="681"/>
+        <location filename="../reporting.py" line="687"/>
         <source>Coordinate systems of trajectory layer and soil organic carbon layer do not match.</source>
         <translation>Coordinate systems of trajectory layer and soil organic carbon layer do not match.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="695"/>
+        <location filename="../reporting.py" line="701"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>Area of interest is not entirely within the soil organic carbon layer.</translation>
     </message>
@@ -1437,57 +1452,57 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReportingSDG</name>
     <message>
-        <location filename="../reporting.py" line="856"/>
+        <location filename="../reporting.py" line="862"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="786"/>
+        <location filename="../reporting.py" line="792"/>
         <source>You must add a productivity state indicator layer to your map before you can use the reporting tool.</source>
         <translation>You must add a productivity state indicator layer to your map before you can use the reporting tool.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="790"/>
+        <location filename="../reporting.py" line="796"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</source>
         <translation>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="807"/>
+        <location filename="../reporting.py" line="813"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>Coordinate systems of trajectory layer and state layer do not match.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="811"/>
+        <location filename="../reporting.py" line="817"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>Coordinate systems of trajectory layer and performance layer do not match.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="798"/>
+        <location filename="../reporting.py" line="804"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>Resolutions of trajectory layer and state layer do not match.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="802"/>
+        <location filename="../reporting.py" line="808"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>Resolutions of trajectory layer and performance layer do not match.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="816"/>
+        <location filename="../reporting.py" line="822"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>Area of interest is not entirely within the state layer.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="820"/>
+        <location filename="../reporting.py" line="826"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>Area of interest is not entirely within the performance layer.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="856"/>
+        <location filename="../reporting.py" line="862"/>
         <source>Error calculating degradation layer.</source>
         <translation>Error calculating degradation layer.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="846"/>
+        <location filename="../reporting.py" line="852"/>
         <source>Error clipping land cover layer for area calculation.</source>
         <translation>Error clipping land cover layer for area calculation.</translation>
     </message>
@@ -1720,37 +1735,37 @@ p, li { white-space: pre-wrap; }
         <translation>Next</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="924"/>
+        <location filename="../reporting.py" line="930"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="914"/>
+        <location filename="../reporting.py" line="920"/>
         <source>Error clipping land cover layer for area calculation.</source>
         <translation>Error clipping land cover layer for area calculation.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="924"/>
+        <location filename="../reporting.py" line="930"/>
         <source>Error calculating degraded areas.</source>
         <translation>Error calculating degraded areas.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="930"/>
+        <location filename="../reporting.py" line="936"/>
         <source>Area Degraded</source>
         <translation>Area Degraded</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="930"/>
+        <location filename="../reporting.py" line="936"/>
         <source>Area Stable</source>
         <translation>Area Stable</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="930"/>
+        <location filename="../reporting.py" line="936"/>
         <source>Area Improved</source>
         <translation>Area Improved</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="930"/>
+        <location filename="../reporting.py" line="936"/>
         <source>No Data</source>
         <translation>No Data</translation>
     </message>
@@ -2195,7 +2210,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="1246"/>
+        <location filename="../reporting.py" line="1252"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -2360,12 +2375,12 @@ p, li { white-space: pre-wrap; }
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="552"/>
+        <location filename="../reporting.py" line="558"/>
         <source>Processing: {}</source>
         <translation>Processing: {}</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1242"/>
+        <location filename="../reporting.py" line="1248"/>
         <source>Success</source>
         <translation>Success</translation>
     </message>
@@ -2458,7 +2473,7 @@ p, li { white-space: pre-wrap; }
         <translation>Water body</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="169"/>
+        <location filename="../reporting.py" line="175"/>
         <source>No data</source>
         <translation>No data</translation>
     </message>
@@ -2473,17 +2488,17 @@ p, li { white-space: pre-wrap; }
         <translation>Land cover (degradation)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="166"/>
+        <location filename="../reporting.py" line="172"/>
         <source>Degradation</source>
         <translation>Degradation</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="167"/>
+        <location filename="../reporting.py" line="173"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="168"/>
+        <location filename="../reporting.py" line="174"/>
         <source>Improvement</source>
         <translation>Improvement</translation>
     </message>
@@ -2563,7 +2578,7 @@ p, li { white-space: pre-wrap; }
         <translation>Productivity performance (degradation)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="865"/>
+        <location filename="../reporting.py" line="871"/>
         <source>Degradation (SDG 15.3 - without soil carbon)</source>
         <translation>Degradation (SDG 15.3 - without soil carbon)</translation>
     </message>
@@ -2628,7 +2643,7 @@ p, li { white-space: pre-wrap; }
         <translation>{}</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="864"/>
+        <location filename="../reporting.py" line="870"/>
         <source>SDG 15.3 Productivity Indicator</source>
         <translation>SDG 15.3 Productivity Indicator</translation>
     </message>

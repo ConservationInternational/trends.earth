@@ -23,9 +23,9 @@ SOURCES = ../about.py \
 ../calculate_lc.py \
 ../calculate_prod.py \
 ../download.py \
+../download_data.py \
 ../jobs.py \
 ../ldmp.py \
-../mapping.py \
 ../plot.py \
 ../reporting.py \
 ../timeseries.py \

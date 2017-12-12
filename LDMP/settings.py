@@ -147,7 +147,7 @@ class DlgSettings (QtGui.QDialog, UiDialog):
         resp = login(self.email.text(), self.password.text())
         if resp:
             mb.pushMessage(self.tr("Success"),
-                           self.tr("Logged in to the LDMP server as {}.").format(self.email.text()), level=0)
+                           self.tr("Logged in to the trends.earth server as {}.").format(self.email.text()), level=0)
             self.settings.setValue("LDMP/jobs_cache", None)
             self.close()
 

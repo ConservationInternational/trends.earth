@@ -20,6 +20,12 @@ describes how each indicator is calculated by |trends.earth|.
 Background
 ----------
 
+There are three subindicators for SDG Indicator 15.3.1:
+
+    1. Vegetation productivity
+    2. Land cover
+    3. Soil organic carbon
+
 .. image:: /static/training/indicator_15_3_1.png
    :align: center
 

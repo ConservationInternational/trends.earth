@@ -156,14 +156,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="add_admin_bounds">
             <property name="text">
              <string>Add administrative boundaries</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="mask_layers">
             <property name="text">
              <string>Mask layers outside chosen area</string>
             </property>

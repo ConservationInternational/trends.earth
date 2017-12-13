@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>548</width>
-    <height>472</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -112,6 +112,12 @@
        </item>
        <item>
         <widget class="QLineEdit" name="authors">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="maxLength">
           <number>175</number>
          </property>
@@ -137,6 +143,29 @@
            <widget class="QRadioButton" name="landscape_layout">
             <property name="text">
              <string>Landscape</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Boundaries</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="checkBox">
+            <property name="text">
+             <string>Add administrative boundaries</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="text">
+             <string>Mask layers outside chosen area</string>
             </property>
            </widget>
           </item>

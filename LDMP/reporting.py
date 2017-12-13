@@ -16,11 +16,6 @@ import os
 import json
 import tempfile
 
-try:
-        import xml.etree.cElementTree as ET
-except ImportError:
-        import xml.etree.ElementTree as ET
-
 import numpy as np
 
 from osgeo import ogr, osr, gdal
@@ -1265,15 +1260,6 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         QtGui.QMessageBox.warning(None, QtGui.QApplication.translate("LDMP", "Warning"),
                                QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
 
-        #TODO: Remvoe the combo and area pages for now...
-        self.combo_layers.hide()
-        self.layer_combo_label.hide()
-        self.TabBox.removeTab(1)
-        self.button_prev.setEnabled(False)
-        self.button_next.setEnabled(False)
-        self.button_calculate.setEnabled(True)
-        self.TabBox.currentChanged.disconnect()
-
     def populate_layers(self):
         self.combo_layers.clear()
         self.layers_list = get_ld_layers()
@@ -1284,10 +1270,9 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         # returns False, which would mean this function should stop execution
         # as well.
         
-        #TODO Will need to reenable this if the area combo selector is used in the future
-        # ret = super(DlgCreateMap, self).btn_calculate()
-        # if not ret:
-        #     return
+        ret = super(DlgCreateMap, self).btn_calculate()
+        if not ret:
+            return
 
         self.close()
 

@@ -88,11 +88,11 @@ class LDMPPlugin:
         self.toolbar.setObjectName(u'LDMP')
 
         self.dlg_settings = DlgSettings()
-        self.dlg_download = DlgDownload()
         self.dlg_calculate = DlgCalculate()
         self.dlg_jobs = DlgJobs()
         self.dlg_timeseries = DlgTimeseries()
         self.dlg_reporting = DlgReporting()
+        self.dlg_download = DlgDownload()
         self.dlg_about = DlgAbout()
 
     # noinspection PyMethodMayBeStatic
@@ -193,13 +193,6 @@ class LDMPPlugin:
             status_tip=QApplication.translate('LDMP', 'LDMT Settings'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-globe.png',
-            text=QApplication.translate('LDMP', u'Download data'),
-            callback=self.run_download,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Download land degradation datasets'))
-
-        self.add_action(
             ':/plugins/LDMP/icons/icon-calculator.png',
             text=QApplication.translate('LDMP', u'Calculate indicators'),
             callback=self.run_calculate,
@@ -226,6 +219,13 @@ class LDMPPlugin:
             callback=self.run_reporting,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Land degradation reporting'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/icon-globe.png',
+            text=QApplication.translate('LDMP', u'Download data'),
+            callback=self.run_download,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'Download land degradation datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-info.png',

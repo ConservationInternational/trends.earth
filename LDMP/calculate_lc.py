@@ -76,19 +76,20 @@ class DlgCalculateLCBase(DlgCalculateBase):
         self.dlg_remap = DlgCalculateLCSetAggregation(self)
 
     def showEvent(self, event):
+        if self.firstShowEvent:
+            # Setup the aggregation table functions
+            self.remap_default.toggled.connect(self.remap_default_toggled)
+            self.remap_custom_file_browse.clicked.connect(self.open_remap_file)
+            self.remap_custom_create.clicked.connect(self.remap_create)
+
+            self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
+            self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
+
+            # Setup the class table so that the table is defined if a user uses the 
+            # default and never accesses that dialog
+            self.dlg_remap.setup_class_table()
+
         super(DlgCalculateLCBase, self).showEvent(event)
-
-        # Setup the aggregation table functions
-        self.remap_default.toggled.connect(self.remap_default_toggled)
-        self.remap_custom_file_browse.clicked.connect(self.open_remap_file)
-        self.remap_custom_create.clicked.connect(self.remap_create)
-
-        self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
-        self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
-
-        # Setup the class table so that the table is defined if a user uses the 
-        # default and never accesses that dialog
-        self.dlg_remap.setup_class_table()
 
     def remap_matrix_update(self, remap_matrix):
         self.remap_matrix = remap_matrix

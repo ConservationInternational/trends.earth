@@ -85,7 +85,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.point = point
         # Disable the choose point tool
         self.canvas.setMapTool(QgsMapToolPan(self.canvas))
+        # Don't reset_tab_on_show as it would lead to return to first tab after 
+        # using the point chooser
+        self.reset_tab_on_showEvent = False
         self.show()
+        self.reset_tab_on_showEvent = True
         self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
         log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
         self.point_x.setText("{:.8f}".format(self.point.x()))

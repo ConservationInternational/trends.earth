@@ -66,21 +66,27 @@ class DlgCalculateBase(QtGui.QDialog):
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
 
+        self.firstShowEvent = True
+        self.reset_tab_on_showEvent = True
+
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
 
-        self.button_calculate.clicked.connect(self.btn_calculate)
-        self.button_prev.clicked.connect(self.tab_back)
-        self.button_next.clicked.connect(self.tab_forward)
+        if self.firstShowEvent:
+            self.firstShowEvent = False
+            self.button_calculate.clicked.connect(self.btn_calculate)
+            self.button_prev.clicked.connect(self.tab_back)
+            self.button_next.clicked.connect(self.tab_forward)
 
-        # Start on first tab so button_prev and calculate should be disabled
-        self.button_prev.setEnabled(False)
-        self.button_calculate.setEnabled(False)
-        self.TabBox.currentChanged.connect(self.tab_changed)
+            # Start on first tab so button_prev and calculate should be disabled
+            self.button_prev.setEnabled(False)
+            self.button_calculate.setEnabled(False)
+            self.TabBox.currentChanged.connect(self.tab_changed)
 
-        self.TabBox.setCurrentIndex(0)
+            self.setup_area_selection()
 
-        self.setup_area_selection()
+        if self.reset_tab_on_showEvent:
+            self.TabBox.setCurrentIndex(0)
 
     def tab_back(self):
         if self.TabBox.currentIndex() - 1 >= 0:
@@ -152,6 +158,12 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName()
+        shpfile = QtGui.QFileDialog.getOpenFileName(self,
+                                                    self.tr('Select a file defining the area of interst'),
+                                                    QSettings().value("LDMP/area_file_dir", None),
+                                                    self.tr('Land cover definition (*.json)'))
+        if os.access(shpfile, os.R_OK):
+            QSettings().setValue("LDMP/area_file_dir", os.path.dirname(shpfile))
         self.area_fromfile_file.setText(shpfile)
 
     def populate_admin_1(self):

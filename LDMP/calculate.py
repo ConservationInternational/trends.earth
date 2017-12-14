@@ -16,7 +16,7 @@ import os
 import json
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QTextCodec
+from PyQt4.QtCore import QTextCodec, QSettings
 
 from qgis.core import QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 

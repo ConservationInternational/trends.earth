@@ -157,11 +157,10 @@ class DlgCalculateBase(QtGui.QDialog):
             self.area_fromfile_browse.setEnabled(False)
 
     def open_shp_browse(self):
-        shpfile = QtGui.QFileDialog.getOpenFileName()
         shpfile = QtGui.QFileDialog.getOpenFileName(self,
                                                     self.tr('Select a file defining the area of interst'),
                                                     QSettings().value("LDMP/area_file_dir", None),
-                                                    self.tr('Land cover definition (*.json)'))
+                                                    self.tr('Spatial file (*.*)'))
         if os.access(shpfile, os.R_OK):
             QSettings().setValue("LDMP/area_file_dir", os.path.dirname(shpfile))
         self.area_fromfile_file.setText(shpfile)

@@ -196,7 +196,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         button = self.sender()
         index = self.jobs_view.indexAt(button.pos())
 
-        details_dlg = DlgJobsDetails()
+        details_dlg = DlgJobsDetails(self)
 
         job = self.jobs[index.row()]
 

@@ -77,4 +77,5 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: About
 
-    about
+    about/about
+    about/development

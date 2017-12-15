@@ -67,9 +67,14 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/video/video_links.po
 source_file = LDMP/help/i18n/pot/video/video_links.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.about]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about.po
-source_file = LDMP/help/i18n/pot/about.pot
+[land_degradation_monitoring_toolbox_docs_1_0.about--about]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/about.po
+source_file = LDMP/help/i18n/pot/about/about.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.about--development]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/development.po
+source_file = LDMP/help/i18n/pot/about/development.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.gui]

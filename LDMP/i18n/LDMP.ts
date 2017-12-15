@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -279,7 +280,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here: &lt;/span&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1059,11 +1060,6 @@ p, li { white-space: pre-wrap; }
         <translation>Author(s):</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="135"/>
-        <source>Organization:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../gui/DlgCreateMap.ui" line="156"/>
         <source>Area</source>
         <translation>Area</translation>
@@ -1132,11 +1128,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDownload</name>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="57"/>
-        <source>Choose a folder...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../gui/DlgDownload.ui" line="206"/>
         <source>Administrative area</source>
         <translation>Administrative area</translation>
@@ -1167,16 +1158,6 @@ p, li { white-space: pre-wrap; }
         <translation>Download raw data</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="39"/>
-        <source>Setup</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="45"/>
-        <source>Output folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../gui/DlgDownload.ui" line="199"/>
         <source>Area from file</source>
         <translation>Area from file</translation>
@@ -1190,11 +1171,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDownload.ui" line="339"/>
         <source>Next</source>
         <translation>Next</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="327"/>
-        <source>Download</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="365"/>
@@ -1283,16 +1259,16 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgJobsDetails</name>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="14"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="17"/>
         <source>Google Earth Engine Task Detail</source>
         <translation>Google Earth Engine Task Detail</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="26"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="29"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -1301,27 +1277,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="40"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="43"/>
         <source>Comments:</source>
         <translation>Comments:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="47"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="50"/>
         <source>Task name:</source>
         <translation>Task name:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="54"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="57"/>
         <source>Output:</source>
         <translation>Output:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="61"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="64"/>
         <source>Input:</source>
         <translation>Input:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobsDetails.ui" line="68"/>
+        <location filename="../gui/DlgJobsDetails.ui" line="71"/>
         <source>Status:</source>
         <translation>Status:</translation>
     </message>
@@ -2314,72 +2290,72 @@ p, li { white-space: pre-wrap; }
         <translation>Download timed out. Check your internet connection.</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="240"/>
+        <location filename="../ldmp.py" line="243"/>
         <source>&amp;trends.earth</source>
         <translation>&amp;earth.trends</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location filename="../ldmp.py" line="191"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="188"/>
+        <location filename="../ldmp.py" line="191"/>
         <source>LDMT Settings</source>
         <translation>LDMT Settings</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="223"/>
+        <location filename="../ldmp.py" line="226"/>
         <source>Download data</source>
         <translation>Download data</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="223"/>
+        <location filename="../ldmp.py" line="226"/>
         <source>Download land degradation datasets</source>
         <translation>Download land degradation datasets</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location filename="../ldmp.py" line="198"/>
         <source>Calculate indicators</source>
         <translation>Calculate indicators</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="195"/>
+        <location filename="../ldmp.py" line="198"/>
         <source>Calculate land degradation indicators</source>
         <translation>Calculate land degradation indicators</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="205"/>
         <source>Plot data</source>
         <translation>Plot data</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="202"/>
+        <location filename="../ldmp.py" line="205"/>
         <source>Plot timeseries datasets</source>
         <translation>Plot timeseries datasets</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location filename="../ldmp.py" line="212"/>
         <source>View Google Earth Engine tasks</source>
         <translation>View Google Earth Engine tasks</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="209"/>
+        <location filename="../ldmp.py" line="212"/>
         <source>View cloud processing tasks</source>
         <translation>View cloud processing tasks</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="216"/>
+        <location filename="../ldmp.py" line="219"/>
         <source>Reporting tool</source>
         <translation>Reporting tool</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="216"/>
+        <location filename="../ldmp.py" line="219"/>
         <source>Land degradation reporting</source>
         <translation>Land degradation reporting</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="230"/>
+        <location filename="../ldmp.py" line="233"/>
         <source>About</source>
         <translation>About</translation>
     </message>
@@ -2394,7 +2370,7 @@ p, li { white-space: pre-wrap; }
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="230"/>
+        <location filename="../ldmp.py" line="233"/>
         <source>About trends.earth</source>
         <translation>About trends.earth</translation>
     </message>

@@ -32,9 +32,9 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/installing.po
 source_file = LDMP/help/i18n/pot/documentation/installing.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--interpreting_results]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/interpreting_results.po
-source_file = LDMP/help/i18n/pot/documentation/interpreting_results.pot
+[land_degradation_monitoring_toolbox_docs_1_0.training--interpreting_results]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/interpreting_results.po
+source_file = LDMP/help/i18n/pot/training/interpreting_results.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.documentation--plot_data]

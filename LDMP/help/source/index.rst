@@ -51,7 +51,6 @@ videos, are available on this website:
     documentation/GEE_tasks
     documentation/plot_data
     documentation/reporting_tool
-    documentation/interpreting_results
 
 .. _training-materials:
 
@@ -62,6 +61,7 @@ videos, are available on this website:
     training/UNCCD_reporting
     training/indicator_15_3_1
     training/visualizing_results
+    documentation/interpreting_results
 
 .. _videos:
 

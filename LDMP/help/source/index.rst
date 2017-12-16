@@ -61,7 +61,7 @@ videos, are available on this website:
     training/UNCCD_reporting
     training/indicator_15_3_1
     training/visualizing_results
-    documentation/interpreting_results
+    training/interpreting_results
 
 .. _videos:
 

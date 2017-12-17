@@ -1,6 +1,6 @@
 <RCC>
   <qresource prefix="/plugins/LDMP">
-    <file>trends_earth_logo_square.png</file>
+    <file>trends_earth_logo_square_32x32.png</file>
     <file>icons/trends_earth_logo_bl_small.png</file>
     <file>icons/GEF_logo_small.png</file>
     <file>icons/CI_logo_small.png</file>
@@ -11,6 +11,7 @@
     <file>icons/icon-clipboard.png</file>
     <file>icons/icon-cloud-download.png</file>
     <file>icons/icon-cog.png</file>
+    <file>icons/icon-folder.png</file>
     <file>icons/icon-graph.png</file>
     <file>icons/icon-globe.png</file>
     <file>icons/icon-info.png</file>

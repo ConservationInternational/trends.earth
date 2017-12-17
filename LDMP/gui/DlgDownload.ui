@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>DlgDownload</class>
  <widget class="QDialog" name="DlgDownload">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -305,7 +308,7 @@
           <bool>true</bool>
          </property>
          <attribute name="horizontalHeaderVisible">
-          <bool>true</bool>
+          <bool>false</bool>
          </attribute>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>true</bool>

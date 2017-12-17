@@ -23,6 +23,7 @@ from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
 from LDMP.reporting import DlgReporting
+from LDMP.load_data import DlgLoadData
 from LDMP.about import DlgAbout
 
 from qgis.core import QgsMessageLog
@@ -93,6 +94,7 @@ class LDMPPlugin:
         self.dlg_timeseries = DlgTimeseries()
         self.dlg_reporting = DlgReporting()
         self.dlg_download = DlgDownload()
+        self.dlg_load_data = DlgLoadData()
         self.dlg_about = DlgAbout()
 
     # noinspection PyMethodMayBeStatic
@@ -228,6 +230,13 @@ class LDMPPlugin:
             status_tip=QApplication.translate('LDMP', 'Download land degradation datasets'))
 
         self.add_action(
+            ':/plugins/LDMP/icons/icon-folder.png',
+            text=QApplication.translate('LDMP', u'Load data'),
+            callback=self.load_data,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'Load local data'))
+
+        self.add_action(
             ':/plugins/LDMP/icons/icon-info.png',
             text=QApplication.translate('LDMP', u'About'),
             callback=self.run_about,
@@ -269,6 +278,10 @@ class LDMPPlugin:
     def run_reporting(self):
         self.dlg_reporting.show()
         result = self.dlg_reporting.exec_()
+
+    def load_data(self):
+        self.dlg_load_data.show()
+        result = self.dlg_load_data.exec_()
 
     def run_about(self):
         #showHelp()

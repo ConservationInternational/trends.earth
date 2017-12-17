@@ -16,11 +16,6 @@ import os
 import json
 import tempfile
 
-try:
-        import xml.etree.cElementTree as ET
-except ImportError:
-        import xml.etree.ElementTree as ET
-
 import numpy as np
 
 from osgeo import ogr, osr, gdal
@@ -578,7 +573,6 @@ class StartWorker(object):
 
 class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
     def __init__(self, parent=None):
-        """Constructor."""
         super(DlgReporting, self).__init__(parent)
         self.setupUi(self)
 
@@ -606,7 +600,6 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
 class DlgReportingBase(DlgCalculateBase):
     '''Class to be shared across SDG and UNCCD reporting dialogs'''
     def __init__(self, parent=None):
-        """Constructor."""
         super(DlgReportingBase, self).__init__(parent)
         self.setupUi(self)
 
@@ -1255,7 +1248,6 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
 class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
     '''Class to be shared across SDG and UNCCD reporting dialogs'''
     def __init__(self, parent=None):
-        """Constructor."""
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)
 

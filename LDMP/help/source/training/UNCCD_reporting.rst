@@ -1,8 +1,8 @@
 UNCCD Reporting
 ===============
 
-This document provides a brief introduction to way earth.trends produces tables 
-for UNCCD reporting.
+This document provides a brief introduction to how |trends.earth| produces 
+tables for UNCCD reporting.
 
 Background
 ----------

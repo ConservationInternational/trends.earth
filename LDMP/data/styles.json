@@ -1,0 +1,178 @@
+{
+    "productivity": {
+        "prod_trajectory": {
+            "trend": {
+                "title": "prod_traj_trend_title",
+                "nodata values": [9999],
+                "ramp": {
+                    "type": "zero-centered 2 percent stretch",
+                    "shader": "interpolated",
+                    "min": {"color": "#993304"},
+                    "zero": {"color": "#F6F6EA"},
+                    "max": {"color": "#008C79"},
+                    "no data": {"value": 9999, "color": "#000000", "label": "prod_traj_trend_nodata"}
+                }
+            },
+            "significance": {
+                "title": "prod_traj_signif_title",
+                "ramp": {
+                    "type": "categorical",
+                    "shader": "exact",
+                    "items": [
+                        {"value": -3, "color": "#993304", "label": "prod_traj_signif_dec_99"},
+                        {"value": -2, "color": "#BB7757", "label": "prod_traj_signif_dec_95"},
+                        {"value": -1, "color": "#DDBBAB", "label": "prod_traj_signif_dec_90"},
+                        {"value": 0, "color": "#F6F6EA", "label": "prod_traj_signif_zero"},
+                        {"value": 1, "color": "#AAD8D2", "label": "prod_traj_signif_inc_90"},
+                        {"value": 2, "color": "#55B2A5", "label": "prod_traj_signif_inc_95"},
+                        {"value": 3, "color": "#008C79", "label": "prod_traj_signif_inc_99"},
+                        {"value": 9999, "color": "#000000", "label": "prod_traj_signif_nodata"}
+                    ]
+                }
+            }
+        },
+        "prod_state": {
+            "change": {
+                "title": "prod_state_change_title",
+                "ramp": {
+                    "type": "categorical",
+                    "shader": "exact",
+                    "items": [
+                        {"value": -1, "color": "#993304", "label": "prod_state_change_potential_deg"},
+                        {"value": 0, "color": "#F6F6EA", "label": "prod_state_change_stable"},
+                        {"value": 1, "color": "#008C79", "label": "prod_state_change_potential_improvement"},
+                        {"value": 9999, "color": "#000000", "label": "prod_state_change_nodata"}
+                    ]
+                }
+            },
+            "baseline_classes": {
+                "title": "prod_state_classes_bl_title",
+                "ramp": {
+                    "type": "categorical",
+                    "shader": "interpolated",
+                    "items": [
+                        {"value": 1, "color": "#993304", "label": "1"},
+                        {"value": 10, "color": "#F6F6EA", "label": "10"},
+                        {"value": 9999, "color": "#000000", "label": "prod_state_classes_bl_nodata"}
+                    ]
+                }
+            },
+            "target_classes": {
+                "title": "prod_state_classes_tg_title",
+                "ramp": {
+                    "type": "categorical",
+                    "shader": "interpolated",
+                    "items": [
+                        {"value": 1, "color": "#993304", "label": "1"},
+                        {"value": 10, "color": "#F6F6EA", "label": "10"},
+                        {"value": 9999, "color": "#000000", "label": "prod_state_classes_tg_nodata"}
+                    ]
+                }
+            }
+        },
+        "prod_performance": {
+            "units": {
+                "title": "prod_perf_units_title",
+                "ramp": {
+                    "type": "categorical",
+                    "shader": "exact",
+                    "items": [
+                        {"value": -1, "color": "#993304", "label": "prod_perf_potential_deg"},
+                        {"value": 0, "color": "#F6F6EA", "label": "prod_perf_not_potential_deg"},
+                        {"value": 9999, "color": "#000000", "label": "prod_perf_nodata"}
+                    ]
+                }
+            },
+            "ratio": {
+            }
+        },
+        "prod_combined_sdg": {
+            "title": "prod_combined_sdg_title",
+            "ramp": {
+                "type": "categorical",
+                "shader": "exact",
+                "items": [
+                    {"value": -1, "color": "#993304", "label": "prod_combined_sdg_deg_deg"},
+                    {"value": 0, "color": "#F6F6EA", "label": "prod_combined_sdg_deg_stable"},
+                    {"value": 1, "color": "#008C79", "label": "prod_combined_sdg_deg_imp"},
+                    {"value": 9999, "color": "#000000", "label": "prod_combined_sdg_deg_nodata"}
+                ]
+            }
+        }
+    },
+    "soil_organic_carbon": {
+        "2000": {
+            "title": "soc_2000_title",
+            "nodata values": [-32768, 9999],
+            "ramp": {
+                "type": "min zero max 98 percent stretch",
+                "shader": "interpolated",
+                "zero": {"color": "#F6F6EA"},
+                "max": {"color": "#008C79"},
+                "no data": {"value": -32768, "color": "#000000", "label": "soc_2000_nodata"}
+            }
+        },
+        "degradation": {
+            "title": "soc_deg_title",
+            "ramp": {
+                "type": "categorical",
+                "shader": "exact",
+                "items": [
+                    {"value": -1, "color": "#993304", "label": "soc_deg_deg"},
+                    {"value": 0, "color": "#F6F6EA", "label": "soc_deg_stable"},
+                    {"value": 1, "color": "#008C79", "label": "soc_deg_imp"},
+                    {"value": 9999, "color": "#000000", "label": "soc_deg_nodata"}
+                ]
+            }
+        }
+    },
+    "land_cover": {
+        "7 classes": {
+            "title": "land_cover_7_class",
+            "ramp": {
+                "type": "categorical",
+                "shader": "exact",
+                "items": [
+                    {"value": 1, "color": "#006d2c", "label": "lc_class_forest"},
+                    {"value": 2, "color": "#d8d800", "label": "lc_class_grassland"},
+                    {"value": 3, "color": "#a5a500", "label": "lc_class_cropland"},
+                    {"value": 4, "color": "#71DEFD", "label": "lc_class_wetland"},
+                    {"value": 5, "color": "#54278f", "label": "lc_class_artificial"},
+                    {"value": 6, "color": "#DEB887", "label": "lc_class_bare"},
+                    {"value": 7, "color": "#3A4DD6", "label": "lc_class_water"},
+                    {"value": 9999, "color": "#000000", "label": "lc_class_nodata"}
+                ]
+            }
+        },
+        "ESA CCI classes": {
+        },
+        "transition": {
+        },
+        "degradation": {
+            "title": "lc_deg_title",
+            "ramp": {
+                "type": "categorical",
+                "shader": "exact",
+                "items": [
+                    {"value": -1, "color": "#993304", "label": "lc_deg_deg"},
+                    {"value": 0, "color": "#F6F6EA", "label": "lc_deg_stable"},
+                    {"value": 1, "color": "#008C79", "label": "lc_deg_imp"},
+                    {"value": 9999, "color": "#000000", "label": "lc_deg_nodata"}
+                ]
+            }
+        }
+    },
+    "combined_sdg": {
+        "title": "combined_sdg_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -1, "color": "#993304", "label": "combined_sdg_deg_deg"},
+                {"value": 0, "color": "#F6F6EA", "label": "combined_sdg_deg_stable"},
+                {"value": 1, "color": "#008C79", "label": "combined_sdg_deg_imp"},
+                {"value": 9999, "color": "#000000", "label": "combined_sdg_deg_nodata"}
+            ]
+        }
+    }
+}

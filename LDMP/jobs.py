@@ -22,7 +22,7 @@ import numpy as np
 from osgeo import gdal
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
+from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt, QCoreApplication
 
 from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
 
@@ -39,6 +39,87 @@ from LDMP import log
 from LDMP.download import Download, check_hash_against_etag
 from LDMP.api import get_script, get_user_email, get_execution
 
+def tr(t):
+    return QCoreApplication.translate('LDMPPlugin', t)
+
+style_text_dict = {
+        # Productivity trajectory
+        'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
+        'prod_traj_trend_min': tr('{}'),
+        'prod_traj_trend_zero': tr('0'),
+        'prod_traj_trend_max': tr('{}'),
+
+        'prod_traj_signif_title': tr('Productivity tradecrease (p < .01)'),
+        'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
+        'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
+        'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
+        'prod_traj_signif_zero': tr('No significant change'),
+        'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
+        'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),
+        'prod_traj_signif_inc_99': tr('Significant increase (p < .01)'),
+        'prod_traj_signif_nodata': tr('No data'),
+
+        # Productivity performance
+        'prod_perf_title': tr('Productivity performance'),
+        'prod_perf_potential_deg': tr('Potentially degraded'),
+        'prod_perf_not_potential_deg': tr('Not potentially degraded'),
+        'prod_perf_nodata': tr('No data'),
+
+        # Productivity state
+        'prod_state_change_title': tr('Productivity state'),
+        'prod_state_change_potential_deg': tr('Potentially degraded'),
+        'prod_state_change_stable': tr('Stable'),
+        'prod_state_change_potential_improvement': tr('Potentially improved'),
+        'prod_state_change_nodata': tr('No data'),
+
+
+        'prod_state_classes_bl_title': tr('Productivity state baseline classes'),
+        'prod_state_classes_bl_nodata': tr('No data'),
+
+        'prod_state_classes_tg_title': tr('Productivity state target classes'),
+        'prod_state_classes_tg_nodata': tr('No data'),
+
+        # Productivity combined layer (SDG)
+        'prod_combined_sdg_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
+        'prod_combined_sdg_deg_deg': tr('Degradation'),
+        'prod_combined_sdg_deg_stable': tr('Stable'),
+        'prod_combined_sdg_deg_imp': tr('Improvement'),
+        'prod_combined_sdg_deg_nodata': tr('No data'),
+
+        # Land cover
+        'lc_class_forest': tr('Forest)'),
+        'lc_class_grassland': tr('Grassland)'),
+        'lc_class_cropland': tr('Cropland)'),
+        'lc_class_wetland': tr('Wetland)'),
+        'lc_class_artificial': tr('Artificial area)'),
+        'lc_class_bare': tr('Bare land)'),
+        'lc_class_water': tr('Water body)'),
+        'lc_class_nodata': tr('No data)'),
+
+        'lc_deg_title': tr('Land cover degradation'),
+        'lc_deg_deg': tr('Degradation'),
+        'lc_deg_stable': tr('Stable'),
+        'lc_deg_imp': tr('Improvement'),
+        'lc_deg_nodata': tr('No data'),
+
+        
+        # Soil organic carbon
+        'soc_2000_title': tr('Soil organic carbon (tons / ha)'),
+        'soc_2000_nodata': tr('No data'),
+
+        'soc_deg_title': tr('Soil organic carbon degradation'),
+        'soc_deg_deg': tr('Degradation'),
+        'soc_deg_stable': tr('Stable'),
+        'soc_deg_imp': tr('Improvement'),
+        'soc_deg_nodata': tr('No data'),
+
+        # Degradation SDG final layer
+        'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
+        'combined_sdg_deg_deg': tr('Degradation'),
+        'combined_sdg_deg_stable': tr('Stable'),
+        'combined_sdg_deg_imp': tr('Improvement'),
+        'combined_sdg_deg_nodata': tr('No data'),
+    }
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -67,14 +148,40 @@ def get_scripts():
     return scripts_dict
 
 
-def round_to_n(x, sf=3):
+def _round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
     return round(x, -int(floor(log10(x))) + (sf - 1))
 
 
-def get_extreme(mn, mx, sf=3):
-    'Function to get rounded extreme value for a centered colorbar'
-    return max([round_to_n(abs(mn), sf), round_to_n(abs(mx), sf)])
+#TODO: Figure out how to do block by block percentile
+def get_percentile(f, band_info, p):
+    '''Get percentiles of a raster dataset by block'''
+    ds = gdal.Open(outfile)
+    b = ds.GetRasterBand(band_info['band_num'])
+
+    block_sizes = b.GetBlockSize()
+    x_block_size = block_sizes[0]
+    y_block_size = block_sizes[1]
+    xsize = b.XSize
+    ysize = b.YSize
+
+    for y in xrange(0, ysize, y_block_size):
+        if y + y_block_size < ysize:
+            rows = y_block_size
+        else:
+            rows = ysize - y
+        for x in xrange(0, xsize, x_block_size):
+            if x + x_block_size < xsize:
+                cols = x_block_size
+            else:
+                cols = xsize - x
+            d = np.array(b.ReadAsArray(x, y, cols, rows)).astype(np.float)
+            for nodata_value in band_info['nodata']:
+                d[d == nodata_value] = np.nan
+
+            cutoffs = np.nanpercentile(d, p)
+            # get rounded extreme value
+            extreme = max([round_to_n(abs(cutoffs[0]), sf), round_to_n(abs(cutoffs[1]), sf)])
 
 
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
@@ -232,7 +339,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     log("Downloading results to {}".format(download_dir))
                 else:
                     QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Cannot write to {}. Choose a different folder.".format(download_dir), None))
+                                               self.tr("Cannot write to {}. Choose a different folder.".format(download_dir)))
                     return False
             else:
                 return False
@@ -242,16 +349,12 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         for row in rows:
             job = self.jobs[row]
             log("Processing job {}".format(job))
-            if job['results'].get('type') == 'prod_trajectory':
-                download_prod_traj(job, download_dir)
-            elif job['results'].get('type') == 'prod_state':
-                download_prod_state(job, download_dir)
-            elif job['results'].get('type') == 'prod_performance':
-                download_prod_perf(job, download_dir)
-            elif job['results'].get('type') == 'land_cover':
-                download_land_cover(job, download_dir)
-            elif job['results'].get('type') == 'soil_organic_carbon':
-                download_soil_organic_carbon(job, download_dir)
+            if job['results'].get('type') in ['prod_trajectory',
+                                              'prod_state':
+                                              'prod_performance':
+                                              'land_cover':
+                                              'soil_organic_carbon']:
+                download_job(job)
             elif job['results'].get('type') == 'timeseries':
                 download_timeseries(job, self.tr)
             elif job['results'].get('type') == 'download':
@@ -325,25 +428,12 @@ def download_dataset(job, download_dir, tr):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-            mb.pushMessage(tr("Submitted"),
+            mb.pushMessage(tr("Downloaded"),
                            tr("Downloaded dataset to {}".format(outfile)),
                            level=0, duration=5)
 
-def download_soil_organic_carbon(job, download_dir):
-    log("downloading soil_organic_carbon results...")
-    for dataset in job['results'].get('datasets'):
-        for url in dataset.get('urls'):
-            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            resp = download_result(url['url'], outfile, job)
-            if not resp:
-                return
-            if dataset['dataset'] == 'soil_organic_carbon':
-                style_soc(outfile)
-            else:
-                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
-
-def download_land_cover(job, download_dir):
+def download_job(job, download_dir):
     log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
@@ -351,289 +441,99 @@ def download_land_cover(job, download_dir):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-            if dataset['dataset'] == 'land_cover':
-                style_land_cover(outfile, 1, 'Land cover (baseline)')
-                style_land_cover(outfile, 2, 'Land cover (target)')
-                # TODO: Fix color coding of transition layer.
-                #style_land_cover_transition(outfile)
-                style_land_cover_land_deg(outfile)
+                style_layer(outfile, )
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 
-def style_land_cover(outfile, band, title):
-    layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', title))
-    if not layer.isValid():
-        log('Failed to add land cover layer')
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(1, QtGui.QColor('#006d2c'), QtGui.QApplication.translate('LDMPPlugin', 'Forest')),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor('#d8d800'), QtGui.QApplication.translate('LDMPPlugin', 'Grassland')),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor('#a50f15'), QtGui.QApplication.translate('LDMPPlugin', 'Cropland')),
-           QgsColorRampShader.ColorRampItem(4, QtGui.QColor('#71DEFD'), QtGui.QApplication.translate('LDMPPlugin', 'Wetland')),
-           QgsColorRampShader.ColorRampItem(5, QtGui.QColor('#54278f'), QtGui.QApplication.translate('LDMPPlugin', 'Artificial area')),
-           QgsColorRampShader.ColorRampItem(6, QtGui.QColor('#DEB887'), QtGui.QApplication.translate('LDMPPlugin', 'Bare land')),
-           QgsColorRampShader.ColorRampItem(7, QtGui.QColor('#3A4DD6'), QtGui.QApplication.translate('LDMPPlugin', 'Water body')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), band, shader)
-    layer.setRenderer(pseudoRenderer)
-    layer.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer)
-
-
-def style_land_cover_transition(outfile):
-    layer_lc_change = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover change'))
-    if not layer_lc_change.isValid():
-        log('Failed to add land cover trans layer')
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(11, QtGui.QColor(246, 246, 234), 'Croplands-Croplands'),
-           QgsColorRampShader.ColorRampItem(12, QtGui.QColor('#de2d26'), 'Croplands-Forest land'),
-           QgsColorRampShader.ColorRampItem(13, QtGui.QColor('#fb6a4a'), 'Croplands-Grassland'),
-           QgsColorRampShader.ColorRampItem(14, QtGui.QColor('#fc9272'), 'Croplands-Wetlands'),
-           QgsColorRampShader.ColorRampItem(15, QtGui.QColor('#fcbba1'), 'Croplands-Settlements'),
-           QgsColorRampShader.ColorRampItem(16, QtGui.QColor('#fee5d9'), 'Croplands-Other land'),
-           QgsColorRampShader.ColorRampItem(22, QtGui.QColor(246, 246, 234), 'Forest land-Forest land'),
-           QgsColorRampShader.ColorRampItem(21, QtGui.QColor('#31a354'), 'Forest land-Croplands'),
-           QgsColorRampShader.ColorRampItem(23, QtGui.QColor('#74c476'), 'Forest land-Grassland'),
-           QgsColorRampShader.ColorRampItem(24, QtGui.QColor('#a1d99b'), 'Forest land-Wetlands'),
-           QgsColorRampShader.ColorRampItem(25, QtGui.QColor('#c7e9c0'), 'Forest land-Settlements'),
-           QgsColorRampShader.ColorRampItem(26, QtGui.QColor('#edf8e9'), 'Forest land-Other land'),
-           QgsColorRampShader.ColorRampItem(33, QtGui.QColor(246, 246, 234), 'Grassland-Grassland'),
-           QgsColorRampShader.ColorRampItem(31, QtGui.QColor('#727200'), 'Grassland-Croplands'),
-           QgsColorRampShader.ColorRampItem(32, QtGui.QColor('#8b8b00'), 'Grassland-Forest land'),
-           QgsColorRampShader.ColorRampItem(34, QtGui.QColor('#a5a500'), 'Grassland-Wetlands'),
-           QgsColorRampShader.ColorRampItem(35, QtGui.QColor('#bebe00'), 'Grassland-Settlements'),
-           QgsColorRampShader.ColorRampItem(36, QtGui.QColor('#d8d800'), 'Grassland-Other land'),
-           QgsColorRampShader.ColorRampItem(44, QtGui.QColor(246, 246, 234), 'Wetlands-Wetlands'),
-           QgsColorRampShader.ColorRampItem(41, QtGui.QColor('#3182bd'), 'Wetlands-Croplands'),
-           QgsColorRampShader.ColorRampItem(42, QtGui.QColor('#6baed6'), 'Wetlands-Forest land'),
-           QgsColorRampShader.ColorRampItem(43, QtGui.QColor('#9ecae1'), 'Wetlands-Grassland'),
-           QgsColorRampShader.ColorRampItem(45, QtGui.QColor('#c6dbef'), 'Wetlands-Settlements'),
-           QgsColorRampShader.ColorRampItem(46, QtGui.QColor('#eff3ff'), 'Wetlands-Other land'),
-           QgsColorRampShader.ColorRampItem(55, QtGui.QColor(246, 246, 234), 'Settlements-Settlements'),
-           QgsColorRampShader.ColorRampItem(51, QtGui.QColor('#756bb1'), 'Settlements-Croplands'),
-           QgsColorRampShader.ColorRampItem(52, QtGui.QColor('#9e9ac8'), 'Settlements-Forest land'),
-           QgsColorRampShader.ColorRampItem(53, QtGui.QColor('#bcbddc'), 'Settlements-Grassland'),
-           QgsColorRampShader.ColorRampItem(54, QtGui.QColor('#dadaeb'), 'Settlements-Wetlands'),
-           QgsColorRampShader.ColorRampItem(56, QtGui.QColor('#f2f0f7'), 'Settlements-Other land'),
-           QgsColorRampShader.ColorRampItem(66, QtGui.QColor(246, 246, 234), 'Other land-Other land'),
-           QgsColorRampShader.ColorRampItem(61, QtGui.QColor('#636363'), 'Other land-Croplands'),
-           QgsColorRampShader.ColorRampItem(62, QtGui.QColor('#969696'), 'Other land-Forest land'),
-           QgsColorRampShader.ColorRampItem(63, QtGui.QColor('#bdbdbd'), 'Other land-Grassland'),
-           QgsColorRampShader.ColorRampItem(64, QtGui.QColor('#d9d9d9'), 'Other land-Wetlands'),
-           QgsColorRampShader.ColorRampItem(65, QtGui.QColor('#f7f7f7'), 'Other land-Settlements')]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_lc_change.dataProvider(), 3, shader)
-    layer_lc_change.setRenderer(pseudoRenderer)
-    layer_lc_change.triggerRepaint()
-    layer_lc_change.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_lc_change)
-
-
-def style_land_cover_land_deg(outfile):
-    layer_deg = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Land cover (degradation)'))
-    if not layer_deg.isValid():
-        log('Failed to add land cover deg layer')
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    #TODO The GPG doesn't seem to allow for possibility of improvement...?
-    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_deg.dataProvider(), 4, shader)
-    layer_deg.setRenderer(pseudoRenderer)
-    layer_deg.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_deg)
-
-
-def download_prod_traj(job, download_dir):
-    log("Downloading productivity_trajectory results...")
-    for dataset in job['results'].get('datasets'):
-        for url in dataset.get('urls'):
-            if dataset['dataset'] in ['ndvi_trend', 'ue', 'p_restrend']:
-                #TODO style layer and set layer name based on the info in the dataset json file
-                outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-                resp = download_result(url['url'], outfile, job)
-                if not resp:
-                    return
-                style_prod_traj_trend(outfile)
-                style_prod_traj_signif(outfile)
-            else:
-                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
-
-
-def style_prod_traj_trend(outfile):
-    # Trends layer
-    layer_ndvi = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend (slope of NDVI * 10000)'))
-    if not layer_ndvi.isValid():
-        log('Failed to add prod traj trend layer')
-        return None
-    provider = layer_ndvi.dataProvider()
-
-    # Set a colormap centred on zero, going to the extreme value significant to
-    # three figures (after a 2 percent stretch)
-    ds = gdal.Open(outfile)
-    band1 = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
-    band1[band1 == 9999] = np.nan
-    ds = None
-    cutoffs = np.nanpercentile(band1, [2, 98])
-    log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
-    extreme = get_extreme(cutoffs[0], cutoffs[1])
-
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-    lst = [QgsColorRampShader.ColorRampItem(-extreme, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', '-{} (declining)').format(extreme)),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0 (stable)')),
-           QgsColorRampShader.ColorRampItem(extreme, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{} (increasing)').format(extreme)),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_ndvi.dataProvider(), 1, shader)
-    layer_ndvi.setRenderer(pseudoRenderer)
-    layer_ndvi.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_ndvi)
-
-
-def style_soc(outfile):
-    l = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Soil organic carbon (Tons C/ha)'))
+def style_layer(outfile, band_info, style):
+    l = iface.addRasterLayer(outfile, style['title'])
     if not l.isValid():
-        log('Failed to add soc layer')
+        log('Failed to add layer')
         return None
-    provider = l.dataProvider()
+    fcn = QgsColorRampShader()
+    if fcn.setColorRampType(style['ramp']['shader']) == 'exact':
+        fcn.setColorRampType(QgsColorRampShader.EXACT)
+    else:
+        fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
 
-    # Set a colormap from zero to 98th percentile significant to
-    # three figures (after a 2 percent stretch)
-    ds = gdal.Open(outfile)
-    band = np.array(ds.GetRasterBand(1).ReadAsArray()).astype(np.float)
-    band[band == 9999] = np.nan
-    band[band == -32768] = np.nan
-    ds = None
-    cutoff = round_to_n(np.nanpercentile(band, [98]), 3)
-    log('Cutoffs for soc stretch: 0, {}'.format(cutoff))
+        ramp = []
+        for item in style['ramp']['items']:
+    if style['ramp']['type'] == 'categorical':
+        r = []
+        for item in style['ramp']['items']:
+            r.append(QgsColorRampShader.ColorRampItem(item['value'],
+                     QtGui.QColor(item['color']),
+                     item['label']))
+    elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
+        # TODO: This should be done block by block to prevent running out of 
+        # memory on large rasters - and it should be done in GEE for GEE loaded 
+        # rasters.
+        # Set a colormap centred on zero, going to the extreme value 
+        # significant to three figures (after a 2 percent stretch)
+        ds = gdal.Open(outfile)
+        d = np.array(ds.GetRasterBand(band_info['band_num']).ReadAsArray()).astype(np.float)
+        for nodata_value in band_info['nodata']:
+            d[d == nodata_value] = np.nan
+        ds = None
+        cutoffs = np.nanpercentile(d, [2, 98])
+        log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
+        extreme = max([round_to_n(abs(cutoffs[0]), sf),
+                       round_to_n(abs(cutoffs[1]), sf)])
+        r = []
+        r.append(QgsColorRampShader.ColorRampItem(-extreme,
+                 QtGui.QColor(style['ramp']['min']['color']),
+                 '{}'.format(-extreme)))
+        r.append(QgsColorRampShader.ColorRampItem(0,
+                 QtGui.QColor(style['ramp']['zero']['color']),
+                 '0'))
+        r.append(QgsColorRampShader.ColorRampItem(extreme,
+                 QtGui.QColor(style['ramp']['max']['color']),
+                 '{}'.format(extreme)))
+        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
+                 QtGui.QColor(style['ramp']['no data']['color']),
+                 style_text_dict[style['ramp']['no data']['label']]))
+    elif style['ramp']['type'] == 'min zero max 98 percent stretch':
+        # TODO: This should be done block by block to prevent running out of 
+        # memory on large rasters - and it should be done in GEE for GEE loaded 
+        # rasters.
+        # Set a colormap from zero to 98th percentile significant to
+        # three figures (after a 2 percent stretch)
+        ds = gdal.Open(outfile)
+        d = np.array(ds.GetRasterBand(band_info['band_num']).ReadAsArray()).astype(np.float)
+        for nodata_value in band_info['nodata']:
+            d[d == nodata_value] = np.nan
+        ds = None
+        cutoff = round_to_n(np.nanpercentile(d, [98]), 3)
+        log('Cutoff for min zero max 98 stretch: {}'.format(cutoff))
+        r = []
+        r.append(QgsColorRampShader.ColorRampItem(0,
+                 QtGui.QColor(style['ramp']['zero']['color']),
+                 '0'))
+        r.append(QgsColorRampShader.ColorRampItem(cutoff,
+                 QtGui.QColor(style['ramp']['max']['color']),
+                 '{}'.format(cutoff)))
+        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
+                 QtGui.QColor(style['ramp']['no data']['color']),
+                 style_text_dict[style['ramp']['no data']['label']]))
+    else:
+        log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
+        QtGui.QMessageBox.critical(None,
+                tr("Error"),
+                tr("Failed to load trends.earth style. Adding layer using QGIS defaults."))
+        return None
 
     fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-    lst = [QgsColorRampShader.ColorRampItem(-32768, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', '0')),
-           QgsColorRampShader.ColorRampItem(cutoff, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', '{}').format(cutoff))]
-    fcn.setColorRampItemList(lst)
+
+    fcn.setColorRampItemList(r)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(), 1, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
+                                                      band_info['band_num'],
+                                                      shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(l)
-    iface.legendInterface().refreshLayerSymbology(l)
-
-
-def style_prod_traj_signif(outfile):
-    # Significance layer
-    layer_signif = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity trajectory trend (significance)'))
-    if not layer_signif.isValid():
-        log('Failed to add prod traj signif layer')
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(-3, QtGui.QColor("#993304"), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease (p < .01)')),
-           QgsColorRampShader.ColorRampItem(-2, QtGui.QColor("#BB7757"), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease (p < .05)')),
-           QgsColorRampShader.ColorRampItem(-1, QtGui.QColor("#DDBBAB"), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease (p < .1)')),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'No significant change')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor("#AAD8D2"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .1)')),
-           QgsColorRampShader.ColorRampItem(2, QtGui.QColor("#55B2A5"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .05)')),
-           QgsColorRampShader.ColorRampItem(3, QtGui.QColor("#008C79"), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase (p < .01)')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_signif.dataProvider(), 2, shader)
-    layer_signif.setRenderer(pseudoRenderer)
-    layer_signif.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_signif)
-
-
-def download_prod_state(job, download_dir):
-    log("downloading productivity_state results...")
-    for dataset in job['results'].get('datasets'):
-        for url in dataset.get('urls'):
-            #TODO style layer and set layer name based on the info in the dataset json file
-            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            resp = download_result(url['url'], outfile, job)
-            if not resp:
-                return
-            if dataset['dataset'] == 'prod_state':
-                style_prod_state(outfile)
-            else:
-                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
-
-
-def style_prod_state(outfile):
-    # Significance layer
-    layer = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity state'))
-    if not layer.isValid():
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Significant decrease')),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'No significant change')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Significant increase')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
-    layer.setRenderer(pseudoRenderer)
-    layer.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer)
-
-
-def download_prod_perf(job, download_dir):
-    log("downloading productivity_perf results...")
-    for dataset in job['results'].get('datasets'):
-        for url in dataset.get('urls'):
-            if dataset['dataset'] == 'prod_performance':
-                #TODO style layer and set layer name based on the info in the dataset json file
-                outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-                resp = download_result(url['url'], outfile, job)
-                if not resp:
-                    return
-                style_prod_perf(outfile)
-            else:
-                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
-
-
-def style_prod_perf(outfile):
-    layer_perf = iface.addRasterLayer(outfile, QtGui.QApplication.translate('LDMPPlugin', 'Productivity performance'))
-    if not layer_perf.isValid():
-        log('Failed to add prod perf layer')
-        return None
-    fcn = QgsColorRampShader()
-    fcn.setColorRampType(QgsColorRampShader.EXACT)
-    #TODO The GPG doesn't seem to allow for possibility of improvement...?
-    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
-           QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
-    fcn.setColorRampItemList(lst)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer_perf.dataProvider(), 1, shader)
-    layer_perf.setRenderer(pseudoRenderer)
-    layer_perf.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(layer_perf)
 
 
 def download_timeseries(job, tr):

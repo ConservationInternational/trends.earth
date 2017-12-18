@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -257,11 +258,6 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="328"/>
-        <source>Submitted</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../jobs.py" line="430"/>
         <source>Downloaded dataset to {}</source>
         <translation>Downloaded dataset to {}</translation>
@@ -464,7 +460,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here: &lt;/span&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1467,7 +1463,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2504,16 +2500,6 @@ p, li { white-space: pre-wrap; }
         <translation>LDMT Settings</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="226"/>
-        <source>Download data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="226"/>
-        <source>Download land degradation datasets</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../ldmp.py" line="200"/>
         <source>Calculate indicators</source>
         <translation>Calculate indicators</translation>
@@ -2527,11 +2513,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../ldmp.py" line="207"/>
         <source>Plot data</source>
         <translation>Plot data</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="205"/>
-        <source>Plot timeseries datasets</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ldmp.py" line="214"/>
@@ -2657,54 +2638,9 @@ p, li { white-space: pre-wrap; }
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="371"/>
-        <source>Forest</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="372"/>
-        <source>Grassland</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="373"/>
-        <source>Cropland</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="374"/>
-        <source>Wetland</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="375"/>
-        <source>Artificial area</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="376"/>
-        <source>Bare land</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="377"/>
-        <source>Water body</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../reporting.py" line="170"/>
         <source>No data</source>
         <translation>No data</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="389"/>
-        <source>Land cover change</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="442"/>
-        <source>Land cover (degradation)</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="167"/>
@@ -2720,81 +2656,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../reporting.py" line="169"/>
         <source>Improvement</source>
         <translation>Improvement</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="498"/>
-        <source>-{} (declining)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="499"/>
-        <source>0 (stable)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="500"/>
-        <source>{} (increasing)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="545"/>
-        <source>Productivity trajectory trend (significance)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="551"/>
-        <source>Significant decrease (p &lt; .01)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="552"/>
-        <source>Significant decrease (p &lt; .05)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="553"/>
-        <source>Significant decrease (p &lt; .1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="591"/>
-        <source>No significant change</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="555"/>
-        <source>Significant increase (p &lt; .1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="556"/>
-        <source>Significant increase (p &lt; .05)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="557"/>
-        <source>Significant increase (p &lt; .01)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="585"/>
-        <source>Productivity state</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="590"/>
-        <source>Significant decrease</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="592"/>
-        <source>Significant increase</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="619"/>
-        <source>Productivity performance</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../reporting.py" line="864"/>
@@ -2847,29 +2708,9 @@ p, li { white-space: pre-wrap; }
         <translation>Extent</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="480"/>
-        <source>Productivity trajectory trend (slope of NDVI * 10000)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="531"/>
-        <source>0</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="532"/>
-        <source>{}</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../reporting.py" line="863"/>
         <source>SDG 15.3 Productivity Indicator</source>
         <translation>SDG 15.3 Productivity Indicator</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="512"/>
-        <source>Soil organic carbon (Tons C/ha)</source>
-        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

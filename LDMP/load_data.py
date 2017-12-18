@@ -86,13 +86,13 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
         self.setupUi(self)
 
+        self.layers_model = QtGui.QStringListModel()
+        self.layers_view.setModel(self.layers_model)
+        self.layers_model.setStringList([])
+
         self.file_browse_btn.clicked.connect(self.browse_file)
 
         self.file_lineedit.textChanged.connect(self.update_details)
-
-        #TODO:
-        # - disable ok button until a valid file and layer are chosen
-        # - update the layer combo box based on the datasets in the chosen file
 
     def showEvent(self, e):
         super(DlgLoadData, self).showEvent(e)
@@ -126,25 +126,25 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.close()
 
     def ok_clicked(self):
-        layer = self.layer_comboBox.currentText()
-        if layer:
-            log('Adding "{}" layer from {}'.format(layer, self.file_lineedit.text()))
+        layers = []
+        for i in self.layers_view.selectionModel().selectedIndexes():
+            layers.append(self.layers_model.itemFromIndex(i).text())
+        if len(layers) > 0:
             self.close()
+            for layer in layers:
+                log('Adding "{}" layer from {}'.format(layer, self.file_lineedit.text()))
+                results = get_results(self.file_lineedit.text())
+                band_info = results['datasets']
+                add_layer(self.file_lineedit.text(), layer)
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
-        results = get_results(self.file_lineedit.text())
-
-        band_info = results['datasets']
-        add_layer(self.file_lineedit.text(), layer)
-            
 
     def update_details(self):
         if self.file_lineedit.text():
             results = get_results(self.file_lineedit.text())
             if results:
-                self.layers_model = QtGui.QStringListModel()
                 self.layers_model.setStringList([d['dataset'] for d in results['datasets']])
-                self.layers_view.setModel(self.layers_model)
+                self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
                 self.layers_view.selectAll()
             else:
                 self.layers_model.setStringList([])

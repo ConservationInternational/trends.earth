@@ -15,7 +15,7 @@
 import os
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication
+from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication, QMenu
 
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
@@ -31,6 +31,9 @@ from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
 import LDMP.resources
+
+# with (open(os.path.join(os.path.dirname(__file__), 'metadata.txt')))
+# __version__ = 
 
 
 def showHelp(file='index', section=None):
@@ -71,8 +74,8 @@ class LDMPPlugin:
             self.plugin_dir,
             'i18n',
             'LDMP_{}.qm'.format(locale))
-        QgsMessageLog.logMessage('Using locale "{}" in path {}.'.format(locale,
-                                                                        locale_path), tag="LDMP", level=QgsMessageLog.INFO)
+        QgsMessageLog.logMessage('Using locale "{}" in path {}.'.format(locale, locale_path),
+                                 tag="LDMP", level=QgsMessageLog.INFO)
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -84,9 +87,11 @@ class LDMPPlugin:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QApplication.translate('LDMP', u'&trends.earth')
-        self.toolbar = self.iface.addToolBar(u'LDMP')
-        self.toolbar.setObjectName(u'LDMP')
+        self.menu = QMenu(QApplication.translate('LDMP', u'&trends.earth'))
+        self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
+        web_menu = self.iface.webMenu()
+        web_menu.addMenu(self.menu)
+        self.toolbar = self.iface.addToolBar(u'trends.earth')
 
         self.dlg_settings = DlgSettings()
         self.dlg_calculate = DlgCalculate()
@@ -177,9 +182,7 @@ class LDMPPlugin:
             self.toolbar.addAction(action)
 
         if add_to_menu:
-            self.iface.addPluginToWebMenu(
-                self.menu,
-                action)
+            self.menu.addAction(action)
 
         self.actions.append(action)
 
@@ -206,7 +209,7 @@ class LDMPPlugin:
             text=QApplication.translate('LDMP', u'Plot data'),
             callback=self.run_plot,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Plot timeseries datasets'))
+            status_tip=QApplication.translate('LDMP', 'Plot time series datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-cloud-download.png',
@@ -224,10 +227,10 @@ class LDMPPlugin:
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-globe.png',
-            text=QApplication.translate('LDMP', u'Download data'),
+            text=QApplication.translate('LDMP', u'Download raw data'),
             callback=self.run_download,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Download land degradation datasets'))
+            status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/icon-folder.png',

@@ -79,13 +79,6 @@ style_text_dict = {
         'prod_state_classes_tg_title': tr('Productivity state target classes'),
         'prod_state_classes_tg_nodata': tr('No data'),
 
-        # Productivity combined layer (SDG)
-        'prod_combined_sdg_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
-        'prod_combined_sdg_deg_deg': tr('Degradation'),
-        'prod_combined_sdg_deg_stable': tr('Stable'),
-        'prod_combined_sdg_deg_imp': tr('Improvement'),
-        'prod_combined_sdg_deg_nodata': tr('No data'),
-
         # Land cover
         'lc_class_forest': tr('Forest)'),
         'lc_class_grassland': tr('Grassland)'),
@@ -114,6 +107,12 @@ style_text_dict = {
         'soc_deg_nodata': tr('No data'),
 
         # Degradation SDG final layer
+        'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
+        'sdg_prod_combined_deg_deg': tr('Degradation'),
+        'sdg_prod_combined_deg_stable': tr('Stable'),
+        'sdg_prod_combined_deg_imp': tr('Improvement'),
+        'sdg_prod_combined_deg_nodata': tr('No data'),
+
         'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
         'combined_sdg_deg_deg': tr('Degradation'),
         'combined_sdg_deg_stable': tr('Stable'),
@@ -157,7 +156,7 @@ def _round_to_n(x, sf=3):
 def get_percentile(f, band_info, p):
     '''Get percentiles of a raster dataset by block'''
     ds = gdal.Open(outfile)
-    b = ds.GetRasterBand(band_info['band_num'])
+    b = ds.GetRasterBand(band_info['band number'])
 
     block_sizes = b.GetBlockSize()
     x_block_size = block_sizes[0]
@@ -176,7 +175,7 @@ def get_percentile(f, band_info, p):
             else:
                 cols = xsize - x
             d = np.array(b.ReadAsArray(x, y, cols, rows)).astype(np.float)
-            for nodata_value in band_info['nodata']:
+            for nodata_value in band_info['no data value']:
                 d[d == nodata_value] = np.nan
 
             cutoffs = np.nanpercentile(d, p)
@@ -350,9 +349,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             job = self.jobs[row]
             log("Processing job {}".format(job))
             if job['results'].get('type') in ['prod_trajectory',
-                                              'prod_state':
-                                              'prod_performance':
-                                              'land_cover':
+                                              'prod_state',
+                                              'prod_performance',
+                                              'land_cover',
                                               'soil_organic_carbon']:
                 download_job(job)
             elif job['results'].get('type') == 'timeseries':
@@ -441,12 +440,12 @@ def download_job(job, download_dir):
             resp = download_result(url['url'], outfile, job)
             if not resp:
                 return
-                style_layer(outfile, )
+                add_layer(outfile, band_info, style)
             else:
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 
-def style_layer(outfile, band_info, style):
+def add_layer(outfile, band_info, style):
     l = iface.addRasterLayer(outfile, style['title'])
     if not l.isValid():
         log('Failed to add layer')
@@ -456,15 +455,13 @@ def style_layer(outfile, band_info, style):
         fcn.setColorRampType(QgsColorRampShader.EXACT)
     else:
         fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
-
-        ramp = []
-        for item in style['ramp']['items']:
     if style['ramp']['type'] == 'categorical':
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                      QtGui.QColor(item['color']),
                      item['label']))
+
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of 
         # memory on large rasters - and it should be done in GEE for GEE loaded 
@@ -472,8 +469,8 @@ def style_layer(outfile, band_info, style):
         # Set a colormap centred on zero, going to the extreme value 
         # significant to three figures (after a 2 percent stretch)
         ds = gdal.Open(outfile)
-        d = np.array(ds.GetRasterBand(band_info['band_num']).ReadAsArray()).astype(np.float)
-        for nodata_value in band_info['nodata']:
+        d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
+        for nodata_value in band_info['no data value']:
             d[d == nodata_value] = np.nan
         ds = None
         cutoffs = np.nanpercentile(d, [2, 98])
@@ -493,6 +490,7 @@ def style_layer(outfile, band_info, style):
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                  QtGui.QColor(style['ramp']['no data']['color']),
                  style_text_dict[style['ramp']['no data']['label']]))
+
     elif style['ramp']['type'] == 'min zero max 98 percent stretch':
         # TODO: This should be done block by block to prevent running out of 
         # memory on large rasters - and it should be done in GEE for GEE loaded 
@@ -500,8 +498,8 @@ def style_layer(outfile, band_info, style):
         # Set a colormap from zero to 98th percentile significant to
         # three figures (after a 2 percent stretch)
         ds = gdal.Open(outfile)
-        d = np.array(ds.GetRasterBand(band_info['band_num']).ReadAsArray()).astype(np.float)
-        for nodata_value in band_info['nodata']:
+        d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
+        for nodata_value in band_info['no data value']:
             d[d == nodata_value] = np.nan
         ds = None
         cutoff = round_to_n(np.nanpercentile(d, [98]), 3)
@@ -516,6 +514,7 @@ def style_layer(outfile, band_info, style):
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                  QtGui.QColor(style['ramp']['no data']['color']),
                  style_text_dict[style['ramp']['no data']['label']]))
+
     else:
         log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
         QtGui.QMessageBox.critical(None,
@@ -529,7 +528,7 @@ def style_layer(outfile, band_info, style):
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
     pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_info['band_num'],
+                                                      band_info['band number'],
                                                       shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()

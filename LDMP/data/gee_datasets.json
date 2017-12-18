@@ -10,6 +10,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/gaez_iiasa",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         }
     },
@@ -24,6 +26,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/et_modis_2000_2014",
             "Source code": "c03_et_modis_int_global_assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         }
     },
@@ -38,6 +42,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015",
             "Source code": "c04_esa_cci_landcover_global_assets",
             "Status": "Stored as assets",
+            "License": "CC by-SA 3.0",
+            "License URL": "https://creativecommons.org/licenses/by-sa/3.0/igo/",
             "Comments": ""
         }
     },
@@ -53,6 +59,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_avhrr_1982_2015",
             "Source code": "c01_ndvi_avhrr_nasa_int_global_assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         },
         "MODIS (MOD13Q1, annual)": {
@@ -66,6 +74,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016",
             "Source code": "c02_ndvi_modis_int_global_assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         },
         "MODIS (MOD13Q1, 16 day)": {
@@ -78,6 +88,8 @@
             "Units/Description": "NDVI * 10000",
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_mod13q1_16d_20010101_20161218_globe",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         }
     },
@@ -92,6 +104,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2016",
             "Source code": "c05_precip_chirps_int_global_assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         },
         "GPCC V7 (Global Precipitation Climatology Centre)": {
@@ -104,6 +118,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcc_1901_2016",
             "Source code": "c08_gpcc",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": "Full V7 until Jan 2013; V4 monitoring after."
         },
         "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
@@ -116,6 +132,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcp23_1979_2016",
             "Source code": "c07_precip_gpcp_v2.3_1m",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         },
         "PERSIANN-CDR": {
@@ -128,6 +146,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_persian_1983_2015",
             "Source code": "c05_precip_presian_int_global_assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": "Pre 1999 there are some gaps in the satellite coverage (South America and Russia)."
         }
     },
@@ -142,6 +162,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soilm_erai_1979_2016",
             "Source code": "c06_soilm_erai",
             "Status": "Stored as assets",
+            "License": "CC by NC ND 4.0",
+            "License URL": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode",
             "Comments": "Does not cover small islands"
         },
         "MERRA 2": {
@@ -154,6 +176,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soilm_merra2_1980_2016",
             "Source code": "c06_soilm_merra2",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         }
     },
@@ -168,6 +192,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
+            "License": "CC by-SA 4.0",
+            "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
             "Comments": ""
         }
     },
@@ -182,6 +208,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/stax_sgrid_usda",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Comments": ""
         }
     },
@@ -196,6 +224,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/stax_sgrid_wrba",
             "Source code": "Imported as assets",
             "Status": "Stored as assets",
+            "License": "CC by-SA 4.0",
+            "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
             "Comments": ""
         }
     }

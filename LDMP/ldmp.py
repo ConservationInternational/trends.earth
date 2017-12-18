@@ -89,8 +89,8 @@ class LDMPPlugin:
         self.actions = []
         self.menu = QMenu(QApplication.translate('LDMP', u'&trends.earth'))
         self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
-        web_menu = self.iface.webMenu()
-        web_menu.addMenu(self.menu)
+        raster_menu = self.iface.rasterMenu()
+        raster_menu.addMenu(self.menu)
         self.toolbar = self.iface.addToolBar(u'trends.earth')
 
         self.dlg_settings = DlgSettings()
@@ -249,7 +249,7 @@ class LDMPPlugin:
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginWebMenu(
+            self.iface.removePluginRasterMenu(
                 QApplication.translate('LDMP', u'&trends.earth'),
                 action)
             self.iface.removeToolBarIcon(action)

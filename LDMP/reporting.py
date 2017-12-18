@@ -1047,13 +1047,13 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write_row('A11', [tr('Bare lands'), get_lc_area(base_areas, 6), get_lc_area(target_areas, 6)], num_format)
     worksheet.write_row('A12', [tr('Water bodies'), get_lc_area(base_areas, 7), get_lc_area(target_areas, 7)], num_format_bb)
 
-    worksheet.write('D6', '=B6-C6', num_format)
-    worksheet.write('D7', '=B7-C7', num_format)
-    worksheet.write('D8', '=B8-C8', num_format)
-    worksheet.write('D9', '=B9-C9', num_format)
-    worksheet.write('D10', '=B10-C10', num_format)
-    worksheet.write('D11', '=B11-C11', num_format)
-    worksheet.write('D12', '=B12-C12', num_format_bb)
+    worksheet.write('D6', '=C6-B6', num_format)
+    worksheet.write('D7', '=C7-B7', num_format)
+    worksheet.write('D8', '=C8-B8', num_format)
+    worksheet.write('D9', '=C9-B9', num_format)
+    worksheet.write('D10', '=C10-B10', num_format)
+    worksheet.write('D11', '=C11-B11', num_format)
+    worksheet.write('D12', '=C12-B12', num_format_bb)
 
     worksheet.write_row('E6', get_lpd_row(trans_lpd_xtab, 11), num_format)
     worksheet.write_row('E7', get_lpd_row(trans_lpd_xtab, 22), num_format)
@@ -1238,8 +1238,11 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     try:
         workbook.close()
         log('Indicator table saved to {}'.format(out_file))
+        # QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
+        #         QtGui.QApplication.translate("LDMP", 'Indicator table saved to <a href="file://{}">{}</a>'.format(out_file, out_file)))
         QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                               QtGui.QApplication.translate("LDMP", "Indicator table saved to {}.".format(out_file)), None)
+                QtGui.QApplication.translate("LDMP", 'Indicator table saved to {}'.format(out_file)))
+
     except IOError:
         log('Error saving {}'.format(out_file))
         QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),

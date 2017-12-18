@@ -61,11 +61,25 @@ compute indicators in the cloud.
 Acknowledgements
 ----------------
 
-workshop participants in TZA
+The feedback provided by early users of |trends.earth| and by the participants 
+in the webinars and workshops held by the GEF Land Degradation Monitoring 
+Project have been critical to the development of the tool.
 
-Neil Sims, Sasha Alexander, Renato Cumani, John Wasige, Sara Minelli
+Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input on 
+the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, on the 
+structure of the tool, and on the UNCCD reporting process, and also provided 
+early input and testing of the tool.
 
-CSA participants
+The project acknowledges the participants of the workshop held in Morogoro, 
+Tanzania in October, 2017 for sharing their feedback and suggestions on the 
+tool: Jones Agwata, Col. Papa Assane Ndiour, Lt. Fendama Baldé, Papa Nékhou 
+Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, Moses Isabirye, Vettes 
+Kalema, Joseph Kihaule, Prof. D.N. Kimaro, James Lwasa, Paulo Mandela, Modou 
+Moustapha Sarr, Joseph Mutyaba, Stephen Muwaya, Joseph Mwalugelo, Prof. 
+Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome Nchimbi, Elibariki Ngowi, 
+Tabby Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia Rwegasira, 
+Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa Simon, Samba Sow, 
+Felly Mugizi Tusiime and John Wasige.
 
 
 Data sources

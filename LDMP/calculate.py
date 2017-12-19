@@ -16,18 +16,24 @@ import os
 import json
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QTextCodec, QSettings
+from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal
 
 from qgis.core import QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
 from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
+from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.download import read_json, get_admin_bounds
 
 
+class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
+    def __init__(self, parent=None):
+        super(AreaWidget, self).__init__(parent)
+
+        self.setupUi(self)
+
 class DlgCalculate(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
-        """Constructor."""
         super(DlgCalculate, self).__init__(parent)
 
         self.setupUi(self)
@@ -55,9 +61,11 @@ class DlgCalculate(QtGui.QDialog, UiDialog):
 
 class DlgCalculateBase(QtGui.QDialog):
     """Base class for individual indicator calculate dialogs"""
+    firstShowEvent = pyqtSignal()
 
     def __init__(self, parent=None):
         super(DlgCalculateBase, self).__init__(parent)
+
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'scripts.json')) as script_file:
             self.scripts = json.load(script_file)
@@ -66,27 +74,36 @@ class DlgCalculateBase(QtGui.QDialog):
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
 
-        self.firstShowEvent = True
+        self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
+
+        self.firstShowEvent.connect(self.firstShow)
 
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
 
-        if self.firstShowEvent:
-            self.firstShowEvent = False
-            self.button_calculate.clicked.connect(self.btn_calculate)
-            self.button_prev.clicked.connect(self.tab_back)
-            self.button_next.clicked.connect(self.tab_forward)
-
-            # Start on first tab so button_prev and calculate should be disabled
-            self.button_prev.setEnabled(False)
-            self.button_calculate.setEnabled(False)
-            self.TabBox.currentChanged.connect(self.tab_changed)
-
-            self.setup_area_selection()
+        if self._firstShowEvent:
+            self._firstShowEvent = False
+            self.firstShowEvent.emit()
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
+
+    def firstShow(self):
+        self.area_tab = AreaWidget()
+        self.TabBox.addTab(self.area_tab, 'Area')
+        
+        # Add the area selector tab
+        self.button_calculate.clicked.connect(self.btn_calculate)
+        self.button_prev.clicked.connect(self.tab_back)
+        self.button_next.clicked.connect(self.tab_forward)
+
+        # Start on first tab so button_prev and calculate should be disabled
+        self.button_prev.setEnabled(False)
+        self.button_calculate.setEnabled(False)
+        self.TabBox.currentChanged.connect(self.tab_changed)
+
+        self.setup_area_selection()
 
     def tab_back(self):
         if self.TabBox.currentIndex() - 1 >= 0:
@@ -120,41 +137,41 @@ class DlgCalculateBase(QtGui.QDialog):
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
-        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
+        self.area_tab.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
         self.populate_admin_1()
 
-        self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
+        self.area_tab.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
 
-        self.area_fromfile_browse.clicked.connect(self.open_shp_browse)
-        self.area_admin.toggled.connect(self.area_admin_toggle)
-        self.area_fromfile.toggled.connect(self.area_fromfile_toggle)
+        self.area_tab.area_fromfile_browse.clicked.connect(self.open_shp_browse)
+        self.area_tab.area_admin.toggled.connect(self.area_admin_toggle)
+        self.area_tab.area_fromfile.toggled.connect(self.area_fromfile_toggle)
 
     def load_admin_polys(self):
-        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
+        adm0_a3 = self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
         admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
-        if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
+        if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':
             return admin_polys['geojson']
         else:
-            admin_1_code = self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'][self.area_admin_1.currentText()]['code']
+            admin_1_code = self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
             return admin_polys['admin1'][admin_1_code]['geojson']
 
     def area_admin_toggle(self):
-        if self.area_admin.isChecked():
-            self.area_admin_0.setEnabled(True)
-            self.area_admin_1.setEnabled(True)
+        if self.area_tab.area_admin.isChecked():
+            self.area_tab.area_admin_0.setEnabled(True)
+            self.area_tab.area_admin_1.setEnabled(True)
         else:
-            self.area_admin_0.setEnabled(False)
-            self.area_admin_1.setEnabled(False)
+            self.area_tab.area_admin_0.setEnabled(False)
+            self.area_tab.area_admin_1.setEnabled(False)
 
     def area_fromfile_toggle(self):
-        if self.area_fromfile.isChecked():
-            self.area_fromfile_file.setEnabled(True)
-            self.area_fromfile_browse.setEnabled(True)
+        if self.area_tab.area_fromfile.isChecked():
+            self.area_tab.area_fromfile_file.setEnabled(True)
+            self.area_tab.area_fromfile_browse.setEnabled(True)
         else:
-            self.area_fromfile_file.setEnabled(False)
-            self.area_fromfile_browse.setEnabled(False)
+            self.area_tab.area_fromfile_file.setEnabled(False)
+            self.area_tab.area_fromfile_browse.setEnabled(False)
 
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName(self,
@@ -163,16 +180,16 @@ class DlgCalculateBase(QtGui.QDialog):
                                                     self.tr('Spatial file (*.*)'))
         if os.access(shpfile, os.R_OK):
             QSettings().setValue("LDMP/area_file_dir", os.path.dirname(shpfile))
-        self.area_fromfile_file.setText(shpfile)
+        self.area_tab.area_fromfile_file.setText(shpfile)
 
     def populate_admin_1(self):
-        self.area_admin_1.clear()
-        self.area_admin_1.addItems(['All regions'])
-        self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
+        self.area_tab.area_admin_1.clear()
+        self.area_tab.area_admin_1.addItems(['All regions'])
+        self.area_tab.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'].keys()))
 
     def btn_calculate(self):
-        if self.area_admin.isChecked():
-            if not self.area_admin_0.currentText():
+        if self.area_tab.area_admin.isChecked():
+            if not self.area_tab.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a first level administrative boundary."), None)
                 return False
@@ -184,11 +201,11 @@ class DlgCalculateBase(QtGui.QDialog):
                                            self.tr("Unable to load administrative boundaries."), None)
                 return False
         else:
-            if not self.area_fromfile_file.text():
+            if not self.area_tab.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."), None)
                 return False
-            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
+            layer = QgsVectorLayer(self.area_tab.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             if not layer.isValid():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Unable to read area file."), None)

@@ -9,6 +9,7 @@ import json
 import stat
 import shutil
 import subprocess
+from tempfile import mkstemp
 from multiprocessing.pool import ThreadPool
 import zipfile
 
@@ -63,6 +64,39 @@ def rmtree(top):
             os.rmdir(os.path.join(root, name))
     os.rmdir(top)
 
+# Function to find and replace in a file
+def _replace(file_path, regex, subst):
+    #Create temp file
+    fh, abs_path = mkstemp()
+    with os.fdopen(fh,'w') as new_file:
+        with open(file_path) as old_file:
+            for line in old_file:
+                new_file.write(regex.sub(subst, line))
+    os.remove(file_path)
+    shutil.move(abs_path, file_path)
+
+@task
+@cmdopts([
+    ('version=', 'v', 'Version to set'),
+])
+def set_version(options):
+    v = getattr(options, 'version', False)
+    if not v or not re.match("[0-9]+[.][0-9]+", v):
+        print('Must specify a valid version (example: 0.36)')
+        return
+
+    # Validate the version matches the regex
+     
+    # Set in Sphinx docs in make.conf
+    print('Setting version to {} in sphinx conf.py'.format(v))
+    sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+[.][0-9]+", re.IGNORECASE)
+    _replace(os.path.join(options.sphinx.sourcedir, 'conf.py'), sphinx_regex, '\g<1>' + v)
+
+    # Set in metadata.txt
+    print('Setting version to {} in metadata.txt'.format(v))
+    sphinx_regex = re.compile("^(version=)[0-9]+[.][0-9]+")
+    _replace(os.path.join(options.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
+    
 
 @task
 @cmdopts([

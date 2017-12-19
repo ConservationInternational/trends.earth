@@ -64,6 +64,7 @@ def rmtree(top):
             os.rmdir(os.path.join(root, name))
     os.rmdir(top)
 
+
 # Function to find and replace in a file
 def _replace(file_path, regex, subst):
     #Create temp file
@@ -74,6 +75,7 @@ def _replace(file_path, regex, subst):
                 new_file.write(regex.sub(subst, line))
     os.remove(file_path)
     shutil.move(abs_path, file_path)
+
 
 @task
 @cmdopts([

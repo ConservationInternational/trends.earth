@@ -22,6 +22,7 @@ from PyQt4.QtCore import QDate, QTextCodec
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
+from LDMP.gui.WidgetSelectPoint import Ui_WidgetSelectPoint
 from LDMP.api import run_script
 
 from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
@@ -29,6 +30,13 @@ from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
 
 mb = iface.messageBar()
+
+
+class PointWidget(QtGui.QWidget, Ui_WidgetSelectPoint):
+    def __init__(self, parent=None):
+        super(PointWidget, self).__init__(parent)
+
+        self.setupUi(self)
 
 
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
@@ -56,22 +64,31 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
         # Setup point chooser
-        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/icon-map-marker.png'))
-        self.choose_point.setIcon(icon)
-        self.choose_point.clicked.connect(self.point_chooser)
         self.canvas = iface.mapCanvas()
         self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
-        #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.point_x.setValidator(QtGui.QDoubleValidator())
-        #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.point_y.setValidator(QtGui.QDoubleValidator())
-
-        self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
-        self.area_frompoint_toggle()
 
         # TODO:Temporary until fixed:
         self.TabBox.removeTab(1)
+
+    def firstShow(self):
+        super(DlgTimeseries, self).firstShow()
+
+        self.point_widget = PointWidget()
+        self.area_tab.area_gridlayout.addWidget(self.point_widget, 7, 0, 1, 3)
+        # Ensure the "area from point" radio button is linked to the two in the
+        # main area group (from file and from admin)
+        self.area_tab.area_radio_buttonGroup.addButton(self.point_widget.area_frompoint)
+
+        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/icon-map-marker.png'))
+        self.point_widget.choose_point.setIcon(icon)
+        self.point_widget.choose_point.clicked.connect(self.point_chooser)
+        #TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.point_widget.point_x.setValidator(QtGui.QDoubleValidator())
+        #TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.point_widget.point_y.setValidator(QtGui.QDoubleValidator())
+        self.point_widget.area_frompoint.toggled.connect(self.area_frompoint_toggle)
+        self.area_frompoint_toggle()
 
     def point_chooser(self):
         log("Choosing point from canvas...")
@@ -92,18 +109,18 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.reset_tab_on_showEvent = True
         self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
         log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
-        self.point_x.setText("{:.8f}".format(self.point.x()))
-        self.point_y.setText("{:.8f}".format(self.point.y()))
+        self.point_widget.point_x.setText("{:.8f}".format(self.point.x()))
+        self.point_widget.point_y.setText("{:.8f}".format(self.point.y()))
 
     def area_frompoint_toggle(self):
-        if self.area_frompoint.isChecked():
-            self.point_x.setEnabled(True)
-            self.point_y.setEnabled(True)
-            self.choose_point.setEnabled(True)
+        if self.point_widget.area_frompoint.isChecked():
+            self.point_widget.point_x.setEnabled(True)
+            self.point_widget.point_y.setEnabled(True)
+            self.point_widget.choose_point.setEnabled(True)
         else:
-            self.point_x.setEnabled(False)
-            self.point_y.setEnabled(False)
-            self.choose_point.setEnabled(False)
+            self.point_widget.point_x.setEnabled(False)
+            self.point_widget.point_y.setEnabled(False)
+            self.point_widget.choose_point.setEnabled(False)
 
     def open_shp_browse(self):
         shpfile = QtGui.QFileDialog.getOpenFileName()
@@ -169,8 +186,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.close()
 
     def btn_calculate(self):
-        if self.area_admin.isChecked():
-            if not self.area_admin_0.currentText():
+        if self.area_tab.area_admin.isChecked():
+            if not self.area_tab.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a first level administrative boundary."), None)
                 return False
@@ -181,12 +198,12 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Unable to load administrative boundaries."), None)
                 return False
-        elif self.area_fromfile.isChecked():
-            if not self.area_fromfile_file.text():
+        elif self.area_tab.area_fromfile.isChecked():
+            if not self.area_tab.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."), None)
                 return False
-            layer = QgsVectorLayer(self.area_fromfile_file.text(), 'calculation boundary', 'ogr')
+            layer = QgsVectorLayer(self.area_tab.area_fromfile_file.text(), 'calculation boundary', 'ogr')
             crs_source = layer.crs()
             crs_dest = QgsCoordinateReferenceSystem(4326)
             extent = layer.extent()
@@ -194,11 +211,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             geojson = json.loads(QgsGeometry.fromRect(extent_transformed).exportToGeoJSON())
         else:
             # Area from point
-            if not self.point_x.text() and not self.point_y.text():
+            if not self.point_widget.point_x.text() or not self.point_widget.point_y.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."), None)
                 return False
-            point = QgsPoint(float(self.point_x.text()), float(self.point_y.text()))
+            point = QgsPoint(float(self.point_widget.point_x.text()), float(self.point_widget.point_y.text()))
             crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
             crs_dest = QgsCoordinateReferenceSystem(4326)
             point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)

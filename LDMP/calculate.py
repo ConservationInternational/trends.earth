@@ -91,7 +91,7 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def firstShow(self):
         self.area_tab = AreaWidget()
-        self.TabBox.addTab(self.area_tab, 'Area')
+        self.TabBox.addTab(self.area_tab, self.tr('Area'))
         
         # Add the area selector tab
         self.button_calculate.clicked.connect(self.btn_calculate)

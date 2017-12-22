@@ -4,12 +4,13 @@
             "title": "prod_traj_trend_title",
             "nodata values": [9999],
             "ramp": {
-                "type": "zero-centered 2 percent stretch",
-                "shader": "interpolated",
-                "min": {"color": "#993304"},
-                "zero": {"color": "#F6F6EA"},
-                "max": {"color": "#008C79"},
-                "no data": {"value": 9999, "color": "#000000", "label": "prod_traj_trend_nodata"}
+                    "type": "zero-centered 2 percent stretch",
+                    "shader": "interpolated",
+                    "min": {"color": "#993304"},
+                    "zero": {"color": "#F6F6EA"},
+                    "max": {"color": "#008C79"},
+                    "no data": {"value": 9999, "color": "#000000", "label": "prod_traj_trend_nodata"
+                }
             }
         },
         "significance": {
@@ -112,8 +113,23 @@
         }
     },
     "land_cover": {
-        "7 class": {
-            "title": "land_cover_7_class",
+        "Baseline land cover (7 class)": {
+            "ramp": {
+                "type": "categorical",
+                "shader": "exact",
+                "items": [
+                    {"value": 1, "color": "#006d2c", "label": "lc_class_forest"},
+                    {"value": 2, "color": "#d8d800", "label": "lc_class_grassland"},
+                    {"value": 3, "color": "#a5a500", "label": "lc_class_cropland"},
+                    {"value": 4, "color": "#71DEFD", "label": "lc_class_wetland"},
+                    {"value": 5, "color": "#54278f", "label": "lc_class_artificial"},
+                    {"value": 6, "color": "#DEB887", "label": "lc_class_bare"},
+                    {"value": 7, "color": "#3A4DD6", "label": "lc_class_water"},
+                    {"value": 9999, "color": "#000000", "label": "lc_class_nodata"}
+                ]
+            }
+        },
+        "Target land cover (7 class)": {
             "ramp": {
                 "type": "categorical",
                 "shader": "exact",
@@ -131,9 +147,9 @@
         },
         "ESA CCI classes": {
         },
-        "transition": {
+        "Land cover transitions": {
         },
-        "degradation": {
+        "Land cover degradation": {
             "title": "lc_deg_title",
             "ramp": {
                 "type": "categorical",
@@ -173,5 +189,6 @@
                     {"value": 9999, "color": "#000000", "label": "sdg_prod_combined_deg_nodata"}
                 ]
             }
-        },
+        }
+    }
 }

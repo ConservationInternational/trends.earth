@@ -100,7 +100,7 @@ NDVI
 | `MOD13Q1-coll6`_ | 2001-2016 | 250 m   | Global | `Public Domain`_ |
 +------------------+-----------+---------+--------+------------------+
 
-.. _AVHRR/GIMMS: https://glam1.gsfc.nasa.gov/
+.. _AVHRR/GIMMS: https://glam1.gsfc.nasa.gov
 .. _MOD13Q1-coll6:
    https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006
    
@@ -160,7 +160,7 @@ Land cover
 | `ESA CCI Land Cover`_ | 1992-2015 | 300 m   | Global | `CC by-SA 3.0`_ |
 +-----------------------+-----------+---------+--------+-----------------+
 
-.. _ESA CCI Land Cover: https://www.esa-landcover-cci.org/
+.. _ESA CCI Land Cover: https://www.esa-landcover-cci.org
 .. _CC by-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/igo
 
 Soil carbon

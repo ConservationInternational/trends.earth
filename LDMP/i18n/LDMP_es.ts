@@ -552,37 +552,37 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="193"/>
+        <location filename="../calculate.py" line="210"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="176"/>
+        <location filename="../calculate.py" line="193"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Elija un límite administrativo de primer nivel.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="183"/>
+        <location filename="../calculate.py" line="200"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>No se pueden cargar los límites administrativos.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="188"/>
+        <location filename="../calculate.py" line="205"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Elija un archivo para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="193"/>
+        <location filename="../calculate.py" line="210"/>
         <source>Unable to read area file.</source>
         <translation>No se puede leer el archivo de área.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="160"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Select a file defining the area of interst</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="160"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Spatial file (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -645,7 +645,7 @@ p, li {white-space: pre-wrap; }
         <translation>Personalizado</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1207"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="332"/>
         <source>Browse</source>
         <translation>Vistazo</translation>
     </message>
@@ -722,50 +722,50 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1105"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1111"/>
         <source>Area to run calculations for</source>
-        <translation>Área para ejecutar cálculos para</translation>
+        <translation type="obsolete">Área para ejecutar cálculos para</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1141"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1172"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1255"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1262"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1269"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1307"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="1116"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1320"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="1129"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1333"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="1142"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
@@ -1011,55 +1011,55 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="895"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="901"/>
         <source>Area to run calculations for</source>
-        <translation>Área para ejecutar cálculos para</translation>
+        <translation type="obsolete">Área para ejecutar cálculos para</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="925"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="950"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="985"/>
         <source>Browse</source>
-        <translation>Vistazo</translation>
+        <translation type="obsolete">Vistazo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1033"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1040"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1047"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1085"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="906"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1098"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="919"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1111"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="932"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
@@ -1132,7 +1132,7 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished">Personalizado</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="560"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="357"/>
         <source>Browse</source>
         <translation>Vistazo</translation>
     </message>
@@ -1159,50 +1159,50 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="458"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="464"/>
         <source>Area to run calculations for</source>
-        <translation>Área para ejecutar cálculos para</translation>
+        <translation type="obsolete">Área para ejecutar cálculos para</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="494"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="525"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="608"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="615"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="622"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="660"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="469"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="673"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="482"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="686"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="495"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
@@ -1242,50 +1242,50 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="185"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="215"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="251"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="273"/>
         <source>Browse</source>
-        <translation>Vistazo</translation>
+        <translation type="obsolete">Vistazo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="289"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="309"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="343"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="381"/>
+        <location filename="../gui/DlgCreateMap.ui" line="190"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="394"/>
+        <location filename="../gui/DlgCreateMap.ui" line="203"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="407"/>
+        <location filename="../gui/DlgCreateMap.ui" line="216"/>
         <source>Create</source>
         <translation>Calcular</translation>
     </message>
@@ -1325,27 +1325,27 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="209"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="109"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="78"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="195"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="147"/>
         <source>Browse</source>
-        <translation>Vistazo</translation>
+        <translation type="obsolete">Vistazo</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="23"/>
@@ -1355,20 +1355,20 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="202"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="296"/>
+        <location filename="../gui/DlgDownload.ui" line="42"/>
         <source>Select Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="342"/>
+        <location filename="../gui/DlgDownload.ui" line="88"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="368"/>
+        <location filename="../gui/DlgDownload.ui" line="114"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
@@ -1378,27 +1378,22 @@ p, li {white-space: pre-wrap; }
         <translation>Detalles</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="48"/>
-        <source>Area to download</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDownload.ui" line="42"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="228"/>
         <source>Metadata</source>
-        <translation>Metadata</translation>
+        <translation type="obsolete">Metadata</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="247"/>
         <source>Notes:</source>
-        <translation>Notas:</translation>
+        <translation type="obsolete">Notas:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="355"/>
+        <location filename="../gui/DlgDownload.ui" line="101"/>
         <source>Submit download request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1689,7 +1684,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="360"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="20"/>
@@ -1752,7 +1747,7 @@ p, li {white-space: pre-wrap; }
         <translation>Elige una carpeta ...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="450"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="299"/>
         <source>Browse</source>
         <translation>Vistazo</translation>
     </message>
@@ -1769,45 +1764,45 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="366"/>
         <source>Area to run calculations for</source>
-        <translation>Área para ejecutar cálculos para</translation>
+        <translation type="obsolete">Área para ejecutar cálculos para</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="390"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="415"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="498"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="505"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="512"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="550"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="371"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="563"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="384"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="576"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="397"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
@@ -1855,7 +1850,7 @@ p, li {white-space: pre-wrap; }
         <translation>Elige una carpeta ...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="366"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="215"/>
         <source>Browse</source>
         <translation>Vistazo</translation>
     </message>
@@ -1867,50 +1862,50 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="276"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="282"/>
         <source>Area to run calculations for</source>
-        <translation>Área para ejecutar cálculos para</translation>
+        <translation type="obsolete">Área para ejecutar cálculos para</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="306"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="331"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="414"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="421"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="428"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="466"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="287"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="479"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="300"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="492"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="313"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
@@ -2269,120 +2264,120 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="290"/>
         <source>Area</source>
-        <translation>Zona</translation>
+        <translation type="obsolete">Zona</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="325"/>
         <source>Administrative area</source>
-        <translation>Área administrativa</translation>
+        <translation type="obsolete">Área administrativa</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="335"/>
         <source>Area from file</source>
-        <translation>Área desde archivo</translation>
+        <translation type="obsolete">Área desde archivo</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="360"/>
         <source>First level:</source>
-        <translation>Primer nivel:</translation>
+        <translation type="obsolete">Primer nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="382"/>
         <source>Browse</source>
-        <translation>Vistazo</translation>
+        <translation type="obsolete">Vistazo</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="414"/>
         <source>Choose a file...</source>
-        <translation>Escoge un archivo...</translation>
+        <translation type="obsolete">Escoge un archivo...</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="439"/>
         <source>Second level:</source>
-        <translation>Segundo nivel:</translation>
+        <translation type="obsolete">Segundo nivel:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="448"/>
         <source>Point</source>
-        <translation>Punto</translation>
+        <translation type="obsolete">Punto</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="503"/>
         <source>Choose a point...</source>
-        <translation>Elige un punto ...</translation>
+        <translation type="obsolete">Elige un punto ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="474"/>
         <source>x:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="487"/>
         <source>y:</source>
-        <translation>y:</translation>
+        <translation type="obsolete">y:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="553"/>
+        <location filename="../gui/DlgTimeseries.ui" line="295"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="566"/>
+        <location filename="../gui/DlgTimeseries.ui" line="308"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="579"/>
+        <location filename="../gui/DlgTimeseries.ui" line="321"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="80"/>
+        <location filename="../timeseries.py" line="97"/>
         <source>Point chooser</source>
         <translation>Selector de punto</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="80"/>
+        <location filename="../timeseries.py" line="97"/>
         <source>Click the map to choose a point.</source>
         <translation>Haga clic en el mapa para elegir un punto.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="248"/>
+        <location filename="../timeseries.py" line="265"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="174"/>
+        <location filename="../timeseries.py" line="191"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Elija un límite administrativo de primer nivel.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="181"/>
+        <location filename="../timeseries.py" line="198"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>No se pueden cargar los límites administrativos.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="186"/>
+        <location filename="../timeseries.py" line="203"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Elija un archivo para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="198"/>
+        <location filename="../timeseries.py" line="215"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Elija un punto para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="244"/>
+        <location filename="../timeseries.py" line="261"/>
         <source>Submitted</source>
         <translation>Presentada</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="244"/>
+        <location filename="../timeseries.py" line="261"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
         <translation>Tarea de cálculo de series temporales enviada a Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="248"/>
+        <location filename="../timeseries.py" line="265"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>No se puede enviar la tarea de cálculo de series de tiempo a Google Earth Engine.</translation>
     </message>

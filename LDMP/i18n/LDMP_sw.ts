@@ -522,37 +522,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="193"/>
+        <location filename="../calculate.py" line="210"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="176"/>
+        <location filename="../calculate.py" line="193"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="183"/>
+        <location filename="../calculate.py" line="200"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="188"/>
+        <location filename="../calculate.py" line="205"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="193"/>
+        <location filename="../calculate.py" line="210"/>
         <source>Unable to read area file.</source>
         <translation>Haiwezi kusoma faili ya eneo.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="160"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Select a file defining the area of interst</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="160"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Spatial file (*.*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -615,7 +615,7 @@ p, li { white-space: pre-wrap; }
         <translation>Desturi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1207"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="332"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
@@ -692,50 +692,50 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1105"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1111"/>
         <source>Area to run calculations for</source>
-        <translation>Eneo la kuendesha mahesabu kwa</translation>
+        <translation type="obsolete">Eneo la kuendesha mahesabu kwa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1141"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1172"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1255"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1262"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="1269"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1307"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="1116"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1320"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="1129"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="1333"/>
+        <location filename="../gui/DlgCalculateLC.ui" line="1142"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
@@ -981,55 +981,55 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="895"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="901"/>
         <source>Area to run calculations for</source>
-        <translation>Eneo la kuendesha mahesabu kwa</translation>
+        <translation type="obsolete">Eneo la kuendesha mahesabu kwa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="925"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="950"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="985"/>
         <source>Browse</source>
-        <translation>Vinjari</translation>
+        <translation type="obsolete">Vinjari</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1033"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1040"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="1047"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1085"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="906"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1098"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="919"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="1111"/>
+        <location filename="../gui/DlgCalculateProd.ui" line="932"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
@@ -1102,7 +1102,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Desturi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="560"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="357"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
@@ -1129,50 +1129,50 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="458"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="464"/>
         <source>Area to run calculations for</source>
-        <translation>Eneo la kuendesha mahesabu kwa</translation>
+        <translation type="obsolete">Eneo la kuendesha mahesabu kwa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="494"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="525"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="608"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="615"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="622"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="660"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="469"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="673"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="482"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="686"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="495"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
@@ -1212,50 +1212,50 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="185"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="215"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="251"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="273"/>
         <source>Browse</source>
-        <translation>Vinjari</translation>
+        <translation type="obsolete">Vinjari</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="289"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="309"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="343"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="381"/>
+        <location filename="../gui/DlgCreateMap.ui" line="190"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="394"/>
+        <location filename="../gui/DlgCreateMap.ui" line="203"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCreateMap.ui" line="407"/>
+        <location filename="../gui/DlgCreateMap.ui" line="216"/>
         <source>Create</source>
         <translation>Tumia</translation>
     </message>
@@ -1295,27 +1295,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="209"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="109"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="78"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="195"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="147"/>
         <source>Browse</source>
-        <translation>Vinjari</translation>
+        <translation type="obsolete">Vinjari</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="23"/>
@@ -1325,20 +1325,20 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDownload.ui" line="202"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="296"/>
+        <location filename="../gui/DlgDownload.ui" line="42"/>
         <source>Select Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="342"/>
+        <location filename="../gui/DlgDownload.ui" line="88"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="368"/>
+        <location filename="../gui/DlgDownload.ui" line="114"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
@@ -1348,27 +1348,22 @@ p, li { white-space: pre-wrap; }
         <translation>Maelezo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="48"/>
-        <source>Area to download</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDownload.ui" line="42"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="228"/>
         <source>Metadata</source>
-        <translation>Metadata</translation>
+        <translation type="obsolete">Metadata</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="247"/>
         <source>Notes:</source>
-        <translation>Maelezo:</translation>
+        <translation type="obsolete">Maelezo:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDownload.ui" line="355"/>
+        <location filename="../gui/DlgDownload.ui" line="101"/>
         <source>Submit download request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1659,7 +1654,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="360"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="20"/>
@@ -1722,7 +1717,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="450"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="299"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
@@ -1739,45 +1734,45 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="366"/>
         <source>Area to run calculations for</source>
-        <translation>Eneo la kuendesha mahesabu kwa</translation>
+        <translation type="obsolete">Eneo la kuendesha mahesabu kwa</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="390"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="415"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="498"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="505"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="512"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="550"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="371"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="563"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="384"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="576"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="397"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
@@ -1825,7 +1820,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="366"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="215"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
@@ -1837,50 +1832,50 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="276"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="282"/>
         <source>Area to run calculations for</source>
-        <translation>Eneo la kuendesha mahesabu kwa</translation>
+        <translation type="obsolete">Eneo la kuendesha mahesabu kwa</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="306"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="331"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="414"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="421"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingUNCCD.ui" line="428"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="466"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="287"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="479"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="300"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingUNCCD.ui" line="492"/>
+        <location filename="../gui/DlgReportingUNCCD.ui" line="313"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
@@ -2239,120 +2234,120 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="290"/>
         <source>Area</source>
-        <translation>Eneo</translation>
+        <translation type="obsolete">Eneo</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="325"/>
         <source>Administrative area</source>
-        <translation>Eneo la Utawala</translation>
+        <translation type="obsolete">Eneo la Utawala</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="335"/>
         <source>Area from file</source>
-        <translation>Simu kutoka faili</translation>
+        <translation type="obsolete">Simu kutoka faili</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="360"/>
         <source>First level:</source>
-        <translation>Ngazi ya kwanza:</translation>
+        <translation type="obsolete">Ngazi ya kwanza:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="382"/>
         <source>Browse</source>
-        <translation>Vinjari</translation>
+        <translation type="obsolete">Vinjari</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="414"/>
         <source>Choose a file...</source>
-        <translation>Chagua faili ...</translation>
+        <translation type="obsolete">Chagua faili ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="439"/>
         <source>Second level:</source>
-        <translation>Ngazi ya pili:</translation>
+        <translation type="obsolete">Ngazi ya pili:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="448"/>
         <source>Point</source>
-        <translation>Hatua</translation>
+        <translation type="obsolete">Hatua</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="503"/>
         <source>Choose a point...</source>
-        <translation>Chagua hatua ...</translation>
+        <translation type="obsolete">Chagua hatua ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="474"/>
         <source>x:</source>
-        <translation>x:</translation>
+        <translation type="obsolete">x:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="487"/>
         <source>y:</source>
-        <translation>y:</translation>
+        <translation type="obsolete">y:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="553"/>
+        <location filename="../gui/DlgTimeseries.ui" line="295"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="566"/>
+        <location filename="../gui/DlgTimeseries.ui" line="308"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="579"/>
+        <location filename="../gui/DlgTimeseries.ui" line="321"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="80"/>
+        <location filename="../timeseries.py" line="97"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="80"/>
+        <location filename="../timeseries.py" line="97"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="248"/>
+        <location filename="../timeseries.py" line="265"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="174"/>
+        <location filename="../timeseries.py" line="191"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="181"/>
+        <location filename="../timeseries.py" line="198"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="186"/>
+        <location filename="../timeseries.py" line="203"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="198"/>
+        <location filename="../timeseries.py" line="215"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="244"/>
+        <location filename="../timeseries.py" line="261"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="244"/>
+        <location filename="../timeseries.py" line="261"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
         <translation>Kazi ya hesabu ya mfululizo wa muda iliyotolewa kwa Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="248"/>
+        <location filename="../timeseries.py" line="265"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>Imeshindwa kuwasilisha kazi ya hesabu ya mfululizo wa wakati wa Google Earth Engine.</translation>
     </message>

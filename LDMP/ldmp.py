@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+__version__ = "0.37"
+
 import os
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication

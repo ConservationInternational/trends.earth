@@ -74,16 +74,16 @@ def _get_layers(node):
     return l
 
 
-#  Calculate the area of a slice of the globe from the equator to the parallel 
+#  Calculate the area of a slice of the globe from the equator to the parallel
 #  at latitude f (on WGS84 ellipsoid). Based on:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
 def _slice_area(f):
     a = 6378137 # in meters
-    b =  6356752.3142 # in meters,
+    b = 6356752.3142 # in meters,
     e = np.sqrt(1 - np.square(b / a))
     zp = 1 + e * np.sin(f)
     zm = 1 - e * np.sin(f)
-    return np.pi * np.square(b) * ((2*np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
+    return np.pi * np.square(b) * ((2 * np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
 
 
 # Formula to calculate area of a raster cell, following
@@ -100,7 +100,7 @@ def calc_cell_area(ymin, ymax, x_width):
     return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
 
 
-# Get a list of layers of a particular type, out of those in the TOC that were 
+# Get a list of layers of a particular type, out of those in the TOC that were
 # produced by trends.earth
 def get_ld_layers(layer_type=None):
     root = QgsProject.instance().layerTreeRoot()
@@ -130,7 +130,7 @@ def get_ld_layers(layer_type=None):
                 layers_filtered.append(l)
         if not layer_type or layer_type == 'perf':
             if (m['script_id'] == "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82" and
-                 l.renderer().usesBands() == [1]):
+                    l.renderer().usesBands() == [1]):
                 layers_filtered.append(l)
         if not layer_type or layer_type == 'lc_bl':
             if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
@@ -233,7 +233,7 @@ class DegradationWorkerSDG(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                # TODO: Could make this cleaner by reading all four bands at 
+                # TODO: Could make this cleaner by reading all four bands at
                 # same time from VRT
                 deg = traj_band.ReadAsArray(x, y, cols, rows)
                 state_array = state_band.ReadAsArray(x, y, cols, rows)
@@ -277,14 +277,14 @@ def xtab(*cols):
     if len(cols) == 0:
         raise TypeError("xtab() requires at least one argument")
 
-    fnx1 = lambda q: len(q.squeeze().shape)
+    def fnx1(q): return len(q.squeeze().shape)
     if not all([fnx1(col) == 1 for col in cols]):
         raise ValueError("all input arrays must be 1D")
-        
+
     # Filter na values out of all columns
     nafilter = ~np.any(np.isnan(cols), 0)
 
-    headers, idx = zip( *(np.unique(col[nafilter], return_inverse=True) for col in cols) )
+    headers, idx = zip(*(np.unique(col[nafilter], return_inverse=True) for col in cols))
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
     xt = np.zeros(shape_xt)
     np.add.at(xt, idx, 1)
@@ -299,7 +299,7 @@ def merge_xtabs(tab1, tab2):
     # Make this array flat since it will be used later with ravelled indexing
     xt = np.zeros(np.prod(shape_xt))
 
-    # This handles combining a crosstab from a new block with an existing one 
+    # This handles combining a crosstab from a new block with an existing one
     # that has been maintained across blocks
     def add_xt_block(xt_bl):
         col_ind = np.tile(tuple(np.where(headers[0] == item) for item in xt_bl[0][0]), xt_bl[0][1].size)
@@ -326,12 +326,13 @@ def calc_total_table(a_trans, a_soc, total_table, cell_area):
 
     for transition in transitions:
         ind = np.where(transitions == transition)
-        # Only sum values for this transition, and where soc has a valid value 
+        # Only sum values for this transition, and where soc has a valid value
         # (negative values are missing data flags)
         vals = a_soc[np.logical_and(a_trans == transition, a_soc > 0)]
         totals[ind] += np.sum(vals * cell_area)
 
     return list((transitions, totals))
+
 
 def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""
@@ -360,6 +361,7 @@ def calc_area_table(a, area_table, cell_area):
 def merge_area_tables(table1, table2):
     vals = np.unique(np.concatenate([table1[0], table2[0]]))
     count = np.zeros(vals.shape)
+
     def add_area_table(table):
         ind = np.concatenate(tuple(np.where(vals == item)[0] for item in table[0]))
         np.add.at(count, ind, table[1])
@@ -383,7 +385,7 @@ class AreaWorker(AbstractWorker):
 
         block_sizes = band_deg.GetBlockSize()
         x_block_size = block_sizes[0]
-        # Need to process y line by line so that pixel area calculation can be 
+        # Need to process y line by line so that pixel area calculation can be
         # done based on latitude, which varies by line
         y_block_size = 1
         xsize = band_deg.XSize
@@ -392,7 +394,7 @@ class AreaWorker(AbstractWorker):
         gt = ds.GetGeoTransform()
         # Width of cells in longitude
         long_width = gt[1]
-        
+
         # Set initial lat ot the top left corner latitude
         lat = gt[3]
         # Width of cells in latitude
@@ -428,7 +430,7 @@ class AreaWorker(AbstractWorker):
                 # Flatten the arrays before passing to xtab
                 this_trans_xtab = xtab(a_deg.ravel(), a_trans.ravel())
 
-                # Don't use this_trans_xtab if it is empty (could happen if take a 
+                # Don't use this_trans_xtab if it is empty (could happen if take a
                 # crosstab where all of the values are nan's)
                 if this_trans_xtab[0][0].size != 0:
                     this_trans_xtab[1] = this_trans_xtab[1] * cell_area
@@ -445,10 +447,10 @@ class AreaWorker(AbstractWorker):
                                                     area_table_target, cell_area)
 
                 #################################
-                # Calculate SOC totals (converting soilgrids data from per ha 
+                # Calculate SOC totals (converting soilgrids data from per ha
                 # to per m)
                 a_soc = band_soc.ReadAsArray(x, y, cols, rows) * 1e-4
-                # Note final units of soc_totals_table are tons C (summed over 
+                # Note final units of soc_totals_table are tons C (summed over
                 # the total area of each class)
                 soc_totals_table = calc_total_table(a_trans, a_soc,
                                                     soc_totals_table, cell_area)
@@ -466,7 +468,7 @@ class AreaWorker(AbstractWorker):
         if self.killed:
             return None
         else:
-            return list((area_table_base, area_table_target, soc_totals_table, 
+            return list((area_table_base, area_table_target, soc_totals_table,
                          trans_xtab))
 
 
@@ -492,7 +494,7 @@ class ClipWorker(AbstractWorker):
 
         self.in_file = in_file
         self.out_file = out_file
-        # Make a copy of the geometry so that we aren't modifying the CRS of 
+        # Make a copy of the geometry so that we aren't modifying the CRS of
         # the original
         self.aoi = QgsGeometry(aoi)
         if dstSRS:
@@ -508,7 +510,7 @@ class ClipWorker(AbstractWorker):
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
-        
+
         mask_layer = QgsVectorLayer("Polygon?crs=epsg:{}".format(self.dstSRS), "mask", "memory")
         mask_pr = mask_layer.dataProvider()
         fet = QgsFeature()
@@ -519,7 +521,7 @@ class ClipWorker(AbstractWorker):
                                                 "CP1250", None, "ESRI Shapefile")
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=mask_layer_file, 
+                        cutlineDSName=mask_layer_file,
                         dstNodata=-9999, dstSRS="epsg:{}".format(self.dstSRS),
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
@@ -599,6 +601,7 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
 
 class DlgReportingBase(DlgCalculateBase):
     '''Class to be shared across SDG and UNCCD reporting dialogs'''
+
     def __init__(self, parent=None):
         super(DlgReportingBase, self).__init__(parent)
         self.setupUi(self)
@@ -643,7 +646,7 @@ class DlgReportingBase(DlgCalculateBase):
     def btn_calculate(self):
         if not self.output_folder.text():
             QtGui.QMessageBox.information(None, self.tr("Error"),
-                                       self.tr("Choose an output folder where the output will be saved."), None)
+                                          self.tr("Choose an output folder where the output will be saved."), None)
             return
 
         # Note that the super class has several tests in it - if they fail it
@@ -695,20 +698,20 @@ class DlgReportingBase(DlgCalculateBase):
                                        self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return
 
-        # If prod layers are lower res than the lc layer, then resample lc 
+        # If prod layers are lower res than the lc layer, then resample lc
         # using the mode. Otherwise use nearest neighbor:
         ds_lc = gdal.Open(self.layer_lc.dataProvider().dataSourceUri())
         ds_traj = gdal.Open(self.layer_traj.dataProvider().dataSourceUri())
         lc_gt = ds_lc.GetGeoTransform()
         traj_gt = ds_traj.GetGeoTransform()
         if lc_gt[1] < traj_gt[1]:
-            # If the land cover is finer than the trajectory res, use mode to 
+            # If the land cover is finer than the trajectory res, use mode to
             # match the lc to the lower res productivity data
             log('Resampling with: mode, lowest')
             self.resampleAlg = gdal.GRA_Mode
             self.resample_to = 'lowest'
         else:
-            # If the land cover is coarser than the trajectory res, use nearest 
+            # If the land cover is coarser than the trajectory res, use nearest
             # neighbor and match the lc to the higher res productivity data
             log('Resampling with: nearest neighour, highest')
             self.resampleAlg = gdal.GRA_NearestNeighbour
@@ -722,14 +725,14 @@ class DlgReportingBase(DlgCalculateBase):
         self.lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(), bandList=[4], VRTNodata=-9999)
 
-        # Select soc layer using bandlist since that layer has problematic 
+        # Select soc layer using bandlist since that layer has problematic
         # missing value coding
         self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(), 
+        gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[1], srcNodata=-32768, VRTNodata=-9999)
 
-        # Compute the pixel-aligned bounding box (slightly larger than aoi). 
-        # Use this instead of croptocutline in gdal.Warp in order to keep the 
+        # Compute the pixel-aligned bounding box (slightly larger than aoi).
+        # Use this instead of croptocutline in gdal.Warp in order to keep the
         # pixels aligned.
         bb = self.aoi.boundingBox()
         minx = bb.xMinimum()
@@ -824,7 +827,7 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         # Combine rasters into a VRT and crop to the AOI
         self.indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving indicator VRT to: {}'.format(self.indic_f))
-        gdal.BuildVRT(self.indic_f, 
+        gdal.BuildVRT(self.indic_f,
                       [self.traj_f,
                        self.layer_perf.dataProvider().dataSourceUri(),
                        self.layer_state.dataProvider().dataSourceUri(),
@@ -839,7 +842,7 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
         deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
-                                         self.indic_f, 
+                                         self.indic_f,
                                          lc_clip_tempfile, self.aoi)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -849,19 +852,20 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         ######################################################################
         #  Calculate degradation
         log('Calculating degradation...')
-        deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation', 
+        deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
                                  lc_clip_tempfile)
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degradation layer."), None)
             return
         else:
-            # Note the DegradationWorker also returns a file with the combined 
+            # Note the DegradationWorker also returns a file with the combined
             # productivity indicator.
             deg_file, prod_file = deg_worker.get_return()
 
         style_sdg_ld(prod_file, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3 Productivity Indicator'))
         style_sdg_ld(deg_file, QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3 - without soil carbon)'))
+
 
 class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
     def btn_calculate(self):
@@ -876,23 +880,23 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
 
         ######################################################################
         # Combine rasters into a VRT and crop to the AOI
-        
+
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc/soc VRT to: {}'.format(indic_f))
 
-        # Select lc bands using bandlist since BuildVrt will otherwise only use 
+        # Select lc bands using bandlist since BuildVrt will otherwise only use
         # the first band of the file
         lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_bl_f, self.layer_lc.dataProvider().dataSourceUri(), 
+        gdal.BuildVRT(lc_bl_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[1], VRTNodata=-9999)
         lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_tg_f, self.layer_lc.dataProvider().dataSourceUri(), 
+        gdal.BuildVRT(lc_tg_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[2], VRTNodata=-9999)
         lc_tr_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_tr_f, self.layer_lc.dataProvider().dataSourceUri(), 
+        gdal.BuildVRT(lc_tr_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[3], VRTNodata=-9999)
 
-        gdal.BuildVRT(indic_f, 
+        gdal.BuildVRT(indic_f,
                       [self.traj_f,
                        lc_bl_f,
                        lc_tg_f,
@@ -907,7 +911,7 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
         deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
-                                         indic_f, 
+                                         indic_f,
                                          lc_clip_tempfile, self.aoi)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -916,7 +920,7 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
 
         ######################################################################
         # Calculate area crosstabs
-        
+
         log('Calculating land cover crosstabulation...')
         area_worker = StartWorker(AreaWorker, 'calculating areas', lc_clip_tempfile)
         if not area_worker.success:
@@ -934,8 +938,8 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         log('UNCCD repoting total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
         log('UNCCD repoting areas (deg, stable, imp, no data): {}'.format(y))
 
-        make_unccd_table(base_areas, target_areas, soc_totals, 
-                         trans_lpd_xtab, 
+        make_unccd_table(base_areas, target_areas, soc_totals,
+                         trans_lpd_xtab,
                          os.path.join(self.output_folder.text(),
                                       'reporting_table.xlsx'))
 
@@ -965,8 +969,8 @@ def get_lpd_row(table, transition):
 
 
 def get_soc_per_ha(soc_table, xtab_areas, transition):
-    # The "None" value below is used to return total area across all classes of 
-    # degradation - this is just using the trans_lpd_xtab table as a shortcut 
+    # The "None" value below is used to return total area across all classes of
+    # degradation - this is just using the trans_lpd_xtab table as a shortcut
     # to get the area of each transition class.
     area = get_xtab_area(xtab_areas, None, transition)
     ind = np.where(soc_table[0] == transition)[0]
@@ -977,8 +981,8 @@ def get_soc_per_ha(soc_table, xtab_areas, transition):
         return float(soc_table[1][ind]) / (area * 1e2)
 
 
-def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab, 
-                         out_file):
+def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
+                     out_file):
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
 
@@ -987,7 +991,7 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
 
     ########
     # Formats
-    
+
     title_format = workbook.add_format({'bold': 1,
                                         'font_size': 18,
                                         'font_color': '#2F75B5'})
@@ -1015,7 +1019,7 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     ########
     # Header
     worksheet.write('A1', tr("trends.earth reporting table"), title_format)
-    worksheet.write('A2',"DRAFT - DATA UNDER REVIEW - DO NOT QUOTE", warning_format)
+    worksheet.write('A2', "DRAFT - DATA UNDER REVIEW - DO NOT QUOTE", warning_format)
     #worksheet.write('A1', "LDN Target Setting Programme", title_format)
     #worksheet.write('A2',"Table 1 - Presentation of national basic data using the LDN indicators framework", subtitle_format)
 
@@ -1027,7 +1031,7 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.write_row('B4', [tr('Area (2000)'),
                                tr('Area (2015)'),
                                tr('Net area change (2000-2015)')],
-                               header_format)
+                        header_format)
     worksheet.write_row('B5', [tr('sq km*'),
                                tr('sq km'),
                                tr('sq km'),
@@ -1036,7 +1040,7 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
                                tr('Increasing'),
                                tr('No Data***'),
                                tr('ton/ha')],
-                               header_format)
+                        header_format)
     worksheet.write('I4', tr('Soil organic carbon (2000)**'), header_format)
 
     worksheet.write_row('A6', [tr('Forest'), get_lc_area(base_areas, 1), get_lc_area(target_areas, 1)], num_format)
@@ -1138,8 +1142,8 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
                                 tr('2000 total (ton)'),
                                 tr('2015 total (ton)****'),
                                 tr('2000-2015 loss (ton)')], header_format)
-    # The "None" values below are used to return total areas across all classes 
-    # of degradation - this is just using the trans_lpd_xtab table as a 
+    # The "None" values below are used to return total areas across all classes
+    # of degradation - this is just using the trans_lpd_xtab table as a
     # shortcut to get the areas of each transition class.
     worksheet.write_row('A35', [tr('Bare lands >> Artificial areas'), get_xtab_area(trans_lpd_xtab, None, 65)], num_format)
     worksheet.write_row('A36', [tr('Cropland >> Artificial areas'), get_xtab_area(trans_lpd_xtab, None, 35)], num_format)
@@ -1241,15 +1245,17 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
         # QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
         #         QtGui.QApplication.translate("LDMP", 'Indicator table saved to <a href="file://{}">{}</a>'.format(out_file, out_file)))
         QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                QtGui.QApplication.translate("LDMP", 'Indicator table saved to {}'.format(out_file)))
+                                      QtGui.QApplication.translate("LDMP", 'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log('Error saving {}'.format(out_file))
         QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
                                    QtGui.QApplication.translate("LDMP", "Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
 
+
 class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
     '''Class to be shared across SDG and UNCCD reporting dialogs'''
+
     def __init__(self, parent=None):
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)
@@ -1269,7 +1275,7 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
             super(DlgCreateMap, self).showEvent(event)
 
         QtGui.QMessageBox.warning(None, QtGui.QApplication.translate("LDMP", "Warning"),
-                               QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
+                                  QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
 
         self.populate_layers()
 
@@ -1282,7 +1288,7 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        
+
         #TODO Will need to reenable this if the area combo selector is used in the future
         # ret = super(DlgCreateMap, self).btn_calculate()
         # if not ret:
@@ -1295,7 +1301,7 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         else:
             orientation = 'landscape'
 
-        template = os.path.join(os.path.dirname(__file__), 'data', 
+        template = os.path.join(os.path.dirname(__file__), 'data',
                                 'map_template_{}.qpt'.format(orientation))
 
         f = file(template, 'rt')

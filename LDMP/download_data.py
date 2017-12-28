@@ -65,6 +65,7 @@ class DataTableModel(QAbstractTableModel):
             return self.colnames_pretty[section]
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
+
 class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
     def __init__(self, parent=None):
         """Constructor."""
@@ -76,7 +77,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'gee_datasets.json')) as f:
-           data_dict = json.load(f)
+            data_dict = json.load(f)
 
         self.datasets = []
         for cat in data_dict.keys():
@@ -139,4 +140,3 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
                 mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                                QtGui.QApplication.translate("LDMP", "Unable to submit download request to Google Earth Engine."),
                                level=0, duration=5)
-

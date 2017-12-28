@@ -39,109 +39,112 @@ from LDMP import log
 from LDMP.download import Download, check_hash_against_etag
 from LDMP.api import get_script, get_user_email, get_execution
 
+
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
 
-# Store layer titles and label text in a dictionary here so that it can be 
-# translated - if it were in the syles JSON then gettext would not have access 
+
+# Store layer titles and label text in a dictionary here so that it can be
+# translated - if it were in the syles JSON then gettext would not have access
 # to these strings.
 style_text_dict = {
-        # Productivity trajectory
-        'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
-        'prod_traj_trend_min': tr('{}'),
-        'prod_traj_trend_zero': tr('0'),
-        'prod_traj_trend_max': tr('{}'),
+    # Productivity trajectory
+    'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
+    'prod_traj_trend_min': tr('{}'),
+    'prod_traj_trend_zero': tr('0'),
+    'prod_traj_trend_max': tr('{}'),
 
-        'prod_traj_signif_title': tr('Productivity tradecrease (p < .01)'),
-        'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
-        'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
-        'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
-        'prod_traj_signif_zero': tr('No significant change'),
-        'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
-        'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),
-        'prod_traj_signif_inc_99': tr('Significant increase (p < .01)'),
-        'prod_traj_signif_nodata': tr('No data'),
+    'prod_traj_signif_title': tr('Productivity tradecrease (p < .01)'),
+    'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
+    'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
+    'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
+    'prod_traj_signif_zero': tr('No significant change'),
+    'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
+    'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),
+    'prod_traj_signif_inc_99': tr('Significant increase (p < .01)'),
+    'prod_traj_signif_nodata': tr('No data'),
 
-        # Productivity performance
-        'prod_perf_title': tr('Productivity performance'),
-        'prod_perf_potential_deg': tr('Potentially degraded'),
-        'prod_perf_not_potential_deg': tr('Not potentially degraded'),
-        'prod_perf_nodata': tr('No data'),
+    # Productivity performance
+    'prod_perf_title': tr('Productivity performance'),
+    'prod_perf_potential_deg': tr('Potentially degraded'),
+    'prod_perf_not_potential_deg': tr('Not potentially degraded'),
+    'prod_perf_nodata': tr('No data'),
 
-        # Productivity state
-        'prod_state_change_title': tr('Productivity state'),
-        'prod_state_change_potential_deg': tr('Potentially degraded'),
-        'prod_state_change_stable': tr('Stable'),
-        'prod_state_change_potential_improvement': tr('Potentially improved'),
-        'prod_state_change_nodata': tr('No data'),
+    # Productivity state
+    'prod_state_change_title': tr('Productivity state'),
+    'prod_state_change_potential_deg': tr('Potentially degraded'),
+    'prod_state_change_stable': tr('Stable'),
+    'prod_state_change_potential_improvement': tr('Potentially improved'),
+    'prod_state_change_nodata': tr('No data'),
 
 
-        'prod_state_classes_bl_title': tr('Productivity state baseline classes'),
-        'prod_state_classes_bl_nodata': tr('No data'),
+    'prod_state_classes_bl_title': tr('Productivity state baseline classes'),
+    'prod_state_classes_bl_nodata': tr('No data'),
 
-        'prod_state_classes_tg_title': tr('Productivity state target classes'),
-        'prod_state_classes_tg_nodata': tr('No data'),
+    'prod_state_classes_tg_title': tr('Productivity state target classes'),
+    'prod_state_classes_tg_nodata': tr('No data'),
 
-        # Land cover
-        'lc_bl_title': tr('Land cover (baseline)'),
-        'lc_tg_title': tr('Land cover (target)'),
-        'lc_tr_title': tr('Land cover (transitions)'),
+    # Land cover
+    'lc_bl_title': tr('Land cover (baseline)'),
+    'lc_tg_title': tr('Land cover (target)'),
+    'lc_tr_title': tr('Land cover (transitions)'),
 
-        'lc_class_forest': tr('Forest'),
-        'lc_class_grassland': tr('Grassland'),
-        'lc_class_cropland': tr('Cropland'),
-        'lc_class_wetland': tr('Wetland'),
-        'lc_class_artificial': tr('Artificial area'),
-        'lc_class_bare': tr('Bare land'),
-        'lc_class_water': tr('Water body'),
-        'lc_class_nodata': tr('No data'),
+    'lc_class_forest': tr('Forest'),
+    'lc_class_grassland': tr('Grassland'),
+    'lc_class_cropland': tr('Cropland'),
+    'lc_class_wetland': tr('Wetland'),
+    'lc_class_artificial': tr('Artificial area'),
+    'lc_class_bare': tr('Bare land'),
+    'lc_class_water': tr('Water body'),
+    'lc_class_nodata': tr('No data'),
 
-        'lc_tr_forest_persist': tr('Forest persistence'),
-        'lc_tr_forest_loss': tr('Forest loss'),
-        'lc_tr_grassland_persist': tr('Grassland persistence'),
-        'lc_tr_grassland_loss': tr('Grassland loss'),
-        'lc_tr_cropland_persist': tr('Cropland persistence'),
-        'lc_tr_cropland_loss': tr('Cropland loss'),
-        'lc_tr_wetland_persist': tr('Wetland persistence'),
-        'lc_tr_wetland_loss': tr('Wetland loss'),
-        'lc_tr_artificial_persist': tr('Artificial area persistence'),
-        'lc_tr_artificial_loss': tr('Artificial area loss'),
-        'lc_tr_bare_persist': tr('Bare land persistence'),
-        'lc_tr_bare_loss': tr('Bare land loss'),
-        'lc_tr_water_persist': tr('Water body persistence'),
-        'lc_tr_water_loss': tr('Water body loss'),
-        'lc_tr_nodata': tr('No data'),
+    'lc_tr_forest_persist': tr('Forest persistence'),
+    'lc_tr_forest_loss': tr('Forest loss'),
+    'lc_tr_grassland_persist': tr('Grassland persistence'),
+    'lc_tr_grassland_loss': tr('Grassland loss'),
+    'lc_tr_cropland_persist': tr('Cropland persistence'),
+    'lc_tr_cropland_loss': tr('Cropland loss'),
+    'lc_tr_wetland_persist': tr('Wetland persistence'),
+    'lc_tr_wetland_loss': tr('Wetland loss'),
+    'lc_tr_artificial_persist': tr('Artificial area persistence'),
+    'lc_tr_artificial_loss': tr('Artificial area loss'),
+    'lc_tr_bare_persist': tr('Bare land persistence'),
+    'lc_tr_bare_loss': tr('Bare land loss'),
+    'lc_tr_water_persist': tr('Water body persistence'),
+    'lc_tr_water_loss': tr('Water body loss'),
+    'lc_tr_nodata': tr('No data'),
 
-        'lc_deg_title': tr('Land cover degradation'),
-        'lc_deg_deg': tr('Degradation'),
-        'lc_deg_stable': tr('Stable'),
-        'lc_deg_imp': tr('Improvement'),
-        'lc_deg_nodata': tr('No data'),
+    'lc_deg_title': tr('Land cover degradation'),
+    'lc_deg_deg': tr('Degradation'),
+    'lc_deg_stable': tr('Stable'),
+    'lc_deg_imp': tr('Improvement'),
+    'lc_deg_nodata': tr('No data'),
 
-        
-        # Soil organic carbon
-        'soc_2000_title': tr('Soil organic carbon (tons / ha)'),
-        'soc_2000_nodata': tr('No data'),
 
-        'soc_deg_title': tr('Soil organic carbon degradation'),
-        'soc_deg_deg': tr('Degradation'),
-        'soc_deg_stable': tr('Stable'),
-        'soc_deg_imp': tr('Improvement'),
-        'soc_deg_nodata': tr('No data'),
+    # Soil organic carbon
+    'soc_2000_title': tr('Soil organic carbon (tons / ha)'),
+    'soc_2000_nodata': tr('No data'),
 
-        # Degradation SDG final layer
-        'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
-        'sdg_prod_combined_deg_deg': tr('Degradation'),
-        'sdg_prod_combined_deg_stable': tr('Stable'),
-        'sdg_prod_combined_deg_imp': tr('Improvement'),
-        'sdg_prod_combined_deg_nodata': tr('No data'),
+    'soc_deg_title': tr('Soil organic carbon degradation'),
+    'soc_deg_deg': tr('Degradation'),
+    'soc_deg_stable': tr('Stable'),
+    'soc_deg_imp': tr('Improvement'),
+    'soc_deg_nodata': tr('No data'),
 
-        'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
-        'combined_sdg_deg_deg': tr('Degradation'),
-        'combined_sdg_deg_stable': tr('Stable'),
-        'combined_sdg_deg_imp': tr('Improvement'),
-        'combined_sdg_deg_nodata': tr('No data'),
-    }
+    # Degradation SDG final layer
+    'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
+    'sdg_prod_combined_deg_deg': tr('Degradation'),
+    'sdg_prod_combined_deg_stable': tr('Stable'),
+    'sdg_prod_combined_deg_imp': tr('Improvement'),
+    'sdg_prod_combined_deg_nodata': tr('No data'),
+
+    'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
+    'combined_sdg_deg_deg': tr('Degradation'),
+    'combined_sdg_deg_stable': tr('Stable'),
+    'combined_sdg_deg_imp': tr('Improvement'),
+    'combined_sdg_deg_nodata': tr('No data'),
+}
+
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -477,14 +480,14 @@ def add_layer(f, band_info, style):
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                     QtGui.QColor(item['color']),
-                     style_text_dict[item['label']]))
+                                                      QtGui.QColor(item['color']),
+                                                      style_text_dict[item['label']]))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
-        # TODO: This should be done block by block to prevent running out of 
-        # memory on large rasters - and it should be done in GEE for GEE loaded 
+        # TODO: This should be done block by block to prevent running out of
+        # memory on large rasters - and it should be done in GEE for GEE loaded
         # rasters.
-        # Set a colormap centred on zero, going to the extreme value 
+        # Set a colormap centred on zero, going to the extreme value
         # significant to three figures (after a 2 percent stretch)
         ds = gdal.Open(f)
         d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
@@ -497,21 +500,21 @@ def add_layer(f, band_info, style):
                        round_to_n(abs(cutoffs[1]), sf)])
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-extreme,
-                 QtGui.QColor(style['ramp']['min']['color']),
-                 '{}'.format(-extreme)))
+                                                  QtGui.QColor(style['ramp']['min']['color']),
+                                                  '{}'.format(-extreme)))
         r.append(QgsColorRampShader.ColorRampItem(0,
-                 QtGui.QColor(style['ramp']['zero']['color']),
-                 '0'))
+                                                  QtGui.QColor(style['ramp']['zero']['color']),
+                                                  '0'))
         r.append(QgsColorRampShader.ColorRampItem(extreme,
-                 QtGui.QColor(style['ramp']['max']['color']),
-                 '{}'.format(extreme)))
+                                                  QtGui.QColor(style['ramp']['max']['color']),
+                                                  '{}'.format(extreme)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                 QtGui.QColor(style['ramp']['no data']['color']),
-                 style_text_dict[style['ramp']['no data']['label']]))
+                                                  QtGui.QColor(style['ramp']['no data']['color']),
+                                                  style_text_dict[style['ramp']['no data']['label']]))
 
     elif style['ramp']['type'] == 'min zero max 98 percent stretch':
-        # TODO: This should be done block by block to prevent running out of 
-        # memory on large rasters - and it should be done in GEE for GEE loaded 
+        # TODO: This should be done block by block to prevent running out of
+        # memory on large rasters - and it should be done in GEE for GEE loaded
         # rasters.
         # Set a colormap from zero to 98th percentile significant to
         # three figures (after a 2 percent stretch)
@@ -524,20 +527,20 @@ def add_layer(f, band_info, style):
         log('Cutoff for min zero max 98 stretch: {}'.format(cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
-                 QtGui.QColor(style['ramp']['zero']['color']),
-                 '0'))
+                                                  QtGui.QColor(style['ramp']['zero']['color']),
+                                                  '0'))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                 QtGui.QColor(style['ramp']['max']['color']),
-                 '{}'.format(cutoff)))
+                                                  QtGui.QColor(style['ramp']['max']['color']),
+                                                  '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                 QtGui.QColor(style['ramp']['no data']['color']),
-                 style_text_dict[style['ramp']['no data']['label']]))
+                                                  QtGui.QColor(style['ramp']['no data']['color']),
+                                                  style_text_dict[style['ramp']['no data']['label']]))
 
     else:
         log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
         QtGui.QMessageBox.critical(None,
-                tr("Error"),
-                tr("Failed to load trends.earth style. Adding layer using QGIS defaults."))
+                                   tr("Error"),
+                                   tr("Failed to load trends.earth style. Adding layer using QGIS defaults."))
         return None
 
     fcn = QgsColorRampShader()

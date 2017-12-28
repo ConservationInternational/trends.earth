@@ -8,7 +8,7 @@
         begin                : 2017-05-23
         git sha              : $Format:%H$
         copyright            : (C) 2017 by Conservation International
-        email                : GEF-LDMP@conservation.org
+        email                : trends.earth@conservation.org
  ***************************************************************************/
 """
 
@@ -24,15 +24,12 @@ from LDMP.calculate_lc import DlgCalculateLCBase
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from LDMP.api import run_script
 
+
 class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
     def __init__(self, parent=None):
         super(DlgCalculateSOC, self).__init__(parent)
 
         self.setupUi(self)
-        
-        self.baseline_box.setEnabled(False)
-        self.target_box.setEnabled(False)
-        self.remap_box.setEnabled(False)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -64,4 +61,3 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                            QtGui.QApplication.translate("LDMP", "Unable to submit soil organic carbon task to Google Earth Engine."),
                            level=0, duration=5)
-

@@ -35,7 +35,7 @@ from qgis.utils import showPluginHelp
 import LDMP.resources
 
 # with (open(os.path.join(os.path.dirname(__file__), 'metadata.txt')))
-# __version__ = 
+# __version__ =
 
 
 def showHelp(file='index', section=None):

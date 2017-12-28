@@ -8,7 +8,7 @@
         begin                : 2017-05-23
         git sha              : $Format:%H$
         copyright            : (C) 2017 by Conservation International
-        email                : GEF-LDMP@conservation.org
+        email                : trends.earth@conservation.org
  ***************************************************************************/
 """
 
@@ -36,7 +36,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.setupUi(self)
 
-        self.traj_indic.addItems(self.scripts['productivity_trajectory'].keys())
+        self.traj_indic.addItems(self.scripts['productivity_trajectory']['functions'].keys())
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
         self.dataset_climate_update()
@@ -86,7 +86,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        climate_types = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['climate types']
+        climate_types = self.scripts['productivity_trajectory']['functions'][self.traj_indic.currentText()]['climate types']
         for climate_type in climate_types:
             self.climate_datasets.update(self.datasets[climate_type])
             self.traj_climate.addItems(self.datasets[climate_type].keys())
@@ -185,9 +185,12 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
         # This will add in the method parameter
-        payload.update(self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['params'])
+        payload.update(self.scripts['productivity_trajectory']['functions'][self.traj_indic.currentText()]['params'])
 
-        gee_script = self.scripts['productivity_trajectory'][self.traj_indic.currentText()]['script id']
+        # All of the productivity trajectory indicators are within the same
+        # script - the "functions" are all within a single GEE script so they
+        # all have the same script id.
+        gee_script = self.scripts['productivity_trajectory']['script id']
 
         resp = run_script(gee_script, payload)
 

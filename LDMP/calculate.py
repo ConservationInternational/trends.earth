@@ -32,6 +32,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
 
         self.setupUi(self)
 
+
 class DlgCalculate(QtGui.QDialog, UiDialog):
     def __init__(self, parent=None):
         super(DlgCalculate, self).__init__(parent)
@@ -92,7 +93,7 @@ class DlgCalculateBase(QtGui.QDialog):
     def firstShow(self):
         self.area_tab = AreaWidget()
         self.TabBox.addTab(self.area_tab, self.tr('Area'))
-        
+
         # Add the area selector tab
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)

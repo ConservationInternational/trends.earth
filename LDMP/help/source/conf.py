@@ -161,7 +161,7 @@ html_static_path = ['static']
 
 html_show_sourcelink = False
 
-# Note the underscore SHOULD be used below as this is how the static folder is 
+# Note the underscore SHOULD be used below as this is how the static folder is
 # named by sphinx on generation.
 html_context = {
     'css_files': ['_static/custom.css'],

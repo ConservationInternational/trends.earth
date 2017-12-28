@@ -32,6 +32,7 @@ from LDMP.api import run_script
 # Number of classes in land cover dataset
 NUM_CLASSES = 7
 
+
 class VerticalLabel(QtGui.QLabel):
     def __init__(self, parent=None):
         super(VerticalLabel, self).__init__(parent)
@@ -86,7 +87,7 @@ class DlgCalculateLCBase(DlgCalculateBase):
             self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
             self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
 
-            # Setup the class table so that the table is defined if a user uses the 
+            # Setup the class table so that the table is defined if a user uses the
             # default and never accesses that dialog
             self.dlg_remap.setup_class_table()
 
@@ -148,6 +149,7 @@ class DlgCalculateLCBase(DlgCalculateBase):
 
         return True
 
+
 class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
     def __init__(self, parent=None):
         super(DlgCalculateLC, self).__init__(parent)
@@ -155,13 +157,13 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.setupUi(self)
 
         # Extract trans_matrix from the QTableWidget
-        self.trans_matrix_default = [ 0,  1, -1, -1, -1, -1, -1, # forest
-                                      1,  0,  1, -1, -1, -1, -1, # grassland
-                                      1, -1,  0, -1, -1, -1, -1, # cropland
-                                     -1, -1, -1,  0, -1, -1, -1, # wetland
-                                      1,  1,  1,  1,  0, -1, -1, # artificial areas
-                                      1,  1,  1,  1,  1,  0, -1, # bare land
-                                      1,  1,  0,  0,  0,  0,  0] # water body
+        self.trans_matrix_default = [0, 1, -1, -1, -1, -1, -1, # forest
+                                     1, 0, 1, -1, -1, -1, -1, # grassland
+                                     1, -1, 0, -1, -1, -1, -1, # cropland
+                                     -1, -1, -1, 0, -1, -1, -1, # wetland
+                                     1, 1, 1, 1, 0, -1, -1, # artificial areas
+                                     1, 1, 1, 1, 1, 0, -1, # bare land
+                                     1, 1, 0, 0, 0, 0, 0] # water body
         for row in range(0, self.transMatrix.rowCount()):
             for col in range(0, self.transMatrix.columnCount()):
                 line_edit = TransMatrixEdit()
@@ -206,7 +208,6 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.year_target.setMinimumDate(lc_start_year)
         self.year_target.setMaximumDate(lc_end_year)
 
-
     def trans_matrix_loadfile(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
                                               self.tr('Select a transition matrix definition file'),
@@ -223,9 +224,9 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
 
         with open(f) as matrix_file:
             matrix = json.load(matrix_file)
-        
+
         flag = False
-        if isinstance(matrix, list) and len(matrix) == NUM_CLASSES*NUM_CLASSES:
+        if isinstance(matrix, list) and len(matrix) == NUM_CLASSES * NUM_CLASSES:
             flag = self.trans_matrix_set(matrix)
 
         if not flag:
@@ -399,7 +400,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             self.update_remap_matrix()
 
-            # Emit the filename so it can be used to update the filename field 
+            # Emit the filename so it can be used to update the filename field
             # in the parent dialog
             self.remap_file_updated.emit(f)
 
@@ -445,13 +446,13 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         return out
 
     def setup_class_table(self, f=None):
-        default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 
+        default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                           'data', 'land_cover_classes.json')
         if not f:
             f = default_class_file
         with open(f) as class_file:
             classes = json.load(class_file)
-        
+
         if (not isinstance(classes, list)
                 or not len(classes) > 0
                 or not isinstance(classes[0], dict)

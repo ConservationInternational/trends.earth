@@ -17,12 +17,13 @@ import sys
 
 from PyQt4 import QtGui, uic
 
-# Need to use this below approach to load the dialog to about the import 
+# Need to use this below approach to load the dialog to about the import
 # resources_rc problem you get with QGIS plugins when loading resources. See:
 # https://gis.stackexchange.com/a/202162/25916
 sys.path.append(os.path.dirname(__file__))
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'gui', 'DlgAbout.ui'),
                                resource_suffix='')
+
 
 class DlgAbout(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):

@@ -27,7 +27,7 @@ def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
     """
     logger.debug("Entering soc function.")
 
-    regime   = 'temp_dry' # climate regime: 'temp_dry', 'temp_moist', 'trop_dry', 'trop_moist', 'trop_mont'
+    regime = 'temp_dry' # climate regime: 'temp_dry', 'temp_moist', 'trop_dry', 'trop_moist', 'trop_mont'
 
     if (regime == 'temp_dry')   {fl = 0.80}
     if (regime == 'temp_moist') {fl = 0.69}
@@ -40,12 +40,12 @@ def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
 
     ## target land cover map reclassified to IPCC 6 classes
     lc_tg = lc.select('y{}'.format(year_target))\
-            .remap(remap_matrix[0], remap_matrix[1])
+        .remap(remap_matrix[0], remap_matrix[1])
 
     ## baseline land cover map reclassified to IPCC 6 classes
     lc_bl = lc.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1))\
-            .reduce(ee.Reducer.mode())\
-            .remap(remap_matrix[0], remap_matrix[1])
+        .reduce(ee.Reducer.mode())\
+        .remap(remap_matrix[0], remap_matrix[1])
 
     ## compute transition map (first digit for baseline land cover, and second digit for target year land cover)
     lc_tr = lc_bl.multiply(10).add(lc_tg)
@@ -55,58 +55,58 @@ def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
     soc_ini = soc.updateMask(soc.neq(-32768))
 
     # stock change factor for land use
-    lc_tr_fl = lc_tr.remap([11,  12,  13,  14,  15,   16,  17,
-                            21,  22,  23,  24,  25,   26,  27,
-                            31,  32,  33,  34,  35,   36,  37,
-                            41,  42,  43,  44,  45,   46,  47,
-                            51,  52,  53,  54,  55,   56,  57,
-                            61,  62,  63,  64,  65,   66,  67,
-                            71,  72,  73,  74,  75,   76,  77],
-                           [ 1,   1,  fl,   1, 0.1,  0.1,   0,
-                             1,   1,  fl,   1, 0.1,  0.1,   0,
-                             1/fl,1/fl,1, 1/0.71, 0.1, 0.1, 0,
-                             1,   1, 0.71,  1, 0.1,  0.1,   0,
-                             10, 10,  10,  10,   1,    1,   0,
-                             10, 10,  10,  10,   1,    1,   0,
-                              0,  0,   0,   0,   0,    0,   0])
+    lc_tr_fl = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
+                            21, 22, 23, 24, 25, 26, 27,
+                            31, 32, 33, 34, 35, 36, 37,
+                            41, 42, 43, 44, 45, 46, 47,
+                            51, 52, 53, 54, 55, 56, 57,
+                            61, 62, 63, 64, 65, 66, 67,
+                            71, 72, 73, 74, 75, 76, 77],
+                           [1, 1, fl, 1, 0.1, 0.1, 0,
+                            1, 1, fl, 1, 0.1, 0.1, 0,
+                            1 / fl, 1 / fl, 1, 1 / 0.71, 0.1, 0.1, 0,
+                            1, 1, 0.71, 1, 0.1, 0.1, 0,
+                            10, 10, 10, 10, 1, 1, 0,
+                            10, 10, 10, 10, 1, 1, 0,
+                            0, 0, 0, 0, 0, 0, 0])
 
     # stock change factor for management regime
     lc_tr_fm = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
-                                21, 22, 23, 24, 25, 26, 27,
-                                31, 32, 33, 34, 35, 36, 37,
-                                41, 42, 43, 44, 45, 46, 47,
-                                51, 52, 53, 54, 55, 56, 57,
-                                61, 62, 63, 64, 65, 66, 67,
-                                71, 72, 73, 74, 75, 76, 77], 
-                               [ 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1])
+                            21, 22, 23, 24, 25, 26, 27,
+                            31, 32, 33, 34, 35, 36, 37,
+                            41, 42, 43, 44, 45, 46, 47,
+                            51, 52, 53, 54, 55, 56, 57,
+                            61, 62, 63, 64, 65, 66, 67,
+                            71, 72, 73, 74, 75, 76, 77],
+                           [1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1])
 
     # stock change factor for input of organic matter
     lc_tr_fo = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
-                                21, 22, 23, 24, 25, 26, 27,
-                                31, 32, 33, 34, 35, 36, 37,
-                                41, 42, 43, 44, 45, 46, 47,
-                                51, 52, 53, 54, 55, 56, 57,
-                                61, 62, 63, 64, 65, 66, 67,
-                                71, 72, 73, 74, 75, 76, 77], 
-                               [ 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1,
-                                 1,  1,  1,  1,  1,  1,  1])
+                            21, 22, 23, 24, 25, 26, 27,
+                            31, 32, 33, 34, 35, 36, 37,
+                            41, 42, 43, 44, 45, 46, 47,
+                            51, 52, 53, 54, 55, 56, 57,
+                            61, 62, 63, 64, 65, 66, 67,
+                            71, 72, 73, 74, 75, 76, 77],
+                           [1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1])
 
     soc_fin = soc_ini.subtract((((soc_ini.subtract((soc_ini.
                                                     multiply(lc_tr_fl).
                                                     multiply(lc_tr_fm).
                                                     multiply(lc_tr_fo)))).
-                                  divide(20)).multiply(year_target-year_bl_start)))
+                                 divide(20)).multiply(year_target - year_bl_start)))
 
     soc_pch = ((soc_fin.subtract(soc_ini)).divide(soc_ini)).multiply(100)
 

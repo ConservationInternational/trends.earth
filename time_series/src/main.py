@@ -29,44 +29,45 @@ def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
     logger.debug("Entering zonal_stats function.")
 
     region = ee.Geometry(geojson)
-    
+
     image = ee.Image(gee_dataset).clip(region)
     scale = ee.Number(image.projection().nominalScale()).getInfo()
-    
+
     ## This produces an average of the region over the image by year
     ## Source: https://developers.google.com/earth-engine/reducers_reduce_region
     reducers = ee.Reducer.mean() \
         .combine(reducer2=ee.Reducer.min(), sharedInputs=True) \
         .combine(reducer2=ee.Reducer.max(), sharedInputs=True) \
+        .combine(reducer2=ee.Reducer.mode(), sharedInputs=True) \
         .combine(reducer2=ee.Reducer.stdDev(), sharedInputs=True)
     statsDictionary = image.reduceRegion(reducer=reducers, geometry=region, scale=scale, maxPixels=1e13)
-    
+
     binaryImage = image.gt(0)
     reducers = ee.Reducer.sum() \
         .combine(reducer2=ee.Reducer.count(), sharedInputs=True)
-    countDictionary = binaryImage.reduceRegion(reducer=reducers, geometry=region, scale=scale,  maxPixels=1e13)
-    
-    ## Creates a combined reducer for both count and sum 
-    ## NOTE: sum is the number of pixels greater than 0, (count-sum) is the number of pixels less than or equal to 0.  
+    countDictionary = binaryImage.reduceRegion(reducer=reducers, geometry=region, scale=scale, maxPixels=1e13)
+
+    ## Creates a combined reducer for both count and sum
+    ## NOTE: sum is the number of pixels greater than 0, (count-sum) is the number of pixels less than or equal to 0.
     ## Calculate counts of GT 0 and LE 0
     bandNames = image.bandNames()
     keys = ee.List(['{}_count_1'.format(bn) for bn in bandNames.getInfo()])
     values = bandNames.map(lambda bn: ee.Number(countDictionary.get(ee.String(bn).cat('_sum'))))
-    count1Dictionary = ee.Dictionary.fromLists(keys, values);
-    
-    ## Combine the dictionaries at which point you'll have 96 different keys (16 years x 6 statistics).  
+    count1Dictionary = ee.Dictionary.fromLists(keys, values)
+
+    ## Combine the dictionaries at which point you'll have 96 different keys (16 years x 6 statistics).
     keys = ee.List(['{}_count_0'.format(bn) for bn in bandNames.getInfo()])
-    values = bandNames.map(lambda bn: ee.Number(countDictionary.get(ee.String(bn).cat('_count'))). \
+    values = bandNames.map(lambda bn: ee.Number(countDictionary.get(ee.String(bn).cat('_count'))).
                            subtract(ee.Number(countDictionary.get(ee.String(bn).cat('_sum')))))
     count0Dictionary = ee.Dictionary.fromLists(keys, values)
     ## Combine all dictionaries
     combineDictionary = statsDictionary \
         .combine(count1Dictionary) \
         .combine(count0Dictionary)
-    
+
     logger.debug("Calculating zonal_stats.")
     res = combineDictionary.getInfo()
-    
+
     logger.debug("Formatting results.")
     res_clean = {}
     for key, value in res.items():
@@ -92,6 +93,7 @@ def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
     json_result = timeseries_table_schema.dump(timeseries_table)
 
     return json_result
+
 
 def run(params, logger):
     """."""
@@ -119,7 +121,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    # output = productivity_trajectory(year_start, year_end, method, 
+    # output = productivity_trajectory(year_start, year_end, method,
     #         ndvi_gee_dataset, climate_gee_dataset, logger)
     json_result = zonal_stats(ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
 

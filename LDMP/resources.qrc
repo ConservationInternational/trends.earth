@@ -6,18 +6,17 @@
     <file>icons/CI_logo_small.png</file>
     <file>icons/NASA_logo_small.png</file>
     <file>icons/LU_logo_small.png</file>
-    <file>icons/icon-calculator.png</file>
-    <file>icons/icon-chart.png</file>
-    <file>icons/icon-clipboard.png</file>
-    <file>icons/icon-cloud-download.png</file>
-    <file>icons/icon-cog.png</file>
-    <file>icons/icon-folder.png</file>
-    <file>icons/icon-graph.png</file>
-    <file>icons/icon-globe.png</file>
-    <file>icons/icon-info.png</file>
-    <file>icons/icon-map-marker.png</file>
-    <file>icons/icon-wrench.png</file>
-    <file>icons/question-mark.png</file>
+    <file>icons/calculator.svg</file>
+    <file>icons/clipboard.svg</file>
+    <file>icons/cloud-download.svg</file>
+    <file>icons/cog.svg</file>
+    <file>icons/document.svg</file>
+    <file>icons/folder.svg</file>
+    <file>icons/graph.svg</file>
+    <file>icons/globe.svg</file>
+    <file>icons/info.svg</file>
+    <file>icons/map-marker.svg</file>
+    <file>icons/wrench.svg</file>
     <file>icons/spinner.gif</file>
   </qresource>
 </RCC>

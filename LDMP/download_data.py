@@ -128,7 +128,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
                        'task_name': self.task_name.text(),
                        'task_notes': self.task_notes.toPlainText()}
 
-            gee_script = self.scripts['download_data']['script id']
+            gee_script = 'download-data' + '-' + self.scripts['download-download']['script version']
 
             resp = run_script(gee_script, payload)
 

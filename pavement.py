@@ -5,14 +5,15 @@ import re
 import fnmatch
 import json
 import shutil
+import subprocess
 from tempfile import mkstemp
 
 from paver.easy import *
 from paver.doctools import html
 
 options(
-    gee=Bunch(
-    )
+    gefcli=path('C:/Users/azvol/Code/LandDegradation/gef-cli/gefcli'),
+    gefcli_venv_script=path('C:/Users/azvol/Code/LandDegradation/gef-cli/venv/Scripts/activate'),
 )
 
 
@@ -34,31 +35,38 @@ def _replace(file_path, regex, subst):
 ])
 def set_version(options):
     v = getattr(options, 'version', False)
+    v = v.replace('.', '_')
     if not v or not re.match("[0-9]+_[0-9]+", v):
-        print('Must specify a valid version (example: 0_36)')
+        print('Must specify a valid version (example: 0.36)')
         return
 
-    f = 'land_cover/configuration.json'
-    # Validate the version matches the regex
-
-    print('Setting version to {} in {}'.format(v, f))
-    id_regex = re.compile(', "id": "[0-9a-z-]*"')
-    _replace(f, id_regex, '')
-
+    id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
     name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+_[0-9]+)?"')
-    name_sub = '\g<1> ' + v + '"'
-    _replace(f, name_regex, name_sub)
 
-    # Update the trends.earth scripts.json
+    for subdir, dirs, files in os.walk('.'):
+        for file in files:
+            if file == 'configuration.json':
+                filepath = os.path.join(subdir, file)
+                # Validate the version matches the regex
+                print('Setting version to {} in {}'.format(v, filepath))
+                # Update the version string
+                _replace(filepath, name_regex, '\g<1> ' + v + '"')
+                # Clear the ID since a new one will be assigned due to the new name
+                _replace(filepath, id_regex, '')
 
 
-# def login(options):
-#
-#
-# def publish_all(options):
-#
-# def new_version(options):
-#     # Go through all GEE scripts and
+@task
+def publish_all(options):
+    dirs = next(os.walk('.'))[1]
+    # print('Activating venv...')
+    # subprocess.check_call(['source', options.gefcli_venv_script])
+    subprocess.check_call(['python', options.gefcli, 'login'])
+    for dir in dirs:
+        if os.path.exists(os.path.join(dir, 'configuration.json')):
+            print('Publishing {}...'.format(dir))
+            subprocess.check_call(['python', options.gefcli, 'publish'], cwd=dir)
+
+    #TODO: Make the scripts public after publishing
 
 
 @task

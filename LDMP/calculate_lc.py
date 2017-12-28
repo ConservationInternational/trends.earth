@@ -8,7 +8,7 @@
         begin                : 2017-05-23
         git sha              : $Format:%H$
         copyright            : (C) 2017 by Conservation International
-        email                : GEF-LDMP@conservation.org
+        email                : trends.earth@conservation.org
  ***************************************************************************/
 """
 

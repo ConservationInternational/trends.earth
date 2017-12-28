@@ -19,6 +19,7 @@ from landdegradation import GEEIOError
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 from landdegradation.productivity import productivity_trajectory
 
+
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
@@ -45,13 +46,13 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    output = productivity_trajectory(year_start, year_end, method, 
-            ndvi_gee_dataset, climate_gee_dataset, logger)
+    output = productivity_trajectory(year_start, year_end, method,
+                                     ndvi_gee_dataset, climate_gee_dataset, logger)
 
     ndvi_projection = ee.Image(ndvi_gee_dataset).projection()
-    task = util.export_to_cloudstorage(output.int16(), 
-            ndvi_projection, geojson, 'prod_trajectory', logger, 
-            EXECUTION_ID)
+    task = util.export_to_cloudstorage(output.int16(),
+                                       ndvi_projection, geojson, 'prod_trajectory', logger,
+                                       EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")

@@ -34,9 +34,6 @@ from qgis.utils import showPluginHelp
 # Initialize Qt resources from file resources.py
 import LDMP.resources
 
-# with (open(os.path.join(os.path.dirname(__file__), 'metadata.txt')))
-# __version__ =
-
 
 def showHelp(file='index', section=None):
     locale = QSettings().value('locale/userLocale')[0:2]

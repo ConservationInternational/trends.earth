@@ -114,13 +114,14 @@
     },
     "land_cover": {
         "Baseline land cover (7 class)": {
+            "title": "lc_bl_title",
             "ramp": {
                 "type": "categorical",
                 "shader": "exact",
                 "items": [
                     {"value": 1, "color": "#006d2c", "label": "lc_class_forest"},
                     {"value": 2, "color": "#d8d800", "label": "lc_class_grassland"},
-                    {"value": 3, "color": "#a5a500", "label": "lc_class_cropland"},
+                    {"value": 3, "color": "#a50f15", "label": "lc_class_cropland"},
                     {"value": 4, "color": "#71DEFD", "label": "lc_class_wetland"},
                     {"value": 5, "color": "#54278f", "label": "lc_class_artificial"},
                     {"value": 6, "color": "#DEB887", "label": "lc_class_bare"},
@@ -129,14 +130,15 @@
                 ]
             }
         },
-        "Target land cover (7 class)": {
+        "Target year land cover (7 class)": {
+            "title": "lc_tg_title",
             "ramp": {
                 "type": "categorical",
                 "shader": "exact",
                 "items": [
                     {"value": 1, "color": "#006d2c", "label": "lc_class_forest"},
                     {"value": 2, "color": "#d8d800", "label": "lc_class_grassland"},
-                    {"value": 3, "color": "#a5a500", "label": "lc_class_cropland"},
+                    {"value": 3, "color": "#a50f15", "label": "lc_class_cropland"},
                     {"value": 4, "color": "#71DEFD", "label": "lc_class_wetland"},
                     {"value": 5, "color": "#54278f", "label": "lc_class_artificial"},
                     {"value": 6, "color": "#DEB887", "label": "lc_class_bare"},
@@ -148,6 +150,28 @@
         "ESA CCI classes": {
         },
         "Land cover transitions": {
+            "title": "lc_tr_title",
+            "ramp": {
+                "type": "categorical",
+                "shader": "discrete",
+                "items": [
+                    {"value": 1, "color": "#c6ded0", "label": "lc_tr_forest_persist"},
+                    {"value": 2, "color": "#f6f6c6", "label": "lc_tr_grassland_persist"},
+                    {"value": 3, "color": "#ebc9cb", "label": "lc_tr_cropland_persist"},
+                    {"value": 4, "color": "#dff8ff", "label": "lc_tr_wetland_persist"},
+                    {"value": 5, "color": "#d9cfe6", "label": "lc_tr_artificial_persist"},
+                    {"value": 6, "color": "#f8efe4", "label": "lc_tr_bare_persist"},
+                    {"value": 7, "color": "#d3d7f6", "label": "lc_tr_water_persist"},
+                    {"value": 19, "color": "#006d2c", "label": "lc_tr_forest_loss"},
+                    {"value": 29, "color": "#d8d800", "label": "lc_tr_grassland_loss"},
+                    {"value": 39, "color": "#a50f15", "label": "lc_tr_cropland_loss"},
+                    {"value": 49, "color": "#71DEFD", "label": "lc_tr_wetland_loss"},
+                    {"value": 59, "color": "#54278f", "label": "lc_tr_artificial_loss"},
+                    {"value": 69, "color": "#DEB887", "label": "lc_tr_bare_loss"},
+                    {"value": 79, "color": "#3A4DD6", "label": "lc_tr_water_loss"},
+                    {"value": 9999, "color": "#000000", "label": "lc_tr_nodata"}
+                ]
+            }
         },
         "Land cover degradation": {
             "title": "lc_deg_title",

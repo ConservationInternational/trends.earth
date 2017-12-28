@@ -42,6 +42,9 @@ from LDMP.api import get_script, get_user_email, get_execution
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
 
+# Store layer titles and label text in a dictionary here so that it can be 
+# translated - if it were in the syles JSON then gettext would not have access 
+# to these strings.
 style_text_dict = {
         # Productivity trajectory
         'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
@@ -347,17 +350,21 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 break
 
         if need_dir:
-            download_dir = QtGui.QFileDialog.getExistingDirectory(self,
-                                                                  self.tr("Directory to save files"),
-                                                                  self.settings.value("LDMP/download_dir", None),
-                                                                  QtGui.QFileDialog.ShowDirsOnly)
-            if download_dir:
-                if os.access(download_dir, os.W_OK):
-                    self.settings.setValue("LDMP/download_dir", download_dir)
-                    log("Downloading results to {}".format(download_dir))
+            f = QtGui.QFileDialog.getSaveFileName(self,
+                                                  self.tr('Choose a base filename for this download'),
+                                                  self.settings.value("LDMP/download_dir", None),
+                                                  self.tr('Base filename (*.json)'))
+
+            # Strip the extension so that it is a basename
+            f = os.path.splitext(f)[0]
+
+            if f:
+                if os.access(os.path.dirname(f), os.W_OK):
+                    self.settings.setValue("LDMP/download_dir", os.path.dirname(f))
+                    log("Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                 else:
                     QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Cannot write to {}. Choose a different folder.".format(download_dir)))
+                                               self.tr("Cannot write to {}. Choose a different base filename.".format(f)))
                     return False
             else:
                 return False
@@ -372,11 +379,11 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                                               'prod_performance',
                                               'land_cover',
                                               'soil_organic_carbon']:
-                download_job(job)
+                download_job(job, f)
             elif job['results'].get('type') == 'timeseries':
                 download_timeseries(job, self.tr)
             elif job['results'].get('type') == 'download':
-                download_dataset(job, download_dir, self.tr)
+                download_dataset(job, f, self.tr)
             else:
                 raise ValueError("Unrecognized result type in download results: {}".format(job['results'].get('type')))
 
@@ -426,7 +433,6 @@ class JobsTableModel(QAbstractTableModel):
 
 
 def download_result(url, outfile, job):
-    log("Downloading {}".format(url))
     worker = Download(url, outfile)
     worker.start()
     if worker.get_resp():
@@ -436,27 +442,24 @@ def download_result(url, outfile, job):
         return None
 
 
-def download_dataset(job, download_dir, tr):
+def download_dataset(job, f, tr):
     log("downloading dataset...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
-            log('out_dir: {}'.format(download_dir))
-            log('out_file: {}'.format(url['url'].rsplit('/', 1)[-1]))
-            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            resp = download_result(url['url'], outfile, job)
+            log('Output basename: {}'.format(f))
+            resp = download_result(url['url'], f, job)
             if not resp:
                 return
             mb.pushMessage(tr("Downloaded"),
-                           tr("Downloaded dataset to {}".format(outfile)),
+                           tr("Downloaded dataset to {}".format(f)),
                            level=0, duration=5)
 
 
-def download_job(job, download_dir):
+def download_job(job, f):
     log("downloading land_cover results...")
     for dataset in job['results'].get('datasets'):
         for url in dataset.get('urls'):
-            outfile = os.path.join(download_dir, url['url'].rsplit('/', 1)[-1])
-            resp = download_result(url['url'], outfile, job)
+            resp = download_result(url['url'], f + '.tif', job)
             if not resp:
                 return
                 add_layer(outfile, band_info, style)

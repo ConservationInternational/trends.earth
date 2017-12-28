@@ -145,7 +145,7 @@ class Download(object):
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
             start_worker(worker, iface,
-                         QtGui.QApplication.translate("LDMP", 'Downloading {}').format(self.url.rsplit('/', 1)[-1]))
+                         QtGui.QApplication.translate("LDMP", 'Downloading {}').format(self.outfile))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()

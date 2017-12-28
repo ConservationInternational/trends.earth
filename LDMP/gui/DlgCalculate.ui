@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>289</width>
-    <height>67</height>
+    <width>424</width>
+    <height>90</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -71,7 +71,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Soil Carbon</string>
+      <string>Soil Organic Carbon</string>
      </property>
     </widget>
    </item>

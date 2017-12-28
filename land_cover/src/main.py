@@ -19,8 +19,9 @@ from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 
-def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix, 
-        remap_matrix, EXECUTION_ID, logger):
+
+def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
+               remap_matrix, EXECUTION_ID, logger):
     """
     Calculate land cover indicator.
     """
@@ -30,16 +31,19 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
 
     ## target land cover map reclassified to IPCC 6 classes
-    lc_tg = lc.select('y{}'.format(year_target))\
-            .remap(remap_matrix[0], remap_matrix[1])
+    lc_tg_raw = lc.select('y{}'.format(year_target))
+    lc_tg_remapped = lc_tg_raw.remap(remap_matrix[0], remap_matrix[1])
 
+    ## baseline land cover map raw data
+    lc_bl_raw = lc.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1)) \
+        .reduce(ee.Reducer.mode())
     ## baseline land cover map reclassified to IPCC 6 classes
-    lc_bl = lc.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1))\
-            .reduce(ee.Reducer.mode())\
-            .remap(remap_matrix[0], remap_matrix[1])
+    lc_bl_remapped = lc_bl_raw \.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1))\
+        .reduce(ee.Reducer.mode())\
+        .remap(remap_matrix[0], remap_matrix[1])
 
     ## compute transition map (first digit for baseline land cover, and second digit for target year land cover)
-    lc_tr = lc_bl.multiply(10).add(lc_tg)
+    lc_tr = lc_bl_remapped.multiply(10).add(lc_tg_remapped)
 
     ## definition of land cover transitions as degradation (-1), improvement (1), or no relevant change (0)
     lc_dg = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
@@ -54,12 +58,18 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     ## soc
     soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
 
-    lc_out = lc_bl.addBands(lc_tg).addBands(lc_tr).addBands(lc_dg).addBands(soc)
+    lc_out = lc_bl_remapped \
+        .addBands(lc_tg_remapped) \
+        .addBands(lc_tr) \
+        .addBands(lc_dg) \
+        .addBands(soc) \
+        .addBands(lc_bl_raw) \
+        .addBands(lc_tg_raw)
 
     # Create export function to export land deg image
-    task = util.export_to_cloudstorage(lc_out.int16(), 
-            lc.projection(), geojson, 'land_cover', logger, 
-            EXECUTION_ID)
+    task = util.export_to_cloudstorage(lc_out.int16(),
+                                       lc.projection(), geojson, 'land_cover', logger,
+                                       EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
@@ -70,6 +80,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
 
     return json_results
 
+
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
@@ -77,20 +88,20 @@ def run(params, logger):
     year_bl_end = params.get('year_bl_end', 2015)
     year_target = params.get('year_target', 2015)
     geojson = params.get('geojson', util.tza_geojson)
-    trans_matrix_default = [0,  1,  1,  1, -1,  0, -1,
-                           -1,  0, -1, -1, -1, -1, -1,
-                           -1,  1,  0,  0, -1, -1, -1,
-                           -1, -1, -1,  0, -1, -1,  0,
-                            1,  1,  1,  1,  0,  0, -1,
-                            1,  1,  1,  1, -1,  0,  0,
-                            1,  1,  0,  0,  0,  0,  0]
+    trans_matrix_default = [0, 1, 1, 1, -1, 0, -1,
+                            -1, 0, -1, -1, -1, -1, -1,
+                            -1, 1, 0, 0, -1, -1, -1,
+                            -1, -1, -1, 0, -1, -1, 0,
+                            1, 1, 1, 1, 0, 0, -1,
+                            1, 1, 1, 1, -1, 0, 0,
+                            1, 1, 0, 0, 0, 0, 0]
     trans_matrix = params.get('trans_matrix', trans_matrix_default)
-    remap_matrix_default = [[10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72, 
-                             80, 81, 82, 90, 100, 110, 120, 121, 122, 130, 140, 
-                             150, 151, 152, 153, 160, 170, 180, 190, 200, 201, 
+    remap_matrix_default = [[10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72,
+                             80, 81, 82, 90, 100, 110, 120, 121, 122, 130, 140,
+                             150, 151, 152, 153, 160, 170, 180, 190, 200, 201,
                              202, 210, 220],
-                            [3, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-                             1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4, 4, 5, 6, 6, 
+                            [3, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                             1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4, 4, 5, 6, 6,
                              6, 7, 6]]
     remap_matrix = params.get('remap_matrix', remap_matrix_default)
 
@@ -112,7 +123,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = land_cover(year_bl_start, year_bl_end, year_target, geojson, 
-            trans_matrix, remap_matrix, EXECUTION_ID, logger)
+    json_results = land_cover(year_bl_start, year_bl_end, year_target, geojson,
+                              trans_matrix, remap_matrix, EXECUTION_ID, logger)
 
     return json_results.data

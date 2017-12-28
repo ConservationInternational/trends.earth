@@ -80,14 +80,34 @@ style_text_dict = {
         'prod_state_classes_tg_nodata': tr('No data'),
 
         # Land cover
-        'lc_class_forest': tr('Forest)'),
-        'lc_class_grassland': tr('Grassland)'),
-        'lc_class_cropland': tr('Cropland)'),
-        'lc_class_wetland': tr('Wetland)'),
-        'lc_class_artificial': tr('Artificial area)'),
-        'lc_class_bare': tr('Bare land)'),
-        'lc_class_water': tr('Water body)'),
-        'lc_class_nodata': tr('No data)'),
+        'lc_bl_title': tr('Land cover (baseline)'),
+        'lc_tg_title': tr('Land cover (target)'),
+        'lc_tr_title': tr('Land cover (transitions)'),
+
+        'lc_class_forest': tr('Forest'),
+        'lc_class_grassland': tr('Grassland'),
+        'lc_class_cropland': tr('Cropland'),
+        'lc_class_wetland': tr('Wetland'),
+        'lc_class_artificial': tr('Artificial area'),
+        'lc_class_bare': tr('Bare land'),
+        'lc_class_water': tr('Water body'),
+        'lc_class_nodata': tr('No data'),
+
+        'lc_tr_forest_persist': tr('Forest persistence'),
+        'lc_tr_forest_loss': tr('Forest loss'),
+        'lc_tr_grassland_persist': tr('Grassland persistence'),
+        'lc_tr_grassland_loss': tr('Grassland loss'),
+        'lc_tr_cropland_persist': tr('Cropland persistence'),
+        'lc_tr_cropland_loss': tr('Cropland loss'),
+        'lc_tr_wetland_persist': tr('Wetland persistence'),
+        'lc_tr_wetland_loss': tr('Wetland loss'),
+        'lc_tr_artificial_persist': tr('Artificial area persistence'),
+        'lc_tr_artificial_loss': tr('Artificial area loss'),
+        'lc_tr_bare_persist': tr('Bare land persistence'),
+        'lc_tr_bare_loss': tr('Bare land loss'),
+        'lc_tr_water_persist': tr('Water body persistence'),
+        'lc_tr_water_loss': tr('Water body loss'),
+        'lc_tr_nodata': tr('No data'),
 
         'lc_deg_title': tr('Land cover degradation'),
         'lc_deg_deg': tr('Degradation'),
@@ -124,7 +144,7 @@ def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
-    raise TypeError("Type %s not serializable" % type(obj))
+    raise TypeError("Type {} not serializable".format(type(obj)))
 
 
 def create_json_metadata(job, outfile):
@@ -177,7 +197,6 @@ def get_percentile(f, band_info, p):
             d = np.array(b.ReadAsArray(x, y, cols, rows)).astype(np.float)
             for nodata_value in band_info['no data value']:
                 d[d == nodata_value] = np.nan
-
             cutoffs = np.nanpercentile(d, p)
             # get rounded extreme value
             extreme = max([round_to_n(abs(cutoffs[0]), sf), round_to_n(abs(cutoffs[1]), sf)])
@@ -445,22 +464,18 @@ def download_job(job, download_dir):
                 raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
 
 
-def add_layer(outfile, band_info, style):
-    l = iface.addRasterLayer(outfile, style['title'])
+def add_layer(f, band_info, style):
+    l = iface.addRasterLayer(f, style_text_dict[style['title']])
     if not l.isValid():
         log('Failed to add layer')
         return None
-    fcn = QgsColorRampShader()
-    if fcn.setColorRampType(style['ramp']['shader']) == 'exact':
-        fcn.setColorRampType(QgsColorRampShader.EXACT)
-    else:
-        fcn.setColorRampType(QgsColorRampShader.INTERPOLATED)
+
     if style['ramp']['type'] == 'categorical':
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                      QtGui.QColor(item['color']),
-                     item['label']))
+                     style_text_dict[item['label']]))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of 
@@ -468,7 +483,7 @@ def add_layer(outfile, band_info, style):
         # rasters.
         # Set a colormap centred on zero, going to the extreme value 
         # significant to three figures (after a 2 percent stretch)
-        ds = gdal.Open(outfile)
+        ds = gdal.Open(f)
         d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
         for nodata_value in band_info['no data value']:
             d[d == nodata_value] = np.nan
@@ -497,7 +512,7 @@ def add_layer(outfile, band_info, style):
         # rasters.
         # Set a colormap from zero to 98th percentile significant to
         # three figures (after a 2 percent stretch)
-        ds = gdal.Open(outfile)
+        ds = gdal.Open(f)
         d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
         for nodata_value in band_info['no data value']:
             d[d == nodata_value] = np.nan
@@ -523,7 +538,14 @@ def add_layer(outfile, band_info, style):
         return None
 
     fcn = QgsColorRampShader()
-
+    if style['ramp']['shader'] == 'exact':
+        fcn.setColorRampType("EXACT")
+    elif style['ramp']['shader'] == 'discrete':
+        fcn.setColorRampType("DISCRETE")
+    elif style['ramp']['shader'] == 'interpolated':
+        fcn.setColorRampType("INTERPOLATED")
+    else:
+        raise TypeError("Unrecognized color ramp type: {}".format(style['ramp']['shader']))
     fcn.setColorRampItemList(r)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)

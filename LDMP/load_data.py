@@ -94,12 +94,17 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
         self.file_lineedit.textChanged.connect(self.update_details)
 
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'styles.json')) as script_file:
+            self.styles = json.load(script_file)
+
+        self.buttonBox.accepted.connect(self.ok_clicked)
+        self.buttonBox.rejected.connect(self.cancel_clicked)
+
     def showEvent(self, e):
         super(DlgLoadData, self).showEvent(e)
 
         self.file_lineedit.clear()
-        self.buttonBox.accepted.connect(self.ok_clicked)
-        self.buttonBox.rejected.connect(self.cancel_clicked)
 
     def browse_file(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
@@ -126,16 +131,26 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.close()
 
     def ok_clicked(self):
+        self.close()
         layers = []
         for i in self.layers_view.selectionModel().selectedIndexes():
-            layers.append(self.layers_model.itemFromIndex(i).text())
+            layers.append(i.data())
         if len(layers) > 0:
-            self.close()
             for layer in layers:
-                log('Adding "{}" layer from {}'.format(layer, self.file_lineedit.text()))
                 results = get_results(self.file_lineedit.text())
-                band_info = results['datasets']
-                add_layer(self.file_lineedit.text(), layer)
+                if results:
+                    if results['local_files']['format'] == 'tif':
+                        f = os.path.splitext(self.file_lineedit.text())[0] + '.tif'
+                    elif results['local_files']['format'] == 'vrt':
+                        f = os.path.splitext(self.file_lineedit.text())[0] + '.vrt'
+                    else:
+                        raise ValueError("Unrecognized local file format in download results: {}".format(results['local_files']['format']))
+                    log('Adding "{}" layer from {}'.format(layer, f))
+                    add_layer(f,
+                              results['datasets'][layer],
+                              self.styles[results['type']][layer])
+                else:
+                    log('Error loading "{}" results from {}'.format(layer, self.file_lineedit.text()))
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
 
@@ -143,7 +158,7 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         if self.file_lineedit.text():
             results = get_results(self.file_lineedit.text())
             if results:
-                self.layers_model.setStringList([d['dataset'] for d in results['datasets']])
+                self.layers_model.setStringList(results['datasets'].keys())
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
                 self.layers_view.selectAll()
             else:

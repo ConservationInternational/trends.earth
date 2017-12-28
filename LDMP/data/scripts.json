@@ -1,14 +1,14 @@
 {
-    "timeseries": {
-        "script id": "3631bb89-2811-42d5-ac82-2a4cdcac96aa",
+    "time-series": {
+        "script version": "0-1",
         "description": "Calculate time series."
     },
-    "land_cover": {
-        "script id": "9a6e5eb6-953d-4993-a1da-23169da0382e",
+    "land-cover": {
+        "script version": "0-1",
         "description": "Calculate land cover change indicator."
     },
-    "productivity_trajectory": {
-        "script id": "13740fa7-4312-4cf2-829d-cdaee5a3d37c",
+    "productivity-trajectory": {
+        "script version": "0-1",
         "description": "Calculate productivity trajectory indicators.",
         "functions": {
             "NDVI trends": {
@@ -33,20 +33,20 @@
             }
         }
     },
-    "productivity_state": {
-        "script id": "cd03646c-9d4c-44a9-89ae-3309ae7bade3",
+    "productivity-state": {
+        "script version": "0-1",
         "description": "Calculate productivity state."
     },
-    "productivity_performance": {
-        "script id": "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82",
+    "productivity-performance": {
+        "script version": "0-1",
         "description": "Calculate productivity performance."
     },
-    "soil_organic_carbon": {
-        "script id": "3fc66de9-31cb-4e7f-9bd1-3fad8b1f89db",
+    "soil-organic-carbon": {
+        "script version": "0-1",
         "description": "Calculate soil organic carbon."
     },
-    "download_data": {
-        "script id": "67d2c614-aaac-4c38-9ca5-50be9ee83870",
+    "download-data": {
+        "script version": "0-1",
         "description": "Download data from Google Earth Engine assets."
     }
 }

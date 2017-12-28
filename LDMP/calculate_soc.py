@@ -49,7 +49,7 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
-        gee_script = self.scripts['soil_organic_carbon']['script id']
+        gee_script = 'soil-organic-carbon' + '-' + self.scripts['soil-organic-carbon']['script version']
 
         resp = run_script(gee_script, payload)
 

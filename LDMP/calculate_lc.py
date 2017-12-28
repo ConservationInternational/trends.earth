@@ -313,7 +313,7 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
-        gee_script = self.scripts['land_cover']['script id']
+        gee_script = 'land-cover' + '-' + self.scripts['land-cover']['script version']
 
         resp = run_script(gee_script, payload)
 

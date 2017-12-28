@@ -19,6 +19,7 @@ from landdegradation import GEEIOError
 
 from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
 
+
 def download(geojson, asset, EXECUTION_ID, logger):
     """
     Download dataset from GEE assets.
@@ -27,9 +28,9 @@ def download(geojson, asset, EXECUTION_ID, logger):
 
     d = ee.Image(asset)
 
-    task = util.export_to_cloudstorage(d.int16(), 
-            d.projection(), geojson, 'download', logger, 
-            EXECUTION_ID)
+    task = util.export_to_cloudstorage(d.int16(),
+                                       d.projection(), geojson, 'download', logger,
+                                       EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
@@ -39,6 +40,7 @@ def download(geojson, asset, EXECUTION_ID, logger):
     json_results = results_schema.dump(gee_results)
 
     return json_results
+
 
 def run(params, logger):
     """."""

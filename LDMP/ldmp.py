@@ -191,56 +191,56 @@ class LDMPPlugin:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
-            ':/plugins/LDMP/icons/icon-wrench.png',
+            ':/plugins/LDMP/icons/wrench.svg',
             text=QApplication.translate('LDMP', u'Settings'),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'LDMT Settings'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-calculator.png',
+            ':/plugins/LDMP/icons/calculator.svg',
             text=QApplication.translate('LDMP', u'Calculate indicators'),
             callback=self.run_calculate,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Calculate land degradation indicators'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-graph.png',
+            ':/plugins/LDMP/icons/graph.svg',
             text=QApplication.translate('LDMP', u'Plot data'),
             callback=self.run_plot,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Plot time series datasets'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-cloud-download.png',
+            ':/plugins/LDMP/icons/cloud-download.svg',
             text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
             callback=self.get_jobs,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-chart.png',
+            ':/plugins/LDMP/icons/document.svg',
             text=QApplication.translate('LDMP', u'Reporting tool'),
             callback=self.run_reporting,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Land degradation reporting'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-globe.png',
+            ':/plugins/LDMP/icons/globe.svg',
             text=QApplication.translate('LDMP', u'Download raw data'),
             callback=self.run_download,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-folder.png',
+            ':/plugins/LDMP/icons/folder.svg',
             text=QApplication.translate('LDMP', u'Load data'),
             callback=self.load_data,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Load local data'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/icon-info.png',
+            ':/plugins/LDMP/icons/info.svg',
             text=QApplication.translate('LDMP', u'About'),
             callback=self.run_about,
             parent=self.iface.mainWindow(),

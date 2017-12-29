@@ -17,23 +17,15 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
-def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
+def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
         EXECUTION_ID, logger):
     """
     Calculate SOC indicator.
     """
     logger.debug("Entering soc function.")
-
-    regime = 'temp_dry' # climate regime: 'temp_dry', 'temp_moist', 'trop_dry', 'trop_moist', 'trop_mont'
-
-    if (regime == 'temp_dry')   {fl = 0.80}
-    if (regime == 'temp_moist') {fl = 0.69}
-    if (regime == 'trop_dry')   {fl = 0.58}
-    if (regime == 'trop_moist') {fl = 0.48}
-    if (regime == 'trop_mont')  {fl = 0.64}
 
     ## land cover
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
@@ -119,8 +111,11 @@ def soc(year_bl_start, year_bl_end, year_target, geojson, remap_matrix,
 
     logger.debug("Setting up results JSON.")
     cloud_dataset = CloudDataset('geotiff', 'soil_organic_carbon', [CloudUrl(task.url())])
-    gee_results = GEEResults('soil_organic_carbon', [cloud_dataset])
-    results_schema = GEEResultsSchema()
+
+    d = [BandInfo("Soil organic carbon (7 class)", 1, no_data_value=-32768, add_to_map=True)
+
+    gee_results = CloudResults('soil_organic_carbon', d, u)
+    results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 
     return json_results
@@ -132,6 +127,13 @@ def run(params, logger):
     year_bl_start = params.get('year_bl_start', 2002)
     year_bl_end = params.get('year_bl_end', 2015)
     year_target = params.get('year_target', 2015)
+    fl = params.get('fl', .80) # Default to fl of .80 (temperate dry)
+    # if (regime == 'temp_dry')   {fl = 0.80}
+    # if (regime == 'temp_moist') {fl = 0.69}
+    # if (regime == 'trop_dry')   {fl = 0.58}
+    # if (regime == 'trop_moist') {fl = 0.48}
+    # if (regime == 'trop_mont')  {fl = 0.64}
+
     geojson = params.get('geojson', util.tza_geojson)
     remap_matrix_default = [[10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72,
                              80, 81, 82, 90, 100, 110, 120, 121, 122, 130, 140,
@@ -158,7 +160,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = soc(year_bl_start, year_bl_end, year_target, geojson,
+    json_results = soc(year_bl_start, year_bl_end, year_target, fl, geojson,
                        remap_matrix, EXECUTION_ID, logger)
 
     return json_results.data

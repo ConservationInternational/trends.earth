@@ -17,7 +17,7 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
 def download(geojson, asset, EXECUTION_ID, logger):

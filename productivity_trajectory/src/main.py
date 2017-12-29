@@ -16,7 +16,7 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 from landdegradation.productivity import productivity_trajectory
 
 
@@ -55,10 +55,11 @@ def run(params, logger):
                                        EXECUTION_ID)
     task.join()
 
-    logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', method, [CloudUrl(task.url())])
-    gee_results = GEEResults('prod_trajectory', [cloud_dataset])
-    results_schema = GEEResultsSchema()
-    json_result = results_schema.dump(gee_results)
+    d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=9999, add_to_map=True),
+         BandInfo("Productivity trajectory (significance)", 2, no_data_value=9999, add_to_map=True)]
+    u = URLList(task.get_URL_base(), task.get_files())
+    gee_results = CloudResults('prod_trajectory', d, u)
+    results_schema = CloudResultsSchema()
+    json_results = results_schema.dump(gee_results)
 
-    return json_result.data
+    return json_results.data

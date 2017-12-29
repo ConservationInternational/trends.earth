@@ -17,7 +17,7 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
 def productivity_state(year_bl_start, year_bl_end,
@@ -72,22 +72,27 @@ def productivity_state(year_bl_start, year_bl_end,
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p80')), 9) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p90')), 10)
 
-    # difference between start and end clusters >= 2
+    # difference between start and end clusters >= 2 means improvement (<= -2 
+    # is degradation)
     classes_chg = tg_classes.subtract(bl_classes)
-    # create final degradation output layer (9999 is background), 0 is not
-    # degraded, -1 is degraded, 1 is degraded
-    deg = ee.Image(9999).where(classes_chg.lte(-2), -1) \
-        .where(classes_chg.gte(-1).And(classes_chg.lte(1)), 0) \
-        .where(classes_chg.gte(2), 1)
 
-    out = deg.addBands(classes_chg)
+    out = classes_chg.addBands(bl_classes).addBands(tg_classes)
 
     task = util.export_to_cloudstorage(out.int16(),
                                        ndvi_1yr.projection(), geojson, 'prod_state', logger,
                                        EXECUTION_ID)
     task.join()
 
-    return task.url()
+    logger.debug("Setting up results JSON.")
+    d = [BandInfo("Productivity state (degradation)", 1, no_data_value=9999, add_to_map=True),
+         BandInfo("Productivity state (baseline class)", 2, no_data_value=9999, add_to_map=True),
+         BandInfo("Productivity state (target class)", 3, no_data_value=9999, add_to_map=True)]
+    u = URLList(task.get_URL_base(), task.get_files())
+    gee_results = CloudResults('prod_state', d, u)
+    results_schema = CloudResultsSchema()
+    json_results = results_schema.dump(gee_results)
+
+    return json_results
 
 
 def run(params, logger):
@@ -116,13 +121,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    url = productivity_state(year_bl_start, year_bl_end, year_tg_start,
-                             year_tg_end, ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
+    json_results = productivity_state(year_bl_start, year_bl_end, year_tg_start,
+                                      year_tg_end, ndvi_gee_dataset, geojson, 
+                                      EXECUTION_ID, logger)
 
-    logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'prod_state', [CloudUrl(url)])
-    gee_results = GEEResults('prod_state', [cloud_dataset])
-    results_schema = GEEResultsSchema()
-    json_result = results_schema.dump(gee_results)
-
-    return json_result.data
+    return json_results.data

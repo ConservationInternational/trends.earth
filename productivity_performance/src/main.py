@@ -17,7 +17,7 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
 def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
@@ -96,7 +96,16 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
                                        EXECUTION_ID)
     task.join()
 
-    return task.url()
+    logger.debug("Setting up results JSON.")
+    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=9999, add_to_map=True),
+         BandInfo("Productivity performance (ratio)", 2, no_data_value=9999, add_to_map=False),
+         BandInfo("Productivity performance (percentile)", 3, no_data_value=9999, add_to_map=False)]
+    u = URLList(task.get_URL_base(), task.get_files())
+    gee_results = CloudResults('prod_performance', d, u)
+    results_schema = CloudResultsSchema()
+    json_results = results_schema.dump(gee_results)
+
+    return json_results
 
 
 def run(params, logger):
@@ -123,13 +132,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    url = productivity_performance(year_start, year_end, ndvi_gee_dataset,
-                                   geojson, EXECUTION_ID, logger)
+    json_results = productivity_performance(year_start, year_end, ndvi_gee_dataset,
+                                            geojson, EXECUTION_ID, logger)
 
-    logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'prod_performance', [CloudUrl(url)])
-    gee_results = GEEResults('prod_performance', [cloud_dataset])
-    results_schema = GEEResultsSchema()
-    json_result = results_schema.dump(gee_results)
-
-    return json_result.data
+    return json_results.data

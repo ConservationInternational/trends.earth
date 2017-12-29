@@ -83,11 +83,10 @@ def _replace(file_path, regex, subst):
 ])
 def set_version(options):
     v = getattr(options, 'version', False)
+    # Validate the version matches the regex
     if not v or not re.match("[0-9]+[.][0-9]+", v):
         print('Must specify a valid version (example: 0.36)')
         return
-
-    # Validate the version matches the regex
      
     # Set in Sphinx docs in make.conf
     print('Setting version to {} in sphinx conf.py'.format(v))
@@ -99,10 +98,10 @@ def set_version(options):
     sphinx_regex = re.compile("^(version=)[0-9]+[.][0-9]+")
     _replace(os.path.join(options.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
     
-    # Set in ldmp.py
-    print('Setting version to {} in ldmp.py'.format(v))
-    ldmp_regex = re.compile('^(__version__ = ")[0-9]+[.][0-9]+')
-    _replace(os.path.join(options.source_dir, 'ldmp.py'), ldmp_regex, '\g<1>' + v)
+    # Set in __init__.py
+    print('Setting version to {} in __init__.py'.format(v))
+    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+    _replace(os.path.join(options.source_dir, '__init__.py'), init_regex, '\g<1>' + v)
     
 
 @task

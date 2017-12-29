@@ -17,11 +17,6 @@ import json
 import re
 
 import datetime
-from math import floor, log10
-
-import numpy as np
-from osgeo import gdal
-
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
@@ -68,41 +63,6 @@ def get_scripts():
         script_id = script.pop('id')
         scripts_dict[script_id] = script
     return scripts_dict
-
-
-def _round_to_n(x, sf=3):
-    'Function to round a positive value to n significant figures'
-    return round(x, -int(floor(log10(x))) + (sf - 1))
-
-
-#TODO: Figure out how to do block by block percentile
-def get_percentile(f, band_info, p):
-    '''Get percentiles of a raster dataset by block'''
-    ds = gdal.Open(outfile)
-    b = ds.GetRasterBand(band_info['band number'])
-
-    block_sizes = b.GetBlockSize()
-    x_block_size = block_sizes[0]
-    y_block_size = block_sizes[1]
-    xsize = b.XSize
-    ysize = b.YSize
-
-    for y in xrange(0, ysize, y_block_size):
-        if y + y_block_size < ysize:
-            rows = y_block_size
-        else:
-            rows = ysize - y
-        for x in xrange(0, xsize, x_block_size):
-            if x + x_block_size < xsize:
-                cols = x_block_size
-            else:
-                cols = xsize - x
-            d = np.array(b.ReadAsArray(x, y, cols, rows)).astype(np.float)
-            for nodata_value in band_info['no data value']:
-                d[d == nodata_value] = np.nan
-            cutoffs = np.nanpercentile(d, p)
-            # get rounded extreme value
-            extreme = max([round_to_n(abs(cutoffs[0]), sf), round_to_n(abs(cutoffs[1]), sf)])
 
 
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
@@ -341,7 +301,6 @@ def download_result(url, outfile, job):
 
 
 def download_cloud_results(job, f, tr):
-    log("downloading land_cover results...")
     results = job['results']
     if len(results['urls']['files']) > 1:
         raise DownloadError('GEE tasks resulting in multiple output files are not yet supported by trends.earth.')

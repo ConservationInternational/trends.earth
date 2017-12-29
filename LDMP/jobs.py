@@ -14,6 +14,7 @@
 
 import os
 import json
+import re
 
 import datetime
 from math import floor, log10
@@ -22,9 +23,7 @@ import numpy as np
 from osgeo import gdal
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt, QCoreApplication
-
-from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
+from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -36,114 +35,9 @@ from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
 
 from LDMP import log
-from LDMP.download import Download, check_hash_against_etag
+from LDMP.download import Download, check_hash_against_etag, DownloadError
+from LDMP.load_data import add_layer
 from LDMP.api import get_script, get_user_email, get_execution
-
-
-def tr(t):
-    return QCoreApplication.translate('LDMPPlugin', t)
-
-
-# Store layer titles and label text in a dictionary here so that it can be
-# translated - if it were in the syles JSON then gettext would not have access
-# to these strings.
-style_text_dict = {
-    # Productivity trajectory
-    'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
-    'prod_traj_trend_min': tr('{}'),
-    'prod_traj_trend_zero': tr('0'),
-    'prod_traj_trend_max': tr('{}'),
-
-    'prod_traj_signif_title': tr('Productivity tradecrease (p < .01)'),
-    'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
-    'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
-    'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
-    'prod_traj_signif_zero': tr('No significant change'),
-    'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
-    'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),
-    'prod_traj_signif_inc_99': tr('Significant increase (p < .01)'),
-    'prod_traj_signif_nodata': tr('No data'),
-
-    # Productivity performance
-    'prod_perf_title': tr('Productivity performance'),
-    'prod_perf_potential_deg': tr('Potentially degraded'),
-    'prod_perf_not_potential_deg': tr('Not potentially degraded'),
-    'prod_perf_nodata': tr('No data'),
-
-    # Productivity state
-    'prod_state_change_title': tr('Productivity state'),
-    'prod_state_change_potential_deg': tr('Potentially degraded'),
-    'prod_state_change_stable': tr('Stable'),
-    'prod_state_change_potential_improvement': tr('Potentially improved'),
-    'prod_state_change_nodata': tr('No data'),
-
-
-    'prod_state_classes_bl_title': tr('Productivity state baseline classes'),
-    'prod_state_classes_bl_nodata': tr('No data'),
-
-    'prod_state_classes_tg_title': tr('Productivity state target classes'),
-    'prod_state_classes_tg_nodata': tr('No data'),
-
-    # Land cover
-    'lc_bl_title': tr('Land cover (baseline)'),
-    'lc_tg_title': tr('Land cover (target)'),
-    'lc_tr_title': tr('Land cover (transitions)'),
-
-    'lc_class_forest': tr('Forest'),
-    'lc_class_grassland': tr('Grassland'),
-    'lc_class_cropland': tr('Cropland'),
-    'lc_class_wetland': tr('Wetland'),
-    'lc_class_artificial': tr('Artificial area'),
-    'lc_class_bare': tr('Bare land'),
-    'lc_class_water': tr('Water body'),
-    'lc_class_nodata': tr('No data'),
-
-    'lc_tr_forest_persist': tr('Forest persistence'),
-    'lc_tr_forest_loss': tr('Forest loss'),
-    'lc_tr_grassland_persist': tr('Grassland persistence'),
-    'lc_tr_grassland_loss': tr('Grassland loss'),
-    'lc_tr_cropland_persist': tr('Cropland persistence'),
-    'lc_tr_cropland_loss': tr('Cropland loss'),
-    'lc_tr_wetland_persist': tr('Wetland persistence'),
-    'lc_tr_wetland_loss': tr('Wetland loss'),
-    'lc_tr_artificial_persist': tr('Artificial area persistence'),
-    'lc_tr_artificial_loss': tr('Artificial area loss'),
-    'lc_tr_bare_persist': tr('Bare land persistence'),
-    'lc_tr_bare_loss': tr('Bare land loss'),
-    'lc_tr_water_persist': tr('Water body persistence'),
-    'lc_tr_water_loss': tr('Water body loss'),
-    'lc_tr_nodata': tr('No data'),
-
-    'lc_deg_title': tr('Land cover degradation'),
-    'lc_deg_deg': tr('Degradation'),
-    'lc_deg_stable': tr('Stable'),
-    'lc_deg_imp': tr('Improvement'),
-    'lc_deg_nodata': tr('No data'),
-
-
-    # Soil organic carbon
-    'soc_2000_title': tr('Soil organic carbon (tons / ha)'),
-    'soc_2000_nodata': tr('No data'),
-
-    'soc_deg_title': tr('Soil organic carbon degradation'),
-    'soc_deg_deg': tr('Degradation'),
-    'soc_deg_stable': tr('Stable'),
-    'soc_deg_imp': tr('Improvement'),
-    'soc_deg_nodata': tr('No data'),
-
-    # Degradation SDG final layer
-    'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
-    'sdg_prod_combined_deg_deg': tr('Degradation'),
-    'sdg_prod_combined_deg_stable': tr('Stable'),
-    'sdg_prod_combined_deg_imp': tr('Improvement'),
-    'sdg_prod_combined_deg_nodata': tr('No data'),
-
-    'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
-    'combined_sdg_deg_deg': tr('Degradation'),
-    'combined_sdg_deg_stable': tr('Stable'),
-    'combined_sdg_deg_imp': tr('Improvement'),
-    'combined_sdg_deg_nodata': tr('No data'),
-}
 
 
 def json_serial(obj):
@@ -153,8 +47,9 @@ def json_serial(obj):
     raise TypeError("Type {} not serializable".format(type(obj)))
 
 
-def create_json_metadata(job, outfile):
+def create_json_metadata(job, outfile, file_format):
     outfile = os.path.splitext(outfile)[0] + '.json'
+    job['results']['local_format'] = file_format
     with open(outfile, 'w') as outfile:
         json.dump(job['raw'], outfile, default=json_serial, sort_keys=True,
                   indent=4, separators=(',', ': '))
@@ -278,6 +173,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     script = job.get('script_id', None)
                     if script:
                         job['script_name'] = self.scripts[job['script_id']]['name']
+                        # Clean up the script name so the version tag doesn't 
+                        # look so odd
+                        job['script_name'] = re.sub('([0-9]+)_([0-9]+)$', '(v\g<1>.\g<2>)', job['script_name'])
                         job['script_description'] = self.scripts[job['script_id']]['description']
                     else:
                         # Handle case of scripts that have been removed or that are
@@ -377,18 +275,13 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         for row in rows:
             job = self.jobs[row]
             log("Processing job {}".format(job))
-            if job['results'].get('type') in ['prod_trajectory',
-                                              'prod_state',
-                                              'prod_performance',
-                                              'land_cover',
-                                              'soil_organic_carbon']:
-                download_job(job, f)
-            elif job['results'].get('type') == 'timeseries':
+            result_type = job['results'].get('type')
+            if result_type == 'CloudResults':
+                download_cloud_results(job, f, self.tr)
+            elif result_type == 'TimeSeriesTable':
                 download_timeseries(job, self.tr)
-            elif job['results'].get('type') == 'download':
-                download_dataset(job, f, self.tr)
             else:
-                raise ValueError("Unrecognized result type in download results: {}".format(job['results'].get('type')))
+                raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
@@ -439,128 +332,28 @@ def download_result(url, outfile, job):
     worker = Download(url, outfile)
     worker.start()
     if worker.get_resp():
-        create_json_metadata(job, outfile)
+        create_json_metadata(job, outfile, 'tif')
         return check_hash_against_etag(url, outfile)
     else:
         return None
 
 
-def download_dataset(job, f, tr):
-    log("downloading dataset...")
-    for dataset in job['results'].get('datasets'):
-        for url in dataset.get('urls'):
-            log('Output basename: {}'.format(f))
-            resp = download_result(url['url'], f, job)
-            if not resp:
-                return
-            mb.pushMessage(tr("Downloaded"),
-                           tr("Downloaded dataset to {}".format(f)),
-                           level=0, duration=5)
-
-
-def download_job(job, f):
+def download_cloud_results(job, f, tr):
     log("downloading land_cover results...")
-    for dataset in job['results'].get('datasets'):
-        for url in dataset.get('urls'):
-            resp = download_result(url['url'], f + '.tif', job)
-            if not resp:
-                return
-                add_layer(outfile, band_info, style)
-            else:
-                raise ValueError("Unrecognized dataset type in download results: {}".format(dataset['dataset']))
-
-
-def add_layer(f, band_info, style):
-    l = iface.addRasterLayer(f, style_text_dict[style['title']])
-    if not l.isValid():
-        log('Failed to add layer')
-        return None
-
-    if style['ramp']['type'] == 'categorical':
-        r = []
-        for item in style['ramp']['items']:
-            r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QtGui.QColor(item['color']),
-                                                      style_text_dict[item['label']]))
-
-    elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
-        # TODO: This should be done block by block to prevent running out of
-        # memory on large rasters - and it should be done in GEE for GEE loaded
-        # rasters.
-        # Set a colormap centred on zero, going to the extreme value
-        # significant to three figures (after a 2 percent stretch)
-        ds = gdal.Open(f)
-        d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
-        for nodata_value in band_info['no data value']:
-            d[d == nodata_value] = np.nan
-        ds = None
-        cutoffs = np.nanpercentile(d, [2, 98])
-        log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
-        extreme = max([round_to_n(abs(cutoffs[0]), sf),
-                       round_to_n(abs(cutoffs[1]), sf)])
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(-extreme,
-                                                  QtGui.QColor(style['ramp']['min']['color']),
-                                                  '{}'.format(-extreme)))
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtGui.QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        r.append(QgsColorRampShader.ColorRampItem(extreme,
-                                                  QtGui.QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(extreme)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict[style['ramp']['no data']['label']]))
-
-    elif style['ramp']['type'] == 'min zero max 98 percent stretch':
-        # TODO: This should be done block by block to prevent running out of
-        # memory on large rasters - and it should be done in GEE for GEE loaded
-        # rasters.
-        # Set a colormap from zero to 98th percentile significant to
-        # three figures (after a 2 percent stretch)
-        ds = gdal.Open(f)
-        d = np.array(ds.GetRasterBand(band_info['band number']).ReadAsArray()).astype(np.float)
-        for nodata_value in band_info['no data value']:
-            d[d == nodata_value] = np.nan
-        ds = None
-        cutoff = round_to_n(np.nanpercentile(d, [98]), 3)
-        log('Cutoff for min zero max 98 stretch: {}'.format(cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtGui.QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtGui.QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict[style['ramp']['no data']['label']]))
-
+    results = job['results']
+    if len(results['urls']['files']) > 1:
+        raise DownloadError('GEE tasks resulting in multiple output files are not yet supported by trends.earth.')
+    out_file = f + '.tif'
+    resp = download_result(results['urls']['base'] + '/' + results['urls']['files'][0], out_file, job)
+    if not resp:
+        return
     else:
-        log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
-        QtGui.QMessageBox.critical(None,
-                                   tr("Error"),
-                                   tr("Failed to load trends.earth style. Adding layer using QGIS defaults."))
-        return None
-
-    fcn = QgsColorRampShader()
-    if style['ramp']['shader'] == 'exact':
-        fcn.setColorRampType("EXACT")
-    elif style['ramp']['shader'] == 'discrete':
-        fcn.setColorRampType("DISCRETE")
-    elif style['ramp']['shader'] == 'interpolated':
-        fcn.setColorRampType("INTERPOLATED")
-    else:
-        raise TypeError("Unrecognized color ramp type: {}".format(style['ramp']['shader']))
-    fcn.setColorRampItemList(r)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_info['band number'],
-                                                      shader)
-    l.setRenderer(pseudoRenderer)
-    l.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(l)
+        for band in results['bands']:
+            if band['add_to_map']:
+                add_layer(out_file, results['name'], band)
+        mb.pushMessage(tr("Downloaded"),
+                       tr("Downloaded results to {}".format(out_file)),
+                       level=0, duration=5)
 
 
 def download_timeseries(job, tr):

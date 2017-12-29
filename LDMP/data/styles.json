@@ -1,8 +1,7 @@
 {
     "prod_trajectory": {
-        "trend": {
+        "Productivity trajectory (trend)": {
             "title": "prod_traj_trend_title",
-            "nodata values": [9999],
             "ramp": {
                     "type": "zero-centered 2 percent stretch",
                     "shader": "interpolated",
@@ -13,7 +12,7 @@
                 }
             }
         },
-        "significance": {
+        "Productivity trajectory (significance)": {
             "title": "prod_traj_signif_title",
             "ramp": {
                 "type": "categorical",
@@ -32,7 +31,7 @@
         }
     },
     "prod_state": {
-        "change": {
+        "Productivity state (degradation)": {
             "title": "prod_state_change_title",
             "ramp": {
                 "type": "categorical",
@@ -45,7 +44,7 @@
                 ]
             }
         },
-        "baseline_classes": {
+        "Productivity state classes (baseline)": {
             "title": "prod_state_classes_bl_title",
             "ramp": {
                 "type": "categorical",
@@ -57,7 +56,7 @@
                 ]
             }
         },
-        "target_classes": {
+        "Productivity state classes (target)": {
             "title": "prod_state_classes_tg_title",
             "ramp": {
                 "type": "categorical",
@@ -71,7 +70,7 @@
         }
     },
     "prod_performance": {
-        "units": {
+        "Productivity performance (units)": {
             "title": "prod_perf_units_title",
             "ramp": {
                 "type": "categorical",
@@ -83,13 +82,12 @@
                 ]
             }
         },
-        "ratio": {
+        "Productivity performance (ratio)": {
         }
     },
     "soil_organic_carbon": {
-        "2000": {
-            "title": "soc_2000_title",
-            "nodata values": [-32768, 9999],
+        "Soil organic carbon (baseline)": {
+            "title": "soc_bl_title",
             "ramp": {
                 "type": "min zero max 98 percent stretch",
                 "shader": "interpolated",
@@ -98,7 +96,17 @@
                 "no data": {"value": -32768, "color": "#000000", "label": "soc_2000_nodata"}
             }
         },
-        "degradation": {
+        "Soil organic carbon (target)": {
+            "title": "soc_bl_title",
+            "ramp": {
+                "type": "min zero max 98 percent stretch",
+                "shader": "interpolated",
+                "zero": {"color": "#F6F6EA"},
+                "max": {"color": "#008C79"},
+                "no data": {"value": -32768, "color": "#000000", "label": "soc_2000_nodata"}
+            }
+        },
+        "Soil organic carbon (degradation)": {
             "title": "soc_deg_title",
             "ramp": {
                 "type": "categorical",

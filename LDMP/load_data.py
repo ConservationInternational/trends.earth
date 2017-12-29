@@ -209,9 +209,16 @@ def add_layer(f, layer_type, band_info):
     if style['ramp']['type'] == 'categorical':
         r = []
         for item in style['ramp']['items']:
+            # First try to get a label that is translatable. If that fails, try 
+            # to get a nontranslatable one.
+            label = item.get('label', None)
+            if label:
+                label = style_text_dict[label]
+            else:
+                label = item.get('label_notr')
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                                                       QtGui.QColor(item['color']),
-                                                      style_text_dict[item['label']]))
+                                                      label))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of

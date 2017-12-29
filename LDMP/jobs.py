@@ -30,6 +30,7 @@ mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
 
+from LDMP import __version__
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
@@ -49,7 +50,8 @@ def json_serial(obj):
 
 def create_json_metadata(job, outfile, file_format):
     outfile = os.path.splitext(outfile)[0] + '.json'
-    job['results']['local_format'] = file_format
+    job['raw']['results']['local_format'] = file_format
+    job['raw']['results']['ldmp_version'] = __version__
     with open(outfile, 'w') as outfile:
         json.dump(job['raw'], outfile, default=json_serial, sort_keys=True,
                   indent=4, separators=(',', ': '))

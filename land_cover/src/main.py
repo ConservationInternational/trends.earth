@@ -17,7 +17,7 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import GEEResults, CloudDataset, CloudUrl, GEEResultsSchema
+from landdegradation.schemas import DatasetList, Metadata, URLList, CloudResults, CloudResultsSchema
 
 
 def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
@@ -37,10 +37,9 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     ## baseline land cover map raw data
     lc_bl_raw = lc.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1)) \
         .reduce(ee.Reducer.mode())
+
     ## baseline land cover map reclassified to IPCC 6 classes
-    lc_bl_remapped = lc_bl_raw \.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1))\
-        .reduce(ee.Reducer.mode())\
-        .remap(remap_matrix[0], remap_matrix[1])
+    lc_bl_remapped = lc_bl_raw.remap(remap_matrix[0], remap_matrix[1])
 
     ## compute transition map (first digit for baseline land cover, and second digit for target year land cover)
     lc_tr = lc_bl_remapped.multiply(10).add(lc_tg_remapped)
@@ -55,14 +54,15 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                          71, 72, 73, 74, 75, 76, 77],
                         trans_matrix)
 
-    ## soc
-    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
+    ## Remap persistence so it the persistence classes are sequential. This
+    ## makes it easier to assign a clear color ramp in QGIS
+    lc_tr = lc_tr.remap([11, 22, 33, 44, 55, 66, 77],
+                        [1, 2, 3, 4, 5, 6, 7])
 
     lc_out = lc_bl_remapped \
         .addBands(lc_tg_remapped) \
         .addBands(lc_tr) \
         .addBands(lc_dg) \
-        .addBands(soc) \
         .addBands(lc_bl_raw) \
         .addBands(lc_tg_raw)
 
@@ -73,9 +73,16 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'land_cover', [CloudUrl(task.url())])
-    gee_results = GEEResults('land_cover', [cloud_dataset])
-    results_schema = GEEResultsSchema()
+    d = DatasetList({"Baseline land cover (7 class)": Metadata(band_number=1, no_data_value=9999),
+                     "Target year land cover (7 class)": Metadata(band_number=2, no_data_value=9999),
+                     "Land cover transitions": Metadata(band_number=3, no_data_value=9999),
+                     "Land cover degradation": Metadata(band_number=4, no_data_value=9999),
+                     "Baseline land cover (ESA classes)": Metadata(band_number=5, no_data_value=9999),
+                     "Target year land cover (ESA classes)": Metadata(band_number=6, no_data_value=9999),
+                    })
+    u = URLList(task.get_URL_base(), task.get_files())
+    gee_results = CloudResults('land_cover', d, u)
+    results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 
     return json_results

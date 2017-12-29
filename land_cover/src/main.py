@@ -17,7 +17,7 @@ from landdegradation import stats
 from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import DatasetList, Metadata, URLList, CloudResults, CloudResultsSchema
+from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
 def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
@@ -54,10 +54,22 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
                          71, 72, 73, 74, 75, 76, 77],
                         trans_matrix)
 
-    ## Remap persistence so it the persistence classes are sequential. This
-    ## makes it easier to assign a clear color ramp in QGIS
-    lc_tr = lc_tr.remap([11, 22, 33, 44, 55, 66, 77],
-                        [1, 2, 3, 4, 5, 6, 7])
+    ## Remap persistence classes so they are sequential. This
+    ## makes it easier to assign a clear color ramp in QGIS.
+    lc_tr = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
+                         21, 22, 23, 24, 25, 26, 27,
+                         31, 32, 33, 34, 35, 36, 37,
+                         41, 42, 43, 44, 45, 46, 47,
+                         51, 52, 53, 54, 55, 56, 57,
+                         61, 62, 63, 64, 65, 66, 67,
+                         71, 72, 73, 74, 75, 76, 77],
+                        [1, 12, 13, 14, 15, 16, 17,
+                         21, 2, 23, 24, 25, 26, 27,
+                         31, 32, 3, 34, 35, 36, 37,
+                         41, 42, 43, 4, 45, 46, 47,
+                         51, 52, 53, 54, 5, 56, 57,
+                         61, 62, 63, 64, 65, 6, 67,
+                         71, 72, 73, 74, 75, 76, 7])
 
     lc_out = lc_bl_remapped \
         .addBands(lc_tg_remapped) \
@@ -73,13 +85,12 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = DatasetList({"Baseline land cover (7 class)": Metadata(band_number=1, no_data_value=9999),
-                     "Target year land cover (7 class)": Metadata(band_number=2, no_data_value=9999),
-                     "Land cover transitions": Metadata(band_number=3, no_data_value=9999),
-                     "Land cover degradation": Metadata(band_number=4, no_data_value=9999),
-                     "Baseline land cover (ESA classes)": Metadata(band_number=5, no_data_value=9999),
-                     "Target year land cover (ESA classes)": Metadata(band_number=6, no_data_value=9999),
-                    })
+    d = [BandInfo("Baseline land cover (7 class)", 1, no_data_value=9999, add_to_map=True),
+         BandInfo("Target year land cover (7 class)", 2, no_data_value=9999, add_to_map=True),
+         BandInfo("Land cover transitions", 3, no_data_value=9999, add_to_map=True),
+         BandInfo("Land cover degradation", 4, no_data_value=9999, add_to_map=True),
+         BandInfo("Baseline land cover (ESA classes)", 5, no_data_value=9999),
+         BandInfo("Target year land cover (ESA classes)", 6, no_data_value=9999)]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('land_cover', d, u)
     results_schema = CloudResultsSchema()

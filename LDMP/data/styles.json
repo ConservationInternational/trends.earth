@@ -35,42 +35,44 @@
             "title": "prod_state_change_title",
             "ramp": {
                 "type": "categorical",
-                "shader": "exact",
+                "shader": "discrete",
                 "items": [
-                    {"value": -1, "color": "#993304", "label": "prod_state_change_potential_deg"},
-                    {"value": 0, "color": "#F6F6EA", "label": "prod_state_change_stable"},
-                    {"value": 1, "color": "#008C79", "label": "prod_state_change_potential_improvement"},
+                    {"value": -2, "color": "#993304", "label": "prod_state_change_potential_deg"},
+                    {"value": 2, "color": "#F6F6EA", "label": "prod_state_change_stable"},
+                    {"value": 10, "color": "#008C79", "label": "prod_state_change_potential_improvement"},
                     {"value": 9999, "color": "#000000", "label": "prod_state_change_nodata"}
                 ]
             }
         },
-        "Productivity state classes (baseline)": {
+        "Productivity state (baseline class)": {
             "title": "prod_state_classes_bl_title",
             "ramp": {
                 "type": "categorical",
                 "shader": "interpolated",
                 "items": [
-                    {"value": 1, "color": "#993304", "label": "1"},
-                    {"value": 10, "color": "#F6F6EA", "label": "10"},
+                    {"value": 1, "color": "#440154", "label_notr": "1"},
+                    {"value": 5, "color": "#20928C", "label_notr": "5"},
+                    {"value": 10, "color": "#FDE725", "label_notr": "10"},
                     {"value": 9999, "color": "#000000", "label": "prod_state_classes_bl_nodata"}
                 ]
             }
         },
-        "Productivity state classes (target)": {
+        "Productivity state (target class)": {
             "title": "prod_state_classes_tg_title",
             "ramp": {
                 "type": "categorical",
                 "shader": "interpolated",
                 "items": [
-                    {"value": 1, "color": "#993304", "label": "1"},
-                    {"value": 10, "color": "#F6F6EA", "label": "10"},
+                    {"value": 1, "color": "#440154", "label_notr": "1"},
+                    {"value": 5, "color": "#20928C", "label_notr": "5"},
+                    {"value": 10, "color": "#FDE725", "label_notr": "10"},
                     {"value": 9999, "color": "#000000", "label": "prod_state_classes_tg_nodata"}
                 ]
             }
         }
     },
     "prod_performance": {
-        "Productivity performance (units)": {
+        "Productivity performance (degradation)": {
             "title": "prod_perf_units_title",
             "ramp": {
                 "type": "categorical",

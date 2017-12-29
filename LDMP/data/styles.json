@@ -73,14 +73,14 @@
     },
     "prod_performance": {
         "Productivity performance (degradation)": {
-            "title": "prod_perf_units_title",
+            "title": "prod_perf_deg_title",
             "ramp": {
                 "type": "categorical",
                 "shader": "exact",
                 "items": [
-                    {"value": -1, "color": "#993304", "label": "prod_perf_potential_deg"},
-                    {"value": 0, "color": "#F6F6EA", "label": "prod_perf_not_potential_deg"},
-                    {"value": 9999, "color": "#000000", "label": "prod_perf_nodata"}
+                    {"value": -1, "color": "#993304", "label": "prod_perf_deg_potential_deg"},
+                    {"value": 0, "color": "#F6F6EA", "label": "prod_perf_deg_not_potential_deg"},
+                    {"value": 9999, "color": "#000000", "label": "prod_perf_deg_nodata"}
                 ]
             }
         },

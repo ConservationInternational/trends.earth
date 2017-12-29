@@ -13,6 +13,7 @@
 """
 
 import os
+from math import floor, log10
 
 import json
 
@@ -22,6 +23,10 @@ from PyQt4.QtCore import QSettings, Qt, QCoreApplication
 from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
 from qgis.utils import iface
 mb = iface.messageBar()
+
+import numpy as np
+
+from osgeo import gdal
 
 from LDMP import log
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
@@ -40,8 +45,9 @@ style_text_dict = {
     'prod_traj_trend_min': tr('{}'),
     'prod_traj_trend_zero': tr('0'),
     'prod_traj_trend_max': tr('{}'),
+    'prod_traj_trend_nodata': tr('No data'),
 
-    'prod_traj_signif_title': tr('Productivity tradecrease (p < .01)'),
+    'prod_traj_signif_title': tr('Productivity decrease (p < .01)'),
     'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
     'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
     'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
@@ -52,10 +58,10 @@ style_text_dict = {
     'prod_traj_signif_nodata': tr('No data'),
 
     # Productivity performance
-    'prod_perf_title': tr('Productivity performance'),
-    'prod_perf_potential_deg': tr('Potentially degraded'),
-    'prod_perf_not_potential_deg': tr('Not potentially degraded'),
-    'prod_perf_nodata': tr('No data'),
+    'prod_perf_deg_title': tr('Productivity performance'),
+    'prod_perf_deg_potential_deg': tr('Potentially degraded'),
+    'prod_perf_deg_not_potential_deg': tr('Not potentially degraded'),
+    'prod_perf_deg_nodata': tr('No data'),
 
     # Productivity state
     'prod_state_change_title': tr('Productivity state'),
@@ -190,6 +196,41 @@ def get_results(json_file):
         return results
 
 
+def round_to_n(x, sf=3):
+    'Function to round a positive value to n significant figures'
+    return round(x, -int(floor(log10(x))) + (sf - 1))
+
+
+#TODO: Figure out how to do block by block percentile
+def get_percentile(f, band_info, p):
+    '''Get percentiles of a raster dataset by block'''
+    ds = gdal.Open(outfile)
+    b = ds.GetRasterBand(band_info['band number'])
+
+    block_sizes = b.GetBlockSize()
+    x_block_size = block_sizes[0]
+    y_block_size = block_sizes[1]
+    xsize = b.XSize
+    ysize = b.YSize
+
+    for y in xrange(0, ysize, y_block_size):
+        if y + y_block_size < ysize:
+            rows = y_block_size
+        else:
+            rows = ysize - y
+        for x in xrange(0, xsize, x_block_size):
+            if x + x_block_size < xsize:
+                cols = x_block_size
+            else:
+                cols = xsize - x
+            d = np.array(b.ReadAsArray(x, y, cols, rows)).astype(np.float)
+            for nodata_value in band_info['no data value']:
+                d[d == nodata_value] = np.nan
+            cutoffs = np.nanpercentile(d, p)
+            # get rounded extreme value
+            extreme = max([round_to_n(abs(cutoffs[0]), sf), round_to_n(abs(cutoffs[1]), sf)])
+
+
 def add_layer(f, layer_type, band_info):
     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                            'data', 'styles.json')) as script_file:
@@ -228,13 +269,12 @@ def add_layer(f, layer_type, band_info):
         # significant to three figures (after a 2 percent stretch)
         ds = gdal.Open(f)
         d = np.array(ds.GetRasterBand(band_info['band_number']).ReadAsArray()).astype(np.float)
-        for nodata_value in band_info['no_data_value']:
-            d[d == nodata_value] = np.nan
+        d[d == band_info['no_data_value']] = np.nan
         ds = None
         cutoffs = np.nanpercentile(d, [2, 98])
         log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
-        extreme = max([round_to_n(abs(cutoffs[0]), sf),
-                       round_to_n(abs(cutoffs[1]), sf)])
+        extreme = max([round_to_n(abs(cutoffs[0]), 2),
+                       round_to_n(abs(cutoffs[1]), 2)])
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-extreme,
                                                   QtGui.QColor(style['ramp']['min']['color']),
@@ -257,8 +297,7 @@ def add_layer(f, layer_type, band_info):
         # three figures (after a 2 percent stretch)
         ds = gdal.Open(f)
         d = np.array(ds.GetRasterBand(band_info['band_number']).ReadAsArray()).astype(np.float)
-        for nodata_value in band_info['no_data_value']:
-            d[d == nodata_value] = np.nan
+        d[d == band_info['no_data_value']] = np.nan
         ds = None
         cutoff = round_to_n(np.nanpercentile(d, [98]), 3)
         log('Cutoff for min zero max 98 stretch: {}'.format(cutoff))

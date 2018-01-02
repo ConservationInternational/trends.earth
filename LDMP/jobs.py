@@ -202,39 +202,46 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
     def btn_download(self):
         rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
-        # Check if we need a download directory - some tasks don't need to save
-        # data, but if any of the chosen \tasks do, then we need to choose a
-        # folder.
-        need_dir = False
+
+        filenames = []
         for row in rows:
             job = self.jobs[row]
+            # Check if we need a download filename - some tasks don't need to save
+            # data, but if any of the chosen \tasks do, then we need to choose a
+            # folder. Right now only TimeSeriesTable doesn't need a filename.
             if job['results'].get('type') != 'TimeSeriesTable':
-                need_dir = True
-                break
+                f = None
+                while not f:
+                    # Setup a string to use in filename window
+                    if job['task_name']:
+                        job_info = '{} ({})'.format(job['script_name'], job['task_name'])
+                    else:
+                        job_info = job['script_name']
+                    f = QtGui.QFileDialog.getSaveFileName(self,
+                                                          self.tr('Choose a filename downloading results of: {}'.format(job_info)),
+                                                          self.settings.value("LDMP/download_dir", None),
+                                                          self.tr('Base filename (*.json)'))
 
-        if need_dir:
-            f = QtGui.QFileDialog.getSaveFileName(self,
-                                                  self.tr('Choose a base filename for this download'),
-                                                  self.settings.value("LDMP/download_dir", None),
-                                                  self.tr('Base filename (*.json)'))
+                    # Strip the extension so that it is a basename
+                    f = os.path.splitext(f)[0]
 
-            # Strip the extension so that it is a basename
-            f = os.path.splitext(f)[0]
+                    if f:
+                        if os.access(os.path.dirname(f), os.W_OK):
+                            self.settings.setValue("LDMP/download_dir", os.path.dirname(f))
+                            log("Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
+                        else:
+                            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                                       self.tr("Cannot write to {}. Choose a different base filename.".format(f)))
+                    else:
+                            return False
 
-            if f:
-                if os.access(os.path.dirname(f), os.W_OK):
-                    self.settings.setValue("LDMP/download_dir", os.path.dirname(f))
-                    log("Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
-                else:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Cannot write to {}. Choose a different base filename.".format(f)))
-                    return False
+                filenames.append(f)
             else:
-                return False
+                filenames.append(None)
 
         self.close()
 
-        for row in rows:
+        for row, f in zip(rows, filenames):
             job = self.jobs[row]
             log("Processing job {}".format(job))
             result_type = job['results'].get('type')

@@ -15,6 +15,8 @@
 import os
 import sys
 
+from LDMP import __version__
+
 from PyQt4 import QtGui, uic
 
 # Need to use this below approach to load the dialog to about the import
@@ -35,3 +37,6 @@ class DlgAbout(QtGui.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        # Add version number to about dialog
+        self.textBrowser.setHtml(self.textBrowser.toHtml().replace('VERSION_NUMBER', __version__))

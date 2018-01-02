@@ -82,6 +82,9 @@ style_text_dict = {
     'lc_tg_title': tr('Land cover (target)'),
     'lc_tr_title': tr('Land cover (transitions)'),
 
+    'lc_esa_bl_title': tr('Land cover (baseline, ESA CCI classes)'),
+    'lc_esa_tg_title': tr('Land cover (target, ESA CCI classes)'),
+
     'lc_class_forest': tr('Forest'),
     'lc_class_grassland': tr('Grassland'),
     'lc_class_cropland': tr('Cropland'),
@@ -242,7 +245,7 @@ def add_layer(f, layer_type, band_info):
         log('No style found for {} (layer type: {})'.format(band_info['name'], layer_type))
         return False
 
-    l = iface.addRasterLayer(f, style_text_dict[style['title']])
+    l = iface.addRasterLayer(f, style_text_dict.get(style['title'], style['title']))
     if not l.isValid():
         log('Failed to add layer')
         return False
@@ -250,16 +253,9 @@ def add_layer(f, layer_type, band_info):
     if style['ramp']['type'] == 'categorical':
         r = []
         for item in style['ramp']['items']:
-            # First try to get a label that is translatable. If that fails, try 
-            # to get a nontranslatable one.
-            label = item.get('label', None)
-            if label:
-                label = style_text_dict[label]
-            else:
-                label = item.get('label_notr')
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                                                       QtGui.QColor(item['color']),
-                                                      label))
+                                                      style_text_dict.get(item['label'], item['label'])))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -287,7 +283,7 @@ def add_layer(f, layer_type, band_info):
                                                   '{}'.format(extreme)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict[style['ramp']['no data']['label']]))
+                                                  style_text_dict.get(style['ramp']['no data']['label'], style['ramp']['no data']['label'])))
 
     elif style['ramp']['type'] == 'min zero max 98 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -310,7 +306,7 @@ def add_layer(f, layer_type, band_info):
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict[style['ramp']['no data']['label']]))
+                                                  style_text_dict.get(style['ramp']['no data']['label'], style['ramp']['no data']['label'])))
 
     else:
         log('Failed to load trends.earth style. Adding layer using QGIS defaults.')

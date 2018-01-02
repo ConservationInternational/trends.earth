@@ -37,12 +37,12 @@ def showHelp(file='index', section=None):
     locale = QSettings().value('locale/userLocale')[0:2]
     help_base_path = os.path.join(os.path.dirname(__file__), 'help', 'build', 'html')
     locale_path = os.path.join(help_base_path, locale)
-    QgsMessageLog.logMessage('Checking for plugin help in {}'.format(locale_path), tag="LDMP", level=QgsMessageLog.INFO)
+    QgsMessageLog.logMessage('Checking for plugin help in {}'.format(locale_path), tag="trends.earth", level=QgsMessageLog.INFO)
     if os.path.exists(locale_path):
         help_path = os.path.join(locale_path, file)
     else:
         help_path = os.path.join(help_base_path, 'en', file)
-    QgsMessageLog.logMessage('Showing plugin help from {}'.format(help_path), tag="LDMP", level=QgsMessageLog.INFO)
+    QgsMessageLog.logMessage('Showing plugin help from {}'.format(help_path), tag="trends.earth", level=QgsMessageLog.INFO)
     if section:
         showPluginHelp(filename=help_path, section=section)
     else:
@@ -72,14 +72,14 @@ class LDMPPlugin:
             'i18n',
             'LDMP_{}.qm'.format(locale))
         QgsMessageLog.logMessage('Using locale "{}" in path {}.'.format(locale, locale_path),
-                                 tag="LDMP", level=QgsMessageLog.INFO)
+                                 tag="trends.earth", level=QgsMessageLog.INFO)
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
             self.translator.load(locale_path)
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
-                QgsMessageLog.logMessage("Translator installed.", tag="LDMP",
+                QgsMessageLog.logMessage("Translator installed.", tag="trends.earth",
                                          level=QgsMessageLog.INFO)
 
         # Declare instance attributes

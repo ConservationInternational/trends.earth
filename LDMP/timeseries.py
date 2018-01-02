@@ -251,7 +251,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'task_name': self.task_name.text(),
                    'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter
-        payload.update(self.scripts['productivity-trajectory'][self.traj_indic.currentText()]['params'])
+        payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])
 
         gee_script = 'time-series' + '-' + self.scripts['time-series']['script version']
 

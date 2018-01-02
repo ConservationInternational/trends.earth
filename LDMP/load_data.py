@@ -47,7 +47,7 @@ style_text_dict = {
     'prod_traj_trend_max': tr('{}'),
     'prod_traj_trend_nodata': tr('No data'),
 
-    'prod_traj_signif_title': tr('Productivity decrease (p < .01)'),
+    'prod_traj_signif_title': tr('Productivity trajectory significance'),
     'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
     'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
     'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),

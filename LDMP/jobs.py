@@ -208,7 +208,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         need_dir = False
         for row in rows:
             job = self.jobs[row]
-            if job['results'].get('type') != 'timeseries':
+            if job['results'].get('type') != 'TimeSeriesTable':
                 need_dir = True
                 break
 

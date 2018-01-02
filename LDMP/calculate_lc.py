@@ -335,7 +335,8 @@ class LCAggTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('Initial_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Input cover class')),
+        colname_tuples = [('Initial_Code', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Input class code')),
+                          ('Initial_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Input cover class')),
                           ('Final_Label', QtGui.QApplication.translate('DlgCalculateLCSetAggregation', 'Output cover class'))]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
@@ -410,14 +411,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         '''Returns a list describing how to aggregate the land cover data'''
         out = [[], []]
         for row in range(0, len(self.classes)):
-            initial_label = self.remap_view.model().index(row, 0).data()
-            initial_code = [i['Initial_Code'] for i in self.classes if i['Initial_Label'] == initial_label]
-            if len(initial_code) > 1:
-                raise ValueError("more than one match found for initial label {}".format(initial_label))
-            initial_code = initial_code[0]
+            initial_code = self.remap_view.model().index(row, 0).data()
 
             # Get the currently assigned label for this code
-            label_widget_index = self.remap_view.model().index(row, 1)
+            label_widget_index = self.remap_view.model().index(row, 2)
             label_widget = self.remap_view.indexWidget(label_widget_index)
             final_code = self.final_classes[label_widget.currentText()]
             out[0].append(initial_code)
@@ -429,14 +426,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         out = []
         for row in range(0, len(self.classes)):
             this_out = {}
-            initial_label = self.remap_view.model().index(row, 0).data()
-            this_out['Initial_Label'] = initial_label
-            initial_code = [i['Initial_Code'] for i in self.classes if i['Initial_Label'] == initial_label]
-            if len(initial_code) > 1:
-                raise ValueError("more than one match found for initial label {}".format(initial_label))
-            this_out['Initial_Code'] = initial_code[0]
+            initial_code = self.remap_view.model().index(row, 0).data()
+            this_out['Initial_Code'] = initial_code
             # Get the currently assigned label for this code
-            label_widget_index = self.remap_view.model().index(row, 1)
+            label_widget_index = self.remap_view.model().index(row, 2)
             label_widget = self.remap_view.indexWidget(label_widget_index)
             this_out['Final_Label'] = label_widget.currentText()
             this_out['Final_Code'] = self.final_classes[this_out['Final_Label']]
@@ -484,10 +477,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             ind = lc_classes.findText(self.classes[row]['Final_Label'])
             if ind != -1:
                 lc_classes.setCurrentIndex(ind)
-            self.remap_view.setIndexWidget(proxy_model.index(row, 1), lc_classes)
+            self.remap_view.setIndexWidget(proxy_model.index(row, 2), lc_classes)
 
         self.remap_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
-        self.remap_view.setColumnWidth(0, 500)
+        self.remap_view.setColumnWidth(1, 450)
         self.remap_view.horizontalHeader().setStretchLastSection(True)
 
         # Load and emit the new remap matrix

@@ -16,16 +16,20 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \
 ../gui/DlgTimeseries.ui
+../gui/WidgetSelectArea.ui
+../gui/WidgetSelectPoint.ui
 
 SOURCES = ../about.py \
 ../api.py \
 ../calculate.py \
 ../calculate_lc.py \
 ../calculate_prod.py \
+../calculate_soc.py \
 ../download.py \
 ../download_data.py \
 ../jobs.py \
 ../ldmp.py \
+../load_data.py \
 ../plot.py \
 ../reporting.py \
 ../timeseries.py \

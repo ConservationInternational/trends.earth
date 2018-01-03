@@ -597,17 +597,17 @@ p, li { white-space: pre-wrap; }
         <translation>Previous</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="177"/>
+        <location filename="../calculate_lc.py" line="183"/>
         <source>Land cover in baseline year </source>
         <translation>Land cover in baseline year </translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="252"/>
+        <location filename="../calculate_lc.py" line="251"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="220"/>
+        <location filename="../calculate_lc.py" line="219"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Cannot read {}. Choose a different file.</translation>
     </message>
@@ -647,22 +647,22 @@ p, li { white-space: pre-wrap; }
         <translation>Save table to file...</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="212"/>
+        <location filename="../calculate_lc.py" line="211"/>
         <source>Select a transition matrix definition file</source>
         <translation>Select a transition matrix definition file</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="242"/>
+        <location filename="../calculate_lc.py" line="241"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Transition matrix definition (*.json)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="242"/>
+        <location filename="../calculate_lc.py" line="241"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Choose where to save this transition matrix definition</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="252"/>
+        <location filename="../calculate_lc.py" line="251"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
@@ -670,22 +670,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLCBase</name>
     <message>
-        <location filename="../calculate_lc.py" line="126"/>
+        <location filename="../calculate_lc.py" line="132"/>
         <source>Select a land cover definition file</source>
         <translation>Select a land cover definition file</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="126"/>
+        <location filename="../calculate_lc.py" line="132"/>
         <source>Land cover definition (*.json)</source>
         <translation>Land cover definition (*.json)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="134"/>
+        <location filename="../calculate_lc.py" line="140"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="134"/>
+        <location filename="../calculate_lc.py" line="140"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Cannot read {}. Choose a different file.</translation>
     </message>
@@ -728,7 +728,7 @@ p, li { white-space: pre-wrap; }
         <translation>Land cover definition (*.json)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="464"/>
+        <location filename="../calculate_lc.py" line="456"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -736,6 +736,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_lc.py" line="393"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Cannot write to {}. Choose a different file.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="337"/>
+        <source>Input class code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -944,19 +949,44 @@ p, li { white-space: pre-wrap; }
         <translation>Notes:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="453"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="531"/>
         <source>Next</source>
         <translation>Next</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="466"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="544"/>
         <source>Calculate</source>
         <translation>Calculate</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="479"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="557"/>
         <source>Previous</source>
         <translation>Previous</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="442"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="454"/>
+        <source>Climate regime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="460"/>
+        <source>Default (determined per-pixel using global climate data)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="470"/>
+        <source>Specify regime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="477"/>
+        <source>Custom value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1972,12 +2002,12 @@ p, li { white-space: pre-wrap; }
         <translation>Submitted</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="321"/>
+        <location filename="../calculate_lc.py" line="320"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
         <translation>Land cover task submitted to Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="325"/>
+        <location filename="../calculate_lc.py" line="324"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
         <translation>Unable to submit land cover task to Google Earth Engine.</translation>
     </message>
@@ -2117,12 +2147,12 @@ p, li { white-space: pre-wrap; }
         <translation>Unable to submit download request to Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1277"/>
+        <location filename="../reporting.py" line="1274"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1277"/>
+        <location filename="../reporting.py" line="1274"/>
         <source>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</source>
         <translation>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</translation>
     </message>

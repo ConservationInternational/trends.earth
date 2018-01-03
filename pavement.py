@@ -238,12 +238,16 @@ def package(options):
 def deploy(options):
     setup(options)
     package(options)
-    with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
-        keys = json.load(fin)
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+            keys = json.load(fin)
+        client = boto3.client('s3',
+                              aws_access_key_id=keys['access_key_id'],
+                              aws_secret_access_key=keys['secret_access_key'])
+    except IOError:
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        client = boto3.client('s3')
     print('Uploading package to S3')
-    client = boto3.client('s3',
-                          aws_access_key_id=keys['access_key_id'],
-                          aws_secret_access_key=keys['secret_access_key'])
     data = open('LDMP.zip', 'rb')
     client.put_object(Key='sharing/LDMP.zip',
                       Body=data, 

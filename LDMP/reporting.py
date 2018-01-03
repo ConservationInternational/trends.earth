@@ -1260,19 +1260,16 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)
 
+    def firstShow(self):
+        #TODO: Remove the combo page for now...
+        self.combo_layers.hide()
+        self.layer_combo_label.hide()
+        self.TabBox.removeTab(1)
+
+        super(DlgCreateMap, self).firstShow()
+
     def showEvent(self, event):
-        if self.firstShowEvent:
-            #TODO: Remove the combo and area pages for now...
-            self.combo_layers.hide()
-            self.layer_combo_label.hide()
-            self.TabBox.removeTab(1)
-            self.button_prev.setEnabled(False)
-            self.button_next.setEnabled(False)
-            super(DlgCreateMap, self).showEvent(event)
-            self.TabBox.currentChanged.disconnect()
-            self.button_calculate.setEnabled(True)
-        else:
-            super(DlgCreateMap, self).showEvent(event)
+        super(DlgCreateMap, self).showEvent(event)
 
         QtGui.QMessageBox.warning(None, QtGui.QApplication.translate("LDMP", "Warning"),
                                   QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)

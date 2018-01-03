@@ -77,21 +77,27 @@ class DlgCalculateLCBase(DlgCalculateBase):
 
         self.dlg_remap = DlgCalculateLCSetAggregation(self)
 
-    def showEvent(self, event):
-        if self.firstShowEvent:
-            # Setup the aggregation table functions
-            self.remap_default.toggled.connect(self.remap_default_toggled)
-            self.remap_custom_file_browse.clicked.connect(self.open_remap_file)
-            self.remap_custom_create.clicked.connect(self.remap_create)
+    def firstShow(self):
+        # Setup the aggregation table functions
+        self.remap_default.toggled.connect(self.remap_default_toggled)
+        self.remap_custom_file_browse.clicked.connect(self.open_remap_file)
+        self.remap_custom_create.clicked.connect(self.remap_create)
 
-            self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
-            self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
+        self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
+        self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
 
-            # Setup the class table so that the table is defined if a user uses the
-            # default and never accesses that dialog
-            self.dlg_remap.setup_class_table()
+        # Setup the class table so that the table is defined if a user uses the
+        # default and never accesses that dialog
+        self.dlg_remap.setup_class_table()
 
-        super(DlgCalculateLCBase, self).showEvent(event)
+        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
+        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
+        self.year_bl_start.setMinimumDate(lc_start_year)
+        self.year_bl_end.setMaximumDate(lc_end_year)
+        self.year_target.setMinimumDate(lc_start_year)
+        self.year_target.setMaximumDate(lc_end_year)
+
+        super(DlgCalculateLCBase, self).firstShow()
 
     def remap_matrix_update(self, remap_matrix):
         self.remap_matrix = remap_matrix
@@ -200,13 +206,6 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.legend_deg.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
         self.legend_imp.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
         self.legend_stable.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
-
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.year_bl_start.setMinimumDate(lc_start_year)
-        self.year_bl_end.setMaximumDate(lc_end_year)
-        self.year_target.setMinimumDate(lc_start_year)
-        self.year_target.setMaximumDate(lc_end_year)
 
     def trans_matrix_loadfile(self):
         f = QtGui.QFileDialog.getOpenFileName(self,

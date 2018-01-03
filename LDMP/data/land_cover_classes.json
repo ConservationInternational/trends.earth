@@ -168,8 +168,8 @@
         "Initial_Label": "Sparse herbaceous cover (<15%)"
     },
     {
-        "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Code": 4,
+        "Final_Label": "Wetland",
         "Initial_Code": 160,
         "Initial_Label": "Tree cover, flooded, fresh or brakish water"
     },

@@ -61,8 +61,12 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
             self.fl_custom_lineEdit.setEnabled(False)
 
     def get_fl(self):
-        #fl = [self.area_tab.area_admin_0.currentText()
-        pass
+        if self.fl_radio_custom.isChecked():
+            return float(self.fl_custom_lineEdit.text())
+        elif self.fl_radio_chooseRegime.isChecked():
+            return [r[1] for r in self.regimes if r[0] == self.fl_chooseRegime_comboBox.currentText()][0]
+        else:
+            return 'per pixel'
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

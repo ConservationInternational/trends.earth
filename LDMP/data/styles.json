@@ -95,29 +95,29 @@
                 "shader": "interpolated",
                 "zero": {"color": "#F6F6EA"},
                 "max": {"color": "#008C79"},
-                "no data": {"value": -32768, "color": "#000000", "label": "soc_2000_nodata"}
+                "no data": {"value": -32768, "color": "#000000", "label": "soc_bl_nodata"}
             }
         },
         "Soil organic carbon (target)": {
-            "title": "soc_bl_title",
+            "title": "soc_tg_title",
             "ramp": {
                 "type": "min zero max 98 percent stretch",
                 "shader": "interpolated",
                 "zero": {"color": "#F6F6EA"},
                 "max": {"color": "#008C79"},
-                "no data": {"value": -32768, "color": "#000000", "label": "soc_2000_nodata"}
+                "no data": {"value": -32768, "color": "#000000", "label": "soc_tg_nodata"}
             }
         },
         "Soil organic carbon (degradation)": {
             "title": "soc_deg_title",
             "ramp": {
                 "type": "categorical",
-                "shader": "exact",
+                "shader": "discrete",
                 "items": [
-                    {"value": -1, "color": "#993304", "label": "soc_deg_deg"},
-                    {"value": 0, "color": "#F6F6EA", "label": "soc_deg_stable"},
-                    {"value": 1, "color": "#008C79", "label": "soc_deg_imp"},
-                    {"value": 9999, "color": "#000000", "label": "soc_deg_nodata"}
+                    {"value": -10, "color": "#993304", "label": "prod_state_change_potential_deg"},
+                    {"value": 10, "color": "#F6F6EA", "label": "prod_state_change_stable"},
+                    {"value": 100, "color": "#008C79", "label": "prod_state_change_potential_improvement"},
+                    {"value": -32768, "color": "#000000", "label": "soc_deg_nodata"}
                 ]
             }
         }

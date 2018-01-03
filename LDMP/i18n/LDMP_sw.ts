@@ -267,8 +267,278 @@
         <source>Downloaded results to {}</source>
         <translation>Ilipakuliwa matokeo kwa {}</translation>
     </message>
+    <message>
+        <location filename="../load_data.py" line="45"/>
+        <source>Productivity trajectory (NDVI x 10000 / yr)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="48"/>
+        <source>{}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="47"/>
+        <source>0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="144"/>
+        <source>No data</source>
+        <translation type="unfinished">Hakuna data</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="51"/>
+        <source>Productivity trajectory significance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="52"/>
+        <source>Significant decrease (p &lt; .01)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="53"/>
+        <source>Significant decrease (p &lt; .05)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="54"/>
+        <source>Significant decrease (p &lt; .1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="55"/>
+        <source>No significant change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="56"/>
+        <source>Significant increase (p &lt; .1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="57"/>
+        <source>Significant increase (p &lt; .05)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="58"/>
+        <source>Significant increase (p &lt; .01)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="62"/>
+        <source>Productivity performance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="69"/>
+        <source>Potentially degraded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="64"/>
+        <source>Not potentially degraded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="68"/>
+        <source>Productivity state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="71"/>
+        <source>Potentially improved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="75"/>
+        <source>Productivity state baseline classes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="78"/>
+        <source>Productivity state target classes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="82"/>
+        <source>Land cover (baseline)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="83"/>
+        <source>Land cover (target)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="84"/>
+        <source>Land cover (transitions)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="86"/>
+        <source>Land cover (baseline, ESA CCI classes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="87"/>
+        <source>Land cover (target, ESA CCI classes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="90"/>
+        <source>Grassland</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="91"/>
+        <source>Cropland</source>
+        <translation>Cropland</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="92"/>
+        <source>Wetland</source>
+        <translation>Mazingira</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="93"/>
+        <source>Artificial area</source>
+        <translation>Eneo la bandia</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="94"/>
+        <source>Bare land</source>
+        <translation>Nchi ya ardhi</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="95"/>
+        <source>Water body</source>
+        <translation>Mwili wa maji</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="98"/>
+        <source>Forest persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="99"/>
+        <source>Forest loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="100"/>
+        <source>Grassland persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="101"/>
+        <source>Grassland loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="102"/>
+        <source>Cropland persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="103"/>
+        <source>Cropland loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="104"/>
+        <source>Wetland persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="105"/>
+        <source>Wetland loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="106"/>
+        <source>Artificial area persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="107"/>
+        <source>Artificial area loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="108"/>
+        <source>Bare land persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="109"/>
+        <source>Bare land loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="110"/>
+        <source>Water body persistence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="111"/>
+        <source>Water body loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="114"/>
+        <source>Land cover degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="141"/>
+        <source>Degradation</source>
+        <translation type="unfinished">Uharibifu</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="143"/>
+        <source>Improvement</source>
+        <translation type="unfinished">Uboreshaji</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="122"/>
+        <source>Soil organic carbon (baseline, tons / ha)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="124"/>
+        <source>Soil organic carbon (target, tons / ha)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="127"/>
+        <source>Soil organic carbon degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="134"/>
+        <source>Productivity degradation (combined - SDG 15.3.1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="140"/>
+        <source>Degradation (combined - SDG 15.3.1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="413"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="314"/>
+        <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
-<context>
+<context encoding="UTF-8">
     <name>DlgAbout</name>
     <message>
         <location filename="../gui/DlgAbout.ui" line="14"/>
@@ -676,12 +946,12 @@ p, li { white-space: pre-wrap;}
     </message>
     <message>
         <location filename="../calculate_lc.py" line="338"/>
-        <source>Input cover class</source>
+        <source>Input class</source>
         <translation>Chuo cha kufunika ya kuingiza</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="339"/>
-        <source>Output cover class</source>
+        <source>Output class</source>
         <translation>Chuo cha bima ya utoaji</translation>
     </message>
     <message>
@@ -706,8 +976,8 @@ p, li { white-space: pre-wrap;}
     </message>
     <message>
         <location filename="../calculate_lc.py" line="337"/>
-        <source>Input class code</source>
-        <translation>Pembeza msimbo wa darasa</translation>
+        <source>Input code</source>
+        <translation>Nambari ya kuingiza</translation>
     </message>
 </context>
 <context>
@@ -1159,6 +1429,44 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <location filename="../gui/DlgJobsDetails.ui" line="71"/>
         <source>Status:</source>
         <translation>Hali:</translation>
+    </message>
+</context>
+<context>
+    <name>DlgLoadData</name>
+    <message>
+        <location filename="../load_data.py" line="368"/>
+        <source>Select a trends.earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="368"/>
+        <source>trends.earth metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="419"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="376"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kusoma {}. Chagua faili tofauti.</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="381"/>
+        <source>{} does not appear to be a trends.earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="413"/>
+        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="419"/>
+        <source>Select a layer to load.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1959,7 +2267,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Haiwezi kuingia kwenye seva ya LDMP. Angalia jina lako la mtumiaji na nenosiri.</translation>
     </message>
     <message>
-        <location filename="../calculate_prod.py" line="242"/>
+        <location filename="../calculate_soc.py" line="95"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
@@ -2142,6 +2450,16 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <location filename="../ldmp.py" line="232"/>
         <source>Load local data</source>
         <translation>Weka data ya ndani</translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="95"/>
+        <source>Soil organic carbon submitted to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="99"/>
+        <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

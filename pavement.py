@@ -264,13 +264,17 @@ def deploy_docs(options):
     if not options.get('fast', False):
         builddocs(options)
 
-    with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
-        keys = json.load(fin)
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+            keys = json.load(fin)
+        client = boto3.client('s3',
+                              aws_access_key_id=keys['access_key_id'],
+                              aws_secret_access_key=keys['secret_access_key'])
+    except IOError:
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        client = boto3.client('s3')
 
     print('Clearing existing docs.')
-    client = boto3.client('s3',
-                          aws_access_key_id=keys['access_key_id'],
-                          aws_secret_access_key=keys['secret_access_key'])
     paginator = client.get_paginator('list_objects_v2')
     pages = paginator.paginate(Bucket=options.sphinx.deploy_s3_bucket,
                                Prefix='docs/')

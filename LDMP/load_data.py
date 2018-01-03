@@ -14,6 +14,7 @@
 
 import os
 from math import floor, log10
+from operator import attrgetter
 
 import json
 
@@ -324,6 +325,9 @@ def add_layer(f, layer_type, band_info):
         fcn.setColorRampType("INTERPOLATED")
     else:
         raise TypeError("Unrecognized color ramp type: {}".format(style['ramp']['shader']))
+    # Make sure the items in the color ramp are sorted by value (weird display 
+    # errors will otherwise result)
+    r = sorted(r, key=attrgetter('value'))
     fcn.setColorRampItemList(r)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)

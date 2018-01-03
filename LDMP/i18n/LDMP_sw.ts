@@ -707,7 +707,7 @@ p, li { white-space: pre-wrap;}
     <message>
         <location filename="../calculate_lc.py" line="337"/>
         <source>Input class code</source>
-        <translation type="unfinished"></translation>
+        <translation>Pembeza msimbo wa darasa</translation>
     </message>
 </context>
 <context>
@@ -933,27 +933,27 @@ p, li { white-space: pre-wrap;}
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="442"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaguo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="454"/>
         <source>Climate regime</source>
-        <translation type="unfinished"></translation>
+        <translation>Utawala wa hali ya hewa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="460"/>
         <source>Default (determined per-pixel using global climate data)</source>
-        <translation type="unfinished"></translation>
+        <translation>Default (kuamua kila pixel kwa kutumia data ya hali ya hewa duniani)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="470"/>
         <source>Specify regime</source>
-        <translation type="unfinished"></translation>
+        <translation>Taja utawala</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="477"/>
         <source>Custom value</source>
-        <translation type="unfinished"></translation>
+        <translation>Thamani ya kawaida</translation>
     </message>
 </context>
 <context>

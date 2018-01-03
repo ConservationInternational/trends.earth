@@ -707,7 +707,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="337"/>
         <source>Input class code</source>
-        <translation type="unfinished"></translation>
+        <translation>Código de clase de entrada</translation>
     </message>
 </context>
 <context>
@@ -933,27 +933,27 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="442"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="454"/>
         <source>Climate regime</source>
-        <translation type="unfinished"></translation>
+        <translation>Régimen climático</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="460"/>
         <source>Default (determined per-pixel using global climate data)</source>
-        <translation type="unfinished"></translation>
+        <translation>Predeterminado (determinado por píxel usando datos climáticos globales)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="470"/>
         <source>Specify regime</source>
-        <translation type="unfinished"></translation>
+        <translation>Especificar el régimen</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="477"/>
         <source>Custom value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor personalizado</translation>
     </message>
 </context>
 <context>

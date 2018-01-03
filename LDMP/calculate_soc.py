@@ -30,6 +30,39 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         super(DlgCalculateSOC, self).__init__(parent)
 
         self.setupUi(self)
+        
+        self.regimes = [('Temperate dry (Fl = 0.80)', .80),
+                        ('Temperate moist (Fl = 0.69)', .69),
+                        ('Tropical dry (Fl = 0.58)', .58),
+                        ('Tropical moist (Fl = 0.48)', .48),
+                        ('Tropical montane (Fl = 0.64)', .64)]
+
+        self.fl_chooseRegime_comboBox.addItems([r[0] for r in self.regimes])
+        self.fl_chooseRegime_comboBox.setEnabled(False)
+        self.fl_custom_lineEdit.setEnabled(False)
+        # Setup validator for lineedit entries
+        validator = QtGui.QDoubleValidator()
+        validator.setBottom(0)
+        validator.setDecimals(3)
+        self.fl_custom_lineEdit.setValidator(validator)
+        self.fl_radio_default.toggled.connect(self.fl_radios_toggled)
+        self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
+        self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
+
+    def fl_radios_toggled(self):
+        if self.fl_radio_custom.isChecked():
+            self.fl_chooseRegime_comboBox.setEnabled(False)
+            self.fl_custom_lineEdit.setEnabled(True)
+        elif self.fl_radio_chooseRegime.isChecked():
+            self.fl_chooseRegime_comboBox.setEnabled(True)
+            self.fl_custom_lineEdit.setEnabled(False)
+        else:
+            self.fl_chooseRegime_comboBox.setEnabled(False)
+            self.fl_custom_lineEdit.setEnabled(False)
+
+    def get_fl(self):
+        #fl = [self.area_tab.area_admin_0.currentText()
+        pass
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -44,6 +77,7 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         payload = {'year_bl_start': self.year_bl_start.date().year(),
                    'year_bl_end': self.year_bl_end.date().year(),
                    'year_target': self.year_target.date().year(),
+                   'fl': self.get_fl(),
                    'geojson': json.dumps(self.bbox),
                    'remap_matrix': self.remap_matrix,
                    'task_name': self.task_name.text(),

@@ -163,13 +163,13 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.setupUi(self)
 
         # Extract trans_matrix from the QTableWidget
-        self.trans_matrix_default = [0, 1, -1, -1, -1, -1, -1, # forest
-                                     1, 0, 1, -1, -1, -1, -1, # grassland
-                                     1, -1, 0, -1, -1, -1, -1, # cropland
-                                     -1, -1, -1, 0, -1, -1, -1, # wetland
-                                     1, 1, 1, 1, 0, -1, -1, # artificial areas
-                                     1, 1, 1, 1, 1, 0, -1, # bare land
-                                     1, 1, 0, 0, 0, 0, 0] # water body
+        self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
+                                     1, 0, -1, 0, -1, -1, 0, # grassland
+                                     1, 1, 0, 1, -1, -1, 0, # cropland
+                                     0, 0, -1, 0, -1, -1, 0, # wetland
+                                     1, 1, 1, 1, 0, 0, 0, # artificial areas
+                                     1, 1, 1, 1, 0, 0, 0, # bare land
+                                     0, 0, 0, 0, 0, 0, 0] # water body
         for row in range(0, self.transMatrix.rowCount()):
             for col in range(0, self.transMatrix.columnCount()):
                 line_edit = TransMatrixEdit()

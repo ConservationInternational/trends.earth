@@ -8,6 +8,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
+../gui/DlgLoadData.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgReporting.ui \
 ../gui/DlgReportingSDG.ui \
@@ -15,8 +16,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \
-../gui/DlgTimeseries.ui
-../gui/WidgetSelectArea.ui
+../gui/DlgTimeseries.ui \
+../gui/WidgetSelectArea.ui \
 ../gui/WidgetSelectPoint.ui
 
 SOURCES = ../about.py \

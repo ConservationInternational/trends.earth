@@ -68,12 +68,12 @@ def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
         climate = ee.Image("users/geflanddegradation/toolbox_datasets/ipcc_climate_zones")\
             .remap([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 
                    [0, 2, 1, 2, 1, 2, 1, 2, 1, 5, 4, 4, 3])
-        var clim_fl = climate.remap([0, 1, 2, 3, 4, 5],
-                                    [0, 0.8, 0.69, 0.58, 0.48, 0.64])
+        clim_fl = climate.remap([0, 1, 2, 3, 4, 5],
+                                [0, 0.8, 0.69, 0.58, 0.48, 0.64])
         lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), clim_fl)\
                              .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(clim_fl))
     else:
-        lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), fl)
+        lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), fl)\
                              .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(fl))
 
     # stock change factor for management regime

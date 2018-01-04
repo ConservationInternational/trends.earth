@@ -46,21 +46,35 @@ def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
     soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
     soc_ini = soc.updateMask(soc.neq(-32768))
 
-    # stock change factor for land use
-    lc_tr_fl = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
-                            21, 22, 23, 24, 25, 26, 27,
-                            31, 32, 33, 34, 35, 36, 37,
-                            41, 42, 43, 44, 45, 46, 47,
-                            51, 52, 53, 54, 55, 56, 57,
-                            61, 62, 63, 64, 65, 66, 67,
-                            71, 72, 73, 74, 75, 76, 77],
-                           [1, 1, fl, 1, 0.1, 0.1, 0,
-                            1, 1, fl, 1, 0.1, 0.1, 0,
-                            1 / fl, 1 / fl, 1, 1 / 0.71, 0.1, 0.1, 0,
-                            1, 1, 0.71, 1, 0.1, 0.1, 0,
-                            10, 10, 10, 10, 1, 1, 0,
-                            10, 10, 10, 10, 1, 1, 0,
-                            0, 0, 0, 0, 0, 0, 0])
+    # stock change factor for land use - note the 99 and -99 will be recoded 
+    # using the chosen Fl option
+    lc_tr_fl_0 = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
+                              21, 22, 23, 24, 25, 26, 27,
+                              31, 32, 33, 34, 35, 36, 37,
+                              41, 42, 43, 44, 45, 46, 47,
+                              51, 52, 53, 54, 55, 56, 57,
+                              61, 62, 63, 64, 65, 66, 67,
+                              71, 72, 73, 74, 75, 76, 77],
+                             [1, 1, 99, 1, 0.1, 0.1, 0,
+                              1, 1, 99, 1, 0.1, 0.1, 0,
+                              -99, -99, 1, 1 / 0.71, 0.1, 0.1, 0,
+                              1, 1, 0.71, 1, 0.1, 0.1, 0,
+                              10, 10, 10, 10, 1, 1, 0,
+                              10, 10, 10, 10, 1, 1, 0,
+                              0, 0, 0, 0, 0, 0, 0])
+
+    if fl == 'per pixel':
+        ## Setup a raster of climate regimes to use for coding Fl automatically
+        climate = ee.Image("users/geflanddegradation/toolbox_datasets/ipcc_climate_zones")\
+            .remap([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 
+                   [0, 2, 1, 2, 1, 2, 1, 2, 1, 5, 4, 4, 3])
+        var clim_fl = climate.remap([0, 1, 2, 3, 4, 5],
+                                    [0, 0.8, 0.69, 0.58, 0.48, 0.64])
+        lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), clim_fl)\
+                             .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(clim_fl))
+    else:
+        lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), fl)
+                             .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(fl))
 
     # stock change factor for management regime
     lc_tr_fm = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,

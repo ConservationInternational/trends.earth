@@ -102,18 +102,19 @@ def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
 
     soc_pch = ((soc_fin.subtract(soc_ini)).divide(soc_ini)).multiply(100)
 
-    soc_out = soc_ini.addBands(soc_fin).addBands(soc_pch)
+    soc_out = soc_pch.addBands(soc_ini).addBands(soc_fin)
 
     task = util.export_to_cloudstorage(soc_out.int16(),
-                                       soc_out.projection(), geojson, 'soc', logger,
+                                       soc_out.projection(), geojson, 
+                                       'soil_organic_carbon', logger,
                                        EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'soil_organic_carbon', [CloudUrl(task.url())])
-
-    d = [BandInfo("Soil organic carbon (7 class)", 1, no_data_value=-32768, add_to_map=True)
-
+    d = [BandInfo("Soil organic carbon (degradation)", 1, no_data_value=-32768, add_to_map=True),
+         BandInfo("Soil organic carbon (baseline)", 2, no_data_value=-32768, add_to_map=True),
+         BandInfo("Soil organic carbon (target)", 3, no_data_value=-32768, add_to_map=True)]
+    u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('soil_organic_carbon', d, u)
     results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
@@ -128,11 +129,6 @@ def run(params, logger):
     year_bl_end = params.get('year_bl_end', 2015)
     year_target = params.get('year_target', 2015)
     fl = params.get('fl', .80) # Default to fl of .80 (temperate dry)
-    # if (regime == 'temp_dry')   {fl = 0.80}
-    # if (regime == 'temp_moist') {fl = 0.69}
-    # if (regime == 'trop_dry')   {fl = 0.58}
-    # if (regime == 'trop_moist') {fl = 0.48}
-    # if (regime == 'trop_mont')  {fl = 0.64}
 
     geojson = params.get('geojson', util.tza_geojson)
     remap_matrix_default = [[10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72,

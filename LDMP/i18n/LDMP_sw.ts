@@ -1468,6 +1468,69 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <source>Select a layer to load.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="17"/>
+        <source>Open a trends.earth file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="30"/>
+        <source>Select a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="42"/>
+        <source>Choose a file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="55"/>
+        <source>Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="65"/>
+        <source>Metadata from this file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="71"/>
+        <source>Task name:</source>
+        <translation type="unfinished">Jina la Task:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="103"/>
+        <source>Output:</source>
+        <translation type="unfinished">Pato:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="126"/>
+        <source>Input:</source>
+        <translation type="unfinished">Input:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="149"/>
+        <source>Comments:</source>
+        <translation type="unfinished">Maoni:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="168"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt; &lt;kichwa&gt; &lt;meta jina = &quot;qrichtext&quot; maudhui = &quot;1&quot; /&gt; &lt;aina ya style = &quot;text / css&quot;&gt;
+p, li {nyeupe-nafasi: kabla ya kufuta; }
+&lt;/ style&gt; &lt;/ kichwa&gt; &lt;mwili style = &quot;font-familia: &apos;MS Shell Dlg 2&apos;; ukubwa wa font: 8.25pt; font-uzito: 400; style ya style: kawaida;&quot;&gt;
+&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="185"/>
+        <source>Select a layer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgPlot</name>
@@ -2568,6 +2631,82 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <location filename="../reporting.py" line="866"/>
         <source>SDG 15.3 Productivity Indicator</source>
         <translation>Kiashiria cha Uzalishaji wa SDG 15.3</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetSelectArea</name>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="20"/>
+        <source>Area to run calculations for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="28"/>
+        <source>Administrative area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="65"/>
+        <source>First level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="96"/>
+        <source>Second level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="103"/>
+        <source>Area from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="173"/>
+        <source>Browse</source>
+        <translation type="unfinished">Vinjari</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="189"/>
+        <source>Choose a file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="196"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WidgetSelectPoint</name>
+    <message>
+        <location filename="../gui/WidgetSelectPoint.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectPoint.ui" line="25"/>
+        <source>Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectPoint.ui" line="80"/>
+        <source>Choose a point...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectPoint.ui" line="51"/>
+        <source>x:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectPoint.ui" line="64"/>
+        <source>y:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

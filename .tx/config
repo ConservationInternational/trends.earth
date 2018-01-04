@@ -32,11 +32,6 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/installing.po
 source_file = LDMP/help/i18n/pot/documentation/installing.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--interpreting_results]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/interpreting_results.po
-source_file = LDMP/help/i18n/pot/training/interpreting_results.pot
-source_lang = en
-
 [land_degradation_monitoring_toolbox_docs_1_0.documentation--plot_data]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/plot_data.po
 source_file = LDMP/help/i18n/pot/documentation/plot_data.pot
@@ -55,6 +50,16 @@ source_lang = en
 [land_degradation_monitoring_toolbox_docs_1_0.training--indicator_15_3_1]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/indicator_15_3_1.po
 source_file = LDMP/help/i18n/pot/training/indicator_15_3_1.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--interpreting_results]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/interpreting_results.po
+source_file = LDMP/help/i18n/pot/training/interpreting_results.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--UNCCD_reporting]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/UNCCD_reporting.po
+source_file = LDMP/help/i18n/pot/training/UNCCD_reporting.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--visualizing_results]

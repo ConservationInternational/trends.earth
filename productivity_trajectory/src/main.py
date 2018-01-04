@@ -55,6 +55,7 @@ def run(params, logger):
                                        EXECUTION_ID)
     task.join()
 
+    logger.debug("Setting up results JSON.")
     d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=9999, add_to_map=True),
          BandInfo("Productivity trajectory (significance)", 2, no_data_value=9999, add_to_map=True)]
     u = URLList(task.get_URL_base(), task.get_files())

@@ -40,7 +40,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
         self.dataset_climate_update()
-        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal'] == 'annual']
+        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
         self.dataset_ndvi.addItems(ndvi_datasets)
 
         self.start_year_climate = 0
@@ -162,13 +162,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         if self.indic_select_traj.isChecked():
-            self.calculate_trajectory(self.bbox, ndvi_dataset)
+            self.calculate_trajectory(self.aoi.bounding_box_geojson, ndvi_dataset)
 
         if self.indic_select_perf.isChecked():
-            self.calculate_performance(self.bbox, ndvi_dataset)
+            self.calculate_performance(self.aoi.bounding_box_geojson, ndvi_dataset)
 
         if self.indic_select_state.isChecked():
-            self.calculate_state(self.bbox, ndvi_dataset)
+            self.calculate_state(self.aoi.bounding_box_geojson, ndvi_dataset)
 
     def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
@@ -179,7 +179,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         payload = {'year_start': self.traj_year_start.date().year(),
                    'year_end': self.traj_year_end.date().year(),
-                   'geojson': json.dumps(self.bbox),
+                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,
                    'task_name': self.task_name.text(),

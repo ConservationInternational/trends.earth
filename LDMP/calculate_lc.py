@@ -306,7 +306,7 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         payload = {'year_bl_start': self.year_bl_start.date().year(),
                    'year_bl_end': self.year_bl_end.date().year(),
                    'year_target': self.year_target.date().year(),
-                   'geojson': json.dumps(self.bbox),
+                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'trans_matrix': self.trans_matrix_get(),
                    'remap_matrix': self.remap_matrix,
                    'task_name': self.task_name.text(),

@@ -46,7 +46,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setupUi(self)
 
-        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal'] == 'annual']
+        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
         self.dataset_ndvi.addItems(ndvi_datasets)
 
         self.start_year_climate = 0
@@ -134,7 +134,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.climate_datasets = {}
         # Can't use any of the methods but NDVI Trends on the 16 day data, so
         # don't need climate datasets
-        if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal'] == 'annual':
+        if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal resolution'] == 'annual':
             climate_types = self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['climate types']
             for climate_type in climate_types:
                 self.climate_datasets.update(self.datasets[climate_type])
@@ -160,7 +160,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.traj_indic.clear()
         self.traj_indic.blockSignals(False)
         # Can't use any of the methods but NDVI Trends on the 16 day data
-        if this_ndvi_dataset['Temporal'] == '16 day':
+        if this_ndvi_dataset['Temporal resolution'] == '16 day':
             self.traj_indic.addItems(['NDVI trends'])
         else:
             self.traj_indic.addItems(self.scripts['productivity-trajectory']['functions'].keys())
@@ -229,13 +229,13 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         if len(features) > 1:
             log("Found {} features in geojson - using first feature only.".format(len(features)))
-        #self.bbox = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
-        self.bbox = json.loads(QgsGeometry.fromRect(features[0].geometry().boundingBox()).exportToGeoJSON())
-        log("Calculating timeseries for: {}.".format(self.bbox))
+        #self.aoi.bounding_box_geojson = json.loads(features[0].geometry().convexHull().exportToGeoJSON())
+        self.aoi.bounding_box_geojson = json.loads(QgsGeometry.fromRect(features[0].geometry().boundingBox()).exportToGeoJSON())
+        log("Calculating timeseries for: {}.".format(self.aoi.bounding_box_geojson))
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
-        self.calculate_timeseries(self.bbox, ndvi_dataset)
+        self.calculate_timeseries(self.aoi.bounding_box_geojson, ndvi_dataset)
 
     def calculate_timeseries(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":

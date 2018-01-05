@@ -18,13 +18,13 @@ them in the `issue tracker on Github
 Authors
 -------
 
-Contributors to the documentation and |trends.earth| include Yengoh Genesis 
-[1]_, Mariano Gonzalez-Roglich [2]_, Monica Noon [2]_, Lennart Olsson [1]_, 
-Tristan Schnader [2]_, Anna Tengberg [1]_, and Alex Zvoleff [2]_.
-
 The Land Degradation Monitoring Project is a partnership of Conservation 
 International, Lund University, and the National Aeronautics and Space 
 Administration (NASA), and is funded by the Global Environment Facility (GEF).
+
+Contributors to the documentation and to |trends.earth| include Yengoh Genesis, 
+Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan Schnader, Anna 
+Tengberg, and Alex Zvoleff.
 
 .. |logoCI| image:: /static/common/logo_CI_square.png
     :width: 150
@@ -46,9 +46,6 @@ Administration (NASA), and is funded by the Global Environment Facility (GEF).
     ======== ========== ========== =========
     |logoCI| |logoLund| |logoNASA| |logoGEF|
     ======== ========== ========== =========
-
-.. [1] `Lund University <http://www.lunduniversity.lu.se>`_
-.. [2] `Conservation International <http://www.conservation.org>`_
 
 |trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ to 
 compute indicators in the cloud.

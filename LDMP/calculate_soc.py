@@ -82,7 +82,7 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
                    'year_bl_end': self.year_bl_end.date().year(),
                    'year_target': self.year_target.date().year(),
                    'fl': self.get_fl(),
-                   'geojson': json.dumps(self.bbox),
+                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'remap_matrix': self.remap_matrix,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}

@@ -16,7 +16,7 @@ import os
 import json
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal
+from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
@@ -24,6 +24,79 @@ from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.download import read_json, get_admin_bounds
+
+
+def tr(t):
+    return QCoreApplication.translate('LDMPPlugin', t)
+
+class AOI(object):
+    def __init__(self, f=None, geojson=None):
+        """Can initialize with either a file, or a geojson"""
+        self.isValid = False
+
+        if f and not geojson:
+            l = QgsVectorLayer(f, "calculation boundary", "ogr")
+            if not l.isValid():
+                return
+            log('Loaded layer: {}'.format(l.dataProvider().dataSourceUri()))
+        elif not f and geojson:
+            l = QgsVectorLayer("polygon?crs=epsg:4326", "calculation boundary", "memory")
+            fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
+            features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
+            ret = l.dataProvider().addFeatures(features)
+            l.commitChanges()
+            if not ret:
+                QtGui.QMessageBox.critical(None, tr("Error"),
+                                           tr("Failed to add geojson to temporary layer."), None)
+                log("Failed to add geojson to temporary layer.")
+                return
+            l.commitChanges()
+        else:
+            raise ValueError("Must specifiy file or geojson")
+
+        crs_source = l.crs()
+        crs_dest = QgsCoordinateReferenceSystem(4326)
+        t = QgsCoordinateTransform(crs_source, crs_dest)
+
+        # Transform layer to WGS84
+        l_wgs84 = QgsVectorLayer("polygon?crs=epsg:4326", "calculation boundary (wgs84)",  "memory")
+        #CRS transformation
+        feats = []
+        for f in l.getFeatures():
+            g = f.geometry()
+            g.transform(t)
+            f.setGeometry(g)
+            feats.append(f)
+        l_wgs84.dataProvider().addFeatures(feats)
+        l_wgs84.commitChanges()
+        if not l_wgs84.isValid():
+            QtGui.QMessageBox.critical(None, tr("Error"),
+                                       tr("Coordinates of area of interest could not be transformed to WGS84. Check that the projection system is defined."), None)
+            log("Error transforming AOI coordinates to WGS84")
+            return
+        else:
+            self.layer = l_wgs84
+
+        # Transform bounding box to WGS84
+        self.bounding_box_geom = QgsGeometry.fromRect(l.extent())
+        # Save a geometry of the bounding box
+        self.bounding_box_geom.transform(t)
+        # Also save a geojson of the bounding box (needed for shipping to GEE)
+        self.bounding_box_geojson = json.loads(self.bounding_box_geom.exportToGeoJSON())
+
+        # Check the coordinates of the bounding box are now in WGS84 (in case 
+        # no transformation was available for the chosen coordinate systems)
+        bbox = self.bounding_box_geom.boundingBox()
+        log("Bounding box: {}, {}, {}, {}".format(bbox.xMaximum(), bbox.xMinimum(), bbox.yMinimum(), bbox.yMinimum()))
+        if (bbox.xMinimum() < -180) or \
+           (bbox.xMaximum() > 180) or \
+           (bbox.yMinimum() < -90) or \
+           (bbox.yMinimum() > 90):
+            QtGui.QMessageBox.critical(None, tr("Error"),
+                                       tr("Coordinates of area of interest could not be transformed to WGS84. Check that the projection system is defined."), None)
+            log("Error transforming AOI coordinates to WGS84")
+        else:
+            self.isValid = True
 
 
 class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
@@ -201,35 +274,18 @@ class DlgCalculateBase(QtGui.QDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Unable to load administrative boundaries."), None)
                 return False
+            self.aoi = AOI(geojson=geojson)
         else:
             if not self.area_tab.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."), None)
                 return False
-            layer = QgsVectorLayer(self.area_tab.area_fromfile_file.text(), 'calculation boundary', 'ogr')
-            if not layer.isValid():
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Unable to read area file."), None)
-                return False
-            log('Loaded layer: {}'.format(layer.dataProvider().dataSourceUri()))
-            #TODO: Fix this kludge
-            for f in layer.getFeatures():
-                aoi = f.geometry()
-                break
-            crs_source = layer.crs()
-            crs_dest = QgsCoordinateReferenceSystem(4326)
-            aoi.transform(QgsCoordinateTransform(crs_source, crs_dest))
-            geojson = json.loads(aoi.exportToGeoJSON())
+            self.aoi = AOI(f=self.area_tab.area_fromfile_file.text())
 
-        # Calculate bounding box of input polygon and then convert back to
-        # geojson
-        fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
-        features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
-        if len(features) > 1:
-            log("Found {} features in geojson - using first feature only.".format(len(features)))
-        # Make a copy of this geometry
-        self.aoi = QgsGeometry(features[0].geometry())
-        self.bbox = json.loads(QgsGeometry.fromRect(self.aoi.boundingBox()).exportToGeoJSON())
+        if not self.aoi.isValid:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Unable to read area file."), None)
+            return False
 
         return True
 

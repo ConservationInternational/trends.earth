@@ -489,40 +489,25 @@ def get_xtab_area(table, deg_class=None, lc_class=None):
 
 
 class ClipWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, aoi, dstSRS=None):
+    def __init__(self, in_file, out_file, mask_layer):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
-        # Make a copy of the geometry so that we aren't modifying the CRS of
-        # the original
-        self.aoi = QgsGeometry(aoi)
-        if dstSRS:
-            self.dstSRS = dstSRS
-        else:
-            self.dstSRS = 4326
 
-        if self.dstSRS != 4326:
-            crs_src = QgsCoordinateReferenceSystem(4326)
-            crs_dest = QgsCoordinateReferenceSystem(self.dstSRS)
-            self.aoi.transform(QgsCoordinateTransform(crs_src, crs_dest))
+        self.mask_layer = mask_layer
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        mask_layer = QgsVectorLayer("Polygon?crs=epsg:{}".format(self.dstSRS), "mask", "memory")
-        mask_pr = mask_layer.dataProvider()
-        fet = QgsFeature()
-        fet.setGeometry(self.aoi)
-        mask_pr.addFeatures([fet])
         mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
-        QgsVectorFileWriter.writeAsVectorFormat(mask_layer, mask_layer_file,
+        QgsVectorFileWriter.writeAsVectorFormat(self.mask_layer, mask_layer_file,
                                                 "CP1250", None, "ESRI Shapefile")
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=mask_layer_file,
-                        dstNodata=-9999, dstSRS="epsg:{}".format(self.dstSRS),
+                        dstNodata=-9999, dstSRS="epsg:4326",
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
@@ -685,15 +670,15 @@ class DlgReportingBase(DlgCalculateBase):
             return
 
         # Check that all of the layers cover the area of interest
-        if not self.aoi.within(QgsGeometry.fromRect(self.layer_traj.extent())):
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_traj.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the trajectory layer."), None)
             return
-        if not self.aoi.within(QgsGeometry.fromRect(self.layer_lc.extent())):
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
-        if not self.aoi.within(QgsGeometry.fromRect(self.layer_soc.extent())):
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return
@@ -734,7 +719,7 @@ class DlgReportingBase(DlgCalculateBase):
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
         # Use this instead of croptocutline in gdal.Warp in order to keep the
         # pixels aligned.
-        bb = self.aoi.boundingBox()
+        bb = self.aoi.bounding_box_geom.boundingBox()
         minx = bb.xMinimum()
         miny = bb.yMinimum()
         maxx = bb.xMaximum()
@@ -814,11 +799,11 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                                        self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
             return
 
-        if not self.aoi.within(QgsGeometry.fromRect(self.layer_state.extent())):
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_state.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the state layer."), None)
             return
-        if not self.aoi.within(QgsGeometry.fromRect(self.layer_perf.extent())):
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_perf.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the performance layer."), None)
             return
@@ -843,7 +828,7 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
         deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
                                          self.indic_f,
-                                         lc_clip_tempfile, self.aoi)
+                                         lc_clip_tempfile, self.aoi.layer)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error clipping land cover layer for area calculation."), None)

@@ -93,8 +93,9 @@
             "ramp": {
                 "type": "min zero max 98 percent stretch",
                 "shader": "interpolated",
-                "zero": {"color": "#F6F6EA"},
-                "max": {"color": "#008C79"},
+                "zero": {"color": "#461554"},
+                "mid": {"color": "#28898C"},
+                "max": {"color": "#FDE629"},
                 "no data": {"value": -32768, "color": "#000000", "label": "soc_bl_nodata"}
             }
         },
@@ -103,8 +104,9 @@
             "ramp": {
                 "type": "min zero max 98 percent stretch",
                 "shader": "interpolated",
-                "zero": {"color": "#F6F6EA"},
-                "max": {"color": "#008C79"},
+                "zero": {"color": "#461554"},
+                "mid": {"color": "#28898C"},
+                "max": {"color": "#FDE629"},
                 "no data": {"value": -32768, "color": "#000000", "label": "soc_tg_nodata"}
             }
         },

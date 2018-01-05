@@ -302,6 +302,10 @@ def add_layer(f, layer_type, band_info):
         r.append(QgsColorRampShader.ColorRampItem(0,
                                                   QtGui.QColor(style['ramp']['zero']['color']),
                                                   '0'))
+        if style['ramp'].has_key('mid'):
+            r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
+                                                      QtGui.QColor(style['ramp']['mid']['color']),
+                                                      '0'))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
                                                   QtGui.QColor(style['ramp']['max']['color']),
                                                   '{}'.format(cutoff)))

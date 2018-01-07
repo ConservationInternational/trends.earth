@@ -258,6 +258,7 @@ def deploy(options):
 @task
 @cmdopts([
     ('ignore_errors', 'i', 'ignore documentation errors'),
+    ('language', 'l', "which language to build (all are built by default)"),
     ('fast', 'f', "don't build docs"),
 ])
 def deploy_docs(options):

@@ -305,7 +305,7 @@ def add_layer(f, layer_type, band_info):
         if style['ramp'].has_key('mid'):
             r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
                                                       QtGui.QColor(style['ramp']['mid']['color']),
-                                                      '0'))
+                                                      str(cutoff/2)))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
                                                   QtGui.QColor(style['ramp']['max']['color']),
                                                   '{}'.format(cutoff)))
@@ -417,8 +417,8 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
                         mb.pushMessage(tr("Error"),
                                        self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(layer)),
                                        level=1, duration=5)
-                else:
-                    log('Error loading "{}" results from {}'.format(layer, self.file_lineedit.text()))
+            else:
+                log('Error loading "{}" results from {}'.format(layer, self.file_lineedit.text()))
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
 

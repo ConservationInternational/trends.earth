@@ -219,25 +219,19 @@ def get_sample(f, band_number, n=10000):
         edge = ysize
     else:
         edge = xsize
-    grid_size = np.ceil(edge / np.sqrt(n)).astype('int64')
+    grid_size = np.ceil(edge / np.sqrt(n))
     if (grid_size * grid_size) > (b.XSize * b.YSize):
         # Don't sample if the sample would be larger than the array itself
         return b.ReadAsArray().astype(np.float)
     else:
-        cols = np.arange(0, xsize, grid_size)
+        rows = np.arange(0, ysize, grid_size)
+        cols = np.arange(0, xsize, grid_size).astype('int64')
 
-        xsize_out = np.ceil(xsize / grid_size).astype('int64')
-        ysize_out = np.ceil(ysize / grid_size).astype('int64')
+        out = np.zeros((rows.shape[0], cols.shape[0]), np.float64)
+        log("Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})".format(ysize, xsize, out.shape, grid_size, out.shape[0] * out.shape[1]))
 
-        out = np.zeros((ysize_out + 1, xsize_out + 1))
-        log("Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})".format(ysize, xsize, out.shape, grid_size, xsize_out*ysize_out))
-        y_out = 0
-        for y in xrange(0, ysize, grid_size):
-            d = np.array(b.ReadAsArray(0, y, xsize, 1)).astype(np.float)
-            # log("Out shape: {}".format(out.shape))
-            # log("Cols shape: {}".format(cols.shape))
-            out[y_out, :] = d[:, cols]
-            y_out += 1
+        for n in range(rows.shape[0]):
+            out[n, :] = b.ReadAsArray(0, int(rows[n]), xsize, 1)[:, cols]
 
         return out
 
@@ -262,7 +256,7 @@ def add_layer(f, layer_type, band_info):
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                                                       QtGui.QColor(item['color']),
-                                                      style_text_dict.get(item['label'], item['label'])))
+                                                      style_text_dict.get(item['label'], str(item['label']))))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -288,7 +282,7 @@ def add_layer(f, layer_type, band_info):
                                                   '{}'.format(extreme)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict.get(style['ramp']['no data']['label'], style['ramp']['no data']['label'])))
+                                                  style_text_dict.get(style['ramp']['no data']['label'], str(style['ramp']['no data']['label']))))
 
     elif style['ramp']['type'] == 'min zero max 98 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -313,7 +307,7 @@ def add_layer(f, layer_type, band_info):
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict.get(style['ramp']['no data']['label'], style['ramp']['no data']['label'])))
+                                                  style_text_dict.get(style['ramp']['no data']['label'], str(style['ramp']['no data']['label']))))
 
     else:
         log('Failed to load trends.earth style. Adding layer using QGIS defaults.')

@@ -85,11 +85,33 @@
             }
         },
         "Productivity performance (ratio)": {
+            "title": "prod_perf_ratio_title",
+            "ramp": {
+                "type": "min zero max 98 percent stretch",
+                "shader": "interpolated",
+                "zero": {"color": "#461554"},
+                "mid": {"color": "#28898C"},
+                "max": {"color": "#FDE629"},
+                "no data": {"value": 9999, "color": "#000000", "label": "prod_perf_ratio_nodata"}
+            }
+        },
+        "Productivity performance (percentile)": {
+            "title": "prod_perf_pct_title",
+            "ramp": {
+                "type": "categorical",
+                "shader": "interpolated",
+                "items": [
+                    {"value": 0, "color": "#461554", "label": 0},
+                    {"value": 50, "color": "#28898C", "label": 50},
+                    {"value": 100, "color": "#FDE629", "label": 100},
+                    {"value": 9999, "color": "#000000", "label": "prof_perf_pct_nodata"}
+                ]
+            }
         }
     },
     "soil_organic_carbon": {
         "Soil organic carbon (baseline)": {
-            "title": "soc_bl_title",
+            "title": "soc_title",
             "ramp": {
                 "type": "min zero max 98 percent stretch",
                 "shader": "interpolated",

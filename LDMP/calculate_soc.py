@@ -18,6 +18,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from PyQt4 import QtGui
+from PyQt4.QtCore import QDate
 
 from LDMP import log
 from LDMP.calculate_lc import DlgCalculateLCBase
@@ -49,6 +50,16 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
 
+    def firstShow(self):
+        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
+        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
+        self.year_start.setMinimumDate(lc_start_year)
+        self.year_start.setMaximumDate(lc_end_year)
+        self.year_end.setMinimumDate(lc_start_year)
+        self.year_end.setMaximumDate(lc_end_year)
+
+        super(DlgCalculateSOC, self).firstShow()
+
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
             self.fl_chooseRegime_comboBox.setEnabled(False)
@@ -78,9 +89,8 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
 
         self.close()
 
-        payload = {'year_bl_start': self.year_bl_start.date().year(),
-                   'year_bl_end': self.year_bl_end.date().year(),
-                   'year_target': self.year_target.date().year(),
+        payload = {'year_bl_start': self.year_start.date().year(),
+                   'year_target': self.year_end.date().year(),
                    'fl': self.get_fl(),
                    'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'remap_matrix': self.remap_matrix,

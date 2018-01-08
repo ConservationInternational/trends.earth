@@ -13,6 +13,7 @@
 """
 
 import os
+import re
 from math import floor, log10
 from operator import attrgetter
 
@@ -43,9 +44,6 @@ def tr(t):
 style_text_dict = {
     # Productivity trajectory
     'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
-    'prod_traj_trend_min': tr('{}'),
-    'prod_traj_trend_zero': tr('0'),
-    'prod_traj_trend_max': tr('{}'),
     'prod_traj_trend_nodata': tr('No data'),
 
     'prod_traj_signif_title': tr('Productivity trajectory significance'),
@@ -65,26 +63,22 @@ style_text_dict = {
     'prod_perf_deg_nodata': tr('No data'),
 
     # Productivity state
-    'prod_state_change_title': tr('Productivity state'),
+    'prod_state_change_title': tr('Productivity state degradation'),
     'prod_state_change_potential_deg': tr('Potentially degraded'),
     'prod_state_change_stable': tr('Stable'),
     'prod_state_change_potential_improvement': tr('Potentially improved'),
     'prod_state_change_nodata': tr('No data'),
 
 
-    'prod_state_classes_bl_title': tr('Productivity state baseline classes'),
-    'prod_state_classes_bl_nodata': tr('No data'),
-
-    'prod_state_classes_tg_title': tr('Productivity state target classes'),
-    'prod_state_classes_tg_nodata': tr('No data'),
+    'prod_state_classes_title': tr('Productivity state classes ({})'),
+    'prod_state_classes_nodata': tr('No data'),
 
     # Land cover
-    'lc_bl_title': tr('Land cover (baseline)'),
-    'lc_tg_title': tr('Land cover (target)'),
-    'lc_tr_title': tr('Land cover (transitions)'),
+    'lc_7class_title': tr('Land cover ({}, 7 class)'),
+    'lc_7class_title': tr('Land cover (transitions)'),
 
-    'lc_esa_bl_title': tr('Land cover (baseline, ESA CCI classes)'),
-    'lc_esa_tg_title': tr('Land cover (target, ESA CCI classes)'),
+    'lc_esa_title': tr('Land cover ({}, ESA CCI classes)'),
+    'lc_esa_title': tr('Land cover ({}, ESA CCI classes)'),
 
     'lc_class_forest': tr('1 - Forest'),
     'lc_class_grassland': tr('2 - Grassland'),
@@ -119,10 +113,8 @@ style_text_dict = {
 
 
     # Soil organic carbon
-    'soc_bl_title': tr('Soil organic carbon (baseline, tons / ha)'),
-    'soc_bl_nodata': tr('No data'),
-    'soc_tg_title': tr('Soil organic carbon (target, tons / ha)'),
-    'soc_tg_nodata': tr('No data'),
+    'soc_title': tr('Soil organic carbon ({}, tons / ha)'),
+    'soc_nodata': tr('No data'),
 
     'soc_deg_title': tr('Soil organic carbon degradation'),
     'soc_deg_deg': tr('Degradation'),

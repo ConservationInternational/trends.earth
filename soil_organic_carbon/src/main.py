@@ -20,103 +20,175 @@ from landdegradation import GEEIOError
 from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
-def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
-        EXECUTION_ID, logger):
+def soc(year_start, year_end, fl, geojson, remap_matrix,
+        dl_annual_soc, dl_annual_lc, EXECUTION_ID, logger):
     """
     Calculate SOC indicator.
     """
     logger.debug("Entering soc function.")
 
-    ## land cover
+    # land cover
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
 
-    ## target land cover map reclassified to IPCC 6 classes
-    lc_tg = lc.select('y{}'.format(year_target))\
+    # baseline land cover map reclassified to IPCC 6 classes
+    lc_remap = lc.select(ee.List.sequence(year_start - 1992, year_end - 1992, 1)) \
         .remap(remap_matrix[0], remap_matrix[1])
-
-    ## baseline land cover map reclassified to IPCC 6 classes
-    lc_bl = lc.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1))\
-        .reduce(ee.Reducer.mode())\
-        .remap(remap_matrix[0], remap_matrix[1])
-
-    ## compute transition map (first digit for baseline land cover, and second digit for target year land cover)
-    lc_tr = lc_bl.multiply(10).add(lc_tg)
-
-    ## soc
-    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
-    soc_ini = soc.updateMask(soc.neq(-32768))
-
-    # stock change factor for land use - note the 99 and -99 will be recoded 
-    # using the chosen Fl option
-    lc_tr_fl_0 = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
-                              21, 22, 23, 24, 25, 26, 27,
-                              31, 32, 33, 34, 35, 36, 37,
-                              41, 42, 43, 44, 45, 46, 47,
-                              51, 52, 53, 54, 55, 56, 57,
-                              61, 62, 63, 64, 65, 66, 67,
-                              71, 72, 73, 74, 75, 76, 77],
-                             [1, 1, 99, 1, 0.1, 0.1, 0,
-                              1, 1, 99, 1, 0.1, 0.1, 0,
-                              -99, -99, 1, 1 / 0.71, 0.1, 0.1, 0,
-                              1, 1, 0.71, 1, 0.1, 0.1, 0,
-                              10, 10, 10, 10, 1, 1, 0,
-                              10, 10, 10, 10, 1, 1, 0,
-                              0, 0, 0, 0, 0, 0, 0])
 
     if fl == 'per pixel':
-        ## Setup a raster of climate regimes to use for coding Fl automatically
+        # Setup a raster of climate regimes to use for coding Fl automatically
         climate = ee.Image("users/geflanddegradation/toolbox_datasets/ipcc_climate_zones")\
             .remap([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 
                    [0, 2, 1, 2, 1, 2, 1, 2, 1, 5, 4, 4, 3])
         clim_fl = climate.remap([0, 1, 2, 3, 4, 5],
                                 [0, 0.8, 0.69, 0.58, 0.48, 0.64])
-        lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), clim_fl)\
-                             .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(clim_fl))
+    # soc
+    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
+    soc_t0 = soc.updateMask(soc.neq(-32768))
+
+    # create empty stacks to store annual land cover maps
+    stack_lco  = ee.Image().select()
+
+    # create empty stacks to store annual soc maps
+    stack_soc = ee.Image().select()
+
+    # loop through all the years in the period of analysis to compute changes in SOC
+    for k in range(year_end - year_start):
+        # land cover map reclassified to UNCCD 7 classes (1: forest, 2: 
+        # grassland, 3: cropland, 4: wetland, 5: artifitial, 6: bare, 7: water)
+        lc_t0 = lc.select(k) \
+            .remap(remap_matrix[0], remap_matrix[1])
+
+        lc_t1 = lc.select(k + 1) \
+            .remap(remap_matrix[0], remap_matrix[1])
+
+        if (k == 0):
+            # compute transition map (first digit for baseline land cover, and 
+            # second digit for target year land cover) 
+            lc_tr = lc_t0.multiply(10).add(lc_t1)
+          
+            # compute raster to register years since transition
+            tr_time = ee.Image(2).where(lc_t0.neq(lc_t1), 1)
+        else:
+            # Update time since last transition. Add 1 if land cover remains 
+            # constant, and reset to 1 if land cover changed.
+            tr_time = tr_time.where(lc_t0.eq(lc_t1), tr_time.add(ee.Image(1))) \
+                .where(lc_t0.neq(lc_t1), ee.Image(1))
+                               
+            # compute transition map (first digit for baseline land cover, and 
+            # second digit for target year land cover), but only update where 
+            # changes actually ocurred.
+            lc_tr_temp = lc_t0.multiply(10).add(lc_t1)
+            lc_tr = lc_tr.where(lc_t0.neq(lc_t1), lc_tr_temp)
+
+        # stock change factor for land use - note the 99 and -99 will be 
+        # recoded using the chosen Fl option
+        lc_tr_fl_0 = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
+                                  21, 22, 23, 24, 25, 26, 27,
+                                  31, 32, 33, 34, 35, 36, 37,
+                                  41, 42, 43, 44, 45, 46, 47,
+                                  51, 52, 53, 54, 55, 56, 57,
+                                  61, 62, 63, 64, 65, 66, 67,
+                                  71, 72, 73, 74, 75, 76, 77],
+                                 [1, 1, 99, 1, 0.1, 0.1, 0,
+                                  1, 1, 99, 1, 0.1, 0.1, 0,
+                                  -99, -99, 1, 1 / 0.71, 0.1, 0.1, 0,
+                                  1, 1, 0.71, 1, 0.1, 0.1, 0,
+                                  10, 10, 10, 10, 1, 1, 0,
+                                  10, 10, 10, 10, 1, 1, 0,
+                                  0, 0, 0, 0, 0, 0, 0])
+
+        if fl == 'per pixel':
+            lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), clim_fl)\
+                                 .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(clim_fl))
+        else:
+            lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), fl)\
+                                 .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(fl))
+
+        # stock change factor for management regime
+        lc_tr_fm = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
+                                21, 22, 23, 24, 25, 26, 27,
+                                31, 32, 33, 34, 35, 36, 37,
+                                41, 42, 43, 44, 45, 46, 47,
+                                51, 52, 53, 54, 55, 56, 57,
+                                61, 62, 63, 64, 65, 66, 67,
+                                71, 72, 73, 74, 75, 76, 77],
+                               [1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1])
+
+        # stock change factor for input of organic matter
+        lc_tr_fo = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
+                                21, 22, 23, 24, 25, 26, 27,
+                                31, 32, 33, 34, 35, 36, 37,
+                                41, 42, 43, 44, 45, 46, 47,
+                                51, 52, 53, 54, 55, 56, 57,
+                                61, 62, 63, 64, 65, 66, 67,
+                                71, 72, 73, 74, 75, 76, 77],
+                               [1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1,
+                                1, 1, 1, 1, 1, 1, 1])
+
+        if (k == 0):
+            soc_chg = (soc_t0.subtract((soc_t0.multiply(lc_tr_fl).multiply(lc_tr_fm).multiply(lc_tr_fo)))).divide(20)
+          
+            # compute final SOC stock for the period
+            soc_t1 = soc_t0.subtract(soc_chg)
+            
+            # add to land cover and soc to stacks from both dates for the first 
+            # period
+            stack_lco = stack_lco.addBands(lc_t0).addBands(lc_t1)
+            stack_soc = stack_soc.addBands(soc_t0).addBands(soc_t1)
+
+        else:
+            # compute annual change in soc (updates from previous period based 
+            # on transition and time <20 years)
+            soc_chg = soc_chg.where(lc_t0.neq(lc_t1),
+                                    (stack_soc.select(k).subtract(stack_soc.select(k) \
+                                                                  .multiply(lc_tr_fl) \
+                                                                  .multiply(lc_tr_fm) \
+                                                                  .multiply(lc_tr_fo))).divide(20)) \
+                             .where(tr_time.gt(20), 0)
+          
+            # compute final SOC for the period
+            socn = stack_soc.select(k).subtract(soc_chg)
+          
+            # add land cover and soc to stacks only for the last year in the 
+            # period
+            stack_lco = stack_lco.addBands(lc_t1)
+            stack_soc = stack_soc.addBands(socn)
+
+    # compute soc percent change for the analysis period
+    soc_pch = ((stack_soc.select(year_end - year_start).subtract(stack_soc.select(0))).divide(stack_soc.select(0))) \
+        .multiply(100)
+
+
+    logger.debug("Setting up results JSON.")
+    soc_out = soc_pch
+    d = [BandInfo("Soil organic carbon (degradation)", 1, no_data_value=-32768, add_to_map=True)]
+
+    if not dl_annual_soc:
+        # Output percent change and initial and final SOC layers
+        soc_out = soc_out.addBands(stack_soc.select(0)).addBands(stack_soc.select(year_end - year_start))
+        d.extend([BandInfo("Soil organic carbon", 2, no_data_value=-32768, add_to_map=True, metadata=[year_start]),
+                  BandInfo("Soil organic carbon", 3, no_data_value=-32768, add_to_map=True, metadata=[year_end])])
     else:
-        lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), fl)\
-                             .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(fl))
+        # Output percent change and annual SOC layers
+        soc_out = soc_out.addBands(stack_soc)
+        for year in range(year_start, year_end + 1):
+            d.extend([BandInfo("Soil organic carbon", len(d) + 1, no_data_value=-32768, add_to_map=False, metadata=[year])])
 
-    # stock change factor for management regime
-    lc_tr_fm = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
-                            21, 22, 23, 24, 25, 26, 27,
-                            31, 32, 33, 34, 35, 36, 37,
-                            41, 42, 43, 44, 45, 46, 47,
-                            51, 52, 53, 54, 55, 56, 57,
-                            61, 62, 63, 64, 65, 66, 67,
-                            71, 72, 73, 74, 75, 76, 77],
-                           [1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1])
-
-    # stock change factor for input of organic matter
-    lc_tr_fo = lc_tr.remap([11, 12, 13, 14, 15, 16, 17,
-                            21, 22, 23, 24, 25, 26, 27,
-                            31, 32, 33, 34, 35, 36, 37,
-                            41, 42, 43, 44, 45, 46, 47,
-                            51, 52, 53, 54, 55, 56, 57,
-                            61, 62, 63, 64, 65, 66, 67,
-                            71, 72, 73, 74, 75, 76, 77],
-                           [1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1])
-
-    soc_fin = soc_ini.subtract((((soc_ini.subtract((soc_ini.
-                                                    multiply(lc_tr_fl).
-                                                    multiply(lc_tr_fm).
-                                                    multiply(lc_tr_fo)))).
-                                 divide(20)).multiply(year_target - year_bl_start)))
-
-    soc_pch = ((soc_fin.subtract(soc_ini)).divide(soc_ini)).multiply(100)
-
-    soc_out = soc_pch.addBands(soc_ini).addBands(soc_fin)
+    if not dl_annual_lc:
+        soc_out = soc_out.addBands(stack_soc)
+        for year in range(year_start, year_end + 1):
+            d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=9999, add_to_map=False, metadata=[year])])
 
     task = util.export_to_cloudstorage(soc_out.int16(),
                                        soc_out.projection(), geojson, 
@@ -124,10 +196,6 @@ def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
                                        EXECUTION_ID)
     task.join()
 
-    logger.debug("Setting up results JSON.")
-    d = [BandInfo("Soil organic carbon (degradation)", 1, no_data_value=-32768, add_to_map=True),
-         BandInfo("Soil organic carbon (baseline)", 2, no_data_value=-32768, add_to_map=True),
-         BandInfo("Soil organic carbon (target)", 3, no_data_value=-32768, add_to_map=True)]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('soil_organic_carbon', d, u)
     results_schema = CloudResultsSchema()
@@ -139,10 +207,11 @@ def soc(year_bl_start, year_bl_end, year_target, fl, geojson, remap_matrix,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_bl_start = params.get('year_bl_start', 2002)
-    year_bl_end = params.get('year_bl_end', 2015)
-    year_target = params.get('year_target', 2015)
+    year_start = params.get('year_start', 2000)
+    year_end = params.get('year_end', 2015)
     fl = params.get('fl', .80) # Default to fl of .80 (temperate dry)
+    dl_annual_soc = params.get('download_annual_soc', False)
+    dl_annual_lc = params.get('download_annual_lc', False)
 
     geojson = params.get('geojson', util.tza_geojson)
     remap_matrix_default = [[10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72,
@@ -170,7 +239,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = soc(year_bl_start, year_bl_end, year_target, fl, geojson,
-                       remap_matrix, EXECUTION_ID, logger)
+    json_results = soc(year_start, year_end, fl, geojson,
+                       remap_matrix, dl_annual_soc, dl_annual_lc, EXECUTION_ID, 
+                       logger)
 
     return json_results.data

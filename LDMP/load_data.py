@@ -205,35 +205,41 @@ def round_to_n(x, sf=3):
     return round(x, -int(floor(log10(x))) + (sf - 1))
 
 
-#TODO: Figure out how to do block by block percentile
-def get_percentile(f, band_info, p):
-    '''Get percentiles of a raster dataset by block'''
-    ds = gdal.Open(outfile)
-    b = ds.GetRasterBand(band_info['band number'])
+def get_sample(f, band_number, n=10000):
+    '''Get a gridded sample of a raster dataset'''
+    ds = gdal.Open(f)
+    b = ds.GetRasterBand(band_number)
 
     block_sizes = b.GetBlockSize()
-    x_block_size = block_sizes[0]
-    y_block_size = block_sizes[1]
     xsize = b.XSize
     ysize = b.YSize
 
-    for y in xrange(0, ysize, y_block_size):
-        if y + y_block_size < ysize:
-            rows = y_block_size
-        else:
-            rows = ysize - y
-        for x in xrange(0, xsize, x_block_size):
-            if x + x_block_size < xsize:
-                cols = x_block_size
-            else:
-                cols = xsize - x
-            d = np.array(b.ReadAsArray(x, y, cols, rows)).astype(np.float)
-            for nodata_value in band_info['no data value']:
-                d[d == nodata_value] = np.nan
-            cutoffs = np.nanpercentile(d, p)
-            # get rounded extreme value
-            extreme = max([round_to_n(abs(cutoffs[0]), sf), round_to_n(abs(cutoffs[1]), sf)])
+    # Select grid size from shortest side to ensure we have enough samples
+    if xsize > ysize:
+        edge = ysize
+    else:
+        edge = xsize
+    grid_size = np.ceil(edge / np.sqrt(n)).astype('int64')
+    if (grid_size * grid_size) > (b.XSize * b.YSize):
+        # Don't sample if the sample would be larger than the array itself
+        return b.ReadAsArray().astype(np.float)
+    else:
+        cols = np.arange(0, xsize, grid_size)
 
+        xsize_out = np.ceil(xsize / grid_size).astype('int64')
+        ysize_out = np.ceil(ysize / grid_size).astype('int64')
+
+        out = np.zeros((ysize_out + 1, xsize_out + 1))
+        log("Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})".format(ysize, xsize, out.shape, grid_size, xsize_out*ysize_out))
+        y_out = 0
+        for y in xrange(0, ysize, grid_size):
+            d = np.array(b.ReadAsArray(0, y, xsize, 1)).astype(np.float)
+            # log("Out shape: {}".format(out.shape))
+            # log("Cols shape: {}".format(cols.shape))
+            out[y_out, :] = d[:, cols]
+            y_out += 1
+
+        return out
 
 def add_layer(f, layer_type, band_info):
     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -264,10 +270,8 @@ def add_layer(f, layer_type, band_info):
         # rasters.
         # Set a colormap centred on zero, going to the extreme value
         # significant to three figures (after a 2 percent stretch)
-        ds = gdal.Open(f)
-        d = np.array(ds.GetRasterBand(band_info['band_number']).ReadAsArray()).astype(np.float)
+        d = get_sample(f, band_info['band_number'])
         d[d == band_info['no_data_value']] = np.nan
-        ds = None
         cutoffs = np.nanpercentile(d, [2, 98])
         log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
         extreme = max([round_to_n(abs(cutoffs[0]), 2),
@@ -292,10 +296,8 @@ def add_layer(f, layer_type, band_info):
         # rasters.
         # Set a colormap from zero to 98th percentile significant to
         # three figures (after a 2 percent stretch)
-        ds = gdal.Open(f)
-        d = np.array(ds.GetRasterBand(band_info['band_number']).ReadAsArray()).astype(np.float)
+        d = get_sample(f, band_info['band_number'])
         d[d == band_info['no_data_value']] = np.nan
-        ds = None
         cutoff = round_to_n(np.nanpercentile(d, [98]), 3)
         log('Cutoff for min zero max 98 stretch: {}'.format(cutoff))
         r = []

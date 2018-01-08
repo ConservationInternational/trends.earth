@@ -75,9 +75,6 @@ style_text_dict = {
 
     # Land cover
     'lc_7class_title': tr('Land cover ({}, 7 class)'),
-    'lc_7class_title': tr('Land cover (transitions)'),
-
-    'lc_esa_title': tr('Land cover ({}, ESA CCI classes)'),
     'lc_esa_title': tr('Land cover ({}, ESA CCI classes)'),
 
     'lc_class_forest': tr('1 - Forest'),
@@ -89,6 +86,7 @@ style_text_dict = {
     'lc_class_water': tr('7 - Water body'),
     'lc_class_nodata': tr('9999 - No data'),
 
+    'lc_tr_title': tr('Land cover (transitions, {} to {})'),
     'lc_tr_forest_persist': tr('Forest persistence'),
     'lc_tr_forest_loss': tr('Forest loss'),
     'lc_tr_grassland_persist': tr('Grassland persistence'),
@@ -105,7 +103,7 @@ style_text_dict = {
     'lc_tr_water_loss': tr('Water body loss'),
     'lc_tr_nodata': tr('No data'),
 
-    'lc_deg_title': tr('Land cover degradation'),
+    'lc_deg_title': tr('Land cover degradation ({} to {})'),
     'lc_deg_deg': tr('Degradation'),
     'lc_deg_stable': tr('Stable'),
     'lc_deg_imp': tr('Improvement'),
@@ -116,7 +114,7 @@ style_text_dict = {
     'soc_title': tr('Soil organic carbon ({}, tons / ha)'),
     'soc_nodata': tr('No data'),
 
-    'soc_deg_title': tr('Soil organic carbon degradation'),
+    'soc_deg_title': tr('Soil organic carbon degradation ({} - {})'),
     'soc_deg_deg': tr('Degradation'),
     'soc_deg_stable': tr('Stable'),
     'soc_deg_imp': tr('Improvement'),
@@ -227,18 +225,20 @@ def get_sample(f, band_number, n=10000):
 
         return out
 
-def add_layer(f, layer_type, band_info):
+def add_layer(f, band_info):
     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                            'data', 'styles.json')) as script_file:
         styles = json.load(script_file)
 
     try:
-        style = styles[layer_type][band_info['name']]
+        style = styles[band_info['name']]
     except KeyError:
-        log('No style found for {} (layer type: {})'.format(band_info['name'], layer_type))
+        log('No style found for {}'.format(band_info['name'] ))
         return False
 
-    l = iface.addRasterLayer(f, style_text_dict.get(style['title'], style['title']))
+    title = style_text_dict.get(style['title'], style['title'])
+    title = title.format(*band_info.get('title_strings', []))
+    l = iface.addRasterLayer(f, title)
     if not l.isValid():
         log('Failed to add layer')
         return False
@@ -248,7 +248,7 @@ def add_layer(f, layer_type, band_info):
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                                                       QtGui.QColor(item['color']),
-                                                      style_text_dict.get(item['label'], str(item['label']))))
+                                                      style_text_dict.get(item['label'], item['label'])))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -274,7 +274,7 @@ def add_layer(f, layer_type, band_info):
                                                   '{}'.format(extreme)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict.get(style['ramp']['no data']['label'], str(style['ramp']['no data']['label']))))
+                                                  style_text_dict.get(style['ramp']['no data']['label'], style['ramp']['no data']['label'])))
 
     elif style['ramp']['type'] == 'min zero max 98 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -400,7 +400,7 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
                     # don't want to fail if multiple bands with the same name 
                     # were added somewhere upstream
                     band_info = [band for band in results['bands'] if band['name'] == layer][0]
-                    resp = add_layer(f, results['name'], band_info)
+                    resp = add_layer(f, band_info)
                     if not resp:
                         mb.pushMessage(tr("Error"),
                                        self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(layer)),

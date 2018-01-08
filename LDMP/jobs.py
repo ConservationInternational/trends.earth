@@ -318,7 +318,7 @@ def download_cloud_results(job, f, tr):
     else:
         for band in results['bands']:
             if band['add_to_map']:
-                add_layer(out_file, results['name'], band)
+                add_layer(out_file, band)
         mb.pushMessage(tr("Downloaded"),
                        tr("Downloaded results to {}".format(out_file)),
                        level=0, duration=5)

@@ -87,19 +87,13 @@ style_text_dict = {
     'lc_class_nodata': tr('9999 - No data'),
 
     'lc_tr_title': tr('Land cover (transitions, {} to {})'),
-    'lc_tr_forest_persist': tr('Forest persistence'),
+    'lc_tr_nochange': tr('No change'),
     'lc_tr_forest_loss': tr('Forest loss'),
-    'lc_tr_grassland_persist': tr('Grassland persistence'),
     'lc_tr_grassland_loss': tr('Grassland loss'),
-    'lc_tr_cropland_persist': tr('Cropland persistence'),
     'lc_tr_cropland_loss': tr('Cropland loss'),
-    'lc_tr_wetland_persist': tr('Wetland persistence'),
     'lc_tr_wetland_loss': tr('Wetland loss'),
-    'lc_tr_artificial_persist': tr('Artificial area persistence'),
     'lc_tr_artificial_loss': tr('Artificial area loss'),
-    'lc_tr_bare_persist': tr('Bare land persistence'),
     'lc_tr_bare_loss': tr('Bare land loss'),
-    'lc_tr_water_persist': tr('Water body persistence'),
     'lc_tr_water_loss': tr('Water body loss'),
     'lc_tr_nodata': tr('No data'),
 
@@ -382,25 +376,20 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
     def ok_clicked(self):
         self.close()
-        layers = []
-        for i in self.layers_view.selectionModel().selectedIndexes():
-            layers.append(i.data())
-        if len(layers) > 0:
+        rows = []
+        for i in self.layers_view.selectionModel().selectedRows():
+            rows.append(i.row())
+        if len(rows) > 0:
             results = get_results(self.file_lineedit.text())
             if results:
-                for layer in layers:
+                for row in rows:
                     if results.get('local_format', None) == 'tif':
                         f = os.path.splitext(self.file_lineedit.text())[0] + '.tif'
                     elif results.get('local_format', None) == 'vrt':
                         f = os.path.splitext(self.file_lineedit.text())[0] + '.vrt'
                     else:
-                        raise ValueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
-                    # This only works if there is only one band with this name, 
-                    # but this should always be the case by definition, and we 
-                    # don't want to fail if multiple bands with the same name 
-                    # were added somewhere upstream
-                    band_info = [band for band in results['bands'] if band['name'] == layer][0]
-                    resp = add_layer(f, band_info)
+                        raise Vband_infosalueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
+                    resp = add_layer(f, results['bands'][row])
                     if not resp:
                         mb.pushMessage(tr("Error"),
                                        self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(layer)),

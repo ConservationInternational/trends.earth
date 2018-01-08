@@ -90,13 +90,6 @@ class DlgCalculateLCBase(DlgCalculateBase):
         # default and never accesses that dialog
         self.dlg_remap.setup_class_table()
 
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.year_bl_start.setMinimumDate(lc_start_year)
-        self.year_bl_end.setMaximumDate(lc_end_year)
-        self.year_target.setMinimumDate(lc_start_year)
-        self.year_target.setMaximumDate(lc_end_year)
-
         super(DlgCalculateLCBase, self).firstShow()
 
     def remap_matrix_update(self, remap_matrix):
@@ -206,6 +199,16 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.legend_deg.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
         self.legend_imp.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
         self.legend_stable.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
+
+    def firstShow(self):
+        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
+        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
+        self.year_bl_start.setMinimumDate(lc_start_year)
+        self.year_bl_end.setMaximumDate(lc_end_year)
+        self.year_target.setMinimumDate(lc_start_year)
+        self.year_target.setMaximumDate(lc_end_year)
+
+        super(DlgCalculateLC, self).firstShow()
 
     def trans_matrix_loadfile(self):
         f = QtGui.QFileDialog.getOpenFileName(self,

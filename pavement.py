@@ -34,9 +34,14 @@ def _replace(file_path, regex, subst):
     ('version=', 'v', 'Version to set'),
 ])
 def set_version(options):
-    v = getattr(options, 'version', False)
-    v = v.replace('.', '_')
-    if not v or not re.match("[0-9]+_[0-9]+", v):
+    v = getattr(options, 'version', None)
+    if not v:
+        print('Must specify a valid version (example: 0.36)')
+        return
+    # For the config files the version can't have a dot, so convert to 
+    # underscore
+    v_config = v.replace('.', '_')
+    if not v or not re.match("[0-9]+_[0-9]+", v_config):
         print('Must specify a valid version (example: 0.36)')
         return
 
@@ -45,15 +50,15 @@ def set_version(options):
 
     for subdir, dirs, files in os.walk('.'):
         for file in files:
+            filepath = os.path.join(subdir, file)
             if file == 'configuration.json':
-                filepath = os.path.join(subdir, file)
                 # Validate the version matches the regex
                 print('Setting version to {} in {}'.format(v, filepath))
                 # Update the version string
-                _replace(filepath, name_regex, '\g<1> ' + v + '"')
+                _replace(filepath, name_regex, '\g<1> ' + v_config + '"')
                 # Clear the ID since a new one will be assigned due to the new name
                 _replace(filepath, id_regex, '')
-            if file == '__init__.py':
+            elif file == '__init__.py':
                 print('Setting version to {} in {}'.format(v, filepath))
                 init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
                 _replace(filepath, init_regex, '\g<1>' + v)

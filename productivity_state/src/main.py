@@ -86,9 +86,9 @@ def productivity_state(year_bl_start, year_bl_end,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity state (degradation)", 1, no_data_value=9999, add_to_map=True, title_strings=[year_bl_start, year_bl_end, year_tg_start, year_tg_end]),
-         BandInfo("Productivity state classes", 2, no_data_value=9999, add_to_map=False, title_strings=[year_bl_start, year_bl_end]),
-         BandInfo("Productivity state classes", 3, no_data_value=9999, add_to_map=False, title_strings=[year_tg_start, year_tg_end])]
+    d = [BandInfo("Productivity state (degradation)", 1, no_data_value=9999, add_to_map=True, metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_tg_start': year_tg_start, 'year_tg_end': year_tg_end}),
+         BandInfo("Productivity state classes", 2, no_data_value=9999, add_to_map=False, metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
+         BandInfo("Productivity state classes", 3, no_data_value=9999, add_to_map=False, metadata={'year_start': year_tg_start, 'year_end': year_tg_end})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_state', __version__, d, u)
     results_schema = CloudResultsSchema()

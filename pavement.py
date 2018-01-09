@@ -66,9 +66,6 @@ def set_version(options):
 @task
 def publish_all(options):
     dirs = next(os.walk('.'))[1]
-    # print('Activating venv...')
-    # subprocess.check_call(['source', options.gefcli_venv_script])
-    subprocess.check_call(['python', options.gefcli, 'login'])
     for dir in dirs:
         if os.path.exists(os.path.join(dir, 'configuration.json')):
             print('Publishing {}...'.format(dir))

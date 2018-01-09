@@ -90,7 +90,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     lp_perf_deg = ee.Image(9999).where(obs_ratio_2.gte(0.5), 0) \
         .where(obs_ratio_2.lte(0.5), -1)
 
-    lp_perf = lp_perf_deg.addBands(obs_ratio_2) \
+    lp_perf = lp_perf_deg.addBands(obs_ratio_2.multiply(10000)) \
         .addBands(raster_perc) \
         .addBands(units)
 

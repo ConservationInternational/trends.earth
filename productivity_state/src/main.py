@@ -85,8 +85,8 @@ def productivity_state(year_bl_start, year_bl_end,
 
     logger.debug("Setting up results JSON.")
     d = [BandInfo("Productivity state (degradation)", 1, no_data_value=9999, add_to_map=True),
-         BandInfo("Productivity state", 2, no_data_value=9999, add_to_map=False, title_strings=[year_bl_start, year_bl_end]),
-         BandInfo("Productivity state", 3, no_data_value=9999, add_to_map=False, title_strings=[year_tg_start, year_tg_end])]
+         BandInfo("Productivity state classes", 2, no_data_value=9999, add_to_map=False, title_strings=[year_bl_start, year_bl_end]),
+         BandInfo("Productivity state classes", 3, no_data_value=9999, add_to_map=False, title_strings=[year_tg_start, year_tg_end])]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_state', d, u)
     results_schema = CloudResultsSchema()

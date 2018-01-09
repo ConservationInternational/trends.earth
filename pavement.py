@@ -53,7 +53,10 @@ def set_version(options):
                 _replace(filepath, name_regex, '\g<1> ' + v + '"')
                 # Clear the ID since a new one will be assigned due to the new name
                 _replace(filepath, id_regex, '')
-
+            if file == '__init__.py':
+                print('Setting version to {} in {}'.format(v, filepath))
+                init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+                _replace(filepath, init_regex, '\g<1>' + v)
 
 @task
 def publish_all(options):

@@ -86,7 +86,20 @@
                 {"value": 0, "color": "#461554", "label": "0"},
                 {"value": 50, "color": "#28898C", "label": "50"},
                 {"value": 100, "color": "#FDE629", "label": "100"},
-                {"value": 9999, "color": "#000000", "label": "prof_perf_pct_nodata"}
+                {"value": 9999, "color": "#000000", "label": "prod_perf_pct_nodata"}
+            ]
+        }
+    },
+    "Productivity performance (units)": {
+        "title": "prod_perf_units_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "interpolated",
+            "items": [
+                {"value": 0, "color": "#461554", "label": "0"},
+                {"value": 50, "color": "#28898C", "label": "50"},
+                {"value": 100, "color": "#FDE629", "label": "100"},
+                {"value": 9999, "color": "#000000", "label": "prod_perf_units_nodata"}
             ]
         }
     },

@@ -38,6 +38,18 @@ def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
 
 
+def tr_style_text(label):
+    """If no translation is available, use the original label"""
+    val = style_text_dict.get(label, None)
+    if val:
+        return val
+    else:
+        if isinstance(label, basestring):
+            return label
+        else:
+            return str(label)
+
+
 # Store layer titles and label text in a dictionary here so that it can be
 # translated - if it were in the syles JSON then gettext would not have access
 # to these strings.
@@ -61,6 +73,15 @@ style_text_dict = {
     'prod_perf_deg_potential_deg': tr('Potentially degraded'),
     'prod_perf_deg_not_potential_deg': tr('Not potentially degraded'),
     'prod_perf_deg_nodata': tr('No data'),
+
+    'prod_perf_pct_title': tr('Productivity performance (percentile)'),
+    'prod_perf_pct_nodata': tr('No data'),
+
+    'prod_perf_ratio_title': tr('Productivity performance (ratio)'),
+    'prod_perf_ratio_nodata': tr('No data'),
+
+    'prod_perf_units_title': tr('Productivity performance (units)'),
+    'prod_perf_units_nodata': tr('No data'),
 
     # Productivity state
     'prod_state_change_title': tr('Productivity state degradation'),
@@ -230,7 +251,7 @@ def add_layer(f, band_info):
         log('No style found for {}'.format(band_info['name'] ))
         return False
 
-    title = style_text_dict.get(style['title'], style['title'])
+    title = tr_style_text(style['title'])
     title = title.format(*band_info.get('title_strings', []))
     l = iface.addRasterLayer(f, title)
     if not l.isValid():
@@ -242,7 +263,7 @@ def add_layer(f, band_info):
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                                                       QtGui.QColor(item['color']),
-                                                      style_text_dict.get(item['label'], item['label'])))
+                                                      tr_style_text(item['label'])))
 
     elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -268,7 +289,7 @@ def add_layer(f, band_info):
                                                   '{}'.format(extreme)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict.get(style['ramp']['no data']['label'], style['ramp']['no data']['label'])))
+                                                  tr_style_text(style['ramp']['no data']['label'])))
 
     elif style['ramp']['type'] == 'min zero max 98 percent stretch':
         # TODO: This should be done block by block to prevent running out of
@@ -293,7 +314,7 @@ def add_layer(f, band_info):
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
-                                                  style_text_dict.get(style['ramp']['no data']['label'], str(style['ramp']['no data']['label']))))
+                                                  tr_style_text(style['ramp']['no data']['label'])))
 
     else:
         log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
@@ -392,7 +413,7 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
                     resp = add_layer(f, results['bands'][row])
                     if not resp:
                         mb.pushMessage(tr("Error"),
-                                       self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(layer)),
+                                       self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])),
                                        level=1, duration=5)
             else:
                 log('Error loading "{}" results from {}'.format(layer, self.file_lineedit.text()))

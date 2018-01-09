@@ -86,8 +86,8 @@ class LDMPPlugin:
         self.actions = []
         self.menu = QMenu(QApplication.translate('LDMP', u'&trends.earth'))
         self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
-        raster_menu = self.iface.rasterMenu()
-        raster_menu.addMenu(self.menu)
+        self.raster_menu = self.iface.rasterMenu()
+        self.raster_menu.addMenu(self.menu)
         self.toolbar = self.iface.addToolBar(u'trends.earth')
 
         self.dlg_settings = DlgSettings()
@@ -250,6 +250,8 @@ class LDMPPlugin:
                 QApplication.translate('LDMP', u'&trends.earth'),
                 action)
             self.iface.removeToolBarIcon(action)
+        # remove the menu
+        self.raster_menu.removeAction(self.menu.menuAction())
         # remove the toolbar
         del self.toolbar
 

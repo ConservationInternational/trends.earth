@@ -41,7 +41,10 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
         year_start = 2015
     elif year_start < 1992:
         year_start = 1992
-    lc_start_year = lc.select('y{}'.format(year_start))
+    # reclassify lc to ipcc classes
+    lc_start_year = lc.select('y{}'.format(year_start)) \
+                      .remap([10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72, 80, 81, 82, 90, 100, 160, 170, 110, 130, 180, 190, 120, 121, 122, 140, 150, 151, 152, 153, 200, 201, 202, 210], 
+                             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36])
 
     # create a binary mask.
     mask = ndvi_avg.neq(0)
@@ -55,7 +58,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     ndvi_avg_proj = ndvi_avg.reproject(crs=modis_proj)
 
     # define unit of analysis as the intersect of soil_tax_usda and land cover
-    units = soil_tax_usda_proj.multiply(1000).add(lc_proj)
+    units = soil_tax_usda_proj.multiply(100).add(lc_proj)
 
     # create a 2 band raster to compute 90th percentile per unit (analysis restricted by mask and study area)
     ndvi_id = ndvi_avg_proj.addBands(units).updateMask(mask)
@@ -88,8 +91,8 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
         .where(obs_ratio_2.lte(0.5), -1)
 
     lp_perf = lp_perf_deg.addBands(obs_ratio_2) \
-        .addBands(units) \
-        .addBands(raster_perc)
+        .addBands(raster_perc) \
+        .addBands(units)
 
     task = util.export_to_cloudstorage(lp_perf.int16(),
                                        ndvi_1yr.projection(), geojson, 'prod_performance', logger,
@@ -97,9 +100,10 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=9999, add_to_map=True),
-         BandInfo("Productivity performance (ratio)", 2, no_data_value=9999, add_to_map=False),
-         BandInfo("Productivity performance (percentile)", 3, no_data_value=9999, add_to_map=False)]
+    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=9999, add_to_map=True, title_strings=[year_start, year_end]),
+         BandInfo("Productivity performance (ratio)", 2, no_data_value=9999, add_to_map=False, title_strings=[year_start, year_end]),
+         BandInfo("Productivity performance (percentile)", 3, no_data_value=9999, add_to_map=False, title_strings=[year_start, year_end]),
+         BandInfo("Productivity performance (units)", 4, no_data_value=9999, add_to_map=False, title_strings=[year_start])]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_performance', d, u)
     results_schema = CloudResultsSchema()

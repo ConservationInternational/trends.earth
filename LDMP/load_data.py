@@ -55,13 +55,13 @@ def tr_style_text(label):
 # to these strings.
 style_text_dict = {
     # Productivity trajectory
-    'prod_traj_trend_title': tr('Productivity trajectory (NDVI x 10000 / yr)'),
+    'prod_traj_trend_title': tr('Productivity trajectory ({start_year} to {end_year}, NDVI x 10000 / yr)'),
     'prod_traj_trend_nodata': tr('No data'),
 
-    'prod_traj_signif_title': tr('Productivity trajectory significance'),
+    'prod_traj_signif_title': tr('Productivity trajectory significance ({start_year} to {end_year})'),
     'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
     'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
-    'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
+    'prod_traj_signif_dec_90': tr('Significan   t decrease (p < .1)'),
     'prod_traj_signif_zero': tr('No significant change'),
     'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
     'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),
@@ -69,34 +69,33 @@ style_text_dict = {
     'prod_traj_signif_nodata': tr('No data'),
 
     # Productivity performance
-    'prod_perf_deg_title': tr('Productivity performance'),
+    'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
     'prod_perf_deg_potential_deg': tr('Potentially degraded'),
     'prod_perf_deg_not_potential_deg': tr('Not potentially degraded'),
     'prod_perf_deg_nodata': tr('No data'),
 
-    'prod_perf_pct_title': tr('Productivity performance (percentile)'),
-    'prod_perf_pct_nodata': tr('No data'),
-
-    'prod_perf_ratio_title': tr('Productivity performance (ratio)'),
+    'prod_perf_ratio_title': tr('Productivity performance ({year_start} to {year_end}, ratio)'),
     'prod_perf_ratio_nodata': tr('No data'),
 
-    'prod_perf_units_title': tr('Productivity performance (units)'),
+    'prod_perf_units_title': tr('Productivity performance ({year_start}, units)'),
     'prod_perf_units_nodata': tr('No data'),
 
     # Productivity state
-    'prod_state_change_title': tr('Productivity state degradation'),
+    'prod_state_change_title': tr('Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
     'prod_state_change_potential_deg': tr('Potentially degraded'),
     'prod_state_change_stable': tr('Stable'),
     'prod_state_change_potential_improvement': tr('Potentially improved'),
     'prod_state_change_nodata': tr('No data'),
 
 
-    'prod_state_classes_title': tr('Productivity state classes ({})'),
+    'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),
     'prod_state_classes_nodata': tr('No data'),
 
     # Land cover
-    'lc_7class_title': tr('Land cover ({}, 7 class)'),
-    'lc_esa_title': tr('Land cover ({}, ESA CCI classes)'),
+    'lc_7class_title': tr('Land cover ({year}, 7 class)'),
+    'lc_esa_title': tr('Land cover ({year}, ESA CCI classes)'),
+    'lc_7class_mode_title': tr('Land cover mode ({year_start}-{year_end}, 7 class)'),
+    'lc_esa_mode_title': tr('Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
 
     'lc_class_forest': tr('1 - Forest'),
     'lc_class_grassland': tr('2 - Grassland'),
@@ -107,7 +106,7 @@ style_text_dict = {
     'lc_class_water': tr('7 - Water body'),
     'lc_class_nodata': tr('9999 - No data'),
 
-    'lc_tr_title': tr('Land cover (transitions, {} to {})'),
+    'lc_tr_title': tr('Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_end})'),
     'lc_tr_nochange': tr('No change'),
     'lc_tr_forest_loss': tr('Forest loss'),
     'lc_tr_grassland_loss': tr('Grassland loss'),
@@ -118,7 +117,7 @@ style_text_dict = {
     'lc_tr_water_loss': tr('Water body loss'),
     'lc_tr_nodata': tr('No data'),
 
-    'lc_deg_title': tr('Land cover degradation ({} to {})'),
+    'lc_deg_title': tr('Land cover degradation ({year_bl_start}-{year_bl_end} to {year_end})'),
     'lc_deg_deg': tr('Degradation'),
     'lc_deg_stable': tr('Stable'),
     'lc_deg_imp': tr('Improvement'),
@@ -126,10 +125,10 @@ style_text_dict = {
 
 
     # Soil organic carbon
-    'soc_title': tr('Soil organic carbon ({}, tons / ha)'),
+    'soc_title': tr('Soil organic carbon ({year}, tons / ha)'),
     'soc_nodata': tr('No data'),
 
-    'soc_deg_title': tr('Soil organic carbon degradation ({} - {})'),
+    'soc_deg_title': tr('Soil organic carbon degradation ({year_start} to {year_end})'),
     'soc_deg_deg': tr('Degradation'),
     'soc_deg_stable': tr('Stable'),
     'soc_deg_imp': tr('Improvement'),
@@ -252,7 +251,8 @@ def add_layer(f, band_info):
         return False
 
     title = tr_style_text(style['title'])
-    title = title.format(*band_info.get('title_strings', []))
+    log('band_info: {}'.format(band_info))
+    title = title.format(**band_info['metadata'])
     l = iface.addRasterLayer(f, title)
     if not l.isValid():
         log('Failed to add layer')
@@ -265,16 +265,13 @@ def add_layer(f, band_info):
                                                       QtGui.QColor(item['color']),
                                                       tr_style_text(item['label'])))
 
-    elif style['ramp']['type'] == 'zero-centered 2 percent stretch':
-        # TODO: This should be done block by block to prevent running out of
-        # memory on large rasters - and it should be done in GEE for GEE loaded
-        # rasters.
+    elif style['ramp']['type'] == 'zero-centered stretch':
         # Set a colormap centred on zero, going to the extreme value
-        # significant to three figures (after a 2 percent stretch)
+        # significant to three figures.
         d = get_sample(f, band_info['band_number'])
         d[d == band_info['no_data_value']] = np.nan
-        cutoffs = np.nanpercentile(d, [2, 98])
-        log('Cutoffs for 2 percent stretch: {}'.format(cutoffs))
+        cutoffs = np.nanpercentile(d, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
+        log('Cutoffs for {}  percent stretch: {}'.format(style['ramp']['percent stretch'], cutoffs))
         extreme = max([round_to_n(abs(cutoffs[0]), 2),
                        round_to_n(abs(cutoffs[1]), 2)])
         r = []
@@ -291,16 +288,13 @@ def add_layer(f, band_info):
                                                   QtGui.QColor(style['ramp']['no data']['color']),
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
-    elif style['ramp']['type'] == 'min zero max 98 percent stretch':
-        # TODO: This should be done block by block to prevent running out of
-        # memory on large rasters - and it should be done in GEE for GEE loaded
-        # rasters.
-        # Set a colormap from zero to 98th percentile significant to
-        # three figures (after a 2 percent stretch)
+    elif style['ramp']['type'] == 'min zero stretch':
+        # Set a colormap from zero to percent stretch significant to
+        # three figures.
         d = get_sample(f, band_info['band_number'])
         d[d == band_info['no_data_value']] = np.nan
-        cutoff = round_to_n(np.nanpercentile(d, [98]), 3)
-        log('Cutoff for min zero max 98 stretch: {}'.format(cutoff))
+        cutoff = round_to_n(np.nanpercentile(d, [100 - style['ramp']['percent stretch']]), 3)
+        log('Cutoff for min zero max {} stretch: {}'.format(cutoff, style['ramp']['percent stretch']))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
                                                   QtGui.QColor(style['ramp']['zero']['color']),

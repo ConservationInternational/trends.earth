@@ -7,6 +7,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from . import __version__
+
 import random
 import json
 
@@ -34,9 +36,9 @@ def download(geojson, asset, EXECUTION_ID, logger):
     task.join()
 
     logger.debug("Setting up results JSON.")
-    cloud_dataset = CloudDataset('geotiff', 'download', [CloudUrl(task.url())])
-    gee_results = GEEResults('download', [cloud_dataset])
-    results_schema = GEEResultsSchema()
+    u = URLList(task.get_URL_base(), task.get_files())
+    gee_results = CloudResults('Raw data download', __version__, [], u)
+    results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 
     return json_results

@@ -7,6 +7,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from . import __version__
+
 import random
 import json
 
@@ -88,7 +90,7 @@ def productivity_state(year_bl_start, year_bl_end,
          BandInfo("Productivity state classes", 2, no_data_value=9999, add_to_map=False, title_strings=[year_bl_start, year_bl_end]),
          BandInfo("Productivity state classes", 3, no_data_value=9999, add_to_map=False, title_strings=[year_tg_start, year_tg_end])]
     u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('prod_state', d, u)
+    gee_results = CloudResults('prod_state', __version__, d, u)
     results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 

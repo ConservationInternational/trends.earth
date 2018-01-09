@@ -36,6 +36,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
+from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
@@ -47,18 +48,9 @@ from LDMP.worker import AbstractWorker, start_worker
 # the JSON accompanying each file
 
 
-def get_file_type(data_file):
+def get_band_info(data_file):
     json_file = os.path.splitext(data_file)[0] + '.json'
-    try:
-        with open(json_file) as f:
-            d = json.load(f)
-    except (OSError, IOError) as e:
-        return None
-    s = d.get('script_id', None)
-    t = d.get('results', {}).get('type', None)
-    if not s or not t:
-        return None
-    return {'script_id': s, 'type': t}
+    return get_results(json_file)['bands']
 
 
 def _get_layers(node):
@@ -111,47 +103,35 @@ def get_ld_layers(layer_type=None):
             # Allows skipping other layer types, like OpenLayers layers, that
             # are irrelevant for the toolbox
             continue
-        f = l.dataProvider().dataSourceUri()
-        m = get_file_type(f)
-        if not m:
-            # Ignore any layers that don't have .json files
-            continue
-        if not layer_type or layer_type == 'traj_trend':
-            if (m['script_id'] == "13740fa7-4312-4cf2-829d-cdaee5a3d37c" and
-                    l.renderer().usesBands() == [1]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'traj_sig':
-            if (m['script_id'] == "13740fa7-4312-4cf2-829d-cdaee5a3d37c" and
-                    l.renderer().usesBands() == [2]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'state':
-            if (m['script_id'] == "cd03646c-9d4c-44a9-89ae-3309ae7bade3" and
-                    l.renderer().usesBands() == [1]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'perf':
-            if (m['script_id'] == "d2dcfb95-b8b7-4802-9bc0-9b72e586fc82" and
-                    l.renderer().usesBands() == [1]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'lc_bl':
-            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
-                    l.renderer().usesBands() == [1]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'lc_tg':
-            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
-                    l.renderer().usesBands() == [2]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'lc_tr':
-            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
-                    l.renderer().usesBands() == [3]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'lc_deg':
-            if (m['script_id'] == "9a6e5eb6-953d-4993-a1da-23169da0382e" and
-                    l.renderer().usesBands() == [4]):
-                layers_filtered.append(l)
-        if not layer_type or layer_type == 'soc':
-            if (m['script_id'] == "3fc66de9-31cb-4e7f-9bd1-3fad8b1f89db" and
-                    l.renderer().usesBands() == [1]):
-                layers_filtered.append(l)
+        band_infos = get_band_info(l.dataProvider().dataSourceUri())
+        band_number = l.renderer().usesBands()
+        # Note the below is true so long as none of the needed layers use more 
+        # than one band.
+        if len(band_number) == 1:
+            band_number = band_number[0]
+            name = [band_info['name'] for band_info in band_infos if band_info['band_number'] == band_number][0]
+            if len(name) == 1:
+                name = name[1]
+                if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
+                    layers_filtered.append(l)
+                if layer_type == 'state' and name == 'Productivity state (degradation)':
+                    layers_filtered.append(l)
+                if layer_type == 'perf' and name == 'Productivity performance (degradation)':
+                    layers_filtered.append(l)
+                if layer_type == 'lc_tr' and name == 'Land cover transitions':
+                    layers_filtered.append(l)
+                if layer_type == 'lc_deg' and name == 'Land cover degradation':
+                    layers_filtered.append(l)
+                if layer_type == 'soc' and name == 'Soil organic carbon (degradation)':
+                    layers_filtered.append(l)
+            elif len(name) > 1:
+                # The land cover baseline and target layers have the same name 
+                # - they can only be distinguished in the file through their 
+                # metadata
+                if layer_type == 'lc_bl' and name == 'Land cover (7 class)':
+                    layers_filtered.append(l)
+                if layer_type == 'lc_tg' and name == 'Land cover (7 class)':
+                    layers_filtered.append(l)
     return layers_filtered
 
 

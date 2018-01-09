@@ -7,6 +7,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from . import __version__
+
 import random
 import json
 
@@ -197,7 +199,7 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     task.join()
 
     u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('soil_organic_carbon', d, u)
+    gee_results = CloudResults('soil_organic_carbon', __version__, d, u)
     results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 

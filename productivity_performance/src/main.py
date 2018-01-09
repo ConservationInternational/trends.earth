@@ -12,6 +12,8 @@ import json
 
 import ee
 
+from . import __version__
+
 from landdegradation import preproc
 from landdegradation import stats
 from landdegradation import util
@@ -105,7 +107,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
          BandInfo("Productivity performance (percentile)", 3, no_data_value=9999, add_to_map=False, title_strings=[year_start, year_end]),
          BandInfo("Productivity performance (units)", 4, no_data_value=9999, add_to_map=False, title_strings=[year_start])]
     u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('prod_performance', d, u)
+    gee_results = CloudResults('prod_performance', __version__, d, u)
     results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 

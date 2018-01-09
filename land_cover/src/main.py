@@ -7,6 +7,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from . import __version__
+
 import random
 import json
 
@@ -92,7 +94,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
          BandInfo("Land cover (ESA classes)", 5, no_data_value=9999, title_strings=['{} - {}'.format(year_bl_start, year_bl_end)]),
          BandInfo("Land cover (ESA classes)", 6, no_data_value=9999, title_strings=[year_target])]
     u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('land_cover', d, u)
+    gee_results = CloudResults('land_cover', __version__, d, u)
     results_schema = CloudResultsSchema()
     json_results = results_schema.dump(gee_results)
 

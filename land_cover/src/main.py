@@ -87,11 +87,11 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Land cover (7 class)", 1, no_data_value=9999, add_to_map=True, title_strings=['{} - {}'.format(year_bl_start, year_bl_end)]),
+    d = [BandInfo("Land cover (7 class)", 1, no_data_value=9999, add_to_map=True, title_strings=['{}-{}'.format(year_bl_start, year_bl_end)]),
          BandInfo("Land cover (7 class)", 2, no_data_value=9999, add_to_map=True, title_strings=[year_target]),
-         BandInfo("Land cover transitions", 3, no_data_value=9999, add_to_map=True, title_strings=['{} - {}'.format(year_bl_start, year_bl_end), year_target]),
-         BandInfo("Land cover degradation", 4, no_data_value=9999, add_to_map=True, title_strings=['{} - {}'.format(year_bl_start, year_bl_end), year_target]),
-         BandInfo("Land cover (ESA classes)", 5, no_data_value=9999, title_strings=['{} - {}'.format(year_bl_start, year_bl_end)]),
+         BandInfo("Land cover transitions", 3, no_data_value=9999, add_to_map=True, title_strings=[year_bl_start, year_bl_end, year_target]),
+         BandInfo("Land cover degradation", 4, no_data_value=9999, add_to_map=True, title_strings=[year_bl_start, year_bl_end, year_target]),
+         BandInfo("Land cover (ESA classes)", 5, no_data_value=9999, title_strings=['{}-{}'.format(year_bl_start, year_bl_end)]),
          BandInfo("Land cover (ESA classes)", 6, no_data_value=9999, title_strings=[year_target])]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('land_cover', __version__, d, u)

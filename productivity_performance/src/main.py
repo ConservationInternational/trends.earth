@@ -93,7 +93,6 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
         .where(obs_ratio_2.lte(0.5), -1)
 
     lp_perf = lp_perf_deg.addBands(obs_ratio_2.multiply(10000)) \
-        .addBands(raster_perc) \
         .addBands(units)
 
     task = util.export_to_cloudstorage(lp_perf.int16(),
@@ -102,10 +101,9 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=9999, add_to_map=True, title_strings=[year_start, year_end]),
-         BandInfo("Productivity performance (ratio)", 2, no_data_value=9999, add_to_map=False, title_strings=[year_start, year_end]),
-         BandInfo("Productivity performance (percentile)", 3, no_data_value=9999, add_to_map=False, title_strings=[year_start, year_end]),
-         BandInfo("Productivity performance (units)", 4, no_data_value=9999, add_to_map=False, title_strings=[year_start])]
+    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=9999, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
+         BandInfo("Productivity performance (ratio)", 2, no_data_value=9999, add_to_map=False, metadata={'year_start': year_start, 'year_end': year_end}),
+         BandInfo("Productivity performance (units)", 3, no_data_value=9999, add_to_map=False, metadata={'year_start': year_start})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_performance', __version__, d, u)
     results_schema = CloudResultsSchema()

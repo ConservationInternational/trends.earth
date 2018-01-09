@@ -58,8 +58,8 @@ def run(params, logger):
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=9999, add_to_map=True, title_strings=[year_start, year_end]),
-         BandInfo("Productivity trajectory (significance)", 2, no_data_value=9999, add_to_map=True, title_strings=[year_start, year_end])]
+    d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=9999, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
+         BandInfo("Productivity trajectory (significance)", 2, no_data_value=9999, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_trajectory', __version__, d, u)
     results_schema = CloudResultsSchema()

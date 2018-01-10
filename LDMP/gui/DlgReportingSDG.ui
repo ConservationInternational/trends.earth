@@ -72,7 +72,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Trajectory:</string>
+             <string>Trajectory (significance):</string>
             </property>
            </widget>
           </item>
@@ -101,7 +101,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Performance:</string>
+             <string>Performance (degradation):</string>
             </property>
            </widget>
           </item>
@@ -130,7 +130,7 @@
              </font>
             </property>
             <property name="text">
-             <string>State:</string>
+             <string>State (degradation):</string>
             </property>
            </widget>
           </item>
@@ -180,7 +180,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Land cover</string>
+          <string>Land cover (degradation)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
@@ -226,7 +226,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Soil Carbon</string>
+          <string>Soil Carbon (degradation)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>

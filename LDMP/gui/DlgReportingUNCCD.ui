@@ -60,7 +60,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Productivity trajectory:</string>
+          <string>Productivity trajectory (significance)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
@@ -109,11 +109,11 @@
           </font>
          </property>
          <property name="title">
-          <string>Land cover:</string>
+          <string>Land cover (transitions)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QComboBox" name="combo_layer_lc">
+           <widget class="QComboBox" name="combo_layer_lc_tr">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -155,7 +155,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Soil Carbon:</string>
+          <string>Soil carbon (initial)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>

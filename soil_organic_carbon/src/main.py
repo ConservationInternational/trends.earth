@@ -57,10 +57,10 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     for k in range(year_end - year_start):
         # land cover map reclassified to UNCCD 7 classes (1: forest, 2: 
         # grassland, 3: cropland, 4: wetland, 5: artifitial, 6: bare, 7: water)
-        lc_t0 = lc.select(k) \
+        lc_t0 = lc_remap.select(k) \
             .remap(remap_matrix[0], remap_matrix[1])
 
-        lc_t1 = lc.select(k + 1) \
+        lc_t1 = lc_remap.select(k + 1) \
             .remap(remap_matrix[0], remap_matrix[1])
 
         if (k == 0):

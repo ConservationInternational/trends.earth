@@ -68,7 +68,7 @@ style_text_dict = {
     'prod_traj_signif_title': tr('Productivity trajectory significance ({year_start} to {year_end})'),
     'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
     'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
-    'prod_traj_signif_dec_90': tr('Significan   t decrease (p < .1)'),
+    'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
     'prod_traj_signif_zero': tr('No significant change'),
     'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
     'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),

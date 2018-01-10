@@ -40,7 +40,7 @@ from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
-from LDMP.gui.DlgReportingUNCCD import Ui_DlgReportingUNCCD
+from LDMP.gui.DlgReportingSummaryTable import Ui_DlgReportingSummaryTable
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
 from LDMP.worker import AbstractWorker, start_worker
 
@@ -607,10 +607,10 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.setupUi(self)
 
         self.dlg_sdg = DlgReportingSDG()
-        self.dlg_unncd = DlgReportingUNCCD()
+        self.dlg_unncd = DlgReportingSummaryTable()
         self.dlg_create_map = DlgCreateMap()
 
-        self.btn_unccd.clicked.connect(self.clicked_unccd)
+        self.btn_summary_table.clicked.connect(self.clicked_summary_table)
         self.btn_sdg.clicked.connect(self.clicked_sdg)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
 
@@ -622,13 +622,13 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.close()
         self.dlg_sdg.exec_()
 
-    def clicked_unccd(self):
+    def clicked_summary_table(self):
         self.close()
         self.dlg_unncd.exec_()
 
 
 class DlgReportingBase(DlgCalculateBase):
-    '''Class to be shared across SDG and UNCCD reporting dialogs'''
+    '''Class to be shared across SDG and SummaryTable reporting dialogs'''
 
     def __init__(self, parent=None):
         super(DlgReportingBase, self).__init__(parent)
@@ -878,9 +878,9 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         style_sdg_ld(deg_file, QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
 
 
-class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
+class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
     def showEvent(self, event):
-        super(DlgReportingUNCCD, self).showEvent(event)
+        super(DlgReportingSummaryTable, self).showEvent(event)
         self.populate_layers_lc_transitions()
         self.populate_layers_soc()
 
@@ -898,7 +898,7 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgReportingUNCCD, self).btn_calculate()
+        ret = super(DlgReportingSummaryTable, self).btn_calculate()
         if not ret:
             return
 
@@ -975,10 +975,10 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
              get_xtab_area(trans_lpd_xtab, 0, None),
              get_xtab_area(trans_lpd_xtab, -1, None),
              get_xtab_area(trans_lpd_xtab, 9999, None)]
-        log('UNCCD reporting total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
-        log('UNCCD reporting areas (deg, stable, imp, no data): {}'.format(y))
+        log('SummaryTable total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
+        log('SummaryTable areas (deg, stable, imp, no data): {}'.format(y))
 
-        make_unccd_table(base_areas, target_areas, soc_totals,
+        make_summary_table(base_areas, target_areas, soc_totals,
                          trans_lpd_xtab,
                          os.path.join(self.output_folder.text(),
                                       'reporting_table.xlsx'))
@@ -1021,7 +1021,7 @@ def get_soc_per_ha(soc_table, xtab_areas, transition):
         return float(soc_table[1][ind]) / (area * 1e2)
 
 
-def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
+def make_summary_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
                      out_file):
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
@@ -1066,22 +1066,22 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     ##########
     # LC Table
     worksheet.merge_range('A4:A5', tr('Land Use/Cover Category'), header_format)
-    worksheet.merge_range('E4:H4', tr('Net land productivity dynamics** (sq km)'),
+    worksheet.merge_range('E4:H4', tr('Net land productivity dynamics (sq km)'),
                           header_format)
     worksheet.write_row('B4', [tr('Area (baseline)'),
                                tr('Area (target)'),
                                tr('Net area change (baseline-target)')],
                         header_format)
-    worksheet.write_row('B5', [tr('sq km*'),
+    worksheet.write_row('B5', [tr('sq km'),
                                tr('sq km'),
                                tr('sq km'),
                                tr('Declining'),
                                tr('Stable'),
                                tr('Increasing'),
-                               tr('No Data***'),
+                               tr('No Data'),
                                tr('ton/ha')],
                         header_format)
-    worksheet.write('I4', tr('Soil organic carbon (baseline)**'), header_format)
+    worksheet.write('I4', tr('Soil organic carbon (baseline)'), header_format)
 
     worksheet.write_row('A6', [tr('Forest'), get_lc_area(base_areas, 1), get_lc_area(target_areas, 1)], num_format)
     worksheet.write_row('A7', [tr('Grasslands'), get_lc_area(base_areas, 2), get_lc_area(target_areas, 2)], num_format)
@@ -1125,8 +1125,8 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
 
     worksheet.write('A13', tr('SOC average (ton/ha)'), total_header_format)
     worksheet.write('A14', tr('Percent of total land area'), total_header_format)
-    worksheet.write('A15', tr('Total (sq km)*****'), total_header_format)
-    worksheet.write('A15', tr('Total (sq km)*****'), total_header_format)
+    worksheet.write('A15', tr('Total (sq km)'), total_header_format)
+    worksheet.write('A15', tr('Total (sq km)'), total_header_format)
 
     worksheet.write('B15', '=SUM(B6:B12)', total_number_format)
     worksheet.write('C15', '=SUM(C6:C12)', total_number_format)
@@ -1175,12 +1175,12 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     # SOC Table
     worksheet.merge_range('A33:A34', tr('Changing Land Use/Cover Category'), header_format)
     worksheet.merge_range('C33:G33', tr('Soil organic carbon 0 - 30 cm (baseline-target)'), header_format)
-    worksheet.write('B33', tr('Net area change^ (baseline-target)'), header_format)
+    worksheet.write('B33', tr('Net area change (baseline-target)'), header_format)
     worksheet.write_row('B34', [tr('sq km'),
                                 tr('Baseline ton/ha'),
                                 tr('Target ton/ha'),
                                 tr('Baseline total (ton)'),
-                                tr('Target total (ton)****'),
+                                tr('Target total (ton)'),
                                 tr('Baseline-target loss (ton)')], header_format)
     # The "None" values below are used to return total areas across all classes
     # of degradation - this is just using the trans_lpd_xtab table as a
@@ -1294,7 +1294,7 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
 
 
 class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
-    '''Class to be shared across SDG and UNCCD reporting dialogs'''
+    '''Class to be shared across SDG and SummaryTable reporting dialogs'''
 
     def __init__(self, parent=None):
         super(DlgCreateMap, self).__init__(parent)

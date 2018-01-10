@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgReportingUNCCD</class>
- <widget class="QDialog" name="DlgReportingUNCCD">
+ <class>DlgReportingSummaryTable</class>
+ <widget class="QDialog" name="DlgReportingSummaryTable">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>UNCCD Reporting Tool</string>
+   <string>Summary table tool</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>456</width>
+    <width>614</width>
     <height>176</height>
    </rect>
   </property>
@@ -50,7 +50,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_unccd">
+    <widget class="QPushButton" name="btn_summary_table">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -58,7 +58,7 @@
       </size>
      </property>
      <property name="text">
-      <string>UNCCD Reporting</string>
+      <string>Make summary table of productivity, soil carbon, and land cover</string>
      </property>
     </widget>
    </item>
@@ -71,7 +71,7 @@
       </size>
      </property>
      <property name="text">
-      <string>SDG Indicator 15.3.1 Reporting</string>
+      <string>Calculate SDG Indicator 15.3.1 layer</string>
      </property>
     </widget>
    </item>

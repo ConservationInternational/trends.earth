@@ -50,7 +50,11 @@ from LDMP.worker import AbstractWorker, start_worker
 
 def get_band_info(data_file):
     json_file = os.path.splitext(data_file)[0] + '.json'
-    return get_results(json_file)['bands']
+    res = get_results(json_file)
+    if res:
+        return res['bands']
+    else:
+        return None
 
 
 def _get_layers(node):
@@ -96,43 +100,46 @@ def calc_cell_area(ymin, ymax, x_width):
 # produced by trends.earth
 def get_ld_layers(layer_type=None):
     root = QgsProject.instance().layerTreeRoot()
-    layers = _get_layers(root)
     layers_filtered = []
-    for l in layers:
-        if not isinstance(l, QgsRasterLayer):
-            # Allows skipping other layer types, like OpenLayers layers, that
-            # are irrelevant for the toolbox
-            continue
-        band_infos = get_band_info(l.dataProvider().dataSourceUri())
-        band_number = l.renderer().usesBands()
-        # Note the below is true so long as none of the needed layers use more 
-        # than one band.
-        if len(band_number) == 1:
-            band_number = band_number[0]
-            name = [band_info['name'] for band_info in band_infos if band_info['band_number'] == band_number]
-            log('name: {}'.format(name))
-            if len(name) == 1:
-                name = name[0]
-                if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
-                    layers_filtered.append(l)
-                if layer_type == 'state' and name == 'Productivity state (degradation)':
-                    layers_filtered.append(l)
-                if layer_type == 'perf' and name == 'Productivity performance (degradation)':
-                    layers_filtered.append(l)
-                if layer_type == 'lc_tr' and name == 'Land cover transitions':
-                    layers_filtered.append(l)
-                if layer_type == 'lc_deg' and name == 'Land cover degradation':
-                    layers_filtered.append(l)
-                if layer_type == 'soc' and name == 'Soil organic carbon (degradation)':
-                    layers_filtered.append(l)
-            elif len(name) > 1:
-                # The land cover baseline and target layers have the same name 
-                # - they can only be distinguished in the file through their 
-                # metadata
-                if layer_type == 'lc_bl' and name == 'Land cover (7 class)':
-                    layers_filtered.append(l)
-                if layer_type == 'lc_tg' and name == 'Land cover (7 class)':
-                    layers_filtered.append(l)
+    layers = _get_layers(root)
+    if len(layers) > 0:
+        for l in layers:
+            if not isinstance(l, QgsRasterLayer):
+                # Allows skipping other layer types, like OpenLayers layers, that
+                # are irrelevant for the toolbox
+                continue
+            band_infos = get_band_info(l.dataProvider().dataSourceUri())
+            # Layers not produced by trends.earth won't have bandinfo, and 
+            # aren't of interest, so skip if there is no bandinfo.
+            if band_infos:
+                band_number = l.renderer().usesBands()
+                # Note the below is true so long as none of the needed layers use more 
+                # than one band.
+                if len(band_number) == 1:
+                    band_number = band_number[0]
+                    name = [band_info['name'] for band_info in band_infos if band_info['band_number'] == band_number]
+                    if len(name) == 1:
+                        name = name[0]
+                        if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
+                            layers_filtered.append((l, band_number))
+                        if layer_type == 'state' and name == 'Productivity state (degradation)':
+                            layers_filtered.append((l, band_number))
+                        if layer_type == 'perf' and name == 'Productivity performance (degradation)':
+                            layers_filtered.append((l, band_number))
+                        if layer_type == 'lc_tr' and name == 'Land cover transitions':
+                            layers_filtered.append((l, band_number))
+                        if layer_type == 'lc_deg' and name == 'Land cover degradation':
+                            layers_filtered.append((l, band_number))
+                        if layer_type == 'soc' and name == 'Soil organic carbon (degradation)':
+                            layers_filtered.append((l, band_number))
+                    elif len(name) > 1:
+                        # The land cover baseline and target layers have the same name 
+                        # - they can only be distinguished in the file through their 
+                        # metadata
+                        if layer_type == 'lc_bl' and name == 'Land cover (7 class)':
+                            layers_filtered.append((l, band_number))
+                        if layer_type == 'lc_tg' and name == 'Land cover (7 class)':
+                            layers_filtered.append((l, band_number))
     return layers_filtered
 
 
@@ -174,6 +181,7 @@ class DegradationWorkerSDG(AbstractWorker):
         perf_band = src_ds.GetRasterBand(2)
         state_band = src_ds.GetRasterBand(3)
         lc_band = src_ds.GetRasterBand(4)
+        soc_band = src_ds.GetRasterBand(5)
 
         block_sizes = traj_band.GetBlockSize()
         x_block_size = block_sizes[0]
@@ -216,23 +224,61 @@ class DegradationWorkerSDG(AbstractWorker):
 
                 # TODO: Could make this cleaner by reading all four bands at
                 # same time from VRT
-                deg = traj_band.ReadAsArray(x, y, cols, rows)
+                traj_array = traj_band.ReadAsArray(x, y, cols, rows)
                 state_array = state_band.ReadAsArray(x, y, cols, rows)
                 perf_array = perf_band.ReadAsArray(x, y, cols, rows)
                 lc_array = lc_band.ReadAsArray(x, y, cols, rows)
+                soc_array = soc_band.ReadAsArray(x, y, cols, rows)
 
+                ##############
+                # Productivity
+                
                 # Capture trends that are at least 95% significant
+                deg = traj_array
                 deg[deg == -1] = 0 # not signif at 95%
                 deg[deg == 1] = 0 # not signif at 95%
                 deg[np.logical_and(deg >= -3, deg <= -2)] = -1
                 deg[np.logical_and(deg >= 2, deg <= 3)] = 1
 
-                deg[(state_array == -1) & (perf_array == -1)] = -1
+                # Handle state and performance. Note that state array is the 
+                # number of changes in class, so  <= -2 is a decline.
+                deg[np.logical_and(np.logical_and(state_array <= -2, state_array >= -10), perf_array == -1)] = -1
+
+                # Ensure NAs carry over to productivity indicator layer
+                deg[traj_array == 9999] = 9999
+                deg[perf_array == 9999] = 9999
+                deg[state_array == 9999] = 9999
+
                 # Save combined productivity indicator for later visualization
                 dst_ds_prod.GetRasterBand(1).WriteArray(deg, x, y)
 
+                #############
+                # Land cover
                 deg[lc_array == -1] = -1
+
+                ##############
+                # Soil carbon
+                
+                # Note SOC array is coded in percent change, so change of 
+                # greater than 10% is improvement or decline.
+                deg[np.logical_and(soc_array <= -10, soc_array >= -100)] = -1
+
+                #############
+                # Improvement
+                
+                # Allow improvements by lc or soc, only where one of the other 
+                # two indicators doesn't indicate a decline
                 deg[np.logical_and(deg == 0, lc_array == 1)] = 1
+                deg[np.logical_and(deg == 0, np.logical_and(soc_array >= 10, soc_array <= 100))] = 1
+
+                ##############
+                # Missing data
+                
+                # Ensure all NAs are carried over - note this was already done 
+                # above for the productivity layers
+                
+                deg[lc_array == 9999] = 9999
+                deg[soc_array == 9999] = 9999
 
                 dst_ds_deg.GetRasterBand(1).WriteArray(deg, x, y)
                 del deg
@@ -583,17 +629,17 @@ class DlgReportingBase(DlgCalculateBase):
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
         self.layer_traj_list = get_ld_layers('traj_sig')
-        self.combo_layer_traj.addItems([l.name() for l in self.layer_traj_list])
+        self.combo_layer_traj.addItems([l[0].name() for l in self.layer_traj_list])
 
     def populate_layers_lc(self):
         self.combo_layer_lc.clear()
         self.layer_lc_list = get_ld_layers('lc_deg')
-        self.combo_layer_lc.addItems([l.name() for l in self.layer_lc_list])
+        self.combo_layer_lc.addItems([l[0].name() for l in self.layer_lc_list])
 
     def populate_layers_soc(self):
         self.combo_layer_soc.clear()
         self.layer_soc_list = get_ld_layers('soc')
-        self.combo_layer_soc.addItems([l.name() for l in self.layer_soc_list])
+        self.combo_layer_soc.addItems([l[0].name() for l in self.layer_soc_list])
 
     def select_output_folder(self):
         output_dir = QtGui.QFileDialog.getExistingDirectory(self,
@@ -635,9 +681,14 @@ class DlgReportingBase(DlgCalculateBase):
                                        self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
             return
 
-        self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()]
-        self.layer_lc = self.layer_lc_list[self.combo_layer_lc.currentIndex()]
-        self.layer_soc = self.layer_soc_list[self.combo_layer_soc.currentIndex()]
+        self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()][0]
+        self.layer_traj_bandnumber = self.layer_traj_list[self.combo_layer_traj.currentIndex()][1]
+
+        self.layer_lc = self.layer_lc_list[self.combo_layer_lc.currentIndex()][0]
+        self.layer_lc_bandnumber = self.layer_lc_list[self.combo_layer_lc.currentIndex()][1]
+
+        self.layer_soc = self.layer_soc_list[self.combo_layer_soc.currentIndex()][0]
+        self.layer_soc_bandnumber = self.layer_soc_list[self.combo_layer_soc.currentIndex()][1]
 
         # Check that all of the layers have the same coordinate system and
         # TODO that they are in 4326.
@@ -685,17 +736,11 @@ class DlgReportingBase(DlgCalculateBase):
 
         # Select from self.layer_traj using bandlist since signif is band 2
         self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(), bandList=[2], VRTNodata=-9999)
+        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(), bandList=[self.layer_traj_bandnumber], VRTNodata=-9999)
 
         # Select lc deg layer using bandlist since that layer is band 4
         self.lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(), bandList=[4], VRTNodata=-9999)
-
-        # Select soc layer using bandlist since that layer has problematic
-        # missing value coding
-        self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[1], srcNodata=-32768, VRTNodata=-9999)
+        gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(), bandList=[self.layer_lc_bandnumber], VRTNodata=-9999)
 
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
         # Use this instead of croptocutline in gdal.Warp in order to keep the
@@ -732,12 +777,12 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
     def populate_layers_perf(self):
         self.combo_layer_perf.clear()
         self.layer_perf_list = get_ld_layers('perf')
-        self.combo_layer_perf.addItems([l.name() for l in self.layer_perf_list])
+        self.combo_layer_perf.addItems([l[0].name() for l in self.layer_perf_list])
 
     def populate_layers_state(self):
         self.combo_layer_state.clear()
         self.layer_state_list = get_ld_layers('state')
-        self.combo_layer_state.addItems([l.name() for l in self.layer_state_list])
+        self.combo_layer_state.addItems([l[0].name() for l in self.layer_state_list])
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -747,8 +792,11 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         if not ret:
             return
 
-        self.layer_state = self.layer_state_list[self.combo_layer_state.currentIndex()]
-        self.layer_perf = self.layer_perf_list[self.combo_layer_perf.currentIndex()]
+        self.layer_state = self.layer_state_list[self.combo_layer_state.currentIndex()][0]
+        self.layer_state_bandnumber = self.layer_state_list[self.combo_layer_state.currentIndex()][1]
+
+        self.layer_perf = self.layer_perf_list[self.combo_layer_perf.currentIndex()][0]
+        self.layer_perf_bandnumber = self.layer_perf_list[self.combo_layer_perf.currentIndex()][1]
 
         if len(self.layer_state_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -789,15 +837,30 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                                        self.tr("Area of interest is not entirely within the performance layer."), None)
             return
 
+        self.perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.perf_f, self.layer_perf.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_perf_bandnumber], VRTNodata=-9999)
+
+        self.state_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.state_f, self.layer_state.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_state_bandnumber], VRTNodata=-9999)
+
+        # Select soc layer using bandlist since that layer has problematic
+        # missing value coding
+        self.soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_soc_bandnumber], srcNodata=-32768, VRTNodata=-9999)
+
         ######################################################################
         # Combine rasters into a VRT and crop to the AOI
         self.indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving indicator VRT to: {}'.format(self.indic_f))
         gdal.BuildVRT(self.indic_f,
                       [self.traj_f,
-                       self.layer_perf.dataProvider().dataSourceUri(),
-                       self.layer_state.dataProvider().dataSourceUri(),
-                       self.lc_deg_f],
+                       self.perf_f,
+                       self.state_f,
+                       self.lc_deg_f,
+                       self.soc_deg_f],
                       outputBounds=self.outputBounds,
                       resolution=self.resample_to,
                       resampleAlg=self.resampleAlg,
@@ -829,8 +892,8 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
             # productivity indicator.
             deg_file, prod_file = deg_worker.get_return()
 
-        style_sdg_ld(prod_file, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3 Productivity Indicator'))
-        style_sdg_ld(deg_file, QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3 - without soil carbon)'))
+        style_sdg_ld(prod_file, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
+        style_sdg_ld(deg_file, QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
 
 
 class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
@@ -861,6 +924,12 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         lc_tr_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(lc_tr_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[3], VRTNodata=-9999)
+
+        # Select soc layer using bandlist since that layer has problematic
+        # missing value coding
+        self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_soc_bandnumber], srcNodata=-32768, VRTNodata=-9999)
 
         gdal.BuildVRT(indic_f,
                       [self.traj_f,
@@ -1245,7 +1314,7 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
     def populate_layers(self):
         self.combo_layers.clear()
         self.layers_list = get_ld_layers()
-        self.combo_layers.addItems([l.name() for l in self.layers_list])
+        self.combo_layers.addItems([l[0].name() for l in self.layers_list])
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

@@ -30,11 +30,8 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     logger.debug("Entering soc function.")
 
     # land cover
-    lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
-
-    # baseline land cover map reclassified to IPCC 6 classes
-    lc_remap = lc.select(ee.List.sequence(year_start - 1992, year_end - 1992, 1)) \
-        .remap(remap_matrix[0], remap_matrix[1])
+    lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015") \
+            .select(ee.List.sequence(year_start - 1992, year_end - 1992, 1))
 
     if fl == 'per pixel':
         # Setup a raster of climate regimes to use for coding Fl automatically
@@ -48,7 +45,7 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     soc_t0 = soc.updateMask(soc.neq(-32768))
 
     # create empty stacks to store annual land cover maps
-    stack_lco  = ee.Image().select()
+    stack_lc  = ee.Image().select()
 
     # create empty stacks to store annual soc maps
     stack_soc = ee.Image().select()
@@ -57,11 +54,9 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     for k in range(year_end - year_start):
         # land cover map reclassified to UNCCD 7 classes (1: forest, 2: 
         # grassland, 3: cropland, 4: wetland, 5: artifitial, 6: bare, 7: water)
-        lc_t0 = lc_remap.select(k) \
-            .remap(remap_matrix[0], remap_matrix[1])
+        lc_t0 = lc.select(k).remap(remap_matrix[0], remap_matrix[1])
 
-        lc_t1 = lc_remap.select(k + 1) \
-            .remap(remap_matrix[0], remap_matrix[1])
+        lc_t1 = lc.select(k + 1).remap(remap_matrix[0], remap_matrix[1])
 
         if (k == 0):
             # compute transition map (first digit for baseline land cover, and 
@@ -146,7 +141,7 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
             
             # add to land cover and soc to stacks from both dates for the first 
             # period
-            stack_lco = stack_lco.addBands(lc_t0).addBands(lc_t1)
+            stack_lc = stack_lc.addBands(lc_t0).addBands(lc_t1)
             stack_soc = stack_soc.addBands(soc_t0).addBands(soc_t1)
 
         else:
@@ -164,7 +159,7 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
           
             # add land cover and soc to stacks only for the last year in the 
             # period
-            stack_lco = stack_lco.addBands(lc_t1)
+            stack_lc = stack_lc.addBands(lc_t1)
             stack_soc = stack_soc.addBands(socn)
 
     # compute soc percent change for the analysis period
@@ -188,7 +183,7 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
             d.extend([BandInfo("Soil organic carbon", len(d) + 1, no_data_value=-32768, add_to_map=False, metadata={'year': year})])
 
     if dl_annual_lc:
-        soc_out = soc_out.addBands(stack_soc)
+        soc_out = soc_out.addBands(stack_lc)
         for year in range(year_start, year_end + 1):
             d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=9999, add_to_map=False, metadata={'year': year})])
 

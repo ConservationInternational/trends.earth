@@ -55,10 +55,10 @@ def tr_style_text(label):
 # to these strings.
 style_text_dict = {
     # Productivity trajectory
-    'prod_traj_trend_title': tr('Productivity trajectory ({start_year} to {end_year}, NDVI x 10000 / yr)'),
+    'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
     'prod_traj_trend_nodata': tr('No data'),
 
-    'prod_traj_signif_title': tr('Productivity trajectory significance ({start_year} to {end_year})'),
+    'prod_traj_signif_title': tr('Productivity trajectory significance ({year_start} to {year_end})'),
     'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
     'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
     'prod_traj_signif_dec_90': tr('Significan   t decrease (p < .1)'),
@@ -87,11 +87,16 @@ style_text_dict = {
     'prod_state_change_potential_improvement': tr('Potentially improved'),
     'prod_state_change_nodata': tr('No data'),
 
-
     'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),
     'prod_state_classes_nodata': tr('No data'),
 
     # Land cover
+    'lc_deg_title': tr('Land cover degradation ({year_bl_start}-{year_bl_end} to {year_target})'),
+    'lc_deg_deg': tr('Degradation'),
+    'lc_deg_stable': tr('Stable'),
+    'lc_deg_imp': tr('Improvement'),
+    'lc_deg_nodata': tr('No data'),
+
     'lc_7class_title': tr('Land cover ({year}, 7 class)'),
     'lc_esa_title': tr('Land cover ({year}, ESA CCI classes)'),
     'lc_7class_mode_title': tr('Land cover mode ({year_start}-{year_end}, 7 class)'),
@@ -106,7 +111,7 @@ style_text_dict = {
     'lc_class_water': tr('7 - Water body'),
     'lc_class_nodata': tr('9999 - No data'),
 
-    'lc_tr_title': tr('Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_end})'),
+    'lc_tr_title': tr('Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_target})'),
     'lc_tr_nochange': tr('No change'),
     'lc_tr_forest_loss': tr('Forest loss'),
     'lc_tr_grassland_loss': tr('Grassland loss'),
@@ -116,13 +121,6 @@ style_text_dict = {
     'lc_tr_bare_loss': tr('Bare land loss'),
     'lc_tr_water_loss': tr('Water body loss'),
     'lc_tr_nodata': tr('No data'),
-
-    'lc_deg_title': tr('Land cover degradation ({year_bl_start}-{year_bl_end} to {year_end})'),
-    'lc_deg_deg': tr('Degradation'),
-    'lc_deg_stable': tr('Stable'),
-    'lc_deg_imp': tr('Improvement'),
-    'lc_deg_nodata': tr('No data'),
-
 
     # Soil organic carbon
     'soc_title': tr('Soil organic carbon ({year}, tons / ha)'),

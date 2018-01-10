@@ -29,9 +29,15 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     """
     logger.debug("Entering soc function.")
 
-    # land cover
+    # soc
+    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
+    soc_t0 = soc.updateMask(soc.neq(-32768))
+
+    # land cover - note it needs to be reprojected to match soc so that it can 
+    # be output to cloud storage in the same stack
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015") \
-            .select(ee.List.sequence(year_start - 1992, year_end - 1992, 1))
+            .select(ee.List.sequence(year_start - 1992, year_end - 1992, 1)) \
+            .reproject(crs=soc.projection())
 
     if fl == 'per pixel':
         # Setup a raster of climate regimes to use for coding Fl automatically
@@ -40,10 +46,6 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
                    [0, 2, 1, 2, 1, 2, 1, 2, 1, 5, 4, 4, 3])
         clim_fl = climate.remap([0, 1, 2, 3, 4, 5],
                                 [0, 0.8, 0.69, 0.58, 0.48, 0.64])
-    # soc
-    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
-    soc_t0 = soc.updateMask(soc.neq(-32768))
-
     # create empty stacks to store annual land cover maps
     stack_lc  = ee.Image().select()
 

@@ -12,7 +12,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgReporting.ui \
 ../gui/DlgReportingSDG.ui \
-../gui/DlgReportingUNCCD.ui \
+../gui/DlgReportingSummaryTable.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \

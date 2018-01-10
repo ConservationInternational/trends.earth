@@ -245,9 +245,9 @@ class DegradationWorkerSDG(AbstractWorker):
                 deg[np.logical_and(np.logical_and(state_array <= -2, state_array >= -10), perf_array == -1)] = -1
 
                 # Ensure NAs carry over to productivity indicator layer
-                deg[traj_array == 9999] = 9999
-                deg[perf_array == 9999] = 9999
-                deg[state_array == 9999] = 9999
+                deg[traj_array == -9999] = -9999
+                deg[perf_array == -9999] = -9999
+                deg[state_array == -9999] = -9999
 
                 # Save combined productivity indicator for later visualization
                 dst_ds_prod.GetRasterBand(1).WriteArray(deg, x, y)
@@ -277,8 +277,8 @@ class DegradationWorkerSDG(AbstractWorker):
                 # Ensure all NAs are carried over - note this was already done 
                 # above for the productivity layers
                 
-                deg[lc_array == 9999] = 9999
-                deg[soc_array == 9999] = 9999
+                deg[lc_array == -9999] = -9999
+                deg[soc_array == -9999] = -9999
 
                 dst_ds_deg.GetRasterBand(1).WriteArray(deg, x, y)
                 del deg
@@ -947,7 +947,7 @@ class DlgReportingUNCCD(DlgReportingBase, Ui_DlgReportingUNCCD):
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
         deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
                                          indic_f,
-                                         lc_clip_tempfile, self.aoi)
+                                         lc_clip_tempfile, self.aoi.layer)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error clipping land cover layer for area calculation."), None)

@@ -33,6 +33,10 @@ from osgeo import gdal
 from LDMP import log
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
 
+with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                       'data', 'styles.json')) as script_file:
+    styles = json.load(script_file)
+
 
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
@@ -49,6 +53,9 @@ def tr_style_text(label):
         else:
             return str(label)
 
+def get_band_title(band_info):
+    style = styles[band_info['name']]
+    return tr_style_text(style['title']).format(**band_info['metadata'])
 
 # Store layer titles and label text in a dictionary here so that it can be
 # translated - if it were in the syles JSON then gettext would not have access
@@ -238,19 +245,14 @@ def get_sample(f, band_number, n=10000):
         return out
 
 def add_layer(f, band_info):
-    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                           'data', 'styles.json')) as script_file:
-        styles = json.load(script_file)
-
     try:
         style = styles[band_info['name']]
     except KeyError:
         log('No style found for {}'.format(band_info['name'] ))
         return False
 
-    title = tr_style_text(style['title'])
-    log('band_info: {}'.format(band_info))
-    title = title.format(**band_info['metadata'])
+    title = get_band_title(band_info)
+
     l = iface.addRasterLayer(f, title)
     if not l.isValid():
         log('Failed to add layer')
@@ -416,9 +418,12 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         if self.file_lineedit.text():
             results = get_results(self.file_lineedit.text())
             if results:
-                self.layers_model.setStringList([band['name'] for band in results['bands']])
+                self.layers_model.setStringList([get_band_title(band) for band in results['bands']])
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-                self.layers_view.selectAll()
+                for n in range(len(results['bands'])):
+                    if results['bands'][n]['add_to_map']:
+                        log('add {} to selection'.format(results['bands'][n]))
+                        self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QtGui.QItemSelectionModel.Select)
             else:
                 self.layers_model.setStringList([])
 

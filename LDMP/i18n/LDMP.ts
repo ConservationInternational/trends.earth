@@ -19,18 +19,18 @@
     </message>
     <message>
         <location filename="../reporting.py" line="1071"/>
-        <source>Area (2000)</source>
-        <translation>Area (2000)</translation>
+        <source>Area (baseline)</source>
+        <translation type="unfinished">Area (2000)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1071"/>
         <source>Area (2015)</source>
-        <translation>Area (2015)</translation>
+        <translation type="obsolete">Area (2015)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1071"/>
         <source>Net area change (2000-2015)</source>
-        <translation>Net area change (2000-2015)</translation>
+        <translation type="obsolete">Net area change (2000-2015)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1075"/>
@@ -64,8 +64,8 @@
     </message>
     <message>
         <location filename="../reporting.py" line="1084"/>
-        <source>Soil organic carbon (2000)**</source>
-        <translation>Soil organic carbon (2000)**</translation>
+        <source>Soil organic carbon (baseline)**</source>
+        <translation type="unfinished">Soil organic carbon (2000)**</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1086"/>
@@ -199,38 +199,38 @@
     </message>
     <message>
         <location filename="../reporting.py" line="1177"/>
-        <source>Soil organic carbon 0 - 30 cm (2000-2015)</source>
-        <translation>Soil organic carbon 0 - 30 cm (2000-2015)</translation>
+        <source>Soil organic carbon 0 - 30 cm (baseline-target)</source>
+        <translation type="unfinished">Soil organic carbon 0 - 30 cm (2000-2015)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1178"/>
-        <source>Net area change^ (2000-2015)</source>
-        <translation>Net area change^ (2000-2015)</translation>
+        <source>Net area change^ (baseline-target)</source>
+        <translation type="unfinished">Net area change^ (2000-2015)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1179"/>
-        <source>2000 ton/ha</source>
-        <translation>2000 ton/ha</translation>
+        <source>Baseline ton/ha</source>
+        <translation type="unfinished">2000 ton/ha</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1179"/>
         <source>2015 ton/ha</source>
-        <translation>2015 ton/ha</translation>
+        <translation type="obsolete">2015 ton/ha</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1179"/>
         <source>2000 total (ton)</source>
-        <translation>2000 total (ton)</translation>
+        <translation type="obsolete">2000 total (ton)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1179"/>
         <source>2015 total (ton)****</source>
-        <translation>2015 total (ton)****</translation>
+        <translation type="obsolete">2015 total (ton)****</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1179"/>
         <source>2000-2015 loss (ton)</source>
-        <translation>2000-2015 loss (ton)</translation>
+        <translation type="obsolete">2000-2015 loss (ton)</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="1199"/>
@@ -560,6 +560,26 @@
     <message>
         <location filename="../load_data.py" line="136"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="1071"/>
+        <source>Net area change (baseline-target)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="1179"/>
+        <source>Baseline total (ton)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="1179"/>
+        <source>Target total (ton)****</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="1179"/>
+        <source>Baseline-target loss (ton)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

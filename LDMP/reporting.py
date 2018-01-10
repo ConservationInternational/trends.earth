@@ -1068,9 +1068,9 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     worksheet.merge_range('A4:A5', tr('Land Use/Cover Category'), header_format)
     worksheet.merge_range('E4:H4', tr('Net land productivity dynamics** (sq km)'),
                           header_format)
-    worksheet.write_row('B4', [tr('Area (2000)'),
-                               tr('Area (2015)'),
-                               tr('Net area change (2000-2015)')],
+    worksheet.write_row('B4', [tr('Area (baseline)'),
+                               tr('Area (target)'),
+                               tr('Net area change (baseline-target)')],
                         header_format)
     worksheet.write_row('B5', [tr('sq km*'),
                                tr('sq km'),
@@ -1081,7 +1081,7 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
                                tr('No Data***'),
                                tr('ton/ha')],
                         header_format)
-    worksheet.write('I4', tr('Soil organic carbon (2000)**'), header_format)
+    worksheet.write('I4', tr('Soil organic carbon (baseline)**'), header_format)
 
     worksheet.write_row('A6', [tr('Forest'), get_lc_area(base_areas, 1), get_lc_area(target_areas, 1)], num_format)
     worksheet.write_row('A7', [tr('Grasslands'), get_lc_area(base_areas, 2), get_lc_area(target_areas, 2)], num_format)
@@ -1174,14 +1174,14 @@ def make_unccd_table(base_areas, target_areas, soc_totals, trans_lpd_xtab,
     ############
     # SOC Table
     worksheet.merge_range('A33:A34', tr('Changing Land Use/Cover Category'), header_format)
-    worksheet.merge_range('C33:G33', tr('Soil organic carbon 0 - 30 cm (2000-2015)'), header_format)
-    worksheet.write('B33', tr('Net area change^ (2000-2015)'), header_format)
+    worksheet.merge_range('C33:G33', tr('Soil organic carbon 0 - 30 cm (baseline-target)'), header_format)
+    worksheet.write('B33', tr('Net area change^ (baseline-target)'), header_format)
     worksheet.write_row('B34', [tr('sq km'),
-                                tr('2000 ton/ha'),
-                                tr('2015 ton/ha'),
-                                tr('2000 total (ton)'),
-                                tr('2015 total (ton)****'),
-                                tr('2000-2015 loss (ton)')], header_format)
+                                tr('Baseline ton/ha'),
+                                tr('Target ton/ha'),
+                                tr('Baseline total (ton)'),
+                                tr('Target total (ton)****'),
+                                tr('Baseline-target loss (ton)')], header_format)
     # The "None" values below are used to return total areas across all classes
     # of degradation - this is just using the trans_lpd_xtab table as a
     # shortcut to get the areas of each transition class.

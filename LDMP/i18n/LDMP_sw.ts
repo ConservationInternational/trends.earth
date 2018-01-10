@@ -3,242 +3,242 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../reporting.py" line="986"/>
+        <location filename="../reporting.py" line="988"/>
         <source>trends.earth reporting table</source>
         <translation>meza ya kutoa taarifa ya trends.earth</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="993"/>
+        <location filename="../reporting.py" line="995"/>
         <source>Land Use/Cover Category</source>
         <translation>Matumizi ya Ardhi / Jalada la Jalada</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="994"/>
+        <location filename="../reporting.py" line="996"/>
         <source>Net land productivity dynamics** (sq km)</source>
         <translation>Mienendo ya uzalishaji wa ardhi yenyewe ** (sq km)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="996"/>
+        <location filename="../reporting.py" line="998"/>
         <source>Area (2000)</source>
         <translation>Simu (2000)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="996"/>
+        <location filename="../reporting.py" line="998"/>
         <source>Area (2015)</source>
         <translation>Simu (2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="996"/>
+        <location filename="../reporting.py" line="998"/>
         <source>Net area change (2000-2015)</source>
         <translation>Mabadiliko ya eneo la net (2000-2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1000"/>
+        <location filename="../reporting.py" line="1002"/>
         <source>sq km*</source>
         <translation>sq km *</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1104"/>
+        <location filename="../reporting.py" line="1106"/>
         <source>sq km</source>
         <translation>sq km</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1074"/>
+        <location filename="../reporting.py" line="1076"/>
         <source>Stable</source>
         <translation>Imara</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1074"/>
+        <location filename="../reporting.py" line="1076"/>
         <source>Increasing</source>
         <translation>Kuongezeka</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1000"/>
+        <location filename="../reporting.py" line="1002"/>
         <source>No Data***</source>
         <translation>Hakuna Data ***</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1000"/>
+        <location filename="../reporting.py" line="1002"/>
         <source>ton/ha</source>
         <translation>tani / ha</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1009"/>
+        <location filename="../reporting.py" line="1011"/>
         <source>Soil organic carbon (2000)**</source>
         <translation>Mkaa kaboni (2000) **</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1011"/>
+        <location filename="../reporting.py" line="1013"/>
         <source>Forest</source>
         <translation>Msitu</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1012"/>
+        <location filename="../reporting.py" line="1014"/>
         <source>Grasslands</source>
         <translation>Grasslands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1013"/>
+        <location filename="../reporting.py" line="1015"/>
         <source>Croplands</source>
         <translation>Mazao</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1014"/>
+        <location filename="../reporting.py" line="1016"/>
         <source>Wetlands</source>
         <translation>Maeneo ya mvua</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1015"/>
+        <location filename="../reporting.py" line="1017"/>
         <source>Artificial areas</source>
         <translation>Sehemu za bandia</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1016"/>
+        <location filename="../reporting.py" line="1018"/>
         <source>Bare lands</source>
         <translation>Zima ardhi</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1017"/>
+        <location filename="../reporting.py" line="1019"/>
         <source>Water bodies</source>
         <translation>Maji ya maji</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1051"/>
+        <location filename="../reporting.py" line="1053"/>
         <source>SOC average (ton/ha)</source>
         <translation>Wastani wa SOC (tani / ha)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1052"/>
+        <location filename="../reporting.py" line="1054"/>
         <source>Percent of total land area</source>
         <translation>Asilimia ya eneo la ardhi yote</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1054"/>
+        <location filename="../reporting.py" line="1056"/>
         <source>Total (sq km)*****</source>
         <translation>Jumla (sq km) *****</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1101"/>
+        <location filename="../reporting.py" line="1103"/>
         <source>Changing Land Use/Cover Category</source>
         <translation>Kubadilisha Matumizi ya Ardhi / Jalada la Jalada</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1073"/>
+        <location filename="../reporting.py" line="1075"/>
         <source>Net land productivity dynamics trend (sq km)</source>
         <translation>Mwelekeo wa uzalishaji wa ardhi wa nishati (sq km)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1074"/>
+        <location filename="../reporting.py" line="1076"/>
         <source>Declining</source>
         <translation>Kupungua</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1074"/>
+        <location filename="../reporting.py" line="1076"/>
         <source>Total^</source>
         <translation>Jumla ^</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1113"/>
+        <location filename="../reporting.py" line="1115"/>
         <source>Bare lands &gt;&gt; Artificial areas</source>
         <translation>Nchi za ardhi &gt;&gt; Sehemu za bandia</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1114"/>
+        <location filename="../reporting.py" line="1116"/>
         <source>Cropland &gt;&gt; Artificial areas</source>
         <translation>Cropland &gt;&gt; Maeneo ya bandia</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1115"/>
+        <location filename="../reporting.py" line="1117"/>
         <source>Forest &gt;&gt; Artificial areas</source>
         <translation>Misitu &gt;&gt; Sehemu za bandia</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1116"/>
+        <location filename="../reporting.py" line="1118"/>
         <source>Forest &gt;&gt; Bare lands</source>
         <translation>Msitu &gt;&gt; Nchi za mabwawa</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1117"/>
+        <location filename="../reporting.py" line="1119"/>
         <source>Forest &gt;&gt; Cropland</source>
         <translation>Misitu &gt;&gt; Cropland</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1118"/>
+        <location filename="../reporting.py" line="1120"/>
         <source>Forest &gt;&gt; Grasslands</source>
         <translation>Misitu &gt;&gt; Grasslands</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1119"/>
+        <location filename="../reporting.py" line="1121"/>
         <source>Grasslands &gt;&gt; Artificial areas</source>
         <translation>Nyasi &gt;&gt; Maeneo ya bandia</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1120"/>
+        <location filename="../reporting.py" line="1122"/>
         <source>Grasslands &gt;&gt; Cropland</source>
         <translation>Nyasi &gt;&gt; Cropland</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1121"/>
+        <location filename="../reporting.py" line="1123"/>
         <source>Grasslands &gt;&gt; Forest</source>
         <translation>Nyasi &gt;&gt; Msitu</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1122"/>
+        <location filename="../reporting.py" line="1124"/>
         <source>Wetlands &gt;&gt; Artificial areas</source>
         <translation>Maeneo ya Mvua &gt;&gt; Sehemu za bandia</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1123"/>
+        <location filename="../reporting.py" line="1125"/>
         <source>Wetlands &gt;&gt; Cropland</source>
         <translation>Maeneo ya Mvua &gt;&gt; Cropland</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1193"/>
+        <location filename="../reporting.py" line="1195"/>
         <source>The boundaries, names, and designations used in this report do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.  This report is available under the terms of Creative Commons Attribution 4.0 International License (CC BY 4.0).</source>
         <translation>Mipaka, majina, na majina yaliyotumiwa katika ripoti hii haimaanishi kupitishwa rasmi au kukubaliwa na Conservation International Foundation, au mashirika yake ya washirika na wafadhili. Ripoti hii inapatikana chini ya Sheria ya Leseni ya Creative Commons Attribution 4.0 (CC BY 4.0).</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1102"/>
+        <location filename="../reporting.py" line="1104"/>
         <source>Soil organic carbon 0 - 30 cm (2000-2015)</source>
         <translation>Mkaa kaboni ya kikapu 0 - 30 cm (2000-2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1103"/>
+        <location filename="../reporting.py" line="1105"/>
         <source>Net area change^ (2000-2015)</source>
         <translation>Mabadiliko ya eneo la chini^ (2000-2015)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1104"/>
+        <location filename="../reporting.py" line="1106"/>
         <source>2000 ton/ha</source>
         <translation>2000 tani / ha</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1104"/>
+        <location filename="../reporting.py" line="1106"/>
         <source>2015 ton/ha</source>
         <translation>2015 tani / ha</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1104"/>
+        <location filename="../reporting.py" line="1106"/>
         <source>2000 total (ton)</source>
         <translation>2000 jumla (tani)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1104"/>
+        <location filename="../reporting.py" line="1106"/>
         <source>2015 total (ton)****</source>
         <translation>2015 jumla (ton)****</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1104"/>
+        <location filename="../reporting.py" line="1106"/>
         <source>2000-2015 loss (ton)</source>
         <translation>Kupoteza (tani)</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1124"/>
+        <location filename="../reporting.py" line="1126"/>
         <source>Total</source>
         <translation>Jumla</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1125"/>
+        <location filename="../reporting.py" line="1127"/>
         <source>Percent change total SOC stock (country)</source>
         <translation>Mabadiliko ya asilimia jumla ya hisa ya SOC (nchi)</translation>
     </message>
@@ -268,257 +268,162 @@
         <translation>Ilipakuliwa matokeo kwa {}</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="45"/>
-        <source>Productivity trajectory (NDVI x 10000 / yr)</source>
-        <translation type="obsolete">Trajectory uzalishaji (NDVI x 10000 / yr)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="48"/>
-        <source>{}</source>
-        <translation type="obsolete">{}</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="47"/>
-        <source>0</source>
-        <translation type="obsolete">0</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="149"/>
+        <location filename="../load_data.py" line="153"/>
         <source>No data</source>
         <translation>Hakuna data</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="51"/>
-        <source>Productivity trajectory significance</source>
-        <translation type="obsolete">Ufanisi wa trajectory umuhimu</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="62"/>
+        <location filename="../load_data.py" line="69"/>
         <source>Significant decrease (p &lt; .01)</source>
         <translation>Kupungua kwa kiasi kikubwa (p &lt;.01)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="63"/>
+        <location filename="../load_data.py" line="70"/>
         <source>Significant decrease (p &lt; .05)</source>
         <translation>Kupungua kwa kiasi kikubwa (p &lt;.05)</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="64"/>
         <source>Significant decrease (p &lt; .1)</source>
-        <translation>Kupungua kwa kiasi kikubwa (p &lt;.1)</translation>
+        <translation type="obsolete">Kupungua kwa kiasi kikubwa (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="65"/>
+        <location filename="../load_data.py" line="72"/>
         <source>No significant change</source>
         <translation>Hakuna mabadiliko muhimu</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="66"/>
+        <location filename="../load_data.py" line="73"/>
         <source>Significant increase (p &lt; .1)</source>
         <translation>Ongezeko kubwa (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="67"/>
+        <location filename="../load_data.py" line="74"/>
         <source>Significant increase (p &lt; .05)</source>
         <translation>Ongezeko kubwa (p &lt;.05)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="68"/>
+        <location filename="../load_data.py" line="75"/>
         <source>Significant increase (p &lt; .01)</source>
-        <translation>Ongezeko kubwa (p &lt;.01)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="62"/>
-        <source>Productivity performance</source>
-        <translation type="obsolete">Utendaji wa ufanisi</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="88"/>
+        <location filename="../load_data.py" line="92"/>
         <source>Potentially degraded</source>
         <translation>Inaweza kuharibiwa</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="74"/>
+        <location filename="../load_data.py" line="81"/>
         <source>Not potentially degraded</source>
         <translation>Haiwezekani kuharibiwa</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="68"/>
-        <source>Productivity state</source>
-        <translation type="obsolete">Hali ya uzalishaji</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="90"/>
+        <location filename="../load_data.py" line="94"/>
         <source>Potentially improved</source>
         <translation>Inaweza kuboreshwa</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="75"/>
-        <source>Productivity state baseline classes</source>
-        <translation type="obsolete">Madarasa ya msingi ya uzalishaji</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="78"/>
-        <source>Productivity state target classes</source>
-        <translation type="obsolete">Madarasa ya lengo la uzalishaji</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="82"/>
-        <source>Land cover (baseline)</source>
-        <translation type="obsolete">Bima ya ardhi (msingi)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="83"/>
-        <source>Land cover (target)</source>
-        <translation type="obsolete">Chanjo ya ardhi (lengo)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="84"/>
-        <source>Land cover (transitions)</source>
-        <translation type="obsolete">Bima ya ardhi (mabadiliko)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="86"/>
-        <source>Land cover (baseline, ESA CCI classes)</source>
-        <translation type="obsolete">Chanjo ya ardhi (msingi, ESA CCI madarasa)</translation>
-    </message>
-    <message>
         <location filename="../load_data.py" line="87"/>
-        <source>Land cover (target, ESA CCI classes)</source>
-        <translation type="obsolete">Chanjo ya ardhi (lengo, madarasa ya ESA CCI)</translation>
+        <source>Productivity performance ({year_start}, units)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="102"/>
+        <location filename="../load_data.py" line="113"/>
         <source>2 - Grassland</source>
-        <translation type="unfinished">Ukuaji wa Cropland</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="103"/>
+        <location filename="../load_data.py" line="114"/>
         <source>3 - Cropland</source>
         <translation>Cropland</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="104"/>
+        <location filename="../load_data.py" line="115"/>
         <source>4 - Wetland</source>
-        <translation type="unfinished">Uendelezaji wa ardhi ya mvua</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="105"/>
+        <location filename="../load_data.py" line="116"/>
         <source>5 - Artificial area</source>
         <translation>Eneo la bandia</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="106"/>
+        <location filename="../load_data.py" line="117"/>
         <source>6 - Bare land</source>
         <translation>Nchi ya ardhi</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="107"/>
+        <location filename="../load_data.py" line="118"/>
         <source>7 - Water body</source>
         <translation>Mwili wa maji</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="98"/>
-        <source>Forest persistence</source>
-        <translation type="obsolete">Uendelezaji wa misitu</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="112"/>
+        <location filename="../load_data.py" line="123"/>
         <source>Forest loss</source>
         <translation>Kupoteza misitu</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="100"/>
-        <source>Grassland persistence</source>
-        <translation type="obsolete">Uendelezaji wa Grassland</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="113"/>
+        <location filename="../load_data.py" line="124"/>
         <source>Grassland loss</source>
         <translation>Upotevu wa majani</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="114"/>
+        <location filename="../load_data.py" line="125"/>
         <source>Cropland loss</source>
-        <translation type="unfinished">Uharibifu wa kifuniko cha ardhi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="115"/>
+        <location filename="../load_data.py" line="126"/>
         <source>Wetland loss</source>
         <translation>Upotevu wa majani</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="106"/>
-        <source>Artificial area persistence</source>
-        <translation type="obsolete">Uendelezaji wa eneo la bandia</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="116"/>
+        <location filename="../load_data.py" line="127"/>
         <source>Artificial area loss</source>
         <translation>Uharibifu wa eneo la bandia</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="108"/>
-        <source>Bare land persistence</source>
-        <translation type="obsolete">Tumia uendelezaji wa ardhi</translation>
+        <source>Land cover ({year}, ESA CCI classes)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="117"/>
+        <location filename="../load_data.py" line="128"/>
         <source>Bare land loss</source>
         <translation>Punguza kupoteza ardhi</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="110"/>
-        <source>Water body persistence</source>
-        <translation type="obsolete">Kuendelea kwa mwili wa maji</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="118"/>
+        <location filename="../load_data.py" line="129"/>
         <source>Water body loss</source>
         <translation>Kupoteza mwili wa maji</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="146"/>
+        <location filename="../load_data.py" line="150"/>
         <source>Degradation</source>
         <translation>Uharibifu</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="148"/>
+        <location filename="../load_data.py" line="152"/>
         <source>Improvement</source>
         <translation>Uboreshaji</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="122"/>
-        <source>Soil organic carbon (baseline, tons / ha)</source>
-        <translation type="obsolete">Mkaa kaboni (msingi, tani / ha)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="124"/>
-        <source>Soil organic carbon (target, tons / ha)</source>
-        <translation type="obsolete">Mkaa kaboni (lengo, tani / ha)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="127"/>
-        <source>Soil organic carbon degradation</source>
-        <translation type="obsolete">Uharibifu wa kaboni ya kaboni ya udongo</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="139"/>
+        <location filename="../load_data.py" line="143"/>
         <source>Productivity degradation (combined - SDG 15.3.1)</source>
         <translation>Uharibifu wa uzalishaji (pamoja - SDG 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="145"/>
+        <location filename="../load_data.py" line="149"/>
         <source>Degradation (combined - SDG 15.3.1)</source>
         <translation>Uharibifu (pamoja - SDG 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="410"/>
+        <location filename="../load_data.py" line="409"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="316"/>
+        <location filename="../load_data.py" line="315"/>
         <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
         <translation>Imeshindwa kupakia style trendsearth. Inaongeza safu kwa kutumia vifunguo vya QGIS.</translation>
     </message>
@@ -533,88 +438,88 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="101"/>
+        <location filename="../load_data.py" line="112"/>
         <source>1 - Forest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="108"/>
+        <location filename="../load_data.py" line="119"/>
         <source>9999 - No data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="58"/>
-        <source>Productivity trajectory ({start_year} to {end_year}, NDVI x 10000 / yr)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="61"/>
-        <source>Productivity trajectory significance ({start_year} to {end_year})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="72"/>
+        <location filename="../load_data.py" line="79"/>
         <source>Productivity performance degradation ({year_start} to {year_end})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="77"/>
-        <source>Productivity performance ({year_start} to {year_end}, percentile)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="80"/>
+        <location filename="../load_data.py" line="84"/>
         <source>Productivity performance ({year_start} to {year_end}, ratio)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="83"/>
-        <source>Productivity performance ({year_start}, units)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="87"/>
+        <location filename="../load_data.py" line="91"/>
         <source>Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="94"/>
-        <source>Productivity state classes ({year_bl_start})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="98"/>
-        <source>Land cover ({}, 7 class)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="99"/>
-        <source>Land cover ({}, ESA CCI classes)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../load_data.py" line="110"/>
-        <source>Land cover (transitions, {}-{} to {})</source>
+        <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="111"/>
+        <location filename="../load_data.py" line="122"/>
         <source>No change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="121"/>
-        <source>Land cover degradation ({}-{} to {})</source>
+        <source>Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_target})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="129"/>
-        <source>Soil organic carbon ({}, tons / ha)</source>
+        <location filename="../load_data.py" line="65"/>
+        <source>Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="132"/>
-        <source>Soil organic carbon degradation ({} - {})</source>
+        <location filename="../load_data.py" line="68"/>
+        <source>Productivity trajectory significance ({year_start} to {year_end})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="71"/>
+        <source>Significan   t decrease (p &lt; .1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="97"/>
+        <source>Productivity state classes ({year_start}-{year_end})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="101"/>
+        <source>Land cover degradation ({year_bl_start}-{year_bl_end} to {year_target})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="107"/>
+        <source>Land cover ({year}, 7 class)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="109"/>
+        <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="133"/>
+        <source>Soil organic carbon ({year}, tons / ha)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="136"/>
+        <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1198,17 +1103,12 @@ p, li { white-space: pre-wrap;}
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="48"/>
         <source>Baseline year</source>
-        <translation type="unfinished">Kipindi cha msingi</translation>
+        <translation>Kipindi cha msingi</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="106"/>
         <source>Target year</source>
         <translation>Mwaka unaofaa</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="119"/>
-        <source>Ending year:</source>
-        <translation type="obsolete">Mwaka wa mwisho:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="174"/>
@@ -1524,37 +1424,37 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>DlgLoadData</name>
     <message>
-        <location filename="../load_data.py" line="370"/>
+        <location filename="../load_data.py" line="369"/>
         <source>Select a trends.earth output file</source>
         <translation>Chagua faili ya pato la mwenendo</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="370"/>
+        <location filename="../load_data.py" line="369"/>
         <source>trends.earth metadata file (*.json)</source>
         <translation>Faili ya metadata ya trendsearth (*.json)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="416"/>
+        <location filename="../load_data.py" line="415"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="378"/>
+        <location filename="../load_data.py" line="377"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="383"/>
+        <location filename="../load_data.py" line="382"/>
         <source>{} does not appear to be a trends.earth output file</source>
         <translation>{} haionekani kuwa faili ya pato la mwenendo</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="410"/>
+        <location filename="../load_data.py" line="409"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
         <translation>Haiwezi kuongeza moja kwa moja &quot;{}&quot;. Hakuna mtindo unaelezewa kwa aina hii ya safu.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="416"/>
+        <location filename="../load_data.py" line="415"/>
         <source>Select a layer to load.</source>
         <translation>Chagua safu ya kupakia.</translation>
     </message>
@@ -1580,8 +1480,8 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="65"/>
-        <source>Metadata from this file</source>
-        <translation>Metadata kutoka faili hii</translation>
+        <source>File metadata</source>
+        <translation type="unfinished">Metadata kutoka faili hii</translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="71"/>
@@ -1618,8 +1518,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="185"/>
-        <source>Select a layer</source>
-        <translation>Chagua safu</translation>
+        <source>Select a layer(s)</source>
+        <translation type="unfinished">Chagua safu</translation>
     </message>
 </context>
 <context>
@@ -1679,77 +1579,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReportingBase</name>
     <message>
-        <location filename="../reporting.py" line="598"/>
+        <location filename="../reporting.py" line="600"/>
         <source>Directory to save files</source>
         <translation>Directory ili kuhifadhi faili</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="662"/>
+        <location filename="../reporting.py" line="664"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="607"/>
+        <location filename="../reporting.py" line="609"/>
         <source>Cannot write to {}. Choose a different folder.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua folda tofauti.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="613"/>
+        <location filename="../reporting.py" line="615"/>
         <source>Choose an output folder where the output will be saved.</source>
         <translation>Chagua folda ya pato ambapo pato litahifadhiwa.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="625"/>
+        <location filename="../reporting.py" line="627"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the reporting tool.</source>
         <translation>Lazima uongeze safu ya utendaji wa utendaji kwenye ramani yako kabla ya kutumia chombo cha kuripoti.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="629"/>
+        <location filename="../reporting.py" line="631"/>
         <source>You must add a land cover indicator layer to your map before you can use the reporting tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha bima ya ardhi kwenye ramani yako kabla ya kutumia chombo cha kuripoti.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="644"/>
+        <location filename="../reporting.py" line="646"/>
         <source>Coordinate systems of trajectory layer and land cover layer do not match.</source>
         <translation>Kuratibu mifumo ya safu ya trajectory na safu ya bima ya ardhi hailingani.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="654"/>
+        <location filename="../reporting.py" line="656"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya trajectory.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="658"/>
+        <location filename="../reporting.py" line="660"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya kifuniko cha ardhi.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="718"/>
+        <location filename="../reporting.py" line="720"/>
         <source>Land cover</source>
         <translation>Bima ya ardhi</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="719"/>
+        <location filename="../reporting.py" line="721"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="719"/>
+        <location filename="../reporting.py" line="721"/>
         <source>km&lt;sup&gt;2&lt;/sup&gt;</source>
         <translation>km &lt;sup&gt; 2 &lt;/ sup&gt;</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="633"/>
+        <location filename="../reporting.py" line="635"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the reporting tool.</source>
         <translation>Lazima uongeze safu ya kikaboni ya kikaboni cha kaboni kwenye ramani yako kabla ya kutumia chombo cha kuripoti.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="648"/>
+        <location filename="../reporting.py" line="650"/>
         <source>Coordinate systems of trajectory layer and soil organic carbon layer do not match.</source>
         <translation>Kuratibu mifumo ya safu ya trajectory na safu ya kaboni ya kikaboni hai hailingani.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="662"/>
+        <location filename="../reporting.py" line="664"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya kaboni ya kaboni.</translation>
     </message>
@@ -1757,57 +1657,57 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgReportingSDG</name>
     <message>
-        <location filename="../reporting.py" line="823"/>
+        <location filename="../reporting.py" line="825"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="753"/>
+        <location filename="../reporting.py" line="755"/>
         <source>You must add a productivity state indicator layer to your map before you can use the reporting tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha hali ya uzalishaji kwenye ramani yako kabla ya kutumia chombo cha taarifa.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="757"/>
+        <location filename="../reporting.py" line="759"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the reporting tool.</source>
         <translation>Lazima uongeze safu ya utendaji wa utendaji kwenye ramani yako kabla ya kutumia chombo cha kuripoti.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="774"/>
+        <location filename="../reporting.py" line="776"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>Kuratibu mifumo ya safu ya trajectory na safu ya hali hailingani.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="778"/>
+        <location filename="../reporting.py" line="780"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>Kuratibu mifumo ya safu ya trajectory na safu ya utendaji hailingani.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="765"/>
+        <location filename="../reporting.py" line="767"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>Maazimio ya safu ya trajectory na safu ya hali hailingani.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="769"/>
+        <location filename="../reporting.py" line="771"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>Maamuzi ya safu ya trajectory na safu ya utendaji haifai.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="783"/>
+        <location filename="../reporting.py" line="785"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya hali.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="787"/>
+        <location filename="../reporting.py" line="789"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya utendaji.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="823"/>
+        <location filename="../reporting.py" line="825"/>
         <source>Error calculating degradation layer.</source>
         <translation>Hitilafu ya kuhesabu safu ya uharibifu.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="813"/>
+        <location filename="../reporting.py" line="815"/>
         <source>Error clipping land cover layer for area calculation.</source>
         <translation>Hitilafu imefungua safu ya bima ya ardhi kwa hesabu ya eneo.</translation>
     </message>
@@ -1843,61 +1743,61 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="183"/>
-        <source>Land cover:</source>
-        <translation>Jalada la ardhi:</translation>
+        <source>Land cover</source>
+        <translation type="unfinished">Jalada la ardhi:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="229"/>
-        <source>Soil Carbon:</source>
-        <translation>Mkaa wa Chumvi:</translation>
+        <source>Soil Carbon</source>
+        <translation type="unfinished">Mkaa wa Chumvi:</translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingSDG.ui" line="241"/>
         <source>NOTE: Soil carbon calculation is not yet supported</source>
-        <translation>KUMBUKA: Hesabu ya kaboni ya ardhi bado haijaungwa mkono</translation>
+        <translation type="obsolete">KUMBUKA: Hesabu ya kaboni ya ardhi bado haijaungwa mkono</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="268"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="255"/>
         <source>Output</source>
         <translation>Pato</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="274"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="261"/>
         <source>Output folder</source>
         <translation>Faili ya Pato</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="286"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="273"/>
         <source>Choose a folder...</source>
         <translation>Chagua folda ...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="299"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="286"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="318"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="305"/>
         <source>Plot title</source>
         <translation>Plot title</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="333"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="320"/>
         <source>SDG Indicator 15.3.1</source>
         <translation>Kiashiria cha SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="371"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="358"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="384"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="371"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgReportingSDG.ui" line="397"/>
+        <location filename="../gui/DlgReportingSDG.ui" line="384"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
@@ -1970,37 +1870,37 @@ p, li { white-space: pre-wrap; }
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="892"/>
+        <location filename="../reporting.py" line="894"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="882"/>
+        <location filename="../reporting.py" line="884"/>
         <source>Error clipping land cover layer for area calculation.</source>
         <translation>Hitilafu imefungua safu ya bima ya ardhi kwa hesabu ya eneo.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="892"/>
+        <location filename="../reporting.py" line="894"/>
         <source>Error calculating degraded areas.</source>
         <translation>Hitilafu ya kuhesabu maeneo yaliyoharibiwa.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="898"/>
+        <location filename="../reporting.py" line="900"/>
         <source>Area Degraded</source>
         <translation>Eneo limeharibiwa</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="898"/>
+        <location filename="../reporting.py" line="900"/>
         <source>Area Stable</source>
         <translation>Simu imara</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="898"/>
+        <location filename="../reporting.py" line="900"/>
         <source>Area Improved</source>
         <translation>Simu Iliyoboreshwa</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="898"/>
+        <location filename="../reporting.py" line="900"/>
         <source>No Data</source>
         <translation>Hakuna Data</translation>
     </message>
@@ -2390,7 +2290,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="1217"/>
+        <location filename="../reporting.py" line="1219"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -2540,12 +2440,12 @@ p, li { white-space: pre-wrap; }
         <translation>Kuhusu</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="520"/>
+        <location filename="../reporting.py" line="522"/>
         <source>Processing: {}</source>
         <translation>Usindikaji: {}</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1212"/>
+        <location filename="../reporting.py" line="1214"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
@@ -2570,12 +2470,12 @@ p, li { white-space: pre-wrap; }
         <translation>Imeshindwa kuwasilisha ombi la kupakua kwenye injini ya Google Earth.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1239"/>
+        <location filename="../reporting.py" line="1241"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="1239"/>
+        <location filename="../reporting.py" line="1241"/>
         <source>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</source>
         <translation>Kifaa cha kuunda ramani bado kinajaribio - utendaji wa chombo hiki ni uwezekano wa kubadili baadaye.</translation>
     </message>
@@ -2668,7 +2568,7 @@ p, li { white-space: pre-wrap; }
         <translation>Uboreshaji</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="832"/>
+        <location filename="../reporting.py" line="834"/>
         <source>Degradation (SDG 15.3 - without soil carbon)</source>
         <translation>Uharibifu (SDG 15.3 - bila kaboni ya udongo)</translation>
     </message>
@@ -2718,7 +2618,7 @@ p, li { white-space: pre-wrap; }
         <translation>Kiwango</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="831"/>
+        <location filename="../reporting.py" line="833"/>
         <source>SDG 15.3 Productivity Indicator</source>
         <translation>Kiashiria cha Uzalishaji wa SDG 15.3</translation>
     </message>

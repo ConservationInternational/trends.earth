@@ -109,9 +109,10 @@ def get_ld_layers(layer_type=None):
         # than one band.
         if len(band_number) == 1:
             band_number = band_number[0]
-            name = [band_info['name'] for band_info in band_infos if band_info['band_number'] == band_number][0]
+            name = [band_info['name'] for band_info in band_infos if band_info['band_number'] == band_number]
+            log('name: {}'.format(name))
             if len(name) == 1:
-                name = name[1]
+                name = name[0]
                 if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
                     layers_filtered.append(l)
                 if layer_type == 'state' and name == 'Productivity state (degradation)':

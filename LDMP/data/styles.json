@@ -117,7 +117,7 @@
         }
     },
     "Land cover mode (7 class)": {
-        "title": "lc_7class_title",
+        "title": "lc_7class_mode_title",
         "ramp": {
             "type": "categorical",
             "shader": "exact",
@@ -151,7 +151,7 @@
         }
     },
     "Land cover mode (ESA classes)": {
-        "title": "lc_esa_title",
+        "title": "lc_esa_mode_title",
         "ramp": {
             "type": "categorical",
             "shader": "exact",

@@ -26,6 +26,10 @@ change (including degradation and improvement), and to produce maps and other
 graphics that can support reporting, and tracking the impact of sustainable 
 land management or other projects.
 
+See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ or 
+`technical fact sheet <_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ 
+for further information.
+
 The documentation and training materials, including a number of demonstration 
 videos, are available on this website:
 

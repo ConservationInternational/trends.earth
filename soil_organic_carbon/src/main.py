@@ -170,19 +170,23 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
 
 
     logger.debug("Setting up results JSON.")
-    soc_out = soc_pch
+    soc_out = soc_pch.where(soc.eq(-32768), -32768)
     d = [BandInfo("Soil organic carbon (degradation)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end})]
 
     if not dl_annual_soc:
         # Output percent change and initial and final SOC layers
-        soc_out = soc_out.addBands(stack_soc.select(0)).addBands(stack_soc.select(year_end - year_start))
+        soc_out = soc_out.addBands(stack_soc.select(0)).addBands(stack_soc.where(soc.eq(-32768), -32768).select(year_end - year_start))
         d.extend([BandInfo("Soil organic carbon", 2, no_data_value=-32768, add_to_map=True, metadata={'year': year_start}),
                   BandInfo("Soil organic carbon", 3, no_data_value=-32768, add_to_map=True, metadata={'year': year_end})])
     else:
         # Output percent change and annual SOC layers
-        soc_out = soc_out.addBands(stack_soc)
+        soc_out = soc_out.addBands(stack_soc.where(soc.eq(-32768), -32768))
         for year in range(year_start, year_end + 1):
-            d.extend([BandInfo("Soil organic carbon", len(d) + 1, no_data_value=-32768, add_to_map=False, metadata={'year': year})])
+            if (year == year_start) or (year == year_end):
+                add_to_map = True
+            else:
+                add_to_map = False
+            d.extend([BandInfo("Soil organic carbon", len(d) + 1, no_data_value=-32768, add_to_map=add_to_map, metadata={'year': year})])
 
     if dl_annual_lc:
         soc_out = soc_out.addBands(stack_lc)

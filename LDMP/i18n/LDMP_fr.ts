@@ -383,22 +383,22 @@
         <translation>Dégradation (combinée - SDG 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="409"/>
+        <location filename="../load_data.py" line="422"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="315"/>
+        <location filename="../load_data.py" line="328"/>
         <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
         <translation>Impossible de charger le style trends.earth. Ajouter une couche en utilisant les valeurs par défaut de QGIS.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="49"/>
+        <location filename="../calculate.py" line="61"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>Impossible d&apos;ajouter geojson à la couche temporaire.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="95"/>
+        <location filename="../calculate.py" line="106"/>
         <source>Coordinates of area of interest could not be transformed to WGS84. Check that the projection system is defined.</source>
         <translation>Les coordonnées de la zone d&apos;intérêt n&apos;ont pas pu être transformées en WGS84. Vérifiez que le système de projection est défini.</translation>
     </message>
@@ -495,7 +495,12 @@
     <message>
         <location filename="../reporting.py" line="1179"/>
         <source>Target total (ton)</source>
-        <translation type="unfinished"></translation>
+        <translation>Total cible (tonne)</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="50"/>
+        <source>Failed to process area of interest - unknown geometry type:{}</source>
+        <translation>Impossible de traiter la zone d&apos;intérêt - type de géométrie inconnu: {}</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -606,42 +611,42 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="286"/>
+        <location filename="../calculate.py" line="299"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="267"/>
+        <location filename="../calculate.py" line="278"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier ordre.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="274"/>
+        <location filename="../calculate.py" line="285"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="280"/>
+        <location filename="../calculate.py" line="291"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="286"/>
+        <location filename="../calculate.py" line="299"/>
         <source>Unable to read area file.</source>
         <translation>Impossible de lire le fichier de zone.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="251"/>
+        <location filename="../calculate.py" line="262"/>
         <source>Select a file defining the area of interst</source>
         <translation>Sélectionnez un fichier définissant la zone d&apos;interst</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="251"/>
+        <location filename="../calculate.py" line="262"/>
         <source>Spatial file (*.*)</source>
         <translation>Fichier spatial (*. *)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="168"/>
+        <location filename="../calculate.py" line="179"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
@@ -925,7 +930,7 @@ p, li {white-space: pre-wrap; }
         <translation>Définition de la couverture terrestre (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="459"/>
+        <location filename="../calculate_lc.py" line="465"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -938,6 +943,46 @@ p, li {white-space: pre-wrap; }
         <location filename="../calculate_lc.py" line="340"/>
         <source>Input code</source>
         <translation>Code d&apos;entrée</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="448"/>
+        <source>Cannot read {}. Using default class assignments.</source>
+        <translation>Ne peut pas lire {}. Utilisation des affectations de classe par défaut</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="502"/>
+        <source>Forest</source>
+        <translation>Forêt</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="504"/>
+        <source>Grassland</source>
+        <translation>Prairie</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="506"/>
+        <source>Cropland</source>
+        <translation>Les terres cultivées</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="508"/>
+        <source>Wetland</source>
+        <translation>Terre humide</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="510"/>
+        <source>Artificial area</source>
+        <translation>Zone artificielle</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="512"/>
+        <source>Bare land</source>
+        <translation>Terre nue</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="514"/>
+        <source>Water body</source>
+        <translation>Corps d&apos;eau</translation>
     </message>
 </context>
 <context>
@@ -1399,37 +1444,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgLoadData</name>
     <message>
-        <location filename="../load_data.py" line="369"/>
+        <location filename="../load_data.py" line="382"/>
         <source>Select a trends.earth output file</source>
         <translation>Sélectionnez un fichier de sortie trends.earth</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="369"/>
+        <location filename="../load_data.py" line="382"/>
         <source>trends.earth metadata file (*.json)</source>
         <translation>Fichier de métadonnées trends.earth (*.json)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="415"/>
+        <location filename="../load_data.py" line="428"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="377"/>
+        <location filename="../load_data.py" line="390"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Ne peut pas lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="382"/>
+        <location filename="../load_data.py" line="395"/>
         <source>{} does not appear to be a trends.earth output file</source>
         <translation>{} ne semble pas être un fichier de sortie de trends.earth</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="409"/>
+        <location filename="../load_data.py" line="422"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
         <translation>Impossible d&apos;ajouter automatiquement &quot;{}&quot;. Aucun style n&apos;est défini pour ce type de couche.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="415"/>
+        <location filename="../load_data.py" line="428"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionnez une couche à charger.</translation>
     </message>
@@ -2192,44 +2237,34 @@ p, li { white-space: pre-wrap; }
         <translation>Cliquez sur la carte pour choisir un point.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="265"/>
+        <location filename="../timeseries.py" line="242"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="191"/>
-        <source>Choose a first level administrative boundary.</source>
-        <translation>Choisissez une limite administrative de premier niveau.</translation>
-    </message>
-    <message>
-        <location filename="../timeseries.py" line="198"/>
-        <source>Unable to load administrative boundaries.</source>
-        <translation>Impossible de charger les limites administratives.</translation>
-    </message>
-    <message>
-        <location filename="../timeseries.py" line="203"/>
-        <source>Choose a file to define the area of interest.</source>
-        <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
-    </message>
-    <message>
-        <location filename="../timeseries.py" line="215"/>
+        <location filename="../timeseries.py" line="196"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="261"/>
+        <location filename="../timeseries.py" line="238"/>
         <source>Submitted</source>
         <translation>Soumis</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="261"/>
+        <location filename="../timeseries.py" line="238"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
         <translation>Tâche de calcul de la série temporelle soumise à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="265"/>
+        <location filename="../timeseries.py" line="242"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de calcul de séries temporelles à Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="207"/>
+        <source>Choose an area of interest.</source>
+        <translation>Choisissez une zone d&apos;intérêt.</translation>
     </message>
 </context>
 <context>
@@ -2571,47 +2606,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WidgetSelectArea</name>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="14"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="20"/>
         <source>Form</source>
         <translation>Forme</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="20"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="32"/>
         <source>Area to run calculations for</source>
         <translation>Domaine dans lequel effectuer l&apos;analyse</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="28"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="40"/>
         <source>Administrative area</source>
         <translation>Zone Administrative</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="65"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="77"/>
         <source>First level:</source>
         <translation>Premier niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="96"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="108"/>
         <source>Second level:</source>
         <translation>Deuxième niveau:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="103"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="115"/>
         <source>Area from file</source>
         <translation>Zone du fichier</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="173"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="185"/>
         <source>Browse</source>
         <translation>Feuilleter</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="189"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="201"/>
         <source>Choose a file...</source>
         <translation>Choisir une barre latérale...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="196"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="214"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Avis de non-responsabilité: Les limites fournies proviennent de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt;, et se trouvent dans le &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; domaine public &lt;/ span&gt; &lt;/a&gt;. Les limites et les noms utilisés, et les désignations utilisées, dans trends.earth n&apos;impliquent pas l&apos;approbation officielle ou l&apos;acceptation par Conservation International Foundation, ou par ses organisations partenaires et contributeurs. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
@@ -2619,27 +2654,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WidgetSelectPoint</name>
     <message>
-        <location filename="../gui/WidgetSelectPoint.ui" line="14"/>
+        <location filename="../gui/WidgetSelectPoint.ui" line="20"/>
         <source>Form</source>
         <translation>Forme</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectPoint.ui" line="25"/>
+        <location filename="../gui/WidgetSelectPoint.ui" line="31"/>
         <source>Point</source>
         <translation>Point</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectPoint.ui" line="80"/>
+        <location filename="../gui/WidgetSelectPoint.ui" line="86"/>
         <source>Choose a point...</source>
         <translation>Choisissez un point...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectPoint.ui" line="51"/>
+        <location filename="../gui/WidgetSelectPoint.ui" line="57"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectPoint.ui" line="64"/>
+        <location filename="../gui/WidgetSelectPoint.ui" line="70"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>

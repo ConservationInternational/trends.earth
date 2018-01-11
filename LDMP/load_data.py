@@ -271,9 +271,15 @@ def add_layer(f, band_info):
         d = get_sample(f, band_info['band_number'])
         d[d == band_info['no_data_value']] = np.nan
         cutoffs = np.nanpercentile(d, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
+        if np.sum(np.isnan(d)) == np.size(d) or np.any(cutoffs <= 0):
+            # If array is entirely NaN values, or any cutoffs are negative or 
+            # zero set the cutoffs to 0, 0 and don't try to round.
+            cutoffs = [0, 0]
+            extreme = cutoffs
+        else:
+            extreme = max([round_to_n(abs(cutoffs[0]), 2),
+                           round_to_n(abs(cutoffs[1]), 2)])
         log('Cutoffs for {}  percent stretch: {}'.format(style['ramp']['percent stretch'], cutoffs))
-        extreme = max([round_to_n(abs(cutoffs[0]), 2),
-                       round_to_n(abs(cutoffs[1]), 2)])
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-extreme,
                                                   QtGui.QColor(style['ramp']['min']['color']),
@@ -293,7 +299,14 @@ def add_layer(f, band_info):
         # three figures.
         d = get_sample(f, band_info['band_number'])
         d[d == band_info['no_data_value']] = np.nan
-        cutoff = round_to_n(np.nanpercentile(d, [100 - style['ramp']['percent stretch']]), 3)
+        cutoff = np.nanpercentile(d, [100 - style['ramp']['percent stretch']])
+        if (cutoff <= 0) or (np.sum(np.isnan(d)) == np.size(d)):
+            # If array is entirely NaN values, or cutoff is negative or zero, 
+            # set the cutoff to 0 and don't try to round and adjust the 
+            # significant figures
+            cutoff = 0
+        else:
+            cutoff = round_to_n(cutoff, 3)
         log('Cutoff for min zero max {} stretch: {}'.format(cutoff, style['ramp']['percent stretch']))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,

@@ -44,13 +44,15 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
 
     # Handle case of year_start that isn't included in the CCI data
     if year_start > 2015:
-        year_start = 2015
+        lc_year_start = 2015
     elif year_start < 1992:
-        year_start = 1992
+        lc_year_start = 1992
+    else:
+        lc_year_start = year_start
     # reclassify lc to ipcc classes
-    lc_start_year = lc.select('y{}'.format(year_start)) \
-                      .remap([10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72, 80, 81, 82, 90, 100, 160, 170, 110, 130, 180, 190, 120, 121, 122, 140, 150, 151, 152, 153, 200, 201, 202, 210], 
-                             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36])
+    lc_t0 = lc.select('y{}'.format(lc_year_start)) \
+        .remap([10, 11, 12, 20, 30, 40, 50, 60, 61, 62, 70, 71, 72, 80, 81, 82, 90, 100, 160, 170, 110, 130, 180, 190, 120, 121, 122, 140, 150, 151, 152, 153, 200, 201, 202, 210], 
+               [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36])
 
     # create a binary mask.
     mask = ndvi_avg.neq(0)
@@ -59,7 +61,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     modis_proj = ee.Image("users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016").projection()
 
     # reproject land cover, soil_tax_usda and avhrr to modis resolution
-    lc_proj = lc_start_year.reproject(crs=modis_proj)
+    lc_proj = lc_t0.reproject(crs=modis_proj)
     soil_tax_usda_proj = soil_tax_usda.reproject(crs=modis_proj)
     ndvi_avg_proj = ndvi_avg.reproject(crs=modis_proj)
 

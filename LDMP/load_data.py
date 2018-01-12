@@ -32,6 +32,8 @@ from osgeo import gdal
 
 from LDMP import log
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
+from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
+
 
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                        'data', 'styles.json')) as script_file:
@@ -355,6 +357,26 @@ def add_layer(f, band_info):
     return True
 
 
+class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(DlgJobsDetails, self).__init__(parent)
+
+        self.setupUi(self)
+        self.task_status.hide()
+        self.statusLabel.hide()
+
+        #TODO: This is not yet working...
+        # # Convert from a grid layout to a vbox layout
+        # temp = QtGui.QWidget()
+        # temp.setLayout(self.layout())
+        # new_layout = QtGui.QVBoxLayout(self)
+        # while True:
+        #     layout_item = temp.layout().takeAt(0)
+        #     if not layout_item:
+        #         break
+        #     new_layout.addWidget(layout_item.widget())
+
 
 class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
     def __init__(self, parent=None):
@@ -368,15 +390,37 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
         self.file_browse_btn.clicked.connect(self.browse_file)
 
-        self.file_lineedit.textChanged.connect(self.update_details)
+        self.file_lineedit.editingFinished.connect(self.update_layer_list)
 
         self.buttonBox.accepted.connect(self.ok_clicked)
         self.buttonBox.rejected.connect(self.cancel_clicked)
+
+        self.btn_view_metadata.clicked.connect(self.btn_details)
+
 
     def showEvent(self, e):
         super(DlgLoadData, self).showEvent(e)
 
         self.file_lineedit.clear()
+        self.layers_model.setStringList([])
+        self.btn_view_metadata.setEnabled(False)
+
+
+    def btn_details(self):
+        details_dlg = DlgJobsDetails(self)
+        params = get_params(self.file_lineedit.text())
+        results = get_results(self.file_lineedit.text())
+        if params and results:
+            details_dlg.task_name.setText(params.get('task_name', ''))
+            details_dlg.comments.setText(params.get('task_notes', ''))
+            details_dlg.input.setText(json.dumps(params, indent=4, sort_keys=True))
+            details_dlg.output.setText(json.dumps(results, indent=4, sort_keys=True))
+            details_dlg.show()
+            details_dlg.exec_()
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot read {}. Choose a different file.".format(self.file_lineedit.text())))
+
 
     def browse_file(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
@@ -390,14 +434,12 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot read {}. Choose a different file.".format(f)))
 
-            res = get_results(f)
-            if not res:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("{} does not appear to be a trends.earth output file".format(f)))
-                self.file_lineedit.clear()
-                return None
-            else:
-                self.file_lineedit.setText(f)
+        res = self.update_layer_list(f)
+        if res:
+            self.file_lineedit.setText(f)
+        else:
+            self.file_lineedit.clear()
+
 
     def cancel_clicked(self):
         self.close()
@@ -427,34 +469,28 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
 
-    def update_details(self):
-        if self.file_lineedit.text():
-            results = get_results(self.file_lineedit.text())
+    def update_layer_list(self, f=None):
+        if not f:
+            f = self.file_lineedit.text()
+        if f:
+            results = get_results(f)
             if results:
                 self.layers_model.setStringList([get_band_title(band) for band in results['bands']])
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
                 for n in range(len(results['bands'])):
                     if results['bands'][n]['add_to_map']:
-                        log('add {} to selection'.format(results['bands'][n]))
                         self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QtGui.QItemSelectionModel.Select)
             else:
                 self.layers_model.setStringList([])
-
-            params = get_params(self.file_lineedit.text())
-            if params:
-                self.task_name.setText(params.get('task_name', ''))
-                self.input.setText(json.dumps(params, indent=4, sort_keys=True))
-                self.output.setText(json.dumps(results, indent=4, sort_keys=True))
-                self.comments.setText(params.get('task_notes', ''))
-            else:
-                self.task_name.clear()
-                self.input.clear()
-                self.output.clear()
-                self.comments.clear()
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("{} does not appear to be a trends.earth output file".format(f)))
+                self.layers_model.setStringList([])
+                self.btn_view_metadata.setEnabled(False)
+                return None
         else:
+            self.btn_view_metadata.setEnabled(False)
             self.layers_model.setStringList([])
-            self.task_name.clear()
-            self.input.clear()
-            self.output.clear()
-            self.comments.clear()
             return None
+
+        self.btn_view_metadata.setEnabled(True)
+        return True

@@ -151,10 +151,12 @@ def style_sdg_ld(outfile, title):
         return None
     fcn = QgsColorRampShader()
     fcn.setColorRampType(QgsColorRampShader.EXACT)
-    lst = [QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
+    lst = [QgsColorRampShader.ColorRampItem(-32768, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data')),
+           QgsColorRampShader.ColorRampItem(-32767, QtGui.QColor(190, 190, 190), QtGui.QApplication.translate('LDMPPlugin', 'Masked area')),
+           QgsColorRampShader.ColorRampItem(-1, QtGui.QColor(153, 51, 4), QtGui.QApplication.translate('LDMPPlugin', 'Degradation')),
            QgsColorRampShader.ColorRampItem(0, QtGui.QColor(246, 246, 234), QtGui.QApplication.translate('LDMPPlugin', 'Stable')),
-           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement')),
-           QgsColorRampShader.ColorRampItem(9999, QtGui.QColor(0, 0, 0), QtGui.QApplication.translate('LDMPPlugin', 'No data'))]
+           QgsColorRampShader.ColorRampItem(1, QtGui.QColor(0, 140, 121), QtGui.QApplication.translate('LDMPPlugin', 'Improvement'))]
+           
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
@@ -244,9 +246,14 @@ class DegradationWorkerSDG(AbstractWorker):
                 deg[np.logical_and(np.logical_and(state_array <= -2, state_array >= -10), perf_array == -1)] = -1
 
                 # Ensure NAs carry over to productivity indicator layer
-                deg[traj_array == -9999] = -9999
-                deg[perf_array == -9999] = -9999
-                deg[state_array == -9999] = -9999
+                deg[traj_array == -32768] = -32768
+                deg[perf_array == -32768] = -32768
+                deg[state_array == -32768] = -32768
+                # Ensure masked areas carry over to productivity indicator 
+                # layer
+                deg[traj_array == -32767] = -32767
+                deg[perf_array == -32767] = -32767
+                deg[state_array == -32767] = -32767
 
                 # Save combined productivity indicator for later visualization
                 dst_ds_prod.GetRasterBand(1).WriteArray(deg, x, y)
@@ -274,10 +281,23 @@ class DegradationWorkerSDG(AbstractWorker):
                 # Missing data
                 
                 # Ensure all NAs are carried over - note this was already done 
-                # above for the productivity layers
+                # for the productivity layer above but need to do it again in 
+                # case values from another layer overwrote those missing value 
+                # indicators.
                 
-                deg[lc_array == -9999] = -9999
-                deg[soc_array == -9999] = -9999
+                # No data
+                deg[traj_array == -32768] = -32768
+                deg[perf_array == -32768] = -32768
+                deg[state_array == -32768] = -32768
+                deg[lc_array == -32768] = -32768
+                deg[soc_array == -32768] = -32768
+
+                # Masked areas
+                deg[traj_array == -32767] = -32767
+                deg[perf_array == -32767] = -32767
+                deg[state_array == -32767] = -32767
+                deg[lc_array == -32767] = -32767
+                deg[soc_array == -32767] = -32767
 
                 dst_ds_deg.GetRasterBand(1).WriteArray(deg, x, y)
                 del deg
@@ -362,6 +382,9 @@ def calc_total_table(a_trans, a_soc, total_table, cell_area):
 
 def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""
+    # Convert array to int32 dtype so that the correction below can be applied 
+    # without the array overflowing
+    a = a.astype(np.int32)
     a_min = np.min(a)
     if a_min < 0:
         # Correction to add as bincount can only handle positive integers
@@ -550,7 +573,8 @@ class ClipWorker(AbstractWorker):
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=mask_layer_file,
-                        dstNodata=-9999, dstSRS="epsg:4326",
+                        srcNodata=-32768, dstNodata=-32767,
+                        dstSRS="epsg:4326",
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
@@ -699,7 +723,8 @@ class DlgReportingBase(DlgCalculateBase):
         self.layer_traj_bandnumber = self.layer_traj_list[self.combo_layer_traj.currentIndex()][1]
 
         self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(), bandList=[self.layer_traj_bandnumber], VRTNodata=-9999)
+        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_traj_bandnumber])
 
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
         # Use this instead of croptocutline in gdal.Warp in order to keep the
@@ -818,19 +843,19 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
 
         self.perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.perf_f, self.layer_perf.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_perf_bandnumber], VRTNodata=-9999)
+                      bandList=[self.layer_perf_bandnumber])
 
         self.state_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.state_f, self.layer_state.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_state_bandnumber], VRTNodata=-9999)
+                      bandList=[self.layer_state_bandnumber])
 
         self.lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(),
-                bandList=[self.layer_lc_bandnumber], VRTNodata=-9999)
+                bandList=[self.layer_lc_bandnumber])
 
         self.soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_bandnumber], srcNodata=-32768, VRTNodata=-9999)
+                      bandList=[self.layer_soc_bandnumber])
 
         ######################################################################
         # Combine rasters into a VRT and crop to the AOI
@@ -846,8 +871,7 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                       outputBounds=self.outputBounds,
                       resolution=resample_alg[0],
                       resampleAlg=resample_alg[1],
-                      separate=True,
-                      VRTNodata=-9999)
+                      separate=True)
         self.close()
 
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
@@ -929,13 +953,13 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         # the first band of the file
         self.lc_tr_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.lc_tr_f, self.layer_lc_tr.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_lc_tr_bandnumber], VRTNodata=-9999)
+                      bandList=[self.layer_lc_tr_bandnumber])
 
         # Select soc layer using bandlist since that layer has problematic
         # missing value coding
         self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.soc_init_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_bandnumber], srcNodata=-32768, VRTNodata=-9999)
+                      bandList=[self.layer_soc_bandnumber])
 
         resample_alg = self.get_resample_alg(self.lc_tr_f, self.traj_f)
         gdal.BuildVRT(indic_f,
@@ -945,8 +969,7 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
                       outputBounds=self.outputBounds,
                       resolution=resample_alg[0],
                       resampleAlg=resample_alg[1],
-                      separate=True,
-                      VRTNodata=-9999)
+                      separate=True)
         # Clip and mask the lc/deg layer before calculating crosstab
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
@@ -974,8 +997,8 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         y = [get_xtab_area(trans_lpd_xtab, -1, None),
              get_xtab_area(trans_lpd_xtab, 0, None),
              get_xtab_area(trans_lpd_xtab, -1, None),
-             get_xtab_area(trans_lpd_xtab, 9999, None)]
-        log('SummaryTable total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, 9999, None)))
+             get_xtab_area(trans_lpd_xtab, -32768, None)]
+        log('SummaryTable total area: {}'.format(get_xtab_area(trans_lpd_xtab) - get_xtab_area(trans_lpd_xtab, -32768, None)))
         log('SummaryTable areas (deg, stable, imp, no data): {}'.format(y))
 
         make_summary_table(base_areas, target_areas, soc_totals,

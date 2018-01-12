@@ -65,6 +65,14 @@ def get_scripts():
     return scripts_dict
 
 
+class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(DlgJobsDetails, self).__init__(parent)
+
+        self.setupUi(self)
+
+
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def __init__(self, parent=None):
         """Constructor."""

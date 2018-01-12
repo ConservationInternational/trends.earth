@@ -253,14 +253,6 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 
 
-class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(DlgJobsDetails, self).__init__(parent)
-
-        self.setupUi(self)
-
-
 class JobsTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)

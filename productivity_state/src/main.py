@@ -29,6 +29,8 @@ def productivity_state(year_bl_start, year_bl_end,
     logger.debug("Entering productivity_state function.")
 
     ndvi_1yr = ee.Image(ndvi_gee_dataset)
+    ndvi_1yr = ndvi_1yr.where(ndvi_1yr.eq(9999), -32768)
+    ndvi_1yr = ndvi_1yr.updateMask(ndvi_1yr.neq(-32768))
 
     # compute min and max of annual ndvi for the baseline period
     bl_ndvi_range = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_bl_start, year_bl_end + 1)])) \
@@ -49,7 +51,7 @@ def productivity_state(year_bl_start, year_bl_end,
         .reduce(ee.Reducer.mean()).rename(['ndvi'])
 
     # reclassify mean ndvi for baseline period based on the percentiles
-    bl_classes = ee.Image(9999) \
+    bl_classes = ee.Image(-32768) \
         .where(bl_ndvi_mean.lte(bl_ndvi_perc.select('p10')), 1) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
@@ -62,7 +64,7 @@ def productivity_state(year_bl_start, year_bl_end,
         .where(bl_ndvi_mean.gt(bl_ndvi_perc.select('p90')), 10)
 
     # reclassify mean ndvi for target period based on the percentiles
-    tg_classes = ee.Image(9999) \
+    tg_classes = ee.Image(-32768) \
         .where(tg_ndvi_mean.lte(bl_ndvi_perc.select('p10')), 1) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p10')), 2) \
         .where(tg_ndvi_mean.gt(bl_ndvi_perc.select('p20')), 3) \
@@ -80,15 +82,15 @@ def productivity_state(year_bl_start, year_bl_end,
 
     out = classes_chg.addBands(bl_classes).addBands(tg_classes)
 
-    task = util.export_to_cloudstorage(out.int16(),
+    task = util.export_to_cloudstorage(out.unmask(-32768).int16(),
                                        ndvi_1yr.projection(), geojson, 'prod_state', logger,
                                        EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity state (degradation)", 1, no_data_value=9999, add_to_map=True, metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_tg_start': year_tg_start, 'year_tg_end': year_tg_end}),
-         BandInfo("Productivity state classes", 2, no_data_value=9999, add_to_map=False, metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
-         BandInfo("Productivity state classes", 3, no_data_value=9999, add_to_map=False, metadata={'year_start': year_tg_start, 'year_end': year_tg_end})]
+    d = [BandInfo("Productivity state (degradation)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_tg_start': year_tg_start, 'year_tg_end': year_tg_end}),
+         BandInfo("Productivity state classes", 2, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
+         BandInfo("Productivity state classes", 3, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_tg_start, 'year_end': year_tg_end})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_state', __version__, d, u)
     results_schema = CloudResultsSchema()

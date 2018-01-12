@@ -38,6 +38,8 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015") \
             .select(ee.List.sequence(year_start - 1992, year_end - 1992, 1)) \
             .reproject(crs=soc.projection())
+    lc = lc.where(lc.eq(9999), -32768)
+    lc = lc.updateMask(lc.neq(-32768))
 
     if fl == 'per pixel':
         # Setup a raster of climate regimes to use for coding Fl automatically
@@ -97,10 +99,10 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
                                   0, 0, 0, 0, 0, 0, 0])
 
         if fl == 'per pixel':
-            lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), clim_fl)\
+            lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq(99), clim_fl)\
                                  .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(clim_fl))
         else:
-            lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq( 99), fl)\
+            lc_tr_fl = lc_tr_fl_0.where(lc_tr_fl_0.eq(99), fl)\
                                  .where(lc_tr_fl_0.eq(-99), ee.Image(1).divide(fl))
 
         # stock change factor for management regime
@@ -170,17 +172,17 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
 
 
     logger.debug("Setting up results JSON.")
-    soc_out = soc_pch.where(soc.eq(-32768), -32768)
+    soc_out = soc_pch
     d = [BandInfo("Soil organic carbon (degradation)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end})]
 
     if not dl_annual_soc:
         # Output percent change and initial and final SOC layers
-        soc_out = soc_out.addBands(stack_soc.select(0)).addBands(stack_soc.where(soc.eq(-32768), -32768).select(year_end - year_start))
+        soc_out = soc_out.addBands(stack_soc.select(0)).addBands(stack_soc.select(year_end - year_start))
         d.extend([BandInfo("Soil organic carbon", 2, no_data_value=-32768, add_to_map=True, metadata={'year': year_start}),
                   BandInfo("Soil organic carbon", 3, no_data_value=-32768, add_to_map=True, metadata={'year': year_end})])
     else:
         # Output percent change and annual SOC layers
-        soc_out = soc_out.addBands(stack_soc.where(soc.eq(-32768), -32768))
+        soc_out = soc_out.addBands(stack_soc)
         for year in range(year_start, year_end + 1):
             if (year == year_start) or (year == year_end):
                 add_to_map = True
@@ -191,9 +193,9 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     if dl_annual_lc:
         soc_out = soc_out.addBands(stack_lc)
         for year in range(year_start, year_end + 1):
-            d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=9999, add_to_map=False, metadata={'year': year})])
+            d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=False, metadata={'year': year})])
 
-    task = util.export_to_cloudstorage(soc_out.int16(),
+    task = util.export_to_cloudstorage(soc_out.unmask(-32768).int16(),
                                        soc_out.projection(), geojson, 
                                        'soil_organic_carbon', logger,
                                        EXECUTION_ID)

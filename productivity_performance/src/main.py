@@ -27,9 +27,13 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     logger.debug("Entering productivity_performance function.")
 
     ndvi_1yr = ee.Image(ndvi_gee_dataset)
+    ndvi_1yr = ndvi_1yr.where(ndvi_1yr.eq(9999), -32768)
+    ndvi_1yr = ndvi_1yr.updateMask(ndvi_1yr.neq(-32768))
 
     # land cover data from esa cci
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
+    lc = lc.where(lc.eq(9999), -32768)
+    lc = lc.updateMask(lc.neq(-32768))
 
     # global agroecological zones from IIASA
     soil_tax_usda = ee.Image("users/geflanddegradation/toolbox_datasets/soil_tax_usda_sgrid")
@@ -89,21 +93,21 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
 
     # create final degradation output layer (9999 is background), 0 is not
     # degreaded, -1 is degraded
-    lp_perf_deg = ee.Image(9999).where(obs_ratio_2.gte(0.5), 0) \
+    lp_perf_deg = ee.Image(-32768).where(obs_ratio_2.gte(0.5), 0) \
         .where(obs_ratio_2.lte(0.5), -1)
 
     lp_perf = lp_perf_deg.addBands(obs_ratio_2.multiply(10000)) \
         .addBands(units)
 
-    task = util.export_to_cloudstorage(lp_perf.int16(),
+    task = util.export_to_cloudstorage(lp_perf.unmask(-32768).int16(),
                                        ndvi_1yr.projection(), geojson, 'prod_performance', logger,
                                        EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=9999, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
-         BandInfo("Productivity performance (ratio)", 2, no_data_value=9999, add_to_map=False, metadata={'year_start': year_start, 'year_end': year_end}),
-         BandInfo("Productivity performance (units)", 3, no_data_value=9999, add_to_map=False, metadata={'year_start': year_start})]
+    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
+         BandInfo("Productivity performance (ratio)", 2, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_start, 'year_end': year_end}),
+         BandInfo("Productivity performance (units)", 3, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_start})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_performance', __version__, d, u)
     results_schema = CloudResultsSchema()

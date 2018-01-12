@@ -52,14 +52,14 @@ def run(params, logger):
                                      ndvi_gee_dataset, climate_gee_dataset, logger)
 
     ndvi_projection = ee.Image(ndvi_gee_dataset).projection()
-    task = util.export_to_cloudstorage(output.int16(),
+    task = util.export_to_cloudstorage(output.unmask(-32768).int16(),
                                        ndvi_projection, geojson, 'prod_trajectory', logger,
                                        EXECUTION_ID)
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=9999, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
-         BandInfo("Productivity trajectory (significance)", 2, no_data_value=9999, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end})]
+    d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
+         BandInfo("Productivity trajectory (significance)", 2, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('prod_trajectory', __version__, d, u)
     results_schema = CloudResultsSchema()

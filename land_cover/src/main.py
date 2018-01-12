@@ -31,6 +31,8 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
 
     ## land cover
     lc = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2015")
+    lc = lc.where(lc.eq(9999), -32768)
+    lc = lc.updateMask(lc.neq(-32768))
 
     ## target land cover map reclassified to IPCC 6 classes
     lc_tg_raw = lc.select('y{}'.format(year_target))
@@ -81,7 +83,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
         .addBands(lc_tg_raw)
 
     # Create export function to export land deg image
-    task = util.export_to_cloudstorage(lc_out.int16(),
+    task = util.export_to_cloudstorage(lc_out.unmask(-32768).int16(),
                                        lc.projection(), geojson, 'land_cover', logger,
                                        EXECUTION_ID)
     task.join()

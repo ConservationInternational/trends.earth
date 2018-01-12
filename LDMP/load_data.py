@@ -67,20 +67,20 @@ style_text_dict = {
     'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
     'prod_traj_trend_nodata': tr('No data'),
 
-    'prod_traj_signif_title': tr('Productivity trajectory significance ({year_start} to {year_end})'),
-    'prod_traj_signif_dec_99': tr('Significant decrease (p < .01)'),
-    'prod_traj_signif_dec_95': tr('Significant decrease (p < .05)'),
-    'prod_traj_signif_dec_90': tr('Significant decrease (p < .1)'),
-    'prod_traj_signif_zero': tr('No significant change'),
-    'prod_traj_signif_inc_90': tr('Significant increase (p < .1)'),
-    'prod_traj_signif_inc_95': tr('Significant increase (p < .05)'),
-    'prod_traj_signif_inc_99': tr('Significant increase (p < .01)'),
+    'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
+    'prod_traj_signif_dec_99': tr('Degraded (significant decrease, p < .01)'),
+    'prod_traj_signif_dec_95': tr('Degraded (significant decrease, p < .05)'),
+    'prod_traj_signif_dec_90': tr('Stable (significant decrease, p < .1)'),
+    'prod_traj_signif_zero': tr('Stable (no significant change)'),
+    'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
+    'prod_traj_signif_inc_95': tr('Improved (significant increase, p < .05)'),
+    'prod_traj_signif_inc_99': tr('Improved (ignificant increase, p < .01)'),
     'prod_traj_signif_nodata': tr('No data'),
 
     # Productivity performance
     'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
-    'prod_perf_deg_potential_deg': tr('Potentially degraded'),
-    'prod_perf_deg_not_potential_deg': tr('Not potentially degraded'),
+    'prod_perf_deg_potential_deg': tr('Degraded'),
+    'prod_perf_deg_not_potential_deg': tr('Not degraded'),
     'prod_perf_deg_nodata': tr('No data'),
 
     'prod_perf_ratio_title': tr('Productivity performance ({year_start} to {year_end}, ratio)'),
@@ -91,9 +91,9 @@ style_text_dict = {
 
     # Productivity state
     'prod_state_change_title': tr('Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
-    'prod_state_change_potential_deg': tr('Potentially degraded'),
+    'prod_state_change_potential_deg': tr('Degraded'),
     'prod_state_change_stable': tr('Stable'),
-    'prod_state_change_potential_improvement': tr('Potentially improved'),
+    'prod_state_change_potential_improvement': tr('Improved'),
     'prod_state_change_nodata': tr('No data'),
 
     'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),
@@ -111,6 +111,7 @@ style_text_dict = {
     'lc_7class_mode_title': tr('Land cover mode ({year_start}-{year_end}, 7 class)'),
     'lc_esa_mode_title': tr('Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
 
+    'lc_class_nodata': tr('-32768 - No data'),
     'lc_class_forest': tr('1 - Forest'),
     'lc_class_grassland': tr('2 - Grassland'),
     'lc_class_cropland': tr('3 - Cropland'),
@@ -118,7 +119,6 @@ style_text_dict = {
     'lc_class_artificial': tr('5 - Artificial area'),
     'lc_class_bare': tr('6 - Bare land'),
     'lc_class_water': tr('7 - Water body'),
-    'lc_class_nodata': tr('9999 - No data'),
 
     'lc_tr_title': tr('Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_target})'),
     'lc_tr_nochange': tr('No change'),
@@ -246,6 +246,37 @@ def get_sample(f, band_number, n=10000):
 
         return out
 
+
+def get_cutoff(f, band_info, percentiles):
+    if len(percentiles) != 1 and len(percentiles) != 2:
+        raise ValueError("Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(percentiles))
+    d = get_sample(f, band_info['band_number'])
+    md = np.ma.masked_where(d == band_info['no_data_value'], d)
+    if md.size == 0:
+        # If all of the values are no data, return 0
+        return 0
+    else:
+        cutoffs = np.nanpercentile(md.compressed(), percentiles)
+        if cutoffs.size == 2:
+            max_cutoff = np.amax(np.absolute(cutoffs))
+            if max_cutoff < 0:
+                return 0
+            else:
+                return round_to_n(max_cutoff, 2)
+
+        elif cutoffs.size == 1:
+            if cutoffs < 0:
+                # Negative cutoffs are not allowed as stretch is either zero 
+                # centered or starting at zero
+                return 0
+            else:
+                return round_to_n(cutoffs, 2)
+        else:
+            # We only get here if cutoffs is not size 1 or 2, which should 
+            # never happen, so raise
+            raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
+
+
 def add_layer(f, band_info):
     try:
         style = styles[band_info['name']]
@@ -268,30 +299,20 @@ def add_layer(f, band_info):
                                                       tr_style_text(item['label'])))
 
     elif style['ramp']['type'] == 'zero-centered stretch':
-        # Set a colormap centred on zero, going to the extreme value
-        # significant to three figures.
-        d = get_sample(f, band_info['band_number'])
-        d[d == band_info['no_data_value']] = np.nan
-        cutoffs = np.nanpercentile(d, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
-        if np.sum(np.isnan(d)) == np.size(d) or np.any(cutoffs <= 0):
-            # If array is entirely NaN values, or any cutoffs are negative or 
-            # zero set the cutoffs to 0, 0 and don't try to round.
-            cutoffs = [0, 0]
-            extreme = cutoffs
-        else:
-            extreme = max([round_to_n(abs(cutoffs[0]), 2),
-                           round_to_n(abs(cutoffs[1]), 2)])
-        log('Cutoffs for {}  percent stretch: {}'.format(style['ramp']['percent stretch'], cutoffs))
+        # Set a colormap centred on zero, going to the max of the min and max 
+        # extreme value significant to three figures.
+        cutoff = get_cutoff(f, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
+        log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
         r = []
-        r.append(QgsColorRampShader.ColorRampItem(-extreme,
+        r.append(QgsColorRampShader.ColorRampItem(-cutoff,
                                                   QtGui.QColor(style['ramp']['min']['color']),
-                                                  '{}'.format(-extreme)))
+                                                  '{}'.format(-cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(0,
                                                   QtGui.QColor(style['ramp']['zero']['color']),
                                                   '0'))
-        r.append(QgsColorRampShader.ColorRampItem(extreme,
+        r.append(QgsColorRampShader.ColorRampItem(cutoff,
                                                   QtGui.QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(extreme)))
+                                                  '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
                                                   QtGui.QColor(style['ramp']['no data']['color']),
                                                   tr_style_text(style['ramp']['no data']['label'])))
@@ -299,17 +320,8 @@ def add_layer(f, band_info):
     elif style['ramp']['type'] == 'min zero stretch':
         # Set a colormap from zero to percent stretch significant to
         # three figures.
-        d = get_sample(f, band_info['band_number'])
-        d[d == band_info['no_data_value']] = np.nan
-        cutoff = np.nanpercentile(d, [100 - style['ramp']['percent stretch']])
-        if (cutoff <= 0) or (np.sum(np.isnan(d)) == np.size(d)):
-            # If array is entirely NaN values, or cutoff is negative or zero, 
-            # set the cutoff to 0 and don't try to round and adjust the 
-            # significant figures
-            cutoff = 0
-        else:
-            cutoff = round_to_n(cutoff, 3)
-        log('Cutoff for min zero max {} stretch: {}'.format(cutoff, style['ramp']['percent stretch']))
+        cutoff = get_cutoff(f, band_info, [100 - style['ramp']['percent stretch']])
+        log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
                                                   QtGui.QColor(style['ramp']['zero']['color']),

@@ -100,7 +100,7 @@ class DlgCalculateLCBase(DlgCalculateBase):
 
     def remap_create(self):
         if self.remap_custom_file.text():
-            self.dlg_remap.setup_class_table(self.remap_custom_file.text())
+            ret = self.dlg_remap.setup_class_table(self.remap_custom_file.text())
         f = self.dlg_remap.exec_()
         if f:
             self.remap_file_update(f)
@@ -443,8 +443,14 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
     def setup_class_table(self, f=None):
         default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                           'data', 'land_cover_classes.json')
-        if not f:
+        if f:
+            if not os.access(f, os.R_OK):
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Using default class assignments.".format(f), None))
+                f = default_class_file
+        else:
             f = default_class_file
+
         with open(f) as class_file:
             classes = json.load(class_file)
 
@@ -474,6 +480,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         # Add selector in cell
         for row in range(0, len(self.classes)):
             lc_classes = QtGui.QComboBox()
+            lc_classes.currentIndexChanged.connect(self.lc_class_combo_changed)
             # Add the classes in order of their codes
             lc_classes.addItems(sorted(self.final_classes.keys(), key=lambda k: self.final_classes[k]))
             ind = lc_classes.findText(self.classes[row]['Final_Label'])
@@ -489,6 +496,31 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.update_remap_matrix()
 
         return True
+
+    def lc_class_combo_changed(self, index):
+        class_color = 'red'
+        if self.sender().currentText() == self.tr('Forest'):
+            class_color = "#787F1B"
+        elif self.sender().currentText() == self.tr('Grassland'):
+            class_color = "#FFAC42"
+        elif self.sender().currentText() == self.tr('Cropland'):
+            class_color = "#FFFB6E"
+        elif self.sender().currentText() == self.tr('Wetland'):
+            class_color = "#00DB84"
+        elif self.sender().currentText() == self.tr('Artificial area'):
+            class_color = "#E60017"
+        elif self.sender().currentText() == self.tr('Bare land'):
+            class_color = "#FFF3D7"
+        elif self.sender().currentText() == self.tr('Water body'):
+            class_color = "#0053C4"
+        else:
+            class_color = "#d7d6d5"
+        # Note double brackets to escape for string.format
+        self.sender().setStyleSheet('''QComboBox {{background: qlineargradient(x1:1, y1:.5, x2:.6, y2:.5,
+                                                                               stop:0 {class_color},
+                                                                               stop:0.6 {class_color},
+                                                                               stop:0.8 #d7d6d5,
+                                                                               stop:1 #d7d6d5);}}'''.format(class_color=class_color))
 
     def reset_class_table(self):
         self.setup_class_table()

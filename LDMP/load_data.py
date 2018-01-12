@@ -74,7 +74,7 @@ style_text_dict = {
     'prod_traj_signif_zero': tr('Stable (no significant change)'),
     'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
     'prod_traj_signif_inc_95': tr('Improved (significant increase, p < .05)'),
-    'prod_traj_signif_inc_99': tr('Improved (ignificant increase, p < .01)'),
+    'prod_traj_signif_inc_99': tr('Improved (significant increase, p < .01)'),
     'prod_traj_signif_nodata': tr('No data'),
 
     # Productivity performance

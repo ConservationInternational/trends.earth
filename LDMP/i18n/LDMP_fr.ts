@@ -208,187 +208,187 @@
         <translation>Variation en pourcentage du stock total de COS (pays)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="335"/>
+        <location filename="../jobs.py" line="327"/>
         <source>Time</source>
         <translation>Temps</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="336"/>
+        <location filename="../jobs.py" line="328"/>
         <source>Integrated NDVI</source>
         <translation>NDVI intégré</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="336"/>
+        <location filename="../jobs.py" line="328"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="322"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Downloaded</source>
         <translation>Téléchargé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="322"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Downloaded results to {}</source>
         <translation>Résultats téléchargés à {}</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="153"/>
+        <location filename="../load_data.py" line="155"/>
         <source>No data</source>
         <translation>Pas de données</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="69"/>
+        <location filename="../load_data.py" line="71"/>
         <source>Significant decrease (p &lt; .01)</source>
         <translation>Diminution significative (p &lt;0,01)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="70"/>
+        <location filename="../load_data.py" line="72"/>
         <source>Significant decrease (p &lt; .05)</source>
         <translation>Diminution significative (p &lt;0,05)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="71"/>
+        <location filename="../load_data.py" line="73"/>
         <source>Significant decrease (p &lt; .1)</source>
         <translation>Diminution significative (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="72"/>
+        <location filename="../load_data.py" line="74"/>
         <source>No significant change</source>
         <translation>Pas de changement significatif</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="73"/>
+        <location filename="../load_data.py" line="75"/>
         <source>Significant increase (p &lt; .1)</source>
         <translation>Augmentation significative (p &lt;.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="74"/>
+        <location filename="../load_data.py" line="76"/>
         <source>Significant increase (p &lt; .05)</source>
         <translation>Augmentation significative (p &lt;0,05)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="75"/>
+        <location filename="../load_data.py" line="77"/>
         <source>Significant increase (p &lt; .01)</source>
         <translation>Augmentation significative (p &lt;0,01)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="92"/>
+        <location filename="../load_data.py" line="94"/>
         <source>Potentially degraded</source>
         <translation>Potentiellement dégradé</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="81"/>
+        <location filename="../load_data.py" line="83"/>
         <source>Not potentially degraded</source>
         <translation>Pas potentiellement dégradé</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="94"/>
+        <location filename="../load_data.py" line="96"/>
         <source>Potentially improved</source>
         <translation>Potentiellement amélioré</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="87"/>
+        <location filename="../load_data.py" line="89"/>
         <source>Productivity performance ({year_start}, units)</source>
         <translation>Performances de productivité ({year_start}, unités)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="113"/>
+        <location filename="../load_data.py" line="115"/>
         <source>2 - Grassland</source>
         <translation>Persistance des terres cultivées</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="114"/>
+        <location filename="../load_data.py" line="116"/>
         <source>3 - Cropland</source>
         <translation>Les terres cultivées</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="115"/>
+        <location filename="../load_data.py" line="117"/>
         <source>4 - Wetland</source>
         <translation>Persistance des zones humides</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="116"/>
+        <location filename="../load_data.py" line="118"/>
         <source>5 - Artificial area</source>
         <translation>Zone artificielle</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="117"/>
+        <location filename="../load_data.py" line="119"/>
         <source>6 - Bare land</source>
         <translation>Terre nue</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="118"/>
+        <location filename="../load_data.py" line="120"/>
         <source>7 - Water body</source>
         <translation>Corps d&apos;eau</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="123"/>
+        <location filename="../load_data.py" line="125"/>
         <source>Forest loss</source>
         <translation>Perte de forêt</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="124"/>
+        <location filename="../load_data.py" line="126"/>
         <source>Grassland loss</source>
         <translation>Perte de prairie</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="125"/>
+        <location filename="../load_data.py" line="127"/>
         <source>Cropland loss</source>
         <translation>La dégradation du couvert végétal</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="126"/>
+        <location filename="../load_data.py" line="128"/>
         <source>Wetland loss</source>
         <translation>Perte de zone humide</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="127"/>
+        <location filename="../load_data.py" line="129"/>
         <source>Artificial area loss</source>
         <translation>Perte de zone artificielle</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="108"/>
+        <location filename="../load_data.py" line="110"/>
         <source>Land cover ({year}, ESA CCI classes)</source>
         <translation>Couverture terrestre ({année}, classes ESA CCI)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="128"/>
+        <location filename="../load_data.py" line="130"/>
         <source>Bare land loss</source>
         <translation>Perte de terres nues</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="129"/>
+        <location filename="../load_data.py" line="131"/>
         <source>Water body loss</source>
         <translation>Perte de corps d&apos;eau</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="150"/>
+        <location filename="../load_data.py" line="152"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="152"/>
+        <location filename="../load_data.py" line="154"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="143"/>
+        <location filename="../load_data.py" line="145"/>
         <source>Productivity degradation (combined - SDG 15.3.1)</source>
         <translation>Dégradation de la productivité (combinée - SDG 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="149"/>
+        <location filename="../load_data.py" line="151"/>
         <source>Degradation (combined - SDG 15.3.1)</source>
         <translation>Dégradation (combinée - SDG 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="422"/>
+        <location filename="../load_data.py" line="464"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="328"/>
+        <location filename="../load_data.py" line="330"/>
         <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
         <translation>Impossible de charger le style trends.earth. Ajouter une couche en utilisant les valeurs par défaut de QGIS.</translation>
     </message>
@@ -403,82 +403,82 @@
         <translation>Les coordonnées de la zone d&apos;intérêt n&apos;ont pas pu être transformées en WGS84. Vérifiez que le système de projection est défini.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="112"/>
+        <location filename="../load_data.py" line="114"/>
         <source>1 - Forest</source>
         <translation>1 - Forêt</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="119"/>
+        <location filename="../load_data.py" line="121"/>
         <source>9999 - No data</source>
         <translation>9999 - Aucune donnée</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="79"/>
+        <location filename="../load_data.py" line="81"/>
         <source>Productivity performance degradation ({year_start} to {year_end})</source>
         <translation>Dégradation des performances de la productivité ({year_start} à {year_end})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="84"/>
+        <location filename="../load_data.py" line="86"/>
         <source>Productivity performance ({year_start} to {year_end}, ratio)</source>
         <translation>Performances de productivité ({year_start} à {year_end}, ratio)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="91"/>
+        <location filename="../load_data.py" line="93"/>
         <source>Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</source>
         <translation>Dégradation de l&apos;état de la productivité ({year_bl_start}-{year_bl_end} à {year_tg_start}-{year_tg_end})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="110"/>
+        <location filename="../load_data.py" line="112"/>
         <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
         <translation>Couverture terrestre (transitions, {}-{} à {})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="122"/>
+        <location filename="../load_data.py" line="124"/>
         <source>No change</source>
         <translation>Pas de changement</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="121"/>
+        <location filename="../load_data.py" line="123"/>
         <source>Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_target})</source>
         <translation>Dégradation de la couverture terrestre ({}-{} à {})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="65"/>
+        <location filename="../load_data.py" line="67"/>
         <source>Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)</source>
         <translation>Trajectoire de productivité ({year_start} à {year_end}, NDVI x 10000 / an)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="68"/>
+        <location filename="../load_data.py" line="70"/>
         <source>Productivity trajectory significance ({year_start} to {year_end})</source>
         <translation>Signification de la trajectoire de productivité ({year_start} à {year_end})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="97"/>
+        <location filename="../load_data.py" line="99"/>
         <source>Productivity state classes ({year_start}-{year_end})</source>
         <translation>Classes d&apos;état de productivité ({year_start}-{year_end})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="101"/>
+        <location filename="../load_data.py" line="103"/>
         <source>Land cover degradation ({year_bl_start}-{year_bl_end} to {year_target})</source>
         <translation>Dégradation de la couverture terrestre ({year_bl_start}-{year_bl_end} à {year_target})</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="107"/>
+        <location filename="../load_data.py" line="109"/>
         <source>Land cover ({year}, 7 class)</source>
         <translation>Couverture terrestre ({année}, classe 7)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="109"/>
+        <location filename="../load_data.py" line="111"/>
         <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
         <translation>Mode de couverture terrestre ({year_start}-{year_end}, classe 7)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="133"/>
+        <location filename="../load_data.py" line="135"/>
         <source>Soil organic carbon ({year}, tons / ha)</source>
         <translation>Carbone organique du sol ({année}, tonnes / ha)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="136"/>
+        <location filename="../load_data.py" line="138"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
         <translation>Dégradation du carbone organique du sol ({year_start} à {year_end})</translation>
     </message>
@@ -1444,37 +1444,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgLoadData</name>
     <message>
-        <location filename="../load_data.py" line="382"/>
+        <location filename="../load_data.py" line="426"/>
         <source>Select a trends.earth output file</source>
         <translation>Sélectionnez un fichier de sortie trends.earth</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="382"/>
+        <location filename="../load_data.py" line="426"/>
         <source>trends.earth metadata file (*.json)</source>
         <translation>Fichier de métadonnées trends.earth (*.json)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="428"/>
+        <location filename="../load_data.py" line="485"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="390"/>
+        <location filename="../load_data.py" line="434"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Ne peut pas lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="395"/>
+        <location filename="../load_data.py" line="485"/>
         <source>{} does not appear to be a trends.earth output file</source>
         <translation>{} ne semble pas être un fichier de sortie de trends.earth</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="422"/>
+        <location filename="../load_data.py" line="464"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
         <translation>Impossible d&apos;ajouter automatiquement &quot;{}&quot;. Aucun style n&apos;est défini pour ce type de couche.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="428"/>
+        <location filename="../load_data.py" line="470"/>
         <source>Select a layer to load.</source>
         <translation>Sélectionnez une couche à charger.</translation>
     </message>
@@ -1484,62 +1484,29 @@ p, li { white-space: pre-wrap; }
         <translation>Ouvrez un fichier trends.earth</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="30"/>
+        <location filename="../gui/DlgLoadData.ui" line="59"/>
         <source>Select a file</source>
         <translation>Sélectionner un fichier</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="42"/>
+        <location filename="../gui/DlgLoadData.ui" line="71"/>
         <source>Choose a file...</source>
         <translation>Choisir une barre latérale...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="55"/>
+        <location filename="../gui/DlgLoadData.ui" line="84"/>
         <source>Browse...</source>
         <translation>Feuilleter...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="65"/>
-        <source>File metadata</source>
-        <translation>Métadonnées de ce fichier</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="71"/>
-        <source>Task name:</source>
-        <translation>Nom de la tâche:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="103"/>
-        <source>Output:</source>
-        <translation>Sortie:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="126"/>
-        <source>Input:</source>
-        <translation>Les données:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="149"/>
-        <source>Comments:</source>
-        <translation>Commentaires:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="168"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN &quot; &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; 
- &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext &quot; content = &quot;1 &quot; /&gt; &lt;style type = &quot;text / css &quot;&gt; 
- p, li {white-space: pre-wrap; } 
- &lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal; &quot;&gt; 
- &lt;p style = &quot;- qt-paragraphe-type: vide; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; texte-indent: 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="185"/>
+        <location filename="../gui/DlgLoadData.ui" line="30"/>
         <source>Select a layer(s)</source>
         <translation>Sélectionnez une couche</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadData.ui" line="49"/>
+        <source>View file metadata</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2498,32 +2465,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="272"/>
+        <location filename="../jobs.py" line="264"/>
         <source>Task name</source>
         <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="273"/>
+        <location filename="../jobs.py" line="265"/>
         <source>Job</source>
         <translation>Emploi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="274"/>
+        <location filename="../jobs.py" line="266"/>
         <source>Start time</source>
         <translation>Heure de début</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="275"/>
+        <location filename="../jobs.py" line="267"/>
         <source>End time</source>
         <translation>Heure de fin</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="276"/>
+        <location filename="../jobs.py" line="268"/>
         <source>Status</source>
         <translation>Statut</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="277"/>
+        <location filename="../jobs.py" line="269"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>

@@ -155,11 +155,18 @@
           </font>
          </property>
          <property name="title">
-          <string>Soil carbon (initial)</string>
+          <string>Soil organic carbon</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
-           <widget class="QComboBox" name="combo_layer_soc">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Baseline:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="combo_layer_soc_initial">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -169,6 +176,23 @@
             <property name="minimumSize">
              <size>
               <width>275</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Target:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="combo_layer_soc_final">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
               <height>30</height>
              </size>
             </property>

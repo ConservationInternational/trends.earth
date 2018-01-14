@@ -1231,13 +1231,12 @@ def make_summary_table(base_areas, target_areas, soc_bl_totals, soc_tg_totals,
     ws_lc = wb.get_sheet_by_name('Land cover')
     write_table_to_sheet(ws_lc, get_lc_table(trans_lpd_xtab), 18, 3)
 
-    # Below often leads to corrupted files...
-    # ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    # ws_prod.add_image(ws_prod_logo, 'H1')
-    # ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    # ws_soc.add_image(ws_soc_logo, 'G1')
-    # ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    # ws_lc.add_image(ws_lc_logo, 'H1')
+    ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    ws_prod.add_image(ws_prod_logo, 'H1')
+    ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    ws_soc.add_image(ws_soc_logo, 'G1')
+    ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    ws_lc.add_image(ws_lc_logo, 'H1')
 
     try:
         wb.save(out_file)

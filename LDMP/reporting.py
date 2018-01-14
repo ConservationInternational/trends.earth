@@ -922,19 +922,21 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         self.combo_layer_soc_initial.clear()
         self.layer_soc_initial_list = get_ld_layers('soc_annual')
         self.combo_layer_soc_initial.addItems([l[0].name() for l in self.layer_soc_initial_list])
-        # Set initially select layer to be one of the earliest
-        first_year = min([l[2]['metadata']['year'] for l in self.layer_soc_initial_list])
-        idx, l = next((idx, l) for idx, l in enumerate(self.layer_soc_initial_list) if l[2]['metadata']['year'] == first_year)
-        self.combo_layer_soc_initial.setCurrentIndex(idx)
+        if len(self.layer_soc_initial_list) > 1:
+            # Set initially select layer to be one of the earliest
+            first_year = min([l[2]['metadata']['year'] for l in self.layer_soc_initial_list])
+            idx, l = next((idx, l) for idx, l in enumerate(self.layer_soc_initial_list) if l[2]['metadata']['year'] == first_year)
+            self.combo_layer_soc_initial.setCurrentIndex(idx)
 
     def populate_layers_soc_final(self):
         self.combo_layer_soc_final.clear()
         self.layer_soc_final_list = get_ld_layers('soc_annual')
         self.combo_layer_soc_final.addItems([l[0].name() for l in self.layer_soc_final_list])
-        # Set initially selected layer to be one of the most recent
-        last_year = max([l[2]['metadata']['year'] for l in self.layer_soc_final_list])
-        idx, l = next((idx, l) for idx, l in enumerate(self.layer_soc_final_list) if l[2]['metadata']['year'] == last_year)
-        self.combo_layer_soc_final.setCurrentIndex(idx)
+        if len(self.layer_soc_final_list) > 1:
+            # Set initially selected layer to be one of the most recent
+            last_year = max([l[2]['metadata']['year'] for l in self.layer_soc_final_list])
+            idx, l = next((idx, l) for idx, l in enumerate(self.layer_soc_final_list) if l[2]['metadata']['year'] == last_year)
+            self.combo_layer_soc_final.setCurrentIndex(idx)
 
     def select_output_file(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -1191,13 +1193,13 @@ def make_summary_table(base_areas, target_areas, soc_bl_totals, soc_tg_totals,
     ws_lc = wb.get_sheet_by_name('Land cover')
     write_table_to_sheet(ws_lc, get_lc_table(trans_lpd_xtab), 18, 3)
 
-    
-    ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    ws_prod.add_image(ws_prod_logo, 'H1')
-    ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    ws_soc.add_image(ws_soc_logo, 'G1')
-    ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    ws_lc.add_image(ws_lc_logo, 'H1')
+    # Below often leads to corrupted files...
+    # ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    # ws_prod.add_image(ws_prod_logo, 'H1')
+    # ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    # ws_soc.add_image(ws_soc_logo, 'G1')
+    # ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    # ws_lc.add_image(ws_lc_logo, 'H1')
 
     try:
         wb.save(out_file)

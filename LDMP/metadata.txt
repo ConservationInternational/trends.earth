@@ -9,12 +9,12 @@
 [general]
 name=trends.earth
 qgisMinimumVersion=2.18
-description=Monitor land change in support of the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG) and for reporting to the United Nations Convention to Combat Desertification (UNCCD)
+description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
 version=0.37
 author=Conservation International
 email=trends.earth@conservation.org
 
-about=trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for monitoring land change. trends.earth supports monitoring land change, including changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
+about=trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for analyzing land change. trends.earth supports monitoring changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
 
 tracker=https://github.com/ConservationInternational/trends.earth/issues
 
@@ -22,6 +22,18 @@ repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
 changelog=0.38
+    - Add annual soil organic carbon calculation
+    - Cleanup AOI processing code, allow multiple input polygons in shapefile 
+      AOIs
+    - Add shading to side of land cover aggregation table items
+    - Fix firstShow issue on aggregation table
+    - Revise summary table output to provide further information on each of the 
+      three indicators
+    - Add supplemental datasets to performance, state, land cover and soil 
+      organic carbon output.
+    - Update no data and masking values to consistently be -32768 (no data) and 
+      -32767 (masked data)
+    - Allow naming of file downloads
     - Add icon to toolbar menu, fix plugin name.
     - Refactor layer styling code to pull band info from GEE output.
     - Add a tool to load existing trends.earth datasets into QGIS.

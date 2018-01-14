@@ -711,6 +711,11 @@ class DlgReportingBase(DlgCalculateBase):
         self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()][0]
         self.layer_traj_bandnumber = self.layer_traj_list[self.combo_layer_traj.currentIndex()][1]
 
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_traj.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the trajectory layer."), None)
+            return
+
         self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(),
                       bandList=[self.layer_traj_bandnumber])
@@ -794,6 +799,24 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         if not ret:
             return
 
+        # Check that all needed layers are selected
+        if len(self.layer_state_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a productivity state indicator layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_perf_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a productivity performance indicator layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_lc_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a productivity land cover indicator layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_soc_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
+            return
+
         self.layer_state = self.layer_state_list[self.combo_layer_state.currentIndex()][0]
         self.layer_state_bandnumber = self.layer_state_list[self.combo_layer_state.currentIndex()][1]
 
@@ -806,14 +829,6 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         self.layer_soc = self.layer_soc_list[self.combo_layer_soc.currentIndex()][0]
         self.layer_soc_bandnumber = self.layer_soc_list[self.combo_layer_soc.currentIndex()][1]
 
-        if len(self.layer_state_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a productivity state indicator layer to your map before you can use the reporting tool."), None)
-            return
-        if len(self.layer_perf_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a productivity performance indicator layer to your map before you can use the reporting tool."), None)
-            return
 
         # Check that all of the productivity layers have the same resolution
         def res(layer):
@@ -845,6 +860,16 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the performance layer."), None)
             return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the land cover layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
+            return
+
+        self.close()
 
         self.perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.perf_f, self.layer_perf.dataProvider().dataSourceUri(),
@@ -877,7 +902,6 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                       resolution=resample_alg[0],
                       resampleAlg=resample_alg[1],
                       separate=True)
-        self.close()
 
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
@@ -959,6 +983,7 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         if not ret:
             return
 
+        # Check that all needed layers are selected
         if len(self.layer_lc_tr_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a land cover transitions layer to your map before you can use the reporting tool."), None)
@@ -972,8 +997,6 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
                                        self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
             return
 
-        self.close()
-
         self.layer_lc_tr = self.layer_lc_tr_list[self.combo_layer_lc_tr.currentIndex()][0]
         self.layer_lc_tr_bandnumber = self.layer_lc_tr_list[self.combo_layer_lc_tr.currentIndex()][1]
 
@@ -982,6 +1005,21 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
 
         self.layer_soc_final = self.layer_soc_final_list[self.combo_layer_soc_final.currentIndex()][0]
         self.layer_soc_final_bandnumber = self.layer_soc_final_list[self.combo_layer_soc_final.currentIndex()][1]
+
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc_tr.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the land cover transition layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc_initial.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the initial soil organic carbon layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc_final.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the final soil organic carbon layer."), None)
+            return
+
+        self.close()
 
         ######################################################################
         # Combine rasters into a VRT and crop to the AOI

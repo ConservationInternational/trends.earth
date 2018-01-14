@@ -227,7 +227,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                         job_info = job['script_name']
                     f = QtGui.QFileDialog.getSaveFileName(self,
                                                           self.tr('Choose a filename downloading results of: {}'.format(job_info)),
-                                                          self.settings.value("LDMP/download_dir", None),
+                                                          self.settings.value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
 
                     # Strip the extension so that it is a basename
@@ -235,7 +235,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
                     if f:
                         if os.access(os.path.dirname(f), os.W_OK):
-                            self.settings.setValue("LDMP/download_dir", os.path.dirname(f))
+                            self.settings.setValue("LDMP/output_dir", os.path.dirname(f))
                             log("Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                         else:
                             QtGui.QMessageBox.critical(None, self.tr("Error"),

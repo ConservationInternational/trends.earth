@@ -30,7 +30,8 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
     logger.debug("Entering soc function.")
 
     # soc
-    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
+    #soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm")
+    soc = ee.Image("users/geflanddegradation/toolbox_datasets/soc_sgrid_30cm_unccd_20180111")
     soc_t0 = soc.updateMask(soc.neq(-32768))
 
     # land cover - note it needs to be reprojected to match soc so that it can 

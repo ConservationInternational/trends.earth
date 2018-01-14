@@ -29,8 +29,6 @@ def productivity_state(year_bl_start, year_bl_end,
     logger.debug("Entering productivity_state function.")
 
     ndvi_1yr = ee.Image(ndvi_gee_dataset)
-    ndvi_1yr = ndvi_1yr.where(ndvi_1yr.eq(9999), -32768)
-    ndvi_1yr = ndvi_1yr.updateMask(ndvi_1yr.neq(-32768))
 
     # compute min and max of annual ndvi for the baseline period
     bl_ndvi_range = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_bl_start, year_bl_end + 1)])) \
@@ -82,7 +80,7 @@ def productivity_state(year_bl_start, year_bl_end,
 
     out = classes_chg.addBands(bl_classes).addBands(tg_classes)
 
-    task = util.export_to_cloudstorage(out.unmask(-32768).int16(),
+    task = util.export_to_cloudstorage(out.int16(),
                                        ndvi_1yr.projection(), geojson, 'prod_state', logger,
                                        EXECUTION_ID)
     task.join()

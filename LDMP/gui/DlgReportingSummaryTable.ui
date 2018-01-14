@@ -342,6 +342,19 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>TabBox</tabstop>
+  <tabstop>combo_layer_traj</tabstop>
+  <tabstop>combo_layer_lc_tr</tabstop>
+  <tabstop>combo_layer_soc_initial</tabstop>
+  <tabstop>combo_layer_soc_final</tabstop>
+  <tabstop>output_file</tabstop>
+  <tabstop>browse_output_file</tabstop>
+  <tabstop>plot_title</tabstop>
+  <tabstop>button_calculate</tabstop>
+  <tabstop>button_prev</tabstop>
+  <tabstop>button_next</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

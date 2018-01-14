@@ -1074,24 +1074,41 @@ def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
     return out
 
 
-def get_soc_pct_table(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 7 + 1)):
-    out = np.zeros((len(classes), len(classes)))
+def write_soc_pct_table(sheet, first_row, first_col, trans_lpd_xtab, 
+                        soc_bl_totals, soc_tg_totals, classes=range(1, 7 + 1)):
     for row in range(len(classes)):
         for col in range(len(classes)):
-            bl_soc = 0
-            tg_soc = 0
-            for n in range(len(classes)):
-                # Need to sum all pixels that started within or finished with 
-                # the baseline and target classes, regardless of what 
-                # transitions they made.
-                bl_soc += get_soc_total(soc_bl_totals, trans_lpd_xtab, int('{}{}'.format(classes[row], classes[n])))
-                tg_soc += get_soc_total(soc_tg_totals, trans_lpd_xtab, int('{}{}'.format(classes[n], classes[col])))
-            if bl_soc > 0:
-                out[row, col] = (tg_soc - bl_soc) / bl_soc
+            cell = sheet.cell(row=row + first_row, column=col + first_col)
+            bl_soc = get_soc_per_ha(soc_bl_totals, trans_lpd_xtab, int('{}{}'.format(classes[row], classes[col])))
+            tg_soc = get_soc_per_ha(soc_tg_totals, trans_lpd_xtab, int('{}{}'.format(classes[row], classes[col])))
+            if bl_soc == 0:
+                cell.value = 'Not observed'
             else:
-                out[row, col] = 0
-    return out
+                cell.value = (tg_soc - bl_soc) / bl_soc
     
+
+def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 7 + 1)):
+    out = np.zeros((len(classes), 2))
+    for row in range(len(classes)):
+        bl_area = 0
+        bl_soc = 0
+        tg_area = 0
+        tg_soc = 0
+        # Need to sum up the total soc across the pixels and then divide by 
+        # total area
+        for n in range(len(classes)):
+            bl_trans = int('{}{}'.format(classes[row], classes[n]))
+            bl_area += get_xtab_area(trans_lpd_xtab, None, bl_trans)
+            bl_soc += get_soc_total(soc_bl_totals, trans_lpd_xtab, bl_trans)
+
+            tg_trans = int('{}{}'.format(classes[n], classes[row]))
+            tg_area += get_xtab_area(trans_lpd_xtab, None, tg_trans)
+            tg_soc += get_soc_total(soc_tg_totals, trans_lpd_xtab, tg_trans)
+        # Note areas are in sq km. Neex to convert to ha
+        out[row][0] = bl_soc / (bl_area * 100)
+        out[row][1] = tg_soc / (tg_area * 100)
+    return out
+
 
 def get_lc_table(table, classes=range(1, 7 + 1)):
     out = np.zeros((len(classes), len(classes)))
@@ -1146,21 +1163,25 @@ def make_summary_table(base_areas, target_areas, soc_bl_totals, soc_tg_totals,
     # Productivity tables
     ws_prod = wb.get_sheet_by_name('Productivity')
 
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'improved'), 13, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'stable'), 25, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'degraded'), 37, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'no data'), 49, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'improved'), 14, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'stable'), 26, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'degraded'), 38, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'no data'), 50, 3)
 
     ##########################################################################
     # Soil organic carbon tables
     ws_soc = wb.get_sheet_by_name('Soil organic carbon')
 
-    write_table_to_sheet(ws_soc, get_soc_pct_table(trans_lpd_xtab, soc_bl_totals, soc_tg_totals), 21, 3)
+    write_table_to_sheet(ws_soc, get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals), 8, 3)
+
+    # write_soc_pct_table has its own writing function as it needs to write a 
+    # mix of numbers and strings
+    write_soc_pct_table(ws_soc, 20, 3, trans_lpd_xtab, soc_bl_totals, soc_tg_totals)
     
     ##########################################################################
     # Land cover tables
     ws_lc = wb.get_sheet_by_name('Land cover')
-    write_table_to_sheet(ws_lc, get_lc_table(trans_lpd_xtab), 19, 3)
+    write_table_to_sheet(ws_lc, get_lc_table(trans_lpd_xtab), 18, 3)
 
     
     # img = Image(os.path.join(os.path.dirname(__file__), 'data', 

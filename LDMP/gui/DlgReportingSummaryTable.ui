@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>575</height>
+    <height>628</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -109,17 +109,41 @@
           </font>
          </property>
          <property name="title">
-          <string>Land cover (transitions)</string>
+          <string>Land cover</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QComboBox" name="combo_layer_lc_tr">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Baseline year</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="combo_layer_lc_bl">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Target year</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="combo_layer_lc_tg">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -345,7 +369,7 @@
  <tabstops>
   <tabstop>TabBox</tabstop>
   <tabstop>combo_layer_traj</tabstop>
-  <tabstop>combo_layer_lc_tr</tabstop>
+  <tabstop>combo_layer_lc_bl</tabstop>
   <tabstop>combo_layer_soc_initial</tabstop>
   <tabstop>combo_layer_soc_final</tabstop>
   <tabstop>output_file</tabstop>

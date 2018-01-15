@@ -428,9 +428,10 @@ class AreaWorker(AbstractWorker):
     def work(self):
         ds = gdal.Open(self.in_file)
         band_deg = ds.GetRasterBand(1)
-        band_trans = ds.GetRasterBand(2)
-        band_soc_bl = ds.GetRasterBand(3)
-        band_soc_tg = ds.GetRasterBand(4)
+        band_lc_bl = ds.GetRasterBand(2)
+        band_lc_tg = ds.GetRasterBand(3)
+        band_soc_bl = ds.GetRasterBand(4)
+        band_soc_tg = ds.GetRasterBand(5)
 
         block_sizes = band_deg.GetBlockSize()
         x_block_size = block_sizes[0]
@@ -472,18 +473,11 @@ class AreaWorker(AbstractWorker):
 
                 ################################
                 # Calculate transition crosstabs
-                #
-                # Since the transitions are coded with the initial class in the 
-                # tens place, and final in ones place, floor_divide and 
-                # remainder can be used to extract initial and final classes 
-                # from the transition matrix. HOWEVER - the pixels that persist 
-                # are coded as 1-7 so they can be more easily visualized in 
-                # QGIS. Therefore these pixels need to be multiplied by 11 to 
-                # get them back into the numbering system needed for remainder 
-                # and floor_divide to work.
-                a_trans = band_trans.ReadAsArray(x, y, cols, rows)
-                persist_pixels = np.logical_and(a_trans >= 1, a_trans <= 7)
-                a_trans[persist_pixels] = a_trans[persist_pixels] * 11
+                a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
+                a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
+                a_trans = a_lc_bl*10 + a_lc_tg
+                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
+
                 a_deg = band_deg.ReadAsArray(x, y, cols, rows)
 
                 # Flatten the arrays before passing to xtab
@@ -888,12 +882,12 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
 
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
-        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
+        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers',
                                          self.indic_f,
                                          lc_clip_tempfile, self.aoi.layer)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping land cover layer for area calculation."), None)
+                                       self.tr("Error clipping layers for area calculation."), None)
             return
 
         ######################################################################
@@ -914,14 +908,29 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
 class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
     def showEvent(self, event):
         super(DlgReportingSummaryTable, self).showEvent(event)
-        self.populate_layers_lc_transitions()
+        self.populate_layers_lc_baseline()
+        self.populate_layers_lc_target()
         self.populate_layers_soc_initial()
         self.populate_layers_soc_final()
 
-    def populate_layers_lc_transitions(self):
-        self.combo_layer_lc_tr.clear()
-        self.layer_lc_tr_list = get_ld_layers('lc_transitions')
-        self.combo_layer_lc_tr.addItems([l[0].name() for l in self.layer_lc_tr_list])
+    def populate_layers_lc_baseline(self):
+        self.combo_layer_lc_bl.clear()
+        self.layer_lc_bl_list = get_ld_layers('lc_annual')
+        self.combo_layer_lc_bl.addItems([l[0].name() for l in self.layer_lc_bl_list])
+        if len(self.layer_lc_bl_list) > 1:
+            # Set initially select layer to be one of the earliest
+            first_year = min([l[2]['metadata']['year'] for l in self.layer_lc_bl_list])
+            idx, l = next((idx, l) for idx, l in enumerate(self.layer_lc_bl_list) if l[2]['metadata']['year'] == first_year)
+            self.combo_layer_lc_bl.setCurrentIndex(idx)
+
+    def populate_layers_lc_target(self):
+        self.combo_layer_lc_tg.clear()
+        self.layer_lc_tg_list = get_ld_layers('lc_annual')
+        self.combo_layer_lc_tg.addItems([l[0].name() for l in self.layer_lc_tg_list])
+        if len(self.layer_lc_tg_list) > 1:
+            # Set initially select layer to be one of the earliest
+            last_year = max([l[2]['metadata']['year'] for l in self.layer_lc_tg_list])
+            idx, l = next((idx, l) for idx, l in enumerate(self.layer_lc_tg_list) if l[2]['metadata']['year'] == last_year)
 
     def populate_layers_soc_initial(self):
         self.combo_layer_soc_initial.clear()
@@ -965,9 +974,13 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
             return
 
         # Check that all needed layers are selected
-        if len(self.layer_lc_tr_list) == 0:
+        if len(self.layer_lc_bl_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a land cover transitions layer to your map before you can use the reporting tool."), None)
+                                       self.tr("You must add a baseline land cover layer to your map before you can use the reporting tool."), None)
+            return
+        if len(self.layer_lc_tg_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a target land cover layer to your map before you can use the reporting tool."), None)
             return
         if len(self.layer_soc_initial_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -978,8 +991,11 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
                                        self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
             return
 
-        self.layer_lc_tr = self.layer_lc_tr_list[self.combo_layer_lc_tr.currentIndex()][0]
-        self.layer_lc_tr_bandnumber = self.layer_lc_tr_list[self.combo_layer_lc_tr.currentIndex()][1]
+        self.layer_lc_bl = self.layer_lc_bl_list[self.combo_layer_lc_bl.currentIndex()][0]
+        self.layer_lc_bl_bandnumber = self.layer_lc_bl_list[self.combo_layer_lc_bl.currentIndex()][1]
+
+        self.layer_lc_tg = self.layer_lc_tg_list[self.combo_layer_lc_tg.currentIndex()][0]
+        self.layer_lc_tg_bandnumber = self.layer_lc_tg_list[self.combo_layer_lc_tg.currentIndex()][1]
 
         self.layer_soc_initial = self.layer_soc_initial_list[self.combo_layer_soc_initial.currentIndex()][0]
         self.layer_soc_initial_bandnumber = self.layer_soc_initial_list[self.combo_layer_soc_initial.currentIndex()][1]
@@ -987,9 +1003,13 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         self.layer_soc_final = self.layer_soc_final_list[self.combo_layer_soc_final.currentIndex()][0]
         self.layer_soc_final_bandnumber = self.layer_soc_final_list[self.combo_layer_soc_final.currentIndex()][1]
 
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc_tr.extent())):
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc_bl.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the land cover transition layer."), None)
+                                       self.tr("Area of interest is not entirely within the baseline land cover layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc_tg.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the target land cover layer."), None)
             return
         if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc_initial.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -1010,9 +1030,13 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
 
         # Select lc bands using bandlist since BuildVrt will otherwise only use
         # the first band of the file
-        self.lc_tr_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_tr_f, self.layer_lc_tr.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_lc_tr_bandnumber])
+        self.lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.lc_bl_f, self.layer_lc_bl.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_lc_bl_bandnumber])
+
+        self.lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.lc_tg_f, self.layer_lc_tg.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_lc_tg_bandnumber])
 
         self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.soc_init_f, self.layer_soc_initial.dataProvider().dataSourceUri(),
@@ -1022,10 +1046,11 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         gdal.BuildVRT(self.soc_final_f, self.layer_soc_final.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_final_bandnumber])
 
-        resample_alg = self.get_resample_alg(self.lc_tr_f, self.traj_f)
+        resample_alg = self.get_resample_alg(self.lc_bl_f, self.traj_f)
         gdal.BuildVRT(indic_f,
                       [self.traj_f,
-                       self.lc_tr_f,
+                       self.lc_bl_f,
+                       self.lc_tg_f,
                        self.soc_init_f,
                        self.soc_final_f],
                       outputBounds=self.outputBounds,
@@ -1035,12 +1060,12 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         # Clip and mask the lc/deg layer before calculating crosstab
         lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
-        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking land cover layers',
+        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers',
                                          indic_f,
                                          lc_clip_tempfile, self.aoi.layer)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping land cover layer for area calculation."), None)
+                                       self.tr("Error clipping layers for area calculation."), None)
             return
 
         ######################################################################

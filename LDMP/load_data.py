@@ -80,7 +80,7 @@ style_text_dict = {
     # Productivity performance
     'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
     'prod_perf_deg_potential_deg': tr('Degradation'),
-    'prod_perf_deg_not_potential_deg': tr('Not degraded'),
+    'prod_perf_deg_not_potential_deg': tr('Not degradation'),
     'prod_perf_deg_nodata': tr('No data'),
 
     'prod_perf_ratio_title': tr('Productivity performance ({year_start} to {year_end}, ratio)'),

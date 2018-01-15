@@ -421,14 +421,14 @@
           <item>
            <widget class="QCheckBox" name="download_annual_soc">
             <property name="text">
-             <string>Download annual soil organic carbon results (default is to download only first and last year)</string>
+             <string>Download annual soil organic carbon layers (default is to download only first and last year)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="download_annual_lc">
             <property name="text">
-             <string>Download annual land cover transitions</string>
+             <string>Download annual land cover layers</string>
             </property>
            </widget>
           </item>

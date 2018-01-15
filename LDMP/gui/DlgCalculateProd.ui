@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>546</width>
-    <height>581</height>
+    <height>776</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -302,7 +302,7 @@
             </property>
             <property name="date">
              <date>
-              <year>2000</year>
+              <year>2001</year>
               <month>1</month>
               <day>1</day>
              </date>
@@ -477,7 +477,7 @@
             </property>
             <property name="date">
              <date>
-              <year>2000</year>
+              <year>2001</year>
               <month>1</month>
               <day>1</day>
              </date>
@@ -624,6 +624,13 @@
               <width>120</width>
               <height>35</height>
              </size>
+            </property>
+            <property name="date">
+             <date>
+              <year>2001</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
             </property>
             <property name="maximumDate">
              <date>

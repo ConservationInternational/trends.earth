@@ -68,18 +68,18 @@ style_text_dict = {
     'prod_traj_trend_nodata': tr('No data'),
 
     'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
-    'prod_traj_signif_dec_99': tr('Degraded (significant decrease, p < .01)'),
-    'prod_traj_signif_dec_95': tr('Degraded (significant decrease, p < .05)'),
+    'prod_traj_signif_dec_99': tr('Degradation (significant decrease, p < .01)'),
+    'prod_traj_signif_dec_95': tr('Degradation (significant decrease, p < .05)'),
     'prod_traj_signif_dec_90': tr('Stable (significant decrease, p < .1)'),
     'prod_traj_signif_zero': tr('Stable (no significant change)'),
     'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
-    'prod_traj_signif_inc_95': tr('Improved (significant increase, p < .05)'),
-    'prod_traj_signif_inc_99': tr('Improved (significant increase, p < .01)'),
+    'prod_traj_signif_inc_95': tr('Improvement (significant increase, p < .05)'),
+    'prod_traj_signif_inc_99': tr('Improvement (significant increase, p < .01)'),
     'prod_traj_signif_nodata': tr('No data'),
 
     # Productivity performance
     'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
-    'prod_perf_deg_potential_deg': tr('Degraded'),
+    'prod_perf_deg_potential_deg': tr('Degradation'),
     'prod_perf_deg_not_potential_deg': tr('Not degraded'),
     'prod_perf_deg_nodata': tr('No data'),
 
@@ -91,9 +91,9 @@ style_text_dict = {
 
     # Productivity state
     'prod_state_change_title': tr('Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
-    'prod_state_change_potential_deg': tr('Degraded'),
+    'prod_state_change_potential_deg': tr('Degradation'),
     'prod_state_change_stable': tr('Stable'),
-    'prod_state_change_potential_improvement': tr('Improved'),
+    'prod_state_change_potential_improvement': tr('Improvement'),
     'prod_state_change_nodata': tr('No data'),
 
     'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),

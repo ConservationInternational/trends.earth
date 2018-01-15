@@ -451,8 +451,6 @@ class AreaWorker(AbstractWorker):
 
         blocks = 0
         trans_xtab = None
-        area_table_base = None
-        area_table_target = None
         soc_bl_totals_table = None
         soc_tg_totals_table = None
         for y in xrange(0, ysize, y_block_size):
@@ -501,28 +499,14 @@ class AreaWorker(AbstractWorker):
                         trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
 
                 #################################
-                # Calculate base and target areas
-                #
-                # Only work with valid pixels as floor_divide and remainder can 
-                # otherwise give unexpected results when applied to negative 
-                # missing value codes, etc.
-                valid_pixels = np.logical_and(a_trans >= 11, a_trans <= 77)
-                class_bl = np.array(a_trans, copy=True)
-                class_bl[valid_pixels] = np.floor_divide(class_bl[valid_pixels], 10)
-                area_table_base = calc_area_table(class_bl, area_table_base, cell_area)
-
-                class_tg = np.array(a_trans, copy=True)
-                class_tg[valid_pixels] = np.remainder(class_tg[valid_pixels], 10)
-                area_table_target = calc_area_table(class_tg, area_table_target, cell_area)
-
-                #################################
                 # Calculate SOC totals (converting soilgrids data from per ha
-                # to per m). Note final units of soc_totals tables are tons C 
-                # (summed over the total area of each class)
-                a_soc_bl = band_soc_bl.ReadAsArray(x, y, cols, rows) * 1e-4
+                # to per meter since cell_area is in meters). Note final units 
+                # of soc_totals tables are tons C (summed over the total area 
+                # of each class)
+                a_soc_bl = band_soc_bl.ReadAsArray(x, y, cols, rows).astype(np.float32) / (100 * 100)
                 soc_bl_totals_table = calc_total_table(a_trans, a_soc_bl,
                                                        soc_bl_totals_table, cell_area)
-                a_soc_tg = band_soc_tg.ReadAsArray(x, y, cols, rows) * 1e-4
+                a_soc_tg = band_soc_tg.ReadAsArray(x, y, cols, rows).astype(np.float32) / (100 * 100)
                 soc_tg_totals_table = calc_total_table(a_trans, a_soc_tg,
                                                        soc_tg_totals_table, cell_area)
 
@@ -532,15 +516,12 @@ class AreaWorker(AbstractWorker):
         self.ds = None
 
         # Convert all area tables from meters into square kilometers
-        area_table_base[1] = area_table_base[1] * 1e-6
-        area_table_target[1] = area_table_target[1] * 1e-6
         trans_xtab[1] = trans_xtab[1] * 1e-6
 
         if self.killed:
             return None
         else:
-            return list((area_table_base, area_table_target, soc_bl_totals_table,
-                         soc_tg_totals_table, trans_xtab))
+            return list((soc_bl_totals_table, soc_tg_totals_table, trans_xtab))
 
 
 # Returns value from crosstab table for particular deg/lc class combination
@@ -667,6 +648,10 @@ class DlgReportingBase(DlgCalculateBase):
         super(DlgReportingBase, self).showEvent(event)
         self.populate_layers_traj()
 
+    def firstShow(self):
+        self.browse_output_file.clicked.connect(self.select_output_file)
+        super(DlgReportingBase, self).firstShow()
+
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
         self.layer_traj_list = get_ld_layers('traj_sig')
@@ -754,8 +739,6 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         self.populate_layers_state()
         self.populate_layers_lc()
         self.populate_layers_soc()
-
-        self.browse_output_file.clicked.connect(self.select_output_file)
 
     def populate_layers_lc(self):
         self.combo_layer_lc.clear()
@@ -935,8 +918,6 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         self.populate_layers_soc_initial()
         self.populate_layers_soc_final()
 
-        self.browse_output_file.clicked.connect(self.select_output_file)
-
     def populate_layers_lc_transitions(self):
         self.combo_layer_lc_tr.clear()
         self.layer_lc_tr_list = get_ld_layers('lc_transitions')
@@ -1072,7 +1053,8 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
                                        self.tr("Error calculating degraded areas."), None)
             return
         else:
-            base_areas, target_areas, soc_bl_totals, soc_tg_totals, trans_lpd_xtab = area_worker.get_return()
+            soc_bl_totals, soc_tg_totals, trans_lpd_xtab = area_worker.get_return()
+            log('Soc bl: {}'.format(soc_bl_totals))
 
         x = [self.tr('Area Degraded'), self.tr('Area Stable'), self.tr('Area Improved'), self.tr('No Data')]
         y = [get_xtab_area(trans_lpd_xtab, -3, None) + get_xtab_area(trans_lpd_xtab, -2, None),
@@ -1082,8 +1064,7 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
         log('SummaryTable total area: {}'.format(sum(y)))
         log('SummaryTable areas (deg, stable, imp, no data): {}'.format(y))
 
-        make_summary_table(base_areas, target_areas, soc_bl_totals,
-                           soc_tg_totals, trans_lpd_xtab,
+        make_summary_table(soc_bl_totals, soc_tg_totals, trans_lpd_xtab,
                            self.output_file.text())
 
         self.plot_degradation(x, y)
@@ -1122,20 +1103,22 @@ def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
     return out
 
 
-def write_soc_pct_table(sheet, first_row, first_col, trans_lpd_xtab, 
-                        soc_bl_totals, soc_tg_totals, classes=range(1, 7 + 1)):
+# Note classes for this function go from 1-6 to exclude water from the SOC 
+# totals
+def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals, 
+                                 soc_tg_totals, classes=range(1, 6 + 1)):
     for row in range(len(classes)):
         for col in range(len(classes)):
             cell = sheet.cell(row=row + first_row, column=col + first_col)
-            bl_soc = get_soc_per_ha(soc_bl_totals, trans_lpd_xtab, int('{}{}'.format(classes[row], classes[col])))
-            tg_soc = get_soc_per_ha(soc_tg_totals, trans_lpd_xtab, int('{}{}'.format(classes[row], classes[col])))
-            if bl_soc == 0:
-                cell.value = 'Not observed'
-            else:
-                cell.value = (tg_soc - bl_soc) / bl_soc
+            transition = int('{}{}'.format(classes[row], classes[col]))
+            bl_soc = get_soc_total(soc_bl_totals, transition)
+            tg_soc = get_soc_total(soc_tg_totals, transition)
+            cell.value = tg_soc - bl_soc
     
 
-def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 7 + 1)):
+# Note classes for this function go from 1-6 to exclude water from the SOC 
+# totals
+def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 6 + 1)):
     out = np.zeros((len(classes), 2))
     for row in range(len(classes)):
         bl_area = 0
@@ -1147,11 +1130,11 @@ def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1,
         for n in range(len(classes)):
             bl_trans = int('{}{}'.format(classes[row], classes[n]))
             bl_area += get_xtab_area(trans_lpd_xtab, None, bl_trans)
-            bl_soc += get_soc_total(soc_bl_totals, trans_lpd_xtab, bl_trans)
+            bl_soc += get_soc_total(soc_bl_totals, bl_trans)
 
             tg_trans = int('{}{}'.format(classes[n], classes[row]))
             tg_area += get_xtab_area(trans_lpd_xtab, None, tg_trans)
-            tg_soc += get_soc_total(soc_tg_totals, trans_lpd_xtab, tg_trans)
+            tg_soc += get_soc_total(soc_tg_totals, tg_trans)
         # Note areas are in sq km. Neex to convert to ha
         out[row][0] = bl_soc / (bl_area * 100)
         out[row][1] = tg_soc / (tg_area * 100)
@@ -1167,30 +1150,12 @@ def get_lc_table(table, classes=range(1, 7 + 1)):
     return out
 
 
-def get_soc_total(soc_table, xtab_areas, transition):
-    # The "None" value below is used to return total area across all classes of
-    # degradation - this is just using the trans_lpd_xtab table as a shortcut
-    # to get the area of each transition class.
-    area = get_xtab_area(xtab_areas, None, transition)
+def get_soc_total(soc_table, transition):
     ind = np.where(soc_table[0] == transition)[0]
-    if ind.size == 0 or area == 0:
+    if ind.size == 0:
         return 0
     else:
-        # The 1e2 is convert area from sq km to ha
         return float(soc_table[1][ind])
-
-
-def get_soc_per_ha(soc_table, xtab_areas, transition):
-    # The "None" value below is used to return total area across all classes of
-    # degradation - this is just using the trans_lpd_xtab table as a shortcut
-    # to get the area of each transition class.
-    area = get_xtab_area(xtab_areas, None, transition)
-    ind = np.where(soc_table[0] == transition)[0]
-    if ind.size == 0 or area == 0:
-        return 0
-    else:
-        # The 1e2 is convert area from sq km to ha
-        return float(soc_table[1][ind]) / (area * 1e2)
 
 
 def write_table_to_sheet(sheet, d, first_row, first_col):
@@ -1200,8 +1165,7 @@ def write_table_to_sheet(sheet, d, first_row, first_col):
             cell.value = d[row, col]
 
 
-def make_summary_table(base_areas, target_areas, soc_bl_totals, soc_tg_totals, 
-                       trans_lpd_xtab, out_file):
+def make_summary_table(soc_bl_totals, soc_tg_totals, trans_lpd_xtab, out_file):
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
 
@@ -1222,10 +1186,16 @@ def make_summary_table(base_areas, target_areas, soc_bl_totals, soc_tg_totals,
 
     write_table_to_sheet(ws_soc, get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals), 8, 3)
 
-    # write_soc_pct_table has its own writing function as it needs to write a 
-    # mix of numbers and strings
-    write_soc_pct_table(ws_soc, 20, 3, trans_lpd_xtab, soc_bl_totals, soc_tg_totals)
+    # Write table of baseline areas
+    lc_trans_table_no_water = get_lc_table(trans_lpd_xtab, classes=np.arange(1, 6 + 1))
+    write_table_to_sheet(ws_soc, np.reshape(np.sum(lc_trans_table_no_water, 1), (-1, 1)), 8, 5)
+    # Write table of target areas
+    write_table_to_sheet(ws_soc, np.reshape(np.sum(lc_trans_table_no_water, 0), (-1, 1)), 8, 6)
     
+    # write_soc_stock_change_table has its own writing function as it needs to write a 
+    # mix of numbers and strings
+    write_soc_stock_change_table(ws_soc, 19, 3, soc_bl_totals, soc_tg_totals)
+
     ##########################################################################
     # Land cover tables
     ws_lc = wb.get_sheet_by_name('Land cover')
@@ -1234,7 +1204,7 @@ def make_summary_table(base_areas, target_areas, soc_bl_totals, soc_tg_totals,
     ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_prod.add_image(ws_prod_logo, 'H1')
     ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-    ws_soc.add_image(ws_soc_logo, 'G1')
+    ws_soc.add_image(ws_soc_logo, 'H1')
     ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_lc.add_image(ws_lc_logo, 'H1')
 

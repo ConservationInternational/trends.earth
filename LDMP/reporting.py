@@ -931,6 +931,7 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
             # Set initially select layer to be one of the earliest
             last_year = max([l[2]['metadata']['year'] for l in self.layer_lc_tg_list])
             idx, l = next((idx, l) for idx, l in enumerate(self.layer_lc_tg_list) if l[2]['metadata']['year'] == last_year)
+            self.combo_layer_lc_tg.setCurrentIndex(idx)
 
     def populate_layers_soc_initial(self):
         self.combo_layer_soc_initial.clear()

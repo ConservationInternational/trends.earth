@@ -90,7 +90,7 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         self.close()
 
         payload = {'year_start': self.year_start.date().year(),
-                   'year_target': self.year_end.date().year(),
+                   'year_end': self.year_end.date().year(),
                    'fl': self.get_fl(),
                    'download_annual_soc': self.download_annual_soc.isChecked(),
                    'download_annual_lc': self.download_annual_lc.isChecked(),

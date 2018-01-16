@@ -191,10 +191,19 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
                 add_to_map = False
             d.extend([BandInfo("Soil organic carbon", len(d) + 1, no_data_value=-32768, add_to_map=add_to_map, metadata={'year': year})])
 
-    if dl_annual_lc:
+    if not dl_annual_lc:
+        # Output percent change and initial and final SOC layers
+        soc_out = soc_out.addBands(stack_lc.select(0)).addBands(stack_lc.select(year_end - year_start))
+        d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=True, metadata={'year': year_start}),
+                  BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=True, metadata={'year': year_end})])
+    else:
         soc_out = soc_out.addBands(stack_lc)
         for year in range(year_start, year_end + 1):
-            d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=False, metadata={'year': year})])
+            if (year == year_start) or (year == year_end):
+                add_to_map = True
+            else:
+                add_to_map = False
+            d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=add_to_map, metadata={'year': year})])
 
     task = util.export_to_cloudstorage(soc_out.unmask(-32768).int16(),
                                        soc_out.projection(), geojson, 

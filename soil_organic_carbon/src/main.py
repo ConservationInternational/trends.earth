@@ -195,7 +195,7 @@ def soc(year_start, year_end, fl, geojson, remap_matrix,
         # Output percent change and initial and final SOC layers
         soc_out = soc_out.addBands(stack_lc.select(0)).addBands(stack_lc.select(year_end - year_start))
         d.extend([BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=True, metadata={'year': year_start}),
-                  BandInfo("Land cover (7 class)", len(d) + 1, no_data_value=-32768, add_to_map=True, metadata={'year': year_end})])
+                  BandInfo("Land cover (7 class)", len(d) + 2, no_data_value=-32768, add_to_map=True, metadata={'year': year_end})])
     else:
         soc_out = soc_out.addBands(stack_lc)
         for year in range(year_start, year_end + 1):

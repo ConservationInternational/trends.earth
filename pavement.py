@@ -28,7 +28,7 @@ options(
         i18n_dir = path('LDMP/i18n'),
         translations = ['fr', 'es', 'sw'],
         resource_files = [path('LDMP/resources.qrc')],
-        package_dir = path('.'),
+        package_dir = path('build'),
         tests = ['test'],
         excludes = [
             'LDMP/test',
@@ -221,7 +221,9 @@ def install3(options):
 def package(options):
     """Create plugin package"""
     tests = options.get('tests', False)
-    package_file = options.plugin.package_dir / '{}.zip'.format(options.plugin.name)
+    package_dir = options.plugin.package_dir
+    package_dir.makedirs()
+    package_file =  package_dir / '{}.zip'.format(options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:
             options.plugin.excludes.extend(options.plugin.tests)
@@ -248,7 +250,8 @@ def deploy(options):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
     print('Uploading package to S3')
-    data = open('LDMP.zip', 'rb')
+    package_file =  options.plugin.package_dir / '{}.zip'.format(options.plugin.name)
+    data = open(package_file, 'rb')
     client.put_object(Key='sharing/LDMP.zip',
                       Body=data, 
                       Bucket=options.sphinx.deploy_s3_bucket)

@@ -1161,9 +1161,15 @@ def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1,
             tg_trans = int('{}{}'.format(classes[n], classes[row]))
             tg_area += get_xtab_area(trans_lpd_xtab, None, tg_trans)
             tg_soc += get_soc_total(soc_tg_totals, tg_trans)
-        # Note areas are in sq km. Neex to convert to ha
-        out[row][0] = bl_soc / (bl_area * 100)
-        out[row][1] = tg_soc / (tg_area * 100)
+        # Note areas are in sq km. Need to convert to ha
+        if bl_soc != 0 and bl_area != 0:
+            out[row][0] = bl_soc / (bl_area * 100)
+        else:
+            out[row][0]
+        if tg_soc != 0 and tg_area != 0:
+            out[row][1] = tg_soc / (tg_area * 100)
+        else:
+            out[row][1] = 0
     return out
 
 

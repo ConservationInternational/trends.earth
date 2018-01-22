@@ -42,6 +42,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.dataset_climate_update()
         ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
         self.dataset_ndvi.addItems(ndvi_datasets)
+        self.dataset_ndvi.setCurrentIndex(1)
 
         self.start_year_climate = 0
         self.end_year_climate = 9999

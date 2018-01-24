@@ -59,30 +59,54 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.indic_select_perf.stateChanged.connect(self.indic_select_perf_changed)
         self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
 
+        self.mode_unccd_gpg.toggled.connect(self.mode_unccd_gpg_toggled)
+
         self.indic_select_traj_changed()
         self.indic_select_perf_changed()
         self.indic_select_state_changed()
 
     def indic_select_traj_changed(self):
-        if self.indic_select_traj.isChecked():
+        if self.mode_unccd_gpg.isChecked() and self.indic_select_traj.isChecked():
             self.TrajectoryTab.setEnabled(True)
         else:
             self.TrajectoryTab.setEnabled(False)
 
     def indic_select_perf_changed(self):
-        if self.indic_select_perf.isChecked():
+        if self.mode_unccd_gpg.isChecked() and self.indic_select_perf.isChecked():
             self.PerformanceTab.setEnabled(True)
         else:
             self.PerformanceTab.setEnabled(False)
 
     def indic_select_state_changed(self):
-        if self.indic_select_state.isChecked():
+        if self.mode_unccd_gpg.isChecked() and self.indic_select_state.isChecked():
             self.StateTab.setEnabled(True)
         else:
             self.StateTab.setEnabled(False)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()
+
+    def mode_unccd_gpg_toggled(self):
+        if self.mode_lpd.isChecked():
+            self.LPDTab.setEnabled(True)
+            self.indic_select_traj.setEnabled(False)
+            self.indic_select_traj_label.setEnabled(False)
+            self.indic_select_perf.setEnabled(False)
+            self.indic_select_perf_label.setEnabled(False)
+            self.indic_select_state.setEnabled(False)
+            self.indic_select_state_label.setEnabled(False)
+        else:
+            self.LPDTab.setEnabled(False)
+            self.indic_select_traj.setEnabled(True)
+            self.indic_select_traj_label.setEnabled(True)
+            self.indic_select_perf.setEnabled(True)
+            self.indic_select_perf_label.setEnabled(True)
+            self.indic_select_state.setEnabled(True)
+            self.indic_select_state_label.setEnabled(True)
+
+        self.indic_select_traj_changed()
+        self.indic_select_state_changed()
+        self.indic_select_perf_changed()
 
     def dataset_climate_update(self):
         self.traj_climate.clear()

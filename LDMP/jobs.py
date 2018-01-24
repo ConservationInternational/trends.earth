@@ -43,7 +43,7 @@ def json_serial(obj):
     raise TypeError("Type {} not serializable".format(type(obj)))
 
 
-def create_json_metadata(job, outfile, file_format):
+def create_gee_json_metadata(job, outfile, file_format):
     outfile = os.path.splitext(outfile)[0] + '.json'
     job['raw']['results']['local_format'] = file_format
     job['raw']['results']['ldmp_version'] = __version__
@@ -301,7 +301,7 @@ def download_result(url, outfile, job):
     worker = Download(url, outfile)
     worker.start()
     if worker.get_resp():
-        create_json_metadata(job, outfile, 'tif')
+        create_gee_json_metadata(job, outfile, 'tif')
         return check_hash_against_etag(url, outfile)
     else:
         return None

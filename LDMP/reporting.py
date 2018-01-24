@@ -20,6 +20,8 @@ import numpy as np
 
 from osgeo import ogr, osr, gdal
 
+from trendsearth_schemas.schemas import BandInfo, FileList, LocalResults, LocalResultsSchema
+
 import openpyxl
 from openpyxl.drawing.image import Image
 
@@ -41,12 +43,17 @@ from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
-from LDMP.gui.DlgReportingSummaryTable import Ui_DlgReportingSummaryTable
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
 from LDMP.worker import AbstractWorker, start_worker
 
-# Checks the file type (land cover, state, etc...) for a LDMP output file using
-# the JSON accompanying each file
+
+def create_local_json_metadata(d, outfile, file_format='tif'):
+    outfile = os.path.splitext(outfile)[0] + '.json'
+    d['results']['local_format'] = file_format
+    d['results']['ldmp_version'] = __version__
+    with open(outfile, 'w') as outfile:
+        json.dump(d, outfile, default=json_serial, sort_keys=True,
+                  indent=4, separators=(',', ': '))
 
 
 def get_band_info(data_file):
@@ -235,7 +242,15 @@ class DegradationWorkerSDG(AbstractWorker):
                 ##############
                 # Productivity
                 
-                # Capture trends that are at least 95% significant
+                # Capture trends that are at least 95% significant.
+                # Remember that traj is coded as:
+                # -3: 99% signif decline
+                # -2: 95% signif decline
+                # -1: 90% signif decline
+                #  0: stable
+                #  1: 90% signif increase
+                #  2: 95% signif increase
+                #  3: 99% signif increase
                 deg = traj_array
                 deg[deg == -1] = 0 # not signif at 95%
                 deg[deg == 1] = 0 # not signif at 95%
@@ -611,10 +626,8 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.setupUi(self)
 
         self.dlg_sdg = DlgReportingSDG()
-        self.dlg_unncd = DlgReportingSummaryTable()
         self.dlg_create_map = DlgCreateMap()
 
-        self.btn_summary_table.clicked.connect(self.clicked_summary_table)
         self.btn_sdg.clicked.connect(self.clicked_sdg)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
 
@@ -626,30 +639,103 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.close()
         self.dlg_sdg.exec_()
 
-    def clicked_summary_table(self):
-        self.close()
-        self.dlg_unncd.exec_()
 
-
-class DlgReportingBase(DlgCalculateBase):
+class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
     '''Class to be shared across SDG and SummaryTable reporting dialogs'''
 
     def __init__(self, parent=None):
-        super(DlgReportingBase, self).__init__(parent)
+        super(DlgReportingSDG, self).__init__(parent)
         self.setupUi(self)
 
+        self.mode_lpd.toggled.connect(self.mode_lpd_toggled)
+
+    def mode_lpd_toggled(self):
+        if self.mode_lpd.isChecked():
+            self.combo_layer_lpd.setEnabled(True)
+            self.combo_layer_traj.setEnabled(False)
+            self.combo_layer_traj_label.setEnabled(False)
+            self.combo_layer_perf.setEnabled(False)
+            self.combo_layer_perf_label.setEnabled(False)
+            self.combo_layer_state.setEnabled(False)
+            self.combo_layer_state_label.setEnabled(False)
+        else:
+            self.combo_layer_lpd.setEnabled(False)
+            self.combo_layer_traj.setEnabled(True)
+            self.combo_layer_traj_label.setEnabled(True)
+            self.combo_layer_perf.setEnabled(True)
+            self.combo_layer_perf_label.setEnabled(True)
+            self.combo_layer_state.setEnabled(True)
+            self.combo_layer_state_label.setEnabled(True)
+
     def showEvent(self, event):
-        super(DlgReportingBase, self).showEvent(event)
+        super(DlgReportingSDG, self).showEvent(event)
+        #self.populate_layers_lpd()
         self.populate_layers_traj()
+        self.populate_layers_perf()
+        self.populate_layers_state()
+        self.populate_layers_lc()
+        self.populate_layers_soc()
 
     def firstShow(self):
-        self.browse_output_file.clicked.connect(self.select_output_file)
-        super(DlgReportingBase, self).firstShow()
+        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
+        super(DlgReportingSDG, self).firstShow()
+
+    #def populate_layers_lpd(self):
+    #    self.combo_layer_lpd.clear()
+    #    self.layer_lpd_list = get_ld_layers('lpd')
+    #    self.combo_layer_lpd.addItems([l[0].name() for l in self.layer_lpd_list])
 
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
         self.layer_traj_list = get_ld_layers('traj_sig')
         self.combo_layer_traj.addItems([l[0].name() for l in self.layer_traj_list])
+
+    def populate_layers_perf(self):
+        self.combo_layer_perf.clear()
+        self.layer_perf_list = get_ld_layers('perf_deg')
+        self.combo_layer_perf.addItems([l[0].name() for l in self.layer_perf_list])
+
+    def populate_layers_state(self):
+        self.combo_layer_state.clear()
+        self.layer_state_list = get_ld_layers('state_deg')
+        self.combo_layer_state.addItems([l[0].name() for l in self.layer_state_list])
+
+    def populate_layers_lc(self):
+        self.combo_layer_lc.clear()
+        self.layer_lc_list = get_ld_layers('lc_deg')
+        self.combo_layer_lc.addItems([l[0].name() for l in self.layer_lc_list])
+
+    def populate_layers_soc(self):
+        self.combo_layer_soc.clear()
+        self.layer_soc_list = get_ld_layers('soc_deg')
+        self.combo_layer_soc.addItems([l[0].name() for l in self.layer_soc_list])
+
+    def select_output_file_layer(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the output file'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('GeoTIFF file (*.tif)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_layer.setText(f)
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+
+    def select_output_file_table(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the summary table'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Summary table file (*.xlsx)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_table.setText(f)
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
 
     def get_resample_alg(self, lc_f, traj_f):
         ds_lc = gdal.Open(lc_f)
@@ -670,105 +756,18 @@ class DlgReportingBase(DlgCalculateBase):
             return('highest', gdal.GRA_NearestNeighbour)
 
     def btn_calculate(self):
-        if not self.output_file.text():
+        ######################################################################
+        # Check that all needed output files are selected
+        if not self.output_file_layer.text():
             QtGui.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file where the output will be saved."), None)
+                                          self.tr("Choose an output file for the indicator layer."), None)
             return
 
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super(DlgReportingBase, self).btn_calculate()
-        if not ret:
+        if not self.output_file_table.text():
+            QtGui.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the summary table."), None)
             return
 
-        if len(self.layer_traj_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a productivity trajectory indicator layer to your map before you can use the reporting tool."), None)
-            return
-
-        self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()][0]
-        self.layer_traj_bandnumber = self.layer_traj_list[self.combo_layer_traj.currentIndex()][1]
-
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_traj.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the trajectory layer."), None)
-            return
-
-        self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_traj_bandnumber])
-
-        # Compute the pixel-aligned bounding box (slightly larger than aoi).
-        # Use this instead of croptocutline in gdal.Warp in order to keep the
-        # pixels aligned.
-        bb = self.aoi.bounding_box_geom.boundingBox()
-        minx = bb.xMinimum()
-        miny = bb.yMinimum()
-        maxx = bb.xMaximum()
-        maxy = bb.yMaximum()
-        traj_gt = gdal.Open(self.traj_f).GetGeoTransform()
-        left = minx - (minx - traj_gt[0]) % traj_gt[1]
-        right = maxx + (traj_gt[1] - ((maxx - traj_gt[0]) % traj_gt[1]))
-        bottom = miny + (traj_gt[5] - ((miny - traj_gt[3]) % traj_gt[5]))
-        top = maxy - (maxy - traj_gt[3]) % traj_gt[5]
-        self.outputBounds = [left, bottom, right, top]
-
-        return True
-
-    def plot_degradation(self, x, y):
-        dlg_plot = DlgPlotBars()
-        labels = {'title': self.plot_title.text(),
-                  'bottom': self.tr('Land cover'),
-                  'left': [self.tr('Area'), self.tr('km<sup>2</sup>')]}
-        dlg_plot.plot_data(x, y, labels)
-        dlg_plot.show()
-        dlg_plot.exec_()
-
-
-class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
-    def showEvent(self, event):
-        super(DlgReportingSDG, self).showEvent(event)
-        self.populate_layers_perf()
-        self.populate_layers_state()
-        self.populate_layers_lc()
-        self.populate_layers_soc()
-
-    def populate_layers_lc(self):
-        self.combo_layer_lc.clear()
-        self.layer_lc_list = get_ld_layers('lc_deg')
-        self.combo_layer_lc.addItems([l[0].name() for l in self.layer_lc_list])
-
-    def populate_layers_soc(self):
-        self.combo_layer_soc.clear()
-        self.layer_soc_list = get_ld_layers('soc_deg')
-        self.combo_layer_soc.addItems([l[0].name() for l in self.layer_soc_list])
-
-    def populate_layers_perf(self):
-        self.combo_layer_perf.clear()
-        self.layer_perf_list = get_ld_layers('perf_deg')
-        self.combo_layer_perf.addItems([l[0].name() for l in self.layer_perf_list])
-
-    def populate_layers_state(self):
-        self.combo_layer_state.clear()
-        self.layer_state_list = get_ld_layers('state_deg')
-        self.combo_layer_state.addItems([l[0].name() for l in self.layer_state_list])
-
-    def select_output_file(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the output file'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('GeoTIFF file (*.tif)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file.setText(f)
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
-
-
-    def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -776,7 +775,12 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         if not ret:
             return
 
-        # Check that all needed layers are selected
+        ######################################################################
+        # Check that all needed input layers are selected
+        if len(self.layer_traj_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a productivity trajectory indicator layer to your map before you can use the reporting tool."), None)
+            return
         if len(self.layer_state_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a productivity state indicator layer to your map before you can use the reporting tool."), None)
@@ -794,11 +798,14 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                                        self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
             return
 
-        self.layer_state = self.layer_state_list[self.combo_layer_state.currentIndex()][0]
-        self.layer_state_bandnumber = self.layer_state_list[self.combo_layer_state.currentIndex()][1]
+        self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()][0]
+        self.layer_traj_bandnumber = self.layer_traj_list[self.combo_layer_traj.currentIndex()][1]
 
         self.layer_perf = self.layer_perf_list[self.combo_layer_perf.currentIndex()][0]
         self.layer_perf_bandnumber = self.layer_perf_list[self.combo_layer_perf.currentIndex()][1]
+
+        self.layer_state = self.layer_state_list[self.combo_layer_state.currentIndex()][0]
+        self.layer_state_bandnumber = self.layer_state_list[self.combo_layer_state.currentIndex()][1]
 
         self.layer_lc = self.layer_lc_list[self.combo_layer_lc.currentIndex()][0]
         self.layer_lc_bandnumber = self.layer_lc_list[self.combo_layer_lc.currentIndex()][1]
@@ -806,7 +813,30 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         self.layer_soc = self.layer_soc_list[self.combo_layer_soc.currentIndex()][0]
         self.layer_soc_bandnumber = self.layer_soc_list[self.combo_layer_soc.currentIndex()][1]
 
+        #######################################################################
+        # Check that the layers cover the full extent needed
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_traj.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the trajectory layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_perf.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the performance layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_state.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the state layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the land cover layer."), None)
+            return
+        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
+            return
 
+        #######################################################################
         # Check that all of the productivity layers have the same resolution
         def res(layer):
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
@@ -819,6 +849,8 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                                        self.tr("Resolutions of trajectory layer and performance layer do not match."), None)
             return
 
+        #######################################################################
+        # Check that all of the productivity layers have the same CRS
         if self.layer_traj.crs() != self.layer_state.crs():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Coordinate systems of trajectory layer and state layer do not match."), None)
@@ -828,25 +860,11 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
                                        self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
             return
 
-        # Check that the layers cover the full extent needed
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_state.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the state layer."), None)
-            return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_perf.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the performance layer."), None)
-            return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the land cover layer."), None)
-            return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
-            return
-
-        self.close()
+        #######################################################################
+        # Load all datasets to VRTs (to select only the needed bands)
+        self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_traj_bandnumber])
 
         self.perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(self.perf_f, self.layer_perf.dataProvider().dataSourceUri(),
@@ -864,8 +882,29 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
         gdal.BuildVRT(self.soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_bandnumber])
 
+        # Compute the pixel-aligned bounding box (slightly larger than aoi).
+        # Use this instead of croptocutline in gdal.Warp in order to keep the
+        # pixels aligned.
+        bb = self.aoi.bounding_box_geom.boundingBox()
+        minx = bb.xMinimum()
+        miny = bb.yMinimum()
+        maxx = bb.xMaximum()
+        maxy = bb.yMaximum()
+        traj_gt = gdal.Open(self.traj_f).GetGeoTransform()
+        left = minx - (minx - traj_gt[0]) % traj_gt[1]
+        right = maxx + (traj_gt[1] - ((maxx - traj_gt[0]) % traj_gt[1]))
+        bottom = miny + (traj_gt[5] - ((miny - traj_gt[3]) % traj_gt[5]))
+        top = maxy - (maxy - traj_gt[3]) % traj_gt[5]
+        self.outputBounds = [left, bottom, right, top]
+
+        #######################################################################
+        #######################################################################
+        # Calculate SDG 15.3 layers
+        #######################################################################
+        #######################################################################
+
         ######################################################################
-        # Combine rasters into a VRT and crop to the AOI
+        # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
         self.indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving indicator VRT to: {}'.format(self.indic_f))
         resample_alg = self.get_resample_alg(self.lc_deg_f, self.traj_f)
@@ -891,169 +930,70 @@ class DlgReportingSDG(DlgReportingBase, Ui_DlgReportingSDG):
             return
 
         ######################################################################
-        #  Calculate degradation
+        #  Calculate SDG 15.3.1 layers
         log('Calculating degradation...')
-        prod_file = os.path.splitext(self.output_file.text())[0] + '_Productivity_Sub-Indicator.tif'
+        prod_f = os.path.splitext(self.output_file_layer.text())[0] + '_Productivity_Sub-Indicator.tif'
         deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
-                                 lc_clip_tempfile, self.output_file.text(), prod_file)
+                                 lc_clip_tempfile, self.output_file_layer.text(), prod_f)
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degradation layer."), None)
             return
 
-        style_sdg_ld(prod_file, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
-        style_sdg_ld(self.output_file.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
+        style_sdg_ld(prod_f, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
+        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
 
+        #######################################################################
+        #######################################################################
+        # Produce summary table
+        #######################################################################
+        #######################################################################
 
-class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
-    def showEvent(self, event):
-        super(DlgReportingSummaryTable, self).showEvent(event)
-        self.populate_layers_lc_baseline()
-        self.populate_layers_lc_target()
-        self.populate_layers_soc_initial()
-        self.populate_layers_soc_final()
+        #######################################################################
+        # Select baseline and target land cover and SOC layers based on chosen
+        # degradation layers for these datasets
 
-    def populate_layers_lc_baseline(self):
-        self.combo_layer_lc_bl.clear()
-        self.layer_lc_bl_list = get_ld_layers('lc_annual')
-        self.combo_layer_lc_bl.addItems([l[0].name() for l in self.layer_lc_bl_list])
-        if len(self.layer_lc_bl_list) > 1:
-            # Set initially select layer to be one of the earliest
-            first_year = min([l[2]['metadata']['year'] for l in self.layer_lc_bl_list])
-            idx, l = next((idx, l) for idx, l in enumerate(self.layer_lc_bl_list) if l[2]['metadata']['year'] == first_year)
-            self.combo_layer_lc_bl.setCurrentIndex(idx)
+        lc_band_infos = get_band_info(self.layer_lc.dataProvider().dataSourceUri())
+        #TODO: Need to fix this code for when drop the mode on land cover calculation
+        self.layer_lc_bl_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['name'] == 'Land cover mode (7 class)'][0]
+        self.layer_lc_tg_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['name'] == 'Land cover (7 class)'][0]
 
-    def populate_layers_lc_target(self):
-        self.combo_layer_lc_tg.clear()
-        self.layer_lc_tg_list = get_ld_layers('lc_annual')
-        self.combo_layer_lc_tg.addItems([l[0].name() for l in self.layer_lc_tg_list])
-        if len(self.layer_lc_tg_list) > 1:
-            # Set initially select layer to be one of the earliest
-            last_year = max([l[2]['metadata']['year'] for l in self.layer_lc_tg_list])
-            idx, l = next((idx, l) for idx, l in enumerate(self.layer_lc_tg_list) if l[2]['metadata']['year'] == last_year)
-            self.combo_layer_lc_tg.setCurrentIndex(idx)
-
-    def populate_layers_soc_initial(self):
-        self.combo_layer_soc_initial.clear()
-        self.layer_soc_initial_list = get_ld_layers('soc_annual')
-        self.combo_layer_soc_initial.addItems([l[0].name() for l in self.layer_soc_initial_list])
-        if len(self.layer_soc_initial_list) > 1:
-            # Set initially select layer to be one of the earliest
-            first_year = min([l[2]['metadata']['year'] for l in self.layer_soc_initial_list])
-            idx, l = next((idx, l) for idx, l in enumerate(self.layer_soc_initial_list) if l[2]['metadata']['year'] == first_year)
-            self.combo_layer_soc_initial.setCurrentIndex(idx)
-
-    def populate_layers_soc_final(self):
-        self.combo_layer_soc_final.clear()
-        self.layer_soc_final_list = get_ld_layers('soc_annual')
-        self.combo_layer_soc_final.addItems([l[0].name() for l in self.layer_soc_final_list])
-        if len(self.layer_soc_final_list) > 1:
-            # Set initially selected layer to be one of the most recent
-            last_year = max([l[2]['metadata']['year'] for l in self.layer_soc_final_list])
-            idx, l = next((idx, l) for idx, l in enumerate(self.layer_soc_final_list) if l[2]['metadata']['year'] == last_year)
-            self.combo_layer_soc_final.setCurrentIndex(idx)
-
-    def select_output_file(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the summary table'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Summary table file (*.xlsx)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file.setText(f)
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
-
-    def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super(DlgReportingSummaryTable, self).btn_calculate()
-        if not ret:
-            return
-
-        # Check that all needed layers are selected
-        if len(self.layer_lc_bl_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a baseline land cover layer to your map before you can use the reporting tool."), None)
-            return
-        if len(self.layer_lc_tg_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a target land cover layer to your map before you can use the reporting tool."), None)
-            return
-        if len(self.layer_soc_initial_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
-            return
-        if len(self.layer_soc_final_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a soil organic carbon indicator layer to your map before you can use the reporting tool."), None)
-            return
-
-        self.layer_lc_bl = self.layer_lc_bl_list[self.combo_layer_lc_bl.currentIndex()][0]
-        self.layer_lc_bl_bandnumber = self.layer_lc_bl_list[self.combo_layer_lc_bl.currentIndex()][1]
-
-        self.layer_lc_tg = self.layer_lc_tg_list[self.combo_layer_lc_tg.currentIndex()][0]
-        self.layer_lc_tg_bandnumber = self.layer_lc_tg_list[self.combo_layer_lc_tg.currentIndex()][1]
-
-        self.layer_soc_initial = self.layer_soc_initial_list[self.combo_layer_soc_initial.currentIndex()][0]
-        self.layer_soc_initial_bandnumber = self.layer_soc_initial_list[self.combo_layer_soc_initial.currentIndex()][1]
-
-        self.layer_soc_final = self.layer_soc_final_list[self.combo_layer_soc_final.currentIndex()][0]
-        self.layer_soc_final_bandnumber = self.layer_soc_final_list[self.combo_layer_soc_final.currentIndex()][1]
-
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc_bl.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the baseline land cover layer."), None)
-            return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc_tg.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the target land cover layer."), None)
-            return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc_initial.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial soil organic carbon layer."), None)
-            return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc_final.extent())):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final soil organic carbon layer."), None)
-            return
-
-        self.close()
+        soc_band_infos = [band_info for band_info in get_band_info(self.layer_soc.dataProvider().dataSourceUri()) if band_info['name'] == 'Soil organic carbon']
+        first_year = min([band_info['metadata']['year'] for band_info in soc_band_infos])
+        last_year = max([band_info['metadata']['year'] for band_info in soc_band_infos])
+        self.layer_soc_bl_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == first_year][0]
+        self.layer_soc_tg_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == last_year][0]
 
         ######################################################################
         # Combine rasters into a VRT and crop to the AOI
-
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc/soc VRT to: {}'.format(indic_f))
 
         # Select lc bands using bandlist since BuildVrt will otherwise only use
         # the first band of the file
         self.lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_bl_f, self.layer_lc_bl.dataProvider().dataSourceUri(),
+        gdal.BuildVRT(self.lc_bl_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_lc_bl_bandnumber])
 
         self.lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_tg_f, self.layer_lc_tg.dataProvider().dataSourceUri(),
+        gdal.BuildVRT(self.lc_tg_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_lc_tg_bandnumber])
 
-        self.soc_init_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_init_f, self.layer_soc_initial.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_initial_bandnumber])
+        self.soc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.soc_bl_f, self.layer_soc.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_soc_bl_bandnumber])
 
-        self.soc_final_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_final_f, self.layer_soc_final.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_final_bandnumber])
+        self.soc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.soc_tg_f, self.layer_soc.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_soc_tg_bandnumber])
 
-        resample_alg = self.get_resample_alg(self.lc_bl_f, self.traj_f)
+        resample_alg = self.get_resample_alg(self.lc_bl_f, prod_f)
         gdal.BuildVRT(indic_f,
-                      [self.traj_f,
+                      [prod_f,
                        self.lc_bl_f,
                        self.lc_tg_f,
-                       self.soc_init_f,
-                       self.soc_final_f],
+                       self.soc_bl_f,
+                       self.soc_tg_f],
                       outputBounds=self.outputBounds,
                       resolution=resample_alg[0],
                       resampleAlg=resample_alg[1],
@@ -1079,21 +1019,30 @@ class DlgReportingSummaryTable(DlgReportingBase, Ui_DlgReportingSummaryTable):
                                        self.tr("Error calculating degraded areas."), None)
             return
         else:
-            soc_bl_totals, soc_tg_totals, trans_lpd_xtab = area_worker.get_return()
+            soc_bl_totals, soc_tg_totals, trans_prod_xtab = area_worker.get_return()
             log('Soc bl: {}'.format(soc_bl_totals))
 
-        x = [self.tr('Area Degraded'), self.tr('Area Stable'), self.tr('Area Improved'), self.tr('No Data')]
-        y = [get_xtab_area(trans_lpd_xtab, -3, None) + get_xtab_area(trans_lpd_xtab, -2, None),
-             get_xtab_area(trans_lpd_xtab, -1, None) + get_xtab_area(trans_lpd_xtab, 0, None) + get_xtab_area(trans_lpd_xtab, 1, None),
-             get_xtab_area(trans_lpd_xtab, 2, None) + get_xtab_area(trans_lpd_xtab, 3, None),
-             get_xtab_area(trans_lpd_xtab, -32768, None)]
+        x = [self.tr('Degraded'), self.tr('Stable'), self.tr('Improved'), self.tr('No Data')]
+        y = [get_xtab_area(trans_prod_xtab, -1, None),
+             get_xtab_area(trans_prod_xtab, 0, None),
+             get_xtab_area(trans_prod_xtab, 1, None),
+             get_xtab_area(trans_prod_xtab, -32768, None)]
         log('SummaryTable total area: {}'.format(sum(y)))
         log('SummaryTable areas (deg, stable, imp, no data): {}'.format(y))
 
-        make_summary_table(soc_bl_totals, soc_tg_totals, trans_lpd_xtab,
-                           self.output_file.text())
+        make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
+                           self.output_file_table.text())
 
         self.plot_degradation(x, y)
+
+    def plot_degradation(self, x, y):
+        dlg_plot = DlgPlotBars()
+        labels = {'title': self.plot_title.text(),
+                  'bottom': self.tr('Land status'),
+                  'left': [self.tr('Area'), self.tr('km<sup>2</sup>')]}
+        dlg_plot.plot_data(x, y, labels)
+        dlg_plot.show()
+        dlg_plot.exec_()
 
 
 def get_lc_area(table, code):
@@ -1105,25 +1054,16 @@ def get_lc_area(table, code):
 
 
 def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
-    # Remember that lpd is coded as:
-    # -3: 99% signif decline
-    # -2: 95% signif decline
-    # -1: 90% signif decline
-    #  0: stable
-    #  1: 90% signif increase
-    #  2: 95% signif increase
-    #  3: 99% signif increase
-    
     out = np.zeros((len(classes), len(classes)))
     for bl_class in range(len(classes)):
         for tg_class in range(len(classes)):
             transition = int('{}{}'.format(classes[bl_class], classes[tg_class]))
             if change_type == 'improved':
-                out[bl_class, tg_class] = get_xtab_area(table, 2, transition) + get_xtab_area(table, 3, transition)
+                out[bl_class, tg_class] = get_xtab_area(table, 1, transition)
             elif change_type == 'stable':
-                out[bl_class, tg_class] = get_xtab_area(table, -1, transition) + get_xtab_area(table, 0, transition) + get_xtab_area(table, 1, transition)
+                out[bl_class, tg_class] = get_xtab_area(table, 0, transition)
             elif change_type == 'degraded':
-                out[bl_class, tg_class] = get_xtab_area(table, -3, transition) + get_xtab_area(table, -2, transition)
+                out[bl_class, tg_class] = get_xtab_area(table, -1, transition)
             if change_type == 'no data':
                 out[bl_class, tg_class] = get_xtab_area(table, -32768, transition)
     return out
@@ -1144,7 +1084,7 @@ def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals,
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
-def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 6 + 1)):
+def get_soc_bl_tg(trans_prod_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 6 + 1)):
     out = np.zeros((len(classes), 2))
     for row in range(len(classes)):
         bl_area = 0
@@ -1155,11 +1095,11 @@ def get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals, classes=range(1,
         # total area
         for n in range(len(classes)):
             bl_trans = int('{}{}'.format(classes[row], classes[n]))
-            bl_area += get_xtab_area(trans_lpd_xtab, None, bl_trans)
+            bl_area += get_xtab_area(trans_prod_xtab, None, bl_trans)
             bl_soc += get_soc_total(soc_bl_totals, bl_trans)
 
             tg_trans = int('{}{}'.format(classes[n], classes[row]))
-            tg_area += get_xtab_area(trans_lpd_xtab, None, tg_trans)
+            tg_area += get_xtab_area(trans_prod_xtab, None, tg_trans)
             tg_soc += get_soc_total(soc_tg_totals, tg_trans)
         # Note areas are in sq km. Need to convert to ha
         if bl_soc != 0 and bl_area != 0:
@@ -1197,7 +1137,7 @@ def write_table_to_sheet(sheet, d, first_row, first_col):
             cell.value = d[row, col]
 
 
-def make_summary_table(soc_bl_totals, soc_tg_totals, trans_lpd_xtab, out_file):
+def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, out_file):
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
 
@@ -1207,19 +1147,19 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_lpd_xtab, out_file):
     # Productivity tables
     ws_prod = wb.get_sheet_by_name('Productivity')
 
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'improved'), 14, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'stable'), 26, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'degraded'), 38, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_lpd_xtab, 'no data'), 50, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'improved'), 14, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'stable'), 26, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'degraded'), 38, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'no data'), 50, 3)
 
     ##########################################################################
     # Soil organic carbon tables
     ws_soc = wb.get_sheet_by_name('Soil organic carbon')
 
-    write_table_to_sheet(ws_soc, get_soc_bl_tg(trans_lpd_xtab, soc_bl_totals, soc_tg_totals), 8, 3)
+    write_table_to_sheet(ws_soc, get_soc_bl_tg(trans_prod_xtab, soc_bl_totals, soc_tg_totals), 8, 3)
 
     # Write table of baseline areas
-    lc_trans_table_no_water = get_lc_table(trans_lpd_xtab, classes=np.arange(1, 6 + 1))
+    lc_trans_table_no_water = get_lc_table(trans_prod_xtab, classes=np.arange(1, 6 + 1))
     write_table_to_sheet(ws_soc, np.reshape(np.sum(lc_trans_table_no_water, 1), (-1, 1)), 8, 5)
     # Write table of target areas
     write_table_to_sheet(ws_soc, np.reshape(np.sum(lc_trans_table_no_water, 0), (-1, 1)), 8, 6)
@@ -1231,7 +1171,7 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_lpd_xtab, out_file):
     ##########################################################################
     # Land cover tables
     ws_lc = wb.get_sheet_by_name('Land cover')
-    write_table_to_sheet(ws_lc, get_lc_table(trans_lpd_xtab), 18, 3)
+    write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 18, 3)
 
     ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_prod.add_image(ws_prod_logo, 'H1')

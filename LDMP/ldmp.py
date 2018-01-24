@@ -17,6 +17,7 @@ import os
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication, QMenu
 
+from LDMP import __version__
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
 from LDMP.calculate import DlgCalculate
@@ -71,7 +72,7 @@ class LDMPPlugin:
             self.plugin_dir,
             'i18n',
             'LDMP_{}.qm'.format(locale))
-        QgsMessageLog.logMessage('Using locale "{}" in path {}.'.format(locale, locale_path),
+        QgsMessageLog.logMessage('Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
                                  tag="trends.earth", level=QgsMessageLog.INFO)
 
         if os.path.exists(locale_path):

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>598</height>
+    <width>465</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -62,22 +62,12 @@
          <property name="title">
           <string>Productivity</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
-           <widget class="QLabel" name="label_9">
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Trajectory (significance):</string>
-            </property>
-           </widget>
-          </item>
-          <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="4" column="0">
            <widget class="QComboBox" name="combo_layer_traj">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -92,8 +82,59 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QLabel" name="label_8">
+          <item row="6" column="0">
+           <widget class="QComboBox" name="combo_layer_perf">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QComboBox" name="combo_layer_state">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QRadioButton" name="mode_unccd_gpg">
+            <property name="text">
+             <string>UNCCD Good Practice Guidance</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="combo_layer_perf_label">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="font">
              <font>
               <weight>50</weight>
@@ -105,24 +146,11 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QComboBox" name="combo_layer_perf">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+          <item row="7" column="0">
+           <widget class="QLabel" name="combo_layer_state_label">
+            <property name="enabled">
+             <bool>true</bool>
             </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_10">
             <property name="font">
              <font>
               <weight>50</weight>
@@ -134,19 +162,45 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QComboBox" name="combo_layer_state">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+          <item row="3" column="0">
+           <widget class="QLabel" name="combo_layer_traj_label">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Trajectory (degradation):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QComboBox" name="combo_layer_lpd">
+            <property name="enabled">
+             <bool>false</bool>
             </property>
             <property name="minimumSize">
              <size>
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QRadioButton" name="mode_lpd">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Land productivity dynamics (LPD)</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -226,7 +280,7 @@
           </font>
          </property>
          <property name="title">
-          <string>Soil Carbon (degradation)</string>
+          <string>Soil carbon (degradation)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
@@ -254,15 +308,15 @@
       <attribute name="title">
        <string>Output</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
-          <string>Output file</string>
+          <string>Output file for indicator layer</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLineEdit" name="output_file">
+           <widget class="QLineEdit" name="output_file_layer">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -275,7 +329,42 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="browse_output_file">
+           <widget class="QPushButton" name="browse_output_file_layer">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Browse</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_7">
+         <property name="title">
+          <string>Output file for summary table</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLineEdit" name="output_file_table">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>Choose a file...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="browse_output_file_table">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -346,19 +435,6 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3">
-     <item row="1" column="0" colspan="2">
-      <widget class="QPushButton" name="button_calculate">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Calculate</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="button_prev">
        <property name="minimumSize">
@@ -382,6 +458,19 @@
        </property>
        <property name="text">
         <string>Next</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QPushButton" name="button_calculate">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Calculate</string>
        </property>
       </widget>
      </item>

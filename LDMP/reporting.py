@@ -860,6 +860,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                        self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
             return
 
+        self.close()
+
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
         self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -926,7 +928,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                          lc_clip_tempfile, self.aoi.layer)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping layers for area calculation."), None)
+                                       self.tr("Error masking SDG 15.3.1 input layers."), None)
             return
 
         ######################################################################
@@ -937,11 +939,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                                  lc_clip_tempfile, self.output_file_layer.text(), prod_f)
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating degradation layer."), None)
+                                       self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
             return
-
-        style_sdg_ld(prod_f, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
-        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
 
         #######################################################################
         #######################################################################
@@ -987,7 +986,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         gdal.BuildVRT(self.soc_tg_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_tg_bandnumber])
 
-        resample_alg = self.get_resample_alg(self.lc_bl_f, prod_f)
         gdal.BuildVRT(indic_f,
                       [prod_f,
                        self.lc_bl_f,
@@ -1032,6 +1030,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
         make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
                            self.output_file_table.text())
+
+        style_sdg_ld(prod_f, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
+        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
 
         self.plot_degradation(x, y)
 

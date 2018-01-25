@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>799</width>
-    <height>778</height>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,10 +45,10 @@
           <bool>true</bool>
          </property>
          <property name="title">
-          <string>Baseline year</string>
+          <string>Period</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_9">
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QDateEdit" name="year_start">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -94,19 +94,7 @@
             </property>
            </widget>
           </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="target_box">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="title">
-          <string>Target year</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
+          <item row="1" column="1">
            <widget class="QDateEdit" name="year_end">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -159,6 +147,20 @@
             </property>
             <property name="displayFormat">
              <string notr="true">yyyy</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Baseline year:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Target year:</string>
             </property>
            </widget>
           </item>
@@ -502,7 +504,6 @@
  </widget>
  <tabstops>
   <tabstop>TabBox</tabstop>
-  <tabstop>year_end</tabstop>
   <tabstop>button_prev</tabstop>
   <tabstop>button_next</tabstop>
   <tabstop>button_calculate</tabstop>

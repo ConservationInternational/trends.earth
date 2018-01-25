@@ -310,15 +310,12 @@ def update_password(password, repeatPassword):
 
 def get_execution(id=None, date=None):
     log('Fetching executions')
-    query = []
+    query = ['include=script']
     if id:
         query.append('user_id={}'.format(quote_plus(id)))
     if date:
         query.append('updated_at={}'.format(date))
-    if len(query) > 0:
-        query = "?" + "&".join(query)
-    else:
-        query = ''
+    query = "?" + "&".join(query)
 
     resp = call_api('/api/v1/execution{}'.format(query), method='get', use_token=True)
     if not resp:

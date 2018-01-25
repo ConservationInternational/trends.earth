@@ -83,7 +83,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Jobs expire 30 days after they are submitted. After a job has expired, it will no longer appear in this list.</string>
+      <string>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

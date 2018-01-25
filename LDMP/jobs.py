@@ -33,7 +33,7 @@ from LDMP.plot import DlgPlotTimeries
 from LDMP import log
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.load_data import add_layer
-from LDMP.api import get_script, get_user_email, get_execution
+from LDMP.api import get_user_email, get_execution
 
 
 def json_serial(obj):
@@ -50,19 +50,6 @@ def create_gee_json_metadata(job, outfile, file_format):
     with open(outfile, 'w') as outfile:
         json.dump(job['raw'], outfile, default=json_serial, sort_keys=True,
                   indent=4, separators=(',', ': '))
-
-
-def get_scripts():
-    scripts = get_script()
-    if not scripts:
-        return None
-    # The scripts endpoint lists scripts in a list of dictionaries. Convert
-    # this to a dictionary keyed by script id
-    scripts_dict = {}
-    for script in scripts:
-        script_id = script.pop('id')
-        scripts_dict[script_id] = script
-    return scripts_dict
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
@@ -132,21 +119,17 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if self.jobs:
                 # Add script names and descriptions to jobs list
-                self.scripts = get_scripts()
-                if not self.scripts:
-                    self.refresh.setEnabled(True)
-                    return False
                 for job in self.jobs:
                     # self.jobs will have prettified data for usage in table,
                     # so save a backup of the original data under key 'raw'
                     job['raw'] = job.copy()
                     script = job.get('script_id', None)
                     if script:
-                        job['script_name'] = self.scripts[job['script_id']]['name']
+                        job['script_name'] = job['script']['name']
                         # Clean up the script name so the version tag doesn't 
                         # look so odd
                         job['script_name'] = re.sub('([0-9]+)_([0-9]+)$', '(v\g<1>.\g<2>)', job['script_name'])
-                        job['script_description'] = self.scripts[job['script_id']]['description']
+                        job['script_description'] = job['script']['description']
                     else:
                         # Handle case of scripts that have been removed or that are
                         # no longer supported

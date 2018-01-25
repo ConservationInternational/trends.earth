@@ -203,8 +203,8 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
     def firstShow(self):
         lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
         lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.year_bl_start.setMinimumDate(lc_start_year)
-        self.year_bl_end.setMaximumDate(lc_end_year)
+        self.year_baseline.setMinimumDate(lc_start_year)
+        self.year_baseline.setMaximumDate(lc_end_year)
         self.year_target.setMinimumDate(lc_start_year)
         self.year_target.setMaximumDate(lc_end_year)
 
@@ -306,8 +306,7 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
 
         self.close()
 
-        payload = {'year_bl_start': self.year_bl_start.date().year(),
-                   'year_bl_end': self.year_bl_end.date().year(),
+        payload = {'year_baseline': self.year_baseline.date().year(),
                    'year_target': self.year_target.date().year(),
                    'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'trans_matrix': self.trans_matrix_get(),

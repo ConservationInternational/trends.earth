@@ -100,7 +100,7 @@ style_text_dict = {
     'prod_state_classes_nodata': tr('No data'),
 
     # Land cover
-    'lc_deg_title': tr('Land cover degradation ({year_bl_start}-{year_bl_end} to {year_target})'),
+    'lc_deg_title': tr('Land cover degradation ({year_baseline} to {year_target})'),
     'lc_deg_deg': tr('Degradation'),
     'lc_deg_stable': tr('Stable'),
     'lc_deg_imp': tr('Improvement'),
@@ -120,7 +120,7 @@ style_text_dict = {
     'lc_class_bare': tr('6 - Bare land'),
     'lc_class_water': tr('7 - Water body'),
 
-    'lc_tr_title': tr('Land cover (transitions, {year_bl_start}-{year_bl_end} to {year_target})'),
+    'lc_tr_title': tr('Land cover (transitions, {year_baseline} to {year_target})'),
     'lc_tr_nochange': tr('No change'),
     'lc_tr_forest_loss': tr('Forest loss'),
     'lc_tr_grassland_loss': tr('Grassland loss'),

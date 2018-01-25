@@ -952,16 +952,17 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         # Select baseline and target land cover and SOC layers based on chosen
         # degradation layers for these datasets
 
-        lc_band_infos = get_band_info(self.layer_lc.dataProvider().dataSourceUri())
-        #TODO: Need to fix this code for when drop the mode on land cover calculation
-        self.layer_lc_bl_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['name'] == 'Land cover mode (7 class)'][0]
-        self.layer_lc_tg_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['name'] == 'Land cover (7 class)'][0]
+        lc_band_infos = [band_info for band_info in get_band_info(self.layer_lc.dataProvider().dataSourceUri()) if band_info['name'] == 'Land cover (7 class)']
+        lc_first_year = min([band_info['metadata']['year'] for band_info in lc_band_infos])
+        lc_last_year = max([band_info['metadata']['year'] for band_info in lc_band_infos])
+        self.layer_lc_bl_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['metadata']['year'] == lc_first_year][0]
+        self.layer_lc_tg_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['metadata']['year'] == lc_last_year][0]
 
         soc_band_infos = [band_info for band_info in get_band_info(self.layer_soc.dataProvider().dataSourceUri()) if band_info['name'] == 'Soil organic carbon']
-        first_year = min([band_info['metadata']['year'] for band_info in soc_band_infos])
-        last_year = max([band_info['metadata']['year'] for band_info in soc_band_infos])
-        self.layer_soc_bl_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == first_year][0]
-        self.layer_soc_tg_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == last_year][0]
+        soc_first_year = min([band_info['metadata']['year'] for band_info in soc_band_infos])
+        soc_last_year = max([band_info['metadata']['year'] for band_info in soc_band_infos])
+        self.layer_soc_bl_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == soc_first_year][0]
+        self.layer_soc_tg_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == soc_last_year][0]
 
         ######################################################################
         # Combine rasters into a VRT and crop to the AOI

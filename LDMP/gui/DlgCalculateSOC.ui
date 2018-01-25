@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>720</height>
+    <width>605</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -176,39 +176,7 @@
           <string>Land cover definition</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="remap_custom_file">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>120</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="placeholderText">
-             <string>Use a definition saved in a file...</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="remap_default">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Default (UNCCD LDN Target Setting Program system)</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
+          <item row="3" column="0">
            <widget class="QPushButton" name="remap_custom_create">
             <property name="enabled">
              <bool>false</bool>
@@ -224,8 +192,24 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QRadioButton" name="remap_custom">
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="remap_custom_file">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>Use a definition saved in a file...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QRadioButton" name="remap_default">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -233,11 +217,14 @@
              </size>
             </property>
             <property name="text">
-             <string>Custom</string>
+             <string>Default (UNCCD LDN Target Setting Program system)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="4" column="2">
+          <item row="3" column="2">
            <widget class="QPushButton" name="remap_custom_file_browse">
             <property name="enabled">
              <bool>false</bool>
@@ -259,23 +246,16 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="remap_label_new">
-            <property name="enabled">
-             <bool>false</bool>
+          <item row="1" column="0" colspan="3">
+           <widget class="QRadioButton" name="remap_custom">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
             </property>
             <property name="text">
-             <string>Create new definition:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="remap_label_saved">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>Use saved definition:</string>
+             <string>Custom</string>
             </property>
            </widget>
           </item>
@@ -371,16 +351,6 @@
           <string>Climate regime</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="fl_radio_default">
-            <property name="text">
-             <string>Default (determined per-pixel using global climate data)</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QRadioButton" name="fl_radio_chooseRegime">
             <property name="text">
@@ -396,7 +366,14 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QComboBox" name="fl_chooseRegime_comboBox"/>
+           <widget class="QComboBox" name="fl_chooseRegime_comboBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
           <item row="2" column="1">
            <widget class="QLineEdit" name="fl_custom_lineEdit">
@@ -411,26 +388,74 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QRadioButton" name="fl_radio_default">
+            <property name="text">
+             <string>Default (determined per-pixel using global climate data)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>Additional files to download</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QCheckBox" name="download_annual_soc">
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="download_annual_lc">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
-             <string>Download annual soil organic carbon layers (default is to download only first and last year)</string>
+             <string/>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QCheckBox" name="download_annual_lc">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="download_annual_soc">
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Download annual soil organic carbon layers (default is to download only first and last year)</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_5">
             <property name="text">
              <string>Download annual land cover layers</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -459,19 +484,6 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="1">
-      <widget class="QPushButton" name="button_next">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Next</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0" colspan="2">
       <widget class="QPushButton" name="button_calculate">
        <property name="minimumSize">
@@ -495,6 +507,19 @@
        </property>
        <property name="text">
         <string>Previous</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="button_next">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Next</string>
        </property>
       </widget>
      </item>

@@ -12,8 +12,8 @@ from paver.easy import *
 from paver.doctools import html
 
 options(
-    gefcli=path('C:/Users/azvol/Code/LandDegradation/gef-cli/gefcli'),
-    gefcli_venv_script=path('C:/Users/azvol/Code/LandDegradation/gef-cli/venv/Scripts/activate'),
+    tecli=path('C:/Users/localadmin/Desktop/Code/trends.earth-CLI/tecli'),
+    tecli_venv_script=path('C:/Users/localadmin/Desktop/Code/trends.earth-CLI/venv/Scripts/activate'),
 )
 
 
@@ -69,7 +69,7 @@ def publish_all(options):
     for dir in dirs:
         if os.path.exists(os.path.join(dir, 'configuration.json')):
             print('Publishing {}...'.format(dir))
-            subprocess.check_call(['python', options.gefcli, 'publish'], cwd=dir)
+            subprocess.check_call(['python', options.tecli, 'publish'], cwd=dir)
 
     #TODO: Make the scripts public after publishing
 

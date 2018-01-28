@@ -22,7 +22,7 @@ from landdegradation import GEEIOError
 from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
 
 
-def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
+def land_cover(year_baseline, year_target, geojson, trans_matrix,
                remap_matrix, EXECUTION_ID, logger):
     """
     Calculate land cover indicator.
@@ -38,11 +38,8 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     lc_tg_raw = lc.select('y{}'.format(year_target))
     lc_tg_remapped = lc_tg_raw.remap(remap_matrix[0], remap_matrix[1])
 
-    ## baseline land cover map raw data
-    lc_bl_raw = lc.select(ee.List.sequence(year_bl_start - 1992, year_bl_end - 1992, 1)) \
-        .reduce(ee.Reducer.mode())
-
     ## baseline land cover map reclassified to IPCC 6 classes
+    lc_bl_raw = lc.select('y{}'.format(year_baseline))
     lc_bl_remapped = lc_bl_raw.remap(remap_matrix[0], remap_matrix[1])
 
     ## compute transition map (first digit for baseline land cover, and second digit for target year land cover)
@@ -89,11 +86,11 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
     task.join()
 
     logger.debug("Setting up results JSON.")
-    d = [BandInfo("Land cover mode (7 class)", 1, no_data_value=9999, add_to_map=True, metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
+    d = [BandInfo("Land cover (7 class)", 1, no_data_value=9999, add_to_map=True, metadata={'year': year_baseline}),
          BandInfo("Land cover (7 class)", 2, no_data_value=9999, add_to_map=True, metadata={'year': year_target}),
-         BandInfo("Land cover transitions", 3, no_data_value=9999, add_to_map=True, metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_target': year_target}),
-         BandInfo("Land cover degradation", 4, no_data_value=9999, add_to_map=True, metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_target': year_target}),
-         BandInfo("Land cover mode (ESA classes)", 5, no_data_value=9999, metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
+         BandInfo("Land cover transitions", 3, no_data_value=9999, add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
+         BandInfo("Land cover degradation", 4, no_data_value=9999, add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
+         BandInfo("Land cover (ESA classes)", 5, no_data_value=9999, metadata={'year': year_baseline}),
          BandInfo("Land cover (ESA classes)", 6, no_data_value=9999, metadata={'year': year_target})]
     u = URLList(task.get_URL_base(), task.get_files())
     gee_results = CloudResults('land_cover', __version__, d, u)
@@ -106,8 +103,7 @@ def land_cover(year_bl_start, year_bl_end, year_target, geojson, trans_matrix,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_bl_start = params.get('year_bl_start', 2000)
-    year_bl_end = params.get('year_bl_end', 2014)
+    year_baseline = params.get('year_baseline', 2000)
     year_target = params.get('year_target', 2015)
     geojson = params.get('geojson', util.tza_geojson)
     trans_matrix_default = [0, 1, 1, 1, -1, 0, -1,
@@ -145,7 +141,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = land_cover(year_bl_start, year_bl_end, year_target, geojson,
-                              trans_matrix, remap_matrix, EXECUTION_ID, logger)
+    json_results = land_cover(year_baseline, year_target, geojson, trans_matrix,
+                              remap_matrix, EXECUTION_ID, logger)
 
     return json_results.data

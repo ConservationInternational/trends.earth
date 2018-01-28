@@ -32,6 +32,8 @@ from osgeo import gdal
 
 from LDMP import log
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
+from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
+from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 
 
@@ -506,3 +508,16 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
         self.btn_view_metadata.setEnabled(True)
         return True
+
+class DlgLoadDataBase(QtGui.QDialog):
+    """Base class for individual data loading dialogs"""
+    firstShowEvent = pyqtSignal()
+
+    def __init__(self, parent=None):
+
+class DlgLoadDataSOC(Ui_DlgLoadDataSOC):
+    def __init__(self, parent=None):
+
+class DlgLoadDataLC(Ui_DlgLoadDataLC):
+    def __init__(self, parent=None):
+

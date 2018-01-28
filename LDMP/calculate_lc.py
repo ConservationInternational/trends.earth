@@ -302,6 +302,9 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
 
         self.close()
 
+        #######################################################################
+        # Online
+
         payload = {'year_baseline': self.year_baseline.date().year(),
                    'year_target': self.year_target.date().year(),
                    'geojson': json.dumps(self.aoi.bounding_box_geojson),
@@ -322,6 +325,9 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                            QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
                            level=0, duration=5)
+
+        #######################################################################
+        # TODO: Add offline calculation
 
 
 class LCAggTableModel(QAbstractTableModel):

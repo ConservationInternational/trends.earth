@@ -36,7 +36,64 @@
      </property>
      <widget class="QWidget" name="SetupTab">
       <attribute name="title">
-       <string>Input data</string>
+       <string>Setup</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Indicators to include</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QCheckBox" name="checkBox_3">
+            <property name="text">
+             <string>Productivity</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_2">
+            <property name="text">
+             <string>Land cover</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox">
+            <property name="text">
+             <string>Soil carbon</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Period</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>390</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="LCTab">
+      <attribute name="title">
+       <string>Land cover data</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -120,7 +177,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Modify land cover input data settings</string>
+             <string>Modify land cover input data</string>
             </property>
            </widget>
           </item>
@@ -144,7 +201,7 @@
      </widget>
      <widget class="QWidget" name="TransitionMatrixTab">
       <attribute name="title">
-       <string>Define degradation, stability, and improvement</string>
+       <string>Effects of land cover change</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>

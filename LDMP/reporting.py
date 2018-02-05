@@ -150,7 +150,7 @@ def get_ld_layers(layer_type=None):
     return layers_filtered
 
 
-def style_sdg_ld(outfile, title):
+def style_sdg_ld(outfile, title, band=1):
     # Significance layer
     log('Loading layers onto map.')
     layer = iface.addRasterLayer(outfile, title)
@@ -168,19 +168,18 @@ def style_sdg_ld(outfile, title):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), band, shader)
     layer.setRenderer(pseudoRenderer)
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
 
 class DegradationWorkerSDG(AbstractWorker):
-    def __init__(self, src_file, deg_file, prod_file):
+    def __init__(self, src_file, deg_file):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
         self.deg_file = deg_file
-        self.prod_file = prod_file
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -201,17 +200,15 @@ class DegradationWorkerSDG(AbstractWorker):
         ysize = traj_band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
-        # Save the combined productivity indicator as well
-        dst_ds_prod = driver.Create(self.prod_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
+        # Save the combined productivity indicator as well, in the second  
+        # layer in the deg file
+        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, 2, gdal.GDT_Int16, ['COMPRESS=LZW'])
 
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
-        dst_ds_prod.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()
         dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
         dst_ds_deg.SetProjection(dst_srs.ExportToWkt())
-        dst_ds_prod.SetProjection(dst_srs.ExportToWkt())
 
         xsize = traj_band.XSize
         ysize = traj_band.YSize
@@ -272,7 +269,7 @@ class DegradationWorkerSDG(AbstractWorker):
                 deg[state_array == -32767] = -32767
 
                 # Save combined productivity indicator for later visualization
-                dst_ds_prod.GetRasterBand(1).WriteArray(deg, x, y)
+                dst_ds_deg.GetRasterBand(2).WriteArray(deg, x, y)
 
                 #############
                 # Land cover
@@ -324,7 +321,6 @@ class DegradationWorkerSDG(AbstractWorker):
 
         if self.killed:
             os.remove(deg_file)
-            os.remove(prod_file)
             return None
         else:
             return True
@@ -641,23 +637,25 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
 
 
 class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
-    '''Class to be shared across SDG and SummaryTable reporting dialogs'''
-
     def __init__(self, parent=None):
         super(DlgReportingSDG, self).__init__(parent)
         self.setupUi(self)
 
-        self.mode_lpd.toggled.connect(self.mode_lpd_toggled)
+        self.mode_jrc_lpd.toggled.connect(self.mode_jrc_lpd_toggled)
 
-    def mode_lpd_toggled(self):
-        if self.mode_lpd.isChecked():
-            self.combo_layer_lpd.setEnabled(True)
-            self.combo_layer_traj.setEnabled(False)
-            self.combo_layer_traj_label.setEnabled(False)
-            self.combo_layer_perf.setEnabled(False)
-            self.combo_layer_perf_label.setEnabled(False)
-            self.combo_layer_state.setEnabled(False)
-            self.combo_layer_state_label.setEnabled(False)
+    def mode_jrc_lpd_toggled(self):
+        if self.mode_jrc_lpd.isChecked():
+            QtGui.QMessageBox.warning(None,
+                                      QtGui.QApplication.translate("LDMP", "Warning"),
+                                      QtGui.QApplication.translate("LDMP", "JRC LPD not yet supported."))
+            self.mode_gpg_prod.setChecked(True)
+            # self.combo_layer_lpd.setEnabled(True)
+            # self.combo_layer_traj.setEnabled(False)
+            # self.combo_layer_traj_label.setEnabled(False)
+            # self.combo_layer_perf.setEnabled(False)
+            # self.combo_layer_perf_label.setEnabled(False)
+            # self.combo_layer_state.setEnabled(False)
+            # self.combo_layer_state_label.setEnabled(False)
         else:
             self.combo_layer_lpd.setEnabled(False)
             self.combo_layer_traj.setEnabled(True)
@@ -934,9 +932,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         ######################################################################
         #  Calculate SDG 15.3.1 layers
         log('Calculating degradation...')
-        prod_f = os.path.splitext(self.output_file_layer.text())[0] + '_Productivity_Sub-Indicator.tif'
         deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
-                                 lc_clip_tempfile, self.output_file_layer.text(), prod_f)
+                                 lc_clip_tempfile, self.output_file_layer.text())
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
@@ -969,6 +966,11 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc/soc VRT to: {}'.format(indic_f))
 
+        # The combined productivity sub-indicator is band 2 of the output file
+        self.prod_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.prod_f, self.output_file_layer.text(),
+                      bandList=[2])
+
         # Select lc bands using bandlist since BuildVrt will otherwise only use
         # the first band of the file
         self.lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -988,7 +990,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                       bandList=[self.layer_soc_tg_bandnumber])
 
         gdal.BuildVRT(indic_f,
-                      [prod_f,
+                      [self.prod_f,
                        self.lc_bl_f,
                        self.lc_tg_f,
                        self.soc_bl_f,
@@ -1032,8 +1034,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
                            self.output_file_table.text())
 
-        style_sdg_ld(prod_f, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
-        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
+        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'), 2)
+        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'), 1)
 
         self.plot_degradation(x, y)
 
@@ -1197,8 +1199,6 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, out_file):
 
 
 class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
-    '''Class to be shared across SDG and SummaryTable reporting dialogs'''
-
     def __init__(self, parent=None):
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)

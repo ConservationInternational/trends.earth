@@ -121,9 +121,9 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QRadioButton" name="mode_unccd_gpg">
+           <widget class="QRadioButton" name="mode_gpg_prod">
             <property name="text">
-             <string>UNCCD Good Practice Guidance</string>
+             <string>Land productivity</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -192,12 +192,12 @@
            </widget>
           </item>
           <item row="9" column="0">
-           <widget class="QRadioButton" name="mode_lpd">
+           <widget class="QRadioButton" name="mode_jrc_lpd">
             <property name="enabled">
              <bool>true</bool>
             </property>
             <property name="text">
-             <string>Land productivity dynamics (LPD)</string>
+             <string>JRC Land productivity dynamics (LPD)</string>
             </property>
             <property name="checked">
              <bool>false</bool>

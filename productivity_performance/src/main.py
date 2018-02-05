@@ -38,9 +38,13 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     # global agroecological zones from IIASA
     soil_tax_usda = ee.Image("users/geflanddegradation/toolbox_datasets/soil_tax_usda_sgrid")
 
+    # Make sure the bounding box of the poly is used, and not the geodesic 
+    # version, for the clipping
+    poly = ee.Geometry.Polygon(geojson, geodesic=False)
+
     # compute mean ndvi for the period
     ndvi_avg = ndvi_1yr.select(ee.List(['y{}'.format(i) for i in range(year_start, year_end + 1)])) \
-        .reduce(ee.Reducer.mean()).rename(['ndvi']).clip(geojson)
+        .reduce(ee.Reducer.mean()).rename(['ndvi']).clip(poly)
 
     # Handle case of year_start that isn't included in the CCI data
     if year_start > 2015:
@@ -74,7 +78,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     # compute 90th percentile by unit
     perc90 = ndvi_id.reduceRegion(reducer=ee.Reducer.percentile([90]).
                                   group(groupField=1, groupName='code'),
-                                  geometry=ee.Geometry(geojson),
+                                  geometry=ee.Geometry(poly),
                                   scale=ee.Number(modis_proj.nominalScale()).getInfo(),
                                   maxPixels=1e15)
 
@@ -102,7 +106,7 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
         .addBands(units)
 
     task = util.export_to_cloudstorage(lp_perf.unmask(-32768).int16(),
-                                       ndvi_1yr.projection(), geojson, 'prod_performance', logger,
+                                       ndvi_1yr.projection(), poly, 'prod_performance', logger,
                                        EXECUTION_ID)
     task.join()
 

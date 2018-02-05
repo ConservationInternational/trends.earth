@@ -12,8 +12,7 @@ from paver.easy import *
 from paver.doctools import html
 
 options(
-    tecli=path('C:/Users/localadmin/Desktop/Code/trends.earth-CLI/tecli'),
-    tecli_venv_script=path('C:/Users/localadmin/Desktop/Code/trends.earth-CLI/venv/Scripts/activate'),
+    tecli=path('C:/Users/azvol/Code/LandDegradation/trends.earth-CLI/tecli'),
 )
 
 

@@ -180,7 +180,6 @@ class DegradationWorkerSDG(AbstractWorker):
 
         self.src_file = src_file
         self.deg_file = deg_file
-        self.prod_file = prod_file
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -201,17 +200,15 @@ class DegradationWorkerSDG(AbstractWorker):
         ysize = traj_band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
-        # Save the combined productivity indicator as well
-        dst_ds_prod = driver.Create(self.prod_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW'])
+        # Save the combined productivity indicator as well, in the second  
+        # layer in the deg file
+        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, 2, gdal.GDT_Int16, ['COMPRESS=LZW'])
 
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
-        dst_ds_prod.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()
         dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
         dst_ds_deg.SetProjection(dst_srs.ExportToWkt())
-        dst_ds_prod.SetProjection(dst_srs.ExportToWkt())
 
         xsize = traj_band.XSize
         ysize = traj_band.YSize
@@ -272,7 +269,7 @@ class DegradationWorkerSDG(AbstractWorker):
                 deg[state_array == -32767] = -32767
 
                 # Save combined productivity indicator for later visualization
-                dst_ds_prod.GetRasterBand(1).WriteArray(deg, x, y)
+                dst_ds_deg.GetRasterBand(2).WriteArray(deg, x, y)
 
                 #############
                 # Land cover
@@ -936,9 +933,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         ######################################################################
         #  Calculate SDG 15.3.1 layers
         log('Calculating degradation...')
-        prod_f = os.path.splitext(self.output_file_layer.text())[0] + '_Productivity_Sub-Indicator.tif'
         deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
-                                 lc_clip_tempfile, self.output_file_layer.text(), prod_f)
+                                 lc_clip_tempfile, self.output_file_layer.text())
         if not deg_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating SDG 15.3.1 degradation layer."), None)

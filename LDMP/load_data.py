@@ -32,6 +32,7 @@ from osgeo import gdal
 
 from LDMP import log
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
+from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
@@ -391,10 +392,15 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
         #         break
         #     new_layout.addWidget(layout_item.widget())
 
-
 class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
     def __init__(self, parent=None):
         super(DlgLoadData, self).__init__(parent)
+
+        self.setupUi(self)
+
+class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
+    def __init__(self, parent=None):
+        super(DlgLoadDataTE, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -413,7 +419,7 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
 
     def showEvent(self, e):
-        super(DlgLoadData, self).showEvent(e)
+        super(DlgLoadDataTE, self).showEvent(e)
 
         self.file_lineedit.clear()
         self.layers_model.setStringList([])
@@ -511,13 +517,16 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
 class DlgLoadDataBase(QtGui.QDialog):
     """Base class for individual data loading dialogs"""
-    firstShowEvent = pyqtSignal()
-
     def __init__(self, parent=None):
+        #TODO: Complete this function
+        pass
 
 class DlgLoadDataSOC(Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):
+        #TODO: Complete this function
+        pass
 
 class DlgLoadDataLC(Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
-
+        #TODO: Complete this function
+        pass

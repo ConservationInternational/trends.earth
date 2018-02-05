@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=2.18
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.39
+version=0.40
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -21,7 +21,17 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.38
+changelog=0.40
+    - Remove use of mode for land cover indicator.
+    - Combine the summary table and SDG indicator map creation tools.
+    - Add stub for where JRC LPD product will be available.
+    - Save productivity sub-indicator as band 2 in SDG indicator file.
+    - Bump GEE script to v0.3.
+    - Fix error due to divide by zero on summary table generation when a class 
+      has zero area.
+    - Default to MODIS for productivity calculations.
+  0.38
+    - Add annual soil organic carbon calculation
     - Add annual soil organic carbon calculation
     - Cleanup AOI processing code, allow multiple input polygons in shapefile 
       AOIs

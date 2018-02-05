@@ -68,7 +68,7 @@ def publish_all(options):
     for dir in dirs:
         if os.path.exists(os.path.join(dir, 'configuration.json')):
             print('Publishing {}...'.format(dir))
-            subprocess.check_call(['python', options.tecli, 'publish'], cwd=dir)
+            subprocess.check_call(['python', options.tecli, 'publish', '--public=True'], cwd=dir)
 
     #TODO: Make the scripts public after publishing
 

@@ -649,6 +649,9 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
 
     def mode_lpd_toggled(self):
         if self.mode_lpd.isChecked():
+            QtGui.QMessageBox.warning(None,
+                                      QtGui.QApplication.translate("LDMP", "Warning"),
+                                      QtGui.QApplication.translate("LDMP", "JRC LPD not yet supported."))
             self.combo_layer_lpd.setEnabled(True)
             self.combo_layer_traj.setEnabled(False)
             self.combo_layer_traj_label.setEnabled(False)

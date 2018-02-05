@@ -59,26 +59,26 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.indic_select_perf.stateChanged.connect(self.indic_select_perf_changed)
         self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
 
-        self.mode_unccd_gpg.toggled.connect(self.mode_unccd_gpg_toggled)
+        self.mode_gpg_prod.toggled.connect(self.mode_gpg_prod_toggled)
 
         self.indic_select_traj_changed()
         self.indic_select_perf_changed()
         self.indic_select_state_changed()
 
     def indic_select_traj_changed(self):
-        if self.mode_unccd_gpg.isChecked() and self.indic_select_traj.isChecked():
+        if self.mode_gpg_prod.isChecked() and self.indic_select_traj.isChecked():
             self.TrajectoryTab.setEnabled(True)
         else:
             self.TrajectoryTab.setEnabled(False)
 
     def indic_select_perf_changed(self):
-        if self.mode_unccd_gpg.isChecked() and self.indic_select_perf.isChecked():
+        if self.mode_gpg_prod.isChecked() and self.indic_select_perf.isChecked():
             self.PerformanceTab.setEnabled(True)
         else:
             self.PerformanceTab.setEnabled(False)
 
     def indic_select_state_changed(self):
-        if self.mode_unccd_gpg.isChecked() and self.indic_select_state.isChecked():
+        if self.mode_gpg_prod.isChecked() and self.indic_select_state.isChecked():
             self.StateTab.setEnabled(True)
         else:
             self.StateTab.setEnabled(False)
@@ -86,15 +86,19 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
     def traj_indic_changed(self):
         self.dataset_climate_update()
 
-    def mode_unccd_gpg_toggled(self):
-        if self.mode_lpd.isChecked():
-            self.LPDTab.setEnabled(True)
-            self.indic_select_traj.setEnabled(False)
-            self.indic_select_traj_label.setEnabled(False)
-            self.indic_select_perf.setEnabled(False)
-            self.indic_select_perf_label.setEnabled(False)
-            self.indic_select_state.setEnabled(False)
-            self.indic_select_state_label.setEnabled(False)
+    def mode_gpg_prod_toggled(self):
+        if self.mode_jrc_lpd.isChecked():
+            QtGui.QMessageBox.warning(None,
+                                      QtGui.QApplication.translate("LDMP", "Warning"),
+                                      QtGui.QApplication.translate("LDMP", "JRC LPD not yet supported."))
+            self.mode_gpg_prod.setChecked(True)
+            # self.LPDTab.setEnabled(True)
+            # self.indic_select_traj.setEnabled(False)
+            # self.indic_select_traj_label.setEnabled(False)
+            # self.indic_select_perf.setEnabled(False)
+            # self.indic_select_perf_label.setEnabled(False)
+            # self.indic_select_state.setEnabled(False)
+            # self.indic_select_state_label.setEnabled(False)
         else:
             self.LPDTab.setEnabled(False)
             self.indic_select_traj.setEnabled(True)

@@ -645,20 +645,21 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         super(DlgReportingSDG, self).__init__(parent)
         self.setupUi(self)
 
-        self.mode_lpd.toggled.connect(self.mode_lpd_toggled)
+        self.mode_jrc_lpd.toggled.connect(self.mode_jrc_lpd_toggled)
 
-    def mode_lpd_toggled(self):
-        if self.mode_lpd.isChecked():
+    def mode_jrc_lpd_toggled(self):
+        if self.mode_jrc_lpd.isChecked():
             QtGui.QMessageBox.warning(None,
                                       QtGui.QApplication.translate("LDMP", "Warning"),
                                       QtGui.QApplication.translate("LDMP", "JRC LPD not yet supported."))
-            self.combo_layer_lpd.setEnabled(True)
-            self.combo_layer_traj.setEnabled(False)
-            self.combo_layer_traj_label.setEnabled(False)
-            self.combo_layer_perf.setEnabled(False)
-            self.combo_layer_perf_label.setEnabled(False)
-            self.combo_layer_state.setEnabled(False)
-            self.combo_layer_state_label.setEnabled(False)
+            self.mode_gpg_prod.setChecked(True)
+            # self.combo_layer_lpd.setEnabled(True)
+            # self.combo_layer_traj.setEnabled(False)
+            # self.combo_layer_traj_label.setEnabled(False)
+            # self.combo_layer_perf.setEnabled(False)
+            # self.combo_layer_perf_label.setEnabled(False)
+            # self.combo_layer_state.setEnabled(False)
+            # self.combo_layer_state_label.setEnabled(False)
         else:
             self.combo_layer_lpd.setEnabled(False)
             self.combo_layer_traj.setEnabled(True)

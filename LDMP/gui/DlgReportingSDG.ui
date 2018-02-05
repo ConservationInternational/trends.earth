@@ -121,7 +121,7 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QRadioButton" name="mode_unccd_gpg">
+           <widget class="QRadioButton" name="mode_gpg_prod">
             <property name="text">
              <string>Land productivity</string>
             </property>
@@ -192,7 +192,7 @@
            </widget>
           </item>
           <item row="9" column="0">
-           <widget class="QRadioButton" name="mode_lpd">
+           <widget class="QRadioButton" name="mode_jrc_lpd">
             <property name="enabled">
              <bool>true</bool>
             </property>

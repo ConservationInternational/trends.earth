@@ -190,8 +190,8 @@ class DegradationWorkerSDG(AbstractWorker):
         traj_band = src_ds.GetRasterBand(1)
         perf_band = src_ds.GetRasterBand(2)
         state_band = src_ds.GetRasterBand(3)
-        lc_band = src_ds.GetRasterBand(4)
-        soc_band = src_ds.GetRasterBand(5)
+        lc_band = src_ds.GetRasterBand(8)
+        soc_band = src_ds.GetRasterBand(9)
 
         block_sizes = traj_band.GetBlockSize()
         x_block_size = block_sizes[0]
@@ -432,17 +432,19 @@ def merge_area_tables(table1, table2):
 
 
 class AreaWorker(AbstractWorker):
-    def __init__(self, in_file):
+    def __init__(self, masked_f, deg_f):
         AbstractWorker.__init__(self)
-        self.in_file = in_file
+        self.masked_f = masked_f
+        self.deg_f = deg_f
 
     def work(self):
-        ds = gdal.Open(self.in_file)
-        band_deg = ds.GetRasterBand(1)
-        band_lc_bl = ds.GetRasterBand(2)
-        band_lc_tg = ds.GetRasterBand(3)
-        band_soc_bl = ds.GetRasterBand(4)
-        band_soc_tg = ds.GetRasterBand(5)
+        ds_deg = gdal.Open(self.deg_f)
+        band_deg = ds_deg.GetRasterBand(1)
+        ds_masked = gdal.Open(self.masked_f)
+        band_lc_bl = ds_masked.GetRasterBand(4)
+        band_lc_tg = ds_masked.GetRasterBand(5)
+        band_soc_bl = ds_masked.GetRasterBand(6)
+        band_soc_tg = ds_masked.GetRasterBand(7)
 
         block_sizes = band_deg.GetBlockSize()
         x_block_size = block_sizes[0]
@@ -452,7 +454,7 @@ class AreaWorker(AbstractWorker):
         xsize = band_deg.XSize
         ysize = band_deg.YSize
 
-        gt = ds.GetGeoTransform()
+        gt = ds_deg.GetGeoTransform()
         # Width of cells in longitude
         long_width = gt[1]
 
@@ -518,7 +520,8 @@ class AreaWorker(AbstractWorker):
                 blocks += 1
             lat += pixel_height
         self.progress.emit(100)
-        self.ds = None
+        self.ds_deg = None
+        self.ds_masked = None
 
         # Convert all area tables from meters into square kilometers
         trans_xtab[1] = trans_xtab[1] * 1e-6
@@ -861,91 +864,6 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.close()
 
         #######################################################################
-        # Load all datasets to VRTs (to select only the needed bands)
-        self.traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.traj_f, self.layer_traj.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_traj_bandnumber])
-
-        self.perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.perf_f, self.layer_perf.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_perf_bandnumber])
-
-        self.state_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.state_f, self.layer_state.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_state_bandnumber])
-
-        self.lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(),
-                bandList=[self.layer_lc_bandnumber])
-
-        self.soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_bandnumber])
-
-        # Compute the pixel-aligned bounding box (slightly larger than aoi).
-        # Use this instead of croptocutline in gdal.Warp in order to keep the
-        # pixels aligned.
-        bb = self.aoi.bounding_box_geom.boundingBox()
-        minx = bb.xMinimum()
-        miny = bb.yMinimum()
-        maxx = bb.xMaximum()
-        maxy = bb.yMaximum()
-        traj_gt = gdal.Open(self.traj_f).GetGeoTransform()
-        left = minx - (minx - traj_gt[0]) % traj_gt[1]
-        right = maxx + (traj_gt[1] - ((maxx - traj_gt[0]) % traj_gt[1]))
-        bottom = miny + (traj_gt[5] - ((miny - traj_gt[3]) % traj_gt[5]))
-        top = maxy - (maxy - traj_gt[3]) % traj_gt[5]
-        self.outputBounds = [left, bottom, right, top]
-
-        #######################################################################
-        #######################################################################
-        # Calculate SDG 15.3 layers
-        #######################################################################
-        #######################################################################
-
-        ######################################################################
-        # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
-        self.indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('Saving indicator VRT to: {}'.format(self.indic_f))
-        resample_alg = self.get_resample_alg(self.lc_deg_f, self.traj_f)
-        gdal.BuildVRT(self.indic_f,
-                      [self.traj_f,
-                       self.perf_f,
-                       self.state_f,
-                       self.lc_deg_f,
-                       self.soc_deg_f],
-                      outputBounds=self.outputBounds,
-                      resolution=resample_alg[0],
-                      resampleAlg=resample_alg[1],
-                      separate=True)
-
-        lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
-        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers',
-                                         self.indic_f,
-                                         lc_clip_tempfile, self.aoi.layer)
-        if not deg_lc_clip_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error masking SDG 15.3.1 input layers."), None)
-            return
-
-        ######################################################################
-        #  Calculate SDG 15.3.1 layers
-        log('Calculating degradation...')
-        deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
-                                 lc_clip_tempfile, self.output_file_layer.text())
-        if not deg_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
-            return
-
-        #######################################################################
-        #######################################################################
-        # Produce summary table
-        #######################################################################
-        #######################################################################
-
-        #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
         # degradation layers for these datasets
 
@@ -961,60 +879,125 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.layer_soc_bl_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == soc_first_year][0]
         self.layer_soc_tg_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == soc_last_year][0]
 
-        ######################################################################
-        # Combine rasters into a VRT and crop to the AOI
-        indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('Saving deg/lc/soc VRT to: {}'.format(indic_f))
+        #######################################################################
+        # Load all datasets to VRTs (to select only the needed bands)
+        traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(traj_f, self.layer_traj.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_traj_bandnumber])
 
-        # The combined productivity sub-indicator is band 2 of the output file
-        self.prod_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.prod_f, self.output_file_layer.text(),
-                      bandList=[2])
+        perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(perf_f, self.layer_perf.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_perf_bandnumber])
 
-        # Select lc bands using bandlist since BuildVrt will otherwise only use
-        # the first band of the file
-        self.lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_bl_f, self.layer_lc.dataProvider().dataSourceUri(),
+        state_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(state_f, self.layer_state.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_state_bandnumber])
+
+        # Select lc and SOC bands using bandlist since BuildVrt will otherwise 
+        # only use the first band of the file
+        lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_bl_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_lc_bl_bandnumber])
 
-        self.lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.lc_tg_f, self.layer_lc.dataProvider().dataSourceUri(),
+        lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_tg_f, self.layer_lc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_lc_tg_bandnumber])
 
-        self.soc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_bl_f, self.layer_soc.dataProvider().dataSourceUri(),
+        soc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(soc_bl_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_bl_bandnumber])
 
-        self.soc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(self.soc_tg_f, self.layer_soc.dataProvider().dataSourceUri(),
+        soc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(soc_tg_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_tg_bandnumber])
 
-        gdal.BuildVRT(indic_f,
-                      [self.prod_f,
-                       self.lc_bl_f,
-                       self.lc_tg_f,
-                       self.soc_bl_f,
-                       self.soc_tg_f],
+        lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(),
+                bandList=[self.layer_lc_bandnumber])
+
+        soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
+                      bandList=[self.layer_soc_bandnumber])
+
+        # Compute the pixel-aligned bounding box (slightly larger than aoi).
+        # Use this instead of croptocutline in gdal.Warp in order to keep the
+        # pixels aligned.
+        bb = self.aoi.bounding_box_geom.boundingBox()
+        minx = bb.xMinimum()
+        miny = bb.yMinimum()
+        maxx = bb.xMaximum()
+        maxy = bb.yMaximum()
+        traj_gt = gdal.Open(traj_f).GetGeoTransform()
+        left = minx - (minx - traj_gt[0]) % traj_gt[1]
+        right = maxx + (traj_gt[1] - ((maxx - traj_gt[0]) % traj_gt[1]))
+        bottom = miny + (traj_gt[5] - ((miny - traj_gt[3]) % traj_gt[5]))
+        top = maxy - (maxy - traj_gt[3]) % traj_gt[5]
+        self.outputBounds = [left, bottom, right, top]
+
+        #######################################################################
+        #######################################################################
+        # Calculate SDG 15.3 layers
+        #######################################################################
+        #######################################################################
+
+        ######################################################################
+        # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
+        indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        log('Saving indicator VRT to: {}'.format(indic_vrt))
+        # Both SOC and LC are near the same resolution, so resample them in the 
+        # same way
+        resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
+        gdal.BuildVRT(indic_vrt,
+                      [traj_f,
+                       perf_f,
+                       state_f,
+                       lc_bl_f,
+                       lc_tg_f,
+                       soc_bl_f,
+                       soc_tg_f,
+                       lc_deg_f,
+                       soc_deg_f],
                       outputBounds=self.outputBounds,
                       resolution=resample_alg[0],
                       resampleAlg=resample_alg[1],
                       separate=True)
-        # Clip and mask the lc/deg layer before calculating crosstab
-        lc_clip_tempfile = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving deg/lc clipped file to {}'.format(lc_clip_tempfile))
+
+        masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log('Saving deg/lc clipped file to {}'.format(masked_vrt))
         deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers',
-                                         indic_f,
-                                         lc_clip_tempfile, self.aoi.layer)
+                                         indic_vrt,
+                                         masked_vrt, self.aoi.layer)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error clipping layers for area calculation."), None)
+                                       self.tr("Error masking SDG 15.3.1 input layers."), None)
             return
+
+        ######################################################################
+        #  Calculate SDG 15.3.1 layers
+        log('Calculating degradation...')
+        deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
+                                 masked_vrt, self.output_file_layer.text())
+        if not deg_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
+            return
+
+        #######################################################################
+        #######################################################################
+        # Produce summary table
+        #######################################################################
+        #######################################################################
+
+        # The combined degradation indicator is band 1 of the output file
+        deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(deg_f, self.output_file_layer.text(),
+                      bandList=[1])
 
         ######################################################################
         # Calculate area crosstabs
 
         log('Calculating land cover crosstabulation...')
-        area_worker = StartWorker(AreaWorker, 'calculating areas', lc_clip_tempfile)
+        area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, deg_f)
         if not area_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)

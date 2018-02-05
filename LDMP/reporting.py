@@ -641,8 +641,6 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
 
 
 class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
-    '''Class to be shared across SDG and SummaryTable reporting dialogs'''
-
     def __init__(self, parent=None):
         super(DlgReportingSDG, self).__init__(parent)
         self.setupUi(self)
@@ -1197,8 +1195,6 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, out_file):
 
 
 class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
-    '''Class to be shared across SDG and SummaryTable reporting dialogs'''
-
     def __init__(self, parent=None):
         super(DlgCreateMap, self).__init__(parent)
         self.setupUi(self)

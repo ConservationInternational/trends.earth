@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgCalculate</class>
- <widget class="QDialog" name="DlgCalculate">
+ <class>DlgLoadData</class>
+ <widget class="QDialog" name="DlgLoadData">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Calculate Indicators</string>
+   <string>Load data</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

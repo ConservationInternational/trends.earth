@@ -150,7 +150,7 @@ def get_ld_layers(layer_type=None):
     return layers_filtered
 
 
-def style_sdg_ld(outfile, title):
+def style_sdg_ld(outfile, title, band=1):
     # Significance layer
     log('Loading layers onto map.')
     layer = iface.addRasterLayer(outfile, title)
@@ -168,14 +168,14 @@ def style_sdg_ld(outfile, title):
     fcn.setColorRampItemList(lst)
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+    pseudoRenderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), band, shader)
     layer.setRenderer(pseudoRenderer)
     layer.triggerRepaint()
     iface.legendInterface().refreshLayerSymbology(layer)
 
 
 class DegradationWorkerSDG(AbstractWorker):
-    def __init__(self, src_file, deg_file, prod_file):
+    def __init__(self, src_file, deg_file):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
@@ -321,7 +321,6 @@ class DegradationWorkerSDG(AbstractWorker):
 
         if self.killed:
             os.remove(deg_file)
-            os.remove(prod_file)
             return None
         else:
             return True
@@ -967,6 +966,11 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         indic_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         log('Saving deg/lc/soc VRT to: {}'.format(indic_f))
 
+        # The combined productivity sub-indicator is band 2 of the output file
+        self.prod_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(self.prod_f, self.output_file_layer.text(),
+                      bandList=[2])
+
         # Select lc bands using bandlist since BuildVrt will otherwise only use
         # the first band of the file
         self.lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -986,7 +990,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
                       bandList=[self.layer_soc_tg_bandnumber])
 
         gdal.BuildVRT(indic_f,
-                      [prod_f,
+                      [self.prod_f,
                        self.lc_bl_f,
                        self.lc_tg_f,
                        self.soc_bl_f,
@@ -1030,8 +1034,8 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
                            self.output_file_table.text())
 
-        style_sdg_ld(prod_f, QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'))
-        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'))
+        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'), 2)
+        style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'Degradation (SDG 15.3.1 indicator)'), 1)
 
         self.plot_degradation(x, y)
 

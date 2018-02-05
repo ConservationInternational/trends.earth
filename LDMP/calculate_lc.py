@@ -111,15 +111,11 @@ class DlgCalculateLCBase(DlgCalculateBase):
             self.remap_custom_create.setEnabled(True)
             self.remap_custom_file.setEnabled(True)
             self.remap_custom_file_browse.setEnabled(True)
-            self.remap_label_new.setEnabled(True)
-            self.remap_label_saved.setEnabled(True)
         else:
             self.dlg_remap.setup_class_table()
             self.remap_custom_create.setEnabled(False)
             self.remap_custom_file.setEnabled(False)
             self.remap_custom_file_browse.setEnabled(False)
-            self.remap_label_new.setEnabled(False)
-            self.remap_label_saved.setEnabled(False)
 
     def open_remap_file(self):
         f = QtGui.QFileDialog.getOpenFileName(self,

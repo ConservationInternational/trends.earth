@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=2.18
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.40
+version=0.42
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -21,7 +21,9 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.40
+changelog=0.42
+    - Fix crash on change of LC aggregation (due setEnabled on removed label)
+  0.40
     - Remove use of mode for land cover indicator.
     - Combine the summary table and SDG indicator map creation tools.
     - Add stub for where JRC LPD product will be available.

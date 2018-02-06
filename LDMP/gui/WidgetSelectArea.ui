@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>358</width>
-    <height>329</height>
+    <width>475</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -222,6 +222,22 @@
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Output coordinate reference system (CRS)</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="btn_crs">
+        <property name="text">
+         <string>Set CRS</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

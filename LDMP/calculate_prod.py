@@ -61,7 +61,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.mode_gpg_prod.toggled.connect(self.mode_gpg_prod_toggled)
 
-        self.mode_gpg_prod.toggled()
+        self.mode_gpg_prod_toggled()
 
         self.indic_select_traj_changed()
         self.indic_select_perf_changed()

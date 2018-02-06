@@ -645,6 +645,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         self.setupUi(self)
 
         self.mode_jrc_lpd.toggled.connect(self.mode_jrc_lpd_toggled)
+        self.mode_jrc_lpd_toggled()
 
     def mode_jrc_lpd_toggled(self):
         if self.mode_jrc_lpd.isChecked():

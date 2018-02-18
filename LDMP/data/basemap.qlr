@@ -2,30 +2,30 @@
 <qlr>
   <layer-tree-group expanded="1" checked="Qt::Checked" name="">
     <customproperties/>
-    <layer-tree-group expanded="0" checked="Qt::Checked" name="Basemap">
+    <layer-tree-group expanded="1" checked="Qt::Checked" name="Basemap">
       <customproperties/>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_lakes20180206111207514" source="C:/Data/Natural_Earth/ne_10m_lakes.shp" name="Lakes">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_lakes201201802171206299367616" source="DATA_PATH/ne_10m_lakes.shp" name="Lakes">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_rivers_lake_centerlines_scale_rank20180206110942634" source="C:/Data/Natural_Earth/ne_10m_rivers_lake_centerlines_scale_rank.shp" name="Rivers">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_rivers_lake_centerlines_scale_rank201802018021712062993614344" source="DATA_PATH/ne_10m_rivers_lake_centerlines_scale_rank.shp" name="Rivers">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_coastline20180206110942343" source="C:/Data/Natural_Earth/ne_10m_coastline.shp" name="Coastline">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_coastline2018201802171206299361218" source="DATA_PATH/ne_10m_coastline.shp" name="Coastline">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_populated_places20180217093643876" source="C:/Data/Natural_Earth/ne_10m_populated_places.shp" name="Cities">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_populated_places20182018021712062993628495" source="DATA_PATH/ne_10m_populated_places.shp" name="Cities">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_disputed_areas20180217093440011" source="C:/Data/Natural_Earth/ne_10m_admin_0_disputed_areas.shp" name="Disputed areas">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_disputed_areas2018201802171206299364908" source="DATA_PATH/ne_10m_admin_0_disputed_areas.shp" name="Disputed areas">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_countries20180206111203640" source="C:/Data/Natural_Earth/ne_10m_admin_0_countries.shp|layerid=0|subset=&quot;ISO_A3&quot; != 'IND'" name="Countries">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_countries201802018021712062993615356" source="DATA_PATH/ne_10m_admin_0_countries.shp|layerid=0|subset=&quot;ISO_A3&quot; != 'IND'" name="Countries">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_1_states_provinces20180206203441144" source="C:/Data/Natural_Earth/ne_10m_admin_1_states_provinces.shp|layerid=0|subset=&quot;iso_a2&quot;='IN'" name="Admin 1">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_1_states_provinces20180201802171206299361926" source="DATA_PATH/ne_10m_admin_1_states_provinces.shp|layerid=0|subset=&quot;iso_a2&quot;='IN'" name="Admin 1">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_ocean20180206110942617" source="C:/Data/Natural_Earth/ne_10m_ocean.shp" name="Ocean">
+      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_ocean2018201802171206299362407" source="DATA_PATH/ne_10m_ocean.shp" name="Ocean">
         <customproperties/>
       </layer-tree-layer>
     </layer-tree-group>
@@ -38,8 +38,8 @@
         <xmax>177.15437916068970026</xmax>
         <ymax>81.95520786930867985</ymax>
       </extent>
-      <id>ne_10m_lakes20180206111207514</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_lakes.shp</datasource>
+      <id>ne_10m_lakes201201802171206299367616</id>
+      <datasource>DATA_PATH/ne_10m_lakes.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -406,8 +406,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>177.5203567006342098</xmax>
         <ymax>75.79347565311911694</ymax>
       </extent>
-      <id>ne_10m_rivers_lake_centerlines_scale_rank20180206110942634</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_rivers_lake_centerlines_scale_rank.shp</datasource>
+      <id>ne_10m_rivers_lake_centerlines_scale_rank201802018021712062993614344</id>
+      <datasource>DATA_PATH/ne_10m_rivers_lake_centerlines_scale_rank.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -759,8 +759,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>180</xmax>
         <ymax>83.63410065300007545</ymax>
       </extent>
-      <id>ne_10m_coastline20180206110942343</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_coastline.shp</datasource>
+      <id>ne_10m_coastline2018201802171206299361218</id>
+      <datasource>DATA_PATH/ne_10m_coastline.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -1066,8 +1066,14 @@ def my_form_open(dialog, layer, feature):
       <previewExpression></previewExpression>
     </maplayer>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <id>ne_10m_populated_places20180217093643876</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_populated_places.shp</datasource>
+      <extent>
+        <xmin>-179.58997888396896769</xmin>
+        <ymin>-89.99999981438726593</ymin>
+        <xmax>179.38330358817017895</xmax>
+        <ymax>82.48332318035943445</ymax>
+      </extent>
+      <id>ne_10m_populated_places20182018021712062993628495</id>
+      <datasource>DATA_PATH/ne_10m_populated_places.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -1401,13 +1407,56 @@ def my_form_open(dialog, layer, feature):
       </edittypes>
       <renderer-v2 forceraster="0" symbollevels="0" type="RuleRenderer" enableorderby="0">
         <rules key="{fb29731c-f412-4a72-8a78-8901192931a7}">
-          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =0" key="{25c3b82d-e00b-44b6-a529-7e13bca73e14}" symbol="0" scalemindenom="1000" label="Mega cities"/>
-          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =1" key="{3ace4c2a-3dfe-4be4-b526-1e496489991f}" symbol="1" scalemindenom="1000" label="Major cities"/>
-          <rule scalemaxdenom="10000000" filter="&quot;SCALERANK&quot; >1 and &quot;SCALERANK&quot; &lt;5 " key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="2" scalemindenom="1000" label="Mid-sized cities"/>
-          <rule scalemaxdenom="5000000" filter="&quot;SCALERANK&quot; >=5" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="3" scalemindenom="1000" label="Small cities"/>
+          <rule scalemaxdenom="35000000" filter="  &quot;FEATURECLA&quot; ='Admin-0 capital' " key="{4ee4e051-ea27-4af1-9682-10d2acb4d5eb}" symbol="0" scalemindenom="1000" label="Capital cities"/>
+          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =0" key="{25c3b82d-e00b-44b6-a529-7e13bca73e14}" symbol="1" scalemindenom="1000" label="Mega cities"/>
+          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =1" key="{3ace4c2a-3dfe-4be4-b526-1e496489991f}" symbol="2" scalemindenom="1000" label="Major cities"/>
+          <rule scalemaxdenom="10000000" filter="&quot;SCALERANK&quot; >1 and &quot;SCALERANK&quot; &lt;5 " key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="3" scalemindenom="1000" label="Mid-sized cities"/>
+          <rule scalemaxdenom="5000000" filter="&quot;SCALERANK&quot; >=5" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="4" scalemindenom="1000" label="Small cities"/>
         </rules>
         <symbols>
           <symbol alpha="1" clip_to_extent="1" type="marker" name="0">
+            <layer pass="0" class="SimpleMarker" locked="0">
+              <prop k="angle" v="0"/>
+              <prop k="color" v="255,255,255,255"/>
+              <prop k="horizontal_anchor_point" v="1"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="name" v="circle"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="0,0,0,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0"/>
+              <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="scale_method" v="area"/>
+              <prop k="size" v="2.4"/>
+              <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="size_unit" v="MM"/>
+              <prop k="vertical_anchor_point" v="1"/>
+            </layer>
+            <layer pass="0" class="SimpleMarker" locked="0">
+              <prop k="angle" v="0"/>
+              <prop k="color" v="0,0,0,255"/>
+              <prop k="horizontal_anchor_point" v="1"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="name" v="circle"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="0,0,0,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0"/>
+              <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="scale_method" v="area"/>
+              <prop k="size" v="0.5"/>
+              <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="size_unit" v="MM"/>
+              <prop k="vertical_anchor_point" v="1"/>
+            </layer>
+          </symbol>
+          <symbol alpha="1" clip_to_extent="1" type="marker" name="1">
             <layer pass="0" class="SimpleMarker" locked="0">
               <prop k="angle" v="0"/>
               <prop k="color" v="190,190,190,255"/>
@@ -1429,7 +1478,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="vertical_anchor_point" v="1"/>
             </layer>
           </symbol>
-          <symbol alpha="1" clip_to_extent="1" type="marker" name="1">
+          <symbol alpha="1" clip_to_extent="1" type="marker" name="2">
             <layer pass="1" class="SimpleMarker" locked="0">
               <prop k="angle" v="0"/>
               <prop k="color" v="190,190,190,255"/>
@@ -1451,7 +1500,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="vertical_anchor_point" v="1"/>
             </layer>
           </symbol>
-          <symbol alpha="1" clip_to_extent="1" type="marker" name="2">
+          <symbol alpha="1" clip_to_extent="1" type="marker" name="3">
             <layer pass="2" class="SimpleMarker" locked="0">
               <prop k="angle" v="0"/>
               <prop k="color" v="190,190,190,255"/>
@@ -1473,7 +1522,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="vertical_anchor_point" v="1"/>
             </layer>
           </symbol>
-          <symbol alpha="1" clip_to_extent="1" type="marker" name="3">
+          <symbol alpha="1" clip_to_extent="1" type="marker" name="4">
             <layer pass="3" class="SimpleMarker" locked="0">
               <prop k="angle" v="0"/>
               <prop k="color" v="190,190,190,255"/>
@@ -1498,8 +1547,22 @@ def my_form_open(dialog, layer, feature):
         </symbols>
       </renderer-v2>
       <labeling type="rule-based">
-        <rules key="{0a86aaa1-6330-4ba7-a30d-aea2c0588d24}">
-          <rule scalemaxdenom="35000000" description="Mega cities" filter=" &quot;SCALERANK&quot; =0" key="{a5a81d4c-e5c5-4e43-9d04-faac53b0b650}" scalemindenom="1000">
+        <rules key="{2334a43a-f3f2-4fd9-a1a2-e6ab2f2a030f}">
+          <rule scalemaxdenom="35000000" description="Capital city" filter=" &quot;FEATURECLA&quot; = 'Admin-0 capital' " key="{9ca6ca7f-01d6-445a-a57a-b5cfaf8f355a}" scalemindenom="1000">
+            <settings>
+              <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="75" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="1" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="10" fieldName="NAME" namedStyle="Bold" fontWordSpacing="0" useSubstitutions="0">
+                <substitutions/>
+              </text-style>
+              <text-format placeDirectionSymbol="0" multilineAlign="3" rightDirectionSymbol=">" multilineHeight="1" plussign="0" addDirectionSymbol="0" leftDirectionSymbol="&lt;" formatNumbers="0" decimals="3" wrapChar="" reverseDirectionSymbol="0"/>
+              <text-buffer bufferSize="0.6" bufferSizeMapUnitScale="0,0,0,0,0,0" bufferColor="255,255,255,255" bufferDraw="1" bufferBlendMode="0" bufferTransp="50" bufferSizeInMapUnits="0" bufferNoFill="0" bufferJoinStyle="128"/>
+              <background shapeSizeUnits="1" shapeType="0" shapeSVGFile="" shapeOffsetX="0" shapeOffsetY="0" shapeBlendMode="0" shapeFillColor="255,255,255,255" shapeTransparency="0" shapeSizeMapUnitScale="0,0,0,0,0,0" shapeSizeType="0" shapeJoinStyle="64" shapeDraw="0" shapeBorderWidthUnits="1" shapeSizeX="0" shapeSizeY="0" shapeOffsetMapUnitScale="0,0,0,0,0,0" shapeRadiiX="0" shapeRadiiY="0" shapeOffsetUnits="1" shapeRotation="0" shapeBorderWidth="0" shapeBorderColor="128,128,128,255" shapeRotationType="0" shapeBorderWidthMapUnitScale="0,0,0,0,0,0" shapeRadiiMapUnitScale="0,0,0,0,0,0" shapeRadiiUnits="1"/>
+              <shadow shadowOffsetMapUnitScale="0,0,0,0,0,0" shadowOffsetGlobal="1" shadowRadiusUnits="1" shadowTransparency="30" shadowColor="0,0,0,255" shadowUnder="0" shadowScale="100" shadowOffsetDist="1" shadowDraw="0" shadowOffsetAngle="135" shadowRadius="1.5" shadowRadiusMapUnitScale="0,0,0,0,0,0" shadowBlendMode="6" shadowRadiusAlphaOnly="0" shadowOffsetUnits="1"/>
+              <placement repeatDistanceUnit="1" placement="0" maxCurvedCharAngleIn="25" repeatDistance="0" distInMapUnits="0" labelOffsetInMapUnits="1" xOffset="0" distMapUnitScale="0,0,0,0,0,0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" preserveRotation="1" repeatDistanceMapUnitScale="0,0,0,0,0,0" centroidWhole="0" priority="5" yOffset="0" offsetType="0" placementFlags="10" centroidInside="0" dist="0" angleOffset="0" maxCurvedCharAngleOut="-25" fitInPolygonOnly="0" quadOffset="4" labelOffsetMapUnitScale="0,0,0,0,0,0"/>
+              <rendering fontMinPixelSize="3" scaleMax="10000000" fontMaxPixelSize="10000" scaleMin="1" upsidedownLabels="0" limitNumLabels="0" obstacle="1" obstacleFactor="1" scaleVisibility="0" fontLimitPixelSize="0" mergeLines="0" obstacleType="0" labelPerPart="0" zIndex="0" maxNumLabels="2000" displayAll="0" minFeatureSize="0"/>
+              <data-defined/>
+            </settings>
+          </rule>
+          <rule scalemaxdenom="35000000" description="Mega city" filter=" &quot;SCALERANK&quot; =0 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{dae63726-8efe-42bd-9778-bedde52ac402}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="75" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="10" fieldName="NAME" namedStyle="Bold" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1513,7 +1576,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="35000000" description="Major cities" filter=" &quot;SCALERANK&quot; =1" key="{6e3e1a5f-192f-4a6b-8868-f1bb8335e81e}" scalemindenom="1000">
+          <rule scalemaxdenom="35000000" description="Major city" filter=" &quot;SCALERANK&quot; =1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{aa312c38-d171-4e85-9058-8e9b76acbc8e}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Light" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1527,7 +1590,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="10000000" description="Mid-sized cities" filter=" &quot;SCALERANK&quot; >1 and  &quot;SCALERANK&quot; &lt;5" key="{992da673-7a17-499b-9500-4abc55d42b2c}" scalemindenom="1000">
+          <rule scalemaxdenom="10000000" description="Mid-sized city" filter=" &quot;SCALERANK&quot; >1 and  &quot;SCALERANK&quot; &lt;5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{8c55d6c6-1bdf-4b77-816d-6a8237c70d70}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Light" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1541,7 +1604,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="5000000" description="Small cities" filter=" &quot;SCALERANK&quot; >=5" key="{1f2e92e9-809b-4355-8f9d-63f042f66a47}" scalemindenom="1000">
+          <rule scalemaxdenom="5000000" description="Small city" filter=" &quot;SCALERANK&quot; >=5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{50e4d9fe-85d1-4f4e-b7c6-2231fe3ceb58}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Light" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1727,6 +1790,7 @@ def my_form_open(dialog, layer, feature):
       <SingleCategoryDiagramRenderer diagramType="Histogram" sizeLegend="0" attributeLegend="1">
         <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" sizeScale="0,0,0,0,0,0" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" lineSizeScale="0,0,0,0,0,0" sizeType="MM" lineSizeType="MM" minScaleDenominator="inf">
           <fontProperties description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style=""/>
+          <attribute field="" color="#000000" label=""/>
         </DiagramCategory>
         <symbol alpha="1" clip_to_extent="1" type="marker" name="sizeSymbol">
           <layer pass="0" class="SimpleMarker" locked="0">
@@ -1752,7 +1816,7 @@ def my_form_open(dialog, layer, feature):
         </symbol>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" showColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" zIndex="0" showAll="1"/>
-      <annotationform></annotationform>
+      <annotationform>.</annotationform>
       <aliases>
         <alias field="SCALERANK" index="0" name=""/>
         <alias field="NATSCALE" index="1" name=""/>
@@ -1967,10 +2031,10 @@ def my_form_open(dialog, layer, feature):
           <column width="-1" hidden="1" type="actions"/>
         </columns>
       </attributetableconfig>
-      <editform></editform>
+      <editform>.</editform>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath></editforminitfilepath>
+      <editforminitfilepath>.</editforminitfilepath>
       <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
@@ -2108,8 +2172,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>172.05933856500016077</xmax>
         <ymax>80.83283112200004439</ymax>
       </extent>
-      <id>ne_10m_admin_0_disputed_areas20180217093440011</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_admin_0_disputed_areas.shp</datasource>
+      <id>ne_10m_admin_0_disputed_areas2018201802171206299364908</id>
+      <datasource>DATA_PATH/ne_10m_admin_0_disputed_areas.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -2836,8 +2900,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>180.00000000000019895</xmax>
         <ymax>83.63410065300011809</ymax>
       </extent>
-      <id>ne_10m_admin_0_countries20180206111203640</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_admin_0_countries.shp|layerid=0|subset="ISO_A3" != 'IND'</datasource>
+      <id>ne_10m_admin_0_countries201802018021712062993615356</id>
+      <datasource>DATA_PATH/ne_10m_admin_0_countries.shp|layerid=0|subset="ISO_A3" != 'IND'</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -3084,7 +3148,7 @@ def my_form_open(dialog, layer, feature):
           <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
             <layer pass="0" class="SimpleFill" locked="0">
               <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="color" v="253,253,253,255"/>
+              <prop k="color" v="233,233,233,255"/>
               <prop k="joinstyle" v="bevel"/>
               <prop k="offset" v="0,0"/>
               <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
@@ -3559,13 +3623,13 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="4e+06" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="1" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <extent>
-        <xmin>-179.99999999999988631</xmin>
-        <ymin>-90</ymin>
-        <xmax>180.00000000000019895</xmax>
-        <ymax>83.63410065300011809</ymax>
+        <xmin>68.14340254000012465</xmin>
+        <ymin>6.74555084800014981</ymin>
+        <xmax>97.36225305200002822</xmax>
+        <ymax>35.49540557900013482</ymax>
       </extent>
-      <id>ne_10m_admin_1_states_provinces20180206203441144</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_admin_1_states_provinces.shp|layerid=0|subset="iso_a2"='IN'</datasource>
+      <id>ne_10m_admin_1_states_provinces20180201802171206299361926</id>
+      <datasource>DATA_PATH/ne_10m_admin_1_states_provinces.shp|layerid=0|subset="iso_a2"='IN'</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -4226,8 +4290,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>180.00000000000014211</xmax>
         <ymax>90.00000000000008527</ymax>
       </extent>
-      <id>ne_10m_ocean20180206110942617</id>
-      <datasource>../../../../../../../Data/Natural_Earth/ne_10m_ocean.shp</datasource>
+      <id>ne_10m_ocean2018201802171206299362407</id>
+      <datasource>DATA_PATH/ne_10m_ocean.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>

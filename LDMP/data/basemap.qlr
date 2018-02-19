@@ -2,33 +2,30 @@
 <qlr>
   <layer-tree-group expanded="1" checked="Qt::Checked" name="">
     <customproperties/>
-    <layer-tree-group expanded="1" checked="Qt::Checked" name="Basemap">
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_lakes" source="DATA_FOLDER/ne_10m_lakes.shp" name="Lake">
       <customproperties/>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_lakes201201802171206299367616" source="DATA_PATH/ne_10m_lakes.shp" name="Lakes">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_rivers_lake_centerlines_scale_rank201802018021712062993614344" source="DATA_PATH/ne_10m_rivers_lake_centerlines_scale_rank.shp" name="Rivers">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_coastline2018201802171206299361218" source="DATA_PATH/ne_10m_coastline.shp" name="Coastline">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_populated_places20182018021712062993628495" source="DATA_PATH/ne_10m_populated_places.shp" name="Cities">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_disputed_areas2018201802171206299364908" source="DATA_PATH/ne_10m_admin_0_disputed_areas.shp" name="Disputed areas">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_countries201802018021712062993615356" source="DATA_PATH/ne_10m_admin_0_countries.shp|layerid=0|subset=&quot;ISO_A3&quot; != 'IND'" name="Countries">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_1_states_provinces20180201802171206299361926" source="DATA_PATH/ne_10m_admin_1_states_provinces.shp|layerid=0|subset=&quot;iso_a2&quot;='IN'" name="Admin 1">
-        <customproperties/>
-      </layer-tree-layer>
-      <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_ocean2018201802171206299362407" source="DATA_PATH/ne_10m_ocean.shp" name="Ocean">
-        <customproperties/>
-      </layer-tree-layer>
-    </layer-tree-group>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_rivers_lake_centerlines_scale_rank" source="DATA_FOLDER/ne_10m_rivers_lake_centerlines_scale_rank.shp" name="River">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_coastline" source="DATA_FOLDER/ne_10m_coastline.shp" name="Coastline">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="0" providerKey="ogr" checked="Qt::Checked" id="ne_10m_populated_places" source="DATA_FOLDER/ne_10m_populated_places.shp" name="City">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_disputed_areas" source="DATA_FOLDER/ne_10m_admin_0_disputed_areas.shp" name="Disputed border">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_1_states_provinces" source="DATA_FOLDER/ne_10m_admin_1_states_provinces.shp|layerid=0MASK_SQL_ADMIN1" name="Sub-national border">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_admin_0_countries" source="DATA_FOLDER/ne_10m_admin_0_countries.shp|layerid=0MASK_SQL_ADMIN0" name="National border">
+      <customproperties/>
+    </layer-tree-layer>
+    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_ocean" source="DATA_FOLDER/ne_10m_ocean.shp" name="Ocean">
+      <customproperties/>
+    </layer-tree-layer>
   </layer-tree-group>
   <maplayers>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
@@ -38,12 +35,12 @@
         <xmax>177.15437916068970026</xmax>
         <ymax>81.95520786930867985</ymax>
       </extent>
-      <id>ne_10m_lakes201201802171206299367616</id>
-      <datasource>DATA_PATH/ne_10m_lakes.shp</datasource>
+      <id>ne_10m_lakes</id>
+      <datasource>DATA_FOLDER/ne_10m_lakes.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>Lakes</layername>
+      <layername>Lake</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -406,12 +403,12 @@ def my_form_open(dialog, layer, feature):
         <xmax>177.5203567006342098</xmax>
         <ymax>75.79347565311911694</ymax>
       </extent>
-      <id>ne_10m_rivers_lake_centerlines_scale_rank201802018021712062993614344</id>
-      <datasource>DATA_PATH/ne_10m_rivers_lake_centerlines_scale_rank.shp</datasource>
+      <id>ne_10m_rivers_lake_centerlines_scale_rank</id>
+      <datasource>DATA_FOLDER/ne_10m_rivers_lake_centerlines_scale_rank.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>Rivers</layername>
+      <layername>River</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -759,8 +756,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>180</xmax>
         <ymax>83.63410065300007545</ymax>
       </extent>
-      <id>ne_10m_coastline2018201802171206299361218</id>
-      <datasource>DATA_PATH/ne_10m_coastline.shp</datasource>
+      <id>ne_10m_coastline</id>
+      <datasource>DATA_FOLDER/ne_10m_coastline.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -807,7 +804,7 @@ def my_form_open(dialog, layer, feature):
               <prop k="joinstyle" v="bevel"/>
               <prop k="line_color" v="140,140,140,255"/>
               <prop k="line_style" v="solid"/>
-              <prop k="line_width" v="0.25"/>
+              <prop k="line_width" v="0.15"/>
               <prop k="line_width_unit" v="MM"/>
               <prop k="offset" v="0"/>
               <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
@@ -1028,7 +1025,12 @@ def my_form_open(dialog, layer, feature):
       <excludeAttributesWFS/>
       <attributeactions default="-1"/>
       <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
-        <columns/>
+        <columns>
+          <column width="-1" hidden="0" type="field" name="featurecla"/>
+          <column width="-1" hidden="0" type="field" name="scalerank"/>
+          <column width="-1" hidden="0" type="field" name="min_zoom"/>
+          <column width="-1" hidden="1" type="actions"/>
+        </columns>
       </attributetableconfig>
       <editform>.</editform>
       <editforminit/>
@@ -1072,12 +1074,12 @@ def my_form_open(dialog, layer, feature):
         <xmax>179.38330358817017895</xmax>
         <ymax>82.48332318035943445</ymax>
       </extent>
-      <id>ne_10m_populated_places20182018021712062993628495</id>
-      <datasource>DATA_PATH/ne_10m_populated_places.shp</datasource>
+      <id>ne_10m_populated_places</id>
+      <datasource>DATA_FOLDER/ne_10m_populated_places.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>Cities</layername>
+      <layername>City</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -1407,11 +1409,11 @@ def my_form_open(dialog, layer, feature):
       </edittypes>
       <renderer-v2 forceraster="0" symbollevels="0" type="RuleRenderer" enableorderby="0">
         <rules key="{fb29731c-f412-4a72-8a78-8901192931a7}">
-          <rule scalemaxdenom="35000000" filter="  &quot;FEATURECLA&quot; ='Admin-0 capital' " key="{4ee4e051-ea27-4af1-9682-10d2acb4d5eb}" symbol="0" scalemindenom="1000" label="Capital cities"/>
-          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =0" key="{25c3b82d-e00b-44b6-a529-7e13bca73e14}" symbol="1" scalemindenom="1000" label="Mega cities"/>
-          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =1" key="{3ace4c2a-3dfe-4be4-b526-1e496489991f}" symbol="2" scalemindenom="1000" label="Major cities"/>
-          <rule scalemaxdenom="10000000" filter="&quot;SCALERANK&quot; >1 and &quot;SCALERANK&quot; &lt;5 " key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="3" scalemindenom="1000" label="Mid-sized cities"/>
-          <rule scalemaxdenom="5000000" filter="&quot;SCALERANK&quot; >=5" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="4" scalemindenom="1000" label="Small cities"/>
+          <rule scalemaxdenom="35000000" filter="  &quot;FEATURECLA&quot; ='Admin-0 capital' " key="{4ee4e051-ea27-4af1-9682-10d2acb4d5eb}" symbol="0" scalemindenom="1000" label="Capital city"/>
+          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =0" key="{25c3b82d-e00b-44b6-a529-7e13bca73e14}" symbol="1" scalemindenom="1000" label="Mega city"/>
+          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =1" key="{3ace4c2a-3dfe-4be4-b526-1e496489991f}" symbol="2" scalemindenom="1000" label="Major city"/>
+          <rule scalemaxdenom="10000000" filter="&quot;SCALERANK&quot; >1 and &quot;SCALERANK&quot; &lt;5 " key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="3" scalemindenom="1000" label="Mid-sized city"/>
+          <rule scalemaxdenom="5000000" filter="&quot;SCALERANK&quot; >=5" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="4" scalemindenom="1000" label="Small city"/>
         </rules>
         <symbols>
           <symbol alpha="1" clip_to_extent="1" type="marker" name="0">
@@ -1547,8 +1549,8 @@ def my_form_open(dialog, layer, feature):
         </symbols>
       </renderer-v2>
       <labeling type="rule-based">
-        <rules key="{2334a43a-f3f2-4fd9-a1a2-e6ab2f2a030f}">
-          <rule scalemaxdenom="35000000" description="Capital city" filter=" &quot;FEATURECLA&quot; = 'Admin-0 capital' " key="{9ca6ca7f-01d6-445a-a57a-b5cfaf8f355a}" scalemindenom="1000">
+        <rules key="{b1209235-05a8-4c1a-8334-caa613600390}">
+          <rule scalemaxdenom="35000000" description="Capital city" filter=" &quot;FEATURECLA&quot; = 'Admin-0 capital' " key="{e9b80116-b218-41f6-9eec-061e531d9fc2}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="75" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="1" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="10" fieldName="NAME" namedStyle="Bold" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1562,7 +1564,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="35000000" description="Mega city" filter=" &quot;SCALERANK&quot; =0 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{dae63726-8efe-42bd-9778-bedde52ac402}" scalemindenom="1000">
+          <rule scalemaxdenom="35000000" description="Mega city" filter=" &quot;SCALERANK&quot; =0 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{d48e8248-c711-412f-be32-5621b51e6ef9}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="75" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="10" fieldName="NAME" namedStyle="Bold" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1576,7 +1578,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="35000000" description="Major city" filter=" &quot;SCALERANK&quot; =1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{aa312c38-d171-4e85-9058-8e9b76acbc8e}" scalemindenom="1000">
+          <rule scalemaxdenom="35000000" description="Major city" filter=" &quot;SCALERANK&quot; =1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{16207894-f5bb-40e5-8a95-7bcb0e8df56f}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Light" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1590,7 +1592,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="10000000" description="Mid-sized city" filter=" &quot;SCALERANK&quot; >1 and  &quot;SCALERANK&quot; &lt;5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{8c55d6c6-1bdf-4b77-816d-6a8237c70d70}" scalemindenom="1000">
+          <rule scalemaxdenom="10000000" description="Mid-sized city" filter=" &quot;SCALERANK&quot; >1 and  &quot;SCALERANK&quot; &lt;5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{774f595a-b8cf-4109-a07c-168d5455a695}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Light" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1604,7 +1606,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="5000000" description="Small city" filter=" &quot;SCALERANK&quot; >=5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{50e4d9fe-85d1-4f4e-b7c6-2231fe3ceb58}" scalemindenom="1000">
+          <rule scalemaxdenom="5000000" description="Small city" filter=" &quot;SCALERANK&quot; >=5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{349d95c5-d43b-4251-aa8c-1fe8c0d97942}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Proxima Nova Lt" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Light" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -2172,12 +2174,12 @@ def my_form_open(dialog, layer, feature):
         <xmax>172.05933856500016077</xmax>
         <ymax>80.83283112200004439</ymax>
       </extent>
-      <id>ne_10m_admin_0_disputed_areas2018201802171206299364908</id>
-      <datasource>DATA_PATH/ne_10m_admin_0_disputed_areas.shp</datasource>
+      <id>ne_10m_admin_0_disputed_areas</id>
+      <datasource>DATA_FOLDER/ne_10m_admin_0_disputed_areas.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>Disputed areas</layername>
+      <layername>Disputed border</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -2893,6 +2895,731 @@ def my_form_open(dialog, layer, feature):
       </defaults>
       <previewExpression>COALESCE( "NAME", '&lt;NULL>' )</previewExpression>
     </maplayer>
+    <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+07" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="1" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>-179.99999999999988631</xmin>
+        <ymin>-90</ymin>
+        <xmax>180.00000000000019895</xmax>
+        <ymax>83.63410065300011809</ymax>
+      </extent>
+      <id>ne_10m_admin_1_states_provinces</id>
+      <datasource>DATA_FOLDER/ne_10m_admin_1_states_provinces.shp|layerid=0MASK_SQL_ADMIN1</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>Sub-national border</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+          <srsid>3452</srsid>
+          <srid>4326</srid>
+          <authid>EPSG:4326</authid>
+          <description>WGS 84</description>
+          <projectionacronym>longlat</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>true</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <provider encoding="System">ogr</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <expressionfields/>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <edittypes>
+        <edittype widgetv2type="TextEdit" name="adm1_code">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="diss_me">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="iso_3166_2">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="wikipedia">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="iso_a2">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="adm0_sr">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="name">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="name_alt">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="name_local">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="type">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="type_en">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="code_local">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="code_hasc">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="note">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="hasc_maybe">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="region">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="region_cod">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="provnum_ne">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gadm_level">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="check_me">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="scalerank">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="datarank">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="abbrev">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="postal">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="area_sqkm">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="sameascity">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="labelrank">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="featurecla">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="name_len">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="mapcolor9">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="mapcolor13">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="fips">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="fips_alt">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="woe_id">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="woe_label">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="woe_name">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="latitude">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="longitude">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="sov_a3">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="adm0_a3">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="adm0_label">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="admin">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="geonunit">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gu_a3">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gn_id">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gn_name">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gns_id">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gns_name">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gn_level">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gn_region">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gn_a1_code">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="region_sub">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="sub_code">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gns_level">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gns_lang">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gns_adm1">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="gns_region">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="min_label">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="max_label">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="min_zoom">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
+      </edittypes>
+      <renderer-v2 forceraster="0" symbollevels="0" type="singleSymbol" enableorderby="0">
+        <symbols>
+          <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
+            <layer pass="0" class="SimpleFill" locked="0">
+              <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="color" v="233,233,233,255"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="128,128,128,177"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0.1"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="style" v="no"/>
+              <effect enabled="0" type="effectStack">
+                <effect type="dropShadow">
+                  <prop k="blend_mode" v="13"/>
+                  <prop k="blur_level" v="10"/>
+                  <prop k="color" v="0,0,0,255"/>
+                  <prop k="draw_mode" v="2"/>
+                  <prop k="enabled" v="0"/>
+                  <prop k="offset_angle" v="135"/>
+                  <prop k="offset_distance" v="2"/>
+                  <prop k="offset_unit" v="MM"/>
+                  <prop k="offset_unit_scale" v="0,0,0,0,0,0"/>
+                  <prop k="transparency" v="0"/>
+                </effect>
+                <effect type="outerGlow">
+                  <prop k="blend_mode" v="0"/>
+                  <prop k="blur_level" v="0"/>
+                  <prop k="color1" v="0,0,255,255"/>
+                  <prop k="color2" v="0,255,0,255"/>
+                  <prop k="color_type" v="0"/>
+                  <prop k="discrete" v="0"/>
+                  <prop k="draw_mode" v="2"/>
+                  <prop k="enabled" v="0"/>
+                  <prop k="single_color" v="190,190,190,255"/>
+                  <prop k="spread" v="0.5"/>
+                  <prop k="spread_unit" v="MM"/>
+                  <prop k="spread_unit_scale" v="0,0,0,0,0,0"/>
+                  <prop k="transparency" v="0.5"/>
+                </effect>
+                <effect type="drawSource">
+                  <prop k="blend_mode" v="0"/>
+                  <prop k="draw_mode" v="2"/>
+                  <prop k="enabled" v="0"/>
+                  <prop k="transparency" v="0"/>
+                </effect>
+                <effect type="innerShadow">
+                  <prop k="blend_mode" v="13"/>
+                  <prop k="blur_level" v="10"/>
+                  <prop k="color" v="0,0,0,255"/>
+                  <prop k="draw_mode" v="2"/>
+                  <prop k="enabled" v="0"/>
+                  <prop k="offset_angle" v="135"/>
+                  <prop k="offset_distance" v="2"/>
+                  <prop k="offset_unit" v="MM"/>
+                  <prop k="offset_unit_scale" v="0,0,0,0,0,0"/>
+                  <prop k="transparency" v="0"/>
+                </effect>
+                <effect type="innerGlow">
+                  <prop k="blend_mode" v="0"/>
+                  <prop k="blur_level" v="3"/>
+                  <prop k="color1" v="0,0,255,255"/>
+                  <prop k="color2" v="0,255,0,255"/>
+                  <prop k="color_type" v="0"/>
+                  <prop k="discrete" v="0"/>
+                  <prop k="draw_mode" v="2"/>
+                  <prop k="enabled" v="0"/>
+                  <prop k="single_color" v="255,255,255,255"/>
+                  <prop k="spread" v="2"/>
+                  <prop k="spread_unit" v="MM"/>
+                  <prop k="spread_unit_scale" v="0,0,0,0,0,0"/>
+                  <prop k="transparency" v="0.5"/>
+                </effect>
+              </effect>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale scalemethod="diameter"/>
+      </renderer-v2>
+      <labeling type="simple"/>
+      <customproperties>
+        <property key="embeddedWidgets/count" value="0"/>
+        <property key="labeling" value="pal"/>
+        <property key="labeling/addDirectionSymbol" value="false"/>
+        <property key="labeling/angleOffset" value="0"/>
+        <property key="labeling/blendMode" value="0"/>
+        <property key="labeling/bufferBlendMode" value="0"/>
+        <property key="labeling/bufferColorA" value="255"/>
+        <property key="labeling/bufferColorB" value="255"/>
+        <property key="labeling/bufferColorG" value="255"/>
+        <property key="labeling/bufferColorR" value="255"/>
+        <property key="labeling/bufferDraw" value="true"/>
+        <property key="labeling/bufferJoinStyle" value="128"/>
+        <property key="labeling/bufferNoFill" value="false"/>
+        <property key="labeling/bufferSize" value="1"/>
+        <property key="labeling/bufferSizeInMapUnits" value="false"/>
+        <property key="labeling/bufferSizeMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/bufferTransp" value="50"/>
+        <property key="labeling/centroidInside" value="true"/>
+        <property key="labeling/centroidWhole" value="false"/>
+        <property key="labeling/decimals" value="3"/>
+        <property key="labeling/displayAll" value="false"/>
+        <property key="labeling/dist" value="0"/>
+        <property key="labeling/distInMapUnits" value="false"/>
+        <property key="labeling/distMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/drawLabels" value="true"/>
+        <property key="labeling/enabled" value="true"/>
+        <property key="labeling/fieldName" value="name"/>
+        <property key="labeling/fitInPolygonOnly" value="false"/>
+        <property key="labeling/fontCapitals" value="1"/>
+        <property key="labeling/fontFamily" value="Proxima Nova Lt"/>
+        <property key="labeling/fontItalic" value="false"/>
+        <property key="labeling/fontLetterSpacing" value="0.59375"/>
+        <property key="labeling/fontLimitPixelSize" value="false"/>
+        <property key="labeling/fontMaxPixelSize" value="10000"/>
+        <property key="labeling/fontMinPixelSize" value="1000"/>
+        <property key="labeling/fontSize" value="8.25"/>
+        <property key="labeling/fontSizeInMapUnits" value="false"/>
+        <property key="labeling/fontSizeMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/fontStrikeout" value="false"/>
+        <property key="labeling/fontUnderline" value="false"/>
+        <property key="labeling/fontWeight" value="25"/>
+        <property key="labeling/fontWordSpacing" value="0"/>
+        <property key="labeling/formatNumbers" value="false"/>
+        <property key="labeling/isExpression" value="false"/>
+        <property key="labeling/labelOffsetInMapUnits" value="true"/>
+        <property key="labeling/labelOffsetMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/labelPerPart" value="false"/>
+        <property key="labeling/leftDirectionSymbol" value="&lt;"/>
+        <property key="labeling/limitNumLabels" value="false"/>
+        <property key="labeling/maxCurvedCharAngleIn" value="25"/>
+        <property key="labeling/maxCurvedCharAngleOut" value="-25"/>
+        <property key="labeling/maxNumLabels" value="2000"/>
+        <property key="labeling/mergeLines" value="false"/>
+        <property key="labeling/minFeatureSize" value="10"/>
+        <property key="labeling/multilineAlign" value="4294967295"/>
+        <property key="labeling/multilineHeight" value="1"/>
+        <property key="labeling/namedStyle" value="Light"/>
+        <property key="labeling/obstacle" value="true"/>
+        <property key="labeling/obstacleFactor" value="1"/>
+        <property key="labeling/obstacleType" value="1"/>
+        <property key="labeling/offsetType" value="0"/>
+        <property key="labeling/placeDirectionSymbol" value="0"/>
+        <property key="labeling/placement" value="0"/>
+        <property key="labeling/placementFlags" value="10"/>
+        <property key="labeling/plussign" value="false"/>
+        <property key="labeling/predefinedPositionOrder" value="TR,TL,BR,BL,R,L,TSR,BSR"/>
+        <property key="labeling/preserveRotation" value="true"/>
+        <property key="labeling/previewBkgrdColor" value="#ffffff"/>
+        <property key="labeling/priority" value="5"/>
+        <property key="labeling/quadOffset" value="4"/>
+        <property key="labeling/repeatDistance" value="0"/>
+        <property key="labeling/repeatDistanceMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/repeatDistanceUnit" value="1"/>
+        <property key="labeling/reverseDirectionSymbol" value="false"/>
+        <property key="labeling/rightDirectionSymbol" value=">"/>
+        <property key="labeling/scaleMax" value="10000000"/>
+        <property key="labeling/scaleMin" value="1"/>
+        <property key="labeling/scaleVisibility" value="true"/>
+        <property key="labeling/shadowBlendMode" value="6"/>
+        <property key="labeling/shadowColorB" value="0"/>
+        <property key="labeling/shadowColorG" value="0"/>
+        <property key="labeling/shadowColorR" value="0"/>
+        <property key="labeling/shadowDraw" value="false"/>
+        <property key="labeling/shadowOffsetAngle" value="135"/>
+        <property key="labeling/shadowOffsetDist" value="1"/>
+        <property key="labeling/shadowOffsetGlobal" value="true"/>
+        <property key="labeling/shadowOffsetMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shadowOffsetUnits" value="1"/>
+        <property key="labeling/shadowRadius" value="1.5"/>
+        <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
+        <property key="labeling/shadowRadiusMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shadowRadiusUnits" value="1"/>
+        <property key="labeling/shadowScale" value="100"/>
+        <property key="labeling/shadowTransparency" value="30"/>
+        <property key="labeling/shadowUnder" value="0"/>
+        <property key="labeling/shapeBlendMode" value="0"/>
+        <property key="labeling/shapeBorderColorA" value="255"/>
+        <property key="labeling/shapeBorderColorB" value="128"/>
+        <property key="labeling/shapeBorderColorG" value="128"/>
+        <property key="labeling/shapeBorderColorR" value="128"/>
+        <property key="labeling/shapeBorderWidth" value="0"/>
+        <property key="labeling/shapeBorderWidthMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeBorderWidthUnits" value="1"/>
+        <property key="labeling/shapeDraw" value="false"/>
+        <property key="labeling/shapeFillColorA" value="255"/>
+        <property key="labeling/shapeFillColorB" value="255"/>
+        <property key="labeling/shapeFillColorG" value="255"/>
+        <property key="labeling/shapeFillColorR" value="255"/>
+        <property key="labeling/shapeJoinStyle" value="64"/>
+        <property key="labeling/shapeOffsetMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeOffsetUnits" value="1"/>
+        <property key="labeling/shapeOffsetX" value="0"/>
+        <property key="labeling/shapeOffsetY" value="0"/>
+        <property key="labeling/shapeRadiiMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeRadiiUnits" value="1"/>
+        <property key="labeling/shapeRadiiX" value="0"/>
+        <property key="labeling/shapeRadiiY" value="0"/>
+        <property key="labeling/shapeRotation" value="0"/>
+        <property key="labeling/shapeRotationType" value="0"/>
+        <property key="labeling/shapeSVGFile" value=""/>
+        <property key="labeling/shapeSizeMapUnitScale" value="0,0,0,0,0,0"/>
+        <property key="labeling/shapeSizeType" value="0"/>
+        <property key="labeling/shapeSizeUnits" value="1"/>
+        <property key="labeling/shapeSizeX" value="0"/>
+        <property key="labeling/shapeSizeY" value="0"/>
+        <property key="labeling/shapeTransparency" value="0"/>
+        <property key="labeling/shapeType" value="0"/>
+        <property key="labeling/substitutions" value="&lt;substitutions/>"/>
+        <property key="labeling/textColorA" value="255"/>
+        <property key="labeling/textColorB" value="0"/>
+        <property key="labeling/textColorG" value="0"/>
+        <property key="labeling/textColorR" value="0"/>
+        <property key="labeling/textTransp" value="0"/>
+        <property key="labeling/upsidedownLabels" value="0"/>
+        <property key="labeling/useSubstitutions" value="false"/>
+        <property key="labeling/wrapChar" value=""/>
+        <property key="labeling/xOffset" value="0"/>
+        <property key="labeling/yOffset" value="0"/>
+        <property key="labeling/zIndex" value="0"/>
+        <property key="variableNames"/>
+        <property key="variableValues"/>
+      </customproperties>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerTransparency>0</layerTransparency>
+      <displayfield>name</displayfield>
+      <label>0</label>
+      <labelattributes>
+        <label fieldname="" text="Label"/>
+        <family fieldname="" name="MS Shell Dlg 2"/>
+        <size fieldname="" units="pt" value="12"/>
+        <bold fieldname="" on="0"/>
+        <italic fieldname="" on="0"/>
+        <underline fieldname="" on="0"/>
+        <strikeout fieldname="" on="0"/>
+        <color fieldname="" red="0" blue="0" green="0"/>
+        <x fieldname=""/>
+        <y fieldname=""/>
+        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+        <angle fieldname="" value="0" auto="0"/>
+        <alignment fieldname="" value="center"/>
+        <buffercolor fieldname="" red="255" blue="255" green="255"/>
+        <buffersize fieldname="" units="pt" value="1"/>
+        <bufferenabled fieldname="" on=""/>
+        <multilineenabled fieldname="" on=""/>
+        <selectedonly on=""/>
+      </labelattributes>
+      <SingleCategoryDiagramRenderer diagramType="Histogram" sizeLegend="0" attributeLegend="1">
+        <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" sizeScale="0,0,0,0,0,0" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" lineSizeScale="0,0,0,0,0,0" sizeType="MM" lineSizeType="MM" minScaleDenominator="inf">
+          <fontProperties description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style=""/>
+          <attribute field="" color="#000000" label=""/>
+        </DiagramCategory>
+        <symbol alpha="1" clip_to_extent="1" type="marker" name="sizeSymbol">
+          <layer pass="0" class="SimpleMarker" locked="0">
+            <prop k="angle" v="0"/>
+            <prop k="color" v="255,0,0,255"/>
+            <prop k="horizontal_anchor_point" v="1"/>
+            <prop k="joinstyle" v="bevel"/>
+            <prop k="name" v="circle"/>
+            <prop k="offset" v="0,0"/>
+            <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
+            <prop k="offset_unit" v="MM"/>
+            <prop k="outline_color" v="0,0,0,255"/>
+            <prop k="outline_style" v="solid"/>
+            <prop k="outline_width" v="0"/>
+            <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
+            <prop k="outline_width_unit" v="MM"/>
+            <prop k="scale_method" v="diameter"/>
+            <prop k="size" v="2"/>
+            <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
+            <prop k="size_unit" v="MM"/>
+            <prop k="vertical_anchor_point" v="1"/>
+          </layer>
+        </symbol>
+      </SingleCategoryDiagramRenderer>
+      <DiagramLayerSettings yPosColumn="-1" showColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" zIndex="0" showAll="1"/>
+      <annotationform>.</annotationform>
+      <aliases>
+        <alias field="adm1_code" index="0" name=""/>
+        <alias field="diss_me" index="1" name=""/>
+        <alias field="iso_3166_2" index="2" name=""/>
+        <alias field="wikipedia" index="3" name=""/>
+        <alias field="iso_a2" index="4" name=""/>
+        <alias field="adm0_sr" index="5" name=""/>
+        <alias field="name" index="6" name=""/>
+        <alias field="name_alt" index="7" name=""/>
+        <alias field="name_local" index="8" name=""/>
+        <alias field="type" index="9" name=""/>
+        <alias field="type_en" index="10" name=""/>
+        <alias field="code_local" index="11" name=""/>
+        <alias field="code_hasc" index="12" name=""/>
+        <alias field="note" index="13" name=""/>
+        <alias field="hasc_maybe" index="14" name=""/>
+        <alias field="region" index="15" name=""/>
+        <alias field="region_cod" index="16" name=""/>
+        <alias field="provnum_ne" index="17" name=""/>
+        <alias field="gadm_level" index="18" name=""/>
+        <alias field="check_me" index="19" name=""/>
+        <alias field="scalerank" index="20" name=""/>
+        <alias field="datarank" index="21" name=""/>
+        <alias field="abbrev" index="22" name=""/>
+        <alias field="postal" index="23" name=""/>
+        <alias field="area_sqkm" index="24" name=""/>
+        <alias field="sameascity" index="25" name=""/>
+        <alias field="labelrank" index="26" name=""/>
+        <alias field="featurecla" index="27" name=""/>
+        <alias field="name_len" index="28" name=""/>
+        <alias field="mapcolor9" index="29" name=""/>
+        <alias field="mapcolor13" index="30" name=""/>
+        <alias field="fips" index="31" name=""/>
+        <alias field="fips_alt" index="32" name=""/>
+        <alias field="woe_id" index="33" name=""/>
+        <alias field="woe_label" index="34" name=""/>
+        <alias field="woe_name" index="35" name=""/>
+        <alias field="latitude" index="36" name=""/>
+        <alias field="longitude" index="37" name=""/>
+        <alias field="sov_a3" index="38" name=""/>
+        <alias field="adm0_a3" index="39" name=""/>
+        <alias field="adm0_label" index="40" name=""/>
+        <alias field="admin" index="41" name=""/>
+        <alias field="geonunit" index="42" name=""/>
+        <alias field="gu_a3" index="43" name=""/>
+        <alias field="gn_id" index="44" name=""/>
+        <alias field="gn_name" index="45" name=""/>
+        <alias field="gns_id" index="46" name=""/>
+        <alias field="gns_name" index="47" name=""/>
+        <alias field="gn_level" index="48" name=""/>
+        <alias field="gn_region" index="49" name=""/>
+        <alias field="gn_a1_code" index="50" name=""/>
+        <alias field="region_sub" index="51" name=""/>
+        <alias field="sub_code" index="52" name=""/>
+        <alias field="gns_level" index="53" name=""/>
+        <alias field="gns_lang" index="54" name=""/>
+        <alias field="gns_adm1" index="55" name=""/>
+        <alias field="gns_region" index="56" name=""/>
+        <alias field="min_label" index="57" name=""/>
+        <alias field="max_label" index="58" name=""/>
+        <alias field="min_zoom" index="59" name=""/>
+      </aliases>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <attributeactions default="-1"/>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
+        <columns>
+          <column width="-1" hidden="0" type="field" name="adm1_code"/>
+          <column width="-1" hidden="0" type="field" name="diss_me"/>
+          <column width="-1" hidden="0" type="field" name="iso_3166_2"/>
+          <column width="-1" hidden="0" type="field" name="wikipedia"/>
+          <column width="-1" hidden="0" type="field" name="iso_a2"/>
+          <column width="-1" hidden="0" type="field" name="adm0_sr"/>
+          <column width="-1" hidden="0" type="field" name="name"/>
+          <column width="-1" hidden="0" type="field" name="name_alt"/>
+          <column width="-1" hidden="0" type="field" name="name_local"/>
+          <column width="-1" hidden="0" type="field" name="type"/>
+          <column width="-1" hidden="0" type="field" name="type_en"/>
+          <column width="-1" hidden="0" type="field" name="code_local"/>
+          <column width="-1" hidden="0" type="field" name="code_hasc"/>
+          <column width="-1" hidden="0" type="field" name="note"/>
+          <column width="-1" hidden="0" type="field" name="hasc_maybe"/>
+          <column width="-1" hidden="0" type="field" name="region"/>
+          <column width="-1" hidden="0" type="field" name="region_cod"/>
+          <column width="-1" hidden="0" type="field" name="provnum_ne"/>
+          <column width="-1" hidden="0" type="field" name="gadm_level"/>
+          <column width="-1" hidden="0" type="field" name="check_me"/>
+          <column width="-1" hidden="0" type="field" name="scalerank"/>
+          <column width="-1" hidden="0" type="field" name="datarank"/>
+          <column width="-1" hidden="0" type="field" name="abbrev"/>
+          <column width="-1" hidden="0" type="field" name="postal"/>
+          <column width="-1" hidden="0" type="field" name="area_sqkm"/>
+          <column width="-1" hidden="0" type="field" name="sameascity"/>
+          <column width="-1" hidden="0" type="field" name="labelrank"/>
+          <column width="-1" hidden="0" type="field" name="featurecla"/>
+          <column width="-1" hidden="0" type="field" name="name_len"/>
+          <column width="-1" hidden="0" type="field" name="mapcolor9"/>
+          <column width="-1" hidden="0" type="field" name="mapcolor13"/>
+          <column width="-1" hidden="0" type="field" name="fips"/>
+          <column width="-1" hidden="0" type="field" name="fips_alt"/>
+          <column width="-1" hidden="0" type="field" name="woe_id"/>
+          <column width="-1" hidden="0" type="field" name="woe_label"/>
+          <column width="-1" hidden="0" type="field" name="woe_name"/>
+          <column width="-1" hidden="0" type="field" name="latitude"/>
+          <column width="-1" hidden="0" type="field" name="longitude"/>
+          <column width="-1" hidden="0" type="field" name="sov_a3"/>
+          <column width="-1" hidden="0" type="field" name="adm0_a3"/>
+          <column width="-1" hidden="0" type="field" name="adm0_label"/>
+          <column width="-1" hidden="0" type="field" name="admin"/>
+          <column width="-1" hidden="0" type="field" name="geonunit"/>
+          <column width="-1" hidden="0" type="field" name="gu_a3"/>
+          <column width="-1" hidden="0" type="field" name="gn_id"/>
+          <column width="-1" hidden="0" type="field" name="gn_name"/>
+          <column width="-1" hidden="0" type="field" name="gns_id"/>
+          <column width="-1" hidden="0" type="field" name="gns_name"/>
+          <column width="-1" hidden="0" type="field" name="gn_level"/>
+          <column width="-1" hidden="0" type="field" name="gn_region"/>
+          <column width="-1" hidden="0" type="field" name="gn_a1_code"/>
+          <column width="-1" hidden="0" type="field" name="region_sub"/>
+          <column width="-1" hidden="0" type="field" name="sub_code"/>
+          <column width="-1" hidden="0" type="field" name="gns_level"/>
+          <column width="-1" hidden="0" type="field" name="gns_lang"/>
+          <column width="-1" hidden="0" type="field" name="gns_adm1"/>
+          <column width="-1" hidden="0" type="field" name="gns_region"/>
+          <column width="-1" hidden="0" type="field" name="min_label"/>
+          <column width="-1" hidden="0" type="field" name="max_label"/>
+          <column width="-1" hidden="0" type="field" name="min_zoom"/>
+          <column width="-1" hidden="1" type="actions"/>
+        </columns>
+      </attributetableconfig>
+      <editform>.</editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath>.</editforminitfilepath>
+      <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+	geom = feature.geometry()
+	control = dialog.findChild(QWidget, "MyLineEdit")
+]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <widgets>
+        <widget name="orig_ogc_fid">
+          <config>
+            <option key="IsMultiline" value="false"/>
+            <option key="UseHtml" value="false"/>
+          </config>
+        </widget>
+      </widgets>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <defaults>
+        <default field="adm1_code" expression=""/>
+        <default field="diss_me" expression=""/>
+        <default field="iso_3166_2" expression=""/>
+        <default field="wikipedia" expression=""/>
+        <default field="iso_a2" expression=""/>
+        <default field="adm0_sr" expression=""/>
+        <default field="name" expression=""/>
+        <default field="name_alt" expression=""/>
+        <default field="name_local" expression=""/>
+        <default field="type" expression=""/>
+        <default field="type_en" expression=""/>
+        <default field="code_local" expression=""/>
+        <default field="code_hasc" expression=""/>
+        <default field="note" expression=""/>
+        <default field="hasc_maybe" expression=""/>
+        <default field="region" expression=""/>
+        <default field="region_cod" expression=""/>
+        <default field="provnum_ne" expression=""/>
+        <default field="gadm_level" expression=""/>
+        <default field="check_me" expression=""/>
+        <default field="scalerank" expression=""/>
+        <default field="datarank" expression=""/>
+        <default field="abbrev" expression=""/>
+        <default field="postal" expression=""/>
+        <default field="area_sqkm" expression=""/>
+        <default field="sameascity" expression=""/>
+        <default field="labelrank" expression=""/>
+        <default field="featurecla" expression=""/>
+        <default field="name_len" expression=""/>
+        <default field="mapcolor9" expression=""/>
+        <default field="mapcolor13" expression=""/>
+        <default field="fips" expression=""/>
+        <default field="fips_alt" expression=""/>
+        <default field="woe_id" expression=""/>
+        <default field="woe_label" expression=""/>
+        <default field="woe_name" expression=""/>
+        <default field="latitude" expression=""/>
+        <default field="longitude" expression=""/>
+        <default field="sov_a3" expression=""/>
+        <default field="adm0_a3" expression=""/>
+        <default field="adm0_label" expression=""/>
+        <default field="admin" expression=""/>
+        <default field="geonunit" expression=""/>
+        <default field="gu_a3" expression=""/>
+        <default field="gn_id" expression=""/>
+        <default field="gn_name" expression=""/>
+        <default field="gns_id" expression=""/>
+        <default field="gns_name" expression=""/>
+        <default field="gn_level" expression=""/>
+        <default field="gn_region" expression=""/>
+        <default field="gn_a1_code" expression=""/>
+        <default field="region_sub" expression=""/>
+        <default field="sub_code" expression=""/>
+        <default field="gns_level" expression=""/>
+        <default field="gns_lang" expression=""/>
+        <default field="gns_adm1" expression=""/>
+        <default field="gns_region" expression=""/>
+        <default field="min_label" expression=""/>
+        <default field="max_label" expression=""/>
+        <default field="min_zoom" expression=""/>
+      </defaults>
+      <previewExpression>COALESCE( "name", '&lt;NULL>' )</previewExpression>
+    </maplayer>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <extent>
         <xmin>-179.99999999999988631</xmin>
@@ -2900,12 +3627,12 @@ def my_form_open(dialog, layer, feature):
         <xmax>180.00000000000019895</xmax>
         <ymax>83.63410065300011809</ymax>
       </extent>
-      <id>ne_10m_admin_0_countries201802018021712062993615356</id>
-      <datasource>DATA_PATH/ne_10m_admin_0_countries.shp|layerid=0|subset="ISO_A3" != 'IND'</datasource>
+      <id>ne_10m_admin_0_countries</id>
+      <datasource>DATA_FOLDER/ne_10m_admin_0_countries.shp|layerid=0MASK_SQL_ADMIN0</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>Countries</layername>
+      <layername>National border</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -3193,7 +3920,7 @@ def my_form_open(dialog, layer, feature):
         <property key="labeling/drawLabels" value="true"/>
         <property key="labeling/enabled" value="true"/>
         <property key="labeling/fieldName" value="NAME"/>
-        <property key="labeling/fitInPolygonOnly" value="false"/>
+        <property key="labeling/fitInPolygonOnly" value="true"/>
         <property key="labeling/fontCapitals" value="1"/>
         <property key="labeling/fontFamily" value="Proxima Nova Bl"/>
         <property key="labeling/fontItalic" value="false"/>
@@ -3201,7 +3928,7 @@ def my_form_open(dialog, layer, feature):
         <property key="labeling/fontLimitPixelSize" value="false"/>
         <property key="labeling/fontMaxPixelSize" value="10000"/>
         <property key="labeling/fontMinPixelSize" value="8"/>
-        <property key="labeling/fontSize" value="10"/>
+        <property key="labeling/fontSize" value="14"/>
         <property key="labeling/fontSizeInMapUnits" value="false"/>
         <property key="labeling/fontSizeMapUnitScale" value="0,0,0,0,0,0"/>
         <property key="labeling/fontStrikeout" value="false"/>
@@ -3228,7 +3955,7 @@ def my_form_open(dialog, layer, feature):
         <property key="labeling/obstacleType" value="0"/>
         <property key="labeling/offsetType" value="0"/>
         <property key="labeling/placeDirectionSymbol" value="0"/>
-        <property key="labeling/placement" value="1"/>
+        <property key="labeling/placement" value="0"/>
         <property key="labeling/placementFlags" value="10"/>
         <property key="labeling/plussign" value="false"/>
         <property key="labeling/predefinedPositionOrder" value="TR,TL,BR,BL,R,L,TSR,BSR"/>
@@ -3298,7 +4025,7 @@ def my_form_open(dialog, layer, feature):
         <property key="labeling/textColorB" value="122"/>
         <property key="labeling/textColorG" value="122"/>
         <property key="labeling/textColorR" value="122"/>
-        <property key="labeling/textTransp" value="50"/>
+        <property key="labeling/textTransp" value="70"/>
         <property key="labeling/upsidedownLabels" value="0"/>
         <property key="labeling/useSubstitutions" value="false"/>
         <property key="labeling/wrapChar" value=""/>
@@ -3621,668 +4348,6 @@ def my_form_open(dialog, layer, feature):
       </defaults>
       <previewExpression>COALESCE( "NAME", '&lt;NULL>' )</previewExpression>
     </maplayer>
-    <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="4e+06" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="1" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <extent>
-        <xmin>68.14340254000012465</xmin>
-        <ymin>6.74555084800014981</ymin>
-        <xmax>97.36225305200002822</xmax>
-        <ymax>35.49540557900013482</ymax>
-      </extent>
-      <id>ne_10m_admin_1_states_provinces20180201802171206299361926</id>
-      <datasource>DATA_PATH/ne_10m_admin_1_states_provinces.shp|layerid=0|subset="iso_a2"='IN'</datasource>
-      <keywordList>
-        <value></value>
-      </keywordList>
-      <layername>Admin 1</layername>
-      <srs>
-        <spatialrefsys>
-          <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-          <srsid>3452</srsid>
-          <srid>4326</srid>
-          <authid>EPSG:4326</authid>
-          <description>WGS 84</description>
-          <projectionacronym>longlat</projectionacronym>
-          <ellipsoidacronym>WGS84</ellipsoidacronym>
-          <geographicflag>true</geographicflag>
-        </spatialrefsys>
-      </srs>
-      <provider encoding="System">ogr</provider>
-      <vectorjoins/>
-      <layerDependencies/>
-      <expressionfields/>
-      <map-layer-style-manager current="">
-        <map-layer-style name=""/>
-      </map-layer-style-manager>
-      <edittypes>
-        <edittype widgetv2type="TextEdit" name="adm1_code">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="diss_me">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="iso_3166_2">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="wikipedia">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="iso_a2">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="adm0_sr">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="name">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="name_alt">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="name_local">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="type">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="type_en">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="code_local">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="code_hasc">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="note">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="hasc_maybe">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="region">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="region_cod">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="provnum_ne">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gadm_level">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="check_me">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="scalerank">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="datarank">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="abbrev">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="postal">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="area_sqkm">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="sameascity">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="labelrank">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="featurecla">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="name_len">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="mapcolor9">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="mapcolor13">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="fips">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="fips_alt">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="woe_id">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="woe_label">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="woe_name">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="latitude">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="longitude">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="sov_a3">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="adm0_a3">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="adm0_label">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="admin">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="geonunit">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gu_a3">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gn_id">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gn_name">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gns_id">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gns_name">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gn_level">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gn_region">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gn_a1_code">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="region_sub">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="sub_code">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gns_level">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gns_lang">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gns_adm1">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="gns_region">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="min_label">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="max_label">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="min_zoom">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="orig_ogc_fid">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-      </edittypes>
-      <renderer-v2 forceraster="0" symbollevels="0" type="singleSymbol" enableorderby="0">
-        <symbols>
-          <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
-            <layer pass="0" class="SimpleFill" locked="0">
-              <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="color" v="73,51,135,255"/>
-              <prop k="joinstyle" v="bevel"/>
-              <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="offset_unit" v="MM"/>
-              <prop k="outline_color" v="128,128,128,177"/>
-              <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0.15"/>
-              <prop k="outline_width_unit" v="MM"/>
-              <prop k="style" v="no"/>
-            </layer>
-          </symbol>
-        </symbols>
-        <rotation/>
-        <sizescale scalemethod="diameter"/>
-      </renderer-v2>
-      <labeling type="simple"/>
-      <customproperties>
-        <property key="embeddedWidgets/count" value="0"/>
-        <property key="labeling" value="pal"/>
-        <property key="labeling/addDirectionSymbol" value="false"/>
-        <property key="labeling/angleOffset" value="0"/>
-        <property key="labeling/blendMode" value="0"/>
-        <property key="labeling/bufferBlendMode" value="0"/>
-        <property key="labeling/bufferColorA" value="255"/>
-        <property key="labeling/bufferColorB" value="255"/>
-        <property key="labeling/bufferColorG" value="255"/>
-        <property key="labeling/bufferColorR" value="255"/>
-        <property key="labeling/bufferDraw" value="true"/>
-        <property key="labeling/bufferJoinStyle" value="128"/>
-        <property key="labeling/bufferNoFill" value="false"/>
-        <property key="labeling/bufferSize" value="1"/>
-        <property key="labeling/bufferSizeInMapUnits" value="false"/>
-        <property key="labeling/bufferSizeMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/bufferTransp" value="50"/>
-        <property key="labeling/centroidInside" value="true"/>
-        <property key="labeling/centroidWhole" value="false"/>
-        <property key="labeling/decimals" value="3"/>
-        <property key="labeling/displayAll" value="false"/>
-        <property key="labeling/dist" value="0"/>
-        <property key="labeling/distInMapUnits" value="false"/>
-        <property key="labeling/distMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/drawLabels" value="true"/>
-        <property key="labeling/enabled" value="true"/>
-        <property key="labeling/fieldName" value="name"/>
-        <property key="labeling/fitInPolygonOnly" value="false"/>
-        <property key="labeling/fontCapitals" value="1"/>
-        <property key="labeling/fontFamily" value="Proxima Nova Lt"/>
-        <property key="labeling/fontItalic" value="false"/>
-        <property key="labeling/fontLetterSpacing" value="0.59375"/>
-        <property key="labeling/fontLimitPixelSize" value="false"/>
-        <property key="labeling/fontMaxPixelSize" value="10000"/>
-        <property key="labeling/fontMinPixelSize" value="1000"/>
-        <property key="labeling/fontSize" value="8.25"/>
-        <property key="labeling/fontSizeInMapUnits" value="false"/>
-        <property key="labeling/fontSizeMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/fontStrikeout" value="false"/>
-        <property key="labeling/fontUnderline" value="false"/>
-        <property key="labeling/fontWeight" value="25"/>
-        <property key="labeling/fontWordSpacing" value="0"/>
-        <property key="labeling/formatNumbers" value="false"/>
-        <property key="labeling/isExpression" value="false"/>
-        <property key="labeling/labelOffsetInMapUnits" value="true"/>
-        <property key="labeling/labelOffsetMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/labelPerPart" value="false"/>
-        <property key="labeling/leftDirectionSymbol" value="&lt;"/>
-        <property key="labeling/limitNumLabels" value="false"/>
-        <property key="labeling/maxCurvedCharAngleIn" value="25"/>
-        <property key="labeling/maxCurvedCharAngleOut" value="-25"/>
-        <property key="labeling/maxNumLabels" value="2000"/>
-        <property key="labeling/mergeLines" value="false"/>
-        <property key="labeling/minFeatureSize" value="10"/>
-        <property key="labeling/multilineAlign" value="4294967295"/>
-        <property key="labeling/multilineHeight" value="1"/>
-        <property key="labeling/namedStyle" value="Light"/>
-        <property key="labeling/obstacle" value="true"/>
-        <property key="labeling/obstacleFactor" value="1"/>
-        <property key="labeling/obstacleType" value="1"/>
-        <property key="labeling/offsetType" value="0"/>
-        <property key="labeling/placeDirectionSymbol" value="0"/>
-        <property key="labeling/placement" value="0"/>
-        <property key="labeling/placementFlags" value="10"/>
-        <property key="labeling/plussign" value="false"/>
-        <property key="labeling/predefinedPositionOrder" value="TR,TL,BR,BL,R,L,TSR,BSR"/>
-        <property key="labeling/preserveRotation" value="true"/>
-        <property key="labeling/previewBkgrdColor" value="#ffffff"/>
-        <property key="labeling/priority" value="5"/>
-        <property key="labeling/quadOffset" value="4"/>
-        <property key="labeling/repeatDistance" value="0"/>
-        <property key="labeling/repeatDistanceMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/repeatDistanceUnit" value="1"/>
-        <property key="labeling/reverseDirectionSymbol" value="false"/>
-        <property key="labeling/rightDirectionSymbol" value=">"/>
-        <property key="labeling/scaleMax" value="4000000"/>
-        <property key="labeling/scaleMin" value="1"/>
-        <property key="labeling/scaleVisibility" value="true"/>
-        <property key="labeling/shadowBlendMode" value="6"/>
-        <property key="labeling/shadowColorB" value="0"/>
-        <property key="labeling/shadowColorG" value="0"/>
-        <property key="labeling/shadowColorR" value="0"/>
-        <property key="labeling/shadowDraw" value="false"/>
-        <property key="labeling/shadowOffsetAngle" value="135"/>
-        <property key="labeling/shadowOffsetDist" value="1"/>
-        <property key="labeling/shadowOffsetGlobal" value="true"/>
-        <property key="labeling/shadowOffsetMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/shadowOffsetUnits" value="1"/>
-        <property key="labeling/shadowRadius" value="1.5"/>
-        <property key="labeling/shadowRadiusAlphaOnly" value="false"/>
-        <property key="labeling/shadowRadiusMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/shadowRadiusUnits" value="1"/>
-        <property key="labeling/shadowScale" value="100"/>
-        <property key="labeling/shadowTransparency" value="30"/>
-        <property key="labeling/shadowUnder" value="0"/>
-        <property key="labeling/shapeBlendMode" value="0"/>
-        <property key="labeling/shapeBorderColorA" value="255"/>
-        <property key="labeling/shapeBorderColorB" value="128"/>
-        <property key="labeling/shapeBorderColorG" value="128"/>
-        <property key="labeling/shapeBorderColorR" value="128"/>
-        <property key="labeling/shapeBorderWidth" value="0"/>
-        <property key="labeling/shapeBorderWidthMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/shapeBorderWidthUnits" value="1"/>
-        <property key="labeling/shapeDraw" value="false"/>
-        <property key="labeling/shapeFillColorA" value="255"/>
-        <property key="labeling/shapeFillColorB" value="255"/>
-        <property key="labeling/shapeFillColorG" value="255"/>
-        <property key="labeling/shapeFillColorR" value="255"/>
-        <property key="labeling/shapeJoinStyle" value="64"/>
-        <property key="labeling/shapeOffsetMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/shapeOffsetUnits" value="1"/>
-        <property key="labeling/shapeOffsetX" value="0"/>
-        <property key="labeling/shapeOffsetY" value="0"/>
-        <property key="labeling/shapeRadiiMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/shapeRadiiUnits" value="1"/>
-        <property key="labeling/shapeRadiiX" value="0"/>
-        <property key="labeling/shapeRadiiY" value="0"/>
-        <property key="labeling/shapeRotation" value="0"/>
-        <property key="labeling/shapeRotationType" value="0"/>
-        <property key="labeling/shapeSVGFile" value=""/>
-        <property key="labeling/shapeSizeMapUnitScale" value="0,0,0,0,0,0"/>
-        <property key="labeling/shapeSizeType" value="0"/>
-        <property key="labeling/shapeSizeUnits" value="1"/>
-        <property key="labeling/shapeSizeX" value="0"/>
-        <property key="labeling/shapeSizeY" value="0"/>
-        <property key="labeling/shapeTransparency" value="0"/>
-        <property key="labeling/shapeType" value="0"/>
-        <property key="labeling/substitutions" value="&lt;substitutions/>"/>
-        <property key="labeling/textColorA" value="255"/>
-        <property key="labeling/textColorB" value="0"/>
-        <property key="labeling/textColorG" value="0"/>
-        <property key="labeling/textColorR" value="0"/>
-        <property key="labeling/textTransp" value="0"/>
-        <property key="labeling/upsidedownLabels" value="0"/>
-        <property key="labeling/useSubstitutions" value="false"/>
-        <property key="labeling/wrapChar" value=""/>
-        <property key="labeling/xOffset" value="0"/>
-        <property key="labeling/yOffset" value="0"/>
-        <property key="labeling/zIndex" value="0"/>
-        <property key="variableNames"/>
-        <property key="variableValues"/>
-      </customproperties>
-      <blendMode>0</blendMode>
-      <featureBlendMode>0</featureBlendMode>
-      <layerTransparency>0</layerTransparency>
-      <displayfield>name</displayfield>
-      <label>0</label>
-      <labelattributes>
-        <label fieldname="" text="Label"/>
-        <family fieldname="" name="MS Shell Dlg 2"/>
-        <size fieldname="" units="pt" value="12"/>
-        <bold fieldname="" on="0"/>
-        <italic fieldname="" on="0"/>
-        <underline fieldname="" on="0"/>
-        <strikeout fieldname="" on="0"/>
-        <color fieldname="" red="0" blue="0" green="0"/>
-        <x fieldname=""/>
-        <y fieldname=""/>
-        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
-        <angle fieldname="" value="0" auto="0"/>
-        <alignment fieldname="" value="center"/>
-        <buffercolor fieldname="" red="255" blue="255" green="255"/>
-        <buffersize fieldname="" units="pt" value="1"/>
-        <bufferenabled fieldname="" on=""/>
-        <multilineenabled fieldname="" on=""/>
-        <selectedonly on=""/>
-      </labelattributes>
-      <SingleCategoryDiagramRenderer diagramType="Histogram" sizeLegend="0" attributeLegend="1">
-        <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" sizeScale="0,0,0,0,0,0" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" lineSizeScale="0,0,0,0,0,0" sizeType="MM" lineSizeType="MM" minScaleDenominator="inf">
-          <fontProperties description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style=""/>
-          <attribute field="" color="#000000" label=""/>
-        </DiagramCategory>
-        <symbol alpha="1" clip_to_extent="1" type="marker" name="sizeSymbol">
-          <layer pass="0" class="SimpleMarker" locked="0">
-            <prop k="angle" v="0"/>
-            <prop k="color" v="255,0,0,255"/>
-            <prop k="horizontal_anchor_point" v="1"/>
-            <prop k="joinstyle" v="bevel"/>
-            <prop k="name" v="circle"/>
-            <prop k="offset" v="0,0"/>
-            <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
-            <prop k="offset_unit" v="MM"/>
-            <prop k="outline_color" v="0,0,0,255"/>
-            <prop k="outline_style" v="solid"/>
-            <prop k="outline_width" v="0"/>
-            <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
-            <prop k="outline_width_unit" v="MM"/>
-            <prop k="scale_method" v="diameter"/>
-            <prop k="size" v="2"/>
-            <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
-            <prop k="size_unit" v="MM"/>
-            <prop k="vertical_anchor_point" v="1"/>
-          </layer>
-        </symbol>
-      </SingleCategoryDiagramRenderer>
-      <DiagramLayerSettings yPosColumn="-1" showColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" zIndex="0" showAll="1"/>
-      <annotationform>.</annotationform>
-      <aliases>
-        <alias field="adm1_code" index="0" name=""/>
-        <alias field="diss_me" index="1" name=""/>
-        <alias field="iso_3166_2" index="2" name=""/>
-        <alias field="wikipedia" index="3" name=""/>
-        <alias field="iso_a2" index="4" name=""/>
-        <alias field="adm0_sr" index="5" name=""/>
-        <alias field="name" index="6" name=""/>
-        <alias field="name_alt" index="7" name=""/>
-        <alias field="name_local" index="8" name=""/>
-        <alias field="type" index="9" name=""/>
-        <alias field="type_en" index="10" name=""/>
-        <alias field="code_local" index="11" name=""/>
-        <alias field="code_hasc" index="12" name=""/>
-        <alias field="note" index="13" name=""/>
-        <alias field="hasc_maybe" index="14" name=""/>
-        <alias field="region" index="15" name=""/>
-        <alias field="region_cod" index="16" name=""/>
-        <alias field="provnum_ne" index="17" name=""/>
-        <alias field="gadm_level" index="18" name=""/>
-        <alias field="check_me" index="19" name=""/>
-        <alias field="scalerank" index="20" name=""/>
-        <alias field="datarank" index="21" name=""/>
-        <alias field="abbrev" index="22" name=""/>
-        <alias field="postal" index="23" name=""/>
-        <alias field="area_sqkm" index="24" name=""/>
-        <alias field="sameascity" index="25" name=""/>
-        <alias field="labelrank" index="26" name=""/>
-        <alias field="featurecla" index="27" name=""/>
-        <alias field="name_len" index="28" name=""/>
-        <alias field="mapcolor9" index="29" name=""/>
-        <alias field="mapcolor13" index="30" name=""/>
-        <alias field="fips" index="31" name=""/>
-        <alias field="fips_alt" index="32" name=""/>
-        <alias field="woe_id" index="33" name=""/>
-        <alias field="woe_label" index="34" name=""/>
-        <alias field="woe_name" index="35" name=""/>
-        <alias field="latitude" index="36" name=""/>
-        <alias field="longitude" index="37" name=""/>
-        <alias field="sov_a3" index="38" name=""/>
-        <alias field="adm0_a3" index="39" name=""/>
-        <alias field="adm0_label" index="40" name=""/>
-        <alias field="admin" index="41" name=""/>
-        <alias field="geonunit" index="42" name=""/>
-        <alias field="gu_a3" index="43" name=""/>
-        <alias field="gn_id" index="44" name=""/>
-        <alias field="gn_name" index="45" name=""/>
-        <alias field="gns_id" index="46" name=""/>
-        <alias field="gns_name" index="47" name=""/>
-        <alias field="gn_level" index="48" name=""/>
-        <alias field="gn_region" index="49" name=""/>
-        <alias field="gn_a1_code" index="50" name=""/>
-        <alias field="region_sub" index="51" name=""/>
-        <alias field="sub_code" index="52" name=""/>
-        <alias field="gns_level" index="53" name=""/>
-        <alias field="gns_lang" index="54" name=""/>
-        <alias field="gns_adm1" index="55" name=""/>
-        <alias field="gns_region" index="56" name=""/>
-        <alias field="min_label" index="57" name=""/>
-        <alias field="max_label" index="58" name=""/>
-        <alias field="min_zoom" index="59" name=""/>
-        <alias field="orig_ogc_fid" index="60" name=""/>
-      </aliases>
-      <excludeAttributesWMS/>
-      <excludeAttributesWFS/>
-      <attributeactions default="-1"/>
-      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="0">
-        <columns>
-          <column width="-1" hidden="0" type="field" name="adm1_code"/>
-          <column width="-1" hidden="0" type="field" name="diss_me"/>
-          <column width="-1" hidden="0" type="field" name="iso_3166_2"/>
-          <column width="-1" hidden="0" type="field" name="wikipedia"/>
-          <column width="-1" hidden="0" type="field" name="iso_a2"/>
-          <column width="-1" hidden="0" type="field" name="adm0_sr"/>
-          <column width="-1" hidden="0" type="field" name="name"/>
-          <column width="-1" hidden="0" type="field" name="name_alt"/>
-          <column width="-1" hidden="0" type="field" name="name_local"/>
-          <column width="-1" hidden="0" type="field" name="type"/>
-          <column width="-1" hidden="0" type="field" name="type_en"/>
-          <column width="-1" hidden="0" type="field" name="code_local"/>
-          <column width="-1" hidden="0" type="field" name="code_hasc"/>
-          <column width="-1" hidden="0" type="field" name="note"/>
-          <column width="-1" hidden="0" type="field" name="hasc_maybe"/>
-          <column width="-1" hidden="0" type="field" name="region"/>
-          <column width="-1" hidden="0" type="field" name="region_cod"/>
-          <column width="-1" hidden="0" type="field" name="provnum_ne"/>
-          <column width="-1" hidden="0" type="field" name="gadm_level"/>
-          <column width="-1" hidden="0" type="field" name="check_me"/>
-          <column width="-1" hidden="0" type="field" name="scalerank"/>
-          <column width="-1" hidden="0" type="field" name="datarank"/>
-          <column width="-1" hidden="0" type="field" name="abbrev"/>
-          <column width="-1" hidden="0" type="field" name="postal"/>
-          <column width="-1" hidden="0" type="field" name="area_sqkm"/>
-          <column width="-1" hidden="0" type="field" name="sameascity"/>
-          <column width="-1" hidden="0" type="field" name="labelrank"/>
-          <column width="-1" hidden="0" type="field" name="featurecla"/>
-          <column width="-1" hidden="0" type="field" name="name_len"/>
-          <column width="-1" hidden="0" type="field" name="mapcolor9"/>
-          <column width="-1" hidden="0" type="field" name="mapcolor13"/>
-          <column width="-1" hidden="0" type="field" name="fips"/>
-          <column width="-1" hidden="0" type="field" name="fips_alt"/>
-          <column width="-1" hidden="0" type="field" name="woe_id"/>
-          <column width="-1" hidden="0" type="field" name="woe_label"/>
-          <column width="-1" hidden="0" type="field" name="woe_name"/>
-          <column width="-1" hidden="0" type="field" name="latitude"/>
-          <column width="-1" hidden="0" type="field" name="longitude"/>
-          <column width="-1" hidden="0" type="field" name="sov_a3"/>
-          <column width="-1" hidden="0" type="field" name="adm0_a3"/>
-          <column width="-1" hidden="0" type="field" name="adm0_label"/>
-          <column width="-1" hidden="0" type="field" name="admin"/>
-          <column width="-1" hidden="0" type="field" name="geonunit"/>
-          <column width="-1" hidden="0" type="field" name="gu_a3"/>
-          <column width="-1" hidden="0" type="field" name="gn_id"/>
-          <column width="-1" hidden="0" type="field" name="gn_name"/>
-          <column width="-1" hidden="0" type="field" name="gns_id"/>
-          <column width="-1" hidden="0" type="field" name="gns_name"/>
-          <column width="-1" hidden="0" type="field" name="gn_level"/>
-          <column width="-1" hidden="0" type="field" name="gn_region"/>
-          <column width="-1" hidden="0" type="field" name="gn_a1_code"/>
-          <column width="-1" hidden="0" type="field" name="region_sub"/>
-          <column width="-1" hidden="0" type="field" name="sub_code"/>
-          <column width="-1" hidden="0" type="field" name="gns_level"/>
-          <column width="-1" hidden="0" type="field" name="gns_lang"/>
-          <column width="-1" hidden="0" type="field" name="gns_adm1"/>
-          <column width="-1" hidden="0" type="field" name="gns_region"/>
-          <column width="-1" hidden="0" type="field" name="min_label"/>
-          <column width="-1" hidden="0" type="field" name="max_label"/>
-          <column width="-1" hidden="0" type="field" name="min_zoom"/>
-          <column width="-1" hidden="1" type="actions"/>
-          <column width="-1" hidden="0" type="field" name="orig_ogc_fid"/>
-        </columns>
-      </attributetableconfig>
-      <editform>.</editform>
-      <editforminit/>
-      <editforminitcodesource>0</editforminitcodesource>
-      <editforminitfilepath>.</editforminitfilepath>
-      <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
-"""
-QGIS forms can have a Python function that is called when the form is
-opened.
-
-Use this function to add extra logic to your forms.
-
-Enter the name of the function in the "Python Init function"
-field.
-An example follows:
-"""
-from qgis.PyQt.QtWidgets import QWidget
-
-def my_form_open(dialog, layer, feature):
-	geom = feature.geometry()
-	control = dialog.findChild(QWidget, "MyLineEdit")
-]]></editforminitcode>
-      <featformsuppress>0</featformsuppress>
-      <editorlayout>generatedlayout</editorlayout>
-      <widgets/>
-      <conditionalstyles>
-        <rowstyles/>
-        <fieldstyles/>
-      </conditionalstyles>
-      <defaults>
-        <default field="adm1_code" expression=""/>
-        <default field="diss_me" expression=""/>
-        <default field="iso_3166_2" expression=""/>
-        <default field="wikipedia" expression=""/>
-        <default field="iso_a2" expression=""/>
-        <default field="adm0_sr" expression=""/>
-        <default field="name" expression=""/>
-        <default field="name_alt" expression=""/>
-        <default field="name_local" expression=""/>
-        <default field="type" expression=""/>
-        <default field="type_en" expression=""/>
-        <default field="code_local" expression=""/>
-        <default field="code_hasc" expression=""/>
-        <default field="note" expression=""/>
-        <default field="hasc_maybe" expression=""/>
-        <default field="region" expression=""/>
-        <default field="region_cod" expression=""/>
-        <default field="provnum_ne" expression=""/>
-        <default field="gadm_level" expression=""/>
-        <default field="check_me" expression=""/>
-        <default field="scalerank" expression=""/>
-        <default field="datarank" expression=""/>
-        <default field="abbrev" expression=""/>
-        <default field="postal" expression=""/>
-        <default field="area_sqkm" expression=""/>
-        <default field="sameascity" expression=""/>
-        <default field="labelrank" expression=""/>
-        <default field="featurecla" expression=""/>
-        <default field="name_len" expression=""/>
-        <default field="mapcolor9" expression=""/>
-        <default field="mapcolor13" expression=""/>
-        <default field="fips" expression=""/>
-        <default field="fips_alt" expression=""/>
-        <default field="woe_id" expression=""/>
-        <default field="woe_label" expression=""/>
-        <default field="woe_name" expression=""/>
-        <default field="latitude" expression=""/>
-        <default field="longitude" expression=""/>
-        <default field="sov_a3" expression=""/>
-        <default field="adm0_a3" expression=""/>
-        <default field="adm0_label" expression=""/>
-        <default field="admin" expression=""/>
-        <default field="geonunit" expression=""/>
-        <default field="gu_a3" expression=""/>
-        <default field="gn_id" expression=""/>
-        <default field="gn_name" expression=""/>
-        <default field="gns_id" expression=""/>
-        <default field="gns_name" expression=""/>
-        <default field="gn_level" expression=""/>
-        <default field="gn_region" expression=""/>
-        <default field="gn_a1_code" expression=""/>
-        <default field="region_sub" expression=""/>
-        <default field="sub_code" expression=""/>
-        <default field="gns_level" expression=""/>
-        <default field="gns_lang" expression=""/>
-        <default field="gns_adm1" expression=""/>
-        <default field="gns_region" expression=""/>
-        <default field="min_label" expression=""/>
-        <default field="max_label" expression=""/>
-        <default field="min_zoom" expression=""/>
-        <default field="orig_ogc_fid" expression=""/>
-      </defaults>
-      <previewExpression>COALESCE( "name", '&lt;NULL>' )</previewExpression>
-    </maplayer>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" readOnly="0" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <extent>
         <xmin>-179.99999999999988631</xmin>
@@ -4290,8 +4355,8 @@ def my_form_open(dialog, layer, feature):
         <xmax>180.00000000000014211</xmax>
         <ymax>90.00000000000008527</ymax>
       </extent>
-      <id>ne_10m_ocean2018201802171206299362407</id>
-      <datasource>DATA_PATH/ne_10m_ocean.shp</datasource>
+      <id>ne_10m_ocean</id>
+      <datasource>DATA_FOLDER/ne_10m_ocean.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>

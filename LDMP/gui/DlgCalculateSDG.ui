@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgCalculateLC</class>
- <widget class="QDialog" name="DlgCalculateLC">
+ <class>DlgCalculateSDG</class>
+ <widget class="QDialog" name="DlgCalculateSDG">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>966</width>
-    <height>748</height>
+    <height>797</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Calculate Land Cover Change</string>
+   <string>Calculate SDG 15.3.1 Indicator</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

@@ -30,7 +30,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton_SDG_one_step">
+       <widget class="QPushButton" name="btn_sdg">
         <property name="font">
          <font>
           <weight>75</weight>

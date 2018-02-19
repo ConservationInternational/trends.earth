@@ -3,6 +3,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
 ../gui/DlgCalculateProd.ui \
+../gui/DlgCalculateSDG.ui \
 ../gui/DlgCalculateSOC.ui \
 ../gui/DlgCreateMap.ui \
 ../gui/DlgDownload.ui \
@@ -13,6 +14,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgReporting.ui \
 ../gui/DlgReportingSDG.ui \
 ../gui/DlgReportingSummaryTable.ui \
+../gui/DlgReportingBasemap.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \
@@ -25,6 +27,7 @@ SOURCES = ../about.py \
 ../calculate.py \
 ../calculate_lc.py \
 ../calculate_prod.py \
+../calculate_sdg.py \
 ../calculate_soc.py \
 ../download.py \
 ../download_data.py \

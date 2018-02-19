@@ -21,7 +21,7 @@ from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QGis, QgsMapLayerRegistry
 
 from LDMP import log
-from LDMP.gui.DlgCalculate import Ui_DlgCalculate as UiDialog
+from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.download import read_json, get_admin_bounds
 
@@ -132,7 +132,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.setupUi(self)
 
 
-class DlgCalculate(QtGui.QDialog, UiDialog):
+class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):
         super(DlgCalculate, self).__init__(parent)
 

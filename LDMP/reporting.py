@@ -42,6 +42,7 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
+from LDMP.gui.DlgReportingBasemap import Ui_DlgReportingBasemap
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
 from LDMP.worker import AbstractWorker, start_worker
@@ -624,9 +625,11 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         super(DlgReporting, self).__init__(parent)
         self.setupUi(self)
 
+        self.dlg_basemap = DlgReportingBasemap()
         self.dlg_sdg = DlgReportingSDG()
         self.dlg_create_map = DlgCreateMap()
 
+        self.btn_basemap.clicked.connect(self.clicked_basemap)
         self.btn_sdg.clicked.connect(self.clicked_sdg)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
 
@@ -638,6 +641,15 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.close()
         self.dlg_sdg.exec_()
 
+    def clicked_basemap(self):
+        self.close()
+        self.dlg_basemap.exec_()
+
+
+class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
+    def __init__(self, parent=None):
+        super(DlgReportingBasemap, self).__init__(parent)
+        self.setupUi(self)
 
 class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
     def __init__(self, parent=None):

@@ -33,7 +33,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="checkBox_mask">
         <property name="text">
          <string>Use a mask</string>
         </property>

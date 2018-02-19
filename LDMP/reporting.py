@@ -32,13 +32,14 @@ from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGr
     QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
     QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
     QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
-    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition
+    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, QgsLayerDefinition
 from qgis.gui import QgsComposerView
 from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
+from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
 from LDMP.gui.DlgReporting import Ui_DlgReporting
@@ -46,6 +47,9 @@ from LDMP.gui.DlgReportingBasemap import Ui_DlgReportingBasemap
 from LDMP.gui.DlgReportingSDG import Ui_DlgReportingSDG
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
 from LDMP.worker import AbstractWorker, start_worker
+
+
+NUM_CLASSES_STATE_DEG = -2
 
 
 def create_local_json_metadata(d, outfile, file_format='tif'):
@@ -249,20 +253,33 @@ class DegradationWorkerSDG(AbstractWorker):
                 #  1: 90% signif increase
                 #  2: 95% signif increase
                 #  3: 99% signif increase
+                traj_array[traj_array == -1] = 0 # not signif at 95%
+                traj_array[traj_array == 1] = 0 # not signif at 95%
+                traj_array[np.logical_and(traj_array >= -3, traj_array <= -2)] = -3
+                traj_array[np.logical_and(traj_array >= 2, traj_array <= 3)] = 2
+
                 deg = traj_array
-                deg[deg == -1] = 0 # not signif at 95%
-                deg[deg == 1] = 0 # not signif at 95%
-                deg[np.logical_and(deg >= -3, deg <= -2)] = -1
-                deg[np.logical_and(deg >= 2, deg <= 3)] = 1
 
-                # Handle state and performance. Note that state array is the 
-                # number of changes in class, so  <= -2 is a decline.
-                deg[np.logical_and(np.logical_and(state_array <= -2, state_array >= -10), perf_array == -1)] = -1
+                ##
+                # Handle state and performance.
+                
+                # traj = imp, state=deg, perf=deg
+                deg[np.logical_and(traj_array == -1, np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10), perf_array == -1)] = 0
+                # traj = stable, state=imp, perf=stable or deg
+                deg[np.logical_and(traj_array == 0, state_array >= 2)] = 1
+                # traj = stable, state=stable, perf=deg
+                deg[np.logical_and(traj_array == 0, state_array >= 2)] = -1
+                # traj = stable, state=deg, perf=stable
+                deg[np.logical_and(traj_array == 0, np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10), perf_array == 1)] = -2
 
+                ##
+                # Handle NAs
+                
                 # Ensure NAs carry over to productivity indicator layer
                 deg[traj_array == -32768] = -32768
                 deg[perf_array == -32768] = -32768
                 deg[state_array == -32768] = -32768
+
                 # Ensure masked areas carry over to productivity indicator 
                 # layer
                 deg[traj_array == -32767] = -32767
@@ -433,29 +450,32 @@ def merge_area_tables(table1, table2):
 
 
 class AreaWorker(AbstractWorker):
-    def __init__(self, masked_f, deg_f):
+    def __init__(self, masked_f, deg_sdg_f, deg_prod_f):
         AbstractWorker.__init__(self)
         self.masked_f = masked_f
-        self.deg_f = deg_f
+        self.deg_sdg_f = deg_sdg_f
+        self.deg_prod_f = deg_prod_f
 
     def work(self):
-        ds_deg = gdal.Open(self.deg_f)
-        band_deg = ds_deg.GetRasterBand(1)
+        ds_deg_sdg = gdal.Open(self.deg_sdg_f)
+        band_deg_sdg = ds_deg_sdg.GetRasterBand(1)
+        ds_deg_prod = gdal.Open(self.deg_prod_f)
+        band_deg_prod = ds_deg_prod.GetRasterBand(1)
         ds_masked = gdal.Open(self.masked_f)
         band_lc_bl = ds_masked.GetRasterBand(4)
         band_lc_tg = ds_masked.GetRasterBand(5)
         band_soc_bl = ds_masked.GetRasterBand(6)
         band_soc_tg = ds_masked.GetRasterBand(7)
 
-        block_sizes = band_deg.GetBlockSize()
+        block_sizes = band_deg_sdg.GetBlockSize()
         x_block_size = block_sizes[0]
         # Need to process y line by line so that pixel area calculation can be
         # done based on latitude, which varies by line
         y_block_size = 1
-        xsize = band_deg.XSize
-        ysize = band_deg.YSize
+        xsize = band_deg_sdg.XSize
+        ysize = band_deg_sdg.YSize
 
-        gt = ds_deg.GetGeoTransform()
+        gt = ds_deg_sdg.GetGeoTransform()
         # Width of cells in longitude
         long_width = gt[1]
 
@@ -468,6 +488,7 @@ class AreaWorker(AbstractWorker):
         trans_xtab = None
         soc_bl_totals_table = None
         soc_tg_totals_table = None
+        sdg_table = np.zeros((4, 1))
         for y in xrange(0, ysize, y_block_size):
             if self.killed:
                 log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
@@ -485,17 +506,26 @@ class AreaWorker(AbstractWorker):
 
                 cell_area = calc_cell_area(lat, lat + pixel_height, long_width)
 
-                ################################
-                # Calculate transition crosstabs
+                ###########################################################
+                # Tabulate SDG 15.3.1 indicator
+                a_deg_sdg = band_deg_sdg.ReadAsArray(x, y, cols, rows).ravel()
+
+                sdg_table = sdg_table + (np.sum(a_deg_sdg == -1),
+                                         np.sum(a_deg_sdg == 0),
+                                         np.sum(a_deg_sdg == 1),
+                                         np.sum(a_deg_sdg == -32768))
+
+                ###########################################################
+                # Calculate transition crosstabs for productivity indicator
                 a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
                 a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
                 a_trans = a_lc_bl*10 + a_lc_tg
                 a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
 
-                a_deg = band_deg.ReadAsArray(x, y, cols, rows)
+                a_deg_prod = band_deg_prod.ReadAsArray(x, y, cols, rows)
 
                 # Flatten the arrays before passing to xtab
-                this_trans_xtab = xtab(a_deg.ravel(), a_trans.ravel())
+                this_trans_xtab = xtab(a_deg_prod.ravel(), a_trans.ravel())
 
                 # Don't use this_trans_xtab if it is empty (could happen if take a
                 # crosstab where all of the values are nan's)
@@ -506,7 +536,7 @@ class AreaWorker(AbstractWorker):
                     else:
                         trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
 
-                #################################
+                ##############################################################
                 # Calculate SOC totals (converting soilgrids data from per ha
                 # to per meter since cell_area is in meters). Note final units 
                 # of soc_totals tables are tons C (summed over the total area 
@@ -530,7 +560,7 @@ class AreaWorker(AbstractWorker):
         if self.killed:
             return None
         else:
-            return list((soc_bl_totals_table, soc_tg_totals_table, trans_xtab))
+            return list((soc_bl_totals_table, soc_tg_totals_table, trans_xtab, sdg_table))
 
 
 # Returns value from crosstab table for particular deg/lc class combination
@@ -646,10 +676,113 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.dlg_basemap.exec_()
 
 
+# Function to set brush style for a map layer in an XML layer definition
+def set_style(maplayers, id, style='no'):
+    for n in xrange(maplayers.length()):
+        m_l = maplayers.at(n)
+        # Note that firstChild is needed as id is an element node, 
+        # so its text is stored in the first child of that node
+        if m_l.namedItem('id').firstChild().nodeValue() == id:
+            layer_props = m_l.namedItem('renderer-v2').namedItem('symbols').namedItem('symbol').namedItem('layer').childNodes()
+            for m in xrange(layer_props.length()):
+                elem = layer_props.at(m).toElement()
+                if elem.attribute('k') == 'style':
+                    elem.setAttribute('v', style)
+
+
 class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
     def __init__(self, parent=None):
         super(DlgReportingBasemap, self).__init__(parent)
         self.setupUi(self)
+
+        self.admin_bounds_key = get_admin_bounds()
+        if not self.admin_bounds_key:
+            raise ValueError('Admin boundaries not available')
+        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
+        self.populate_admin_1()
+
+        self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
+
+        self.buttonBox.accepted.connect(self.ok_clicked)
+        self.buttonBox.rejected.connect(self.cancel_clicked)
+
+        self.checkBox_mask.stateChanged.connect(self.checkBox_mask_statechanged)
+
+    def checkBox_mask_statechanged(self):
+        if self.checkBox_mask.isChecked():
+            self.label_maskselect.setEnabled(True)
+            self.label_admin0.setEnabled(True)
+            self.label_admin1.setEnabled(True)
+            self.area_admin_0.setEnabled(True)
+            self.area_admin_1.setEnabled(True)
+        else:
+            self.label_maskselect.setEnabled(False)
+            self.label_admin0.setEnabled(False)
+            self.label_admin1.setEnabled(False)
+            self.area_admin_0.setEnabled(False)
+            self.area_admin_1.setEnabled(False)
+
+    def populate_admin_1(self):
+        self.area_admin_1.clear()
+        self.area_admin_1.addItems(['All regions'])
+        self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
+
+
+    def ok_clicked(self):
+        self.close()
+
+        ret = extract_zipfile('trends.earth_basemap_data.zip', verify=False)
+
+        if ret:
+            f = file(os.path.join(os.path.dirname(__file__), 'data', 'basemap.qlr'), 'rt')
+            lyr_def_content = f.read()
+            f.close()
+
+            # The basemap data, when downloaded, is stored in the data 
+            # subfolder of the plugin directory
+            lyr_def_content = lyr_def_content.replace('DATA_FOLDER', os.path.join(os.path.dirname(__file__), 'data'))
+
+            if self.checkBox_mask.isChecked():
+                admin_0_code = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
+                if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
+                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_0_code))
+                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
+                    document = QtXml.QDomDocument()
+                    document.setContent(lyr_def_content)
+                else:
+                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
+                    admin_1_code = self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'][self.area_admin_1.currentText()]['code']
+                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', "|subset=&quot;adm1_code&quot; != '{}'".format(admin_1_code))
+
+                    # Set national borders to no brush, and regional borders to 
+                    # solid brush
+                    document = QtXml.QDomDocument()
+                    document.setContent(lyr_def_content)
+                    maplayers = document.elementsByTagName('maplayer')
+                    set_style(maplayers, 'ne_10m_admin_0_countries', 'no')
+                    set_style(maplayers, 'ne_10m_admin_1_states_provinces', 'solid')
+            else:
+                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
+                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
+
+                # To not use a mask, need to set the fill style to no brush
+                document = QtXml.QDomDocument()
+                document.setContent(lyr_def_content)
+                maplayers = document.elementsByTagName('maplayer')
+                set_style(maplayers, 'ne_10m_admin_0_countries', 'no')
+
+            # Always add the basemap at the top of the TOC
+            root = QgsProject.instance().layerTreeRoot().insertGroup(0, 'Basemap')
+            QgsLayerDefinition.loadLayerDefinition(document, root, "Success")
+
+        else:
+            QtGui.QMessageBox.critical(None,
+                                       QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Error downloading basemap data."))
+
+    def cancel_clicked(self):
+        self.close()
+
 
 class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
     def __init__(self, parent=None):
@@ -1002,21 +1135,27 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         #######################################################################
 
         # The combined degradation indicator is band 1 of the output file
-        deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(deg_f, self.output_file_layer.text(),
+        deg_sdg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(deg_sdg_f, self.output_file_layer.text(),
                       bandList=[1])
+
+        # The productivity degradation indicator is band 2 of the output file
+        deg_prod_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(deg_prod_f, self.output_file_layer.text(),
+                      bandList=[2])
 
         ######################################################################
         # Calculate area crosstabs
 
         log('Calculating land cover crosstabulation...')
-        area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, deg_f)
+        area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, 
+                                  deg_sdg_f, deg_prod_f)
         if not area_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)
             return
         else:
-            soc_bl_totals, soc_tg_totals, trans_prod_xtab = area_worker.get_return()
+            soc_bl_totals, soc_tg_totals, trans_prod_xtab, sdg_table = area_worker.get_return()
             log('Soc bl: {}'.format(soc_bl_totals))
 
         x = [self.tr('Degraded'), self.tr('Stable'), self.tr('Improved'), self.tr('No Data')]
@@ -1027,7 +1166,7 @@ class DlgReportingSDG(DlgCalculateBase, Ui_DlgReportingSDG):
         log('SummaryTable total area: {}'.format(sum(y)))
         log('SummaryTable areas (deg, stable, imp, no data): {}'.format(y))
 
-        make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
+        make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, sdg_table,
                            self.output_file_table.text())
 
         style_sdg_ld(self.output_file_layer.text(), QtGui.QApplication.translate('LDMPPlugin', 'SDG 15.3.1 productivity sub-indicator'), 2)
@@ -1137,11 +1276,17 @@ def write_table_to_sheet(sheet, d, first_row, first_col):
             cell.value = d[row, col]
 
 
-def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, out_file):
+def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, 
+                       sdg_table, out_file):
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'SummaryTable.xlsx'))
+
+    ##########################################################################
+    # SDG table
+    ws_sdg = wb.get_sheet_by_name('SDG 15.3.1')
+    write_table_to_sheet(ws_sdg, sdg_table, 5, 6)
 
     ##########################################################################
     # Productivity tables
@@ -1173,6 +1318,8 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, out_file):
     ws_lc = wb.get_sheet_by_name('Land cover')
     write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 18, 3)
 
+    ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    ws_sdg.add_image(ws_sdg_logo, 'H1')
     ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_prod.add_image(ws_prod_logo, 'H1')
     ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))

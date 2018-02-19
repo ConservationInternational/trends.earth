@@ -146,7 +146,7 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.btn_prod.clicked.connect(self.btn_prod_clicked)
         self.btn_lc.clicked.connect(self.btn_lc_clicked)
         self.btn_soc.clicked.connect(self.btn_soc_clicked)
-        self.btn_sdg.clicked.connect(self.btn_sdg_clicked)
+        self.btn_sdg_onestep.clicked.connect(self.btn_sdg_onestep_clicked)
 
     def btn_prod_clicked(self):
         self.close()
@@ -160,7 +160,7 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.close()
         result = self.dlg_calculate_soc.exec_()
 
-    def btn_sdg_clicked(self):
+    def btn_sdg_onestep_clicked(self):
         self.close()
         result = self.dlg_calculate_sdg.exec_()
 

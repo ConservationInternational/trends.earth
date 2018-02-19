@@ -398,6 +398,26 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
         self.setupUi(self)
 
+        self.dlg_loaddata_te = DlgLoadDataTE()
+        self.dlg_loaddata_lc = DlgLoadDataLC()
+        self.dlg_loaddata_soc = DlgLoadDataSOC()
+
+        self.btn_te.clicked.connect(self.run_te)
+        self.btn_lc.clicked.connect(self.run_lc)
+        self.btn_soc.clicked.connect(self.run_soc)
+
+    def run_te(self):
+        self.dlg_loaddata_te.show()
+        self.close()
+
+    def run_lc(self):
+        self.dlg_loaddata_lc.show()
+        self.close()
+
+    def run_soc(self):
+        self.dlg_loaddata_soc.show()
+        self.close()
+
 class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
     def __init__(self, parent=None):
         super(DlgLoadDataTE, self).__init__(parent)
@@ -518,15 +538,16 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
 class DlgLoadDataBase(QtGui.QDialog):
     """Base class for individual data loading dialogs"""
     def __init__(self, parent=None):
-        #TODO: Complete this function
-        pass
+        super(DlgLoadDataBase, self).__init__(parent)
 
-class DlgLoadDataSOC(Ui_DlgLoadDataSOC):
+class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
-        #TODO: Complete this function
-        pass
+        super(DlgLoadDataLC, self).__init__(parent)
 
-class DlgLoadDataLC(Ui_DlgLoadDataLC):
+        self.setupUi(self)
+
+class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):
-        #TODO: Complete this function
-        pass
+        super(DlgLoadDataSOC, self).__init__(parent)
+
+        self.setupUi(self)

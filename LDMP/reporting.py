@@ -660,7 +660,6 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
         self.dlg_create_map = DlgCreateMap()
 
         self.btn_basemap.clicked.connect(self.clicked_basemap)
-        self.btn_sdg.clicked.connect(self.clicked_sdg)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
 
     def clicked_create_map(self):

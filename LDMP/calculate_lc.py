@@ -25,6 +25,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
+from LDMP.gui.DlgLCSetup import Ui_DlgLCSetup
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.api import run_script
@@ -60,11 +61,11 @@ class TransMatrixEdit(QtGui.QLineEdit):
 
     def transition_cell_changed(self, text):
         if self.text() == '-':
-            self.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
+            self.setStyleSheet('QLineEdit {background: #AB2727;} QLineEdit:hover {border: 1px solid gray; background: #AB2727;}')
         elif self.text() == '+':
-            self.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
+            self.setStyleSheet('QLineEdit {background: #45A146;} QLineEdit:hover {border: 1px solid gray; background: #45A146;}')
         else:
-            self.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
+            self.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
 
     def focusInEvent(self, e):
         super(TransMatrixEdit, self).focusInEvent(e)
@@ -151,6 +152,8 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
 
         self.setupUi(self)
 
+        self.dlg_lc_setup = DlgLCSetup(self)
+
         # Extract trans_matrix from the QTableWidget
         self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
                                      1, 0, -1, 0, -1, -1, 0, # grassland
@@ -191,10 +194,11 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
+        self.btn_modify_lc_settings.clicked.connect(self.modify_lc_settings_clicked)
 
-        self.legend_deg.setStyleSheet('QLineEdit {background: #BB7757;} QLineEdit:hover {border: 1px solid gray; background: #BB7757;}')
-        self.legend_imp.setStyleSheet('QLineEdit {background: #55B2A5;} QLineEdit:hover {border: 1px solid gray; background: #55B2A5;}')
-        self.legend_stable.setStyleSheet('QLineEdit {background: #F6F6EA;} QLineEdit:hover {border: 1px solid gray; background: #F6F6EA;}')
+        self.legend_deg.setStyleSheet('QLineEdit {background: #AB2727;} QLineEdit:hover {border: 1px solid gray; background: #AB2727;}')
+        self.legend_imp.setStyleSheet('QLineEdit {background: #45A146;} QLineEdit:hover {border: 1px solid gray; background: #45A146;}')
+        self.legend_stable.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
 
     def firstShow(self):
         lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
@@ -205,6 +209,9 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.year_target.setMaximumDate(lc_end_year)
 
         super(DlgCalculateLC, self).firstShow()
+
+    def modify_lc_settings_clicked(self):
+        self.dlg_lc_setup.show() 
 
     def trans_matrix_loadfile(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
@@ -329,6 +336,11 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         #######################################################################
         # TODO: Add offline calculation
 
+class DlgLCSetup(QtGui.QDialog, Ui_DlgLCSetup):
+    def __init__(self, parent=None):
+        super(DlgLCSetup, self).__init__(parent)
+
+        self.setupUi(self)
 
 class LCAggTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):

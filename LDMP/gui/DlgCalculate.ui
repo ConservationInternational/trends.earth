@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>787</width>
-    <height>342</height>
+    <width>493</width>
+    <height>252</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,6 +31,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="btn_sdg_onestep">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <weight>75</weight>
@@ -107,6 +113,12 @@
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QPushButton" name="btn_sdg_advanced">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
            <property name="text">
             <string>Combine SDG 15.3.1 sub-indicators into final indicator</string>
            </property>

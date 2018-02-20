@@ -141,12 +141,14 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.dlg_calculate_prod = DlgCalculateProd()
         self.dlg_calculate_lc = DlgCalculateLC()
         self.dlg_calculate_soc = DlgCalculateSOC()
-        self.dlg_calculate_sdg = DlgCalculateSDG()
+        self.dlg_calculate_sdg_onestep = DlgCalculateSDGOneStep()
+        self.dlg_calculate_sdg_advanced = DlgCalculateSDGAdvanced()
 
         self.btn_prod.clicked.connect(self.btn_prod_clicked)
         self.btn_lc.clicked.connect(self.btn_lc_clicked)
         self.btn_soc.clicked.connect(self.btn_soc_clicked)
         self.btn_sdg_onestep.clicked.connect(self.btn_sdg_onestep_clicked)
+        self.btn_sdg_advanced.clicked.connect(self.btn_sdg_advanced_clicked)
 
     def btn_prod_clicked(self):
         self.close()
@@ -162,7 +164,11 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
 
     def btn_sdg_onestep_clicked(self):
         self.close()
-        result = self.dlg_calculate_sdg.exec_()
+        result = self.dlg_calculate_sdg_onestep.exec_()
+
+    def btn_sdg_advanced_clicked(self):
+        self.close()
+        result = self.dlg_calculate_sdg_advanced.exec_()
 
 
 class DlgCalculateBase(QtGui.QDialog):
@@ -331,4 +337,4 @@ class DlgCalculateBase(QtGui.QDialog):
 from LDMP.calculate_prod import DlgCalculateProd
 from LDMP.calculate_lc import DlgCalculateLC
 from LDMP.calculate_soc import DlgCalculateSOC
-from LDMP.calculate_sdg import DlgCalculateSDG
+from LDMP.calculate_sdg import DlgCalculateSDGOneStep, DlgCalculateSDGAdvanced

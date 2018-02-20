@@ -55,64 +55,26 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
-        self.indic_select_traj.stateChanged.connect(self.indic_select_traj_changed)
-        self.indic_select_perf.stateChanged.connect(self.indic_select_perf_changed)
-        self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
+        self.mode_lpd_custom.toggled.connect(self.mode_lpd_custom_toggled)
 
-        self.mode_gpg_prod.toggled.connect(self.mode_gpg_prod_toggled)
-
-        self.mode_gpg_prod_toggled()
-
-        self.indic_select_traj_changed()
-        self.indic_select_perf_changed()
-        self.indic_select_state_changed()
-
-    def indic_select_traj_changed(self):
-        if self.mode_gpg_prod.isChecked() and self.indic_select_traj.isChecked():
-            self.TrajectoryTab.setEnabled(True)
-        else:
-            self.TrajectoryTab.setEnabled(False)
-
-    def indic_select_perf_changed(self):
-        if self.mode_gpg_prod.isChecked() and self.indic_select_perf.isChecked():
-            self.PerformanceTab.setEnabled(True)
-        else:
-            self.PerformanceTab.setEnabled(False)
-
-    def indic_select_state_changed(self):
-        if self.mode_gpg_prod.isChecked() and self.indic_select_state.isChecked():
-            self.StateTab.setEnabled(True)
-        else:
-            self.StateTab.setEnabled(False)
+        self.mode_lpd_custom_toggled()
 
     def traj_indic_changed(self):
         self.dataset_climate_update()
 
-    def mode_gpg_prod_toggled(self):
-        if self.mode_jrc_lpd.isChecked():
-            QtGui.QMessageBox.warning(None,
-                                      QtGui.QApplication.translate("LDMP", "Warning"),
-                                      QtGui.QApplication.translate("LDMP", "JRC LPD not yet supported."))
-            self.mode_gpg_prod.setChecked(True)
-            # self.LPDTab.setEnabled(True)
-            # self.indic_select_traj.setEnabled(False)
-            # self.indic_select_traj_label.setEnabled(False)
-            # self.indic_select_perf.setEnabled(False)
-            # self.indic_select_perf_label.setEnabled(False)
-            # self.indic_select_state.setEnabled(False)
-            # self.indic_select_state_label.setEnabled(False)
+    def mode_lpd_custom_toggled(self):
+        if self.mode_lpd_jrc.isChecked():
+            self.groupBox_lpd.show()
+            self.groupBox_ndvi_dataset.setEnabled(False)
+            self.groupBox_traj.hide()
+            self.groupBox_perf.hide()
+            self.groupBox_state.hide()
         else:
-            self.LPDTab.setEnabled(False)
-            self.indic_select_traj.setEnabled(True)
-            self.indic_select_traj_label.setEnabled(True)
-            self.indic_select_perf.setEnabled(True)
-            self.indic_select_perf_label.setEnabled(True)
-            self.indic_select_state.setEnabled(True)
-            self.indic_select_state_label.setEnabled(True)
-
-        self.indic_select_traj_changed()
-        self.indic_select_state_changed()
-        self.indic_select_perf_changed()
+            self.groupBox_lpd.hide()
+            self.groupBox_ndvi_dataset.setEnabled(True)
+            self.groupBox_traj.show()
+            self.groupBox_perf.show()
+            self.groupBox_state.show()
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
@@ -174,9 +136,9 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.close()
 
     def btn_calculate(self):
-        if not (self.indic_select_traj.isChecked() or
-                self.indic_select_perf.isChecked() or
-                self.indic_select_state.isChecked()):
+        if not (self.groupBox_traj.isChecked() or
+                self.groupBox_perf.isChecked() or
+                self.groupBox_state.isChecked()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Choose one or more indicators to calculate."), None)
             return
@@ -192,13 +154,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
-        if self.indic_select_traj.isChecked():
+        if self.groupBox_traj.isChecked():
             self.calculate_trajectory(self.aoi.bounding_box_geojson, ndvi_dataset)
 
-        if self.indic_select_perf.isChecked():
+        if self.groupBox_perf.isChecked():
             self.calculate_performance(self.aoi.bounding_box_geojson, ndvi_dataset)
 
-        if self.indic_select_state.isChecked():
+        if self.groupBox_state.isChecked():
             self.calculate_state(self.aoi.bounding_box_geojson, ndvi_dataset)
 
     def calculate_trajectory(self, geojson, ndvi_dataset):

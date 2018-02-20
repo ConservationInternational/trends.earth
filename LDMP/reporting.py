@@ -26,7 +26,7 @@ import openpyxl
 from openpyxl.drawing.image import Image
 
 from PyQt4 import QtGui, uic, QtXml
-from PyQt4.QtCore import QSettings, QEventLoop
+from PyQt4.QtCore import QSettings, QEventLoop, QTimer
 
 from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
     QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
@@ -677,7 +677,7 @@ class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
 
 
 # Function to set brush style for a map layer in an XML layer definition
-def set_style(maplayers, id, style='no'):
+def set_fill_style(maplayers, id, style='no'):
     for n in xrange(maplayers.length()):
         m_l = maplayers.at(n)
         # Note that firstChild is needed as id is an element node, 
@@ -689,6 +689,44 @@ def set_style(maplayers, id, style='no'):
                 if elem.attribute('k') == 'style':
                     elem.setAttribute('v', style)
 
+class zoom_to_admin_poly(object):
+    def __init__(self, admin_code, admin_1=False):
+        self.admin_code = admin_code
+        if admin_1:
+            self.lyr_source = os.path.normpath(os.path.join(os.path.dirname(__file__), 'data', 'ne_10m_admin_1_states_provinces.shp'))
+            self.field = 'adm1_code'
+        else:
+            self.lyr_source = os.path.normpath(os.path.join(os.path.dirname(__file__), 'data', 'ne_10m_admin_0_countries.shp'))
+            self.field = 'ISO_A3'
+    
+    def zoom(self):
+        layer = None
+        for lyr in QgsMapLayerRegistry.instance().mapLayers().values():
+            if self.lyr_source in os.path.normpath(lyr.source()):
+                layer = lyr
+                break
+        if not layer:
+            raise LookupError('Unable to locate layer for extent for admin code {}'.format(self.admin_code))
+        # Note that this layer will have the selected admin region filtered out, so 
+        # that data will not be masked in this area. So need to temporarily remove 
+        # this filter and then reapply it.
+        subset_string = layer.subsetString()
+        layer.setSubsetString('')
+        feature = None
+        for f in layer.getFeatures():
+            if f.attribute(self.field) == self.admin_code:
+                feature = f
+                break
+        if not feature:
+            raise LookupError('Unable to locate polygon for admin code {}'.format(self.admin_code))
+        # TODO: Need to reproject the geometry to match the canvas CRS
+        self.canvas = iface.mapCanvas()
+        # Reapply the original feature filter on this layer
+        layer.setSubsetString(subset_string)
+        self.bbox = feature.geometry().boundingBox()
+        log('Bounding box for zoom is: {}'.format(self.bbox.toString()))
+        self.canvas.setExtent(self.bbox)
+        self.canvas.refresh()
 
 class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
     def __init__(self, parent=None):
@@ -697,7 +735,7 @@ class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
 
         self.admin_bounds_key = get_admin_bounds()
         if not self.admin_bounds_key:
-            raise ValueError('Admin boundaries not available')
+            raise Exception('Admin boundaries not available')
         self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
         self.populate_admin_1()
 
@@ -743,25 +781,35 @@ class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
             lyr_def_content = lyr_def_content.replace('DATA_FOLDER', os.path.join(os.path.dirname(__file__), 'data'))
 
             if self.checkBox_mask.isChecked():
-                admin_0_code = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
                 if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
-                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_0_code))
+                    admin_code = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
+                    # Mask out a level 0 admin area - this is default, so don't 
+                    # need to edit the brrush styles
+                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_code))
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
                     document = QtXml.QDomDocument()
                     document.setContent(lyr_def_content)
+
+                    zoomer = zoom_to_admin_poly(admin_code)
                 else:
+                    # Mask out a level 1 admin area
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
-                    admin_1_code = self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'][self.area_admin_1.currentText()]['code']
-                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', "|subset=&quot;adm1_code&quot; != '{}'".format(admin_1_code))
+                    admin_code = self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'][self.area_admin_1.currentText()]['code']
+                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', "|subset=&quot;adm1_code&quot; != '{}'".format(admin_code))
 
                     # Set national borders to no brush, and regional borders to 
                     # solid brush
                     document = QtXml.QDomDocument()
                     document.setContent(lyr_def_content)
                     maplayers = document.elementsByTagName('maplayer')
-                    set_style(maplayers, 'ne_10m_admin_0_countries', 'no')
-                    set_style(maplayers, 'ne_10m_admin_1_states_provinces', 'solid')
+                    set_fill_style(maplayers, 'ne_10m_admin_0_countries', 'no')
+                    set_fill_style(maplayers, 'ne_10m_admin_1_states_provinces', 'solid')
+
+                    # Set the flag used in the zoom function to know this is an 
+                    # admin 1 code
+                    zoomer = zoom_to_admin_poly(admin_code, True)
             else:
+                # Don't mask any areas
                 lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
                 lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
 
@@ -769,11 +817,16 @@ class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
                 document = QtXml.QDomDocument()
                 document.setContent(lyr_def_content)
                 maplayers = document.elementsByTagName('maplayer')
-                set_style(maplayers, 'ne_10m_admin_0_countries', 'no')
+                set_fill_style(maplayers, 'ne_10m_admin_0_countries', 'no')
+
+                zoomer = None
 
             # Always add the basemap at the top of the TOC
             root = QgsProject.instance().layerTreeRoot().insertGroup(0, 'Basemap')
             QgsLayerDefinition.loadLayerDefinition(document, root, "Success")
+
+            if zoomer:
+                zoomer.zoom()
 
         else:
             QtGui.QMessageBox.critical(None,

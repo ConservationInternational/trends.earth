@@ -132,6 +132,11 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.setupUi(self)
 
 
+# Share one area widget among all of the various dialogs (so that settings are 
+# retained)
+area_widget = AreaWidget()
+
+
 class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):
         super(DlgCalculate, self).__init__(parent)
@@ -170,7 +175,6 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.close()
         result = self.dlg_calculate_sdg_advanced.exec_()
 
-
 class DlgCalculateBase(QtGui.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
@@ -202,7 +206,7 @@ class DlgCalculateBase(QtGui.QDialog):
             self.TabBox.setCurrentIndex(0)
 
     def firstShow(self):
-        self.area_tab = AreaWidget()
+        self.area_tab = area_widget
         self.TabBox.addTab(self.area_tab, self.tr('Area'))
 
         # Add the area selector tab

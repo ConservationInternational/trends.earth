@@ -5,7 +5,7 @@
     <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_lakes" source="DATA_FOLDER/ne_10m_lakes.shp" name="Lake">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_rivers_lake_centerlines_scale_rank" source="DATA_FOLDER/ne_10m_rivers_lake_centerlines_scale_rank.shp" name="River">
+    <layer-tree-layer expanded="0" providerKey="ogr" checked="Qt::Checked" id="ne_10m_rivers_lake_centerlines_scale_rank" source="DATA_FOLDER/ne_10m_rivers_lake_centerlines_scale_rank.shp" name="River">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer expanded="1" providerKey="ogr" checked="Qt::Checked" id="ne_10m_coastline" source="DATA_FOLDER/ne_10m_coastline.shp" name="Coastline">
@@ -1715,7 +1715,7 @@ def my_form_open(dialog, layer, feature):
           </rule>
           <rule scalemaxdenom="35000000" description="Major city" filter=" &quot;SCALERANK&quot; =1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{4778015e-f4f1-44fb-a2b9-9970d40d0a7e}" scalemindenom="1000">
             <settings>
-              <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
+              <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="50" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
               </text-style>
               <text-format placeDirectionSymbol="0" multilineAlign="3" rightDirectionSymbol=">" multilineHeight="1" plussign="0" addDirectionSymbol="0" leftDirectionSymbol="&lt;" formatNumbers="0" decimals="3" wrapChar="" reverseDirectionSymbol="0"/>
@@ -1743,7 +1743,7 @@ def my_form_open(dialog, layer, feature):
           </rule>
           <rule scalemaxdenom="5000000" description="Small city" filter=" &quot;SCALERANK&quot; >=5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{b3c8b7bc-72f2-40a8-9fea-a1bce2d3aa87}" scalemindenom="1000">
             <settings>
-              <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="25" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
+              <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="50" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
               </text-style>
               <text-format placeDirectionSymbol="0" multilineAlign="3" rightDirectionSymbol=">" multilineHeight="1" plussign="0" addDirectionSymbol="0" leftDirectionSymbol="&lt;" formatNumbers="0" decimals="3" wrapChar="" reverseDirectionSymbol="0"/>
@@ -4001,6 +4001,9 @@ def my_form_open(dialog, layer, feature):
         <edittype widgetv2type="TextEdit" name="MAX_LABEL">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
+        <edittype widgetv2type="TextEdit" name="orig_ogc_fid">
+          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
+        </edittype>
       </edittypes>
       <renderer-v2 forceraster="0" symbollevels="0" type="singleSymbol" enableorderby="0">
         <symbols>
@@ -4294,6 +4297,7 @@ def my_form_open(dialog, layer, feature):
         <alias field="MIN_ZOOM" index="68" name=""/>
         <alias field="MIN_LABEL" index="69" name=""/>
         <alias field="MAX_LABEL" index="70" name=""/>
+        <alias field="orig_ogc_fid" index="71" name=""/>
       </aliases>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -4474,6 +4478,7 @@ def my_form_open(dialog, layer, feature):
         <default field="MIN_ZOOM" expression=""/>
         <default field="MIN_LABEL" expression=""/>
         <default field="MAX_LABEL" expression=""/>
+        <default field="orig_ogc_fid" expression=""/>
       </defaults>
       <previewExpression>COALESCE( "NAME", '&lt;NULL>' )</previewExpression>
     </maplayer>

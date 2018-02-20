@@ -18,7 +18,6 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QDate
 
 from LDMP import log
 from LDMP.calculate_lc import DlgCalculateLCBase
@@ -49,16 +48,6 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         self.fl_radio_default.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
-
-    def firstShow(self):
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.year_start.setMinimumDate(lc_start_year)
-        self.year_start.setMaximumDate(lc_end_year)
-        self.year_end.setMinimumDate(lc_start_year)
-        self.year_end.setMaximumDate(lc_end_year)
-
-        super(DlgCalculateSOC, self).firstShow()
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():

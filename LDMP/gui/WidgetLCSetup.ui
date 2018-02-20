@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgLCSetup</class>
- <widget class="QDialog" name="DlgLCSetup">
-  <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
-  </property>
+ <class>WidgetLCSetup</class>
+ <widget class="QWidget" name="WidgetLCSetup">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>540</height>
+    <width>474</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Setup land cover input data</string>
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -28,7 +25,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_10">
+    <widget class="QGroupBox" name="groupBox_esa_period">
      <property name="title">
       <string>Period</string>
      </property>
@@ -171,31 +168,18 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBox_esa_agg">
      <property name="title">
-      <string>Land cover aggregation method</string>
+      <string>Customize land cover aggregation method</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="use_esa_agg_custom_file">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>120</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string>Click &quot;Browse&quot; to choose a file...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
+      <item row="1" column="0">
        <widget class="QPushButton" name="use_esa_agg_custom_create">
         <property name="enabled">
          <bool>false</bool>
@@ -211,7 +195,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
+      <item row="1" column="2">
        <widget class="QPushButton" name="use_esa_agg_custom_browse">
         <property name="enabled">
          <bool>false</bool>
@@ -233,37 +217,43 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="3">
-       <widget class="QRadioButton" name="use_esa_agg_custom">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="use_esa_agg_custom_file">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
+          <width>120</width>
           <height>30</height>
          </size>
         </property>
         <property name="text">
-         <string>Custom method</string>
+         <string/>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QRadioButton" name="use_esa_agg_unccd">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>UNCCD default method</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
+        <property name="placeholderText">
+         <string>Click &quot;Browse&quot; to choose a file...</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Maximum</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <widget class="QRadioButton" name="use_custom">
@@ -273,9 +263,9 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_5">
+    <widget class="QGroupBox" name="groupBox_custom_bl">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="title">
       <string>Initial layer (baseline year)</string>
@@ -283,6 +273,9 @@
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="1">
        <widget class="QComboBox" name="use_custom_initial">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -295,9 +288,9 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_4">
+    <widget class="QGroupBox" name="groupBox_custom_tg">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="title">
       <string>Final layer (target year)</string>
@@ -305,6 +298,9 @@
      <layout class="QGridLayout" name="gridLayout_6">
       <item row="0" column="1">
        <widget class="QComboBox" name="use_custom_final">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -317,7 +313,10 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBox_custom_agg">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="title">
       <string>Land cover aggregation method</string>
      </property>
@@ -325,7 +324,7 @@
       <item>
        <widget class="QPushButton" name="use_custom_agg_create">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -341,7 +340,7 @@
       <item>
        <widget class="QLineEdit" name="use_custom_agg_file">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -357,7 +356,7 @@
       <item>
        <widget class="QPushButton" name="use_custom_agg_browse">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
@@ -379,12 +378,21 @@
      </layout>
     </widget>
    </item>
-   <item alignment="Qt::AlignHCenter">
-    <widget class="QDialogButtonBox" name="btnSave">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-    </widget>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

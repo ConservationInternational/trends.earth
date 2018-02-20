@@ -28,6 +28,7 @@ from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgLCSetup import Ui_DlgLCSetup
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
+from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.api import run_script
 
 # Number of classes in land cover dataset
@@ -146,6 +147,47 @@ class DlgCalculateLCBase(DlgCalculateBase):
         return True
 
 
+class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
+    def __init__(self, parent=None):
+        super(LCSetupWidget, self).__init__(parent)
+
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'gee_datasets.json')) as datasets_file:
+            self.datasets = json.load(datasets_file)
+
+        self.setupUi(self)
+
+        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
+        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
+        self.use_esa_bl_year.setMinimumDate(lc_start_year)
+        self.use_esa_bl_year.setMaximumDate(lc_end_year)
+        self.use_esa_tg_year.setMinimumDate(lc_start_year)
+        self.use_esa_tg_year.setMaximumDate(lc_end_year)
+
+        self.use_esa.toggled.connect(self.use_esa_toggled)
+
+        self.use_esa_toggled()
+
+    def use_esa_toggled(self):
+        if self.use_esa.isChecked():
+            self.groupBox_esa_period.setEnabled(True)
+            self.groupBox_esa_agg.setEnabled(True)
+            self.groupBox_custom_bl.setEnabled(False)
+            self.groupBox_custom_tg.setEnabled(False)
+            self.groupBox_custom_agg.setEnabled(False)
+        else:
+            self.groupBox_esa_period.setEnabled(False)
+            self.groupBox_esa_agg.setEnabled(False)
+            self.groupBox_custom_bl.setEnabled(True)
+            self.groupBox_custom_tg.setEnabled(True)
+            self.groupBox_custom_agg.setEnabled(True)
+
+
+# Share one area widget among all of the various dialogs (so that settings are 
+# retained)
+lc_setup_widget = LCSetupWidget()
+
+
 class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
     def __init__(self, parent=None):
         super(DlgCalculateLC, self).__init__(parent)
@@ -194,19 +236,14 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
-        self.btn_modify_lc_settings.clicked.connect(self.modify_lc_settings_clicked)
 
         self.legend_deg.setStyleSheet('QLineEdit {background: #AB2727;} QLineEdit:hover {border: 1px solid gray; background: #AB2727;}')
         self.legend_imp.setStyleSheet('QLineEdit {background: #45A146;} QLineEdit:hover {border: 1px solid gray; background: #45A146;}')
         self.legend_stable.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
 
     def firstShow(self):
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.year_baseline.setMinimumDate(lc_start_year)
-        self.year_baseline.setMaximumDate(lc_end_year)
-        self.year_target.setMinimumDate(lc_start_year)
-        self.year_target.setMaximumDate(lc_end_year)
+        self.lc_setup_tab = lc_setup_widget
+        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
         super(DlgCalculateLC, self).firstShow()
 
@@ -312,8 +349,8 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
         #######################################################################
         # Online
 
-        payload = {'year_baseline': self.year_baseline.date().year(),
-                   'year_target': self.year_target.date().year(),
+        payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
+                   'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'trans_matrix': self.trans_matrix_get(),
                    'remap_matrix': self.remap_matrix,

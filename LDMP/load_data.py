@@ -543,6 +543,24 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         super(LoadDataSelectFileInputWidget, self).__init__(parent)
         self.setupUi(self)
 
+        self.radio_raster_input.toggled.connect(self.radio_raster_input_toggled)
+
+    def radio_raster_input_toggled(self):
+        if self.radio_raster_input.isChecked():
+            self.btn_raster_dataset_browse.setEnabled(True)
+            self.lineEdit_raster_file.setEnabled(True)
+            self.btn_polygon_dataset_browse.setEnabled(True)
+            self.lineEdit_polygon_file.setEnabled(False)
+            self.label_filename.setEnabled(False)
+            self.comboBox_fieldname.setEnabled(False)
+        else:
+            self.btn_raster_dataset_browse.setEnabled(False)
+            self.lineEdit_raster_file.setEnabled(False)
+            self.btn_polygon_dataset_browse.setEnabled(True)
+            self.lineEdit_polygon_file.setEnabled(True)
+            self.label_filename.setEnabled(True)
+            self.comboBox_fieldname.setEnabled(True)
+
 
 class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
     def __init__(self, parent=None):
@@ -559,6 +577,24 @@ class DlgLoadDataBase(QtGui.QDialog):
 
         self.input_widget = LoadDataSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
+
+    def open_raster_browse(self):
+        raster_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                        self.tr('Select a file defining the area of interst'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Raster file (*.tif *.dat *.img)'))
+        if os.access(raster_file, os.R_OK):
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+
+    def open_vector_browse(self):
+        vector_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                        self.tr('Select a file defining the area of interst'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
+        if os.access(vector_file, os.R_OK):
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+        self.area_fromfile_file.setText(vector_file)
+
 
 
 class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):

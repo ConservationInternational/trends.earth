@@ -18,7 +18,9 @@ import json
 from PyQt4 import QtGui
 from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
-from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QGis, QgsMapLayerRegistry
+from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
+        QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
+        QGis, QgsMapLayerRegistry, QgsDataProvider
 
 from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
@@ -229,11 +231,11 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
 
     def open_vector_browse(self):
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
-                                                    self.tr('Select a file defining the area of interst'),
-                                                    QSettings().value("LDMP/area_file_dir", None),
-                                                    self.tr('Spatial file (*.*)'))
+                                                        self.tr('Select a file defining the area of interst'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         if os.access(vector_file, os.R_OK):
-            QSettings().setValue("LDMP/area_file_dir", os.path.dirname(vector_file))
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
         self.area_fromfile_file.setText(vector_file)
 
 

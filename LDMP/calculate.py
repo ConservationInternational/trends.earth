@@ -125,18 +125,6 @@ class AOI(object):
         self.isValid = True
 
 
-class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
-    def __init__(self, parent=None):
-        super(AreaWidget, self).__init__(parent)
-
-        self.setupUi(self)
-
-
-# Share one area widget among all of the various dialogs (so that settings are 
-# retained)
-area_widget = AreaWidget()
-
-
 class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):
         super(DlgCalculate, self).__init__(parent)
@@ -175,6 +163,84 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.close()
         result = self.dlg_calculate_sdg_advanced.exec_()
 
+class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
+    def __init__(self, parent=None):
+        super(AreaWidget, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.admin_bounds_key = get_admin_bounds()
+        if not self.admin_bounds_key:
+            raise ValueError('Admin boundaries not available')
+
+        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
+        self.populate_admin_1()
+
+        self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
+
+        self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
+        self.area_admin.toggled.connect(self.area_admin_toggle)
+        self.area_fromfile.toggled.connect(self.area_fromfile_toggle)
+
+    #     self.area_admin.toggled.connect(self.options_save)
+    #     self.groupBox_custom_crs.toggled.connect(self.options_save)
+    #     self.area_admin_0.currentIndexChanged.connect(self.options_save)
+    #     self.area_admin_1.currentIndexChanged.connect(self.options_save)
+    #
+    # def showEvent(self, event):
+    #     "Load preferences on show"
+    #     super(AreaWidget, self).showEvent(event)
+    #
+    #     if QSettings().value("LDMP/area_admin", True, type=bool):
+    #         self.area_admin.setChecked(True)
+    #     else:
+    #         self.area_fromfile.setChecked(True)
+    #     self.groupBox_custom_crs.setChecked(QSettings().value("LDMP/custom_crs", False, type=bool))
+    #
+    #     self.area_admin_0.setCurrentIndex(QSettings().value("LDMP/admin_0_index", 0))
+    #     self.area_admin_1.setCurrentIndex(QSettings().value("LDMP/admin_1_index", 0))
+    #
+    # def options_save(self):
+    #     QSettings().setValue("LDMP/area_admin", self.area_admin.isChecked())
+    #     QSettings().setValue("LDMP/custom_crs", self.groupBox_custom_crs.isChecked())
+    #     QSettings().setValue("LDMP/admin_0_index", self.area_admin_0.currentIndex())
+    #     QSettings().setValue("LDMP/admin_1_index", self.area_admin_1.currentIndex())
+
+    def populate_admin_1(self):
+        self.area_admin_1.clear()
+        self.area_admin_1.addItems(['All regions'])
+        self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
+
+    def area_admin_toggle(self):
+        if self.area_admin.isChecked():
+            self.area_admin_0.setEnabled(True)
+            self.area_admin_1.setEnabled(True)
+        else:
+            self.area_admin_0.setEnabled(False)
+            self.area_admin_1.setEnabled(False)
+
+    def area_fromfile_toggle(self):
+        if self.area_fromfile.isChecked():
+            self.area_fromfile_file.setEnabled(True)
+            self.area_fromfile_browse.setEnabled(True)
+        else:
+            self.area_fromfile_file.setEnabled(False)
+            self.area_fromfile_browse.setEnabled(False)
+
+    def open_vector_browse(self):
+        vector_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                    self.tr('Select a file defining the area of interst'),
+                                                    QSettings().value("LDMP/area_file_dir", None),
+                                                    self.tr('Spatial file (*.*)'))
+        if os.access(vector_file, os.R_OK):
+            QSettings().setValue("LDMP/area_file_dir", os.path.dirname(vector_file))
+        self.area_fromfile_file.setText(vector_file)
+
+
+# Area widget shared across dialogs
+area_widget = AreaWidget()
+
+
 class DlgCalculateBase(QtGui.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
@@ -198,6 +264,9 @@ class DlgCalculateBase(QtGui.QDialog):
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
 
+        self.area_tab = area_widget
+        self.TabBox.addTab(self.area_tab, self.tr('Area'))
+
         if self._firstShowEvent:
             self._firstShowEvent = False
             self.firstShowEvent.emit()
@@ -206,10 +275,6 @@ class DlgCalculateBase(QtGui.QDialog):
             self.TabBox.setCurrentIndex(0)
 
     def firstShow(self):
-        self.area_tab = area_widget
-        self.TabBox.addTab(self.area_tab, self.tr('Area'))
-
-        # Add the area selector tab
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)
         self.button_next.clicked.connect(self.tab_forward)
@@ -218,8 +283,6 @@ class DlgCalculateBase(QtGui.QDialog):
         self.button_prev.setEnabled(False)
         self.button_calculate.setEnabled(False)
         self.TabBox.currentChanged.connect(self.tab_changed)
-
-        self.setup_area_selection()
 
     def tab_back(self):
         if self.TabBox.currentIndex() - 1 >= 0:
@@ -248,64 +311,20 @@ class DlgCalculateBase(QtGui.QDialog):
     def btn_cancel(self):
         self.close()
 
-    def setup_area_selection(self):
-        self.admin_bounds_key = get_admin_bounds()
-        if not self.admin_bounds_key:
-            raise ValueError('Admin boundaries not available')
-
-        self.area_tab.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
-        self.populate_admin_1()
-
-        self.area_tab.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
-
-        self.area_tab.area_fromfile_browse.clicked.connect(self.open_shp_browse)
-        self.area_tab.area_admin.toggled.connect(self.area_admin_toggle)
-        self.area_tab.area_fromfile.toggled.connect(self.area_fromfile_toggle)
-
     def load_admin_polys(self):
-        adm0_a3 = self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
+        adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
         # What CRS should be used for this country?
-        crs = self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['crs']
+        crs = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['crs']
         # Does this country need to be wrapped across the 180 degree meridian?
-        wrap = self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['wrap']
+        wrap = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['wrap']
         admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
         if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':
             return (admin_polys['geojson'], crs, wrap)
         else:
-            admin_1_code = self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
+            admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
             return (admin_polys['admin1'][admin_1_code]['geojson'], crs, wrap)
-
-    def area_admin_toggle(self):
-        if self.area_tab.area_admin.isChecked():
-            self.area_tab.area_admin_0.setEnabled(True)
-            self.area_tab.area_admin_1.setEnabled(True)
-        else:
-            self.area_tab.area_admin_0.setEnabled(False)
-            self.area_tab.area_admin_1.setEnabled(False)
-
-    def area_fromfile_toggle(self):
-        if self.area_tab.area_fromfile.isChecked():
-            self.area_tab.area_fromfile_file.setEnabled(True)
-            self.area_tab.area_fromfile_browse.setEnabled(True)
-        else:
-            self.area_tab.area_fromfile_file.setEnabled(False)
-            self.area_tab.area_fromfile_browse.setEnabled(False)
-
-    def open_shp_browse(self):
-        shpfile = QtGui.QFileDialog.getOpenFileName(self,
-                                                    self.tr('Select a file defining the area of interst'),
-                                                    QSettings().value("LDMP/area_file_dir", None),
-                                                    self.tr('Spatial file (*.*)'))
-        if os.access(shpfile, os.R_OK):
-            QSettings().setValue("LDMP/area_file_dir", os.path.dirname(shpfile))
-        self.area_tab.area_fromfile_file.setText(shpfile)
-
-    def populate_admin_1(self):
-        self.area_tab.area_admin_1.clear()
-        self.area_tab.area_admin_1.addItems(['All regions'])
-        self.area_tab.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'].keys()))
 
     def btn_calculate(self):
         if self.area_tab.area_admin.isChecked():

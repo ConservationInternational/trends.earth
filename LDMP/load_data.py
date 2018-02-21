@@ -20,7 +20,7 @@ from operator import attrgetter
 import json
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, Qt, QCoreApplication
+from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
 from qgis.utils import iface
@@ -36,6 +36,8 @@ from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
+from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
+from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
 
 
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -535,19 +537,45 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         self.btn_view_metadata.setEnabled(True)
         return True
 
+
+class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileInput):
+    def __init__(self, parent=None):
+        super(LoadDataSelectFileInputWidget, self).__init__(parent)
+        self.setupUi(self)
+
+
+class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
+    def __init__(self, parent=None):
+        super(LoadDataSelectRasterOutput, self).__init__(parent)
+        self.setupUi(self)
+
+
 class DlgLoadDataBase(QtGui.QDialog):
     """Base class for individual data loading dialogs"""
     def __init__(self, parent=None):
         super(DlgLoadDataBase, self).__init__(parent)
 
+        self.setupUi(self)
+
+        self.input_widget = LoadDataSelectFileInputWidget()
+        self.verticalLayout.insertWidget(0, self.input_widget)
+
+
 class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
         super(DlgLoadDataLC, self).__init__(parent)
 
-        self.setupUi(self)
+        # This needs to be inserted after the lc definition widget but before 
+        # the button box with ok/cancel
+        self.output_widget = LoadDataSelectRasterOutput()
+        self.verticalLayout.insertWidget(2, self.output_widget)
+
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):
         super(DlgLoadDataSOC, self).__init__(parent)
 
-        self.setupUi(self)
+        # This needs to be inserted after the input widget but before the 
+        # button box with ok/cancel
+        self.output_widget = LoadDataSelectRasterOutput()
+        self.verticalLayout.insertWidget(1, self.output_widget)

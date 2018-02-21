@@ -25,7 +25,6 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
-from LDMP.gui.DlgLCSetup import Ui_DlgLCSetup
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
@@ -197,8 +196,6 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
 
         self.setupUi(self)
 
-        self.dlg_lc_setup = DlgLCSetup(self)
-
         # Extract trans_matrix from the QTableWidget
         self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
                                      1, 0, -1, 0, -1, -1, 0, # grassland
@@ -369,12 +366,6 @@ class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
 
         #######################################################################
         # TODO: Add offline calculation
-
-class DlgLCSetup(QtGui.QDialog, Ui_DlgLCSetup):
-    def __init__(self, parent=None):
-        super(DlgLCSetup, self).__init__(parent)
-
-        self.setupUi(self)
 
 class LCAggTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):

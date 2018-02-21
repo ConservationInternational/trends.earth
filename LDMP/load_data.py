@@ -549,7 +549,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         if self.radio_raster_input.isChecked():
             self.btn_raster_dataset_browse.setEnabled(True)
             self.lineEdit_raster_file.setEnabled(True)
-            self.btn_polygon_dataset_browse.setEnabled(True)
+            self.btn_polygon_dataset_browse.setEnabled(False)
             self.lineEdit_polygon_file.setEnabled(False)
             self.label_filename.setEnabled(False)
             self.comboBox_fieldname.setEnabled(False)

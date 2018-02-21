@@ -59,6 +59,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.mode_lpd_custom_toggled()
 
+        self.resize(self.width(), 711)
+
     def traj_indic_changed(self):
         self.dataset_climate_update()
 

@@ -27,6 +27,7 @@ from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
+from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.api import run_script
 
@@ -71,301 +72,6 @@ class TransMatrixEdit(QtGui.QLineEdit):
         super(TransMatrixEdit, self).focusInEvent(e)
         self.selectAll()
 
-
-class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
-    def __init__(self, parent=None):
-        super(LCSetupWidget, self).__init__(parent)
-
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'gee_datasets.json')) as datasets_file:
-            self.datasets = json.load(datasets_file)
-
-        self.setupUi(self)
-
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.use_esa_bl_year.setMinimumDate(lc_start_year)
-        self.use_esa_bl_year.setMaximumDate(lc_end_year)
-        self.use_esa_tg_year.setMinimumDate(lc_start_year)
-        self.use_esa_tg_year.setMaximumDate(lc_end_year)
-
-        self.use_esa.toggled.connect(self.use_esa_toggled)
-
-        self.use_esa_toggled()
-
-    def use_esa_toggled(self):
-        if self.use_esa.isChecked():
-            self.groupBox_esa_period.setEnabled(True)
-            self.groupBox_esa_agg.setEnabled(True)
-            self.groupBox_custom_bl.setEnabled(False)
-            self.groupBox_custom_tg.setEnabled(False)
-            self.groupBox_custom_agg.setEnabled(False)
-        else:
-            self.groupBox_esa_period.setEnabled(False)
-            self.groupBox_esa_agg.setEnabled(False)
-            self.groupBox_custom_bl.setEnabled(True)
-            self.groupBox_custom_tg.setEnabled(True)
-            self.groupBox_custom_agg.setEnabled(True)
-
-
-# Share one area widget among all of the various dialogs (so that settings are 
-# retained)
-lc_setup_widget = LCSetupWidget()
-
-
-class DlgCalculateLCBase(DlgCalculateBase):
-    def __init__(self, parent=None):
-        super(DlgCalculateLCBase, self).__init__(parent)
-
-        self.dlg_remap = DlgCalculateLCSetAggregation(self)
-
-    def firstShow(self):
-        self.lc_setup_tab = lc_setup_widget
-        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
-
-        # Setup the aggregation table functions
-        self.remap_default.toggled.connect(self.remap_default_toggled)
-        self.remap_custom_file_browse.clicked.connect(self.open_remap_file)
-        self.remap_custom_create.clicked.connect(self.remap_create)
-
-        self.dlg_remap.remap_file_updated.connect(self.remap_file_update)
-        self.dlg_remap.remap_matrix_changed.connect(self.remap_matrix_update)
-
-        # Setup the class table so that the table is defined if a user uses the
-        # default and never accesses that dialog
-        self.dlg_remap.setup_class_table()
-
-        super(DlgCalculateLCBase, self).firstShow()
-
-    def remap_matrix_update(self, remap_matrix):
-        self.remap_matrix = remap_matrix
-
-    def remap_file_update(self, f):
-        self.remap_custom_file.setText(f)
-
-    def remap_create(self):
-        if self.remap_custom_file.text():
-            ret = self.dlg_remap.setup_class_table(self.remap_custom_file.text())
-        f = self.dlg_remap.exec_()
-        if f:
-            self.remap_file_update(f)
-
-    def remap_default_toggled(self):
-        if self.remap_custom.isChecked():
-            self.dlg_remap.setup_class_table(self.remap_custom_file.text())
-            self.remap_custom_create.setEnabled(True)
-            self.remap_custom_file.setEnabled(True)
-            self.remap_custom_file_browse.setEnabled(True)
-        else:
-            self.dlg_remap.setup_class_table()
-            self.remap_custom_create.setEnabled(False)
-            self.remap_custom_file.setEnabled(False)
-            self.remap_custom_file_browse.setEnabled(False)
-
-    def open_remap_file(self):
-        f = QtGui.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a land cover definition file'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              self.tr('Land cover definition (*.json)'))
-        if f:
-            if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
-
-        ret = self.dlg_remap.setup_class_table(f)
-
-        if ret:
-            self.remap_custom_file.setText(f)
-
-    def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super(DlgCalculateLCBase, self).btn_calculate()
-        if not ret:
-            return
-
-        return True
-
-
-class DlgCalculateLC(DlgCalculateLCBase, Ui_DlgCalculateLC):
-    def __init__(self, parent=None):
-        super(DlgCalculateLC, self).__init__(parent)
-
-        self.setupUi(self)
-
-        # Extract trans_matrix from the QTableWidget
-        self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
-                                     1, 0, -1, 0, -1, -1, 0, # grassland
-                                     1, 1, 0, 1, -1, -1, 0, # cropland
-                                     0, 0, -1, 0, -1, -1, 0, # wetland
-                                     1, 1, 1, 1, 0, 0, 0, # artificial areas
-                                     1, 1, 1, 1, 0, 0, 0, # bare land
-                                     0, 0, 0, 0, 0, 0, 0] # water body
-        for row in range(0, self.transMatrix.rowCount()):
-            for col in range(0, self.transMatrix.columnCount()):
-                line_edit = TransMatrixEdit()
-                line_edit.setValidator(QtGui.QRegExpValidator(QRegExp("[-0+]")))
-                line_edit.setAlignment(Qt.AlignHCenter)
-                self.transMatrix.setCellWidget(row, col, line_edit)
-        self.trans_matrix_set()
-
-        # Setup the verical label for the rows of the table
-        label_lc_baseline_year = VerticalLabel(self.TransitionMatrixTab)
-        label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in baseline year ", None))
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_lc_target_year.sizePolicy().hasHeightForWidth())
-        label_lc_baseline_year.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        label_lc_baseline_year.setFont(font)
-        self.lc_trans_table_layout.addWidget(label_lc_baseline_year, 1, 0, 1, 1, Qt.AlignCenter)
-
-        self.transMatrix.setStyleSheet('QTableWidget {border: 0px;}')
-        self.transMatrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
-        self.transMatrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
-
-        self.transMatrix.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-        self.transMatrix.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
-
-        self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
-        self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
-        self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
-
-        self.legend_deg.setStyleSheet('QLineEdit {background: #AB2727;} QLineEdit:hover {border: 1px solid gray; background: #AB2727;}')
-        self.legend_imp.setStyleSheet('QLineEdit {background: #45A146;} QLineEdit:hover {border: 1px solid gray; background: #45A146;}')
-        self.legend_stable.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
-
-    def modify_lc_settings_clicked(self):
-        self.dlg_lc_setup.show() 
-
-    def trans_matrix_loadfile(self):
-        f = QtGui.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a transition matrix definition file'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              self.tr('Transition matrix definition (*.json)'))
-        if f:
-            if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
-        else:
-            return None
-
-        with open(f) as matrix_file:
-            matrix = json.load(matrix_file)
-
-        flag = False
-        if isinstance(matrix, list) and len(matrix) == NUM_CLASSES * NUM_CLASSES:
-            flag = self.trans_matrix_set(matrix)
-
-        if not flag:
-            QtGui.QMessageBox.critical(None,
-                                       QtGui.QApplication.translate('DlgCalculateLC', "Error"),
-                                       QtGui.QApplication.translate('DlgCalculateLC',
-                                                                    "{} does not appear to contain a valid matrix definition.".format(f)))
-            return None
-        else:
-            return True
-
-    def trans_matrix_savefile(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
-                                              QtGui.QApplication.translate('DlgCalculateLC',
-                                                                           'Choose where to save this transition matrix definition'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              QtGui.QApplication.translate('DlgCalculateLC',
-                                                                           'Transition matrix definition (*.json)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
-                return
-
-            matrix = self.trans_matrix_get()
-            with open(f, 'w') as outfile:
-                json.dump(matrix, outfile, sort_keys=True, indent=4, separators=(',', ': '))
-
-    def trans_matrix_set(self, matrix=None):
-        if not matrix:
-            matrix = self.trans_matrix_default
-        for row in range(0, self.transMatrix.rowCount()):
-            for col in range(0, self.transMatrix.columnCount()):
-                # Matrix is actually a list of length NUM_CLASSES * NUM_CLASSES
-                val = matrix[NUM_CLASSES * row + col]
-                if val == 0:
-                    val_str = '0'
-                elif val == -1:
-                    val_str = '-'
-                elif val == 1:
-                    val_str = '+'
-                else:
-                    log('unrecognized value "{}" when setting transition matrix'.format(val))
-                    return False
-                self.transMatrix.cellWidget(row, col).setText(val_str)
-        return True
-
-    def trans_matrix_get(self):
-        # Extract trans_matrix from the QTableWidget
-        trans_matrix = []
-        for row in range(0, self.transMatrix.rowCount()):
-            for col in range(0, self.transMatrix.columnCount()):
-                val = self.transMatrix.cellWidget(row, col).text()
-                if val == "" or val == "0":
-                    val = 0
-                elif val == "-":
-                    val = -1
-                elif val == "+":
-                    val = 1
-                else:
-                    log('unrecognized value "{}" when getting transition matrix'.format(val))
-                    raise ValueError('unrecognized value "{}" in transition matrix'.format(val))
-                trans_matrix.append(val)
-        return trans_matrix
-
-    def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super(DlgCalculateLC, self).btn_calculate()
-        if not ret:
-            return
-
-        self.close()
-
-        #######################################################################
-        # Online
-
-        payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
-                   'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
-                   'trans_matrix': self.trans_matrix_get(),
-                   'remap_matrix': self.remap_matrix,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
-
-        gee_script = 'land-cover' + '-' + self.scripts['land-cover']['script version']
-
-        resp = run_script(gee_script, payload)
-
-        if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
-                           level=0, duration=5)
-        else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
-                           level=0, duration=5)
-
-        #######################################################################
-        # TODO: Add offline calculation
 
 class LCAggTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
@@ -468,6 +174,8 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             this_out = {}
             initial_code = self.remap_view.model().index(row, 0).data()
             this_out['Initial_Code'] = initial_code
+            initial_label = self.remap_view.model().index(row, 1).data()
+            this_out['Initial_Label'] = initial_label
             # Get the currently assigned label for this code
             label_widget_index = self.remap_view.model().index(row, 2)
             label_widget = self.remap_view.indexWidget(label_widget_index)
@@ -563,3 +271,292 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
     def reset_class_table(self):
         self.setup_class_table()
         self.remap_file_updated.emit(None)
+
+
+class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
+    def __init__(self, parent=None):
+        super(LCDefineDegradationWidget, self).__init__(parent)
+
+        self.setupUi(self)
+
+        # Extract trans_matrix from the QTableWidget
+        self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
+                                     1, 0, -1, 0, -1, -1, 0, # grassland
+                                     1, 1, 0, 1, -1, -1, 0, # cropland
+                                     0, 0, -1, 0, -1, -1, 0, # wetland
+                                     1, 1, 1, 1, 0, 0, 0, # artificial areas
+                                     1, 1, 1, 1, 0, 0, 0, # bare land
+                                     0, 0, 0, 0, 0, 0, 0] # water body
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            for col in range(0, self.deg_def_matrix.columnCount()):
+                line_edit = TransMatrixEdit()
+                line_edit.setValidator(QtGui.QRegExpValidator(QRegExp("[-0+]")))
+                line_edit.setAlignment(Qt.AlignHCenter)
+                self.deg_def_matrix.setCellWidget(row, col, line_edit)
+        self.trans_matrix_set()
+
+        # Setup the verical label for the rows of the table
+        label_lc_baseline_year = VerticalLabel(self)
+        label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in baseline year ", None))
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_lc_target_year.sizePolicy().hasHeightForWidth())
+        label_lc_baseline_year.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        label_lc_baseline_year.setFont(font)
+        self.lc_trans_table_layout.addWidget(label_lc_baseline_year, 1, 0, 1, 1, Qt.AlignCenter)
+
+        self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
+        self.deg_def_matrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
+        self.deg_def_matrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
+
+        self.deg_def_matrix.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        self.deg_def_matrix.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+
+        self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
+        self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
+        self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
+
+        self.legend_deg.setStyleSheet('QLineEdit {background: #AB2727;} QLineEdit:hover {border: 1px solid gray; background: #AB2727;}')
+        self.legend_imp.setStyleSheet('QLineEdit {background: #45A146;} QLineEdit:hover {border: 1px solid gray; background: #45A146;}')
+        self.legend_stable.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
+
+    def trans_matrix_loadfile(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              self.tr('Select a transition matrix definition file'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              self.tr('Transition matrix definition (*.json)'))
+        if f:
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+        else:
+            return None
+
+        with open(f) as matrix_file:
+            matrix = json.load(matrix_file)
+
+        flag = False
+        if isinstance(matrix, list) and len(matrix) == NUM_CLASSES * NUM_CLASSES:
+            flag = self.trans_matrix_set(matrix)
+
+        if not flag:
+            QtGui.QMessageBox.critical(None,
+                                       QtGui.QApplication.translate('DlgCalculateLC', "Error"),
+                                       QtGui.QApplication.translate('DlgCalculateLC',
+                                                                    "{} does not appear to contain a valid matrix definition.".format(f)))
+            return None
+        else:
+            return True
+
+    def trans_matrix_savefile(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              QtGui.QApplication.translate('DlgCalculateLC',
+                                                                           'Choose where to save this transition matrix definition'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              QtGui.QApplication.translate('DlgCalculateLC',
+                                                                           'Transition matrix definition (*.json)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                return
+
+            matrix = self.trans_matrix_get()
+            with open(f, 'w') as outfile:
+                json.dump(matrix, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+
+    def trans_matrix_set(self, matrix=None):
+        if not matrix:
+            matrix = self.trans_matrix_default
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            for col in range(0, self.deg_def_matrix.columnCount()):
+                # Matrix is actually a list of length NUM_CLASSES * NUM_CLASSES
+                val = matrix[NUM_CLASSES * row + col]
+                if val == 0:
+                    val_str = '0'
+                elif val == -1:
+                    val_str = '-'
+                elif val == 1:
+                    val_str = '+'
+                else:
+                    log('unrecognized value "{}" when setting transition matrix'.format(val))
+                    return False
+                self.deg_def_matrix.cellWidget(row, col).setText(val_str)
+        return True
+
+    def trans_matrix_get(self):
+        # Extract trans_matrix from the QTableWidget
+        trans_matrix = []
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            for col in range(0, self.deg_def_matrix.columnCount()):
+                val = self.deg_def_matrix.cellWidget(row, col).text()
+                if val == "" or val == "0":
+                    val = 0
+                elif val == "-":
+                    val = -1
+                elif val == "+":
+                    val = 1
+                else:
+                    log('unrecognized value "{}" when getting transition matrix'.format(val))
+                    raise ValueError('unrecognized value "{}" in transition matrix'.format(val))
+                trans_matrix.append(val)
+        return trans_matrix
+
+
+class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
+    def __init__(self, parent=None):
+        super(LCSetupWidget, self).__init__(parent)
+
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'gee_datasets.json')) as datasets_file:
+            self.datasets = json.load(datasets_file)
+
+        self.setupUi(self)
+
+        self.dlg_esa_custom_agg = DlgCalculateLCSetAggregation(self)
+
+        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
+        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
+        self.use_esa_bl_year.setMinimumDate(lc_start_year)
+        self.use_esa_bl_year.setMaximumDate(lc_end_year)
+        self.use_esa_tg_year.setMinimumDate(lc_start_year)
+        self.use_esa_tg_year.setMaximumDate(lc_end_year)
+
+        self.use_esa.toggled.connect(self.use_esa_toggled)
+
+        # Below is a bugfix for checkable group boxes created in QtDesigner - 
+        # if they aren't checked by default in Qt Designer then checking them 
+        # in the final gui doesn't enable their children. 
+        self.groupBox_esa_agg.setChecked(False)
+
+        self.groupBox_esa_agg.toggled.connect(self.use_esa_agg_toggled)
+
+        self.use_esa_agg_custom_browse.clicked.connect(self.esa_agg_custom_file_open)
+        self.use_esa_agg_custom_create.clicked.connect(self.esa_agg_custom_create)
+
+        self.dlg_esa_custom_agg.remap_file_updated.connect(self.esa_agg_file_update)
+        self.dlg_esa_custom_agg.remap_matrix_changed.connect(self.esa_agg_update)
+
+        # Setup the class table so that the table is defined if a user uses the
+        # default and never accesses that dialog
+        self.dlg_esa_custom_agg.setup_class_table()
+
+        # Make sure the custom data boxes are turned off by default
+        self.use_esa_toggled()
+
+    def use_esa_toggled(self):
+        if self.use_esa.isChecked():
+            self.groupBox_esa_period.setEnabled(True)
+            self.groupBox_esa_agg.setEnabled(True)
+            self.groupBox_custom_bl.setEnabled(False)
+            self.groupBox_custom_tg.setEnabled(False)
+        else:
+            self.groupBox_esa_period.setEnabled(False)
+            self.groupBox_esa_agg.setEnabled(False)
+            self.groupBox_custom_bl.setEnabled(True)
+            self.groupBox_custom_tg.setEnabled(True)
+
+    def esa_agg_update(self, remap_matrix):
+        self.remap_matrix = remap_matrix
+
+    def esa_agg_file_update(self, f):
+        self.use_esa_agg_custom_file.setText(f)
+
+    def esa_agg_custom_create(self):
+        if self.use_esa_agg_custom_file.text():
+            ret = self.dlg_esa_custom_agg.setup_class_table(self.use_esa_agg_custom_file.text())
+        f = self.dlg_esa_custom_agg.exec_()
+        if f:
+            self.esa_agg_file_update(f)
+
+    def use_esa_agg_toggled(self):
+        if self.groupBox_esa_agg.isChecked():
+            self.dlg_esa_custom_agg.setup_class_table(self.use_esa_agg_custom_file.text())
+        else:
+            self.dlg_esa_custom_agg.setup_class_table()
+
+    def esa_agg_custom_file_open(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              self.tr('Select a land cover definition file'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              self.tr('Land cover definition (*.json)'))
+        if f:
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+
+        ret = self.dlg_esa_custom_agg.setup_class_table(f)
+
+        if ret:
+            self.use_esa_agg_custom_file.setText(f)
+
+
+# LC widgets shared across dialogs
+lc_define_deg_widget = LCDefineDegradationWidget()
+lc_setup_widget = LCSetupWidget()
+
+class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
+    def __init__(self, parent=None):
+        super(DlgCalculateLC, self).__init__(parent)
+
+        self.setupUi(self)
+
+    def showEvent(self, event):
+        super(DlgCalculateLC, self).showEvent(event)
+
+        self.lc_setup_tab = lc_setup_widget
+        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
+
+        self.lc_define_deg_tab = lc_define_deg_widget
+        self.TabBox.insertTab(1, self.lc_define_deg_tab, self.tr('Define Degradation'))
+
+        # This box may have been hidden if this widget was last shown on the 
+        # SDG one step dialog
+        self.lc_setup_tab.groupBox_esa_period.show()
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateLC, self).btn_calculate()
+        if not ret:
+            return
+
+        self.close()
+
+        #######################################################################
+        # Online
+
+        payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
+                   'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
+                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
+                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
+                   'remap_matrix': self.lc_setup_tab.remap_matrix,
+                   'task_name': self.task_name.text(),
+                   'task_notes': self.task_notes.toPlainText()}
+
+        gee_script = 'land-cover' + '-' + self.scripts['land-cover']['script version']
+
+        resp = run_script(gee_script, payload)
+
+        if resp:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+                           level=0, duration=5)
+
+        #######################################################################
+        # TODO: Add offline calculation

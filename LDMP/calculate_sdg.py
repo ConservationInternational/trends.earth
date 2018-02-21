@@ -39,7 +39,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
-from LDMP.calculate_lc import DlgCalculateLCBase
+from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
@@ -52,11 +52,24 @@ from LDMP.worker import AbstractWorker, start_worker
 NUM_CLASSES_STATE_DEG = -2
 
 
-class DlgCalculateSDGOneStep(DlgCalculateLCBase, Ui_DlgCalculateSDGOneStep):
+class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
     def __init__(self, parent=None):
         super(DlgCalculateSDGOneStep, self).__init__(parent)
 
         self.setupUi(self)
+
+    def showEvent(self, event):
+        super(DlgCalculateSDGOneStep, self).showEvent(event)
+
+        self.lc_setup_tab = lc_setup_widget
+        self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
+
+        self.lc_define_deg_tab = lc_define_deg_widget
+        self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
+        
+        # Hide the land cover ESA period box, since only one period is used in 
+        # this dialog - the one on the main setup tab
+        self.lc_setup_tab.groupBox_esa_period.hide()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -696,10 +709,14 @@ class StartWorker(object):
 class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
     def __init__(self, parent=None):
         super(DlgCalculateSDGAdvanced, self).__init__(parent)
+
         self.setupUi(self)
 
         self.mode_jrc_lpd.toggled.connect(self.mode_jrc_lpd_toggled)
         self.mode_jrc_lpd_toggled()
+
+        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
 
     def mode_jrc_lpd_toggled(self):
         if self.mode_jrc_lpd.isChecked():
@@ -725,17 +742,13 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
     def showEvent(self, event):
         super(DlgCalculateSDGAdvanced, self).showEvent(event)
+
         #self.populate_layers_lpd()
         self.populate_layers_traj()
         self.populate_layers_perf()
         self.populate_layers_state()
         self.populate_layers_lc()
         self.populate_layers_soc()
-
-    def firstShow(self):
-        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
-        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
-        super(DlgCalculateSDGAdvanced, self).firstShow()
 
     #def populate_layers_lpd(self):
     #    self.combo_layer_lpd.clear()

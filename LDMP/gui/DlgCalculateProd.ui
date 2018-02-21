@@ -28,6 +28,12 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QTabWidget" name="TabBox">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -68,6 +74,9 @@
             </property>
             <property name="title">
              <string>NDVI dataset</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
@@ -145,6 +154,9 @@
             <property name="title">
              <string>Trajectory indicator</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
               <widget class="QComboBox" name="traj_indic">
@@ -169,6 +181,9 @@
            <widget class="QGroupBox" name="groupBox_traj_period">
             <property name="title">
              <string>Period</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
              <item row="1" column="0">
@@ -299,6 +314,9 @@
            <widget class="QGroupBox" name="groupBox_traj_climate">
             <property name="title">
              <string>Climate dataset</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
@@ -470,6 +488,9 @@
             <property name="title">
              <string>Baseline period</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="1" column="0">
               <widget class="QDateEdit" name="state_year_bl_start">
@@ -602,6 +623,9 @@
            <widget class="QGroupBox" name="groupBox_state_comparison">
             <property name="title">
              <string>Comparison period</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout_4">
              <item row="3" column="1">

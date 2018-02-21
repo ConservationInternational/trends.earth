@@ -20,12 +20,13 @@ mb = iface.messageBar()
 from PyQt4 import QtGui
 
 from LDMP import log
-from LDMP.calculate_lc import DlgCalculateLCBase
+from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate_lc import lc_setup_widget
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from LDMP.api import run_script
 
 
-class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
+class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
     def __init__(self, parent=None):
         super(DlgCalculateSOC, self).__init__(parent)
 
@@ -48,6 +49,12 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         self.fl_radio_default.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
+
+    def showEvent(self, event):
+        super(DlgCalculateSOC, self).showEvent(event)
+
+        self.lc_setup_tab = lc_setup_widget
+        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():

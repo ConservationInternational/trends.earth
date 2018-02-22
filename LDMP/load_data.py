@@ -229,7 +229,6 @@ def get_sample(f, band_number, n=10000):
     ds = gdal.Open(f)
     b = ds.GetRasterBand(band_number)
 
-    block_sizes = b.GetBlockSize()
     xsize = b.XSize
     ysize = b.YSize
 
@@ -284,6 +283,36 @@ def get_cutoff(f, band_info, percentiles):
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
+def get_unique_values(f, band_num, max_unique=100):
+    src_ds = gdal.Open(f)
+    b = src_ds.GetRasterBand(band_num)
+
+    block_sizes = b.GetBlockSize()
+    x_block_size = block_sizes[0]
+    y_block_size = block_sizes[1]
+    xsize = b.XSize
+    ysize = b.YSize
+
+    for y in xrange(0, ysize, y_block_size):
+        if y + y_block_size < ysize:
+            rows = y_block_size
+        else:
+            rows = ysize - y
+
+        for x in xrange(0, xsize, x_block_size):
+            if x + x_block_size < xsize:
+                cols = x_block_size
+            else:
+                cols = xsize - x
+
+            if x == 0 and y == 0:
+                v = np.unique(b.ReadAsArray(x, y, cols, rows).ravel())
+            else:
+                v = np.unique(np.concatenate((v, b.ReadAsArray(x, y, cols, rows).ravel())))
+
+            if v.size > max_unique:
+                return None
+    return v
 
 def add_layer(f, band_info):
     try:
@@ -503,7 +532,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
                     elif results.get('local_format', None) == 'vrt':
                         f = os.path.splitext(self.file_lineedit.text())[0] + '.vrt'
                     else:
-                        raise Vband_infosalueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
+                        raise ValueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
                     resp = add_layer(f, results['bands'][row])
                     if not resp:
                         mb.pushMessage(tr("Error"),
@@ -579,7 +608,10 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
                                                         self.tr('Select a raster input file'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Raster file (*.tif *.dat *.img)'))
+        # Try loading this raster to verify the file works
+        self.get_raster_layer(raster_file)
 
+    def get_raster_layer(self, raster_file):
         l = QgsRasterLayer(raster_file, "raster file", "gdal")
 
         if not os.access(raster_file, os.R_OK or not l.isValid()):
@@ -595,13 +627,17 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         return True
 
     def open_vector_browse(self):
-        self. comboBox_fieldname.clear()
+        self.comboBox_fieldname.clear()
         self.lineEdit_polygon_file.clear()
 
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a vector input file'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
+        # Try loading this vector to verify the file works
+        self.get_vector_layer(vector_file)
+
+    def get_vector_layer(self, vector_file):
         l = QgsVectorLayer(vector_file, "vector file", "ogr")
 
         if not os.access(vector_file, os.R_OK) or not l.isValid():
@@ -614,7 +650,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
 
         self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
 
-        return True
+        return l
 
 
 class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
@@ -656,21 +692,23 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
         super(DlgLoadDataLC, self).__init__(parent)
 
-
         # This needs to be inserted after the lc definition widget but before 
         # the button box with ok/cancel
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
-        self.dlg_agg = DlgCalculateLCSetAggregation(parent=self)
-
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
 
-        # Setup the class table so that the table is defined if a user uses the
-        # default and never accesses that dialog
-        self.dlg_agg.setup_class_table()
-
     def agg_edit(self):
+        if self.input_widget.radio_raster_input.isChecked():
+            #TODO: Need to display a progress bar onscreen while this is happening
+            values = get_unique_values(self.input_widget.lineEdit_raster_file.text(),
+                                       int(self.input_widget.comboBox_bandnumber.currentText()))
+            log('vals: {}'.format(values))
+        else:
+            l = self.input_widget.get_vector_layer(self.input_widget.lineEdit_vector_file.text())
+
+        self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
         self.dlg_agg.exec_()
 
 

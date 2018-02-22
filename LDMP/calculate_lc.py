@@ -129,6 +129,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.btn_load.clicked.connect(self.btn_load_pressed)
         self.btn_reset.clicked.connect(self.reset_class_table)
 
+        # Setup the class table so that the table is defined when a user first 
+        # loads the dialog
+        self.reset_class_table()
+
     def btn_load_pressed(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
                                               self.tr('Select a land cover definition file'),
@@ -141,7 +145,9 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot read {}. Choose a different file.".format(f), None))
 
-        self.setup_class_table(f)
+        classes = self.read_class_file(f)
+
+        self.setup_class_table(classes)
 
     def btn_save_pressed(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -162,32 +168,17 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             with open(f, 'w') as outfile:
                 json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
 
-            self.update_remap_matrix()
-
-    def update_remap_matrix(self):
-        '''Returns a list describing how to aggregate the land cover data'''
-        out = [[], []]
-        for row in range(0, len(self.classes)):
-            initial_code = self.remap_view.model().index(row, 0).data()
-
-            # Get the currently assigned label for this code
-            label_widget_index = self.remap_view.model().index(row, 2)
-            label_widget = self.remap_view.indexWidget(label_widget_index)
-            final_code = self.final_classes[label_widget.currentText()]
-            out[0].append(initial_code)
-            out[1].append(final_code)
-
     def get_definition(self):
         '''Returns the chosen land cover definition as a dictionary'''
         out = []
-        for row in range(0, len(self.classes)):
+        for row in range(0, self.remap_view.rowCount()):
             this_out = {}
             initial_code = self.remap_view.model().index(row, 0).data()
             this_out['Initial_Code'] = initial_code
             initial_label = self.remap_view.model().index(row, 1).data()
             this_out['Initial_Label'] = initial_label
             # Get the currently assigned label for this code
-            label_widget_index = self.remap_view.model().index(row, 2)
+            label_widget_index = self.remap_view.model().index(row, self.remap_view.model().columnCount() - 1)
             label_widget = self.remap_view.indexWidget(label_widget_index)
             this_out['Final_Label'] = label_widget.currentText()
             this_out['Final_Code'] = self.final_classes[this_out['Final_Label']]
@@ -196,7 +187,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         out = sorted(out, key=lambda k: k['Initial_Code'])
         return out
 
-    def setup_class_table(self, f=None):
+    def read_class_file(self, f=None):
         if f:
             if not os.access(f, os.R_OK):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -212,7 +203,6 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                 or not len(classes) > 0
                 or not isinstance(classes[0], dict)
                 or not classes[0].has_key('Initial_Code')
-                or not classes[0].has_key('Initial_Label')
                 or not classes[0].has_key('Final_Code')
                 or not classes[0].has_key('Final_Label')):
 
@@ -222,33 +212,29 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                                                                     "{} does not appear to contain a valid class definition.".format(f)))
             return None
         else:
-            self.classes = classes
+            log('Loaded class definition from {}'.format(f))
+            return classes
 
-        log('Loaded class definition from {}'.format(f))
-
-        table_model = LCAggTableModel(self.classes, parent=self)
+    def setup_class_table(self, classes):
+        table_model = LCAggTableModel(classes, parent=self)
         proxy_model = QtGui.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.remap_view.setModel(proxy_model)
 
         # Add selector in cell
-        for row in range(0, len(self.classes)):
+        for row in range(0, len(classes)):
             lc_classes = QtGui.QComboBox()
             lc_classes.currentIndexChanged.connect(self.lc_class_combo_changed)
             # Add the classes in order of their codes
             lc_classes.addItems(sorted(self.final_classes.keys(), key=lambda k: self.final_classes[k]))
-            ind = lc_classes.findText(self.classes[row]['Final_Label'])
+            ind = lc_classes.findText(classes[row]['Final_Label'])
             if ind != -1:
                 lc_classes.setCurrentIndex(ind)
-            self.remap_view.setIndexWidget(proxy_model.index(row, 2), lc_classes)
+            self.remap_view.setIndexWidget(proxy_model.index(row, self.remap_view.model().columnCount() - 1), lc_classes)
 
         self.remap_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.remap_view.setColumnWidth(1, 450)
         self.remap_view.horizontalHeader().setStretchLastSection(True)
-
-        # Load and emit the new remap matrix
-        self.update_remap_matrix()
-
         return True
 
     def lc_class_combo_changed(self, index):
@@ -277,7 +263,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                                                                                stop:1 #d7d6d5);}}'''.format(class_color=class_color))
 
     def reset_class_table(self):
-        self.setup_class_table()
+        self.setup_class_table(self.read_class_file())
 
 
 class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
@@ -286,7 +272,6 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
 
         self.setupUi(self)
 
-        # Extract trans_matrix from the QTableWidget
         self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
                                      1, 0, -1, 0, -1, -1, 0, # grassland
                                      1, 1, 0, 1, -1, -1, 0, # cropland
@@ -445,10 +430,6 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         self.groupBox_esa_agg.setChecked(False)
 
         self.use_esa_agg_edit.clicked.connect(self.esa_agg_custom_edit)
-
-        # Setup the class table so that the table is defined if a user uses the
-        # default and never accesses that dialog
-        self.dlg_esa_agg.setup_class_table()
 
         # Make sure the custom data boxes are turned off by default
         self.use_esa_toggled()

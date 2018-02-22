@@ -33,6 +33,7 @@ import numpy as np
 from osgeo import gdal
 
 from LDMP import log
+from LDMP.calculate_lc import DlgCalculateLCSetAggregation
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
 from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
@@ -655,13 +656,22 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
         super(DlgLoadDataLC, self).__init__(parent)
 
+
         # This needs to be inserted after the lc definition widget but before 
         # the button box with ok/cancel
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
-        # self.btn_agg_create_def.clicked.connect()
-        # self.btn_agg_browse.clicked.connect()
+        self.dlg_agg = DlgCalculateLCSetAggregation(parent=self)
+
+        self.btn_agg_edit_def.clicked.connect(self.agg_edit)
+
+        # Setup the class table so that the table is defined if a user uses the
+        # default and never accesses that dialog
+        self.dlg_agg.setup_class_table()
+
+    def agg_edit(self):
+        self.dlg_agg.exec_()
 
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):

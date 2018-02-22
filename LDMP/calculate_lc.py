@@ -77,7 +77,7 @@ class LCAggTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
         self.classes = datain
-
+        
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
@@ -107,11 +107,13 @@ class LCAggTableModel(QAbstractTableModel):
 
 
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
-    remap_file_updated = pyqtSignal(str)
-    remap_matrix_changed = pyqtSignal(list)
-
-    def __init__(self, parent=None):
+    def __init__(self, class_file=None, parent=None):
         super(DlgCalculateLCSetAggregation, self).__init__(parent)
+
+        if not class_file:
+            class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                      'data', 'land_cover_classes.json')
+        self.default_class_file = class_file
 
         self.setupUi(self)
 
@@ -124,7 +126,22 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                               'Water body': 7}
 
         self.btn_save.clicked.connect(self.btn_save_pressed)
+        self.btn_load.clicked.connect(self.btn_load_pressed)
         self.btn_reset.clicked.connect(self.reset_class_table)
+
+    def btn_load_pressed(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              self.tr('Select a land cover definition file'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              self.tr('Land cover definition (*.json)'))
+        if f:
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+
+        self.setup_class_table(f)
 
     def btn_save_pressed(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -147,12 +164,6 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             self.update_remap_matrix()
 
-            # Emit the filename so it can be used to update the filename field
-            # in the parent dialog
-            self.remap_file_updated.emit(f)
-
-            self.close()
-
     def update_remap_matrix(self):
         '''Returns a list describing how to aggregate the land cover data'''
         out = [[], []]
@@ -165,7 +176,6 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             final_code = self.final_classes[label_widget.currentText()]
             out[0].append(initial_code)
             out[1].append(final_code)
-        self.remap_matrix_changed.emit(out)
 
     def get_definition(self):
         '''Returns the chosen land cover definition as a dictionary'''
@@ -187,15 +197,13 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         return out
 
     def setup_class_table(self, f=None):
-        default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                          'data', 'land_cover_classes.json')
         if f:
             if not os.access(f, os.R_OK):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot read {}. Using default class assignments.".format(f), None))
-                f = default_class_file
+                f = self.default_class_file
         else:
-            f = default_class_file
+            f = self.default_class_file
 
         with open(f) as class_file:
             classes = json.load(class_file)
@@ -218,7 +226,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
         log('Loaded class definition from {}'.format(f))
 
-        table_model = LCAggTableModel(self.classes, self)
+        table_model = LCAggTableModel(self.classes, parent=self)
         proxy_model = QtGui.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.remap_view.setModel(proxy_model)
@@ -270,7 +278,6 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
     def reset_class_table(self):
         self.setup_class_table()
-        self.remap_file_updated.emit(None)
 
 
 class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
@@ -421,7 +428,7 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
 
         self.setupUi(self)
 
-        self.dlg_esa_custom_agg = DlgCalculateLCSetAggregation(self)
+        self.dlg_esa_agg = DlgCalculateLCSetAggregation(parent=self)
 
         lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
         lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
@@ -437,17 +444,11 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         # in the final gui doesn't enable their children. 
         self.groupBox_esa_agg.setChecked(False)
 
-        self.groupBox_esa_agg.toggled.connect(self.use_esa_agg_toggled)
-
-        self.use_esa_agg_custom_browse.clicked.connect(self.esa_agg_custom_file_open)
-        self.use_esa_agg_custom_create.clicked.connect(self.esa_agg_custom_create)
-
-        self.dlg_esa_custom_agg.remap_file_updated.connect(self.esa_agg_file_update)
-        self.dlg_esa_custom_agg.remap_matrix_changed.connect(self.esa_agg_update)
+        self.use_esa_agg_edit.clicked.connect(self.esa_agg_custom_edit)
 
         # Setup the class table so that the table is defined if a user uses the
         # default and never accesses that dialog
-        self.dlg_esa_custom_agg.setup_class_table()
+        self.dlg_esa_agg.setup_class_table()
 
         # Make sure the custom data boxes are turned off by default
         self.use_esa_toggled()
@@ -464,42 +465,8 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
             self.groupBox_custom_bl.setEnabled(True)
             self.groupBox_custom_tg.setEnabled(True)
 
-    def esa_agg_update(self, remap_matrix):
-        self.remap_matrix = remap_matrix
-
-    def esa_agg_file_update(self, f):
-        self.use_esa_agg_custom_file.setText(f)
-
-    def esa_agg_custom_create(self):
-        if self.use_esa_agg_custom_file.text():
-            ret = self.dlg_esa_custom_agg.setup_class_table(self.use_esa_agg_custom_file.text())
-        f = self.dlg_esa_custom_agg.exec_()
-        if f:
-            self.esa_agg_file_update(f)
-
-    def use_esa_agg_toggled(self):
-        if self.groupBox_esa_agg.isChecked():
-            self.dlg_esa_custom_agg.setup_class_table(self.use_esa_agg_custom_file.text())
-        else:
-            self.dlg_esa_custom_agg.setup_class_table()
-
-    def esa_agg_custom_file_open(self):
-        f = QtGui.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a land cover definition file'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              self.tr('Land cover definition (*.json)'))
-        if f:
-            if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
-
-        ret = self.dlg_esa_custom_agg.setup_class_table(f)
-
-        if ret:
-            self.use_esa_agg_custom_file.setText(f)
-
+    def esa_agg_custom_edit(self):
+        self.dlg_esa_agg.exec_()
 
 # LC widgets shared across dialogs
 lc_define_deg_widget = LCDefineDegradationWidget()
@@ -523,6 +490,9 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         # This box may have been hidden if this widget was last shown on the 
         # SDG one step dialog
         self.lc_setup_tab.groupBox_esa_period.show()
+
+        if self.reset_tab_on_showEvent:
+            self.TabBox.setCurrentIndex(0)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

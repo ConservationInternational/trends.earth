@@ -545,6 +545,9 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
 
         self.radio_raster_input.toggled.connect(self.radio_raster_input_toggled)
 
+        self.btn_raster_dataset_browse.clicked.connect(self.open_raster_browse)
+        self.btn_polygon_dataset_browse.clicked.connect(self.open_vector_browse)
+
     def radio_raster_input_toggled(self):
         if self.radio_raster_input.isChecked():
             self.btn_raster_dataset_browse.setEnabled(True)
@@ -561,11 +564,40 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
             self.label_filename.setEnabled(True)
             self.comboBox_fieldname.setEnabled(True)
 
+    def open_raster_browse(self):
+        raster_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                        self.tr('Select a raster input file'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Raster file (*.tif *.dat *.img)'))
+        if os.access(raster_file, os.R_OK):
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+        self.lineEdit_raster_file.setText(raster_file)
+
+    def open_vector_browse(self):
+        vector_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                        self.tr('Select a vector input file'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
+        if os.access(vector_file, os.R_OK):
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+        self.lineEdit_polygon_file.setText(vector_file)
+
 
 class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
     def __init__(self, parent=None):
         super(LoadDataSelectRasterOutput, self).__init__(parent)
         self.setupUi(self)
+
+        self.btn_output_file_browse.clicked.connect(self.save_raster)
+
+    def save_raster(self):
+        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+                                                        self.tr('Choose a name for the output file'),
+                                                        QSettings().value("LDMP/output_dir", None),
+                                                        self.tr('Raster file (*.tif *.dat *.img)'))
+        if os.access(raster_file, os.R_OK):
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+        self.lineEdit_output_file.setText(raster_file)
 
 
 class DlgLoadDataBase(QtGui.QDialog):
@@ -578,24 +610,6 @@ class DlgLoadDataBase(QtGui.QDialog):
         self.input_widget = LoadDataSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
-    def open_raster_browse(self):
-        raster_file = QtGui.QFileDialog.getOpenFileName(self,
-                                                        self.tr('Select a file defining the area of interst'),
-                                                        QSettings().value("LDMP/input_dir", None),
-                                                        self.tr('Raster file (*.tif *.dat *.img)'))
-        if os.access(raster_file, os.R_OK):
-            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
-
-    def open_vector_browse(self):
-        vector_file = QtGui.QFileDialog.getOpenFileName(self,
-                                                        self.tr('Select a file defining the area of interst'),
-                                                        QSettings().value("LDMP/input_dir", None),
-                                                        self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
-        if os.access(vector_file, os.R_OK):
-            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
-        self.area_fromfile_file.setText(vector_file)
-
-
 
 class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
@@ -605,6 +619,9 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         # the button box with ok/cancel
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
+
+        # self.btn_agg_create_def.clicked.connect()
+        # self.btn_agg_browse.clicked.connect()
 
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):

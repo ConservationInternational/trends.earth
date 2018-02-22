@@ -231,7 +231,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
 
     def open_vector_browse(self):
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
-                                                        self.tr('Select a file defining the area of interst'),
+                                                        self.tr('Select a file defining the area of interest'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         if os.access(vector_file, os.R_OK):

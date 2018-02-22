@@ -230,13 +230,20 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
             self.area_fromfile_browse.setEnabled(False)
 
     def open_vector_browse(self):
+        self.area_fromfile_file.clear()
+
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a file defining the area of interest'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         if os.access(vector_file, os.R_OK):
             QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
-        self.area_fromfile_file.setText(vector_file)
+            self.area_fromfile_file.setText(vector_file)
+            return True
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot read {}. Choose a different file.".format(vector_file)))
+            return False
 
 
 # Area widget shared across dialogs

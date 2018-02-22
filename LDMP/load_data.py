@@ -22,7 +22,9 @@ import json
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
-from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
+from qgis.core import QgsColorRampShader, QgsRasterShader, \
+    QgsSingleBandPseudoColorRenderer, QgsRasterBandStats, QgsVectorLayer, \
+    QgsRasterLayer
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -552,35 +554,66 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         if self.radio_raster_input.isChecked():
             self.btn_raster_dataset_browse.setEnabled(True)
             self.lineEdit_raster_file.setEnabled(True)
+            self.comboBox_bandnumber.setEnabled(True)
+            self.label_bandnumber.setEnabled(True)
             self.btn_polygon_dataset_browse.setEnabled(False)
             self.lineEdit_polygon_file.setEnabled(False)
-            self.label_filename.setEnabled(False)
+            self.label_fieldname.setEnabled(False)
             self.comboBox_fieldname.setEnabled(False)
         else:
             self.btn_raster_dataset_browse.setEnabled(False)
             self.lineEdit_raster_file.setEnabled(False)
+            self.comboBox_bandnumber.setEnabled(False)
+            self.label_bandnumber.setEnabled(False)
             self.btn_polygon_dataset_browse.setEnabled(True)
             self.lineEdit_polygon_file.setEnabled(True)
-            self.label_filename.setEnabled(True)
+            self.label_fieldname.setEnabled(True)
             self.comboBox_fieldname.setEnabled(True)
 
     def open_raster_browse(self):
+        self.lineEdit_raster_file.clear()
+        self.comboBox_bandnumber.clear()
+
         raster_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a raster input file'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Raster file (*.tif *.dat *.img)'))
-        if os.access(raster_file, os.R_OK):
-            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+
+        l = QgsRasterLayer(raster_file, "raster file", "gdal")
+
+        if not os.access(raster_file, os.R_OK or not l.isValid()):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot read {}. Choose a different file.".format(raster_file)))
+            return False
+
+        QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
         self.lineEdit_raster_file.setText(raster_file)
 
+        self.comboBox_bandnumber.addItems([str(n) for n in range(1, l.dataProvider().bandCount() + 1)])
+
+        return True
+
     def open_vector_browse(self):
+        self. comboBox_fieldname.clear()
+        self.lineEdit_polygon_file.clear()
+
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a vector input file'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
-        if os.access(vector_file, os.R_OK):
-            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+        l = QgsVectorLayer(vector_file, "vector file", "ogr")
+
+        if not os.access(vector_file, os.R_OK) or not l.isValid():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot read {}. Choose a different file.".format(vector_file)))
+            return False
+
+        QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
         self.lineEdit_polygon_file.setText(vector_file)
+
+        self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
+
+        return True
 
 
 class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
@@ -591,13 +624,20 @@ class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOut
         self.btn_output_file_browse.clicked.connect(self.save_raster)
 
     def save_raster(self):
+        self.lineEdit_output_file.clear()
+
         raster_file = QtGui.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif *.dat *.img)'))
-        if os.access(raster_file, os.R_OK):
+        if os.access(raster_file, os.W_OK):
             QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
-        self.lineEdit_output_file.setText(raster_file)
+            self.lineEdit_output_file.setText(raster_file)
+            return True
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
+            return False
 
 
 class DlgLoadDataBase(QtGui.QDialog):

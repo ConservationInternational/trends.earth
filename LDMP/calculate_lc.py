@@ -106,18 +106,42 @@ class LCAggTableModel(QAbstractTableModel):
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
 
+# Function to read a file defining land cover aggegation
+def read_class_file(f):
+    if not os.access(f, os.R_OK):
+        QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Cannot read {}.".format(f), None))
+        return None
+
+    with open(f) as class_file:
+        classes = json.load(class_file)
+
+    if (not isinstance(classes, list)
+            or not len(classes) > 0
+            or not isinstance(classes[0], dict)
+            or not classes[0].has_key('Initial_Code')
+            or not classes[0].has_key('Final_Code')
+            or not classes[0].has_key('Final_Label')):
+
+        QtGui.QMessageBox.critical(None,
+                                   QtGui.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
+                                   QtGui.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                "{} does not appear to contain a valid class definition.".format(f)))
+        return None
+    else:
+        log('Loaded class definition from {}'.format(f))
+        return classes
+
+
 class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregation):
-    def __init__(self, class_file=None, parent=None):
+    def __init__(self, default_classes, parent=None):
         super(DlgCalculateLCSetAggregation, self).__init__(parent)
 
-        if not class_file:
-            class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                      'data', 'land_cover_classes.json')
-        self.default_class_file = class_file
+        self.default_classes = default_classes
 
         self.setupUi(self)
 
-        self.final_classes = {'Forest': 1,
+        self.final_classes = {'No data': -32768,
+                              'Forest': 1,
                               'Grassland': 2,
                               'Cropland': 3,
                               'Wetland': 4,
@@ -144,10 +168,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot read {}. Choose a different file.".format(f), None))
+        classes = read_class_file(f)
 
-        classes = self.read_class_file(f)
-
-        self.setup_class_table(classes)
+        if classes:
+            self.setup_class_table(classes)
 
     def btn_save_pressed(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -171,7 +195,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
     def get_definition(self):
         '''Returns the chosen land cover definition as a dictionary'''
         out = []
-        for row in range(0, self.remap_view.rowCount()):
+        for row in range(0, self.remap_view.model().rowCount()):
             this_out = {}
             initial_code = self.remap_view.model().index(row, 0).data()
             this_out['Initial_Code'] = initial_code
@@ -182,40 +206,20 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             label_widget = self.remap_view.indexWidget(label_widget_index)
             this_out['Final_Label'] = label_widget.currentText()
             this_out['Final_Code'] = self.final_classes[this_out['Final_Label']]
+
             out.append(this_out)
         # Sort output by initial code
         out = sorted(out, key=lambda k: k['Initial_Code'])
         return out
 
-    def read_class_file(self, f=None):
-        if f:
-            if not os.access(f, os.R_OK):
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Using default class assignments.".format(f), None))
-                f = self.default_class_file
-        else:
-            f = self.default_class_file
-
-        with open(f) as class_file:
-            classes = json.load(class_file)
-
-        if (not isinstance(classes, list)
-                or not len(classes) > 0
-                or not isinstance(classes[0], dict)
-                or not classes[0].has_key('Initial_Code')
-                or not classes[0].has_key('Final_Code')
-                or not classes[0].has_key('Final_Label')):
-
-            QtGui.QMessageBox.critical(None,
-                                       QtGui.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
-                                       QtGui.QApplication.translate('DlgCalculateLCSetAggregation',
-                                                                    "{} does not appear to contain a valid class definition.".format(f)))
-            return None
-        else:
-            log('Loaded class definition from {}'.format(f))
-            return classes
-
     def setup_class_table(self, classes):
+        default_codes = sorted([c['Initial_Code'] for c in self.default_classes])
+        new_codes = sorted([c['Initial_Code'] for c in classes])
+        if new_codes != default_codes:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Classes do not appear to match those in file.", None))
+            return False
+
         table_model = LCAggTableModel(classes, parent=self)
         proxy_model = QtGui.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
@@ -238,8 +242,9 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         return True
 
     def lc_class_combo_changed(self, index):
-        class_color = 'red'
-        if self.sender().currentText() == self.tr('Forest'):
+        if self.sender().currentText() == self.tr('No data'):
+            class_color = "#000000"
+        elif self.sender().currentText() == self.tr('Forest'):
             class_color = "#787F1B"
         elif self.sender().currentText() == self.tr('Grassland'):
             class_color = "#FFAC42"
@@ -263,7 +268,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                                                                                stop:1 #d7d6d5);}}'''.format(class_color=class_color))
 
     def reset_class_table(self):
-        self.setup_class_table(self.read_class_file())
+        self.setup_class_table(self.default_classes)
 
 
 class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
@@ -413,7 +418,9 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
 
         self.setupUi(self)
 
-        self.dlg_esa_agg = DlgCalculateLCSetAggregation(parent=self)
+        default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                         'data', 'land_cover_classes.json')
+        self.dlg_esa_agg = DlgCalculateLCSetAggregation(read_class_file(default_class_file), parent=self)
 
         lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
         lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)

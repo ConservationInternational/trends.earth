@@ -283,7 +283,7 @@ def get_cutoff(f, band_info, percentiles):
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
-def get_unique_values(f, band_num, max_unique=100):
+def get_unique_values(f, band_num, max_unique=50):
     src_ds = gdal.Open(f)
     b = src_ds.GetRasterBand(band_num)
 
@@ -312,7 +312,7 @@ def get_unique_values(f, band_num, max_unique=100):
 
             if v.size > max_unique:
                 return None
-    return v
+    return v.tolist()
 
 def add_layer(f, band_info):
     try:
@@ -611,7 +611,8 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Raster file (*.tif *.dat *.img)'))
         # Try loading this raster to verify the file works
-        self.get_raster_layer(raster_file)
+        if raster_file:
+            self.get_raster_layer(raster_file)
 
     def get_raster_layer(self, raster_file):
         l = QgsRasterLayer(raster_file, "raster file", "gdal")
@@ -639,7 +640,8 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         # Try loading this vector to verify the file works
-        self.get_vector_layer(vector_file)
+        if vector_file:
+            self.get_vector_layer(vector_file)
 
     def get_vector_layer(self, vector_file):
         l = QgsVectorLayer(vector_file, "vector file", "ogr")
@@ -716,15 +718,23 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
+            f = self.input_widget.lineEdit_raster_file.text()
             #TODO: Need to display a progress bar onscreen while this is happening
-            values = get_unique_values(self.input_widget.lineEdit_raster_file.text(),
-                                       int(self.input_widget.comboBox_bandnumber.currentText()))
-            log('vals: {}'.format(values))
+            values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
         else:
-            l = self.input_widget.get_vector_layer(self.input_widget.lineEdit_vector_file.text())
-
-        self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
-        self.dlg_agg.exec_()
+            f = self.input_widget.lineEdit_polygon_file.text()
+            l = self.input_widget.get_vector_layer(f)
+            idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
+            values = l.uniqueValues(idx)
+            if len(values) > 50:
+                values = None
+        if values:
+            # Set all of the classes to no data by default
+            classes = [{'Initial_Code':str(value), 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':'-32768'} for value in sorted(values)]
+            self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
+            self.dlg_agg.exec_()
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
 
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):

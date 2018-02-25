@@ -66,17 +66,15 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
     def mode_lpd_custom_toggled(self):
         if self.mode_lpd_jrc.isChecked():
-            self.groupBox_lpd.show()
             self.groupBox_ndvi_dataset.setEnabled(False)
-            self.groupBox_traj.hide()
-            self.groupBox_perf.hide()
-            self.groupBox_state.hide()
+            self.groupBox_traj.setEnabled(False)
+            self.groupBox_perf.setEnabled(False)
+            self.groupBox_state.setEnabled(False)
         else:
-            self.groupBox_lpd.hide()
             self.groupBox_ndvi_dataset.setEnabled(True)
-            self.groupBox_traj.show()
-            self.groupBox_perf.show()
-            self.groupBox_state.show()
+            self.groupBox_traj.setEnabled(True)
+            self.groupBox_perf.setEnabled(True)
+            self.groupBox_state.setEnabled(True)
 
     def dataset_climate_update(self):
         self.traj_climate.clear()

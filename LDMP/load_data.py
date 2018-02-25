@@ -571,6 +571,8 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
 
 
 class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileInput):
+    inputFileChanged = pyqtSignal(bool)
+
     def __init__(self, parent=None):
         super(LoadDataSelectFileInputWidget, self).__init__(parent)
         self.setupUi(self)
@@ -617,6 +619,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         if not os.access(raster_file, os.R_OK or not l.isValid()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Cannot read {}. Choose a different file.".format(raster_file)))
+            self.inputFileChanged.emit(False)
             return False
 
         QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
@@ -624,6 +627,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
 
         self.comboBox_bandnumber.addItems([str(n) for n in range(1, l.dataProvider().bandCount() + 1)])
 
+        self.inputFileChanged.emit(True)
         return True
 
     def open_vector_browse(self):
@@ -643,10 +647,12 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         if not os.access(vector_file, os.R_OK) or not l.isValid():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Cannot read {}. Choose a different file.".format(vector_file)))
+            self.inputFileChanged.emit(False)
             return False
 
         QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
         self.lineEdit_polygon_file.setText(vector_file)
+        self.inputFileChanged.emit(True)
 
         self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
 
@@ -697,7 +703,16 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
+        self.input_widget.inputFileChanged.connect(self.input_file_changed)
+
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
+        self.btn_agg_edit_def.setEnabled(False)
+
+    def input_file_changed(self, valid):
+        if valid:
+            self.btn_agg_edit_def.setEnabled(True)
+        else:
+            self.btn_agg_edit_def.setEnabled(False)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():

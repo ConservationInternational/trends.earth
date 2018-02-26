@@ -572,6 +572,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
 
 class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileInput):
     inputFileChanged = pyqtSignal(bool)
+    inputTypeChanged = pyqtSignal(bool)
 
     def __init__(self, parent=None):
         super(LoadDataSelectFileInputWidget, self).__init__(parent)
@@ -583,6 +584,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         self.btn_polygon_dataset_browse.clicked.connect(self.open_vector_browse)
 
     def radio_raster_input_toggled(self):
+        has_file = False
         if self.radio_raster_input.isChecked():
             self.btn_raster_dataset_browse.setEnabled(True)
             self.lineEdit_raster_file.setEnabled(True)
@@ -592,6 +594,9 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
             self.lineEdit_polygon_file.setEnabled(False)
             self.label_fieldname.setEnabled(False)
             self.comboBox_fieldname.setEnabled(False)
+
+            if self.lineEdit_raster_file.text():
+                has_file = True
         else:
             self.btn_raster_dataset_browse.setEnabled(False)
             self.lineEdit_raster_file.setEnabled(False)
@@ -601,6 +606,10 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
             self.lineEdit_polygon_file.setEnabled(True)
             self.label_fieldname.setEnabled(True)
             self.comboBox_fieldname.setEnabled(True)
+
+            if self.lineEdit_polygon_file.text():
+                has_file=True
+        self.inputTypeChanged.emit(has_file)
 
     def open_raster_browse(self):
         self.lineEdit_raster_file.clear()
@@ -613,6 +622,8 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         # Try loading this raster to verify the file works
         if raster_file:
             self.get_raster_layer(raster_file)
+        else:
+            self.inputFileChanged.emit(False)
 
     def get_raster_layer(self, raster_file):
         l = QgsRasterLayer(raster_file, "raster file", "gdal")
@@ -642,6 +653,8 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         # Try loading this vector to verify the file works
         if vector_file:
             self.get_vector_layer(vector_file)
+        else:
+            self.inputFileChanged.emit(False)
 
     def get_vector_layer(self, vector_file):
         l = QgsVectorLayer(vector_file, "vector file", "ogr")
@@ -674,7 +687,7 @@ class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOut
         raster_file = QtGui.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
-                                                        self.tr('Raster file (*.tif *.dat *.img)'))
+                                                        self.tr('Raster file (*.tif)'))
         if os.access(raster_file, os.W_OK):
             QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
             self.lineEdit_output_file.setText(raster_file)
@@ -705,12 +718,13 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
-        self.input_widget.inputFileChanged.connect(self.input_file_changed)
+        self.input_widget.inputFileChanged.connect(self.input_changed)
+        self.input_widget.inputTypeChanged.connect(self.input_changed)
 
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
         self.btn_agg_edit_def.setEnabled(False)
 
-    def input_file_changed(self, valid):
+    def input_changed(self, valid):
         if valid:
             self.btn_agg_edit_def.setEnabled(True)
         else:

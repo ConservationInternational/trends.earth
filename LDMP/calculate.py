@@ -21,12 +21,13 @@ from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
         QGis, QgsMapLayerRegistry, QgsDataProvider
+from qgis.utils import iface
 
 from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
+from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
-
 
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
@@ -72,11 +73,13 @@ class AOI(object):
             raise ValueError("Must specify file or geojson")
 
         crs_source = l.crs()
-        crs_dest = QgsCoordinateReferenceSystem('+init=epsg:4326 +lon_wrap=180')
+        #crs_dest = QgsCoordinateReferenceSystem('+init=epsg:4326 +lon_wrap=180')
+        crs_dest = QgsCoordinateReferenceSystem('+init=epsg:4326')
         t = QgsCoordinateTransform(crs_source, crs_dest)
 
         # Transform layer
-        l_trans = QgsVectorLayer("{datatype}?crs=proj4:+proj=longlat +datum=WGS84 +lon_wrap=180".format(datatype=datatype), "calculation boundary (transformed)",  "memory")
+        #l_trans = QgsVectorLayer("{datatype}?crs=proj4:+proj=longlat +datum=WGS84 +lon_wrap=180".format(datatype=datatype), "calculation boundary (transformed)",  "memory")
+        l_trans = QgsVectorLayer("{datatype}?crs=proj4:+proj=longlat +datum=WGS84".format(datatype=datatype), "calculation boundary (transformed)",  "memory")
         feats = []
         for f in l.getFeatures():
             geom = f.geometry()
@@ -101,7 +104,7 @@ class AOI(object):
         else:
             self.layer = l_trans
 
-        QgsMapLayerRegistry.instance().addMapLayer(l_trans)
+        #QgsMapLayerRegistry.instance().addMapLayer(l_trans)
 
         # Transform bounding box
         self.bounding_box_geom = QgsGeometry.fromRect(l_trans.extent())
@@ -165,11 +168,19 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.close()
         result = self.dlg_calculate_sdg_advanced.exec_()
 
+class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
+    def __init__(self, parent=None):
+        super(CalculationOptionsWidget, self).__init__(parent)
+
+        self.setupUi(self)
+
 class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     def __init__(self, parent=None):
         super(AreaWidget, self).__init__(parent)
 
         self.setupUi(self)
+
+        self.canvas = iface.mapCanvas()
 
         self.admin_bounds_key = get_admin_bounds()
         if not self.admin_bounds_key:
@@ -207,6 +218,11 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     #     QSettings().setValue("LDMP/custom_crs", self.groupBox_custom_crs.isChecked())
     #     QSettings().setValue("LDMP/admin_0_index", self.area_admin_0.currentIndex())
     #     QSettings().setValue("LDMP/admin_1_index", self.area_admin_1.currentIndex())
+
+    def showEvent(self, event):
+        super(AreaWidget, self).showEvent(event)
+        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+        self.mQgsProjectionSelectionWidget.setCrs(proj_crs)
 
     def populate_admin_1(self):
         self.area_admin_1.clear()
@@ -249,9 +265,9 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
             return False
                 
 
-
-# Area widget shared across dialogs
+# Widgets shared across dialogs
 area_widget = AreaWidget()
+options_widget = CalculationOptionsWidget()
 
 
 class DlgCalculateBase(QtGui.QDialog):
@@ -279,6 +295,8 @@ class DlgCalculateBase(QtGui.QDialog):
 
         self.area_tab = area_widget
         self.TabBox.addTab(self.area_tab, self.tr('Area'))
+        self.options_tab = options_widget
+        self.TabBox.addTab(self.options_tab, self.tr('Options'))
 
         if self._firstShowEvent:
             self._firstShowEvent = False

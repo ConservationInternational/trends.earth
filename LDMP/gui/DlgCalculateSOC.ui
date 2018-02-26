@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>605</width>
-    <height>369</height>
+    <height>423</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,9 +34,9 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="optionsTab">
+     <widget class="QWidget" name="AdvancedTab">
       <attribute name="title">
-       <string>Options</string>
+       <string>Advanced</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>

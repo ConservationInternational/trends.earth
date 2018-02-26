@@ -188,11 +188,11 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                                            self.tr("Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
-            class_def = self.get_definition()
+            class_def = self.get_agg_as_dict()
             with open(f, 'w') as outfile:
                 json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
 
-    def get_definition(self):
+    def get_agg_as_dict(self):
         '''Returns the chosen land cover definition as a dictionary'''
         out = []
         for row in range(0, self.remap_view.model().rowCount()):
@@ -210,6 +210,20 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             out.append(this_out)
         # Sort output by initial code
         out = sorted(out, key=lambda k: k['Initial_Code'])
+        return out
+
+    def get_agg_as_list(self):
+        '''Returns a list describing how to aggregate the land cover data'''
+        out = [[], []]
+        for row in range(0, self.remap_view.model().rowCount()):
+            initial_code = self.remap_view.model().index(row, 0).data()
+
+            # Get the currently assigned label for this code
+            label_widget_index = self.remap_view.model().index(row, 2)
+            label_widget = self.remap_view.indexWidget(label_widget_index)
+            final_code = self.final_classes[label_widget.currentText()]
+            out[0].append(initial_code)
+            out[1].append(final_code)
         return out
 
     def setup_class_table(self, classes):
@@ -499,9 +513,9 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                    'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.remap_matrix,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
         gee_script = 'land-cover' + '-' + self.scripts['land-cover']['script version']
 

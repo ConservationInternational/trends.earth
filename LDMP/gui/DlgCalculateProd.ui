@@ -35,7 +35,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="IndicatorsTab">
       <attribute name="title">
@@ -126,9 +126,9 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="SettingsTab">
+     <widget class="QWidget" name="AdvancedTab">
       <attribute name="title">
-       <string>Settings</string>
+       <string>Advanced</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>

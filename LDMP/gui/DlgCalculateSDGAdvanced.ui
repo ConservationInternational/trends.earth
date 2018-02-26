@@ -32,7 +32,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="InputTab">
       <attribute name="title">
@@ -323,8 +323,11 @@
               <height>35</height>
              </size>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
             <property name="placeholderText">
-             <string>Choose a file...</string>
+             <string>Click &quot;Browse&quot; to choose a file...</string>
             </property>
            </widget>
           </item>
@@ -358,8 +361,11 @@
               <height>35</height>
              </size>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
             <property name="placeholderText">
-             <string>Choose a file...</string>
+             <string>Click &quot;Browse&quot; to choose a file...</string>
             </property>
            </widget>
           </item>

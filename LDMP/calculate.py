@@ -174,6 +174,36 @@ class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
 
         self.setupUi(self)
 
+        self.radioButton_run_in_cloud.toggled.connect(self.radioButton_run_in_cloud_changed)
+        self.btn_local_data_folder_browse.clicked.connect(self.open_folder_browse)
+
+    def radioButton_run_in_cloud_changed(self):
+        if self.radioButton_run_in_cloud.isChecked():
+            self.lineEdit_local_data_folder.setEnabled(False)
+            self.btn_local_data_folder_browse.setEnabled(False)
+        else:
+            self.lineEdit_local_data_folder.setEnabled(True)
+            self.btn_local_data_folder_browse.setEnabled(True)
+
+    def open_folder_browse(self):
+        self.lineEdit_local_data_folder.clear()
+
+        folder = QtGui.QFileDialog.getExistingDirectory(self,
+                                                        self.tr('Select folder containing data'),
+                                                        QSettings().value("LDMP/localdata_dir", None))
+        if folder:
+            if os.access(folder, os.R_OK):
+                QSettings().setValue("LDMP/localdata_dir", os.path.dirname(folder))
+                self.lineEdit_local_data_folder.setText(folder)
+                return True
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot read {}. Choose a different folder.".format(folder)))
+                return False
+        else:
+            return False
+                
+
 class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     def __init__(self, parent=None):
         super(AreaWidget, self).__init__(parent)

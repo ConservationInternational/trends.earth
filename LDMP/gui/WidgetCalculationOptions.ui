@@ -54,6 +54,9 @@
           <height>30</height>
          </size>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
         <property name="placeholderText">
          <string>Click &quot;Browse&quot; to select where local data is saved...</string>
         </property>

@@ -484,6 +484,25 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>TabBox</tabstop>
+  <tabstop>mode_gpg_prod</tabstop>
+  <tabstop>mode_jrc_lpd</tabstop>
+  <tabstop>combo_layer_lc</tabstop>
+  <tabstop>combo_layer_soc</tabstop>
+  <tabstop>button_prev</tabstop>
+  <tabstop>button_next</tabstop>
+  <tabstop>button_calculate</tabstop>
+  <tabstop>combo_layer_traj</tabstop>
+  <tabstop>combo_layer_perf</tabstop>
+  <tabstop>combo_layer_state</tabstop>
+  <tabstop>combo_layer_lpd</tabstop>
+  <tabstop>browse_output_file_layer</tabstop>
+  <tabstop>browse_output_file_table</tabstop>
+  <tabstop>plot_title</tabstop>
+  <tabstop>output_file_layer</tabstop>
+  <tabstop>output_file_table</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

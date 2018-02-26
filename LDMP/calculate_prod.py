@@ -175,8 +175,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'geojson': json.dumps(self.aoi.bounding_box_geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
         # This will add in the method parameter
         payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])
 
@@ -201,8 +201,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'year_end': self.perf_year_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
         gee_script = 'productivity-performance' + '-' + self.scripts['productivity-performance']['script version']
 
@@ -224,8 +224,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'year_tg_end': self.state_year_tg_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
         gee_script = 'productivity-state' + '-' + self.scripts['productivity-state']['script version']
 

@@ -225,7 +225,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'year_end': self.traj_year_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.text(),
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText(),
                    'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter
         payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])

@@ -464,6 +464,10 @@ def compile_files(options):
             if os.path.exists(ui):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
+                # Fix the links to c header files that Qt Designer adds to UI 
+                # files when QGIS custom widgets are used
+                ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
+                _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
                 if file_changed(ui, output):
                     print("Compiling {0} to {1}".format(ui, output))
                     subprocess.check_call([pyuic4, '-o', output, ui])

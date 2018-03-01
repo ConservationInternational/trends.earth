@@ -291,12 +291,12 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
 
         self.setupUi(self)
 
-        self.trans_matrix_default = [0, -1, -1, 0, -1, -1, 0, # forest
-                                     1, 0, -1, 0, -1, -1, 0, # grassland
-                                     1, 1, 0, 1, -1, -1, 0, # cropland
-                                     0, 0, -1, 0, -1, -1, 0, # wetland
-                                     1, 1, 1, 1, 0, 0, 0, # artificial areas
-                                     1, 1, 1, 1, 0, 0, 0, # bare land
+        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # forest
+                                     1, 0, 1, -1, -1, -1, 0, # grassland
+                                     1, -1, 0, -1, -1, -1, 0, # cropland
+                                     -1, -1, -1, 0, -1, -1, 0, # wetland
+                                     1, 1, 1, 1, 0, 1, 0, # artificial areas
+                                     1, 1, 1, 1, -1, 0, 0, # bare land
                                      0, 0, 0, 0, 0, 0, 0] # water body
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):

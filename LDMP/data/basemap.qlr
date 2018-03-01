@@ -1545,10 +1545,10 @@ def my_form_open(dialog, layer, feature):
       <renderer-v2 forceraster="0" symbollevels="0" type="RuleRenderer" enableorderby="0">
         <rules key="{fb29731c-f412-4a72-8a78-8901192931a7}">
           <rule scalemaxdenom="35000000" filter="  &quot;FEATURECLA&quot; ='Admin-0 capital' " key="{4ee4e051-ea27-4af1-9682-10d2acb4d5eb}" symbol="0" scalemindenom="1000" label="Capital city"/>
-          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =0" key="{25c3b82d-e00b-44b6-a529-7e13bca73e14}" symbol="1" scalemindenom="1000" label="Mega city"/>
-          <rule scalemaxdenom="35000000" filter="&quot;SCALERANK&quot; =1" key="{3ace4c2a-3dfe-4be4-b526-1e496489991f}" symbol="2" scalemindenom="1000" label="Major city"/>
-          <rule scalemaxdenom="10000000" filter="&quot;SCALERANK&quot; >1 and &quot;SCALERANK&quot; &lt;5 " key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="3" scalemindenom="1000" label="Mid-sized city"/>
-          <rule scalemaxdenom="5000000" filter="&quot;SCALERANK&quot; >=5" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="4" scalemindenom="1000" label="Small city"/>
+          <rule scalemaxdenom="35000000" filter=" &quot;SCALERANK&quot; = 0 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{25c3b82d-e00b-44b6-a529-7e13bca73e14}" symbol="1" scalemindenom="1000" label="Mega city"/>
+          <rule scalemaxdenom="35000000" filter=" &quot;SCALERANK&quot; = 1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{3ace4c2a-3dfe-4be4-b526-1e496489991f}" symbol="2" scalemindenom="1000" label="Major city"/>
+          <rule scalemaxdenom="10000000" filter=" &quot;SCALERANK&quot; > 1 and &quot;SCALERANK&quot; &lt; 5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="3" scalemindenom="1000" label="Mid-sized city"/>
+          <rule scalemaxdenom="5000000" filter=" &quot;SCALERANK&quot; >= 5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{480cdc84-e579-46b5-b389-fa49a0800b81}" symbol="4" scalemindenom="1000" label="Small city"/>
         </rules>
         <symbols>
           <symbol alpha="1" clip_to_extent="1" type="marker" name="0">
@@ -1684,8 +1684,8 @@ def my_form_open(dialog, layer, feature):
         </symbols>
       </renderer-v2>
       <labeling type="rule-based">
-        <rules key="{21a34697-3f9b-47fc-8666-e43a02f3c490}">
-          <rule scalemaxdenom="35000000" description="Capital city" filter=" &quot;FEATURECLA&quot; = 'Admin-0 capital' " key="{634f466e-bba4-4c20-a7db-84fa0a54b258}" scalemindenom="1000">
+        <rules key="{1a1f0d8f-abc2-4ece-affc-4050c152156e}">
+          <rule scalemaxdenom="35000000" description="Capital city" filter=" &quot;FEATURECLA&quot; = 'Admin-0 capital' " key="{8b1bffab-742d-40ab-b111-3afb6eee5676}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Arial Black" fontLetterSpacing="0" fontUnderline="0" fontWeight="87" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="1" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Black" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1699,7 +1699,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="35000000" description="Mega city" filter=" &quot;SCALERANK&quot; =0 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{99d3f11b-5327-40e9-bbfa-dd494bb663ed}" scalemindenom="1000">
+          <rule scalemaxdenom="35000000" description="Mega city" filter=" &quot;SCALERANK&quot; =0 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{940e05f0-7793-43dc-b855-5862829040fa}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="75" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Bold" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1713,7 +1713,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="35000000" description="Major city" filter=" &quot;SCALERANK&quot; =1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{4778015e-f4f1-44fb-a2b9-9970d40d0a7e}" scalemindenom="1000">
+          <rule scalemaxdenom="35000000" description="Major city" filter=" &quot;SCALERANK&quot; =1 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{07cb0282-e068-48a2-96ee-639f8268cdc1}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="50" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="9" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1727,7 +1727,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="10000000" description="Mid-sized city" filter=" &quot;SCALERANK&quot; >1 and  &quot;SCALERANK&quot; &lt;5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{f115f03e-3d3e-4192-99c3-5b617eaac33c}" scalemindenom="1000">
+          <rule scalemaxdenom="10000000" description="Mid-sized city" filter=" &quot;SCALERANK&quot; >1 and  &quot;SCALERANK&quot; &lt;5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{5c84bd71-1ba6-455a-9dd6-d9e49223c939}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="50" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>
@@ -1741,7 +1741,7 @@ def my_form_open(dialog, layer, feature):
               <data-defined/>
             </settings>
           </rule>
-          <rule scalemaxdenom="5000000" description="Small city" filter=" &quot;SCALERANK&quot; >=5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{b3c8b7bc-72f2-40a8-9fea-a1bce2d3aa87}" scalemindenom="1000">
+          <rule scalemaxdenom="5000000" description="Small city" filter=" &quot;SCALERANK&quot; >=5 and not &quot;FEATURECLA&quot; = 'Admin-0 capital'" key="{27ecd27e-99c0-4a56-8533-06f0e3f48eb7}" scalemindenom="1000">
             <settings>
               <text-style fontItalic="0" fontFamily="Arial" fontLetterSpacing="0" fontUnderline="0" fontWeight="50" fontStrikeout="0" textTransp="0" previewBkgrdColor="#ffffff" fontCapitals="0" textColor="0,0,0,255" fontSizeInMapUnits="0" isExpression="0" blendMode="0" fontSizeMapUnitScale="0,0,0,0,0,0" fontSize="8.25" fieldName="NAME" namedStyle="Normal" fontWordSpacing="0" useSubstitutions="0">
                 <substitutions/>

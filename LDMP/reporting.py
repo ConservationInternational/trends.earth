@@ -25,6 +25,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate_sdg import get_ld_layers
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingBasemap import Ui_DlgReportingBasemap
@@ -212,18 +213,18 @@ class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
         self.close()
 
 
-class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
+class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
     def __init__(self, parent=None):
         super(DlgCreateMap, self).__init__(parent)
+
         self.setupUi(self)
 
-    def firstShow(self):
-        #TODO: Remove the combo page for now...
+        #TODO: Remove the combo boxes, etc.for now...
         self.combo_layers.hide()
         self.layer_combo_label.hide()
-        self.TabBox.removeTab(1)
 
-        super(DlgCreateMap, self).firstShow()
+        self.buttonBox.accepted.connect(self.ok_clicked)
+        self.buttonBox.rejected.connect(self.cancel_clicked)
 
     def showEvent(self, event):
         super(DlgCreateMap, self).showEvent(event)
@@ -238,18 +239,10 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         self.layers_list = get_ld_layers()
         self.combo_layers.addItems([l[0].name() for l in self.layers_list])
 
-    def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-
-        #TODO Will need to reenable this if the area combo selector is used in the future
-        # ret = super(DlgCreateMap, self).btn_calculate()
-        # if not ret:
-        #     return
-
+    def cancel_clicked(self):
         self.close()
 
+    def ok_clicked(self):
         if self.portrait_layout.isChecked():
             orientation = 'portrait'
         else:
@@ -276,18 +269,6 @@ class DlgCreateMap(DlgCalculateBase, Ui_DlgCreateMap):
         map_item = composition.getComposerItemById('te_map')
         map_item.setMapCanvas(canvas)
         map_item.zoomToExtent(canvas.extent())
-
-        # Add area of interest
-        # layerset = []
-        # aoi_layer = QgsVectorLayer("Polygon?crs=epsg:4326", "Area of interest", "memory")
-        # mask_pr = aoi_layer.dataProvider()
-        # fet = QgsFeature()
-        # fet.setGeometry(self.aoi)
-        # mask_pr.addFeatures([fet])
-        # QgsMapLayerRegistry.instance().addMapLayer(aoi_layer)
-        # layerset.append(aoi_layer.id())
-        # map_item.setLayerSet(layerset)
-        # map_item.setKeepLayerSet(True)
 
         map_item.renderModeUpdateCachedImage()
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>559</width>
-    <height>282</height>
+    <height>427</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -188,6 +188,55 @@
             </property>
             <property name="displayFormat">
              <string notr="true">yyyy</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Land productivity dataset</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBox">
+            <property name="maximumSize">
+             <size>
+              <width>15</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Use Small Island Developing States (SIDS) dataset? (UNCCD recommends using this dataset for SIDS as it is better able to represent productivity in smaller land areas)</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QRadioButton" name="radioButton_2">
+            <property name="text">
+             <string>UNCCD default data</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QRadioButton" name="radioButton">
+            <property name="text">
+             <string>Trends.Earth land productivity</string>
             </property>
            </widget>
           </item>

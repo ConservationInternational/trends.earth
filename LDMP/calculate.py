@@ -22,12 +22,14 @@ from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
         QGis, QgsMapLayerRegistry, QgsDataProvider
 from qgis.utils import iface
+from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
 from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
+
 
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
@@ -222,10 +224,24 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
-        self.area_admin.toggled.connect(self.area_admin_toggle)
+        self.area_fromadmin.toggled.connect(self.area_fromadmin_toggle)
         self.area_fromfile.toggled.connect(self.area_fromfile_toggle)
 
-    #     self.area_admin.toggled.connect(self.options_save)
+        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
+        self.area_frompoint_choose_point.setIcon(icon)
+        self.area_frompoint_choose_point.clicked.connect(self.point_chooser)
+        #TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.area_frompoint_point_x.setValidator(QtGui.QDoubleValidator())
+        #TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.area_frompoint_point_y.setValidator(QtGui.QDoubleValidator())
+        self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
+        self.area_frompoint_toggle()
+
+        # Setup point chooser
+        self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
+        self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
+
+    #     self.area_fromadmin.toggled.connect(self.options_save)
     #     self.groupBox_custom_crs.toggled.connect(self.options_save)
     #     self.area_admin_0.currentIndexChanged.connect(self.options_save)
     #     self.area_admin_1.currentIndexChanged.connect(self.options_save)
@@ -235,7 +251,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     #     super(AreaWidget, self).showEvent(event)
     #
     #     if QSettings().value("LDMP/area_admin", True, type=bool):
-    #         self.area_admin.setChecked(True)
+    #         self.area_fromadmin.setChecked(True)
     #     else:
     #         self.area_fromfile.setChecked(True)
     #     self.groupBox_custom_crs.setChecked(QSettings().value("LDMP/custom_crs", False, type=bool))
@@ -244,7 +260,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     #     self.area_admin_1.setCurrentIndex(QSettings().value("LDMP/admin_1_index", 0))
     #
     # def options_save(self):
-    #     QSettings().setValue("LDMP/area_admin", self.area_admin.isChecked())
+    #     QSettings().setValue("LDMP/area_admin", self.area_fromadmin.isChecked())
     #     QSettings().setValue("LDMP/custom_crs", self.groupBox_custom_crs.isChecked())
     #     QSettings().setValue("LDMP/admin_0_index", self.area_admin_0.currentIndex())
     #     QSettings().setValue("LDMP/admin_1_index", self.area_admin_1.currentIndex())
@@ -259,8 +275,18 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.area_admin_1.addItems(['All regions'])
         self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
-    def area_admin_toggle(self):
-        if self.area_admin.isChecked():
+    def area_frompoint_toggle(self):
+        if self.area_frompoint.isChecked():
+            self.area_frompoint_point_x.setEnabled(True)
+            self.area_frompoint_point_y.setEnabled(True)
+            self.area_frompoint_choose_point.setEnabled(True)
+        else:
+            self.area_frompoint_point_x.setEnabled(False)
+            self.area_frompoint_point_y.setEnabled(False)
+            self.area_frompoint_choose_point.setEnabled(False)
+
+    def area_fromadmin_toggle(self):
+        if self.area_fromadmin.isChecked():
             self.area_admin_0.setEnabled(True)
             self.area_admin_1.setEnabled(True)
         else:
@@ -274,6 +300,44 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         else:
             self.area_fromfile_file.setEnabled(False)
             self.area_fromfile_browse.setEnabled(False)
+
+    def show_areafrom_point_toggle(self, enable):
+        if enable:
+            self.area_frompoint.show()
+            self.area_frompoint_label_x.show()
+            self.area_frompoint_point_x.show()
+            self.area_frompoint_label_y.show()
+            self.area_frompoint_point_y.show()
+            self.area_frompoint_choose_point.show()
+        else:
+            self.area_frompoint.hide()
+            self.area_frompoint_label_x.hide()
+            self.area_frompoint_point_x.hide()
+            self.area_frompoint_label_y.hide()
+            self.area_frompoint_point_y.hide()
+            self.area_frompoint_choose_point.hide()
+
+    def point_chooser(self):
+        log("Choosing point from canvas...")
+        self.canvas.setMapTool(self.choose_point_tool)
+        self.window().hide()
+        QtGui.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
+
+    def set_point_coords(self, point, button):
+        log("Set point coords")
+        #TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
+        self.point = point
+        # Disable the choose point tool
+        self.canvas.setMapTool(QgsMapToolPan(self.canvas))
+        # Don't reset_tab_on_show as it would lead to return to first tab after
+        # using the point chooser
+        self.window().reset_tab_on_showEvent = False
+        self.window().show()
+        self.window().reset_tab_on_showEvent = True
+        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
+        log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
+        self.area_frompoint_point_x.setText("{:.8f}".format(self.point.x()))
+        self.area_frompoint_point_y.setText("{:.8f}".format(self.point.y()))
 
     def open_vector_browse(self):
         self.area_fromfile_file.clear()
@@ -323,8 +387,10 @@ class DlgCalculateBase(QtGui.QDialog):
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
 
+        area_widget.setParent(self)
         self.area_tab = area_widget
         self.TabBox.addTab(self.area_tab, self.tr('Area'))
+
         self.options_tab = options_widget
         self.TabBox.addTab(self.options_tab, self.tr('Options'))
 
@@ -334,6 +400,11 @@ class DlgCalculateBase(QtGui.QDialog):
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
+
+        # By default, don't show area from point selector
+        self.area_tab.show_areafrom_point_toggle(False)
+        # By default, show custom crs groupBox
+        self.area_tab.groupBox_custom_crs.show()
 
     def firstShow(self):
         self.button_calculate.clicked.connect(self.btn_calculate)
@@ -388,7 +459,7 @@ class DlgCalculateBase(QtGui.QDialog):
             return (admin_polys['admin1'][admin_1_code]['geojson'], crs, wrap)
 
     def btn_calculate(self):
-        if self.area_tab.area_admin.isChecked():
+        if self.area_tab.area_fromadmin.isChecked():
             if not self.area_tab.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a first level administrative boundary."), None)
@@ -407,12 +478,27 @@ class DlgCalculateBase(QtGui.QDialog):
                                            self.tr("Choose a file to define the area of interest."), None)
                 return False
             self.aoi = AOI(f=self.area_tab.area_fromfile_file.text())
+        elif self.area_tab.area_frompoint.isVisible() and self.area_tab.area_frompoint:
+            # Area from point
+            if not self.self.area_tab.area_frompoint_point_x.text() or not self.self.area_tab.area_frompoint_point_y.text():
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Choose a point to define the area of interest."), None)
+                return False
+            point = QgsPoint(float(self.self.area_tab.area_frompoint_point_x.text()), float(self.self.area_tab.area_frompoint_point_y.text()))
+            crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+            crs_dest = QgsCoordinateReferenceSystem(4326)
+            point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)
+            geojson = QgsGeometry.fromPoint(point).exportToGeoJSON()
+            self.aoi = AOI(geojson=geojson, datatype='point')
+            self.aoi.bounding_box_geojson = json.loads(geojson)
         else:
-            self.aoi = None
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Choose an area of interest."), None)
+            return False
 
         if self.aoi and not self.aoi.isValid:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Unable to read area file."), None)
+                                       self.tr("Unable to read area of interest."), None)
             return False
 
         return True

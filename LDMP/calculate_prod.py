@@ -143,14 +143,14 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                                        self.tr("Choose one or more indicators to calculate."), None)
             return
 
-        self.close()
-
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgCalculateProd, self).btn_calculate()
         if not ret:
             return
+
+        self.close()
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 

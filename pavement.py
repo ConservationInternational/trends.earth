@@ -159,11 +159,12 @@ def set_version_gee(options):
 def publish_gee(options):
     dirs = next(os.walk(options.gee.script_dir))[1]
     for dir in dirs:
-        if os.path.exists(os.path.join(dir, 'configuration.json')):
+        script_dir = os.path.join(options.gee.script_dir, dir)
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')):
             print('Publishing {}...'.format(dir))
             subprocess.check_call(['python',
                                    options.gee.tecli,
-                                   'publish', '--public=True'], cwd=dir)
+                                   'publish', '--public=True'], cwd=script_dir)
 
 @task
 @cmdopts([

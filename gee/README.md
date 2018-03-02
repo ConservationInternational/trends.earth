@@ -2,7 +2,7 @@
 This folder contains the Google Earth Engine (GEE) scripts created for use with 
 Trends.Earth.
 
-The scripts in this repository are not intended to be run directly. They are 
+The scripts in this folder are not intended to be run directly. They are 
 intended for use from within the QGIS plugin.
 
 # License

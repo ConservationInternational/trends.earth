@@ -20,7 +20,7 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QDate, QTextCodec
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase, AOI
+from LDMP.calculate import DlgCalculateBase, AOI, get_script_slug
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
 from LDMP.api import run_script
 
@@ -136,7 +136,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
-        self.calculate_timeseries(self.aoi.bounding_box_geojson, ndvi_dataset)
+        self.calculate_timeseries(self.aoi.bounding_box_gee_geojson(), ndvi_dataset)
 
     def calculate_timeseries(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
@@ -155,9 +155,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # This will add in the method parameter
         payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])
 
-        gee_script = 'time-series' + '-' + self.scripts['time-series']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('time-series'), payload)
 
         if resp:
             mb.pushMessage(self.tr("Submitted"),

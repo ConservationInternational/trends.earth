@@ -24,7 +24,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
@@ -511,15 +511,13 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
+                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
                    'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        gee_script = 'land-cover' + '-' + self.scripts['land-cover']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('land-cover'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),

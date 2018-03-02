@@ -35,101 +35,137 @@ def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
 
 
-class AOI(object):
-    def __init__(self, f=None, geojson=None, datatype='polygon', 
-                 out_crs='epsg:4326', wrap=False):
-        """
-        Can initialize with either a file, or a geojson. Note datatype is 
-        ignored unless geojson is used.
-        """
-        self.isValid = False
+# Make a function to get a script slug from a script name, including the script 
+# version string
+with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                       'data', 'scripts.json')) as script_file:
+    scripts = json.load(script_file)
+def get_script_slug(script_name):
+    # Note that dots and underscores can't be used in the slugs, so they are 
+    # replaced with dashesk
+    return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
 
-        log('Setting up AOI with CRS {} and wrap set to {}'.format(out_crs, wrap))
 
-        if f and not geojson:
-            l = QgsVectorLayer(f, "calculation boundary", "ogr")
-            if not l.isValid():
-                return
-            if l.geometryType() == QGis.Polygon:
-                datatype = "polygon"
-            elif l.geometryType() == QGis.Point:
-                datatype = "point"
-            else:
-                QtGui.QMessageBox.critical(None, tr("Error"),
-                        tr("Failed to process area of interest - unknown geometry type:{}".format(l.geometryType())))
-                log("Failed to process area of interest - unknown geometry type.")
-                return
-        elif not f and geojson:
-            # Note geojson is assumed to be in 4326
-            l = QgsVectorLayer("{datatype}?crs=epsg:4326".format(datatype=datatype), "calculation boundary", "memory")
-            fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
-            features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
-            ret = l.dataProvider().addFeatures(features)
-            l.commitChanges()
-            if not ret:
-                QtGui.QMessageBox.critical(None, tr("Error"),
-                                           tr("Failed to add geojson to temporary layer."))
-                log("Failed to add geojson to temporary layer.")
-                return
-        else:
-            raise ValueError("Must specify file or geojson")
+# Transform CRS of a layer while optionally wrapping geometries
+# across the 180th meridian
+def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
+    log('Transforming layer from "{}" to "{}". Wrap is {}.'.format(crs_src_string, crs_dst.toProj4(), wrap))
 
-        crs_source = l.crs()
-        #crs_dest = QgsCoordinateReferenceSystem('+init=epsg:4326 +lon_wrap=180')
-        crs_dest = QgsCoordinateReferenceSystem('+init=epsg:4326')
-        t = QgsCoordinateTransform(crs_source, crs_dest)
+    crs_src_string = l.crs().toProj4()
+    if wrap:
+        if not l.crs().geographicFlag():
+            QtGui.QMessageBox.critical(None, tr("Error"),
+                    tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
+            log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
+            return None
+        crs_src_string = crs_src_string + ' +lon_wrap=180'
+    crs_src = QgsCoordinateReferenceSystem()
+    crs_src.createFromProj4(crs_src_string)
+    t = QgsCoordinateTransform(crs_src, crs_dst)
 
-        # Transform layer
-        #l_trans = QgsVectorLayer("{datatype}?crs=proj4:+proj=longlat +datum=WGS84 +lon_wrap=180".format(datatype=datatype), "calculation boundary (transformed)",  "memory")
-        l_trans = QgsVectorLayer("{datatype}?crs=proj4:+proj=longlat +datum=WGS84".format(datatype=datatype), "calculation boundary (transformed)",  "memory")
-        feats = []
-        for f in l.getFeatures():
-            geom = f.geometry()
-            if wrap:
-                n = 0
+    l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
+                        crs=crs_dst.toProj4()), "calculation boundary (transformed)",  
+                        "memory")
+    feats = []
+    for f in l.getFeatures():
+        geom = f.geometry()
+        if wrap:
+            n = 0
+            p = geom.vertexAt(n)
+            # Note vertexAt returns QgsPoint(0, 0) on error
+            while p != QgsPoint(0, 0):
+                if p.x() < 0:
+                    geom.moveVertex(p.x() + 360, p.y(), n)
+                n += 1
                 p = geom.vertexAt(n)
-                # Note vertexAt returns QgsPoint(0, 0) on error
-                while p != QgsPoint(0, 0):
-                    if p.x() < 0:
-                        geom.moveVertex(p.x() + 360, p.y(), n)
-                    n += 1
-                    p = geom.vertexAt(n)
-            #geom.transform(t)
-            f.setGeometry(geom)
-            feats.append(f)
-        l_trans.dataProvider().addFeatures(feats)
-        l_trans.commitChanges()
-        if not l_trans.isValid():
-            self.layer = None
-            log("Error transforming AOI coordinates to trans")
+        geom.transform(t)
+        f.setGeometry(geom)
+        feats.append(f)
+    l_w.dataProvider().addFeatures(feats)
+    l_w.commitChanges()
+    if not l_w.isValid():
+        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
+        return None
+    else:
+        #QgsMapLayerRegistry.instance().addMapLayer(l_w)
+        return l_w
+
+def should_we_wrap(l):
+    if not l.crs().geographicFlag():
+        QtGui.QMessageBox.critical(None, tr("Error"),
+                tr("Error - layer is not in a geographic coordinate system. Cannot decide on whether to wrap layer across 180th meridian."))
+        log('Can\'t decide on wrap for a layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
+    l_out.extent()
+
+
+class AOI(object):
+    def __init__(self, crs_dst):
+        self.crs_dst = crs_dst
+
+    def update_from_file(self, f, wrap=False):
+        log('Setting up AOI from file at {}. CRS is "{}" and wrap is {}'.format(f, self.crs_dst, wrap))
+        l = QgsVectorLayer(f, "calculation boundary", "ogr")
+        if not l.isValid():
             return
+        if l.geometryType() == QGis.Polygon:
+            self.datatype = "polygon"
+        elif l.geometryType() == QGis.Point:
+            self.datatype = "point"
         else:
-            self.layer = l_trans
+            QtGui.QMessageBox.critical(None, tr("Error"),
+                    tr("Failed to process area of interest - unknown geometry type:{}".format(l.geometryType())))
+            log("Failed to process area of interest - unknown geometry type.")
+            return
 
-        #QgsMapLayerRegistry.instance().addMapLayer(l_trans)
+        self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-        # Transform bounding box
-        self.bounding_box_geom = QgsGeometry.fromRect(l_trans.extent())
-        # Save a geometry of the bounding box
-        #self.bounding_box_geom.transform(t)
-        # Also save a geojson of the bounding box (needed for shipping to GEE)
-        self.bounding_box_geojson = json.loads(self.bounding_box_geom.exportToGeoJSON())
+    def update_from_geojson(self, geojson, crs_src='epsg:4326', datatype='polygon', wrap=False):
+        log('Setting up AOI with geojson. CRS is "{}" and wrap is {}'.format(self.crs_dst, wrap))
+        self.datatype = datatype
+        # Note geojson is assumed to be in 4326
+        l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
+        fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
+        features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
+        ret = l.dataProvider().addFeatures(features)
+        l.commitChanges()
+        if not ret:
+            QtGui.QMessageBox.critical(None, tr("Error"),
+                                       tr("Failed to add geojson to temporary layer."))
+            log("Failed to add geojson to temporary layer.")
+            return
 
-        # # Check the coordinates of the bounding box are now in WGS84 (in case 
-        # # no transformation was available for the chosen coordinate systems)
-        # bbox = self.bounding_box_geom.boundingBox()
-        # log("Bounding box: {}, {}, {}, {}".format(bbox.xMinimum(), bbox.xMaximum(), bbox.yMinimum(), bbox.yMaximum()))
-        # if (bbox.xMinimum() < -180) or \
-        #    (bbox.xMaximum() > 180) or \
-        #    (bbox.yMinimum() < -90) or \
-        #    (bbox.yMaximum() > 90):
-        #     QtGui.QMessageBox.critical(None, tr("Error"),
-        #                                tr("Coordinates of area of interest could not be transformed to WGS84. Check that the projection system is defined."), None)
-        #     log("Error transforming AOI coordinates to WGS84")
-        # else:
-        #     self.isValid = True
+        self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-        self.isValid = True
+    def layer(self):
+        'Returns layer'
+        return self.l
+
+    def bounding_box_geom(self):
+        'Returns bounding box in chosen destination coordinate system'
+        return QgsGeometry.fromRect(self.l.extent())
+
+    def bounding_box_gee_geojson(self):
+        'Returns bounding box in WGS84 or WGS84 wrapped for GEE'
+        # Setup settings for AOI provided to GEE:
+        wgs84_crs = QgsCoordinateReferenceSystem()
+        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
+        l_wgs84 = transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+        wgs84_wrapped_crs = QgsCoordinateReferenceSystem()
+        wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
+        l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
+        
+        if l_wgs84.extent().width() < l_wgs84_wrapped.extent().width():
+            l_gee = l_wgs84
+        else:
+            log('Wrapping layer for GEE across 180th meridian for GEE to reduce width')
+            l_gee = l_wgs84_wrapped
+
+        #self.bounding_box_gee_geojson['crs'] = {'type':'name', 'properties':{'name':l_gee.crs().toWkt()}}
+
+        return json.loads(QgsGeometry.fromRect(l_gee.extent()).exportToGeoJSON())
+
+    def isValid(self):
+        return self.l.isValid()
 
 
 class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
@@ -241,34 +277,11 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
-    #     self.area_fromadmin.toggled.connect(self.options_save)
-    #     self.groupBox_custom_crs.toggled.connect(self.options_save)
-    #     self.area_admin_0.currentIndexChanged.connect(self.options_save)
-    #     self.area_admin_1.currentIndexChanged.connect(self.options_save)
-    #
-    # def showEvent(self, event):
-    #     "Load preferences on show"
-    #     super(AreaWidget, self).showEvent(event)
-    #
-    #     if QSettings().value("LDMP/area_admin", True, type=bool):
-    #         self.area_fromadmin.setChecked(True)
-    #     else:
-    #         self.area_fromfile.setChecked(True)
-    #     self.groupBox_custom_crs.setChecked(QSettings().value("LDMP/custom_crs", False, type=bool))
-    #
-    #     self.area_admin_0.setCurrentIndex(QSettings().value("LDMP/admin_0_index", 0))
-    #     self.area_admin_1.setCurrentIndex(QSettings().value("LDMP/admin_1_index", 0))
-    #
-    # def options_save(self):
-    #     QSettings().setValue("LDMP/area_admin", self.area_fromadmin.isChecked())
-    #     QSettings().setValue("LDMP/custom_crs", self.groupBox_custom_crs.isChecked())
-    #     QSettings().setValue("LDMP/admin_0_index", self.area_admin_0.currentIndex())
-    #     QSettings().setValue("LDMP/admin_1_index", self.area_admin_1.currentIndex())
+        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+#        self.mQgsProjectionSelectionWidget.setCrs(proj_crs)
 
     def showEvent(self, event):
         super(AreaWidget, self).showEvent(event)
-        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
-        self.mQgsProjectionSelectionWidget.setCrs(proj_crs)
 
     def populate_admin_1(self):
         self.area_admin_1.clear()
@@ -445,63 +458,68 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def load_admin_polys(self):
         adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
-        # What CRS should be used for this country?
-        crs = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['crs']
-        # Does this country need to be wrapped across the 180 degree meridian?
-        wrap = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['wrap']
         admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
         if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':
-            return (admin_polys['geojson'], crs, wrap)
+            return (admin_polys['geojson'])
         else:
             admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
-            return (admin_polys['admin1'][admin_1_code]['geojson'], crs, wrap)
+            return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
+        if self.area_tab.groupBox_custom_crs.isChecked():
+            crs_dst = self.area_tab.mQgsProjectionSelectionWidget.crs()
+        else:
+            crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
+
+        self.aoi = AOI(crs_dst)
+
         if self.area_tab.area_fromadmin.isChecked():
             if not self.area_tab.area_admin_0.currentText():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a first level administrative boundary."), None)
                 return False
             self.button_calculate.setEnabled(False)
-            geojson, crs, wrap = self.load_admin_polys()
+            geojson = self.load_admin_polys()
             self.button_calculate.setEnabled(True)
             if not geojson:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Unable to load administrative boundaries."), None)
                 return False
-            self.aoi = AOI(geojson=geojson, out_crs=crs, wrap=wrap)
+            self.aoi.update_from_geojson(geojson=geojson, 
+                                         wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
         elif self.area_tab.area_fromfile.isChecked():
             if not self.area_tab.area_fromfile_file.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."), None)
                 return False
-            self.aoi = AOI(f=self.area_tab.area_fromfile_file.text())
-        elif self.area_tab.area_frompoint.isVisible() and self.area_tab.area_frompoint:
+            self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
+                                      wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
+        elif self.area_tab.area_frompoint.isVisible() and self.area_tab.area_frompoint.isChecked():
             # Area from point
             if not self.self.area_tab.area_frompoint_point_x.text() or not self.self.area_tab.area_frompoint_point_y.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."), None)
                 return False
             point = QgsPoint(float(self.self.area_tab.area_frompoint_point_x.text()), float(self.self.area_tab.area_frompoint_point_y.text()))
-            crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
-            crs_dest = QgsCoordinateReferenceSystem(4326)
-            point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)
+            crs_src = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, crs_dst).transform(point)
             geojson = QgsGeometry.fromPoint(point).exportToGeoJSON()
-            self.aoi = AOI(geojson=geojson, datatype='point')
-            self.aoi.bounding_box_geojson = json.loads(geojson)
+            self.aoi.update_from_geojson(geojson=geojson, 
+                                         wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
+                                         datatype='point')
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Choose an area of interest."), None)
             return False
 
-        if self.aoi and not self.aoi.isValid:
+        if self.aoi and not self.aoi.isValid():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Unable to read area of interest."), None)
             return False
-
-        return True
+        else:
+            return True
 
 
 from LDMP.calculate_prod import DlgCalculateProd

@@ -20,7 +20,7 @@ mb = iface.messageBar()
 from PyQt4 import QtGui
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from LDMP.api import run_script
@@ -93,14 +93,12 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                    'fl': self.get_fl(),
                    'download_annual_soc': self.download_annual_soc.isChecked(),
                    'download_annual_lc': self.download_annual_lc.isChecked(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
+                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        gee_script = 'soil-organic-carbon' + '-' + self.scripts['soil-organic-carbon']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('soil-organic-carbon'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),

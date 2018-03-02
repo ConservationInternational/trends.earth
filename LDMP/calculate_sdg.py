@@ -38,7 +38,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.load_data import get_results
@@ -86,15 +86,13 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
 
         payload = {'year_baseline': self.year_baseline.date().year(),
                    'year_target': self.year_target.date().year(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
+                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'trans_matrix': self.trans_matrix_get(),
                    'remap_matrix': self.remap_matrix,
                    'task_name': self.task_name.text(),
                    'task_notes': self.task_notes.toPlainText()}
 
-        gee_script = 'land-cover' + '-' + self.scripts['land-cover']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('land-cover'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
@@ -884,23 +882,23 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
         #######################################################################
         # Check that the layers cover the full extent needed
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_traj.extent())):
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_traj.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the trajectory layer."), None)
             return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_perf.extent())):
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_perf.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the performance layer."), None)
             return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_state.extent())):
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_state.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the state layer."), None)
             return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_lc.extent())):
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_lc.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
-        if not self.aoi.bounding_box_geom.within(QgsGeometry.fromRect(self.layer_soc.extent())):
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_soc.extent())):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return
@@ -990,7 +988,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
         # Use this instead of croptocutline in gdal.Warp in order to keep the
         # pixels aligned.
-        bb = self.aoi.bounding_box_geom.boundingBox()
+        bb = self.aoi.bounding_box_geom().boundingBox()
         minx = bb.xMinimum()
         miny = bb.yMinimum()
         maxx = bb.xMaximum()

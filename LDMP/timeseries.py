@@ -20,7 +20,7 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QDate, QTextCodec
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase, AOI, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
 from LDMP.api import run_script
 

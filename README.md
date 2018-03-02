@@ -1,14 +1,13 @@
 # trends.earth-gee
-This repository stores Google Earth Engine scripts created for use with the 
-[trends.earth](https://github.com/ConservationInternational/trends.earth), a 
-QGIS plugin.
+This folder contains the Google Earth Engine (GEE) scripts created for use with 
+Trends.Earth.
 
 The scripts in this repository are not intended to be run directly. They are 
 intended for use from within the QGIS plugin.
 
 # License
-`trends.earth-gee` is free and open-source. It is released under the following 
-(MIT) license:
+The Trends.Earth GEE scripts (those within this folder) are free and 
+open-source. These scripts are released under the following (MIT) license:
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal in 
@@ -31,7 +30,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 SOFTWARE.
-
-`trends.earth-gee` is part of trends.earth
-
-[![trends.earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_print_400width.png)](http://trends.earth)

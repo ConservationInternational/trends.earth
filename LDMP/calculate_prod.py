@@ -24,7 +24,7 @@ from qgis.core import QgsJSONUtils, QgsVectorLayer, QgsGeometry
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
 from LDMP.api import run_script
 
@@ -155,13 +155,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         if self.groupBox_traj.isChecked():
-            self.calculate_trajectory(self.aoi.bounding_box_geojson, ndvi_dataset)
+            self.calculate_trajectory(self.aoi.bounding_box_gee_geojson(), ndvi_dataset)
 
         if self.groupBox_perf.isChecked():
-            self.calculate_performance(self.aoi.bounding_box_geojson, ndvi_dataset)
+            self.calculate_performance(self.aoi.bounding_box_gee_geojson(), ndvi_dataset)
 
         if self.groupBox_state.isChecked():
-            self.calculate_state(self.aoi.bounding_box_geojson, ndvi_dataset)
+            self.calculate_state(self.aoi.bounding_box_gee_geojson(), ndvi_dataset)
 
     def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
@@ -172,7 +172,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         payload = {'year_start': self.traj_year_start.date().year(),
                    'year_end': self.traj_year_end.date().year(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
+                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,
                    'task_name': self.options_tab.task_name.text(),
@@ -183,9 +183,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         # All of the productivity trajectory indicators are within the same
         # script - the "functions" are all within a single GEE script so they
         # all have the same script id.
-        gee_script = 'productivity-trajectory' + '-' + self.scripts['productivity-trajectory']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('productivity-trajectory'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
@@ -204,9 +202,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        gee_script = 'productivity-performance' + '-' + self.scripts['productivity-performance']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('productivity-performance'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
@@ -227,9 +223,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        gee_script = 'productivity-state' + '-' + self.scripts['productivity-state']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('productivity-state'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),

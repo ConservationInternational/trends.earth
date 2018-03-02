@@ -150,8 +150,8 @@ def set_version_gee(options):
     # Set in scripts.json
     print('Setting version to {} in scripts.json'.format(v))
     init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
-    scripts_regex = re.compile('("script version": ")[0-9]+-[0-9]+', re.IGNORECASE)
-    _replace(os.path.join(options.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v_gee)
+    scripts_regex = re.compile('("script version": ")[0-9]+[-._][0-9]+', re.IGNORECASE)
+    _replace(os.path.join(options.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
 @task
 

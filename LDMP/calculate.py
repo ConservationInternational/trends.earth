@@ -278,7 +278,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
         proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
-        self.mQgsProjectionSelectionWidget.setCrs(proj_crs)
+        self.mQgsProjectionSelectionWidget.setCrs(QgsCoordinateReferenceSystem('epsg:4326'))
 
     def showEvent(self, event):
         super(AreaWidget, self).showEvent(event)

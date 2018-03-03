@@ -184,7 +184,7 @@ def get_ld_layers(layer_type=None):
                 # than one band.
                 if len(band_number) == 1:
                     band_number = band_number[0]
-                    band_info = [band_info for band_info in band_infos if band_info['band_number'] == band_number][0]
+                    band_info = band_infos[band_number - 1]
                     name = band_info['name']
                     if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
                         layers_filtered.append((l, band_number, band_info))
@@ -932,18 +932,17 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
         # degradation layers for these datasets
+        lc_band_infos = get_band_info(self.layer_lc.dataProvider().dataSourceUri())
+        lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
+        lc_annual_band_years = [bi['metadata']['year'] for bi in lc_band_infos[lc_annual_band_indices]]
+        self.layer_lc_bl_bandnumber = lc_annual_band_years.index(min(lc_annual_band_years))
+        self.layer_lc_tg_bandnumber = lc_annual_band_years.index(max(lc_annual_band_years))
 
-        lc_band_infos = [band_info for band_info in get_band_info(self.layer_lc.dataProvider().dataSourceUri()) if band_info['name'] == 'Land cover (7 class)']
-        lc_first_year = min([band_info['metadata']['year'] for band_info in lc_band_infos])
-        lc_last_year = max([band_info['metadata']['year'] for band_info in lc_band_infos])
-        self.layer_lc_bl_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['metadata']['year'] == lc_first_year][0]
-        self.layer_lc_tg_bandnumber = [band_info['band_number'] for band_info in lc_band_infos if band_info['metadata']['year'] == lc_last_year][0]
-
-        soc_band_infos = [band_info for band_info in get_band_info(self.layer_soc.dataProvider().dataSourceUri()) if band_info['name'] == 'Soil organic carbon']
-        soc_first_year = min([band_info['metadata']['year'] for band_info in soc_band_infos])
-        soc_last_year = max([band_info['metadata']['year'] for band_info in soc_band_infos])
-        self.layer_soc_bl_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == soc_first_year][0]
-        self.layer_soc_tg_bandnumber = [band_info['band_number'] for band_info in soc_band_infos if band_info['metadata']['year'] == soc_last_year][0]
+        soc_band_infos = get_band_info(self.layer_soc.dataProvider().dataSourceUri())
+        soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
+        soc_annual_band_years = [bi['metadata']['year'] for bi in soc_band_infos[soc_annual_band_indices]]
+        self.layer_soc_bl_bandnumber = soc_annual_band_years.index(min(soc_annual_band_years))
+        self.layer_soc_tg_bandnumber = soc_annual_band_years.index(max(soc_annual_band_years))
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)

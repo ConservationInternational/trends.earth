@@ -164,7 +164,7 @@ def publish_gee(options):
             print('Publishing {}...'.format(dir))
             subprocess.check_call(['python',
                                    options.gee.tecli,
-                                   'publish', '--public=True'], cwd=script_dir)
+                                   'publish', '--public=True', '--overwrite=True'], cwd=script_dir)
 
 @task
 @cmdopts([

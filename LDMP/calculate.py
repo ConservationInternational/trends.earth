@@ -49,7 +49,7 @@ def get_script_slug(script_name):
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
-    log('Transforming layer from "{}" to "{}". Wrap is {}.'.format(crs_src_string, crs_dst.toProj4(), wrap))
+    log('Transforming layer from "{}" to "{}". Wrap is {}.'.format(l.crs().toProj4(), crs_dst.toProj4(), wrap))
 
     crs_src_string = l.crs().toProj4()
     if wrap:

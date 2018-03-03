@@ -543,7 +543,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
                                        self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])),
                                        level=1, duration=5)
             else:
-                log('Error loading "{}" results from {}'.format(layer, self.file_lineedit.text()))
+                log('Error loading results from {}'.format(self.file_lineedit.text()))
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
 

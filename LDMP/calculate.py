@@ -90,20 +90,13 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         #QgsMapLayerRegistry.instance().addMapLayer(l_w)
         return l_w
 
-def should_we_wrap(l):
-    if not l.crs().geographicFlag():
-        QtGui.QMessageBox.critical(None, tr("Error"),
-                tr("Error - layer is not in a geographic coordinate system. Cannot decide on whether to wrap layer across 180th meridian."))
-        log('Can\'t decide on wrap for a layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
-    l_out.extent()
-
 
 class AOI(object):
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
 
     def update_from_file(self, f, wrap=False):
-        log('Setting up AOI from file at {}. CRS is "{}" and wrap is {}'.format(f, self.crs_dst, wrap))
+        log('Setting up AOI from file at {}. CRS is "{}" and wrap is {}'.format(f, self.crs_dst.toProj4(), wrap))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
             return
@@ -120,7 +113,7 @@ class AOI(object):
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def update_from_geojson(self, geojson, crs_src='epsg:4326', datatype='polygon', wrap=False):
-        log('Setting up AOI with geojson. CRS is "{}" and wrap is {}'.format(self.crs_dst, wrap))
+        log('Setting up AOI with geojson. CRS is "{}" and wrap is {}'.format(self.crs_dst.toProj4(), wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
@@ -154,13 +147,12 @@ class AOI(object):
         wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
         l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
         
-        if l_wgs84.extent().width() < l_wgs84_wrapped.extent().width():
-            l_gee = l_wgs84
-        else:
-            log('Wrapping layer for GEE across 180th meridian for GEE to reduce width')
+        # Add .01 to account for round error with floating point
+        if (l_wgs84_wrapped.extent().width() + .01) < l_wgs84.extent().width():
+            log('Wrapping layer for GEE across 180th meridian for GEE to reduce width (from {} to {})'.format(l_wgs84.extent().width(), l_wgs84_wrapped.extent().width()))
             l_gee = l_wgs84_wrapped
-
-        #self.bounding_box_gee_geojson['crs'] = {'type':'name', 'properties':{'name':l_gee.crs().toWkt()}}
+        else:
+            l_gee = l_wgs84
 
         return json.loads(QgsGeometry.fromRect(l_gee.extent()).exportToGeoJSON())
 

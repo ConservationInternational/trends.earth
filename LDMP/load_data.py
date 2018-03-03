@@ -221,7 +221,10 @@ def get_results(json_file):
 
 def round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
-    return round(x, -int(floor(log10(x))) + (sf - 1))
+    if np.isnan(x):
+        return x
+    else:
+        return round(x, -int(floor(log10(x))) + (sf - 1))
 
 
 def get_sample(f, band_number, n=10000):
@@ -254,10 +257,10 @@ def get_sample(f, band_number, n=10000):
         return out
 
 
-def get_cutoff(f, band_info, percentiles):
+def get_cutoff(f, band_number, band_info, percentiles):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError("Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(percentiles))
-    d = get_sample(f, band_info['band_number'])
+    d = get_sample(f, band_number)
     md = np.ma.masked_where(d == band_info['no_data_value'], d)
     if md.size == 0:
         # If all of the values are no data, return 0
@@ -314,7 +317,7 @@ def get_unique_values(f, band_num, max_unique=50):
                 return None
     return v.tolist()
 
-def add_layer(f, band_info):
+def add_layer(f, band_number, band_info):
     try:
         style = styles[band_info['name']]
     except KeyError:
@@ -338,7 +341,7 @@ def add_layer(f, band_info):
     elif style['ramp']['type'] == 'zero-centered stretch':
         # Set a colormap centred on zero, going to the max of the min and max 
         # extreme value significant to three figures.
-        cutoff = get_cutoff(f, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
+        cutoff = get_cutoff(f, band_number, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
         log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-cutoff,
@@ -357,7 +360,7 @@ def add_layer(f, band_info):
     elif style['ramp']['type'] == 'min zero stretch':
         # Set a colormap from zero to percent stretch significant to
         # three figures.
-        cutoff = get_cutoff(f, band_info, [100 - style['ramp']['percent stretch']])
+        cutoff = get_cutoff(f, band_number, band_info, [100 - style['ramp']['percent stretch']])
         log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
@@ -397,7 +400,7 @@ def add_layer(f, band_info):
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
     pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_info['band_number'],
+                                                      band_number,
                                                       shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
@@ -533,7 +536,8 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
                         f = os.path.splitext(self.file_lineedit.text())[0] + '.vrt'
                     else:
                         raise ValueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
-                    resp = add_layer(f, results['bands'][row])
+                    # The plus 1 is because band numbers start at 1, not zero
+                    resp = add_layer(f, row + 1, results['bands'][row])
                     if not resp:
                         mb.pushMessage(tr("Error"),
                                        self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])),

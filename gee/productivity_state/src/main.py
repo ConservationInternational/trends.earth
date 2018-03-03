@@ -7,19 +7,15 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from . import __version__
-
 import random
 import json
 
 import ee
 
-from landdegradation import preproc
-from landdegradation import stats
-from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
+from landdegradation.util import TEImage
+from landdegradation.schemas import BandInfo
 
 
 def productivity_state(year_bl_start, year_bl_end,
@@ -78,23 +74,13 @@ def productivity_state(year_bl_start, year_bl_end,
     # is degradation)
     classes_chg = tg_classes.subtract(bl_classes)
 
-    out = classes_chg.addBands(bl_classes).addBands(tg_classes)
+    out = TEImage(classes_chg.addBands(bl_classes).addBands(tg_classes).int16(),
+                  [BandInfo("Productivity state (degradation)", add_to_map=True,
+                            metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_tg_start': year_tg_start, 'year_tg_end': year_tg_end}),
+                   BandInfo("Productivity state classes", metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
+                   BandInfo("Productivity state classes", metadata={'year_start': year_tg_start, 'year_end': year_tg_end})])
 
-    task = util.export_to_cloudstorage(out.int16(),
-                                       ndvi_1yr.projection(), geojson, 'prod_state', logger,
-                                       EXECUTION_ID)
-    task.join()
-
-    logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity state (degradation)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_bl_start': year_bl_start, 'year_bl_end': year_bl_end, 'year_tg_start': year_tg_start, 'year_tg_end': year_tg_end}),
-         BandInfo("Productivity state classes", 2, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_bl_start, 'year_end': year_bl_end}),
-         BandInfo("Productivity state classes", 3, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_tg_start, 'year_end': year_tg_end})]
-    u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('prod_state', __version__, d, u)
-    results_schema = CloudResultsSchema()
-    json_results = results_schema.dump(gee_results)
-
-    return json_results
+    return out
 
 
 def run(params, logger):
@@ -123,8 +109,9 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = productivity_state(year_bl_start, year_bl_end, year_tg_start,
-                                      year_tg_end, ndvi_gee_dataset, geojson, 
-                                      EXECUTION_ID, logger)
+    out = productivity_state(year_bl_start, year_bl_end, year_tg_start,
+                             year_tg_end, ndvi_gee_dataset, geojson, 
+                             EXECUTION_ID, logger)
 
-    return json_results.data
+    proj = ee.Image(ndvi_gee_dataset).projection()
+    return out.export(proj, geojson, 'prod_state', logger, EXECUTION_ID)

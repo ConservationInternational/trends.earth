@@ -299,9 +299,11 @@ def download_cloud_results(job, f, tr):
     if not resp:
         return
     else:
-        for band in results['bands']:
-            if band['add_to_map']:
-                add_layer(out_file, band)
+        for band_number in xrange(1, len(results['bands']) + 1):
+            # The minus 1 is because band numbers start at 1, not zero
+            band_info = results['bands'][band_number - 1]
+            if band_info['add_to_map']:
+                add_layer(out_file, band_number, band_info)
         mb.pushMessage(tr("Downloaded"),
                        tr("Downloaded results to {}".format(out_file)),
                        level=0, duration=5)

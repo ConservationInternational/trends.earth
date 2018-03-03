@@ -7,18 +7,15 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from . import __version__
-
 import random
 import json
 
 import ee
 
-from landdegradation import stats
-from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
+from landdegradation.util import TEImage
+from landdegradation.schemas import BandInfo
 from landdegradation.productivity import productivity_trajectory
 
 
@@ -48,21 +45,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    output = productivity_trajectory(year_start, year_end, method,
-                                     ndvi_gee_dataset, climate_gee_dataset, logger)
+    out = productivity_trajectory(year_start, year_end, method,
+                                  ndvi_gee_dataset, climate_gee_dataset, logger)
 
-    ndvi_projection = ee.Image(ndvi_gee_dataset).projection()
-    task = util.export_to_cloudstorage(output.unmask(-32768).int16(),
-                                       ndvi_projection, geojson, 'prod_trajectory', logger,
-                                       EXECUTION_ID)
-    task.join()
-
-    logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity trajectory (trend)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
-         BandInfo("Productivity trajectory (significance)", 2, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end})]
-    u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('prod_trajectory', __version__, d, u)
-    results_schema = CloudResultsSchema()
-    json_results = results_schema.dump(gee_results)
-
-    return json_results.data
+    proj = ee.Image(ndvi_gee_dataset).projection()
+    return out.export(proj, geojson, 'prod_trajectory', logger, EXECUTION_ID)

@@ -12,14 +12,10 @@ import json
 
 import ee
 
-from . import __version__
-
-from landdegradation import preproc
-from landdegradation import stats
-from landdegradation import util
 from landdegradation import GEEIOError
 
-from landdegradation.schemas import BandInfo, URLList, CloudResults, CloudResultsSchema
+from landdegradation.util import TEImage
+from landdegradation.schemas import BandInfo
 
 
 def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
@@ -102,24 +98,12 @@ def productivity_performance(year_start, year_end, ndvi_gee_dataset, geojson,
     lp_perf_deg = ee.Image(-32768).where(obs_ratio_2.gte(0.5), 0) \
         .where(obs_ratio_2.lte(0.5), -1)
 
-    lp_perf = lp_perf_deg.addBands(obs_ratio_2.multiply(10000)) \
-        .addBands(units)
+    out = TEImage(lp_perf_deg.addBands(obs_ratio_2.multiply(10000)).addBands(units).unmask(-32768).int16(),
+                  [BandInfo("Productivity performance (degradation)", True, {'year_start': year_start, 'year_end': year_end}),
+                   BandInfo("Productivity performance (ratio)", metadata={'year_start': year_start, 'year_end': year_end}),
+                   BandInfo("Productivity performance (units)", metadata={'year_start': year_start})])
 
-    task = util.export_to_cloudstorage(lp_perf.unmask(-32768).int16(),
-                                       ndvi_1yr.projection(), geojson, 'prod_performance', logger,
-                                       EXECUTION_ID)
-    task.join()
-
-    logger.debug("Setting up results JSON.")
-    d = [BandInfo("Productivity performance (degradation)", 1, no_data_value=-32768, add_to_map=True, metadata={'year_start': year_start, 'year_end': year_end}),
-         BandInfo("Productivity performance (ratio)", 2, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_start, 'year_end': year_end}),
-         BandInfo("Productivity performance (units)", 3, no_data_value=-32768, add_to_map=False, metadata={'year_start': year_start})]
-    u = URLList(task.get_URL_base(), task.get_files())
-    gee_results = CloudResults('prod_performance', __version__, d, u)
-    results_schema = CloudResultsSchema()
-    json_results = results_schema.dump(gee_results)
-
-    return json_results
+    return out
 
 
 def run(params, logger):
@@ -146,7 +130,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_results = productivity_performance(year_start, year_end, ndvi_gee_dataset,
-                                            geojson, EXECUTION_ID, logger)
+    out = productivity_performance(year_start, year_end, ndvi_gee_dataset, 
+                                   geojson, EXECUTION_ID, logger)
 
-    return json_results.data
+    proj = ee.Image(ndvi_gee_dataset).projection()
+    return out.export(proj, geojson, 'prod_performance', logger, EXECUTION_ID)

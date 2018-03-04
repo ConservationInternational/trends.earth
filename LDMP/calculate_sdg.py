@@ -38,6 +38,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
+from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
@@ -58,6 +59,10 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
 
         self.setupUi(self)
 
+        # TODO:
+        # Set max/min values for year_start and year_final, taking into account 
+        # the ESA and MODIS data availability years
+        
     def showEvent(self, event):
         super(DlgCalculateSDGOneStep, self).showEvent(event)
 
@@ -79,20 +84,29 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         if not ret:
             return
 
+        # TODO:
+        # Validate that year_initial and year_final are at least 10 years apart 
+        # so that the performance, trajectory, etc. calculations aren't 
+        # meaningless
+
         self.close()
 
         #######################################################################
         # Online
 
-        payload = {'year_baseline': self.year_baseline.date().year(),
-                   'year_target': self.year_target.date().year(),
+        payload = {'year_start': self.year_initial.date().year(),
+                   'year_end': self.year_final.date().year(),
                    'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
-                   'trans_matrix': self.trans_matrix_get(),
-                   'remap_matrix': self.remap_matrix,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'prod_traj_method': 'ndvi_trend',
+                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',
+                   'climate_gee_dataset': None,
+                   'fl': .80,
+                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
+                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        resp = run_script(get_script_slug('land-cover'), payload)
+        resp = run_script(get_script_slug('sdg-sub-indicators'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>559</width>
-    <height>427</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -72,7 +72,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Baseline year:</string>
+             <string>Initial year:</string>
             </property>
            </widget>
           </item>
@@ -85,12 +85,12 @@
              </size>
             </property>
             <property name="text">
-             <string>Target year:</string>
+             <string>Final year:</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QDateEdit" name="target_year">
+           <widget class="QDateEdit" name="year_final">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -146,7 +146,7 @@
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QDateEdit" name="baseline_year">
+           <widget class="QDateEdit" name="year_initial">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -200,29 +200,6 @@
           <string>Land productivity dataset</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBox">
-            <property name="maximumSize">
-             <size>
-              <width>15</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Use Small Island Developing States (SIDS) dataset? (UNCCD recommends using this dataset for SIDS as it is better able to represent productivity in smaller land areas)</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0" colspan="2">
            <widget class="QRadioButton" name="radioButton_2">
             <property name="text">
@@ -233,7 +210,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0" colspan="2">
+          <item row="1" column="0" colspan="2">
            <widget class="QRadioButton" name="radioButton">
             <property name="text">
              <string>Trends.Earth land productivity</string>

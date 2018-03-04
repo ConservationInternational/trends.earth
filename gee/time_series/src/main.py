@@ -77,21 +77,12 @@ def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_start = params.get('year_start', 2001)
-    year_end = params.get('year_end', 2015)
-    geojson = params.get('geojson', None)
-    method = params.get('method', 'ndvi_trend')
-    ndvi_gee_dataset = params.get('ndvi_gee_dataset', None)
-    climate_gee_dataset = params.get('climate_gee_dataset', None)
-
-    logger.debug("Loading geojson.")
-    if geojson is None:
-        raise GEEIOError("Must specify an input area")
-    else:
-        geojson = json.loads(geojson)
-
-    if ndvi_gee_dataset is None:
-        raise GEEIOError("Must specify an NDVI dataset")
+    year_start = params.get('year_start')
+    year_end = params.get('year_end')
+    geojson = json.loads(params.get('geojson'))
+    method = params.get('method')
+    ndvi_gee_dataset = params.get('ndvi_gee_dataset')
+    climate_gee_dataset = params.get('climate_gee_dataset')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -100,8 +91,6 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    # output = productivity_trajectory(year_start, year_end, method,
-    #         ndvi_gee_dataset, climate_gee_dataset, logger)
     json_result = zonal_stats(ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
 
     return json_result.data

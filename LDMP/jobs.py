@@ -280,12 +280,12 @@ class JobsTableModel(QAbstractTableModel):
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-def download_result(url, outfile, job):
+def download_result(url, outfile, job, expected_etag):
     worker = Download(url, outfile)
     worker.start()
     if worker.get_resp():
         create_gee_json_metadata(job, outfile, 'tif')
-        return check_hash_against_etag(url, outfile)
+        return check_hash_against_etag(url, outfile, expected_etag)
     else:
         return None
 

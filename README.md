@@ -34,9 +34,7 @@ the plugin.
 ### Stable version (recommended)
 
 The easiest way to install the plugin is from within QGIS, using the [QGIS 
-plugin repository](http://plugins.qgis.org/plugins/LDMP/). A beta version of 
-the plugin is available now - the first public release of the plugin will be 
-October 1, 2017.
+plugin repository](http://plugins.qgis.org/plugins/LDMP/).
 
 ### Development version
 

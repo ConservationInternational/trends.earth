@@ -22,7 +22,7 @@ def run(params, logger):
     year_end = params.get('year_end')
     fl = params.get('fl')
     dl_annual_lc = params.get('download_annual_lc')
-    geojson = params.get('geojson')
+    geojson = json.loads(params.get('geojson'))
     remap_matrix = params.get('remap_matrix')
 
     if len(remap_matrix) != 2 or len(remap_matrix[0]) != 37 or len(remap_matrix[1]) != 37:

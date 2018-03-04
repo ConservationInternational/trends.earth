@@ -129,6 +129,28 @@
             "Comments": ""
         }
     },
+    "Land productivity": {
+        "Land Productivity Dynamics (LPD)": {
+            "Data source": "JRC",
+            "Start year": "NA",
+            "End year": "NA",
+            "Spatial resolution": "1 km",
+            "Min Latitude": "-90",
+            "Max Latitude": "90",
+            "Min Longitude": "-180",
+            "Max Longitude": "180",
+            "Units": "",
+            "Description": "",
+            "Link to Dataset": "",
+            "GEE Dataset": "",
+            "Source code": "",
+            "Status": "Stored as assets",
+            "License": "",
+            "License URL": "",
+            "Source": "",
+            "Comments": ""
+        }
+    },
     "Precipitation": {
         "CHIRPS": {
             "Data source": "GEE",

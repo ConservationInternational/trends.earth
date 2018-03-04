@@ -262,7 +262,7 @@
             ]
         }
     },
-    "Land cover degradation": {
+    "Land cover (degradation)": {
         "title": "lc_deg_title",
         "ramp": {
             "type": "categorical",

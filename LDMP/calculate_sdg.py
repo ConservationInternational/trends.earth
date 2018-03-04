@@ -84,18 +84,48 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         if not ret:
             return
 
-        # TODO:
-        # Validate that year_initial and year_final are at least 10 years apart 
-        # so that the performance, trajectory, etc. calculations aren't 
-        # meaningless
+        if (self.year_final.date().year() - self.year_initial.date().year()) < 10:
+            QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
+                                       QtGui.QApplication.translate("LDMP", "Initial and final year must be at least 10 years apart."))
+            return
 
         self.close()
 
         #######################################################################
         # Online
 
-        payload = {'year_start': self.year_initial.date().year(),
-                   'year_end': self.year_final.date().year(),
+        prod_traj_year_initial = self.year_initial.date().year()
+        prod_traj_year_final = self.year_final.date().year()
+
+        prod_perf_year_initial = self.year_initial.date().year()
+        prod_perf_year_final = self.year_final.date().year()
+
+        # Have productivity state consider the last 3 years for the current 
+        # period, and the years preceding those last 3 for the baseline
+        prod_state_year_bl_start = self.year_initial.date().year()
+        prod_state_year_bl_end = self.year_final.date().year() - 3
+        prod_state_year_tg_start = prod_state_year_bl_end + 1
+        prod_state_year_tg_end = prod_state_year_bl_end + 3
+        assert (prod_state_year_tg_end == self.year_final.date().year())
+
+        lc_year_initial = self.year_initial.date().year()
+        lc_year_final = self.year_final.date().year()
+
+        soc_year_initial = self.year_initial.date().year()
+        soc_year_final = self.year_final.date().year()
+
+        payload = {'prod_traj_year_initial': prod_traj_year_initial,
+                   'prod_traj_year_final': prod_traj_year_final,
+                   'prod_perf_year_initial': prod_perf_year_initial,
+                   'prod_perf_year_final': prod_perf_year_final,
+                   'prod_state_year_bl_start': prod_state_year_bl_start,
+                   'prod_state_year_bl_end': prod_state_year_bl_end,
+                   'prod_state_year_tg_start': prod_state_year_tg_start,
+                   'prod_state_year_tg_end': prod_state_year_tg_end,
+                   'lc_year_initial': lc_year_initial,
+                   'lc_year_final': lc_year_final,
+                   'soc_year_initial': soc_year_initial,
+                   'soc_year_final': soc_year_final,
                    'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'prod_traj_method': 'ndvi_trend',
                    'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',
@@ -110,11 +140,11 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "SDG sub-indicator task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit SDG sub-indicator task to Google Earth Engine."),
                            level=0, duration=5)
 
         #######################################################################
@@ -208,7 +238,7 @@ def get_ld_layers(layer_type=None):
                         layers_filtered.append((l, band_number, band_info))
                     elif layer_type == 'lc_tr' and name == 'Land cover transitions':
                         layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_deg' and name == 'Land cover degradation':
+                    elif layer_type == 'lc_deg' and name == 'Land cover (degradation)':
                         layers_filtered.append((l, band_number, band_info))
                     elif layer_type == 'soc_deg' and name == 'Soil organic carbon (degradation)':
                         layers_filtered.append((l, band_number, band_info))

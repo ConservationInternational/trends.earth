@@ -21,7 +21,7 @@ def run(params, logger):
     year_start = params.get('year_start')
     year_end = params.get('year_end')
     geojson = json.loads(params.get('geojson'))
-    method = params.get('method', 'ndvi_trend')
+    method = params.get('method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
 

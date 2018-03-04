@@ -91,7 +91,6 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'fl': self.get_fl(),
-                   'download_annual_soc': self.download_annual_soc.isChecked(),
                    'download_annual_lc': self.download_annual_lc.isChecked(),
                    'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),

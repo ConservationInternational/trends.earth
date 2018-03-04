@@ -30,9 +30,10 @@ from LDMP.worker import AbstractWorker, start_worker
 from LDMP.api import get_header
 
 
-def check_hash_against_etag(url, filename):
-    h = get_header(url)
-    expected = h.get('ETag', '').strip('"')
+def check_hash_against_etag(url, filename, expected=None):
+    if not expected:
+        h = get_header(url)
+        expected = h.get('ETag', '').strip('"')
 
     md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
 

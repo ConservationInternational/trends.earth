@@ -152,8 +152,8 @@ style_text_dict = {
     'soc_deg_imp': tr('Improvement'),
     'soc_deg_nodata': tr('No data'),
 
-    # Degradation SDG final layer
-    'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
+    # Trends.Earth land productivity
+    'sdg_prod_combined_title': tr('Land productivity (Trends.Earth)'),
     'sdg_prod_combined_declining': tr('Declining'),
     'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
     'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
@@ -170,7 +170,8 @@ style_text_dict = {
     'lpd_imp': tr('Improvement'),
     'lpd_nodata': tr('No data'),
 
-    'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
+    # SDG 15.3.1 indicator layer
+    'combined_sdg_title': tr('SDG 15.3.1 degradation indicator'),
     'combined_sdg_deg_deg': tr('Degradation'),
     'combined_sdg_deg_stable': tr('Stable'),
     'combined_sdg_deg_imp': tr('Improvement'),
@@ -569,7 +570,8 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         if f:
             results = get_results(f)
             if results:
-                self.layers_model.setStringList([get_band_title(band) for band in results['bands']])
+                bands = ['Band {}: {}'.format(i + 1, get_band_title(band)) for i, band in enumerate(results['bands'])]
+                self.layers_model.setStringList(bands)
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
                 for n in range(len(results['bands'])):
                     if results['bands'][n]['add_to_map']:

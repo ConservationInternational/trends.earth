@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
+    <width>510</width>
     <height>549</height>
    </rect>
   </property>
@@ -121,9 +121,9 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QRadioButton" name="mode_gpg_prod">
+           <widget class="QRadioButton" name="mode_te_prod">
             <property name="text">
-             <string>Land productivity</string>
+             <string>Trends.Earth land productivity</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -192,12 +192,12 @@
            </widget>
           </item>
           <item row="9" column="0">
-           <widget class="QRadioButton" name="mode_jrc_lpd">
+           <widget class="QRadioButton" name="mode_lpd_jrc">
             <property name="enabled">
              <bool>true</bool>
             </property>
             <property name="text">
-             <string>JRC Land productivity dynamics (LPD)</string>
+             <string>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</string>
             </property>
             <property name="checked">
              <bool>false</bool>
@@ -486,8 +486,8 @@
  </widget>
  <tabstops>
   <tabstop>TabBox</tabstop>
-  <tabstop>mode_gpg_prod</tabstop>
-  <tabstop>mode_jrc_lpd</tabstop>
+  <tabstop>mode_te_prod</tabstop>
+  <tabstop>mode_lpd_jrc</tabstop>
   <tabstop>combo_layer_lc</tabstop>
   <tabstop>combo_layer_soc</tabstop>
   <tabstop>button_prev</tabstop>

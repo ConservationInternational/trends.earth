@@ -34,9 +34,10 @@ from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
 
 from LDMP import log
+from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.load_data import add_layer
-from LDMP.api import get_user_email, get_execution
+from LDMP.schemas.schemas import File, LocalResults, LocalResultsSchema
 
 
 def json_serial(obj):
@@ -53,6 +54,19 @@ def create_gee_json_metadata(job, f, out_files, file_format):
     job['raw']['results']['ldmp_version'] = __version__
     with open(json_file, 'w') as f:
         json.dump(job['raw'], f, default=json_serial, sort_keys=True,
+                  indent=4, separators=(',', ': '))
+
+
+def create_local_json_metadata(f, name, bands, out_files, metadata={}, 
+                               file_format='tif'):
+    out_files = [File(out_file) for out_file in out_files]
+    results = LocalResults(name, bands, out_files, __version__, metadata, 
+                           file_format)
+    results_schema = LocalResultsSchema()
+    json_results = results_schema.dump(results)
+    json_results.data
+    with open(f, 'w') as outfile:
+        json.dump(d, outfile, default=json_serial, sort_keys=True,
                   indent=4, separators=(',', ': '))
 
 

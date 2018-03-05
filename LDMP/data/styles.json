@@ -302,5 +302,20 @@
                 {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
             ]
         }
+    },
+    "Land Productivity Dynamics (LPD)": {
+        "title": "lpd_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "lpd_nodata"},
+                {"value": 1, "color": "#AB2727", "label": "lpd_declining"},
+                {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
+                {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
+                {"value": 4, "color": "#B8D779", "label": "lpd_stab"},
+                {"value": 5, "color": "#45A146", "label": "lpd_imp"}
+            ]
+        }
     }
 }

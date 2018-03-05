@@ -1,5 +1,5 @@
 Before installing the toolbox
-=============================
+==============================
 
 Before installing the toolbox, QGIS version |qgisMinVersion| or higher
 needs to be installed on the computer. QGIS can be downloaded from: 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>600</height>
+    <width>550</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,7 +52,7 @@
        <item>
         <widget class="QGroupBox" name="metadataGroupBox">
          <property name="title">
-          <string>Title</string>
+          <string>Plot title</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
@@ -70,6 +70,19 @@
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

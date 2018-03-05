@@ -18,15 +18,15 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QDate
 
 from LDMP import log
-from LDMP.calculate_lc import DlgCalculateLCBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate_lc import lc_setup_widget
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from LDMP.api import run_script
 
 
-class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
+class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
     def __init__(self, parent=None):
         super(DlgCalculateSOC, self).__init__(parent)
 
@@ -50,15 +50,14 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
 
-    def firstShow(self):
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.year_start.setMinimumDate(lc_start_year)
-        self.year_start.setMaximumDate(lc_end_year)
-        self.year_end.setMinimumDate(lc_start_year)
-        self.year_end.setMaximumDate(lc_end_year)
+    def showEvent(self, event):
+        super(DlgCalculateSOC, self).showEvent(event)
 
-        super(DlgCalculateSOC, self).firstShow()
+        self.lc_setup_tab = lc_setup_widget
+        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
+
+        if self.reset_tab_on_showEvent:
+            self.TabBox.setCurrentIndex(0)
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -89,19 +88,16 @@ class DlgCalculateSOC(DlgCalculateLCBase, Ui_DlgCalculateSOC):
 
         self.close()
 
-        payload = {'year_start': self.year_start.date().year(),
-                   'year_end': self.year_end.date().year(),
+        payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
+                   'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'fl': self.get_fl(),
-                   'download_annual_soc': self.download_annual_soc.isChecked(),
                    'download_annual_lc': self.download_annual_lc.isChecked(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
-                   'remap_matrix': self.remap_matrix,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
+                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        gee_script = 'soil-organic-carbon' + '-' + self.scripts['soil-organic-carbon']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('soil-organic-carbon'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),

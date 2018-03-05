@@ -24,7 +24,7 @@ from qgis.core import QgsJSONUtils, QgsVectorLayer, QgsGeometry
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
 from LDMP.api import run_script
 
@@ -36,7 +36,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.setupUi(self)
 
-        self.traj_indic.addItems(self.scripts['productivity-trajectory']['functions'].keys())
+        self.traj_indic.addItems(self.scripts['productivity']['trajectory functions'].keys())
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
         self.dataset_climate_update()
@@ -55,67 +55,31 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
-        self.indic_select_traj.stateChanged.connect(self.indic_select_traj_changed)
-        self.indic_select_perf.stateChanged.connect(self.indic_select_perf_changed)
-        self.indic_select_state.stateChanged.connect(self.indic_select_state_changed)
+        self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
 
-        self.mode_gpg_prod.toggled.connect(self.mode_gpg_prod_toggled)
+        self.mode_te_prod_toggled()
 
-        self.indic_select_traj_changed()
-        self.indic_select_perf_changed()
-        self.indic_select_state_changed()
-
-    def indic_select_traj_changed(self):
-        if self.mode_gpg_prod.isChecked() and self.indic_select_traj.isChecked():
-            self.TrajectoryTab.setEnabled(True)
-        else:
-            self.TrajectoryTab.setEnabled(False)
-
-    def indic_select_perf_changed(self):
-        if self.mode_gpg_prod.isChecked() and self.indic_select_perf.isChecked():
-            self.PerformanceTab.setEnabled(True)
-        else:
-            self.PerformanceTab.setEnabled(False)
-
-    def indic_select_state_changed(self):
-        if self.mode_gpg_prod.isChecked() and self.indic_select_state.isChecked():
-            self.StateTab.setEnabled(True)
-        else:
-            self.StateTab.setEnabled(False)
+        self.resize(self.width(), 711)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()
 
-    def mode_gpg_prod_toggled(self):
-        if self.mode_jrc_lpd.isChecked():
-            QtGui.QMessageBox.warning(None,
-                                      QtGui.QApplication.translate("LDMP", "Warning"),
-                                      QtGui.QApplication.translate("LDMP", "JRC LPD not yet supported."))
-            self.mode_gpg_prod.setChecked(True)
-            # self.LPDTab.setEnabled(True)
-            # self.indic_select_traj.setEnabled(False)
-            # self.indic_select_traj_label.setEnabled(False)
-            # self.indic_select_perf.setEnabled(False)
-            # self.indic_select_perf_label.setEnabled(False)
-            # self.indic_select_state.setEnabled(False)
-            # self.indic_select_state_label.setEnabled(False)
+    def mode_te_prod_toggled(self):
+        if self.mode_lpd_jrc.isChecked():
+            self.groupBox_ndvi_dataset.setEnabled(False)
+            self.groupBox_traj.setEnabled(False)
+            self.groupBox_perf.setEnabled(False)
+            self.groupBox_state.setEnabled(False)
         else:
-            self.LPDTab.setEnabled(False)
-            self.indic_select_traj.setEnabled(True)
-            self.indic_select_traj_label.setEnabled(True)
-            self.indic_select_perf.setEnabled(True)
-            self.indic_select_perf_label.setEnabled(True)
-            self.indic_select_state.setEnabled(True)
-            self.indic_select_state_label.setEnabled(True)
-
-        self.indic_select_traj_changed()
-        self.indic_select_state_changed()
-        self.indic_select_perf_changed()
+            self.groupBox_ndvi_dataset.setEnabled(True)
+            self.groupBox_traj.setEnabled(True)
+            self.groupBox_perf.setEnabled(True)
+            self.groupBox_state.setEnabled(True)
 
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        climate_types = self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['climate types']
+        climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
         for climate_type in climate_types:
             self.climate_datasets.update(self.datasets[climate_type])
             self.traj_climate.addItems(self.datasets[climate_type].keys())
@@ -172,14 +136,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.close()
 
     def btn_calculate(self):
-        if not (self.indic_select_traj.isChecked() or
-                self.indic_select_perf.isChecked() or
-                self.indic_select_state.isChecked()):
+        if self.mode_te_prod.isChecked() \
+                and not (self.groupBox_traj.isChecked() or
+                         self.groupBox_perf.isChecked() or
+                         self.groupBox_state.isChecked()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose one or more indicators to calculate."), None)
+                                       self.tr("Choose one or more productivity sub-indicator to calculate."), None)
             return
-
-        self.close()
 
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -188,90 +151,44 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         if not ret:
             return
 
+        self.close()
+
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
-        if self.indic_select_traj.isChecked():
-            self.calculate_trajectory(self.aoi.bounding_box_geojson, ndvi_dataset)
-
-        if self.indic_select_perf.isChecked():
-            self.calculate_performance(self.aoi.bounding_box_geojson, ndvi_dataset)
-
-        if self.indic_select_state.isChecked():
-            self.calculate_state(self.aoi.bounding_box_geojson, ndvi_dataset)
-
-    def calculate_trajectory(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
             log('climate_gee_dataset {}'.format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 
-        payload = {'year_start': self.traj_year_start.date().year(),
-                   'year_end': self.traj_year_end.date().year(),
-                   'geojson': json.dumps(self.aoi.bounding_box_geojson),
+        payload = {'calc_traj': self.groupBox_traj.isChecked(),
+                   'calc_perf': self.groupBox_perf.isChecked(),
+                   'calc_state': self.groupBox_state.isChecked(),
+                   'prod_traj_year_initial': self.traj_year_start.date().year(),
+                   'prod_traj_year_final': self.traj_year_end.date().year(),
+                   'prod_perf_year_initial': self.perf_year_start.date().year(),
+                   'prod_perf_year_final': self.perf_year_end.date().year(),
+                   'prod_state_year_bl_start': self.state_year_bl_start.date().year(),
+                   'prod_state_year_bl_end': self.state_year_bl_end.date().year(),
+                   'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
+                   'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
+                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
-        # This will add in the method parameter
-        payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        # All of the productivity trajectory indicators are within the same
-        # script - the "functions" are all within a single GEE script so they
-        # all have the same script id.
-        gee_script = 'productivity-trajectory' + '-' + self.scripts['productivity-trajectory']['script version']
+        # This will add in the trajectory-method parameter for productivity 
+        # trajectory
+        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
 
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('productivity'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Productivity trajectory task submitted to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Productivity task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity trajectory task to Google Earth Engine."),
-                           level=0, duration=5)
-
-    def calculate_performance(self, geojson, ndvi_dataset):
-        payload = {'year_start': self.perf_year_start.date().year(),
-                   'year_end': self.perf_year_end.date().year(),
-                   'geojson': json.dumps(geojson),
-                   'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
-
-        gee_script = 'productivity-performance' + '-' + self.scripts['productivity-performance']['script version']
-
-        resp = run_script(gee_script, payload)
-
-        if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Productivity performance task submitted to Google Earth Engine."),
-                           level=0, duration=5)
-        else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity performance task to Google Earth Engine."),
-                           level=0, duration=5)
-
-    def calculate_state(self, geojson, ndvi_dataset):
-        payload = {'year_bl_start': self.state_year_bl_start.date().year(),
-                   'year_bl_end': self.state_year_bl_end.date().year(),
-                   'year_tg_start': self.state_year_tg_start.date().year(),
-                   'year_tg_end': self.state_year_tg_end.date().year(),
-                   'geojson': json.dumps(geojson),
-                   'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.text(),
-                   'task_notes': self.task_notes.toPlainText()}
-
-        gee_script = 'productivity-state' + '-' + self.scripts['productivity-state']['script version']
-
-        resp = run_script(gee_script, payload)
-
-        if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Productivity state task submitted to Google Earth Engine."),
-                           level=0, duration=5)
-        else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity state task to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity task to Google Earth Engine."),
                            level=0, duration=5)

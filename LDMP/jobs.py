@@ -15,10 +15,13 @@
 import os
 import json
 import re
+import base64
 
 import datetime
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
+
+from osgeo import gdal
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -43,12 +46,13 @@ def json_serial(obj):
     raise TypeError("Type {} not serializable".format(type(obj)))
 
 
-def create_gee_json_metadata(job, outfile, file_format):
-    outfile = os.path.splitext(outfile)[0] + '.json'
+def create_gee_json_metadata(job, f, out_files, file_format):
+    json_file = os.path.splitext(f)[0] + '.json'
     job['raw']['results']['local_format'] = file_format
+    job['raw']['results']['local_files'] = out_files
     job['raw']['results']['ldmp_version'] = __version__
-    with open(outfile, 'w') as outfile:
-        json.dump(job['raw'], outfile, default=json_serial, sort_keys=True,
+    with open(json_file, 'w') as f:
+        json.dump(job['raw'], f, default=json_serial, sort_keys=True,
                   indent=4, separators=(',', ': '))
 
 
@@ -280,31 +284,49 @@ class JobsTableModel(QAbstractTableModel):
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-def download_result(url, outfile, job):
-    worker = Download(url, outfile)
+def download_result(url, out_file, job, expected_etag):
+    worker = Download(url, out_file)
     worker.start()
     if worker.get_resp():
-        create_gee_json_metadata(job, outfile, 'tif')
-        return check_hash_against_etag(url, outfile)
+        return check_hash_against_etag(url, out_file, expected_etag)
     else:
         return None
 
 
 def download_cloud_results(job, f, tr):
     results = job['results']
-    if len(results['urls']['files']) > 1:
-        raise DownloadError('GEE tasks resulting in multiple output files are not yet supported by trends.earth.')
-    out_file = f + '.tif'
-    resp = download_result(results['urls']['base'] + '/' + results['urls']['files'][0], out_file, job)
-    if not resp:
-        return
+    if len(results['urls']) > 1:
+        # Save a VRT if there are multiple files for this download
+        urls = results['urls'] 
+        tiles = []
+        for n in xrange(len(urls)):
+            tiles.append(f + '_{}.tif'.format(n))
+            resp = download_result(urls[n]['url'], tiles[n], job, 
+                                   base64.b64decode(urls[n]['md5Hash']).encode('hex'))
+            if not resp:
+                return
+        # Make a VRT mosaicing the tiles so they can be treated as one file 
+        # during further processing
+        out_file = f + '.vrt'
+        gdal.BuildVRT(out_file, tiles)
+        create_gee_json_metadata(job, out_file, tiles, 'vrt')
     else:
-        for band in results['bands']:
-            if band['add_to_map']:
-                add_layer(out_file, band)
-        mb.pushMessage(tr("Downloaded"),
-                       tr("Downloaded results to {}".format(out_file)),
-                       level=0, duration=5)
+        url = results['urls'][0]
+        out_file = f + '.tif'
+        resp = download_result(url['url'], out_file, job, 
+                               base64.b64decode(url['md5Hash']).encode('hex'))
+        if not resp:
+            return
+        create_gee_json_metadata(job, out_file, out_file, 'tif')
+
+    for band_number in xrange(1, len(results['bands']) + 1):
+        # The minus 1 is because band numbers start at 1, not zero
+        band_info = results['bands'][band_number - 1]
+        if band_info['add_to_map']:
+            add_layer(out_file, band_number, band_info)
+    mb.pushMessage(tr("Downloaded"),
+                   tr("Downloaded results to {}".format(out_file)),
+                   level=0, duration=5)
 
 
 def download_timeseries(job, tr):

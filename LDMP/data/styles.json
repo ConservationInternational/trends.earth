@@ -5,9 +5,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#993304"},
-            "zero": {"color": "#F6F6EA"},
-            "max": {"color": "#008C79"},
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
             "no data": {"value": -32768, "color": "#000000", "label": "prod_traj_trend_nodata"
             }
         }
@@ -19,13 +19,13 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "prod_traj_signif_nodata"},
-                {"value": -3, "color": "#993304", "label": "prod_traj_signif_dec_99"},
-                {"value": -2, "color": "#BB7757", "label": "prod_traj_signif_dec_95"},
-                {"value": -1, "color": "#DDBBAB", "label": "prod_traj_signif_dec_90"},
-                {"value": 0, "color": "#F6F6EA", "label": "prod_traj_signif_zero"},
-                {"value": 1, "color": "#AAD8D2", "label": "prod_traj_signif_inc_90"},
-                {"value": 2, "color": "#55B2A5", "label": "prod_traj_signif_inc_95"},
-                {"value": 3, "color": "#008C79", "label": "prod_traj_signif_inc_99"}
+                {"value": -3, "color": "#AB2727", "label": "prod_traj_signif_dec_99"},
+                {"value": -2, "color": "#BF5B53", "label": "prod_traj_signif_dec_95"},
+                {"value": -1, "color": "#D79888", "label": "prod_traj_signif_dec_90"},
+                {"value": 0, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
+                {"value": 1, "color": "#B5D9A2", "label": "prod_traj_signif_inc_90"},
+                {"value": 2, "color": "#7DBD74", "label": "prod_traj_signif_inc_95"},
+                {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_99"}
             ]
         }
     },
@@ -36,9 +36,9 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "prod_state_change_nodata"},
-                {"value": -2, "color": "#993304", "label": "prod_state_change_potential_deg"},
-                {"value": 2, "color": "#F6F6EA", "label": "prod_state_change_stable"},
-                {"value": 10, "color": "#008C79", "label": "prod_state_change_potential_improvement"}
+                {"value": -2, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
+                {"value": 2, "color": "#FFFFE0", "label": "prod_state_change_stable"},
+                {"value": 10, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }
     },
@@ -62,8 +62,8 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "prod_perf_deg_nodata"},
-                {"value": -1, "color": "#993304", "label": "prod_perf_deg_potential_deg"},
-                {"value": 0, "color": "#F6F6EA", "label": "prod_perf_deg_not_potential_deg"}
+                {"value": -1, "color": "#AB2727", "label": "prod_perf_deg_potential_deg"},
+                {"value": 0, "color": "#FFFFE0", "label": "prod_perf_deg_not_potential_deg"}
             ]
         }
     },
@@ -110,9 +110,9 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "soc_deg_nodata"},
-                {"value": -10, "color": "#993304", "label": "prod_state_change_potential_deg"},
-                {"value": 10, "color": "#F6F6EA", "label": "prod_state_change_stable"},
-                {"value": 100, "color": "#008C79", "label": "prod_state_change_potential_improvement"}
+                {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
+                {"value": 10, "color": "#FFFFE0", "label": "prod_state_change_stable"},
+                {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }
     },
@@ -251,7 +251,7 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "lc_tr_nodata"},
-                {"value": 9, "color": "#F6F6EA", "label": "lc_tr_nochange"},
+                {"value": 9, "color": "#FFFFE0", "label": "lc_tr_nochange"},
                 {"value": 19, "color": "#787F1B", "label": "lc_tr_forest_loss"},
                 {"value": 29, "color": "#FFAC42", "label": "lc_tr_grassland_loss"},
                 {"value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss"},
@@ -262,16 +262,16 @@
             ]
         }
     },
-    "Land cover degradation": {
+    "Land cover (degradation)": {
         "title": "lc_deg_title",
         "ramp": {
             "type": "categorical",
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "lc_deg_nodata"},
-                {"value": -1, "color": "#993304", "label": "lc_deg_deg"},
-                {"value": 0, "color": "#F6F6EA", "label": "lc_deg_stable"},
-                {"value": 1, "color": "#008C79", "label": "lc_deg_imp"}
+                {"value": -1, "color": "#AB2727", "label": "lc_deg_deg"},
+                {"value": 0, "color": "#FFFFE0", "label": "lc_deg_stable"},
+                {"value": 1, "color": "#45A146", "label": "lc_deg_imp"}
             ]
         }
     },
@@ -282,22 +282,39 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "combined_sdg_deg_nodata"},
-                {"value": -1, "color": "#993304", "label": "combined_sdg_deg_deg"},
-                {"value": 0, "color": "#F6F6EA", "label": "combined_sdg_deg_stable"},
-                {"value": 1, "color": "#008C79", "label": "combined_sdg_deg_imp"}
+                {"value": -1, "color": "#AB2727", "label": "combined_sdg_deg_deg"},
+                {"value": 0, "color": "#FFFFE0", "label": "combined_sdg_deg_stable"},
+                {"value": 1, "color": "#45A146", "label": "combined_sdg_deg_imp"}
             ]
         }
     },
-    "sdg productivity combined": {
+    "SDG productivity combined": {
         "title": "sdg_prod_combined_title",
         "ramp": {
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "sdg_prod_combined_deg_nodata"},
-                {"value": -1, "color": "#993304", "label": "sdg_prod_combined_deg_deg"},
-                {"value": 0, "color": "#F6F6EA", "label": "sdg_prod_combined_deg_stable"},
-                {"value": 1, "color": "#008C79", "label": "sdg_prod_combined_deg_imp"}
+                {"value": -32768, "color": "#000000", "label": "sdg_prod_combined_nodata"},
+                {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
+                {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
+                {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
+                {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
+                {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
+            ]
+        }
+    },
+    "Land Productivity Dynamics (LPD)": {
+        "title": "lpd_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "lpd_nodata"},
+                {"value": 1, "color": "#AB2727", "label": "lpd_declining"},
+                {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
+                {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
+                {"value": 4, "color": "#B8D779", "label": "lpd_stab"},
+                {"value": 5, "color": "#45A146", "label": "lpd_imp"}
             ]
         }
     }

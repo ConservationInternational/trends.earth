@@ -23,7 +23,7 @@ from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt
 
 from LDMP import log
 
-from LDMP.calculate import DlgCalculateBase
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgDownload import Ui_DlgDownload
 from LDMP.api import run_script
 
@@ -89,6 +89,12 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         self.update_data_table()
 
+    def showEvent(self, event):
+        super(DlgDownload, self).showEvent(event)
+
+        # Don't local/cloud selector for this dialog
+        self.options_tab.toggle_show_where_to_run(False)
+
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
         proxy_model = QtGui.QSortFilterProxyModel()
@@ -123,14 +129,14 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         self.close()
 
         for row in rows:
-            payload = {'geojson': json.dumps(self.aoi.bounding_box_geojson),
+            payload = {'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                        'asset': self.datasets[row]['GEE Dataset'],
-                       'task_name': self.task_name.text(),
-                       'task_notes': self.task_notes.toPlainText()}
+                       'name': self.datasets[row]['title'],
+                       'temporal_resolution': self.datasets[row]['Temporal resolution'],
+                       'task_name': self.options_tab.task_name.text(),
+                       'task_notes': self.options_tab.task_notes.toPlainText()}
 
-            gee_script = 'download-data' + '-' + self.scripts['download-download']['script version']
-
-            resp = run_script(gee_script, payload)
+            resp = run_script(get_script_slug('download-data'), payload)
 
             if resp:
                 mb.pushMessage(QtGui.QApplication.translate("LDMP", "Sucess"),

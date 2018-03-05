@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgReportingSDG</class>
- <widget class="QDialog" name="DlgReportingSDG">
+ <class>DlgCalculateSDGAdvanced</class>
+ <widget class="QDialog" name="DlgCalculateSDGAdvanced">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>465</width>
-    <height>712</height>
+    <height>549</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>SDG Reporting Tool</string>
+   <string>Calculate SDG 15.3.1 Indicator (advanced)</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -323,8 +323,11 @@
               <height>35</height>
              </size>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
             <property name="placeholderText">
-             <string>Choose a file...</string>
+             <string>Click &quot;Browse&quot; to choose a file...</string>
             </property>
            </widget>
           </item>
@@ -358,8 +361,11 @@
               <height>35</height>
              </size>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
             <property name="placeholderText">
-             <string>Choose a file...</string>
+             <string>Click &quot;Browse&quot; to choose a file...</string>
             </property>
            </widget>
           </item>
@@ -478,6 +484,25 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>TabBox</tabstop>
+  <tabstop>mode_gpg_prod</tabstop>
+  <tabstop>mode_jrc_lpd</tabstop>
+  <tabstop>combo_layer_lc</tabstop>
+  <tabstop>combo_layer_soc</tabstop>
+  <tabstop>button_prev</tabstop>
+  <tabstop>button_next</tabstop>
+  <tabstop>button_calculate</tabstop>
+  <tabstop>combo_layer_traj</tabstop>
+  <tabstop>combo_layer_perf</tabstop>
+  <tabstop>combo_layer_state</tabstop>
+  <tabstop>combo_layer_lpd</tabstop>
+  <tabstop>browse_output_file_layer</tabstop>
+  <tabstop>browse_output_file_table</tabstop>
+  <tabstop>plot_title</tabstop>
+  <tabstop>output_file_layer</tabstop>
+  <tabstop>output_file_table</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

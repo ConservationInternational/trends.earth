@@ -15,8 +15,8 @@ import json
 
 import ee
 
-from trendsearth-schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 from landdegradation.productivity import productivity_trajectory
+from landdegradation.schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 # Google cloud storage bucket for output
 BUCKET = "ldmt"

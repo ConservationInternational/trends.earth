@@ -42,6 +42,10 @@ options(
         skip_exclude = []
     ),
 
+    schemas = Bunch(
+        setup_dir = path('LDMP/schemas'),
+    ),
+
     gee = Bunch(
         tecli = path('C:/Users/azvol/Code/LandDegradation/trends.earth-CLI/tecli'),
         script_dir = path('gee'),
@@ -142,11 +146,17 @@ def set_version(options):
     scripts_regex = re.compile('("script version": ")[0-9]+[-._][0-9]+', re.IGNORECASE)
     _replace(os.path.join(options.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
+    # Set in setup.py
+    print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
+    setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+[.][0-9]+")
+    _replace(os.path.join(options.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
+
+
 @task
 def publish_gee(options):
     dirs = next(os.walk(options.gee.script_dir))[1]
     for dir in dirs:
-        script_dir = os.path.join(options.gee.script_dir, dir)
+        
         if os.path.exists(os.path.join(script_dir, 'configuration.json')):
             print('Publishing {}...'.format(dir))
             subprocess.check_call(['python',

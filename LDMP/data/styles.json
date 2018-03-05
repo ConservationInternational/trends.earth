@@ -296,9 +296,9 @@
             "items": [
                 {"value": -32768, "color": "#000000", "label": "sdg_prod_combined_nodata"},
                 {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
-                {"value": 2, "color": "#AB2727", "label": "sdg_prod_combined_earlysigns"},
-                {"value": 3, "color": "#AB2727", "label": "sdg_prod_combined_stabbutstress"},
-                {"value": 4, "color": "#FFFFE0", "label": "sdg_prod_combined_stab"},
+                {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
+                {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
+                {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
                 {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
             ]
         }

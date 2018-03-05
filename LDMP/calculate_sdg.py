@@ -42,7 +42,7 @@ from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
-from LDMP.schemas import FileList, LocalResults, LocalResultsSchema
+from LDMP.schemas.schemas import FileList, LocalResults, LocalResultsSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap

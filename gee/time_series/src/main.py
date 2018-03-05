@@ -7,8 +7,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from . import __version__
-
 import random
 import re
 import json
@@ -17,9 +15,6 @@ import ee
 
 from landdegradation.productivity import productivity_trajectory
 from landdegradation.schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
-
-# Google cloud storage bucket for output
-BUCKET = "ldmt"
 
 
 def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
@@ -62,7 +57,7 @@ def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
         ts = TimeSeries(list(year), list(value), key)
         timeseries.append(ts)
 
-    timeseries_table = TimeSeriesTable('timeseries', __version__, timeseries)
+    timeseries_table = TimeSeriesTable('timeseries', timeseries)
     timeseries_table_schema = TimeSeriesTableSchema()
     json_result = timeseries_table_schema.dump(timeseries_table)
 

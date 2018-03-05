@@ -31,7 +31,7 @@ class TimeSeriesTableSchema(Schema):
 
 
 ################################################################################
-# Schema for downloads
+# Schema for storing information on bands
 
 class BandInfo(object):
     def __init__(self, name, add_to_map=False, metadata={}, no_data_value=-32768):
@@ -47,6 +47,33 @@ class BandInfoSchema(Schema):
     add_to_map = fields.Boolean()
     metadata = fields.Dict()
 
+
+################################################################################
+# Schema for local analyses
+
+class FileList(object):
+    def __init__(self, base, files=[]):
+        self.base = base
+        self.files = files
+
+
+class LocalResults(object):
+    def __init__(self, name, script_version, bands):
+        self.type = "LocalResults"
+        self.name = name
+        self.script_version = script_version
+        self.bands = bands
+
+
+class LocalResultsSchema(Schema):
+    type = fields.Str()
+    name = fields.Str()
+    script_version = fields.Str()
+    bands = fields.Nested(BandInfoSchema(), many=True)
+
+
+################################################################################
+# Schema for downloads
 
 class Url(object):
     def __init__(self, url, md5Hash):

@@ -1,4 +1,4 @@
-Calculate Indicators
+﻿Calculate Indicators
 ========================
 To select the methods and datasets to calculate the indicators that measured changes in primary productivity, select the calculator icon (|iconCalculator|). 
 This will open up the `Calculate Indicator` dialog box:
@@ -226,7 +226,7 @@ The final step before submitting the task to Google Earth Engine, is to define t
    
 Soil Carbon
 -----------
-**Coming soon!**
+**Documentation coming soon!**
 
 .. toctree::
    :maxdepth: 2

@@ -110,17 +110,6 @@ def set_version(options):
     init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
     _replace(os.path.join(options.source_dir, '__init__.py'), init_regex, '\g<1>' + v)
 
-@task
-@cmdopts([
-    ('version=', 'v', 'Version to set'),
-])
-def set_version_gee(options):
-    v = getattr(options, 'version', False)
-    # Validate the version matches the regex
-    if not v or not re.match("[0-9]+[.][0-9]+", v):
-        print('Must specify a valid version (example: 0.36)')
-        return
-
     # For the GEE config files the version can't have a dot, so convert to 
     # underscore
     v_gee = v.replace('.', '_')
@@ -152,8 +141,6 @@ def set_version_gee(options):
     init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
     scripts_regex = re.compile('("script version": ")[0-9]+[-._][0-9]+', re.IGNORECASE)
     _replace(os.path.join(options.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
-
-@task
 
 @task
 def publish_gee(options):

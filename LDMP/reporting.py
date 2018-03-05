@@ -199,7 +199,11 @@ class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
 
             # Always add the basemap at the top of the TOC
             root = QgsProject.instance().layerTreeRoot().insertGroup(0, 'Basemap')
-            QgsLayerDefinition.loadLayerDefinition(document, root, "Success")
+            try:
+                QgsLayerDefinition.loadLayerDefinition(document, root, "Success")
+            except TypeError:
+                # Fix for earlier versions of QGIS
+                QgsLayerDefinition.loadLayerDefinition(document, root)
 
             if zoomer:
                 zoomer.zoom()

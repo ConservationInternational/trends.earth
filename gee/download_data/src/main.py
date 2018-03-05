@@ -21,6 +21,8 @@ def run(params, logger):
     logger.debug("Loading parameters.")
     asset = params.get('asset')
     name = params.get('name')
+    start_year = None
+    end_year = None
     temporal_resolution = params.get('temporal_resolution')
     geojson = json.loads(params.get('geojson'))
 
@@ -31,5 +33,6 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = download(asset, name, temporal_resolution, EXECUTION_ID, logger)
+    out = download(asset, name, temporal_resolution, start_year, end_year, 
+                   EXECUTION_ID, logger)
     return out.export(geojson, 'download', logger, EXECUTION_ID)

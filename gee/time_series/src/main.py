@@ -15,10 +15,7 @@ import json
 
 import ee
 
-from landdegradation import preproc
 from landdegradation import stats
-from landdegradation import util
-from landdegradation import GEEIOError
 
 from landdegradation.productivity import productivity_trajectory
 from landdegradation.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema

@@ -66,8 +66,7 @@ def run(params, logger):
                                     prod_state_year_bl_end, 
                                     prod_state_year_tg_start, 
                                     prod_state_year_tg_end,
-                                    ndvi_gee_dataset, geojson, 
-                                    EXECUTION_ID, logger)
+                                    ndvi_gee_dataset, EXECUTION_ID, logger)
 
     out.merge(prod_state)
     out.selectBands(['Productivity trajectory (significance)',
@@ -75,15 +74,15 @@ def run(params, logger):
                      'Productivity state (degradation)'])
 
     logger.debug("Running land cover indicator.")
-    lc = land_cover(lc_year_initial, lc_year_final, geojson, trans_matrix,
-                    remap_matrix, EXECUTION_ID, logger)
+    lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, remap_matrix, 
+                    EXECUTION_ID, logger)
     lc.selectBands(['Land cover (degradation)',
                     'Land cover (7 class)'])
     out.merge(lc)
 
     logger.debug("Running soil organic carbon indicator.")
-    soc_out = soc(soc_year_initial, soc_year_final, fl, geojson, remap_matrix, 
-                  False, EXECUTION_ID, logger)
+    soc_out = soc(soc_year_initial, soc_year_final, fl, remap_matrix, False, 
+                  EXECUTION_ID, logger)
     soc_out.selectBands(['Soil organic carbon (degradation)',
                          'Soil organic carbon'])
     out.merge(soc_out)

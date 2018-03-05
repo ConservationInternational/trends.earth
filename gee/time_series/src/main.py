@@ -17,8 +17,8 @@ import ee
 
 from landdegradation import stats
 
+from LDMP.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 from landdegradation.productivity import productivity_trajectory
-from landdegradation.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 # Google cloud storage bucket for output
 BUCKET = "ldmt"

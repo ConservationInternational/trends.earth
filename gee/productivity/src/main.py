@@ -56,9 +56,8 @@ def run(params, logger):
     
     if calc_perf:
         perf = productivity_performance(prod_perf_year_initial, 
-                                        prod_perf_year_final, 
-                                        ndvi_gee_dataset, geojson, 
-                                        EXECUTION_ID, logger)
+                                        prod_perf_year_final, ndvi_gee_dataset, 
+                                        geojson, EXECUTION_ID, logger)
         if not out:
             out = perf
         else:
@@ -68,8 +67,7 @@ def run(params, logger):
                                    prod_state_year_bl_end, 
                                    prod_state_year_tg_start, 
                                    prod_state_year_tg_end,
-                                   ndvi_gee_dataset, geojson, 
-                                   EXECUTION_ID, logger)
+                                   ndvi_gee_dataset, EXECUTION_ID, logger)
         if not out:
             out = state
         else:

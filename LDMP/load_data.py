@@ -64,8 +64,11 @@ def tr_style_text(label):
             return str(label)
 
 def get_band_title(band_info):
-    style = styles[band_info['name']]
-    return tr_style_text(style['title']).format(**band_info['metadata'])
+    style = styles.get(band_info['name'], None)
+    if style:
+        return tr_style_text(style['title']).format(**band_info['metadata'])
+    else:
+        return band_info['name']
 
 # Store layer titles and label text in a dictionary here so that it can be
 # translated - if it were in the syles JSON then gettext would not have access
@@ -157,6 +160,15 @@ style_text_dict = {
     'sdg_prod_combined_stab': tr('Stable'),
     'sdg_prod_combined_imp': tr('Improvement'),
     'sdg_prod_combined_nodata': tr('No data'),
+
+    # LPD
+    'lpd_title': tr('Land productivity dynamics (LPD)'),
+    'lpd_declining': tr('Declining'),
+    'lpd_earlysigns': tr('Early signs of decline'),
+    'lpd_stabbutstress': tr('Stable but stressed'),
+    'lpd_stab': tr('Stable'),
+    'lpd_imp': tr('Improvement'),
+    'lpd_nodata': tr('No data'),
 
     'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
     'combined_sdg_deg_deg': tr('Degradation'),
@@ -524,7 +536,6 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         self.close()
 
     def ok_clicked(self):
-        self.close()
         rows = []
         for i in self.layers_view.selectionModel().selectedRows():
             rows.append(i.row())
@@ -541,13 +552,16 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
                     # The plus 1 is because band numbers start at 1, not zero
                     resp = add_layer(f, row + 1, results['bands'][row])
                     if not resp:
-                        mb.pushMessage(tr("Error"),
-                                       self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])),
-                                       level=1, duration=5)
+                        QtGui.QMessageBox.critical(None, self.tr("Error"), 
+                                                   self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])))
+                        return
             else:
                 log('Error loading results from {}'.format(self.file_lineedit.text()))
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
+            return
+
+        self.close()
 
     def update_layer_list(self, f=None):
         if not f:

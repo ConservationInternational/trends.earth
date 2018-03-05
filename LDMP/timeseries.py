@@ -74,7 +74,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # Can't use any of the methods but NDVI Trends on the 16 day data, so
         # don't need climate datasets
         if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal resolution'] == 'annual':
-            climate_types = self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['climate types']
+            climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
             for climate_type in climate_types:
                 self.climate_datasets.update(self.datasets[climate_type])
                 self.traj_climate.addItems(self.datasets[climate_type].keys())
@@ -102,7 +102,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if this_ndvi_dataset['Temporal resolution'] == '16 day':
             self.traj_indic.addItems(['NDVI trends'])
         else:
-            self.traj_indic.addItems(self.scripts['productivity-trajectory']['functions'].keys())
+            self.traj_indic.addItems(self.scripts['productivity']['trajectory functions'].keys())
 
         self.update_time_bounds()
 
@@ -153,7 +153,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'task_notes': self.options_tab.task_notes.toPlainText(),
                    'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter
-        payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])
+        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
 
         resp = run_script(get_script_slug('time-series'), payload)
 

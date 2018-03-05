@@ -35,7 +35,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="IndicatorsTab">
       <attribute name="title">
@@ -48,16 +48,6 @@
           <string>Indicators to calculate</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_6">
-          <item row="2" column="0" colspan="2">
-           <widget class="QRadioButton" name="mode_lpd_custom">
-            <property name="text">
-             <string>Land Productivity Dynamics (LPD) custom calculation (for advanced users)</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
           <item row="6" column="0" colspan="2">
            <widget class="QGroupBox" name="groupBox_ndvi_dataset">
             <property name="sizePolicy">
@@ -101,7 +91,17 @@
           <item row="1" column="0" colspan="2">
            <widget class="QRadioButton" name="mode_lpd_jrc">
             <property name="text">
-             <string>Land Productivity Dynamics (LPD) from Joint Research Commission (JRC)</string>
+             <string>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="mode_te_prod">
+            <property name="text">
+             <string>Trends.Earth land productivity</string>
             </property>
             <property name="checked">
              <bool>true</bool>

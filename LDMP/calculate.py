@@ -308,6 +308,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
 
     def show_areafrom_point_toggle(self, enable):
         if enable:
+            self.area_frompoint_enabled = True
             self.area_frompoint.show()
             self.area_frompoint_label_x.show()
             self.area_frompoint_point_x.show()
@@ -315,6 +316,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
             self.area_frompoint_point_y.show()
             self.area_frompoint_choose_point.show()
         else:
+            self.area_frompoint_enabled = False
             self.area_frompoint.hide()
             self.area_frompoint_label_x.hide()
             self.area_frompoint_point_x.hide()
@@ -488,14 +490,14 @@ class DlgCalculateBase(QtGui.QDialog):
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
                                       wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
-        elif self.area_tab.area_frompoint.isVisible() and self.area_tab.area_frompoint.isChecked():
+        elif self.area_tab.area_frompoint_enabled and self.area_tab.area_frompoint.isChecked():
             # Area from point
-            if not self.self.area_tab.area_frompoint_point_x.text() or not self.self.area_tab.area_frompoint_point_y.text():
+            if not self.area_tab.area_frompoint_point_x.text() or not self.area_tab.area_frompoint_point_y.text():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."), None)
                 return False
-            point = QgsPoint(float(self.self.area_tab.area_frompoint_point_x.text()), float(self.self.area_tab.area_frompoint_point_y.text()))
-            crs_src = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+            point = QgsPoint(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapRenderer().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst).transform(point)
             geojson = QgsGeometry.fromPoint(point).exportToGeoJSON()
             self.aoi.update_from_geojson(geojson=geojson, 

@@ -125,6 +125,8 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         for row in rows:
             payload = {'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
                        'asset': self.datasets[row]['GEE Dataset'],
+                       'name': self.datasets[row]['title'],
+                       'temporal_resolution': self.datasets[row]['Temporal resolution'],
                        'task_name': self.task_name.text(),
                        'task_notes': self.task_notes.toPlainText()}
 

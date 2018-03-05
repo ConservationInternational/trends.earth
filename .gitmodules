@@ -1,0 +1,6 @@
+[submodule "schemas"]
+	path = schemas
+	url = https://github.com/ConservationInternational/trends.earth-schemas.git
+[submodule "LDMP/schemas"]
+	path = LDMP/schemas
+	url = https://github.com/ConservationInternational/trends.earth-schemas.git

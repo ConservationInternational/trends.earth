@@ -7,39 +7,31 @@
         "script version": "0.4",
         "description": "Calculate land cover change indicator."
     },
-    "productivity-trajectory": {
+    "productivity": {
         "script version": "0.4",
-        "description": "Calculate productivity trajectory indicators.",
-        "functions": {
+        "description": "Calculate productivity state, performance, and/or trajectory indicators.",
+        "trajectory functions": {
             "NDVI trends": {
-                "params": {"method": "ndvi_trend"},
+                "params": {"trajectory_method": "ndvi_trend"},
                 "climate types": [],
                 "description": "Calculate trend of annually integrated NDVI."
             },
             "Pixel RESTREND": {
-                "params": {"method": "p_restrend"},
+                "params": {"trajectory_method": "p_restrend"},
                 "climate types": ["Precipitation", "Soil moisture"],
                 "description": "Calculate pixel residual trend (RESTREND_ of annually integrated NDVI, after removing trend associated with a climate indicator."
             },
             "Water Use Efficiency (WUE)": {
-                "params": {"method": "ue"},
+                "params": {"trajectory_method": "ue"},
                 "climate types": ["Evapotranspiration"],
                 "description": "Calculate water use efficiency (evapotranspiration divided by NDVI)."
             },
             "Rain Use Efficiency (RUE)": {
-                "params": {"method": "ue"},
+                "params": {"trajectory_method": "ue"},
                 "climate types": ["Precipitation"],
                 "description": "Calculate rain use efficiency (precipitation divided by NDVI)."
             }
         }
-    },
-    "productivity-state": {
-        "script version": "0.4",
-        "description": "Calculate productivity state."
-    },
-    "productivity-performance": {
-        "script version": "0.4",
-        "description": "Calculate productivity performance."
     },
     "soil-organic-carbon": {
         "script version": "0.4",

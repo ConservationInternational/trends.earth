@@ -210,6 +210,13 @@ class LDMPPlugin:
             status_tip=QApplication.translate('LDMP', 'Plot time series datasets'))
 
         self.add_action(
+            ':/plugins/LDMP/icons/globe.svg',
+            text=QApplication.translate('LDMP', u'Download raw data'),
+            callback=self.run_download,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
+
+        self.add_action(
             ':/plugins/LDMP/icons/cloud-download.svg',
             text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
             callback=self.get_jobs,
@@ -222,13 +229,6 @@ class LDMPPlugin:
             callback=self.run_reporting,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Land degradation reporting'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/globe.svg',
-            text=QApplication.translate('LDMP', u'Download raw data'),
-            callback=self.run_download,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/folder.svg',

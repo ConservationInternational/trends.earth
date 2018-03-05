@@ -232,6 +232,14 @@ class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
                 return False
         else:
             return False
+
+    def toggle_show_where_to_run(self, enable):
+        if enable:
+            self.where_to_run_enabled = True
+            self.groupBox_where_to_run.show()
+        else:
+            self.where_to_run_enabled = False
+            self.groupBox_where_to_run.hide()
                 
 
 class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
@@ -400,6 +408,10 @@ class DlgCalculateBase(QtGui.QDialog):
 
         self.options_tab = options_widget
         self.TabBox.addTab(self.options_tab, self.tr('Options'))
+
+        # By default show the local or cloud option
+        #self.options_tab.toggle_show_where_to_run(True)
+        self.options_tab.toggle_show_where_to_run(False)
 
         if self._firstShowEvent:
             self._firstShowEvent = False

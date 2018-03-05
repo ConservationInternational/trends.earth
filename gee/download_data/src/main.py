@@ -7,14 +7,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from . import __version__
-
 import random
 import json
 
 import ee
 
 from landdegradation import GEEIOError
+from landdegradation.download import download
 
 
 def run(params, logger):

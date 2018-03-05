@@ -89,6 +89,12 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         self.update_data_table()
 
+    def showEvent(self, event):
+        super(DlgDownload, self).showEvent(event)
+
+        # Don't local/cloud selector for this dialog
+        self.options_tab.toggle_show_where_to_run(False)
+
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
         proxy_model = QtGui.QSortFilterProxyModel()

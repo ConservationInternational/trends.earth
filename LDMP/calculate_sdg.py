@@ -113,7 +113,13 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         soc_year_initial = self.year_initial.date().year()
         soc_year_final = self.year_final.date().year()
 
-        payload = {'prod_traj_year_initial': prod_traj_year_initial,
+        if self.mode_te_prod.isChecked():
+            prod_mode = 'Trends.Earth productivity'
+        else:
+            prod_mode = 'JRC LPD'
+
+        payload = {'prod_mode': prod_mode,
+                   'prod_traj_year_initial': prod_traj_year_initial,
                    'prod_traj_year_final': prod_traj_year_final,
                    'prod_perf_year_initial': prod_perf_year_initial,
                    'prod_perf_year_final': prod_perf_year_final,

@@ -21,7 +21,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBox_where_to_run">
      <property name="title">
       <string>Where to run calculations</string>
      </property>
@@ -88,7 +88,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBox_metadata">
      <property name="title">
       <string>Metadata</string>
      </property>

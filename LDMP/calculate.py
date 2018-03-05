@@ -64,8 +64,8 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     t = QgsCoordinateTransform(crs_src, crs_dst)
 
     l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
-                        crs=crs_dst.toProj4()), "calculation boundary (transformed)",  
-                        "memory")
+                         crs=crs_dst.toProj4()), "calculation boundary (transformed)",  
+                         "memory")
     feats = []
     for f in l.getFeatures():
         geom = f.geometry()
@@ -119,9 +119,9 @@ class AOI(object):
         l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
         fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
         features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
-        ret = l.dataProvider().addFeatures(features)
+        l.dataProvider().addFeatures(features)
         l.commitChanges()
-        if not ret:
+        if not l.isValid():
             QtGui.QMessageBox.critical(None, tr("Error"),
                                        tr("Failed to add geojson to temporary layer."))
             log("Failed to add geojson to temporary layer.")
@@ -133,6 +133,25 @@ class AOI(object):
         'Returns layer'
         return self.l
 
+    def get_wgs84_wrapped_layer(self):
+        """
+        Return layer with smallest extent possible (wrapping across 180th meridian when needed)
+        """
+        # Setup settings for AOI provided to GEE:
+        wgs84_crs = QgsCoordinateReferenceSystem()
+        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
+        l_wgs84 = transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+        wgs84_wrapped_crs = QgsCoordinateReferenceSystem()
+        wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
+        l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
+        
+        # Add .01 to account for round error with floating point
+        if (l_wgs84_wrapped.extent().width() + .01) < l_wgs84.extent().width():
+            log('Wrapping layer for GEE across 180th meridian for GEE to reduce width (from {} to {})'.format(l_wgs84.extent().width(), l_wgs84_wrapped.extent().width()))
+            return l_wgs84_wrapped
+        else:
+            return l_wgs84
+
     def bounding_box_geom(self):
         'Returns bounding box in chosen destination coordinate system'
         return QgsGeometry.fromRect(self.l.extent())
@@ -140,26 +159,23 @@ class AOI(object):
     def bounding_box_gee_geojson(self):
         'Returns bounding box in WGS84 or WGS84 wrapped for GEE'
         if self.datatype == 'polygon':
-            # Setup settings for AOI provided to GEE:
-            wgs84_crs = QgsCoordinateReferenceSystem()
-            wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
-            l_wgs84 = transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
-            wgs84_wrapped_crs = QgsCoordinateReferenceSystem()
-            wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
-            l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
-            
-            # Add .01 to account for round error with floating point
-            if (l_wgs84_wrapped.extent().width() + .01) < l_wgs84.extent().width():
-                log('Wrapping layer for GEE across 180th meridian for GEE to reduce width (from {} to {})'.format(l_wgs84.extent().width(), l_wgs84_wrapped.extent().width()))
-                l_gee = l_wgs84_wrapped
-            else:
-                l_gee = l_wgs84
-            return json.loads(QgsGeometry.fromRect(l_gee.extent()).exportToGeoJSON())
+            return json.loads(QgsGeometry.fromRect(self.get_wgs84_wrapped_layer().extent()).exportToGeoJSON())
         elif self.datatype == 'point':
-            feats = []
-            for f in l.getFeatures():
-                geom = f.geometry()
-            return json.loads(QgsGeometry.fromPoint().exportToGeoJSON())
+            # If there is only on point, don't calculate an extent (extent of 
+            # one point is a box with sides equal to zero)
+            n = 0
+            for f in self.l.getFeatures():
+                n += 1
+                if n == 1:
+                    # Save the first geometry in case it is needed later 
+                    # for a layer that only has one point in it
+                    geom = f.geometry()
+            if n == 1:
+                log('Layer only has one point')
+                return json.loads(geom.exportToGeoJSON())
+            else:
+                log('Layer has many points ({})'.format(n))
+                return json.loads(QgsGeometry.fromRect(self.get_wgs84_wrapped_layer().extent()).exportToGeoJSON())
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
                     tr("Failed to process area of interest - unknown geometry type:{}".format(self.datatype)))
@@ -521,7 +537,7 @@ class DlgCalculateBase(QtGui.QDialog):
             point = QgsPoint(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapRenderer().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst).transform(point)
-            geojson = QgsGeometry.fromPoint(point).exportToGeoJSON()
+            geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
                                          datatype='point')

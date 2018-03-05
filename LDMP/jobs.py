@@ -307,7 +307,7 @@ def download_cloud_results(job, f, tr):
                 return
         # Make a VRT mosaicing the tiles so they can be treated as one file 
         # during further processing
-        out_file = f + '{}.vrt'
+        out_file = f + '.vrt'
         gdal.BuildVRT(out_file, tiles)
         create_gee_json_metadata(job, out_file, tiles, 'vrt')
     else:

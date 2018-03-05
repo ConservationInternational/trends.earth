@@ -156,7 +156,7 @@ def set_version(options):
 def publish_gee(options):
     dirs = next(os.walk(options.gee.script_dir))[1]
     for dir in dirs:
-        
+        script_dir = os.path.join(options.gee.script_dir, dir) 
         if os.path.exists(os.path.join(script_dir, 'configuration.json')):
             print('Publishing {}...'.format(dir))
             subprocess.check_call(['python',

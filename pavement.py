@@ -34,10 +34,21 @@ options(
             'LDMP/test',
             'LDMP/data_prep_scripts',
             'LDMP/help',
+            'gee',
+            'util',
             '*.pyc',
         ],
         # skip certain files inadvertently found by exclude pattern globbing
         skip_exclude = []
+    ),
+
+    schemas = Bunch(
+        setup_dir = path('LDMP/schemas'),
+    ),
+
+    gee = Bunch(
+        tecli = path('C:/Users/azvol/Code/LandDegradation/trends.earth-CLI/tecli'),
+        script_dir = path('gee'),
     ),
 
     sphinx = Bunch(
@@ -102,7 +113,55 @@ def set_version(options):
     print('Setting version to {} in __init__.py'.format(v))
     init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
     _replace(os.path.join(options.source_dir, '__init__.py'), init_regex, '\g<1>' + v)
+
+    # For the GEE config files the version can't have a dot, so convert to 
+    # underscore
+    v_gee = v.replace('.', '_')
+    if not v or not re.match("[0-9]+_[0-9]+", v_gee):
+        print('Must specify a valid version (example: 0.36)')
+        return
+
+    gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
+    gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+_[0-9]+)?"')
+
+    # Set version for GEE scripts
+    for subdir, dirs, files in os.walk(options.gee.script_dir):
+        for file in files:
+            filepath = os.path.join(subdir, file)
+            if file == 'configuration.json':
+                # Validate the version matches the regex
+                print('Setting version to {} in {}'.format(v, filepath))
+                # Update the version string
+                _replace(filepath, gee_script_name_regex, '\g<1> ' + v_gee + '"')
+                # Clear the ID since a new one will be assigned due to the new name
+                _replace(filepath, gee_id_regex, '')
+            elif file == '__init__.py':
+                print('Setting version to {} in {}'.format(v, filepath))
+                init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+                _replace(filepath, init_regex, '\g<1>' + v)
     
+    # Set in scripts.json
+    print('Setting version to {} in scripts.json'.format(v))
+    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+    scripts_regex = re.compile('("script version": ")[0-9]+[-._][0-9]+', re.IGNORECASE)
+    _replace(os.path.join(options.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
+
+    # Set in setup.py
+    print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
+    setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+[.][0-9]+")
+    _replace(os.path.join(options.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
+
+
+@task
+def publish_gee(options):
+    dirs = next(os.walk(options.gee.script_dir))[1]
+    for dir in dirs:
+        script_dir = os.path.join(options.gee.script_dir, dir) 
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')):
+            print('Publishing {}...'.format(dir))
+            subprocess.check_call(['python',
+                                   options.gee.tecli,
+                                   'publish', '--public=True', '--overwrite=True'], cwd=script_dir)
 
 @task
 @cmdopts([
@@ -465,6 +524,10 @@ def compile_files(options):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
                 if file_changed(ui, output):
+                    # Fix the links to c header files that Qt Designer adds to 
+                    # UI files when QGIS custom widgets are used
+                    ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
+                    _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
                     print("Compiling {0} to {1}".format(ui, output))
                     subprocess.check_call([pyuic4, '-o', output, ui])
                     ui_count += 1

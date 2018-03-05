@@ -14,6 +14,7 @@
 
 import os
 import gzip
+import zipfile
 import json
 import requests
 import hashlib
@@ -29,9 +30,10 @@ from LDMP.worker import AbstractWorker, start_worker
 from LDMP.api import get_header
 
 
-def check_hash_against_etag(url, filename):
-    h = get_header(url)
-    expected = h.get('ETag', '').strip('"')
+def check_hash_against_etag(url, filename, expected=None):
+    if not expected:
+        h = get_header(url)
+        expected = h.get('ETag', '').strip('"')
 
     md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
 
@@ -42,6 +44,35 @@ def check_hash_against_etag(url, filename):
         log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
         return False
 
+
+def extract_zipfile(file, verify=True):
+    filename = os.path.join(os.path.dirname(__file__), 'data', file)
+    url = 'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
+
+    if os.path.exists(filename) and verify:
+        if not check_hash_against_etag(url, filename):
+            os.remove(filename)
+
+    if not os.path.exists(filename):
+        log('Downloading {}'.format(file))
+        # TODO: Dialog box with two options:
+        #   1) Download
+        #   2) Load from local folder
+        worker = Download(url, filename)
+        worker.start()
+        resp = worker.get_resp()
+        if not resp:
+            return None
+        if not check_hash_against_etag(url, filename):
+            return None
+
+    try:
+        with zipfile.ZipFile(filename, 'r') as fin:
+            fin.extractall(os.path.join(os.path.dirname(__file__), 'data'))
+        return True
+    except zipfile.BadZipfile:
+        os.remove(filename)
+        return False
 
 def read_json(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)

@@ -20,9 +20,8 @@ from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QDate, QTextCodec
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase, AOI
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
-from LDMP.gui.WidgetSelectPoint import Ui_WidgetSelectPoint
 from LDMP.api import run_script
 
 from qgis.core import QgsGeometry, QgsPoint, QgsJSONUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
@@ -30,13 +29,6 @@ from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
 
 mb = iface.messageBar()
-
-
-class PointWidget(QtGui.QWidget, Ui_WidgetSelectPoint):
-    def __init__(self, parent=None):
-        super(PointWidget, self).__init__(parent)
-
-        self.setupUi(self)
 
 
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
@@ -63,64 +55,15 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
-        # Setup point chooser
-        self.canvas = iface.mapCanvas()
-        self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
-        self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
-
         # TODO:Temporary until fixed:
         self.TabBox.removeTab(1)
 
-    def firstShow(self):
-        super(DlgTimeseries, self).firstShow()
-
-        self.point_widget = PointWidget()
-        self.area_tab.area_gridlayout.addWidget(self.point_widget, 7, 0, 1, 3)
-        # Ensure the "area from point" radio button is linked to the two in the
-        # main area group (from file and from admin)
-        self.area_tab.area_radio_buttonGroup.addButton(self.point_widget.area_frompoint)
-
-        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
-        self.point_widget.choose_point.setIcon(icon)
-        self.point_widget.choose_point.clicked.connect(self.point_chooser)
-        #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.point_widget.point_x.setValidator(QtGui.QDoubleValidator())
-        #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.point_widget.point_y.setValidator(QtGui.QDoubleValidator())
-        self.point_widget.area_frompoint.toggled.connect(self.area_frompoint_toggle)
-        self.area_frompoint_toggle()
-
-    def point_chooser(self):
-        log("Choosing point from canvas...")
-        self.hide()
-        self.canvas.setMapTool(self.choose_point_tool)
-        QtGui.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
-
-    def set_point_coords(self, point, button):
-        log("Set point coords")
-        #TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
-        self.point = point
-        # Disable the choose point tool
-        self.canvas.setMapTool(QgsMapToolPan(self.canvas))
-        # Don't reset_tab_on_show as it would lead to return to first tab after
-        # using the point chooser
-        self.reset_tab_on_showEvent = False
-        self.show()
-        self.reset_tab_on_showEvent = True
-        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
-        log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
-        self.point_widget.point_x.setText("{:.8f}".format(self.point.x()))
-        self.point_widget.point_y.setText("{:.8f}".format(self.point.y()))
-
-    def area_frompoint_toggle(self):
-        if self.point_widget.area_frompoint.isChecked():
-            self.point_widget.point_x.setEnabled(True)
-            self.point_widget.point_y.setEnabled(True)
-            self.point_widget.choose_point.setEnabled(True)
-        else:
-            self.point_widget.point_x.setEnabled(False)
-            self.point_widget.point_y.setEnabled(False)
-            self.point_widget.choose_point.setEnabled(False)
+    def showEvent(self, event):
+        super(DlgTimeseries, self).showEvent(event)
+        # Show area from point selector for this dialog
+        self.area_tab.show_areafrom_point_toggle(True)
+        self.area_tab.groupBox_custom_crs.hide()
+        self.area_tab.area_frompoint.setChecked(True)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()
@@ -131,7 +74,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # Can't use any of the methods but NDVI Trends on the 16 day data, so
         # don't need climate datasets
         if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal resolution'] == 'annual':
-            climate_types = self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['climate types']
+            climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
             for climate_type in climate_types:
                 self.climate_datasets.update(self.datasets[climate_type])
                 self.traj_climate.addItems(self.datasets[climate_type].keys())
@@ -159,7 +102,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if this_ndvi_dataset['Temporal resolution'] == '16 day':
             self.traj_indic.addItems(['NDVI trends'])
         else:
-            self.traj_indic.addItems(self.scripts['productivity-trajectory']['functions'].keys())
+            self.traj_indic.addItems(self.scripts['productivity']['trajectory functions'].keys())
 
         self.update_time_bounds()
 
@@ -189,30 +132,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if not ret:
             return
 
-        if not self.aoi:
-            if self.point_widget.area_frompoint:
-                # Area from point
-                if not self.point_widget.point_x.text() or not self.point_widget.point_y.text():
-                    QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Choose a point to define the area of interest."), None)
-                    return False
-                point = QgsPoint(float(self.point_widget.point_x.text()), float(self.point_widget.point_y.text()))
-                crs_source = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
-                crs_dest = QgsCoordinateReferenceSystem(4326)
-                point = QgsCoordinateTransform(crs_source, crs_dest).transform(point)
-                geojson = QgsGeometry.fromPoint(point).exportToGeoJSON()
-                self.aoi = AOI(geojson=geojson, datatype='point')
-                self.aoi.bounding_box_geojson = json.loads(geojson)
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose an area of interest."), None)
-                return
-
         self.close()
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
-        self.calculate_timeseries(self.aoi.bounding_box_geojson, ndvi_dataset)
+        self.calculate_timeseries(self.aoi.bounding_box_gee_geojson(), ndvi_dataset)
 
     def calculate_timeseries(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
@@ -225,14 +149,13 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'year_end': self.traj_year_end.date().year(),
                    'geojson': json.dumps(geojson),
                    'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.task_name.text(),
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText(),
                    'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter
-        payload.update(self.scripts['productivity-trajectory']['functions'][self.traj_indic.currentText()]['params'])
+        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
 
-        gee_script = 'time-series' + '-' + self.scripts['time-series']['script version']
-
-        resp = run_script(gee_script, payload)
+        resp = run_script(get_script_slug('time-series'), payload)
 
         if resp:
             mb.pushMessage(self.tr("Submitted"),

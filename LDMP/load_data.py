@@ -20,9 +20,11 @@ from operator import attrgetter
 import json
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, Qt, QCoreApplication
+from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
-from qgis.core import QgsColorRampShader, QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsRasterBandStats
+from qgis.core import QgsColorRampShader, QgsRasterShader, \
+    QgsSingleBandPseudoColorRenderer, QgsRasterBandStats, QgsVectorLayer, \
+    QgsRasterLayer
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -31,8 +33,14 @@ import numpy as np
 from osgeo import gdal
 
 from LDMP import log
+from LDMP.calculate_lc import DlgCalculateLCSetAggregation
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
+from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
+from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
+from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
+from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
+from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
 
 
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -56,8 +64,11 @@ def tr_style_text(label):
             return str(label)
 
 def get_band_title(band_info):
-    style = styles[band_info['name']]
-    return tr_style_text(style['title']).format(**band_info['metadata'])
+    style = styles.get(band_info['name'], None)
+    if style:
+        return tr_style_text(style['title']).format(**band_info['metadata'])
+    else:
+        return band_info['name']
 
 # Store layer titles and label text in a dictionary here so that it can be
 # translated - if it were in the syles JSON then gettext would not have access
@@ -143,10 +154,21 @@ style_text_dict = {
 
     # Degradation SDG final layer
     'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
-    'sdg_prod_combined_deg_deg': tr('Degradation'),
-    'sdg_prod_combined_deg_stable': tr('Stable'),
-    'sdg_prod_combined_deg_imp': tr('Improvement'),
-    'sdg_prod_combined_deg_nodata': tr('No data'),
+    'sdg_prod_combined_declining': tr('Declining'),
+    'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
+    'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
+    'sdg_prod_combined_stab': tr('Stable'),
+    'sdg_prod_combined_imp': tr('Improvement'),
+    'sdg_prod_combined_nodata': tr('No data'),
+
+    # LPD
+    'lpd_title': tr('Land productivity dynamics (LPD)'),
+    'lpd_declining': tr('Declining'),
+    'lpd_earlysigns': tr('Early signs of decline'),
+    'lpd_stabbutstress': tr('Stable but stressed'),
+    'lpd_stab': tr('Stable'),
+    'lpd_imp': tr('Improvement'),
+    'lpd_nodata': tr('No data'),
 
     'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
     'combined_sdg_deg_deg': tr('Degradation'),
@@ -198,7 +220,7 @@ def get_results(json_file):
         return None
 
     # Check accompanying tif file(s) are there:
-    if len(results['urls']['files']) > 1:
+    if len(results['urls']) > 1:
         # If more than one file is returned by GEE, then trends.earth will
         # write a virtual raster table listing these files
         data_file = os.path.splitext(json_file)[0] + '.vrt'
@@ -213,7 +235,10 @@ def get_results(json_file):
 
 def round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
-    return round(x, -int(floor(log10(x))) + (sf - 1))
+    if np.isnan(x):
+        return x
+    else:
+        return round(x, -int(floor(log10(x))) + (sf - 1))
 
 
 def get_sample(f, band_number, n=10000):
@@ -221,7 +246,6 @@ def get_sample(f, band_number, n=10000):
     ds = gdal.Open(f)
     b = ds.GetRasterBand(band_number)
 
-    block_sizes = b.GetBlockSize()
     xsize = b.XSize
     ysize = b.YSize
 
@@ -247,10 +271,10 @@ def get_sample(f, band_number, n=10000):
         return out
 
 
-def get_cutoff(f, band_info, percentiles):
+def get_cutoff(f, band_number, band_info, percentiles):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError("Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(percentiles))
-    d = get_sample(f, band_info['band_number'])
+    d = get_sample(f, band_number)
     md = np.ma.masked_where(d == band_info['no_data_value'], d)
     if md.size == 0:
         # If all of the values are no data, return 0
@@ -276,8 +300,38 @@ def get_cutoff(f, band_info, percentiles):
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
+def get_unique_values(f, band_num, max_unique=50):
+    src_ds = gdal.Open(f)
+    b = src_ds.GetRasterBand(band_num)
 
-def add_layer(f, band_info):
+    block_sizes = b.GetBlockSize()
+    x_block_size = block_sizes[0]
+    y_block_size = block_sizes[1]
+    xsize = b.XSize
+    ysize = b.YSize
+
+    for y in xrange(0, ysize, y_block_size):
+        if y + y_block_size < ysize:
+            rows = y_block_size
+        else:
+            rows = ysize - y
+
+        for x in xrange(0, xsize, x_block_size):
+            if x + x_block_size < xsize:
+                cols = x_block_size
+            else:
+                cols = xsize - x
+
+            if x == 0 and y == 0:
+                v = np.unique(b.ReadAsArray(x, y, cols, rows).ravel())
+            else:
+                v = np.unique(np.concatenate((v, b.ReadAsArray(x, y, cols, rows).ravel())))
+
+            if v.size > max_unique:
+                return None
+    return v.tolist()
+
+def add_layer(f, band_number, band_info):
     try:
         style = styles[band_info['name']]
     except KeyError:
@@ -301,7 +355,7 @@ def add_layer(f, band_info):
     elif style['ramp']['type'] == 'zero-centered stretch':
         # Set a colormap centred on zero, going to the max of the min and max 
         # extreme value significant to three figures.
-        cutoff = get_cutoff(f, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
+        cutoff = get_cutoff(f, band_number, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
         log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-cutoff,
@@ -320,7 +374,7 @@ def add_layer(f, band_info):
     elif style['ramp']['type'] == 'min zero stretch':
         # Set a colormap from zero to percent stretch significant to
         # three figures.
-        cutoff = get_cutoff(f, band_info, [100 - style['ramp']['percent stretch']])
+        cutoff = get_cutoff(f, band_number, band_info, [100 - style['ramp']['percent stretch']])
         log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
@@ -360,7 +414,7 @@ def add_layer(f, band_info):
     shader = QgsRasterShader()
     shader.setRasterShaderFunction(fcn)
     pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_info['band_number'],
+                                                      band_number,
                                                       shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
@@ -389,10 +443,35 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
         #         break
         #     new_layout.addWidget(layout_item.widget())
 
-
 class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
     def __init__(self, parent=None):
         super(DlgLoadData, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.dlg_loaddata_te = DlgLoadDataTE()
+        self.dlg_loaddata_lc = DlgLoadDataLC()
+        self.dlg_loaddata_soc = DlgLoadDataSOC()
+
+        self.btn_te.clicked.connect(self.run_te)
+        self.btn_lc.clicked.connect(self.run_lc)
+        self.btn_soc.clicked.connect(self.run_soc)
+
+    def run_te(self):
+        self.dlg_loaddata_te.show()
+        self.close()
+
+    def run_lc(self):
+        self.dlg_loaddata_lc.show()
+        self.close()
+
+    def run_soc(self):
+        self.dlg_loaddata_soc.show()
+        self.close()
+
+class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
+    def __init__(self, parent=None):
+        super(DlgLoadDataTE, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -411,7 +490,7 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
 
     def showEvent(self, e):
-        super(DlgLoadData, self).showEvent(e)
+        super(DlgLoadDataTE, self).showEvent(e)
 
         self.file_lineedit.clear()
         self.layers_model.setStringList([])
@@ -457,7 +536,6 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.close()
 
     def ok_clicked(self):
-        self.close()
         rows = []
         for i in self.layers_view.selectionModel().selectedRows():
             rows.append(i.row())
@@ -470,16 +548,20 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
                     elif results.get('local_format', None) == 'vrt':
                         f = os.path.splitext(self.file_lineedit.text())[0] + '.vrt'
                     else:
-                        raise Vband_infosalueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
-                    resp = add_layer(f, results['bands'][row])
+                        raise ValueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
+                    # The plus 1 is because band numbers start at 1, not zero
+                    resp = add_layer(f, row + 1, results['bands'][row])
                     if not resp:
-                        mb.pushMessage(tr("Error"),
-                                       self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])),
-                                       level=1, duration=5)
+                        QtGui.QMessageBox.critical(None, self.tr("Error"), 
+                                                   self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])))
+                        return
             else:
-                log('Error loading "{}" results from {}'.format(layer, self.file_lineedit.text()))
+                log('Error loading results from {}'.format(self.file_lineedit.text()))
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
+            return
+
+        self.close()
 
     def update_layer_list(self, f=None):
         if not f:
@@ -506,3 +588,194 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
         self.btn_view_metadata.setEnabled(True)
         return True
+
+
+class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileInput):
+    inputFileChanged = pyqtSignal(bool)
+    inputTypeChanged = pyqtSignal(bool)
+
+    def __init__(self, parent=None):
+        super(LoadDataSelectFileInputWidget, self).__init__(parent)
+        self.setupUi(self)
+
+        self.radio_raster_input.toggled.connect(self.radio_raster_input_toggled)
+
+        self.btn_raster_dataset_browse.clicked.connect(self.open_raster_browse)
+        self.btn_polygon_dataset_browse.clicked.connect(self.open_vector_browse)
+
+    def radio_raster_input_toggled(self):
+        has_file = False
+        if self.radio_raster_input.isChecked():
+            self.btn_raster_dataset_browse.setEnabled(True)
+            self.lineEdit_raster_file.setEnabled(True)
+            self.comboBox_bandnumber.setEnabled(True)
+            self.label_bandnumber.setEnabled(True)
+            self.btn_polygon_dataset_browse.setEnabled(False)
+            self.lineEdit_polygon_file.setEnabled(False)
+            self.label_fieldname.setEnabled(False)
+            self.comboBox_fieldname.setEnabled(False)
+
+            if self.lineEdit_raster_file.text():
+                has_file = True
+        else:
+            self.btn_raster_dataset_browse.setEnabled(False)
+            self.lineEdit_raster_file.setEnabled(False)
+            self.comboBox_bandnumber.setEnabled(False)
+            self.label_bandnumber.setEnabled(False)
+            self.btn_polygon_dataset_browse.setEnabled(True)
+            self.lineEdit_polygon_file.setEnabled(True)
+            self.label_fieldname.setEnabled(True)
+            self.comboBox_fieldname.setEnabled(True)
+
+            if self.lineEdit_polygon_file.text():
+                has_file=True
+        self.inputTypeChanged.emit(has_file)
+
+    def open_raster_browse(self):
+        self.lineEdit_raster_file.clear()
+        self.comboBox_bandnumber.clear()
+
+        raster_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                        self.tr('Select a raster input file'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Raster file (*.tif *.dat *.img)'))
+        # Try loading this raster to verify the file works
+        if raster_file:
+            self.get_raster_layer(raster_file)
+        else:
+            self.inputFileChanged.emit(False)
+
+    def get_raster_layer(self, raster_file):
+        l = QgsRasterLayer(raster_file, "raster file", "gdal")
+
+        if not os.access(raster_file, os.R_OK or not l.isValid()):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot read {}. Choose a different file.".format(raster_file)))
+            self.inputFileChanged.emit(False)
+            return False
+
+        QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+        self.lineEdit_raster_file.setText(raster_file)
+
+        self.comboBox_bandnumber.addItems([str(n) for n in range(1, l.dataProvider().bandCount() + 1)])
+
+        self.inputFileChanged.emit(True)
+        return True
+
+    def open_vector_browse(self):
+        self.comboBox_fieldname.clear()
+        self.lineEdit_polygon_file.clear()
+
+        vector_file = QtGui.QFileDialog.getOpenFileName(self,
+                                                        self.tr('Select a vector input file'),
+                                                        QSettings().value("LDMP/input_dir", None),
+                                                        self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
+        # Try loading this vector to verify the file works
+        if vector_file:
+            self.get_vector_layer(vector_file)
+        else:
+            self.inputFileChanged.emit(False)
+
+    def get_vector_layer(self, vector_file):
+        l = QgsVectorLayer(vector_file, "vector file", "ogr")
+
+        if not os.access(vector_file, os.R_OK) or not l.isValid():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot read {}. Choose a different file.".format(vector_file)))
+            self.inputFileChanged.emit(False)
+            return False
+
+        QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+        self.lineEdit_polygon_file.setText(vector_file)
+        self.inputFileChanged.emit(True)
+
+        self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
+
+        return l
+
+
+class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
+    def __init__(self, parent=None):
+        super(LoadDataSelectRasterOutput, self).__init__(parent)
+        self.setupUi(self)
+
+        self.btn_output_file_browse.clicked.connect(self.save_raster)
+
+    def save_raster(self):
+        self.lineEdit_output_file.clear()
+
+        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+                                                        self.tr('Choose a name for the output file'),
+                                                        QSettings().value("LDMP/output_dir", None),
+                                                        self.tr('Raster file (*.tif)'))
+        if os.access(raster_file, os.W_OK):
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+            self.lineEdit_output_file.setText(raster_file)
+            return True
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
+            return False
+
+
+class DlgLoadDataBase(QtGui.QDialog):
+    """Base class for individual data loading dialogs"""
+    def __init__(self, parent=None):
+        super(DlgLoadDataBase, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.input_widget = LoadDataSelectFileInputWidget()
+        self.verticalLayout.insertWidget(0, self.input_widget)
+
+
+class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
+    def __init__(self, parent=None):
+        super(DlgLoadDataLC, self).__init__(parent)
+
+        # This needs to be inserted after the lc definition widget but before 
+        # the button box with ok/cancel
+        self.output_widget = LoadDataSelectRasterOutput()
+        self.verticalLayout.insertWidget(2, self.output_widget)
+
+        self.input_widget.inputFileChanged.connect(self.input_changed)
+        self.input_widget.inputTypeChanged.connect(self.input_changed)
+
+        self.btn_agg_edit_def.clicked.connect(self.agg_edit)
+        self.btn_agg_edit_def.setEnabled(False)
+
+    def input_changed(self, valid):
+        if valid:
+            self.btn_agg_edit_def.setEnabled(True)
+        else:
+            self.btn_agg_edit_def.setEnabled(False)
+
+    def agg_edit(self):
+        if self.input_widget.radio_raster_input.isChecked():
+            f = self.input_widget.lineEdit_raster_file.text()
+            #TODO: Need to display a progress bar onscreen while this is happening
+            values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
+        else:
+            f = self.input_widget.lineEdit_polygon_file.text()
+            l = self.input_widget.get_vector_layer(f)
+            idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
+            values = l.uniqueValues(idx)
+            if len(values) > 50:
+                values = None
+        if values:
+            # Set all of the classes to no data by default
+            classes = [{'Initial_Code':str(value), 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':'-32768'} for value in sorted(values)]
+            self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
+            self.dlg_agg.exec_()
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
+
+
+class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
+    def __init__(self, parent=None):
+        super(DlgLoadDataSOC, self).__init__(parent)
+
+        # This needs to be inserted after the input widget but before the 
+        # button box with ok/cancel
+        self.output_widget = LoadDataSelectRasterOutput()
+        self.verticalLayout.insertWidget(1, self.output_widget)

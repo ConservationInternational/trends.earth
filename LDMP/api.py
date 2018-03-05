@@ -78,7 +78,7 @@ class RequestWorker(AbstractWorker):
 
 
 class Request(object):
-    def __init__(self, url, method='get', payload=None, headers={}):
+    def __init__(self, url, method='get', payload=None, headers={}, server_name='Trends.Earth'):
         self.resp = None
         self.exception = None
 
@@ -86,6 +86,7 @@ class Request(object):
         self.method = method
         self.payload = payload
         self.headers = headers
+        self.server_name = server_name
 
     def start(self):
         try:
@@ -94,7 +95,7 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", 'Contacting trends.earth server...'))
+            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", 'Contacting {} server...'.format(self.server_name)))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
@@ -102,13 +103,13 @@ class Request(object):
             log('API unable to access server - check internet connection')
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Unable to login to trends.earth server. Check your internet connection."))
+                                       QtGui.QApplication.translate("LDMP", "Unable to login to {} server. Check your internet connection.".format(self.server_name)))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Unable to connect to trends.earth server."))
+                                       QtGui.QApplication.translate("LDMP", "Unable to connect to {} server.".format(self.server_name)))
             resp = None
 
     def save_resp(self, resp):

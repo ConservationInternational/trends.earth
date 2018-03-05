@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>394</width>
-    <height>135</height>
+    <width>300</width>
+    <height>103</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,12 +32,12 @@
       </font>
      </property>
      <property name="text">
-      <string>Choose a type of report:</string>
+      <string>Reporting and mapping tools:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="btn_sdg">
+    <widget class="QPushButton" name="btn_basemap">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -45,7 +45,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Calculate SDG Indicator 15.3.1</string>
+      <string>Add Basemap</string>
      </property>
     </widget>
    </item>

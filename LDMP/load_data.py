@@ -206,7 +206,7 @@ def get_results(json_file):
         return None
 
     # Check accompanying tif file(s) are there:
-    if len(results['urls']['files']) > 1:
+    if len(results['urls']) > 1:
         # If more than one file is returned by GEE, then trends.earth will
         # write a virtual raster table listing these files
         data_file = os.path.splitext(json_file)[0] + '.vrt'

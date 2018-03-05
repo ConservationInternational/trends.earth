@@ -15,6 +15,7 @@
 import os
 import json
 import re
+import base64
 
 import datetime
 from PyQt4 import QtGui
@@ -292,10 +293,12 @@ def download_result(url, outfile, job, expected_etag):
 
 def download_cloud_results(job, f, tr):
     results = job['results']
-    if len(results['urls']['files']) > 1:
+    if len(results['urls']) > 1:
         raise DownloadError('GEE tasks resulting in multiple output files are not yet supported by trends.earth.')
     out_file = f + '.tif'
-    resp = download_result(results['urls']['base'] + '/' + results['urls']['files'][0], out_file, job)
+    for url in results['urls']:
+        resp = download_result(url['url'], out_file, job, 
+                               base64.b64decode(url['md5Hash']).hex())
     if not resp:
         return
     else:

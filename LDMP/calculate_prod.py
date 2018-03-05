@@ -161,7 +161,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         else:
             climate_gee_dataset = None
 
-        payload = {'calc_traj': self.groupBox_traj.isChecked(),
+        if self.mode_te_prod.isChecked():
+            prod_mode = 'Trends.Earth productivity'
+        else:
+            prod_mode = 'JRC LPD'
+
+        payload = {'prod_mode': prod_mode,
+                   'calc_traj': self.groupBox_traj.isChecked(),
                    'calc_perf': self.groupBox_perf.isChecked(),
                    'calc_state': self.groupBox_state.isChecked(),
                    'prod_traj_year_initial': self.traj_year_start.date().year(),

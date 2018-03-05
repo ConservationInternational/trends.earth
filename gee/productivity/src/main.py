@@ -16,11 +16,13 @@ from landdegradation.productivity import productivity_trajectory, \
     productivity_performance, productivity_state
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
+from landdegradation.download import download
 
 
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
+    prod_mode = params.get('prod_mode')
     calc_traj = params.get('calc_traj')
     calc_state = params.get('calc_state')
     calc_perf = params.get('calc_perf')
@@ -45,33 +47,40 @@ def run(params, logger):
 
     logger.debug("Running productivity indicators.")
 
-    out = None
-    if calc_traj:
-        traj = productivity_trajectory(prod_traj_year_initial, 
-                                       prod_traj_year_final, prod_traj_method,
-                                       ndvi_gee_dataset, climate_gee_dataset, 
-                                       logger)
-        if not out:
-            out = traj
-    
-    if calc_perf:
-        perf = productivity_performance(prod_perf_year_initial, 
-                                        prod_perf_year_final, ndvi_gee_dataset, 
-                                        geojson, EXECUTION_ID, logger)
-        if not out:
-            out = perf
-        else:
-            out.merge(perf)
-    if calc_state:
-        state = productivity_state(prod_state_year_bl_start, 
-                                   prod_state_year_bl_end, 
-                                   prod_state_year_tg_start, 
-                                   prod_state_year_tg_end,
-                                   ndvi_gee_dataset, EXECUTION_ID, logger)
-        if not out:
-            out = state
-        else:
-            out.merge(state)
+    if prod_mode == 'Trends.Earth productivity':
+        out = None
+        if calc_traj:
+            traj = productivity_trajectory(prod_traj_year_initial, 
+                                           prod_traj_year_final, prod_traj_method,
+                                           ndvi_gee_dataset, climate_gee_dataset, 
+                                           logger)
+            if not out:
+                out = traj
+        
+        if calc_perf:
+            perf = productivity_performance(prod_perf_year_initial, 
+                                            prod_perf_year_final, ndvi_gee_dataset, 
+                                            geojson, EXECUTION_ID, logger)
+            if not out:
+                out = perf
+            else:
+                out.merge(perf)
+        if calc_state:
+            state = productivity_state(prod_state_year_bl_start, 
+                                       prod_state_year_bl_end, 
+                                       prod_state_year_tg_start, 
+                                       prod_state_year_tg_end,
+                                       ndvi_gee_dataset, EXECUTION_ID, logger)
+            if not out:
+                out = state
+            else:
+                out.merge(state)
+    elif prod_mode == 'JRC LPD':
+        out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
+                       'Land Productivity Dynamics (LPD)', 'one time', 
+                       None, None, EXECUTION_ID, logger)
+    else:
+        raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
 
     # out.selectBands(['Productivity trajectory (significance)',
     #                  'Productivity performance (degradation)',

@@ -79,6 +79,8 @@ def run(params, logger):
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time', 
                        None, None, EXECUTION_ID, logger)
+        # Save as int16 to be compatible with other data
+        out.image = out.image.int16()
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
 

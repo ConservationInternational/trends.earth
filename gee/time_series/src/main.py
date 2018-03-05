@@ -15,8 +15,6 @@ import json
 
 import ee
 
-from landdegradation import stats
-
 from LDMP.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 from landdegradation.productivity import productivity_trajectory
 

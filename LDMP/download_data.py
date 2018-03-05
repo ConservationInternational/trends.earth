@@ -127,8 +127,8 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
                        'asset': self.datasets[row]['GEE Dataset'],
                        'name': self.datasets[row]['title'],
                        'temporal_resolution': self.datasets[row]['Temporal resolution'],
-                       'task_name': self.task_name.text(),
-                       'task_notes': self.task_notes.toPlainText()}
+                       'task_name': self.options_tab.task_name.text(),
+                       'task_notes': self.options_tab.task_notes.toPlainText()}
 
             resp = run_script(get_script_slug('download-data'), payload)
 

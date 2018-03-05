@@ -151,10 +151,12 @@ style_text_dict = {
 
     # Degradation SDG final layer
     'sdg_prod_combined_title': tr('Productivity degradation (combined - SDG 15.3.1)'),
-    'sdg_prod_combined_deg_deg': tr('Degradation'),
-    'sdg_prod_combined_deg_stable': tr('Stable'),
-    'sdg_prod_combined_deg_imp': tr('Improvement'),
-    'sdg_prod_combined_deg_nodata': tr('No data'),
+    'sdg_prod_combined_declining': tr('Declining'),
+    'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
+    'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
+    'sdg_prod_combined_stab': tr('Stable'),
+    'sdg_prod_combined_imp': tr('Improvement'),
+    'sdg_prod_combined_nodata': tr('No data'),
 
     'combined_sdg_title': tr('Degradation (combined - SDG 15.3.1)'),
     'combined_sdg_deg_deg': tr('Degradation'),

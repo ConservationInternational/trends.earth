@@ -288,16 +288,18 @@
             ]
         }
     },
-    "sdg productivity combined": {
+    "SDG productivity combined": {
         "title": "sdg_prod_combined_title",
         "ramp": {
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "sdg_prod_combined_deg_nodata"},
-                {"value": -1, "color": "#AB2727", "label": "sdg_prod_combined_deg_deg"},
-                {"value": 0, "color": "#FFFFE0", "label": "sdg_prod_combined_deg_stable"},
-                {"value": 1, "color": "#45A146", "label": "sdg_prod_combined_deg_imp"}
+                {"value": -32768, "color": "#000000", "label": "sdg_prod_combined_nodata"},
+                {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
+                {"value": 2, "color": "#AB2727", "label": "sdg_prod_combined_earlysigns"},
+                {"value": 3, "color": "#AB2727", "label": "sdg_prod_combined_stabbutstress"},
+                {"value": 4, "color": "#FFFFE0", "label": "sdg_prod_combined_stab"},
+                {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
             ]
         }
     }

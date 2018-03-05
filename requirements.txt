@@ -2,5 +2,6 @@ httplib2==0.10.3
 requests==2.18.4
 pyqtgraph>=0.10
 openpyxl>=2.4.9
+marshmallow
 
 # test requirements

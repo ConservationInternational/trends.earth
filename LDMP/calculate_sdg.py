@@ -20,8 +20,6 @@ import numpy as np
 
 from osgeo import ogr, osr, gdal
 
-from trendsearth_schemas.schemas import BandInfo, FileList, LocalResults, LocalResultsSchema
-
 import openpyxl
 from openpyxl.drawing.image import Image
 
@@ -44,6 +42,7 @@ from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.load_data import get_results
 from LDMP.plot import DlgPlotBars
+from ldmp.schemas import FileList, LocalResults, LocalResultsSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap

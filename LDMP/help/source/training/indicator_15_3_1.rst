@@ -35,23 +35,68 @@ Sub-indicators
 Productivity
 ~~~~~~~~~~~~
 
+
 .. image:: /static/training/indicator_15_3_1_prod_subindicators.png
    :align: center
 
+      
 Productivity Trajectory
 ^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: /static/documentation/computing_indicators/lp_traj_flow.PNG
+   :align: center
+
+.. image:: /static/documentation/computing_indicators/lp_restrend.PNG
+   :align: center
+
+.. image:: /static/documentation/computing_indicators/lp_traj_variables.PNG
+   :align: center
+
 
 Productivity Performance
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. image:: /static/documentation/computing_indicators/lp_perf_flow.PNG
+   :align: center
+
+.. image:: /static/documentation/computing_indicators/lp_perf_variables.PNG
+   :align: center
+
 Productivity State
 ^^^^^^^^^^^^^^^^^^
+
+.. image:: /static/documentation/computing_indicators/lp_state_flow.PNG
+   :align: center
+
+.. image:: /static/documentation/computing_indicators/lp_state_variables.PNG
+   :align: center
+
+
+Combining Productivity Indicators
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: /static/documentation/computing_indicators/lp_aggregation.PNG
+   :align: center
 
 Land cover
 ~~~~~~~~~~
 
+.. image:: /static/documentation/computing_indicators/lc_flow.PNG
+   :align: center
+
+.. image:: /static/documentation/computing_indicators/lc_matrix.PNG
+   :align: center
+
 Soil organic carbon
 ~~~~~~~~~~~~~~~~~~~
 
+.. image:: /static/documentation/computing_indicators/soc.PNG
+   :align: center
+
 Combining indicators
 --------------------
+
+.. image:: /static/documentation/computing_indicators/sdg_aggregation.PNG
+   :align: center
+
+

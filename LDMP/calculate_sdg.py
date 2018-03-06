@@ -41,7 +41,7 @@ from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.jobs import create_local_json_metadata
-from LDMP.load_data import get_results
+from LDMP.load_data import get_results, add_layer
 from LDMP.plot import DlgPlotBars
 from LDMP.schemas.schemas import BandInfo
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
@@ -259,6 +259,7 @@ class DegradationWorkerSDG(AbstractWorker):
 
         self.src_file = src_file
         self.deg_file = deg_file
+        self.prod_mode = prod_mode
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -266,22 +267,33 @@ class DegradationWorkerSDG(AbstractWorker):
 
         src_ds = gdal.Open(self.src_file)
 
-        traj_band = src_ds.GetRasterBand(1)
-        perf_band = src_ds.GetRasterBand(2)
-        state_band = src_ds.GetRasterBand(3)
-        lc_band = src_ds.GetRasterBand(8)
-        soc_band = src_ds.GetRasterBand(9)
+        if self.prod_mode == 'Trends.Earth productivity':
+            traj_band = src_ds.GetRasterBand(1)
+            perf_band = src_ds.GetRasterBand(2)
+            state_band = src_ds.GetRasterBand(3)
+            lc_band = src_ds.GetRasterBand(8)
+            soc_band = src_ds.GetRasterBand(9)
+            block_sizes = traj_band.GetBlockSize()
+            xsize = traj_band.XSize
+            ysize = traj_band.YSize
+            # Save the combined productivity indicator as well, in the second  
+            # layer in the deg file
+            n_out_bands = 2
+        else:
+            lpd_band = src_ds.GetRasterBand(1)
+            lc_band = src_ds.GetRasterBand(6)
+            soc_band = src_ds.GetRasterBand(7)
+            block_sizes = lc_band.GetBlockSize()
+            xsize = lc_band.XSize
+            ysize = lc_band.YSize
+            n_out_bands = 1
 
-        block_sizes = traj_band.GetBlockSize()
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
-        xsize = traj_band.XSize
-        ysize = traj_band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        # Save the combined productivity indicator as well, in the second  
-        # layer in the deg file
-        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, 2, gdal.GDT_Int16, ['COMPRESS=LZW'])
+        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, n_out_bands, 
+                                   gdal.GDT_Int16, ['COMPRESS=LZW'])
 
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
@@ -289,8 +301,6 @@ class DegradationWorkerSDG(AbstractWorker):
         dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
         dst_ds_deg.SetProjection(dst_srs.ExportToWkt())
 
-        xsize = traj_band.XSize
-        ysize = traj_band.YSize
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
             if self.killed:
@@ -307,61 +317,67 @@ class DegradationWorkerSDG(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                # TODO: Could make this cleaner by reading all four bands at
-                # same time from VRT
-                traj_array = traj_band.ReadAsArray(x, y, cols, rows)
-                state_array = state_band.ReadAsArray(x, y, cols, rows)
-                perf_array = perf_band.ReadAsArray(x, y, cols, rows)
+                if self.prod_mode == 'Trends.Earth productivity':
+                    traj_array = traj_band.ReadAsArray(x, y, cols, rows)
+                    state_array = state_band.ReadAsArray(x, y, cols, rows)
+                    perf_array = perf_band.ReadAsArray(x, y, cols, rows)
+
+                    ##############
+                    # Productivity
+                    
+                    # Capture trends that are at least 95% significant.
+                    # Remember that traj is coded as:
+                    # -3: 99% signif decline
+                    # -2: 95% signif decline
+                    # -1: 90% signif decline
+                    #  0: stable
+                    #  1: 90% signif increase
+                    #  2: 95% signif increase
+                    #  3: 99% signif increase
+                    traj_array[traj_array == -1] = 0 # not signif at 95%
+                    traj_array[traj_array == 1] = 0 # not signif at 95%
+                    traj_array[np.logical_and(traj_array >= -3, traj_array <= -2)] = -3
+                    traj_array[np.logical_and(traj_array >= 2, traj_array <= 3)] = 2
+
+                    deg = traj_array
+
+                    ##
+                    # Handle state and performance.
+                    
+                    # traj = imp, state=deg, perf=deg
+                    deg[np.logical_and(traj_array == -1, np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10), perf_array == -1)] = 0
+                    # traj = stable, state=imp, perf=stable or deg
+                    deg[np.logical_and(traj_array == 0, state_array >= 2)] = 1
+                    # traj = stable, state=stable, perf=deg
+                    deg[np.logical_and(traj_array == 0, state_array >= 2)] = -1
+                    # traj = stable, state=deg, perf=stable
+                    deg[np.logical_and(traj_array == 0, np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10), perf_array == 1)] = -2
+
+                    ##
+                    # Handle NAs
+                    
+                    # Ensure NAs carry over to productivity indicator layer
+                    deg[traj_array == -32768] = -32768
+                    deg[perf_array == -32768] = -32768
+                    deg[state_array == -32768] = -32768
+
+                    # Ensure masked areas carry over to productivity indicator 
+                    # layer
+                    deg[traj_array == -32767] = -32767
+                    deg[perf_array == -32767] = -32767
+                    deg[state_array == -32767] = -32767
+
+                    # Save combined productivity indicator for later visualization
+                    dst_ds_deg.GetRasterBand(2).WriteArray(deg, x, y)
+                else:
+                    lpd_array = lpd_band.ReadAsArray(x, y, cols, rows)
+                    deg = lpd_array
+                    # Below is temporary until missing data values are fixed in 
+                    # LPD layer on GEE
+                    deg[deg == 0] = -32768
+
                 lc_array = lc_band.ReadAsArray(x, y, cols, rows)
                 soc_array = soc_band.ReadAsArray(x, y, cols, rows)
-
-                ##############
-                # Productivity
-                
-                # Capture trends that are at least 95% significant.
-                # Remember that traj is coded as:
-                # -3: 99% signif decline
-                # -2: 95% signif decline
-                # -1: 90% signif decline
-                #  0: stable
-                #  1: 90% signif increase
-                #  2: 95% signif increase
-                #  3: 99% signif increase
-                traj_array[traj_array == -1] = 0 # not signif at 95%
-                traj_array[traj_array == 1] = 0 # not signif at 95%
-                traj_array[np.logical_and(traj_array >= -3, traj_array <= -2)] = -3
-                traj_array[np.logical_and(traj_array >= 2, traj_array <= 3)] = 2
-
-                deg = traj_array
-
-                ##
-                # Handle state and performance.
-                
-                # traj = imp, state=deg, perf=deg
-                deg[np.logical_and(traj_array == -1, np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10), perf_array == -1)] = 0
-                # traj = stable, state=imp, perf=stable or deg
-                deg[np.logical_and(traj_array == 0, state_array >= 2)] = 1
-                # traj = stable, state=stable, perf=deg
-                deg[np.logical_and(traj_array == 0, state_array >= 2)] = -1
-                # traj = stable, state=deg, perf=stable
-                deg[np.logical_and(traj_array == 0, np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10), perf_array == 1)] = -2
-
-                ##
-                # Handle NAs
-                
-                # Ensure NAs carry over to productivity indicator layer
-                deg[traj_array == -32768] = -32768
-                deg[perf_array == -32768] = -32768
-                deg[state_array == -32768] = -32768
-
-                # Ensure masked areas carry over to productivity indicator 
-                # layer
-                deg[traj_array == -32767] = -32767
-                deg[perf_array == -32767] = -32767
-                deg[state_array == -32767] = -32767
-
-                # Save combined productivity indicator for later visualization
-                dst_ds_deg.GetRasterBand(2).WriteArray(deg, x, y)
 
                 #############
                 # Land cover
@@ -390,17 +406,23 @@ class DegradationWorkerSDG(AbstractWorker):
                 # case values from another layer overwrote those missing value 
                 # indicators.
                 
-                # No data
-                deg[traj_array == -32768] = -32768
-                deg[perf_array == -32768] = -32768
-                deg[state_array == -32768] = -32768
+                if self.prod_mode == 'Trends.Earth productivity':
+                    # No data
+                    deg[traj_array == -32768] = -32768
+                    deg[perf_array == -32768] = -32768
+                    deg[state_array == -32768] = -32768
+                else:
+                    deg[lpd_array == -32767] = -32767
                 deg[lc_array == -32768] = -32768
                 deg[soc_array == -32768] = -32768
 
-                # Masked areas
-                deg[traj_array == -32767] = -32767
-                deg[perf_array == -32767] = -32767
-                deg[state_array == -32767] = -32767
+                if self.prod_mode == 'Trends.Earth productivity':
+                    # Masked areas
+                    deg[traj_array == -32767] = -32767
+                    deg[perf_array == -32767] = -32767
+                    deg[state_array == -32767] = -32767
+                else:
+                    deg[lpd_array == -32767] = -32767
                 deg[lc_array == -32767] = -32767
                 deg[soc_array == -32767] = -32767
 
@@ -819,21 +841,22 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot write to {}. Choose a different file.".format(f), None))
 
-    def get_resample_alg(self, lc_f, traj_f):
+    def get_resample_alg(self, lc_f, prod_f):
         ds_lc = gdal.Open(lc_f)
-        ds_traj = gdal.Open(traj_f)
+        ds_prod = gdal.Open(prod_f)
         # If prod layers are lower res than the lc layer, then resample lc
         # using the mode. Otherwise use nearest neighbor:
         lc_gt = ds_lc.GetGeoTransform()
-        traj_gt = ds_traj.GetGeoTransform()
-        if lc_gt[1] < traj_gt[1]:
-            # If the land cover is finer than the trajectory res, use mode to
+        prod_gt = ds_prod.GetGeoTransform()
+        if lc_gt[1] < prod_gt[1]:
+            # If the land cover is finer than the prodectory res, use mode to
             # match the lc to the lower res productivity data
             log('Resampling with: mode, lowest')
             return('lowest', gdal.GRA_Mode)
         else:
-            # If the land cover is coarser than the trajectory res, use nearest
-            # neighbor and match the lc to the higher res productivity data
+            # If the land cover is coarser than the productivity res, use 
+            # nearest neighbor and match the lc to the higher res productivity 
+            # data
             log('Resampling with: nearest neighour, highest')
             return('highest', gdal.GRA_NearestNeighbour)
 
@@ -1034,17 +1057,20 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
         # Use this instead of croptocutline in gdal.Warp in order to keep the
-        # pixels aligned.
+        # pixels aligned with the chosen productivity layer.
         bb = self.aoi.bounding_box_geom().boundingBox()
         minx = bb.xMinimum()
         miny = bb.yMinimum()
         maxx = bb.xMaximum()
         maxy = bb.yMaximum()
-        traj_gt = gdal.Open(traj_f).GetGeoTransform()
-        left = minx - (minx - traj_gt[0]) % traj_gt[1]
-        right = maxx + (traj_gt[1] - ((maxx - traj_gt[0]) % traj_gt[1]))
-        bottom = miny + (traj_gt[5] - ((miny - traj_gt[3]) % traj_gt[5]))
-        top = maxy - (maxy - traj_gt[3]) % traj_gt[5]
+        if prod_mode == 'Trends.Earth productivity':
+            gt = gdal.Open(traj_f).GetGeoTransform()
+        else:
+            gt = gdal.Open(lpd_f).GetGeoTransform()
+        left = minx - (minx - gt[0]) % gt[1]
+        right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
+        bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
+        top = maxy - (maxy - gt[3]) % gt[5]
         self.outputBounds = [left, bottom, right, top]
 
         #######################################################################
@@ -1059,40 +1085,40 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         log('Saving indicator VRT to: {}'.format(indic_vrt))
         # Both SOC and LC are near the same resolution, so resample them in the 
         # same way
-        resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
         if prod_mode == 'Trends.Earth productivity':
+            resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
             gdal.BuildVRT(indic_vrt,
-                          [traj_f,
-                           perf_f,
-                           state_f,
-                           lc_bl_f,
-                           lc_tg_f,
-                           soc_bl_f,
-                           soc_tg_f,
-                           lc_deg_f,
-                           soc_deg_f],
+                          [traj_f,      # 1
+                           perf_f,      # 2
+                           state_f,     # 3
+                           lc_bl_f,     # 4 
+                           lc_tg_f,     # 5
+                           soc_bl_f,    # 6
+                           soc_tg_f,    # 7
+                           lc_deg_f,    # 8
+                           soc_deg_f],  # 9
                           outputBounds=self.outputBounds,
                           resolution=resample_alg[0],
                           resampleAlg=resample_alg[1],
                           separate=True)
         else:
+            resample_alg = self.get_resample_alg(lc_bl_f, lpd_f)
             gdal.BuildVRT(indic_vrt,
-                          [lpd_f,
-                           lc_bl_f,
-                           lc_tg_f,
-                           soc_bl_f,
-                           soc_tg_f,
-                           lc_deg_f,
-                           soc_deg_f],
+                          [lpd_f,       # 1
+                           lc_bl_f,     # 2 
+                           lc_tg_f,     # 3
+                           soc_bl_f,    # 4
+                           soc_tg_f,    # 5
+                           lc_deg_f,    # 6
+                           soc_deg_f],  # 7
                           outputBounds=self.outputBounds,
                           resolution=resample_alg[0],
                           resampleAlg=resample_alg[1],
                           separate=True)
         masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
         log('Saving deg/lc clipped file to {}'.format(masked_vrt))
-        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers',
-                                         indic_vrt,
-                                         masked_vrt, self.aoi.layer)
+        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
+                                         indic_vrt, masked_vrt, self.aoi.l)
         if not deg_lc_clip_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error masking SDG 15.3.1 input layers."), None)
@@ -1101,7 +1127,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         ######################################################################
         #  Calculate SDG 15.3.1 layers
         log('Calculating degradation...')
-        output_sdg_json = output_file_layer.text(f)
+        output_sdg_json = self.output_file_layer.text()
         output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
         deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
                                  masked_vrt, output_sdg_tif, prod_mode)
@@ -1113,6 +1139,8 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                                 BandInfo("SDG 15.3.1 Productivity Indicator")]
         create_local_json_metadata(output_sdg_json, 'SDG 15.3.1 Indicator', 
                                    output_sdg_bandinfos, [output_sdg_tif])
+        #TODO: Temporary for testing
+        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0])
 
         #######################################################################
         #######################################################################
@@ -1154,9 +1182,9 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                            self.output_file_table.text())
 
         # Add the SDG layers to the map
-        add_layer(f, 1, output_sdg_bandinfos[0])
+        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0])
         if prod_mode == 'Trends.Earth productivity':
-            add_layer(f, 2, output_sdg_bandinfos[1])
+            add_layer(output_sdg_tif, 2, output_sdg_bandinfos[1])
 
         self.plot_degradation(x, y)
 

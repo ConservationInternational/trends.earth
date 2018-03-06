@@ -267,12 +267,12 @@ class DegradationWorkerSDG(AbstractWorker):
 
         src_ds = gdal.Open(self.src_file)
 
+        lc_band = src_ds.GetRasterBand(5)
+        soc_band = src_ds.GetRasterBand(6)
         if self.prod_mode == 'Trends.Earth productivity':
-            traj_band = src_ds.GetRasterBand(1)
-            perf_band = src_ds.GetRasterBand(2)
-            state_band = src_ds.GetRasterBand(3)
-            lc_band = src_ds.GetRasterBand(8)
-            soc_band = src_ds.GetRasterBand(9)
+            traj_band = src_ds.GetRasterBand(7)
+            perf_band = src_ds.GetRasterBand(8)
+            state_band = src_ds.GetRasterBand(9)
             block_sizes = traj_band.GetBlockSize()
             xsize = traj_band.XSize
             ysize = traj_band.YSize
@@ -280,9 +280,7 @@ class DegradationWorkerSDG(AbstractWorker):
             # layer in the deg file
             n_out_bands = 2
         else:
-            lpd_band = src_ds.GetRasterBand(1)
-            lc_band = src_ds.GetRasterBand(6)
-            soc_band = src_ds.GetRasterBand(7)
+            lpd_band = src_ds.GetRasterBand(7)
             block_sizes = lc_band.GetBlockSize()
             xsize = lc_band.XSize
             ysize = lc_band.YSize
@@ -546,22 +544,21 @@ def merge_area_tables(table1, table2):
 
 
 class AreaWorker(AbstractWorker):
-    def __init__(self, masked_f, deg_sdg_f, deg_prod_f):
+    def __init__(self, masked_f, deg_f):
         AbstractWorker.__init__(self)
         self.masked_f = masked_f
-        self.deg_sdg_f = deg_sdg_f
-        self.deg_prod_f = deg_prod_f
+        self.deg_f = deg_f
 
     def work(self):
         ds_deg_sdg = gdal.Open(self.deg_sdg_f)
         band_deg_sdg = ds_deg_sdg.GetRasterBand(1)
-        ds_deg_prod = gdal.Open(self.deg_prod_f)
-        band_deg_prod = ds_deg_prod.GetRasterBand(1)
+        band_deg_prod = ds_deg_sdg.GetRasterBand(2)
+
         ds_masked = gdal.Open(self.masked_f)
-        band_lc_bl = ds_masked.GetRasterBand(4)
-        band_lc_tg = ds_masked.GetRasterBand(5)
-        band_soc_bl = ds_masked.GetRasterBand(6)
-        band_soc_tg = ds_masked.GetRasterBand(7)
+        band_lc_bl = ds_masked.GetRasterBand(1)
+        band_lc_tg = ds_masked.GetRasterBand(2)
+        band_soc_bl = ds_masked.GetRasterBand(3)
+        band_soc_tg = ds_masked.GetRasterBand(4)
 
         block_sizes = band_deg_sdg.GetBlockSize()
         x_block_size = block_sizes[0]
@@ -1028,6 +1025,14 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             lpd_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
             gdal.BuildVRT(lpd_f, self.layer_lpd.dataProvider().dataSourceUri(),
                           bandList=[self.layer_lpd_bandnumber])
+            #TODO: Temporary for testing
+            # test_bandinfo = [BandInfo("Land Productivity Dynamics (LPD)")]
+            # create_local_json_metadata('C:/Users/azvol/Desktop/test_output.json',
+            #                            'Test layer', 
+            #                            test_bandinfo,
+            #                            ['C:/Users/azvol/Desktop/test_output.tif'],
+            #                            'vrt')
+            # log('band info: {}'.format(test_bandinfo[0].getDict()))
 
         # Select lc and SOC bands using bandlist since BuildVrt will otherwise 
         # only use the first band of the file
@@ -1088,15 +1093,15 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         if prod_mode == 'Trends.Earth productivity':
             resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
             gdal.BuildVRT(indic_vrt,
-                          [traj_f,      # 1
-                           perf_f,      # 2
-                           state_f,     # 3
-                           lc_bl_f,     # 4 
-                           lc_tg_f,     # 5
-                           soc_bl_f,    # 6
-                           soc_tg_f,    # 7
-                           lc_deg_f,    # 8
-                           soc_deg_f],  # 9
+                          [lc_bl_f,     # 1
+                           lc_tg_f,     # 2
+                           soc_bl_f,    # 3
+                           soc_tg_f,    # 4
+                           lc_deg_f,    # 5
+                           soc_deg_f,   # 6
+                           traj_f,      # 7
+                           perf_f,      # 8
+                           state_f],    # 9
                           outputBounds=self.outputBounds,
                           resolution=resample_alg[0],
                           resampleAlg=resample_alg[1],
@@ -1104,13 +1109,13 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         else:
             resample_alg = self.get_resample_alg(lc_bl_f, lpd_f)
             gdal.BuildVRT(indic_vrt,
-                          [lpd_f,       # 1
-                           lc_bl_f,     # 2 
-                           lc_tg_f,     # 3
-                           soc_bl_f,    # 4
-                           soc_tg_f,    # 5
-                           lc_deg_f,    # 6
-                           soc_deg_f],  # 7
+                          [lc_bl_f,     # 1
+                           lc_tg_f,     # 2
+                           soc_bl_f,    # 3
+                           soc_tg_f,    # 4
+                           lc_deg_f,    # 5
+                           soc_deg_f,   # 6
+                           lpd_f]       # 7
                           outputBounds=self.outputBounds,
                           resolution=resample_alg[0],
                           resampleAlg=resample_alg[1],
@@ -1139,8 +1144,6 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                                 BandInfo("SDG 15.3.1 Productivity Indicator")]
         create_local_json_metadata(output_sdg_json, 'SDG 15.3.1 Indicator', 
                                    output_sdg_bandinfos, [output_sdg_tif])
-        #TODO: Temporary for testing
-        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0])
 
         #######################################################################
         #######################################################################
@@ -1148,20 +1151,12 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         #######################################################################
         #######################################################################
 
-        # The combined degradation indicator is band 1 of the output file
-        deg_sdg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(deg_sdg_f, output_sdg_tif, bandList=[1])
-
-        # The productivity degradation indicator is band 2 of the output file
-        deg_prod_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(deg_prod_f, output_sdg_tif, bandList=[2])
-
         ######################################################################
         # Calculate area crosstabs
 
         log('Calculating land cover crosstabulation...')
         area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, 
-                                  deg_sdg_f, deg_prod_f)
+                                  output_sdg_tif)
         if not area_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)
@@ -1182,9 +1177,9 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                            self.output_file_table.text())
 
         # Add the SDG layers to the map
-        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0])
+        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0].getDict())
         if prod_mode == 'Trends.Earth productivity':
-            add_layer(output_sdg_tif, 2, output_sdg_bandinfos[1])
+            add_layer(output_sdg_tif, 2, output_sdg_bandinfos[1].getDict())
 
         self.plot_degradation(x, y)
 

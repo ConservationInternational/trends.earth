@@ -1115,7 +1115,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                            soc_tg_f,    # 4
                            lc_deg_f,    # 5
                            soc_deg_f,   # 6
-                           lpd_f]       # 7
+                           lpd_f],      # 7
                           outputBounds=self.outputBounds,
                           resolution=resample_alg[0],
                           resampleAlg=resample_alg[1],

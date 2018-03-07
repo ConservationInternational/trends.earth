@@ -42,7 +42,6 @@ from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.jobs import create_local_json_metadata
 from LDMP.load_data import get_file_metadata, add_layer
-from LDMP.plot import DlgPlotBars
 from LDMP.schemas.schemas import BandInfo
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
@@ -672,17 +671,18 @@ class AreaWorker(AbstractWorker):
                 soc_tg_totals_table = calc_total_table(a_trans, a_soc_tg,
                                                        soc_tg_totals_table, cell_area)
 
-                a_deg_soc = a_soc_tg / a_soc_bl
-                # Mask water areas
-                a_deg_soc[a_lc_tg == 7] = -32767
+                a_soc_frac_chg = a_soc_tg / a_soc_bl
+                # Degradation in terms of SOC is defined as a decline of more 
+                # than 10% (and improving increase greater than 10%)
+                a_deg_soc = a_soc_frac_chg
+                a_deg_soc[np.logical_and(a_soc_frac_chg >= 0, a_soc_frac_chg <= .9)] = -1
+                a_deg_soc[np.logical_and(a_soc_frac_chg > .9, a_soc_frac_chg < 1.1)] = 0
+                a_deg_soc[a_soc_frac_chg >= 1.1] = 1
                 # Carry over areas that were originally masked or no data
                 a_deg_soc[a_soc_tg_masked] = -32767 # Masked areas
                 a_deg_soc[a_soc_tg_nodata] = -32768 # No data
-                # Degradation in terms of SOC is defined as a decline of more 
-                # than 10% (and improving increase greater than 10%)
-                a_deg_soc[np.logical_and(a_deg_soc >= 0, a_deg_soc <= .9)] = -1
-                a_deg_soc[np.logical_and(a_deg_soc > .9, a_deg_soc < 1.1)] = 0
-                a_deg_soc[a_deg_soc >= 1.1] = 1
+                # Mask water areas
+                a_deg_soc[a_lc_tg == 7] = -32767
                 sdg_tbl_soc[0] = sdg_tbl_soc[0] + np.sum(a_deg_soc == 1) * cell_area
                 sdg_tbl_soc[1] = sdg_tbl_soc[1] + np.sum(a_deg_soc == 0) * cell_area
                 sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum(a_deg_soc == -1) * cell_area
@@ -1234,15 +1234,6 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0].getDict())
         if prod_mode == 'Trends.Earth productivity':
             add_layer(output_sdg_tif, 2, output_sdg_bandinfos[1].getDict())
-
-    def plot_degradation(self, x, y):
-        dlg_plot = DlgPlotBars()
-        labels = {'title': self.plot_title.text(),
-                  'bottom': self.tr('Land status'),
-                  'left': [self.tr('Area'), self.tr('km<sup>2</sup>')]}
-        dlg_plot.plot_data(x, y, labels)
-        dlg_plot.show()
-        dlg_plot.exec_()
 
 
 def get_lc_area(table, code):

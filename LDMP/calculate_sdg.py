@@ -544,15 +544,17 @@ def merge_area_tables(table1, table2):
 
 
 class AreaWorker(AbstractWorker):
-    def __init__(self, masked_f, deg_f):
+    def __init__(self, masked_f, deg_sdg_f, deg_prod_f):
         AbstractWorker.__init__(self)
         self.masked_f = masked_f
-        self.deg_f = deg_f
+        self.deg_sdg_f = deg_sdg_f
+        self.deg_prod_f = deg_prod_f
 
     def work(self):
         ds_deg_sdg = gdal.Open(self.deg_sdg_f)
         band_deg_sdg = ds_deg_sdg.GetRasterBand(1)
-        band_deg_prod = ds_deg_sdg.GetRasterBand(2)
+        ds_prod_deg = gdal.Open(self.deg_prod_f)
+        band_deg_prod = ds_prod_deg.GetRasterBand(1)
 
         ds_masked = gdal.Open(self.masked_f)
         band_lc_bl = ds_masked.GetRasterBand(1)
@@ -1152,10 +1154,17 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
         ######################################################################
         # Calculate area crosstabs
+        
+        if prod_mode == 'Trends.Earth productivity':
+            prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            gdal.BuildVRT(prod_deg_f, output_sdg_tif, bandList=[2])
+        else:
+            prod_deg_f = lpd_f
+
 
         log('Calculating land cover crosstabulation...')
         area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, 
-                                  output_sdg_tif)
+                                  output_sdg_tif, prod_deg_f)
         if not area_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating degraded areas."), None)

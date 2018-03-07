@@ -49,9 +49,6 @@ from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
 from LDMP.worker import AbstractWorker, start_worker
 
 
-NUM_CLASSES_STATE_DEG = -2
-
-
 class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
     def __init__(self, parent=None):
         super(DlgCalculateSDGOneStep, self).__init__(parent)
@@ -322,7 +319,9 @@ class DegradationWorkerSDG(AbstractWorker):
                     ##############
                     # Productivity
                     
-                    # Capture trends that are at least 95% significant.
+                    # Recode trajectory into deg, stable, imp. Capture trends 
+                    # that are at least 95% significant.
+                    #
                     # Remember that traj is coded as:
                     # -3: 99% signif decline
                     # -2: 95% signif decline
@@ -331,34 +330,45 @@ class DegradationWorkerSDG(AbstractWorker):
                     #  1: 90% signif increase
                     #  2: 95% signif increase
                     #  3: 99% signif increase
-                    traj_array[traj_array == -1] = 0 # not signif at 95%
-                    traj_array[traj_array == 1] = 0 # not signif at 95%
+                    traj_recode = traj_array.copy()
+                    traj_recode[(traj_array >= -3) & (traj_array < -1)] = -1
+                    # -1 and 1 are not signif at 95%, so stable
+                    traj_recode[(traj_array >= -1) & (traj_array <= 1)] = 0
+                    traj_recode[(traj_array > 1) & (traj_array <= 3)] = 1
+
+                    # Recode state into deg, stable, imp. Note the >= -10 is so 
+                    # no data isn't coded as degradation. More than two changes 
+                    # in class is defined as degradation in state.
+                    state_recode = state_array.copy()
+                    state_recode[(state_array >= -10) & (state_array <= -2)] = -1
+                    state_recode[(state_array > -2) & (state_array < 2)] = 0
+                    state_recode[state_array >= 2] = 1
+
+                    # Coding of LPD (prod5)
+                    # 1: declining
+                    # 2: early signs of decline
+                    # 3: stable but stressed
+                    # 4: stable
+                    # 5: improving
+                    # -32768: no data
+                    prod5 = traj_recode.copy()
 
                     ### LPD: Declining = 1
-                    traj_array[np.logical_and(traj_array >= -3, traj_array <= -2)] = 1
+                    prod5[traj_recode == -1] = 1
+                    ### LPD: Stable = 4
+                    prod5[traj_recode == 0] = 4
                     ### LPD: Improving = 5
-                    traj_array[np.logical_and(traj_array >= 2, traj_array <= 3)] = 5
-
-                    prod5 = traj_array
+                    prod5[traj_recode == 1] = 5
 
                     ##
                     # Handle state and performance.
                     
-                    # Recode state into deg, stable, imp. Note the >= -10 is so 
-                    # no data isn't coded as degradation.
-                    state_array[state_array >= NUM_CLASSES_STATE_DEG] = 1
-                    state_array[np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10)] = -1
-                    
-                    ### LPD: Declining (traj = imp, state=deg, perf=deg)
-                    prod5[np.logical_and(traj_array == -1, state_array == -1, perf_array == -1)] = 1
-                    ### LPD: Stable (traj = stable, state=stable, perf=stable or deg)
-                    prod5[np.logical_and(traj_array == 0, state_array == 0)] = 4
-                    ### LPD: Stable (traj = stable, state=imp, perf=stable or deg)
-                    prod5[np.logical_and(traj_array == 0, state_array == 1)] = 4
-                    ### LPD: Stable but stressed (traj = stable, state=stable, perf=deg)
-                    prod5[np.logical_and(traj_array == 0, state_array == 0, perf_array == -1)] = 3
-                    ### LPD: Early signs of decline (traj = stable, state=deg, perf=stable)
-                    prod5[np.logical_and(traj_array == 0, state_array == -1, perf_array == 1)] = 2
+                    ### LPD: Declining due to agreement in perf and state
+                    prod5[(state_recode == -1) & (perf_array == -1)] = 1
+                    ### LPD: Stable but stressed
+                    prod5[(traj_recode == 0) & (state_recode == 0) & (perf_array == -1)] = 3
+                    ### LPD: Early signs of decline
+                    prod5[(traj_recode == 0) & (state_recode == -1) & (perf_array == 0)] = 2
 
                     ##
                     # Handle NAs
@@ -385,7 +395,7 @@ class DegradationWorkerSDG(AbstractWorker):
 
                 # Recode prod5 as stable, degraded, improved (prod3)
                 prod3 = prod5
-                prod3[np.logical_and(prod5 >= 1, prod5 <= 3)] = -1
+                prod3[(prod5 >= 1) & (prod5 <= 3)] = -1
                 prod3[prod5 == 4] = 0
                 prod3[prod5 == 5] = 1
 
@@ -403,15 +413,15 @@ class DegradationWorkerSDG(AbstractWorker):
                 
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
-                deg[np.logical_and(soc_array <= -10, soc_array >= -100)] = -1
+                deg[(soc_array <= -10) & (soc_array >= -100)] = -1
 
                 #############
                 # Improvement
                 
                 # Allow improvements by lc or soc, only where one of the other 
                 # two indicators doesn't indicate a decline
-                deg[np.logical_and(deg == 0, lc_array == 1)] = 1
-                deg[np.logical_and(deg == 0, np.logical_and(soc_array >= 10, soc_array <= 100))] = 1
+                deg[(deg == 0) & (lc_array == 1)] = 1
+                deg[(deg == 0) & (soc_array >= 10) & (soc_array <= 100)] = 1
 
                 ##############
                 # Missing data
@@ -504,7 +514,7 @@ def calc_total_table(a_trans, a_soc, total_table, cell_area):
         ind = np.where(transitions == transition)
         # Only sum values for this transition, and where soc has a valid value
         # (negative values are missing data flags)
-        vals = a_soc[np.logical_and(a_trans == transition, a_soc > 0)]
+        vals = a_soc[(a_trans == transition) & (a_soc > 0)]
         totals[ind] += np.sum(vals * cell_area)
 
     return list((transitions, totals))
@@ -638,7 +648,7 @@ class AreaWorker(AbstractWorker):
                 a_deg_prod[a_lc_tg == 7] = -32767
                 sdg_tbl_prod[0] = sdg_tbl_prod[0] + np.sum(a_deg_prod == 5) * cell_area
                 sdg_tbl_prod[1] = sdg_tbl_prod[1] + np.sum(a_deg_prod == 4) * cell_area
-                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum(np.logical_and(a_deg_prod >= 1, a_deg_prod <= 3)) * cell_area
+                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum((a_deg_prod >= 1) & (a_deg_prod <= 3)) * cell_area
                 sdg_tbl_prod[3] = sdg_tbl_prod[3] + np.sum(a_deg_prod == -32768) * cell_area
 
                 # Flatten the arrays before passing to xtab
@@ -674,9 +684,9 @@ class AreaWorker(AbstractWorker):
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
                 # than 10% (and improving increase greater than 10%)
-                a_deg_soc = a_soc_frac_chg
-                a_deg_soc[np.logical_and(a_soc_frac_chg >= 0, a_soc_frac_chg <= .9)] = -1
-                a_deg_soc[np.logical_and(a_soc_frac_chg > .9, a_soc_frac_chg < 1.1)] = 0
+                a_deg_soc = a_soc_frac_chg.copy()
+                a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
+                a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
                 a_deg_soc[a_soc_frac_chg >= 1.1] = 1
                 # Carry over areas that were originally masked or no data
                 a_deg_soc[a_soc_tg_masked] = -32767 # Masked areas

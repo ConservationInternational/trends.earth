@@ -1272,7 +1272,10 @@ def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals,
             transition = int('{}{}'.format(classes[row], classes[col]))
             bl_soc = get_soc_total(soc_bl_totals, transition)
             tg_soc = get_soc_total(soc_tg_totals, transition)
-            cell.value = tg_soc - bl_soc
+            try:
+                cell.value = (tg_soc - bl_soc) / bl_soc
+            except ZeroDivisionError:
+                cell.value = ''
     
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
@@ -1377,6 +1380,10 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
 
     write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 26, 3)
 
+    ##########################################################################
+    # Land cover tables
+    ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
+
     ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_sdg.add_image(ws_sdg_logo, 'H1')
     ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
@@ -1385,6 +1392,8 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     ws_soc.add_image(ws_soc_logo, 'H1')
     ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_lc.add_image(ws_lc_logo, 'H1')
+    ws_unccd_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+    ws_unccd.add_image(ws_unccd_logo, 'G1')
 
     try:
         wb.save(out_file)

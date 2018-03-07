@@ -39,6 +39,7 @@ from LDMP.gui.DlgLoadData import Ui_DlgLoadData
 from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
+from LDMP.gui.DlgLoadDataProd import Ui_DlgLoadDataProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, BandInfoSchema
 from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
@@ -423,10 +424,12 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.dlg_loaddata_te = DlgLoadDataTE()
         self.dlg_loaddata_lc = DlgLoadDataLC()
         self.dlg_loaddata_soc = DlgLoadDataSOC()
+        self.dlg_loaddata_prod = DlgLoadDataProd()
 
         self.btn_te.clicked.connect(self.run_te)
         self.btn_lc.clicked.connect(self.run_lc)
         self.btn_soc.clicked.connect(self.run_soc)
+        self.btn_prod.clicked.connect(self.run_prod)
 
     def run_te(self):
         self.dlg_loaddata_te.show()
@@ -438,6 +441,10 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
     def run_soc(self):
         self.dlg_loaddata_soc.show()
+        self.close()
+
+    def run_prod(self):
+        self.dlg_loaddata_prod.show()
         self.close()
 
 class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
@@ -475,8 +482,8 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         if m:
             details_dlg.task_name.setText(m.get('task_name', ''))
             details_dlg.comments.setText(m.get('task_notes', ''))
-            details_dlg.input.setText(json.dumps(m.get(['params'], {}), indent=4, sort_keys=True))
-            details_dlg.output.setText(json.dumps(m.get(m['results'], {}), indent=4, sort_keys=True))
+            details_dlg.input.setText(json.dumps(m.get('params', {}), indent=4, sort_keys=True))
+            details_dlg.output.setText(json.dumps(m.get('results', {}), indent=4, sort_keys=True))
             details_dlg.show()
             details_dlg.exec_()
         else:
@@ -740,6 +747,16 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):
         super(DlgLoadDataSOC, self).__init__(parent)
+
+        # This needs to be inserted after the input widget but before the 
+        # button box with ok/cancel
+        self.output_widget = LoadDataSelectRasterOutput()
+        self.verticalLayout.insertWidget(1, self.output_widget)
+
+
+class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
+    def __init__(self, parent=None):
+        super(DlgLoadDataProd, self).__init__(parent)
 
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel

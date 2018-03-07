@@ -64,10 +64,9 @@ def create_local_json_metadata(f, name, bands, out_files, metadata={},
                            file_format)
     results_schema = LocalResultsSchema()
     json_results = results_schema.dump(results)
-    json_results.data
     with open(f, 'w') as outfile:
-        json.dump(d, outfile, default=json_serial, sort_keys=True,
-                  indent=4, separators=(',', ': '))
+        json.dump(json_results.data, outfile, default=json_serial, 
+                  sort_keys=True, indent=4, separators=(',', ': '))
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):

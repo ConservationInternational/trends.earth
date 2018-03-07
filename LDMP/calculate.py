@@ -448,8 +448,8 @@ class DlgCalculateBase(QtGui.QDialog):
 
         # By default, don't show area from point selector
         self.area_tab.show_areafrom_point_toggle(False)
-        # By default, show custom crs groupBox
-        self.area_tab.groupBox_custom_crs.show()
+        # By default, don't show custom crs groupBox
+        self.area_tab.groupBox_custom_crs.hide()
 
     def firstShow(self):
         self.button_calculate.clicked.connect(self.btn_calculate)

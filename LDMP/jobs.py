@@ -15,6 +15,7 @@
 import os
 import json
 import re
+import copy
 import base64
 
 import datetime
@@ -37,7 +38,7 @@ from LDMP import log
 from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.load_data import add_layer
-from LDMP.schemas.schemas import File, LocalResults, LocalResultsSchema
+from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, BandInfoSchema
 
 
 def json_serial(obj):
@@ -47,27 +48,26 @@ def json_serial(obj):
     raise TypeError("Type {} not serializable".format(type(obj)))
 
 
-def create_gee_json_metadata(job, f, out_files, file_format):
-    json_file = os.path.splitext(f)[0] + '.json'
-    job['raw']['results']['local_format'] = file_format
-    job['raw']['results']['local_files'] = out_files
-    job['raw']['results']['ldmp_version'] = __version__
+def create_gee_json_metadata(json_file, job, data_file):
+    # Create a copy of the job so bands can be moved to a different place in 
+    # the output
+    metadata = copy.deepcopy(job)
+    bands = metadata['results'].pop('bands')
+    metadata.pop('raw')
+
+    out = LocalRaster(data_file, bands, metadata)
+    local_raster_schema = LocalRasterSchema()
     with open(json_file, 'w') as f:
-        json.dump(job['raw'], f, default=json_serial, sort_keys=True,
-                  indent=4, separators=(',', ': '))
+        json.dump(local_raster_schema.dump(out).data, f, default=json_serial, 
+                  sort_keys=True, indent=4, separators=(',', ': '))
 
 
-def create_local_json_metadata(f, name, bands, out_files, metadata={}, 
-                               file_format='tif'):
-    out_files = [File(out_file) for out_file in out_files]
-    results = LocalResults(name, bands, out_files, __version__, metadata, 
-                           file_format)
-    results_schema = LocalResultsSchema()
-    json_results = results_schema.dump(results)
-    json_results.data
-    with open(f, 'w') as outfile:
-        json.dump(d, outfile, default=json_serial, sort_keys=True,
-                  indent=4, separators=(',', ': '))
+def create_local_json_metadata(json_file, data_file, bands, metadata={}):
+    out = LocalRaster(data_file, bands, metadata)
+    local_raster_schema = LocalRasterSchema()
+    with open(json_file, 'w') as f:
+        json.dump(local_raster_schema.dump(out).data, f, default=json_serial, 
+                  sort_keys=True, indent=4, separators=(',', ': '))
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
@@ -133,7 +133,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.refresh.setEnabled(False)
         email = get_user_email()
         if email:
-            start_date = datetime.datetime.now() + datetime.timedelta(-29)
+            start_date = datetime.datetime.now() + datetime.timedelta(-14)
             self.jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if self.jobs:
                 # Add script names and descriptions to jobs list
@@ -309,6 +309,7 @@ def download_result(url, out_file, job, expected_etag):
 
 def download_cloud_results(job, f, tr):
     results = job['results']
+    json_file = f + '.json'
     if len(results['urls']) > 1:
         # Save a VRT if there are multiple files for this download
         urls = results['urls'] 
@@ -323,7 +324,7 @@ def download_cloud_results(job, f, tr):
         # during further processing
         out_file = f + '.vrt'
         gdal.BuildVRT(out_file, tiles)
-        create_gee_json_metadata(job, out_file, tiles, 'vrt')
+        file_format = 'vrt'
     else:
         url = results['urls'][0]
         out_file = f + '.tif'
@@ -331,7 +332,10 @@ def download_cloud_results(job, f, tr):
                                base64.b64decode(url['md5Hash']).encode('hex'))
         if not resp:
             return
-        create_gee_json_metadata(job, out_file, out_file, 'tif')
+
+        file_format = 'tif'
+    
+    create_gee_json_metadata(json_file, job, out_file)
 
     for band_number in xrange(1, len(results['bands']) + 1):
         # The minus 1 is because band numbers start at 1, not zero

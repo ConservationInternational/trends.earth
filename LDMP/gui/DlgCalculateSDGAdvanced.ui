@@ -386,43 +386,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="title">
-          <string>Plot title</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
-          <item>
-           <widget class="QLineEdit" name="plot_title">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>SDG Indicator 15.3.1</string>
-            </property>
-            <property name="placeholderText">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -499,7 +462,6 @@
   <tabstop>combo_layer_lpd</tabstop>
   <tabstop>browse_output_file_layer</tabstop>
   <tabstop>browse_output_file_table</tabstop>
-  <tabstop>plot_title</tabstop>
   <tabstop>output_file_layer</tabstop>
   <tabstop>output_file_table</tabstop>
  </tabstops>

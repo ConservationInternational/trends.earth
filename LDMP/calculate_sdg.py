@@ -41,7 +41,7 @@ from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.jobs import create_local_json_metadata
-from LDMP.load_data import get_results, add_layer
+from LDMP.load_data import get_file_metadata, add_layer
 from LDMP.plot import DlgPlotBars
 from LDMP.schemas.schemas import BandInfo
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
@@ -159,9 +159,9 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
 
 def get_band_info(data_file):
     json_file = os.path.splitext(data_file)[0] + '.json'
-    res = get_results(json_file)
-    if res:
-        return res['bands']
+    m = get_file_metadata(json_file)
+    if m:
+        return m['bands']
     else:
         return None
 
@@ -1142,8 +1142,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             return
         output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator"),
                                 BandInfo("SDG 15.3.1 Productivity Indicator")]
-        create_local_json_metadata(output_sdg_json, 'SDG 15.3.1 Indicator', 
-                                   output_sdg_bandinfos, [output_sdg_tif])
+        create_local_json_metadata(output_sdg_json, output_sdg_tif, output_sdg_bandinfos)
 
         #######################################################################
         #######################################################################

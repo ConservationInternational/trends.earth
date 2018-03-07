@@ -18,6 +18,7 @@ from math import floor, log10
 from operator import attrgetter
 
 import json
+from marshmallow import ValidationError
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
@@ -39,6 +40,7 @@ from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
+from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, BandInfoSchema
 from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
 from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
 
@@ -179,7 +181,7 @@ style_text_dict = {
 }
 
 
-def get_params(json_file):
+def get_file_metadata(json_file):
     try:
         with open(json_file) as f:
             d = json.load(f)
@@ -187,51 +189,19 @@ def get_params(json_file):
         log('Error loading {}'.format(json_file))
         return None
 
+    local_raster_schema = LocalRasterSchema()
+
     try:
-        params = d.get('params', None)
-        if not params:
-            log('Missing key in {}'.format(json_file))
-            return None
-        else:
-            return params
-    except AttributeError:
+        d = local_raster_schema.load(d).data
+    except ValidationError:
         log('Unable to parse {}'.format(json_file))
         return None
 
-
-def get_results(json_file):
-    try:
-        with open(json_file) as f:
-            d = json.load(f)
-    except (OSError, IOError, ValueError) as e:
-        log('Error loading {}'.format(json_file))
-        return None
-
-    try:
-        results = d.get('results', None)
-        if not results \
-                or not results.has_key('type') \
-                or not results.has_key('name') \
-                or not results.has_key('bands') \
-                or not results.has_key('urls'):
-            log('Missing key in {}'.format(json_file))
-            return None
-    except AttributeError:
-        log('Unable to parse {}'.format(json_file))
-        return None
-
-    # Check accompanying tif file(s) are there:
-    if len(results['urls']) > 1:
-        # If more than one file is returned by GEE, then trends.earth will
-        # write a virtual raster table listing these files
-        data_file = os.path.splitext(json_file)[0] + '.vrt'
-    else:
-        data_file = os.path.splitext(json_file)[0] + '.tif'
-    if not os.access(data_file, os.R_OK):
+    if not os.access(d['file'], os.R_OK):
         log('Data file {} is missing'.format(data_file))
         return None
     else:
-        return results
+        return d
 
 
 def round_to_n(x, sf=3):
@@ -500,13 +470,13 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
 
     def btn_details(self):
         details_dlg = DlgJobsDetails(self)
-        params = get_params(self.file_lineedit.text())
-        results = get_results(self.file_lineedit.text())
-        if params and results:
-            details_dlg.task_name.setText(params.get('task_name', ''))
-            details_dlg.comments.setText(params.get('task_notes', ''))
-            details_dlg.input.setText(json.dumps(params, indent=4, sort_keys=True))
-            details_dlg.output.setText(json.dumps(results, indent=4, sort_keys=True))
+        m = get_file_metadata(self.file_lineedit.text())
+        m = m['metadata']
+        if m:
+            details_dlg.task_name.setText(m['params'].get('task_name', ''))
+            details_dlg.comments.setText(m['params'].get('task_notes', ''))
+            details_dlg.input.setText(json.dumps(m['params'], indent=4, sort_keys=True))
+            details_dlg.output.setText(json.dumps(m['results'], indent=4, sort_keys=True))
             details_dlg.show()
             details_dlg.exec_()
         else:
@@ -541,20 +511,14 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         for i in self.layers_view.selectionModel().selectedRows():
             rows.append(i.row())
         if len(rows) > 0:
-            results = get_results(self.file_lineedit.text())
-            if results:
+            m = get_file_metadata(self.file_lineedit.text())
+            if m:
                 for row in rows:
-                    if results.get('local_format', None) == 'tif':
-                        f = os.path.splitext(self.file_lineedit.text())[0] + '.tif'
-                    elif results.get('local_format', None) == 'vrt':
-                        f = os.path.splitext(self.file_lineedit.text())[0] + '.vrt'
-                    else:
-                        raise ValueError("Unrecognized local file format in download results: {}".format(results.get('local_format', None)))
                     # The plus 1 is because band numbers start at 1, not zero
-                    resp = add_layer(f, row + 1, results['bands'][row])
+                    resp = add_layer(m['file'], row + 1, m['bands'][row])
                     if not resp:
                         QtGui.QMessageBox.critical(None, self.tr("Error"), 
-                                                   self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(results['bands'][row]['name'])))
+                                                   self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(m['bands'][row]['name'])))
                         return
             else:
                 log('Error loading results from {}'.format(self.file_lineedit.text()))
@@ -568,13 +532,13 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         if not f:
             f = self.file_lineedit.text()
         if f:
-            results = get_results(f)
-            if results:
-                bands = ['Band {}: {}'.format(i + 1, get_band_title(band)) for i, band in enumerate(results['bands'])]
+            m = get_file_metadata(f)
+            if m :
+                bands = ['Band {}: {}'.format(i + 1, get_band_title(band)) for i, band in enumerate(m['bands'])]
                 self.layers_model.setStringList(bands)
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-                for n in range(len(results['bands'])):
-                    if results['bands'][n]['add_to_map']:
+                for n in range(len(m['bands'])):
+                    if m['bands'][n]['add_to_map']:
                         self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QtGui.QItemSelectionModel.Select)
             else:
                 self.layers_model.setStringList([])

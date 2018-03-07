@@ -473,10 +473,10 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         m = get_file_metadata(self.file_lineedit.text())
         m = m['metadata']
         if m:
-            details_dlg.task_name.setText(m['params'].get('task_name', ''))
-            details_dlg.comments.setText(m['params'].get('task_notes', ''))
-            details_dlg.input.setText(json.dumps(m['params'], indent=4, sort_keys=True))
-            details_dlg.output.setText(json.dumps(m['results'], indent=4, sort_keys=True))
+            details_dlg.task_name.setText(m.get('task_name', ''))
+            details_dlg.comments.setText(m.get('task_notes', ''))
+            details_dlg.input.setText(json.dumps(m.get(['params'], {}), indent=4, sort_keys=True))
+            details_dlg.output.setText(json.dumps(m.get(m['results'], {}), indent=4, sort_keys=True))
             details_dlg.show()
             details_dlg.exec_()
         else:

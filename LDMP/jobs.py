@@ -66,7 +66,7 @@ def create_local_json_metadata(json_file, data_file, bands, metadata={}):
     out = LocalRaster(data_file, bands, metadata)
     local_raster_schema = LocalRasterSchema()
     with open(json_file, 'w') as f:
-        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
+        json.dump(local_raster_schema.dump(out).data, f, default=json_serial, 
                   sort_keys=True, indent=4, separators=(',', ': '))
 
 

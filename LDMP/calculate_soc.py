@@ -92,7 +92,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                    'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'fl': self.get_fl(),
                    'download_annual_lc': self.download_annual_lc.isChecked(),
-                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
+                   'geojsons': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}

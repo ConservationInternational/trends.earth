@@ -20,7 +20,7 @@ def run(params, logger):
     logger.debug("Loading parameters.")
     year_baseline = params.get('year_baseline')
     year_target = params.get('year_target')
-    geojson = json.loads(params.get('geojson'))
+    geojsons = json.loads(params.get('geojsons'))
     trans_matrix = params.get('trans_matrix')
     remap_matrix = params.get('remap_matrix')
 

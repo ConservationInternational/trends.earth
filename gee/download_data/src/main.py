@@ -24,7 +24,7 @@ def run(params, logger):
     start_year = None
     end_year = None
     temporal_resolution = params.get('temporal_resolution')
-    geojson = json.loads(params.get('geojson'))
+    geojsons = json.loads(params.get('geojsons'))
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

@@ -178,7 +178,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'prod_state_year_bl_end': self.state_year_bl_end.date().year(),
                    'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
                    'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
-                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
+                   'geojsons': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,
                    'task_name': self.options_tab.task_name.text(),

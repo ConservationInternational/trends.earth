@@ -89,6 +89,13 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         self.update_data_table()
 
+    def tab_changed(self):
+        super(DlgDownload, self).tab_changed()
+        if (self.TabBox.currentIndex() == (self.TabBox.count() - 1)) \
+                and not self.data_view.selectedIndexes():
+            # Only enable download if a dataset is selected
+            self.button_calculate.setEnabled(False)
+
     def showEvent(self, event):
         super(DlgDownload, self).showEvent(event)
 

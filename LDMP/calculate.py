@@ -15,12 +15,14 @@
 import os
 import json
 
+from osgeo import ogr
+
 from PyQt4 import QtGui
 from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        QGis, QgsMapLayerRegistry, QgsDataProvider
+        QGis, QgsMapLayerRegistry
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -44,7 +46,6 @@ def get_script_slug(script_name):
     # Note that dots and underscores can't be used in the slugs, so they are 
     # replaced with dashesk
     return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
-
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -91,6 +92,25 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         return l_w
 
 
+def get_ogr_geom_extent(geom):
+    (minX, maxX, minY, maxY) = geom.GetEnvelope()
+
+    # Create ring
+    ring = ogr.Geometry(ogr.wkbLinearRing)
+    ring.AddPoint(minX, minY)
+    ring.AddPoint(maxX, minY)
+    ring.AddPoint(maxX, maxY)
+    ring.AddPoint(minX, maxY)
+    ring.AddPoint(minX, minY)
+
+    # Create polygon
+    poly_envelope = ogr.Geometry(ogr.wkbPolygon)
+    poly_envelope.AddGeometry(ring)
+    poly_envelope.FlattenTo2D()
+
+    return poly_envelope
+
+
 class AOI(object):
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
@@ -133,14 +153,48 @@ class AOI(object):
         'Returns layer'
         return self.l
 
-    def get_wgs84_wrapped_layer(self):
+    def bounding_box_meridian_split_geojson(self):
+        """
+        Return list of bounding boxes in WGS84 as geojson for GEE
+
+        Returns multiple geometries as needed to avoid having an extent 
+        crossing the 180th meridian
+        """
+        """
+        Return layer split into two extent jsons, one on each side of the 180th meridian
+        """
+        hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
+        hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
+
+        l_extent = ogr.CreateGeometryFromWkt(QgsGeometry.fromRect(self.get_layer_wgs84().extent()).exportToWkt())
+
+        hemi_e_ext = hemi_e.Intersection(l_extent)
+        hemi_w_ext = hemi_w.Intersection(l_extent)
+
+        if hemi_e_ext.IsEmpty() or hemi_w_ext.IsEmpty():
+            # If there is no area in one of the hemispheres, return the extent 
+            # of the original layer
+            return [json.loads(get_ogr_geom_extent(l_extent).ExportToJson())]
+        elif hemi_w_ext.Union(hemi_e_ext).GetArea() > (l_extent.GetArea() * 2):
+            # If the extent of the combined extents from both hemispheres is 
+            # not significantly smaller than that of the original layer, then 
+            # return the original layer
+            return [json.loads(get_ogr_geom_extent(l_extent).ExportToJson())]
+        else:
+            ignore = QSettings().value("LDMP/ignore_crs_warning", False)
+            if not ignore:
+                QtGui.QMessageBox.information(None, tr("Warning"),
+                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.')))
+            log("AOI crosses 180th meridian - splitting AOI into two parts geojsons.")
+            return [json.loads(get_ogr_geom_extent(hemi_e_ext).ExportToJson()),
+                    json.loads(get_ogr_geom_extent(hemi_w_ext).ExportToJson())]
+
+    def get_wrapped_layer_wgs84(self):
         """
         Return layer with smallest extent possible (wrapping across 180th meridian when needed)
         """
         # Setup settings for AOI provided to GEE:
-        wgs84_crs = QgsCoordinateReferenceSystem()
-        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
-        l_wgs84 = transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+        l_wgs84 = self.get_layer_wgs84()
         wgs84_wrapped_crs = QgsCoordinateReferenceSystem()
         wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
         l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
@@ -152,14 +206,28 @@ class AOI(object):
         else:
             return l_wgs84
 
+    def get_layer(self):
+        """
+        Return layer
+        """
+        return self.l
+
+    def get_layer_wgs84(self):
+        """
+        Return layer in WGS84 (WPGS:4326)
+        """
+        # Setup settings for AOI provided to GEE:
+        wgs84_crs = QgsCoordinateReferenceSystem()
+        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
+        return transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+
     def bounding_box_geom(self):
         'Returns bounding box in chosen destination coordinate system'
         return QgsGeometry.fromRect(self.l.extent())
 
     def bounding_box_gee_geojson(self):
-        'Returns bounding box in WGS84 or WGS84 wrapped for GEE'
         if self.datatype == 'polygon':
-            return json.loads(QgsGeometry.fromRect(self.get_wgs84_wrapped_layer().extent()).exportToGeoJSON())
+            return self.bounding_box_meridian_split_geojson()
         elif self.datatype == 'point':
             # If there is only on point, don't calculate an extent (extent of 
             # one point is a box with sides equal to zero)
@@ -172,10 +240,10 @@ class AOI(object):
                     geom = f.geometry()
             if n == 1:
                 log('Layer only has one point')
-                return json.loads(geom.exportToGeoJSON())
+                return json.loads([geom.exportToGeoJSON()])
             else:
                 log('Layer has many points ({})'.format(n))
-                return json.loads(QgsGeometry.fromRect(self.get_wgs84_wrapped_layer().extent()).exportToGeoJSON())
+                return self.bounding_box_meridian_split_geojson()
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
                     tr("Failed to process area of interest - unknown geometry type:{}".format(self.datatype)))

@@ -95,34 +95,34 @@ def _replace(file_path, regex, subst):
 def set_version(options):
     v = getattr(options, 'version', False)
     # Validate the version matches the regex
-    if not v or not re.match("[0-9]+[.][0-9]+", v):
+    if not v or not re.match("[0-9]+([.][0-9]+)+", v):
         print('Must specify a valid version (example: 0.36)')
         return
      
     # Set in Sphinx docs in make.conf
     print('Setting version to {} in sphinx conf.py'.format(v))
-    sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+[.][0-9]+", re.IGNORECASE)
+    sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE)
     _replace(os.path.join(options.sphinx.sourcedir, 'conf.py'), sphinx_regex, '\g<1>' + v)
 
     # Set in metadata.txt
     print('Setting version to {} in metadata.txt'.format(v))
-    sphinx_regex = re.compile("^(version=)[0-9]+[.][0-9]+")
+    sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
     _replace(os.path.join(options.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
     
     # Set in __init__.py
     print('Setting version to {} in __init__.py'.format(v))
-    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
     _replace(os.path.join(options.source_dir, '__init__.py'), init_regex, '\g<1>' + v)
 
     # For the GEE config files the version can't have a dot, so convert to 
     # underscore
     v_gee = v.replace('.', '_')
-    if not v or not re.match("[0-9]+_[0-9]+", v_gee):
+    if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
         print('Must specify a valid version (example: 0.36)')
         return
 
     gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
-    gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+_[0-9]+)?"')
+    gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
 
     # Set version for GEE scripts
     for subdir, dirs, files in os.walk(options.gee.script_dir):
@@ -137,18 +137,18 @@ def set_version(options):
                 _replace(filepath, gee_id_regex, '')
             elif file == '__init__.py':
                 print('Setting version to {} in {}'.format(v, filepath))
-                init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+                init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
                 _replace(filepath, init_regex, '\g<1>' + v)
     
     # Set in scripts.json
     print('Setting version to {} in scripts.json'.format(v))
-    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+[.][0-9]+')
+    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
     scripts_regex = re.compile('("script version": ")[0-9]+[-._][0-9]+', re.IGNORECASE)
     _replace(os.path.join(options.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
     # Set in setup.py
     print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
-    setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+[.][0-9]+")
+    setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
     _replace(os.path.join(options.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
 
 

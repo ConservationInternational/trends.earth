@@ -166,6 +166,9 @@ class AOI(object):
         hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
         hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
 
+        # Calculate a single feature that is the union of all the features in 
+        # this layer - that way there is a single feature to intersect with 
+        # each hemisphere.
         n = 0
         for f in self.get_layer_wgs84().getFeatures():
             # Get an OGR geometry from the QGIS geometry

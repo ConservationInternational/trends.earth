@@ -128,7 +128,7 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
                    'lc_year_final': lc_year_final,
                    'soc_year_initial': soc_year_initial,
                    'soc_year_final': soc_year_final,
-                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
+                   'geojsons': json.dumps(self.aoi.bounding_box_gee_geojson()),
                    'prod_traj_method': 'ndvi_trend',
                    'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',
                    'climate_gee_dataset': None,

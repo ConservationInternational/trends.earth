@@ -17,10 +17,10 @@ from landdegradation.productivity import productivity_trajectory
 from landdegradation.schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 
-def zonal_stats(gee_dataset, geojson, EXECUTION_ID, logger):
+def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
     logger.debug("Entering zonal_stats function.")
 
-    region = ee.Geometry(geojson)
+    region = ee.Geometry(geojsons)
 
     image = ee.Image(gee_dataset).clip(region)
     scale = ee.Number(image.projection().nominalScale()).getInfo()
@@ -69,7 +69,7 @@ def run(params, logger):
     logger.debug("Loading parameters.")
     year_start = params.get('year_start')
     year_end = params.get('year_end')
-    geojson = json.loads(params.get('geojson'))
+    geojsons = json.loads(params.get('geojsons'))
     method = params.get('method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
@@ -81,6 +81,6 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_result = zonal_stats(ndvi_gee_dataset, geojson, EXECUTION_ID, logger)
+    json_result = zonal_stats(ndvi_gee_dataset, geojsons, EXECUTION_ID, logger)
 
     return json_result.data

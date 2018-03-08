@@ -572,10 +572,10 @@ class DlgCalculateBase(QtGui.QDialog):
         if not admin_polys:
             return None
         if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':
-            return (admin_polys['geojson'])
+            return (admin_polys['geojsons'])
         else:
             admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
-            return (admin_polys['admin1'][admin_1_code]['geojson'])
+            return (admin_polys['admin1'][admin_1_code]['geojsons'])
 
     def btn_calculate(self):
         if self.area_tab.groupBox_custom_crs.isChecked():

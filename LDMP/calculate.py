@@ -166,28 +166,35 @@ class AOI(object):
         hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
         hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
 
-        l_extent = ogr.CreateGeometryFromWkt(QgsGeometry.fromRect(self.get_layer_wgs84().extent()).exportToWkt())
+        n = 0
+        for f in self.get_layer_wgs84().getFeatures():
+            # Get an OGR geometry from the QGIS geometry
+            geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
+            if n == 0:
+                union = geom
+            else:
+                union = geom.Union(geom)
 
-        hemi_e_ext = hemi_e.Intersection(l_extent)
-        hemi_w_ext = hemi_w.Intersection(l_extent)
+        union_e_ext = hemi_e.Intersection(union)
+        union_w_ext = hemi_w.Intersection(union)
 
-        if hemi_e_ext.IsEmpty() or hemi_w_ext.IsEmpty():
+        if union_e_ext.IsEmpty() or union_w_ext.IsEmpty():
             # If there is no area in one of the hemispheres, return the extent 
             # of the original layer
-            return [json.loads(get_ogr_geom_extent(l_extent).ExportToJson())]
-        elif hemi_w_ext.Union(hemi_e_ext).GetArea() > (l_extent.GetArea() * 2):
+            return [json.loads(get_ogr_geom_extent(union).ExportToJson())]
+        elif union_w_ext.Union(union_e_ext).GetArea() > (get_ogr_geom_extent(union).GetArea() * 2):
             # If the extent of the combined extents from both hemispheres is 
             # not significantly smaller than that of the original layer, then 
             # return the original layer
-            return [json.loads(get_ogr_geom_extent(l_extent).ExportToJson())]
+            return [json.loads(get_ogr_geom_extent(union).ExportToJson())]
         else:
             ignore = QSettings().value("LDMP/ignore_crs_warning", False)
             if not ignore:
                 QtGui.QMessageBox.information(None, tr("Warning"),
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
-            log("AOI crosses 180th meridian - splitting AOI into two parts geojsons.")
-            return [json.loads(get_ogr_geom_extent(hemi_e_ext).ExportToJson()),
-                    json.loads(get_ogr_geom_extent(hemi_w_ext).ExportToJson())]
+            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
+            return [json.loads(get_ogr_geom_extent(union_e_ext).ExportToJson()),
+                    json.loads(get_ogr_geom_extent(union_w_ext).ExportToJson())]
 
     def get_wrapped_layer_wgs84(self):
         """

@@ -184,7 +184,7 @@ class AOI(object):
             ignore = QSettings().value("LDMP/ignore_crs_warning", False)
             if not ignore:
                 QtGui.QMessageBox.information(None, tr("Warning"),
-                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.')))
+                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             log("AOI crosses 180th meridian - splitting AOI into two parts geojsons.")
             return [json.loads(get_ogr_geom_extent(hemi_e_ext).ExportToJson()),
                     json.loads(get_ogr_geom_extent(hemi_w_ext).ExportToJson())]

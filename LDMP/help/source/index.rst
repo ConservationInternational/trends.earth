@@ -34,28 +34,40 @@ for further information.
 The documentation and training materials, including a number of demonstration 
 videos, are available on this website:
 
+* :ref:`about-docs`
 * :ref:`user-docs`
 * :ref:`training-materials`
 * :ref:`videos`
-* :ref:`about-docs`
 
 .. note:: `Download this documentation as a PDF for offline use 
    <trends-earth.pdf>`_
 
-.. _user-docs:
+.. _about-docs:
 
+.. toctree::
+    :maxdepth: 2
+    :caption: About
+
+    about/about
+    about/development
+
+.. _user-docs:
+	
 .. toctree::
     :maxdepth: 2
     :caption: User Documentation
 
     documentation/before_installing
+    documentation/faq
     documentation/installing
     documentation/settings
     documentation/data_download
     documentation/calculate
-    documentation/GEE_tasks
+    documentation/gee_tasks
     documentation/plot_data
+    documentation/load_data
     documentation/reporting_tool
+
 
 .. _training-materials:
 
@@ -75,12 +87,3 @@ videos, are available on this website:
     :caption: Videos
 
     video/video_links
-
-.. _about-docs:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: About
-
-    about/about
-    about/development

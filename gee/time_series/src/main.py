@@ -70,6 +70,7 @@ def run(params, logger):
     year_start = params.get('year_start')
     year_end = params.get('year_end')
     geojsons = json.loads(params.get('geojsons'))
+    crs = params.get('crs')
     method = params.get('method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
@@ -81,6 +82,10 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    json_result = zonal_stats(ndvi_gee_dataset, geojsons, EXECUTION_ID, logger)
+    # TODO: Right now timeseries will only work on the first geojson - this is 
+    # somewhat ok since for the most part this uses points, but should fix in 
+    # the future
+    json_result = zonal_stats(ndvi_gee_dataset, geojsons[0], EXECUTION_ID, 
+                              logger)
 
     return json_result.data

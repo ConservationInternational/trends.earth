@@ -141,9 +141,12 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             climate_gee_dataset = None
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_start': self.traj_year_start.date().year(),
                    'year_end': self.traj_year_end.date().year(),
-                   'geojsons': json.dumps(self.aoi.bounding_box_gee_geojson()),
+                   'crosses_180th': crosses_180th,
+                   'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText(),

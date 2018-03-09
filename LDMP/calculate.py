@@ -253,7 +253,7 @@ class AOI(object):
                     geom = f.geometry()
             if n == 1:
                 log('Layer only has one point')
-                return (False, json.loads([geom.exportToGeoJSON()]))
+                return (False, [json.loads(geom.exportToGeoJSON())])
             else:
                 log('Layer has many points ({})'.format(n))
                 return self.bounding_box_meridian_split_geojson()
@@ -579,7 +579,7 @@ class DlgCalculateBase(QtGui.QDialog):
             return (admin_polys['geojson'])
         else:
             admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
-            return (admin_polys['admin1'][admin_1_code]['geojsons'])
+            return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
         if self.area_tab.groupBox_custom_crs.isChecked():

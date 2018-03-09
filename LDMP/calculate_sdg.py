@@ -130,6 +130,7 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
                    'soc_year_initial': soc_year_initial,
                    'soc_year_final': soc_year_final,
                    'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
                    'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',

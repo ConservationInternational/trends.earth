@@ -158,6 +158,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         for row in rows:
             payload = {'geojsons': json.dumps(geojsons),
+                       'crs': self.aoi.get_crs_dst_wkt(),
                        'year_start': self.first_year.date().year(),
                        'year_end': self.last_year.date().year(),
                        'crosses_180th': crosses_180th,

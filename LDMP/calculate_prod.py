@@ -180,6 +180,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
                    'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
                    'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'ndvi_gee_dataset': ndvi_dataset,
                    'climate_gee_dataset': climate_gee_dataset,

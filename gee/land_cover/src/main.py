@@ -39,4 +39,4 @@ def run(params, logger):
     out = land_cover(year_baseline, year_target, trans_matrix,
                      remap_matrix, EXECUTION_ID, logger)
 
-    return out.export(geojson, 'land_cover', logger, EXECUTION_ID)
+    return out.export(geojsons, 'land_cover', logger, EXECUTION_ID)

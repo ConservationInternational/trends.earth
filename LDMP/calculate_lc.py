@@ -513,6 +513,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
                    'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),

@@ -94,6 +94,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                    'fl': self.get_fl(),
                    'download_annual_lc': self.download_annual_lc.isChecked(),
                    'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),

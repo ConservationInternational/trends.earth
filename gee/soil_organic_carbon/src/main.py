@@ -23,6 +23,7 @@ def run(params, logger):
     fl = params.get('fl')
     dl_annual_lc = params.get('download_annual_lc')
     geojsons = json.loads(params.get('geojsons'))
+    crs = params.get('crs')
     remap_matrix = params.get('remap_matrix')
 
     if len(remap_matrix) != 2 or len(remap_matrix[0]) != 37 or len(remap_matrix[1]) != 37:
@@ -38,4 +39,4 @@ def run(params, logger):
     out = soc(year_start, year_end, fl, remap_matrix, dl_annual_lc, 
               EXECUTION_ID, logger)
 
-    return out.export(geojsons, 'soil_organic_carbon', logger, EXECUTION_ID)
+    return out.export(geojsons, 'soil_organic_carbon', crs, logger, EXECUTION_ID)

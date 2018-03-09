@@ -286,3 +286,5 @@ class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
         logo.setPicturePath(logo_path)
         legend = composition.getComposerItemById('te_legend')
         legend.setAutoUpdateModel(True)
+
+        self.close()

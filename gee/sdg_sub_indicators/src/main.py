@@ -83,7 +83,7 @@ def run(params, logger):
             prod_out.selectBands(['Productivity trajectory (significance)',
                                   'Productivity performance (degradation)',
                                   'Productivity state (degradation)'])
-        prod_outs.append(prod_out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj))
+            prod_outs.append(prod_out.export(geojson, 'productivity', crs, logger, EXECUTION_ID, proj))
 
         # First need to deserialize the data that was prepared for output from 
         # the productivity functions, so that new urls can be appended

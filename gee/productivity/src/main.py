@@ -35,6 +35,7 @@ def run(params, logger):
     prod_state_year_tg_start = params.get('prod_state_year_tg_start')
     prod_state_year_tg_end = params.get('prod_state_year_tg_end')
     geojsons = json.loads(params.get('geojsons'))
+    crs = params.get('crs')
     prod_traj_method = params.get('trajectory_method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
@@ -48,7 +49,7 @@ def run(params, logger):
     logger.debug("Running productivity indicators.")
 
     if prod_mode == 'Trends.Earth productivity':
-        out = []
+        outs = []
         for geojson in geojsons:
             this_out = None
             if calc_traj:
@@ -77,14 +78,20 @@ def run(params, logger):
                     this_out = state
                 else:
                     this_out.merge(state)
-            out.append(this_out)
+            
+            outs.append(out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj))
+
+        final_output = 
+        for out in outs:
+
+
         proj = ee.Image(ndvi_gee_dataset).projection()
-        return out.export(geojsons, 'productivity', logger, EXECUTION_ID, proj)
+        return out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj)
     elif prod_mode == 'JRC LPD':
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time', 
                        None, None, EXECUTION_ID, logger)
         proj = ee.Image(ndvi_gee_dataset).projection()
-        return out.export(geojsons, 'productivity', logger, EXECUTION_ID, proj)
+        return out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))

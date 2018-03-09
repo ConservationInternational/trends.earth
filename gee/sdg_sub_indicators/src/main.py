@@ -36,6 +36,7 @@ def run(params, logger):
     soc_year_initial = params.get('soc_year_initial')
     soc_year_final = params.get('soc_year_final')
     geojsons = json.loads(params.get('geojsons'))
+    crs = params.get('crs')
     prod_traj_method = params.get('prod_traj_method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
@@ -106,5 +107,5 @@ def run(params, logger):
                     'Land Productivity Dynamics (LPD)'])
 
     proj = ee.Image(ndvi_gee_dataset).projection()
-    return out.export(geojsons, 'sdg_sub_indicators', logger, EXECUTION_ID, 
-                      proj)
+    return out.export(geojsons, 'sdg_sub_indicators', crs, logger,
+                      EXECUTION_ID, proj)

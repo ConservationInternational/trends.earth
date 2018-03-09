@@ -14,6 +14,7 @@
 
 import os
 import re
+import tempfile
 from math import floor, log10
 from operator import attrgetter
 
@@ -35,6 +36,7 @@ from osgeo import gdal
 
 from LDMP import log
 from LDMP.calculate_lc import DlgCalculateLCSetAggregation
+from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
 from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
@@ -54,6 +56,76 @@ with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
 
+class ShapefileImportWorker(AbstractWorker):
+    def __init__(self, in_file, out_file, band_number, out_res, 
+                 out_data_type=gdal.GDT_Int16):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+
+        self.out_res = out_res
+        self.out_data_type = out_data_type
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        res = gdal.Rasterize(self.out_file, self.in_file,
+                             format='GTiff',
+                             xRes=out_res, yRes=-out_res,
+                             noData=-32767, attribute=attribute,
+                             outputSRS="epsg:4326",
+                             outputType=self.out_data_type,
+                             creationOptions=['COMPRESS=LZW'],
+                             callback=self.progress_callback)
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
+
+class RasterImportWorker(AbstractWorker):
+    def __init__(self, in_file, out_file, band_number, out_res, 
+                 out_data_type=gdal.GDT_Int16):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+
+        self.out_res = out_res
+        self.out_data_type = out_data_type
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                        xRes=out_res, yRes=-out_res,
+                        srcNodata=-32768, dstNodata=-32767,
+                        dstSRS="epsg:4326",
+                        outputType=self.out_data_type,
+                        resampleAlg=gdal.GRA_NearestNeighbour,
+                        creationOptions=['COMPRESS=LZW'],
+                        callback=self.progress_callback)
+
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
 
 def tr_style_text(label):
     """If no translation is available, use the original label"""
@@ -701,6 +773,36 @@ class DlgLoadDataBase(QtGui.QDialog):
         self.input_widget = LoadDataSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
+    def convert_raster(self, band_name, out_data_type=gdal.GDT_Int16):
+        in_file = self.input_widget.lineEdit_raster_file.text()
+        out_file = self.output_widget.lineEdit_output_file.text()
+
+        # Select a single output band
+        band_number = int(self.input_widget.comboBox_bandnumber.currentText())
+        temp_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+                      
+        # Calculate res in degrees from input which is in meters
+        res = int(self.input_widget.spinBox_resolution.value())
+        res_wgs84 = res / (111.325 * 1000) # 111.325km in one degree
+        
+        raster_import_worker = StartWorker(RasterImportWorker,
+                                           'importing raster', in_file, 
+                                           out_file, band_number, res_wgs84)
+        if not raster_import_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Raster import failed."), None)
+            return
+
+        output_json = os.path.splitext(output_file)[0] + '.json'
+        create_local_json_metadata(output_json, output_file, 
+                                   [BandInfo(band_name)], 
+                                   metadata={'year': int(self.input_widget.spinBox_data_year.value()),
+                                             'task_name': self.options_tab.task_name.text(),
+                                             'task_notes': self.options_tab.task_notes.toPlainText()})
+        
+#    def convert_shapefile(self):
+
 
 class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def __init__(self, parent=None):
@@ -716,6 +818,8 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
 
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
         self.btn_agg_edit_def.setEnabled(False)
+
+        self.btnBox.accepted.connect(self.ok_clicked)
 
     def input_changed(self, valid):
         if valid:
@@ -743,6 +847,8 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
 
+    def ok_clicked(self):
+        self.convert_raster('Land cover (7 class)')
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):

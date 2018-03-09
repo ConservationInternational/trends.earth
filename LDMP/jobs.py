@@ -316,6 +316,11 @@ def download_cloud_results(job, f, tr):
         tiles = []
         for n in xrange(len(urls)):
             tiles.append(f + '_{}.tif'.format(n))
+            # If file already exists, check its hash and skip redownloading if 
+            # it matches
+            if os.access(tiles[n], os.R_OK):
+                if check_hash_against_etag(urls[n]['url'], tiles[n], base64.b64decode(urls[n]['md5Hash']).encode('hex')):
+                    continue
             resp = download_result(urls[n]['url'], tiles[n], job, 
                                    base64.b64decode(urls[n]['md5Hash']).encode('hex'))
             if not resp:
@@ -324,7 +329,6 @@ def download_cloud_results(job, f, tr):
         # during further processing
         out_file = f + '.vrt'
         gdal.BuildVRT(out_file, tiles)
-        file_format = 'vrt'
     else:
         url = results['urls'][0]
         out_file = f + '.tif'
@@ -333,8 +337,6 @@ def download_cloud_results(job, f, tr):
         if not resp:
             return
 
-        file_format = 'tif'
-    
     create_gee_json_metadata(json_file, job, out_file)
 
     for band_number in xrange(1, len(results['bands']) + 1):

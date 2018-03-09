@@ -20,7 +20,7 @@ import base64
 
 import datetime
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, QAbstractTableModel, Qt
+from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt
 
 from osgeo import gdal
 

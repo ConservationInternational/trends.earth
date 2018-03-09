@@ -38,4 +38,4 @@ def run(params, logger):
     out = soc(year_start, year_end, fl, remap_matrix, dl_annual_lc, 
               EXECUTION_ID, logger)
 
-    return out.export(geojson, 'soil_organic_carbon', logger, EXECUTION_ID)
+    return out.export(geojsons, 'soil_organic_carbon', logger, EXECUTION_ID)

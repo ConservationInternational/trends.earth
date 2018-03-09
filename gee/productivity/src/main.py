@@ -34,7 +34,7 @@ def run(params, logger):
     prod_state_year_bl_end = params.get('prod_state_year_bl_end')
     prod_state_year_tg_start = params.get('prod_state_year_tg_start')
     prod_state_year_tg_end = params.get('prod_state_year_tg_end')
-    geojson = json.loads(params.get('geojson'))
+    geojsons = json.loads(params.get('geojsons'))
     prod_traj_method = params.get('trajectory_method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
@@ -48,46 +48,43 @@ def run(params, logger):
     logger.debug("Running productivity indicators.")
 
     if prod_mode == 'Trends.Earth productivity':
-        out = None
-        if calc_traj:
-            traj = productivity_trajectory(prod_traj_year_initial, 
-                                           prod_traj_year_final, prod_traj_method,
-                                           ndvi_gee_dataset, climate_gee_dataset, 
-                                           logger)
-            if not out:
-                out = traj
-        
-        if calc_perf:
-            perf = productivity_performance(prod_perf_year_initial, 
-                                            prod_perf_year_final, ndvi_gee_dataset, 
-                                            geojson, EXECUTION_ID, logger)
-            if not out:
-                out = perf
-            else:
-                out.merge(perf)
-        if calc_state:
-            state = productivity_state(prod_state_year_bl_start, 
-                                       prod_state_year_bl_end, 
-                                       prod_state_year_tg_start, 
-                                       prod_state_year_tg_end,
-                                       ndvi_gee_dataset, EXECUTION_ID, logger)
-            if not out:
-                out = state
-            else:
-                out.merge(state)
+        out = []
+        for geojson in geojsons:
+            this_out = None
+            if calc_traj:
+                traj = productivity_trajectory(prod_traj_year_initial, 
+                                               prod_traj_year_final, prod_traj_method,
+                                               ndvi_gee_dataset, climate_gee_dataset, 
+                                               logger)
+                if not this_out:
+                    this_out = traj
+            
+            if calc_perf:
+                perf = productivity_performance(prod_perf_year_initial, 
+                                                prod_perf_year_final, ndvi_gee_dataset, 
+                                                geojson, EXECUTION_ID, logger)
+                if not this_out:
+                    this_out = perf
+                else:
+                    this_out.merge(perf)
+            if calc_state:
+                state = productivity_state(prod_state_year_bl_start, 
+                                           prod_state_year_bl_end, 
+                                           prod_state_year_tg_start, 
+                                           prod_state_year_tg_end,
+                                           ndvi_gee_dataset, EXECUTION_ID, logger)
+                if not this_out:
+                    this_out = state
+                else:
+                    this_out.merge(state)
+            out.append(this_out)
+        proj = ee.Image(ndvi_gee_dataset).projection()
+        return out.export(geojsons, 'productivity', logger, EXECUTION_ID, proj)
     elif prod_mode == 'JRC LPD':
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time', 
                        None, None, EXECUTION_ID, logger)
+        proj = ee.Image(ndvi_gee_dataset).projection()
+        return out.export(geojsons, 'productivity', logger, EXECUTION_ID, proj)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
-
-    # out.selectBands(['Productivity trajectory (significance)',
-    #                  'Productivity performance (degradation)',
-    #                  'Productivity state (degradation)'])
-    # out.setVisible(['Productivity trajectory (significance)',
-    #                 'Productivity state (degradation)',
-    #                 'Productivity performance (degradation)'])
-
-    proj = ee.Image(ndvi_gee_dataset).projection()
-    return out.export(geojson, 'productivity', logger, EXECUTION_ID, proj)

@@ -184,20 +184,20 @@ class AOI(object):
         if union_e_ext.IsEmpty() or union_w_ext.IsEmpty():
             # If there is no area in one of the hemispheres, return the extent 
             # of the original layer
-            return [json.loads(get_ogr_geom_extent(union).ExportToJson())]
+            return (False, [json.loads(get_ogr_geom_extent(union).ExportToJson())])
         elif union_w_ext.Union(union_e_ext).GetArea() > (get_ogr_geom_extent(union).GetArea() * 2):
             # If the extent of the combined extents from both hemispheres is 
             # not significantly smaller than that of the original layer, then 
             # return the original layer
-            return [json.loads(get_ogr_geom_extent(union).ExportToJson())]
+            return (False, [json.loads(get_ogr_geom_extent(union).ExportToJson())])
         else:
             ignore = QSettings().value("LDMP/ignore_crs_warning", False)
             if not ignore:
                 QtGui.QMessageBox.information(None, tr("Warning"),
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
-            return [json.loads(get_ogr_geom_extent(union_e_ext).ExportToJson()),
-                    json.loads(get_ogr_geom_extent(union_w_ext).ExportToJson())]
+            return (True, [json.loads(get_ogr_geom_extent(union_e_ext).ExportToJson()),
+                           json.loads(get_ogr_geom_extent(union_w_ext).ExportToJson())])
 
     def get_wrapped_layer_wgs84(self):
         """
@@ -236,6 +236,11 @@ class AOI(object):
         return QgsGeometry.fromRect(self.l.extent())
 
     def bounding_box_gee_geojson(self):
+        '''
+        Returns two values - first is an indicator of whether this geojson 
+        includes two geometries due to crossing of the 180th meridian, and the 
+        second is the list of bounding box geojsons.
+        '''
         if self.datatype == 'polygon':
             return self.bounding_box_meridian_split_geojson()
         elif self.datatype == 'point':
@@ -250,7 +255,7 @@ class AOI(object):
                     geom = f.geometry()
             if n == 1:
                 log('Layer only has one point')
-                return json.loads([geom.exportToGeoJSON()])
+                return (False, json.loads([geom.exportToGeoJSON()]))
             else:
                 log('Layer has many points ({})'.format(n))
                 return self.bounding_box_meridian_split_geojson()
@@ -572,7 +577,7 @@ class DlgCalculateBase(QtGui.QDialog):
         if not admin_polys:
             return None
         if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':
-            return (admin_polys['geojsons'])
+            return (admin_polys['geojson'])
         else:
             admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
             return (admin_polys['admin1'][admin_1_code]['geojsons'])

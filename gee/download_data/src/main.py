@@ -35,4 +35,4 @@ def run(params, logger):
     logger.debug("Running main script.")
     out = download(asset, name, temporal_resolution, start_year, end_year, 
                    EXECUTION_ID, logger)
-    return out.export(geojson, 'download', logger, EXECUTION_ID)
+    return out.export(geojsons, 'download', logger, EXECUTION_ID)

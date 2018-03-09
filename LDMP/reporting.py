@@ -252,6 +252,8 @@ class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
         else:
             orientation = 'landscape'
 
+        self.close()
+
         template = os.path.join(os.path.dirname(__file__), 'data',
                                 'map_template_{}.qpt'.format(orientation))
 
@@ -286,5 +288,3 @@ class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
         logo.setPicturePath(logo_path)
         legend = composition.getComposerItemById('te_legend')
         legend.setAutoUpdateModel(True)
-
-        self.close()

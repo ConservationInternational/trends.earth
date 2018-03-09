@@ -82,15 +82,19 @@ def run(params, logger):
                 else:
                     this_out.merge(state)
             
-            outs.append(this_out.export(geojson, 'productivity', crs, logger, EXECUTION_ID, proj))
+            outs.append(this_out.export(geojson, 'productivity', crs, logger, 
+                                        EXECUTION_ID, proj))
 
         # First need to deserialize the data that was prepared for output from 
         # the productivity functions, so that new urls can be appended
         schema = CloudResultsSchema()
+        logger.debug("Deserializing")
         final_output = schema.load(outs[0])
         for o in outs[1:]:
+            logger.debug("Adding outs")
             this_out = schema.load(o)
             final_output.urls.extend(this_out.urls)
+        logger.debug("Serializing")
         # Now serialize the output again and return it
         return schema.dump(final_output)
 

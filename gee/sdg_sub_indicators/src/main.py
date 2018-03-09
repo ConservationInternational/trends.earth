@@ -56,45 +56,69 @@ def run(params, logger):
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
+    proj = ee.Image(ndvi_gee_dataset).projection()
+
     logger.debug("Running productivity indicators.")
     if prod_mode == 'Trends.Earth productivity':
-        prod_outs = []
-        # Need to loop over the geojsons, since performance takes in a geojson.
-        # TODO: pass performance a second geojson defining the entire extent of 
-        # all input geojsons so that the performance is calculated the same 
-        # over all input areas.
+        outs = []
         for geojson in geojsons:
-            prod_out = productivity_trajectory(prod_traj_year_initial, 
-                                               prod_traj_year_final, prod_traj_method,
-                                               ndvi_gee_dataset, climate_gee_dataset, 
-                                               logger)
+            # Need to loop over the geojsons, since performance takes in a 
+            # geojson.
+            # TODO: pass performance a second geojson defining the entire extent of 
+            # all input geojsons so that the performance is calculated the same 
+            # over all input areas.
+            out = productivity_trajectory(prod_traj_year_initial, 
+                                          prod_traj_year_final, prod_traj_method,
+                                          ndvi_gee_dataset, climate_gee_dataset, 
+                                          logger)
+
             prod_perf = productivity_performance(prod_perf_year_initial, 
                                                  prod_perf_year_final, 
                                                  ndvi_gee_dataset, geojson, 
                                                  EXECUTION_ID, logger)
-            prod_out.merge(prod_perf)
+            out.merge(prod_perf)
+
             prod_state = productivity_state(prod_state_year_bl_start, 
                                             prod_state_year_bl_end, 
                                             prod_state_year_tg_start, 
                                             prod_state_year_tg_end,
                                             ndvi_gee_dataset, EXECUTION_ID, logger)
+            out.merge(prod_state)
 
-            prod_out.merge(prod_state)
-            prod_out.selectBands(['Productivity trajectory (significance)',
-                                  'Productivity performance (degradation)',
-                                  'Productivity state (degradation)'])
-            prod_outs.append(prod_out.export(geojson, 'productivity', crs, logger, EXECUTION_ID, proj))
+            logger.debug("Running land cover indicator.")
+            lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, remap_matrix, 
+                            EXECUTION_ID, logger)
+            lc.selectBands(['Land cover (degradation)',
+                            'Land cover (7 class)'])
+            out.merge(lc)
+
+            logger.debug("Running soil organic carbon indicator.")
+            soc_out = soc(soc_year_initial, soc_year_final, fl, remap_matrix, False, 
+                          EXECUTION_ID, logger)
+            soc_out.selectBands(['Soil organic carbon (degradation)',
+                                 'Soil organic carbon'])
+            out.merge(soc_out)
+
+            out.setVisible(['Soil organic carbon (degradation)',
+                            'Land cover (degradation)',
+                            'Productivity trajectory (significance)',
+                            'Productivity state (degradation)',
+                            'Productivity performance (degradation)',
+                            'Land Productivity Dynamics (LPD)'])
+
+            outs.append(out.export(geojsons, 'sdg_sub_indicators', crs, logger,
+                                   EXECUTION_ID, proj))
 
         # First need to deserialize the data that was prepared for output from 
         # the productivity functions, so that new urls can be appended
         schema = CloudResultsSchema()
-        final_prod = schema.load(prod_outs[0])
-        for o in prod_outs[1:]:
+        final_prod = schema.load(outs[0])
+        for o in outs[1:]:
             this_out = schema.load(o)
             final_prod.urls.extend(this_out.urls)
         # Now serialize the output again so the remaining layers can be added 
         # to it
-        out = schema.dump(final_prod)
+        return schema.dump(final_prod)
 
     elif prod_mode == 'JRC LPD':
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
@@ -102,30 +126,29 @@ def run(params, logger):
                        None, None, EXECUTION_ID, logger)
         # Save as int16 to be compatible with other data
         out.image = out.image.int16()
+
+        logger.debug("Running land cover indicator.")
+        lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, remap_matrix, 
+                        EXECUTION_ID, logger)
+        lc.selectBands(['Land cover (degradation)',
+                        'Land cover (7 class)'])
+        out.merge(lc)
+
+        logger.debug("Running soil organic carbon indicator.")
+        soc_out = soc(soc_year_initial, soc_year_final, fl, remap_matrix, False, 
+                      EXECUTION_ID, logger)
+        soc_out.selectBands(['Soil organic carbon (degradation)',
+                             'Soil organic carbon'])
+        out.merge(soc_out)
+
+        out.setVisible(['Soil organic carbon (degradation)',
+                        'Land cover (degradation)',
+                        'Productivity trajectory (significance)',
+                        'Productivity state (degradation)',
+                        'Productivity performance (degradation)',
+                        'Land Productivity Dynamics (LPD)'])
+
+        return out.export(geojsons, 'sdg_sub_indicators', crs, logger,
+                          EXECUTION_ID, proj)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
-
-    logger.debug("Running land cover indicator.")
-    lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, remap_matrix, 
-                    EXECUTION_ID, logger)
-    lc.selectBands(['Land cover (degradation)',
-                    'Land cover (7 class)'])
-    out.merge(lc)
-
-    logger.debug("Running soil organic carbon indicator.")
-    soc_out = soc(soc_year_initial, soc_year_final, fl, remap_matrix, False, 
-                  EXECUTION_ID, logger)
-    soc_out.selectBands(['Soil organic carbon (degradation)',
-                         'Soil organic carbon'])
-    out.merge(soc_out)
-
-    out.setVisible(['Soil organic carbon (degradation)',
-                    'Land cover (degradation)',
-                    'Productivity trajectory (significance)',
-                    'Productivity state (degradation)',
-                    'Productivity performance (degradation)',
-                    'Land Productivity Dynamics (LPD)'])
-
-    proj = ee.Image(ndvi_gee_dataset).projection()
-    return out.export(geojsons, 'sdg_sub_indicators', crs, logger,
-                      EXECUTION_ID, proj)

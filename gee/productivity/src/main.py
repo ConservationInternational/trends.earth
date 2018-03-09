@@ -17,6 +17,7 @@ from landdegradation.productivity import productivity_trajectory, \
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
 from landdegradation.download import download
+from landdegradation.schemas.schemas import CloudResultsSchema
 
 
 def run(params, logger):
@@ -47,6 +48,8 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running productivity indicators.")
+
+    proj = ee.Image(ndvi_gee_dataset).projection()
 
     if prod_mode == 'Trends.Earth productivity':
         outs = []
@@ -79,19 +82,22 @@ def run(params, logger):
                 else:
                     this_out.merge(state)
             
-            outs.append(out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj))
+            outs.append(this_out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj))
 
-        final_output = 
-        for out in outs:
+        # First need to deserialize the data that was prepared for output from 
+        # the productivity functions, so that new urls can be appended
+        schema = CloudResultsSchema()
+        final_output = schema.load(outs[0])
+        for o in outs[1:]:
+            this_out = schema.load(o)
+            final_output.urls.extend(this_out.urls)
+        # Now serialize the output again and return it
+        return schema.dump(final_output)
 
-
-        proj = ee.Image(ndvi_gee_dataset).projection()
-        return out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj)
     elif prod_mode == 'JRC LPD':
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time', 
                        None, None, EXECUTION_ID, logger)
-        proj = ee.Image(ndvi_gee_dataset).projection()
         return out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))

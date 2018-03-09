@@ -17,6 +17,7 @@ from landdegradation.productivity import productivity_trajectory, \
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
 from landdegradation.download import download
+from landdegradation.schemas.schemas import CloudResultsSchema
 
 
 def run(params, logger):
@@ -57,25 +58,44 @@ def run(params, logger):
 
     logger.debug("Running productivity indicators.")
     if prod_mode == 'Trends.Earth productivity':
-        out = productivity_trajectory(prod_traj_year_initial, 
-                                      prod_traj_year_final, prod_traj_method,
-                                      ndvi_gee_dataset, climate_gee_dataset, 
-                                      logger)
-        prod_perf = productivity_performance(prod_perf_year_initial, 
-                                             prod_perf_year_final, 
-                                             ndvi_gee_dataset, geojson, 
-                                             EXECUTION_ID, logger)
-        out.merge(prod_perf)
-        prod_state = productivity_state(prod_state_year_bl_start, 
-                                        prod_state_year_bl_end, 
-                                        prod_state_year_tg_start, 
-                                        prod_state_year_tg_end,
-                                        ndvi_gee_dataset, EXECUTION_ID, logger)
+        prod_outs = []
+        # Need to loop over the geojsons, since performance takes in a geojson.
+        # TODO: pass performance a second geojson defining the entire extent of 
+        # all input geojsons so that the performance is calculated the same 
+        # over all input areas.
+        for geojson in geojsons:
+            prod_out = productivity_trajectory(prod_traj_year_initial, 
+                                               prod_traj_year_final, prod_traj_method,
+                                               ndvi_gee_dataset, climate_gee_dataset, 
+                                               logger)
+            prod_perf = productivity_performance(prod_perf_year_initial, 
+                                                 prod_perf_year_final, 
+                                                 ndvi_gee_dataset, geojson, 
+                                                 EXECUTION_ID, logger)
+            prod_out.merge(prod_perf)
+            prod_state = productivity_state(prod_state_year_bl_start, 
+                                            prod_state_year_bl_end, 
+                                            prod_state_year_tg_start, 
+                                            prod_state_year_tg_end,
+                                            ndvi_gee_dataset, EXECUTION_ID, logger)
 
-        out.merge(prod_state)
-        out.selectBands(['Productivity trajectory (significance)',
-                         'Productivity performance (degradation)',
-                         'Productivity state (degradation)'])
+            prod_out.merge(prod_state)
+            prod_out.selectBands(['Productivity trajectory (significance)',
+                                  'Productivity performance (degradation)',
+                                  'Productivity state (degradation)'])
+        prod_outs.append(prod_out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj))
+
+        # First need to deserialize the data that was prepared for output from 
+        # the productivity functions, so that new urls can be appended
+        schema = CloudResultsSchema()
+        final_prod = schema.load(prod_outs[0])
+        for o in prod_outs[1:]:
+            this_out = schema.load(o)
+            final_prod.urls.extend(this_out.urls)
+        # Now serialize the output again so the remaining layers can be added 
+        # to it
+        out = schema.dump(final_prod)
+
     elif prod_mode == 'JRC LPD':
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time', 

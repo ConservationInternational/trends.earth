@@ -19,7 +19,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt
+from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt, QDate
 
 from LDMP import log
 
@@ -83,11 +83,31 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         for cat in data_dict.keys():
             for title in data_dict[cat].keys():
                 item = data_dict[cat][title]
-                item.update({'category': cat,
-                             'title': title})
+                item.update({'category': cat, 'title': title})
                 self.datasets.append(item)
 
         self.update_data_table()
+
+        self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
+
+    def selection_changed(self):
+        if self.data_view.selectedIndexes():
+            # Note there can only be one row selected at a time by default
+            row = list(set(index.row() for index in self.data_view.selectedIndexes()))[0]
+            first_year = self.datasets[row]['Start year']
+            last_year = self.datasets[row]['End year']
+            if (first_year == 'NA') or (last_year == 'NA'):
+                self.first_year.setEnabled(False)
+                self.last_year.setEnabled(False)
+            else:
+                self.first_year.setEnabled(True)
+                self.last_year.setEnabled(True)
+                first_year = QDate(first_year, 12, 31)
+                last_year = QDate(last_year, 12, 31)
+                self.first_year.setMinimumDate(first_year)
+                self.first_year.setMaximumDate(last_year)
+                self.last_year.setMinimumDate(first_year)
+                self.last_year.setMaximumDate(last_year)
 
     def tab_changed(self):
         super(DlgDownload, self).tab_changed()
@@ -135,8 +155,12 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         self.close()
 
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         for row in rows:
-            payload = {'geojsons': json.dumps(self.aoi.bounding_box_gee_geojson()),
+            payload = {'geojsons': json.dumps(geojsons),
+                       'year_start': self.first_year.date().year(),
+                       'year_end': self.last_year.date().year(),
+                       'crosses_180th': crosses_180th,
                        'asset': self.datasets[row]['GEE Dataset'],
                        'name': self.datasets[row]['title'],
                        'temporal_resolution': self.datasets[row]['Temporal resolution'],

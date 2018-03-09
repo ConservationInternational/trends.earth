@@ -88,7 +88,6 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
         return None
     else:
-        #QgsMapLayerRegistry.instance().addMapLayer(l_w)
         return l_w
 
 
@@ -115,8 +114,11 @@ class AOI(object):
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
 
-    def update_from_file(self, f, wrap=False):
-        log('Setting up AOI from file at {}. CRS is "{}" and wrap is {}'.format(f, self.crs_dst.toProj4(), wrap))
+    def get_crs_dst_wkt(self):
+        return self.crs_dst.toWkt()
+
+    def update_from_file(self, f):
+        log('Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
             return
@@ -133,7 +135,7 @@ class AOI(object):
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def update_from_geojson(self, geojson, crs_src='epsg:4326', datatype='polygon', wrap=False):
-        log('Setting up AOI with geojson. CRS is "{}" and wrap is {}'.format(self.crs_dst.toProj4(), wrap))
+        log('Setting up AOI with geojson. Wrap is {}.'.format(wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
@@ -148,10 +150,6 @@ class AOI(object):
             return
 
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
-
-    def layer(self):
-        'Returns layer'
-        return self.l
 
     def bounding_box_meridian_split_geojson(self):
         """
@@ -522,6 +520,9 @@ class DlgCalculateBase(QtGui.QDialog):
         #self.options_tab.toggle_show_where_to_run(True)
         self.options_tab.toggle_show_where_to_run(False)
 
+        # By default hide the custom crs box
+        self.area_tab.groupBox_custom_crs.hide()
+
         if self._firstShowEvent:
             self._firstShowEvent = False
             self.firstShowEvent.emit()
@@ -531,8 +532,6 @@ class DlgCalculateBase(QtGui.QDialog):
 
         # By default, don't show area from point selector
         self.area_tab.show_areafrom_point_toggle(False)
-        # By default, don't show custom crs groupBox
-        self.area_tab.groupBox_custom_crs.hide()
 
     def firstShow(self):
         self.button_calculate.clicked.connect(self.btn_calculate)

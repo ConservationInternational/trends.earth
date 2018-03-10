@@ -40,9 +40,8 @@ from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
-from LDMP.jobs import create_local_json_metadata
-from LDMP.load_data import get_file_metadata, add_layer
-from LDMP.schemas.schemas import BandInfo
+from LDMP.load_data import get_file_metadata, add_layer, create_local_json_metadata
+from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
@@ -1212,9 +1211,10 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                            sdg_tbl_lc, self.output_file_table.text())
 
         # Add the SDG layers to the map
-        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0].getDict())
+        schema = BandInfoSchema()
+        add_layer(output_sdg_tif, 1, schema.dump(output_sdg_bandinfos[0]))
         if prod_mode == 'Trends.Earth productivity':
-            add_layer(output_sdg_tif, 2, output_sdg_bandinfos[1].getDict())
+            add_layer(output_sdg_tif, 2, schema.dump(output_sdg_bandinfos[0]))
 
 
 def get_lc_area(table, code):

@@ -15,9 +15,11 @@
 import sys
 import time
 
+from qgis.utils import iface
+
 from PyQt4 import QtCore
 from PyQt4.QtCore import QThread, Qt, QEventLoop
-from PyQt4.QtGui import QProgressBar, QPushButton
+from PyQt4.QtGui import QProgressBar, QPushButton, QApplication
 
 from LDMP import log
 
@@ -152,7 +154,7 @@ class StartWorker(object):
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
         start_worker(self.worker, iface,
-                     QtGui.QApplication.translate("LDMP", 'Processing: {}').format(process_name))
+                     QApplication.translate("LDMP", 'Processing: {}').format(process_name))
         pause.exec_()
 
         if self.exception:

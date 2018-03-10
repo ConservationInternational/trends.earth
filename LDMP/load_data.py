@@ -43,7 +43,7 @@ from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgLoadDataProd import Ui_DlgLoadDataProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, BandInfoSchema
+from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, BandInfo, BandInfoSchema
 from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
 from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
 
@@ -56,8 +56,24 @@ with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
 
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError("Type {} not serializable".format(type(obj)))
+
+
+def create_local_json_metadata(json_file, data_file, bands, metadata={}):
+    out = LocalRaster(data_file, bands, metadata)
+    local_raster_schema = LocalRasterSchema()
+    with open(json_file, 'w') as f:
+        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
+                  sort_keys=True, indent=4, separators=(',', ': '))
+
+
 class ShapefileImportWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, band_number, out_res, 
+    def __init__(self, in_file, out_file, out_res, 
                  out_data_type=gdal.GDT_Int16):
         AbstractWorker.__init__(self)
 
@@ -73,7 +89,7 @@ class ShapefileImportWorker(AbstractWorker):
 
         res = gdal.Rasterize(self.out_file, self.in_file,
                              format='GTiff',
-                             xRes=out_res, yRes=-out_res,
+                             xRes=self.out_res, yRes=-self.out_res,
                              noData=-32767, attribute=attribute,
                              outputSRS="epsg:4326",
                              outputType=self.out_data_type,
@@ -91,15 +107,16 @@ class ShapefileImportWorker(AbstractWorker):
             self.progress.emit(100 * fraction)
             return True
 
+
 class RasterImportWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, band_number, out_res, 
-                 out_data_type=gdal.GDT_Int16):
+    def __init__(self, in_file, out_file, out_res, 
+                 resample_mode, out_data_type=gdal.GDT_Int16):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
-
         self.out_res = out_res
+        self.resample_mode = resample_mode
         self.out_data_type = out_data_type
 
     def work(self):
@@ -107,11 +124,11 @@ class RasterImportWorker(AbstractWorker):
         self.toggle_show_cancel.emit(True)
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        xRes=out_res, yRes=-out_res,
+                        xRes=self.out_res, yRes=-self.out_res,
                         srcNodata=-32768, dstNodata=-32767,
                         dstSRS="epsg:4326",
                         outputType=self.out_data_type,
-                        resampleAlg=gdal.GRA_NearestNeighbour,
+                        resampleAlg=self.resample_mode,
                         creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
 
@@ -119,6 +136,72 @@ class RasterImportWorker(AbstractWorker):
             return True
         else:
             return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
+
+
+class RasterRemapWorker(AbstractWorker):
+    def __init__(self, in_file, out_file, remap_list):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+        self.remap_list = remap_list
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+        
+        ds_in = gdal.Open(self.in_file)
+
+        band = ds_in.GetRasterBand(1)
+
+        block_sizes = band.GetBlockSize()
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+        xsize = band.XSize
+        ysize = band.YSize
+
+        driver = gdal.GetDriverByName("GTiff")
+        ds_out = driver.Create(self.out_file, xsize, ysize, 1, gdal.GDT_Int16, 
+                               ['COMPRESS=LZW'])
+        src_gt = ds_in.GetGeoTransform()
+        ds_out.SetGeoTransform(src_gt)
+        out_srs = osr.SpatialReference()
+        out_srs.ImportFromWkt(ds_in.GetProjectionRef())
+        ds_out.SetProjection(out_srs.ExportToWkt())
+
+
+        blocks = 0
+        for y in xrange(0, ysize, y_block_size):
+            if self.killed:
+                log("Processing of {} killed by user after processing {} out of {} blocks.".format(deg_file, y, ysize))
+                break
+            self.progress.emit(100 * float(y) / ysize)
+            if y + y_block_size < ysize:
+                rows = y_block_size
+            else:
+                rows = ysize - y
+            for x in xrange(0, xsize, x_block_size):
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+                    d = band.ReadAsArray(x, y, cols, rows)
+                    for value, replacement in zip(self.remap_list[0], self.remap_list[1]):
+                        d[d == int(value)] = int(replacement)
+                ds_out.GetRasterBand(1).WriteArray(d, x, y)
+                blocks += 1
+        if self.killed:
+            os.remove(out_file)
+            return None
+        else:
+            return True
 
     def progress_callback(self, fraction, message, data):
         if self.killed:
@@ -265,7 +348,7 @@ def get_file_metadata(json_file):
     local_raster_schema = LocalRasterSchema()
 
     try:
-        d = local_raster_schema.load(d).data
+        d = local_raster_schema.load(d)
     except ValidationError:
         log('Unable to parse {}'.format(json_file))
         return None
@@ -753,14 +836,15 @@ class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOut
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))
-        if os.access(raster_file, os.W_OK):
-            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
-            self.lineEdit_output_file.setText(raster_file)
-            return True
-        else:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
-            return False
+        if raster_file:
+            if os.access(os.path.dirname(raster_file), os.W_OK):
+                QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+                self.lineEdit_output_file.setText(raster_file)
+                return True
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
+                return False
 
 
 class DlgLoadDataBase(QtGui.QDialog):
@@ -773,35 +857,77 @@ class DlgLoadDataBase(QtGui.QDialog):
         self.input_widget = LoadDataSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
-    def convert_raster(self, band_name, out_data_type=gdal.GDT_Int16):
+    def get_resample_mode(self, f):
+        ds_in = gdal.Open(f)
+        gt_in = ds_in.GetGeoTransform()
+        in_res = gt_in[1]
+        out_res = self.get_out_res_wgs84()
+        if in_res < out_res:
+            # If output resolution is lower than the original data, use mode
+            log('Resampling with mode (in res: {}, out_res: {}'.format(in_res, out_res))
+            return gdal.GRA_Mode
+        else:
+            # If output resolution is finer than the original data, use nearest 
+            # neighbor
+            log('Resampling with nearest nearest (in res: {}, out_res: {}'.format(in_res, out_res))
+            return gdal.GRA_NearestNeighbour
+
+    def get_out_res_wgs84(self):
+        if self.input_widget.groupBox_output_resolution.isChecked():
+            # Calculate res in degrees from input which is in meters
+            res = int(self.input_widget.spinBox_resolution.value())
+            return res / (111.325 * 1000) # 111.325km in one degree
+        else:
+            ds_in = gdal.Open(self.input_widget.lineEdit_raster_file.text())
+            gt_in = ds_in.GetGeoTransform()
+            #TODO: Need to fix this to convert the in res to wgs84 if needed
+            return gt_in[1]
+
+    def remap_raster(self, remap_list):
         in_file = self.input_widget.lineEdit_raster_file.text()
         out_file = self.output_widget.lineEdit_output_file.text()
+
+        # First warp the raster to the correct output res and CRS
+        temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
+        self.warp_raster(temp_tif)
+
+        log('Importing and recoding {} to {} using remap list: {}'.format(temp_tif, out_file, remap_list))
+        raster_remap_worker = StartWorker(RasterRemapWorker,
+                                          'remapping values', temp_tif, 
+                                           out_file, remap_list)
+        if not raster_remap_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Raster import failed."), None)
+            return False
+        else:
+            return True
+
+    def warp_raster(self, out_file):
+        in_file = self.input_widget.lineEdit_raster_file.text()
 
         # Select a single output band
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
                       
-        # Calculate res in degrees from input which is in meters
-        res = int(self.input_widget.spinBox_resolution.value())
-        res_wgs84 = res / (111.325 * 1000) # 111.325km in one degree
-        
+        log('Importing {} to {}'.format(in_file, out_file))
         raster_import_worker = StartWorker(RasterImportWorker,
-                                           'importing raster', in_file, 
-                                           out_file, band_number, res_wgs84)
+                                           'importing raster', temp_vrt, 
+                                           out_file, self.get_out_res_wgs84(),
+                                           self.get_resample_mode(temp_vrt))
         if not raster_import_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Raster import failed."), None)
-            return
+            return False
+        else:
+            return True
 
-        output_json = os.path.splitext(output_file)[0] + '.json'
-        create_local_json_metadata(output_json, output_file, 
-                                   [BandInfo(band_name)], 
-                                   metadata={'year': int(self.input_widget.spinBox_data_year.value()),
-                                             'task_name': self.options_tab.task_name.text(),
-                                             'task_notes': self.options_tab.task_notes.toPlainText()})
-        
-#    def convert_shapefile(self):
+    def create_json(self, band_name, metadata):
+        out_json = os.path.splitext(out_file)[0] + '.json'
+        band_info = [BandInfo(band_name, add_to_map=True, metadata=metadata)]
+        create_local_json_metadata(out_json, out_file, band_info)
+        schema = BandInfoSchema()
+        resp = add_layer(out_file, 1, schema.dump(band_info[0]))
 
 
 class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
@@ -821,34 +947,75 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
 
         self.btnBox.accepted.connect(self.ok_clicked)
 
+        self.dlg_agg = None
+        
+    def clear_dlg_agg(self):
+        self.dlg_agg = None
+
+    def showEvent(self, event):
+        super(DlgLoadDataLC, self).showEvent(event)
+
+        # Reset flags to avoid reloading of unique values when files haven't 
+        # changed:
+        self.last_raster = None
+        self.last_band_number = None
+        self.last_vector = None
+        self.idx = None
+
     def input_changed(self, valid):
         if valid:
             self.btn_agg_edit_def.setEnabled(True)
         else:
             self.btn_agg_edit_def.setEnabled(False)
+        self.clear_dlg_agg()
+
+    def load_agg(self, values):
+        # Set all of the classes to no data by default
+        classes = [{'Initial_Code':str(value), 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':'-32768'} for value in sorted(values)]
+        self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
             f = self.input_widget.lineEdit_raster_file.text()
-            #TODO: Need to display a progress bar onscreen while this is happening
-            values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
+            band_number = int(self.input_widget.comboBox_bandnumber.currentText())
+            if not self.dlg_agg or \
+                    (self.last_raster != f or self.last_band_number != band_number):
+                #TODO: Need to display a progress bar onscreen while this is happening
+                values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
+                if not values:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
+                    return
+                self.last_raster = f
+                self.last_band_number = band_number
+                self.load_agg(values)
         else:
             f = self.input_widget.lineEdit_polygon_file.text()
             l = self.input_widget.get_vector_layer(f)
             idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
-            values = l.uniqueValues(idx)
-            if len(values) > 50:
-                values = None
-        if values:
-            # Set all of the classes to no data by default
-            classes = [{'Initial_Code':str(value), 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':'-32768'} for value in sorted(values)]
-            self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
-            self.dlg_agg.exec_()
-        else:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
+            if not self.dlg_agg or \
+                    (self.last_vector != f or self.last_idx != idx):
+                values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
+                values = l.uniqueValues(idx)
+                if len(values) > 50:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
+                    return
+                self.last_vector = f
+                self.last_idx = idx
+                self.load_agg(values)
+        self.dlg_agg.exec_()
 
     def ok_clicked(self):
-        self.convert_raster('Land cover (7 class)')
+        if  not self.dlg_agg:
+            QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.'.format(), None))
+            return False
+
+        if self.input_widget.radio_raster_input.isChecked():
+            self.remap_raster(self.dlg_agg.get_agg_as_list())
+        else:
+            self.convert_vector()
+
+        self.create_json('Land cover (7 class)',
+                         {'year': int(self.input_widget.spinBox_data_year.date().year())})
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):
@@ -859,6 +1026,16 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
 
+        self.btnBox.accepted.connect(self.ok_clicked)
+
+    def ok_clicked(self):
+        if self.input_widget.radio_raster_input.isChecked():
+            self.warp_raster(self.output_widget.lineEdit_output_file.text())
+            self.create_json('Soil organic carbon)')
+        else:
+            self.convert_vector()
+            self.create_json('Soil organic carbon)')
+
 
 class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
     def __init__(self, parent=None):
@@ -868,3 +1045,11 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         # button box with ok/cancel
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
+
+        self.btnBox.accepted.connect(self.ok_clicked)
+
+    def ok_clicked(self):
+        if self.input_widget.radio_raster_input.isChecked():
+            self.warp_raster("Land Productivity Dynamics (LPD)")
+        else:
+            self.convert_vector("Land Productivity Dynamics (LPD)")

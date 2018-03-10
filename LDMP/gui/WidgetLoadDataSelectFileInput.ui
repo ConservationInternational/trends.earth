@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>463</width>
-    <height>342</height>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -185,7 +185,13 @@
      <item>
       <widget class="QGroupBox" name="groupBox_output_resolution">
        <property name="title">
-        <string>Output resolution (in meters)</string>
+        <string>Modify resolution (in meters)</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>

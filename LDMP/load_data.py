@@ -32,7 +32,7 @@ mb = iface.messageBar()
 
 import numpy as np
 
-from osgeo import gdal
+from osgeo import gdal, osr
 
 from LDMP import log
 from LDMP.calculate_lc import DlgCalculateLCSetAggregation
@@ -869,7 +869,7 @@ class DlgLoadDataBase(QtGui.QDialog):
         else:
             # If output resolution is finer than the original data, use nearest 
             # neighbor
-            log('Resampling with nearest nearest (in res: {}, out_res: {}'.format(in_res, out_res))
+            log('Resampling with nearest neighbor (in res: {}, out_res: {}'.format(in_res, out_res))
             return gdal.GRA_NearestNeighbour
 
     def get_out_res_wgs84(self):
@@ -923,11 +923,12 @@ class DlgLoadDataBase(QtGui.QDialog):
             return True
 
     def create_json(self, band_name, metadata):
+        out_file = self.output_widget.lineEdit_output_file.text()
         out_json = os.path.splitext(out_file)[0] + '.json'
         band_info = [BandInfo(band_name, add_to_map=True, metadata=metadata)]
         create_local_json_metadata(out_json, out_file, band_info)
         schema = BandInfoSchema()
-        resp = add_layer(out_file, 1, schema.dump(band_info[0]))
+        return add_layer(out_file, 1, schema.dump(band_info[0]))
 
 
 class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):

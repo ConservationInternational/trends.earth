@@ -37,7 +37,7 @@ from LDMP.plot import DlgPlotTimeries
 from LDMP import log
 from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
-from LDMP.load_data import add_layer
+from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
 
@@ -58,7 +58,7 @@ def create_gee_json_metadata(json_file, job, data_file):
     out = LocalRaster(data_file, bands, metadata)
     local_raster_schema = LocalRasterSchema()
     with open(json_file, 'w') as f:
-        json.dump(local_raster_schema.dump(out).data, f, default=json_serial, 
+        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
                   sort_keys=True, indent=4, separators=(',', ': '))
 
 

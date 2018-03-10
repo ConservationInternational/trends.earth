@@ -26,11 +26,11 @@ from openpyxl.drawing.image import Image
 from PyQt4 import QtGui, uic, QtXml
 from PyQt4.QtCore import QSettings
 
-from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
-    QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
-    QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
-    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, QgsLayerDefinition
+from qgis.core import QgsGeometry, QgsRasterLayer, QgsColorRampShader, \
+    QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsVectorLayer, \
+    QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
+    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, \
+    QgsLayerDefinition
 from qgis.gui import QgsComposerView
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -40,7 +40,8 @@ from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
-from LDMP.load_data import get_file_metadata, add_layer, create_local_json_metadata
+from LDMP.layers import get_file_metadata, add_layer, \
+        create_local_json_metadata, get_band_info, get_te_layers
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
@@ -155,28 +156,6 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         # TODO: Add offline calculation
         
 
-def get_band_info(data_file):
-    json_file = os.path.splitext(data_file)[0] + '.json'
-    m = get_file_metadata(json_file)
-    if m:
-        return m['bands']
-    else:
-        return None
-
-
-def _get_layers(node):
-    l = []
-    if isinstance(node, QgsLayerTreeGroup):
-        for child in node.children():
-            if isinstance(child, QgsLayerTreeLayer):
-                l.append(child.layer())
-            else:
-                l.extend(_get_layers(child))
-    else:
-        l = node
-    return l
-
-
 #  Calculate the area of a slice of the globe from the equator to the parallel
 #  at latitude f (on WGS84 ellipsoid). Based on:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
@@ -201,54 +180,6 @@ def calc_cell_area(ymin, ymax, x_width):
     # ymax: maximum latitude
     # x_width: width of cell in degrees
     return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
-
-
-# Get a list of layers of a particular type, out of those in the TOC that were
-# produced by trends.earth
-def get_ld_layers(layer_type=None):
-    root = QgsProject.instance().layerTreeRoot()
-    layers_filtered = []
-    layers = _get_layers(root)
-    if len(layers) > 0:
-        for l in layers:
-            if not isinstance(l, QgsRasterLayer):
-                # Allows skipping other layer types, like OpenLayers layers, that
-                # are irrelevant for the toolbox
-                continue
-            band_infos = get_band_info(l.dataProvider().dataSourceUri())
-            # Layers not produced by trends.earth won't have bandinfo, and 
-            # aren't of interest, so skip if there is no bandinfo.
-            if band_infos:
-                band_number = l.renderer().usesBands()
-                # Note the below is true so long as none of the needed layers use more 
-                # than one band.
-                if len(band_number) == 1:
-                    band_number = band_number[0]
-                    band_info = band_infos[band_number - 1]
-                    name = band_info['name']
-                    if layer_type == 'lpd' and name == 'Land Productivity Dynamics (LPD)':
-                        layers_filtered.append((l, band_number, band_info))
-                    if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'state_deg' and name == 'Productivity state (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'perf_deg' and name == 'Productivity performance (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_tr' and name == 'Land cover transitions':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_deg' and name == 'Land cover (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'soc_deg' and name == 'Soil organic carbon (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'soc_annual' and name == 'Soil organic carbon':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_mode' and name == 'Land cover mode (7 class)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_annual' and name == 'Land cover (7 class)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_transitions' and name == 'Land cover transitions':
-                        layers_filtered.append((l, band_number, band_info))
-    return layers_filtered
 
 
 class DegradationWorkerSDG(AbstractWorker):
@@ -823,32 +754,32 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
     def populate_layers_lpd(self):
        self.combo_layer_lpd.clear()
-       self.layer_lpd_list = get_ld_layers('lpd')
+       self.layer_lpd_list = get_te_layers('lpd')
        self.combo_layer_lpd.addItems([l[0].name() for l in self.layer_lpd_list])
 
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
-        self.layer_traj_list = get_ld_layers('traj_sig')
+        self.layer_traj_list = get_te_layers('traj_sig')
         self.combo_layer_traj.addItems([l[0].name() for l in self.layer_traj_list])
 
     def populate_layers_perf(self):
         self.combo_layer_perf.clear()
-        self.layer_perf_list = get_ld_layers('perf_deg')
+        self.layer_perf_list = get_te_layers('perf_deg')
         self.combo_layer_perf.addItems([l[0].name() for l in self.layer_perf_list])
 
     def populate_layers_state(self):
         self.combo_layer_state.clear()
-        self.layer_state_list = get_ld_layers('state_deg')
+        self.layer_state_list = get_te_layers('state_deg')
         self.combo_layer_state.addItems([l[0].name() for l in self.layer_state_list])
 
     def populate_layers_lc(self):
         self.combo_layer_lc.clear()
-        self.layer_lc_list = get_ld_layers('lc_deg')
+        self.layer_lc_list = get_te_layers('lc_deg')
         self.combo_layer_lc.addItems([l[0].name() for l in self.layer_lc_list])
 
     def populate_layers_soc(self):
         self.combo_layer_soc.clear()
-        self.layer_soc_list = get_ld_layers('soc_deg')
+        self.layer_soc_list = get_te_layers('soc_deg')
         self.combo_layer_soc.addItems([l[0].name() for l in self.layer_soc_list])
 
     def select_output_file_layer(self):

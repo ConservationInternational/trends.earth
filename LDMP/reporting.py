@@ -24,8 +24,8 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
+from LDMP.layers import get_te_layers
 from LDMP.calculate import DlgCalculateBase
-from LDMP.calculate_sdg import get_ld_layers
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.gui.DlgReporting import Ui_DlgReporting
 from LDMP.gui.DlgReportingBasemap import Ui_DlgReportingBasemap
@@ -240,7 +240,7 @@ class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
 
     def populate_layers(self):
         self.combo_layers.clear()
-        self.layers_list = get_ld_layers()
+        self.layers_list = get_te_layers()
         self.combo_layers.addItems([l[0].name() for l in self.layers_list])
 
     def cancel_clicked(self):

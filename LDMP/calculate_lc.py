@@ -25,11 +25,14 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.layers import create_local_json_metadata, add_layer, get_te_layers
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.api import run_script
+from LDMP.worker import AbstractWorker, StartWorker
+
 
 # Number of classes in land cover dataset
 NUM_CLASSES = 7
@@ -459,6 +462,10 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         # Make sure the custom data boxes are turned off by default
         self.use_esa_toggled()
 
+    def showEvent(self, event):
+        super(LCSetupWidget, self).showEvent(event)
+        self.populate_layers_lc()
+
     def use_esa_toggled(self):
         if self.use_esa.isChecked():
             self.groupBox_esa_period.setEnabled(True)
@@ -471,8 +478,59 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
             self.groupBox_custom_bl.setEnabled(True)
             self.groupBox_custom_tg.setEnabled(True)
 
+    def populate_layers_lc(self):
+       self.use_custom_initial.clear()
+       self.layer_custom_initial_list = get_te_layers('lc_annual')
+       self.use_custom_initial.addItems([l[0].name() for l in self.layer_custom_initial_list])
+       self.use_custom_final.clear()
+       self.layer_custom_final_list = get_te_layers('lc_annual')
+       self.use_custom_final.addItems([l[0].name() for l in self.layer_custom_final_list])
+
     def esa_agg_custom_edit(self):
         self.dlg_esa_agg.exec_()
+
+class LandCoverChangeWorker(AbstractWorker):
+    def __init__(self, in_f, trans_matrix):
+        AbstractWorker.__init__(self)
+        self.in_f = in_f
+        self.trans_matrix = trans_matrix
+
+    def work(self):
+        ds_in = gdal.Open(self.in_f)
+
+        band_initial = ds_in.GetRasterBand(1)
+        band_final = ds_in.GetRasterBand(2)
+
+        block_sizes = band_initial_sdg.GetBlockSize()
+        x_block_size = block_sizes[0]
+        # Need to process y line by line so that pixel area calculation can be
+        # done based on latitude, which varies by line
+        y_block_size = 1
+        xsize = band_initial_sdg.XSize
+        ysize = band_initial_sdg.YSize
+
+        gt = ds_sdg.GetGeoTransform()
+
+        blocks = 0
+        for y in xrange(0, ysize, y_block_size):
+            if self.killed:
+                log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
+                break
+            self.progress.emit(100 * float(y) / ysize)
+            if y + y_block_size < ysize:
+                rows = y_block_size
+            else:
+                rows = ysize - y
+            for x in xrange(0, xsize, x_block_size):
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+
+                lc_i = band_initial.ReadAsArray(x, y, cols, rows)
+                lc_f = band_final.ReadAsArray(x, y, cols, rows)
+                a_trans = lc_i*10 + lc_f
+                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
 
 # LC widgets shared across dialogs
 lc_define_deg_widget = LCDefineDegradationWidget()
@@ -510,30 +568,36 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         self.close()
 
-        #######################################################################
-        # Online
-
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
-                   'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
-
-        resp = run_script(get_script_slug('land-cover'), payload)
-
-        if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
-                           level=0, duration=5)
+        if self.use_esa.isChecked():
+            self.calculate_on_GEE()
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
-                           level=0, duration=5)
+            self.calculate_locally()
 
-        #######################################################################
-        # TODO: Add offline calculation
+    def calculate_on_GEE(self):
+            crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+            payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
+                       'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
+                       'geojsons': json.dumps(geojsons),
+                       'crs': self.aoi.get_crs_dst_wkt(),
+                       'crosses_180th': crosses_180th,
+                       'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
+                       'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                       'task_name': self.options_tab.task_name.text(),
+                       'task_notes': self.options_tab.task_notes.toPlainText()}
+
+            resp = run_script(get_script_slug('land-cover'), payload)
+
+            if resp:
+                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                               QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+                               level=0, duration=5)
+            else:
+                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                               QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+                               level=0, duration=5)
+
+    def calculate_on_GEE(self):
+                ###########################################################
+                # Calculate transition crosstabs for productivity indicator
+                a_trans = a_lc_bl*10 + a_lc_tg
+                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768

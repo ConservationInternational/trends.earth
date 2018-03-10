@@ -152,10 +152,14 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.btn_save.clicked.connect(self.btn_save_pressed)
         self.btn_load.clicked.connect(self.btn_load_pressed)
         self.btn_reset.clicked.connect(self.reset_class_table)
+        self.btn_close.clicked.connect(self.btn_close_pressed)
 
         # Setup the class table so that the table is defined when a user first 
         # loads the dialog
         self.reset_class_table()
+
+    def btn_close_pressed(self):
+        self.close()
 
     def btn_load_pressed(self):
         f = QtGui.QFileDialog.getOpenFileName(self,

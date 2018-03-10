@@ -22,7 +22,8 @@ from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        QGis, QgsMapLayerRegistry
+        QGis, QgsMapLayerRegistry, QgsProject, QgsRasterLayer, \
+        QgsLayerTreeGroup, QgsLayerTreeLayer
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -46,6 +47,7 @@ def get_script_slug(script_name):
     # Note that dots and underscores can't be used in the slugs, so they are 
     # replaced with dashesk
     return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
+
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian

@@ -16,7 +16,6 @@ import os
 import re
 import tempfile
 from math import floor, log10
-from operator import attrgetter
 
 import json
 from marshmallow import ValidationError
@@ -24,9 +23,9 @@ from marshmallow import ValidationError
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
-from qgis.core import QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsRasterBandStats, QgsVectorLayer, \
-    QgsRasterLayer
+from LDMP.layers import create_local_json_metadata, add_layer, \
+    get_file_metadata, get_band_title
+from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -43,33 +42,9 @@ from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgLoadDataProd import Ui_DlgLoadDataProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, BandInfo, BandInfoSchema
+from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
 from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
-
-
-with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                       'data', 'styles.json')) as script_file:
-    styles = json.load(script_file)
-
-
-def tr(t):
-    return QCoreApplication.translate('LDMPPlugin', t)
-
-
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime.datetime, datetime.date)):
-        return obj.isoformat()
-    raise TypeError("Type {} not serializable".format(type(obj)))
-
-
-def create_local_json_metadata(json_file, data_file, bands, metadata={}):
-    out = LocalRaster(data_file, bands, metadata)
-    local_raster_schema = LocalRasterSchema()
-    with open(json_file, 'w') as f:
-        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
-                  sort_keys=True, indent=4, separators=(',', ': '))
 
 
 class ShapefileImportWorker(AbstractWorker):
@@ -210,156 +185,6 @@ class RasterRemapWorker(AbstractWorker):
             self.progress.emit(100 * fraction)
             return True
 
-def tr_style_text(label):
-    """If no translation is available, use the original label"""
-    val = style_text_dict.get(label, None)
-    if val:
-        return val
-    else:
-        if isinstance(label, basestring):
-            return label
-        else:
-            return str(label)
-
-def get_band_title(band_info):
-    style = styles.get(band_info['name'], None)
-    if style:
-        return tr_style_text(style['title']).format(**band_info['metadata'])
-    else:
-        return band_info['name']
-
-# Store layer titles and label text in a dictionary here so that it can be
-# translated - if it were in the syles JSON then gettext would not have access
-# to these strings.
-style_text_dict = {
-    # Productivity trajectory
-    'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
-    'prod_traj_trend_nodata': tr('No data'),
-
-    'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
-    'prod_traj_signif_dec_99': tr('Degradation (significant decrease, p < .01)'),
-    'prod_traj_signif_dec_95': tr('Degradation (significant decrease, p < .05)'),
-    'prod_traj_signif_dec_90': tr('Stable (significant decrease, p < .1)'),
-    'prod_traj_signif_zero': tr('Stable (no significant change)'),
-    'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
-    'prod_traj_signif_inc_95': tr('Improvement (significant increase, p < .05)'),
-    'prod_traj_signif_inc_99': tr('Improvement (significant increase, p < .01)'),
-    'prod_traj_signif_nodata': tr('No data'),
-
-    # Productivity performance
-    'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
-    'prod_perf_deg_potential_deg': tr('Degradation'),
-    'prod_perf_deg_not_potential_deg': tr('Not degradation'),
-    'prod_perf_deg_nodata': tr('No data'),
-
-    'prod_perf_ratio_title': tr('Productivity performance ({year_start} to {year_end}, ratio)'),
-    'prod_perf_ratio_nodata': tr('No data'),
-
-    'prod_perf_units_title': tr('Productivity performance ({year_start}, units)'),
-    'prod_perf_units_nodata': tr('No data'),
-
-    # Productivity state
-    'prod_state_change_title': tr('Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
-    'prod_state_change_potential_deg': tr('Degradation'),
-    'prod_state_change_stable': tr('Stable'),
-    'prod_state_change_potential_improvement': tr('Improvement'),
-    'prod_state_change_nodata': tr('No data'),
-
-    'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),
-    'prod_state_classes_nodata': tr('No data'),
-
-    # Land cover
-    'lc_deg_title': tr('Land cover degradation ({year_baseline} to {year_target})'),
-    'lc_deg_deg': tr('Degradation'),
-    'lc_deg_stable': tr('Stable'),
-    'lc_deg_imp': tr('Improvement'),
-    'lc_deg_nodata': tr('No data'),
-
-    'lc_7class_title': tr('Land cover ({year}, 7 class)'),
-    'lc_esa_title': tr('Land cover ({year}, ESA CCI classes)'),
-    'lc_7class_mode_title': tr('Land cover mode ({year_start}-{year_end}, 7 class)'),
-    'lc_esa_mode_title': tr('Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
-
-    'lc_class_nodata': tr('-32768 - No data'),
-    'lc_class_forest': tr('1 - Forest'),
-    'lc_class_grassland': tr('2 - Grassland'),
-    'lc_class_cropland': tr('3 - Cropland'),
-    'lc_class_wetland': tr('4 - Wetland'),
-    'lc_class_artificial': tr('5 - Artificial area'),
-    'lc_class_bare': tr('6 - Bare land'),
-    'lc_class_water': tr('7 - Water body'),
-
-    'lc_tr_title': tr('Land cover (transitions, {year_baseline} to {year_target})'),
-    'lc_tr_nochange': tr('No change'),
-    'lc_tr_forest_loss': tr('Forest loss'),
-    'lc_tr_grassland_loss': tr('Grassland loss'),
-    'lc_tr_cropland_loss': tr('Cropland loss'),
-    'lc_tr_wetland_loss': tr('Wetland loss'),
-    'lc_tr_artificial_loss': tr('Artificial area loss'),
-    'lc_tr_bare_loss': tr('Bare land loss'),
-    'lc_tr_water_loss': tr('Water body loss'),
-    'lc_tr_nodata': tr('No data'),
-
-    # Soil organic carbon
-    'soc_title': tr('Soil organic carbon ({year}, tons / ha)'),
-    'soc_nodata': tr('No data'),
-
-    'soc_deg_title': tr('Soil organic carbon degradation ({year_start} to {year_end})'),
-    'soc_deg_deg': tr('Degradation'),
-    'soc_deg_stable': tr('Stable'),
-    'soc_deg_imp': tr('Improvement'),
-    'soc_deg_nodata': tr('No data'),
-
-    # Trends.Earth land productivity
-    'sdg_prod_combined_title': tr('Land productivity (Trends.Earth)'),
-    'sdg_prod_combined_declining': tr('Declining'),
-    'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
-    'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
-    'sdg_prod_combined_stab': tr('Stable'),
-    'sdg_prod_combined_imp': tr('Improvement'),
-    'sdg_prod_combined_nodata': tr('No data'),
-
-    # LPD
-    'lpd_title': tr('Land productivity dynamics (LPD)'),
-    'lpd_declining': tr('Declining'),
-    'lpd_earlysigns': tr('Early signs of decline'),
-    'lpd_stabbutstress': tr('Stable but stressed'),
-    'lpd_stab': tr('Stable'),
-    'lpd_imp': tr('Improvement'),
-    'lpd_nodata': tr('No data'),
-
-    # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr('SDG 15.3.1 degradation indicator'),
-    'combined_sdg_deg_deg': tr('Degradation'),
-    'combined_sdg_deg_stable': tr('Stable'),
-    'combined_sdg_deg_imp': tr('Improvement'),
-    'combined_sdg_deg_nodata': tr('No data'),
-}
-
-
-def get_file_metadata(json_file):
-    try:
-        with open(json_file) as f:
-            d = json.load(f)
-    except (OSError, IOError, ValueError) as e:
-        log('Error loading {}'.format(json_file))
-        return None
-
-    local_raster_schema = LocalRasterSchema()
-
-    try:
-        d = local_raster_schema.load(d)
-    except ValidationError:
-        log('Unable to parse {}'.format(json_file))
-        return None
-
-    if not os.access(d['file'], os.R_OK):
-        log('Data file {} is missing'.format(data_file))
-        return None
-    else:
-        return d
-
-
 def round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
     if np.isnan(x):
@@ -457,97 +282,6 @@ def get_unique_values(f, band_num, max_unique=50):
             if v.size > max_unique:
                 return None
     return v.tolist()
-
-def add_layer(f, band_number, band_info):
-    try:
-        style = styles[band_info['name']]
-    except KeyError:
-        log('No style found for {}'.format(band_info['name'] ))
-        return False
-
-    title = get_band_title(band_info)
-
-    l = iface.addRasterLayer(f, title)
-    if not l.isValid():
-        log('Failed to add layer')
-        return False
-
-    if style['ramp']['type'] == 'categorical':
-        r = []
-        for item in style['ramp']['items']:
-            r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QtGui.QColor(item['color']),
-                                                      tr_style_text(item['label'])))
-
-    elif style['ramp']['type'] == 'zero-centered stretch':
-        # Set a colormap centred on zero, going to the max of the min and max 
-        # extreme value significant to three figures.
-        cutoff = get_cutoff(f, band_number, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
-        log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(-cutoff,
-                                                  QtGui.QColor(style['ramp']['min']['color']),
-                                                  '{}'.format(-cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtGui.QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtGui.QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtGui.QColor(style['ramp']['no data']['color']),
-                                                  tr_style_text(style['ramp']['no data']['label'])))
-
-    elif style['ramp']['type'] == 'min zero stretch':
-        # Set a colormap from zero to percent stretch significant to
-        # three figures.
-        cutoff = get_cutoff(f, band_number, band_info, [100 - style['ramp']['percent stretch']])
-        log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtGui.QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        if style['ramp'].has_key('mid'):
-            r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
-                                                      QtGui.QColor(style['ramp']['mid']['color']),
-                                                      str(cutoff/2)))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtGui.QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtGui.QColor(style['ramp']['no data']['color']),
-                                                  tr_style_text(style['ramp']['no data']['label'])))
-
-    else:
-        log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
-        QtGui.QMessageBox.critical(None,
-                                   tr("Error"),
-                                   tr("Failed to load trends.earth style. Adding layer using QGIS defaults."))
-        return False
-
-    fcn = QgsColorRampShader()
-    if style['ramp']['shader'] == 'exact':
-        fcn.setColorRampType("EXACT")
-    elif style['ramp']['shader'] == 'discrete':
-        fcn.setColorRampType("DISCRETE")
-    elif style['ramp']['shader'] == 'interpolated':
-        fcn.setColorRampType("INTERPOLATED")
-    else:
-        raise TypeError("Unrecognized color ramp type: {}".format(style['ramp']['shader']))
-    # Make sure the items in the color ramp are sorted by value (weird display 
-    # errors will otherwise result)
-    r = sorted(r, key=attrgetter('value'))
-    fcn.setColorRampItemList(r)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_number,
-                                                      shader)
-    l.setRenderer(pseudoRenderer)
-    l.triggerRepaint()
-    iface.legendInterface().refreshLayerSymbology(l)
-
-    return True
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
@@ -1016,7 +750,8 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             self.convert_vector()
 
         self.create_json('Land cover (7 class)',
-                         {'year': int(self.input_widget.spinBox_data_year.date().year())})
+                         {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                          'source': 'custom data'})
 
 class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
     def __init__(self, parent=None):
@@ -1031,11 +766,14 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
 
     def ok_clicked(self):
         if self.input_widget.radio_raster_input.isChecked():
-            self.warp_raster(self.output_widget.lineEdit_output_file.text())
-            self.create_json('Soil organic carbon)')
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            self.warp_raster(temp_tif)
         else:
             self.convert_vector()
-            self.create_json('Soil organic carbon)')
+
+        self.create_json('Soil organic carbon',
+                         {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                          'source': 'custom data'})
 
 
 class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
@@ -1054,3 +792,7 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
             self.warp_raster("Land Productivity Dynamics (LPD)")
         else:
             self.convert_vector("Land Productivity Dynamics (LPD)")
+
+        self.create_json('Soil organic carbon',
+                         {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                          'source': 'custom data'})

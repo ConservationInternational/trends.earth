@@ -37,7 +37,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.layers import get_file_metadata, add_layer, \
@@ -672,45 +672,6 @@ def get_xtab_area(table, deg_class=None, lc_class=None):
         return float(np.sum(table[1].ravel()))
     else:
         return 0
-
-
-class ClipWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, mask_layer):
-        AbstractWorker.__init__(self)
-
-        self.in_file = in_file
-        self.out_file = out_file
-
-        self.mask_layer = mask_layer
-
-    def work(self):
-        self.toggle_show_progress.emit(True)
-        self.toggle_show_cancel.emit(True)
-
-        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
-        QgsVectorFileWriter.writeAsVectorFormat(self.mask_layer, mask_layer_file,
-                                                "CP1250", None, "ESRI Shapefile")
-
-        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=mask_layer_file,
-                        srcNodata=-32768, dstNodata=-32767,
-                        dstSRS="epsg:4326",
-                        outputType=gdal.GDT_Int16,
-                        resampleAlg=gdal.GRA_NearestNeighbour,
-                        creationOptions=['COMPRESS=LZW'],
-                        callback=self.progress_callback)
-
-        if res:
-            return True
-        else:
-            return None
-
-    def progress_callback(self, fraction, message, data):
-        if self.killed:
-            return False
-        else:
-            self.progress.emit(100 * fraction)
-            return True
 
 
 class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):

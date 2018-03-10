@@ -14,24 +14,30 @@
 
 import os
 import json
+import tempfile
 from urllib import quote_plus
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, Qt, QSize, QRect,  \
     QPoint, QAbstractTableModel, pyqtSignal, QRegExp
 
+from osgeo import gdal, osr
+
+from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase, get_script_slug
-from LDMP.layers import create_local_json_metadata, add_layer, get_te_layers
+from LDMP.layers import create_local_json_metadata, add_layer, get_te_layers, \
+    get_band_info
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.api import run_script
 from LDMP.worker import AbstractWorker, StartWorker
+from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
 
 # Number of classes in land cover dataset
@@ -490,10 +496,12 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         self.dlg_esa_agg.exec_()
 
 class LandCoverChangeWorker(AbstractWorker):
-    def __init__(self, in_f, trans_matrix):
+    def __init__(self, in_f, out_f, trans_matrix, persistence_remap):
         AbstractWorker.__init__(self)
         self.in_f = in_f
+        self.out_f = out_f
         self.trans_matrix = trans_matrix
+        self.persistence_remap = persistence_remap
 
     def work(self):
         ds_in = gdal.Open(self.in_f)
@@ -501,15 +509,22 @@ class LandCoverChangeWorker(AbstractWorker):
         band_initial = ds_in.GetRasterBand(1)
         band_final = ds_in.GetRasterBand(2)
 
-        block_sizes = band_initial_sdg.GetBlockSize()
+        block_sizes = band_initial.GetBlockSize()
         x_block_size = block_sizes[0]
         # Need to process y line by line so that pixel area calculation can be
         # done based on latitude, which varies by line
         y_block_size = 1
-        xsize = band_initial_sdg.XSize
-        ysize = band_initial_sdg.YSize
+        xsize = band_initial.XSize
+        ysize = band_initial.YSize
 
-        gt = ds_sdg.GetGeoTransform()
+        driver = gdal.GetDriverByName("GTiff")
+        ds_out = driver.Create(self.out_f, xsize, ysize, 4, gdal.GDT_Int16, 
+                               ['COMPRESS=LZW'])
+        src_gt = ds_in.GetGeoTransform()
+        ds_out.SetGeoTransform(src_gt)
+        out_srs = osr.SpatialReference()
+        out_srs.ImportFromWkt(ds_in.GetProjectionRef())
+        ds_out.SetProjection(out_srs.ExportToWkt())
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
@@ -527,10 +542,39 @@ class LandCoverChangeWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                lc_i = band_initial.ReadAsArray(x, y, cols, rows)
-                lc_f = band_final.ReadAsArray(x, y, cols, rows)
-                a_trans = lc_i*10 + lc_f
-                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
+                a_i = band_initial.ReadAsArray(x, y, cols, rows)
+                a_f = band_final.ReadAsArray(x, y, cols, rows)
+
+                a_tr = a_i*10 + a_f
+                a_tr[(a_i < 1) | (a_f < 1)] <- -32768
+
+                a_deg = a_tr.copy()
+                for value, replacement in zip(self.trans_matrix[0], self.trans_matrix[1]):
+                    a_deg[a_deg == int(value)] = int(replacement)
+                
+                # Recode transitions so that persistence classes are easier to 
+                # map
+                for value, replacement in zip(self.persistence_remap[0], self.persistence_remap[1]):
+                    a_tr[a_tr == int(value)] = int(replacement)
+
+                ds_out.GetRasterBand(1).WriteArray(a_deg, x, y)
+                ds_out.GetRasterBand(2).WriteArray(a_i, x, y)
+                ds_out.GetRasterBand(3).WriteArray(a_f, x, y)
+                ds_out.GetRasterBand(4).WriteArray(a_tr, x, y)
+
+                blocks += 1
+        if self.killed:
+            os.remove(out_file)
+            return None
+        else:
+            return True
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
 
 # LC widgets shared across dialogs
 lc_define_deg_widget = LCDefineDegradationWidget()
@@ -566,38 +610,153 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         if not ret:
             return
 
-        self.close()
-
-        if self.use_esa.isChecked():
+        if self.lc_setup_tab.use_esa.isChecked():
             self.calculate_on_GEE()
         else:
             self.calculate_locally()
 
     def calculate_on_GEE(self):
-            crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-            payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
-                       'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                       'geojsons': json.dumps(geojsons),
-                       'crs': self.aoi.get_crs_dst_wkt(),
-                       'crosses_180th': crosses_180th,
-                       'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                       'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-                       'task_name': self.options_tab.task_name.text(),
-                       'task_notes': self.options_tab.task_notes.toPlainText()}
+        self.close()
 
-            resp = run_script(get_script_slug('land-cover'), payload)
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
+                   'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
+                   'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
+                   'crosses_180th': crosses_180th,
+                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
+                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
 
-            if resp:
-                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                               QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
-                               level=0, duration=5)
+        resp = run_script(get_script_slug('land-cover'), payload)
+
+        if resp:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+                           level=0, duration=5)
+
+    def get_save_raster(self):
+        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+                                                        self.tr('Choose a name for the output file'),
+                                                        QSettings().value("LDMP/output_dir", None),
+                                                        self.tr('Raster file (*.tif)'))
+        if raster_file:
+            if os.access(os.path.dirname(raster_file), os.W_OK):
+                QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+                return raster_file
             else:
-                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                               QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
-                               level=0, duration=5)
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
+                return False
 
-    def calculate_on_GEE(self):
-                ###########################################################
-                # Calculate transition crosstabs for productivity indicator
-                a_trans = a_lc_bl*10 + a_lc_tg
-                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
+    def calculate_locally(self):
+        trans_matrix = [[11, 12, 13, 14, 15, 16, 17,
+                         21, 22, 23, 24, 25, 26, 27,
+                         31, 32, 33, 34, 35, 36, 37,
+                         41, 42, 43, 44, 45, 46, 47,
+                         51, 52, 53, 54, 55, 56, 57,
+                         61, 62, 63, 64, 65, 66, 67],
+                        self.lc_define_deg_tab.trans_matrix_get()]
+
+        # Remap the persistence classes so they are sequential, making them 
+        # easier to assign a clear color ramp in QGIS
+        persistence_remap = [[11, 12, 13, 14, 15, 16, 17,
+                              21, 22, 23, 24, 25, 26, 27,
+                              31, 32, 33, 34, 35, 36, 37,
+                              41, 42, 43, 44, 45, 46, 47,
+                              51, 52, 53, 54, 55, 56, 57,
+                              61, 62, 63, 64, 65, 66, 67,
+                              71, 72, 73, 74, 75, 76, 77],
+                             [1, 12, 13, 14, 15, 16, 17,
+                              21, 2, 23, 24, 25, 26, 27,
+                              31, 32, 3, 34, 35, 36, 37,
+                              41, 42, 43, 4, 45, 46, 47,
+                              51, 52, 53, 54, 5, 56, 57,
+                              61, 62, 63, 64, 65, 6, 67,
+                              71, 72, 73, 74, 75, 76, 7]]
+
+        # Select the initial and final bands from initial and final datasets 
+        # (in case there is more than one lc band per dataset)
+        layer_initial = self.lc_setup_tab.layer_custom_initial_list[self.lc_setup_tab.use_custom_initial.currentIndex()][0]
+        initial_bandnumber = self.lc_setup_tab.layer_custom_initial_list[self.lc_setup_tab.use_custom_initial.currentIndex()][1]
+        lc_initial_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_initial_vrt, layer_initial.dataProvider().dataSourceUri(),
+                      bandList=[initial_bandnumber])
+
+        layer_final = self.lc_setup_tab.layer_custom_final_list[self.lc_setup_tab.use_custom_final.currentIndex()][0]
+        final_bandnumber = self.lc_setup_tab.layer_custom_final_list[self.lc_setup_tab.use_custom_final.currentIndex()][1]
+        lc_final_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_final_vrt, layer_final.dataProvider().dataSourceUri(),
+                      bandList=[final_bandnumber])
+
+        year_baseline = get_band_info(layer_initial.dataProvider().dataSourceUri())[initial_bandnumber - 1]['metadata']['year']
+        year_target = get_band_info(layer_final.dataProvider().dataSourceUri())[final_bandnumber - 1]['metadata']['year']
+        if int(year_baseline) >= int(year_target):
+            QtGui.QMessageBox.information(None, self.tr("Warning"),
+                self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
+
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(layer_initial.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
+            return
+
+        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(layer_final.extent())):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
+            return
+
+        out_f = self.get_save_raster()
+        if not out_f:
+            return
+
+        self.close()
+
+        # Compute the pixel-aligned bounding box (slightly larger than aoi).
+        # Use this to set bounds in vrt in order to keep the
+        # pixels aligned with the chosen lc layers
+        bb = self.aoi.bounding_box_geom().boundingBox()
+        minx = bb.xMinimum()
+        miny = bb.yMinimum()
+        maxx = bb.xMaximum()
+        maxy = bb.yMaximum()
+        gt = gdal.Open(lc_initial_vrt).GetGeoTransform()
+        left = minx - (minx - gt[0]) % gt[1]
+        right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
+        bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
+        top = maxy - (maxy - gt[3]) % gt[5]
+
+        # Add the lc layers to a VRT in case they don't match in resolution, 
+        # and setting proper output bounds
+        in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(in_vrt,
+                      [lc_initial_vrt, lc_final_vrt], 
+                      resolution='lowest', 
+                      resampleAlg=gdal.GRA_NearestNeighbour,
+                      outputBounds=[left, bottom, right, top],
+                      separate=True)
+        
+        lc_change_worker = StartWorker(LandCoverChangeWorker,
+                                       'calculating land cover change', in_vrt, 
+                                       out_f, trans_matrix, persistence_remap)
+        if not lc_change_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error calculating land cover change."), None)
+            return
+
+        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
+                     BandInfo("Land cover (7 class)", metadata={'year': year_baseline}),
+                     BandInfo("Land cover (7 class)", metadata={'year': year_target}),
+                     BandInfo("Land cover transitions", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target})]
+        out_json = os.path.splitext(out_f)[0] + '.json'
+        create_local_json_metadata(out_json, out_f, band_info)
+        schema = BandInfoSchema()
+        for band_number in xrange(len(band_info)):
+            b = schema.dump(band_info[band_number])
+            if b['add_to_map']:
+                # The +1 is because band numbers start at 1, not zero
+                add_layer(out_f, band_number + 1, b)

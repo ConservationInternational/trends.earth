@@ -32,6 +32,7 @@ from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
+from LDMP.worker import AbstractWorker
 
 
 def tr(t):
@@ -635,6 +636,45 @@ class DlgCalculateBase(QtGui.QDialog):
                                        self.tr("Unable to read area of interest."), None)
             return False
         else:
+            return True
+
+
+class ClipWorker(AbstractWorker):
+    def __init__(self, in_file, out_file, mask_layer):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+
+        self.mask_layer = mask_layer
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
+        QgsVectorFileWriter.writeAsVectorFormat(self.mask_layer, mask_layer_file,
+                                                "CP1250", None, "ESRI Shapefile")
+
+        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                        cutlineDSName=mask_layer_file,
+                        srcNodata=-32768, dstNodata=-32767,
+                        dstSRS="epsg:4326",
+                        outputType=gdal.GDT_Int16,
+                        resampleAlg=gdal.GRA_NearestNeighbour,
+                        creationOptions=['COMPRESS=LZW'],
+                        callback=self.progress_callback)
+
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
             return True
 
 

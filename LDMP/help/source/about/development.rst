@@ -22,7 +22,7 @@ scripts that allow calculation of the various indicators on Google Earth Engine
 repository.
 
 The GEE scripts are supported by the `landdegradation` Python module, which 
-includes coe for processing inputs and outputs for the plugin, as well as other 
+includes code for processing inputs and outputs for the plugin, as well as other 
 common functions supporting calculation of NDVI integrals, statistical 
 significance, and other shared code. The code for this module is available in 
 the `landdegradation 

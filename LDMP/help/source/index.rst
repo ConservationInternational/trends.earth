@@ -63,7 +63,7 @@ videos, are available on this website:
     documentation/settings
     documentation/data_download
     documentation/calculate
-    documentation/gee_tasks
+    documentation/GEE_tasks
     documentation/plot_data
     documentation/load_data
     documentation/reporting_tool

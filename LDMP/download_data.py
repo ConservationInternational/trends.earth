@@ -176,7 +176,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             resp = run_script(get_script_slug('download-data'), payload)
 
             if resp:
-                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Sucess"),
+                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Success"),
                                QtGui.QApplication.translate("LDMP", "Download request submitted to Google Earth Engine."),
                                level=0, duration=5)
             else:

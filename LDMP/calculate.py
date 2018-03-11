@@ -14,8 +14,9 @@
 
 import os
 import json
+import tempfile
 
-from osgeo import ogr
+from osgeo import gdal, ogr
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
@@ -23,7 +24,7 @@ from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
         QGis, QgsMapLayerRegistry, QgsProject, QgsRasterLayer, \
-        QgsLayerTreeGroup, QgsLayerTreeLayer
+        QgsLayerTreeGroup, QgsLayerTreeLayer, QgsVectorFileWriter
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 

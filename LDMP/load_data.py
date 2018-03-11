@@ -505,14 +505,17 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
             if self.lineEdit_raster_file.text():
                 has_file = True
         else:
-            self.btn_raster_dataset_browse.setEnabled(False)
-            self.lineEdit_raster_file.setEnabled(False)
-            self.comboBox_bandnumber.setEnabled(False)
-            self.label_bandnumber.setEnabled(False)
-            self.btn_polygon_dataset_browse.setEnabled(True)
-            self.lineEdit_polygon_file.setEnabled(True)
-            self.label_fieldname.setEnabled(True)
-            self.comboBox_fieldname.setEnabled(True)
+            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                          self.tr("Processing of vector input datasets coming soon!"))
+            self.radio_raster_input.setChecked(True)
+            # self.btn_raster_dataset_browse.setEnabled(False)
+            # self.lineEdit_raster_file.setEnabled(False)
+            # self.comboBox_bandnumber.setEnabled(False)
+            # self.label_bandnumber.setEnabled(False)
+            # self.btn_polygon_dataset_browse.setEnabled(True)
+            # self.lineEdit_polygon_file.setEnabled(True)
+            # self.label_fieldname.setEnabled(True)
+            # self.comboBox_fieldname.setEnabled(True)
 
             if self.lineEdit_polygon_file.text():
                 has_file=True
@@ -616,12 +619,6 @@ class DlgLoadDataBase(QtGui.QDialog):
         self.input_widget = LoadDataSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
-    def done(self, value):
-        if value == QtGui.QDialog.Accepted:
-            self.validate_input(value)
-        else:
-            super(DlgLoadDataBase, self).done(value)
-
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
             if self.input_widget.lineEdit_raster_file.text() == '':
@@ -631,7 +628,6 @@ class DlgLoadDataBase(QtGui.QDialog):
             if self.input_widget.lineEdit_polygon_file.text() == '':
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
-        super(DlgLoadDataBase, self).done(value)
 
     def get_resample_mode(self, f):
         in_res = self.get_in_res_wgs84()
@@ -741,6 +737,12 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
 
         self.dlg_agg = None
 
+    def done(self, value):
+        if value == QtGui.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgLoadDataLC, self).done(value)
+
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
@@ -748,7 +750,10 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         if  not self.dlg_agg:
             QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.'.format(), None))
             return
+
         super(DlgLoadDataLC, self).validate_input(value)
+
+        super(DlgLoadDataLC, self).done(value)
 
         self.ok_clicked()
 
@@ -825,17 +830,26 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
 
+    def done(self, value):
+        if value == QtGui.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgLoadDataSOC, self).done(value)
+
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
-        super(DlgLoadDataLC, self).validate_input(value)
+
+        super(DlgLoadDataSOC, self).validate_input(value)
+
+        super(DlgLoadDataSOC, self).done(value)
 
         self.ok_clicked()
 
     def ok_clicked(self):
         if self.input_widget.radio_raster_input.isChecked():
-            in_file = self.input_widget.lineEdit_raster_file.text()
+            out_file = self.output_widget.lineEdit_output_file.text()
             self.warp_raster(in_file)
         else:
             self.convert_vector()
@@ -854,11 +868,18 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
 
+    def done(self, value):
+        if value == QtGui.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgLoadDataProd, self).done(value)
+
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
-        super(DlgLoadDataLC, self).validate_input(value)
+
+        super(DlgLoadDataProd, self).validate_input(value)
 
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
@@ -866,20 +887,23 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         else:
             in_file = self.input_widget.lineEdit_polygon_file.text()
             l = self.input_widget.get_vector_layer(in_file)
-            values = get_unique_values_vector(l, field, max_unique=60)
+            values = get_unique_values_vector(l, field, max_unique=7)
         if not values:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
             return
-        if values.length > 7:
+        invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
+        if len(invalid_values) > 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
             return
+
+        super(DlgLoadDataProd, self).done(value)
 
         self.ok_clicked()
 
     def ok_clicked(self):
         if self.input_widget.radio_raster_input.isChecked():
-            in_file = self.input_widget.lineEdit_raster_file.text()
-            self.warp_raster(in_file)
+            out_file = self.output_widget.lineEdit_output_file.text()
+            self.warp_raster(out_file)
         else:
             self.convert_vector("Land Productivity Dynamics (LPD)")
 

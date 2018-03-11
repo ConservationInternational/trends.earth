@@ -13,7 +13,7 @@ trends.earth
 +-------------------------------+--------------------------------+-------------------------------+-------------------------------+
 
 |trends.earth| (formerly the Land Degradation Monitoring Toolbox) is a platform 
-for monitoring land change using an innovative desktop and cloud-based system.
+for monitoring land change using earth observations in an innovative desktop and cloud-based system.
 
 The three sub-indicators for monitoring achievement of Land Degradation 
 Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported 
@@ -57,8 +57,8 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: User Documentation
 
+    training/indicator_15_3_1
     documentation/before_installing
-    documentation/faq
     documentation/installing
     documentation/settings
     documentation/data_download
@@ -67,7 +67,7 @@ videos, are available on this website:
     documentation/plot_data
     documentation/load_data
     documentation/reporting_tool
-
+    documentation/faq
 
 .. _training-materials:
 
@@ -76,7 +76,6 @@ videos, are available on this website:
     :caption: Training Materials
 
     training/UNCCD_reporting
-    training/indicator_15_3_1
     training/visualizing_results
     training/interpreting_results
 

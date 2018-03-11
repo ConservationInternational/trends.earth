@@ -97,16 +97,23 @@ class RasterImportWorker(AbstractWorker):
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
-
-        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        xRes=self.out_res, yRes=-self.out_res,
-                        srcNodata=-32768, dstNodata=-32767,
-                        dstSRS="epsg:4326",
-                        outputType=self.out_data_type,
-                        resampleAlg=self.resample_mode,
-                        creationOptions=['COMPRESS=LZW'],
-                        callback=self.progress_callback)
-
+        if self.out_res:
+            res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                            xRes=self.out_res, yRes=-self.out_res,
+                            srcNodata=-32768, dstNodata=-32767,
+                            dstSRS="epsg:4326",
+                            outputType=self.out_data_type,
+                            resampleAlg=self.resample_mode,
+                            creationOptions=['COMPRESS=LZW'],
+                            callback=self.progress_callback)
+        else:
+            res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                            srcNodata=-32768, dstNodata=-32767,
+                            dstSRS="epsg:4326",
+                            outputType=self.out_data_type,
+                            resampleAlg=self.resample_mode,
+                            creationOptions=['COMPRESS=LZW'],
+                            callback=self.progress_callback)
         if res:
             return True
         else:
@@ -252,7 +259,17 @@ def get_cutoff(f, band_number, band_info, percentiles):
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
-def get_unique_values(f, band_num, max_unique=60):
+
+def get_unique_values_vector(l, field, max_unique=60):
+    idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
+    values = l.uniqueValues(idx)
+    if len(values) > max_unique:
+        return None
+    else:
+        return values
+
+
+def get_unique_values_raster(f, band_num, max_unique=60):
     src_ds = gdal.Open(f)
     b = src_ds.GetRasterBand(band_num)
 
@@ -411,10 +428,15 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
             rows.append(i.row())
         if len(rows) > 0:
             m = get_file_metadata(self.file_lineedit.text())
+            # Below use of oslpath.basename and os.path.normpath is a fix for 
+            # older versions of LDMP<0.43 that stored the full path in the 
+            # filename in the metadata
+            f = os.path.join(os.path.dirname(self.file_lineedit.text()),
+                             os.path.basename(os.path.normpath(m['file'])))
             if m:
                 for row in rows:
                     # The plus 1 is because band numbers start at 1, not zero
-                    resp = add_layer(m['file'], row + 1, m['bands'][row])
+                    resp = add_layer(f, row + 1, m['bands'][row])
                     if not resp:
                         QtGui.QMessageBox.critical(None, self.tr("Error"), 
                                                    self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(m['bands'][row]['name'])))
@@ -612,9 +634,7 @@ class DlgLoadDataBase(QtGui.QDialog):
         super(DlgLoadDataBase, self).done(value)
 
     def get_resample_mode(self, f):
-        ds_in = gdal.Open(f)
-        gt_in = ds_in.GetGeoTransform()
-        in_res = gt_in[1]
+        in_res = self.get_in_res_wgs84()
         out_res = self.get_out_res_wgs84()
         if in_res < out_res:
             # If output resolution is lower than the original data, use mode
@@ -626,22 +646,37 @@ class DlgLoadDataBase(QtGui.QDialog):
             log('Resampling with nearest neighbor (in res: {}, out_res: {}'.format(in_res, out_res))
             return gdal.GRA_NearestNeighbour
 
+    def get_in_res_wgs84(self):
+        ds_in = gdal.Open(self.input_widget.lineEdit_raster_file.text())
+        wgs84_srs = osr.SpatialReference()
+        wgs84_srs.ImportFromEPSG(4326)
+
+        in_srs = osr.SpatialReference()
+        in_srs.ImportFromWkt(ds_in.GetProjectionRef())
+
+        tx = osr.CoordinateTransformation(in_srs, wgs84_srs)
+
+        geo_t = ds_in.GetGeoTransform()
+        x_size = ds_in.RasterXSize # Raster xsize
+        y_size = ds_in.RasterYSize # Raster ysize
+        # Work out the boundaries of the new dataset in the target projection
+        (ulx, uly, ulz) = tx.TransformPoint(geo_t[0], geo_t[3])
+        (lrx, lry, lrz) = tx.TransformPoint(geo_t[0] + geo_t[1]*x_size, \
+                                                     geo_t[3] + geo_t[5]*y_size)
+        # As an approximation of what the output res would be in WGS4, use an 
+        # average of the x and y res of this image
+        return ((lrx - ulx)/float(x_size) + (lry - uly)/float(y_size)) / 2
+
     def get_out_res_wgs84(self):
-        if self.input_widget.groupBox_output_resolution.isChecked():
-            # Calculate res in degrees from input which is in meters
-            res = int(self.input_widget.spinBox_resolution.value())
-            return res / (111.325 * 1000) # 111.325km in one degree
-        else:
-            ds_in = gdal.Open(self.input_widget.lineEdit_raster_file.text())
-            gt_in = ds_in.GetGeoTransform()
-            #TODO: Need to fix this to convert the in res to wgs84 if needed
-            return gt_in[1]
+        # Calculate res in degrees from input which is in meters
+        res = int(self.input_widget.spinBox_resolution.value())
+        return res / (111.325 * 1000) # 111.325km in one degree
 
     def remap_raster(self, remap_list):
         in_file = self.input_widget.lineEdit_raster_file.text()
         out_file = self.output_widget.lineEdit_output_file.text()
 
-        # First warp the raster to the correct output res and CRS
+        # First warp the raster to the correct CRS
         temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
         self.warp_raster(temp_tif)
 
@@ -664,10 +699,15 @@ class DlgLoadDataBase(QtGui.QDialog):
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
                       
         log('Importing {} to {}'.format(in_file, out_file))
+        if self.input_widget.groupBox_output_resolution.isChecked():
+            out_res = self.get_out_res_wgs84()
+            resample_mode = self.get_resample_mode(temp_vrt)
+        else:
+            out_res = None
+            resample_mode = gdal.GRA_NearestNeighbour
         raster_import_worker = StartWorker(RasterImportWorker,
                                            'importing raster', temp_vrt, 
-                                           out_file, self.get_out_res_wgs84(),
-                                           self.get_resample_mode(temp_vrt))
+                                           out_file, out_res, resample_mode)
         if not raster_import_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Raster import failed."), None)
@@ -744,7 +784,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             if not self.dlg_agg or \
                     (self.last_raster != f or self.last_band_number != band_number):
                 #TODO: Need to display a progress bar onscreen while this is happening
-                values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
+                values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()))
                 if not values:
                     QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
                     return
@@ -757,8 +797,8 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
             if not self.dlg_agg or \
                     (self.last_vector != f or self.last_idx != idx):
-                values = l.uniqueValues(idx)
-                if len(values) > 60:
+                get_unique_values_vector(l, field, max_unique=60)
+                if not values:
                     QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
                     return
                 self.last_vector = f
@@ -818,11 +858,21 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
-        #TODO: fix for shapefile or raster
-        values = get_unique_values(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
-        if values.length > 7:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. A productivity input file should only have values of -32768, 1, 2, 3, 4 and 5.".format(self.output_widget.lineEdit_output_file.text(), len(values))))
         super(DlgLoadDataLC, self).validate_input(value)
+
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=7)
+        else:
+            in_file = self.input_widget.lineEdit_polygon_file.text()
+            l = self.input_widget.get_vector_layer(in_file)
+            values = get_unique_values_vector(l, field, max_unique=60)
+        if not values:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
+            return
+        if values.length > 7:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
+            return
 
         self.ok_clicked()
 

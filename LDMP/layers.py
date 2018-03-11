@@ -28,6 +28,7 @@ mb = iface.messageBar()
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
+from LDMP import log
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
 def tr(t):
@@ -164,8 +165,12 @@ def get_file_metadata(json_file):
         log('Unable to parse {}'.format(json_file))
         return None
 
-    if not os.access(d['file'], os.R_OK):
-        log('Data file {} is missing'.format(data_file))
+    # Below is a fix for older versions of LDMP<0.43 that stored the full path 
+    # in the metadata
+    f = os.path.join(os.path.dirname(json_file),
+                     os.path.basename(os.path.normpath(d['file'])))
+    if not os.access(f, os.R_OK):
+        log('Data file {} is missing'.format(f))
         return None
     else:
         return d
@@ -179,7 +184,7 @@ def json_serial(obj):
 
 
 def create_local_json_metadata(json_file, data_file, bands, metadata={}):
-    out = LocalRaster(data_file, bands, metadata)
+    out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
     local_raster_schema = LocalRasterSchema()
     with open(json_file, 'w') as f:
         json.dump(local_raster_schema.dump(out), f, default=json_serial, 

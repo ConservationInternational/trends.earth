@@ -28,7 +28,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug, calc_frac_overlap
 from LDMP.layers import create_local_json_metadata, add_layer, get_te_layers, \
     get_band_info
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
@@ -725,12 +725,13 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
             QtGui.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
-        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(layer_initial.extent())):
+        
+        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(layer_initial.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
-        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(layer_final.extent())):
+        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(layer_final.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return

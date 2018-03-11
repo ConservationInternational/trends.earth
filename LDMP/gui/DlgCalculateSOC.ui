@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>605</width>
-    <height>423</height>
+    <width>847</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -166,7 +166,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_3">
+        <widget class="QGroupBox" name="groupBox_custom_SOC">
          <property name="title">
           <string>Custom initial soil organic carbon dataset (already loaded onto map using the &quot;Load Data tool&quot;</string>
          </property>

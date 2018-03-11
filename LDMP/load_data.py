@@ -337,9 +337,6 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.btn_soc.clicked.connect(self.run_soc)
         self.btn_prod.clicked.connect(self.run_prod)
 
-        # TODO: temporarily hide soc button
-        self.btn_soc.hide()
-
     def run_te(self):
         self.close()
         self.dlg_loaddata_te.exec_()
@@ -349,8 +346,10 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.dlg_loaddata_lc.exec_()
 
     def run_soc(self):
-        self.close()
-        self.dlg_loaddata_soc.exec_()
+        QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                      self.tr("Loading of custom soil organic carbon data is coming soon!"))
+        # self.close()
+        # self.dlg_loaddata_soc.exec_()
 
     def run_prod(self):
         self.close()

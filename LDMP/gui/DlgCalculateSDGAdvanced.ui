@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
-    <height>549</height>
+    <width>784</width>
+    <height>705</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Calculate SDG 15.3.1 Indicator (advanced)</string>
+   <string>Calculate SDG 15.3.1 Indicator</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

@@ -121,7 +121,7 @@ class AOI(object):
     def get_crs_dst_wkt(self):
         return self.crs_dst.toWkt()
 
-    def update_from_file(self, f):
+    def update_from_file(self, f, wrap=False):
         log('Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():

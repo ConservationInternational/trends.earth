@@ -118,7 +118,9 @@ class LCAggTableModel(QAbstractTableModel):
 # Function to read a file defining land cover aggegation
 def read_class_file(f):
     if not os.access(f, os.R_OK):
-        QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Cannot read {}.".format(f), None))
+        QtGui.QMessageBox.critical(None,
+                QtGui.QApplication.translate("Error"),
+                QtGui.QApplication.translate("Cannot read {}.".format(f), None))
         return None
 
     with open(f) as class_file:
@@ -155,7 +157,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                               'Cropland': 3,
                               'Wetland': 4,
                               'Artificial area': 5,
-                              'Bare land': 6,
+                              'Other land': 6,
                               'Water body': 7}
 
         self.btn_save.clicked.connect(self.btn_save_pressed)
@@ -181,6 +183,8 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Cannot read {}. Choose a different file.".format(f), None))
+        else:
+            return
         classes = read_class_file(f)
 
         if classes:
@@ -241,11 +245,21 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
     def setup_class_table(self, classes):
         default_codes = sorted([c['Initial_Code'] for c in self.default_classes])
-        new_codes = sorted([c['Initial_Code'] for c in classes])
-        if new_codes != default_codes:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Classes do not appear to match those in file.", None))
-            return False
+        input_codes = sorted([c['Initial_Code'] for c in classes])
+        new_codes = [c for c in input_codes if c not in default_codes]
+        missing_codes = [c for c in default_codes if c not in input_codes]
+        if len(new_codes) > 0:
+            QtGui.QMessageBox.warning(None, self.tr("Warning"),
+                                      self.tr("Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]), None)))
+        if len(missing_codes) > 0:
+            QtGui.QMessageBox.warning(None, self.tr("Warning"),
+                                      self.tr("Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]), None)))
+
+        # Setup a new classes list with the new class codes for all classes 
+        # included in default calsses, and and any other class codes that are 
+        # missing added from the default class list
+        classes = [c for c in classes if c['Initial_Code'] in default_codes]
+        classes.extend([c for c in self.default_classes if c['Initial_Code'] not in input_codes])
 
         table_model = LCAggTableModel(classes, parent=self)
         proxy_model = QtGui.QSortFilterProxyModel()
@@ -281,7 +295,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             class_color = "#00DB84"
         elif self.sender().currentText() == self.tr('Artificial area'):
             class_color = "#E60017"
-        elif self.sender().currentText() == self.tr('Bare land'):
+        elif self.sender().currentText() == self.tr('Other land'):
             class_color = "#FFF3D7"
         elif self.sender().currentText() == self.tr('Water body'):
             class_color = "#0053C4"
@@ -309,7 +323,7 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
                                      1, -1, 0, -1, -1, -1, 0, # cropland
                                      -1, -1, -1, 0, -1, -1, 0, # wetland
                                      1, 1, 1, 1, 0, 1, 0, # artificial areas
-                                     1, 1, 1, 1, -1, 0, 0, # bare land
+                                     1, 1, 1, 1, -1, 0, 0, # Other land
                                      0, 0, 0, 0, 0, 0, 0] # water body
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):

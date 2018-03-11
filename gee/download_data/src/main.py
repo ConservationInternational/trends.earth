@@ -21,11 +21,8 @@ def run(params, logger):
     logger.debug("Loading parameters.")
     asset = params.get('asset')
     name = params.get('name')
-    # start_year = None
-    # end_year = None
-    # TODO: Temporary to fix downloads until date filtering is implemented
-    start_year = 1980
-    end_year = 2015
+    start_year = None
+    end_year = None
     temporal_resolution = params.get('temporal_resolution')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')

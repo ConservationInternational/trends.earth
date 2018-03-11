@@ -252,7 +252,7 @@ def get_cutoff(f, band_number, band_info, percentiles):
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
-def get_unique_values(f, band_num, max_unique=50):
+def get_unique_values(f, band_num, max_unique=60):
     src_ds = gdal.Open(f)
     b = src_ds.GetRasterBand(band_num)
 
@@ -645,7 +645,6 @@ class DlgLoadDataBase(QtGui.QDialog):
         temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
         self.warp_raster(temp_tif)
 
-        log('Importing and recoding {} to {} using remap list: {}'.format(temp_tif, out_file, remap_list))
         raster_remap_worker = StartWorker(RasterRemapWorker,
                                           'remapping values', temp_tif, 
                                            out_file, remap_list)
@@ -735,7 +734,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
 
     def load_agg(self, values):
         # Set all of the classes to no data by default
-        classes = [{'Initial_Code':str(value), 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':'-32768'} for value in sorted(values)]
+        classes = [{'Initial_Code':value, 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
         self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
 
     def agg_edit(self):
@@ -747,7 +746,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
                 #TODO: Need to display a progress bar onscreen while this is happening
                 values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
                 if not values:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
@@ -758,10 +757,9 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
             if not self.dlg_agg or \
                     (self.last_vector != f or self.last_idx != idx):
-                values = get_unique_values(f, int(self.input_widget.comboBox_bandnumber.currentText()))
                 values = l.uniqueValues(idx)
-                if len(values) > 50:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 50 different land cover classes".format(), None))
+                if len(values) > 60:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
                     return
                 self.last_vector = f
                 self.last_idx = idx
@@ -787,12 +785,18 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
 
-        self.btnBox.accepted.connect(self.ok_clicked)
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        super(DlgLoadDataLC, self).validate_input(value)
+
+        self.ok_clicked()
 
     def ok_clicked(self):
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
-            self.warp_raster(temp_tif)
+            self.warp_raster(in_file)
         else:
             self.convert_vector()
 
@@ -810,14 +814,25 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         self.output_widget = LoadDataSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
 
-        self.btnBox.accepted.connect(self.ok_clicked)
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        #TODO: fix for shapefile or raster
+        values = get_unique_values(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
+        if values.length > 7:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. A productivity input file should only have values of -32768, 1, 2, 3, 4 and 5.".format(self.output_widget.lineEdit_output_file.text(), len(values))))
+        super(DlgLoadDataLC, self).validate_input(value)
+
+        self.ok_clicked()
 
     def ok_clicked(self):
         if self.input_widget.radio_raster_input.isChecked():
-            self.warp_raster("Land Productivity Dynamics (LPD)")
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            self.warp_raster(in_file)
         else:
             self.convert_vector("Land Productivity Dynamics (LPD)")
 
-        self.create_json('Soil organic carbon',
+        self.create_json("Land Productivity Dynamics (LPD)",
                          {'year': int(self.input_widget.spinBox_data_year.date().year()),
                           'source': 'custom data'})

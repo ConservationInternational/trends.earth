@@ -92,7 +92,7 @@ style_text_dict = {
     'lc_class_cropland': tr('3 - Cropland'),
     'lc_class_wetland': tr('4 - Wetland'),
     'lc_class_artificial': tr('5 - Artificial area'),
-    'lc_class_bare': tr('6 - Bare land'),
+    'lc_class_bare': tr('6 - Other land'),
     'lc_class_water': tr('7 - Water body'),
 
     'lc_tr_title': tr('Land cover (transitions, {year_baseline} to {year_target})'),
@@ -102,7 +102,7 @@ style_text_dict = {
     'lc_tr_cropland_loss': tr('Cropland loss'),
     'lc_tr_wetland_loss': tr('Wetland loss'),
     'lc_tr_artificial_loss': tr('Artificial area loss'),
-    'lc_tr_bare_loss': tr('Bare land loss'),
+    'lc_tr_bare_loss': tr('Other land loss'),
     'lc_tr_water_loss': tr('Water body loss'),
     'lc_tr_nodata': tr('No data'),
 
@@ -119,19 +119,19 @@ style_text_dict = {
     # Trends.Earth land productivity
     'sdg_prod_combined_title': tr('Land productivity (Trends.Earth)'),
     'sdg_prod_combined_declining': tr('Declining'),
-    'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
-    'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
+    'sdg_prod_combined_earlysigns': tr('Moderate decline'),
+    'sdg_prod_combined_stabbutstress': tr('Stressed'),
     'sdg_prod_combined_stab': tr('Stable'),
-    'sdg_prod_combined_imp': tr('Improvement'),
+    'sdg_prod_combined_imp': tr('Increasing'),
     'sdg_prod_combined_nodata': tr('No data'),
 
     # LPD
     'lpd_title': tr('Land productivity dynamics (LPD)'),
     'lpd_declining': tr('Declining'),
-    'lpd_earlysigns': tr('Early signs of decline'),
-    'lpd_stabbutstress': tr('Stable but stressed'),
+    'lpd_earlysigns': tr('Moderate decline'),
+    'lpd_stabbutstress': tr('Stressed'),
     'lpd_stab': tr('Stable'),
-    'lpd_imp': tr('Improvement'),
+    'lpd_imp': tr('Increasing'),
     'lpd_nodata': tr('No data'),
 
     # SDG 15.3.1 indicator layer

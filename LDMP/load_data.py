@@ -15,7 +15,6 @@
 import os
 import re
 import tempfile
-from math import floor, log10
 
 import json
 from marshmallow import ValidationError
@@ -191,73 +190,6 @@ class RasterRemapWorker(AbstractWorker):
         else:
             self.progress.emit(100 * fraction)
             return True
-
-def round_to_n(x, sf=3):
-    'Function to round a positive value to n significant figures'
-    if np.isnan(x):
-        return x
-    else:
-        return round(x, -int(floor(log10(x))) + (sf - 1))
-
-
-def get_sample(f, band_number, n=10000):
-    '''Get a gridded sample of a raster dataset'''
-    ds = gdal.Open(f)
-    b = ds.GetRasterBand(band_number)
-
-    xsize = b.XSize
-    ysize = b.YSize
-
-    # Select grid size from shortest side to ensure we have enough samples
-    if xsize > ysize:
-        edge = ysize
-    else:
-        edge = xsize
-    grid_size = np.ceil(edge / np.sqrt(n))
-    if (grid_size * grid_size) > (b.XSize * b.YSize):
-        # Don't sample if the sample would be larger than the array itself
-        return b.ReadAsArray().astype(np.float)
-    else:
-        rows = np.arange(0, ysize, grid_size)
-        cols = np.arange(0, xsize, grid_size).astype('int64')
-
-        out = np.zeros((rows.shape[0], cols.shape[0]), np.float64)
-        log("Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})".format(ysize, xsize, out.shape, grid_size, out.shape[0] * out.shape[1]))
-
-        for n in range(rows.shape[0]):
-            out[n, :] = b.ReadAsArray(0, int(rows[n]), xsize, 1)[:, cols]
-
-        return out
-
-
-def get_cutoff(f, band_number, band_info, percentiles):
-    if len(percentiles) != 1 and len(percentiles) != 2:
-        raise ValueError("Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(percentiles))
-    d = get_sample(f, band_number)
-    md = np.ma.masked_where(d == band_info['no_data_value'], d)
-    if md.size == 0:
-        # If all of the values are no data, return 0
-        return 0
-    else:
-        cutoffs = np.nanpercentile(md.compressed(), percentiles)
-        if cutoffs.size == 2:
-            max_cutoff = np.amax(np.absolute(cutoffs))
-            if max_cutoff < 0:
-                return 0
-            else:
-                return round_to_n(max_cutoff, 2)
-
-        elif cutoffs.size == 1:
-            if cutoffs < 0:
-                # Negative cutoffs are not allowed as stretch is either zero 
-                # centered or starting at zero
-                return 0
-            else:
-                return round_to_n(cutoffs, 2)
-        else:
-            # We only get here if cutoffs is not size 1 or 2, which should 
-            # never happen, so raise
-            raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
 
 def get_unique_values_vector(l, field, max_unique=60):

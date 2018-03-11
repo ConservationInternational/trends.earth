@@ -21,7 +21,23 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.42
+changelog=0.44
+    - Add JRC LPD
+    - Add tool for uploading custom land cover data
+    - Add tool for uploading custom productivity data
+    - Add note that custom SOC upload is coming soon
+    - Add tool to add basemaps using Natural Earth data
+    - Add all-in-one tool for calculating all three sub-indicators at once
+    - Rename "Bare lands" class to "Other lands" for consistency with UNCCD
+    - Update docs
+    - Upgrade to marshmallow 3.0.0b7
+    - Move GEE code into the main trends.earth repository
+    - Improve handling of AOIs, particularly when shapefiles are used for input
+    - Handle multi-file outputs from GEE by tiling them in VRTs
+    - Support processing data for countries that cross the 180th meridian
+    - Improve formatting of summary table
+    - From now on, GEE script versions will be matched to the plugin version
+  0.42
     - Fix crash on change of LC aggregation (due setEnabled on removed label)
   0.40
     - Remove use of mode for land cover indicator.

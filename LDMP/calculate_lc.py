@@ -613,6 +613,17 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         # SDG one step dialog
         self.lc_setup_tab.groupBox_esa_period.show()
 
+        # TODO: These boxes are temporarily hiden on SDG one step dialog, so 
+        # these boxes may be hidden if this widget was last shown on that
+        # dialog
+        self.lc_setup_tab.use_custom.show()
+        self.lc_setup_tab.groupBox_custom_bl.show()
+        self.lc_setup_tab.groupBox_custom_tg.show()
+
+        # This box may have been hidden if this widget was last shown on the 
+        # SDG one step dialog
+        self.lc_setup_tab.groupBox_esa_period.show()
+
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
 

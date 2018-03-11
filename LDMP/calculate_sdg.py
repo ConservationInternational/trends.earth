@@ -65,6 +65,13 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
+        # TODO: Temporarily hide these boxes until custom LC support for SOC is 
+        # implemented
+        self.lc_setup_tab.use_esa.setChecked(True)
+        self.lc_setup_tab.use_custom.hide()
+        self.lc_setup_tab.groupBox_custom_bl.hide()
+        self.lc_setup_tab.groupBox_custom_tg.hide()
+
         self.lc_define_deg_tab = lc_define_deg_widget
         self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
         

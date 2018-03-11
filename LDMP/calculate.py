@@ -50,6 +50,19 @@ def get_script_slug(script_name):
     # replaced with dashesk
     return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
 
+def calc_frac_overlap(geom1, geom2):
+    """
+    Returns fraction of geom2 that is overlapped by geom1
+
+    Used to calculate "within" with a tolerance
+    """
+    geom1 = ogr.CreateGeometryFromWkt(geom1.exportToWkt())
+    geom2 = ogr.CreateGeometryFromWkt(geom2.exportToWkt())
+
+    area_inter = geom1.Intersection(geom2).GetArea()
+    frac = area_inter / geom2.GetArea()
+    log('Fractional area of overlap: {}'.format(frac))
+    return frac
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian

@@ -88,4 +88,4 @@ def run(params, logger):
     json_result = zonal_stats(ndvi_gee_dataset, geojsons[0], EXECUTION_ID, 
                               logger)
 
-    return json_result.data
+    return json_result

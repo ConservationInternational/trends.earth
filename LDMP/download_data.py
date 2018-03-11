@@ -116,6 +116,11 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             # Only enable download if a dataset is selected
             self.button_calculate.setEnabled(False)
 
+    def firstShow(self):
+        super(DlgDownload, self).firstShow()
+        # Don't show the time selector for now
+        self.TabBox.removeTab(1)
+
     def showEvent(self, event):
         super(DlgDownload, self).showEvent(event)
 

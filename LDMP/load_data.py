@@ -320,21 +320,24 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.btn_soc.clicked.connect(self.run_soc)
         self.btn_prod.clicked.connect(self.run_prod)
 
+        # TODO: temporarily hide soc button
+        self.btn_soc.hide()
+
     def run_te(self):
-        self.dlg_loaddata_te.show()
         self.close()
+        self.dlg_loaddata_te.exec_()
 
     def run_lc(self):
-        self.dlg_loaddata_lc.show()
         self.close()
+        self.dlg_loaddata_lc.exec_()
 
     def run_soc(self):
-        self.dlg_loaddata_soc.show()
         self.close()
+        self.dlg_loaddata_soc.exec_()
 
     def run_prod(self):
-        self.dlg_loaddata_prod.show()
         self.close()
+        self.dlg_loaddata_prod.exec_()
 
 class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
     def __init__(self, parent=None):
@@ -591,6 +594,23 @@ class DlgLoadDataBase(QtGui.QDialog):
         self.input_widget = LoadDataSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
+    def done(self, value):
+        if value == QtGui.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgLoadDataBase, self).done(value)
+
+    def validate_input(self, value):
+        if self.input_widget.radio_raster_input.isChecked():
+            if self.input_widget.lineEdit_raster_file.text() == '':
+                QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input raster file."))
+                return
+        else:
+            if self.input_widget.lineEdit_polygon_file.text() == '':
+                QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
+                return
+        super(DlgLoadDataBase, self).done(value)
+
     def get_resample_mode(self, f):
         ds_in = gdal.Open(f)
         gt_in = ds_in.GetGeoTransform()
@@ -680,10 +700,19 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
         self.btn_agg_edit_def.setEnabled(False)
 
-        self.btnBox.accepted.connect(self.ok_clicked)
-
         self.dlg_agg = None
-        
+
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        if  not self.dlg_agg:
+            QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.'.format(), None))
+            return
+        super(DlgLoadDataLC, self).validate_input(value)
+
+        self.ok_clicked()
+
     def clear_dlg_agg(self):
         self.dlg_agg = None
 
@@ -740,10 +769,6 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         self.dlg_agg.exec_()
 
     def ok_clicked(self):
-        if  not self.dlg_agg:
-            QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.'.format(), None))
-            return False
-
         if self.input_widget.radio_raster_input.isChecked():
             self.remap_raster(self.dlg_agg.get_agg_as_list())
         else:

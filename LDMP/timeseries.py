@@ -134,20 +134,19 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.close()
 
-        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
-
-        self.calculate_timeseries(self.aoi.bounding_box_gee_geojson(), ndvi_dataset)
-
-    def calculate_timeseries(self, geojson, ndvi_dataset):
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
             log('climate_gee_dataset {}'.format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
+        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_start': self.traj_year_start.date().year(),
                    'year_end': self.traj_year_end.date().year(),
-                   'geojson': json.dumps(geojson),
+                   'crosses_180th': crosses_180th,
+                   'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
                    'ndvi_gee_dataset': ndvi_dataset,
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText(),

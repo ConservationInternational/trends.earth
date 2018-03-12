@@ -17,6 +17,7 @@ from landdegradation.productivity import productivity_trajectory, \
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
 from landdegradation.download import download
+from landdegradation.schemas.schemas import CloudResultsSchema
 
 
 def run(params, logger):
@@ -34,7 +35,8 @@ def run(params, logger):
     prod_state_year_bl_end = params.get('prod_state_year_bl_end')
     prod_state_year_tg_start = params.get('prod_state_year_tg_start')
     prod_state_year_tg_end = params.get('prod_state_year_tg_end')
-    geojson = json.loads(params.get('geojson'))
+    geojsons = json.loads(params.get('geojsons'))
+    crs = params.get('crs')
     prod_traj_method = params.get('trajectory_method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
@@ -47,47 +49,59 @@ def run(params, logger):
 
     logger.debug("Running productivity indicators.")
 
+    proj = ee.Image(ndvi_gee_dataset).projection()
+
     if prod_mode == 'Trends.Earth productivity':
-        out = None
-        if calc_traj:
-            traj = productivity_trajectory(prod_traj_year_initial, 
-                                           prod_traj_year_final, prod_traj_method,
-                                           ndvi_gee_dataset, climate_gee_dataset, 
-                                           logger)
-            if not out:
-                out = traj
-        
-        if calc_perf:
-            perf = productivity_performance(prod_perf_year_initial, 
-                                            prod_perf_year_final, ndvi_gee_dataset, 
-                                            geojson, EXECUTION_ID, logger)
-            if not out:
-                out = perf
-            else:
-                out.merge(perf)
-        if calc_state:
-            state = productivity_state(prod_state_year_bl_start, 
-                                       prod_state_year_bl_end, 
-                                       prod_state_year_tg_start, 
-                                       prod_state_year_tg_end,
-                                       ndvi_gee_dataset, EXECUTION_ID, logger)
-            if not out:
-                out = state
-            else:
-                out.merge(state)
+        outs = []
+        for geojson in geojsons:
+            this_out = None
+            if calc_traj:
+                traj = productivity_trajectory(prod_traj_year_initial, 
+                                               prod_traj_year_final, prod_traj_method,
+                                               ndvi_gee_dataset, climate_gee_dataset, 
+                                               logger)
+                if not this_out:
+                    this_out = traj
+            
+            if calc_perf:
+                perf = productivity_performance(prod_perf_year_initial, 
+                                                prod_perf_year_final, ndvi_gee_dataset, 
+                                                geojson, EXECUTION_ID, logger)
+                if not this_out:
+                    this_out = perf
+                else:
+                    this_out.merge(perf)
+            if calc_state:
+                state = productivity_state(prod_state_year_bl_start, 
+                                           prod_state_year_bl_end, 
+                                           prod_state_year_tg_start, 
+                                           prod_state_year_tg_end,
+                                           ndvi_gee_dataset, EXECUTION_ID, logger)
+                if not this_out:
+                    this_out = state
+                else:
+                    this_out.merge(state)
+            
+            outs.append(this_out.export(geojson, 'productivity', crs, logger, 
+                                        EXECUTION_ID, proj))
+
+        # First need to deserialize the data that was prepared for output from 
+        # the productivity functions, so that new urls can be appended
+        schema = CloudResultsSchema()
+        logger.debug("Deserializing")
+        final_output = schema.load(outs[0])
+        for o in outs[1:]:
+            logger.debug("Adding outs")
+            this_out = schema.load(o)
+            final_output.urls.extend(this_out.urls)
+        logger.debug("Serializing")
+        # Now serialize the output again and return it
+        return schema.dump(final_output)
+
     elif prod_mode == 'JRC LPD':
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time', 
                        None, None, EXECUTION_ID, logger)
+        return out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj)
     else:
         raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
-
-    # out.selectBands(['Productivity trajectory (significance)',
-    #                  'Productivity performance (degradation)',
-    #                  'Productivity state (degradation)'])
-    # out.setVisible(['Productivity trajectory (significance)',
-    #                 'Productivity state (degradation)',
-    #                 'Productivity performance (degradation)'])
-
-    proj = ee.Image(ndvi_gee_dataset).projection()
-    return out.export(geojson, 'productivity', logger, EXECUTION_ID, proj)

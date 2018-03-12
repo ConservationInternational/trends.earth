@@ -19,7 +19,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt
+from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt, QDate
 
 from LDMP import log
 
@@ -83,11 +83,43 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         for cat in data_dict.keys():
             for title in data_dict[cat].keys():
                 item = data_dict[cat][title]
-                item.update({'category': cat,
-                             'title': title})
+                item.update({'category': cat, 'title': title})
                 self.datasets.append(item)
 
         self.update_data_table()
+
+        self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
+
+    def selection_changed(self):
+        if self.data_view.selectedIndexes():
+            # Note there can only be one row selected at a time by default
+            row = list(set(index.row() for index in self.data_view.selectedIndexes()))[0]
+            first_year = self.datasets[row]['Start year']
+            last_year = self.datasets[row]['End year']
+            if (first_year == 'NA') or (last_year == 'NA'):
+                self.first_year.setEnabled(False)
+                self.last_year.setEnabled(False)
+            else:
+                self.first_year.setEnabled(True)
+                self.last_year.setEnabled(True)
+                first_year = QDate(first_year, 12, 31)
+                last_year = QDate(last_year, 12, 31)
+                self.first_year.setMinimumDate(first_year)
+                self.first_year.setMaximumDate(last_year)
+                self.last_year.setMinimumDate(first_year)
+                self.last_year.setMaximumDate(last_year)
+
+    def tab_changed(self):
+        super(DlgDownload, self).tab_changed()
+        if (self.TabBox.currentIndex() == (self.TabBox.count() - 1)) \
+                and not self.data_view.selectedIndexes():
+            # Only enable download if a dataset is selected
+            self.button_calculate.setEnabled(False)
+
+    def firstShow(self):
+        super(DlgDownload, self).firstShow()
+        # Don't show the time selector for now
+        self.TabBox.removeTab(1)
 
     def showEvent(self, event):
         super(DlgDownload, self).showEvent(event)
@@ -128,8 +160,13 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         self.close()
 
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         for row in rows:
-            payload = {'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
+            payload = {'geojsons': json.dumps(geojsons),
+                       'crs': self.aoi.get_crs_dst_wkt(),
+                       'year_start': self.first_year.date().year(),
+                       'year_end': self.last_year.date().year(),
+                       'crosses_180th': crosses_180th,
                        'asset': self.datasets[row]['GEE Dataset'],
                        'name': self.datasets[row]['title'],
                        'temporal_resolution': self.datasets[row]['Temporal resolution'],
@@ -139,7 +176,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             resp = run_script(get_script_slug('download-data'), payload)
 
             if resp:
-                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Sucess"),
+                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Success"),
                                QtGui.QApplication.translate("LDMP", "Download request submitted to Google Earth Engine."),
                                level=0, duration=5)
             else:

@@ -15,9 +15,11 @@
 import sys
 import time
 
+from qgis.utils import iface
+
 from PyQt4 import QtCore
-from PyQt4.QtCore import QThread, Qt
-from PyQt4.QtGui import QProgressBar, QPushButton
+from PyQt4.QtCore import QThread, Qt, QEventLoop
+from PyQt4.QtGui import QProgressBar, QPushButton, QApplication
 
 from LDMP import log
 
@@ -139,3 +141,34 @@ def toggle_worker_progress(show_progress, progress_bar):
 
 def toggle_worker_cancel(show_cancel, cancel_button):
     cancel_button.setVisible(show_cancel)
+
+class StartWorker(object):
+    def __init__(self, worker_class, process_name, *args):
+        self.exception = None
+        self.success = None
+
+        self.worker = worker_class(*args)
+
+        pause = QEventLoop()
+        self.worker.finished.connect(pause.quit)
+        self.worker.successfully_finished.connect(self.save_success)
+        self.worker.error.connect(self.save_exception)
+        start_worker(self.worker, iface,
+                     QApplication.translate("LDMP", 'Processing: {}').format(process_name))
+        pause.exec_()
+
+        if self.exception:
+            raise self.exception
+
+    def save_success(self, val=None):
+        self.return_val = val
+        self.success = True
+
+    def get_return(self):
+        return self.return_val
+
+    def save_exception(self, exception):
+        self.exception = exception
+
+    def get_exception(self):
+        return self.exception

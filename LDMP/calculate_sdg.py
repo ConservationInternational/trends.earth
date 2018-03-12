@@ -994,7 +994,6 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.layer_meridian_split_wkt()[1]
-        log('wkts: {}'.format(wkts))
         n = 0
         output_sdg_tifs = []
         for wkt in wkts:
@@ -1157,6 +1156,17 @@ def get_lc_area(table, code):
         return float(table[1][ind])
 
 
+def get_lpd_table(table,
+                  lc_classes=range(1, 6 + 1), # Don't include water bodies in the table
+                  lpd_classes=[1, 2, 3, 4, 5, -32768]):
+    out = np.zeros((len(lc_classes), len(lpd_classes)))
+    for lc_class_num in range(len(lc_classes)):
+        for prod_num in range(len(lpd_classes)):
+            transition = int('{}{}'.format(lc_classes[lc_class_num], lc_classes[lc_class_num]))
+            out[lc_class_num, prod_num] = get_xtab_area(table, lpd_classes[prod_num], transition)
+    return out
+
+
 def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
     out = np.zeros((len(classes), len(classes)))
     for bl_class in range(len(classes)):
@@ -1173,6 +1183,7 @@ def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
             if change_type == 'no data':
                 out[bl_class, tg_class] = get_xtab_area(table, -32768, transition)
     return out
+
 
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
@@ -1296,6 +1307,7 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     ##########################################################################
     # Land cover tables
     ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
+    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 43, 3)
 
     ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_sdg.add_image(ws_sdg_logo, 'H1')

@@ -36,7 +36,6 @@ videos, are available on this website:
 
 * :ref:`about-docs`
 * :ref:`user-docs`
-* :ref:`training-materials`
 * :ref:`videos`
 
 .. note:: `Download this documentation as a PDF for offline use 
@@ -57,27 +56,18 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: User Documentation
 
-    training/indicator_15_3_1
+    documentation/indicator_15_3_1
     documentation/before_installing
     documentation/installing
     documentation/settings
-    documentation/data_download
     documentation/calculate
-    documentation/gee_tasks
     documentation/plot_data
-    documentation/load_data
+    documentation/data_download
+    documentation/gee_tasks
     documentation/reporting_tool
+    documentation/load_data
+    documentation/about
     documentation/faq
-
-.. _training-materials:
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Training Materials
-
-    training/UNCCD_reporting
-    training/visualizing_results
-    training/interpreting_results
 
 .. _videos:
 

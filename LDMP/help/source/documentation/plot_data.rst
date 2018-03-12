@@ -1,10 +1,10 @@
 Plot data
-==================================
-To view plotted time series, select the graph icon (|iconGraph|). 
-This will open up the `Plot data` dialog box:
-   
+=========
 .. image:: /static/common/ldmt_toolbar_highlight_timeseries.png
    :align: center
+
+To view plotted time series, select the graph icon (|iconGraph|). 
+This will open up the `Plot data` dialog box:
 
 The toolbox also supports plotting time series showing how a particular indicator has changed over time. To use this feature, click on the Plot data button from the toolbox bar. Then select a dataset, indicator, and area to plot:
    

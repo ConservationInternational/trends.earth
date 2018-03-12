@@ -21,6 +21,12 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
+changelog=0.46
+    - Support reporting table calculation with multiple geometries (Fiji, Russia)
+    - Add LPD and LC tables to UNCCD worksheet tab
+    - Clean up the warning message in the LPD import tool
+    - Fix TE final combined productivity layer loading
+    - Fix download tasks (still no styles)
 changelog=0.44
     - Add JRC LPD
     - Add tool for uploading custom land cover data

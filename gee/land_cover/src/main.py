@@ -20,7 +20,8 @@ def run(params, logger):
     logger.debug("Loading parameters.")
     year_baseline = params.get('year_baseline')
     year_target = params.get('year_target')
-    geojson = json.loads(params.get('geojson'))
+    geojsons = json.loads(params.get('geojsons'))
+    crs = params.get('crs')
     trans_matrix = params.get('trans_matrix')
     remap_matrix = params.get('remap_matrix')
 
@@ -39,4 +40,4 @@ def run(params, logger):
     out = land_cover(year_baseline, year_target, trans_matrix,
                      remap_matrix, EXECUTION_ID, logger)
 
-    return out.export(geojson, 'land_cover', logger, EXECUTION_ID)
+    return out.export(geojsons, 'land_cover', crs, logger, EXECUTION_ID)

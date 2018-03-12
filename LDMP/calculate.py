@@ -14,13 +14,17 @@
 
 import os
 import json
+import tempfile
+
+from osgeo import gdal, ogr
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        QGis, QgsMapLayerRegistry, QgsDataProvider
+        QGis, QgsMapLayerRegistry, QgsProject, QgsRasterLayer, \
+        QgsLayerTreeGroup, QgsLayerTreeLayer, QgsVectorFileWriter
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -29,6 +33,7 @@ from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
+from LDMP.worker import AbstractWorker
 
 
 def tr(t):
@@ -45,6 +50,19 @@ def get_script_slug(script_name):
     # replaced with dashesk
     return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
 
+def calc_frac_overlap(geom1, geom2):
+    """
+    Returns fraction of geom2 that is overlapped by geom1
+
+    Used to calculate "within" with a tolerance
+    """
+    geom1 = ogr.CreateGeometryFromWkt(geom1.exportToWkt())
+    geom2 = ogr.CreateGeometryFromWkt(geom2.exportToWkt())
+
+    area_inter = geom1.Intersection(geom2).GetArea()
+    frac = area_inter / geom2.GetArea()
+    log('Fractional area of overlap: {}'.format(frac))
+    return frac
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -87,16 +105,37 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
         return None
     else:
-        #QgsMapLayerRegistry.instance().addMapLayer(l_w)
         return l_w
+
+
+def get_ogr_geom_extent(geom):
+    (minX, maxX, minY, maxY) = geom.GetEnvelope()
+
+    # Create ring
+    ring = ogr.Geometry(ogr.wkbLinearRing)
+    ring.AddPoint(minX, minY)
+    ring.AddPoint(maxX, minY)
+    ring.AddPoint(maxX, maxY)
+    ring.AddPoint(minX, maxY)
+    ring.AddPoint(minX, minY)
+
+    # Create polygon
+    poly_envelope = ogr.Geometry(ogr.wkbPolygon)
+    poly_envelope.AddGeometry(ring)
+    poly_envelope.FlattenTo2D()
+
+    return poly_envelope
 
 
 class AOI(object):
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
 
+    def get_crs_dst_wkt(self):
+        return self.crs_dst.toWkt()
+
     def update_from_file(self, f, wrap=False):
-        log('Setting up AOI from file at {}. CRS is "{}" and wrap is {}'.format(f, self.crs_dst.toProj4(), wrap))
+        log('Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
             return
@@ -113,7 +152,7 @@ class AOI(object):
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def update_from_geojson(self, geojson, crs_src='epsg:4326', datatype='polygon', wrap=False):
-        log('Setting up AOI with geojson. CRS is "{}" and wrap is {}'.format(self.crs_dst.toProj4(), wrap))
+        log('Setting up AOI with geojson. Wrap is {}.'.format(wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
@@ -129,18 +168,58 @@ class AOI(object):
 
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-    def layer(self):
-        'Returns layer'
-        return self.l
+    def bounding_box_meridian_split_geojson(self):
+        """
+        Return list of bounding boxes in WGS84 as geojson for GEE
 
-    def get_wgs84_wrapped_layer(self):
+        Returns multiple geometries as needed to avoid having an extent 
+        crossing the 180th meridian
+        """
+        """
+        Return layer split into two extent jsons, one on each side of the 180th meridian
+        """
+        hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
+        hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
+
+        # Calculate a single feature that is the union of all the features in 
+        # this layer - that way there is a single feature to intersect with 
+        # each hemisphere.
+        n = 0
+        for f in self.get_layer_wgs84().getFeatures():
+            # Get an OGR geometry from the QGIS geometry
+            geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
+            if n == 0:
+                union = geom
+            else:
+                union = geom.Union(geom)
+
+        union_e_ext = hemi_e.Intersection(union)
+        union_w_ext = hemi_w.Intersection(union)
+
+        if union_e_ext.IsEmpty() or union_w_ext.IsEmpty():
+            # If there is no area in one of the hemispheres, return the extent 
+            # of the original layer
+            return (False, [json.loads(get_ogr_geom_extent(union).ExportToJson())])
+        elif union_w_ext.Union(union_e_ext).GetArea() > (get_ogr_geom_extent(union).GetArea() * 2):
+            # If the extent of the combined extents from both hemispheres is 
+            # not significantly smaller than that of the original layer, then 
+            # return the original layer
+            return (False, [json.loads(get_ogr_geom_extent(union).ExportToJson())])
+        else:
+            ignore = QSettings().value("LDMP/ignore_crs_warning", False)
+            if not ignore:
+                QtGui.QMessageBox.information(None, tr("Warning"),
+                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
+            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
+            return (True, [json.loads(get_ogr_geom_extent(union_e_ext).ExportToJson()),
+                           json.loads(get_ogr_geom_extent(union_w_ext).ExportToJson())])
+
+    def get_wrapped_layer_wgs84(self):
         """
         Return layer with smallest extent possible (wrapping across 180th meridian when needed)
         """
         # Setup settings for AOI provided to GEE:
-        wgs84_crs = QgsCoordinateReferenceSystem()
-        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
-        l_wgs84 = transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+        l_wgs84 = self.get_layer_wgs84()
         wgs84_wrapped_crs = QgsCoordinateReferenceSystem()
         wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
         l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
@@ -152,14 +231,33 @@ class AOI(object):
         else:
             return l_wgs84
 
+    def get_layer(self):
+        """
+        Return layer
+        """
+        return self.l
+
+    def get_layer_wgs84(self):
+        """
+        Return layer in WGS84 (WPGS:4326)
+        """
+        # Setup settings for AOI provided to GEE:
+        wgs84_crs = QgsCoordinateReferenceSystem()
+        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
+        return transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+
     def bounding_box_geom(self):
         'Returns bounding box in chosen destination coordinate system'
         return QgsGeometry.fromRect(self.l.extent())
 
     def bounding_box_gee_geojson(self):
-        'Returns bounding box in WGS84 or WGS84 wrapped for GEE'
+        '''
+        Returns two values - first is an indicator of whether this geojson 
+        includes two geometries due to crossing of the 180th meridian, and the 
+        second is the list of bounding box geojsons.
+        '''
         if self.datatype == 'polygon':
-            return json.loads(QgsGeometry.fromRect(self.get_wgs84_wrapped_layer().extent()).exportToGeoJSON())
+            return self.bounding_box_meridian_split_geojson()
         elif self.datatype == 'point':
             # If there is only on point, don't calculate an extent (extent of 
             # one point is a box with sides equal to zero)
@@ -172,10 +270,10 @@ class AOI(object):
                     geom = f.geometry()
             if n == 1:
                 log('Layer only has one point')
-                return json.loads(geom.exportToGeoJSON())
+                return (False, [json.loads(geom.exportToGeoJSON())])
             else:
                 log('Layer has many points ({})'.format(n))
-                return json.loads(QgsGeometry.fromRect(self.get_wgs84_wrapped_layer().extent()).exportToGeoJSON())
+                return self.bounding_box_meridian_split_geojson()
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
                     tr("Failed to process area of interest - unknown geometry type:{}".format(self.datatype)))
@@ -439,6 +537,9 @@ class DlgCalculateBase(QtGui.QDialog):
         #self.options_tab.toggle_show_where_to_run(True)
         self.options_tab.toggle_show_where_to_run(False)
 
+        # By default hide the custom crs box
+        self.area_tab.groupBox_custom_crs.hide()
+
         if self._firstShowEvent:
             self._firstShowEvent = False
             self.firstShowEvent.emit()
@@ -448,8 +549,6 @@ class DlgCalculateBase(QtGui.QDialog):
 
         # By default, don't show area from point selector
         self.area_tab.show_areafrom_point_toggle(False)
-        # By default, don't show custom crs groupBox
-        self.area_tab.groupBox_custom_crs.hide()
 
     def firstShow(self):
         self.button_calculate.clicked.connect(self.btn_calculate)
@@ -551,6 +650,45 @@ class DlgCalculateBase(QtGui.QDialog):
                                        self.tr("Unable to read area of interest."), None)
             return False
         else:
+            return True
+
+
+class ClipWorker(AbstractWorker):
+    def __init__(self, in_file, out_file, mask_layer):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+
+        self.mask_layer = mask_layer
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
+        QgsVectorFileWriter.writeAsVectorFormat(self.mask_layer, mask_layer_file,
+                                                "CP1250", None, "ESRI Shapefile")
+
+        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                        cutlineDSName=mask_layer_file,
+                        srcNodata=-32768, dstNodata=-32767,
+                        dstSRS="epsg:4326",
+                        outputType=gdal.GDT_Int16,
+                        resampleAlg=gdal.GRA_NearestNeighbour,
+                        creationOptions=['COMPRESS=LZW'],
+                        callback=self.progress_callback)
+
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
             return True
 
 

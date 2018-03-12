@@ -24,32 +24,30 @@ import openpyxl
 from openpyxl.drawing.image import Image
 
 from PyQt4 import QtGui, uic, QtXml
-from PyQt4.QtCore import QSettings, QEventLoop
+from PyQt4.QtCore import QSettings
 
-from qgis.core import QgsGeometry, QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, \
-    QgsRasterLayer, QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsVectorLayer, QgsFeature, \
-    QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
-    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, QgsLayerDefinition
+from qgis.core import QgsGeometry, QgsRasterLayer, QgsColorRampShader, \
+    QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsVectorLayer, \
+    QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
+    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, \
+    QgsLayerDefinition
 from qgis.gui import QgsComposerView
 from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
+    calc_frac_overlap
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
-from LDMP.jobs import create_local_json_metadata
-from LDMP.load_data import get_file_metadata, add_layer
-from LDMP.schemas.schemas import BandInfo
+from LDMP.layers import get_file_metadata, add_layer, \
+        create_local_json_metadata, get_band_info, get_te_layers
+from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
 from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
-from LDMP.worker import AbstractWorker, start_worker
-
-
-NUM_CLASSES_STATE_DEG = -2
+from LDMP.worker import AbstractWorker, StartWorker
 
 
 class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
@@ -67,6 +65,13 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
 
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
+
+        # TODO: Temporarily hide these boxes until custom LC support for SOC is 
+        # implemented
+        self.lc_setup_tab.use_esa.setChecked(True)
+        self.lc_setup_tab.use_custom.hide()
+        self.lc_setup_tab.groupBox_custom_bl.hide()
+        self.lc_setup_tab.groupBox_custom_tg.hide()
 
         self.lc_define_deg_tab = lc_define_deg_widget
         self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
@@ -118,6 +123,7 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         else:
             prod_mode = 'JRC LPD'
 
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'prod_mode': prod_mode,
                    'prod_traj_year_initial': prod_traj_year_initial,
                    'prod_traj_year_final': prod_traj_year_final,
@@ -131,7 +137,9 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
                    'lc_year_final': lc_year_final,
                    'soc_year_initial': soc_year_initial,
                    'soc_year_final': soc_year_final,
-                   'geojson': json.dumps(self.aoi.bounding_box_gee_geojson()),
+                   'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
+                   'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
                    'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',
                    'climate_gee_dataset': None,
@@ -155,28 +163,6 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         #######################################################################
         # TODO: Add offline calculation
         
-
-def get_band_info(data_file):
-    json_file = os.path.splitext(data_file)[0] + '.json'
-    m = get_file_metadata(json_file)
-    if m:
-        return m['bands']
-    else:
-        return None
-
-
-def _get_layers(node):
-    l = []
-    if isinstance(node, QgsLayerTreeGroup):
-        for child in node.children():
-            if isinstance(child, QgsLayerTreeLayer):
-                l.append(child.layer())
-            else:
-                l.extend(_get_layers(child))
-    else:
-        l = node
-    return l
-
 
 #  Calculate the area of a slice of the globe from the equator to the parallel
 #  at latitude f (on WGS84 ellipsoid). Based on:
@@ -202,54 +188,6 @@ def calc_cell_area(ymin, ymax, x_width):
     # ymax: maximum latitude
     # x_width: width of cell in degrees
     return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
-
-
-# Get a list of layers of a particular type, out of those in the TOC that were
-# produced by trends.earth
-def get_ld_layers(layer_type=None):
-    root = QgsProject.instance().layerTreeRoot()
-    layers_filtered = []
-    layers = _get_layers(root)
-    if len(layers) > 0:
-        for l in layers:
-            if not isinstance(l, QgsRasterLayer):
-                # Allows skipping other layer types, like OpenLayers layers, that
-                # are irrelevant for the toolbox
-                continue
-            band_infos = get_band_info(l.dataProvider().dataSourceUri())
-            # Layers not produced by trends.earth won't have bandinfo, and 
-            # aren't of interest, so skip if there is no bandinfo.
-            if band_infos:
-                band_number = l.renderer().usesBands()
-                # Note the below is true so long as none of the needed layers use more 
-                # than one band.
-                if len(band_number) == 1:
-                    band_number = band_number[0]
-                    band_info = band_infos[band_number - 1]
-                    name = band_info['name']
-                    if layer_type == 'lpd' and name == 'Land Productivity Dynamics (LPD)':
-                        layers_filtered.append((l, band_number, band_info))
-                    if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'state_deg' and name == 'Productivity state (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'perf_deg' and name == 'Productivity performance (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_tr' and name == 'Land cover transitions':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_deg' and name == 'Land cover (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'soc_deg' and name == 'Soil organic carbon (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'soc_annual' and name == 'Soil organic carbon':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_mode' and name == 'Land cover mode (7 class)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_annual' and name == 'Land cover (7 class)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_transitions' and name == 'Land cover transitions':
-                        layers_filtered.append((l, band_number, band_info))
-    return layers_filtered
 
 
 class DegradationWorkerSDG(AbstractWorker):
@@ -322,7 +260,9 @@ class DegradationWorkerSDG(AbstractWorker):
                     ##############
                     # Productivity
                     
-                    # Capture trends that are at least 95% significant.
+                    # Recode trajectory into deg, stable, imp. Capture trends 
+                    # that are at least 95% significant.
+                    #
                     # Remember that traj is coded as:
                     # -3: 99% signif decline
                     # -2: 95% signif decline
@@ -331,34 +271,45 @@ class DegradationWorkerSDG(AbstractWorker):
                     #  1: 90% signif increase
                     #  2: 95% signif increase
                     #  3: 99% signif increase
-                    traj_array[traj_array == -1] = 0 # not signif at 95%
-                    traj_array[traj_array == 1] = 0 # not signif at 95%
+                    traj_recode = traj_array.copy()
+                    traj_recode[(traj_array >= -3) & (traj_array < -1)] = -1
+                    # -1 and 1 are not signif at 95%, so stable
+                    traj_recode[(traj_array >= -1) & (traj_array <= 1)] = 0
+                    traj_recode[(traj_array > 1) & (traj_array <= 3)] = 1
+
+                    # Recode state into deg, stable, imp. Note the >= -10 is so 
+                    # no data isn't coded as degradation. More than two changes 
+                    # in class is defined as degradation in state.
+                    state_recode = state_array.copy()
+                    state_recode[(state_array >= -10) & (state_array <= -2)] = -1
+                    state_recode[(state_array > -2) & (state_array < 2)] = 0
+                    state_recode[state_array >= 2] = 1
+
+                    # Coding of LPD (prod5)
+                    # 1: declining
+                    # 2: early signs of decline
+                    # 3: stable but stressed
+                    # 4: stable
+                    # 5: improving
+                    # -32768: no data
+                    prod5 = traj_recode.copy()
 
                     ### LPD: Declining = 1
-                    traj_array[np.logical_and(traj_array >= -3, traj_array <= -2)] = 1
+                    prod5[traj_recode == -1] = 1
+                    ### LPD: Stable = 4
+                    prod5[traj_recode == 0] = 4
                     ### LPD: Improving = 5
-                    traj_array[np.logical_and(traj_array >= 2, traj_array <= 3)] = 5
-
-                    prod5 = traj_array
+                    prod5[traj_recode == 1] = 5
 
                     ##
                     # Handle state and performance.
                     
-                    # Recode state into deg, stable, imp. Note the >= -10 is so 
-                    # no data isn't coded as degradation.
-                    state_array[state_array >= NUM_CLASSES_STATE_DEG] = 1
-                    state_array[np.logical_and(state_array <= NUM_CLASSES_STATE_DEG, state_array >= -10)] = -1
-                    
-                    ### LPD: Declining (traj = imp, state=deg, perf=deg)
-                    prod5[np.logical_and(traj_array == -1, state_array == -1, perf_array == -1)] = 1
-                    ### LPD: Stable (traj = stable, state=stable, perf=stable or deg)
-                    prod5[np.logical_and(traj_array == 0, state_array == 0)] = 4
-                    ### LPD: Stable (traj = stable, state=imp, perf=stable or deg)
-                    prod5[np.logical_and(traj_array == 0, state_array == 1)] = 4
-                    ### LPD: Stable but stressed (traj = stable, state=stable, perf=deg)
-                    prod5[np.logical_and(traj_array == 0, state_array == 0, perf_array == -1)] = 3
-                    ### LPD: Early signs of decline (traj = stable, state=deg, perf=stable)
-                    prod5[np.logical_and(traj_array == 0, state_array == -1, perf_array == 1)] = 2
+                    ### LPD: Declining due to agreement in perf and state
+                    prod5[(state_recode == -1) & (perf_array == -1)] = 1
+                    ### LPD: Stable but stressed
+                    prod5[(traj_recode == 0) & (state_recode == 0) & (perf_array == -1)] = 3
+                    ### LPD: Early signs of decline
+                    prod5[(traj_recode == 0) & (state_recode == -1) & (perf_array == 0)] = 2
 
                     ##
                     # Handle NAs
@@ -385,7 +336,7 @@ class DegradationWorkerSDG(AbstractWorker):
 
                 # Recode prod5 as stable, degraded, improved (prod3)
                 prod3 = prod5
-                prod3[np.logical_and(prod5 >= 1, prod5 <= 3)] = -1
+                prod3[(prod5 >= 1) & (prod5 <= 3)] = -1
                 prod3[prod5 == 4] = 0
                 prod3[prod5 == 5] = 1
 
@@ -403,15 +354,15 @@ class DegradationWorkerSDG(AbstractWorker):
                 
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
-                deg[np.logical_and(soc_array <= -10, soc_array >= -100)] = -1
+                deg[(soc_array <= -10) & (soc_array >= -100)] = -1
 
                 #############
                 # Improvement
                 
                 # Allow improvements by lc or soc, only where one of the other 
                 # two indicators doesn't indicate a decline
-                deg[np.logical_and(deg == 0, lc_array == 1)] = 1
-                deg[np.logical_and(deg == 0, np.logical_and(soc_array >= 10, soc_array <= 100))] = 1
+                deg[(deg == 0) & (lc_array == 1)] = 1
+                deg[(deg == 0) & (soc_array >= 10) & (soc_array <= 100)] = 1
 
                 ##############
                 # Missing data
@@ -504,7 +455,7 @@ def calc_total_table(a_trans, a_soc, total_table, cell_area):
         ind = np.where(transitions == transition)
         # Only sum values for this transition, and where soc has a valid value
         # (negative values are missing data flags)
-        vals = a_soc[np.logical_and(a_trans == transition, a_soc > 0)]
+        vals = a_soc[(a_trans == transition) & (a_soc > 0)]
         totals[ind] += np.sum(vals * cell_area)
 
     return list((transitions, totals))
@@ -638,7 +589,7 @@ class AreaWorker(AbstractWorker):
                 a_deg_prod[a_lc_tg == 7] = -32767
                 sdg_tbl_prod[0] = sdg_tbl_prod[0] + np.sum(a_deg_prod == 5) * cell_area
                 sdg_tbl_prod[1] = sdg_tbl_prod[1] + np.sum(a_deg_prod == 4) * cell_area
-                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum(np.logical_and(a_deg_prod >= 1, a_deg_prod <= 3)) * cell_area
+                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum((a_deg_prod >= 1) & (a_deg_prod <= 3)) * cell_area
                 sdg_tbl_prod[3] = sdg_tbl_prod[3] + np.sum(a_deg_prod == -32768) * cell_area
 
                 # Flatten the arrays before passing to xtab
@@ -674,9 +625,9 @@ class AreaWorker(AbstractWorker):
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
                 # than 10% (and improving increase greater than 10%)
-                a_deg_soc = a_soc_frac_chg
-                a_deg_soc[np.logical_and(a_soc_frac_chg >= 0, a_soc_frac_chg <= .9)] = -1
-                a_deg_soc[np.logical_and(a_soc_frac_chg > .9, a_soc_frac_chg < 1.1)] = 0
+                a_deg_soc = a_soc_frac_chg.copy()
+                a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
+                a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
                 a_deg_soc[a_soc_frac_chg >= 1.1] = 1
                 # Carry over areas that were originally masked or no data
                 a_deg_soc[a_soc_tg_masked] = -32767 # Masked areas
@@ -731,77 +682,6 @@ def get_xtab_area(table, deg_class=None, lc_class=None):
         return 0
 
 
-class ClipWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, mask_layer):
-        AbstractWorker.__init__(self)
-
-        self.in_file = in_file
-        self.out_file = out_file
-
-        self.mask_layer = mask_layer
-
-    def work(self):
-        self.toggle_show_progress.emit(True)
-        self.toggle_show_cancel.emit(True)
-
-        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
-        QgsVectorFileWriter.writeAsVectorFormat(self.mask_layer, mask_layer_file,
-                                                "CP1250", None, "ESRI Shapefile")
-
-        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=mask_layer_file,
-                        srcNodata=-32768, dstNodata=-32767,
-                        dstSRS="epsg:4326",
-                        outputType=gdal.GDT_Int16,
-                        resampleAlg=gdal.GRA_NearestNeighbour,
-                        creationOptions=['COMPRESS=LZW'],
-                        callback=self.progress_callback)
-
-        if res:
-            return True
-        else:
-            return None
-
-    def progress_callback(self, fraction, message, data):
-        if self.killed:
-            return False
-        else:
-            self.progress.emit(100 * fraction)
-            return True
-
-
-class StartWorker(object):
-    def __init__(self, worker_class, process_name, *args):
-        self.exception = None
-        self.success = None
-
-        self.worker = worker_class(*args)
-
-        pause = QEventLoop()
-        self.worker.finished.connect(pause.quit)
-        self.worker.successfully_finished.connect(self.save_success)
-        self.worker.error.connect(self.save_exception)
-        start_worker(self.worker, iface,
-                     QtGui.QApplication.translate("LDMP", 'Processing: {}').format(process_name))
-        pause.exec_()
-
-        if self.exception:
-            raise self.exception
-
-    def save_success(self, val=None):
-        self.return_val = val
-        self.success = True
-
-    def get_return(self):
-        return self.return_val
-
-    def save_exception(self, exception):
-        self.exception = exception
-
-    def get_exception(self):
-        return self.exception
-
-
 class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
     def __init__(self, parent=None):
         super(DlgCalculateSDGAdvanced, self).__init__(parent)
@@ -843,32 +723,32 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
     def populate_layers_lpd(self):
        self.combo_layer_lpd.clear()
-       self.layer_lpd_list = get_ld_layers('lpd')
+       self.layer_lpd_list = get_te_layers('lpd')
        self.combo_layer_lpd.addItems([l[0].name() for l in self.layer_lpd_list])
 
     def populate_layers_traj(self):
         self.combo_layer_traj.clear()
-        self.layer_traj_list = get_ld_layers('traj_sig')
+        self.layer_traj_list = get_te_layers('traj_sig')
         self.combo_layer_traj.addItems([l[0].name() for l in self.layer_traj_list])
 
     def populate_layers_perf(self):
         self.combo_layer_perf.clear()
-        self.layer_perf_list = get_ld_layers('perf_deg')
+        self.layer_perf_list = get_te_layers('perf_deg')
         self.combo_layer_perf.addItems([l[0].name() for l in self.layer_perf_list])
 
     def populate_layers_state(self):
         self.combo_layer_state.clear()
-        self.layer_state_list = get_ld_layers('state_deg')
+        self.layer_state_list = get_te_layers('state_deg')
         self.combo_layer_state.addItems([l[0].name() for l in self.layer_state_list])
 
     def populate_layers_lc(self):
         self.combo_layer_lc.clear()
-        self.layer_lc_list = get_ld_layers('lc_deg')
+        self.layer_lc_list = get_te_layers('lc_deg')
         self.combo_layer_lc.addItems([l[0].name() for l in self.layer_lc_list])
 
     def populate_layers_soc(self):
         self.combo_layer_soc.clear()
-        self.layer_soc_list = get_ld_layers('soc_deg')
+        self.layer_soc_list = get_te_layers('soc_deg')
         self.combo_layer_soc.addItems([l[0].name() for l in self.layer_soc_list])
 
     def select_output_file_layer(self):
@@ -995,29 +875,29 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         #######################################################################
         # Check that the layers cover the full extent needed
         if prod_mode == 'Trends.Earth productivity':
-            if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_traj.extent())):
+            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_traj.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the trajectory layer."), None)
                 return
-            if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_perf.extent())):
+            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_perf.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the performance layer."), None)
                 return
-            if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_state.extent())):
+            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_state.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the state layer."), None)
                 return
         else:
-            if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_lpd.extent())):
+            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_lpd.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the land productivity dynamics layer."), None)
                 return
 
-        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_lc.extent())):
+        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_lc.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
-        if not self.aoi.bounding_box_geom().within(QgsGeometry.fromRect(self.layer_soc.extent())):
+        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_soc.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return
@@ -1231,9 +1111,10 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                            sdg_tbl_lc, self.output_file_table.text())
 
         # Add the SDG layers to the map
-        add_layer(output_sdg_tif, 1, output_sdg_bandinfos[0].getDict())
+        schema = BandInfoSchema()
+        add_layer(output_sdg_tif, 1, schema.dump(output_sdg_bandinfos[0]))
         if prod_mode == 'Trends.Earth productivity':
-            add_layer(output_sdg_tif, 2, output_sdg_bandinfos[1].getDict())
+            add_layer(output_sdg_tif, 2, schema.dump(output_sdg_bandinfos[0]))
 
 
 def get_lc_area(table, code):

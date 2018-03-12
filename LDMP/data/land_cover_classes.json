@@ -193,19 +193,19 @@
     },
     {
         "Final_Code": 6,
-        "Final_Label": "Bare land",
+        "Final_Label": "Other land",
         "Initial_Code": 200,
         "Initial_Label": "Bare areas"
     },
     {
         "Final_Code": 6,
-        "Final_Label": "Bare land",
+        "Final_Label": "Other land",
         "Initial_Code": 201,
         "Initial_Label": "Consolidated bare areas"
     },
     {
         "Final_Code": 6,
-        "Final_Label": "Bare land",
+        "Final_Label": "Other land",
         "Initial_Code": 202,
         "Initial_Label": "Unconsolidated bare areas"
     },
@@ -217,7 +217,7 @@
     },
     {
         "Final_Code": 6,
-        "Final_Label": "Bare land",
+        "Final_Label": "Other land",
         "Initial_Code": 220,
         "Initial_Label": "Permanent snow and ice"
     }

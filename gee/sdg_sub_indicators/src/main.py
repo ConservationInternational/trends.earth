@@ -106,16 +106,18 @@ def run(params, logger):
                             'Productivity performance (degradation)',
                             'Land Productivity Dynamics (LPD)'])
 
-            outs.append(out.export(geojsons, 'sdg_sub_indicators', crs, logger,
+            outs.append(out.export([geojson], 'sdg_sub_indicators', crs, logger,
                                    EXECUTION_ID, proj))
 
         # First need to deserialize the data that was prepared for output from 
         # the productivity functions, so that new urls can be appended
         schema = CloudResultsSchema()
+        logger.debug("Deserializing")
         final_prod = schema.load(outs[0])
         for o in outs[1:]:
             this_out = schema.load(o)
             final_prod.urls.extend(this_out.urls)
+        logger.debug("Serializing")
         # Now serialize the output again so the remaining layers can be added 
         # to it
         return schema.dump(final_prod)

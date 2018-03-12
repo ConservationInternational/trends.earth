@@ -137,6 +137,9 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         # Hide boxes that are coming soon
         self.groupBox_custom_SOC.hide()
+        self.lc_setup_tab.use_custom.hide()
+        self.lc_setup_tab.groupBox_custom_bl.hide()
+        self.lc_setup_tab.groupBox_custom_tg.hide()
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)

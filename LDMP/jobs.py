@@ -55,7 +55,7 @@ def create_gee_json_metadata(json_file, job, data_file):
     bands = metadata['results'].pop('bands')
     metadata.pop('raw')
 
-    out = LocalRaster(data_file, bands, metadata)
+    out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
     local_raster_schema = LocalRasterSchema()
     with open(json_file, 'w') as f:
         json.dump(local_raster_schema.dump(out), f, default=json_serial, 

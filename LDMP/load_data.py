@@ -872,8 +872,7 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
             return
         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
         if len(invalid_values) > 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
-            return
+            QtGui.QMessageBox.warning(None, self.tr("Warning"), self.tr("The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
         super(DlgLoadDataProd, self).done(value)
 

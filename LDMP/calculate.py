@@ -126,6 +126,8 @@ def get_ogr_geom_extent(geom):
 
     return poly_envelope
 
+hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
+hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
 
 class AOI(object):
     def __init__(self, crs_dst):
@@ -168,6 +170,50 @@ class AOI(object):
 
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
+    def layer_meridian_split_wkt(self):
+        """
+        Return list of bounding boxes in WGS84 as geojson for GEE
+
+        Returns multiple geometries as needed to avoid having an extent 
+        crossing the 180th meridian
+        """
+        """
+        Return layer split into two extent jsons, one on each side of the 180th meridian
+        """
+
+        # Calculate a single feature that is the union of all the features in 
+        # this layer - that way there is a single feature to intersect with 
+        # each hemisphere.
+        n = 0
+        for f in self.get_layer_wgs84().getFeatures():
+            # Get an OGR geometry from the QGIS geometry
+            geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
+            if n == 0:
+                union = geom
+            else:
+                union = geom.Union(geom)
+
+        union_e_ext = hemi_e.Intersection(union)
+        union_w_ext = hemi_w.Intersection(union)
+
+        if union_e_ext.IsEmpty() or union_w_ext.IsEmpty():
+            # If there is no area in one of the hemispheres, return the extent 
+            # of the original layer
+            return (False, [union.ExportToWkt()])
+        elif union_w_ext.Union(union_e_ext).GetArea() > (get_ogr_geom_extent(union).GetArea() * 2):
+            # If the extent of the combined extents from both hemispheres is 
+            # not significantly smaller than that of the original layer, then 
+            # return the original layer
+            return (False, [union.ExportToWkt()])
+        else:
+            ignore = QSettings().value("LDMP/ignore_crs_warning", False)
+            if not ignore:
+                QtGui.QMessageBox.information(None, tr("Warning"),
+                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
+            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
+            return (True, [union_e_ext.ExportToWkt(),union_w_ext.ExportToWkt()])
+
+
     def bounding_box_meridian_split_geojson(self):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
@@ -178,8 +224,6 @@ class AOI(object):
         """
         Return layer split into two extent jsons, one on each side of the 180th meridian
         """
-        hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
-        hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
 
         # Calculate a single feature that is the union of all the features in 
         # this layer - that way there is a single feature to intersect with 
@@ -654,25 +698,25 @@ class DlgCalculateBase(QtGui.QDialog):
 
 
 class ClipWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, mask_layer):
+    def __init__(self, in_file, out_file, geojson):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
 
-        self.mask_layer = mask_layer
+        self.geojson = geojson
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        mask_layer_file = tempfile.NamedTemporaryFile(suffix='.shp').name
-        QgsVectorFileWriter.writeAsVectorFormat(self.mask_layer, mask_layer_file,
-                                                "CP1250", None, "ESRI Shapefile")
+        json_file = tempfile.NamedTemporaryFile(suffix='.json').name
+        with open(json_file, 'w') as f:
+            json.dump(self.geojson, f, separators=(',', ': '))
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=mask_layer_file,
-                        srcNodata=-32768, dstNodata=-32767,
+                        cutlineDSName=json_file, srcNodata=-32768, 
+                        dstNodata=-32767,
                         dstSRS="epsg:4326",
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,

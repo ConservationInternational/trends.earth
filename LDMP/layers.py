@@ -268,6 +268,9 @@ def add_layer(f, band_number, band_info):
     try:
         style = styles[band_info['name']]
     except KeyError:
+        QtGui.QMessageBox.information(None,
+                                      tr("Information"),
+                                      tr("Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
         log('No style found for {}'.format(band_info['name'] ))
         return False
 

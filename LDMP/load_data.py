@@ -311,8 +311,10 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.dlg_loaddata_lc.exec_()
 
     def run_soc(self):
-        self.close()
-        self.dlg_loaddata_soc.exec_()
+        QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                      self.tr("Processing of vector input datasets coming soon!"))
+        #self.close()
+        #self.dlg_loaddata_soc.exec_()
 
     def run_prod(self):
         self.close()

@@ -55,9 +55,9 @@ gettext_compact = False
 # built documents.
 #
 # The short X.Y version.
-version = '0.45'
+version = '0.46'
 # The full version, including alpha/beta/rc tags.
-release = '0.45'
+release = '0.46'
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png

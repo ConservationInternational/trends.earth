@@ -1,14 +1,9 @@
 Download data
 =============
-
-.. toctree::
-   :maxdepth: 2
-
-To download data, select the globe icon (|iconGlobe|). 
-This will open up the `Download Data` dialog box:
-   
 .. image:: /static/common/ldmt_toolbar_highlight_download.png
    :align: center
+
+To download data, select the globe icon (|iconGlobe|). This will open up the `Download Data` dialog box:
 	
 To work offline, you will be able to select an area of interest or upload a 
 shapefile to download your relevant datasets and work in areas with limited 

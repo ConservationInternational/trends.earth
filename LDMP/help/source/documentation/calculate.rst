@@ -1,6 +1,5 @@
-Calculate Indicators
+Calculate indicators
 ========================
-   
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center
 
@@ -183,11 +182,11 @@ Changes in land cover is one of the indicators used to track potential land degr
    
 3. The land cover aggregation can be customized using the 'Edit definition' button. The user can define their own aggregation of land cover classes from the 37 ESA land cover classes to the 7 UNCCD categories.
 
-i)	Select the dial button for the `Custom` option and select `Create new definition` 
+a)	Select the dial button for the `Custom` option and select `Create new definition` 
 
-ii)	Edit the aggregation suitable for the area of interest
+b)	Edit the aggregation suitable for the area of interest
 
-iii)	Select `Save definition` and select Next
+c)	Select `Save definition` and select Next
 
 .. image:: /static/documentation/calculate/image035.png
    :align: center
@@ -201,9 +200,9 @@ Users can keep the default values or create unique transition values of their ow
    
 5. The next step is to define the study area on which to perform the analysis. The toolbox allows this task to be completed in one of two ways:
 
-1. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu. 
+a. The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu. 
 
-2. The user can upload a shapefile with an area of interest.
+b. The user can upload a shapefile with an area of interest.
    
 .. image:: /static/documentation/calculate/image037.png
    :align: center
@@ -252,5 +251,78 @@ Soil Organic Carbon is calculated as a proxy for carbon stocks. It is measured u
 7. When all the parameters have been defined, click `Calculate`, and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion.
 
 
+Compute SDG Indicator 15.3.1
+----------------------------
+
+.. image:: /static/documentation/calculate/sdg_input.png
+   :align: center
+
+.. image:: /static/documentation/calculate/sdg_output.png
+   :align: center
+   
+.. image:: /static/documentation/calculate/sdg_area.png
+   :align: center
+   
+.. image:: /static/documentation/calculate/sdg_options.png
+   :align: center
+
+Using the analyses from the former set of steps (under the `Calculate indicators` tab), there is a set of outputs currently displayed within the QGIS window. Select the Reporting Tool in |trends.earth|. The Land degradation reporting window will appear. Click on SDG Target 15.3.1 Indicator to aggregate the analyses. 
+   
+.. image:: /static/documentation/reporting_tool/image065.png
+   :align: center
+   
+.. image:: /static/documentation/reporting_tool/image066.png
+   :align: center
+   
+The output layer can be selected using the existing layers within the map: 
+Productivity trajectory trend (significance), productivity performance (degradation), Productivity state and Land Cover (degradation).
+
+Then select where the output will be saved and the area of interest for the final degradation map. This analysis is run locally in QGIS and will automatically appear in your map window.
+   
+.. image:: /static/documentation/reporting_tool/image068.png
+   :align: center
+   
+.. image:: /static/documentation/reporting_tool/image069.png
+   :align: center
+   
+A pop up will appear showing the link where the reporting table is saved on your computer. Click `Ok`.    
+A plot will appear with the a bar chart of the area degraded, stable, improved and no data  for the areas selected for your analyses.    
+
+.. image:: /static/documentation/reporting_tool/image074.png
+   :align: center
+   
+The final spatial output will appear with areas degraded, stable or improved.
+
+.. image:: /static/documentation/reporting_tool/image070.png
+   :align: center
+   
+.. image:: /static/documentation/reporting_tool/image071.png
+   :align: center
+
+Navigate to the folder where the results are saved and open the spreadsheet `reporting_table.xls`
+This will show three tables:
+
+1)	Land use/cover category by area (km)
+a.	Area in 2000 for each category
+b.	Area in 2015 for each category
+c.	Net area change
+d.	Net land productivity dynamics (declining, stablem increasing, no data)
+e.	Soil organic carbon (2000)
+
+.. image:: /static/documentation/reporting_tool/image075.png
+   :align: center
+   
+.. image:: /static/documentation/reporting_tool/image076.png
+   :align: center
+
+2)	Changes in land use/cover category
+a.	Calculates trends (declining, stable, increasing, total) for each land cover transition
+3)	Soil Organic Carbon (SOC) 0-30 cm (2000-2015) 
+a.	Calculates SOC for the land cover transitions (km2, ton/ha 2000 and 2015, total ton 200 and 2015 and total loss (ton).
+   
+.. image:: /static/documentation/reporting_tool/image077.png
+   :align: center
+
+   
 .. toctree::
    :maxdepth: 2

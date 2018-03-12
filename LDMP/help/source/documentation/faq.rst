@@ -1,4 +1,4 @@
-Frequently Asked Questions
+Frequently asked questions
 ==========================
 
 Frequently Asked Questions (FAQs) for the trends.earth plugin to QGIS
@@ -78,14 +78,14 @@ The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary pro
 This is a common request from users, and one the team is working on. Trends.Earth will allow loading of national-level soil carbon and land cover datasets before the end of March, 2018. This will allow users to take advantage of existing datasets that might be of higher quality at a national-level than the global datasets that are the defaults in the tool.
 
 
-METHODS
+Methods
 -------
 
 **Who was the default time period for the analysis determined?**
 
 The default time period of analysis is from years 2001 to 2015. These were recommended by the `Good Practice Guidelines <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_., a document that provides detailed recommendations for measuring land degradation and has been adopted by the UNCCD.
 
-PRODUCTIVITY
+Productivity
 ~~~~~~~~~~~~
 
 **How does the result provided by state differs from trajectory?**
@@ -93,7 +93,7 @@ PRODUCTIVITY
 The trajectory analysis uses linear regressions and non-parametric tests to identify long term significant trends in primary productivity. This method however, is not able to capture more recent changes in primary productivity, which could be signals of short term processes of improvement or degradation. By comparing a long term mean to the most recent period, state is able to capture such recent changes.
  
 
-LAND COVER
+Land cover
 ~~~~~~~~~~
 
 **Currently, the land cover aggregation is done following the UNCCD guidelines, but that classification does not take into account country level characteristics. Could it be possible to allow the user to define the aggregation criteria?**
@@ -104,7 +104,7 @@ Users are able to make these changes using the advanced settings in the land cov
 
 This can be altered using the land cover change matrix in the toolbox. For every transition, the user can mark the change as stable, improvement or degraded. The transition from grassland/rangeland to shrubland may indicate woody encroachment and this transition can be marked as an indicator of degradation.
 
-CARBON STOCKS
+Carbon stocks
 ~~~~~~~~~~~~~
 
 **Why use soil organic carbon (SOC) instead of above and below-ground carbon to measure carbon stocks?**
@@ -115,7 +115,7 @@ The original proposed indicator is Carbon Stocks, which would include above and 
 
 Not directly. If salinization caused a reduction in primary productivity, that decrease would be identified by the productivity indicators, but the users would have to use their local knowledge to assign the causes.
 
-LAND DEGRADATION OUTPUTS
+Land degradation outputs
 ------------------------
 
 **How were the layers combined to define the final land degradation layer?**
@@ -130,7 +130,7 @@ The final output should be interpreted as showing areas potentially degraded. Th
 
 Vegetation is a key component of most ecosystems, and serve as a good proxy for their overall functioning and health. The three subindicators used for SDG 15.3.1 measure different aspects of land cover, which do relate to vegetation. Primary productivity directly measures the change in amount of biomass present in one area, but it does not inform us if that change is positive or not (not all increases in plant biomass should be interpreted as improvement). Land cover fills that gap by interpreting the landscape from a thematic perspective looking at what was there before and what is there now. It does include vegetation, but also bare land, urban and water. Finally, the soil organic carbon indicator uses the land cover map to inform the changes in soil organic carbon over time. This method is not ideal, but given the current state of global soil science and surveying, there is consensus that it this point in time and globally, this is the best approach.
 
-WORKSHOPS
+Workshops
 ---------
 
 **Will the project offer future training opportunities so users can continues working with the tool?**

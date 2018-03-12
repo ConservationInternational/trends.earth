@@ -1,5 +1,7 @@
 Registration and settings
 =========================
+.. image:: /static/common/ldmt_toolbar_highlight_settings.png
+   :align: center
 
 The toolbox is free to use, but you must register an email address prior to 
 using any of the cloud-based functions.

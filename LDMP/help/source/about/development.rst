@@ -28,7 +28,3 @@ significance, and other shared code. The code for this module is available in
 the `landdegradation 
 <https://github.com/ConservationInternational/landdegradation>`_ repository on 
 Github.
-
-Contributing to development
----------------------------
-

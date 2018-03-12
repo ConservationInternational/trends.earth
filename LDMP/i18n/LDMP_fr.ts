@@ -383,17 +383,17 @@
         <translation type="obsolete">Dégradation (combinée - SDG 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="329"/>
+        <location filename="../layers.py" line="332"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="329"/>
+        <location filename="../layers.py" line="332"/>
         <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
         <translation type="unfinished">Impossible de charger le style trends.earth. Ajouter une couche en utilisant les valeurs par défaut de QGIS.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="164"/>
+        <location filename="../calculate.py" line="166"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>Impossible d&apos;ajouter geojson à la couche temporaire.</translation>
     </message>
@@ -498,7 +498,7 @@
         <translation type="obsolete">Total cible (tonne)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="278"/>
+        <location filename="../calculate.py" line="322"/>
         <source>Failed to process area of interest - unknown geometry type:{}</source>
         <translation>Impossible de traiter la zone d&apos;intérêt - type de géométrie inconnu: {}</translation>
     </message>
@@ -508,12 +508,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="211"/>
+        <location filename="../calculate.py" line="255"/>
         <source>Warning</source>
         <translation type="unfinished">Attention</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="211"/>
+        <location filename="../calculate.py" line="255"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -612,36 +612,46 @@
         <source>SDG 15.3.1 degradation indicator</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../layers.py" line="271"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="271"/>
+        <source>Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="463"/>
+        <location filename="../calculate.py" line="507"/>
         <source>Point chooser</source>
         <translation type="unfinished">Choix de points</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="463"/>
+        <location filename="../calculate.py" line="507"/>
         <source>Click the map to choose a point.</source>
         <translation type="unfinished">Cliquez sur la carte pour choisir un point.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="484"/>
+        <location filename="../calculate.py" line="528"/>
         <source>Select a file defining the area of interest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="484"/>
+        <location filename="../calculate.py" line="528"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="494"/>
+        <location filename="../calculate.py" line="538"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="494"/>
+        <location filename="../calculate.py" line="538"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">Ne peut pas lire {}. Choisissez un fichier différent.</translation>
     </message>
@@ -649,17 +659,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="345"/>
+        <location filename="../calculate.py" line="389"/>
         <source>Select folder containing data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="354"/>
+        <location filename="../calculate.py" line="398"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="354"/>
+        <location filename="../calculate.py" line="398"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -807,22 +817,22 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="649"/>
+        <location filename="../calculate.py" line="693"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="611"/>
+        <location filename="../calculate.py" line="655"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisissez une limite administrative de premier ordre.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="618"/>
+        <location filename="../calculate.py" line="662"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="625"/>
+        <location filename="../calculate.py" line="669"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisissez un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
@@ -842,27 +852,27 @@ p, li {white-space: pre-wrap; }
         <translation type="obsolete">Fichier spatial (*. *)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="531"/>
+        <location filename="../calculate.py" line="575"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="534"/>
+        <location filename="../calculate.py" line="578"/>
         <source>Options</source>
         <translation type="unfinished">Options</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="633"/>
+        <location filename="../calculate.py" line="677"/>
         <source>Choose a point to define the area of interest.</source>
         <translation type="unfinished">Choisissez un point pour définir le domaine d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="644"/>
+        <location filename="../calculate.py" line="688"/>
         <source>Choose an area of interest.</source>
         <translation type="unfinished">Choisissez une zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="649"/>
+        <location filename="../calculate.py" line="693"/>
         <source>Unable to read area of interest.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1472,7 +1482,7 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1104"/>
+        <location filename="../calculate_sdg.py" line="1099"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
@@ -1582,17 +1592,17 @@ p, li {white-space: pre-wrap; }
         <translation type="unfinished">Les systèmes de coordonnées de la couche de trajectoire et de la couche de performance ne correspondent pas.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1061"/>
+        <location filename="../calculate_sdg.py" line="1064"/>
         <source>Error masking SDG 15.3.1 input layers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1073"/>
+        <location filename="../calculate_sdg.py" line="1080"/>
         <source>Error calculating SDG 15.3.1 degradation layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1104"/>
+        <location filename="../calculate_sdg.py" line="1099"/>
         <source>Error calculating degraded areas.</source>
         <translation type="unfinished">Erreur lors du calcul des zones dégradées.</translation>
     </message>
@@ -2230,26 +2240,36 @@ p, li { white-space: pre-wrap; }
         <source>Soil organic carbon</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../load_data.py" line="314"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="314"/>
+        <source>Processing of vector input datasets coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgLoadDataBase</name>
     <message>
-        <location filename="../load_data.py" line="670"/>
+        <location filename="../load_data.py" line="672"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="587"/>
+        <location filename="../load_data.py" line="589"/>
         <source>Choose an input raster file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="591"/>
+        <location filename="../load_data.py" line="593"/>
         <source>Choose an input polygon dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="670"/>
+        <location filename="../load_data.py" line="672"/>
         <source>Raster import failed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2257,27 +2277,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgLoadDataLC</name>
     <message>
-        <location filename="../load_data.py" line="769"/>
+        <location filename="../load_data.py" line="771"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="710"/>
+        <location filename="../load_data.py" line="712"/>
         <source>Choose an output file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="713"/>
+        <location filename="../load_data.py" line="715"/>
         <source>No definition set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="713"/>
+        <location filename="../load_data.py" line="715"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="769"/>
+        <location filename="../load_data.py" line="771"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2300,23 +2320,18 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgLoadDataProd</name>
     <message>
-        <location filename="../load_data.py" line="873"/>
+        <location filename="../load_data.py" line="871"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="856"/>
+        <location filename="../load_data.py" line="858"/>
         <source>Choose an output file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="869"/>
+        <location filename="../load_data.py" line="871"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="873"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2345,26 +2360,36 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../load_data.py" line="875"/>
+        <source>Warning</source>
+        <translation type="unfinished">Attention</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="875"/>
+        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgLoadDataSOC</name>
     <message>
-        <location filename="../load_data.py" line="820"/>
+        <location filename="../load_data.py" line="822"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="803"/>
+        <location filename="../load_data.py" line="805"/>
         <source>Choose an output file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="816"/>
+        <location filename="../load_data.py" line="818"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="820"/>
+        <location filename="../load_data.py" line="822"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2377,37 +2402,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgLoadDataTE</name>
     <message>
-        <location filename="../load_data.py" line="428"/>
+        <location filename="../load_data.py" line="430"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="374"/>
+        <location filename="../load_data.py" line="376"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">Ne peut pas lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="366"/>
+        <location filename="../load_data.py" line="368"/>
         <source>Select a trends.earth output file</source>
         <translation type="unfinished">Sélectionnez un fichier de sortie trends.earth</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="366"/>
+        <location filename="../load_data.py" line="368"/>
         <source>trends.earth metadata file (*.json)</source>
         <translation type="unfinished">Fichier de métadonnées trends.earth (*.json)</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="403"/>
+        <location filename="../load_data.py" line="405"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
         <translation type="unfinished">Impossible d&apos;ajouter automatiquement &quot;{}&quot;. Aucun style n&apos;est défini pour ce type de couche.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="409"/>
+        <location filename="../load_data.py" line="411"/>
         <source>Select a layer to load.</source>
         <translation type="unfinished">Sélectionnez une couche à charger.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="428"/>
+        <location filename="../load_data.py" line="430"/>
         <source>{} does not appear to be a trends.earth output file</source>
         <translation type="unfinished">{} ne semble pas être un fichier de sortie de trends.earth</translation>
     </message>
@@ -3271,7 +3296,7 @@ p, li { white-space: pre-wrap; }
         <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre nom d&apos;utilisateur et votre mot de passe.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="188"/>
+        <location filename="../calculate_soc.py" line="191"/>
         <source>Submitted</source>
         <translation>Soumis</translation>
     </message>
@@ -3456,12 +3481,12 @@ p, li { white-space: pre-wrap; }
         <translation>Charger des données locales</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="188"/>
+        <location filename="../calculate_soc.py" line="191"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
         <translation>Le carbone organique du sol soumis à Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="192"/>
+        <location filename="../calculate_soc.py" line="195"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
         <translation>Impossible de soumettre la tâche de carbone organique du sol à Google Earth Engine.</translation>
     </message>
@@ -3607,42 +3632,42 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoadDataSelectFileInputWidget</name>
     <message>
-        <location filename="../load_data.py" line="470"/>
+        <location filename="../load_data.py" line="472"/>
         <source>Coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="470"/>
+        <location filename="../load_data.py" line="472"/>
         <source>Processing of vector input datasets coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="490"/>
+        <location filename="../load_data.py" line="492"/>
         <source>Select a raster input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="490"/>
+        <location filename="../load_data.py" line="492"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="535"/>
+        <location filename="../load_data.py" line="537"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="535"/>
+        <location filename="../load_data.py" line="537"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished">Ne peut pas lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="521"/>
+        <location filename="../load_data.py" line="523"/>
         <source>Select a vector input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="521"/>
+        <location filename="../load_data.py" line="523"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3650,22 +3675,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoadDataSelectRasterOutput</name>
     <message>
-        <location filename="../load_data.py" line="559"/>
+        <location filename="../load_data.py" line="561"/>
         <source>Choose a name for the output file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="559"/>
+        <location filename="../load_data.py" line="561"/>
         <source>Raster file (*.tif)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="569"/>
+        <location filename="../load_data.py" line="571"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="569"/>
+        <location filename="../load_data.py" line="571"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">Impossible d&apos;écrire sur {}. Choisissez un fichier différent.</translation>
     </message>

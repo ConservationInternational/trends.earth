@@ -3,22 +3,30 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
 ../gui/DlgCalculateProd.ui \
-../gui/DlgCalculateSDG.ui \
+../gui/DlgCalculateSDGAdvanced.ui \
+../gui/DlgCalculateSDGOneStep.ui \
 ../gui/DlgCalculateSOC.ui \
 ../gui/DlgCreateMap.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
 ../gui/DlgLoadData.ui \
+../gui/DlgLoadDataLC.ui \
+../gui/DlgLoadDataProd.ui \
+../gui/DlgLoadDataSOC.ui \
+../gui/DlgLoadDataTE.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgReporting.ui \
-../gui/DlgReportingSDG.ui \
-../gui/DlgReportingSummaryTable.ui \
 ../gui/DlgReportingBasemap.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsRegister.ui \
 ../gui/DlgSettingsUpdate.ui \
 ../gui/DlgTimeseries.ui \
+../gui/WidgetCalculationOptions.ui \
+../gui/WidgetLCDefineDegradation.ui \
+../gui/WidgetLCSetup.ui \
+../gui/WidgetLoadDataSelectFileInput.ui \
+../gui/WidgetLoadDataSelectRasterOutput.ui \
 ../gui/WidgetSelectArea.ui \
 ../gui/WidgetSelectPoint.ui
 
@@ -32,12 +40,13 @@ SOURCES = ../about.py \
 ../download.py \
 ../download_data.py \
 ../jobs.py \
+../layers.py \
 ../ldmp.py \
 ../load_data.py \
 ../plot.py \
 ../reporting.py \
-../timeseries.py \
 ../settings.py \
+../timeseries.py \
 ../timeseries.py \
 ../worker.py
 

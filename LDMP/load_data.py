@@ -201,6 +201,39 @@ def get_unique_values_vector(l, field, max_unique=60):
         return values
 
 
+def get_raster_stats(f, band_num, min_min=0, max_max=1000, nodata=-32768):
+    src_ds = gdal.Open(f)
+    b = src_ds.GetRasterBand(band_num)
+
+    block_sizes = b.GetBlockSize()
+    x_block_size = block_sizes[0]
+    y_block_size = block_sizes[1]
+    xsize = b.XSize
+    ysize = b.YSize
+
+    stats = (None, None)
+    for y in xrange(0, ysize, y_block_size):
+        if y + y_block_size < ysize:
+            rows = y_block_size
+        else:
+            rows = ysize - y
+
+        for x in xrange(0, xsize, x_block_size):
+            if x + x_block_size < xsize:
+                cols = x_block_size
+            else:
+                cols = xsize - x
+
+            d = b.ReadAsArray(x, y, cols, rows).ravel()
+            mx = x.max()
+            mn = x.min()
+            if mx  > max_max:
+                return None
+            elif mn  > min_min:
+                return None
+    return v.tolist()
+
+
 def get_unique_values_raster(f, band_num, max_unique=60):
     src_ds = gdal.Open(f)
     b = src_ds.GetRasterBand(band_num)
@@ -279,9 +312,9 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
     def run_soc(self):
         QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                      self.tr("Loading of custom soil organic carbon data is coming soon!"))
-        # self.close()
-        # self.dlg_loaddata_soc.exec_()
+                                      self.tr("Processing of vector input datasets coming soon!"))
+        #self.close()
+        #self.dlg_loaddata_soc.exec_()
 
     def run_prod(self):
         self.close()
@@ -774,6 +807,21 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
 
         super(DlgLoadDataSOC, self).validate_input(value)
 
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=7)
+        else:
+            in_file = self.input_widget.lineEdit_polygon_file.text()
+            l = self.input_widget.get_vector_layer(in_file)
+            values = get_unique_values_vector(l, field, max_unique=7)
+        if not values:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
+            return
+        invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
+        if len(invalid_values) > 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
+            return
+
         super(DlgLoadDataSOC, self).done(value)
 
         self.ok_clicked()
@@ -824,8 +872,7 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
             return
         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
         if len(invalid_values) > 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
-            return
+            QtGui.QMessageBox.warning(None, self.tr("Warning"), self.tr("The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
         super(DlgLoadDataProd, self).done(value)
 

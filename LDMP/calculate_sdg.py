@@ -991,130 +991,161 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         gdal.BuildVRT(soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_bandnumber])
 
-        # Compute the pixel-aligned bounding box (slightly larger than aoi).
-        # Use this instead of croptocutline in gdal.Warp in order to keep the
-        # pixels aligned with the chosen productivity layer.
-        bb = self.aoi.bounding_box_geom().boundingBox()
-        minx = bb.xMinimum()
-        miny = bb.yMinimum()
-        maxx = bb.xMaximum()
-        maxy = bb.yMaximum()
-        if prod_mode == 'Trends.Earth productivity':
-            gt = gdal.Open(traj_f).GetGeoTransform()
-        else:
-            gt = gdal.Open(lpd_f).GetGeoTransform()
-        left = minx - (minx - gt[0]) % gt[1]
-        right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
-        bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
-        top = maxy - (maxy - gt[3]) % gt[5]
-        self.outputBounds = [left, bottom, right, top]
-
-        #######################################################################
-        #######################################################################
-        # Calculate SDG 15.3 layers
-        #######################################################################
-        #######################################################################
-
-        ######################################################################
-        # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
-        indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('Saving indicator VRT to: {}'.format(indic_vrt))
-        # Both SOC and LC are near the same resolution, so resample them in the 
-        # same way
-        if prod_mode == 'Trends.Earth productivity':
-            resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
-            gdal.BuildVRT(indic_vrt,
-                          [lc_bl_f,     # 1
-                           lc_tg_f,     # 2
-                           soc_bl_f,    # 3
-                           soc_tg_f,    # 4
-                           lc_deg_f,    # 5
-                           soc_deg_f,   # 6
-                           traj_f,      # 7
-                           perf_f,      # 8
-                           state_f],    # 9
-                          outputBounds=self.outputBounds,
-                          resolution=resample_alg[0],
-                          resampleAlg=resample_alg[1],
-                          separate=True)
-        else:
-            resample_alg = self.get_resample_alg(lc_bl_f, lpd_f)
-            gdal.BuildVRT(indic_vrt,
-                          [lc_bl_f,     # 1
-                           lc_tg_f,     # 2
-                           soc_bl_f,    # 3
-                           soc_tg_f,    # 4
-                           lc_deg_f,    # 5
-                           soc_deg_f,   # 6
-                           lpd_f],      # 7
-                          outputBounds=self.outputBounds,
-                          resolution=resample_alg[0],
-                          resampleAlg=resample_alg[1],
-                          separate=True)
-        masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log('Saving deg/lc clipped file to {}'.format(masked_vrt))
-        deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
-                                         indic_vrt, masked_vrt, self.aoi.l)
-        if not deg_lc_clip_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error masking SDG 15.3.1 input layers."), None)
-            return
-
-        ######################################################################
-        #  Calculate SDG 15.3.1 layers
-        log('Calculating degradation...')
-        output_sdg_json = self.output_file_layer.text()
-        output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
-        deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
-                                 masked_vrt, output_sdg_tif, prod_mode)
-        if not deg_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
-            return
-        output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
-        if prod_mode == 'Trends.Earth productivity':
-            output_sdg_bandinfos.append(BandInfo("SDG 15.3.1 Productivity Indicator"))
-        create_local_json_metadata(output_sdg_json, output_sdg_tif, 
-                output_sdg_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
-                                                'task_notes': self.options_tab.task_notes.toPlainText()})
-
-        #######################################################################
-        #######################################################################
-        # Produce summary table
-        #######################################################################
-        #######################################################################
-
-        ######################################################################
-        # Calculate area crosstabs
+        # Remember the first value is an indication of whether dataset is 
+        # wrapped across 180th meridian
+        wkts = self.aoi.layer_meridian_split_wkt()[1]
+        n = 0
+        output_sdg_tifs = []
+        for wkt in wkts:
+            # Compute the pixel-aligned bounding box (slightly larger than 
+            # aoi). Use this instead of croptocutline in gdal.Warp in order to 
+            # keep the pixels aligned with the chosen productivity layer.
         
-        if prod_mode == 'Trends.Earth productivity':
-            prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            gdal.BuildVRT(prod_deg_f, output_sdg_tif, bandList=[2])
-        else:
-            prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            gdal.BuildVRT(prod_deg_f, masked_vrt, bandList=[7])
+            bb = QgsGeometry.fromWkt(wkt).boundingBox()
+            minx = bb.xMinimum()
+            miny = bb.yMinimum()
+            maxx = bb.xMaximum()
+            maxy = bb.yMaximum()
+            if prod_mode == 'Trends.Earth productivity':
+                gt = gdal.Open(traj_f).GetGeoTransform()
+            else:
+                gt = gdal.Open(lpd_f).GetGeoTransform()
+            left = minx - (minx - gt[0]) % gt[1]
+            right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
+            bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
+            top = maxy - (maxy - gt[3]) % gt[5]
+            self.outputBounds = [left, bottom, right, top]
+
+            #######################################################################
+            # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
+            output_sdg_json = self.output_file_layer.text()
+
+            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            log('Saving indicator VRT to: {}'.format(indic_vrt))
+            # Both SOC and LC are near the same resolution, so resample them in the 
+            # same way
+            if prod_mode == 'Trends.Earth productivity':
+                resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
+                gdal.BuildVRT(indic_vrt,
+                              [lc_bl_f,     # 1
+                               lc_tg_f,     # 2
+                               soc_bl_f,    # 3
+                               soc_tg_f,    # 4
+                               lc_deg_f,    # 5
+                               soc_deg_f,   # 6
+                               traj_f,      # 7
+                               perf_f,      # 8
+                               state_f],    # 9
+                              outputBounds=self.outputBounds,
+                              resolution=resample_alg[0],
+                              resampleAlg=resample_alg[1],
+                              separate=True)
+            else:
+                resample_alg = self.get_resample_alg(lc_bl_f, lpd_f)
+                gdal.BuildVRT(indic_vrt,
+                              [lc_bl_f,     # 1
+                               lc_tg_f,     # 2
+                               soc_bl_f,    # 3
+                               soc_tg_f,    # 4
+                               lc_deg_f,    # 5
+                               soc_deg_f,   # 6
+                               lpd_f],      # 7
+                              outputBounds=self.outputBounds,
+                              resolution=resample_alg[0],
+                              resampleAlg=resample_alg[1],
+                              separate=True)
+
+            masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+            log('Saving deg/lc clipped file to {}'.format(masked_vrt))
+            deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
+                                             indic_vrt, masked_vrt, 
+                                             json.loads(QgsGeometry.fromWkt(wkt).exportToGeoJSON()))
+            if not deg_lc_clip_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error masking SDG 15.3.1 input layers."), None)
+                return
+
+            ######################################################################
+            #  Calculate SDG 15.3.1 layers
+            
+            log('Calculating degradation...')
+            if len(wkts) > 1:
+                output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '_{}.tif'.format(n)
+            else:
+                output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
+            output_sdg_tifs.append(output_sdg_tif)
+            deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
+                                     masked_vrt, output_sdg_tif, prod_mode)
+            if not deg_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
+                return
+
+            ######################################################################
+            # Calculate area crosstabs
+            
+            if prod_mode == 'Trends.Earth productivity':
+                prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+                gdal.BuildVRT(prod_deg_f, output_sdg_tif, bandList=[2])
+            else:
+                prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+                gdal.BuildVRT(prod_deg_f, masked_vrt, bandList=[7])
 
 
-        log('Calculating land cover crosstabulation...')
-        area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, 
-                                  output_sdg_tif, prod_deg_f)
-        if not area_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating degraded areas."), None)
-            return
-        else:
-            soc_bl_totals, soc_tg_totals, trans_prod_xtab, sdg_tbl_overall, \
-                    sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc = area_worker.get_return()
+            log('Calculating land cover crosstabulation...')
+            area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, 
+                                      output_sdg_tif, prod_deg_f)
+            if not area_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error calculating degraded areas."), None)
+                return
+            else:
+                if n == 0:
+                    soc_bl_totals, \
+                            soc_tg_totals, \
+                            trans_prod_xtab, \
+                            sdg_tbl_overall, \
+                            sdg_tbl_prod, \
+                            sdg_tbl_soc, \
+                            sdg_tbl_lc = area_worker.get_return()
+                else:
+                    this_soc_bl_totals, \
+                            this_soc_tg_totals, \
+                            this_trans_prod_xtab, \
+                            this_sdg_tbl_overall, \
+                            this_sdg_tbl_prod, \
+                            this_sdg_tbl_soc, \
+                            this_sdg_tbl_lc = area_worker.get_return()
+                    soc_bl_totals = soc_bl_totals + this_soc_bl_totals
+                    soc_tg_totals = soc_tg_totals + this_soc_tg_totals
+                    trans_prod_xtab = trans_prod_xtab + this_trans_prod_xtab
+                    sdg_tbl_overall + this_sdg_tbl_overall
+                    sdg_tbl_prod + this_sdg_tbl_prod
+                    sdg_tbl_soc + this_sdg_tbl_soc
+                    sdg_tbl_lc + this_sdg_tbl_lc
+            n += 1
 
         make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
                            sdg_tbl_lc, self.output_file_table.text())
 
         # Add the SDG layers to the map
-        schema = BandInfoSchema()
-        add_layer(output_sdg_tif, 1, schema.dump(output_sdg_bandinfos[0]))
+        output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
         if prod_mode == 'Trends.Earth productivity':
-            add_layer(output_sdg_tif, 2, schema.dump(output_sdg_bandinfos[0]))
+            output_sdg_bandinfos.append(BandInfo("SDG 15.3.1 Productivity Indicator"))
+        
+        if len(output_sdg_tifs) == 1:
+            output_file = output_sdg_tifs[0]
+        else:
+            output_file = os.path.splitext(output_sdg_json)[0] + '.vrt'
+            gdal.BuildVRT(output_file, output_sdg_tifs)
+        create_local_json_metadata(output_sdg_json, output_file, 
+                output_sdg_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
+                                                'task_notes': self.options_tab.task_notes.toPlainText()})
+        schema = BandInfoSchema()
+        add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
+        if prod_mode == 'Trends.Earth productivity':
+            add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
 
 
 def get_lc_area(table, code):
@@ -1123,6 +1154,17 @@ def get_lc_area(table, code):
         return 0
     else:
         return float(table[1][ind])
+
+
+def get_lpd_table(table,
+                  lc_classes=range(1, 6 + 1), # Don't include water bodies in the table
+                  lpd_classes=[1, 2, 3, 4, 5, -32768]):
+    out = np.zeros((len(lc_classes), len(lpd_classes)))
+    for lc_class_num in range(len(lc_classes)):
+        for prod_num in range(len(lpd_classes)):
+            transition = int('{}{}'.format(lc_classes[lc_class_num], lc_classes[lc_class_num]))
+            out[lc_class_num, prod_num] = get_xtab_area(table, lpd_classes[prod_num], transition)
+    return out
 
 
 def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
@@ -1141,6 +1183,7 @@ def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
             if change_type == 'no data':
                 out[bl_class, tg_class] = get_xtab_area(table, -32768, transition)
     return out
+
 
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
@@ -1264,6 +1307,7 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     ##########################################################################
     # Land cover tables
     ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
+    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 43, 3)
 
     ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_sdg.add_image(ws_sdg_logo, 'H1')

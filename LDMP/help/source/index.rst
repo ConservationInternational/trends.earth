@@ -56,23 +56,19 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: User Documentation
 
-    documentation/indicator_15_3_1
-    documentation/before_installing
-    documentation/installing
-    documentation/settings
-    documentation/calculate
-<<<<<<< HEAD
-=======
-    documentation/GEE_tasks
->>>>>>> b4eb47ad5ce89014baad28593b2fb9f5fe595bd1
-    documentation/plot_data
-    documentation/data_download
-    documentation/gee_tasks
-    documentation/reporting_tool
-    documentation/load_data
-    documentation/about
-    documentation/faq
-
+    documentation/01_understanding_indicators
+    documentation/02_before_installing
+    documentation/03_installing
+    documentation/04_settings
+    documentation/05_calculate
+    documentation/06_plot_data
+    documentation/07_data_download
+    documentation/08_gee_tasks
+    documentation/09_reporting_tool
+    documentation/10_load_data
+    documentation/11_info
+    documentation/12_faq
+	
 .. _videos:
 
 .. toctree::

@@ -28,7 +28,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.calculate import DlgCalculateBase, get_script_slug, calc_frac_overlap
+from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.layers import create_local_json_metadata, add_layer, get_te_layers, \
     get_band_info
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
@@ -482,10 +482,6 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         # Make sure the custom data boxes are turned off by default
         self.use_esa_toggled()
 
-    def showEvent(self, event):
-        super(LCSetupWidget, self).showEvent(event)
-        self.populate_layers_lc()
-
     def use_esa_toggled(self):
         if self.use_esa.isChecked():
             self.groupBox_esa_period.setEnabled(True)
@@ -627,6 +623,8 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
 
+        self.lc_setup_tab.populate_layers_lc()
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -726,12 +724,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
         
-        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(layer_initial.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(layer_initial.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
-        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(layer_final.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(layer_final.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return

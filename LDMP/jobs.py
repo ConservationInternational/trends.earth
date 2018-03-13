@@ -20,7 +20,7 @@ import base64
 
 import datetime
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt
+from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal
 
 from osgeo import gdal
 
@@ -71,6 +71,9 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
 
 
 class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
+    # When a connection to the api starts, emit true. When it ends, emit False
+    connectionEvent = pyqtSignal(bool)
+
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgJobs, self).__init__(parent)
@@ -78,6 +81,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.settings = QSettings()
 
         self.setupUi(self)
+
+        self.connection_in_progress = False
 
         # Set a variable used to record the necessary window width to view all
         # columns
@@ -95,8 +100,21 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.refresh.clicked.connect(self.btn_refresh)
         self.download.clicked.connect(self.btn_download)
 
+        self.connectionEvent.connect(self.connection_event_changed)
+
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
+
+    def connection_event_changed(self, flag):
+        if flag:
+            self.connection_in_progress = True
+            self.download.setEnabled(False)
+            self.refresh.setEnabled(False)
+        else:
+            self.connection_in_progress = False
+            # Enable the download button if there is a selection
+            self.selection_changed()
+            self.refresh.setEnabled(True)
 
     def resizeWindowToColumns(self):
         if not self._full_width:
@@ -109,7 +127,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.resize(self._full_width, self.height())
 
     def selection_changed(self):
-        if not self.jobs_view.selectedIndexes():
+        if self.connection_in_progress:
+            return
+        elif not self.jobs_view.selectedIndexes():
             self.download.setEnabled(False)
         else:
             rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
@@ -122,7 +142,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.download.setEnabled(True)
 
     def btn_refresh(self):
-        self.refresh.setEnabled(False)
+        self.connectionEvent.emit(True)
         email = get_user_email()
         if email:
             start_date = datetime.datetime.now() + datetime.timedelta(-14)
@@ -159,9 +179,9 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
                 self.update_jobs_table()
 
-                self.refresh.setEnabled(True)
+                self.connectionEvent.emit(False)
                 return True
-        self.refresh.setEnabled(True)
+        self.connectionEvent.emit(False)
         return False
 
     def update_jobs_table(self):

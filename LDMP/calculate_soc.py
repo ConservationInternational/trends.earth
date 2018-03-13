@@ -135,6 +135,8 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
+        self.lc_setup_tab.populate_layers_lc()
+
         # Hide boxes that are coming soon
         self.groupBox_custom_SOC.hide()
         self.lc_setup_tab.use_custom.hide()

@@ -50,20 +50,6 @@ def get_script_slug(script_name):
     # replaced with dashesk
     return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
 
-def calc_frac_overlap(geom1, geom2):
-    """
-    Returns fraction of geom2 that is overlapped by geom1
-
-    Used to calculate "within" with a tolerance
-    """
-    geom1 = ogr.CreateGeometryFromWkt(geom1.exportToWkt())
-    geom2 = ogr.CreateGeometryFromWkt(geom2.exportToWkt())
-
-    area_inter = geom1.Intersection(geom2).GetArea()
-    frac = area_inter / geom2.GetArea()
-    log('Fractional area of overlap: {}'.format(frac))
-    return frac
-
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
@@ -327,6 +313,19 @@ class AOI(object):
     def isValid(self):
         return self.l.isValid()
 
+    def calc_frac_overlap(self, geom):
+        """
+        Returns fraction of AOI that is overlapped by geom (where geom is a QgsGeometry)
+
+        Used to calculate "within" with a tolerance
+        """
+        aoi_geom = ogr.CreateGeometryFromWkt(self.bounding_box_geom().exportToWkt())
+        in_geom = ogr.CreateGeometryFromWkt(geom.exportToWkt())
+
+        area_inter = aoi_geom.Intersection(in_geom).GetArea()
+        frac = area_inter / aoi_geom.GetArea()
+        log('Fractional area of overlap: {}'.format(frac))
+        return frac
 
 class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):

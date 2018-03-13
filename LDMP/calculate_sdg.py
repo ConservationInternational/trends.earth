@@ -37,8 +37,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
-    calc_frac_overlap
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.layers import get_file_metadata, add_layer, \
@@ -875,29 +874,29 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         #######################################################################
         # Check that the layers cover the full extent needed
         if prod_mode == 'Trends.Earth productivity':
-            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_traj.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_traj.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the trajectory layer."), None)
                 return
-            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_perf.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_perf.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the performance layer."), None)
                 return
-            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_state.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_state.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the state layer."), None)
                 return
         else:
-            if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_lpd.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_lpd.extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the land productivity dynamics layer."), None)
                 return
 
-        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_lc.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_lc.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
-        if calc_frac_overlap(self.aoi.bounding_box_geom(), QgsGeometry.fromRect(self.layer_soc.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_soc.extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return

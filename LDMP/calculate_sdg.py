@@ -189,13 +189,19 @@ def calc_cell_area(ymin, ymax, x_width):
     return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
 
 
-class DegradationWorkerSDG(AbstractWorker):
-    def __init__(self, src_file, deg_file, prod_mode):
+class DegradationSummaryWorkerSDG(AbstractWorker):
+    def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
+                 lc_band_nums, soc_band_nums):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
-        self.deg_file = deg_file
+        self.prod_band_nums = prod_band_nums
         self.prod_mode = prod_mode
+        self.prod_out_file = prod_out_file
+        # Note the first entry in the lc_band_nums, and soc_band_nums lists is
+        # the degradation layer for that dataset
+        self.lc_band_nums = lc_band_nums
+        self.soc_band_nums = soc_band_nums
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -203,12 +209,20 @@ class DegradationWorkerSDG(AbstractWorker):
 
         src_ds = gdal.Open(self.src_file)
 
-        lc_band = src_ds.GetRasterBand(5)
-        soc_band = src_ds.GetRasterBand(6)
+        log('self.prod_band_nums: {}'.format(self.prod_band_nums))
+        log('self.lc_band_nums: {}'.format(self.lc_band_nums))
+        log('self.soc_band_nums: {}'.format(self.soc_band_nums))
+        band_lc_deg = src_ds.GetRasterBand(self.lc_band_nums[0])
+        band_lc_bl = src_ds.GetRasterBand(self.lc_band_nums[1])
+        band_lc_tg = src_ds.GetRasterBand(self.lc_band_nums[-1])
+        band_soc_deg = src_ds.GetRasterBand(self.soc_band_nums[0])
+        band_soc_bl = src_ds.GetRasterBand(self.soc_band_nums[1])
+        band_soc_tg = src_ds.GetRasterBand(self.soc_band_nums[-1])
+
         if self.prod_mode == 'Trends.Earth productivity':
-            traj_band = src_ds.GetRasterBand(7)
-            perf_band = src_ds.GetRasterBand(8)
-            state_band = src_ds.GetRasterBand(9)
+            traj_band = src_ds.GetRasterBand(self.prod_band_nums[0])
+            perf_band = src_ds.GetRasterBand(self.prod_band_nums[1])
+            state_band = src_ds.GetRasterBand(self.prod_band_nums[2])
             block_sizes = traj_band.GetBlockSize()
             xsize = traj_band.XSize
             ysize = traj_band.YSize
@@ -216,24 +230,42 @@ class DegradationWorkerSDG(AbstractWorker):
             # layer in the deg file
             n_out_bands = 2
         else:
-            lpd_band = src_ds.GetRasterBand(7)
-            block_sizes = lc_band.GetBlockSize()
-            xsize = lc_band.XSize
-            ysize = lc_band.YSize
+            lpd_band = src_ds.GetRasterBand(self.prod_band_nums[0])
+            block_sizes = band_lc_deg.GetBlockSize()
+            xsize = band_lc_deg.XSize
+            ysize = band_lc_deg.YSize
             n_out_bands = 1
 
         x_block_size = block_sizes[0]
-        y_block_size = block_sizes[1]
+        # Need to process y line by line so that pixel area calculation can be
+        # done based on latitude, which varies by line
+        y_block_size = 1
 
+        # Setup output file for SDG degradation indicator and combined 
+        # productivity bands
         driver = gdal.GetDriverByName("GTiff")
-        dst_ds_deg = driver.Create(self.deg_file, xsize, ysize, n_out_bands, 
+        dst_ds_deg = driver.Create(self.prod_out_file, xsize, ysize, n_out_bands, 
                                    gdal.GDT_Int16, ['COMPRESS=LZW'])
-
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()
         dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
         dst_ds_deg.SetProjection(dst_srs.ExportToWkt())
+
+        # Width of cells in longitude
+        long_width = src_gt[1]
+        # Set initial lat ot the top left corner latitude
+        lat = src_gt[3]
+        # Width of cells in latitude
+        pixel_height = src_gt[5]
+
+        trans_xtab = None
+        soc_bl_totals_table = None
+        soc_tg_totals_table = None
+        sdg_tbl_overall = np.zeros((4, 1))
+        sdg_tbl_prod = np.zeros((4, 1))
+        sdg_tbl_soc = np.zeros((4, 1))
+        sdg_tbl_lc = np.zeros((4, 1))
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
@@ -332,36 +364,39 @@ class DegradationWorkerSDG(AbstractWorker):
                     # TODO: Below is temporary until missing data values are 
                     # fixed in LPD layer on GEE
                     prod5[prod5 == 0] = -32768
+                    # TODO: Below is temporary until missing data values are 
+                    # fixed in LPD layer made by UNCCD for SIDS
+                    prod5[prod5 == 0] = -32768
+                    prod5[prod5 == 15] = -32768
 
                 # Recode prod5 as stable, degraded, improved (prod3)
-                prod3 = prod5
+                prod3 = prod5.copy()
                 prod3[(prod5 >= 1) & (prod5 <= 3)] = -1
                 prod3[prod5 == 4] = 0
                 prod3[prod5 == 5] = 1
 
-                deg = prod3
-
-                lc_array = lc_band.ReadAsArray(x, y, cols, rows)
-                soc_array = soc_band.ReadAsArray(x, y, cols, rows)
+                deg_sdg = prod3.copy()
 
                 #############
                 # Land cover
-                deg[lc_array == -1] = -1
+                lc_array = band_lc_deg.ReadAsArray(x, y, cols, rows)
+                deg_sdg[lc_array == -1] = -1
 
                 ##############
                 # Soil carbon
                 
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
-                deg[(soc_array <= -10) & (soc_array >= -100)] = -1
+                soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
+                deg_sdg[(soc_array <= -10) & (soc_array >= -100)] = -1
 
                 #############
                 # Improvement
                 
                 # Allow improvements by lc or soc, only where one of the other 
                 # two indicators doesn't indicate a decline
-                deg[(deg == 0) & (lc_array == 1)] = 1
-                deg[(deg == 0) & (soc_array >= 10) & (soc_array <= 100)] = 1
+                deg_sdg[(deg_sdg == 0) & (lc_array == 1)] = 1
+                deg_sdg[(deg_sdg == 0) & (soc_array >= 10) & (soc_array <= 100)] = 1
 
                 ##############
                 # Missing data
@@ -372,26 +407,118 @@ class DegradationWorkerSDG(AbstractWorker):
                 # indicators.
                 
                 # No data
-                deg[prod3 == -32768] = -32768
-                deg[lc_array == -32768] = -32768
-                deg[soc_array == -32768] = -32768
+                deg_sdg[prod3 == -32768] = -32768
+                deg_sdg[lc_array == -32768] = -32768
+                deg_sdg[soc_array == -32768] = -32768
 
-                deg[prod3 == -32767] = -32767
-                deg[lc_array == -32767] = -32767
-                deg[soc_array == -32767] = -32767
+                deg_sdg[prod3 == -32767] = -32767
+                deg_sdg[lc_array == -32767] = -32767
+                deg_sdg[soc_array == -32767] = -32767
 
-                dst_ds_deg.GetRasterBand(1).WriteArray(deg, x, y)
-                del deg
+                dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
+
+                ###########################################################
+                # Start areal calculations
+                ###########################################################
+
+                cell_area = calc_cell_area(lat, lat + pixel_height, long_width)
+
+                a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
+                a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
+
+                ###########################################################
+                # Tabulate SDG 15.3.1 indicator
+                
+                # Mask water areas
+                deg_sdg[a_lc_tg == 7] = -32767
+                sdg_tbl_overall[0] = sdg_tbl_overall[0] + np.sum(deg_sdg == 1) * cell_area
+                sdg_tbl_overall[1] = sdg_tbl_overall[1] + np.sum(deg_sdg == 0) * cell_area
+                sdg_tbl_overall[2] = sdg_tbl_overall[2] + np.sum(deg_sdg == -1) * cell_area
+                sdg_tbl_overall[3] = sdg_tbl_overall[3] + np.sum(deg_sdg == -32768) * cell_area
+
+                ###########################################################
+                # Calculate transition crosstabs for productivity indicator
+                a_trans = a_lc_bl*10 + a_lc_tg
+                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
+
+                # Mask water areas
+                prod3[a_lc_tg == 7] = -32767
+                sdg_tbl_prod[0] = sdg_tbl_prod[0] + np.sum(prod3 == 1) * cell_area
+                sdg_tbl_prod[1] = sdg_tbl_prod[1] + np.sum(prod3 == 0) * cell_area
+                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum(prod3 == -1) * cell_area
+                sdg_tbl_prod[3] = sdg_tbl_prod[3] + np.sum(prod3 == -32768) * cell_area
+
+                # Flatten the arrays before passing to xtab
+                this_trans_xtab = xtab(prod5.ravel(), a_trans.ravel())
+
+                # Don't use this_trans_xtab if it is empty (could happen if take a
+                # crosstab where all of the values are nan's)
+                if this_trans_xtab[0][0].size != 0:
+                    this_trans_xtab[1] = this_trans_xtab[1] * cell_area
+                    if trans_xtab == None:
+                        trans_xtab = this_trans_xtab
+                    else:
+                        trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
+
+                ##############################################################
+                # Calculate SOC totals (converting soilgrids data from per ha
+                # to per meter since cell_area is in meters). Note final units 
+                # of soc_totals tables are tons C (summed over the total area 
+                # of each class)
+                a_soc_bl = band_soc_bl.ReadAsArray(x, y, cols, rows)
+                a_soc_bl = a_soc_bl.astype(np.float32) / (100 * 100)
+                soc_bl_totals_table = calc_total_table(a_trans, a_soc_bl,
+                                                       soc_bl_totals_table, cell_area)
+                a_soc_tg = band_soc_tg.ReadAsArray(x, y, cols, rows)
+                # Save masked and nodata values before they are obliterated by 
+                # the units change below (the 100 * 100)
+                a_soc_tg_masked = a_soc_tg == -32767
+                a_soc_tg_nodata = a_soc_tg == -32768
+                a_soc_tg = a_soc_tg.astype(np.float32) / (100 * 100)
+                soc_tg_totals_table = calc_total_table(a_trans, a_soc_tg,
+                                                       soc_tg_totals_table, cell_area)
+
+                a_soc_frac_chg = a_soc_tg / a_soc_bl
+                # Degradation in terms of SOC is defined as a decline of more 
+                # than 10% (and improving increase greater than 10%)
+                a_deg_soc = a_soc_frac_chg.copy()
+                a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
+                a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
+                a_deg_soc[a_soc_frac_chg >= 1.1] = 1
+                # Carry over areas that were originally masked or no data
+                a_deg_soc[a_soc_tg_masked] = -32767 # Masked areas
+                a_deg_soc[a_soc_tg_nodata] = -32768 # No data
+                # Mask water areas
+                a_deg_soc[a_lc_tg == 7] = -32767
+                sdg_tbl_soc[0] = sdg_tbl_soc[0] + np.sum(a_deg_soc == 1) * cell_area
+                sdg_tbl_soc[1] = sdg_tbl_soc[1] + np.sum(a_deg_soc == 0) * cell_area
+                sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum(a_deg_soc == -1) * cell_area
+                sdg_tbl_soc[3] = sdg_tbl_soc[3] + np.sum(a_deg_soc == -32768) * cell_area
+
+                a_deg_lc = band_lc_deg.ReadAsArray(x, y, cols, rows)
+                a_deg_lc[a_lc_tg == 7] = -32767
+                sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum(a_deg_lc == 1) * cell_area
+                sdg_tbl_lc[1] = sdg_tbl_lc[1] + np.sum(a_deg_lc == 0) * cell_area
+                sdg_tbl_lc[2] = sdg_tbl_lc[2] + np.sum(a_deg_lc == -1) * cell_area
+                sdg_tbl_lc[3] = sdg_tbl_lc[3] + np.sum(a_deg_lc == -32768) * cell_area
+
                 blocks += 1
+            lat += pixel_height
         self.progress.emit(100)
-        src_ds = None
-        dst_ds = None
+
+        # Convert all area tables from meters into square kilometers
+        trans_xtab[1] = trans_xtab[1] * 1e-6
+        sdg_tbl_overall = sdg_tbl_overall * 1e-6
+        sdg_tbl_prod = sdg_tbl_prod * 1e-6
+        sdg_tbl_soc = sdg_tbl_soc * 1e-6
+        sdg_tbl_lc = sdg_tbl_lc * 1e-6
 
         if self.killed:
             os.remove(deg_file)
             return None
         else:
-            return True
+            return list((soc_bl_totals_table, soc_tg_totals_table, trans_xtab, 
+                         sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc))
 
 
 def xtab(*cols):
@@ -497,172 +624,6 @@ def merge_area_tables(table1, table2):
     add_area_table(table1)
     add_area_table(table2)
     return list((vals, count))
-
-
-class AreaWorker(AbstractWorker):
-    def __init__(self, masked_f, deg_sdg_f, deg_prod_f):
-        AbstractWorker.__init__(self)
-        self.masked_f = masked_f
-        self.deg_sdg_f = deg_sdg_f
-        self.deg_prod_f = deg_prod_f
-
-    def work(self):
-        ds_deg_sdg = gdal.Open(self.deg_sdg_f)
-        band_deg_sdg = ds_deg_sdg.GetRasterBand(1)
-        ds_prod_deg = gdal.Open(self.deg_prod_f)
-        band_deg_prod = ds_prod_deg.GetRasterBand(1)
-
-        ds_masked = gdal.Open(self.masked_f)
-        band_lc_bl = ds_masked.GetRasterBand(1)
-        band_lc_tg = ds_masked.GetRasterBand(2)
-        band_soc_bl = ds_masked.GetRasterBand(3)
-        band_soc_tg = ds_masked.GetRasterBand(4)
-        band_lc_deg = ds_masked.GetRasterBand(5)
-
-        block_sizes = band_deg_sdg.GetBlockSize()
-        x_block_size = block_sizes[0]
-        # Need to process y line by line so that pixel area calculation can be
-        # done based on latitude, which varies by line
-        y_block_size = 1
-        xsize = band_deg_sdg.XSize
-        ysize = band_deg_sdg.YSize
-
-        gt = ds_deg_sdg.GetGeoTransform()
-        # Width of cells in longitude
-        long_width = gt[1]
-
-        # Set initial lat ot the top left corner latitude
-        lat = gt[3]
-        # Width of cells in latitude
-        pixel_height = gt[5]
-
-        blocks = 0
-        trans_xtab = None
-        soc_bl_totals_table = None
-        soc_tg_totals_table = None
-        sdg_tbl_overall = np.zeros((4, 1))
-        sdg_tbl_prod = np.zeros((4, 1))
-        sdg_tbl_soc = np.zeros((4, 1))
-        sdg_tbl_lc = np.zeros((4, 1))
-        for y in xrange(0, ysize, y_block_size):
-            if self.killed:
-                log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
-                break
-            self.progress.emit(100 * float(y) / ysize)
-            if y + y_block_size < ysize:
-                rows = y_block_size
-            else:
-                rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
-                if x + x_block_size < xsize:
-                    cols = x_block_size
-                else:
-                    cols = xsize - x
-
-                cell_area = calc_cell_area(lat, lat + pixel_height, long_width)
-
-                a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
-                a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
-
-                ###########################################################
-                # Tabulate SDG 15.3.1 indicator
-                a_deg_sdg = band_deg_sdg.ReadAsArray(x, y, cols, rows)
-                # Mask water areas
-                a_deg_sdg[a_lc_tg == 7] = -32767
-                sdg_tbl_overall[0] = sdg_tbl_overall[0] + np.sum(a_deg_sdg == 1) * cell_area
-                sdg_tbl_overall[1] = sdg_tbl_overall[1] + np.sum(a_deg_sdg == 0) * cell_area
-                sdg_tbl_overall[2] = sdg_tbl_overall[2] + np.sum(a_deg_sdg == -1) * cell_area
-                sdg_tbl_overall[3] = sdg_tbl_overall[3] + np.sum(a_deg_sdg == -32768) * cell_area
-
-                ###########################################################
-                # Calculate transition crosstabs for productivity indicator
-                a_trans = a_lc_bl*10 + a_lc_tg
-                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
-
-                # Remember this is a five class productivity layer
-                a_deg_prod = band_deg_prod.ReadAsArray(x, y, cols, rows)
-                # TODO: Below is temporary until missing data values are fixed 
-                # in LPD layer on GEE
-                a_deg_prod[a_deg_prod == 0] = -32768
-                # Mask water areas
-                a_deg_prod[a_lc_tg == 7] = -32767
-                sdg_tbl_prod[0] = sdg_tbl_prod[0] + np.sum(a_deg_prod == 5) * cell_area
-                sdg_tbl_prod[1] = sdg_tbl_prod[1] + np.sum(a_deg_prod == 4) * cell_area
-                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum((a_deg_prod >= 1) & (a_deg_prod <= 3)) * cell_area
-                sdg_tbl_prod[3] = sdg_tbl_prod[3] + np.sum(a_deg_prod == -32768) * cell_area
-
-                # Flatten the arrays before passing to xtab
-                this_trans_xtab = xtab(a_deg_prod.ravel(), a_trans.ravel())
-
-                # Don't use this_trans_xtab if it is empty (could happen if take a
-                # crosstab where all of the values are nan's)
-                if this_trans_xtab[0][0].size != 0:
-                    this_trans_xtab[1] = this_trans_xtab[1] * cell_area
-                    if trans_xtab == None:
-                        trans_xtab = this_trans_xtab
-                    else:
-                        trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
-
-                ##############################################################
-                # Calculate SOC totals (converting soilgrids data from per ha
-                # to per meter since cell_area is in meters). Note final units 
-                # of soc_totals tables are tons C (summed over the total area 
-                # of each class)
-                a_soc_bl = band_soc_bl.ReadAsArray(x, y, cols, rows)
-                a_soc_bl = a_soc_bl.astype(np.float32) / (100 * 100)
-                soc_bl_totals_table = calc_total_table(a_trans, a_soc_bl,
-                                                       soc_bl_totals_table, cell_area)
-                a_soc_tg = band_soc_tg.ReadAsArray(x, y, cols, rows)
-                # Save masked and nodata values before they are obliterated by 
-                # the units change below (the 100 * 100)
-                a_soc_tg_masked = a_soc_tg == -32767
-                a_soc_tg_nodata = a_soc_tg == -32768
-                a_soc_tg = a_soc_tg.astype(np.float32) / (100 * 100)
-                soc_tg_totals_table = calc_total_table(a_trans, a_soc_tg,
-                                                       soc_tg_totals_table, cell_area)
-
-                a_soc_frac_chg = a_soc_tg / a_soc_bl
-                # Degradation in terms of SOC is defined as a decline of more 
-                # than 10% (and improving increase greater than 10%)
-                a_deg_soc = a_soc_frac_chg.copy()
-                a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
-                a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
-                a_deg_soc[a_soc_frac_chg >= 1.1] = 1
-                # Carry over areas that were originally masked or no data
-                a_deg_soc[a_soc_tg_masked] = -32767 # Masked areas
-                a_deg_soc[a_soc_tg_nodata] = -32768 # No data
-                # Mask water areas
-                a_deg_soc[a_lc_tg == 7] = -32767
-                sdg_tbl_soc[0] = sdg_tbl_soc[0] + np.sum(a_deg_soc == 1) * cell_area
-                sdg_tbl_soc[1] = sdg_tbl_soc[1] + np.sum(a_deg_soc == 0) * cell_area
-                sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum(a_deg_soc == -1) * cell_area
-                sdg_tbl_soc[3] = sdg_tbl_soc[3] + np.sum(a_deg_soc == -32768) * cell_area
-
-                a_deg_lc = band_lc_deg.ReadAsArray(x, y, cols, rows)
-                a_deg_lc[a_lc_tg == 7] = -32767
-                sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum(a_deg_lc == 1) * cell_area
-                sdg_tbl_lc[1] = sdg_tbl_lc[1] + np.sum(a_deg_lc == 0) * cell_area
-                sdg_tbl_lc[2] = sdg_tbl_lc[2] + np.sum(a_deg_lc == -1) * cell_area
-                sdg_tbl_lc[3] = sdg_tbl_lc[3] + np.sum(a_deg_lc == -32768) * cell_area
-
-                blocks += 1
-            lat += pixel_height
-        self.progress.emit(100)
-        self.ds_deg = None
-        self.ds_masked = None
-
-        # Convert all area tables from meters into square kilometers
-        trans_xtab[1] = trans_xtab[1] * 1e-6
-        sdg_tbl_overall = sdg_tbl_overall * 1e-6
-        sdg_tbl_prod = sdg_tbl_prod * 1e-6
-        sdg_tbl_soc = sdg_tbl_soc * 1e-6
-        sdg_tbl_lc = sdg_tbl_lc * 1e-6
-
-        if self.killed:
-            return None
-        else:
-            return list((soc_bl_totals_table, soc_tg_totals_table, trans_xtab, 
-                         sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc))
 
 
 # Returns value from crosstab table for particular deg/lc class combination
@@ -1026,12 +987,12 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             if prod_mode == 'Trends.Earth productivity':
                 resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
                 gdal.BuildVRT(indic_vrt,
-                              [lc_bl_f,     # 1
-                               lc_tg_f,     # 2
-                               soc_bl_f,    # 3
-                               soc_tg_f,    # 4
-                               lc_deg_f,    # 5
-                               soc_deg_f,   # 6
+                              [lc_deg_f,    # 1
+                               lc_bl_f,     # 2
+                               lc_tg_f,     # 3
+                               soc_deg_f,   # 4
+                               soc_bl_f,    # 5
+                               soc_tg_f,    # 6
                                traj_f,      # 7
                                perf_f,      # 8
                                state_f],    # 9
@@ -1039,20 +1000,26 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
+                lc_band_nums = range(1, 4)
+                soc_band_nums = range(4, 7)
+                prod_band_nums = range(7, 10)
             else:
                 resample_alg = self.get_resample_alg(lc_bl_f, lpd_f)
                 gdal.BuildVRT(indic_vrt,
-                              [lc_bl_f,     # 1
-                               lc_tg_f,     # 2
-                               soc_bl_f,    # 3
-                               soc_tg_f,    # 4
-                               lc_deg_f,    # 5
-                               soc_deg_f,   # 6
+                              [lc_deg_f,    # 1
+                               lc_bl_f,     # 2
+                               lc_tg_f,     # 3
+                               soc_deg_f,   # 4
+                               soc_bl_f,    # 5
+                               soc_tg_f,    # 6
                                lpd_f],      # 7
                               outputBounds=self.outputBounds,
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
+                lc_band_nums = range(1, 4)
+                soc_band_nums = range(4, 7)
+                prod_band_nums = [7]
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log('Saving deg/lc clipped file to {}'.format(masked_vrt))
@@ -1067,36 +1034,19 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             ######################################################################
             #  Calculate SDG 15.3.1 layers
             
-            log('Calculating degradation...')
+            log('Calculating summary table...')
             if len(wkts) > 1:
                 output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '_{}.tif'.format(n)
             else:
                 output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
             output_sdg_tifs.append(output_sdg_tif)
-            deg_worker = StartWorker(DegradationWorkerSDG, 'calculating degradation',
-                                     masked_vrt, output_sdg_tif, prod_mode)
+            deg_worker = StartWorker(DegradationSummaryWorkerSDG, 'calculating summary table',
+                                     masked_vrt, prod_band_nums, prod_mode, 
+                                     output_sdg_tif, lc_band_nums, 
+                                     soc_band_nums)
             if not deg_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating SDG 15.3.1 degradation layer."), None)
-                return
-
-            ######################################################################
-            # Calculate area crosstabs
-            
-            if prod_mode == 'Trends.Earth productivity':
-                prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-                gdal.BuildVRT(prod_deg_f, output_sdg_tif, bandList=[2])
-            else:
-                prod_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-                gdal.BuildVRT(prod_deg_f, masked_vrt, bandList=[7])
-
-
-            log('Calculating land cover crosstabulation...')
-            area_worker = StartWorker(AreaWorker, 'calculating areas', masked_vrt, 
-                                      output_sdg_tif, prod_deg_f)
-            if not area_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating degraded areas."), None)
+                                           self.tr("Error calculating SDG 15.3.1 summary table."), None)
                 return
             else:
                 if n == 0:
@@ -1106,7 +1056,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                             sdg_tbl_overall, \
                             sdg_tbl_prod, \
                             sdg_tbl_soc, \
-                            sdg_tbl_lc = area_worker.get_return()
+                            sdg_tbl_lc = deg_worker.get_return()
                 else:
                     this_soc_bl_totals, \
                             this_soc_tg_totals, \
@@ -1114,7 +1064,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                             this_sdg_tbl_overall, \
                             this_sdg_tbl_prod, \
                             this_sdg_tbl_soc, \
-                            this_sdg_tbl_lc = area_worker.get_return()
+                            this_sdg_tbl_lc = deg_worker.get_return()
                     soc_bl_totals = soc_bl_totals + this_soc_bl_totals
                     soc_tg_totals = soc_tg_totals + this_soc_tg_totals
                     trans_prod_xtab = trans_prod_xtab + this_trans_prod_xtab
@@ -1166,21 +1116,12 @@ def get_lpd_table(table,
     return out
 
 
-def get_prod_table(table, change_type, classes=range(1, 7 + 1)):
+def get_prod_table(table, prod_class, classes=range(1, 7 + 1)):
     out = np.zeros((len(classes), len(classes)))
     for bl_class in range(len(classes)):
         for tg_class in range(len(classes)):
             transition = int('{}{}'.format(classes[bl_class], classes[tg_class]))
-            if change_type == 'improved':
-                out[bl_class, tg_class] = get_xtab_area(table, 5, transition)
-            elif change_type == 'stable':
-                out[bl_class, tg_class] = get_xtab_area(table, 4, transition)
-            elif change_type == 'degraded':
-                out[bl_class, tg_class] = get_xtab_area(table, 3, transition) + \
-                        get_xtab_area(table, 2, transition) + \
-                        get_xtab_area(table, 1, transition)
-            if change_type == 'no data':
-                out[bl_class, tg_class] = get_xtab_area(table, -32768, transition)
+            out[bl_class, tg_class] = get_xtab_area(table, prod_class, transition)
     return out
 
 
@@ -1274,10 +1215,12 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     ws_prod = wb.get_sheet_by_name('Productivity')
     write_table_to_sheet(ws_prod, sdg_tbl_prod, 6, 6)
 
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'improved'), 14, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'stable'), 26, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'degraded'), 38, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 'no data'), 50, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 5), 16, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 4), 28, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 3), 40, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 2), 52, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 1), 64, 3)
+    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, -32768), 76, 3)
 
     ##########################################################################
     # Soil organic carbon tables
@@ -1306,7 +1249,7 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     ##########################################################################
     # Land cover tables
     ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
-    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 43, 3)
+    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 55, 3)
 
     ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_sdg.add_image(ws_sdg_logo, 'H1')

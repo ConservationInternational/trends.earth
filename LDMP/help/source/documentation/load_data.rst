@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Load data tool
 ========================
 .. image:: /static/common/ldmt_toolbar_highlight_loaddata.png
@@ -24,9 +23,7 @@ The load data function allows the user to load data into QGIS and |trends.earth|
 .. image:: /static/documentation/load_data/loaddata_landcover.png
    :align: center
 
-NOTE: If you'll be using **CORINE land cover** datasets, you can use the definition file created following UNCCD guidelines from this XXXXX
-=======
-Load Data Tool
-========================
-**Coming Soon**
->>>>>>> b4eb47ad5ce89014baad28593b2fb9f5fe595bd1
+NOTE: If you'll be using **CORINE land cover** datasets, you can use [this
+definition 
+file](https://s3.amazonaws.com/trends.earth/Corine_Land_Cover_to_ESA_Definition.json) 
+created following UNCCD guidelines to aggregate the data.

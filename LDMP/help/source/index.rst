@@ -56,21 +56,15 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: User Documentation
 
-    documentation/indicator_15_3_1
     documentation/before_installing
     documentation/installing
     documentation/settings
     documentation/calculate
-<<<<<<< HEAD
-=======
     documentation/GEE_tasks
->>>>>>> b4eb47ad5ce89014baad28593b2fb9f5fe595bd1
     documentation/plot_data
     documentation/data_download
-    documentation/gee_tasks
     documentation/reporting_tool
     documentation/load_data
-    documentation/about
     documentation/faq
 
 .. _videos:

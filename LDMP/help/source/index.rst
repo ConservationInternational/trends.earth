@@ -37,7 +37,7 @@ videos, are available on this website:
 * :ref:`about-docs`
 * :ref:`background-docs`
 * :ref:`user-docs`
-* :ref:`videos`
+* :ref:`training`
 
 .. note:: `Download this documentation as a PDF for offline use 
    <trends-earth.pdf>`_
@@ -49,7 +49,7 @@ videos, are available on this website:
     :caption: About
 
     about/about
-    documentation/faq
+    about/faq
     about/development
 
 .. _background-docs:
@@ -58,9 +58,9 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: Background information
 
-    documentation/understanding_indicators
-    documentation/before_installing
-    documentation/installing
+    background/understanding_indicators
+    background/before_installing
+    background/installing
 
 .. _user-docs:
 
@@ -77,10 +77,10 @@ videos, are available on this website:
     documentation/load_data
     documentation/info
 	
-.. _videos:
+.. _training:
 
 .. toctree::
     :maxdepth: 2
     :caption: Training materials
 
-    video/video_links
+    training/video_links

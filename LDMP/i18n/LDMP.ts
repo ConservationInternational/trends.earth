@@ -18,27 +18,27 @@
         <translation>Declining</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="352"/>
+        <location filename="../jobs.py" line="372"/>
         <source>Time</source>
         <translation>Time</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="353"/>
+        <location filename="../jobs.py" line="373"/>
         <source>Integrated NDVI</source>
         <translation>Integrated NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="353"/>
+        <location filename="../jobs.py" line="373"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="359"/>
         <source>Downloaded</source>
         <translation>Downloaded</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="359"/>
         <source>Downloaded results to {}</source>
         <translation>Downloaded results to {}</translation>
     </message>
@@ -889,139 +889,139 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateSDGAdvanced</name>
     <message>
-        <location filename="../calculate_sdg.py" line="754"/>
+        <location filename="../calculate_sdg.py" line="729"/>
         <source>Choose a filename for the output file</source>
         <translation>Choose a filename for the output file</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="754"/>
+        <location filename="../calculate_sdg.py" line="729"/>
         <source>Filename (*.json)</source>
         <translation>Filename (*.json)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1098"/>
+        <location filename="../calculate_sdg.py" line="1047"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="776"/>
+        <location filename="../calculate_sdg.py" line="751"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="767"/>
+        <location filename="../calculate_sdg.py" line="742"/>
         <source>Choose a filename for the summary table</source>
         <translation>Choose a filename for the summary table</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="767"/>
+        <location filename="../calculate_sdg.py" line="742"/>
         <source>Summary table file (*.xlsx)</source>
         <translation>Summary table file (*.xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="802"/>
+        <location filename="../calculate_sdg.py" line="777"/>
         <source>Choose an output file for the indicator layer.</source>
         <translation>Choose an output file for the indicator layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="807"/>
+        <location filename="../calculate_sdg.py" line="782"/>
         <source>Choose an output file for the summary table.</source>
         <translation>Choose an output file for the summary table.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="828"/>
+        <location filename="../calculate_sdg.py" line="803"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="832"/>
+        <location filename="../calculate_sdg.py" line="807"/>
         <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="836"/>
+        <location filename="../calculate_sdg.py" line="811"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="850"/>
+        <location filename="../calculate_sdg.py" line="825"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="858"/>
+        <location filename="../calculate_sdg.py" line="833"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="863"/>
+        <location filename="../calculate_sdg.py" line="838"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="878"/>
+        <location filename="../calculate_sdg.py" line="853"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>Area of interest is not entirely within the trajectory layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="882"/>
+        <location filename="../calculate_sdg.py" line="857"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>Area of interest is not entirely within the performance layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="886"/>
+        <location filename="../calculate_sdg.py" line="861"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>Area of interest is not entirely within the state layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="891"/>
+        <location filename="../calculate_sdg.py" line="866"/>
         <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
         <translation>Area of interest is not entirely within the land productivity dynamics layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="896"/>
+        <location filename="../calculate_sdg.py" line="871"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>Area of interest is not entirely within the land cover layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="900"/>
+        <location filename="../calculate_sdg.py" line="875"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>Area of interest is not entirely within the soil organic carbon layer.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="912"/>
+        <location filename="../calculate_sdg.py" line="887"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>Resolutions of trajectory layer and state layer do not match.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="916"/>
+        <location filename="../calculate_sdg.py" line="891"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>Resolutions of trajectory layer and performance layer do not match.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="921"/>
+        <location filename="../calculate_sdg.py" line="896"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>Coordinate systems of trajectory layer and state layer do not match.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="925"/>
+        <location filename="../calculate_sdg.py" line="900"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>Coordinate systems of trajectory layer and performance layer do not match.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1063"/>
+        <location filename="../calculate_sdg.py" line="1029"/>
         <source>Error masking SDG 15.3.1 input layers.</source>
         <translation>Error masking SDG 15.3.1 input layers.</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1079"/>
         <source>Error calculating SDG 15.3.1 degradation layer.</source>
-        <translation>Error calculating SDG 15.3.1 degradation layer.</translation>
+        <translation type="obsolete">Error calculating SDG 15.3.1 degradation layer.</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1098"/>
         <source>Error calculating degraded areas.</source>
-        <translation>Error calculating degraded areas.</translation>
+        <translation type="obsolete">Error calculating degraded areas.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="20"/>
@@ -1112,6 +1112,16 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="442"/>
         <source>Calculate</source>
         <translation>Calculate</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="966"/>
+        <source>Reporting tool does not yet work for split bounding boxes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="1047"/>
+        <source>Error calculating SDG 15.3.1 summary table.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1359,32 +1369,32 @@ p, li { white-space: pre-wrap; }
         <translation>Refresh list</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="147"/>
+        <location filename="../jobs.py" line="167"/>
         <source>Script not found</source>
         <translation>Script not found</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="176"/>
+        <location filename="../jobs.py" line="196"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="234"/>
+        <location filename="../jobs.py" line="254"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="221"/>
+        <location filename="../jobs.py" line="241"/>
         <source>Base filename (*.json)</source>
         <translation>Base filename (*.json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="234"/>
+        <location filename="../jobs.py" line="254"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Cannot write to {}. Choose a different base filename.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="221"/>
+        <location filename="../jobs.py" line="241"/>
         <source>Choose a filename downloading results of: {}</source>
         <translation>Choose a filename downloading results of: {}</translation>
     </message>
@@ -2388,32 +2398,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="265"/>
+        <location filename="../jobs.py" line="285"/>
         <source>Task name</source>
         <translation>Task name</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="266"/>
+        <location filename="../jobs.py" line="286"/>
         <source>Job</source>
         <translation>Job</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="267"/>
+        <location filename="../jobs.py" line="287"/>
         <source>Start time</source>
         <translation>Start time</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="268"/>
+        <location filename="../jobs.py" line="288"/>
         <source>End time</source>
         <translation>End time</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="269"/>
+        <location filename="../jobs.py" line="289"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="270"/>
+        <location filename="../jobs.py" line="290"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>

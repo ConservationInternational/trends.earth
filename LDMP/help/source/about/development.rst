@@ -5,9 +5,6 @@
 General Public License, version 2.0 or later 
 <https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_.
 
-trends.earth code
------------------
-
 There are a number of components to the |trends.earth| tool. The first is a 
 QGIS plugin supporting calculation of indicators, access to raw data, 
 reporting, and production of print maps . The code for the plugin, and further 
@@ -17,9 +14,7 @@ github repository.
 
 The |trends.earth| QGIS plugin is supported by a number of different Python 
 scripts that allow calculation of the various indicators on Google Earth Engine 
-(GEE). These scripts sit in the `trends.earth.gee 
-<https://github.com/ConservationInternational/trends.earth.gee>`_ github 
-repository.
+(GEE). These scripts sit in the "gee" subfolder of that github repository.
 
 The GEE scripts are supported by the `landdegradation` Python module, which 
 includes code for processing inputs and outputs for the plugin, as well as other 

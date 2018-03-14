@@ -74,7 +74,7 @@ videos, are available on this website:
     documentation/data_download
     documentation/gee_tasks
     documentation/reporting_tool
-    documentation/10_load_data
+    documentation/load_data
     documentation/info
 	
 .. _videos:

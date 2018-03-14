@@ -209,15 +209,10 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
         src_ds = gdal.Open(self.src_file)
 
-        log('self.prod_band_nums: {}'.format(self.prod_band_nums))
-        log('self.lc_band_nums: {}'.format(self.lc_band_nums))
-        log('self.soc_band_nums: {}'.format(self.soc_band_nums))
         band_lc_deg = src_ds.GetRasterBand(self.lc_band_nums[0])
         band_lc_bl = src_ds.GetRasterBand(self.lc_band_nums[1])
         band_lc_tg = src_ds.GetRasterBand(self.lc_band_nums[-1])
         band_soc_deg = src_ds.GetRasterBand(self.soc_band_nums[0])
-        band_soc_bl = src_ds.GetRasterBand(self.soc_band_nums[1])
-        band_soc_tg = src_ds.GetRasterBand(self.soc_band_nums[-1])
 
         if self.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(self.prod_band_nums[0])
@@ -260,8 +255,10 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         pixel_height = src_gt[5]
 
         trans_xtab = None
-        soc_bl_totals_table = None
-        soc_tg_totals_table = None
+        # The 8 below is for eight classes plus no data, and the minus one is 
+        # because one of the bands is a degradation layer
+        soc_totals_table = [None] * (len(self.soc_band_nums) - 1)
+        lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
         sdg_tbl_overall = np.zeros((4, 1))
         sdg_tbl_prod = np.zeros((4, 1))
         sdg_tbl_soc = np.zeros((4, 1))
@@ -270,7 +267,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
             if self.killed:
-                log("Processing of {} killed by user after processing {} out of {} blocks.".format(deg_file, y, ysize))
+                log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                 break
             self.progress.emit(100 * float(y) / ysize)
             if y + y_block_size < ysize:
@@ -465,18 +462,27 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # to per meter since cell_area is in meters). Note final units 
                 # of soc_totals tables are tons C (summed over the total area 
                 # of each class)
+                
+                # Start at one because remember the first soc band is the 
+                # degradation layer
+                for i in range(1, len(self.soc_band_nums)):
+                    band_soc = src_ds.GetRasterBand(self.soc_band_nums[i])
+                    a_soc = band_soc.ReadAsArray(x, y, cols, rows)
+                    a_soc = a_soc.astype(np.float32) / (100 * 100)
+                    soc_totals_table[i - 1] = calc_total_table(a_trans, a_soc, 
+                                                               soc_totals_table[i - 1], 
+                                                               cell_area)
+
+                band_soc_bl = src_ds.GetRasterBand(self.soc_band_nums[1])
                 a_soc_bl = band_soc_bl.ReadAsArray(x, y, cols, rows)
                 a_soc_bl = a_soc_bl.astype(np.float32) / (100 * 100)
-                soc_bl_totals_table = calc_total_table(a_trans, a_soc_bl,
-                                                       soc_bl_totals_table, cell_area)
+                band_soc_tg = src_ds.GetRasterBand(self.soc_band_nums[-1])
                 a_soc_tg = band_soc_tg.ReadAsArray(x, y, cols, rows)
                 # Save masked and nodata values before they are obliterated by 
                 # the units change below (the 100 * 100)
                 a_soc_tg_masked = a_soc_tg == -32767
                 a_soc_tg_nodata = a_soc_tg == -32768
                 a_soc_tg = a_soc_tg.astype(np.float32) / (100 * 100)
-                soc_tg_totals_table = calc_total_table(a_trans, a_soc_tg,
-                                                       soc_tg_totals_table, cell_area)
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -495,6 +501,13 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum(a_deg_soc == -1) * cell_area
                 sdg_tbl_soc[3] = sdg_tbl_soc[3] + np.sum(a_deg_soc == -32768) * cell_area
 
+                # Start at one because remember the first lc band is the 
+                # degradation layer
+                for i in range(1, len(self.lc_band_nums)):
+                    band_lc = src_ds.GetRasterBand(self.lc_band_nums[i])
+                    a_lc = band_lc.ReadAsArray(x, y, cols, rows)
+                    lc_totals_table[i - 1] = np.add([np.sum(a_lc == c) * cell_area for c in [1, 2, 3, 4, 5, 6, 7, -32768]], lc_totals_table[i - 1])
+
                 a_deg_lc = band_lc_deg.ReadAsArray(x, y, cols, rows)
                 a_deg_lc[a_lc_tg == 7] = -32767
                 sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum(a_deg_lc == 1) * cell_area
@@ -506,18 +519,19 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             lat += pixel_height
         self.progress.emit(100)
 
-        # Convert all area tables from meters into square kilometers
-        trans_xtab[1] = trans_xtab[1] * 1e-6
-        sdg_tbl_overall = sdg_tbl_overall * 1e-6
-        sdg_tbl_prod = sdg_tbl_prod * 1e-6
-        sdg_tbl_soc = sdg_tbl_soc * 1e-6
-        sdg_tbl_lc = sdg_tbl_lc * 1e-6
-
         if self.killed:
-            os.remove(deg_file)
+            os.remove(self.prod_out_file)
             return None
         else:
-            return list((soc_bl_totals_table, soc_tg_totals_table, trans_xtab, 
+            # Convert all area tables from meters into square kilometers
+            trans_xtab[1] = trans_xtab[1] * 1e-6
+            sdg_tbl_overall = sdg_tbl_overall * 1e-6
+            sdg_tbl_prod = sdg_tbl_prod * 1e-6
+            sdg_tbl_soc = sdg_tbl_soc * 1e-6
+            sdg_tbl_lc = sdg_tbl_lc * 1e-6
+            lc_totals_table = lc_totals_table * 1e-6
+
+            return list((soc_totals_table, lc_totals_table, trans_xtab, 
                          sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc))
 
 
@@ -890,23 +904,6 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         self.close()
 
         #######################################################################
-        # Select baseline and target land cover and SOC layers based on chosen
-        # degradation layers for these datasets
-        lc_band_infos = get_band_info(self.layer_lc.dataProvider().dataSourceUri())
-        lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
-        lc_annual_band_years = [lc_band_infos[i]['metadata']['year'] for i in lc_annual_band_indices]
-        self.layer_lc_bl_bandnumber = lc_annual_band_indices[lc_annual_band_years.index(min(lc_annual_band_years))] + 1
-        self.layer_lc_tg_bandnumber = lc_annual_band_indices[lc_annual_band_years.index(max(lc_annual_band_years))] + 1
-        #log('lc bl bandnumber: {}, tg bandnumber: {}'.format(self.layer_lc_bl_bandnumber, self.layer_lc_tg_bandnumber))
-
-        soc_band_infos = get_band_info(self.layer_soc.dataProvider().dataSourceUri())
-        soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
-        soc_annual_band_years = [soc_band_infos[i]['metadata']['year'] for i in soc_annual_band_indices]
-        self.layer_soc_bl_bandnumber = soc_annual_band_indices[soc_annual_band_years.index(min(soc_annual_band_years))] + 1
-        self.layer_soc_tg_bandnumber = soc_annual_band_indices[soc_annual_band_years.index(max(soc_annual_band_years))] + 1
-        #log('soc bl bandnumber: {}, tg bandnumber: {}'.format(self.layer_soc_bl_bandnumber, self.layer_soc_tg_bandnumber))
-
-        #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
         if prod_mode == 'Trends.Earth productivity':
             traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -925,35 +922,50 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             gdal.BuildVRT(lpd_f, self.layer_lpd.dataProvider().dataSourceUri(),
                           bandList=[self.layer_lpd_bandnumber])
 
-        # Select lc and SOC bands using bandlist since BuildVrt will otherwise 
-        # only use the first band of the file
-        lc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_bl_f, self.layer_lc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_lc_bl_bandnumber])
+        #######################################################################
+        # Select baseline and target land cover and SOC layers based on chosen
+        # degradation layers for these datasets
+        lc_band_infos = get_band_info(self.layer_lc.dataProvider().dataSourceUri())
+        lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
+        lc_annual_band_indices.sort(key=lambda i: lc_band_infos[i]['metadata']['year'])
+        lc_years = [bi['metadata']['year'] for bi in lc_band_infos if bi['name'] == 'Land cover (7 class)']
 
-        lc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_tg_f, self.layer_lc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_lc_tg_bandnumber])
+        soc_band_infos = get_band_info(self.layer_soc.dataProvider().dataSourceUri())
+        soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
+        soc_annual_band_indices.sort(key=lambda i: soc_band_infos[i]['metadata']['year'])
+        soc_years = [bi['metadata']['year'] for bi in soc_band_infos if bi['name'] == 'Soil organic carbon']
 
-        soc_bl_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(soc_bl_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_bl_bandnumber])
-
-        soc_tg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(soc_tg_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_tg_bandnumber])
-
+        # Make the LC degradation file first in the list
         lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(),
                 bandList=[self.layer_lc_bandnumber])
+        lc_files = [lc_deg_f]
+        for i in lc_annual_band_indices:
+            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            # Add once since band numbers don't start at zero
+            gdal.BuildVRT(f, self.layer_lc.dataProvider().dataSourceUri(),
+                          bandList=[i + 1])
+            lc_files.append(f)
 
+        # Make the SOC degradation file first in the list
         soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
                       bandList=[self.layer_soc_bandnumber])
+        soc_files = [soc_deg_f]
+        for i in soc_annual_band_indices:
+            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            # Add once since band numbers don't start at zero
+            gdal.BuildVRT(f, self.layer_soc.dataProvider().dataSourceUri(),
+                          bandList=[i + 1])
+            soc_files.append(f)
 
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.layer_meridian_split_wkt()[1]
+        if len(wkts) > 1:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Reporting tool does not yet work for split bounding boxes."), None)
+            return
         n = 0
         output_sdg_tifs = []
         for wkt in wkts:
@@ -982,44 +994,31 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
             log('Saving indicator VRT to: {}'.format(indic_vrt))
-            # Both SOC and LC are near the same resolution, so resample them in the 
-            # same way
+            # The plus one is because band numbers start at 1, not zero
+            lc_band_nums = np.arange(len(lc_files)) + 1
+            soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
+            in_files = lc_files
+            in_files.extend(soc_files)
             if prod_mode == 'Trends.Earth productivity':
-                resample_alg = self.get_resample_alg(lc_bl_f, traj_f)
+                resample_alg = self.get_resample_alg(lc_deg_f, traj_f)
+                in_files.extend([traj_f, perf_f, state_f])
                 gdal.BuildVRT(indic_vrt,
-                              [lc_deg_f,    # 1
-                               lc_bl_f,     # 2
-                               lc_tg_f,     # 3
-                               soc_deg_f,   # 4
-                               soc_bl_f,    # 5
-                               soc_tg_f,    # 6
-                               traj_f,      # 7
-                               perf_f,      # 8
-                               state_f],    # 9
+                              in_files,
                               outputBounds=self.outputBounds,
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
-                lc_band_nums = range(1, 4)
-                soc_band_nums = range(4, 7)
-                prod_band_nums = range(7, 10)
+                prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
             else:
-                resample_alg = self.get_resample_alg(lc_bl_f, lpd_f)
+                resample_alg = self.get_resample_alg(lc_deg_f, lpd_f)
+                in_files.append(lpd_f)
                 gdal.BuildVRT(indic_vrt,
-                              [lc_deg_f,    # 1
-                               lc_bl_f,     # 2
-                               lc_tg_f,     # 3
-                               soc_deg_f,   # 4
-                               soc_bl_f,    # 5
-                               soc_tg_f,    # 6
-                               lpd_f],      # 7
+                              in_files,
                               outputBounds=self.outputBounds,
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
-                lc_band_nums = range(1, 4)
-                soc_band_nums = range(4, 7)
-                prod_band_nums = [7]
+                prod_band_nums = [max(soc_band_nums) + 1]
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log('Saving deg/lc clipped file to {}'.format(masked_vrt))
@@ -1050,33 +1049,34 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 return
             else:
                 if n == 0:
-                    soc_bl_totals, \
-                            soc_tg_totals, \
+                    soc_totals, \
+                            lc_totals, \
                             trans_prod_xtab, \
                             sdg_tbl_overall, \
                             sdg_tbl_prod, \
                             sdg_tbl_soc, \
                             sdg_tbl_lc = deg_worker.get_return()
                 else:
-                    this_soc_bl_totals, \
-                            this_soc_tg_totals, \
+                    this_soc_totals, \
+                            this_lc_totals, \
                             this_trans_prod_xtab, \
                             this_sdg_tbl_overall, \
                             this_sdg_tbl_prod, \
                             this_sdg_tbl_soc, \
                             this_sdg_tbl_lc = deg_worker.get_return()
-                    soc_bl_totals = soc_bl_totals + this_soc_bl_totals
-                    soc_tg_totals = soc_tg_totals + this_soc_tg_totals
+                    soc_totals = soc_totals + this_soc_totals
+                    lc_totals = lc_totals + this_lc_totals
                     trans_prod_xtab = trans_prod_xtab + this_trans_prod_xtab
-                    sdg_tbl_overall + this_sdg_tbl_overall
-                    sdg_tbl_prod + this_sdg_tbl_prod
-                    sdg_tbl_soc + this_sdg_tbl_soc
-                    sdg_tbl_lc + this_sdg_tbl_lc
+                    sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
+                    sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
+                    sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc
+                    sdg_tbl_lc = sdg_tbl_lc + this_sdg_tbl_lc
             n += 1
 
-        make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, 
+        make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
-                           sdg_tbl_lc, self.output_file_table.text())
+                           sdg_tbl_lc, lc_years, soc_years, self.output_file_table.text())
+
 
         # Add the SDG layers to the map
         output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
@@ -1144,32 +1144,23 @@ def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals,
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
-def get_soc_bl_tg(trans_prod_xtab, soc_bl_totals, soc_tg_totals, classes=range(1, 6 + 1)):
-    out = np.zeros((len(classes), 2))
+def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=range(1, 6 + 1)):
+    out = np.zeros((len(classes), 1))
     for row in range(len(classes)):
-        bl_area = 0
-        bl_soc = 0
-        tg_area = 0
-        tg_soc = 0
+        area = 0
+        soc = 0
         # Need to sum up the total soc across the pixels and then divide by 
         # total area
         for n in range(len(classes)):
-            bl_trans = int('{}{}'.format(classes[row], classes[n]))
-            bl_area += get_xtab_area(trans_prod_xtab, None, bl_trans)
-            bl_soc += get_soc_total(soc_bl_totals, bl_trans)
+            trans = int('{}{}'.format(classes[row], classes[n]))
+            area += get_xtab_area(trans_prod_xtab, None, trans)
+            soc += get_soc_total(soc_totals, trans)
 
-            tg_trans = int('{}{}'.format(classes[n], classes[row]))
-            tg_area += get_xtab_area(trans_prod_xtab, None, tg_trans)
-            tg_soc += get_soc_total(soc_tg_totals, tg_trans)
         # Note areas are in sq km. Need to convert to ha
-        if bl_soc != 0 and bl_area != 0:
-            out[row][0] = bl_soc / (bl_area * 100)
+        if soc != 0 and area != 0:
+            out[row][0] = soc / (area * 100)
         else:
             out[row][0]
-        if tg_soc != 0 and tg_area != 0:
-            out[row][1] = tg_soc / (tg_area * 100)
-        else:
-            out[row][1] = 0
     return out
 
 
@@ -1190,6 +1181,12 @@ def get_soc_total(soc_table, transition):
         return float(soc_table[1][ind])
 
 
+def write_row_to_sheet(sheet, d, row, first_col):
+    for col in range(d.size):
+        cell = sheet.cell(row=row, column=col + first_col)
+        cell.value = d[col]
+
+
 def write_table_to_sheet(sheet, d, first_row, first_col):
     for row in range(d.shape[0]):
         for col in range(d.shape[1]):
@@ -1197,9 +1194,9 @@ def write_table_to_sheet(sheet, d, first_row, first_col):
             cell.value = d[row, col]
 
 
-def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab, 
-                       sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, 
-                       out_file):
+def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 
+                       sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
+                       soc_years, out_file):
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
 
@@ -1227,7 +1224,12 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     ws_soc = wb.get_sheet_by_name('Soil organic carbon')
     write_table_to_sheet(ws_soc, sdg_tbl_soc, 6, 6)
 
-    write_table_to_sheet(ws_soc, get_soc_bl_tg(trans_prod_xtab, soc_bl_totals, soc_tg_totals), 16, 3)
+    # First write baseline
+    log('soc_totals[0]: {}'.format(soc_totals[0]))
+    write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[0]), 16, 3)
+    log('soc_totals[-1]: {}'.format(soc_totals[-1]))
+    # Now write target
+    write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[-1]), 16, 4)
 
     # Write table of baseline areas
     lc_trans_table_no_water = get_lc_table(trans_prod_xtab, classes=np.arange(1, 6 + 1))
@@ -1237,7 +1239,7 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     
     # write_soc_stock_change_table has its own writing function as it needs to write a 
     # mix of numbers and strings
-    write_soc_stock_change_table(ws_soc, 27, 3, soc_bl_totals, soc_tg_totals)
+    write_soc_stock_change_table(ws_soc, 27, 3, soc_totals[0], soc_totals[-1])
 
     ##########################################################################
     # Land cover tables
@@ -1247,9 +1249,20 @@ def make_summary_table(soc_bl_totals, soc_tg_totals, trans_prod_xtab,
     write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 26, 3)
 
     ##########################################################################
-    # Land cover tables
+    # UNCCD tables
     ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
-    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 55, 3)
+
+    for i in range(len(lc_years)):
+        # Water bodies
+        cell = ws_unccd.cell(5 + i, 4)
+        cell.value = lc_totals[i][7]
+        # Other classes
+        write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 24 + i, 2)
+
+    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 54, 3)
+
+    for i in range(len(soc_years)):
+        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i])), 64 + i, 2)
 
     ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
     ws_sdg.add_image(ws_sdg_logo, 'H1')

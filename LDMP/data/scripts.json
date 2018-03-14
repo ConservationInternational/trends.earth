@@ -1,14 +1,14 @@
 {
     "time-series": {
-        "script version": "0.48",
+        "script version": "0.49",
         "description": "Calculate time series."
     },
     "land-cover": {
-        "script version": "0.48",
+        "script version": "0.49",
         "description": "Calculate land cover change indicator."
     },
     "productivity": {
-        "script version": "0.48",
+        "script version": "0.49",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",
         "trajectory functions": {
             "NDVI trends": {
@@ -34,15 +34,15 @@
         }
     },
     "soil-organic-carbon": {
-        "script version": "0.48",
+        "script version": "0.49",
         "description": "Calculate soil organic carbon."
     },
     "sdg-sub-indicators": {
-        "script version": "0.48",
+        "script version": "0.49",
         "description": "Calculate all three SDG sub-indicators in one step."
     },
     "download-data": {
-        "script version": "0.48",
+        "script version": "0.49",
         "description": "Download data from Google Earth Engine assets."
     }
 }

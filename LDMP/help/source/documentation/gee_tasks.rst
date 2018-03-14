@@ -17,10 +17,10 @@ and end time of when the task was started and completed and whether or not the
 task was successful. The Details page outlines the different options the user 
 chose for each task.
    
-.. image:: /static/documentation/08_gee_tasks/image034.png
+.. image:: /static/documentation/gee_tasks/image034.png
    :align: center
    
-.. image:: /static/documentation/08_gee_tasks/image035.png
+.. image:: /static/documentation/gee_tasks/image035.png
    :align: center
       
 To download results to the computer once a task has finished, click on the task 
@@ -30,5 +30,5 @@ Note that some downloads might consist of multiple files - all of these files
 need to be kept together if the results are moved to a different location on 
 the computer (or saved to a USB stick).
    
-.. image:: /static/documentation/08_gee_tasks/image036.png
+.. image:: /static/documentation/gee_tasks/image036.png
    :align: center

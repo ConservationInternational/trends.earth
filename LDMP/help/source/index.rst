@@ -1,4 +1,4 @@
-trends.earth
+﻿trends.earth
 ============
 |
 
@@ -49,7 +49,7 @@ videos, are available on this website:
     :caption: About
 
     about/about
-    documentation/12_faq
+    documentation/faq
     about/development
 
 .. _background-docs:
@@ -58,9 +58,9 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: Background information
 
-    documentation/01_understanding_indicators
-    documentation/02_before_installing
-    documentation/03_installing
+    documentation/understanding_indicators
+    documentation/before_installing
+    documentation/installing
 
 .. _user-docs:
 
@@ -68,14 +68,14 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: Trends.Earth Documentation
 
-    documentation/04_settings
-    documentation/05_calculate
-    documentation/06_plot_data
-    documentation/07_data_download
-    documentation/08_gee_tasks
-    documentation/09_reporting_tool
+    documentation/settings
+    documentation/calculate
+    documentation/plot_data
+    documentation/data_download
+    documentation/gee_tasks
+    documentation/reporting_tool
     documentation/10_load_data
-    documentation/11_info
+    documentation/info
 	
 .. _videos:
 

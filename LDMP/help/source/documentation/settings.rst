@@ -28,8 +28,7 @@ and Country of residence and select `Register user`:
 
 
 A password will be sent to your email. Please check your Junk folder if you 
-cannot find it within your inbox. The email will come from 
-ldmp-api@resilienceatlas.org.
+cannot find it within your inbox. The email will come from api@trends.earth.
 
 Enter your credentials and click `Login`.
 

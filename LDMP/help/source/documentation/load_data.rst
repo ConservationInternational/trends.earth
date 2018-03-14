@@ -11,7 +11,7 @@ Load an existing |trends.earth| output file
 
 This option lets you load already downloaded results from |trends.earth|.
    
-.. image:: /static/documentation/10_load_data/loaddata_menu.png
+.. image:: /static/documentation/load_data/loaddata_menu.png
    :align: center
 	
 Productivity
@@ -20,7 +20,7 @@ Productivity
 This option lets you load pre-computed productivity indicators which had been 
 processed to identify land degradation.
 
-.. image:: /static/documentation/10_load_data/loaddata_trendsearth.png
+.. image:: /static/documentation/load_data/loaddata_trendsearth.png
    :align: center
 	
 Land cover
@@ -29,10 +29,10 @@ Land cover
 Use this option to load land cover datasets which will then be used for land 
 cover change analysis and/or soil organic carbon change analysis.
 
-.. image:: /static/documentation/10_load_data/loaddata_landproductivity.png
+.. image:: /static/documentation/load_data/loaddata_landproductivity.png
    :align: center
    
-.. image:: /static/documentation/10_load_data/loaddata_landcover.png
+.. image:: /static/documentation/load_data/loaddata_landcover.png
    :align: center
 
 .. note:: If you'll be using **CORINE land cover** datasets, you can use `this

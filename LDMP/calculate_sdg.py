@@ -1255,7 +1255,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     for i in range(len(lc_years)):
         # Water bodies
         cell = ws_unccd.cell(5 + i, 4)
-        cell.value = lc_totals[i][7]
+        cell.value = lc_totals[i][6]
         # Other classes
         write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 24 + i, 2)
 

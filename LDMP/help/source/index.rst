@@ -35,6 +35,7 @@ The documentation and training materials, including a number of demonstration
 videos, are available on this website:
 
 * :ref:`about-docs`
+* :ref:`background-docs`
 * :ref:`user-docs`
 * :ref:`videos`
 
@@ -48,17 +49,25 @@ videos, are available on this website:
     :caption: About
 
     about/about
+    documentation/12_faq
     about/development
 
-.. _user-docs:
+.. _background-docs:
 	
 .. toctree::
     :maxdepth: 2
-    :caption: User Documentation
+    :caption: Background information
 
     documentation/01_understanding_indicators
     documentation/02_before_installing
     documentation/03_installing
+
+.. _user-docs:
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Trends.Earth Documentation
+
     documentation/04_settings
     documentation/05_calculate
     documentation/06_plot_data
@@ -67,12 +76,11 @@ videos, are available on this website:
     documentation/09_reporting_tool
     documentation/10_load_data
     documentation/11_info
-    documentation/12_faq
 	
 .. _videos:
 
 .. toctree::
     :maxdepth: 2
-    :caption: Videos
+    :caption: Training materials
 
     video/video_links

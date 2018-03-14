@@ -1,18 +1,8 @@
 Frequently asked questions
 ==========================
 
-Frequently Asked Questions (FAQs) for the trends.earth plugin to QGIS
-
-**Summary**
-The questions have been grouped into the following categories:
-•	Toolbox
-•	Datasets 
-•	Methods 
-•	Productivity
-•	Land cover 
-•	Soil Organic Carbon 
-•	Land degradation outputs
-•	Workshops
+This page lists some Frequently Asked Questions (FAQs) for the |trends.earth|
+tool.
 
 Toolbox
 -------
@@ -20,18 +10,25 @@ Toolbox
 
 To download QGIS, please go to the QGIS Downloads page. As of February 2018, version 3.0 was released. Please use version 2.18 for the trends.earth plugin. A version compatible with the latest version will be released in future iterations of the project.
 
-**Do I need to download 32-bit or 64 but version of QGIS?**
+**Do I need to download a 32-bit or 64 bit version of QGIS?**
 
 We recommend downloading 64-bit version (2.18), but you may need to download the 32-bit version for 32-bit operating systems. To find out if your computer is running a 32-bit or 64-bit version of Windows,  search for System or msinfo32. This is found in the Control Panel and will bring up a window that says the system type e.g. System type: 64-bit Operating System, x64-based processor. 
+
 Windows 7 or Windows Vista:
-1. Open System by clicking the Start button , right-clicking Computer, and then clicking Properties. 
-2. Under System, you can view the system type.
+
+#. Open System by clicking the Start button , right-clicking Computer, and then 
+   clicking Properties.
+#. Under System, you can view the system type.
+
 Windows 8 or Windows 10:
-From the Start screen, type This PC.
-Right Click (or tap and hold) This PC, and click Properties.
-MAC:
-Click the Apple icon in the top left and select About this Mac.
-For more advanced details click More Info... in the About This Mac window.
+
+#. From the Start screen, type This PC.
+#. Right Click (or tap and hold) This PC, and click Properties.
+
+Mac:
+
+#. Click the Apple icon in the top left and select "About this Mac".
+#. For more advanced details click "More Info..." in the About This Mac window.
 
 **How do I install the plugin?**
 

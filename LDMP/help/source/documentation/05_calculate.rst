@@ -54,9 +54,9 @@ indicator
   changes in land cover.
 
 .. note::
-    Refer to the SDG Indicator 15.3.1 :ref:`indicator-15-3-1` section of this 
-    manual for detailed explanations of how each of these subindicators is 
-    computed in |trends.earth|
+    Refer to the :ref:`indicator-15-3-1` section of this manual for detailed 
+    explanations of how each of these subindicators is computed in 
+    |trends.earth|
 
 There are two ways to calculate the indicators: 1) using a simplified tool that 
 will calculate all three indicators at once, but with limited options for 
@@ -128,9 +128,8 @@ Calculate productivity
 ______________________
 
 .. note::
-    Refer to the productivity :ref:`indicator-productivity` background 
-    information in this manual for a detailed explanation of how productivity 
-    is computed.
+    Refer to the :ref:`indicator-productivity` background information in this 
+    manual for a detailed explanation of how productivity is computed.
 
 Productivity measures the trajectory, performance and state of primary 
 productivity using either 8km AVHRR or 250m MODIS datasets. The user can select 
@@ -144,9 +143,8 @@ Trajectory assesses the rate of change of productivity over time. To calculate
 trajectory:
 
 .. note::
-    Refer to the productivity :ref:`indicator-productivity-trajectory` 
-    section in this manual for a detailed explanation of this indicator is 
-    computed.
+    Refer to the :ref:`indicator-productivity-trajectory` section in this 
+    manual for a detailed explanation of this indicator is computed.
 
 1) Select an indicator to calculate
 
@@ -204,9 +202,8 @@ performance:
 1) Select the start and end year of the period of analysis  for comparison. 
 
 .. note::
-    Refer to the productivity :ref:`indicator-productivity-performance` 
-    section in this manual for a detailed explanation of this indicator is 
-    computed.
+    Refer to the :ref:`indicator-productivity-performance` section in this 
+    manual for a detailed explanation of this indicator is computed.
 
 Productivity State
 ~~~~~~~~~~~~~~~~~~
@@ -217,9 +214,8 @@ past productivity. To calculate state:
    subindicator.
 
 .. note::
-    Refer to the productivity :ref:`indicator-productivity-state` 
-    section in this manual for a detailed explanation of this indicator is 
-    computed.
+    Refer to the :ref:`indicator-productivity-state` section in this manual for 
+    a detailed explanation of this indicator is computed.
 
 The next step is to define the study area on which to perform the analysis. The 
 tool allows selecting the area of interest in one of two ways:
@@ -271,9 +267,8 @@ enter a transition matrix indicating which transitions indicate degradation,
 stability or improvement.
 
 .. note::
-    Refer to the productivity :ref:`indicator-land-cover` background 
-    information in this manual for a detailed explanation of how land cover 
-    change is computed.
+    Refer to the :ref:`indicator-land-cover` background information in this 
+    manual for a detailed explanation of how land cover change is computed.
 
 To calculate the land cover change indicator:
 
@@ -358,9 +353,8 @@ Soil Organic Carbon is calculated as a proxy for carbon stocks. It is measured
 using soil data and changes in land cover.
 
 .. note::
-    Refer to the productivity :ref:`indicator-soc` background information in 
-    this manual for a detailed explanation of how soil organic carbon change is 
-    computed.
+    Refer to the :ref:`indicator-soc` background information in this manual for 
+    a detailed explanation of how soil organic carbon change is computed.
 
 To calculate degradation in soil organic carbon:
 

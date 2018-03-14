@@ -1,5 +1,6 @@
 Registration and settings
 =========================
+
 .. image:: /static/common/ldmt_toolbar_highlight_settings.png
    :align: center
 

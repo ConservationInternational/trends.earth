@@ -3,19 +3,31 @@ Load data tool
 .. image:: /static/common/ldmt_toolbar_highlight_loaddata.png
    :align: center
 
-The load data function allows the user to load data into QGIS and |trends.earth| for analysis. From the 'Load data' select one of the options:
+The "Load data" function allows the user to load data into QGIS and 
+|trends.earth| for analysis.
 
-1. `Load an existing |trends.earth| output file`: This option lets you load already downloaded results from |trends.earth|.
+Load an existing |trends.earth| output file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This option lets you load already downloaded results from |trends.earth|.
    
 .. image:: /static/documentation/10_load_data/loaddata_menu.png
    :align: center
 	
-2. `Productivity`: This option lets you load pre-computed productivity indicators which had been processed to identify land degradation.
+Productivity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This option lets you load pre-computed productivity indicators which had been 
+processed to identify land degradation.
 
 .. image:: /static/documentation/10_load_data/loaddata_trendsearth.png
    :align: center
 	
-3. `Land cover`: Use this option to load land cover datasets which will then be used for land cover change analysis and/or soil organic carbon change analysis.
+Land cover
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use this option to load land cover datasets which will then be used for land 
+cover change analysis and/or soil organic carbon change analysis.
 
 .. image:: /static/documentation/10_load_data/loaddata_landproductivity.png
    :align: center
@@ -23,4 +35,8 @@ The load data function allows the user to load data into QGIS and |trends.earth|
 .. image:: /static/documentation/10_load_data/loaddata_landcover.png
    :align: center
 
-NOTE: If you'll be using **CORINE land cover** datasets, you can use the definition file created following UNCCD guidelines from this XXXXX
+.. note:: If you'll be using **CORINE land cover** datasets, you can use `this
+   definition file 
+   <https://s3.amazonaws.com/trends.earth/sharing/Corine_Land_Cover_to_UNCCD_TrendsEarth_Definition.json>`_ 
+   to pre-load a suggested aggregation of the land cover classes in Corine to 
+   convert them to the 7 UNCCD land cover classes.

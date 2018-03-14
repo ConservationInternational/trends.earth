@@ -1,4 +1,4 @@
-Calculate indicators
+﻿Calculate indicators
 ====================
 
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
@@ -18,7 +18,7 @@ To select the methods and datasets to calculate these indicators, indicators
 click on the calculator icon (|iconCalculator|). This will open up the 
 `Calculate Indicator` dialog box.
 
-.. image:: /static/documentation/05_calculate/image021.png
+.. image:: /static/documentation/calculate/image021.png
    :align: center
 
 There are several options for calculating the SDG 15.3.1 Indicator. 
@@ -73,30 +73,30 @@ Select the `Calculate all three sub-indicators in one step` button.
    for the analysis and select one of the two Land Productivity datasets. 
    Select Next.
 
-.. image:: /static/documentation/05_calculate/image022.png
+.. image:: /static/documentation/calculate/image022.png
    :align: center
    
 2. Select the Land Cover dataset. The first option is the default ESA dataset.
 
-.. image:: /static/documentation/05_calculate/image023.png
+.. image:: /static/documentation/calculate/image023.png
    :align: center
 
 3. Select Edit definition to change the aggregation from the ESA Land Cover 
    dataset into 7 classes.
 
-.. image:: /static/documentation/05_calculate/image024.png
+.. image:: /static/documentation/calculate/image024.png
    :align: center
 
 The second option allows users to upload a custom land cover dataset. This 
 requires two datasets to compare change over time. Select Next.
 
-.. image:: /static/documentation/05_calculate/image025.png
+.. image:: /static/documentation/calculate/image025.png
    :align: center
 
 4. The user can now define the effects of land cover change and how it is 
    classified as degrading or improving.
 
-.. image:: /static/documentation/05_calculate/image026.png
+.. image:: /static/documentation/calculate/image026.png
    :align: center
 
 5. Select an area to run the analysis or upload a shapefile boundary
@@ -113,7 +113,7 @@ requires two datasets to compare change over time. Select Next.
     choose a boundary provided by the national statistics office of your 
     country.
 
-.. image:: /static/documentation/05_calculate/image027.png
+.. image:: /static/documentation/calculate/image027.png
    :align: center
 
 6. Name the task and make notes for future reference
@@ -121,7 +121,7 @@ requires two datasets to compare change over time. Select Next.
 7. Click on `Calculate` to submit your task to Google Earth Engine
 
    
-.. image:: /static/documentation/05_calculate/image028.png
+.. image:: /static/documentation/calculate/image028.png
    :align: center
 
 Calculate productivity
@@ -154,7 +154,7 @@ trajectory:
     The valid date range is set by the NDVI dataset selected within the first 
     tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016.
 
-.. image:: /static/documentation/05_calculate/image029.png
+.. image:: /static/documentation/calculate/image029.png
    :align: center
 
 3) In the tab `Advanced`, select the method to be used to compute the 
@@ -190,7 +190,7 @@ trajectory:
 * **WUE**: is defined as the ratio between net primary production (NPP), in 
   this case annual integrals of NDVI, and evapotranspiration.
 
-.. image:: /static/documentation/05_calculate/image030.png
+.. image:: /static/documentation/calculate/image030.png
    :align: center
 
 Productivity Performance
@@ -226,13 +226,13 @@ tool allows selecting the area of interest in one of two ways:
 2. The user can provide a shapefile, KML, or geojson defining an area of 
    interest. Once this is done, Select Next.
 
-.. image:: /static/documentation/05_calculate/image031.png
+.. image:: /static/documentation/calculate/image031.png
    :align: center
    
 3. The next step is to write a Task name and some notes to indicate which 
    options were selected for the analysis.
 
-.. image:: /static/documentation/05_calculate/image032.png
+.. image:: /static/documentation/calculate/image032.png
    :align: center
    
 4. When all the parameters have been defined, click `Calculate`, and the task 
@@ -248,7 +248,7 @@ tool allows selecting the area of interest in one of two ways:
    Then click `Save`. The layer will be saved on your computer and 
    automatically loaded into yoour current QGIS project.
 
-.. image:: /static/documentation/05_calculate/output_productivity.png
+.. image:: /static/documentation/calculate/output_productivity.png
    :align: center
 
 
@@ -275,12 +275,12 @@ To calculate the land cover change indicator:
 1. Click on the Calculate Indicators button from the toolbox bar, then select 
    Land cover.
    
-.. image:: /static/documentation/05_calculate/image033.png
+.. image:: /static/documentation/calculate/image033.png
    :align: center
 
 2. Within the `Land Cover Setup tab` the user selects the baseline and target years
 
-.. image:: /static/documentation/05_calculate/image034.png
+.. image:: /static/documentation/calculate/image034.png
    :align: center
    
 3. The land cover aggregation can be customized using the 'Edit definition' 
@@ -294,7 +294,7 @@ To calculate the land cover change indicator:
 
    C. Select `Save definition` and select Next
 
-.. image:: /static/documentation/05_calculate/image035.png
+.. image:: /static/documentation/calculate/image035.png
    :align: center
    
 4. Within the `Define Degradation tab` user define the meaning of each land 
@@ -310,7 +310,7 @@ To calculate the land cover change indicator:
    Users can keep the default values or create unique transition values of 
    their own.
    
-.. image:: /static/documentation/05_calculate/image036.png
+.. image:: /static/documentation/calculate/image036.png
    :align: center
    
 5. The next step is to define the study area on which to perform the analysis. 
@@ -321,12 +321,12 @@ To calculate the land cover change indicator:
 
    B. The user can upload a shapefile with an area of interest.
 
-.. image:: /static/documentation/05_calculate/image037.png
+.. image:: /static/documentation/calculate/image037.png
    :align: center
 
 6. The next step is to add the task name and relevant notes for the analysis.
 
-.. image:: /static/documentation/05_calculate/image038.png
+.. image:: /static/documentation/calculate/image038.png
    :align: center
    
 7. When all the parameters have been defined, click `Calculate`, and the task 
@@ -343,7 +343,7 @@ To calculate the land cover change indicator:
    Then click `Save`. The layer will be saved on your computer and 
    automatically loaded into yoour current QGIS project.
 
-.. image:: /static/documentation/05_calculate/output_landcover.png
+.. image:: /static/documentation/calculate/output_landcover.png
    :align: center
    
 Calculate soil carbon
@@ -358,29 +358,29 @@ using soil data and changes in land cover.
 
 To calculate degradation in soil organic carbon:
 
-.. image:: /static/documentation/05_calculate/image039.png
+.. image:: /static/documentation/calculate/image039.png
    :align: center
 
 1. Select Soil organic carbon button under Calculate Indicators
 
-.. image:: /static/documentation/05_calculate/image040.png
+.. image:: /static/documentation/calculate/image040.png
    :align: center
 
 2. The Land Cover Setup tab allows the user to define the period for analysis 
    with the baseline and target year. Users can select the Edit definition 
    button to change the land cover aggregation method or upload a datasets.   
 
-.. image:: /static/documentation/05_calculate/image041.png
+.. image:: /static/documentation/calculate/image041.png
    :align: center
    
 3. The `Advanced` tab allows users to specify the Climate regime.
 
-.. image:: /static/documentation/05_calculate/image042.png
+.. image:: /static/documentation/calculate/image042.png
    :align: center
    
 4. Users can select an area or upload a polygon shapefile for analysis
    
-.. image:: /static/documentation/05_calculate/image043.png
+.. image:: /static/documentation/calculate/image043.png
    :align: center
 
 6. The next step is to add the task name and relevant notes for the analysis.
@@ -398,7 +398,7 @@ To calculate degradation in soil organic carbon:
    Then click "Save". The layer will be saved on your computer and 
    automatically loaded into yoour current QGIS project.
 
-.. image:: /static/documentation/05_calculate/output_soc.png
+.. image:: /static/documentation/calculate/output_soc.png
    :align: center
 
 Compute SDG Indicator 15.3.1
@@ -413,23 +413,23 @@ ____________________________
 2. The input window will open already populated with the correct subindicators 
    (that if you have them loaded to the QGIS map)
 
-.. image:: /static/documentation/05_calculate/sdg_input.png
+.. image:: /static/documentation/calculate/sdg_input.png
    :align: center
 
 3. Select the name and location where to save the output ratser layer and the 
    excel file with the areas computed.  
  
-.. image:: /static/documentation/05_calculate/sdg_output.png
+.. image:: /static/documentation/calculate/sdg_output.png
    :align: center
 
 4. Define the area of analysis. In this example, the country boundary.
   
-.. image:: /static/documentation/05_calculate/sdg_area.png
+.. image:: /static/documentation/calculate/sdg_area.png
    :align: center
    
 5. Give a name to the task and click `Calculate`
    
-.. image:: /static/documentation/05_calculate/sdg_options.png
+.. image:: /static/documentation/calculate/sdg_options.png
    :align: center
 
 6. This calculation is run on your computer, so depending on the size of the 
@@ -438,13 +438,13 @@ ____________________________
    the Excel file with the areas will be saved in the folder you selected. when 
    done, a message will pop up.
 
-.. image:: /static/documentation/05_calculate/sdg_done.png
+.. image:: /static/documentation/calculate/sdg_done.png
    :align: center
    
 7. Click OK and two layers will be loaded to your map: the **5 classes 
    productivity** and the **SDG 15.3.1** indicators.
 
-.. image:: /static/documentation/05_calculate/sdg_maps.png
+.. image:: /static/documentation/calculate/sdg_maps.png
    :align: center
 
 8. If you navigate to the folder you selected for storing the files, you can 
@@ -453,7 +453,7 @@ ____________________________
    just click ok and the file will open regardless. We are working to fix this 
    error.
 
-.. image:: /static/documentation/05_calculate/sdg_excel.png
+.. image:: /static/documentation/calculate/sdg_excel.png
    :align: center
   
    

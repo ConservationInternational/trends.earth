@@ -25,7 +25,7 @@ Mac:
 
 #. Click the Apple icon in the top left and select About this Mac.
 
-.. image:: /static/documentation/02_before_installing/qgis_webpage.png
+.. image:: /static/documentation/before_installing/qgis_webpage.png
    :align: center
 
 .. toctree::

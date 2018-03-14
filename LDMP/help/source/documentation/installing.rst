@@ -10,13 +10,13 @@ The preferred way to install the |trends.earth| is through QGIS. To install from
 within QGIS, first launch QGIS, and then go to `Plugins` in the menu bar at the 
 top of the program and select `Manage and install plugins`. 
 
-.. image:: /static/documentation/03_installing/plugin_menu.png
+.. image:: /static/documentation/installing/plugin_menu.png
    :align: center
 
 Then search for a plugin called `trends.earth` and select `Install plugin` at 
 the bottom right of the screen.
 
-.. image:: /static/documentation/03_installing/plugin_box_install_plugin.png
+.. image:: /static/documentation/installing/plugin_box_install_plugin.png
    :align: center
 
 If your plugin has been installed properly, there will be a menu bar in the top 

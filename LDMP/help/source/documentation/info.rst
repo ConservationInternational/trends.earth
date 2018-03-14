@@ -6,7 +6,7 @@ About
 The about page lists background information on the development of 
 |trends.earth|, and indicates the version of the tool that is installed.
 
-.. image:: /static/documentation/11_info/info.png
+.. image:: /static/documentation/info/info.png
    :align: center
 
 .. toctree::

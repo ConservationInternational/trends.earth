@@ -10,20 +10,20 @@ using any of the cloud-based functions.
 To register your email address and obtain a free account, select the wrench 
 icon (|iconWrench|). This will open up the `Settings` dialog box:
 
-.. image:: /static/documentation/04_settings/settings_empty.png
+.. image:: /static/documentation/settings/settings_empty.png
    :align: center
 
 From the `Settings` screen you can register as a new user or `Login` if you 
 already have a username and password:
 
-.. image:: /static/documentation/04_settings/settings_filled.jpg
+.. image:: /static/documentation/settings/settings_filled.jpg
    :align: center
 
 
 To Register, select the `Register` button, enter your Email, Name, Organization 
 and Country of residence and select `Register user`:
 
-.. image:: /static/documentation/04_settings/registration_filled.png
+.. image:: /static/documentation/settings/registration_filled.png
    :align: center
 
 

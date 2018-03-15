@@ -54,8 +54,8 @@ indicator
   changes in land cover.
 
 .. note::
-    Refer to the :ref:`indicator-15-3-1` section of this manual for detailed 
-    explanations of how each of these subindicators is computed in 
+    Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed 
+    explanation of how each of these subindicators is computed in 
     |trends.earth|
 
 There are two ways to calculate the indicators: 1) using a simplified tool that 
@@ -105,12 +105,12 @@ requires two datasets to compare change over time. Select Next.
     The provided boundaries are from `Natural Earth 
     <http://www.naturalearthdata.com>`_, and are in the `public domain
     <https://creativecommons.org/publicdomain>`_. The boundaries and names 
-    boundaries and names used, and the designations used, in Trends.Earth do 
-    not imply official endorsement or acceptance by Conservation International 
-    Foundation, or by its partner organizations and contributors.
+    used, and the designations used, in Trends.Earth do not imply official 
+    endorsement or acceptance by Conservation International Foundation, or by 
+    its partner organizations and contributors.
 
     If using Trends.Earth for official purposes, it is recommended that users 
-    choose a boundary provided by the national statistics office of your 
+    choose an official boundary provided by the designated office of their 
     country.
 
 .. image:: /static/documentation/calculate/image027.png
@@ -403,6 +403,11 @@ To calculate degradation in soil organic carbon:
 
 Compute SDG Indicator 15.3.1
 ____________________________
+
+.. note::
+    Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this 
+    manual for a detailed explanation of how the subindicators are combined to 
+    calculate the final SDG 15.3.1 indicator.
 
 1. Once you have computed the three sub-indicators (productivity, land cover 
    and soil organic carbon), and they are loaded into the QGIS project. Click 

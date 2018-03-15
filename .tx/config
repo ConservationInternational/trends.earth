@@ -14,6 +14,11 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/about.po
 source_file = LDMP/help/i18n/pot/about/about.pot
 source_lang = en
 
+[land_degradation_monitoring_toolbox_docs_1_0.about--data_sources]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/data_sources.po
+source_file = LDMP/help/i18n/pot/about/data_sources.pot
+source_lang = en
+
 [land_degradation_monitoring_toolbox_docs_1_0.about--development]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/development.po
 source_file = LDMP/help/i18n/pot/about/development.pot

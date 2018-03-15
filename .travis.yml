@@ -7,8 +7,6 @@ services:
 env:
   global:
   - PLUGIN_NAME=LDMP
-  - secure: xx7nCT5u7R1Ovc1cTTEgq76srkY9FBwAQqQzeB+KxYiWkLt402L9qVAgYLEJ5EipDj840sgT4trXUSlFjiphmSwrop0p/SXVcUIZggJoW0pdh9tQPDe0tTi4FN8kYVjHdz863Jm1S8pTDETyfPtPhCgCDfY/5I9jZC+ln2T45bm/g47jjmwTh8bTwvdHqKTWIRkRQug6GLoWMpOmFRqs736Fd/1ur7qz/Q3lCtxuNZHR4RBKClZZgWbmSDpUiUUjkOZK4BUnxkgCQWFb62JaU6pIIP8ziRKpYSiinSZolV1TdMysWHCPe1WgyOw/QDHq+k5uDGspfrDJLKXrajgeCepbeeiaWE6QvGlQ84Odu0Ch7M22TtlbS7VnMkbeJy+rptTVMyjyct4OhVyFqdEG3TSbn0v2ns+Mpf/5JMhAGlgYRgMQQ1CC7yGkUgQyd4JeV/xeeXgucCoPysLyB/Vn4ANfHn6XsDdmB3+JCq9zvg4Jl+HY2QEvB+Y5Y6LzHna+swcD/0r9rtGlSWdkRf/u5DGY8dm4mXVgAfx63THHUDCl2Gc5kH/0JAPU+CKJCc1ZN93rpHh4w5/Rh2lzON4n6M3ytD2coEALSt20G+ame0AdbaX/kfBGkwJOJlJE6t8NepZWUBTmyfxePt8nYhyc57glHiPsxBT2SMonAUYoT9w=
-  - secure: 0ipo/+5CxDAOZRBA7QWIERUdbCfxvTExjyaAeGdyHCbVmPR4rCNrhaElbNdaCeujPtsJ7NOiX7oV+s63ah0LR13nHaMpXwMyvtCAhBVUKLzyJ8dqIReFh7FWcQRKh+2HC7q/pNi1qmAHTFm6P61vT8A+WjdDQDQ4ixvSdC50Y1oV5vz4ahECBb1ncCoP1wXCfmD7Dwp1XXkB9pMNO/uN4oVeG8WLtD9Aajpj6Yw18AvRQhyVBDSDl9fLLS/IpRHtQbm7teFfLFFKEJuUx4C1Xxmd5dQr2MG20bEtyAlLiy9yAn+TYa4aqpXXCt50acVwGTRlDtMtNDLSqwx0pHmc7Og3g/i3XYIHOOirgoQxVYbbdj3TReIPUB9TTqYOFKyOggZQO0MBjwlwehGUB+pJ80lsDZlVjC726N8qp/zQQzDQO5THClpkV9PzLVPzWecNAD42HTZjGzqiTwj6aYHHptIF8qOJEyu9ZYp0D2z0AKUap8WrLPpyxgmZRuAvlqKIZFCeWwTcZQ8e0zr279Q4YsLJB52NnD3sp5hvXqlfiNNbJ4BvfvELnW6Uc/QRmPogK/Za8VyAxE+9ZeLrMvxDP3ONDBAkpy+kdhKrj4HmgukYxURugt8BGStoyjAhCJ8ne1UNzb4A9oUoyj5F3TK96sr8ATs+XBZ/EuAQ1C2ggKg=
   matrix:
   - QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
   - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
@@ -18,6 +16,8 @@ matrix:
   - env: QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
   - env: QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
+- openssl aes-256-cbc -K $encrypted_f20454987851_key -iv $encrypted_f20454987851_iv
+  -in aws_credentials.json.enc -out aws_credentials.json -d
 - docker-compose up -d
 - docker-compose ps
 - sleep 10
@@ -25,5 +25,7 @@ before_install:
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"
 - docker-compose exec qgis-testing-environment sh -c "pip install boto3"
 script:
-- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
-- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver deploy"
+- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver
+  setup && paver package --tests"
+- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver
+  deploy"

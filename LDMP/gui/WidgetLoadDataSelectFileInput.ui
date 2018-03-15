@@ -223,7 +223,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox">
+      <widget class="QGroupBox" name="groupBox_year">
        <property name="title">
         <string>Year of data</string>
        </property>

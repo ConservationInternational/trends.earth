@@ -29,7 +29,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Use the options below to login with a different user, update your profile, or delete your user.</string>
+      <string>Use the options below to login with a different user, update your profile, or delete your account.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

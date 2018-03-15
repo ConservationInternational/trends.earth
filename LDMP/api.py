@@ -37,7 +37,7 @@ def get_user_email(warn=True):
     if warn and email is None:
         QtGui.QMessageBox.critical(None,
                                    QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Please register with trends.earth before using this function."))
+                                   QtGui.QApplication.translate("LDMP", "Please register with Trends.Earth before using this function."))
         return None
     else:
         return email
@@ -172,8 +172,8 @@ def login(email=None, password=None):
         log('API unable to login - check username/password')
         QtGui.QMessageBox.critical(None,
                                    QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Unable to login to trends.earth server. Check your username and password."))
-        resp = None
+                                   QtGui.QApplication.translate("LDMP", "Unable to login to Trends.Earth. Check your username and password."))
+        return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})
 
@@ -190,6 +190,8 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         if login_resp:
             log("API loaded token.")
             headers = {'Authorization': 'Bearer {}'.format(login_resp['access_token'])}
+        else:
+            return
     else:
         log("API no token required.")
         headers = {}
@@ -298,7 +300,7 @@ def update_user(email, name, organization, country):
                "name": name,
                "institution": organization,
                "country": country}
-    return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+    return call_api('/api/v1/user/me', 'patch', payload, use_token=True)
 
 
 def update_password(password, repeatPassword):

@@ -23,7 +23,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP.layers import create_local_json_metadata, add_layer, \
-    get_file_metadata, get_band_title
+    get_file_metadata, get_band_title, get_sample
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -234,36 +234,42 @@ def get_raster_stats(f, band_num, min_min=0, max_max=1000, nodata=-32768):
     return v.tolist()
 
 
-def get_unique_values_raster(f, band_num, max_unique=60):
-    src_ds = gdal.Open(f)
-    b = src_ds.GetRasterBand(band_num)
+def get_unique_values_raster(f, band_num, max_unique=60, get_sample=True):
+    if get_sample:
+        values = np.unique(get_sample(f, band_number, n=1e6)).tolist()
+        if len(values) > max_unique:
+            values = None
+        return values
+    else:
+        src_ds = gdal.Open(f)
+        b = src_ds.GetRasterBand(band_num)
 
-    block_sizes = b.GetBlockSize()
-    x_block_size = block_sizes[0]
-    y_block_size = block_sizes[1]
-    xsize = b.XSize
-    ysize = b.YSize
+        block_sizes = b.GetBlockSize()
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+        xsize = b.XSize
+        ysize = b.YSize
 
-    for y in xrange(0, ysize, y_block_size):
-        if y + y_block_size < ysize:
-            rows = y_block_size
-        else:
-            rows = ysize - y
-
-        for x in xrange(0, xsize, x_block_size):
-            if x + x_block_size < xsize:
-                cols = x_block_size
+        for y in xrange(0, ysize, y_block_size):
+            if y + y_block_size < ysize:
+                rows = y_block_size
             else:
-                cols = xsize - x
+                rows = ysize - y
 
-            if x == 0 and y == 0:
-                v = np.unique(b.ReadAsArray(x, y, cols, rows).ravel())
-            else:
-                v = np.unique(np.concatenate((v, b.ReadAsArray(x, y, cols, rows).ravel())))
+            for x in xrange(0, xsize, x_block_size):
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
 
-            if v.size > max_unique:
-                return None
-    return v.tolist()
+                if x == 0 and y == 0:
+                    v = np.unique(b.ReadAsArray(x, y, cols, rows).ravel())
+                else:
+                    v = np.unique(np.concatenate((v, b.ReadAsArray(x, y, cols, rows).ravel())))
+
+                if v.size > max_unique:
+                    return None
+        return v.tolist()
 
 
 class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
@@ -696,6 +702,8 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         self.input_widget.inputFileChanged.connect(self.input_changed)
         self.input_widget.inputTypeChanged.connect(self.input_changed)
 
+        self.checkBox_use_sample.stateChanged.connect(self.clear_dlg_agg)
+
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
         self.btn_agg_edit_def.setEnabled(False)
 
@@ -752,8 +760,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             band_number = int(self.input_widget.comboBox_bandnumber.currentText())
             if not self.dlg_agg or \
                     (self.last_raster != f or self.last_band_number != band_number):
-                #TODO: Need to display a progress bar onscreen while this is happening
-                values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()))
+                values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
                 if not values:
                     QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
                     return

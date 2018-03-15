@@ -6,22 +6,22 @@ SDG Indicator 15.3.1
 As part of the "2030 Agenda for Sustainable Development", Sustainable 
 Development Goal (SDG) 15 is to:
 
-    Protect, restore and promote sustainable use of terrestrial ecosystems, 
+    "Protect, restore and promote sustainable use of terrestrial ecosystems, 
     sustainably manage forests, combat desertification, and halt and reverse 
-    land degradation and halt biodiversity loss
+    land degradation and halt biodiversity loss"
 
 Each SDG has specific targets addressing different components, in this case, of 
 life on land. Target 15.3 aims to:
 
-    By 2030, combat desertification, restore degraded land and soil, including 
+    "By 2030, combat desertification, restore degraded land and soil, including 
     land affected by desertification, drought and floods, and strive to achieve 
-    a land degradation-neutral world
+    a land degradation-neutral world"
 
 Indicators will be used then to assess the progress of each SDG target. In the 
 case of SDG 15.3 the progress towards a land degradation neutral world will be 
 assessed using indicator 15.3.1:
 
-    proportion of land that is degraded over total land area
+    "proportion of land that is degraded over total land area"
 
 As the custodian agency for SDG 15.3, the United Nations Convention to Combat 
 Desertification (UNCCD) has developed a `Good Practice Guidance (GPG) 
@@ -61,11 +61,13 @@ of carbon assimilated after photosynthesis and autotrophic respiration over a
 given period of time (Clark et al. 2001) and is typically represented in units 
 such as kg/ha/yr. NPP is a variable time consuming and costly to estimate, for 
 that reason, we rely on remotely sensed information to derive indicators of 
-NPP. One of the most commonly used surrogates of NPP is the Normalized 
-Difference Vegetation Index (NDVI), computed using information from the red and 
-near infrared portions of the electromagnetic spectrum. In |trends.earth| we 
-make use of bi-weekly products from MODIS and AVHRR to compute annual integrals 
-of NDVI (computed as the mean annual NDVI for simplicity of interpretation of 
+NPP.
+
+One of the most commonly used surrogates of NPP is the Normalized Difference 
+Vegetation Index (NDVI), computed using information from the red and near 
+infrared portions of the electromagnetic spectrum. In |trends.earth| we make 
+use of bi-weekly products from MODIS and AVHRR to compute annual integrals of 
+NDVI (computed as the mean annual NDVI for simplicity of interpretation of 
 results). These annual integrals of NDVI are then used to compute each of the 
 productivity indicators explained below.
 
@@ -243,6 +245,7 @@ Productivity Performance indicator:
 .. image:: /static/documentation/understanding_indicators/lp_perf_variables.PNG
    :align: center
 
+.. _indicator-15-3-1-combining-indicators:
 
 Combining Productivity Indicators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -279,14 +282,14 @@ maps can also be used. The indicator is computed as follows:
    which transitions correspond to degradation (- sign), improvement (+ sign), 
    or no change in terms of land condition (zero).
 
+.. image:: /static/documentation/understanding_indicators/lc_matrix.PNG
+   :align: center
+
 #. |trends.earth| will combine the information from the land cover maps and the 
    table of degradation typologies by land cover transition to compute the land 
    cover sub-indicator.
 
 .. image:: /static/documentation/understanding_indicators/lc_flow.PNG
-   :align: center
-
-.. image:: /static/documentation/understanding_indicators/lc_matrix.PNG
    :align: center
 
 .. _indicator-soc:

@@ -49,6 +49,7 @@ videos, are available on this website:
     :caption: About
 
     about/about
+    about/data_sources
     about/faq
     about/development
 

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" sourcelanguage="" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -386,7 +385,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -1016,12 +1015,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_sdg.py" line="1079"/>
         <source>Error calculating SDG 15.3.1 degradation layer.</source>
-        <translation type="obsolete">Erreur lors du calcul de la couche de dégradation SDG 15.3.1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1098"/>
         <source>Error calculating degraded areas.</source>
-        <translation type="obsolete">Erreur lors du calcul des zones dégradées.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="20"/>
@@ -1116,12 +1115,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_sdg.py" line="966"/>
         <source>Reporting tool does not yet work for split bounding boxes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1047"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1416,7 +1415,7 @@ p, li {white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN &quot; &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; 
  &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext &quot; content = &quot;1 &quot; /&gt; &lt;style type = &quot;text / css &quot;&gt; 
@@ -1563,21 +1562,31 @@ p, li { white-space: pre-wrap; }
         <source>Edit definition</source>
         <translation>Modifier la définition</translation>
     </message>
+    <message>
+        <location filename="../gui/DlgLoadDataLC.ui" line="63"/>
+        <source>Use sample when reading cover classes from input file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgLoadDataLC.ui" line="94"/>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DlgLoadDataProd</name>
     <message>
-        <location filename="../load_data.py" line="871"/>
+        <location filename="../load_data.py" line="874"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="858"/>
+        <location filename="../load_data.py" line="861"/>
         <source>Choose an output file.</source>
         <translation>Choisissez un fichier de sortie.</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="871"/>
+        <location filename="../load_data.py" line="874"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de productivité valide.</translation>
     </message>
@@ -1596,7 +1605,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -1619,12 +1628,12 @@ p, li {white-space: pré-wrap; }
 &lt;p style = &quot;marge supérieure: 0 px; marge inférieure: 0 px; marge gauche: 0 px; marge droite: 0 px; &quot;font-size: 8pt;&quot;&gt; 0 ou -32768: aucune donnée &lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="875"/>
+        <location filename="../load_data.py" line="878"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="875"/>
+        <location filename="../load_data.py" line="878"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de productivité valide. Trends.Earth chargera quand même le fichier, mais passera en revue la carte une fois chargée pour s&apos;assurer que les valeurs ont du sens. Les seules valeurs autorisées dans un fichier d&apos;entrée de productivité sont -32768, 1, 2, 3, 4 et 5. Il y a {} valeur (s) dans le fichier d&apos;entrée qui n&apos;ont pas été reconnues.</translation>
     </message>
@@ -1820,114 +1829,341 @@ p, li {white-space: pré-wrap; }
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="35"/>
+        <location filename="../gui/DlgSettings.ui" line="41"/>
         <source>New users</source>
         <translation>Nouveaux utilisateurs</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="53"/>
         <source>Register</source>
-        <translation>Registre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="85"/>
+        <location filename="../gui/DlgSettings.ui" line="154"/>
         <source>Existing users</source>
         <translation>Utilisateurs existants</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="105"/>
         <source>Email:</source>
-        <translation>Email:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="137"/>
         <source>Password:</source>
-        <translation>Mot de passe:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="173"/>
         <source>Update profile</source>
-        <translation>Mettre à jour le profil</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="192"/>
         <source>Login</source>
-        <translation>Se Connecter</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="217"/>
         <source>Forgot password</source>
-        <translation>Mot de passe oublié</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="236"/>
         <source>Delete user</source>
-        <translation>Supprimer l&apos;utilisateur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="269"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="144"/>
         <source>Error</source>
-        <translation>Erreur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="61"/>
         <source>Enter an email address to update.</source>
-        <translation>Entrez une adresse email pour la mise à jour.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="64"/>
         <source>Enter your password to update your user details.</source>
-        <translation>Entrez votre mot de passe pour mettre à jour vos informations utilisateur.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="99"/>
         <source>Enter your email.</source>
-        <translation>Entrer votre Email.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="144"/>
         <source>Enter your password.</source>
-        <translation>Entrez votre mot de passe.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="106"/>
         <source>Delete user?</source>
-        <translation>Supprimer l&apos;utilisateur?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="106"/>
         <source>Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using earth.trends.</source>
-        <translation>Êtes-vous sûr de vouloir supprimer votre utilisateur? Toutes vos tâches seront perdues et vous ne pourrez plus traiter les données en ligne en utilisant earth.trends.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="129"/>
         <source>Enter your email address to reset your password.</source>
-        <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="149"/>
         <source>Success</source>
-        <translation>Succès</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="134"/>
         <source>The password has been reset for {}. Check your email for the new password.</source>
-        <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre courrier électronique pour le nouveau mot de passe.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="140"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="149"/>
         <source>Logged in to the trends.earth server as {}.</source>
-        <translation>Connecté au serveur LDMP comme {}.</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="65"/>
+        <source>Click the below button to register with Trends.Earth.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="87"/>
+        <source>Step 1: Register</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="100"/>
+        <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="122"/>
+        <source>Step 2: Enter login</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="166"/>
+        <source>Update account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="191"/>
+        <source>Reset password</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DlgSettingsEdit</name>
+    <message>
+        <location filename="../gui/DlgSettingsEdit.ui" line="20"/>
+        <source>Update user</source>
+        <translation>Mettre à jour l&apos;utilisateur</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEdit.ui" line="32"/>
+        <source>Use the options below to login with a different user, update your profile, or delete your account.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
+        <source>Change user</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
+        <source>Update profile</source>
+        <translation>Mettre à jour le profil</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEdit.ui" line="80"/>
+        <source>Delete user</source>
+        <translation>Supprimer l&apos;utilisateur</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="188"/>
+        <source>Delete user?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../settings.py" line="188"/>
+        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../settings.py" line="194"/>
+        <source>Success</source>
+        <translation>Succès</translation>
+    </message>
+</context>
+<context>
+    <name>DlgSettingsEditForgotPassword</name>
+    <message>
+        <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="20"/>
+        <source>Forgot password</source>
+        <translation>Mot de passe oublié</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="26"/>
+        <source>Enter your email address below and if you have an account an email will be sent to you (from api@trends.earth) with a new password.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="45"/>
+        <source>Enter your email address...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../settings.py" line="223"/>
+        <source>Error</source>
+        <translation>Erreur</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="223"/>
+        <source>Enter your email address to reset your password.</source>
+        <translation>Entrez l&apos;adresse e-mail pour réinitialiser votre mot de passe.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="227"/>
+        <source>Reset password?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../settings.py" line="227"/>
+        <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../settings.py" line="235"/>
+        <source>Success</source>
+        <translation>Succès</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="235"/>
+        <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DlgSettingsEditUpdate</name>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="20"/>
+        <source>Update user information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="58"/>
+        <source>Email:</source>
+        <translation>Email:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="87"/>
+        <source>Name:</source>
+        <translation>Nom:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="113"/>
+        <source>Country:</source>
+        <translation>Pays:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="133"/>
+        <source>Organization:</source>
+        <translation>Organisation:</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="279"/>
+        <source>Error</source>
+        <translation>Erreur</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="270"/>
+        <source>Enter your email address.</source>
+        <translation>Entrez votre adresse courriel.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="273"/>
+        <source>Enter your name.</source>
+        <translation>Entrez votre nom.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="276"/>
+        <source>Enter your organization.</source>
+        <translation>Entrez votre organisation.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="279"/>
+        <source>Enter your country.</source>
+        <translation>Entrez votre pays.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="286"/>
+        <source>Saved</source>
+        <translation>Enregistré</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="286"/>
+        <source>Updated information for {}.</source>
+        <translation>Informations mises à jour pour {}.</translation>
+    </message>
+</context>
+<context>
+    <name>DlgSettingsLogin</name>
+    <message>
+        <location filename="../gui/DlgSettingsLogin.ui" line="20"/>
+        <source>Login to Trends.Earth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsLogin.ui" line="38"/>
+        <source>Email:</source>
+        <translation>Email:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsLogin.ui" line="70"/>
+        <source>Password:</source>
+        <translation>Mot de passe:</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="140"/>
+        <source>Error</source>
+        <translation>Erreur</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="136"/>
+        <source>Enter your email address.</source>
+        <translation>Entrez votre adresse courriel.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="140"/>
+        <source>Enter your password.</source>
+        <translation>Entrez votre mot de passe.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="146"/>
+        <source>Success</source>
+        <translation>Succès</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="146"/>
+        <source>Logged in to the Trends.Earth server as {}.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1938,59 +2174,69 @@ p, li {white-space: pré-wrap; }
         <translation>Enregistrer un nouvel utilisateur</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="32"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="39"/>
         <source>Email:</source>
         <translation>Email:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="58"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="65"/>
         <source>Name:</source>
         <translation>Nom:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="84"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="130"/>
         <source>Organization:</source>
         <translation>Organisation:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="113"/>
+        <location filename="../gui/DlgSettingsRegister.ui" line="117"/>
         <source>Country:</source>
         <translation>Pays:</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="152"/>
         <source>Register user</source>
-        <translation>Registre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="165"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="171"/>
+        <location filename="../settings.py" line="101"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="165"/>
+        <location filename="../settings.py" line="92"/>
         <source>Enter your email address.</source>
         <translation>Entrez votre adresse courriel.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="167"/>
+        <location filename="../settings.py" line="95"/>
         <source>Enter your name.</source>
         <translation>Entrez votre nom.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="169"/>
+        <location filename="../settings.py" line="98"/>
         <source>Enter your organization.</source>
         <translation>Entrez votre organisation.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="171"/>
+        <location filename="../settings.py" line="101"/>
         <source>Enter your country.</source>
         <translation>Entrez votre pays.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="107"/>
+        <source>Success</source>
+        <translation>Succès</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="107"/>
+        <source>User registered. Your password has been emailed to {}.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1998,72 +2244,72 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="20"/>
         <source>Update user</source>
-        <translation>Mettre à jour l&apos;utilisateur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="64"/>
         <source>Email:</source>
-        <translation>Email:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="87"/>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="129"/>
         <source>Country:</source>
-        <translation>Pays:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="142"/>
         <source>Organization:</source>
-        <translation>Organisation:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="155"/>
         <source>Save</source>
-        <translation>Enregistrer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsUpdate.ui" line="168"/>
         <source>Name:</source>
-        <translation>Nom:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="202"/>
         <source>Error</source>
-        <translation>Erreur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="196"/>
         <source>Enter your email address.</source>
-        <translation>Entrez votre adresse courriel.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="198"/>
         <source>Enter your name.</source>
-        <translation>Entrez votre nom.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="200"/>
         <source>Enter your organization.</source>
-        <translation>Entrez votre organisation.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="202"/>
         <source>Enter your country.</source>
-        <translation>Entrez votre pays.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="207"/>
         <source>Saved</source>
-        <translation>Enregistré</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="207"/>
         <source>Updated information for {}.</source>
-        <translation>Informations mises à jour pour {}.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2196,12 +2442,12 @@ p, li {white-space: pré-wrap; }
     </message>
     <message>
         <location filename="../api.py" line="38"/>
-        <source>Please register with trends.earth before using this function.</source>
-        <translation>Veuillez vous enregistrer auprès de trends.earth avant d&apos;utiliser cette fonction.</translation>
+        <source>Please register with Trends.Earth before using this function.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../api.py" line="173"/>
-        <source>Unable to login to trends.earth server. Check your username and password.</source>
+        <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre nom d&apos;utilisateur et votre mot de passe.</translation>
     </message>
     <message>
@@ -2430,10 +2676,10 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="112"/>
         <source>Success</source>
-        <translation>Succès</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="112"/>
+        <location filename="../settings.py" line="194"/>
         <source>User {} deleted.</source>
         <translation>Utilisateur {} supprimé.</translation>
     </message>

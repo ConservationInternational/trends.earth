@@ -312,7 +312,7 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
     def run_soc(self):
         QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                      self.tr("Processing of vector input datasets coming soon!"))
+                                      self.tr("Processing of custom soil organic carbon data coming soon!"))
         #self.close()
         #self.dlg_loaddata_soc.exec_()
 
@@ -845,6 +845,9 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
         self.output_widget = LoadDataSelectRasterOutput()
+
+        self.input_widget.groupBox_year.hide()
+
         self.verticalLayout.insertWidget(1, self.output_widget)
 
     def done(self, value):
@@ -886,5 +889,4 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
             self.convert_vector("Land Productivity Dynamics (LPD)")
 
         self.create_json("Land Productivity Dynamics (LPD)",
-                         {'year': int(self.input_widget.spinBox_data_year.date().year()),
-                          'source': 'custom data'})
+                         {'source': 'custom data'})

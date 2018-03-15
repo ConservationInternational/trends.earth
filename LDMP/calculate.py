@@ -156,15 +156,12 @@ class AOI(object):
 
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-    def layer_meridian_split_wkt(self):
+    def meridian_split(self, out_type='extent', out_format='geojson'):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
 
         Returns multiple geometries as needed to avoid having an extent 
         crossing the 180th meridian
-        """
-        """
-        Return layer split into two extent jsons, one on each side of the 180th meridian
         """
 
         # Calculate a single feature that is the union of all the features in 
@@ -179,87 +176,46 @@ class AOI(object):
             else:
                 union = geom.Union(geom)
 
-        union_e_ext = hemi_e.Intersection(union)
-        union_w_ext = hemi_w.Intersection(union)
+        e_intersection = hemi_e.Intersection(union)
+        w_intersection = hemi_w.Intersection(union)
 
-        if union_e_ext.IsEmpty() or union_w_ext.IsEmpty():
+        if out_type == 'extent':
+            e_intersection = get_ogr_geom_extent(e_intersection)
+            w_intersection = get_ogr_geom_extent(w_intersection)
+            union = get_ogr_geom_extent(union)
+        elif out_type == 'layer':
+            pass
+        else:
+            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
+
+        if out_format == 'geojson':
+            e_intersection_out = json.loads(e_intersection.ExportToJson())
+            w_intersection_out = json.loads(w_intersection.ExportToJson())
+            union_out = json.loads(union.ExportToJson())
+        elif out_format == 'wkt':
+            e_intersection_out = e_intersection.ExportToWkt()
+            w_intersection_out = w_intersection.ExportToWkt()
+            union_out = union.ExportToWkt()
+        else:
+            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
+
+        log('w int: {}, e_int: {}, orig: {}'.format(w_intersection.GetArea(), e_intersection.GetArea(), get_ogr_geom_extent(union).GetArea()))
+        if e_intersection.IsEmpty() or w_intersection.IsEmpty():
             # If there is no area in one of the hemispheres, return the extent 
             # of the original layer
-            return (False, [union.ExportToWkt()])
-        elif union_w_ext.Union(union_e_ext).GetArea() > (get_ogr_geom_extent(union).GetArea() * 2):
+            return (False, [union_out])
+        elif (w_intersection.GetArea() + e_intersection.GetArea()) > (get_ogr_geom_extent(union).GetArea() / 2):
             # If the extent of the combined extents from both hemispheres is 
             # not significantly smaller than that of the original layer, then 
             # return the original layer
-            return (False, [union.ExportToWkt()])
+            return (False, [union_out])
         else:
+            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
             ignore = QSettings().value("LDMP/ignore_crs_warning", False)
             if not ignore:
                 QtGui.QMessageBox.information(None, tr("Warning"),
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
-            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
-            return (True, [union_e_ext.ExportToWkt(),union_w_ext.ExportToWkt()])
-
-
-    def bounding_box_meridian_split_geojson(self):
-        """
-        Return list of bounding boxes in WGS84 as geojson for GEE
-
-        Returns multiple geometries as needed to avoid having an extent 
-        crossing the 180th meridian
-        """
-        """
-        Return layer split into two extent jsons, one on each side of the 180th meridian
-        """
-
-        # Calculate a single feature that is the union of all the features in 
-        # this layer - that way there is a single feature to intersect with 
-        # each hemisphere.
-        n = 0
-        for f in self.get_layer_wgs84().getFeatures():
-            # Get an OGR geometry from the QGIS geometry
-            geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
-            if n == 0:
-                union = geom
-            else:
-                union = geom.Union(geom)
-
-        union_e_ext = hemi_e.Intersection(union)
-        union_w_ext = hemi_w.Intersection(union)
-
-        if union_e_ext.IsEmpty() or union_w_ext.IsEmpty():
-            # If there is no area in one of the hemispheres, return the extent 
-            # of the original layer
-            return (False, [json.loads(get_ogr_geom_extent(union).ExportToJson())])
-        elif union_w_ext.Union(union_e_ext).GetArea() > (get_ogr_geom_extent(union).GetArea() * 2):
-            # If the extent of the combined extents from both hemispheres is 
-            # not significantly smaller than that of the original layer, then 
-            # return the original layer
-            return (False, [json.loads(get_ogr_geom_extent(union).ExportToJson())])
-        else:
-            ignore = QSettings().value("LDMP/ignore_crs_warning", False)
-            if not ignore:
-                QtGui.QMessageBox.information(None, tr("Warning"),
-                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
-            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
-            return (True, [json.loads(get_ogr_geom_extent(union_e_ext).ExportToJson()),
-                           json.loads(get_ogr_geom_extent(union_w_ext).ExportToJson())])
-
-    def get_wrapped_layer_wgs84(self):
-        """
-        Return layer with smallest extent possible (wrapping across 180th meridian when needed)
-        """
-        # Setup settings for AOI provided to GEE:
-        l_wgs84 = self.get_layer_wgs84()
-        wgs84_wrapped_crs = QgsCoordinateReferenceSystem()
-        wgs84_wrapped_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs +lon_wrap=180')
-        l_wgs84_wrapped = transform_layer(self.l, wgs84_wrapped_crs, datatype=self.datatype, wrap=True)
-        
-        # Add .01 to account for round error with floating point
-        if (l_wgs84_wrapped.extent().width() + .01) < l_wgs84.extent().width():
-            log('Wrapping layer for GEE across 180th meridian for GEE to reduce width (from {} to {})'.format(l_wgs84.extent().width(), l_wgs84_wrapped.extent().width()))
-            return l_wgs84_wrapped
-        else:
-            return l_wgs84
+            return (True, [e_intersection_out, w_intersection_out])
 
     def get_layer(self):
         """
@@ -287,7 +243,7 @@ class AOI(object):
         second is the list of bounding box geojsons.
         '''
         if self.datatype == 'polygon':
-            return self.bounding_box_meridian_split_geojson()
+            return self.meridian_split()
         elif self.datatype == 'point':
             # If there is only on point, don't calculate an extent (extent of 
             # one point is a box with sides equal to zero)
@@ -303,7 +259,7 @@ class AOI(object):
                 return (False, [json.loads(geom.exportToGeoJSON())])
             else:
                 log('Layer has many points ({})'.format(n))
-                return self.bounding_box_meridian_split_geojson()
+                return self.meridian_split()
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
                     tr("Failed to process area of interest - unknown geometry type:{}".format(self.datatype)))

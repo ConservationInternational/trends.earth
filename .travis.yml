@@ -8,13 +8,7 @@ env:
   global:
   - PLUGIN_NAME=LDMP
   matrix:
-  - QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
-  - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
-  - QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
-matrix:
-  allow_failures:
-  - env: QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
-  - env: QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
+  - QGIS_VERSION_TAG=release-2_18 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
 - openssl aes-256-cbc -K $encrypted_f20454987851_key -iv $encrypted_f20454987851_iv
   -in aws_credentials.json.enc -out aws_credentials.json -d

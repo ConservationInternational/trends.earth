@@ -961,7 +961,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
-        wkts = self.aoi.layer_meridian_split_wkt()[1]
+        wkts = self.aoi.meridian_split('layer', 'wkt')[1]
         if len(wkts) > 1:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Reporting tool does not yet work for split bounding boxes."), None)

@@ -21,192 +21,269 @@ from PyQt4 import QtGui
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP.gui.DlgSettings import Ui_DlgSettings as UiDialog
-
+from LDMP.gui.DlgSettings import Ui_DlgSettings
+from LDMP.gui.DlgSettingsEdit import Ui_DlgSettingsEdit
+from LDMP.gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassword
+from LDMP.gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
+from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
-from LDMP.gui.DlgSettingsUpdate import Ui_DlgSettingsUpdate
 
-from LDMP.api import get_user_email, get_user, delete_user, login, register, update_user, recover_pwd
+from LDMP.api import get_user_email, get_user, delete_user, login, register, \
+    update_user, recover_pwd
 from LDMP.download import get_admin_bounds
 
+settings = QSettings()
 
-class DlgSettings (QtGui.QDialog, UiDialog):
+
+class DlgSettings(QtGui.QDialog, Ui_DlgSettings):
     def __init__(self, parent=None):
         super(DlgSettings, self).__init__(parent)
-        self.settings = QSettings()
 
         self.setupUi(self)
 
-        self.dlg_settingsregister = DlgSettingsRegister()
-        self.dlg_settingsupdate = DlgSettingsUpdate()
+        self.dlg_settings_register = DlgSettingsRegister()
+        self.dlg_settings_login = DlgSettingsLogin()
+        self.dlg_settings_edit = DlgSettingsEdit()
 
-        self.register_user.clicked.connect(self.btn_register)
-        self.delete_user.clicked.connect(self.btn_delete)
-        self.login.clicked.connect(self.btn_login)
-        self.update_profile.clicked.connect(self.btn_update_profile)
-        self.forgot_pwd.clicked.connect(self.btn_forgot_pwd)
-        self.cancel.clicked.connect(self.btn_cancel)
+        self.pushButton_register.clicked.connect(self.register)
+        self.pushButton_login.clicked.connect(self.login)
+        self.pushButton_edit.clicked.connect(self.edit)
+        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
-        self.admin_bounds_key = get_admin_bounds()
+        self.buttonBox.rejected.connect(self.close)
 
-        email = get_user_email(warn=False)
-        if email:
-            self.email.setText(email)
-        password = self.settings.value("LDMP/password", None)
-        if password:
-            self.password.setText(password)
+    def register(self):
+        result = self.dlg_settings_register.exec_()
 
-    def btn_update_profile(self):
-        if not self.email.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter an email address to update."), None)
-        elif not self.password.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your password to update your user details."), None)
-        else:
-            # Validate the email/password by logging in first
-            resp = login(self.email.text(), self.password.text())
-            if not resp:
-                return
-            user = get_user()
-            if not user:
-                return
-
-            self.dlg_settingsupdate.email.setText(user['email'])
-            self.dlg_settingsupdate.name.setText(user['name'])
-            self.dlg_settingsupdate.organization.setText(user['institution'])
-
-            # Add countries, and set index to currently chosen country
-            self.dlg_settingsupdate.country.addItems(sorted(self.admin_bounds_key.keys()))
-            index = self.dlg_settingsupdate.country.findText(user['country'])
-            if index != -1:
-                self.dlg_settingsupdate.country.setCurrentIndex(index)
-
-            result = self.dlg_settingsupdate.exec_()
-
-            if result:
-                self.close()
-
-    def btn_register(self):
-        self.dlg_settingsregister.country.addItems(sorted(self.admin_bounds_key.keys()))
-        result = self.dlg_settingsregister.exec_()
-        # See if OK was pressed
+    def login(self):
+        result = self.dlg_settings_login.exec_()
         if result:
             self.close()
 
-    def btn_delete(self):
-        if not self.email.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email."), None)
+    def edit(self):
+        if not get_user_email():
+            # Note that the get_user_email will display a message box warning 
+            # the user to register.
             return
-        if not self.password.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your password."), None)
-            return
-        reply = QtGui.QMessageBox.question(None, self.tr("Delete user?"),
-                                           self.tr("Are you sure you want to delete your user? All of your tasks will be lost and you will no longer be able to process data online using earth.trends."),
-                                           QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
-        if reply == QtGui.QMessageBox.Yes:
-            resp = delete_user(self.email.text)
-            if resp:
-                mb.pushMessage(QtGui.QApplication.translate('LDMPPlugin', "Success"),
-                               QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(self.email.text()), level=0)
-                self.settings.setValue("LDMP/password", None)
-                self.settings.setValue("LDMP/email", None)
-                self.email.setText(None)
-                self.password.setText(None)
-                self.close()
-                return True
-            else:
-                return False
 
-    def btn_cancel(self):
-        self.close()
+        self.dlg_settings_edit.exec_()
 
-    def btn_forgot_pwd(self):
-        # Verify there is input for email
-        if not self.email.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email address to reset your password."), None)
-            return
-        resp = recover_pwd(self.email.text())
-        if resp != None:
-            mb.pushMessage(self.tr("Success"),
-                           self.tr("The password has been reset for {}. Check your email for the new password.").format(self.email.text()), level=0)
-            self.close()
-
-    def btn_login(self):
-        if not self.email.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email address."), None)
-            return
-        elif not self.password.text():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your password."), None)
-            return
-        resp = login(self.email.text(), self.password.text())
-        if resp:
-            mb.pushMessage(self.tr("Success"),
-                           self.tr("Logged in to the trends.earth server as {}.").format(self.email.text()), level=0)
-            self.settings.setValue("LDMP/jobs_cache", None)
+    def forgot_pwd(self):
+        dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
+        ret = dlg_settings_edit_forgot_password.exec_()
+        if ret:
             self.close()
 
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
     def __init__(self, parent=None):
         super(DlgSettingsRegister, self).__init__(parent)
+
         self.setupUi(self)
 
-        self.save.clicked.connect(self.btn_save)
-        self.cancel.clicked.connect(self.btn_cancel)
+        self.admin_bounds_key = get_admin_bounds()
+        self.country.addItems(sorted(self.admin_bounds_key.keys()))
 
-    def btn_save(self):
+        self.buttonBox.accepted.connect(self.register)
+        self.buttonBox.rejected.connect(self.close)
+
+    def register(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
+            return
         elif not self.name.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
+            return
         elif not self.organization.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
+            return
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
+            return
+
+        resp = register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+        if resp:
+            self.close()
+            QtGui.QMessageBox.information(None,
+                    self.tr("Success"),
+                    self.tr("User registered. Your password has been emailed to {}.".format(self.email.text())))
+            settings.setValue("LDMP/email", self.email.text())
+            settings.setValue("LDMP/password", None)
+            return True
+
+
+class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
+    def __init__(self, parent=None):
+        super(DlgSettingsLogin, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.buttonBox.accepted.connect(self.login)
+        self.buttonBox.rejected.connect(self.close)
+
+    def showEvent(self, event):
+        super(DlgSettingsLogin, self).showEvent(event)
+
+        email = get_user_email(warn=False)
+        if email:
+            self.email.setText(email)
+        password = settings.value("LDMP/password", None)
+        if password:
+            self.password.setText(password)
+
+    def login(self):
+        if not self.email.text():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Enter your email address."), None)
+            return False
+        elif not self.password.text():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Enter your password."), None)
+            return False
+
+        resp = login(self.email.text(), self.password.text())
+        if resp:
+            QtGui.QMessageBox.information(None,
+                    self.tr("Success"),
+                    self.tr("Logged in to the Trends.Earth server as {}.").format(self.email.text()))
+            settings.setValue("LDMP/jobs_cache", None)
+            self.close()
+            return True
         else:
-            resp = register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+            return False
+
+
+class DlgSettingsEdit(QtGui.QDialog, Ui_DlgSettingsEdit):
+    def __init__(self, parent=None):
+        super(DlgSettingsEdit, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.pushButton_change_user.clicked.connect(self.change_user)
+        self.pushButton_update_profile.clicked.connect(self.update_profile)
+        self.pushButton_delete_user.clicked.connect(self.delete)
+
+        self.buttonBox.rejected.connect(self.close)
+
+    def change_user(self):
+        dlg_settings_change_user = DlgSettingsLogin()
+        ret = dlg_settings_change_user.exec_()
+        if ret:
+            self.close()
+
+    def update_profile(self):
+        user = get_user()
+        if not user:
+            return
+        dlg_settings_edit_update = DlgSettingsEditUpdate(user)
+        ret = dlg_settings_edit_update.exec_()
+        if ret:
+            self.close()
+
+    def delete(self):
+        email = get_user_email()
+        if not email:
+            return
+
+        reply = QtGui.QMessageBox.question(None, self.tr("Delete user?"),
+                                           self.tr("Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.".format(email)),
+                                           QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        if reply == QtGui.QMessageBox.Yes:
+            resp = delete_user(email)
             if resp:
-                mb.pushMessage("Success", "User {} registered. Your password has been emailed to you.".format(self.email.text()), level=0)
+                QtGui.QMessageBox.information(None,
+                        self.tr("Success"),
+                        QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(email))
+                settings.setValue("LDMP/password", None)
+                settings.setValue("LDMP/email", None)
                 self.close()
                 return True
             else:
                 return False
 
-    def btn_cancel(self):
-        self.close()
 
-
-class DlgSettingsUpdate(QtGui.QDialog, Ui_DlgSettingsUpdate):
+class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassword):
     def __init__(self, parent=None):
-        """Constructor."""
-        super(DlgSettingsUpdate, self).__init__(parent)
+        super(DlgSettingsEditForgotPassword, self).__init__(parent)
+
         self.setupUi(self)
 
-        self.save.clicked.connect(self.btn_save)
-        self.cancel.clicked.connect(self.btn_cancel)
+        self.buttonBox.accepted.connect(self.reset_password)
+        self.buttonBox.rejected.connect(self.close)
 
-    def btn_save(self):
+    def showEvent(self, event):
+        super(DlgSettingsEditForgotPassword, self).showEvent(event)
+
+        email = get_user_email()
+        if email:
+            self.email.setText(email)
+
+    def reset_password(self):
+        if not self.email.text():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Enter your email address to reset your password."), None)
+            return False
+
+        reply = QtGui.QMessageBox.question(None, self.tr("Reset password?"),
+                                           self.tr("Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(self.email.text())),
+                                           QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+
+        if reply == QtGui.QMessageBox.Yes:
+            resp = recover_pwd(self.email.text())
+            if resp:
+                self.close()
+                QtGui.QMessageBox.information(None,
+                        self.tr("Success"),
+                        self.tr("The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
+                settings.setValue("LDMP/password", None)
+                return True
+            else:
+                return False
+
+
+class DlgSettingsEditUpdate(QtGui.QDialog, Ui_DlgSettingsEditUpdate):
+    def __init__(self, user, parent=None):
+        """Constructor."""
+        super(DlgSettingsEditUpdate, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.user = user
+
+        self.admin_bounds_key = get_admin_bounds()
+
+        self.email.setText(user['email'])
+        self.name.setText(user['name'])
+        self.organization.setText(user['institution'])
+
+        # Add countries, and set index to currently chosen country
+        self.country.addItems(sorted(self.admin_bounds_key.keys()))
+        index = self.country.findText(user['country'])
+        if index != -1:
+            self.country.setCurrentIndex(index)
+
+        self.buttonBox.accepted.connect(self.update_profile)
+        self.buttonBox.rejected.connect(self.close)
+
+    def update_profile(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
+            return False
         elif not self.name.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
+            return False
         elif not self.organization.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
+            return False
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
-        else:
-            resp = update_user(self.email.text(), self.name.text(),
-                               self.organization.text(), self.country.currentText())
-            if resp != None:
-                QtGui.QMessageBox.information(None, self.tr("Saved"),
-                                              self.tr("Updated information for {}.").format(self.email.text()), None)
-                self.close()
+            return False
 
-    def btn_cancel(self):
-        self.close()
+        resp = update_user(self.email.text(), self.name.text(),
+                           self.organization.text(), self.country.currentText())
+
+        if resp:
+            QtGui.QMessageBox.information(None, self.tr("Saved"),
+                                          self.tr("Updated information for {}.").format(self.email.text()), None)
+            self.close()
+            return True

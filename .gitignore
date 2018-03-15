@@ -10,8 +10,11 @@ aws_credentials.json
 *.o
 *.dll
 *.so
+*.gz
+*.geojson
 .Rproj.user
 *.pyc
+*/build/*
 */help/build/*
 */help/i18n/*
 */ext-libs/*

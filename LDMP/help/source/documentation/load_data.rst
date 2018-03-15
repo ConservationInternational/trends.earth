@@ -35,7 +35,8 @@ cover change analysis and/or soil organic carbon change analysis.
 .. image:: /static/documentation/load_data/loaddata_landcover.png
    :align: center
 
-.. note:: If you'll be using **CORINE land cover** datasets, you can use `this
+.. note:: If you'll be using the `CORINE land cover data
+   <https://www.eea.europa.eu/publications/COR0-landcover>`_, you can use `this
    definition file 
    <https://s3.amazonaws.com/trends.earth/sharing/Corine_Land_Cover_to_UNCCD_TrendsEarth_Definition.json>`_ 
    to pre-load a suggested aggregation of the land cover classes in Corine to 

@@ -19,8 +19,11 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgReporting.ui \
 ../gui/DlgReportingBasemap.ui \
 ../gui/DlgSettings.ui \
+../gui/DlgSettingsEdit.ui \
+../gui/DlgSettingsEditForgotPassword.ui \
+../gui/DlgSettingsEditUpdate.ui \
+../gui/DlgSettingsLogin.ui \
 ../gui/DlgSettingsRegister.ui \
-../gui/DlgSettingsUpdate.ui \
 ../gui/DlgTimeseries.ui \
 ../gui/WidgetCalculationOptions.ui \
 ../gui/WidgetLCDefineDegradation.ui \

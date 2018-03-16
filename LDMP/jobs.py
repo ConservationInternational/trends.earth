@@ -92,11 +92,6 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         self.layout().addWidget(self.bar, 0, 0, Qt.AlignTop)
 
-        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
-        if jobs_cache:
-            self.jobs = jobs_cache
-            self.update_jobs_table()
-
         self.refresh.clicked.connect(self.btn_refresh)
         self.download.clicked.connect(self.btn_download)
 
@@ -104,6 +99,13 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
+
+    def showEvent(self, event):
+        super(DlgJobs, self).showEvent(event)
+        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
+        if jobs_cache:
+            self.jobs = jobs_cache
+            self.update_jobs_table()
 
     def connection_event_changed(self, flag):
         if flag:

@@ -740,20 +740,6 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         self.close()
 
-        # Compute the pixel-aligned bounding box (slightly larger than aoi).
-        # Use this to set bounds in vrt in order to keep the
-        # pixels aligned with the chosen lc layers
-        bb = self.aoi.bounding_box_geom().boundingBox()
-        minx = bb.xMinimum()
-        miny = bb.yMinimum()
-        maxx = bb.xMaximum()
-        maxy = bb.yMaximum()
-        gt = gdal.Open(lc_initial_vrt).GetGeoTransform()
-        left = minx - (minx - gt[0]) % gt[1]
-        right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
-        bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
-        top = maxy - (maxy - gt[3]) % gt[5]
-
         # Add the lc layers to a VRT in case they don't match in resolution, 
         # and setting proper output bounds
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -761,7 +747,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                       [lc_initial_vrt, lc_final_vrt], 
                       resolution='lowest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
-                      outputBounds=[left, bottom, right, top],
+                      outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
                       separate=True)
         
         lc_change_worker = StartWorker(LandCoverChangeWorker,

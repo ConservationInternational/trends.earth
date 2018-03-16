@@ -1,12 +1,12 @@
-# trends.earth 
+# Trends.Earth 
 
-[![trends.earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
+[![Trends.Earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
 
 [![Build 
 Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)
 
-`trends.earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for 
-monitoring land change. `trends.earth` is a [QGIS](http://www.qgis.org) plugin 
+`Trends.Earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for 
+monitoring land change. `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin 
 that supports monitoring of land change, including changes in productivity, 
 land cover, and soil organic carbon. The tool can support monitoring land 
 degradation for reporting to the Global Environment Facility (GEF) and United 
@@ -14,7 +14,7 @@ Nations Convention to Combat Desertification (UNCCD), as well as tracking
 progress towards achivement of Sustainable Development Goal (SDG) target 15.3, 
 Land Degradation Neutrality (LDN).
 
-`trends.earth` was produced as an output of the GEF-funded project [“Enabling 
+`Trends.Earth` was produced as an output of the GEF-funded project [“Enabling 
 the use of global data sources to assess and monitor land degradation at 
 multiple scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide 
 guidance on robust methods and a tool for assessing, monitoring status, and 
@@ -46,20 +46,14 @@ version. There are two ways to install the development version:
 
 * Cloning the github repository and installing from that code
 
-It is easier to install the plugin from a zipfile than from github, but your 
-version of the plugin might be slightly out of date if you use a packaged 
-version (unlikely to be an issue unless you have a specific need for the latest 
-version of the plugin).  Installing the plugin from github is the only way to 
-ensure you have the very latest version of the code.
+It is easier to install the plugin from a zipfile than from github, so this 
+option is recommended unless you are interested in contributing to development 
+of the plugin.
 
 #### Installing the latest packaged version
 
-Download [the latest `trends.earth` 
+Download [the latest `Trends.Earth` 
 zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip).
-
-
-*Note that there are no longer separate zipfiles for 32 and 64 bit QGIS 
-installs as the plugin no longer needs any architecture dependent binaries.*
 
 Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
 For example, if you are using Windows and your username is "azvol", then this 
@@ -112,5 +106,5 @@ making a log of changes (https://github.com/borysiasty/plugin_reloader).
 
 ## License
 
-`trends.earth` is free and open-source. It is licensed under the GNU General 
+`Trends.Earth` is free and open-source. It is licensed under the GNU General 
 Public License, version 2.0 or later.

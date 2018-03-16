@@ -217,6 +217,22 @@ class AOI(object):
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             return (True, [e_intersection_out, w_intersection_out])
 
+    def get_aligned_output_bounds(self, f):
+        # Compute the pixel-aligned bounding box (slightly larger than aoi).
+        # Use this to set bounds in vrt  files in order to keep the
+        # pixels aligned with the chosen layer
+        bb = self.bounding_box_geom().boundingBox()
+        minx = bb.xMinimum()
+        miny = bb.yMinimum()
+        maxx = bb.xMaximum()
+        maxy = bb.yMaximum()
+        gt = gdal.Open(f).GetGeoTransform()
+        left = minx - (minx - gt[0]) % gt[1]
+        right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
+        bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
+        top = maxy - (maxy - gt[3]) % gt[5]
+        return left, bottom, right, top],
+
     def get_layer(self):
         """
         Return layer

@@ -992,20 +992,11 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
             # keep the pixels aligned with the chosen productivity layer.
         
-            bb = QgsGeometry.fromWkt(wkt).boundingBox()
-            minx = bb.xMinimum()
-            miny = bb.yMinimum()
-            maxx = bb.xMaximum()
-            maxy = bb.yMaximum()
             if prod_mode == 'Trends.Earth productivity':
-                gt = gdal.Open(traj_f).GetGeoTransform()
+                bounds_file = traj_f
             else:
-                gt = gdal.Open(lpd_f).GetGeoTransform()
-            left = minx - (minx - gt[0]) % gt[1]
-            right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
-            bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
-            top = maxy - (maxy - gt[3]) % gt[5]
-            self.outputBounds = [left, bottom, right, top]
+                bounds_file = lpd_f
+            output_bounds = self.aoi.get_aligned_output_bounds(bounds_file)
 
             #######################################################################
             # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
@@ -1023,7 +1014,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 in_files.extend([traj_f, perf_f, state_f])
                 gdal.BuildVRT(indic_vrt,
                               in_files,
-                              outputBounds=self.outputBounds,
+                              outputBounds=output_bounds,
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
@@ -1033,7 +1024,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 in_files.append(lpd_f)
                 gdal.BuildVRT(indic_vrt,
                               in_files,
-                              outputBounds=self.outputBounds,
+                              outputBounds=output_bounds,
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)

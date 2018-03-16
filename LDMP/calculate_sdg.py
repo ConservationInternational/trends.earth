@@ -39,13 +39,11 @@ from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
-from LDMP.download import extract_zipfile, get_admin_bounds
 from LDMP.layers import get_file_metadata, add_layer, \
         create_local_json_metadata, get_band_info, get_te_layers
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
-from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
 from LDMP.worker import AbstractWorker, StartWorker
 
 
@@ -78,6 +76,31 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         # Hide the land cover ESA period box, since only one period is used in 
         # this dialog - the one on the main setup tab
         self.lc_setup_tab.groupBox_esa_period.hide()
+
+        # from time import sleep
+        # countries = ["Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", 
+        #              "Burundi", "Cameroon", "Cabo Verde",
+        #              "Central African Republic", "Chad", "Comoros", "Congo", 
+        #              "Côte d'Ivoire", "Dem. Rep. Congo", 
+        #              "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", 
+        #              "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", 
+        #              "Guinea-Bissau", "Kenya", "Lesotho", "Liberia", "Libya", 
+        #              "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", 
+        #              "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", 
+        #              "Rwanda", "São Tomé and Principe", "Senegal", 
+        #              "Seychelles", "Sierra Leone", "Somalia", "South Africa", 
+        #              "Sudan", "Swaziland", "Togo", "Tunisia", "Uganda", 
+        #              "Tanzania", "Zambia", "Zimbabwe", "South Sudan"]
+        # for country in countries:
+        #     idx = self.area_tab.area_admin_0.findText(country)
+        #     log('country: {}, idx: {}'.format(country, idx))
+        #     self.area_tab.area_admin_0.setCurrentIndex(idx)
+        #     self.options_tab.task_name.setText(country)
+        #     self.btn_calculate()
+        #     mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+        #                    QtGui.QApplication.translate("LDMP", "Submitted {}.".format(country)),
+        #                    level=0, duration=1)
+        #     sleep(2)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -158,10 +181,6 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                            QtGui.QApplication.translate("LDMP", "Unable to submit SDG sub-indicator task to Google Earth Engine."),
                            level=0, duration=5)
-
-        #######################################################################
-        # TODO: Add offline calculation
-        
 
 #  Calculate the area of a slice of the globe from the equator to the parallel
 #  at latitude f (on WGS84 ellipsoid). Based on:

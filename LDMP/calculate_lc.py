@@ -502,6 +502,37 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
        self.layer_custom_final_list = get_te_layers('lc_annual')
        self.use_custom_final.addItems([l[0].name() for l in self.layer_custom_final_list])
 
+    def get_initial_vrt(self):
+        # Select the initial band - in case there is more than one band per 
+        # dataset
+        initial_bandnumber = self.layer_custom_initial_list[self.use_custom_initial.currentIndex()][1]
+        lc_initial_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_initial_vrt, self.get_initial_layer().dataProvider().dataSourceUri(),
+                      bandList=[initial_bandnumber])
+        return lc_initial_vrt
+
+    def get_final_vrt(self):
+        # Select the final band - in case there is more than one band per 
+        # dataset
+        final_bandnumber = self.layer_custom_final_list[self.use_custom_final.currentIndex()][1]
+        lc_final_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(lc_final_vrt, self.get_final_layer().dataProvider().dataSourceUri(),
+                      bandList=[final_bandnumber])
+        return lc_final_vrt
+
+    def get_initial_year(self):
+        return get_band_info(self.get_initial_layer().dataProvider().dataSourceUri())[initial_bandnumber - 1]['metadata']['year']
+
+    def get_final_year(self):
+        return get_band_info(self.get_final_layer().dataProvider().dataSourceUri())[final_bandnumber - 1]['metadata']['year']
+
+    def get_initial_layer(self):
+        return self.layer_custom_initial_list[self.use_custom_initial.currentIndex()][0]
+
+    def get_final_layer(self):
+        return self.layer_custom_final_list[self.use_custom_final.currentIndex()][0]
+
+
     def esa_agg_custom_edit(self):
         self.dlg_esa_agg.exec_()
 
@@ -703,33 +734,34 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                               61, 62, 63, 64, 65, 6, 67,
                               71, 72, 73, 74, 75, 76, 7]]
 
+        if len(self.lc_setup_tab.layer_custom_initial_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."), None)
+            return
+
+        if len(self.lc_setup_tab.layer_custom_final_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."), None)
+            return
+
+
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
-        layer_initial = self.lc_setup_tab.layer_custom_initial_list[self.lc_setup_tab.use_custom_initial.currentIndex()][0]
-        initial_bandnumber = self.lc_setup_tab.layer_custom_initial_list[self.lc_setup_tab.use_custom_initial.currentIndex()][1]
-        lc_initial_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_initial_vrt, layer_initial.dataProvider().dataSourceUri(),
-                      bandList=[initial_bandnumber])
+        lc_initial_vrt = self.lc_setup_tab.get_initial_vrt()
+        lc_final_vrt = self.lc_setup_tab.get_final_vrt()
 
-        layer_final = self.lc_setup_tab.layer_custom_final_list[self.lc_setup_tab.use_custom_final.currentIndex()][0]
-        final_bandnumber = self.lc_setup_tab.layer_custom_final_list[self.lc_setup_tab.use_custom_final.currentIndex()][1]
-        lc_final_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_final_vrt, layer_final.dataProvider().dataSourceUri(),
-                      bandList=[final_bandnumber])
-
-        year_baseline = get_band_info(layer_initial.dataProvider().dataSourceUri())[initial_bandnumber - 1]['metadata']['year']
-        year_target = get_band_info(layer_final.dataProvider().dataSourceUri())[final_bandnumber - 1]['metadata']['year']
+        year_baseline = self.lc_setup_tab.get_initial_year()
+        year_target = self.lc_setup_tab.get_final_year()
         if int(year_baseline) >= int(year_target):
             QtGui.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
-        
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(layer_initial.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_initial_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(layer_final.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_final_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return
@@ -741,7 +773,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.close()
 
         # Add the lc layers to a VRT in case they don't match in resolution, 
-        # and setting proper output bounds
+        # and set proper output bounds
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(in_vrt,
                       [lc_initial_vrt, lc_final_vrt], 

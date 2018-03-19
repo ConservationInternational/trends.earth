@@ -231,7 +231,7 @@ class AOI(object):
         right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
         bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
         top = maxy - (maxy - gt[3]) % gt[5]
-        return left, bottom, right, top],
+        return [left, bottom, right, top]
 
     def get_layer(self):
         """

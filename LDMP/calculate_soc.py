@@ -26,6 +26,8 @@ from PyQt4 import QtGui
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget
+from LDMP.layers import add_layer, create_local_json_metadata, \
+        get_band_info, get_te_layers
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from LDMP.api import run_script
 from LDMP.worker import AbstractWorker, StartWorker
@@ -136,15 +138,15 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
         self.lc_setup_tab.populate_layers_lc()
-
-        # Hide boxes that are coming soon
-        self.groupBox_custom_SOC.hide()
-        self.lc_setup_tab.use_custom.hide()
-        self.lc_setup_tab.groupBox_custom_bl.hide()
-        self.lc_setup_tab.groupBox_custom_tg.hide()
+        self.populate_layers_soc()
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
+
+    def populate_layers_soc(self):
+       self.comboBox_custom_soc.clear()
+       self.layer_soc_list = get_te_layers('soc')
+       self.comboBox_custom_soc.addItems([l[0].name() for l in self.layer_soc_list])
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -173,6 +175,117 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         if not ret:
             return
 
+        if self.lc_setup_tab.use_custom.isChecked() or \
+                self.groupBox_custom_SOC.isChecked():
+            self.calculate_locally()
+        else:
+            self.calculate_on_GEE()
+
+
+    def calculate_locally(self):
+        # Setup a raster of climate regimes to use for coding Fl automatically
+        clim_fl_map = [[0, 1, 2, 3, 4, 5, 6,
+                        7, 8, 9, 10, 11, 12],
+                       [0, .69, .8, .69, .8, .69, .8,
+                        .69, .8, .64, .48, .48, .58]]
+
+        # stock change factor for land use - note the 99 and -99 will be 
+        # recoded using the chosen Fl option
+        lc_tr_fl_0_map = [[11, 12, 13, 14, 15, 16, 17,
+                           21, 22, 23, 24, 25, 26, 27,
+                           31, 32, 33, 34, 35, 36, 37,
+                           41, 42, 43, 44, 45, 46, 47,
+                           51, 52, 53, 54, 55, 56, 57,
+                           61, 62, 63, 64, 65, 66, 67,
+                           71, 72, 73, 74, 75, 76, 77],
+                          [1, 1, 99, 1, 0.1, 0.1, 1,
+                           1, 1, 99, 1, 0.1, 0.1, 1,
+                           -99, -99, 1, 1 / 0.71, 0.1, 0.1, 1,
+                           1, 1, 0.71, 1, 0.1, 0.1, 1,
+                           2, 2, 2, 2, 1, 1, 1,
+                           2, 2, 2, 2, 1, 1, 1,
+                           1, 1, 1, 1, 1, 1, 1]]
+
+
+        # stock change factor for management regime
+        lc_tr_fm = [[11, 12, 13, 14, 15, 16, 17,
+                     21, 22, 23, 24, 25, 26, 27,
+                     31, 32, 33, 34, 35, 36, 37,
+                     41, 42, 43, 44, 45, 46, 47,
+                     51, 52, 53, 54, 55, 56, 57,
+                     61, 62, 63, 64, 65, 66, 67,
+                     71, 72, 73, 74, 75, 76, 77],
+                    [1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1]]
+
+        # stock change factor for input of organic matter
+        lc_tr_fo = [[11, 12, 13, 14, 15, 16, 17,
+                     21, 22, 23, 24, 25, 26, 27,
+                     31, 32, 33, 34, 35, 36, 37,
+                     41, 42, 43, 44, 45, 46, 47,
+                     51, 52, 53, 54, 55, 56, 57,
+                     61, 62, 63, 64, 65, 66, 67,
+                     71, 72, 73, 74, 75, 76, 77],
+                    [1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1,
+                     1, 1, 1, 1, 1, 1, 1]]
+
+        if len(self.layer_soc_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a soil organic carbon layer to your map before you can run the calculation."), None)
+            return
+
+        self.layer_soc = self.layer_soc_list[self.comboBox_custom_soc.currentIndex()][0]
+        self.layer_soc_bandnumber = self.layer_soc_list[self.comboBox_custom_soc.currentIndex()][1]
+
+        # Select the initial and final bands from initial and final datasets 
+        # (in case there is more than one lc band per dataset)
+        lc_initial_vrt = self.lc_setup_tab.get_initial_vrt()
+        lc_final_vrt = self.lc_setup_tab.get_final_vrt()
+
+        year_baseline = self.lc_setup_tab.get_initial_year()
+        year_target = self.lc_setup_tab.get_final_year()
+        if int(year_baseline) >= int(year_target):
+            QtGui.QMessageBox.information(None, self.tr("Warning"),
+                self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
+
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_initial_layer().extent())) < .99:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
+            return
+
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_final_layer().extent())) < .99:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
+            return
+
+        out_f = self.get_save_raster()
+        if not out_f:
+            return
+
+        self.close()
+
+        #TODO: Check that climate regimes are available, and download if not
+
+        self.close()
+
+        gdal.BuildVRT(in_vrt,
+                      [lc_initial_vrt, lc_final_vrt, soc_vrt], 
+                      resolution='lowest', 
+                      resampleAlg=gdal.GRA_NearestNeighbour,
+                      outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
+                      separate=True)
+
+    def calculate_on_GEE(self):
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()

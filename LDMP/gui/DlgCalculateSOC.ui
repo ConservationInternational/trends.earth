@@ -170,6 +170,12 @@
          <property name="title">
           <string>Custom initial soil organic carbon dataset (already loaded onto map using the &quot;Load Data tool&quot;</string>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QComboBox" name="comboBox_custom_soc">

@@ -234,9 +234,9 @@ def get_raster_stats(f, band_num, min_min=0, max_max=1000, nodata=-32768):
     return v.tolist()
 
 
-def get_unique_values_raster(f, band_num, max_unique=60, get_sample=True):
-    if get_sample:
-        values = np.unique(get_sample(f, band_number, n=1e6)).tolist()
+def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
+    if sample:
+        values = np.unique(get_sample(f, band_num, n=1e6)).tolist()
         if len(values) > max_unique:
             values = None
         return values

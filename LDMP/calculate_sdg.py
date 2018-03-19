@@ -39,8 +39,8 @@ from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import get_file_metadata, add_layer, \
-        create_local_json_metadata, get_band_info, get_te_layers
+from LDMP.layers import add_layer, create_local_json_metadata, \
+        get_band_info, get_te_layers
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
@@ -993,10 +993,9 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             # keep the pixels aligned with the chosen productivity layer.
         
             if prod_mode == 'Trends.Earth productivity':
-                bounds_file = traj_f
+                output_bounds = self.aoi.get_aligned_output_bounds(traj_f)
             else:
-                bounds_file = lpd_f
-            output_bounds = self.aoi.get_aligned_output_bounds(bounds_file)
+                output_bounds = self.aoi.get_aligned_output_bounds(lpd_f)
 
             #######################################################################
             # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI

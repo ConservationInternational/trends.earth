@@ -214,7 +214,7 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
     def showEvent(self, event):
         super(DlgSettingsEditForgotPassword, self).showEvent(event)
 
-        email = get_user_email()
+        email = get_user_email(warn=False)
         if email:
             self.email.setText(email)
 

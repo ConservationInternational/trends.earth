@@ -20,11 +20,9 @@
             "items": [
                 {"value": -32768, "color": "#000000", "label": "prod_traj_signif_nodata"},
                 {"value": -3, "color": "#AB2727", "label": "prod_traj_signif_dec_99"},
-                {"value": -2, "color": "#BF5B53", "label": "prod_traj_signif_dec_95"},
-                {"value": -1, "color": "#D79888", "label": "prod_traj_signif_dec_90"},
+                {"value": -2, "color": "#D79888", "label": "prod_traj_signif_dec_95"},
                 {"value": 0, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
-                {"value": 1, "color": "#B5D9A2", "label": "prod_traj_signif_inc_90"},
-                {"value": 2, "color": "#7DBD74", "label": "prod_traj_signif_inc_95"},
+                {"value": 2, "color": "#B5D9A2", "label": "prod_traj_signif_inc_95"},
                 {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_99"}
             ]
         }

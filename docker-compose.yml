@@ -6,3 +6,6 @@ services:
         volumes:
             - /tmp/.X11-unix:/tmp/.X11-unix
             - ./:/tests_directory
+        environment:
+            DISPLAY: ':99'
+            QT_X11_NO_MITSHM: '1'

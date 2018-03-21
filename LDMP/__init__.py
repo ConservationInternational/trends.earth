@@ -14,6 +14,7 @@
 
 __version__ = "0.53"
 
+import sys
 import os
 import requests
 import site
@@ -23,7 +24,10 @@ from PyQt4 import QtGui, QtCore, uic
 from qgis.core import QgsMessageLog
 from qgis.utils import iface
 
-site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
+dirpath = os.path.abspath(os.path.join(os.path.dirname(__file__), 'ext-libs'))
+sys.path, remainder = sys.path[:1], sys.path[1:]
+site.addsitedir(dirpath)
+sys.path.extend(remainder)
 
 debug = QtCore.QSettings().value('LDMP/debug', True)
 

@@ -154,7 +154,7 @@ class StartWorker(object):
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
         start_worker(self.worker, iface,
-                     QApplication.translate("LDMP", 'Processing: {}').format(process_name))
+                     QApplication.translate("LDMP", u'Processing: {}'.format(process_name)))
         pause.exec_()
 
         if self.exception:

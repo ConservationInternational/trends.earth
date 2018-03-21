@@ -161,7 +161,7 @@ class RasterRemapWorker(AbstractWorker):
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
             if self.killed:
-                log("Processing of {} killed by user after processing {} out of {} blocks.".format(deg_file, y, ysize))
+                log(u"Processing of {} killed by user after processing {} out of {} blocks.".format(deg_file, y, ysize))
                 break
             self.progress.emit(100 * float(y) / ysize)
             if y + y_block_size < ysize:
@@ -367,7 +367,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
             details_dlg.exec_()
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Cannot read {}. Choose a different file.".format(self.file_lineedit.text())))
+                                       self.tr(u"Cannot read {}. Choose a different file.".format(self.file_lineedit.text())))
 
 
     def browse_file(self):
@@ -380,7 +380,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f)))
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(f)))
 
         res = self.update_layer_list(f)
         if res:
@@ -409,10 +409,10 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
                     resp = add_layer(f, row + 1, m['bands'][row])
                     if not resp:
                         QtGui.QMessageBox.critical(None, self.tr("Error"), 
-                                                   self.tr('Unable to automatically add "{}". No style is defined for this type of layer.'.format(m['bands'][row]['name'])))
+                                                   self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(m['bands'][row]['name'])))
                         return
             else:
-                log('Error loading results from {}'.format(self.file_lineedit.text()))
+                log(u'Error loading results from {}'.format(self.file_lineedit.text()))
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
             return
@@ -434,7 +434,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
             else:
                 self.layers_model.setStringList([])
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("{} does not appear to be a trends.earth output file".format(f)))
+                                           self.tr(u"{} does not appear to be a trends.earth output file".format(f)))
                 self.layers_model.setStringList([])
                 self.btn_view_metadata.setEnabled(False)
                 return None
@@ -510,7 +510,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
 
         if not os.access(raster_file, os.R_OK or not l.isValid()):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Cannot read {}. Choose a different file.".format(raster_file)))
+                                       self.tr(u"Cannot read {}. Choose a different file.".format(raster_file)))
             self.inputFileChanged.emit(False)
             return False
 
@@ -541,7 +541,7 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
 
         if not os.access(vector_file, os.R_OK) or not l.isValid():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Cannot read {}. Choose a different file.".format(vector_file)))
+                                       self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
             self.inputFileChanged.emit(False)
             return False
 
@@ -575,7 +575,7 @@ class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOut
                 return True
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
 
@@ -664,7 +664,7 @@ class DlgLoadDataBase(QtGui.QDialog):
         temp_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
                       
-        log('Importing {} to {}'.format(in_file, out_file))
+        log(u'Importing {} to {}'.format(in_file, out_file))
         if self.input_widget.groupBox_output_resolution.isChecked():
             out_res = self.get_out_res_wgs84()
             resample_mode = self.get_resample_mode(temp_vrt)
@@ -720,7 +720,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
         if  not self.dlg_agg:
-            QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.'.format(), None))
+            QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.', None))
             return
 
         super(DlgLoadDataLC, self).validate_input(value)
@@ -762,7 +762,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
                     (self.last_raster != f or self.last_band_number != band_number):
                 values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
                 if not values:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes", None))
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
@@ -775,7 +775,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
                     (self.last_vector != f or self.last_idx != idx):
                 get_unique_values_vector(l, field, max_unique=60)
                 if not values:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes".format(), None))
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes", None))
                     return
                 self.last_vector = f
                 self.last_idx = idx
@@ -822,11 +822,11 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
             l = self.input_widget.get_vector_layer(in_file)
             values = get_unique_values_vector(l, field, max_unique=7)
         if not values:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
             return
         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
         if len(invalid_values) > 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
             return
 
         super(DlgLoadDataSOC, self).done(value)
@@ -878,11 +878,11 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
             l = self.input_widget.get_vector_layer(in_file)
             values = get_unique_values_vector(l, field, max_unique=7)
         if not values:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
             return
         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
         if len(invalid_values) > 0:
-            QtGui.QMessageBox.warning(None, self.tr("Warning"), self.tr("The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
+            QtGui.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
         super(DlgLoadDataProd, self).done(value)
 

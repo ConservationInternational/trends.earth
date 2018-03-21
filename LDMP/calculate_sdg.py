@@ -755,7 +755,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 self.output_file_layer.setText(f)
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def select_output_file_table(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -768,7 +768,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 self.output_file_table.setText(f)
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def get_resample_alg(self, lc_f, prod_f):
         ds_lc = gdal.Open(lc_f)
@@ -1002,7 +1002,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             output_sdg_json = self.output_file_layer.text()
 
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            log('Saving indicator VRT to: {}'.format(indic_vrt))
+            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             lc_band_nums = np.arange(len(lc_files)) + 1
             soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
@@ -1030,7 +1030,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 prod_band_nums = [max(soc_band_nums) + 1]
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log('Saving deg/lc clipped file to {}'.format(masked_vrt))
+            log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
             deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
                                              indic_vrt, masked_vrt, 
                                              json.loads(QgsGeometry.fromWkt(wkt).exportToGeoJSON()))
@@ -1234,9 +1234,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     write_table_to_sheet(ws_soc, sdg_tbl_soc, 6, 6)
 
     # First write baseline
-    log('soc_totals[0]: {}'.format(soc_totals[0]))
     write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[0]), 16, 3)
-    log('soc_totals[-1]: {}'.format(soc_totals[-1]))
     # Now write target
     write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[-1]), 16, 4)
 
@@ -1292,13 +1290,11 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     try:
         wb.save(out_file)
-        log('Indicator table saved to {}'.format(out_file))
-        # QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-        #         QtGui.QApplication.translate("LDMP", 'Indicator table saved to <a href="file://{}">{}</a>'.format(out_file, out_file)))
+        log(u'Indicator table saved to {}'.format(out_file))
         QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                                      QtGui.QApplication.translate("LDMP", 'Indicator table saved to {}'.format(out_file)))
+                                      QtGui.QApplication.translate("LDMP", u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
-        log('Error saving {}'.format(out_file))
+        log(u'Error saving {}'.format(out_file))
         QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+                                   QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

@@ -1244,9 +1244,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     write_table_to_sheet(ws_soc, sdg_tbl_soc, 6, 6)
 
     # First write baseline
-    log('soc_totals[0]: {}'.format(soc_totals[0]))
     write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[0]), 16, 3)
-    log('soc_totals[-1]: {}'.format(soc_totals[-1]))
     # Now write target
     write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[-1]), 16, 4)
 

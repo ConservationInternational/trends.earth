@@ -1302,13 +1302,11 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     try:
         wb.save(out_file)
-        log('Indicator table saved to {}'.format(out_file))
-        # QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-        #         QtGui.QApplication.translate("LDMP", 'Indicator table saved to <a href="file://{}">{}</a>'.format(out_file, out_file)))
+        log(u'Indicator table saved to {}'.format(out_file))
         QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                                      QtGui.QApplication.translate("LDMP", 'Indicator table saved to {}'.format(out_file)))
+                                      QtGui.QApplication.translate("LDMP", u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log('Error saving {}'.format(out_file))
         QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+                                   QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

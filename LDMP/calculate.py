@@ -199,12 +199,11 @@ class AOI(object):
         else:
             raise ValueError('Unrecognized out_format "{}"'.format(out_format))
 
-        log('w int: {}, e_int: {}, orig: {}'.format(w_intersection.GetArea(), e_intersection.GetArea(), get_ogr_geom_extent(union).GetArea()))
         if e_intersection.IsEmpty() or w_intersection.IsEmpty():
             # If there is no area in one of the hemispheres, return the extent 
             # of the original layer
             return (False, [union_out])
-        elif (w_intersection.GetArea() + e_intersection.GetArea()) > (get_ogr_geom_extent(union).GetArea() / 2):
+        elif (w_intersection.GetArea() + e_intersection.GetArea()) > (union.GetArea() / 2):
             # If the extent of the combined extents from both hemispheres is 
             # not significantly smaller than that of the original layer, then 
             # return the original layer

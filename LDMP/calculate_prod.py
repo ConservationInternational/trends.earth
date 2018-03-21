@@ -157,7 +157,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
-            log('climate_gee_dataset {}'.format(climate_gee_dataset))
+            log(u'climate_gee_dataset {}'.format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 

@@ -38,12 +38,12 @@ def showHelp(file='index', section=None):
     locale = QSettings().value('locale/userLocale')[0:2]
     help_base_path = os.path.join(os.path.dirname(__file__), 'help', 'build', 'html')
     locale_path = os.path.join(help_base_path, locale)
-    QgsMessageLog.logMessage('Checking for plugin help in {}'.format(locale_path), tag="trends.earth", level=QgsMessageLog.INFO)
+    QgsMessageLog.logMessage(u'Checking for plugin help in {}'.format(locale_path), tag="trends.earth", level=QgsMessageLog.INFO)
     if os.path.exists(locale_path):
         help_path = os.path.join(locale_path, file)
     else:
         help_path = os.path.join(help_base_path, 'en', file)
-    QgsMessageLog.logMessage('Showing plugin help from {}'.format(help_path), tag="trends.earth", level=QgsMessageLog.INFO)
+    QgsMessageLog.logMessage(u'Showing plugin help from {}'.format(help_path), tag="trends.earth", level=QgsMessageLog.INFO)
     if section:
         showPluginHelp(filename=help_path, section=section)
     else:
@@ -71,8 +71,8 @@ class LDMPPlugin:
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'LDMP_{}.qm'.format(locale))
-        QgsMessageLog.logMessage('Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
+            u'LDMP_{}.qm'.format(locale))
+        QgsMessageLog.logMessage(u'Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
                                  tag="trends.earth", level=QgsMessageLog.INFO)
 
         if os.path.exists(locale_path):

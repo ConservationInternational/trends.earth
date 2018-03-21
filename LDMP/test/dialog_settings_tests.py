@@ -10,7 +10,7 @@ from qgis.core import *
 from PyQt4.QtGui import QMessageBox
 from PyQt4.QtCore import *
 from PyQt4.QtTest import QTest
-from LDMP.settingsi import DlgSettingsLogin
+from LDMP.settings import DlgSettingsLogin
 
 
 def close_msg_boxes():

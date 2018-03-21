@@ -120,7 +120,7 @@ def read_class_file(f):
     if not os.access(f, os.R_OK):
         QtGui.QMessageBox.critical(None,
                 QtGui.QApplication.translate("Error"),
-                QtGui.QApplication.translate("Cannot read {}.".format(f), None))
+                QtGui.QApplication.translate(u"Cannot read {}.".format(f), None))
         return None
 
     with open(f) as class_file:
@@ -136,10 +136,10 @@ def read_class_file(f):
         QtGui.QMessageBox.critical(None,
                                    QtGui.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
                                    QtGui.QApplication.translate('DlgCalculateLCSetAggregation',
-                                                                "{} does not appear to contain a valid class definition.".format(f)))
+                                                                u"{} does not appear to contain a valid class definition.".format(f)))
         return None
     else:
-        log('Loaded class definition from {}'.format(f))
+        log(u'Loaded class definition from {}'.format(f))
         return classes
 
 
@@ -182,7 +182,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(f), None))
         else:
             return
         classes = read_class_file(f)
@@ -202,7 +202,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
             class_def = self.get_agg_as_dict()
@@ -250,10 +250,10 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         missing_codes = [c for c in default_codes if c not in input_codes]
         if len(new_codes) > 0:
             QtGui.QMessageBox.warning(None, self.tr("Warning"),
-                                      self.tr("Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]), None)))
+                                      self.tr(u"Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]), None)))
         if len(missing_codes) > 0:
             QtGui.QMessageBox.warning(None, self.tr("Warning"),
-                                      self.tr("Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]), None)))
+                                      self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]), None)))
 
         # Setup a new classes list with the new class codes for all classes 
         # included in default calsses, and and any other class codes that are 
@@ -372,7 +372,7 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(f), None))
         else:
             return None
 
@@ -387,7 +387,7 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate('DlgCalculateLC', "Error"),
                                        QtGui.QApplication.translate('DlgCalculateLC',
-                                                                    "{} does not appear to contain a valid matrix definition.".format(f)))
+                                                                    u"{} does not appear to contain a valid matrix definition.".format(f)))
             return None
         else:
             return True
@@ -404,7 +404,7 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
             matrix = self.trans_matrix_get()
@@ -674,7 +674,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                 return raster_file
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(raster_file)))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
     def calculate_locally(self):

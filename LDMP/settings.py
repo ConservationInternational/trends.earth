@@ -106,7 +106,7 @@ class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
             self.close()
             QtGui.QMessageBox.information(None,
                     self.tr("Success"),
-                    self.tr("User registered. Your password has been emailed to {}.".format(self.email.text())))
+                    self.tr(u"User registered. Your password has been emailed to {}.".format(self.email.text())))
             settings.setValue("LDMP/email", self.email.text())
             settings.setValue("LDMP/password", None)
             return True
@@ -145,7 +145,7 @@ class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
         if resp:
             QtGui.QMessageBox.information(None,
                     self.tr("Success"),
-                    self.tr("Logged in to the Trends.Earth server as {}.").format(self.email.text()))
+                    self.tr(u"Logged in to the Trends.Earth server as {}.").format(self.email.text()))
             settings.setValue("LDMP/jobs_cache", None)
             self.close()
             return True
@@ -186,14 +186,14 @@ class DlgSettingsEdit(QtGui.QDialog, Ui_DlgSettingsEdit):
             return
 
         reply = QtGui.QMessageBox.question(None, self.tr("Delete user?"),
-                                           self.tr("Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.".format(email)),
+                                           self.tr(u"Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.".format(email)),
                                            QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
         if reply == QtGui.QMessageBox.Yes:
             resp = delete_user(email)
             if resp:
                 QtGui.QMessageBox.information(None,
                         self.tr("Success"),
-                        QtGui.QApplication.translate('LDMPPlugin', "User {} deleted.").format(email))
+                        QtGui.QApplication.translate('LDMPPlugin', u"User {} deleted.".format(email)))
                 settings.setValue("LDMP/password", None)
                 settings.setValue("LDMP/email", None)
                 self.close()
@@ -225,7 +225,7 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
             return False
 
         reply = QtGui.QMessageBox.question(None, self.tr("Reset password?"),
-                                           self.tr("Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(self.email.text())),
+                                           self.tr(u"Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(self.email.text())),
                                            QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
@@ -234,7 +234,7 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
                 self.close()
                 QtGui.QMessageBox.information(None,
                         self.tr("Success"),
-                        self.tr("The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
+                        self.tr(u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
                 settings.setValue("LDMP/password", None)
                 return True
             else:
@@ -284,6 +284,6 @@ class DlgSettingsEditUpdate(QtGui.QDialog, Ui_DlgSettingsEditUpdate):
 
         if resp:
             QtGui.QMessageBox.information(None, self.tr("Saved"),
-                                          self.tr("Updated information for {}.").format(self.email.text()), None)
+                                          self.tr(u"Updated information for {}.").format(self.email.text()), None)
             self.close()
             return True

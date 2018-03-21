@@ -755,7 +755,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 self.output_file_layer.setText(f)
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def select_output_file_table(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -768,7 +768,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 self.output_file_table.setText(f)
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def get_resample_alg(self, lc_f, prod_f):
         ds_lc = gdal.Open(lc_f)
@@ -1012,7 +1012,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             output_sdg_json = self.output_file_layer.text()
 
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            log('Saving indicator VRT to: {}'.format(indic_vrt))
+            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             lc_band_nums = np.arange(len(lc_files)) + 1
             soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
@@ -1040,7 +1040,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 prod_band_nums = [max(soc_band_nums) + 1]
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log('Saving deg/lc clipped file to {}'.format(masked_vrt))
+            log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
             deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
                                              indic_vrt, masked_vrt, 
                                              json.loads(QgsGeometry.fromWkt(wkt).exportToGeoJSON()))
@@ -1307,6 +1307,6 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
                                       QtGui.QApplication.translate("LDMP", u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
-        log('Error saving {}'.format(out_file))
+        log(u'Error saving {}'.format(out_file))
         QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
                                    QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

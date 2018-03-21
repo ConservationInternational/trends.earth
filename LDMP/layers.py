@@ -227,7 +227,7 @@ def get_file_metadata(json_file):
         with open(json_file) as f:
             d = json.load(f)
     except (OSError, IOError, ValueError) as e:
-        log('Error loading {}'.format(json_file))
+        log(u'Error loading {}'.format(json_file))
         return None
 
     local_raster_schema = LocalRasterSchema()
@@ -235,7 +235,7 @@ def get_file_metadata(json_file):
     try:
         d = local_raster_schema.load(d)
     except ValidationError:
-        log('Unable to parse {}'.format(json_file))
+        log(u'Unable to parse {}'.format(json_file))
         return None
 
     # Below is a fix for older versions of LDMP<0.43 that stored the full path 
@@ -243,7 +243,7 @@ def get_file_metadata(json_file):
     f = os.path.join(os.path.dirname(json_file),
                      os.path.basename(os.path.normpath(d['file'])))
     if not os.access(f, os.R_OK):
-        log('Data file {} is missing'.format(f))
+        log(u'Data file {} is missing'.format(f))
         return None
     else:
         return d
@@ -270,8 +270,8 @@ def add_layer(f, band_number, band_info):
     except KeyError:
         QtGui.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr("Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
-        log('No style found for {}'.format(band_info['name'] ))
+                                      tr(u"Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
+        log(u'No style found for {}'.format(band_info['name'] ))
         return False
 
     title = get_band_title(band_info)

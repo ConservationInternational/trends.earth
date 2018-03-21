@@ -10,7 +10,8 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_e3ee5199e171_key -iv $encrypted_e3ee5199e171_iv
   -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
 - tar xzvf travis_secrets.tar.gz
-- mv trends.earth_credentials.json LDMP/test/trends.earth_credentials.json
+- mv trends.earth_test_user_credentials.json LDMP/test/trends.earth_test_user_credentials.json
+- mv trends.earth_admin_user_credentials.json LDMP/admin/trends.earth_admin_user_credentials.json
 - docker-compose up -d
 - docker-compose ps
 - sleep 10

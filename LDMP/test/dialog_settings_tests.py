@@ -1,15 +1,26 @@
 # -*- coding: utf-8 -*-
-#
-# (c) 2016 Boundless, http://boundlessgeo.com
-# This code is licensed under the GPL 2.0 license.
-#
+"""
+/***************************************************************************
+ LDMP - A QGIS plugin
+ This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ and in support of the SDG Land Degradation Neutrality (LDN) target.
+                              -------------------
+        begin                : 2017-05-23
+        git sha              : $Format:%H$
+        copyright            : (C) 2017 by Conservation International
+        email                : trends.earth@conservation.org
+ ***************************************************************************/
+"""
+
 import unittest
 import sys
 import os
+
 from qgis.core import *
 from PyQt4.QtGui import QMessageBox
 from PyQt4.QtCore import *
 from PyQt4.QtTest import QTest
+
 from LDMP.settings import DlgSettingsLogin
 
 
@@ -19,16 +30,18 @@ def close_msg_boxes():
         if isinstance(w, QMessageBox):
             QTest.keyClick(w, Qt.Key_Enter)
 
-class DialogTestsAPI(unittest.TestCase):
-    with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
-        keys = json.load(fin)
+with open(os.path.join(os.path.dirname(__file__), 'trends.earth_test_user_credentials.json'), 'r') as fin:
+    regular_keys = json.load(fin)
+with open(os.path.join(os.path.dirname(__file__), 'trends.earth_admin_user_credentials.json'), 'r') as fin:
+    admin_keys = json.load(fin)
 
-    def testAPILogin(self):
+class DialogSettingsLoginTests(unittest.TestCase):
+    def testLogin(self):
         dialog = DlgSettingsLogin()
-        dialog.email.setText(keys['email'])
-        dialog.password.setText(keys['password'])
-        self.assertEquals(keys['email'], dialog.username)
-        self.assertEquals(keys['password'], dialog.password)
+        dialog.email.setText(regular_keys['email'])
+        dialog.password.setText(regular_keys['password'])
+        self.assertEquals(regular_keys['email'], dialog.username)
+        self.assertEquals(regular_keys['password'], dialog.password)
         okWidget = dialog.buttonBox.button(dialog.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertTrue(dialog.ok)
@@ -38,12 +51,12 @@ class DialogTestsAPI(unittest.TestCase):
         close_msg_boxes()
 
         dialog.email.setText('')
-        dialog.password.setText(keys['password'])
+        dialog.password.setText(regular_keys['password'])
         ret = dialog.login()
         self.assertFalse(ret)
         close_msg_boxes()
 
-        dialog.email.setText(keys['email'])
+        dialog.email.setText(regular_keys['email'])
         dialog.password.setText('')
         ret = dialog.login()
         self.assertFalse(ret)
@@ -57,7 +70,7 @@ class DialogTestsAPI(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(DialogTestsAPI, 'test'))
+    suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, 'test'))
     return suite
 
 def run_all():

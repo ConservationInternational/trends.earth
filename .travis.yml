@@ -11,7 +11,9 @@ env:
   - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
 - openssl aes-256-cbc -K $encrypted_f20454987851_key -iv $encrypted_f20454987851_iv
-  -in aws_credentials.json.enc -out aws_credentials.json -d
+  -in trends.earth_credentials.json.enc -out trends.earth_credentials.json -d
+- openssl aes-256-cbc -K $encrypted_f20454987851_key -iv $encrypted_f20454987851_iv
+  -in aws_credentials.json.enc -out LDMP/test/aws_credentials.json -d
 - docker-compose up -d
 - docker-compose ps
 - sleep 10

@@ -38,23 +38,23 @@ def check_hash_against_etag(url, filename, expected=None):
     md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
 
     if md5hash == expected:
-        log("File hash verified for {}".format(filename))
+        log(u"File hash verified for {}".format(filename))
         return True
     else:
-        log("Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
+        log(u"Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
         return False
 
 
 def extract_zipfile(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
-    url = 'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
+    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log('Downloading {}'.format(file))
+        log(u'Downloading {}'.format(file))
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
@@ -76,14 +76,14 @@ def extract_zipfile(file, verify=True):
 
 def read_json(file, verify=True):
     filename = os.path.join(os.path.dirname(__file__), 'data', file)
-    url = 'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
+    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log('Downloading {}'.format(file))
+        log(u'Downloading {}'.format(file))
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
@@ -126,8 +126,8 @@ class DownloadWorker(AbstractWorker):
 
         resp = requests.get(self.url, stream=True)
         if resp.status_code != 200:
-            log('Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
-            raise DownloadError('Unable to start download of {}'.format(self.url))
+            log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
+            raise DownloadError(u'Unable to start download of {}'.format(self.url))
 
         total_size = int(resp.headers['Content-length'])
         if total_size < 1e5:
@@ -135,14 +135,14 @@ class DownloadWorker(AbstractWorker):
         else:
             total_size_pretty = '{:.2f} MB'.format(round(total_size * 1e-6, 2))
 
-        log('Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
+        log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
         bytes_dl = 0
         r = requests.get(self.url, stream=True)
         with open(self.outfile, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:
-                    log("Download {} killed by user".format(self.url))
+                    log(u"Download {} killed by user".format(self.url))
                     break
                 elif chunk: # filter out keep-alive new chunks
                     f.write(chunk)
@@ -151,13 +151,13 @@ class DownloadWorker(AbstractWorker):
         f.close()
 
         if bytes_dl != total_size:
-            log("Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
+            log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
             os.remove(self.outfile)
             if not self.killed:
-                raise DownloadError('Final file size of {} does not match expected'.format(self.url))
+                raise DownloadError(u'Final file size of {} does not match expected'.format(self.url))
             return None
         else:
-            log("Download of {} complete".format(self.url))
+            log(u"Download of {} complete".format(self.url))
             return True
 
 
@@ -176,7 +176,7 @@ class Download(object):
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
             start_worker(worker, iface,
-                         QtGui.QApplication.translate("LDMP", 'Downloading {}').format(self.outfile))
+                         QtGui.QApplication.translate("LDMP", u'Downloading {}').format(self.outfile))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()

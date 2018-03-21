@@ -237,11 +237,11 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 while not f:
                     # Setup a string to use in filename window
                     if job['task_name']:
-                        job_info = '{} ({})'.format(job['script_name'], job['task_name'])
+                        job_info = u'{} ({})'.format(job['script_name'], job['task_name'])
                     else:
                         job_info = job['script_name']
                     f = QtGui.QFileDialog.getSaveFileName(self,
-                                                          self.tr('Choose a filename downloading results of: {}'.format(job_info)),
+                                                          self.tr(u'Choose a filename downloading results of: {}'.format(job_info)),
                                                           self.settings.value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
 
@@ -251,10 +251,10 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     if f:
                         if os.access(os.path.dirname(f), os.W_OK):
                             self.settings.setValue("LDMP/output_dir", os.path.dirname(f))
-                            log("Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
+                            log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                         else:
                             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                                       self.tr("Cannot write to {}. Choose a different base filename.".format(f)))
+                                                       self.tr(u"Cannot write to {}. Choose a different base filename.".format(f)))
                     else:
                             return False
 
@@ -266,7 +266,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
         for row, f in zip(rows, filenames):
             job = self.jobs[row]
-            log("Processing job {}".format(job))
+            log(u"Processing job {}".format(job))
             result_type = job['results'].get('type')
             if result_type == 'CloudResults':
                 download_cloud_results(job, f, self.tr)
@@ -359,7 +359,7 @@ def download_cloud_results(job, f, tr):
         if band_info['add_to_map']:
             add_layer(out_file, band_number, band_info)
     mb.pushMessage(tr("Downloaded"),
-                   tr("Downloaded results to {}".format(out_file)),
+                   tr(u"Downloaded results to {}".format(out_file)),
                    level=0, duration=5)
 
 

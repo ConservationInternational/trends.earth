@@ -4,8 +4,31 @@ Frequently asked questions
 This page lists some Frequently Asked Questions (FAQs) for the |trends.earth|
 tool.
 
-Toolbox
-_______
+General Questions
+_________________
+
+**How do I find more information on the project?**
+
+More information on the toolbox can be found at `trends.earth 
+<http://trends.earth>`_ and reports are available on the `Vital Signs Project 
+website <http://vitalsigns.org/gef-ldmp/project-description-and-timeline>`_ You 
+can also add your contact info at `Vital Signs LD Email Distribution List 
+<http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ to stay in touch 
+with any advancements with the projects’ distrubtion list.
+
+**How can I provide feedback on the tool?**
+
+There are three ways to give feedback, emailing the project team, visiting the 
+project site and messaging through the anonymous form or rate the toolbox in 
+the plugins menu of QGIS. The project technical team can address questions 
+through trends.earth@conservation.org. Users can rate the toolbox by opening 
+Plugins in QGIS and selecting Manage and Install Plugins. Select All in the 
+side bar and navigate to trends.earth plugin. Click on trends.earth and rate 
+the toolbox by selecting the number of stars you would like to give the plugin, 
+5 stars being highly satisfied.
+
+Installation of |Trends.Earth|
+______________________________
 
 
 **What version of Quantum GIS (QGIS) do I need for the toolbox?**
@@ -52,45 +75,6 @@ If you have already installed the plugin, navigate to Plugins on the menu bar,
 and select Manage and install plugins. On the side menu, select Installed to 
 view the plugins that you have installed in your computer. At the bottom of the 
 window, select Upgrade all to upgrade the toolbox to the latest version.
-
-**When will there be an offline version of the toolbox?**
-
-The final toolbox will be available as both as an offline and online version. 
-The online version allows users to access current datasets more easily, while 
-also allowing users to leverage Google Earth Engine to provide computing in the 
-cloud. An offline version allows users to access data and perform analyses 
-where internet connectivity may be limited, but it does have the disadvantage 
-of requiring users to have enough local computing capacity to run analyses 
-locally. The technical team intends to build the offline version of the toolbox 
-and provide countries with data relevant for reporting at the national level 
-within the pilot project countries. 
-
-**How do I find more information on the project?**
-
-More information on the toolbox can be found at `trends.earth 
-<http://trends.earth>`_ and reports are available on the `Vital Signs Project 
-website <http://vitalsigns.org/gef-ldmp/project-description-and-timeline>`_ You 
-can also add your contact info at `Vital Signs LD Email Distribution List 
-<http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ to stay in touch 
-with any advancements with the projects’ distrubtion list.
-
-**How can I provide feedback on the tool?**
-
-There are three ways to give feedback, emailing the project team, visiting the 
-project site and messaging through the anonymous form or rate the toolbox in 
-the plugins menu of QGIS. The project technical team can address questions 
-through trends.earth@conservation.org. Users can rate the toolbox by opening 
-Plugins in QGIS and selecting Manage and Install Plugins. Select All in the 
-side bar and navigate to trends.earth plugin. Click on trends.earth and rate 
-the toolbox by selecting the number of stars you would like to give the plugin, 
-5 stars being highly satisfied.
-
-**Will you create a trends.earth toolbox for ESRI users?**
-
-The toolbox is currently available as a plugin to QGIS, an open source 
-software. This allows users around the world free access to the toolbox. There 
-are currently no plans to build a toolbox within ArcGIS or ArcPro. 
-
 
 Datasets
 ________
@@ -244,3 +228,25 @@ such as RCMRD, to provide support through existing platforms. The project will
 also continue to make e-learning materials available to users, and is 
 considering potential funding sources for further capacity-building activities 
 in East Africa.
+
+Future plans
+____________
+
+**When will there be an offline version of the toolbox?**
+
+The final toolbox will be available as both as an offline and online version. 
+The online version allows users to access current datasets more easily, while 
+also allowing users to leverage Google Earth Engine to provide computing in the 
+cloud. An offline version allows users to access data and perform analyses 
+where internet connectivity may be limited, but it does have the disadvantage 
+of requiring users to have enough local computing capacity to run analyses 
+locally. The technical team intends to build the offline version of the toolbox 
+and provide countries with data relevant for reporting at the national level 
+within the pilot project countries. 
+
+**Will you create a trends.earth toolbox for ESRI users?**
+
+The toolbox is currently available as a plugin to QGIS, an open source software 
+package. This allows users around the world free access to the toolbox. There 
+are currently no plans to build a toolbox within ArcGIS or ArcPro. 
+

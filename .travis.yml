@@ -11,9 +11,9 @@ env:
   - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
 - openssl aes-256-cbc -K $encrypted_f20454987851_key -iv $encrypted_f20454987851_iv
-  -in trends.earth_credentials.json.enc -out trends.earth_credentials.json -d
-- openssl aes-256-cbc -K $encrypted_f20454987851_key -iv $encrypted_f20454987851_iv
-  -in aws_credentials.json.enc -out LDMP/test/aws_credentials.json -d
+  -in travis_secrets.tar.enc -out travis_secrets.tar -d
+- tar xvf travis_secrets.tar
+- mv trends.earth_credentials.json LDMP/test/trends.earth_credentials.json
 - docker-compose up -d
 - docker-compose ps
 - sleep 10
@@ -21,7 +21,16 @@ before_install:
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"
 - docker-compose exec qgis-testing-environment sh -c "pip install boto3"
 script:
+- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
+  else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+- echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
 - docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver
   setup && paver package --tests"
-- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver
-  deploy"
+- docker-compose version
+- docker-compose exec qgis-testing-environment sh -c "GSHOSTNAME=boundless-test qgis_testrunner.sh
+  LDMP.test.dialog_settings_tests"
+after_success: 
+- |
+    if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+        docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver deploy"
+    fi

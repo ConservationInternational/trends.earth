@@ -14,7 +14,7 @@ aws_credentials.json
 *.geojson
 .Rproj.user
 *.pyc
-*/build/*
+*build/*
 */help/build/*
 */help/i18n/*
 */ext-libs/*

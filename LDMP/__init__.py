@@ -48,5 +48,5 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
 
-    from LDMP.ldmp import LDMPPlugin
+    from LDMP.plugin import LDMPPlugin
     return LDMPPlugin(iface)

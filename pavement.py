@@ -26,7 +26,7 @@ options(
         gui_dir = path('LDMP/gui'),
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['fr', 'es', 'sw'],
+        translations = ['fr', 'es', 'sw', 'ar', 'ru', 'zh', 'pt'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('build'),
         tests = ['test'],

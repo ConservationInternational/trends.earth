@@ -24,6 +24,8 @@ from PyQt4 import QtGui, QtCore, uic
 from qgis.core import QgsMessageLog
 from qgis.utils import iface
 
+# Ensure that the ext-libs for the plugin are near the front of the path
+# (important on Linux)
 dirpath = os.path.abspath(os.path.join(os.path.dirname(__file__), 'ext-libs'))
 sys.path, remainder = sys.path[:1], sys.path[1:]
 site.addsitedir(dirpath)

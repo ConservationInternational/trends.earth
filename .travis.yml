@@ -14,7 +14,7 @@ before_install:
 - mv trends.earth_admin_user_credentials.json LDMP/test/trends.earth_admin_user_credentials.json
 - git clone https://github.com/boundlessgeo/qgis-testing-environment-docker qgis-testing-environment
 - cd qgis-testing-environment && docker build -t qgis-testing-environment 
-  --build-arg QGIS_BRANCH=QGIS_VERSION_TAG --build-arg LEGACY='false' .
+  --build-arg QGIS_BRANCH=$QGIS_VERSION_TAG --build-arg LEGACY='true' .
 - docker run -d --name qgis-testing-environment
   -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99
   elpaso/qgis-testing-environment

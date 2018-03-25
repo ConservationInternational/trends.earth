@@ -44,7 +44,7 @@ SOURCES = ../about.py \
 ../download_data.py \
 ../jobs.py \
 ../layers.py \
-../ldmp.py \
+../plugin.py \
 ../load_data.py \
 ../plot.py \
 ../reporting.py \

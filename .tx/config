@@ -2,12 +2,10 @@
 host = https://www.transifex.com
 type = PO
 
-
 [land_degradation_monitoring_toolbox_docs_1_0.index]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/index.po
 source_file = LDMP/help/i18n/pot/index.pot
 source_lang = en
-
 
 [land_degradation_monitoring_toolbox_docs_1_0.about--about]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/about.po
@@ -29,7 +27,6 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/faq.po
 source_file = LDMP/help/i18n/pot/about/faq.pot
 source_lang = en
 
-
 [land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators.po
 source_file = LDMP/help/i18n/pot/background/understanding_indicators.pot
@@ -44,7 +41,6 @@ source_lang = en
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/installing.po
 source_file = LDMP/help/i18n/pot/background/installing.pot
 source_lang = en
-
 
 [land_degradation_monitoring_toolbox_docs_1_0.documentation--calculate]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/calculate.po
@@ -86,15 +82,14 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/settings.po
 source_file = LDMP/help/i18n/pot/documentation/settings.pot
 source_lang = en
 
-
 [land_degradation_monitoring_toolbox_docs_1_0.video--video_links]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/video/video_links.po
 source_file = LDMP/help/i18n/pot/video/video_links.pot
 source_lang = en
-
 
 [land_degradation_monitoring_toolbox_docs_1_0.gui]
 file_filter = LDMP/i18n/LDMP_<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en
 type = QT
+

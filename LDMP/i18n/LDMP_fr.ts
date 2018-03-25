@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" sourcelanguage="" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -386,7 +385,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -647,12 +646,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="738"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="743"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1116,12 +1115,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_sdg.py" line="985"/>
         <source>Reporting tool does not yet work for split bounding boxes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1056"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1267,7 +1266,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="243"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="258"/>
@@ -1277,17 +1276,17 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="258"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation type="unfinished">L&apos;année de référence ({}) est supérieure ou égale à l&apos;année cible ({}) - cette analyse peut générer des résultats étranges.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="262"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
-        <translation type="unfinished">La zone d&apos;intérêt ne se trouve pas entièrement dans la couche de couverture terrestre initiale.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="267"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
-        <translation type="unfinished">La zone d&apos;intérêt ne se trouve pas entièrement dans la couche de couverture terrestre finale.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1446,7 +1445,7 @@ p, li {white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN &quot; &quot;http: //www.w3.org/TR/REC-html40/strict.dtd &quot;&gt; 
  &lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext &quot; content = &quot;1 &quot; /&gt; &lt;style type = &quot;text / css &quot;&gt; 
@@ -1525,7 +1524,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../load_data.py" line="320"/>
         <source>Processing of custom soil organic carbon data coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1596,12 +1595,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="69"/>
         <source>Use sample when reading cover classes from input file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1636,7 +1635,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -1872,32 +1871,32 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettings.ui" line="65"/>
         <source>Click the below button to register with Trends.Earth.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="87"/>
         <source>Step 1: Register</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="100"/>
         <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="122"/>
         <source>Step 2: Enter login</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="166"/>
         <source>Update account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="191"/>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1910,12 +1909,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="32"/>
         <source>Use the options below to login with a different user, update your profile, or delete your account.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
         <source>Change user</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
@@ -1930,12 +1929,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="188"/>
         <source>Delete user?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="188"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="194"/>
@@ -1953,12 +1952,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="26"/>
         <source>Enter your email address below and if you have an account an email will be sent to you (from api@trends.earth) with a new password.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="45"/>
         <source>Enter your email address...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="223"/>
@@ -1973,12 +1972,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="227"/>
         <source>Reset password?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="227"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../settings.py" line="235"/>
@@ -1988,7 +1987,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="235"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1996,7 +1995,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="20"/>
         <source>Update user information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="58"/>
@@ -2059,7 +2058,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="20"/>
         <source>Login to Trends.Earth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="38"/>
@@ -2094,7 +2093,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="146"/>
         <source>Logged in to the Trends.Earth server as {}.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2157,7 +2156,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="107"/>
         <source>User registered. Your password has been emailed to {}.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2291,7 +2290,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../api.py" line="38"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../api.py" line="173"/>
@@ -2334,57 +2333,57 @@ p, li {white-space: pré-wrap; }
         <translation>Le téléchargement a expiré. Vérifiez votre connection internet.</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="250"/>
+        <location filename="../plugin.py" line="250"/>
         <source>&amp;trends.earth</source>
         <translation>&amp;earth.trends</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="191"/>
+        <location filename="../plugin.py" line="191"/>
         <source>Settings</source>
         <translation>Réglages</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="191"/>
+        <location filename="../plugin.py" line="191"/>
         <source>LDMT Settings</source>
         <translation>Paramètres LDMT</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="198"/>
+        <location filename="../plugin.py" line="198"/>
         <source>Calculate indicators</source>
         <translation>Calculer les indicateurs</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="198"/>
+        <location filename="../plugin.py" line="198"/>
         <source>Calculate land degradation indicators</source>
         <translation>Calculer les indicateurs de dégradation des sols</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="205"/>
+        <location filename="../plugin.py" line="205"/>
         <source>Plot data</source>
         <translation>Tracer des données</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="219"/>
+        <location filename="../plugin.py" line="219"/>
         <source>View Google Earth Engine tasks</source>
         <translation>Afficher les tâches Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="219"/>
+        <location filename="../plugin.py" line="219"/>
         <source>View cloud processing tasks</source>
         <translation>Afficher les tâches de traitement en nuage</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="226"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Reporting tool</source>
         <translation>Outil de rapport</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="226"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Land degradation reporting</source>
         <translation>Déclaration de dégradation des terres</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="240"/>
+        <location filename="../plugin.py" line="240"/>
         <source>About</source>
         <translation>Sur</translation>
     </message>
@@ -2394,7 +2393,7 @@ p, li {white-space: pré-wrap; }
         <translation>Succès</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="240"/>
+        <location filename="../plugin.py" line="240"/>
         <source>About trends.earth</source>
         <translation>À propos de trends.earth</translation>
     </message>
@@ -2419,29 +2418,29 @@ p, li {white-space: pré-wrap; }
         <translation>L&apos;outil de création de carte est encore expérimental - la fonctionnalité de cet outil est susceptible de changer à l&apos;avenir.</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="205"/>
+        <location filename="../plugin.py" line="205"/>
         <source>Plot time series datasets</source>
-        <translation>Ensembles de données de séries chronologiques</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ldmp.py" line="212"/>
+        <location filename="../plugin.py" line="212"/>
         <source>Download raw data</source>
         <translation>Télécharger des données brutes</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="212"/>
+        <location filename="../plugin.py" line="212"/>
         <source>Download raw datasets</source>
-        <translation>Télécharger des ensembles de données brutes</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ldmp.py" line="233"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Load data</source>
-        <translation>Charger les données</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ldmp.py" line="233"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Load local data</source>
-        <translation>Charger des données locales</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>

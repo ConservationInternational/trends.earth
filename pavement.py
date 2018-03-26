@@ -595,14 +595,17 @@ def gettext(options):
 @cmdopts([
     ('clean', 'c', 'clean out built artifacts first'),
     ('ignore_errors', 'i', 'ignore documentation errors'),
+    ('language=', 'l', "which language to build (all are built by default)"),
     ('fast', 'f', "only build english docs"),
 ])
 def builddocs(options):
     if options.get('clean', False):
         options.sphinx.builddir.rmtree()
 
-    languages  = [options.sphinx.base_language]
-    if not options.get('fast', False):
+    if options.get('language', False):
+        languages = [options.get('language')]
+    else:
+        languages = [options.sphinx.base_language]
         languages.extend(options.plugin.translations)
 
     for language in languages:

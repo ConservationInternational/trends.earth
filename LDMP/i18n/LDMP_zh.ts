@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation>早期的衰退迹象</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation>稳定但强调</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation>Ранние признаки снижения</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation>Стабильный, но напряженный</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -144,7 +144,7 @@ address this limitation by using total annual evapo-transpiration (ET) instead
 precipitation. ET is defined as precipitation minus the water lost to surface 
 runoff, recharge to groundwater and changes to soil water storage. The rest of 
 the analysis follows as described for RUE: a linear regression and a 
-non-parametric significance test is applied to the trend of RUE over time. 
+non-parametric significance test is applied to the trend of WUE over time. 
 Positive significant trends in WUE would indicate potential improvement in land 
 condition, and negative significant trends potential degradation.
 

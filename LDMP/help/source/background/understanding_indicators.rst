@@ -139,7 +139,7 @@ variability? A case study in South Africa. J. Arid Environ. 2007, 68, 271–297.
 **Water Use Efficiency (WUE):** RUE assumes that there is a linear relationship 
 between the amount of water that falls in the form of precipitation in a 
 particular place and the amount of water which will be actually used by the 
-plants. This assumption does not hold true for every system. RUE tries to 
+plants. This assumption does not hold true for every system. WUE tries to 
 address this limitation by using total annual evapo-transpiration (ET) instead 
 precipitation. ET is defined as precipitation minus the water lost to surface 
 runoff, recharge to groundwater and changes to soil water storage. The rest of 

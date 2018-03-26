@@ -10,7 +10,7 @@
     <message>
         <location filename="../layers.py" line="140"/>
         <source>Increasing</source>
-        <translation>En augmentant</translation>
+        <translation>En augmentation</translation>
     </message>
     <message>
         <location filename="../layers.py" line="136"/>
@@ -50,7 +50,7 @@
     <message>
         <location filename="../layers.py" line="70"/>
         <source>Productivity performance ({year_start}, units)</source>
-        <translation>Performances de productivité ({year_start}, unités)</translation>
+        <translation>Performances de productivité ({year_start}, units)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="97"/>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../layers.py" line="98"/>
         <source>3 - Cropland</source>
-        <translation>Les terres cultivées</translation>
+        <translation>Terres cultivées</translation>
     </message>
     <message>
         <location filename="../layers.py" line="99"/>
@@ -75,7 +75,7 @@
     <message>
         <location filename="../layers.py" line="102"/>
         <source>7 - Water body</source>
-        <translation>Corps d&apos;eau</translation>
+        <translation>Étendue d&apos;eau</translation>
     </message>
     <message>
         <location filename="../layers.py" line="106"/>
@@ -90,7 +90,7 @@
     <message>
         <location filename="../layers.py" line="108"/>
         <source>Cropland loss</source>
-        <translation>La dégradation du couvert végétal</translation>
+        <translation>Dégradation du couvert végétal</translation>
     </message>
     <message>
         <location filename="../layers.py" line="109"/>
@@ -110,7 +110,7 @@
     <message>
         <location filename="../layers.py" line="112"/>
         <source>Water body loss</source>
-        <translation>Perte de corps d&apos;eau</translation>
+        <translation>Perte d&apos;étendue d&apos;eau</translation>
     </message>
     <message>
         <location filename="../layers.py" line="145"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="../layers.py" line="332"/>
         <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
-        <translation>Impossible de charger le style trends.earth. Ajouter une couche en utilisant les valeurs par défaut de QGIS.</translation>
+        <translation>Impossible de charger le style trends.earth. Ajout d&apos;une couche en utilisant les valeurs par défaut de QGIS.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="152"/>
@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation type="unfinished"></translation>
+        <translation>Premiers signes de déclin</translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Stable mais sous stress</translation>
     </message>
 </context>
 <context>
@@ -657,12 +657,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="738"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous devez ajouter une couche de couverture terrestre initiale à votre carte avant de pouvoir faire le calcul.</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="743"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous devez ajouter une couche de couverture terrestre finale à votre carte avant de pouvoir faire le calcul.</translation>
     </message>
 </context>
 <context>
@@ -1126,12 +1126,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_sdg.py" line="985"/>
         <source>Reporting tool does not yet work for split bounding boxes.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;outil de notification ne fonctionne pas encore pour les cadres de limitation scindés.</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1056"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors du calcul du tableau récapitulatif de l&apos;ODD 15.3.1.</translation>
     </message>
 </context>
 <context>
@@ -1277,7 +1277,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="243"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous devez ajouter une couche de carbone organique du sol à votre carte avant de pouvoir effectuer le calcul.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="258"/>
@@ -1287,17 +1287,17 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="258"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation type="unfinished">L&apos;année de référence ({}) est supérieure ou égale à l&apos;année cible ({}) - cette analyse peut générer des résultats étranges.</translation>
+        <translation>L&apos;année de référence ({}) est supérieure ou égale à l&apos;année cible ({}) - cette analyse peut générer des résultats étranges.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="262"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
-        <translation type="unfinished">La zone d&apos;intérêt ne se trouve pas entièrement dans la couche de couverture terrestre initiale.</translation>
+        <translation>La zone d&apos;intérêt ne se trouve pas entièrement dans la couche de couverture terrestre initiale.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="267"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
-        <translation type="unfinished">La zone d&apos;intérêt ne se trouve pas entièrement dans la couche de couverture terrestre finale.</translation>
+        <translation>La zone d&apos;intérêt ne se trouve pas entièrement dans la couche de couverture terrestre finale.</translation>
     </message>
 </context>
 <context>
@@ -1535,7 +1535,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../load_data.py" line="320"/>
         <source>Processing of custom soil organic carbon data coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Traitement des données personnalisées de carbone organique du sol à venir bientôt!</translation>
     </message>
 </context>
 <context>
@@ -1606,12 +1606,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="69"/>
         <source>Use sample when reading cover classes from input file</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser un exemple lors de la lecture des classes de couverture à partir du fichier d&apos;entrée</translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="unfinished"></translation>
+        <translation>Remarque: Si vous lisez un fichier volumineux, il est recommandé de cocher l&apos;option ci-dessus, car cela accélérera considérablement le processus de lecture des classes d&apos;entrée de la série de données. Cependant, si vous trouvez que Trends.Earth n&apos;identifie pas toutes les classes dans le fichier d&apos;entrée, il peut être nécessaire de désactiver cette option.</translation>
     </message>
 </context>
 <context>
@@ -1882,32 +1882,32 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettings.ui" line="65"/>
         <source>Click the below button to register with Trends.Earth.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquez sur le bouton ci-dessous pour vous enregistrer sur Trends.Earth.</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="87"/>
         <source>Step 1: Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Étape 1 : Inscrivez-vous</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="100"/>
         <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
-        <translation type="unfinished"></translation>
+        <translation>Après l&apos;inscription, vous recevrez un email avec votre mot de passe de api@trends.earth. Une fois que vous avez reçu cet e-mail, cliquez ci-dessous pour saisir ce mot de passe afin de vous connecter à Trends.Earth.</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="122"/>
         <source>Step 2: Enter login</source>
-        <translation type="unfinished"></translation>
+        <translation>Étape 2 : Entrez l&apos;identifiant</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="166"/>
         <source>Update account</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour le compte</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="191"/>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le mot de passe</translation>
     </message>
 </context>
 <context>
@@ -1920,12 +1920,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="32"/>
         <source>Use the options below to login with a different user, update your profile, or delete your account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisez les options ci-dessous pour vous connecter avec un autre utilisateur, mettre à jour votre profil ou supprimer votre compte.</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
         <source>Change user</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer d&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
@@ -1940,12 +1940,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="188"/>
         <source>Delete user?</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer l&apos;utilisateur ?</translation>
     </message>
     <message>
         <location filename="../settings.py" line="188"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr de vouloir supprimer l&apos;utilisateur {} ? Toutes vos tâches seront perdues et vous ne pourrez plus traiter les données en ligne à l&apos;aide de Trends.Earth.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="194"/>
@@ -1963,12 +1963,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="26"/>
         <source>Enter your email address below and if you have an account an email will be sent to you (from api@trends.earth) with a new password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisissez votre adresse e-mail ci-dessous et si vous avez un compte, un e-mail vous sera envoyé (à partir de api@trends.earth) avec un nouveau mot de passe.</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="45"/>
         <source>Enter your email address...</source>
-        <translation type="unfinished"></translation>
+        <translation>Saisissez votre adresse email...</translation>
     </message>
     <message>
         <location filename="../settings.py" line="223"/>
@@ -1983,12 +1983,12 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="227"/>
         <source>Reset password?</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le mot de passe ?</translation>
     </message>
     <message>
         <location filename="../settings.py" line="227"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Êtes-vous sûr de vouloir réinitialiser le mot de passe pour {} ? Votre nouveau mot de passe vous sera envoyé par courrier électronique.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="235"/>
@@ -1998,7 +1998,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="235"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le mot de passe a été réinitialisé pour {}. Vérifiez votre e-mail pour le nouveau mot de passe, puis revenez à Trends.Earth pour le saisir.</translation>
     </message>
 </context>
 <context>
@@ -2006,7 +2006,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="20"/>
         <source>Update user information</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour les informations utilisateur</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="58"/>
@@ -2069,7 +2069,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="20"/>
         <source>Login to Trends.Earth</source>
-        <translation type="unfinished"></translation>
+        <translation>Connectez-vous à Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="38"/>
@@ -2104,7 +2104,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="146"/>
         <source>Logged in to the Trends.Earth server as {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Connecté au serveur Trends.Earth en tant que {}.</translation>
     </message>
 </context>
 <context>
@@ -2167,7 +2167,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../settings.py" line="107"/>
         <source>User registered. Your password has been emailed to {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisateur enregistré. Votre mot de passe a été envoyé par courrier électronique à {}.</translation>
     </message>
 </context>
 <context>
@@ -2301,7 +2301,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../api.py" line="38"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez vous enregistrer auprès de trends.earth avant d&apos;utiliser cette fonction.</translation>
     </message>
     <message>
         <location filename="../api.py" line="173"/>
@@ -2346,7 +2346,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../plugin.py" line="250"/>
         <source>&amp;trends.earth</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="191"/>
@@ -2431,7 +2431,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../plugin.py" line="205"/>
         <source>Plot time series datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeux de données de séries chronologiques</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="212"/>
@@ -2441,17 +2441,17 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../plugin.py" line="212"/>
         <source>Download raw datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger des séries de données brutes</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="233"/>
         <source>Load data</source>
-        <translation type="unfinished">Charger les données</translation>
+        <translation>Charger les données</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="233"/>
         <source>Load local data</source>
-        <translation type="unfinished"></translation>
+        <translation>Charger des données locales</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>

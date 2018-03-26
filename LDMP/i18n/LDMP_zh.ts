@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation type="unfinished"></translation>
+        <translation>早期的衰退迹象</translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation type="unfinished"></translation>
+        <translation>稳定但强调</translation>
     </message>
 </context>
 <context>
@@ -2346,7 +2346,7 @@ p，li {空格：预包装; }
     <message>
         <location filename="../plugin.py" line="250"/>
         <source>&amp;trends.earth</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="191"/>
@@ -2356,37 +2356,37 @@ p，li {空格：预包装; }
     <message>
         <location filename="../plugin.py" line="191"/>
         <source>LDMT Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>LDMT设置</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="198"/>
         <source>Calculate indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>计算指标</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="198"/>
         <source>Calculate land degradation indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>计算土地退化指标</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="205"/>
         <source>Plot data</source>
-        <translation type="unfinished"></translation>
+        <translation>绘制数据</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>View Google Earth Engine tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>查看Google地球引擎任务</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>View cloud processing tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>查看云处理任务</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="226"/>
         <source>Reporting tool</source>
-        <translation type="unfinished"></translation>
+        <translation>报告工具</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="226"/>
@@ -2431,7 +2431,7 @@ p，li {空格：预包装; }
     <message>
         <location filename="../plugin.py" line="205"/>
         <source>Plot time series datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>绘制时间序列数据集</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="212"/>
@@ -2441,7 +2441,7 @@ p，li {空格：预包装; }
     <message>
         <location filename="../plugin.py" line="212"/>
         <source>Download raw datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>下载原始数据集</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="233"/>
@@ -2451,7 +2451,7 @@ p，li {空格：预包装; }
     <message>
         <location filename="../plugin.py" line="233"/>
         <source>Load local data</source>
-        <translation type="unfinished"></translation>
+        <translation>加载本地数据</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>

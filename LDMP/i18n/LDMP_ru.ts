@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation type="unfinished"></translation>
+        <translation>Ранние признаки снижения</translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Стабильный, но напряженный</translation>
     </message>
 </context>
 <context>
@@ -2346,7 +2346,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="250"/>
         <source>&amp;trends.earth</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="191"/>
@@ -2356,17 +2356,17 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="191"/>
         <source>LDMT Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки LDMT</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="198"/>
         <source>Calculate indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Вычислить показатели</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="198"/>
         <source>Calculate land degradation indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Вычислить показатели деградации земель</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="205"/>
@@ -2376,12 +2376,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>View Google Earth Engine tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>Просмотр задач Google Планета Земля</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>View cloud processing tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>Просмотр задач обработки облачных вычислений</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="226"/>
@@ -2431,7 +2431,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="205"/>
         <source>Plot time series datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Наборы данных временных рядов</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="212"/>
@@ -2441,7 +2441,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="212"/>
         <source>Download raw datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка необработанных наборов данных</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="233"/>
@@ -2451,7 +2451,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="233"/>
         <source>Load local data</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка локальных данных</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>404</width>
-    <height>261</height>
+    <width>268</width>
+    <height>194</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,6 +38,12 @@
    </item>
    <item>
     <widget class="QPushButton" name="pushButton_change_user">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
      <property name="text">
       <string>Change user</string>
      </property>

@@ -130,7 +130,7 @@
     <message>
         <location filename="../layers.py" line="332"/>
         <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
-        <translation>Error al cargar el estilo de trends.earth Agregar capa usando los valores predeterminados de QGIS.</translation>
+        <translation>Error al cargar el estilo de |trends.earth|. Agregar capa usando los valores predeterminados de QGIS.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="152"/>
@@ -155,7 +155,7 @@
     <message>
         <location filename="../layers.py" line="74"/>
         <source>Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</source>
-        <translation>Degradación -Indicador productividad - estado ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</translation>
+        <translation>Degradación - Indicador productividad - Estado ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="93"/>
@@ -427,38 +427,38 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt;&lt;style type = &quot;text / css&quot;&gt;
 p, li {white-space: pre-wrap; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal;&quot;&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / trends_earth_logo_bl_small.png&quot; /&gt; &lt;/ p&gt;
-&lt;p align = &quot;center&quot; style = &quot;- qt-tipo-párrafo: vacío; margen-superior: 0px; margen-inferior: 0px; margen-izquierdo: 0px; margen-derecho: 0px; -qt-block-indent: 0; sangría de texto: 0px; tamaño de fuente: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;span style = &quot;font-size: 12pt;&quot;&gt; Versión VERSION_NUMBER &lt;/ span&gt; &lt;/ p&gt;
-&lt;p align = &quot;center&quot; style = &quot;- qt-tipo-párrafo: vacío; margen-superior: 0px; margen-inferior: 0px; margen-izquierdo: 0px; margen-derecho: 0px; -qt-block-indent: 0; sangría de texto: 0px; tamaño de fuente: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;span style = &quot;font-size: 12pt;&quot;&gt; Acceda a la guía del usuario aquí: &lt;/ span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt; &lt;span style = &quot;font-size : 12pt; texto-decoración: subrayado; color: # 0000ff; &quot;&gt; http://trends.earth/docs/es &lt;/ span&gt; &lt;/a&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; trends.earth (anteriormente la Herramienta de monitoreo de la degradación de la tierra) es una herramienta para monitorear el cambio de la tierra. |trends.earth| es &lt;/ span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt; &lt;span style = &quot;font-size: 8pt; texto-decoración: subrayado; color: # 0000ff;&quot;&gt; QGIS &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; complemento que permite controlar el cambio de tierra, incluidos los cambios en la productividad, la cobertura de la tierra y el carbono orgánico del suelo. La herramienta puede respaldar el monitoreo de la degradación de la tierra para informar al Fondo Mundial para el Medio Ambiente (GEF por sus siglas en inglés) y la Convención de las Naciones Unidas de Lucha contra la Desertificación (UNCCD), así como seguir el progreso hacia el logro de los Objetivos de Desarrollo Sostenible (ODS) meta 15.3 de Neutralidad de Degradación de Tierras (LDN ). &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; trends.earth se produjo como un resultado del proyecto financiado por el GEF &lt;/ span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt; &lt;span style = &quot; font-size: 8pt; texto-decoración: subrayado; color: # 0000ff; &quot;&gt;&quot; Uso de  datos globales para evaluar y monitorear la degradación del terreno en escalas múltiples &quot;&lt;/ span&gt; &lt;/a&gt; &lt;span style =&quot; font-size: 8pt; &quot;&gt;. El proyecto tiene como objetivo proporcionar orientación sobre métodos sólidos y una herramienta para evaluar, monitorear el estado y estimar las tendencias en la degradación de la tierra utilizando tecnología de teledetección. &lt;/ Span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; trends.earth es gratuito y de código abierto. El &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt; &lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot;&gt; code está disponible gratuitamente en línea &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt;. El código está licenciado bajo la Licencia Pública General de GNU, versión 2.0 o posterior. &lt;/ Span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; Estos productos de trends.earth están disponibles bajo los términos de la licencia internacional Creative Commons Attribution 4.0 (&lt;/ span&gt; &lt;a href = &quot;https://creativecommons.org/licenses/by /4.0/&quot;&gt;&lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot;&gt; CC BY 4.0 &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt ; &quot;&gt;). Los límites y los nombres utilizados, y las designaciones utilizadas, en trends.earth no implican respaldo o aceptación oficial por parte de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores. &lt;/ Span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; Si encuentra algún error o tiene algún problema con el uso del complemento, contáctenos en &lt;/ span&gt; &lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt; &lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot;&gt; trends.earth@conservation.org &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt;, o &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt; &lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot; &gt; informar un problema en github &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt;. &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal;&quot;&gt;
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;img src = &quot;: / plugins / LDMP / icons / trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
+&lt;p align = &quot;center&quot; style = &quot;- qt-tipo-párrafo: vacío; margen-superior: 0px; margen-inferior: 0px; margen-izquierdo: 0px; margen-derecho: 0px; -qt-block-indent: 0; sangría de texto: 0px; tamaño de fuente: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;span style = &quot;font-size: 12pt;&quot;&gt;Versión VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
+&lt;p align = &quot;center&quot; style = &quot;- qt-tipo-párrafo: vacío; margen-superior: 0px; margen-inferior: 0px; margen-izquierdo: 0px; margen-derecho: 0px; -qt-block-indent: 0; sangría de texto: 0px; tamaño de fuente: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;span style = &quot;font-size: 12pt;&quot;&gt;Acceda a la guía del usuario aquí:&lt;/span&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style = &quot;font-size : 12pt; texto-decoración: subrayado; color: # 0000ff; &quot;&gt;http://trends.earth/docs/es&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;|trends.earth| (anteriormente la Herramienta de monitoreo de la degradación de la tierra) es una herramienta para monitorear el cambio de la tierra. |trends.earth| es &lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style = &quot;font-size: 8pt; texto-decoración: subrayado; color: # 0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt; complemento que permite controlar el cambio de tierra, incluidos los cambios en la productividad, la cobertura de la tierra y el carbono orgánico del suelo. La herramienta puede respaldar el monitoreo de la degradación de la tierra para informar al Fondo Mundial para el Medio Ambiente (GEF por sus siglas en inglés) y la Convención de las Naciones Unidas de Lucha contra la Desertificación (UNCCD), así como seguir el progreso hacia el logro de los Objetivos de Desarrollo Sostenible (ODS) meta 15.3 de Neutralidad de Degradación de Tierras (LDN ).&lt;/span&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;trends.earth se produjo como un resultado del proyecto financiado por el GEF &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style = &quot; font-size: 8pt; texto-decoración: subrayado; color: # 0000ff; &quot;&gt;&quot; Uso de  datos globales para evaluar y monitorear la degradación del terreno en escalas múltiples &quot;&lt;/span&gt;&lt;/a&gt;&lt;span style =&quot; font-size: 8pt; &quot;&gt;. El proyecto tiene como objetivo proporcionar orientación sobre métodos sólidos y una herramienta para evaluar, monitorear el estado y estimar las tendencias en la degradación de la tierra utilizando tecnología de teledetección.&lt;/Span&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;trends.earth es gratuito y de código abierto. El &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot;&gt; code está disponible gratuitamente en línea &lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;. El código está licenciado bajo la Licencia Pública General de GNU, versión 2.0 o posterior. &lt;/Span&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt; Estos productos de trends.earth están disponibles bajo los términos de la licencia internacional Creative Commons Attribution 4.0 (&lt;/span&gt;&lt;a href = &quot;https://creativecommons.org/licenses/by /4.0/&quot;&gt;&lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot;&gt; CC BY 4.0 &lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt ; &quot;&gt;). Los límites y los nombres utilizados, y las designaciones utilizadas, en trends.earth no implican respaldo o aceptación oficial por parte de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores. &lt;/Span&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt; Si encuentra algún error o tiene algún problema con el uso del complemento, contáctenos en &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot;&gt;trends.earth@conservation.org &lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;, o &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style = &quot;font-size: 8pt; text-decoration: underline; color: # 0000ff;&quot; &gt; informar un problema en github &lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;table border = &quot;0&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;&quot; width = &quot;100%&quot; cellspacing = &quot;0&quot; cellpadding = &quot;0&quot;&gt;
 &lt;tr&gt;
 &lt;td style = &quot;vertical-align: middle;&quot;&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / GEF_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;img src = &quot;: / plugins / LDMP / icons / GEF_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td style = &quot;vertical-align: middle;&quot;&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / CI_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;img src = &quot;: / plugins / LDMP / icons / CI_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td style = &quot;vertical-align: middle;&quot;&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / LU_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;img src = &quot;: / plugins / LDMP / icons / LU_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td style = &quot;vertical-align: middle;&quot;&gt;
-&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / NASA_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
-&lt;td&gt; &lt;/ td&gt; &lt;/ tr&gt; &lt;/ table&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+&lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;img src = &quot;: / plugins / LDMP / icons / NASA_logo_small.png&quot; style = &quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -597,7 +597,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="396"/>
         <source>Transition matrix definition (*.json)</source>
-        <translation>Definición de la matriz de transición (* .json)</translation>
+        <translation>Definición de la matriz de transición (*.json)</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="396"/>
@@ -627,7 +627,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="698"/>
         <source>Raster file (*.tif)</source>
-        <translation>Archivo raster (* .tif)</translation>
+        <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="756"/>
@@ -695,7 +695,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="194"/>
         <source>Land cover definition (*.json)</source>
-        <translation>Definición de cobertura del terreno (* .json)</translation>
+        <translation>Definición de cobertura del terreno (*.json)</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="204"/>
@@ -916,7 +916,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_sdg.py" line="748"/>
         <source>Filename (*.json)</source>
-        <translation>Nombre de archivo (* .json)</translation>
+        <translation>Nombre de archivo (*.json)</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1056"/>
@@ -936,7 +936,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_sdg.py" line="761"/>
         <source>Summary table file (*.xlsx)</source>
-        <translation>Archivo de tabla de resumen (* .xlsx)</translation>
+        <translation>Archivo de tabla de resumen (*.xlsx)</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="796"/>
@@ -1426,7 +1426,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../jobs.py" line="243"/>
         <source>Base filename (*.json)</source>
-        <translation>Nombre de archivo base (* .json)</translation>
+        <translation>Nombre de archivo base (*.json)</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="256"/>
@@ -1458,11 +1458,11 @@ p, li {white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p, li {white-space: pre-wrap; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal;&quot;&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="43"/>
@@ -1655,18 +1655,18 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p, li {white-space: pre-wrap; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;; font-size: 8.25pt; font-weight: 400; font-style: normal;&quot;&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt; font-weight: 600;&quot;&gt; Las clases de productividad en los datos de entrada se deben codificar de la siguiente manera: &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 1: Disminución &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 2: signos iniciales de disminución &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 3: estable pero estresado &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 4: estable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 5: Aumentando &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 0 o -32768: sin datos &lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Las clases de productividad deben estar codificadas del diguiente modo:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="885"/>
@@ -1798,7 +1798,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plot.py" line="85"/>
         <source>Linear trend (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</source>
-        <translation>Tendencia lineal (r&lt;sup&gt;2&lt;/sup&gt; = {0: .2f})</translation>
+        <translation>Tendencia lineal (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</translation>
     </message>
 </context>
 <context>
@@ -1859,7 +1859,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="174"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Exención de responsabilidad: Los límites proporcionados son de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt;, y están en &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; dominio público &lt;/ span&gt; &lt;/a&gt;. Los límites y los nombres utilizados, y las designaciones utilizadas, en trends.earth no implican respaldo o aceptación oficial de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Exención de responsabilidad: Los límites proporcionados son de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/span&gt;&lt;/a&gt;, y están en &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; dominio público &lt;/span&gt;&lt;/a&gt;. Los límites y los nombres utilizados, y las designaciones utilizadas, en trends.earth no implican respaldo o aceptación oficial de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores. &lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2273,7 +2273,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="366"/>
         <source>Transition matrix definition (*.json)</source>
-        <translation>Definición de la matriz de transición (* .json)</translation>
+        <translation>Definición de la matriz de transición (*.json)</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="406"/>
@@ -2582,7 +2582,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../load_data.py" line="498"/>
         <source>Raster file (*.tif *.dat *.img)</source>
-        <translation>Archivo raster (* .tif * .dat * .img)</translation>
+        <translation>Archivo raster (*.tif *.dat *.img)</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="543"/>
@@ -2602,7 +2602,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../load_data.py" line="529"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation>Archivo vectorial (* .shp * .kml * .kmz * .geojson)</translation>
+        <translation>Archivo vectorial (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
 </context>
 <context>
@@ -2615,7 +2615,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../load_data.py" line="567"/>
         <source>Raster file (*.tif)</source>
-        <translation>Archivo raster (* .tif)</translation>
+        <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="577"/>
@@ -2933,7 +2933,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="257"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Exención de responsabilidad: Los límites proporcionados son de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt;, y están en &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; dominio público &lt;/ span&gt; &lt;/a&gt;. Los límites y los nombres utilizados, y las designaciones utilizadas, en trends.earth no implican respaldo o aceptación oficial de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Exención de responsabilidad: Los límites proporcionados son de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/span&gt;&lt;/a&gt;, y están en &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; dominio público &lt;/span&gt;&lt;/a&gt;. Los límites y los nombres utilizados, y las designaciones utilizadas, en trends.earth no implican respaldo o aceptación oficial de Conservation International Foundation, ni de sus organizaciones asociadas y colaboradores. &lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="50"/>

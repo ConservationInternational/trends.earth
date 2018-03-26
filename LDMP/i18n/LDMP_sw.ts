@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation>Ishara za mapema za kushuka</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation>Imara lakini imesisitiza</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

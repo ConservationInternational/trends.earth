@@ -325,12 +325,12 @@
     <message>
         <location filename="../layers.py" line="128"/>
         <source>Early signs of decline</source>
-        <translation type="unfinished"></translation>
+        <translation>Primeros signos de disminución</translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
         <source>Stable but stressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Estable pero estresado</translation>
     </message>
 </context>
 <context>
@@ -2346,7 +2346,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="250"/>
         <source>&amp;trends.earth</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="191"/>

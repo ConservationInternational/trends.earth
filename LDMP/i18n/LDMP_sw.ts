@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sw" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="sw" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -385,7 +386,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -1445,7 +1446,7 @@ p, li { white-space: pre-wrap;}
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;kichwa&gt; &lt;meta jina = &quot;qrichtext&quot; maudhui = &quot;1&quot; /&gt; &lt;aina ya style = &quot;text / css&quot;&gt;
@@ -1635,7 +1636,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2333,59 +2334,59 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Pakua nje wakati. Angalia uhusiano wako wa intaneti.</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="250"/>
+        <location filename="../plugin.py" line="250"/>
         <source>&amp;trends.earth</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="191"/>
+        <location filename="../plugin.py" line="191"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Mipangilio</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="191"/>
+        <location filename="../plugin.py" line="191"/>
         <source>LDMT Settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="198"/>
+        <location filename="../plugin.py" line="198"/>
         <source>Calculate indicators</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="198"/>
+        <location filename="../plugin.py" line="198"/>
         <source>Calculate land degradation indicators</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="205"/>
+        <location filename="../plugin.py" line="205"/>
         <source>Plot data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="219"/>
+        <location filename="../plugin.py" line="219"/>
         <source>View Google Earth Engine tasks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="219"/>
+        <location filename="../plugin.py" line="219"/>
         <source>View cloud processing tasks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="226"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Reporting tool</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="226"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Land degradation reporting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Ripoti ya uharibifu wa ardhi</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="240"/>
+        <location filename="../plugin.py" line="240"/>
         <source>About</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="179"/>
@@ -2393,9 +2394,9 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Mafanikio</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="240"/>
+        <location filename="../plugin.py" line="240"/>
         <source>About trends.earth</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Kuhusu trends.earth</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="179"/>
@@ -2418,29 +2419,29 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Kifaa cha kuunda ramani bado kinajaribio - utendaji wa chombo hiki ni uwezekano wa kubadili baadaye.</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="205"/>
+        <location filename="../plugin.py" line="205"/>
         <source>Plot time series datasets</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="212"/>
+        <location filename="../plugin.py" line="212"/>
         <source>Download raw data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Pakua data ghafi</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="212"/>
+        <location filename="../plugin.py" line="212"/>
         <source>Download raw datasets</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="233"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Load data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Weka data</translation>
     </message>
     <message>
-        <location filename="../ldmp.py" line="233"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Load local data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>

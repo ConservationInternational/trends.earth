@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ar" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="ar" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -385,7 +386,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -1025,170 +1026,170 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="20"/>
         <source>Calculate SDG 15.3.1 Indicator</source>
-        <translation>احسب مؤشر SDG 15.3.1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="39"/>
         <source>Input</source>
-        <translation>إدخال</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="63"/>
         <source>Productivity</source>
-        <translation>إنتاجية</translation>
+        <translation type="unfinished">إنتاجية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="126"/>
         <source>Trends.Earth land productivity</source>
-        <translation>اتجاهات. الأرض إنتاجية</translation>
+        <translation type="unfinished">اتجاهات. الأرض إنتاجية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="145"/>
         <source>Performance (degradation):</source>
-        <translation>أداء:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="161"/>
         <source>State (degradation):</source>
-        <translation>الدولة (الانحطاط):</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="177"/>
         <source>Trajectory (degradation):</source>
-        <translation>المسار (الانحطاط):</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="200"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</source>
-        <translation>البيانات الافتراضية لاتفاقية الأمم المتحدة لمكافحة التصحر (ديناميكية إنتاجية الأراضي (LPD) من لجنة البحوث المشتركة)</translation>
+        <translation type="unfinished">البيانات الافتراضية لاتفاقية الأمم المتحدة لمكافحة التصحر (ديناميكية إنتاجية الأراضي (LPD) من لجنة البحوث المشتركة)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="237"/>
         <source>Land cover (degradation)</source>
-        <translation>الغطاء الأرضي:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="283"/>
         <source>Soil carbon (degradation)</source>
-        <translation>كربون التربة (التدهور)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="309"/>
         <source>Output</source>
-        <translation>انتاج |</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="315"/>
         <source>Output file for indicator layer</source>
-        <translation>ملف الإخراج لطبقة المؤشر</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="368"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="381"/>
         <source>Browse</source>
-        <translation>تصفح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="353"/>
         <source>Output file for summary table</source>
-        <translation>ملف الإخراج لجدول الملخص</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="416"/>
         <source>Previous</source>
-        <translation>سابق</translation>
+        <translation type="unfinished">سابق</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="429"/>
         <source>Next</source>
-        <translation>التالى</translation>
+        <translation type="unfinished">التالى</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="442"/>
         <source>Calculate</source>
-        <translation>حساب</translation>
+        <translation type="unfinished">حساب</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="985"/>
         <source>Reporting tool does not yet work for split bounding boxes.</source>
-        <translation>لا تعمل أداة الإبلاغ حتى الآن لصناديق الإحاطة المقسمة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="1056"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
-        <translation>خطأ في حساب جدول ملخص SDG 15.3.1.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateSDGOneStep</name>
     <message>
-        <location filename="../calculate_sdg.py" line="64"/>
-        <source>Land Cover Setup</source>
-        <translation>إعداد غطاء الأرض</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="74"/>
-        <source>Define Effects of Land Cover Change</source>
-        <translation>تحديد آثار تغير غطاء الأرض</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="20"/>
         <source>Calculate SDG 15.3.1 Indicator (one-step)</source>
-        <translation>حساب SDG 15.3.1 المؤشر (خطوة واحدة)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="39"/>
         <source>Setup</source>
-        <translation>اقامة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="57"/>
         <source>Period</source>
-        <translation>فترة</translation>
+        <translation type="unfinished">فترة</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="75"/>
         <source>Initial year:</source>
-        <translation>السنة الاولى:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="88"/>
         <source>Final year:</source>
-        <translation>السنة النهائية:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="200"/>
         <source>Land productivity dataset</source>
-        <translation>مجموعة بيانات إنتاجية الأرض</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="206"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</source>
-        <translation>البيانات الافتراضية لاتفاقية الأمم المتحدة لمكافحة التصحر (ديناميكية إنتاجية الأراضي (LPD) من لجنة البحوث المشتركة)</translation>
+        <translation type="unfinished">البيانات الافتراضية لاتفاقية الأمم المتحدة لمكافحة التصحر (ديناميكية إنتاجية الأراضي (LPD) من لجنة البحوث المشتركة)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="216"/>
         <source>Trends.Earth land productivity</source>
-        <translation>اتجاهات. الأرض إنتاجية</translation>
+        <translation type="unfinished">اتجاهات. الأرض إنتاجية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="254"/>
         <source>Next</source>
-        <translation>التالى</translation>
+        <translation type="unfinished">التالى</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="267"/>
         <source>Calculate</source>
-        <translation>حساب</translation>
+        <translation type="unfinished">حساب</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="280"/>
         <source>Previous</source>
-        <translation>سابق</translation>
+        <translation type="unfinished">سابق</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="64"/>
+        <source>Land Cover Setup</source>
+        <translation type="unfinished">إعداد غطاء الأرض</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="74"/>
+        <source>Define Effects of Land Cover Change</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1196,97 +1197,97 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="20"/>
         <source>Calculate Soil Organic Carbon</source>
-        <translation>حساب الكربون العضوي التربة</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="250"/>
-        <source>Next</source>
-        <translation>التالى</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="224"/>
-        <source>Calculate</source>
-        <translation>حساب</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="237"/>
-        <source>Previous</source>
-        <translation>سابق</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="51"/>
-        <source>Climate regime</source>
-        <translation>نظام المناخ</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="124"/>
-        <source>Default (determined per-pixel using global climate data)</source>
-        <translation>افتراضي (محدد لكل بكسل باستخدام بيانات المناخ العالمية)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="63"/>
-        <source>Specify regime</source>
-        <translation>حدد النظام</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="76"/>
-        <source>Custom value</source>
-        <translation>القيمة الجمركية</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="143"/>
-        <source>Additional files to download</source>
-        <translation>ملفات إضافية لتنزيلها</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="39"/>
         <source>Advanced</source>
-        <translation>المتقدمة</translation>
+        <translation type="unfinished">المتقدمة</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="51"/>
+        <source>Climate regime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="63"/>
+        <source>Specify regime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="76"/>
+        <source>Custom value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="124"/>
+        <source>Default (determined per-pixel using global climate data)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="143"/>
+        <source>Additional files to download</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="161"/>
         <source>Download annual land cover layers (only first and last land cover layer are downloaded by default)</source>
-        <translation>تنزيل طبقات تغطية الأرض السنوية (يتم تنزيل طبقة الغطاء الأرضي أولاً والأخير افتراضيًا)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="171"/>
         <source>Custom initial soil organic carbon dataset (already loaded onto map using the &quot;Load Data tool&quot;</source>
-        <translation>مجموعة بيانات الكربون العضوية للتربة الأولية المخصصة (تم تحميلها بالفعل على الخريطة باستخدام &quot;أداة تحميل البيانات&quot;</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="224"/>
+        <source>Calculate</source>
+        <translation type="unfinished">حساب</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="237"/>
+        <source>Previous</source>
+        <translation type="unfinished">سابق</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="250"/>
+        <source>Next</source>
+        <translation type="unfinished">التالى</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="138"/>
         <source>Land Cover Setup</source>
-        <translation>إعداد غطاء الأرض</translation>
+        <translation type="unfinished">إعداد غطاء الأرض</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="267"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="243"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
-        <translation>يجب إضافة طبقة كربون عضوية للتربة إلى خريطتك قبل أن تتمكن من تشغيل الحساب.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="258"/>
         <source>Warning</source>
-        <translation>تحذير</translation>
+        <translation type="unfinished">تحذير</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="258"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation>السنة الأساسية ({}) أكبر من أو تساوي السنة المستهدفة ({}) - قد يؤدي هذا التحليل إلى نتائج غريبة.</translation>
+        <translation type="unfinished">السنة الأساسية ({}) أكبر من أو تساوي السنة المستهدفة ({}) - قد يؤدي هذا التحليل إلى نتائج غريبة.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="262"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
-        <translation>مجال الاهتمام ليس بالكامل داخل طبقة الغطاء الأرضي.</translation>
+        <translation type="unfinished">مجال الاهتمام ليس بالكامل داخل طبقة الغطاء الأرضي.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="267"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
-        <translation>منطقة الاهتمام ليست بالكامل ضمن طبقة الغطاء الأرضي النهائي.</translation>
+        <translation type="unfinished">منطقة الاهتمام ليست بالكامل ضمن طبقة الغطاء الأرضي النهائي.</translation>
     </message>
 </context>
 <context>
@@ -1294,37 +1295,37 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="14"/>
         <source>Create Map</source>
-        <translation>قم بإنشاء خريطة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="32"/>
         <source>Layer to display:</source>
-        <translation>طبقة للعرض:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="67"/>
         <source>Map name:</source>
-        <translation>عنوان الخريطة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="99"/>
         <source>Author(s):</source>
-        <translation>المؤلفون):</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="119"/>
         <source>Layout</source>
-        <translation>نسق</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="125"/>
         <source>Portrait</source>
-        <translation>صورة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCreateMap.ui" line="135"/>
         <source>Landscape</source>
-        <translation>المناظر الطبيعيه</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1332,52 +1333,52 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgDownload.ui" line="23"/>
         <source>Download raw data</source>
-        <translation>تحميل البيانات الخام</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="42"/>
         <source>Select Data</source>
-        <translation>اختر البيانات</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="257"/>
-        <source>Next</source>
-        <translation>التالى</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="283"/>
-        <source>Previous</source>
-        <translation>سابق</translation>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="138"/>
-        <source>Details</source>
-        <translation>تفاصيل</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDownload.ui" line="270"/>
-        <source>Submit download request</source>
-        <translation>تقديم طلب تنزيل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="77"/>
         <source>Select Time Period</source>
-        <translation>حدد الفترة الزمنية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="89"/>
         <source>Period</source>
-        <translation>فترة</translation>
+        <translation type="unfinished">فترة</translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="203"/>
         <source>Last year:</source>
-        <translation>العام الماضي:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDownload.ui" line="222"/>
         <source>First year:</source>
-        <translation>العام الأول:</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="257"/>
+        <source>Next</source>
+        <translation type="unfinished">التالى</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="270"/>
+        <source>Submit download request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDownload.ui" line="283"/>
+        <source>Previous</source>
+        <translation type="unfinished">سابق</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="138"/>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1385,52 +1386,52 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgJobs.ui" line="29"/>
         <source>Download results from Earth Engine</source>
-        <translation>تنزيل النتائج من Earth Engine</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="69"/>
         <source>Download results</source>
-        <translation>تحميل النتائج</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="82"/>
         <source>Refresh list</source>
-        <translation>تحديث القائمة</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="169"/>
-        <source>Script not found</source>
-        <translation>البرنامج النصي غير موجود</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="198"/>
-        <source>Details</source>
-        <translation>تفاصيل</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="256"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="243"/>
-        <source>Base filename (*.json)</source>
-        <translation>اسم الملف الأساسي (* .json)</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="256"/>
-        <source>Cannot write to {}. Choose a different base filename.</source>
-        <translation>لا يمكن الكتابة إلى {}. اختر اسم قاعدة أساسي مختلف.</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="243"/>
-        <source>Choose a filename downloading results of: {}</source>
-        <translation>اختر اسمًا لتنزيل نتائج اسم الملف: {}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="89"/>
         <source>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
-        <translation>تنتهي صلاحية الوظائف بعد 30 يومًا من إرسالها. بعد انتهاء صلاحية مهمة ، لن تظهر في هذه القائمة. {14؟}</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="169"/>
+        <source>Script not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="198"/>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="243"/>
+        <source>Choose a filename downloading results of: {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="243"/>
+        <source>Base filename (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="256"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="256"/>
+        <source>Cannot write to {}. Choose a different base filename.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1438,45 +1439,41 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="17"/>
         <source>Google Earth Engine Task Detail</source>
-        <translation>Google Earth Engine مهمة التفاصيل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="29"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p، li {white-space: pre-wrap؛ }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;؛ font-size: 8.25pt؛ font-weight: 400؛ font-style: normal؛&quot;&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty؛ margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent : 0px؛ font-size: 8pt؛ &quot;&gt; &lt;br /&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="43"/>
         <source>Comments:</source>
-        <translation>تعليقات:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="50"/>
         <source>Task name:</source>
-        <translation>اسم المهمة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="57"/>
         <source>Output:</source>
-        <translation>انتاج:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="64"/>
         <source>Input:</source>
-        <translation>إدخال:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobsDetails.ui" line="71"/>
         <source>Status:</source>
-        <translation>الحالة:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1484,47 +1481,47 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgLoadData.ui" line="23"/>
         <source>Load data</source>
-        <translation>تحميل البيانات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="29"/>
         <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation>قم بتحميل مجموعة بيانات تم إنتاجها بواسطة TRENDS.EARTH</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="53"/>
         <source>Load an existing TRENDS.EARTH output file</source>
-        <translation>قم بتحميل ملف إخراج TRENDS.EARTH موجود</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="63"/>
         <source>Load a custom input dataset</source>
-        <translation>تحميل مجموعة بيانات إدخال مخصصة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="75"/>
         <source>Productivity</source>
-        <translation>إنتاجية</translation>
+        <translation type="unfinished">إنتاجية</translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="88"/>
         <source>Land cover</source>
-        <translation>الغطاء الأرضي</translation>
+        <translation type="unfinished">الغطاء الأرضي</translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadData.ui" line="101"/>
         <source>Soil organic carbon</source>
-        <translation>الكربون العضوي التربة</translation>
+        <translation type="unfinished">الكربون العضوي التربة</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="320"/>
         <source>Coming soon!</source>
-        <translation>قريبا!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="320"/>
         <source>Processing of custom soil organic carbon data coming soon!</source>
-        <translation>تجهيز بيانات الكربون العضوي للتربة مخصصة قريبا!</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1532,110 +1529,95 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../load_data.py" line="678"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="595"/>
         <source>Choose an input raster file.</source>
-        <translation>اختر ملف البيانات النقطية المدخلة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="599"/>
         <source>Choose an input polygon dataset.</source>
-        <translation>اختر مجموعة بيانات مضلع الإدخال.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="678"/>
         <source>Raster import failed.</source>
-        <translation>فشل الاستيراد النقطي.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgLoadDataLC</name>
     <message>
-        <location filename="../load_data.py" line="778"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="720"/>
-        <source>Choose an output file.</source>
-        <translation>اختر ملف الإخراج.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="723"/>
-        <source>No definition set</source>
-        <translation>لا مجموعة تعريف</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="723"/>
-        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation>انقر فوق &quot;تحرير التعريف&quot; لتعريف تعريف الغطاء الأرضي قبل التصدير.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="778"/>
-        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation>خطأ في قراءة البيانات. تدعم Trends.Earth 60 فئة مختلفة من الطبقات الأرضية</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="23"/>
         <source>Load a Custom Land Cover Dataset</source>
-        <translation>تحميل مجموعة بيانات غطاء أرضي مخصصة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="35"/>
         <source>Choose a land cover aggregation method</source>
-        <translation>اختر طريقة تجميع غلاف الأرض</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="62"/>
         <source>Edit definition</source>
-        <translation>تحرير التعريف</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="69"/>
         <source>Use sample when reading cover classes from input file</source>
-        <translation>استخدم العينة عند قراءة فئات الغلاف من ملف الإدخال</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation>ملاحظة: إذا كنت تقرأ ملفًا كبيرًا ، فمن المستحسن أن يتم التحقق من الخيار أعلاه ، حيث إنه سيسر بشكل رائع عملية قراءة فئات الإدخال من مجموعة البيانات. ومع ذلك ، إذا وجدت أن Trends.Earth لا تحدد كافة الفئات في ملف الإدخال ، فقد يكون من الضروري إيقاف تشغيل هذا الخيار.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="778"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="720"/>
+        <source>Choose an output file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="723"/>
+        <source>No definition set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="723"/>
+        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="778"/>
+        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgLoadDataProd</name>
     <message>
-        <location filename="../load_data.py" line="881"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="868"/>
-        <source>Choose an output file.</source>
-        <translation>اختر ملف الإخراج.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="881"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation>لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح.</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgLoadDataProd.ui" line="23"/>
         <source>Load a Custom Land Productivity Dataset</source>
-        <translation>تحميل مجموعة بيانات إنتاجية مخصصة للأراضي</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataProd.ui" line="35"/>
         <source>Productivity class definition</source>
-        <translation>تعريف فئة الإنتاجية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataProd.ui" line="53"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -1644,142 +1626,146 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p، li {white-space: pre-wrap؛ }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;؛ font-size: 8.25pt؛ font-weight: 400؛ font-style: normal؛&quot;&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛ font-weight: 600؛&quot;&gt; يجب ترميز فئات الإنتاجية في بيانات الإدخال كما يلي: &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty؛ margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent : 0px؛ font-size: 8pt؛ &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 1: Declining &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 2: العلامات المبكرة للانخفاض &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 3: Stable but straved &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 4: Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 5: Increasing &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 0 or -32768: No data &lt;/ ​​span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="881"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="868"/>
+        <source>Choose an output file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="881"/>
+        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="885"/>
         <source>Warning</source>
-        <translation>تحذير</translation>
+        <translation type="unfinished">تحذير</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="885"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation>لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح. ستقوم Trends.Earth بتحميل الملف على أي حال ، ولكن قم بمراجعة الخريطة بمجرد تحميلها للتأكد من أن القيم منطقية. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5. هناك {} قيمة (قيم) في ملف الإدخال لم يتم التعرف عليها.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgLoadDataSOC</name>
     <message>
+        <location filename="../gui/DlgLoadDataSOC.ui" line="23"/>
+        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../load_data.py" line="829"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="812"/>
         <source>Choose an output file.</source>
-        <translation>اختر ملف الإخراج.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="825"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation>لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="829"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
-        <translation>لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح. هناك {} قيم مختلفة في الملف. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataSOC.ui" line="23"/>
-        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation>تحميل مجموعة بيانات مخصصة الكربون العضوي للتربة (SOC)</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgLoadDataTE</name>
     <message>
-        <location filename="../load_data.py" line="436"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="382"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="374"/>
-        <source>Select a trends.earth output file</source>
-        <translation>حدد ملف الإخراج اتجاهات</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="374"/>
-        <source>trends.earth metadata file (*.json)</source>
-        <translation>ملف البيانات الوصفية للاتجاهات (* .json)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="411"/>
-        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation>غير قادر على إضافة &quot;{}&quot; تلقائيًا. لا يوجد نمط محدد لهذا النوع من الطبقة.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="417"/>
-        <source>Select a layer to load.</source>
-        <translation>حدد طبقة للتحميل.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="436"/>
-        <source>{} does not appear to be a trends.earth output file</source>
-        <translation>{} لا يبدو أنه ملف إخراج اتجاهات للاتجاهات</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="17"/>
         <source>Open a trends.earth file</source>
-        <translation>افتح ملف trend.earth</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="30"/>
         <source>Select a layer(s)</source>
-        <translation>اختر طبقة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="55"/>
         <source>View file metadata</source>
-        <translation>عرض ملف تعريف البيانات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="65"/>
         <source>Select a file</source>
-        <translation>حدد ملف</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="80"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="93"/>
         <source>Browse...</source>
-        <translation>تصفح...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="436"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="382"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation type="unfinished">لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="374"/>
+        <source>Select a trends.earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="374"/>
+        <source>trends.earth metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="411"/>
+        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="417"/>
+        <source>Select a layer to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="436"/>
+        <source>{} does not appear to be a trends.earth output file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgPlot</name>
     <message>
+        <location filename="../gui/DlgPlot.ui" line="14"/>
+        <source>trends.earth plot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../gui/DlgPlot.ui" line="31"/>
         <source>Save image</source>
-        <translation>احفظ الصورة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgPlot.ui" line="44"/>
         <source>Save data</source>
-        <translation>احفظ البيانات</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgPlot.ui" line="14"/>
-        <source>trends.earth plot</source>
-        <translation>الاتجاهات</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1787,7 +1773,7 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../plot.py" line="85"/>
         <source>Linear trend (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</source>
-        <translation>الاتجاه الخطي (r &lt;sup&gt; 2 &lt;/ sup&gt; = {0: .2f})</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1795,22 +1781,22 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgReporting.ui" line="23"/>
         <source>Land degradation reporting</source>
-        <translation>تقارير تدهور الأراضي</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="35"/>
         <source>Reporting and mapping tools:</source>
-        <translation>اختر نوع التقرير:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="61"/>
-        <source>Create Print Map</source>
-        <translation>تقارير UNCCD</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="48"/>
         <source>Add Basemap</source>
-        <translation>أضف خريطة الأساس</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReporting.ui" line="61"/>
+        <source>Create Print Map</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1818,37 +1804,37 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="20"/>
         <source>Add basemap</source>
-        <translation>أضف خريطة الأساس</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="32"/>
         <source>Mask </source>
-        <translation>قناع</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="38"/>
         <source>Use a mask</source>
-        <translation>استخدم قناع</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="48"/>
         <source>Mask all areas outside of:</source>
-        <translation>اخفاء جميع المناطق خارج:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="84"/>
         <source>Second level:</source>
-        <translation>المستوى الثاني:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="137"/>
         <source>First level:</source>
-        <translation>مستوى اول:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgReportingBasemap.ui" line="174"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; إخلاء المسؤولية: تكون الحدود المقدمة من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; الأرض الطبيعية &lt;/ span&gt; &lt;/a&gt; ، وفي &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; المجال العام &lt;/ span&gt; &lt;/a&gt;. لا تشير الحدود والأسماء المستخدمة ، والتسميات المستخدمة في الاتجاهات. إلى الموافقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1856,47 +1842,47 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgSettings.ui" line="23"/>
         <source>Settings</source>
-        <translation>إعدادات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="41"/>
         <source>New users</source>
-        <translation>مستخدمون جدد</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="154"/>
-        <source>Existing users</source>
-        <translation>المستخدمين الحاليين</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="65"/>
         <source>Click the below button to register with Trends.Earth.</source>
-        <translation>انقر على الزر أدناه للتسجيل في Trends.Earth.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="87"/>
         <source>Step 1: Register</source>
-        <translation>الخطوة 1: التسجيل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="100"/>
         <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
-        <translation>بعد التسجيل ، سوف تتلقى رسالة بريد إلكتروني مع كلمة المرور الخاصة بك من api@trends.earth. بمجرد استلامك لهذا البريد الإلكتروني ، انقر أدناه لإدخال كلمة المرور هذه لتسجيل الدخول إلى Trends.Earth.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="122"/>
         <source>Step 2: Enter login</source>
-        <translation>الخطوة 2: أدخل معلومات تسجيل الدخول</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="154"/>
+        <source>Existing users</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="166"/>
         <source>Update account</source>
-        <translation>تحديث الحساب</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="191"/>
         <source>Reset password</source>
-        <translation>إعادة تعيين كلمة المرور</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1904,42 +1890,42 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="20"/>
         <source>Update user</source>
-        <translation>تحديث المستخدم</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="32"/>
         <source>Use the options below to login with a different user, update your profile, or delete your account.</source>
-        <translation>استخدم الخيارات أدناه لتسجيل الدخول مع مستخدم مختلف ، أو تحديث ملفك الشخصي ، أو حذف حسابك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
         <source>Change user</source>
-        <translation>تغيير المستخدم</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
         <source>Update profile</source>
-        <translation>تحديث الملف</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="80"/>
         <source>Delete user</source>
-        <translation>مسح المستخدم</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="188"/>
         <source>Delete user?</source>
-        <translation>مسح المستخدم؟</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="188"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation>هل أنت متأكد من أنك تريد حذف المستخدم {}؟ ستفقد جميع مهامك ولن تتمكن بعد ذلك من معالجة البيانات عبر الإنترنت باستخدام Trends.Earth.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="194"/>
         <source>Success</source>
-        <translation>نجاح</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1947,47 +1933,47 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="20"/>
         <source>Forgot password</source>
-        <translation>هل نسيت كلمة المرور</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="26"/>
         <source>Enter your email address below and if you have an account an email will be sent to you (from api@trends.earth) with a new password.</source>
-        <translation>أدخل عنوان بريدك الإلكتروني أدناه ، وإذا كان لديك حساب ، فسيتم إرسال بريد إلكتروني إليك (من api@trends.earth) باستخدام كلمة مرور جديدة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditForgotPassword.ui" line="45"/>
         <source>Enter your email address...</source>
-        <translation>أدخل عنوان بريدك الالكتروني...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="223"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../settings.py" line="223"/>
         <source>Enter your email address to reset your password.</source>
-        <translation>أدخل عنوان بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="227"/>
         <source>Reset password?</source>
-        <translation>إعادة تعيين كلمة المرور؟</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="227"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
-        <translation>هل أنت متأكد من أنك تريد إعادة تعيين كلمة المرور لـ {}؟ سيتم إرسال كلمة المرور الجديدة إليك عبر البريد الإلكتروني.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="235"/>
         <source>Success</source>
-        <translation>نجاح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="235"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
-        <translation>تمت إعادة تعيين كلمة المرور لـ {}. تحقق من بريدك الإلكتروني بحثًا عن كلمة المرور الجديدة ، ثم ارجع إلى Trends.Earth لإدخاله.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1995,62 +1981,62 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="20"/>
         <source>Update user information</source>
-        <translation>تحديث معلومات المستخدم</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="58"/>
         <source>Email:</source>
-        <translation>البريد الإلكتروني:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="87"/>
         <source>Name:</source>
-        <translation>اسم:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="113"/>
         <source>Country:</source>
-        <translation>بلد:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="133"/>
         <source>Organization:</source>
-        <translation>منظمة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="279"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../settings.py" line="270"/>
         <source>Enter your email address.</source>
-        <translation>أدخل عنوان بريدك الالكتروني.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="273"/>
         <source>Enter your name.</source>
-        <translation>أدخل أسمك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="276"/>
         <source>Enter your organization.</source>
-        <translation>أدخل مؤسستك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="279"/>
         <source>Enter your country.</source>
-        <translation>أدخل بلدك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="286"/>
         <source>Saved</source>
-        <translation>تم الحفظ</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="286"/>
         <source>Updated information for {}.</source>
-        <translation>معلومات محدثة لـ {}.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2058,42 +2044,42 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="20"/>
         <source>Login to Trends.Earth</source>
-        <translation>تسجيل الدخول إلى Trends.Earth</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="38"/>
         <source>Email:</source>
-        <translation>البريد الإلكتروني:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsLogin.ui" line="70"/>
         <source>Password:</source>
-        <translation>كلمه السر:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="140"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../settings.py" line="136"/>
         <source>Enter your email address.</source>
-        <translation>أدخل عنوان بريدك الالكتروني.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="140"/>
         <source>Enter your password.</source>
-        <translation>ادخل رقمك السري.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="146"/>
         <source>Success</source>
-        <translation>نجاح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="146"/>
         <source>Logged in to the Trends.Earth server as {}.</source>
-        <translation>تم تسجيل الدخول إلى خادم Trends.Earth باسم {}.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2101,62 +2087,62 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="20"/>
         <source>Register new user</source>
-        <translation>تسجيل مستخدم جديد</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="39"/>
         <source>Email:</source>
-        <translation>البريد الإلكتروني:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="65"/>
         <source>Name:</source>
-        <translation>اسم:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="130"/>
-        <source>Organization:</source>
-        <translation>منظمة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsRegister.ui" line="117"/>
         <source>Country:</source>
-        <translation>بلد:</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="130"/>
+        <source>Organization:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="101"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../settings.py" line="92"/>
         <source>Enter your email address.</source>
-        <translation>أدخل عنوان بريدك الالكتروني.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="95"/>
         <source>Enter your name.</source>
-        <translation>أدخل أسمك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="98"/>
         <source>Enter your organization.</source>
-        <translation>أدخل مؤسستك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="101"/>
         <source>Enter your country.</source>
-        <translation>أدخل بلدك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="107"/>
         <source>Success</source>
-        <translation>نجاح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../settings.py" line="107"/>
         <source>User registered. Your password has been emailed to {}.</source>
-        <translation>مستخدم مسجل. تم إرسال كلمة مرورك بالبريد الإلكتروني إلى {}.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2164,92 +2150,92 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="14"/>
         <source>Plot time series</source>
-        <translation>مؤامرة سلسلة الزمن</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="24"/>
         <source>Dataset</source>
-        <translation>بيانات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="30"/>
         <source>Time series dataset</source>
-        <translation>مجموعة بيانات السلاسل الزمنية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="55"/>
         <source>Plot title</source>
-        <translation>عنوان</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="91"/>
         <source>Indicator</source>
-        <translation>مؤشر</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="103"/>
         <source>Trajectory indicator</source>
-        <translation>مؤشر المسار</translation>
+        <translation type="unfinished">مؤشر المسار</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="128"/>
         <source>Baseline period</source>
-        <translation>فترة الأساس</translation>
+        <translation type="unfinished">فترة الأساس</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="248"/>
         <source>yyyy</source>
-        <translation>س س س س</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="186"/>
         <source>Starting year:</source>
-        <translation>بداية العام:</translation>
+        <translation type="unfinished">بداية العام:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="199"/>
         <source>Ending year:</source>
-        <translation>نهاية العام:</translation>
+        <translation type="unfinished">نهاية العام:</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="258"/>
         <source>Climate dataset</source>
-        <translation>مجموعة بيانات المناخ</translation>
+        <translation type="unfinished">مجموعة بيانات المناخ</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="308"/>
         <source>Next</source>
-        <translation>التالى</translation>
+        <translation type="unfinished">التالى</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="321"/>
         <source>Previous</source>
-        <translation>سابق</translation>
+        <translation type="unfinished">سابق</translation>
     </message>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="334"/>
         <source>Calculate</source>
-        <translation>حساب</translation>
-    </message>
-    <message>
-        <location filename="../timeseries.py" line="164"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">حساب</translation>
     </message>
     <message>
         <location filename="../timeseries.py" line="160"/>
         <source>Submitted</source>
-        <translation>قدمت</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../timeseries.py" line="160"/>
         <source>Time series calculation task submitted to Google Earth Engine.</source>
-        <translation>مهمة حساب سلسلة الوقت المقدمة إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="164"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../timeseries.py" line="164"/>
         <source>Unable to submit time series calculation task to Google Earth Engine.</source>
-        <translation>يتعذر إرسال مهمة حساب سلسلة الوقت إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2257,27 +2243,27 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../calculate_lc.py" line="366"/>
         <source>Select a transition matrix definition file</source>
-        <translation>حدد ملف تعريف مصفوفة الانتقال</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="366"/>
         <source>Transition matrix definition (*.json)</source>
-        <translation>تعريف مصفوفة الانتقال (* .json)</translation>
+        <translation type="unfinished">تعريف مصفوفة الانتقال (* .json)</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="406"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="374"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
+        <translation type="unfinished">لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="406"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation>لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
+        <translation type="unfinished">لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
     </message>
 </context>
 <context>
@@ -2285,270 +2271,270 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../reporting.py" line="212"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../api.py" line="38"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation>يرجى التسجيل مع الاتجاهات. قبل استخدام هذه الوظيفة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../api.py" line="173"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation>غير قادر على تسجيل الدخول إلى خادم LDMP. تحقق من اسم المستخدم وكلمة المرور الخاصة بك.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>
         <source>Submitted</source>
-        <translation>قدمت</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="689"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
-        <translation>مهمة غطاء الأرض المقدمة إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="693"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
-        <translation>يتعذر إرسال مهمة غطاء الأرض إلى Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="178"/>
-        <source>Downloading {}</source>
-        <translation>جارى التحميل {}</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="203"/>
-        <source>Download failed. Check your internet connection.</source>
-        <translation>التحميل فشل. تحقق من اتصال الإنترنت الخاص بك.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="191"/>
-        <source>Unable to access internet. Check your internet connection.</source>
-        <translation>غير قادر على الوصول إلى الإنترنت. تحقق من اتصال الإنترنت الخاص بك.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="197"/>
-        <source>Download timed out. Check your internet connection.</source>
-        <translation>التنزيل في الوقت المحدد. تحقق من اتصال الإنترنت الخاص بك.</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="250"/>
-        <source>&amp;trends.earth</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="191"/>
-        <source>Settings</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="191"/>
-        <source>LDMT Settings</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="198"/>
-        <source>Calculate indicators</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="198"/>
-        <source>Calculate land degradation indicators</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="205"/>
-        <source>Plot data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="219"/>
-        <source>View Google Earth Engine tasks</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="219"/>
-        <source>View cloud processing tasks</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="226"/>
-        <source>Reporting tool</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="226"/>
-        <source>Land degradation reporting</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="240"/>
-        <source>About</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="179"/>
-        <source>Success</source>
-        <translation>نجاح</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="240"/>
-        <source>About trends.earth</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="179"/>
-        <source>Download request submitted to Google Earth Engine.</source>
-        <translation>قم بتنزيل الطلب المقدم إلى Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="183"/>
-        <source>Unable to submit download request to Google Earth Engine.</source>
-        <translation>غير قادر على إرسال طلب التنزيل إلى Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../reporting.py" line="236"/>
-        <source>Warning</source>
-        <translation>تحذير</translation>
-    </message>
-    <message>
-        <location filename="../reporting.py" line="236"/>
-        <source>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</source>
-        <translation>لا تزال أداة إنشاء الخريطة تجريبية - من المحتمل أن تتغير وظائف هذه الأداة في المستقبل.</translation>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="205"/>
-        <source>Plot time series datasets</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="212"/>
-        <source>Download raw data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="212"/>
-        <source>Download raw datasets</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="233"/>
-        <source>Load data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ldmp.py" line="233"/>
-        <source>Load local data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="306"/>
-        <source>Soil organic carbon submitted to Google Earth Engine.</source>
-        <translation>الكربون العضوي للتربة مقدم إلى Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="310"/>
-        <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
-        <translation>غير قادر على إرسال مهمة الكربون العضوي للتربة إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="197"/>
         <source>Productivity task submitted to Google Earth Engine.</source>
-        <translation>مهمة الإنتاجية المقدمة إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="201"/>
         <source>Unable to submit productivity task to Google Earth Engine.</source>
-        <translation>غير قادر على إرسال مهمة الإنتاجية إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="114"/>
         <source>Initial and final year must be at least 10 years apart.</source>
-        <translation>يجب أن يكون العامان الأولي والنهائيان على الأقل 10 سنوات.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="177"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
-        <translation>تم تقديم مهمة مؤشر فرعي SDG إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="181"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
-        <translation>يتعذر إرسال مهمة مؤشر فرعي SDG إلى Google Earth Engine.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="179"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="306"/>
+        <source>Soil organic carbon submitted to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="310"/>
+        <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="178"/>
+        <source>Downloading {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="203"/>
+        <source>Download failed. Check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="191"/>
+        <source>Unable to access internet. Check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="197"/>
+        <source>Download timed out. Check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="179"/>
+        <source>Download request submitted to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="183"/>
+        <source>Unable to submit download request to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="250"/>
+        <source>&amp;trends.earth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="191"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="191"/>
+        <source>LDMT Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="198"/>
+        <source>Calculate indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="198"/>
+        <source>Calculate land degradation indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="205"/>
+        <source>Plot data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="205"/>
+        <source>Plot time series datasets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="212"/>
+        <source>Download raw data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="212"/>
+        <source>Download raw datasets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="219"/>
+        <source>View Google Earth Engine tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="219"/>
+        <source>View cloud processing tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="226"/>
+        <source>Reporting tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="226"/>
+        <source>Land degradation reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="233"/>
+        <source>Load data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="233"/>
+        <source>Load local data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="240"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="240"/>
+        <source>About trends.earth</source>
+        <translation type="unfinished">حول الاتجاهات</translation>
     </message>
     <message>
         <location filename="../reporting.py" line="212"/>
         <source>Error downloading basemap data.</source>
-        <translation>حدث خطأ أثناء تنزيل بيانات خريطة الأساس.</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="236"/>
+        <source>Warning</source>
+        <translation type="unfinished">تحذير</translation>
+    </message>
+    <message>
+        <location filename="../reporting.py" line="236"/>
+        <source>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="287"/>
-        <source>Task name</source>
-        <translation>اسم المهمة</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="288"/>
-        <source>Job</source>
-        <translation>وظيفة</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="289"/>
-        <source>Start time</source>
-        <translation>وقت البدء</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="290"/>
-        <source>End time</source>
-        <translation>وقت النهاية</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="291"/>
-        <source>Status</source>
-        <translation>الحالة</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="292"/>
-        <source>Details</source>
-        <translation>تفاصيل</translation>
-    </message>
-    <message>
         <location filename="../download_data.py" line="39"/>
         <source>Category</source>
-        <translation>الفئة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="40"/>
         <source>Title</source>
-        <translation>عنوان</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="41"/>
         <source>Units</source>
-        <translation>وحدات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="42"/>
         <source>Resolution</source>
-        <translation>القرار</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="43"/>
         <source>Start year</source>
-        <translation>سنة البدء</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="44"/>
         <source>End year</source>
-        <translation>نهاية السنة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="45"/>
         <source>Extent</source>
-        <translation>مدى</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="292"/>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="287"/>
+        <source>Task name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="288"/>
+        <source>Job</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="289"/>
+        <source>Start time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="290"/>
+        <source>End time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="291"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2556,42 +2542,42 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../load_data.py" line="478"/>
         <source>Coming soon!</source>
-        <translation>قريبا!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="478"/>
         <source>Processing of vector input datasets coming soon!</source>
-        <translation>تجهيز مجموعات بيانات ناقلات الأمراض قريبا!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="498"/>
         <source>Select a raster input file</source>
-        <translation>حدد ملف إدخال البيانات النقطية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="498"/>
         <source>Raster file (*.tif *.dat *.img)</source>
-        <translation>ملف النقطية (* .tif * .dat * .img)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="543"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="543"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
+        <translation type="unfinished">لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="529"/>
         <source>Select a vector input file</source>
-        <translation>حدد ملف إدخال متجه</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../load_data.py" line="529"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
+        <translation type="unfinished">ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
 </context>
 <context>
@@ -2599,22 +2585,22 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../load_data.py" line="567"/>
         <source>Choose a name for the output file</source>
-        <translation>اختر اسمًا لملف الإخراج</translation>
+        <translation type="unfinished">اختر اسمًا لملف الإخراج</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="567"/>
         <source>Raster file (*.tif)</source>
-        <translation>ملف النقطية (* .tif)</translation>
+        <translation type="unfinished">ملف النقطية (* .tif)</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="577"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="unfinished">خطأ</translation>
     </message>
     <message>
         <location filename="../load_data.py" line="577"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation>لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
+        <translation type="unfinished">لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
     </message>
 </context>
 <context>
@@ -2622,47 +2608,47 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="20"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="26"/>
         <source>Where to run calculations</source>
-        <translation>أين تدير الحسابات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="32"/>
         <source>Run in cloud</source>
-        <translation>تشغيل في السحابة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="42"/>
         <source>Run locally</source>
-        <translation>تشغيل محليا</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="61"/>
         <source>Click &quot;Browse&quot; to select where local data is saved...</source>
-        <translation>انقر فوق &quot;استعراض&quot; لتحديد مكان حفظ البيانات المحلية ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="83"/>
         <source>Browse</source>
-        <translation>تصفح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="93"/>
         <source>Metadata</source>
-        <translation>البيانات الوصفية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="99"/>
         <source>Task name:</source>
-        <translation>اسم المهمة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="119"/>
         <source>Notes:</source>
-        <translation>ملاحظات:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2670,87 +2656,87 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="14"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="46"/>
         <source>Land cover in target year </source>
-        <translation>الغطاء الأرضي في السنة المستهدفة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="149"/>
         <source>Forest</source>
-        <translation>غابة</translation>
+        <translation type="unfinished">غابة</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="154"/>
         <source>Grassland*</source>
-        <translation>مرج، مرعى، أرض معشوشبة*</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="159"/>
         <source>Cropland</source>
-        <translation>الأراضي الزراعية</translation>
+        <translation type="unfinished">الأراضي الزراعية</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="164"/>
         <source>Wetland</source>
-        <translation>الأراضي الرطبة</translation>
+        <translation type="unfinished">الأراضي الرطبة</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="169"/>
         <source>Artificial area</source>
-        <translation>منطقة اصطناعية</translation>
+        <translation type="unfinished">منطقة اصطناعية</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="174"/>
         <source>Bare land</source>
-        <translation>الأرض العارية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="179"/>
         <source>Water body</source>
-        <translation>جسم مائي</translation>
+        <translation type="unfinished">جسم مائي</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="521"/>
         <source>Legend</source>
-        <translation>عنوان تفسيري</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="527"/>
         <source>Degradation</source>
-        <translation>انحلال</translation>
+        <translation type="unfinished">انحلال</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="534"/>
         <source>Improvement</source>
-        <translation>تحسين</translation>
+        <translation type="unfinished">تحسين</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="563"/>
         <source>*The &quot;Grassland&quot; class consists of grassland, shrub, and sparsely vegetated areas (if the default aggregation is used).</source>
-        <translation>* تتكون فئة &quot;الأراضي المعشبة&quot; من الأراضي العشبية والشجيرات والمناطق ذات النباتات القليلة (إذا تم استخدام التجميع الافتراضي).</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="614"/>
         <source>Stable</source>
-        <translation>مستقر</translation>
+        <translation type="unfinished">مستقر</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="634"/>
         <source>Save table to file...</source>
-        <translation>حفظ الجدول في الملف ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="647"/>
         <source>Reset table</source>
-        <translation>إعادة ضبط الجدول</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="660"/>
         <source>Load saved table...</source>
-        <translation>تحميل الجدول المحفوظة ...</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2758,52 +2744,52 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="14"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="20"/>
         <source>European Space Agency CCI-LC (default land cover dataset for UNCCD reporting)</source>
-        <translation>وكالة الفضاء الأوروبية CCI-LC (مجموعة بيانات الغطاء الأرضي الافتراضية لأغراض الإبلاغ عن اتفاقية الأمم المتحدة لمكافحة التصحر)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="30"/>
         <source>Period</source>
-        <translation>فترة</translation>
+        <translation type="unfinished">فترة</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="144"/>
         <source>Target year:</source>
-        <translation>السنة المستهدفة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="163"/>
         <source>Baseline year:</source>
-        <translation>سنة الأساس:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="173"/>
         <source>Customize land cover aggregation method</source>
-        <translation>تخصيص طريقة تجميع غطاء الأرض</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="200"/>
         <source>Edit definition</source>
-        <translation>تحرير التعريف</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="229"/>
         <source>Custom land cover dataset (already loaded onto map using the &quot;Load Data&quot; tool)</source>
-        <translation>مجموعة بيانات مخصصة لغطاء الأرض (تم تحميلها بالفعل على الخريطة باستخدام أداة &quot;تحميل البيانات&quot;)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="239"/>
         <source>Initial layer (baseline year)</source>
-        <translation>الطبقة الأولية (سنة الأساس)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="264"/>
         <source>Final layer (target year)</source>
-        <translation>الطبقة النهائية (السنة المستهدفة)</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2811,52 +2797,52 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="14"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="23"/>
         <source>Select a file</source>
-        <translation>حدد ملف</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="112"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="48"/>
         <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation>مجموعة بيانات مضلعة (ملفات shapefile و KML و KMZ و GeoJSON)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="58"/>
         <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation>مجموعة بيانات النقطية (.tif ، .dat ، .img)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="141"/>
         <source>Browse</source>
-        <translation>تصفح</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="93"/>
         <source>Field containing data:</source>
-        <translation>بيانات تحتوي على حقل:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="119"/>
         <source>Band number:</source>
-        <translation>رقم النطاق:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="188"/>
         <source>Modify resolution (in meters)</source>
-        <translation>تعديل القرار (بالأمتار)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="228"/>
         <source>Year of data</source>
-        <translation>سنة البيانات</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2864,22 +2850,22 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="14"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="20"/>
         <source>Output raster file (.tif)</source>
-        <translation>ملف البيانات النقطية (.tif)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="38"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="60"/>
         <source>Browse</source>
-        <translation>تصفح</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2887,77 +2873,77 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="20"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="32"/>
         <source>Area to run calculations for</source>
-        <translation>منطقة لتشغيل الحسابات ل</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="280"/>
-        <source>Administrative area</source>
-        <translation>منطقة إدارية</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="148"/>
-        <source>First level:</source>
-        <translation>مستوى اول:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="117"/>
-        <source>Second level:</source>
-        <translation>المستوى الثاني:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="270"/>
-        <source>Area from file</source>
-        <translation>المنطقة من الملف</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="228"/>
-        <source>Browse</source>
-        <translation>تصفح</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="257"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; إخلاء المسؤولية: تكون الحدود المقدمة من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; الأرض الطبيعية &lt;/ span&gt; &lt;/a&gt; ، وفي &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; المجال العام &lt;/ span&gt; &lt;/a&gt;. لا تشير الحدود والأسماء المستخدمة ، والتسميات المستخدمة في الاتجاهات. إلى الموافقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="50"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="76"/>
         <source>x:</source>
-        <translation>س:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="83"/>
         <source>Point</source>
-        <translation>نقطة</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="117"/>
+        <source>Second level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="148"/>
+        <source>First level:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="161"/>
         <source>y:</source>
-        <translation>ذ:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="206"/>
         <source>Choose a point...</source>
-        <translation>اختر نقطة ...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="228"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="257"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="270"/>
+        <source>Area from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="280"/>
+        <source>Administrative area</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="296"/>
         <source>Use custom coordinate reference system (CRS) for output</source>
-        <translation>استخدم نظام مرجع إحداثي مخصص (CRS) للإخراج</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="321"/>
         <source>Wrap longitudes across central meridian before projecting into output CRS (recommended for countries like Russia and Fiji if you are using an output coordinate reference system that is continuous across the 180th meridian)</source>
-        <translation>لف خطوط الطول عبر خط الطول المركزي قبل الإسقاط إلى خرج CRS (موصى به لبلدان مثل روسيا وفيجي إذا كنت تستخدم نظام إحداثيات مرجعي للخارج متواصل عبر خط الطول 180)</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2965,27 +2951,27 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/WidgetSelectPoint.ui" line="20"/>
         <source>Form</source>
-        <translation>شكل</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectPoint.ui" line="31"/>
         <source>Point</source>
-        <translation>نقطة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectPoint.ui" line="86"/>
         <source>Choose a point...</source>
-        <translation>اختر نقطة ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectPoint.ui" line="57"/>
         <source>x:</source>
-        <translation>س:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectPoint.ui" line="70"/>
         <source>y:</source>
-        <translation>ذ:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

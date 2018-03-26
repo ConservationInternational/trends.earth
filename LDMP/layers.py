@@ -125,8 +125,8 @@ style_text_dict = {
     # Trends.Earth land productivity
     'sdg_prod_combined_title': tr('Land productivity (Trends.Earth)'),
     'sdg_prod_combined_declining': tr('Declining'),
-    'sdg_prod_combined_earlysigns': tr('Moderate decline'),
-    'sdg_prod_combined_stabbutstress': tr('Stressed'),
+    'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
+    'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
     'sdg_prod_combined_stab': tr('Stable'),
     'sdg_prod_combined_imp': tr('Increasing'),
     'sdg_prod_combined_nodata': tr('No data'),

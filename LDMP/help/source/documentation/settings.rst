@@ -18,8 +18,8 @@ icon (|iconWrench|). This will open up the "Settings" dialog box:
 .. image:: /static/documentation/settings/settings.png
    :align: center
 
-To Register, select the "Step 1: Register" button, enter your Email, Name, 
-Organization and Country of residence and select "Ok":
+To Register, click the "Step 1: Register" button. Enter your email, name, 
+organization and country of residence and select "Ok":
 
 .. image:: /static/documentation/settings/registration.png
    :align: center
@@ -62,7 +62,7 @@ click "Ok":
    :align: center
 
 If you want to update your profile, click on "Update profile". Update your 
-information in the box that appears and click "Ok":
+information in the box that appears and click "Save":
 
 .. image:: /static/documentation/settings/settings_update_details.png
    :align: center

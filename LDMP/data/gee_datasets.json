@@ -1,5 +1,27 @@
 {
-    "Agro Ecological Zones": {
+    "Climate": {
+        "Climatic Zone": {
+            "Data source": "The European Commission",
+            "Start year": "NA",
+            "End year": "NA",
+            "Spatial Resolution": "8 km",
+            "Temporal resolution": "one time",
+            "Min Latitude": "-90",
+            "Max Latitude": "90",
+            "Min Longitude": "-180",
+            "Max Longitude": "180",
+            "Description": "The Climatic Zone layer is defined based on the classification of IPCC (IPCC, 2006). The zones are defined by a set of rules based on: annual mean daily temperature, total annual precipitation, total annual potential evapo-transpiration (PET) and elevation. The classification presented as Figure 3A.5.1 Classification scheme for default climate regions” (IPCC, 2006) could not be accessed in electronic form and generated from an independently developed set of base data layers. Climatic information on temperature and precipitation was provided by the 5 arc min. dataset Version 1.4 from the WorldClim project (Hijmans et al., 2005). PET was computed according to the temperature-based formula investigated by Oudin et al. (2005) and used by Kay & Davis (2008). The computation of the extraterrestrial radiation was based on Duffie & Beckman (1991) and Allen et al. (1994). The formulas were supplemented by the information provided by the “Solar Radiation Basis” Web-page of the University of Oregon: http://solardat.uoregon.edu/SolarRadiationBasics.html.",
+            "Units": "",
+            "Link to Dataset": "http://eusoils.jrc.ec.europa.eu/projects/RenewableEnergy/",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ipcc_climate_zones",
+            "Source code": "Imported as assets",
+            "Status": "Stored as assets",
+            "License": "Reuse is authorised, provided the source is acknowledged.",
+            "License URL": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2011:330:0039:0042:EN:PDF",
+            "Source": "European Commission Soil Projects - Support to Renewable Energy Directive",
+            "Comments": ""
+        }
+    },    "Agro Ecological Zones": {
         "Agro Ecological Zones V3.0": {
             "Data source": "FAO - IIASA",
             "Start year": "NA",

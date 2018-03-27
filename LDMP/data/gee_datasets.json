@@ -1,6 +1,6 @@
 {
-    "Climate": {
-        "Climatic Zone": {
+    "Global Zoning": {
+        "Climatic Zones": {
             "Data source": "The European Commission",
             "Start year": "NA",
             "End year": "NA",
@@ -21,7 +21,6 @@
             "Source": "European Commission Soil Projects - Support to Renewable Energy Directive",
             "Comments": ""
         }
-    },    "Agro Ecological Zones": {
         "Agro Ecological Zones V3.0": {
             "Data source": "FAO - IIASA",
             "Start year": "NA",

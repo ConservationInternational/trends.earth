@@ -18,27 +18,27 @@
         <translation>отказ</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="374"/>
+        <location filename="../jobs.py" line="375"/>
         <source>Time</source>
         <translation>Время</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="375"/>
+        <location filename="../jobs.py" line="376"/>
         <source>Integrated NDVI</source>
         <translation>Интегрированный NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="375"/>
+        <location filename="../jobs.py" line="376"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="361"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Downloaded</source>
         <translation>загруженный</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="361"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Downloaded results to {}</source>
         <translation>Загруженные результаты {}</translation>
     </message>
@@ -1409,32 +1409,32 @@ p, li {white-space: pre-wrap; }
         <translation>Обновить список</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="169"/>
+        <location filename="../jobs.py" line="170"/>
         <source>Script not found</source>
         <translation>Сценарий не найден</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="198"/>
+        <location filename="../jobs.py" line="199"/>
         <source>Details</source>
         <translation>Детали</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="256"/>
+        <location filename="../jobs.py" line="257"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="244"/>
         <source>Base filename (*.json)</source>
         <translation>Базовое имя файла (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="256"/>
+        <location filename="../jobs.py" line="257"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Невозможно написать {}. Выберите другое базовое имя файла.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="244"/>
         <source>Choose a filename downloading results of: {}</source>
         <translation>Выберите файл, загружающий результаты: {}</translation>
     </message>
@@ -1900,12 +1900,12 @@ p, li {white-space: pre-wrap; }
         <translation>Шаг 2. Введите логин</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="166"/>
+        <location filename="../gui/DlgSettings.ui" line="172"/>
         <source>Update account</source>
         <translation>Обновить аккаунт</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="191"/>
+        <location filename="../gui/DlgSettings.ui" line="197"/>
         <source>Reset password</source>
         <translation>Сброс пароля</translation>
     </message>
@@ -1923,17 +1923,17 @@ p, li {white-space: pre-wrap; }
         <translation>Воспользуйтесь приведенными ниже параметрами для входа в систему с другим пользователем, обновите свой профиль или удалите свою учетную запись.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="48"/>
         <source>Change user</source>
         <translation>Сменить пользователя</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="67"/>
         <source>Update profile</source>
         <translation>Обновить профиль</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="80"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="86"/>
         <source>Delete user</source>
         <translation>Удалить пользователя</translation>
     </message>
@@ -2497,32 +2497,32 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="287"/>
+        <location filename="../jobs.py" line="288"/>
         <source>Task name</source>
         <translation>Название задачи</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="288"/>
+        <location filename="../jobs.py" line="289"/>
         <source>Job</source>
         <translation>работа</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="289"/>
+        <location filename="../jobs.py" line="290"/>
         <source>Start time</source>
         <translation>Время начала</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="290"/>
+        <location filename="../jobs.py" line="291"/>
         <source>End time</source>
         <translation>Время окончания</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="291"/>
+        <location filename="../jobs.py" line="292"/>
         <source>Status</source>
         <translation>Положение дел</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="292"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Details</source>
         <translation>Детали</translation>
     </message>

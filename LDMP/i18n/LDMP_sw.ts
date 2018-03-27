@@ -18,27 +18,27 @@
         <translation>Kupungua</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="374"/>
+        <location filename="../jobs.py" line="375"/>
         <source>Time</source>
         <translation>Muda</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="375"/>
+        <location filename="../jobs.py" line="376"/>
         <source>Integrated NDVI</source>
         <translation>Integrated NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="375"/>
+        <location filename="../jobs.py" line="376"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="361"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Downloaded</source>
         <translation>Imepakuliwa</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="361"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Downloaded results to {}</source>
         <translation>Ilipakuliwa matokeo kwa {}</translation>
     </message>
@@ -1409,32 +1409,32 @@ p, li { white-space: pre-wrap;}
         <translation>Rejea orodha</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="169"/>
+        <location filename="../jobs.py" line="170"/>
         <source>Script not found</source>
         <translation>Hati haipatikani</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="198"/>
+        <location filename="../jobs.py" line="199"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="256"/>
+        <location filename="../jobs.py" line="257"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="244"/>
         <source>Base filename (*.json)</source>
         <translation>Jina la faili la msingi (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="256"/>
+        <location filename="../jobs.py" line="257"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua jina la jina la msingi tofauti.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="244"/>
         <source>Choose a filename downloading results of: {}</source>
         <translation>Chagua matokeo ya kupakua ya faili ya: {}</translation>
     </message>
@@ -1900,12 +1900,12 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Hatua ya 2: Ingiza kuingia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="166"/>
+        <location filename="../gui/DlgSettings.ui" line="172"/>
         <source>Update account</source>
         <translation>Sasisha akaunti</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="191"/>
+        <location filename="../gui/DlgSettings.ui" line="197"/>
         <source>Reset password</source>
         <translation>Weka upya nenosiri</translation>
     </message>
@@ -1923,17 +1923,17 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Tumia chaguzi hapa chini kuingia na mtumiaji tofauti, sasisha maelezo yako mafupi, au kufuta akaunti yako.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="48"/>
         <source>Change user</source>
         <translation>Badilisha mtumiaji</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="67"/>
         <source>Update profile</source>
         <translation>Sasisha maelezo mafupi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="80"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="86"/>
         <source>Delete user</source>
         <translation>Futa mtumiaji</translation>
     </message>
@@ -2497,32 +2497,32 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="287"/>
+        <location filename="../jobs.py" line="288"/>
         <source>Task name</source>
         <translation>Jina la Task</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="288"/>
+        <location filename="../jobs.py" line="289"/>
         <source>Job</source>
         <translation>Kazi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="289"/>
+        <location filename="../jobs.py" line="290"/>
         <source>Start time</source>
         <translation>Anza wakati</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="290"/>
+        <location filename="../jobs.py" line="291"/>
         <source>End time</source>
         <translation>Wakati wa mwisho</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="291"/>
+        <location filename="../jobs.py" line="292"/>
         <source>Status</source>
         <translation>Hali</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="292"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>

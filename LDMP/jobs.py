@@ -135,13 +135,14 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.download.setEnabled(False)
         else:
             rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
-            for row in rows:
-                # Don't set button to enabled if any of the tasks aren't yet
-                # finished
-                if self.jobs[row]['status'] != 'FINISHED':
-                    self.download.setEnabled(False)
-                    return
-            self.download.setEnabled(True)
+            if rows:
+                for row in rows:
+                    # Don't set button to enabled if any of the tasks aren't yet
+                    # finished
+                    if self.jobs[row]['status'] != 'FINISHED':
+                        self.download.setEnabled(False)
+                        return
+                self.download.setEnabled(True)
 
     def btn_refresh(self):
         self.connectionEvent.emit(True)

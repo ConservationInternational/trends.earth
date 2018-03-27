@@ -18,27 +18,27 @@
         <translation>下降</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="374"/>
+        <location filename="../jobs.py" line="375"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="375"/>
+        <location filename="../jobs.py" line="376"/>
         <source>Integrated NDVI</source>
         <translation>综合NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="375"/>
+        <location filename="../jobs.py" line="376"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="361"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Downloaded</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="361"/>
+        <location filename="../jobs.py" line="362"/>
         <source>Downloaded results to {}</source>
         <translation>将结果下载到{}</translation>
     </message>
@@ -1409,32 +1409,32 @@ p，li {空格：预包装; }
         <translation>刷新列表</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="169"/>
+        <location filename="../jobs.py" line="170"/>
         <source>Script not found</source>
         <translation>未找到脚本</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="198"/>
+        <location filename="../jobs.py" line="199"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="256"/>
+        <location filename="../jobs.py" line="257"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="244"/>
         <source>Base filename (*.json)</source>
         <translation>基本文件名（* .json）</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="256"/>
+        <location filename="../jobs.py" line="257"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>无法写入{}。选择不同的基本文件名。</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="244"/>
         <source>Choose a filename downloading results of: {}</source>
         <translation>选择文件名下载结果：{}</translation>
     </message>
@@ -1900,12 +1900,12 @@ p，li {空格：预包装; }
         <translation>第2步：输入登录名</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="166"/>
+        <location filename="../gui/DlgSettings.ui" line="172"/>
         <source>Update account</source>
         <translation>更新账户</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="191"/>
+        <location filename="../gui/DlgSettings.ui" line="197"/>
         <source>Reset password</source>
         <translation>重设密码</translation>
     </message>
@@ -1923,17 +1923,17 @@ p，li {空格：预包装; }
         <translation>使用以下选项与其他用户一起登录，更新您的个人资料或删除您的帐户。</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="42"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="48"/>
         <source>Change user</source>
         <translation>更改用户</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="61"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="67"/>
         <source>Update profile</source>
         <translation>更新个人信息</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="80"/>
+        <location filename="../gui/DlgSettingsEdit.ui" line="86"/>
         <source>Delete user</source>
         <translation>删除用户</translation>
     </message>
@@ -2497,32 +2497,32 @@ p，li {空格：预包装; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="287"/>
+        <location filename="../jobs.py" line="288"/>
         <source>Task name</source>
         <translation>任务名称</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="288"/>
+        <location filename="../jobs.py" line="289"/>
         <source>Job</source>
         <translation>工作</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="289"/>
+        <location filename="../jobs.py" line="290"/>
         <source>Start time</source>
         <translation>开始时间</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="290"/>
+        <location filename="../jobs.py" line="291"/>
         <source>End time</source>
         <translation>时间结束</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="291"/>
+        <location filename="../jobs.py" line="292"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="292"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>

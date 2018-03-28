@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>474</width>
-    <height>395</height>
+    <width>868</width>
+    <height>604</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -160,7 +160,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Baseline year:</string>
+         <string>Initial year:</string>
         </property>
        </widget>
       </item>
@@ -236,7 +236,7 @@
       <bool>true</bool>
      </property>
      <property name="title">
-      <string>Initial layer (baseline year)</string>
+      <string>Initial layer (initial year)</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="1">

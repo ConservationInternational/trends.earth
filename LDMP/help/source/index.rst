@@ -84,5 +84,5 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: Training materials
 
-    tutorial/tutorial
+    training/tutorial
     training/video_links

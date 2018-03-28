@@ -1,5 +1,5 @@
 About
-=====
+======
 .. image:: /static/common/ldmt_toolbar_highlight_info.png
    :align: center
 

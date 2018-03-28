@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>784</width>
-    <height>705</height>
+    <width>1216</width>
+    <height>893</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -197,7 +197,7 @@
              <bool>true</bool>
             </property>
             <property name="text">
-             <string>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</string>
+             <string>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</string>
             </property>
             <property name="checked">
              <bool>false</bool>

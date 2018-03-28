@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>515</width>
-    <height>693</height>
+    <height>1177</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,7 +35,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="IndicatorsTab">
       <attribute name="title">
@@ -486,7 +486,7 @@
           <item>
            <widget class="QGroupBox" name="groupBox_state_baseline">
             <property name="title">
-             <string>Baseline period</string>
+             <string>Initial period</string>
             </property>
             <property name="flat">
              <bool>true</bool>

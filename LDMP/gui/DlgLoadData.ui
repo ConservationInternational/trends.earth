@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>406</width>
-    <height>150</height>
+    <width>597</width>
+    <height>270</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -60,7 +60,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Load a custom input dataset</string>
+      <string>Import a custom input dataset</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>

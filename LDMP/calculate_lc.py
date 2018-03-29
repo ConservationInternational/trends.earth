@@ -318,6 +318,18 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
 
         self.setupUi(self)
 
+        classes = [self.tr("Tree-covered\nareas"),
+                   self.tr("Grassland"),
+                   self.tr("Cropland"),
+                   self.tr("Wetland"),
+                   self.tr("Artificial\nareas"),
+                   self.tr("Bare land"),
+                   self.tr("Water body")]
+        self.deg_def_matrix.setRowCount(len(classes))
+        self.deg_def_matrix.setColumnCount(len(classes))
+        self.deg_def_matrix.setHorizontalHeaderLabels(classes)
+        self.deg_def_matrix.setVerticalHeaderLabels(classes)
+
         self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # Tree-covered areas
                                      1, 0, 1, -1, -1, -1, 0, # grassland
                                      1, -1, 0, -1, -1, -1, 0, # cropland
@@ -333,9 +345,9 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
         self.trans_matrix_set()
 
-        # Setup the verical label for the rows of the table
+        # Setup the vertical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self)
-        label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in baseline year ", None))
+        label_lc_baseline_year.setText(QtGui.QApplication.translate("DlgCalculateLC", "Land cover in initial year ", None))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -754,7 +766,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         year_target = self.lc_setup_tab.get_final_year()
         if int(year_baseline) >= int(year_target):
             QtGui.QMessageBox.information(None, self.tr("Warning"),
-                self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
+                self.tr('The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_initial_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),

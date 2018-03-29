@@ -152,7 +152,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.setupUi(self)
 
         self.final_classes = {'No data': -32768,
-                              'Forest': 1,
+                              'Tree-covered areas': 1,
                               'Grassland': 2,
                               'Cropland': 3,
                               'Wetland': 4,
@@ -285,7 +285,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
     def lc_class_combo_changed(self, index):
         if self.sender().currentText() == self.tr('No data'):
             class_color = "#000000"
-        elif self.sender().currentText() == self.tr('Forest'):
+        elif self.sender().currentText() == self.tr('Tree-covered areas'):
             class_color = "#787F1B"
         elif self.sender().currentText() == self.tr('Grassland'):
             class_color = "#FFAC42"
@@ -318,7 +318,7 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
 
         self.setupUi(self)
 
-        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # forest
+        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # Tree-covered areas
                                      1, 0, 1, -1, -1, -1, 0, # grassland
                                      1, -1, 0, -1, -1, -1, 0, # cropland
                                      -1, -1, -1, 0, -1, -1, 0, # wetland

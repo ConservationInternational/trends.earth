@@ -37,73 +37,73 @@
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 50,
         "Initial_Label": "Tree cover, broadleaved, evergreen, closed to open (>15%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 60,
         "Initial_Label": "Tree cover, broadleaved, deciduous, closed to open (>15%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 61,
         "Initial_Label": "Tree cover, broadleaved, deciduous, closed (>40%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 62,
         "Initial_Label": "Tree cover, broadleaved, deciduous, open (15-40%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 70,
         "Initial_Label": "Tree cover, needleleaved, evergreen, closed to open (>15%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 71,
         "Initial_Label": "Tree cover, needleleaved, evergreen, closed (>40%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 72,
         "Initial_Label": "Tree cover, needleleaved, evergreen, open (15-40%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 80,
         "Initial_Label": "Tree cover, needleleaved, deciduous, closed to open (>15%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 81,
         "Initial_Label": "Tree cover, needleleaved, deciduous, closed (>40%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 82,
         "Initial_Label": "Tree cover, needleleaved, deciduous, open (15-40%)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 90,
         "Initial_Label": "Tree cover, mixed leaf type (broadleaved and needleleaved)"
     },
     {
         "Final_Code": 1,
-        "Final_Label": "Forest",
+        "Final_Label": "Tree-covered areas",
         "Initial_Code": 100,
         "Initial_Label": "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
     },

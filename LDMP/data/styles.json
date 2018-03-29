@@ -16,12 +16,12 @@
         "title": "prod_traj_signif_title",
         "ramp": {
             "type": "categorical",
-            "shader": "exact",
+            "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "prod_traj_signif_nodata"},
                 {"value": -3, "color": "#AB2727", "label": "prod_traj_signif_dec_99"},
                 {"value": -2, "color": "#D79888", "label": "prod_traj_signif_dec_95"},
-                {"value": 0, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
+                {"value": 1, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
                 {"value": 2, "color": "#B5D9A2", "label": "prod_traj_signif_inc_95"},
                 {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_99"}
             ]
@@ -35,7 +35,7 @@
             "items": [
                 {"value": -32768, "color": "#000000", "label": "prod_state_change_nodata"},
                 {"value": -2, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
-                {"value": 2, "color": "#FFFFE0", "label": "prod_state_change_stable"},
+                {"value": 1, "color": "#FFFFE0", "label": "prod_state_change_stable"},
                 {"value": 10, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }
@@ -109,7 +109,7 @@
             "items": [
                 {"value": -32768, "color": "#000000", "label": "soc_deg_nodata"},
                 {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
-                {"value": 10, "color": "#FFFFE0", "label": "prod_state_change_stable"},
+                {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_stable"},
                 {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }

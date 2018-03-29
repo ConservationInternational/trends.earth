@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1216</width>
-    <height>893</height>
+    <width>954</width>
+    <height>542</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -60,10 +60,20 @@
           </font>
          </property>
          <property name="title">
-          <string>Productivity</string>
+          <string>Select raster layer input</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="4" column="0">
+          <item row="2" column="0">
+           <widget class="QRadioButton" name="mode_te_prod">
+            <property name="text">
+             <string>Trends.Earth layer</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
            <widget class="QComboBox" name="combo_layer_traj">
             <property name="enabled">
              <bool>true</bool>
@@ -82,224 +92,92 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
-           <widget class="QComboBox" name="combo_layer_perf">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="QComboBox" name="combo_layer_state">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QRadioButton" name="mode_te_prod">
-            <property name="text">
-             <string>Trends.Earth land productivity</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="combo_layer_perf_label">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Performance (degradation):</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="combo_layer_state_label">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>State (degradation):</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="combo_layer_traj_label">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Trajectory (degradation):</string>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="0">
-           <widget class="QComboBox" name="combo_layer_lpd">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QRadioButton" name="mode_lpd_jrc">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="text">
-             <string>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
          <property name="title">
-          <string>Land cover (degradation)</string>
+          <string/>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <item>
-           <widget class="QComboBox" name="combo_layer_lc">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="title">
-          <string>Soil carbon (degradation)</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
-          <item>
-           <widget class="QComboBox" name="combo_layer_soc">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>275</width>
-              <height>30</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QRadioButton" name="mode_lpd_jrc_2">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>1100</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Upload raster layer (.tif)</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btn_output_file_browse">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>990</x>
+            <y>60</y>
+            <width>120</width>
+            <height>46</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_output_file">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>19</x>
+            <y>66</y>
+            <width>951</width>
+            <height>33</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Click &quot;Browse&quot; to choose a file...</string>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -404,19 +282,6 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="button_prev">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Previous</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="button_next">
        <property name="minimumSize">
@@ -443,6 +308,19 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="button_prev">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Previous</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
@@ -450,16 +328,10 @@
  <tabstops>
   <tabstop>TabBox</tabstop>
   <tabstop>mode_te_prod</tabstop>
-  <tabstop>mode_lpd_jrc</tabstop>
-  <tabstop>combo_layer_lc</tabstop>
-  <tabstop>combo_layer_soc</tabstop>
   <tabstop>button_prev</tabstop>
   <tabstop>button_next</tabstop>
   <tabstop>button_calculate</tabstop>
   <tabstop>combo_layer_traj</tabstop>
-  <tabstop>combo_layer_perf</tabstop>
-  <tabstop>combo_layer_state</tabstop>
-  <tabstop>combo_layer_lpd</tabstop>
   <tabstop>browse_output_file_layer</tabstop>
   <tabstop>browse_output_file_table</tabstop>
   <tabstop>output_file_layer</tabstop>

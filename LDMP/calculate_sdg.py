@@ -978,6 +978,36 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                           bandList=[i + 1])
             soc_files.append(f)
 
+        #######################################################################
+        # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
+        indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+        # The plus one is because band numbers start at 1, not zero
+        in_files = lc_files
+        in_files.extend(soc_files)
+        lc_band_nums = np.arange(len(lc_files)) + 1
+        soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
+        if prod_mode == 'Trends.Earth productivity':
+            resample_alg = self.get_resample_alg(lc_deg_f, traj_f)
+            in_files.extend([traj_f, perf_f, state_f])
+            gdal.BuildVRT(indic_vrt,
+                          in_files,
+                          outputBounds=output_bounds,
+                          resolution=resample_alg[0],
+                          resampleAlg=resample_alg[1],
+                          separate=True)
+            prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
+        else:
+            resample_alg = self.get_resample_alg(lc_deg_f, lpd_f)
+            in_files.append(lpd_f)
+            gdal.BuildVRT(indic_vrt,
+                          in_files,
+                          outputBounds=output_bounds,
+                          resolution=resample_alg[0],
+                          resampleAlg=resample_alg[1],
+                          separate=True)
+            prod_band_nums = [max(soc_band_nums) + 1]
+
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.meridian_split('layer', 'wkt')[1]
@@ -987,6 +1017,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             return
         n = 0
         output_sdg_tifs = []
+        output_sdg_json = self.output_file_layer.text()
         for wkt in wkts:
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
@@ -996,38 +1027,6 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                 output_bounds = self.aoi.get_aligned_output_bounds(traj_f)
             else:
                 output_bounds = self.aoi.get_aligned_output_bounds(lpd_f)
-
-            #######################################################################
-            # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
-            output_sdg_json = self.output_file_layer.text()
-
-            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
-            # The plus one is because band numbers start at 1, not zero
-            lc_band_nums = np.arange(len(lc_files)) + 1
-            soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
-            in_files = lc_files
-            in_files.extend(soc_files)
-            if prod_mode == 'Trends.Earth productivity':
-                resample_alg = self.get_resample_alg(lc_deg_f, traj_f)
-                in_files.extend([traj_f, perf_f, state_f])
-                gdal.BuildVRT(indic_vrt,
-                              in_files,
-                              outputBounds=output_bounds,
-                              resolution=resample_alg[0],
-                              resampleAlg=resample_alg[1],
-                              separate=True)
-                prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
-            else:
-                resample_alg = self.get_resample_alg(lc_deg_f, lpd_f)
-                in_files.append(lpd_f)
-                gdal.BuildVRT(indic_vrt,
-                              in_files,
-                              outputBounds=output_bounds,
-                              resolution=resample_alg[0],
-                              resampleAlg=resample_alg[1],
-                              separate=True)
-                prod_band_nums = [max(soc_band_nums) + 1]
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
@@ -1041,7 +1040,6 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
             ######################################################################
             #  Calculate SDG 15.3.1 layers
-            
             log('Calculating summary table...')
             if len(wkts) > 1:
                 output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '_{}.tif'.format(n)

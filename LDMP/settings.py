@@ -72,7 +72,7 @@ class DlgSettings(QtGui.QDialog, Ui_DlgSettings):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
         ret = dlg_settings_edit_forgot_password.exec_()
         if ret:
-            self.close()
+            self.done(QtGui.QDialog.Accepted)
 
 
 class DlgSettingsRegister(QtGui.QDialog, Ui_DlgSettingsRegister):
@@ -147,8 +147,7 @@ class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
                     self.tr("Success"),
                     self.tr(u"Logged in to the Trends.Earth server as {}.").format(self.email.text()))
             settings.setValue("LDMP/jobs_cache", None)
-            self.close()
-            return True
+            self.done(QtGui.QDialog.Accepted)
         else:
             return False
 

@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Land degradation reporting</string>
+   <string>Visualization tools</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

@@ -32,7 +32,7 @@
       </font>
      </property>
      <property name="title">
-      <string/>
+      <string>Select the type of analysis you will perform.</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>

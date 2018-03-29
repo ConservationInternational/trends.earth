@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>866</width>
-    <height>531</height>
+    <width>1231</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -111,7 +111,7 @@
        </attribute>
        <row>
         <property name="text">
-         <string>Forest</string>
+         <string>Tree-covered areas</string>
         </property>
        </row>
        <row>
@@ -146,7 +146,7 @@
        </row>
        <column>
         <property name="text">
-         <string>Forest</string>
+         <string>Tree-covered areas</string>
         </property>
        </column>
        <column>

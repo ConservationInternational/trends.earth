@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>252</height>
+    <width>1011</width>
+    <height>605</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -133,7 +133,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Option 2: Customize data</string>
+         <string>Option 2: Use customized data</string>
         </property>
        </widget>
       </item>
@@ -153,7 +153,20 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="btn_sdg_advanced">
+       <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Option 1: Use single unit for analysis (e.g. country boundary)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_summary_single_polygon">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -167,7 +180,39 @@
          </font>
         </property>
         <property name="text">
-         <string>Calculate final SDG 15.3.1 indicator and summary table</string>
+         <string>Calculate final SDG 15.3.1 spatial layer and summary table for total boundary</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_summary_multi_polygons">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Calculate area summaries of a raster on sub-units</string>
         </property>
        </widget>
       </item>

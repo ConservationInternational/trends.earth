@@ -43,7 +43,7 @@ from LDMP.layers import add_layer, create_local_json_metadata, \
         get_band_info
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
-from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
+from LDMP.gui.DlgCalculateSummaryTableAdmin import Ui_DlgCalculateSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 
 
@@ -675,9 +675,9 @@ def get_xtab_area(table, deg_class=None, lc_class=None):
         return 0
 
 
-class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
+class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTableAdmin):
     def __init__(self, parent=None):
-        super(DlgCalculateSDGAdvanced, self).__init__(parent)
+        super(DlgCalculateSummaryTableAdmin, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -706,7 +706,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             self.combo_layer_state_label.setEnabled(True)
 
     def showEvent(self, event):
-        super(DlgCalculateSDGAdvanced, self).showEvent(event)
+        super(DlgCalculateSummaryTableAdmin, self).showEvent(event)
 
         self.combo_layer_lpd.populate()
         self.combo_layer_traj.populate()
@@ -776,7 +776,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateSDGAdvanced, self).btn_calculate()
+        ret = super(DlgCalculateSummaryTableAdmin, self).btn_calculate()
         if not ret:
             return
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>928</width>
-    <height>705</height>
+    <height>549</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -64,7 +64,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="4" column="0">
-           <widget class="QComboBox" name="combo_layer_traj">
+           <widget class="WidgetSelectTELayer" name="combo_layer_traj">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -79,11 +79,14 @@
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Productivity trajectory (degradation)</string>
             </property>
            </widget>
           </item>
           <item row="6" column="0">
-           <widget class="QComboBox" name="combo_layer_perf">
+           <widget class="WidgetSelectTELayer" name="combo_layer_perf">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -98,11 +101,14 @@
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Productivity performance (degradation)</string>
             </property>
            </widget>
           </item>
           <item row="8" column="0">
-           <widget class="QComboBox" name="combo_layer_state">
+           <widget class="WidgetSelectTELayer" name="combo_layer_state">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -117,6 +123,9 @@
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Productivity state (degradation)</string>
             </property>
            </widget>
           </item>
@@ -179,7 +188,7 @@
            </widget>
           </item>
           <item row="10" column="0">
-           <widget class="QComboBox" name="combo_layer_lpd">
+           <widget class="WidgetSelectTELayer" name="combo_layer_lpd">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -188,6 +197,9 @@
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Land productivity dynamics (LPD)</string>
             </property>
            </widget>
           </item>
@@ -238,7 +250,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QComboBox" name="combo_layer_lc">
+           <widget class="WidgetSelectTELayer" name="combo_layer_lc">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -250,6 +262,9 @@
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Land cover (degradation)</string>
             </property>
            </widget>
           </item>
@@ -284,7 +299,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
-           <widget class="QComboBox" name="combo_layer_soc">
+           <widget class="WidgetSelectTELayer" name="combo_layer_soc">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -296,6 +311,9 @@
               <width>275</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Soil organic carbon (degradation)</string>
             </property>
            </widget>
           </item>
@@ -447,6 +465,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetSelectTELayer</class>
+   <extends>QComboBox</extends>
+   <header>LDMP/layers</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>TabBox</tabstop>
   <tabstop>mode_te_prod</tabstop>

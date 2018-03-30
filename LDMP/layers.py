@@ -20,9 +20,8 @@ from math import floor, log10
 from marshmallow import ValidationError
 
 from qgis.core import QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsRasterLayer, \
-    QgsMapLayerRegistry, QgsProject, QgsRasterLayer, \
-    QgsLayerTreeGroup, QgsLayerTreeLayer
+    QgsSingleBandPseudoColorRenderer, QgsMapLayerRegistry, QgsProject, \
+    QgsRasterLayer, QgsLayerTreeGroup, QgsLayerTreeLayer
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -35,6 +34,7 @@ from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP import log
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+from LDMP.gui.WidgetSelectTELayer import Ui_WidgetSelectTELayer
 
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
@@ -328,10 +328,10 @@ def add_layer(f, band_number, band_info):
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     else:
-        log('Failed to load trends.earth style. Adding layer using QGIS defaults.')
+        log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
         QtGui.QMessageBox.critical(None,
                                    tr("Error"),
-                                   tr("Failed to load trends.earth style. Adding layer using QGIS defaults."))
+                                   tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
         return False
 
     fcn = QgsColorRampShader()
@@ -402,7 +402,7 @@ def _get_layers(node):
 
 # Get a list of layers of a particular type, out of those in the TOC that were
 # produced by trends.earth
-def get_te_layers(layer_type=None):
+def get_TE_TOC_layers(layer_type=None):
     root = QgsProject.instance().layerTreeRoot()
     layers_filtered = []
     layers = _get_layers(root)
@@ -416,35 +416,88 @@ def get_te_layers(layer_type=None):
             # Layers not produced by trends.earth won't have bandinfo, and 
             # aren't of interest, so skip if there is no bandinfo.
             if band_infos:
+                # If a band_number is not supplied, use the one that is used by 
+                # this raster's renderer
                 band_number = l.renderer().usesBands()
-                # Note the below is true so long as none of the needed layers use more 
-                # than one band.
                 if len(band_number) == 1:
                     band_number = band_number[0]
-                    band_info = band_infos[band_number - 1]
-                    name = band_info['name']
-                    if layer_type == 'lpd' and name == 'Land Productivity Dynamics (LPD)':
-                        layers_filtered.append((l, band_number, band_info))
-                    if layer_type == 'traj_sig' and name == 'Productivity trajectory (significance)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'state_deg' and name == 'Productivity state (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'perf_deg' and name == 'Productivity performance (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_tr' and name == 'Land cover transitions':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_deg' and name == 'Land cover (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'soc_deg' and name == 'Soil organic carbon (degradation)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'soc_annual' and name == 'Soil organic carbon':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_mode' and name == 'Land cover mode (7 class)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_annual' and name == 'Land cover (7 class)':
-                        layers_filtered.append((l, band_number, band_info))
-                    elif layer_type == 'lc_transitions' and name == 'Land cover transitions':
-                        layers_filtered.append((l, band_number, band_info))
+                else:
+                    # Can't handle multi-band rasters right now
+                    continue
+                band_info = band_infos[band_number - 1]
+                if layer_type == band_info['name'] or layer_type == 'any':
+                    layers_filtered.append((l, band_number, band_info))
     return layers_filtered
 
+def get_layer_info_from_file(layer_type, f):
+    # First try loading the raster just to test it works
+    l = QgsRasterLayer(f, os.path.basename(f))
+    if not l.isValid():
+        log(u'Unable to load raster {} - QgsRasterLayer not valid'.format(f))
+        return None
 
+    band_infos = get_band_info(l.dataProvider().dataSourceUri())
+    layers_filtered = []
+    for n in range(l.bandCount()):
+        band_info = band_infos[n - 1]
+        l = QgsRasterLayer(f, get_band_title(band_info))
+        if layer_type == band_info['name'] or layer_type == 'any':
+            layers_filtered.append((l, n, band_info))
+            
+    return layers_filtered
+    
+class WidgetSelectTELayer(QtGui.QWidget, Ui_WidgetSelectTELayer):
+    def __init__(self, parent=None):
+        super(WidgetSelectTELayer, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.pushButton_browse.clicked.connect(self.browse_file)
+
+    def populate(self):
+        self.layer_list = get_TE_TOC_layers(self.property("layer_type"))
+        self.comboBox_layers.clear()
+        self.comboBox_layers.addItems([l[0].name() for l in self.layer_list])
+
+    def browse_file(self):
+        while True:
+            f = QtGui.QFileDialog.getOpenFileName(self,
+                                                  self.tr('Select a Trends.Earth output file'),
+                                                  QSettings().value("LDMP/output_dir", None),
+                                                  self.tr('Trends.Earth metadata file (*.json)'))
+            if f:
+                if os.access(f, os.R_OK):
+                    QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+
+                    m = get_file_metadata(f)
+                    new_layers = get_layer_info_from_file(self.property("layer_type"),
+                                                          os.path.join(os.path.dirname(f), m['file']))
+                    if new_layers:
+                        # if layer is correct type, aadd it to layer_list and 
+                        # repopulate the combo box
+                        self.layer_list.extend(new_layers)
+                        self.comboBox_layers.addItems([l[0].name() for l in new_layers])
+                        break
+                    else:
+                        # otherwise warn, and raise the layer selector again
+                        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                                   self.tr(u"{} failed to load or does not contain any layers of this layer type. Choose a different file.".format(f)))
+                    
+                else:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+            else:
+                break
+
+    def get_layer(self):
+        return self.layer_list[self.comboBox_layers.currentIndex()][0]
+
+    def get_bandnumber(self):
+        return self.layer_list[self.comboBox_layers.currentIndex()][1]
+
+    def get_vrt(self):
+        f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(f,
+                      self.get_layer().dataProvider().dataSourceUri(),
+                      bandList=[self.get_bandnumber()])
+        return f

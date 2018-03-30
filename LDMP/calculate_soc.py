@@ -26,8 +26,7 @@ from PyQt4 import QtGui
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.calculate_lc import lc_setup_widget
-from LDMP.layers import add_layer, create_local_json_metadata, \
-        get_band_info, get_te_layers
+from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from LDMP.api import run_script
 from LDMP.worker import AbstractWorker, StartWorker
@@ -137,16 +136,13 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
-        self.lc_setup_tab.populate_layers_lc()
-        self.populate_layers_soc()
+        self.comboBox_custom_soc.populate()
+        self.lc_setup_tab.use_custom_initial.populate()
+        self.lc_setup_tab.use_custom_final.populate()
+
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
-
-    def populate_layers_soc(self):
-       self.comboBox_custom_soc.clear()
-       self.layer_soc_list = get_te_layers('soc')
-       self.comboBox_custom_soc.addItems([l[0].name() for l in self.layer_soc_list])
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -239,13 +235,10 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                      1, 1, 1, 1, 1, 1, 1,
                      1, 1, 1, 1, 1, 1, 1]]
 
-        if len(self.layer_soc_list) == 0:
+        if len(self.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a soil organic carbon layer to your map before you can run the calculation."), None)
             return
-
-        self.layer_soc = self.layer_soc_list[self.comboBox_custom_soc.currentIndex()][0]
-        self.layer_soc_bandnumber = self.layer_soc_list[self.comboBox_custom_soc.currentIndex()][1]
 
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>847</width>
-    <height>557</height>
+    <height>456</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -168,7 +168,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_custom_SOC">
          <property name="title">
-          <string>Custom initial soil organic carbon dataset (already loaded onto map using the &quot;Load Data tool&quot;</string>
+          <string>Custom initial soil organic carbon dataset</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -178,12 +178,15 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QComboBox" name="comboBox_custom_soc">
+           <widget class="WidgetSelectTELayer" name="comboBox_custom_soc">
             <property name="minimumSize">
              <size>
               <width>0</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string>Soil organic carbon</string>
             </property>
            </widget>
           </item>
@@ -255,6 +258,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetSelectTELayer</class>
+   <extends>QComboBox</extends>
+   <header>LDMP/layers.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>TabBox</tabstop>
   <tabstop>button_prev</tabstop>

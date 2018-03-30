@@ -370,9 +370,9 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
 
     def browse_file(self):
         f = QtGui.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a trends.earth output file'),
+                                              self.tr('Select a Trends.Earth output file'),
                                               QSettings().value("LDMP/output_dir", None),
-                                              self.tr('trends.earth metadata file (*.json)'))
+                                              self.tr('Trends.Earth metadata file (*.json)'))
         if f:
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
@@ -432,7 +432,7 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
             else:
                 self.layers_model.setStringList([])
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"{} does not appear to be a trends.earth output file".format(f)))
+                                           self.tr(u"{} does not appear to be a Trends.Earth output file".format(f)))
                 self.layers_model.setStringList([])
                 self.btn_view_metadata.setEnabled(False)
                 return None

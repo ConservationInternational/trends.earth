@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -40,7 +40,7 @@ from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import add_layer, create_local_json_metadata, \
-        get_band_info, get_te_layers
+        get_band_info
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
 from LDMP.gui.DlgCalculateSDGAdvanced import Ui_DlgCalculateSDGAdvanced
@@ -707,42 +707,13 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
 
     def showEvent(self, event):
         super(DlgCalculateSDGAdvanced, self).showEvent(event)
-        self.populate_layers_lpd()
-        self.populate_layers_traj()
-        self.populate_layers_perf()
-        self.populate_layers_state()
-        self.populate_layers_lc()
-        self.populate_layers_soc()
 
-    def populate_layers_lpd(self):
-       self.combo_layer_lpd.clear()
-       self.layer_lpd_list = get_te_layers('lpd')
-       self.combo_layer_lpd.addItems([l[0].name() for l in self.layer_lpd_list])
-
-    def populate_layers_traj(self):
-        self.combo_layer_traj.clear()
-        self.layer_traj_list = get_te_layers('traj_sig')
-        self.combo_layer_traj.addItems([l[0].name() for l in self.layer_traj_list])
-
-    def populate_layers_perf(self):
-        self.combo_layer_perf.clear()
-        self.layer_perf_list = get_te_layers('perf_deg')
-        self.combo_layer_perf.addItems([l[0].name() for l in self.layer_perf_list])
-
-    def populate_layers_state(self):
-        self.combo_layer_state.clear()
-        self.layer_state_list = get_te_layers('state_deg')
-        self.combo_layer_state.addItems([l[0].name() for l in self.layer_state_list])
-
-    def populate_layers_lc(self):
-        self.combo_layer_lc.clear()
-        self.layer_lc_list = get_te_layers('lc_deg')
-        self.combo_layer_lc.addItems([l[0].name() for l in self.layer_lc_list])
-
-    def populate_layers_soc(self):
-        self.combo_layer_soc.clear()
-        self.layer_soc_list = get_te_layers('soc_deg')
-        self.combo_layer_soc.addItems([l[0].name() for l in self.layer_soc_list])
+        self.combo_layer_lpd.populate()
+        self.combo_layer_traj.populate()
+        self.combo_layer_perf.populate()
+        self.combo_layer_state.populate()
+        self.combo_layer_lc.populate()
+        self.combo_layer_soc.populate()
 
     def select_output_file_layer(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -818,79 +789,61 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         ######################################################################
         # Check that all needed input layers are selected
         if prod_mode == 'Trends.Earth productivity':
-            if len(self.layer_traj_list) == 0:
+            if len(self.combo_layer_traj.layer_list) == 0:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool."), None)
                 return
-            if len(self.layer_state_list) == 0:
+            if len(self.combo_layer_state.layer_list) == 0:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("You must add a productivity state indicator layer to your map before you can use the SDG calculation tool."), None)
                 return
-            if len(self.layer_perf_list) == 0:
+            if len(self.combo_layer_perf.layer_list) == 0:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool."), None)
                 return
 
-            self.layer_traj = self.layer_traj_list[self.combo_layer_traj.currentIndex()][0]
-            self.layer_traj_bandnumber = self.layer_traj_list[self.combo_layer_traj.currentIndex()][1]
-
-            self.layer_perf = self.layer_perf_list[self.combo_layer_perf.currentIndex()][0]
-            self.layer_perf_bandnumber = self.layer_perf_list[self.combo_layer_perf.currentIndex()][1]
-
-            self.layer_state = self.layer_state_list[self.combo_layer_state.currentIndex()][0]
-            self.layer_state_bandnumber = self.layer_state_list[self.combo_layer_state.currentIndex()][1]
         else:
-            if len(self.layer_lpd_list) == 0:
+            if len(self.combo_layer_lpd.layer_list) == 0:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool."), None)
                 return
 
-            self.layer_lpd = self.layer_lpd_list[self.combo_layer_lpd.currentIndex()][0]
-            self.layer_lpd_bandnumber = self.layer_lpd_list[self.combo_layer_lpd.currentIndex()][1]
-
-        if len(self.layer_lc_list) == 0:
+        if len(self.combo_layer_lc.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a land cover indicator layer to your map before you can use the SDG calculation tool."), None)
             return
 
-        if len(self.layer_soc_list) == 0:
+        if len(self.combo_layer_soc.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool."), None)
             return
 
-
-        self.layer_lc = self.layer_lc_list[self.combo_layer_lc.currentIndex()][0]
-        self.layer_lc_bandnumber = self.layer_lc_list[self.combo_layer_lc.currentIndex()][1]
-
-        self.layer_soc = self.layer_soc_list[self.combo_layer_soc.currentIndex()][0]
-        self.layer_soc_bandnumber = self.layer_soc_list[self.combo_layer_soc.currentIndex()][1]
-
         #######################################################################
         # Check that the layers cover the full extent needed
         if prod_mode == 'Trends.Earth productivity':
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_traj.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_traj.get_layer().extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the trajectory layer."), None)
                 return
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_perf.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_perf.get_layer().extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the performance layer."), None)
                 return
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_state.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_state.get_layer().extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the state layer."), None)
                 return
         else:
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_lpd.extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lpd.get_layer().extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the land productivity dynamics layer."), None)
                 return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_lc.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lc.get_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the land cover layer."), None)
             return
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.layer_soc.extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_soc.get_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the soil organic carbon layer."), None)
             return
@@ -902,20 +855,20 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
 
         if prod_mode == 'Trends.Earth productivity':
-            if res(self.layer_traj) != res(self.layer_state):
+            if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_state.get_layer()):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Resolutions of trajectory layer and state layer do not match."), None)
                 return
-            if res(self.layer_traj) != res(self.layer_perf):
+            if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_perf.get_layer()):
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Resolutions of trajectory layer and performance layer do not match."), None)
                 return
 
-            if self.layer_traj.crs() != self.layer_state.crs():
+            if self.combo_layer_traj.get_layer().crs() != self.combo_layer_state.get_layer().crs():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Coordinate systems of trajectory layer and state layer do not match."), None)
                 return
-            if self.layer_traj.crs() != self.layer_perf.crs():
+            if self.combo_layer_traj.get_layer().crs() != self.combo_layer_perf.get_layer().crs():
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Coordinate systems of trajectory layer and performance layer do not match."), None)
                 return
@@ -925,21 +878,11 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
         if prod_mode == 'Trends.Earth productivity':
-            traj_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            gdal.BuildVRT(traj_f, self.layer_traj.dataProvider().dataSourceUri(),
-                          bandList=[self.layer_traj_bandnumber])
-
-            perf_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            gdal.BuildVRT(perf_f, self.layer_perf.dataProvider().dataSourceUri(),
-                          bandList=[self.layer_perf_bandnumber])
-
-            state_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            gdal.BuildVRT(state_f, self.layer_state.dataProvider().dataSourceUri(),
-                          bandList=[self.layer_state_bandnumber])
+            traj_vrt = setlf.combo_layer_traj.get_vrt()
+            perf_vrt = setlf.combo_layer_perf.get_vrt()
+            state_vrt = setlf.combo_layer_state.get_vrt()
         else:
-            lpd_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            gdal.BuildVRT(lpd_f, self.layer_lpd.dataProvider().dataSourceUri(),
-                          bandList=[self.layer_lpd_bandnumber])
+            lpd_vrt = setlf.combo_layer_lpd.get_vrt()
 
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
@@ -957,7 +900,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         # Make the LC degradation file first in the list
         lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(),
-                bandList=[self.layer_lc_bandnumber])
+                bandList=[self.combo_layer_lc.get_bandnumber()])
         lc_files = [lc_deg_f]
         for i in lc_annual_band_indices:
             f = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -969,7 +912,7 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         # Make the SOC degradation file first in the list
         soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.layer_soc_bandnumber])
+                      bandList=[self.combo_layer_soc.get_bandnumber()])
         soc_files = [soc_deg_f]
         for i in soc_annual_band_indices:
             f = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -988,8 +931,8 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
         lc_band_nums = np.arange(len(lc_files)) + 1
         soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
         if prod_mode == 'Trends.Earth productivity':
-            resample_alg = self.get_resample_alg(lc_deg_f, traj_f)
-            in_files.extend([traj_f, perf_f, state_f])
+            resample_alg = self.get_resample_alg(lc_deg_f, traj_vrt)
+            in_files.extend([traj_vrt, perf_vrt, state_vrt])
             gdal.BuildVRT(indic_vrt,
                           in_files,
                           outputBounds=output_bounds,
@@ -998,8 +941,8 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
                           separate=True)
             prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
         else:
-            resample_alg = self.get_resample_alg(lc_deg_f, lpd_f)
-            in_files.append(lpd_f)
+            resample_alg = self.get_resample_alg(lc_deg_f, lpd_vrt)
+            in_files.append(lpd_vrt)
             gdal.BuildVRT(indic_vrt,
                           in_files,
                           outputBounds=output_bounds,
@@ -1024,9 +967,9 @@ class DlgCalculateSDGAdvanced(DlgCalculateBase, Ui_DlgCalculateSDGAdvanced):
             # keep the pixels aligned with the chosen productivity layer.
         
             if prod_mode == 'Trends.Earth productivity':
-                output_bounds = self.aoi.get_aligned_output_bounds(traj_f)
+                output_bounds = self.aoi.get_aligned_output_bounds(traj_vrt)
             else:
-                output_bounds = self.aoi.get_aligned_output_bounds(lpd_f)
+                output_bounds = self.aoi.get_aligned_output_bounds(lpd_vrt)
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))

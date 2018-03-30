@@ -31,7 +31,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetLoadDataSelectFileInput.ui \
 ../gui/WidgetLoadDataSelectRasterOutput.ui \
 ../gui/WidgetSelectArea.ui \
-../gui/WidgetSelectPoint.ui
+../gui/WidgetSelectPoint.ui \
+../gui/WidgetSelectTELayer.ui
 
 SOURCES = ../about.py \
 ../api.py \

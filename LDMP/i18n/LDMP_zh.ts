@@ -128,11 +128,6 @@
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="332"/>
-        <source>Failed to load trends.earth style. Adding layer using QGIS defaults.</source>
-        <translation>无法加载trends.earth样式。使用QGIS默认添加图层。</translation>
-    </message>
-    <message>
         <location filename="../calculate.py" line="152"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>无法将geojson添加到临时图层。</translation>
@@ -332,6 +327,11 @@
         <source>Stable but stressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../layers.py" line="332"/>
+        <source>Failed to load Trends.Earth style. Adding layer using QGIS defaults.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AreaWidget</name>
@@ -500,8 +500,8 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="136"/>
-        <source>Option 2: Customize data</source>
-        <translation>选项2：自定义数据</translation>
+        <source>Option 2: Use customized data</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="152"/>
@@ -509,9 +509,24 @@ p，li {空格：预包装; }
         <translation>第2步：计算最终的SDG 15.3.1指标</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="170"/>
-        <source>Calculate final SDG 15.3.1 indicator and summary table</source>
-        <translation>计算最终的SDG 15.3.1指标和汇总表</translation>
+        <location filename="../gui/DlgCalculate.ui" line="164"/>
+        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="183"/>
+        <source>Calculate final SDG 15.3.1 spatial layer and summary table for total boundary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="196"/>
+        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="215"/>
+        <source>Calculate area summaries of a raster on sub-units</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -585,84 +600,84 @@ p，li {空格：预包装; }
         <translation>以前</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="338"/>
-        <source>Land cover in baseline year </source>
-        <translation>基准年的土地覆盖</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="789"/>
+        <location filename="../calculate_lc.py" line="770"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="396"/>
+        <location filename="../calculate_lc.py" line="408"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>转换矩阵定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="396"/>
+        <location filename="../calculate_lc.py" line="408"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>选择保存此转换矩阵定义的位置</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="707"/>
+        <location filename="../calculate_lc.py" line="689"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="634"/>
+        <location filename="../calculate_lc.py" line="615"/>
         <source>Land Cover Setup</source>
         <translation>土地覆盖设置</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="637"/>
+        <location filename="../calculate_lc.py" line="618"/>
         <source>Define Degradation</source>
         <translation>定义退化</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="698"/>
+        <location filename="../calculate_lc.py" line="680"/>
         <source>Choose a name for the output file</source>
         <translation>为输出文件选择一个名称</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="698"/>
+        <location filename="../calculate_lc.py" line="680"/>
         <source>Raster file (*.tif)</source>
         <translation>光栅文件（* .tif）</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="756"/>
+        <location filename="../calculate_lc.py" line="737"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="756"/>
-        <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation>基准年（{}）大于或等于目标年份（{}） - 此分析可能会产生奇怪的结果。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="760"/>
+        <location filename="../calculate_lc.py" line="741"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="765"/>
+        <location filename="../calculate_lc.py" line="746"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="789"/>
+        <location filename="../calculate_lc.py" line="770"/>
         <source>Error calculating land cover change.</source>
         <translation>计算土地覆盖变化的错误。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="738"/>
+        <location filename="../calculate_lc.py" line="720"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加初始土地覆盖图层。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="743"/>
+        <location filename="../calculate_lc.py" line="725"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加最终的土地覆盖图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="350"/>
+        <source>Land cover in initial year </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="737"/>
+        <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -711,11 +726,6 @@ p，li {空格：预包装; }
         <location filename="../calculate_lc.py" line="93"/>
         <source>Input code</source>
         <translation>输入代码</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="288"/>
-        <source>Forest</source>
-        <translation>森林</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="290"/>
@@ -792,6 +802,11 @@ p，li {空格：预包装; }
         <source>Other land</source>
         <translation>其他土地</translation>
     </message>
+    <message>
+        <location filename="../calculate_lc.py" line="288"/>
+        <source>Tree-covered areas</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateProd</name>
@@ -822,7 +837,7 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="489"/>
-        <source>Baseline period</source>
+        <source>Initial period</source>
         <translation>基准期</translation>
     </message>
     <message>
@@ -909,229 +924,229 @@ p，li {空格：预包装; }
 <context>
     <name>DlgCalculateSDGAdvanced</name>
     <message>
-        <location filename="../calculate_sdg.py" line="748"/>
+        <location filename="../calculate_sdg.py" line="719"/>
         <source>Choose a filename for the output file</source>
-        <translation>为输出文件选择一个文件名</translation>
+        <translation type="obsolete">为输出文件选择一个文件名</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="748"/>
+        <location filename="../calculate_sdg.py" line="719"/>
         <source>Filename (*.json)</source>
-        <translation>文件名（* .json）</translation>
+        <translation type="obsolete">文件名（* .json）</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1056"/>
+        <location filename="../calculate_sdg.py" line="997"/>
         <source>Error</source>
-        <translation>错误</translation>
+        <translation type="obsolete">错误</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="770"/>
+        <location filename="../calculate_sdg.py" line="741"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation>无法写入{}。选择一个不同的文件。</translation>
+        <translation type="obsolete">无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="761"/>
+        <location filename="../calculate_sdg.py" line="732"/>
         <source>Choose a filename for the summary table</source>
-        <translation>为汇总表选择一个文件名</translation>
+        <translation type="obsolete">为汇总表选择一个文件名</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="761"/>
+        <location filename="../calculate_sdg.py" line="732"/>
         <source>Summary table file (*.xlsx)</source>
-        <translation>汇总表文件（* .xlsx）</translation>
+        <translation type="obsolete">汇总表文件（* .xlsx）</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="796"/>
+        <location filename="../calculate_sdg.py" line="767"/>
         <source>Choose an output file for the indicator layer.</source>
-        <translation>为指标层选择一个输出文件。</translation>
+        <translation type="obsolete">为指标层选择一个输出文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="772"/>
+        <source>Choose an output file for the summary table.</source>
+        <translation type="obsolete">为汇总表选择一个输出文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="793"/>
+        <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="obsolete">在使用SDG计算工具之前，您必须在地图上添加生产力轨迹指标图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="797"/>
+        <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="obsolete">在使用SDG计算工具之前，您必须向地图添加生产力状态指示图层。</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="801"/>
-        <source>Choose an output file for the summary table.</source>
-        <translation>为汇总表选择一个输出文件。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="822"/>
-        <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation>在使用SDG计算工具之前，您必须在地图上添加生产力轨迹指标图层。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="826"/>
-        <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation>在使用SDG计算工具之前，您必须向地图添加生产力状态指示图层。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="830"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation>在使用SDG计算工具之前，您必须在地图上添加生产力绩效指标图层。</translation>
+        <translation type="obsolete">在使用SDG计算工具之前，您必须在地图上添加生产力绩效指标图层。</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="844"/>
+        <location filename="../calculate_sdg.py" line="807"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation>在使用SDG计算工具之前，您必须在地图上添加土地生产力动态指标图层。</translation>
+        <translation type="obsolete">在使用SDG计算工具之前，您必须在地图上添加土地生产力动态指标图层。</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="852"/>
+        <location filename="../calculate_sdg.py" line="812"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation>在使用SDG计算工具之前，您必须在地图上添加土地覆盖指标图层。</translation>
+        <translation type="obsolete">在使用SDG计算工具之前，您必须在地图上添加土地覆盖指标图层。</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="857"/>
+        <location filename="../calculate_sdg.py" line="817"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation>在使用SDG计算工具之前，必须在地图上添加土壤有机碳指示剂层。</translation>
+        <translation type="obsolete">在使用SDG计算工具之前，必须在地图上添加土壤有机碳指示剂层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="825"/>
+        <source>Area of interest is not entirely within the trajectory layer.</source>
+        <translation type="obsolete">感兴趣的区域不完全在轨迹层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="829"/>
+        <source>Area of interest is not entirely within the performance layer.</source>
+        <translation type="obsolete">感兴趣的区域不完全在性能层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="833"/>
+        <source>Area of interest is not entirely within the state layer.</source>
+        <translation type="obsolete">感兴趣的领域并不完全在国家层面。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="838"/>
+        <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
+        <translation type="obsolete">感兴趣的领域不完全在土地生产力动态层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="843"/>
+        <source>Area of interest is not entirely within the land cover layer.</source>
+        <translation type="obsolete">感兴趣的区域不完全在土地覆盖层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="847"/>
+        <source>Area of interest is not entirely within the soil organic carbon layer.</source>
+        <translation type="obsolete">感兴趣的区域不完全在土壤有机碳层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="859"/>
+        <source>Resolutions of trajectory layer and state layer do not match.</source>
+        <translation type="obsolete">轨迹层和状态层的分辨率不匹配。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="863"/>
+        <source>Resolutions of trajectory layer and performance layer do not match.</source>
+        <translation type="obsolete">轨迹层和性能层的分辨率不匹配。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="868"/>
+        <source>Coordinate systems of trajectory layer and state layer do not match.</source>
+        <translation type="obsolete">轨迹层和状态层的坐标系不匹配。</translation>
     </message>
     <message>
         <location filename="../calculate_sdg.py" line="872"/>
-        <source>Area of interest is not entirely within the trajectory layer.</source>
-        <translation>感兴趣的区域不完全在轨迹层内。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="876"/>
-        <source>Area of interest is not entirely within the performance layer.</source>
-        <translation>感兴趣的区域不完全在性能层内。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="880"/>
-        <source>Area of interest is not entirely within the state layer.</source>
-        <translation>感兴趣的领域并不完全在国家层面。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="885"/>
-        <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
-        <translation>感兴趣的领域不完全在土地生产力动态层。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="890"/>
-        <source>Area of interest is not entirely within the land cover layer.</source>
-        <translation>感兴趣的区域不完全在土地覆盖层内。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="894"/>
-        <source>Area of interest is not entirely within the soil organic carbon layer.</source>
-        <translation>感兴趣的区域不完全在土壤有机碳层内。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="906"/>
-        <source>Resolutions of trajectory layer and state layer do not match.</source>
-        <translation>轨迹层和状态层的分辨率不匹配。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="910"/>
-        <source>Resolutions of trajectory layer and performance layer do not match.</source>
-        <translation>轨迹层和性能层的分辨率不匹配。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="915"/>
-        <source>Coordinate systems of trajectory layer and state layer do not match.</source>
-        <translation>轨迹层和状态层的坐标系不匹配。</translation>
-    </message>
-    <message>
-        <location filename="../calculate_sdg.py" line="919"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
-        <translation>轨迹层和性能层的坐标系不匹配。</translation>
+        <translation type="obsolete">轨迹层和性能层的坐标系不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1038"/>
+        <location filename="../calculate_sdg.py" line="980"/>
         <source>Error masking SDG 15.3.1 input layers.</source>
-        <translation>掩盖SDG 15.3.1输入图层的错误。</translation>
+        <translation type="obsolete">掩盖SDG 15.3.1输入图层的错误。</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="20"/>
         <source>Calculate SDG 15.3.1 Indicator</source>
-        <translation>计算SDG 15.3.1指标</translation>
+        <translation type="obsolete">计算SDG 15.3.1指标</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="39"/>
         <source>Input</source>
-        <translation>输入</translation>
+        <translation type="obsolete">输入</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="63"/>
         <source>Productivity</source>
-        <translation>生产率</translation>
+        <translation type="obsolete">生产率</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="126"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="135"/>
         <source>Trends.Earth land productivity</source>
-        <translation>Trends.Earth土地生产力</translation>
+        <translation type="obsolete">Trends.Earth土地生产力</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="145"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="154"/>
         <source>Performance (degradation):</source>
-        <translation>性能：</translation>
+        <translation type="obsolete">性能：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="161"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="170"/>
         <source>State (degradation):</source>
-        <translation>状态（退化）：</translation>
+        <translation type="obsolete">状态（退化）：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="177"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="186"/>
         <source>Trajectory (degradation):</source>
-        <translation>轨迹（退化）：</translation>
+        <translation type="obsolete">轨迹（退化）：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="200"/>
-        <source>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</source>
-        <translation>UNCCD默认数据（联合研究委员会的土地生产力动态（LPD））</translation>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="212"/>
+        <source>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</source>
+        <translation type="obsolete">UNCCD默认数据（联合研究委员会的土地生产力动态（LPD））</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="237"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="267"/>
         <source>Land cover (degradation)</source>
-        <translation>土地覆盖：</translation>
+        <translation type="obsolete">土地覆盖：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="283"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="298"/>
         <source>Soil carbon (degradation)</source>
-        <translation>土壤碳（降解）</translation>
+        <translation type="obsolete">土壤碳（降解）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="309"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="327"/>
         <source>Output</source>
-        <translation>产量</translation>
+        <translation type="obsolete">产量</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="315"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="333"/>
         <source>Output file for indicator layer</source>
-        <translation>指标层的输出文件</translation>
+        <translation type="obsolete">指标层的输出文件</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="368"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="386"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>点击“浏览”选择一个文件...</translation>
+        <translation type="obsolete">点击“浏览”选择一个文件...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="381"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="399"/>
         <source>Browse</source>
-        <translation>浏览</translation>
+        <translation type="obsolete">浏览</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="353"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="371"/>
         <source>Output file for summary table</source>
-        <translation>汇总表的输出文件</translation>
+        <translation type="obsolete">汇总表的输出文件</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="416"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="434"/>
         <source>Previous</source>
-        <translation>以前</translation>
+        <translation type="obsolete">以前</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="429"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="447"/>
         <source>Next</source>
-        <translation>下一个</translation>
+        <translation type="obsolete">下一个</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="442"/>
+        <location filename="../gui/DlgCalculateSDGAdvanced.ui" line="460"/>
         <source>Calculate</source>
-        <translation>计算</translation>
+        <translation type="obsolete">计算</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="985"/>
+        <location filename="../calculate_sdg.py" line="958"/>
         <source>Reporting tool does not yet work for split bounding boxes.</source>
-        <translation>报告工具尚未用于拆分边界框。</translation>
+        <translation type="obsolete">报告工具尚未用于拆分边界框。</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1056"/>
+        <location filename="../calculate_sdg.py" line="997"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
-        <translation>计算SDG 15.3.1汇总表时出错。</translation>
+        <translation type="obsolete">计算SDG 15.3.1汇总表时出错。</translation>
     </message>
 </context>
 <context>
@@ -1178,7 +1193,7 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateSDGOneStep.ui" line="206"/>
-        <source>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</source>
+        <source>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</source>
         <translation>UNCCD默认数据（联合研究委员会的土地生产力动态（LPD））</translation>
     </message>
     <message>
@@ -1210,17 +1225,17 @@ p，li {空格：预包装; }
         <translation>计算土壤有机碳</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="250"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="253"/>
         <source>Next</source>
         <translation>下一个</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="224"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="227"/>
         <source>Calculate</source>
         <translation>计算</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="237"/>
+        <location filename="../gui/DlgCalculateSOC.ui" line="240"/>
         <source>Previous</source>
         <translation>以前</translation>
     </message>
@@ -1261,43 +1276,186 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="171"/>
-        <source>Custom initial soil organic carbon dataset (already loaded onto map using the &quot;Load Data tool&quot;</source>
-        <translation>自定义初始土壤有机碳数据集（已使用“加载数据工具”加载到地图上）</translation>
+        <source>Custom initial soil organic carbon dataset</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="138"/>
+        <location filename="../calculate_soc.py" line="137"/>
         <source>Land Cover Setup</source>
         <translation>土地覆盖设置</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="267"/>
+        <location filename="../calculate_soc.py" line="260"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="243"/>
+        <location filename="../calculate_soc.py" line="239"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加土壤有机碳层。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="258"/>
+        <location filename="../calculate_soc.py" line="251"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="258"/>
+        <location filename="../calculate_soc.py" line="251"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>基准年（{}）大于或等于目标年份（{}） - 此分析可能会产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="262"/>
+        <location filename="../calculate_soc.py" line="255"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="267"/>
+        <location filename="../calculate_soc.py" line="260"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="189"/>
+        <source>Soil organic carbon</source>
+        <translation>土壤有机碳</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateSummaryTableAdmin</name>
+    <message>
+        <location filename="../calculate_sdg.py" line="719"/>
+        <source>Choose a filename for the output file</source>
+        <translation type="unfinished">为输出文件选择一个文件名</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="719"/>
+        <source>Filename (*.json)</source>
+        <translation type="unfinished">文件名（* .json）</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="997"/>
+        <source>Error</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="741"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">无法写入{}。选择一个不同的文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="732"/>
+        <source>Choose a filename for the summary table</source>
+        <translation type="unfinished">为汇总表选择一个文件名</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="732"/>
+        <source>Summary table file (*.xlsx)</source>
+        <translation type="unfinished">汇总表文件（* .xlsx）</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="767"/>
+        <source>Choose an output file for the indicator layer.</source>
+        <translation type="unfinished">为指标层选择一个输出文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="772"/>
+        <source>Choose an output file for the summary table.</source>
+        <translation type="unfinished">为汇总表选择一个输出文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="793"/>
+        <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="unfinished">在使用SDG计算工具之前，您必须在地图上添加生产力轨迹指标图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="797"/>
+        <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="unfinished">在使用SDG计算工具之前，您必须向地图添加生产力状态指示图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="801"/>
+        <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="unfinished">在使用SDG计算工具之前，您必须在地图上添加生产力绩效指标图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="807"/>
+        <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="unfinished">在使用SDG计算工具之前，您必须在地图上添加土地生产力动态指标图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="812"/>
+        <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="unfinished">在使用SDG计算工具之前，您必须在地图上添加土地覆盖指标图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="817"/>
+        <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
+        <translation type="unfinished">在使用SDG计算工具之前，必须在地图上添加土壤有机碳指示剂层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="825"/>
+        <source>Area of interest is not entirely within the trajectory layer.</source>
+        <translation type="unfinished">感兴趣的区域不完全在轨迹层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="829"/>
+        <source>Area of interest is not entirely within the performance layer.</source>
+        <translation type="unfinished">感兴趣的区域不完全在性能层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="833"/>
+        <source>Area of interest is not entirely within the state layer.</source>
+        <translation type="unfinished">感兴趣的领域并不完全在国家层面。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="838"/>
+        <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
+        <translation type="unfinished">感兴趣的领域不完全在土地生产力动态层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="843"/>
+        <source>Area of interest is not entirely within the land cover layer.</source>
+        <translation type="unfinished">感兴趣的区域不完全在土地覆盖层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="847"/>
+        <source>Area of interest is not entirely within the soil organic carbon layer.</source>
+        <translation type="unfinished">感兴趣的区域不完全在土壤有机碳层内。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="859"/>
+        <source>Resolutions of trajectory layer and state layer do not match.</source>
+        <translation type="unfinished">轨迹层和状态层的分辨率不匹配。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="863"/>
+        <source>Resolutions of trajectory layer and performance layer do not match.</source>
+        <translation type="unfinished">轨迹层和性能层的分辨率不匹配。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="868"/>
+        <source>Coordinate systems of trajectory layer and state layer do not match.</source>
+        <translation type="unfinished">轨迹层和状态层的坐标系不匹配。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="872"/>
+        <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
+        <translation type="unfinished">轨迹层和性能层的坐标系不匹配。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="958"/>
+        <source>Reporting tool does not yet work for split bounding boxes.</source>
+        <translation type="unfinished">报告工具尚未用于拆分边界框。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="980"/>
+        <source>Error masking SDG 15.3.1 input layers.</source>
+        <translation type="unfinished">掩盖SDG 15.3.1输入图层的错误。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_sdg.py" line="997"/>
+        <source>Error calculating SDG 15.3.1 summary table.</source>
+        <translation type="unfinished">计算SDG 15.3.1汇总表时出错。</translation>
     </message>
 </context>
 <context>
@@ -1503,60 +1661,50 @@ p，li {空格：预包装; }
         <translation>加载由TRENDS.EARTH生成的数据集</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="53"/>
+        <location filename="../gui/DlgLoadData.ui" line="59"/>
         <source>Load an existing TRENDS.EARTH output file</source>
         <translation>加载一个现有的TRENDS.EARTH输出文件</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="63"/>
-        <source>Load a custom input dataset</source>
-        <translation>加载自定义输入数据集</translation>
+        <location filename="../gui/DlgLoadData.ui" line="69"/>
+        <source>Import a custom input dataset</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="75"/>
+        <location filename="../gui/DlgLoadData.ui" line="81"/>
         <source>Productivity</source>
         <translation>生产率</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="88"/>
+        <location filename="../gui/DlgLoadData.ui" line="94"/>
         <source>Land cover</source>
         <translation>土地覆盖</translation>
     </message>
     <message>
-        <location filename="../gui/DlgLoadData.ui" line="101"/>
+        <location filename="../gui/DlgLoadData.ui" line="107"/>
         <source>Soil organic carbon</source>
         <translation>土壤有机碳</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="320"/>
-        <source>Coming soon!</source>
-        <translation>快来了！</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="320"/>
-        <source>Processing of custom soil organic carbon data coming soon!</source>
-        <translation>定制土壤有机碳数据即将加工！</translation>
     </message>
 </context>
 <context>
     <name>DlgLoadDataBase</name>
     <message>
-        <location filename="../load_data.py" line="678"/>
+        <location filename="../load_data.py" line="676"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="595"/>
+        <location filename="../load_data.py" line="593"/>
         <source>Choose an input raster file.</source>
         <translation>选择一个输入栅格文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="599"/>
+        <location filename="../load_data.py" line="597"/>
         <source>Choose an input polygon dataset.</source>
         <translation>选择一个输入多边形数据集。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="678"/>
+        <location filename="../load_data.py" line="676"/>
         <source>Raster import failed.</source>
         <translation>栅格导入失败。</translation>
     </message>
@@ -1564,27 +1712,27 @@ p，li {空格：预包装; }
 <context>
     <name>DlgLoadDataLC</name>
     <message>
-        <location filename="../load_data.py" line="778"/>
+        <location filename="../load_data.py" line="776"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="720"/>
+        <location filename="../load_data.py" line="718"/>
         <source>Choose an output file.</source>
         <translation>选择一个输出文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="723"/>
+        <location filename="../load_data.py" line="721"/>
         <source>No definition set</source>
         <translation>没有定义集</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="723"/>
+        <location filename="../load_data.py" line="721"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>单击“编辑定义”以在导出之前定义土地覆盖定义。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="778"/>
+        <location filename="../load_data.py" line="776"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>读取数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类</translation>
     </message>
@@ -1617,17 +1765,17 @@ p，li {空格：预包装; }
 <context>
     <name>DlgLoadDataProd</name>
     <message>
-        <location filename="../load_data.py" line="881"/>
+        <location filename="../load_data.py" line="879"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="868"/>
+        <location filename="../load_data.py" line="866"/>
         <source>Choose an output file.</source>
         <translation>选择一个输出文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="881"/>
+        <location filename="../load_data.py" line="879"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>输入文件（{}）似乎不是有效的生产力输入文件。</translation>
     </message>
@@ -1669,12 +1817,12 @@ p，li {空格：预包装; }
 &lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 0或-32768：无数据&lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="885"/>
+        <location filename="../load_data.py" line="883"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="885"/>
+        <location filename="../load_data.py" line="883"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>输入文件（{}）似乎不是有效的生产力输入文件。 Trends.Earth无论如何都会加载该文件，但在加载地图后查看地图以确保值合理。生产力输入文件中唯一允许的值是-32768,1,2,3,4和5.输入文件中有{}个值未被识别。</translation>
     </message>
@@ -1682,22 +1830,22 @@ p，li {空格：预包装; }
 <context>
     <name>DlgLoadDataSOC</name>
     <message>
-        <location filename="../load_data.py" line="829"/>
+        <location filename="../load_data.py" line="827"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="812"/>
+        <location filename="../load_data.py" line="810"/>
         <source>Choose an output file.</source>
         <translation>选择一个输出文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="825"/>
+        <location filename="../load_data.py" line="823"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>输入文件（{}）似乎不是有效的生产力输入文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="829"/>
+        <location filename="../load_data.py" line="827"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
         <translation>输入文件（{}）似乎不是有效的生产力输入文件。文件中有{}个不同的值。生产力输入文件中唯一允许的值是-32768,1,2,3,4和5。</translation>
     </message>
@@ -1710,39 +1858,29 @@ p，li {空格：预包装; }
 <context>
     <name>DlgLoadDataTE</name>
     <message>
-        <location filename="../load_data.py" line="436"/>
+        <location filename="../load_data.py" line="434"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="382"/>
+        <location filename="../load_data.py" line="380"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="374"/>
-        <source>Select a trends.earth output file</source>
-        <translation>选择一个trends.earth输出文件</translation>
+        <location filename="../load_data.py" line="372"/>
+        <source>Select a Trends.Earth output file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="374"/>
-        <source>trends.earth metadata file (*.json)</source>
-        <translation>trends.earth元数据文件（* .json）</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="411"/>
+        <location filename="../load_data.py" line="409"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
         <translation>无法自动添加“{}”。没有为这种类型的图层定义样式。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="417"/>
+        <location filename="../load_data.py" line="415"/>
         <source>Select a layer to load.</source>
         <translation>选择要加载的图层。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="436"/>
-        <source>{} does not appear to be a trends.earth output file</source>
-        <translation>{}似乎不是trend.earth输出文件</translation>
     </message>
     <message>
         <location filename="../gui/DlgLoadDataTE.ui" line="17"/>
@@ -1773,6 +1911,11 @@ p，li {空格：预包装; }
         <location filename="../gui/DlgLoadDataTE.ui" line="93"/>
         <source>Browse...</source>
         <translation>浏览...</translation>
+    </message>
+    <message>
+        <location filename="../load_data.py" line="434"/>
+        <source>{} does not appear to be a Trends.Earth output file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1805,13 +1948,8 @@ p，li {空格：预包装; }
     <name>DlgReporting</name>
     <message>
         <location filename="../gui/DlgReporting.ui" line="23"/>
-        <source>Land degradation reporting</source>
+        <source>Visualization tools</source>
         <translation>土地退化报告</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="35"/>
-        <source>Reporting and mapping tools:</source>
-        <translation>选择一种报告类型：</translation>
     </message>
     <message>
         <location filename="../gui/DlgReporting.ui" line="61"/>
@@ -1822,6 +1960,11 @@ p，li {空格：预包装; }
         <location filename="../gui/DlgReporting.ui" line="48"/>
         <source>Add Basemap</source>
         <translation>添加底图</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgReporting.ui" line="35"/>
+        <source>Visualization tools:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1938,17 +2081,17 @@ p，li {空格：预包装; }
         <translation>删除用户</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="188"/>
+        <location filename="../settings.py" line="187"/>
         <source>Delete user?</source>
         <translation>删除用户？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="188"/>
+        <location filename="../settings.py" line="187"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation>您确定要删除该用户吗？您的所有任务都将丢失，您将无法再使用Trends.Earth在线处理数据。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="194"/>
+        <location filename="../settings.py" line="193"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
@@ -1971,32 +2114,32 @@ p，li {空格：预包装; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="223"/>
+        <location filename="../settings.py" line="222"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="223"/>
+        <location filename="../settings.py" line="222"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="227"/>
+        <location filename="../settings.py" line="226"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="227"/>
+        <location filename="../settings.py" line="226"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
         <translation>您确定要重置{}的密码吗？您的新密码将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="235"/>
+        <location filename="../settings.py" line="234"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="235"/>
+        <location filename="../settings.py" line="234"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>密码已重置为{}。检查您的电子邮件以获取新密码，然后返回到Trends.Earth进入它。</translation>
     </message>
@@ -2029,37 +2172,37 @@ p，li {空格：预包装; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="279"/>
+        <location filename="../settings.py" line="278"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="270"/>
+        <location filename="../settings.py" line="269"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="273"/>
+        <location filename="../settings.py" line="272"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="276"/>
+        <location filename="../settings.py" line="275"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="279"/>
+        <location filename="../settings.py" line="278"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="286"/>
+        <location filename="../settings.py" line="285"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="286"/>
+        <location filename="../settings.py" line="285"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -2266,29 +2409,66 @@ p，li {空格：预包装; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../calculate_lc.py" line="366"/>
+        <location filename="../calculate_lc.py" line="378"/>
         <source>Select a transition matrix definition file</source>
         <translation>选择一个转换矩阵定义文件</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="366"/>
+        <location filename="../calculate_lc.py" line="378"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>转换矩阵定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="406"/>
+        <location filename="../calculate_lc.py" line="418"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="374"/>
+        <location filename="../calculate_lc.py" line="386"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="406"/>
+        <location filename="../calculate_lc.py" line="418"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="321"/>
+        <source>Tree-covered
+areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="322"/>
+        <source>Grassland</source>
+        <translation type="unfinished">草原</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="323"/>
+        <source>Cropland</source>
+        <translation>农田</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="324"/>
+        <source>Wetland</source>
+        <translation>湿地</translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="325"/>
+        <source>Artificial
+areas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="326"/>
+        <source>Bare land</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_lc.py" line="327"/>
+        <source>Water body</source>
+        <translation>水体</translation>
     </message>
 </context>
 <context>
@@ -2309,17 +2489,17 @@ p，li {空格：预包装; }
         <translation>无法登录到LDMP服务器。检查您的用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="306"/>
+        <location filename="../calculate_soc.py" line="299"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="689"/>
+        <location filename="../calculate_lc.py" line="671"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
         <translation>提交给Google地球引擎的土地覆盖任务。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="693"/>
+        <location filename="../calculate_lc.py" line="675"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
         <translation>无法将土地覆盖任务提交给Google地球引擎。</translation>
     </message>
@@ -2454,12 +2634,12 @@ p，li {空格：预包装; }
         <translation>加载本地数据</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="306"/>
+        <location filename="../calculate_soc.py" line="299"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
         <translation>提交给Google Earth Engine的土壤有机碳。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="310"/>
+        <location filename="../calculate_soc.py" line="303"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
         <translation>无法向Google Earth Engine提交土壤有机碳任务。</translation>
     </message>
@@ -2565,42 +2745,42 @@ p，li {空格：预包装; }
 <context>
     <name>LoadDataSelectFileInputWidget</name>
     <message>
-        <location filename="../load_data.py" line="478"/>
+        <location filename="../load_data.py" line="476"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="478"/>
+        <location filename="../load_data.py" line="476"/>
         <source>Processing of vector input datasets coming soon!</source>
         <translation>矢量输入数据集的处理即将推出！</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="498"/>
+        <location filename="../load_data.py" line="496"/>
         <source>Select a raster input file</source>
         <translation>选择一个光栅输入文件</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="498"/>
+        <location filename="../load_data.py" line="496"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation>光栅文件（* .tif * .dat * .img）</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="543"/>
+        <location filename="../load_data.py" line="541"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="543"/>
+        <location filename="../load_data.py" line="541"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="529"/>
+        <location filename="../load_data.py" line="527"/>
         <source>Select a vector input file</source>
         <translation>选择一个矢量输入文件</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="529"/>
+        <location filename="../load_data.py" line="527"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
@@ -2608,22 +2788,22 @@ p，li {空格：预包装; }
 <context>
     <name>LoadDataSelectRasterOutput</name>
     <message>
-        <location filename="../load_data.py" line="567"/>
+        <location filename="../load_data.py" line="565"/>
         <source>Choose a name for the output file</source>
         <translation>为输出文件选择一个名称</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="567"/>
+        <location filename="../load_data.py" line="565"/>
         <source>Raster file (*.tif)</source>
         <translation>光栅文件（* .tif）</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="577"/>
+        <location filename="../load_data.py" line="575"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../load_data.py" line="577"/>
+        <location filename="../load_data.py" line="575"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
@@ -2684,82 +2864,47 @@ p，li {空格：预包装; }
         <translation>形成</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="46"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="132"/>
         <source>Land cover in target year </source>
         <translation>目标年的土地覆盖</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="149"/>
-        <source>Forest</source>
-        <translation>森林</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="154"/>
-        <source>Grassland*</source>
-        <translation>草原*</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="159"/>
-        <source>Cropland</source>
-        <translation>农田</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="164"/>
-        <source>Wetland</source>
-        <translation>湿地</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="169"/>
-        <source>Artificial area</source>
-        <translation>人工区域</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="174"/>
-        <source>Bare land</source>
-        <translation>裸地</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="179"/>
-        <source>Water body</source>
-        <translation>水体</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="521"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="139"/>
         <source>Legend</source>
         <translation>传说</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="527"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="145"/>
         <source>Degradation</source>
         <translation>降解</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="534"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="174"/>
         <source>Improvement</source>
         <translation>起色</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="563"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="225"/>
         <source>*The &quot;Grassland&quot; class consists of grassland, shrub, and sparsely vegetated areas (if the default aggregation is used).</source>
         <translation>*“草地”类包括草地，灌木和稀疏植被区（如果使用默认聚合）。</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="614"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="232"/>
         <source>Stable</source>
         <translation>稳定</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="634"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="252"/>
         <source>Save table to file...</source>
         <translation>将表格保存到文件...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="647"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="265"/>
         <source>Reset table</source>
         <translation>重置表格</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCDefineDegradation.ui" line="660"/>
+        <location filename="../gui/WidgetLCDefineDegradation.ui" line="278"/>
         <source>Load saved table...</source>
         <translation>加载保存的表...</translation>
     </message>
@@ -2788,8 +2933,8 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="163"/>
-        <source>Baseline year:</source>
-        <translation>基准年：</translation>
+        <source>Initial year:</source>
+        <translation type="unfinished">起始年份：</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="173"/>
@@ -2803,18 +2948,23 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="229"/>
-        <source>Custom land cover dataset (already loaded onto map using the &quot;Load Data&quot; tool)</source>
-        <translation>自定义土地覆盖数据集（已使用“加载数据”工具加载到地图上）</translation>
+        <source>Custom land cover dataset</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="239"/>
-        <source>Initial layer (baseline year)</source>
-        <translation>初始层（基准年）</translation>
+        <source>Initial layer (initial year)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="264"/>
+        <location filename="../gui/WidgetLCSetup.ui" line="267"/>
         <source>Final layer (target year)</source>
         <translation>最终图层（目标年）</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetLCSetup.ui" line="282"/>
+        <source>Land cover (7 class)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2906,57 +3056,57 @@ p，li {空格：预包装; }
         <translation>运行计算的区域</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="280"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="245"/>
         <source>Administrative area</source>
         <translation>行政区</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="148"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="72"/>
         <source>First level:</source>
         <translation>第一级：</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="117"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="228"/>
         <source>Second level:</source>
         <translation>第二级：</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="270"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="235"/>
         <source>Area from file</source>
         <translation>来自文件的区域</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="228"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="197"/>
         <source>Browse</source>
         <translation>浏览</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="257"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>声明：所提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style =“text-decoration：underline; color： ＃0000ff;“&gt;自然地球&lt;/ span&gt; &lt;/a&gt;，并且位于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =”text-decoration：underline; color：＃ 0000ff;“&gt;公共领域&lt;/ span&gt; &lt;/a&gt;。在趋势中使用的界限和名称以及所用的名称.earth并不意味着由国际保护基金会或其合作组织和贡献者正式认可或接受。&lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="50"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="162"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
         <translation>点击“浏览”选择一个文件...</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="76"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="175"/>
         <source>x:</source>
         <translation>X：</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="83"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="38"/>
         <source>Point</source>
         <translation>点</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="161"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="85"/>
         <source>y:</source>
         <translation>Y：</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="206"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="143"/>
         <source>Choose a point...</source>
         <translation>选择一个点...</translation>
     </message>
@@ -2997,6 +3147,44 @@ p，li {空格：预包装; }
         <location filename="../gui/WidgetSelectPoint.ui" line="70"/>
         <source>y:</source>
         <translation>Y：</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetSelectTELayer</name>
+    <message>
+        <location filename="../layers.py" line="464"/>
+        <source>Select a Trends.Earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="464"/>
+        <source>Trends.Earth metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="487"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="483"/>
+        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="487"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation>无法阅读 {}。选择一个不同的文件。</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectTELayer.ui" line="20"/>
+        <source>Form</source>
+        <translation type="unfinished">形成</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectTELayer.ui" line="51"/>
+        <source>Browse</source>
+        <translation type="unfinished">浏览</translation>
     </message>
 </context>
 </TS>

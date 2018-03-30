@@ -81,7 +81,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Productivity trajectory (degradation)</string>
+             <string>Productivity trajectory (significance)</string>
             </property>
            </widget>
           </item>

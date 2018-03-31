@@ -34,7 +34,8 @@ from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP import log
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
-from LDMP.gui.WidgetSelectTELayer import Ui_WidgetSelectTELayer
+from LDMP.gui.WidgetSelectTELayerExisting import Ui_WidgetSelectTELayerExisting
+from LDMP.gui.WidgetSelectTELayerImport import Ui_WidgetSelectTELayerImport
 
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
@@ -446,20 +447,20 @@ def get_layer_info_from_file(layer_type, f):
             
     return layers_filtered
     
-class WidgetSelectTELayer(QtGui.QWidget, Ui_WidgetSelectTELayer):
+class WidgetSelectTELayerBase(QtGui.QWidget):
     def __init__(self, parent=None):
-        super(WidgetSelectTELayer, self).__init__(parent)
+        super(WidgetSelectTELayerBase, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.pushButton_browse.clicked.connect(self.browse_file)
+        self.pushButton_load_existing.clicked.connect(self.load_file)
 
     def populate(self):
         self.layer_list = get_TE_TOC_layers(self.property("layer_type"))
         self.comboBox_layers.clear()
         self.comboBox_layers.addItems([l[0].name() for l in self.layer_list])
 
-    def browse_file(self):
+    def load_file(self):
         while True:
             f = QtGui.QFileDialog.getOpenFileName(self,
                                                   self.tr('Select a Trends.Earth output file'),
@@ -501,3 +502,19 @@ class WidgetSelectTELayer(QtGui.QWidget, Ui_WidgetSelectTELayer):
                       self.get_layer().dataProvider().dataSourceUri(),
                       bandList=[self.get_bandnumber()])
         return f
+
+
+class WidgetSelectTELayerExisting(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerExisting):
+    def __init__(self, parent=None):
+        super(WidgetSelectTELayerExisting, self).__init__(parent)
+
+
+class WidgetSelectTELayerImport(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerImport):
+    def __init__(self, parent=None):
+        super(WidgetSelectTELayerImport, self).__init__(parent)
+
+        self.pushButton_import.clicked.connect(self.import_file)
+
+    def import_file(self):
+        #TODO: Code this
+        pass

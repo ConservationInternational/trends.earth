@@ -2,10 +2,11 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculate.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
+../gui/DlgCalculateOneStep.ui \
 ../gui/DlgCalculateProd.ui \
-../gui/DlgCalculateSDGAdvanced.ui \
-../gui/DlgCalculateSDGOneStep.ui \
 ../gui/DlgCalculateSOC.ui \
+../gui/DlgCalculateSummaryTableAdmin.ui \
+../gui/DlgCalculateSummaryTablePolygons.ui \
 ../gui/DlgCreateMap.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
@@ -32,7 +33,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetLoadDataSelectRasterOutput.ui \
 ../gui/WidgetSelectArea.ui \
 ../gui/WidgetSelectPoint.ui \
-../gui/WidgetSelectTELayer.ui
+../gui/WidgetSelectTELayerExisting.ui \
+../gui/WidgetSelectTELayerImport.ui
 
 SOURCES = ../about.py \
 ../api.py \

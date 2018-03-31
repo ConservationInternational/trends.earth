@@ -42,14 +42,14 @@ from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import add_layer, create_local_json_metadata, \
         get_band_info
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.gui.DlgCalculateSDGOneStep import Ui_DlgCalculateSDGOneStep
+from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateSummaryTableAdmin import Ui_DlgCalculateSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 
 
-class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
+class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
     def __init__(self, parent=None):
-        super(DlgCalculateSDGOneStep, self).__init__(parent)
+        super(DlgCalculateOneStep, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -58,7 +58,7 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         # the ESA and MODIS data availability years
         
     def showEvent(self, event):
-        super(DlgCalculateSDGOneStep, self).showEvent(event)
+        super(DlgCalculateOneStep, self).showEvent(event)
 
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
@@ -106,7 +106,7 @@ class DlgCalculateSDGOneStep(DlgCalculateBase, Ui_DlgCalculateSDGOneStep):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateSDGOneStep, self).btn_calculate()
+        ret = super(DlgCalculateOneStep, self).btn_calculate()
         if not ret:
             return
 

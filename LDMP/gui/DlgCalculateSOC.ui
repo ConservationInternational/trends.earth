@@ -178,7 +178,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="WidgetSelectTELayer" name="comboBox_custom_soc">
+           <widget class="WidgetSelectTELayerImport" name="comboBox_custom_soc">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -260,7 +260,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>WidgetSelectTELayer</class>
+   <class>WidgetSelectTELayerImport</class>
    <extends>QComboBox</extends>
    <header>LDMP/layers.h</header>
   </customwidget>

@@ -59,7 +59,8 @@ options(
         deploy_s3_bucket = 'trends.earth',
         docs_s3_prefix = 'docs/',
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
-        base_language = 'en'
+        base_language = 'en',
+        latex_documents = ['Trends.Earth.tex', 'Trends.Earth_tutorial.tex']
     )
 )
 
@@ -629,11 +630,18 @@ def builddocs(options):
                 builddir=options.sphinx.builddir, lang=language))
         print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=language, builddir=options.sphinx.builddir))
 
-        PDF_OPTS = "-D pdf_documents='[(\'index\', \'trends.earth_{lang}\', \'Conservation International\', \'manual\')]".format(lang=language)
-        # Build PDF
-        sh("sphinx-build -b pdf -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
-            pdf_opts=PDF_OPTS, sourcedir=options.sphinx.sourcedir, 
-            builddir=options.sphinx.builddir, lang=language))
+        # Build PDF, by first making latex from sphinx, then pdf from that
+        tex_dir = "{builddir}/latex/{lang}".format(builddir=options.sphinx.builddir, lang=language)
+        sh("sphinx-build -b latex -a {sphinx_opts} {tex_dir}".format(sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir))
+
+        for doc in options.sphinx.latex_documents:
+            for n in range(3):
+                # Run multiple times to ensure crossreferences are right
+                subprocess.check_call(['xelatex', doc], cwd=os.path.dirname(doc))
+            # Move the PDF to the html folder so it will be uploaded with the 
+            # site
+            shutil.move('{tex_dir}/Trends.Earth.pdf'.format(tex_dir=tex_dir),
+                        '{builddir}/html/{lang}/Trends.Earth.pdf'.format(builddir=options.sphinx.builddir, lang=language))
 
 def _localize_resources(options, language):
     print("Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir))

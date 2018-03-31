@@ -307,7 +307,7 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.dlg_calculate_prod = DlgCalculateProd()
         self.dlg_calculate_lc = DlgCalculateLC()
         self.dlg_calculate_soc = DlgCalculateSOC()
-        self.dlg_calculate_sdg_onestep = DlgCalculateSDGOneStep()
+        self.dlg_calculate_sdg_onestep = DlgCalculateOneStep()
         self.dlg_calculate_sdg_advanced = DlgCalculateSummaryTableAdmin()
 
         self.btn_prod.clicked.connect(self.btn_prod_clicked)
@@ -709,4 +709,4 @@ class ClipWorker(AbstractWorker):
 from LDMP.calculate_prod import DlgCalculateProd
 from LDMP.calculate_lc import DlgCalculateLC
 from LDMP.calculate_soc import DlgCalculateSOC
-from LDMP.calculate_sdg import DlgCalculateSDGOneStep, DlgCalculateSummaryTableAdmin
+from LDMP.calculate_sdg import DlgCalculateOneStep, DlgCalculateSummaryTableAdmin

@@ -28,8 +28,8 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
-#extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
+#extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -44,7 +44,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'trends.earth'
+project = u'Trends.Earth'
 copyright = u'2017, Conservation International'
 
 locale_dirs = ['../i18n/']
@@ -84,7 +84,7 @@ rst_epilog = """
    :width: 2em
 .. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
    :width: 7em
-   :alt: trends.earth
+   :alt: Trends.Earth
 .. |CURRENT| replace:: {current_version}
 .. |qgisMinVersion| replace:: 2.18.15
 """.format(current_version=version)
@@ -213,10 +213,19 @@ htmlhelp_basename = 'TemplateClassdoc'
 
 # -- Options for LaTeX output --------------------------------------------------
 
-pdf_documents = [
-    ('index', 'trends-earth', u'trends.earth documentation',
-     u'Conservation International', 'manual'),
+latex_documents = [
+    ('index', u'Trends.Earth.tex', u'Trends.Earth Documentation', u'Conservation International', 'manual'),
+    ('training/tutorial', u'Trends.Earth_tutorial.tex', u'How to Setup Trends.Earth', u'Conservation International', 'howto'),
 ]
+
+latex_elements = {
+    # The paper size ('letterpaper' or 'a4paper').
+    'papersize': 'a4paper',
+    'preamble': u'''\\usepackage{fontspec}
+                    \\setmainfont{lmroman10-regular.otf}
+                    \\setotherlanguage{arabic}
+                    \\newfontfamily\\arabicfont[Script=Arabic]{Amiri}''',
+}
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -231,9 +240,6 @@ latex_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
 
 # If true, show URL addresses after external links.
 #latex_show_urls = False
-
-# Additional stuff for the LaTeX preamble.
-#latex_preamble = ''
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []

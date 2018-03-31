@@ -27,7 +27,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="WidgetSelectTELayer" name="comboBox">
+       <widget class="WidgetSelectTELayerExisting" name="comboBox">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -187,7 +187,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>WidgetSelectTELayer</class>
+   <class>WidgetSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/layers</header>
   </customwidget>

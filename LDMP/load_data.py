@@ -22,9 +22,8 @@ from marshmallow import ValidationError
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
-from LDMP.layers import create_local_json_metadata, add_layer, \
-    get_file_metadata, get_band_title, get_sample
-from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer
+from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
+    QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -33,18 +32,21 @@ import numpy as np
 from osgeo import gdal, osr
 
 from LDMP import log
-from LDMP.calculate_lc import DlgCalculateLCSetAggregation
+from LDMP.layers import create_local_json_metadata, add_layer, \
+    get_file_metadata, get_band_title, get_sample, get_band_info
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgLoadData import Ui_DlgLoadData
 from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
+from LDMP.gui.DlgLoadDataTESingleLayer import Ui_DlgLoadDataTESingleLayer
 from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
 from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
 from LDMP.gui.DlgLoadDataProd import Ui_DlgLoadDataProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
 from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
-
+from LDMP.gui.WidgetSelectTELayerExisting import Ui_WidgetSelectTELayerExisting
+from LDMP.gui.WidgetSelectTELayerImport import Ui_WidgetSelectTELayerImport
+from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
 class ShapefileImportWorker(AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
@@ -324,9 +326,11 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
         self.close()
         self.dlg_loaddata_prod.exec_()
 
-class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
+class DlgLoadDataTEBase(QtGui.QDialog):
+    layers_added = pyqtSignal(list)
+
     def __init__(self, parent=None):
-        super(DlgLoadDataTE, self).__init__(parent)
+        super(DlgLoadDataTEBase, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -334,58 +338,8 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         self.layers_view.setModel(self.layers_model)
         self.layers_model.setStringList([])
 
-        self.file_browse_btn.clicked.connect(self.browse_file)
-
-        self.file_lineedit.editingFinished.connect(self.update_layer_list)
-
         self.buttonBox.accepted.connect(self.ok_clicked)
         self.buttonBox.rejected.connect(self.cancel_clicked)
-
-        self.btn_view_metadata.clicked.connect(self.btn_details)
-
-
-    def showEvent(self, e):
-        super(DlgLoadDataTE, self).showEvent(e)
-
-        self.file_lineedit.clear()
-        self.layers_model.setStringList([])
-        self.btn_view_metadata.setEnabled(False)
-
-
-    def btn_details(self):
-        details_dlg = DlgJobsDetails(self)
-        m = get_file_metadata(self.file_lineedit.text())
-        m = m['metadata']
-        if m:
-            details_dlg.task_name.setText(m.get('task_name', ''))
-            details_dlg.comments.setText(m.get('task_notes', ''))
-            details_dlg.input.setText(json.dumps(m.get('params', {}), indent=4, sort_keys=True))
-            details_dlg.output.setText(json.dumps(m.get('results', {}), indent=4, sort_keys=True))
-            details_dlg.show()
-            details_dlg.exec_()
-        else:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr(u"Cannot read {}. Choose a different file.".format(self.file_lineedit.text())))
-
-
-    def browse_file(self):
-        f = QtGui.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a Trends.Earth output file'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Trends.Earth metadata file (*.json)'))
-        if f:
-            if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-            else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different file.".format(f)))
-
-        res = self.update_layer_list(f)
-        if res:
-            self.file_lineedit.setText(f)
-        else:
-            self.file_lineedit.clear()
-
 
     def cancel_clicked(self):
         self.close()
@@ -395,39 +349,68 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
         for i in self.layers_view.selectionModel().selectedRows():
             rows.append(i.row())
         if len(rows) > 0:
-            m = get_file_metadata(self.file_lineedit.text())
-            # Below use of oslpath.basename and os.path.normpath is a fix for 
-            # older versions of LDMP<0.43 that stored the full path in the 
-            # filename in the metadata
-            f = os.path.join(os.path.dirname(self.file_lineedit.text()),
-                             os.path.basename(os.path.normpath(m['file'])))
-            if m:
-                for row in rows:
-                    # The plus 1 is because band numbers start at 1, not zero
-                    resp = add_layer(f, row + 1, m['bands'][row])
-                    if not resp:
-                        QtGui.QMessageBox.critical(None, self.tr("Error"), 
-                                                   self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(m['bands'][row]['name'])))
-                        return
-            else:
-                log(u'Error loading results from {}'.format(self.file_lineedit.text()))
+            added_layers = []
+            for row in rows:
+                f = os.path.normcase(os.path.normpath(self.layer_list[row][0]))
+                # Note that the third item in the tuple is the band number, and 
+                # the fourth (layer_list[3]) is the band info object
+                resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3])
+                if resp:
+                    added_layers.append(self.layer_list[row])
+                else:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"), 
+                                               self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
+            self.layers_added.emit(added_layers)
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
             return
 
         self.close()
 
-    def update_layer_list(self, f=None):
-        if not f:
-            f = self.file_lineedit.text()
+
+class DlgLoadDataTE(DlgLoadDataTEBase, Ui_DlgLoadDataTE):
+    def __init__(self, parent=None):
+        super(DlgLoadDataTE, self).__init__(parent)
+
+        self.file_browse_btn.clicked.connect(self.browse_file)
+        self.btn_view_metadata.clicked.connect(self.view_metadata)
+
+    def showEvent(self, e):
+        super(DlgLoadDataTE, self).showEvent(e)
+        self.file_lineedit.clear()
+        self.file = None
+        self.layers_model.setStringList([])
+        self.btn_view_metadata.setEnabled(False)
+
+    def browse_file(self):
+        f = QtGui.QFileDialog.getOpenFileName(self,
+                                              self.tr('Select a Trends.Earth output file'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Trends.Earth metadata file (*.json)'))
         if f:
-            m = get_file_metadata(f)
-            if m :
-                bands = ['Band {}: {}'.format(i + 1, get_band_title(band)) for i, band in enumerate(m['bands'])]
+            if os.access(f, os.R_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.file = f
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+                return
+
+        res = self.update_layer_list(f)
+        if res:
+            self.file_lineedit.setText(f)
+        else:
+            self.file_lineedit.clear()
+
+    def update_layer_list(self, f):
+        if f:
+            self.layer_list = get_layer_info_from_file(os.path.normcase(os.path.normpath(f)))
+            if self.layer_list:
+                bands = ['Band {}: {}'.format(layer[2], layer[1]) for layer in self.layer_list]
                 self.layers_model.setStringList(bands)
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-                for n in range(len(m['bands'])):
-                    if m['bands'][n]['add_to_map']:
+                for n in range(len(self.layer_list)):
+                    if self.layer_list[n][3]['add_to_map']:
                         self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QtGui.QItemSelectionModel.Select)
             else:
                 self.layers_model.setStringList([])
@@ -443,6 +426,32 @@ class DlgLoadDataTE(QtGui.QDialog, Ui_DlgLoadDataTE):
 
         self.btn_view_metadata.setEnabled(True)
         return True
+
+    def view_metadata(self):
+        details_dlg = DlgJobsDetails(self)
+        m = get_file_metadata(self.file)
+        m = m['metadata']
+        if m:
+            details_dlg.task_name.setText(m.get('task_name', ''))
+            details_dlg.comments.setText(m.get('task_notes', ''))
+            details_dlg.input.setText(json.dumps(m.get('params', {}), indent=4, sort_keys=True))
+            details_dlg.output.setText(json.dumps(m.get('results', {}), indent=4, sort_keys=True))
+            details_dlg.show()
+            details_dlg.exec_()
+        else:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr(u"Cannot read {}. Choose a different file.".format(self.file)))
+
+
+class DlgLoadDataTESingleLayer(DlgLoadDataTEBase, Ui_DlgLoadDataTESingleLayer):
+    def __init__(self, parent=None):
+        super(DlgLoadDataTESingleLayer, self).__init__(parent)
+
+    def update_layer_list(self, layers):
+        self.layer_list = layers
+        bands = [layer[1] for layer in layers]
+        self.layers_model.setStringList(bands)
+        self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
 
 
 class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileInput):
@@ -750,6 +759,8 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
     def load_agg(self, values):
         # Set all of the classes to no data by default
         classes = [{'Initial_Code':value, 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
+        #TODO Fix on refactor
+        from LDMP.lc_setup import DlgCalculateLCSetAggregation
         self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
 
     def agg_edit(self):
@@ -895,3 +906,150 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
 
         self.create_json("Land Productivity Dynamics (LPD)",
                          {'source': 'custom data'})
+
+
+def _get_layers(node):
+    l = []
+    if isinstance(node, QgsLayerTreeGroup):
+        for child in node.children():
+            if isinstance(child, QgsLayerTreeLayer):
+                l.append(child.layer())
+            else:
+                l.extend(_get_layers(child))
+    else:
+        l = node
+    return l
+
+
+# Get a list of layers of a particular type, out of those in the TOC that were
+# produced by trends.earth
+def get_TE_TOC_layers(layer_type=None):
+    root = QgsProject.instance().layerTreeRoot()
+    layers_filtered = []
+    layers = _get_layers(root)
+    if len(layers) > 0:
+        for l in layers:
+            if not isinstance(l, QgsRasterLayer):
+                # Allows skipping other layer types, like OpenLayers layers, that
+                # are irrelevant for the toolbox
+                continue
+            data_file = os.path.normcase(os.path.normpath(l.dataProvider().dataSourceUri()))
+            band_infos = get_band_info(data_file)
+            # Layers not produced by trends.earth won't have bandinfo, and 
+            # aren't of interest, so skip if there is no bandinfo.
+            if band_infos:
+                # If a band_number is not supplied, use the one that is used by 
+                # this raster's renderer
+                band_number = l.renderer().usesBands()
+                if len(band_number) == 1:
+                    band_number = band_number[0]
+                else:
+                    # Can't handle multi-band rasters right now
+                    continue
+                band_info = band_infos[band_number - 1]
+                if layer_type == band_info['name'] or layer_type == 'any':
+                    # Note the layer name here could be different from the 
+                    # band_info derived name, since the name accompanying the 
+                    # layer is the one in the TOC
+                    layers_filtered.append((data_file, l.name(), band_number, band_info))
+    return layers_filtered
+
+
+def get_layer_info_from_file(json_file, layer_type='any'):
+    m = get_file_metadata(json_file)
+    band_infos = get_band_info(json_file)
+    layers_filtered = []
+    for n in range(len(band_infos)):
+        band_info = band_infos[n - 1]
+        data_file = os.path.normcase(os.path.normpath(os.path.join(os.path.dirname(json_file), m['file'])))
+        if layer_type == band_info['name'] or layer_type == 'any':
+            layers_filtered.append((data_file, get_band_title(band_info), n, band_info))
+    return layers_filtered
+
+    
+class WidgetSelectTELayerBase(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(WidgetSelectTELayerBase, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.pushButton_load_existing.clicked.connect(self.load_file)
+
+        self.dlg_layer = DlgLoadDataTESingleLayer()
+
+        self.dlg_layer.layers_added.connect(self.populate)
+
+        self.layer_list = None
+
+    def populate(self, selected_layer=None):
+        if self.layer_list:
+            last_layer = self.layer_list[self.comboBox_layers.currentIndex()]
+        else:
+            last_layer = None
+        self.layer_list = get_TE_TOC_layers(self.property("layer_type"))
+        self.comboBox_layers.clear()
+        self.comboBox_layers.addItems([l[1] for l in self.layer_list])
+
+        log('layers: {}'.format(self.layer_list))
+
+        if selected_layer:
+            assert(len(selected_layer) == 1)
+            self.comboBox_layers.setCurrentIndex(self.layer_list.index(selected_layer[0]))
+        elif last_layer:
+            self.comboBox_layers.setCurrentIndex(self.layer_list.index(last_layer))
+
+    def load_file(self):
+        while True:
+            f = QtGui.QFileDialog.getOpenFileName(self,
+                                                  self.tr('Select a Trends.Earth output file'),
+                                                  QSettings().value("LDMP/output_dir", None),
+                                                  self.tr('Trends.Earth metadata file (*.json)'))
+            if f:
+                if os.access(f, os.R_OK):
+                    QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+
+                    new_layers = get_layer_info_from_file(os.path.normcase(os.path.normpath(f)), self.property("layer_type"))
+                    if new_layers:
+                        self.dlg_layer.file = f
+                        self.dlg_layer.update_layer_list(new_layers)
+                        self.dlg_layer.exec_()
+                        break
+                    else:
+                        # otherwise warn, and raise the layer selector again
+                        QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                                   self.tr(u"{} failed to load or does not contain any layers of this layer type. Choose a different file.".format(f)))
+                else:
+                    # otherwise warn, and raise the layer selector again
+                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+            else:
+                break
+
+    def get_layer(self):
+        return self.layer_list[self.comboBox_layers.currentIndex()][0]
+
+    def get_bandnumber(self):
+        return self.layer_list[self.comboBox_layers.currentIndex()][1]
+
+    def get_vrt(self):
+        f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        gdal.BuildVRT(f,
+                      self.get_layer().dataProvider().dataSourceUri(),
+                      bandList=[self.get_bandnumber()])
+        return f
+
+
+class WidgetSelectTELayerExisting(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerExisting):
+    def __init__(self, parent=None):
+        super(WidgetSelectTELayerExisting, self).__init__(parent)
+
+
+class WidgetSelectTELayerImport(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerImport):
+    def __init__(self, parent=None):
+        super(WidgetSelectTELayerImport, self).__init__(parent)
+
+        self.pushButton_import.clicked.connect(self.import_file)
+
+    def import_file(self):
+        #TODO: Code this
+        pass

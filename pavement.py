@@ -487,12 +487,15 @@ def check_path(app):
         for ext in os.environ.get("PATHEXT", "").split(os.pathsep):
             yield fpath + ext
 
+    # Also look in folders under this python versions lib path
+    folders = os.environ["PATH"].split(os.pathsep)
+    folders.extend([x[0] for x in os.walk(os.path.join(os.path.dirname(sys.executable), 'Lib'))])
     fpath, fname = os.path.split(app)
     if fpath:
         if is_exe(app):
             return app
     else:
-        for path in os.environ["PATH"].split(os.pathsep):
+        for path in folders:
             exe_file = os.path.join(path, app)
             for candidate in ext_candidates(exe_file):
                 if is_exe(candidate):
@@ -529,7 +532,7 @@ def compile_files(options):
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
                     _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
                     print("Compiling {0} to {1}".format(ui, output))
-                    subprocess.check_call([pyuic4, '-o', output, ui])
+                    subprocess.check_call([pyuic4, '-x', ui, '-o', output])
                     ui_count += 1
                 else:
                     print("Skipping {0} (unchanged)".format(ui))

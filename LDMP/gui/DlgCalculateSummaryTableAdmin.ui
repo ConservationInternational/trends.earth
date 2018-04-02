@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>928</width>
-    <height>549</height>
+    <height>705</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -199,7 +199,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Land productivity dynamics (LPD)</string>
+             <string>Land Productivity Dynamics (LPD)</string>
             </property>
            </widget>
           </item>
@@ -469,7 +469,7 @@
   <customwidget>
    <class>WidgetSelectTELayerExisting</class>
    <extends>QComboBox</extends>
-   <header>LDMP/layers</header>
+   <header>LDMP/load_data</header>
   </customwidget>
  </customwidgets>
  <tabstops>

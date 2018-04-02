@@ -26,8 +26,8 @@ from qgis.utils import iface
 
 from LDMP import log
 
-from LDMP.worker import AbstractWorker, start_worker
 from LDMP.api import get_header
+from LDMP.worker import AbstractWorker, start_worker
 
 
 def check_hash_against_etag(url, filename, expected=None):

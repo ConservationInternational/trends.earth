@@ -49,6 +49,7 @@ SOURCES = ../about.py \
 ../layers.py \
 ../plugin.py \
 ../load_data.py \
+../lc_setup.py \
 ../plot.py \
 ../reporting.py \
 ../settings.py \

@@ -189,7 +189,7 @@
   <customwidget>
    <class>WidgetSelectTELayerExisting</class>
    <extends>QComboBox</extends>
-   <header>LDMP/layers</header>
+   <header>LDMP/load_data</header>
   </customwidget>
  </customwidgets>
  <resources/>

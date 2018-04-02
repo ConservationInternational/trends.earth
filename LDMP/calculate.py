@@ -304,6 +304,11 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
 
         self.setupUi(self)
 
+        # TODO: Bad style - fix when refactoring
+        from LDMP.calculate_prod import DlgCalculateProd
+        from LDMP.calculate_lc import DlgCalculateLC
+        from LDMP.calculate_soc import DlgCalculateSOC
+        from LDMP.calculate_sdg import DlgCalculateOneStep, DlgCalculateSummaryTableAdmin
         self.dlg_calculate_prod = DlgCalculateProd()
         self.dlg_calculate_lc = DlgCalculateLC()
         self.dlg_calculate_soc = DlgCalculateSOC()
@@ -704,9 +709,3 @@ class ClipWorker(AbstractWorker):
         else:
             self.progress.emit(100 * fraction)
             return True
-
-
-from LDMP.calculate_prod import DlgCalculateProd
-from LDMP.calculate_lc import DlgCalculateLC
-from LDMP.calculate_soc import DlgCalculateSOC
-from LDMP.calculate_sdg import DlgCalculateOneStep, DlgCalculateSummaryTableAdmin

@@ -262,7 +262,7 @@
   <customwidget>
    <class>WidgetSelectTELayerImport</class>
    <extends>QComboBox</extends>
-   <header>LDMP/layers.h</header>
+   <header>LDMP/load_data.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

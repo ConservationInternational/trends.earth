@@ -38,7 +38,7 @@ mb = iface.messageBar()
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
-from LDMP.calculate_lc import lc_setup_widget, lc_define_deg_widget
+from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import add_layer, create_local_json_metadata, \
         get_band_info
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema

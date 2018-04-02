@@ -23,9 +23,9 @@ from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt, QDate
 
 from LDMP import log
 
+from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgDownload import Ui_DlgDownload
-from LDMP.api import run_script
 
 
 class DataTableModel(QAbstractTableModel):

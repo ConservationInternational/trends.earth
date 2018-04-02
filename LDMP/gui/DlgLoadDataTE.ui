@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Open a trends.earth file</string>
+   <string>Open a Trends.Earth file</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="0">

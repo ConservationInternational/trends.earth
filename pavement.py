@@ -279,6 +279,7 @@ def install3(options):
 ])
 def package(options):
     """Create plugin package"""
+    compile_files(options)
     tests = options.get('tests', False)
     package_dir = options.plugin.package_dir
     package_dir.makedirs()

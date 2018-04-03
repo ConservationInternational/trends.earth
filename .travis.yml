@@ -18,6 +18,7 @@ before_install:
 - docker-compose up -d
 - docker-compose ps
 - sleep 10
+- pip install --upgrade pip
 - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"
 - docker-compose exec qgis-testing-environment sh -c "pip install boto3"

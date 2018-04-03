@@ -26,18 +26,18 @@ mb = iface.messageBar()
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase
 from LDMP.download import extract_zipfile, get_admin_bounds
-from LDMP.gui.DlgReporting import Ui_DlgReporting
-from LDMP.gui.DlgReportingBasemap import Ui_DlgReportingBasemap
-from LDMP.gui.DlgCreateMap import Ui_DlgCreateMap
+from LDMP.gui.DlgVisualization import Ui_DlgVisualization
+from LDMP.gui.DlgVisualizationBasemap import Ui_DlgVisualizationBasemap
+from LDMP.gui.DlgVisualizationCreateMap import Ui_DlgVisualizationCreateMap
 
 
-class DlgReporting(QtGui.QDialog, Ui_DlgReporting):
+class DlgVisualization(QtGui.QDialog, Ui_DlgVisualization):
     def __init__(self, parent=None):
-        super(DlgReporting, self).__init__(parent)
+        super(DlgVisualization, self).__init__(parent)
         self.setupUi(self)
 
-        self.dlg_basemap = DlgReportingBasemap()
-        self.dlg_create_map = DlgCreateMap()
+        self.dlg_basemap = DlgVisualizationBasemap()
+        self.dlg_create_map = DlgVisualizationCreateMap()
 
         self.btn_basemap.clicked.connect(self.clicked_basemap)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
@@ -103,9 +103,9 @@ class zoom_to_admin_poly(object):
         self.canvas.setExtent(self.bbox)
         self.canvas.refresh()
 
-class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
+class DlgVisualizationBasemap(QtGui.QDialog, Ui_DlgVisualizationBasemap):
     def __init__(self, parent=None):
-        super(DlgReportingBasemap, self).__init__(parent)
+        super(DlgVisualizationBasemap, self).__init__(parent)
         self.setupUi(self)
 
         self.admin_bounds_key = get_admin_bounds()
@@ -216,9 +216,9 @@ class DlgReportingBasemap(QtGui.QDialog, Ui_DlgReportingBasemap):
         self.close()
 
 
-class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
+class DlgVisualizationCreateMap(QtGui.QDialog, Ui_DlgVisualizationCreateMap):
     def __init__(self, parent=None):
-        super(DlgCreateMap, self).__init__(parent)
+        super(DlgVisualizationCreateMap, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -230,7 +230,7 @@ class DlgCreateMap(QtGui.QDialog, Ui_DlgCreateMap):
         self.buttonBox.rejected.connect(self.cancel_clicked)
 
     def showEvent(self, event):
-        super(DlgCreateMap, self).showEvent(event)
+        super(DlgVisualizationCreateMap, self).showEvent(event)
 
         QtGui.QMessageBox.warning(None, QtGui.QApplication.translate("LDMP", "Warning"),
                                   QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgCreateMap</class>
- <widget class="QDialog" name="DlgCreateMap">
+ <class>DlgVisualizationCreateMap</class>
+ <widget class="QDialog" name="DlgVisualizationCreateMap">
   <property name="geometry">
    <rect>
     <x>0</x>

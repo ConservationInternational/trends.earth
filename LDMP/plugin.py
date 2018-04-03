@@ -23,7 +23,7 @@ from LDMP.download_data import DlgDownload
 from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
-from LDMP.reporting import DlgReporting
+from LDMP.reporting import DlgVisualization
 from LDMP.load_data import DlgLoadData
 from LDMP.about import DlgAbout
 
@@ -95,7 +95,7 @@ class LDMPPlugin:
         self.dlg_calculate = DlgCalculate()
         self.dlg_jobs = DlgJobs()
         self.dlg_timeseries = DlgTimeseries()
-        self.dlg_reporting = DlgReporting()
+        self.dlg_reporting = DlgVisualization()
         self.dlg_download = DlgDownload()
         self.dlg_load_data = DlgLoadData()
         self.dlg_about = DlgAbout()

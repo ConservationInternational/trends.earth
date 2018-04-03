@@ -7,7 +7,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateSOC.ui \
 ../gui/DlgCalculateSummaryTableAdmin.ui \
 ../gui/DlgCalculateSummaryTablePolygons.ui \
-../gui/DlgCreateMap.ui \
+../gui/DlgVisualizationCreateMap.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
@@ -17,8 +17,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgLoadDataSOC.ui \
 ../gui/DlgLoadDataTE.ui \
 ../gui/DlgPlot.ui \
-../gui/DlgReporting.ui \
-../gui/DlgReportingBasemap.ui \
+../gui/DlgVisualization.ui \
+../gui/DlgVisualizationBasemap.ui \
 ../gui/DlgSettings.ui \
 ../gui/DlgSettingsEdit.ui \
 ../gui/DlgSettingsEditForgotPassword.ui \

@@ -1051,5 +1051,5 @@ class WidgetSelectTELayerImport(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerI
         self.pushButton_import.clicked.connect(self.import_file)
 
     def import_file(self):
-        #TODO: Code this
-        pass
+        if self.property("layer_type") == 'Soil organic carbon'
+

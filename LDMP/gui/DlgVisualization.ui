@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgReporting</class>
- <widget class="QDialog" name="DlgReporting">
+ <class>DlgVisualization</class>
+ <widget class="QDialog" name="DlgVisualization">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>

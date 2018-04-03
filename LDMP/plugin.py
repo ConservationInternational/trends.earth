@@ -24,7 +24,7 @@ from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
 from LDMP.reporting import DlgVisualization
-from LDMP.load_data import DlgLoadData
+from LDMP.data_io import DlgDataIO
 from LDMP.about import DlgAbout
 
 from qgis.core import QgsMessageLog
@@ -97,7 +97,7 @@ class LDMPPlugin:
         self.dlg_timeseries = DlgTimeseries()
         self.dlg_reporting = DlgVisualization()
         self.dlg_download = DlgDownload()
-        self.dlg_load_data = DlgLoadData()
+        self.dlg_data_io = DlgDataIO()
         self.dlg_about = DlgAbout()
 
     # noinspection PyMethodMayBeStatic
@@ -233,7 +233,7 @@ class LDMPPlugin:
         self.add_action(
             ':/plugins/LDMP/icons/folder.svg',
             text=QApplication.translate('LDMP', u'Load data'),
-            callback=self.load_data,
+            callback=self.data_io,
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Load local data'))
 
@@ -282,9 +282,9 @@ class LDMPPlugin:
         self.dlg_reporting.show()
         result = self.dlg_reporting.exec_()
 
-    def load_data(self):
-        self.dlg_load_data.show()
-        result = self.dlg_load_data.exec_()
+    def data_io(self):
+        self.dlg_data_io.show()
+        result = self.dlg_data_io.exec_()
 
     def run_about(self):
         #showHelp()

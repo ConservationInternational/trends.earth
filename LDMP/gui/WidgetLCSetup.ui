@@ -308,7 +308,7 @@
   <customwidget>
    <class>WidgetSelectTELayerImport</class>
    <extends>QComboBox</extends>
-   <header>LDMP/load_data</header>
+   <header>LDMP/data_io</header>
   </customwidget>
  </customwidgets>
  <resources/>

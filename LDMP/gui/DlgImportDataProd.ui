@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgLoadDataProd</class>
- <widget class="QDialog" name="DlgLoadDataProd">
+ <class>DlgImportProd</class>
+ <widget class="QDialog" name="DlgImportProd">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -85,7 +85,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>btnBox</sender>
    <signal>accepted()</signal>
-   <receiver>DlgLoadDataProd</receiver>
+   <receiver>DlgImportProd</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -101,7 +101,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>btnBox</sender>
    <signal>rejected()</signal>
-   <receiver>DlgLoadDataProd</receiver>
+   <receiver>DlgImportProd</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

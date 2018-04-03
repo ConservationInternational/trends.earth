@@ -188,7 +188,7 @@
            </widget>
           </item>
           <item row="10" column="0">
-           <widget class="WidgetSelectTELayerExisting" name="combo_layer_lpd">
+           <widget class="WidgetSelectTELayerImport" name="combo_layer_lpd">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -469,7 +469,12 @@
   <customwidget>
    <class>WidgetSelectTELayerExisting</class>
    <extends>QComboBox</extends>
-   <header>LDMP/load_data</header>
+   <header>LDMP/data_io</header>
+  </customwidget>
+  <customwidget>
+   <class>WidgetSelectTELayerImport</class>
+   <extends>QComboBox</extends>
+   <header>LDMP/data_io</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -35,15 +35,15 @@ from LDMP import log
 from LDMP.layers import create_local_json_metadata, add_layer, \
     get_file_metadata, get_band_title, get_sample, get_band_info
 from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgLoadData import Ui_DlgLoadData
-from LDMP.gui.DlgLoadDataTE import Ui_DlgLoadDataTE
-from LDMP.gui.DlgLoadDataTESingleLayer import Ui_DlgLoadDataTESingleLayer
-from LDMP.gui.DlgLoadDataLC import Ui_DlgLoadDataLC
-from LDMP.gui.DlgLoadDataSOC import Ui_DlgLoadDataSOC
-from LDMP.gui.DlgLoadDataProd import Ui_DlgLoadDataProd
+from LDMP.gui.DlgDataIO import Ui_DlgDataIO
+from LDMP.gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
+from LDMP.gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
+from LDMP.gui.DlgDataIOImportLC import Ui_DlgDataIOImportLC
+from LDMP.gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
+from LDMP.gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
-from LDMP.gui.WidgetLoadDataSelectFileInput import Ui_WidgetLoadDataSelectFileInput
-from LDMP.gui.WidgetLoadDataSelectRasterOutput import Ui_WidgetLoadDataSelectRasterOutput
+from LDMP.gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
+from LDMP.gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
 from LDMP.gui.WidgetSelectTELayerExisting import Ui_WidgetSelectTELayerExisting
 from LDMP.gui.WidgetSelectTELayerImport import Ui_WidgetSelectTELayerImport
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
@@ -294,16 +294,16 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
         #         break
         #     new_layout.addWidget(layout_item.widget())
 
-class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
+class DlgDataIO(QtGui.QDialog, Ui_DlgDataIO):
     def __init__(self, parent=None):
-        super(DlgLoadData, self).__init__(parent)
+        super(DlgDataIO, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.dlg_loaddata_te = DlgLoadDataTE()
-        self.dlg_loaddata_lc = DlgLoadDataLC()
-        self.dlg_loaddata_soc = DlgLoadDataSOC()
-        self.dlg_loaddata_prod = DlgLoadDataProd()
+        self.dlg_DataIOLoad_te = DlgDataIOLoadTE()
+        self.dlg_DataIOLoad_lc = DlgDataIOImportLC()
+        self.dlg_DataIOLoad_soc = DlgDataIOImportSOC()
+        self.dlg_DataIOLoad_prod = DlgDataIOImportProd()
 
         self.btn_te.clicked.connect(self.run_te)
         self.btn_lc.clicked.connect(self.run_lc)
@@ -312,25 +312,25 @@ class DlgLoadData(QtGui.QDialog, Ui_DlgLoadData):
 
     def run_te(self):
         self.close()
-        self.dlg_loaddata_te.exec_()
+        self.dlg_DataIOLoad_te.exec_()
 
     def run_lc(self):
         self.close()
-        self.dlg_loaddata_lc.exec_()
+        self.dlg_DataIOLoad_lc.exec_()
 
     def run_soc(self):
         self.close()
-        self.dlg_loaddata_soc.exec_()
+        self.dlg_DataIOLoad_soc.exec_()
 
     def run_prod(self):
         self.close()
-        self.dlg_loaddata_prod.exec_()
+        self.dlg_DataIOLoad_prod.exec_()
 
-class DlgLoadDataTEBase(QtGui.QDialog):
-    layers_added = pyqtSignal(list)
+class DlgDataIOLoadTEBase(QtGui.QDialog):
+    layers_loaded = pyqtSignal(list)
 
     def __init__(self, parent=None):
-        super(DlgLoadDataTEBase, self).__init__(parent)
+        super(DlgDataIOLoadTEBase, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -360,7 +360,7 @@ class DlgLoadDataTEBase(QtGui.QDialog):
                 else:
                     QtGui.QMessageBox.critical(None, self.tr("Error"), 
                                                self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
-            self.layers_added.emit(added_layers)
+            self.layers_loaded.emit(added_layers)
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
             return
@@ -368,15 +368,15 @@ class DlgLoadDataTEBase(QtGui.QDialog):
         self.close()
 
 
-class DlgLoadDataTE(DlgLoadDataTEBase, Ui_DlgLoadDataTE):
+class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
     def __init__(self, parent=None):
-        super(DlgLoadDataTE, self).__init__(parent)
+        super(DlgDataIOLoadTE, self).__init__(parent)
 
         self.file_browse_btn.clicked.connect(self.browse_file)
         self.btn_view_metadata.clicked.connect(self.view_metadata)
 
     def showEvent(self, e):
-        super(DlgLoadDataTE, self).showEvent(e)
+        super(DlgDataIOLoadTE, self).showEvent(e)
         self.file_lineedit.clear()
         self.file = None
         self.layers_model.setStringList([])
@@ -443,9 +443,9 @@ class DlgLoadDataTE(DlgLoadDataTEBase, Ui_DlgLoadDataTE):
                                        self.tr(u"Cannot read {}. Choose a different file.".format(self.file)))
 
 
-class DlgLoadDataTESingleLayer(DlgLoadDataTEBase, Ui_DlgLoadDataTESingleLayer):
+class DlgDataIOLoadTESingleLayer(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTESingleLayer):
     def __init__(self, parent=None):
-        super(DlgLoadDataTESingleLayer, self).__init__(parent)
+        super(DlgDataIOLoadTESingleLayer, self).__init__(parent)
 
     def update_layer_list(self, layers):
         self.layer_list = layers
@@ -454,12 +454,12 @@ class DlgLoadDataTESingleLayer(DlgLoadDataTEBase, Ui_DlgLoadDataTESingleLayer):
         self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
 
 
-class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileInput):
+class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFileInput):
     inputFileChanged = pyqtSignal(bool)
     inputTypeChanged = pyqtSignal(bool)
 
     def __init__(self, parent=None):
-        super(LoadDataSelectFileInputWidget, self).__init__(parent)
+        super(ImportSelectFileInputWidget, self).__init__(parent)
         self.setupUi(self)
 
         self.radio_raster_input.toggled.connect(self.radio_raster_input_toggled)
@@ -561,9 +561,9 @@ class LoadDataSelectFileInputWidget(QtGui.QWidget, Ui_WidgetLoadDataSelectFileIn
         return l
 
 
-class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOutput):
+class ImportSelectRasterOutput(QtGui.QWidget, Ui_WidgetDataIOImportSelectRasterOutput):
     def __init__(self, parent=None):
-        super(LoadDataSelectRasterOutput, self).__init__(parent)
+        super(ImportSelectRasterOutput, self).__init__(parent)
         self.setupUi(self)
 
         self.btn_output_file_browse.clicked.connect(self.save_raster)
@@ -586,14 +586,16 @@ class LoadDataSelectRasterOutput(QtGui.QWidget, Ui_WidgetLoadDataSelectRasterOut
                 return False
 
 
-class DlgLoadDataBase(QtGui.QDialog):
+class DlgDataIOImportBase(QtGui.QDialog):
     """Base class for individual data loading dialogs"""
+    layer_loaded = pyqtSignal(list)
+
     def __init__(self, parent=None):
-        super(DlgLoadDataBase, self).__init__(parent)
+        super(DlgDataIOImportBase, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.input_widget = LoadDataSelectFileInputWidget()
+        self.input_widget = ImportSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
     def validate_input(self, value):
@@ -688,22 +690,23 @@ class DlgLoadDataBase(QtGui.QDialog):
         else:
             return True
 
-    def create_json(self, band_name, metadata):
-        out_file = self.output_widget.lineEdit_output_file.text()
+    def add_layer(self, band_name, metadata):
+        out_file = os.path.normcase(os.path.normpath(self.output_widget.lineEdit_output_file.text()))
         out_json = os.path.splitext(out_file)[0] + '.json'
         band_info = [BandInfo(band_name, add_to_map=True, metadata=metadata)]
         create_local_json_metadata(out_json, out_file, band_info)
         schema = BandInfoSchema()
-        return add_layer(out_file, 1, schema.dump(band_info[0]))
+        band_info_dict = schema.dump(band_info[0])
+        add_layer(out_file, 1, band_info_dict)
+        return (out_file, get_band_title(band_info_dict), 1, schema.dump(band_info[0]))
 
-
-class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
+class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
     def __init__(self, parent=None):
-        super(DlgLoadDataLC, self).__init__(parent)
+        super(DlgDataIOImportLC, self).__init__(parent)
 
         # This needs to be inserted after the lc definition widget but before 
         # the button box with ok/cancel
-        self.output_widget = LoadDataSelectRasterOutput()
+        self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
         self.input_widget.inputFileChanged.connect(self.input_changed)
@@ -720,7 +723,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         if value == QtGui.QDialog.Accepted:
             self.validate_input(value)
         else:
-            super(DlgLoadDataLC, self).done(value)
+            super(DlgDataIOImportLC, self).done(value)
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
@@ -730,9 +733,9 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
             QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.', None))
             return
 
-        super(DlgLoadDataLC, self).validate_input(value)
+        super(DlgDataIOImportLC, self).validate_input(value)
 
-        super(DlgLoadDataLC, self).done(value)
+        super(DlgDataIOImportLC, self).done(value)
 
         self.ok_clicked()
 
@@ -740,7 +743,7 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         self.dlg_agg = None
 
     def showEvent(self, event):
-        super(DlgLoadDataLC, self).showEvent(event)
+        super(DlgDataIOImportLC, self).showEvent(event)
 
         # Reset flags to avoid reloading of unique values when files haven't 
         # changed:
@@ -797,31 +800,33 @@ class DlgLoadDataLC(DlgLoadDataBase, Ui_DlgLoadDataLC):
         else:
             self.convert_vector()
 
-        self.create_json('Land cover (7 class)',
-                         {'year': int(self.input_widget.spinBox_data_year.date().year()),
-                          'source': 'custom data'})
+        l_info = self.add_layer('Land cover (7 class)',
+                                {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                                'source': 'custom data'})
 
-class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
+        self.layer_loaded.emit([l_info])
+
+class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def __init__(self, parent=None):
-        super(DlgLoadDataSOC, self).__init__(parent)
+        super(DlgDataIOImportSOC, self).__init__(parent)
 
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
-        self.output_widget = LoadDataSelectRasterOutput()
+        self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
 
     def done(self, value):
         if value == QtGui.QDialog.Accepted:
             self.validate_input(value)
         else:
-            super(DlgLoadDataSOC, self).done(value)
+            super(DlgDataIOImportSOC, self).done(value)
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
 
-        super(DlgLoadDataSOC, self).validate_input(value)
+        super(DlgDataIOImportSOC, self).validate_input(value)
 
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
@@ -838,7 +843,7 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
             return
 
-        super(DlgLoadDataSOC, self).done(value)
+        super(DlgDataIOImportSOC, self).done(value)
 
         self.ok_clicked()
 
@@ -849,18 +854,19 @@ class DlgLoadDataSOC(DlgLoadDataBase, Ui_DlgLoadDataSOC):
         else:
             self.convert_vector()
 
-        self.create_json('Soil organic carbon',
-                         {'year': int(self.input_widget.spinBox_data_year.date().year()),
-                          'source': 'custom data'})
+        l_info = self.add_layer('Soil organic carbon',
+                                {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                                'source': 'custom data'})
+        self.layer_loaded.emit([l_info])
 
 
-class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
+class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     def __init__(self, parent=None):
-        super(DlgLoadDataProd, self).__init__(parent)
+        super(DlgDataIOImportProd, self).__init__(parent)
 
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
-        self.output_widget = LoadDataSelectRasterOutput()
+        self.output_widget = ImportSelectRasterOutput()
 
         self.input_widget.groupBox_year.hide()
 
@@ -870,14 +876,14 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         if value == QtGui.QDialog.Accepted:
             self.validate_input(value)
         else:
-            super(DlgLoadDataProd, self).done(value)
+            super(DlgDataIOImportProd, self).done(value)
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
 
-        super(DlgLoadDataProd, self).validate_input(value)
+        super(DlgDataIOImportProd, self).validate_input(value)
 
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
@@ -893,7 +899,7 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         if len(invalid_values) > 0:
             QtGui.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
-        super(DlgLoadDataProd, self).done(value)
+        super(DlgDataIOImportProd, self).done(value)
 
         self.ok_clicked()
 
@@ -904,8 +910,9 @@ class DlgLoadDataProd(DlgLoadDataBase, Ui_DlgLoadDataProd):
         else:
             self.convert_vector("Land Productivity Dynamics (LPD)")
 
-        self.create_json("Land Productivity Dynamics (LPD)",
-                         {'source': 'custom data'})
+        l_info = self.add_layer("Land Productivity Dynamics (LPD)",
+                                {'source': 'custom data'})
+        self.layer_loaded.emit([l_info])
 
 
 def _get_layers(node):
@@ -975,9 +982,9 @@ class WidgetSelectTELayerBase(QtGui.QWidget):
 
         self.pushButton_load_existing.clicked.connect(self.load_file)
 
-        self.dlg_layer = DlgLoadDataTESingleLayer()
+        self.dlg_layer = DlgDataIOLoadTESingleLayer()
 
-        self.dlg_layer.layers_added.connect(self.populate)
+        self.dlg_layer.layers_loaded.connect(self.populate)
 
         self.layer_list = None
 
@@ -990,13 +997,23 @@ class WidgetSelectTELayerBase(QtGui.QWidget):
         self.comboBox_layers.clear()
         self.comboBox_layers.addItems([l[1] for l in self.layer_list])
 
-        log('layers: {}'.format(self.layer_list))
-
+        # Set the selected layer to the one that was just loaded, or to the 
+        # last layer that was selected
         if selected_layer:
             assert(len(selected_layer) == 1)
-            self.comboBox_layers.setCurrentIndex(self.layer_list.index(selected_layer[0]))
+            set_layer = selected_layer[0]
         elif last_layer:
-            self.comboBox_layers.setCurrentIndex(self.layer_list.index(last_layer))
+            set_layer = last_layer
+        else:
+            set_layer = None
+        if set_layer:
+            # It is possible the last or selected layer has been removed, in 
+            # which case an exception will be thrown
+            try:
+                self.comboBox_layers.setCurrentIndex(self.layer_list.index(set_layer))
+            except ValueError:
+                log("Failed to locate {} in layer list ({})".format(set_layer, self.layer_list))
+                pass
 
     def load_file(self):
         while True:
@@ -1051,5 +1068,11 @@ class WidgetSelectTELayerImport(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerI
         self.pushButton_import.clicked.connect(self.import_file)
 
     def import_file(self):
-        if self.property("layer_type") == 'Soil organic carbon'
-
+        if self.property("layer_type") == 'Land Productivity Dynamics (LPD)':
+            self.dlg_load = DlgDataIOImportProd()
+        if self.property("layer_type") == 'Land cover (7 class)':
+            self.dlg_load = DlgDataIOImportLC()
+        if self.property("layer_type") == 'Soil organic carbon':
+            self.dlg_load = DlgDataIOImportSOC()
+        self.dlg_load.layer_loaded.connect(self.populate)
+        self.dlg_load.exec_()

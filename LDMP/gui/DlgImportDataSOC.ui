@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgLoadDataSOC</class>
- <widget class="QDialog" name="DlgLoadDataSOC">
+ <class>DlgImportSOC</class>
+ <widget class="QDialog" name="DlgImportSOC">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -43,7 +43,7 @@
   <connection>
    <sender>btnBox</sender>
    <signal>accepted()</signal>
-   <receiver>DlgLoadDataSOC</receiver>
+   <receiver>DlgImportSOC</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -59,7 +59,7 @@
   <connection>
    <sender>btnBox</sender>
    <signal>rejected()</signal>
-   <receiver>DlgLoadDataSOC</receiver>
+   <receiver>DlgImportSOC</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -11,11 +11,11 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgDownload.ui \
 ../gui/DlgJobs.ui \
 ../gui/DlgJobsDetails.ui \
-../gui/DlgLoadData.ui \
-../gui/DlgLoadDataLC.ui \
-../gui/DlgLoadDataProd.ui \
-../gui/DlgLoadDataSOC.ui \
-../gui/DlgLoadDataTE.ui \
+../gui/DlgDataIO.ui \
+../gui/DlgDataIOImportLC.ui \
+../gui/DlgDataIOImportProd.ui \
+../gui/DlgDataIOImportSOC.ui \
+../gui/DlgDataIOLoadTE.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgVisualization.ui \
 ../gui/DlgVisualizationBasemap.ui \
@@ -29,12 +29,12 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetCalculationOptions.ui \
 ../gui/WidgetLCDefineDegradation.ui \
 ../gui/WidgetLCSetup.ui \
-../gui/WidgetLoadDataSelectFileInput.ui \
-../gui/WidgetLoadDataSelectRasterOutput.ui \
+../gui/WidgetDataIOImportSelectFileInput.ui \
+../gui/WidgetDataIOImportSelectRasterOutput.ui \
 ../gui/WidgetSelectArea.ui \
 ../gui/WidgetSelectPoint.ui \
-../gui/WidgetSelectTELayerExisting.ui \
-../gui/WidgetSelectTELayerImport.ui
+../gui/WidgetDataIOSelectTELayerExisting.ui \
+../gui/WidgetDataIOSelectTELayerImport.ui
 
 SOURCES = ../about.py \
 ../api.py \
@@ -48,7 +48,7 @@ SOURCES = ../about.py \
 ../jobs.py \
 ../layers.py \
 ../plugin.py \
-../load_data.py \
+../data_io.py \
 ../lc_setup.py \
 ../plot.py \
 ../reporting.py \

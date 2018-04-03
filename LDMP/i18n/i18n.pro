@@ -29,8 +29,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetCalculationOptions.ui \
 ../gui/WidgetLCDefineDegradation.ui \
 ../gui/WidgetLCSetup.ui \
-../gui/WidgetDataIOImportSelectFileInput.ui \
-../gui/WidgetDataIOImportSelectRasterOutput.ui \
+../gui/WidgetImportSelectFileInput.ui \
+../gui/WidgetImportSelectRasterOutput.ui \
 ../gui/WidgetSelectArea.ui \
 ../gui/WidgetSelectPoint.ui \
 ../gui/WidgetDataIOSelectTELayerExisting.ui \

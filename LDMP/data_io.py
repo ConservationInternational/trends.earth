@@ -203,37 +203,56 @@ def get_unique_values_vector(l, field, max_unique=60):
         return values
 
 
-def get_raster_stats(f, band_num, min_min=0, max_max=1000, nodata=-32768):
-    src_ds = gdal.Open(f)
-    b = src_ds.GetRasterBand(band_num)
+def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=-32768):
+    if sample:
+        # Note need float to correctly mark and ignore nodata for for nanmin 
+        # and nanmax 
+        values = get_sample(f, band_num, n=1e6).astype('float32')
+        values[values == nodata] = np.nan
+        mn = np.nanmin(values)
+        if mn < min_min:
+            return None
+        mx = np.nanmax(values)
+        if mx > max_max:
+            return None
+        return (mn, mx)
+    else:
+        src_ds = gdal.Open(f)
+        b = src_ds.GetRasterBand(band_num)
 
-    block_sizes = b.GetBlockSize()
-    x_block_size = block_sizes[0]
-    y_block_size = block_sizes[1]
-    xsize = b.XSize
-    ysize = b.YSize
+        block_sizes = b.GetBlockSize()
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+        xsize = b.XSize
+        ysize = b.YSize
 
-    stats = (None, None)
-    for y in xrange(0, ysize, y_block_size):
-        if y + y_block_size < ysize:
-            rows = y_block_size
-        else:
-            rows = ysize - y
-
-        for x in xrange(0, xsize, x_block_size):
-            if x + x_block_size < xsize:
-                cols = x_block_size
+        stats = (None, None)
+        for y in xrange(0, ysize, y_block_size):
+            if y + y_block_size < ysize:
+                rows = y_block_size
             else:
-                cols = xsize - x
+                rows = ysize - y
 
-            d = b.ReadAsArray(x, y, cols, rows).ravel()
-            mx = x.max()
-            mn = x.min()
-            if mx  > max_max:
-                return None
-            elif mn  > min_min:
-                return None
-    return v.tolist()
+            for x in xrange(0, xsize, x_block_size):
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+
+                d = b.ReadAsArray(x, y, cols, rows).ravel()
+                mx = x.max()
+                mn = x.min()
+                if mx > max_max:
+                    return None
+                else:
+                    if not stats[0] or mn < stats[0]:
+                        stats[0] = mn
+                if mn < min_min:
+                    return None
+                else:
+                    if not stats[1] or mx > stats[1]:
+                        stats[1] = mx
+        return stats
 
 
 def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
@@ -830,17 +849,20 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
-            values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=7)
+            stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
         else:
             in_file = self.input_widget.lineEdit_polygon_file.text()
             l = self.input_widget.get_vector_layer(in_file)
-            values = get_unique_values_vector(l, field, max_unique=7)
-        if not values:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
+            stats = get_vector_stats(l)
+        log('Stats are: {}'.format(stats))
+        if not stats:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
             return
-        invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
-        if len(invalid_values) > 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.".format(in_file, len(values))))
+        if stats[0] < 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be >= 0.".format(in_file, stats[0])))
+            return
+        if stats[1] > 1000:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.".format(in_file, stats[1])))
             return
 
         super(DlgDataIOImportSOC, self).done(value)
@@ -850,7 +872,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def ok_clicked(self):
         if self.input_widget.radio_raster_input.isChecked():
             out_file = self.output_widget.lineEdit_output_file.text()
-            self.warp_raster(in_file)
+            self.warp_raster(out_file)
         else:
             self.convert_vector()
 
@@ -1012,7 +1034,7 @@ class WidgetSelectTELayerBase(QtGui.QWidget):
             try:
                 self.comboBox_layers.setCurrentIndex(self.layer_list.index(set_layer))
             except ValueError:
-                log("Failed to locate {} in layer list ({})".format(set_layer, self.layer_list))
+                log(u"Failed to locate {} in layer list ({})".format(set_layer, self.layer_list))
                 pass
 
     def load_file(self):

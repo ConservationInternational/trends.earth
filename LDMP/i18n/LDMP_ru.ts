@@ -744,7 +744,7 @@ p, li {white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../lc_setup.py" line="281"/>
-        <source>Artificial area</source>
+        <source>Artificial</source>
         <translation>Искусственная область</translation>
     </message>
     <message>
@@ -804,7 +804,7 @@ p, li {white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../lc_setup.py" line="273"/>
-        <source>Tree-covered areas</source>
+        <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1414,59 +1414,21 @@ p, li {white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>DlgCreateMap</name>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="14"/>
-        <source>Create Map</source>
-        <translation type="obsolete">Создать карту</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="32"/>
-        <source>Layer to display:</source>
-        <translation type="obsolete">Слой для отображения:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="67"/>
-        <source>Map name:</source>
-        <translation type="obsolete">Название карты:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="99"/>
-        <source>Author(s):</source>
-        <translation type="obsolete">Авторы):</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="119"/>
-        <source>Layout</source>
-        <translation type="obsolete">раскладка</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="125"/>
-        <source>Portrait</source>
-        <translation type="obsolete">Портрет</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="135"/>
-        <source>Landscape</source>
-        <translation type="obsolete">Пейзаж</translation>
-    </message>
-</context>
-<context>
     <name>DlgDataIO</name>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="23"/>
         <source>Load data</source>
-        <translation type="unfinished">Загрузить данные</translation>
+        <translation>Загрузить данные</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="29"/>
         <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="unfinished">Загрузите набор данных, созданный TRENDS.EARTH</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="59"/>
         <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="unfinished">Загрузите существующий выходной файл TRENDS.EARTH</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="69"/>
@@ -1476,17 +1438,17 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
         <source>Productivity</source>
-        <translation type="unfinished">производительность</translation>
+        <translation>производительность</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="94"/>
         <source>Land cover</source>
-        <translation type="unfinished">Растительного покрова</translation>
+        <translation>Растительного покрова</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="107"/>
         <source>Soil organic carbon</source>
-        <translation type="unfinished">Почвенный органический углерод</translation>
+        <translation>Почвенный органический углерод</translation>
     </message>
 </context>
 <context>
@@ -1494,22 +1456,22 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="706"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="623"/>
         <source>Choose an input raster file.</source>
-        <translation type="unfinished">Выберите входной растровый файл.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="627"/>
         <source>Choose an input polygon dataset.</source>
-        <translation type="unfinished">Выберите входной многоугольный набор данных.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="706"/>
         <source>Raster import failed.</source>
-        <translation type="unfinished">Ошибка растрового импорта.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1517,52 +1479,52 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="23"/>
         <source>Load a Custom Land Cover Dataset</source>
-        <translation type="unfinished">Загрузка пользовательского набора данных обложки</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="35"/>
         <source>Choose a land cover aggregation method</source>
-        <translation type="unfinished">Выберите метод агрегирования почвенного покрова</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="62"/>
         <source>Edit definition</source>
-        <translation type="unfinished">Изменить определение</translation>
+        <translation>Изменить определение</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="69"/>
         <source>Use sample when reading cover classes from input file</source>
-        <translation type="unfinished">Использовать образец при чтении классов обложки из входного файла</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="unfinished">Примечание. Если вы читаете большой файл, рекомендуется проверить вышеуказанный параметр, так как он будет значительно ускорять процесс чтения классов ввода из набора данных. Однако, если вы обнаружите, что Trends.Earth не идентифицирует все классы во входном файле, может потребоваться отключить эту опцию.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="809"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="749"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">Выберите выходной файл.</translation>
+        <translation>Выберите выходной файл.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>No definition set</source>
-        <translation type="unfinished">Нет набора определений</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="unfinished">Нажмите «Изменить определение», чтобы определить определение обложки земли перед экспортом.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="809"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="unfinished">Ошибка чтения данных. Trends.Earth поддерживает максимум 60 различных классов растительного покрова</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1570,12 +1532,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="23"/>
         <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="unfinished">Загрузка настраиваемого набора данных производительности</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="35"/>
         <source>Productivity class definition</source>
-        <translation type="unfinished">Определение класса производительности</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="53"/>
@@ -1591,43 +1553,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p, li {white-space: pre-wrap; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family:« MS Shell Dlg 2 »; font-size: 8.25pt; font-weight: 400; font-style: normal;&quot;&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt; font-weight: 600;»&gt; Классы производительности во входных данных должны быть закодированы следующим образом: &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 1: Отклонение &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt;»&gt; 2: ранние признаки снижения &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt;»&gt; 3: Стабильный, но напряженный &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt;»&gt; 4: Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 5: Увеличение &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 0 или -32768: Нет данных &lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="918"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="905"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">Выберите выходной файл.</translation>
+        <translation>Выберите выходной файл.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="918"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="unfinished">Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
+        <translation>Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="922"/>
         <source>Warning</source>
-        <translation type="unfinished">Предупреждение</translation>
+        <translation>Предупреждение</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="922"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="unfinished">Входной файл ({}) не является допустимым файлом ввода производительности. Trends.Earth будет загружать файл в любом случае, но просмотрите карту после ее загрузки, чтобы обеспечить смысл. Единственными допустимыми значениями входного файла производительности являются -32768, 1, 2, 3, 4 и 5. Во входном файле есть значения {}, которые не были распознаны.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1635,17 +1586,17 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportSOC.ui" line="23"/>
         <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="unfinished">Загрузите собственный набор данных о органическом углероде (SOC)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="865"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="845"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">Выберите выходной файл.</translation>
+        <translation>Выберите выходной файл.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="859"/>
@@ -1673,27 +1624,27 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="30"/>
         <source>Select a layer(s)</source>
-        <translation type="unfinished">Выберите слой</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="55"/>
         <source>View file metadata</source>
-        <translation type="unfinished">Просмотр метаданных файла</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="65"/>
         <source>Select a file</source>
-        <translation type="unfinished">Выберите файл</translation>
+        <translation>Выберите файл</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="80"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">Нажмите «Обзор», чтобы выбрать файл ...</translation>
+        <translation>Нажмите «Обзор», чтобы выбрать файл ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="93"/>
         <source>Browse...</source>
-        <translation type="unfinished">Просматривать...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="405"/>
@@ -1708,12 +1659,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="461"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="461"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="436"/>
@@ -1726,17 +1677,17 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="384"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="380"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="unfinished">Невозможно автоматически добавить «{}». Для этого типа слоя стиль не определен.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="384"/>
         <source>Select a layer to load.</source>
-        <translation type="unfinished">Выберите слой для загрузки.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1892,261 +1843,6 @@ p, li {white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>DlgLoadData</name>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="23"/>
-        <source>Load data</source>
-        <translation type="obsolete">Загрузить данные</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="29"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="obsolete">Загрузите набор данных, созданный TRENDS.EARTH</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="59"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="obsolete">Загрузите существующий выходной файл TRENDS.EARTH</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="81"/>
-        <source>Productivity</source>
-        <translation type="obsolete">производительность</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="94"/>
-        <source>Land cover</source>
-        <translation type="obsolete">Растительного покрова</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="107"/>
-        <source>Soil organic carbon</source>
-        <translation type="obsolete">Почвенный органический углерод</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataBase</name>
-    <message>
-        <location filename="../load_data.py" line="676"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="593"/>
-        <source>Choose an input raster file.</source>
-        <translation type="obsolete">Выберите входной растровый файл.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="597"/>
-        <source>Choose an input polygon dataset.</source>
-        <translation type="obsolete">Выберите входной многоугольный набор данных.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="676"/>
-        <source>Raster import failed.</source>
-        <translation type="obsolete">Ошибка растрового импорта.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataLC</name>
-    <message>
-        <location filename="../load_data.py" line="776"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="718"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">Выберите выходной файл.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="721"/>
-        <source>No definition set</source>
-        <translation type="obsolete">Нет набора определений</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="721"/>
-        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="obsolete">Нажмите «Изменить определение», чтобы определить определение обложки земли перед экспортом.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="776"/>
-        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="obsolete">Ошибка чтения данных. Trends.Earth поддерживает максимум 60 различных классов растительного покрова</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="23"/>
-        <source>Load a Custom Land Cover Dataset</source>
-        <translation type="obsolete">Загрузка пользовательского набора данных обложки</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="35"/>
-        <source>Choose a land cover aggregation method</source>
-        <translation type="obsolete">Выберите метод агрегирования почвенного покрова</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="62"/>
-        <source>Edit definition</source>
-        <translation type="obsolete">Изменить определение</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="69"/>
-        <source>Use sample when reading cover classes from input file</source>
-        <translation type="obsolete">Использовать образец при чтении классов обложки из входного файла</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="100"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="obsolete">Примечание. Если вы читаете большой файл, рекомендуется проверить вышеуказанный параметр, так как он будет значительно ускорять процесс чтения классов ввода из набора данных. Однако, если вы обнаружите, что Trends.Earth не идентифицирует все классы во входном файле, может потребоваться отключить эту опцию.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataProd</name>
-    <message>
-        <location filename="../load_data.py" line="879"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="866"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">Выберите выходной файл.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="879"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="obsolete">Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="23"/>
-        <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="obsolete">Загрузка настраиваемого набора данных производительности</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="35"/>
-        <source>Productivity class definition</source>
-        <translation type="obsolete">Определение класса производительности</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="53"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p, li {white-space: pre-wrap; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family:« MS Shell Dlg 2 »; font-size: 8.25pt; font-weight: 400; font-style: normal;&quot;&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt; font-weight: 600;»&gt; Классы производительности во входных данных должны быть закодированы следующим образом: &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 1: Отклонение &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt;»&gt; 2: ранние признаки снижения &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt;»&gt; 3: Стабильный, но напряженный &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = «font-size: 8pt;»&gt; 4: Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 5: Увеличение &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 0 или -32768: Нет данных &lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="883"/>
-        <source>Warning</source>
-        <translation type="obsolete">Предупреждение</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="883"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="obsolete">Входной файл ({}) не является допустимым файлом ввода производительности. Trends.Earth будет загружать файл в любом случае, но просмотрите карту после ее загрузки, чтобы обеспечить смысл. Единственными допустимыми значениями входного файла производительности являются -32768, 1, 2, 3, 4 и 5. Во входном файле есть значения {}, которые не были распознаны.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataSOC</name>
-    <message>
-        <location filename="../load_data.py" line="827"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="810"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">Выберите выходной файл.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="823"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="obsolete">Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="827"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
-        <translation type="obsolete">Входной файл ({}) не является допустимым файлом ввода производительности. В файле есть {} разные значения. Единственными допустимыми значениями входного файла производительности являются -32768, 1, 2, 3, 4 и 5.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataSOC.ui" line="23"/>
-        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="obsolete">Загрузите собственный набор данных о органическом углероде (SOC)</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataTE</name>
-    <message>
-        <location filename="../load_data.py" line="434"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="380"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">Не могу читать {}. Выберите другой файл.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="409"/>
-        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="obsolete">Невозможно автоматически добавить «{}». Для этого типа слоя стиль не определен.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="415"/>
-        <source>Select a layer to load.</source>
-        <translation type="obsolete">Выберите слой для загрузки.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="17"/>
-        <source>Open a trends.earth file</source>
-        <translation type="obsolete">Откройте файл trend.earth</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="30"/>
-        <source>Select a layer(s)</source>
-        <translation type="obsolete">Выберите слой</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="55"/>
-        <source>View file metadata</source>
-        <translation type="obsolete">Просмотр метаданных файла</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="65"/>
-        <source>Select a file</source>
-        <translation type="obsolete">Выберите файл</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="80"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">Нажмите «Обзор», чтобы выбрать файл ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="93"/>
-        <source>Browse...</source>
-        <translation type="obsolete">Просматривать...</translation>
-    </message>
-</context>
-<context>
     <name>DlgPlot</name>
     <message>
         <location filename="../gui/DlgPlot.ui" line="31"/>
@@ -2170,62 +1866,6 @@ p, li {white-space: pre-wrap; }
         <location filename="../plot.py" line="85"/>
         <source>Linear trend (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</source>
         <translation>Линейный тренд (r &lt;sup&gt; 2 &lt;/ sup&gt; = {0: .2f})</translation>
-    </message>
-</context>
-<context>
-    <name>DlgReporting</name>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="23"/>
-        <source>Visualization tools</source>
-        <translation type="obsolete">Отчеты о деградации земель</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="61"/>
-        <source>Create Print Map</source>
-        <translation type="obsolete">Отчетность КБОООН</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="48"/>
-        <source>Add Basemap</source>
-        <translation type="obsolete">Добавить базовую карту</translation>
-    </message>
-</context>
-<context>
-    <name>DlgReportingBasemap</name>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="20"/>
-        <source>Add basemap</source>
-        <translation type="obsolete">Добавить базовую карту</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="32"/>
-        <source>Mask </source>
-        <translation type="obsolete">маскировать</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="38"/>
-        <source>Use a mask</source>
-        <translation type="obsolete">Использовать маску</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="48"/>
-        <source>Mask all areas outside of:</source>
-        <translation type="obsolete">Маскируйте все области за пределами:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="84"/>
-        <source>Second level:</source>
-        <translation type="obsolete">Второй уровень:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="137"/>
-        <source>First level:</source>
-        <translation type="obsolete">Первый уровень:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="174"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Отказ от ответственности: предоставленные границы от &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt; и находятся в &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; общедоступный домен &lt;/ span&gt; &lt;/a&gt;. Используемые границы и названия, а также используемые обозначения в тенденциях. Не предполагают официального одобрения или принятия Международным фондом консервации или его партнерскими организациями и вкладчиками. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2634,7 +2274,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="23"/>
         <source>Visualization tools</source>
-        <translation type="unfinished">Отчеты о деградации земель</translation>
+        <translation>Отчеты о деградации земель</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="35"/>
@@ -2644,12 +2284,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="48"/>
         <source>Add Basemap</source>
-        <translation type="unfinished">Добавить базовую карту</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="61"/>
         <source>Create Print Map</source>
-        <translation type="unfinished">Отчетность КБОООН</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2657,37 +2297,37 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="20"/>
         <source>Add basemap</source>
-        <translation type="unfinished">Добавить базовую карту</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="32"/>
         <source>Mask </source>
-        <translation type="unfinished">маскировать</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="38"/>
         <source>Use a mask</source>
-        <translation type="unfinished">Использовать маску</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="48"/>
         <source>Mask all areas outside of:</source>
-        <translation type="unfinished">Маскируйте все области за пределами:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="84"/>
         <source>Second level:</source>
-        <translation type="unfinished">Второй уровень:</translation>
+        <translation>Второй уровень:</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="137"/>
         <source>First level:</source>
-        <translation type="unfinished">Первый уровень:</translation>
+        <translation>Первый уровень:</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="174"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Отказ от ответственности: предоставленные границы от &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt; и находятся в &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; общедоступный домен &lt;/ span&gt; &lt;/a&gt;. Используемые границы и названия, а также используемые обозначения в тенденциях. Не предполагают официального одобрения или принятия Международным фондом консервации или его партнерскими организациями и вкладчиками. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Отказ от ответственности: предоставленные границы от &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt; и находятся в &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; общедоступный домен &lt;/ span&gt; &lt;/a&gt;. Используемые границы и названия, а также используемые обозначения в тенденциях. Не предполагают официального одобрения или принятия Международным фондом консервации или его партнерскими организациями и вкладчиками. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2695,37 +2335,37 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="14"/>
         <source>Create Map</source>
-        <translation type="unfinished">Создать карту</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="32"/>
         <source>Layer to display:</source>
-        <translation type="unfinished">Слой для отображения:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="67"/>
         <source>Map name:</source>
-        <translation type="unfinished">Название карты:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="99"/>
         <source>Author(s):</source>
-        <translation type="unfinished">Авторы):</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="119"/>
         <source>Layout</source>
-        <translation type="unfinished">раскладка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="125"/>
         <source>Portrait</source>
-        <translation type="unfinished">Портрет</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="135"/>
         <source>Landscape</source>
-        <translation type="unfinished">Пейзаж</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2733,42 +2373,42 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="504"/>
         <source>Coming soon!</source>
-        <translation type="unfinished">Скоро!</translation>
+        <translation>Скоро!</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="504"/>
         <source>Processing of vector input datasets coming soon!</source>
-        <translation type="unfinished">Обработка скоростных наборов векторных вводов!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="524"/>
         <source>Select a raster input file</source>
-        <translation type="unfinished">Выберите файл с растровым вводом</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="524"/>
         <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="unfinished">Растровый файл (* .tif * .dat * .img)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="569"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="569"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="555"/>
         <source>Select a vector input file</source>
-        <translation type="unfinished">Выберите векторный входной файл</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="555"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation type="unfinished">Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
+        <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
 </context>
 <context>
@@ -2776,22 +2416,22 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="593"/>
         <source>Choose a name for the output file</source>
-        <translation type="unfinished">Выберите имя для выходного файла</translation>
+        <translation>Выберите имя для выходного файла</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="593"/>
         <source>Raster file (*.tif)</source>
-        <translation type="unfinished">Растровый файл (* .tif)</translation>
+        <translation>Растровый файл (* .tif)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="603"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="603"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Невозможно написать {}. Выберите другой файл.</translation>
+        <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
 </context>
 <context>
@@ -2823,8 +2463,7 @@ p, li {white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../lc_setup.py" line="306"/>
-        <source>Tree-covered
-areas</source>
+        <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2844,9 +2483,8 @@ areas</source>
     </message>
     <message>
         <location filename="../lc_setup.py" line="310"/>
-        <source>Artificial
-areas</source>
-        <translation type="unfinished"></translation>
+        <source>Artificial</source>
+        <translation type="unfinished">Искусственная область</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="311"/>
@@ -2942,22 +2580,22 @@ areas</source>
         <translation>Данные участка</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="219"/>
+        <location filename="../plugin.py" line="212"/>
         <source>View Google Earth Engine tasks</source>
         <translation>Просмотр задач Google Планета Земля</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="219"/>
+        <location filename="../plugin.py" line="212"/>
         <source>View cloud processing tasks</source>
         <translation>Просмотр задач обработки облачных вычислений</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="226"/>
+        <location filename="../plugin.py" line="219"/>
         <source>Reporting tool</source>
         <translation>Инструмент отчетности</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="226"/>
+        <location filename="../plugin.py" line="219"/>
         <source>Land degradation reporting</source>
         <translation>Отчеты о деградации земель</translation>
     </message>
@@ -3002,22 +2640,22 @@ areas</source>
         <translation>Наборы данных временных рядов</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="212"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Download raw data</source>
         <translation>Загрузите исходные данные</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="212"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Download raw datasets</source>
         <translation>Загрузка необработанных наборов данных</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="233"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Load data</source>
         <translation>Загрузить данные</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="233"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Load local data</source>
         <translation>Загрузка локальных данных</translation>
     </message>
@@ -3131,72 +2769,6 @@ areas</source>
     </message>
 </context>
 <context>
-    <name>LoadDataSelectFileInputWidget</name>
-    <message>
-        <location filename="../load_data.py" line="476"/>
-        <source>Coming soon!</source>
-        <translation type="obsolete">Скоро!</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="476"/>
-        <source>Processing of vector input datasets coming soon!</source>
-        <translation type="obsolete">Обработка скоростных наборов векторных вводов!</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="496"/>
-        <source>Select a raster input file</source>
-        <translation type="obsolete">Выберите файл с растровым вводом</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="496"/>
-        <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="obsolete">Растровый файл (* .tif * .dat * .img)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="541"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="541"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">Не могу читать {}. Выберите другой файл.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="527"/>
-        <source>Select a vector input file</source>
-        <translation type="obsolete">Выберите векторный входной файл</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="527"/>
-        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation type="obsolete">Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
-    </message>
-</context>
-<context>
-    <name>LoadDataSelectRasterOutput</name>
-    <message>
-        <location filename="../load_data.py" line="565"/>
-        <source>Choose a name for the output file</source>
-        <translation type="obsolete">Выберите имя для выходного файла</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="565"/>
-        <source>Raster file (*.tif)</source>
-        <translation type="obsolete">Растровый файл (* .tif)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="575"/>
-        <source>Error</source>
-        <translation type="obsolete">ошибка</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="575"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">Невозможно написать {}. Выберите другой файл.</translation>
-    </message>
-</context>
-<context>
     <name>WidgetCalculationOptions</name>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="20"/>
@@ -3247,76 +2819,135 @@ areas</source>
 <context>
     <name>WidgetDataIOImportSelectFileInput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="23"/>
         <source>Select a file</source>
-        <translation type="unfinished">Выберите файл</translation>
+        <translation>Выберите файл</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="112"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">Нажмите «Обзор», чтобы выбрать файл ...</translation>
+        <translation>Нажмите «Обзор», чтобы выбрать файл ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="48"/>
         <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation type="unfinished">Набор данных Polygon (шейп-файл, KML, KMZ, GeoJSON)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="58"/>
         <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="unfinished">Растровый набор данных (.tif, .dat, .img)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="141"/>
-        <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="93"/>
         <source>Field containing data:</source>
-        <translation type="unfinished">Поле, содержащее данные:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="119"/>
         <source>Band number:</source>
-        <translation type="unfinished">Номер группы:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="188"/>
         <source>Modify resolution (in meters)</source>
-        <translation type="unfinished">Изменить разрешение (в метрах)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="228"/>
         <source>Year of data</source>
-        <translation type="unfinished">Год данных</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
+        <source>Form</source>
+        <translation>форма</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="141"/>
+        <source>Browse</source>
+        <translation>Просматривать</translation>
     </message>
 </context>
 <context>
     <name>WidgetDataIOImportSelectRasterOutput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="20"/>
         <source>Output raster file (.tif)</source>
-        <translation type="unfinished">Выходной растровый файл (.tif)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="38"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">Нажмите «Обзор», чтобы выбрать файл ...</translation>
+        <translation>Нажмите «Обзор», чтобы выбрать файл ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
+        <source>Form</source>
+        <translation>форма</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="60"/>
         <source>Browse</source>
+        <translation>Просматривать</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerBase</name>
+    <message>
+        <location filename="../data_io.py" line="1042"/>
+        <source>Select a Trends.Earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1042"/>
+        <source>Trends.Earth metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1062"/>
+        <source>Error</source>
+        <translation>ошибка</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1058"/>
+        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1062"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation>Не могу читать {}. Выберите другой файл.</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerExisting</name>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="20"/>
+        <source>Form</source>
+        <translation>форма</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="51"/>
+        <source>Load existing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerImport</name>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="20"/>
+        <source>Form</source>
+        <translation>форма</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="51"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="70"/>
+        <source>Load existing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3432,82 +3063,6 @@ areas</source>
     </message>
 </context>
 <context>
-    <name>WidgetLoadDataSelectFileInput</name>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">форма</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="23"/>
-        <source>Select a file</source>
-        <translation type="obsolete">Выберите файл</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="112"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">Нажмите «Обзор», чтобы выбрать файл ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="48"/>
-        <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation type="obsolete">Набор данных Polygon (шейп-файл, KML, KMZ, GeoJSON)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="58"/>
-        <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="obsolete">Растровый набор данных (.tif, .dat, .img)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="141"/>
-        <source>Browse</source>
-        <translation type="obsolete">Просматривать</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="93"/>
-        <source>Field containing data:</source>
-        <translation type="obsolete">Поле, содержащее данные:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="119"/>
-        <source>Band number:</source>
-        <translation type="obsolete">Номер группы:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="188"/>
-        <source>Modify resolution (in meters)</source>
-        <translation type="obsolete">Изменить разрешение (в метрах)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="228"/>
-        <source>Year of data</source>
-        <translation type="obsolete">Год данных</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetLoadDataSelectRasterOutput</name>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">форма</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="20"/>
-        <source>Output raster file (.tif)</source>
-        <translation type="obsolete">Выходной растровый файл (.tif)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="38"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">Нажмите «Обзор», чтобы выбрать файл ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="60"/>
-        <source>Browse</source>
-        <translation type="obsolete">Просматривать</translation>
-    </message>
-</context>
-<context>
     <name>WidgetSelectArea</name>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="20"/>
@@ -3615,49 +3170,11 @@ areas</source>
 </context>
 <context>
     <name>WidgetSelectTELayerBase</name>
-    <message>
-        <location filename="../data_io.py" line="1042"/>
-        <source>Select a Trends.Earth output file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1042"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1062"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1058"/>
-        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1062"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation>Не могу читать {}. Выберите другой файл.</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetSelectTELayerBrowse</name>
 </context>
 <context>
     <name>WidgetSelectTELayerExisting</name>
-    <message>
-        <location filename="../gui/WidgetSelectTELayerExisting.ui" line="20"/>
-        <source>Form</source>
-        <translation type="obsolete">форма</translation>
-    </message>
 </context>
 <context>
     <name>WidgetSelectTELayerImport</name>
-    <message>
-        <location filename="../gui/WidgetSelectTELayerImport.ui" line="20"/>
-        <source>Form</source>
-        <translation type="obsolete">форма</translation>
-    </message>
 </context>
 </TS>

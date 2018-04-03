@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WidgetImportSelectRasterOutput</class>
- <widget class="QWidget" name="WidgetImportSelectRasterOutput">
+ <class>WidgetDataIOImportSelectRasterOutput</class>
+ <widget class="QWidget" name="WidgetDataIOImportSelectRasterOutput">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -27,7 +27,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="WidgetSelectTELayerExisting" name="comboBox">
+       <widget class="WidgetDataIOSelectTELayerExisting" name="comboBox">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -187,7 +187,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>WidgetSelectTELayerExisting</class>
+   <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>

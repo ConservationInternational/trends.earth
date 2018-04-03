@@ -137,11 +137,11 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
         self.setupUi(self)
 
         self.final_classes = {'No data': -32768,
-                              'Tree-covered areas': 1,
+                              'Tree-covered': 1,
                               'Grassland': 2,
                               'Cropland': 3,
                               'Wetland': 4,
-                              'Artificial area': 5,
+                              'Artificial': 5,
                               'Other land': 6,
                               'Water body': 7}
 
@@ -270,7 +270,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
     def lc_class_combo_changed(self, index):
         if self.sender().currentText() == self.tr('No data'):
             class_color = "#000000"
-        elif self.sender().currentText() == self.tr('Tree-covered areas'):
+        elif self.sender().currentText() == self.tr('Tree-covered'):
             class_color = "#787F1B"
         elif self.sender().currentText() == self.tr('Grassland'):
             class_color = "#FFAC42"
@@ -278,7 +278,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             class_color = "#FFFB6E"
         elif self.sender().currentText() == self.tr('Wetland'):
             class_color = "#00DB84"
-        elif self.sender().currentText() == self.tr('Artificial area'):
+        elif self.sender().currentText() == self.tr('Artificial'):
             class_color = "#E60017"
         elif self.sender().currentText() == self.tr('Other land'):
             class_color = "#FFF3D7"
@@ -303,11 +303,11 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
 
         self.setupUi(self)
 
-        self.classes = [self.tr("Tree-covered\nareas"),
+        self.classes = [self.tr("Tree-covered"),
                         self.tr("Grassland"),
                         self.tr("Cropland"),
                         self.tr("Wetland"),
-                        self.tr("Artificial\nareas"),
+                        self.tr("Artificial"),
                         self.tr("Bare land"),
                         self.tr("Water body")]
         self.deg_def_matrix.setRowCount(len(self.classes))
@@ -315,11 +315,11 @@ class LCDefineDegradationWidget(QtGui.QWidget, Ui_WidgetLCDefineDegradation):
         self.deg_def_matrix.setHorizontalHeaderLabels(self.classes)
         self.deg_def_matrix.setVerticalHeaderLabels(self.classes)
 
-        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # Tree-covered areas
+        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # Tree-covered
                                      1, 0, 1, -1, -1, -1, 0, # grassland
                                      1, -1, 0, -1, -1, -1, 0, # cropland
                                      -1, -1, -1, 0, -1, -1, 0, # wetland
-                                     1, 1, 1, 1, 0, 1, 0, # artificial areas
+                                     1, 1, 1, 1, 0, 1, 0, # artificial
                                      1, 1, 1, 1, -1, 0, 0, # Other land
                                      0, 0, 0, 0, 0, 0, 0] # water body
         for row in range(0, self.deg_def_matrix.rowCount()):

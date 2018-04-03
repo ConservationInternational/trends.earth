@@ -744,7 +744,7 @@ p، li {white-space: pre-wrap؛ }
     </message>
     <message>
         <location filename="../lc_setup.py" line="281"/>
-        <source>Artificial area</source>
+        <source>Artificial</source>
         <translation>منطقة اصطناعية</translation>
     </message>
     <message>
@@ -804,7 +804,7 @@ p، li {white-space: pre-wrap؛ }
     </message>
     <message>
         <location filename="../lc_setup.py" line="273"/>
-        <source>Tree-covered areas</source>
+        <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1414,59 +1414,21 @@ p، li {white-space: pre-wrap؛ }
     </message>
 </context>
 <context>
-    <name>DlgCreateMap</name>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="14"/>
-        <source>Create Map</source>
-        <translation type="obsolete">قم بإنشاء خريطة</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="32"/>
-        <source>Layer to display:</source>
-        <translation type="obsolete">طبقة للعرض:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="67"/>
-        <source>Map name:</source>
-        <translation type="obsolete">عنوان الخريطة:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="99"/>
-        <source>Author(s):</source>
-        <translation type="obsolete">المؤلفون):</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="119"/>
-        <source>Layout</source>
-        <translation type="obsolete">نسق</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="125"/>
-        <source>Portrait</source>
-        <translation type="obsolete">صورة</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="135"/>
-        <source>Landscape</source>
-        <translation type="obsolete">المناظر الطبيعيه</translation>
-    </message>
-</context>
-<context>
     <name>DlgDataIO</name>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="23"/>
         <source>Load data</source>
-        <translation type="unfinished">تحميل البيانات</translation>
+        <translation>تحميل البيانات</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="29"/>
         <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="unfinished">قم بتحميل مجموعة بيانات تم إنتاجها بواسطة TRENDS.EARTH</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="59"/>
         <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="unfinished">قم بتحميل ملف إخراج TRENDS.EARTH موجود</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="69"/>
@@ -1476,17 +1438,17 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
         <source>Productivity</source>
-        <translation type="unfinished">إنتاجية</translation>
+        <translation>إنتاجية</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="94"/>
         <source>Land cover</source>
-        <translation type="unfinished">الغطاء الأرضي</translation>
+        <translation>الغطاء الأرضي</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="107"/>
         <source>Soil organic carbon</source>
-        <translation type="unfinished">الكربون العضوي التربة</translation>
+        <translation>الكربون العضوي التربة</translation>
     </message>
 </context>
 <context>
@@ -1494,22 +1456,22 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../data_io.py" line="706"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="623"/>
         <source>Choose an input raster file.</source>
-        <translation type="unfinished">اختر ملف البيانات النقطية المدخلة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="627"/>
         <source>Choose an input polygon dataset.</source>
-        <translation type="unfinished">اختر مجموعة بيانات مضلع الإدخال.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="706"/>
         <source>Raster import failed.</source>
-        <translation type="unfinished">فشل الاستيراد النقطي.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1517,52 +1479,52 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="23"/>
         <source>Load a Custom Land Cover Dataset</source>
-        <translation type="unfinished">تحميل مجموعة بيانات غطاء أرضي مخصصة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="35"/>
         <source>Choose a land cover aggregation method</source>
-        <translation type="unfinished">اختر طريقة تجميع غلاف الأرض</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="62"/>
         <source>Edit definition</source>
-        <translation type="unfinished">تحرير التعريف</translation>
+        <translation>تحرير التعريف</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="69"/>
         <source>Use sample when reading cover classes from input file</source>
-        <translation type="unfinished">استخدم العينة عند قراءة فئات الغلاف من ملف الإدخال</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="unfinished">ملاحظة: إذا كنت تقرأ ملفًا كبيرًا ، فمن المستحسن أن يتم التحقق من الخيار أعلاه ، حيث إنه سيسر بشكل رائع عملية قراءة فئات الإدخال من مجموعة البيانات. ومع ذلك ، إذا وجدت أن Trends.Earth لا تحدد كافة الفئات في ملف الإدخال ، فقد يكون من الضروري إيقاف تشغيل هذا الخيار.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="809"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="749"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">اختر ملف الإخراج.</translation>
+        <translation>اختر ملف الإخراج.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>No definition set</source>
-        <translation type="unfinished">لا مجموعة تعريف</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="unfinished">انقر فوق &quot;تحرير التعريف&quot; لتعريف تعريف الغطاء الأرضي قبل التصدير.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="809"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="unfinished">خطأ في قراءة البيانات. تدعم Trends.Earth 60 فئة مختلفة من الطبقات الأرضية</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1570,12 +1532,12 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="23"/>
         <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="unfinished">تحميل مجموعة بيانات إنتاجية مخصصة للأراضي</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="35"/>
         <source>Productivity class definition</source>
-        <translation type="unfinished">تعريف فئة الإنتاجية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="53"/>
@@ -1591,43 +1553,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p، li {white-space: pre-wrap؛ }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;؛ font-size: 8.25pt؛ font-weight: 400؛ font-style: normal؛&quot;&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛ font-weight: 600؛&quot;&gt; يجب ترميز فئات الإنتاجية في بيانات الإدخال كما يلي: &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty؛ margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent : 0px؛ font-size: 8pt؛ &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 1: Declining &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 2: العلامات المبكرة للانخفاض &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 3: Stable but straved &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 4: Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 5: Increasing &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 0 or -32768: No data &lt;/ ​​span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="918"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="905"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">اختر ملف الإخراج.</translation>
+        <translation>اختر ملف الإخراج.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="918"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="unfinished">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="922"/>
         <source>Warning</source>
-        <translation type="unfinished">تحذير</translation>
+        <translation>تحذير</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="922"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="unfinished">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح. ستقوم Trends.Earth بتحميل الملف على أي حال ، ولكن قم بمراجعة الخريطة بمجرد تحميلها للتأكد من أن القيم منطقية. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5. هناك {} قيمة (قيم) في ملف الإدخال لم يتم التعرف عليها.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1635,17 +1586,17 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgDataIOImportSOC.ui" line="23"/>
         <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="unfinished">تحميل مجموعة بيانات مخصصة الكربون العضوي للتربة (SOC)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="865"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="845"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">اختر ملف الإخراج.</translation>
+        <translation>اختر ملف الإخراج.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="859"/>
@@ -1673,27 +1624,27 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="30"/>
         <source>Select a layer(s)</source>
-        <translation type="unfinished">اختر طبقة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="55"/>
         <source>View file metadata</source>
-        <translation type="unfinished">عرض ملف تعريف البيانات</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="65"/>
         <source>Select a file</source>
-        <translation type="unfinished">حدد ملف</translation>
+        <translation>حدد ملف</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="80"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="93"/>
         <source>Browse...</source>
-        <translation type="unfinished">تصفح...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="405"/>
@@ -1708,12 +1659,12 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../data_io.py" line="461"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="461"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="436"/>
@@ -1726,17 +1677,17 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../data_io.py" line="384"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="380"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="unfinished">غير قادر على إضافة &quot;{}&quot; تلقائيًا. لا يوجد نمط محدد لهذا النوع من الطبقة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="384"/>
         <source>Select a layer to load.</source>
-        <translation type="unfinished">حدد طبقة للتحميل.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1892,261 +1843,6 @@ p، li {white-space: pre-wrap؛ }
     </message>
 </context>
 <context>
-    <name>DlgLoadData</name>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="23"/>
-        <source>Load data</source>
-        <translation type="obsolete">تحميل البيانات</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="29"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="obsolete">قم بتحميل مجموعة بيانات تم إنتاجها بواسطة TRENDS.EARTH</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="59"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="obsolete">قم بتحميل ملف إخراج TRENDS.EARTH موجود</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="81"/>
-        <source>Productivity</source>
-        <translation type="obsolete">إنتاجية</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="94"/>
-        <source>Land cover</source>
-        <translation type="obsolete">الغطاء الأرضي</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="107"/>
-        <source>Soil organic carbon</source>
-        <translation type="obsolete">الكربون العضوي التربة</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataBase</name>
-    <message>
-        <location filename="../load_data.py" line="676"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="593"/>
-        <source>Choose an input raster file.</source>
-        <translation type="obsolete">اختر ملف البيانات النقطية المدخلة.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="597"/>
-        <source>Choose an input polygon dataset.</source>
-        <translation type="obsolete">اختر مجموعة بيانات مضلع الإدخال.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="676"/>
-        <source>Raster import failed.</source>
-        <translation type="obsolete">فشل الاستيراد النقطي.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataLC</name>
-    <message>
-        <location filename="../load_data.py" line="776"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="718"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">اختر ملف الإخراج.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="721"/>
-        <source>No definition set</source>
-        <translation type="obsolete">لا مجموعة تعريف</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="721"/>
-        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="obsolete">انقر فوق &quot;تحرير التعريف&quot; لتعريف تعريف الغطاء الأرضي قبل التصدير.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="776"/>
-        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="obsolete">خطأ في قراءة البيانات. تدعم Trends.Earth 60 فئة مختلفة من الطبقات الأرضية</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="23"/>
-        <source>Load a Custom Land Cover Dataset</source>
-        <translation type="obsolete">تحميل مجموعة بيانات غطاء أرضي مخصصة</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="35"/>
-        <source>Choose a land cover aggregation method</source>
-        <translation type="obsolete">اختر طريقة تجميع غلاف الأرض</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="62"/>
-        <source>Edit definition</source>
-        <translation type="obsolete">تحرير التعريف</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="69"/>
-        <source>Use sample when reading cover classes from input file</source>
-        <translation type="obsolete">استخدم العينة عند قراءة فئات الغلاف من ملف الإدخال</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="100"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="obsolete">ملاحظة: إذا كنت تقرأ ملفًا كبيرًا ، فمن المستحسن أن يتم التحقق من الخيار أعلاه ، حيث إنه سيسر بشكل رائع عملية قراءة فئات الإدخال من مجموعة البيانات. ومع ذلك ، إذا وجدت أن Trends.Earth لا تحدد كافة الفئات في ملف الإدخال ، فقد يكون من الضروري إيقاف تشغيل هذا الخيار.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataProd</name>
-    <message>
-        <location filename="../load_data.py" line="879"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="866"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">اختر ملف الإخراج.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="879"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="obsolete">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="23"/>
-        <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="obsolete">تحميل مجموعة بيانات إنتاجية مخصصة للأراضي</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="35"/>
-        <source>Productivity class definition</source>
-        <translation type="obsolete">تعريف فئة الإنتاجية</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="53"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name = &quot;qrichtext&quot; content = &quot;1&quot; /&gt; &lt;style type = &quot;text / css&quot;&gt;
-p، li {white-space: pre-wrap؛ }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style = &quot;font-family: &apos;MS Shell Dlg 2&apos;؛ font-size: 8.25pt؛ font-weight: 400؛ font-style: normal؛&quot;&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛ font-weight: 600؛&quot;&gt; يجب ترميز فئات الإنتاجية في بيانات الإدخال كما يلي: &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- qt-paragraph-type: empty؛ margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent : 0px؛ font-size: 8pt؛ &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 1: Declining &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 2: العلامات المبكرة للانخفاض &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 3: Stable but straved &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 4: Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 5: Increasing &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;margin-top: 0px؛ margin-bottom: 0px؛ margin-left: 0px؛ margin-right: 0px؛ -qt-block-indent: 0؛ text-indent: 0px؛&quot;&gt; &lt;span style = &quot;font-size: 8pt؛&quot;&gt; 0 or -32768: No data &lt;/ ​​span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="883"/>
-        <source>Warning</source>
-        <translation type="obsolete">تحذير</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="883"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="obsolete">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح. ستقوم Trends.Earth بتحميل الملف على أي حال ، ولكن قم بمراجعة الخريطة بمجرد تحميلها للتأكد من أن القيم منطقية. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5. هناك {} قيمة (قيم) في ملف الإدخال لم يتم التعرف عليها.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataSOC</name>
-    <message>
-        <location filename="../load_data.py" line="827"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="810"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">اختر ملف الإخراج.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="823"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="obsolete">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="827"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
-        <translation type="obsolete">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالح. هناك {} قيم مختلفة في الملف. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataSOC.ui" line="23"/>
-        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="obsolete">تحميل مجموعة بيانات مخصصة الكربون العضوي للتربة (SOC)</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataTE</name>
-    <message>
-        <location filename="../load_data.py" line="434"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="380"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="409"/>
-        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="obsolete">غير قادر على إضافة &quot;{}&quot; تلقائيًا. لا يوجد نمط محدد لهذا النوع من الطبقة.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="415"/>
-        <source>Select a layer to load.</source>
-        <translation type="obsolete">حدد طبقة للتحميل.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="17"/>
-        <source>Open a trends.earth file</source>
-        <translation type="obsolete">افتح ملف trend.earth</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="30"/>
-        <source>Select a layer(s)</source>
-        <translation type="obsolete">اختر طبقة</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="55"/>
-        <source>View file metadata</source>
-        <translation type="obsolete">عرض ملف تعريف البيانات</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="65"/>
-        <source>Select a file</source>
-        <translation type="obsolete">حدد ملف</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="80"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="93"/>
-        <source>Browse...</source>
-        <translation type="obsolete">تصفح...</translation>
-    </message>
-</context>
-<context>
     <name>DlgPlot</name>
     <message>
         <location filename="../gui/DlgPlot.ui" line="31"/>
@@ -2170,62 +1866,6 @@ p، li {white-space: pre-wrap؛ }
         <location filename="../plot.py" line="85"/>
         <source>Linear trend (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</source>
         <translation>الاتجاه الخطي (r &lt;sup&gt; 2 &lt;/ sup&gt; = {0: .2f})</translation>
-    </message>
-</context>
-<context>
-    <name>DlgReporting</name>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="23"/>
-        <source>Visualization tools</source>
-        <translation type="obsolete">تقارير تدهور الأراضي</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="61"/>
-        <source>Create Print Map</source>
-        <translation type="obsolete">تقارير UNCCD</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="48"/>
-        <source>Add Basemap</source>
-        <translation type="obsolete">أضف خريطة الأساس</translation>
-    </message>
-</context>
-<context>
-    <name>DlgReportingBasemap</name>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="20"/>
-        <source>Add basemap</source>
-        <translation type="obsolete">أضف خريطة الأساس</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="32"/>
-        <source>Mask </source>
-        <translation type="obsolete">قناع</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="38"/>
-        <source>Use a mask</source>
-        <translation type="obsolete">استخدم قناع</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="48"/>
-        <source>Mask all areas outside of:</source>
-        <translation type="obsolete">اخفاء جميع المناطق خارج:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="84"/>
-        <source>Second level:</source>
-        <translation type="obsolete">المستوى الثاني:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="137"/>
-        <source>First level:</source>
-        <translation type="obsolete">مستوى اول:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="174"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; إخلاء المسؤولية: تكون الحدود المقدمة من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; الأرض الطبيعية &lt;/ span&gt; &lt;/a&gt; ، وفي &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; المجال العام &lt;/ span&gt; &lt;/a&gt;. لا تشير الحدود والأسماء المستخدمة ، والتسميات المستخدمة في الاتجاهات. إلى الموافقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2634,7 +2274,7 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="23"/>
         <source>Visualization tools</source>
-        <translation type="unfinished">تقارير تدهور الأراضي</translation>
+        <translation>تقارير تدهور الأراضي</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="35"/>
@@ -2644,12 +2284,12 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="48"/>
         <source>Add Basemap</source>
-        <translation type="unfinished">أضف خريطة الأساس</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="61"/>
         <source>Create Print Map</source>
-        <translation type="unfinished">تقارير UNCCD</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2657,37 +2297,37 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="20"/>
         <source>Add basemap</source>
-        <translation type="unfinished">أضف خريطة الأساس</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="32"/>
         <source>Mask </source>
-        <translation type="unfinished">قناع</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="38"/>
         <source>Use a mask</source>
-        <translation type="unfinished">استخدم قناع</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="48"/>
         <source>Mask all areas outside of:</source>
-        <translation type="unfinished">اخفاء جميع المناطق خارج:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="84"/>
         <source>Second level:</source>
-        <translation type="unfinished">المستوى الثاني:</translation>
+        <translation>المستوى الثاني:</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="137"/>
         <source>First level:</source>
-        <translation type="unfinished">مستوى اول:</translation>
+        <translation>مستوى اول:</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="174"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; إخلاء المسؤولية: تكون الحدود المقدمة من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; الأرض الطبيعية &lt;/ span&gt; &lt;/a&gt; ، وفي &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; المجال العام &lt;/ span&gt; &lt;/a&gt;. لا تشير الحدود والأسماء المستخدمة ، والتسميات المستخدمة في الاتجاهات. إلى الموافقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; إخلاء المسؤولية: تكون الحدود المقدمة من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; الأرض الطبيعية &lt;/ span&gt; &lt;/a&gt; ، وفي &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline؛ color: # 0000ff؛ &quot;&gt; المجال العام &lt;/ span&gt; &lt;/a&gt;. لا تشير الحدود والأسماء المستخدمة ، والتسميات المستخدمة في الاتجاهات. إلى الموافقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2695,37 +2335,37 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="14"/>
         <source>Create Map</source>
-        <translation type="unfinished">قم بإنشاء خريطة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="32"/>
         <source>Layer to display:</source>
-        <translation type="unfinished">طبقة للعرض:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="67"/>
         <source>Map name:</source>
-        <translation type="unfinished">عنوان الخريطة:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="99"/>
         <source>Author(s):</source>
-        <translation type="unfinished">المؤلفون):</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="119"/>
         <source>Layout</source>
-        <translation type="unfinished">نسق</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="125"/>
         <source>Portrait</source>
-        <translation type="unfinished">صورة</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="135"/>
         <source>Landscape</source>
-        <translation type="unfinished">المناظر الطبيعيه</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2733,42 +2373,42 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../data_io.py" line="504"/>
         <source>Coming soon!</source>
-        <translation type="unfinished">قريبا!</translation>
+        <translation>قريبا!</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="504"/>
         <source>Processing of vector input datasets coming soon!</source>
-        <translation type="unfinished">تجهيز مجموعات بيانات ناقلات الأمراض قريبا!</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="524"/>
         <source>Select a raster input file</source>
-        <translation type="unfinished">حدد ملف إدخال البيانات النقطية</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="524"/>
         <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="unfinished">ملف النقطية (* .tif * .dat * .img)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="569"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="569"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="555"/>
         <source>Select a vector input file</source>
-        <translation type="unfinished">حدد ملف إدخال متجه</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="555"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation type="unfinished">ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
+        <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
 </context>
 <context>
@@ -2776,22 +2416,22 @@ p، li {white-space: pre-wrap؛ }
     <message>
         <location filename="../data_io.py" line="593"/>
         <source>Choose a name for the output file</source>
-        <translation type="unfinished">اختر اسمًا لملف الإخراج</translation>
+        <translation>اختر اسمًا لملف الإخراج</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="593"/>
         <source>Raster file (*.tif)</source>
-        <translation type="unfinished">ملف النقطية (* .tif)</translation>
+        <translation>ملف النقطية (* .tif)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="603"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>خطأ</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="603"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
+        <translation>لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
     </message>
 </context>
 <context>
@@ -2823,8 +2463,7 @@ p، li {white-space: pre-wrap؛ }
     </message>
     <message>
         <location filename="../lc_setup.py" line="306"/>
-        <source>Tree-covered
-areas</source>
+        <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2844,9 +2483,8 @@ areas</source>
     </message>
     <message>
         <location filename="../lc_setup.py" line="310"/>
-        <source>Artificial
-areas</source>
-        <translation type="unfinished"></translation>
+        <source>Artificial</source>
+        <translation type="unfinished">منطقة اصطناعية</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="311"/>
@@ -2942,22 +2580,22 @@ areas</source>
         <translation>بيانات المؤامرة</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="219"/>
+        <location filename="../plugin.py" line="212"/>
         <source>View Google Earth Engine tasks</source>
         <translation>عرض مهام Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="219"/>
+        <location filename="../plugin.py" line="212"/>
         <source>View cloud processing tasks</source>
         <translation>عرض مهام معالجة السحابة</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="226"/>
+        <location filename="../plugin.py" line="219"/>
         <source>Reporting tool</source>
         <translation>أداة الإبلاغ</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="226"/>
+        <location filename="../plugin.py" line="219"/>
         <source>Land degradation reporting</source>
         <translation>تقارير تدهور الأراضي</translation>
     </message>
@@ -3002,22 +2640,22 @@ areas</source>
         <translation>مجموعات البيانات وقت سلسلة الرسم البياني</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="212"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Download raw data</source>
         <translation>تحميل البيانات الخام</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="212"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Download raw datasets</source>
         <translation>تحميل مجموعات البيانات الخام</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="233"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Load data</source>
         <translation>تحميل البيانات</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="233"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Load local data</source>
         <translation>تحميل البيانات المحلية</translation>
     </message>
@@ -3131,72 +2769,6 @@ areas</source>
     </message>
 </context>
 <context>
-    <name>LoadDataSelectFileInputWidget</name>
-    <message>
-        <location filename="../load_data.py" line="476"/>
-        <source>Coming soon!</source>
-        <translation type="obsolete">قريبا!</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="476"/>
-        <source>Processing of vector input datasets coming soon!</source>
-        <translation type="obsolete">تجهيز مجموعات بيانات ناقلات الأمراض قريبا!</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="496"/>
-        <source>Select a raster input file</source>
-        <translation type="obsolete">حدد ملف إدخال البيانات النقطية</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="496"/>
-        <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="obsolete">ملف النقطية (* .tif * .dat * .img)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="541"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="541"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="527"/>
-        <source>Select a vector input file</source>
-        <translation type="obsolete">حدد ملف إدخال متجه</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="527"/>
-        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation type="obsolete">ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
-    </message>
-</context>
-<context>
-    <name>LoadDataSelectRasterOutput</name>
-    <message>
-        <location filename="../load_data.py" line="565"/>
-        <source>Choose a name for the output file</source>
-        <translation type="obsolete">اختر اسمًا لملف الإخراج</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="565"/>
-        <source>Raster file (*.tif)</source>
-        <translation type="obsolete">ملف النقطية (* .tif)</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="575"/>
-        <source>Error</source>
-        <translation type="obsolete">خطأ</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="575"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">لا يمكن الكتابة إلى {}. اختر ملفًا مختلفًا.</translation>
-    </message>
-</context>
-<context>
     <name>WidgetCalculationOptions</name>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="20"/>
@@ -3247,76 +2819,135 @@ areas</source>
 <context>
     <name>WidgetDataIOImportSelectFileInput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="23"/>
         <source>Select a file</source>
-        <translation type="unfinished">حدد ملف</translation>
+        <translation>حدد ملف</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="112"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="48"/>
         <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation type="unfinished">مجموعة بيانات مضلعة (ملفات shapefile و KML و KMZ و GeoJSON)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="58"/>
         <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="unfinished">مجموعة بيانات النقطية (.tif ، .dat ، .img)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="141"/>
-        <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="93"/>
         <source>Field containing data:</source>
-        <translation type="unfinished">بيانات تحتوي على حقل:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="119"/>
         <source>Band number:</source>
-        <translation type="unfinished">رقم النطاق:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="188"/>
         <source>Modify resolution (in meters)</source>
-        <translation type="unfinished">تعديل القرار (بالأمتار)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="228"/>
         <source>Year of data</source>
-        <translation type="unfinished">سنة البيانات</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
+        <source>Form</source>
+        <translation>شكل</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="141"/>
+        <source>Browse</source>
+        <translation>تصفح</translation>
     </message>
 </context>
 <context>
     <name>WidgetDataIOImportSelectRasterOutput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="20"/>
         <source>Output raster file (.tif)</source>
-        <translation type="unfinished">ملف البيانات النقطية (.tif)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="38"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
+        <source>Form</source>
+        <translation>شكل</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="60"/>
         <source>Browse</source>
+        <translation>تصفح</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerBase</name>
+    <message>
+        <location filename="../data_io.py" line="1042"/>
+        <source>Select a Trends.Earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1042"/>
+        <source>Trends.Earth metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1062"/>
+        <source>Error</source>
+        <translation>خطأ</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1058"/>
+        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1062"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerExisting</name>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="20"/>
+        <source>Form</source>
+        <translation>شكل</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="51"/>
+        <source>Load existing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerImport</name>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="20"/>
+        <source>Form</source>
+        <translation>شكل</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="51"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="70"/>
+        <source>Load existing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3432,82 +3063,6 @@ areas</source>
     </message>
 </context>
 <context>
-    <name>WidgetLoadDataSelectFileInput</name>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">شكل</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="23"/>
-        <source>Select a file</source>
-        <translation type="obsolete">حدد ملف</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="112"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="48"/>
-        <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation type="obsolete">مجموعة بيانات مضلعة (ملفات shapefile و KML و KMZ و GeoJSON)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="58"/>
-        <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="obsolete">مجموعة بيانات النقطية (.tif ، .dat ، .img)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="141"/>
-        <source>Browse</source>
-        <translation type="obsolete">تصفح</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="93"/>
-        <source>Field containing data:</source>
-        <translation type="obsolete">بيانات تحتوي على حقل:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="119"/>
-        <source>Band number:</source>
-        <translation type="obsolete">رقم النطاق:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="188"/>
-        <source>Modify resolution (in meters)</source>
-        <translation type="obsolete">تعديل القرار (بالأمتار)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="228"/>
-        <source>Year of data</source>
-        <translation type="obsolete">سنة البيانات</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetLoadDataSelectRasterOutput</name>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">شكل</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="20"/>
-        <source>Output raster file (.tif)</source>
-        <translation type="obsolete">ملف البيانات النقطية (.tif)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="38"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="60"/>
-        <source>Browse</source>
-        <translation type="obsolete">تصفح</translation>
-    </message>
-</context>
-<context>
     <name>WidgetSelectArea</name>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="20"/>
@@ -3615,49 +3170,11 @@ areas</source>
 </context>
 <context>
     <name>WidgetSelectTELayerBase</name>
-    <message>
-        <location filename="../data_io.py" line="1042"/>
-        <source>Select a Trends.Earth output file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1042"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1062"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1058"/>
-        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1062"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetSelectTELayerBrowse</name>
 </context>
 <context>
     <name>WidgetSelectTELayerExisting</name>
-    <message>
-        <location filename="../gui/WidgetSelectTELayerExisting.ui" line="20"/>
-        <source>Form</source>
-        <translation type="obsolete">شكل</translation>
-    </message>
 </context>
 <context>
     <name>WidgetSelectTELayerImport</name>
-    <message>
-        <location filename="../gui/WidgetSelectTELayerImport.ui" line="20"/>
-        <source>Form</source>
-        <translation type="obsolete">شكل</translation>
-    </message>
 </context>
 </TS>

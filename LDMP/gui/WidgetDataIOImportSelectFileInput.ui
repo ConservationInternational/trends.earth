@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WidgetLoadDataSelectFileInput</class>
- <widget class="QWidget" name="WidgetLoadDataSelectFileInput">
+ <class>WidgetDataIOImportSelectFileInput</class>
+ <widget class="QWidget" name="WidgetDataIOImportSelectFileInput">
   <property name="geometry">
    <rect>
     <x>0</x>

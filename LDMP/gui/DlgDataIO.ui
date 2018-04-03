@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgLoadData</class>
- <widget class="QDialog" name="DlgLoadData">
+ <class>DlgDataIO</class>
+ <widget class="QDialog" name="DlgDataIO">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>476</width>
-    <height>150</height>
+    <height>201</height>
    </rect>
   </property>
   <property name="sizePolicy">

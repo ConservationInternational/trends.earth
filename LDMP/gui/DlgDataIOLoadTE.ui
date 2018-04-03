@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgLoadDataTE</class>
- <widget class="QDialog" name="DlgLoadDataTE">
+ <class>DlgDataIOLoadTE</class>
+ <widget class="QDialog" name="DlgDataIOLoadTE">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>

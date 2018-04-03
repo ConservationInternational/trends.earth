@@ -479,6 +479,11 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         # Make sure the custom data boxes are turned off by default
         self.use_esa_toggled()
 
+        # Ensure that if a LC layer is loaded in one box it shows up also in 
+        # the other
+        #self.use_custom_initial.layers_added.connect(self.use_custom_final.populate)
+        #self.use_custom_final.layers_added.connect(self.use_custom_initial.populate)
+
     def use_esa_toggled(self):
         if self.use_esa.isChecked():
             self.groupBox_esa_period.setEnabled(True)

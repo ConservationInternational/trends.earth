@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WidgetLoadDataSelectRasterOutput</class>
- <widget class="QWidget" name="WidgetLoadDataSelectRasterOutput">
+ <class>WidgetImportSelectRasterOutput</class>
+ <widget class="QWidget" name="WidgetImportSelectRasterOutput">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -189,7 +189,7 @@
   <customwidget>
    <class>WidgetSelectTELayerExisting</class>
    <extends>QComboBox</extends>
-   <header>LDMP/load_data</header>
+   <header>LDMP/data_io</header>
   </customwidget>
  </customwidgets>
  <resources/>

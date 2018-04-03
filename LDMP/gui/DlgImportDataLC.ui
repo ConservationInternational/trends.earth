@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgLoadDataLC</class>
- <widget class="QDialog" name="DlgLoadDataLC">
+ <class>DlgImportLC</class>
+ <widget class="QDialog" name="DlgImportLC">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -124,7 +124,7 @@
   <connection>
    <sender>btnBox</sender>
    <signal>accepted()</signal>
-   <receiver>DlgLoadDataLC</receiver>
+   <receiver>DlgImportLC</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -140,7 +140,7 @@
   <connection>
    <sender>btnBox</sender>
    <signal>rejected()</signal>
-   <receiver>DlgLoadDataLC</receiver>
+   <receiver>DlgImportLC</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

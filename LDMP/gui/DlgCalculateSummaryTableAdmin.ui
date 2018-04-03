@@ -64,7 +64,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="4" column="0">
-           <widget class="WidgetSelectTELayerExisting" name="combo_layer_traj">
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -86,7 +86,7 @@
            </widget>
           </item>
           <item row="6" column="0">
-           <widget class="WidgetSelectTELayerExisting" name="combo_layer_perf">
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_perf">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -108,7 +108,7 @@
            </widget>
           </item>
           <item row="8" column="0">
-           <widget class="WidgetSelectTELayerExisting" name="combo_layer_state">
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_state">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -188,7 +188,7 @@
            </widget>
           </item>
           <item row="10" column="0">
-           <widget class="WidgetSelectTELayerImport" name="combo_layer_lpd">
+           <widget class="WidgetDataIOSelectTELayerImport" name="combo_layer_lpd">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -250,7 +250,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="WidgetSelectTELayerExisting" name="combo_layer_lc">
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_lc">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -299,7 +299,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
-           <widget class="WidgetSelectTELayerExisting" name="combo_layer_soc">
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_soc">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -467,12 +467,12 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>WidgetSelectTELayerExisting</class>
+   <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>
   <customwidget>
-   <class>WidgetSelectTELayerImport</class>
+   <class>WidgetDataIOSelectTELayerImport</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>

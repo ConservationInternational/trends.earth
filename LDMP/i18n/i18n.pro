@@ -29,12 +29,12 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetCalculationOptions.ui \
 ../gui/WidgetLCDefineDegradation.ui \
 ../gui/WidgetLCSetup.ui \
-../gui/WidgetImportSelectFileInput.ui \
-../gui/WidgetImportSelectRasterOutput.ui \
-../gui/WidgetSelectArea.ui \
-../gui/WidgetSelectPoint.ui \
+../gui/WidgetDataIOImportSelectFileInput.ui \
+../gui/WidgetDataIOImportSelectRasterOutput.ui \
 ../gui/WidgetDataIOSelectTELayerExisting.ui \
-../gui/WidgetDataIOSelectTELayerImport.ui
+../gui/WidgetDataIOSelectTELayerImport.ui\
+../gui/WidgetSelectArea.ui \
+../gui/WidgetSelectPoint.ui
 
 SOURCES = ../about.py \
 ../api.py \

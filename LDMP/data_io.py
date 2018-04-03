@@ -44,8 +44,8 @@ from LDMP.gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
 from LDMP.gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
-from LDMP.gui.WidgetSelectTELayerExisting import Ui_WidgetSelectTELayerExisting
-from LDMP.gui.WidgetSelectTELayerImport import Ui_WidgetSelectTELayerImport
+from LDMP.gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
+from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
 class ShapefileImportWorker(AbstractWorker):
@@ -996,9 +996,9 @@ def get_layer_info_from_file(json_file, layer_type='any'):
     return layers_filtered
 
     
-class WidgetSelectTELayerBase(QtGui.QWidget):
+class WidgetDataIOSelectTELayerBase(QtGui.QWidget):
     def __init__(self, parent=None):
-        super(WidgetSelectTELayerBase, self).__init__(parent)
+        super(WidgetDataIOSelectTELayerBase, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -1078,14 +1078,14 @@ class WidgetSelectTELayerBase(QtGui.QWidget):
         return f
 
 
-class WidgetSelectTELayerExisting(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerExisting):
+class WidgetDataIOSelectTELayerExisting(WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerExisting):
     def __init__(self, parent=None):
-        super(WidgetSelectTELayerExisting, self).__init__(parent)
+        super(WidgetDataIOSelectTELayerExisting, self).__init__(parent)
 
 
-class WidgetSelectTELayerImport(WidgetSelectTELayerBase, Ui_WidgetSelectTELayerImport):
+class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerImport):
     def __init__(self, parent=None):
-        super(WidgetSelectTELayerImport, self).__init__(parent)
+        super(WidgetDataIOSelectTELayerImport, self).__init__(parent)
 
         self.pushButton_import.clicked.connect(self.import_file)
 

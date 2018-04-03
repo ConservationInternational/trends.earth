@@ -744,7 +744,7 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../lc_setup.py" line="281"/>
-        <source>Artificial area</source>
+        <source>Artificial</source>
         <translation>人工区域</translation>
     </message>
     <message>
@@ -804,7 +804,7 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../lc_setup.py" line="273"/>
-        <source>Tree-covered areas</source>
+        <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1414,59 +1414,21 @@ p，li {空格：预包装; }
     </message>
 </context>
 <context>
-    <name>DlgCreateMap</name>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="14"/>
-        <source>Create Map</source>
-        <translation type="obsolete">创建地图</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="32"/>
-        <source>Layer to display:</source>
-        <translation type="obsolete">要显示的图层：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="67"/>
-        <source>Map name:</source>
-        <translation type="obsolete">地图标题：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="99"/>
-        <source>Author(s):</source>
-        <translation type="obsolete">作者（S）：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="119"/>
-        <source>Layout</source>
-        <translation type="obsolete">布局</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="125"/>
-        <source>Portrait</source>
-        <translation type="obsolete">肖像</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCreateMap.ui" line="135"/>
-        <source>Landscape</source>
-        <translation type="obsolete">景观</translation>
-    </message>
-</context>
-<context>
     <name>DlgDataIO</name>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="23"/>
         <source>Load data</source>
-        <translation type="unfinished">加载数据</translation>
+        <translation>加载数据</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="29"/>
         <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="unfinished">加载由TRENDS.EARTH生成的数据集</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="59"/>
         <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="unfinished">加载一个现有的TRENDS.EARTH输出文件</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="69"/>
@@ -1476,17 +1438,17 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
         <source>Productivity</source>
-        <translation type="unfinished">生产率</translation>
+        <translation>生产率</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="94"/>
         <source>Land cover</source>
-        <translation type="unfinished">土地覆盖</translation>
+        <translation>土地覆盖</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="107"/>
         <source>Soil organic carbon</source>
-        <translation type="unfinished">土壤有机碳</translation>
+        <translation>土壤有机碳</translation>
     </message>
 </context>
 <context>
@@ -1494,22 +1456,22 @@ p，li {空格：预包装; }
     <message>
         <location filename="../data_io.py" line="706"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="623"/>
         <source>Choose an input raster file.</source>
-        <translation type="unfinished">选择一个输入栅格文件。</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="627"/>
         <source>Choose an input polygon dataset.</source>
-        <translation type="unfinished">选择一个输入多边形数据集。</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="706"/>
         <source>Raster import failed.</source>
-        <translation type="unfinished">栅格导入失败。</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1517,52 +1479,52 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="23"/>
         <source>Load a Custom Land Cover Dataset</source>
-        <translation type="unfinished">加载自定义土地覆盖数据集</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="35"/>
         <source>Choose a land cover aggregation method</source>
-        <translation type="unfinished">选择一种土地覆盖聚合方法</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="62"/>
         <source>Edit definition</source>
-        <translation type="unfinished">编辑定义</translation>
+        <translation>编辑定义</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="69"/>
         <source>Use sample when reading cover classes from input file</source>
-        <translation type="unfinished">从输入文件中读取封面类时使用示例</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="unfinished">注意：如果读取大文件，建议检查上述选项，因为它会显着加快从数据集读取输入类的过程。但是，如果您发现Trends.Earth没有识别输入文件中的所有类，则可能需要关闭此选项。</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="809"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="749"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">选择一个输出文件。</translation>
+        <translation>选择一个输出文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>No definition set</source>
-        <translation type="unfinished">没有定义集</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="unfinished">单击“编辑定义”以在导出之前定义土地覆盖定义。</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="809"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="unfinished">读取数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1570,12 +1532,12 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="23"/>
         <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="unfinished">加载自定义土地生产力数据集</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="35"/>
         <source>Productivity class definition</source>
-        <translation type="unfinished">生产力类的定义</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportProd.ui" line="53"/>
@@ -1591,43 +1553,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;！DOCTYPE HTML PUBLIC“ -  // W3C // DTD HTML 4.0 // EN”“http://www.w3.org/TR/REC-html40/strict.dtd”&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name =“qrichtext”content =“1”/&gt; &lt;style type =“text / css”&gt;
-p，li {空格：预包装; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style =“font-family：&apos;MS Shell Dlg 2&apos;; font-size：8.25pt; font-weight：400; font-style：normal;”&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt; font-weight：600;”&gt;输入数据中的生产力类必须编码如下：&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“ -  qt-paragraph-type：empty; margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent ：0px; font-size：8pt;“&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 1：正在降级&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 2：早衰迹象&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 3：稳定但强调&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 4：Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 5：增加&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 0或-32768：无数据&lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="918"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="905"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">选择一个输出文件。</translation>
+        <translation>选择一个输出文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="918"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="unfinished">输入文件（{}）似乎不是有效的生产力输入文件。</translation>
+        <translation>输入文件（{}）似乎不是有效的生产力输入文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="922"/>
         <source>Warning</source>
-        <translation type="unfinished">警告</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="922"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="unfinished">输入文件（{}）似乎不是有效的生产力输入文件。 Trends.Earth无论如何都会加载该文件，但在加载地图后查看地图以确保值合理。生产力输入文件中唯一允许的值是-32768,1,2,3,4和5.输入文件中有{}个值未被识别。</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1635,17 +1586,17 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgDataIOImportSOC.ui" line="23"/>
         <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="unfinished">加载自定义土壤有机碳（SOC）数据集</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="865"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="845"/>
         <source>Choose an output file.</source>
-        <translation type="unfinished">选择一个输出文件。</translation>
+        <translation>选择一个输出文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="859"/>
@@ -1673,27 +1624,27 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="30"/>
         <source>Select a layer(s)</source>
-        <translation type="unfinished">选择一个图层</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="55"/>
         <source>View file metadata</source>
-        <translation type="unfinished">查看文件元数据</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="65"/>
         <source>Select a file</source>
-        <translation type="unfinished">选择一个文件</translation>
+        <translation>选择一个文件</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="80"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">点击“浏览”选择一个文件...</translation>
+        <translation>点击“浏览”选择一个文件...</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="93"/>
         <source>Browse...</source>
-        <translation type="unfinished">浏览...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="405"/>
@@ -1708,12 +1659,12 @@ p，li {空格：预包装; }
     <message>
         <location filename="../data_io.py" line="461"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="461"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="436"/>
@@ -1726,17 +1677,17 @@ p，li {空格：预包装; }
     <message>
         <location filename="../data_io.py" line="384"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="380"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="unfinished">无法自动添加“{}”。没有为这种类型的图层定义样式。</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="384"/>
         <source>Select a layer to load.</source>
-        <translation type="unfinished">选择要加载的图层。</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1892,261 +1843,6 @@ p，li {空格：预包装; }
     </message>
 </context>
 <context>
-    <name>DlgLoadData</name>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="23"/>
-        <source>Load data</source>
-        <translation type="obsolete">加载数据</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="29"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="obsolete">加载由TRENDS.EARTH生成的数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="59"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="obsolete">加载一个现有的TRENDS.EARTH输出文件</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="81"/>
-        <source>Productivity</source>
-        <translation type="obsolete">生产率</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="94"/>
-        <source>Land cover</source>
-        <translation type="obsolete">土地覆盖</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadData.ui" line="107"/>
-        <source>Soil organic carbon</source>
-        <translation type="obsolete">土壤有机碳</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataBase</name>
-    <message>
-        <location filename="../load_data.py" line="676"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="593"/>
-        <source>Choose an input raster file.</source>
-        <translation type="obsolete">选择一个输入栅格文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="597"/>
-        <source>Choose an input polygon dataset.</source>
-        <translation type="obsolete">选择一个输入多边形数据集。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="676"/>
-        <source>Raster import failed.</source>
-        <translation type="obsolete">栅格导入失败。</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataLC</name>
-    <message>
-        <location filename="../load_data.py" line="776"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="718"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">选择一个输出文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="721"/>
-        <source>No definition set</source>
-        <translation type="obsolete">没有定义集</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="721"/>
-        <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
-        <translation type="obsolete">单击“编辑定义”以在导出之前定义土地覆盖定义。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="776"/>
-        <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation type="obsolete">读取数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="23"/>
-        <source>Load a Custom Land Cover Dataset</source>
-        <translation type="obsolete">加载自定义土地覆盖数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="35"/>
-        <source>Choose a land cover aggregation method</source>
-        <translation type="obsolete">选择一种土地覆盖聚合方法</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="62"/>
-        <source>Edit definition</source>
-        <translation type="obsolete">编辑定义</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="69"/>
-        <source>Use sample when reading cover classes from input file</source>
-        <translation type="obsolete">从输入文件中读取封面类时使用示例</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataLC.ui" line="100"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="obsolete">注意：如果读取大文件，建议检查上述选项，因为它会显着加快从数据集读取输入类的过程。但是，如果您发现Trends.Earth没有识别输入文件中的所有类，则可能需要关闭此选项。</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataProd</name>
-    <message>
-        <location filename="../load_data.py" line="879"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="866"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">选择一个输出文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="879"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="obsolete">输入文件（{}）似乎不是有效的生产力输入文件。</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="23"/>
-        <source>Load a Custom Land Productivity Dataset</source>
-        <translation type="obsolete">加载自定义土地生产力数据集</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="35"/>
-        <source>Productivity class definition</source>
-        <translation type="obsolete">生产力类的定义</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataProd.ui" line="53"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;！DOCTYPE HTML PUBLIC“ -  // W3C // DTD HTML 4.0 // EN”“http://www.w3.org/TR/REC-html40/strict.dtd”&gt;
-&lt;html&gt; &lt;head&gt; &lt;meta name =“qrichtext”content =“1”/&gt; &lt;style type =“text / css”&gt;
-p，li {空格：预包装; }
-&lt;/ style&gt; &lt;/ head&gt; &lt;body style =“font-family：&apos;MS Shell Dlg 2&apos;; font-size：8.25pt; font-weight：400; font-style：normal;”&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt; font-weight：600;”&gt;输入数据中的生产力类必须编码如下：&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“ -  qt-paragraph-type：empty; margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent ：0px; font-size：8pt;“&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 1：正在降级&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 2：早衰迹象&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 3：稳定但强调&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 4：Stable &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 5：增加&lt;/ span&gt; &lt;/ p&gt;
-&lt;p style =“margin-top：0px; margin-bottom：0px; margin-left：0px; margin-right：0px; -qt-block-indent：0; text-indent：0px;”&gt; &lt;span style = “font-size：8pt;”&gt; 0或-32768：无数据&lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="883"/>
-        <source>Warning</source>
-        <translation type="obsolete">警告</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="883"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation type="obsolete">输入文件（{}）似乎不是有效的生产力输入文件。 Trends.Earth无论如何都会加载该文件，但在加载地图后查看地图以确保值合理。生产力输入文件中唯一允许的值是-32768,1,2,3,4和5.输入文件中有{}个值未被识别。</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataSOC</name>
-    <message>
-        <location filename="../load_data.py" line="827"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="810"/>
-        <source>Choose an output file.</source>
-        <translation type="obsolete">选择一个输出文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="823"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation type="obsolete">输入文件（{}）似乎不是有效的生产力输入文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="827"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. There are {} different values in the file. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5.</source>
-        <translation type="obsolete">输入文件（{}）似乎不是有效的生产力输入文件。文件中有{}个不同的值。生产力输入文件中唯一允许的值是-32768,1,2,3,4和5。</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataSOC.ui" line="23"/>
-        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
-        <translation type="obsolete">加载自定义土壤有机碳（SOC）数据集</translation>
-    </message>
-</context>
-<context>
-    <name>DlgLoadDataTE</name>
-    <message>
-        <location filename="../load_data.py" line="434"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="380"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">无法阅读 {}。选择一个不同的文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="409"/>
-        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="obsolete">无法自动添加“{}”。没有为这种类型的图层定义样式。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="415"/>
-        <source>Select a layer to load.</source>
-        <translation type="obsolete">选择要加载的图层。</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="17"/>
-        <source>Open a trends.earth file</source>
-        <translation type="obsolete">打开一个trends.earth文件</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="30"/>
-        <source>Select a layer(s)</source>
-        <translation type="obsolete">选择一个图层</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="55"/>
-        <source>View file metadata</source>
-        <translation type="obsolete">查看文件元数据</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="65"/>
-        <source>Select a file</source>
-        <translation type="obsolete">选择一个文件</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="80"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">点击“浏览”选择一个文件...</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgLoadDataTE.ui" line="93"/>
-        <source>Browse...</source>
-        <translation type="obsolete">浏览...</translation>
-    </message>
-</context>
-<context>
     <name>DlgPlot</name>
     <message>
         <location filename="../gui/DlgPlot.ui" line="31"/>
@@ -2170,62 +1866,6 @@ p，li {空格：预包装; }
         <location filename="../plot.py" line="85"/>
         <source>Linear trend (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</source>
         <translation>线性趋势（r &lt;sup&gt; 2 &lt;/ sup&gt; = {0：.2f}）</translation>
-    </message>
-</context>
-<context>
-    <name>DlgReporting</name>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="23"/>
-        <source>Visualization tools</source>
-        <translation type="obsolete">土地退化报告</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="61"/>
-        <source>Create Print Map</source>
-        <translation type="obsolete">“荒漠化公约”报告</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReporting.ui" line="48"/>
-        <source>Add Basemap</source>
-        <translation type="obsolete">添加底图</translation>
-    </message>
-</context>
-<context>
-    <name>DlgReportingBasemap</name>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="20"/>
-        <source>Add basemap</source>
-        <translation type="obsolete">添加底图</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="32"/>
-        <source>Mask </source>
-        <translation type="obsolete">面具</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="38"/>
-        <source>Use a mask</source>
-        <translation type="obsolete">使用面具</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="48"/>
-        <source>Mask all areas outside of:</source>
-        <translation type="obsolete">掩盖以下区域的所有区域：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="84"/>
-        <source>Second level:</source>
-        <translation type="obsolete">第二级：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="137"/>
-        <source>First level:</source>
-        <translation type="obsolete">第一级：</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgReportingBasemap.ui" line="174"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">声明：所提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style =“text-decoration：underline; color： ＃0000ff;“&gt;自然地球&lt;/ span&gt; &lt;/a&gt;，并且位于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =”text-decoration：underline; color：＃ 0000ff;“&gt;公共领域&lt;/ span&gt; &lt;/a&gt;。在趋势中使用的界限和名称以及所用的名称.earth并不意味着由国际保护基金会或其合作组织和贡献者正式认可或接受。&lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2634,7 +2274,7 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="23"/>
         <source>Visualization tools</source>
-        <translation type="unfinished">土地退化报告</translation>
+        <translation>土地退化报告</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="35"/>
@@ -2644,12 +2284,12 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="48"/>
         <source>Add Basemap</source>
-        <translation type="unfinished">添加底图</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="61"/>
         <source>Create Print Map</source>
-        <translation type="unfinished">“荒漠化公约”报告</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2657,37 +2297,37 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="20"/>
         <source>Add basemap</source>
-        <translation type="unfinished">添加底图</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="32"/>
         <source>Mask </source>
-        <translation type="unfinished">面具</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="38"/>
         <source>Use a mask</source>
-        <translation type="unfinished">使用面具</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="48"/>
         <source>Mask all areas outside of:</source>
-        <translation type="unfinished">掩盖以下区域的所有区域：</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="84"/>
         <source>Second level:</source>
-        <translation type="unfinished">第二级：</translation>
+        <translation>第二级：</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="137"/>
         <source>First level:</source>
-        <translation type="unfinished">第一级：</translation>
+        <translation>第一级：</translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="174"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">声明：所提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style =“text-decoration：underline; color： ＃0000ff;“&gt;自然地球&lt;/ span&gt; &lt;/a&gt;，并且位于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =”text-decoration：underline; color：＃ 0000ff;“&gt;公共领域&lt;/ span&gt; &lt;/a&gt;。在趋势中使用的界限和名称以及所用的名称.earth并不意味着由国际保护基金会或其合作组织和贡献者正式认可或接受。&lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+        <translation>声明：所提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style =“text-decoration：underline; color： ＃0000ff;“&gt;自然地球&lt;/ span&gt; &lt;/a&gt;，并且位于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =”text-decoration：underline; color：＃ 0000ff;“&gt;公共领域&lt;/ span&gt; &lt;/a&gt;。在趋势中使用的界限和名称以及所用的名称.earth并不意味着由国际保护基金会或其合作组织和贡献者正式认可或接受。&lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2695,37 +2335,37 @@ p，li {空格：预包装; }
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="14"/>
         <source>Create Map</source>
-        <translation type="unfinished">创建地图</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="32"/>
         <source>Layer to display:</source>
-        <translation type="unfinished">要显示的图层：</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="67"/>
         <source>Map name:</source>
-        <translation type="unfinished">地图标题：</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="99"/>
         <source>Author(s):</source>
-        <translation type="unfinished">作者（S）：</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="119"/>
         <source>Layout</source>
-        <translation type="unfinished">布局</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="125"/>
         <source>Portrait</source>
-        <translation type="unfinished">肖像</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="135"/>
         <source>Landscape</source>
-        <translation type="unfinished">景观</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2733,42 +2373,42 @@ p，li {空格：预包装; }
     <message>
         <location filename="../data_io.py" line="504"/>
         <source>Coming soon!</source>
-        <translation type="unfinished">快来了！</translation>
+        <translation>快来了！</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="504"/>
         <source>Processing of vector input datasets coming soon!</source>
-        <translation type="unfinished">矢量输入数据集的处理即将推出！</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="524"/>
         <source>Select a raster input file</source>
-        <translation type="unfinished">选择一个光栅输入文件</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="524"/>
         <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="unfinished">光栅文件（* .tif * .dat * .img）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="569"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="569"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="555"/>
         <source>Select a vector input file</source>
-        <translation type="unfinished">选择一个矢量输入文件</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="555"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation type="unfinished">矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
+        <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
 </context>
 <context>
@@ -2776,22 +2416,22 @@ p，li {空格：预包装; }
     <message>
         <location filename="../data_io.py" line="593"/>
         <source>Choose a name for the output file</source>
-        <translation type="unfinished">为输出文件选择一个名称</translation>
+        <translation>为输出文件选择一个名称</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="593"/>
         <source>Raster file (*.tif)</source>
-        <translation type="unfinished">光栅文件（* .tif）</translation>
+        <translation>光栅文件（* .tif）</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="603"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="603"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">无法写入{}。选择一个不同的文件。</translation>
+        <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
 </context>
 <context>
@@ -2823,8 +2463,7 @@ p，li {空格：预包装; }
     </message>
     <message>
         <location filename="../lc_setup.py" line="306"/>
-        <source>Tree-covered
-areas</source>
+        <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2844,9 +2483,8 @@ areas</source>
     </message>
     <message>
         <location filename="../lc_setup.py" line="310"/>
-        <source>Artificial
-areas</source>
-        <translation type="unfinished"></translation>
+        <source>Artificial</source>
+        <translation type="unfinished">人工区域</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="311"/>
@@ -2942,22 +2580,22 @@ areas</source>
         <translation>绘制数据</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="219"/>
+        <location filename="../plugin.py" line="212"/>
         <source>View Google Earth Engine tasks</source>
         <translation>查看Google地球引擎任务</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="219"/>
+        <location filename="../plugin.py" line="212"/>
         <source>View cloud processing tasks</source>
         <translation>查看云处理任务</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="226"/>
+        <location filename="../plugin.py" line="219"/>
         <source>Reporting tool</source>
         <translation>报告工具</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="226"/>
+        <location filename="../plugin.py" line="219"/>
         <source>Land degradation reporting</source>
         <translation>土地退化报告</translation>
     </message>
@@ -3002,22 +2640,22 @@ areas</source>
         <translation>绘制时间序列数据集</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="212"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Download raw data</source>
         <translation>下载原始数据</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="212"/>
+        <location filename="../plugin.py" line="233"/>
         <source>Download raw datasets</source>
         <translation>下载原始数据集</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="233"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Load data</source>
         <translation>加载数据</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="233"/>
+        <location filename="../plugin.py" line="226"/>
         <source>Load local data</source>
         <translation>加载本地数据</translation>
     </message>
@@ -3131,72 +2769,6 @@ areas</source>
     </message>
 </context>
 <context>
-    <name>LoadDataSelectFileInputWidget</name>
-    <message>
-        <location filename="../load_data.py" line="476"/>
-        <source>Coming soon!</source>
-        <translation type="obsolete">快来了！</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="476"/>
-        <source>Processing of vector input datasets coming soon!</source>
-        <translation type="obsolete">矢量输入数据集的处理即将推出！</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="496"/>
-        <source>Select a raster input file</source>
-        <translation type="obsolete">选择一个光栅输入文件</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="496"/>
-        <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="obsolete">光栅文件（* .tif * .dat * .img）</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="541"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="541"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">无法阅读 {}。选择一个不同的文件。</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="527"/>
-        <source>Select a vector input file</source>
-        <translation type="obsolete">选择一个矢量输入文件</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="527"/>
-        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation type="obsolete">矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
-    </message>
-</context>
-<context>
-    <name>LoadDataSelectRasterOutput</name>
-    <message>
-        <location filename="../load_data.py" line="565"/>
-        <source>Choose a name for the output file</source>
-        <translation type="obsolete">为输出文件选择一个名称</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="565"/>
-        <source>Raster file (*.tif)</source>
-        <translation type="obsolete">光栅文件（* .tif）</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="575"/>
-        <source>Error</source>
-        <translation type="obsolete">错误</translation>
-    </message>
-    <message>
-        <location filename="../load_data.py" line="575"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">无法写入{}。选择一个不同的文件。</translation>
-    </message>
-</context>
-<context>
     <name>WidgetCalculationOptions</name>
     <message>
         <location filename="../gui/WidgetCalculationOptions.ui" line="20"/>
@@ -3247,76 +2819,135 @@ areas</source>
 <context>
     <name>WidgetDataIOImportSelectFileInput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="23"/>
         <source>Select a file</source>
-        <translation type="unfinished">选择一个文件</translation>
+        <translation>选择一个文件</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="112"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">点击“浏览”选择一个文件...</translation>
+        <translation>点击“浏览”选择一个文件...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="48"/>
         <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation type="unfinished">多边形数据集（shapefile，KML，KMZ，GeoJSON）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="58"/>
         <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="unfinished">栅格数据集（.tif，.dat，.img）</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="141"/>
-        <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="93"/>
         <source>Field containing data:</source>
-        <translation type="unfinished">包含数据的字段：</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="119"/>
         <source>Band number:</source>
-        <translation type="unfinished">乐队编号：</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="188"/>
         <source>Modify resolution (in meters)</source>
-        <translation type="unfinished">修改分辨率（以米为单位）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="228"/>
         <source>Year of data</source>
-        <translation type="unfinished">数据年份</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
+        <source>Form</source>
+        <translation>形成</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="141"/>
+        <source>Browse</source>
+        <translation>浏览</translation>
     </message>
 </context>
 <context>
     <name>WidgetDataIOImportSelectRasterOutput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="20"/>
         <source>Output raster file (.tif)</source>
-        <translation type="unfinished">输出光栅文件（.tif）</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="38"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">点击“浏览”选择一个文件...</translation>
+        <translation>点击“浏览”选择一个文件...</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
+        <source>Form</source>
+        <translation>形成</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="60"/>
         <source>Browse</source>
+        <translation>浏览</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerBase</name>
+    <message>
+        <location filename="../data_io.py" line="1042"/>
+        <source>Select a Trends.Earth output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1042"/>
+        <source>Trends.Earth metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1062"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1058"/>
+        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1062"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation>无法阅读 {}。选择一个不同的文件。</translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerExisting</name>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="20"/>
+        <source>Form</source>
+        <translation>形成</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="51"/>
+        <source>Load existing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WidgetDataIOSelectTELayerImport</name>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="20"/>
+        <source>Form</source>
+        <translation>形成</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="51"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="70"/>
+        <source>Load existing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3432,82 +3063,6 @@ areas</source>
     </message>
 </context>
 <context>
-    <name>WidgetLoadDataSelectFileInput</name>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">形成</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="23"/>
-        <source>Select a file</source>
-        <translation type="obsolete">选择一个文件</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="112"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">点击“浏览”选择一个文件...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="48"/>
-        <source>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</source>
-        <translation type="obsolete">多边形数据集（shapefile，KML，KMZ，GeoJSON）</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="58"/>
-        <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="obsolete">栅格数据集（.tif，.dat，.img）</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="141"/>
-        <source>Browse</source>
-        <translation type="obsolete">浏览</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="93"/>
-        <source>Field containing data:</source>
-        <translation type="obsolete">包含数据的字段：</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="119"/>
-        <source>Band number:</source>
-        <translation type="obsolete">乐队编号：</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="188"/>
-        <source>Modify resolution (in meters)</source>
-        <translation type="obsolete">修改分辨率（以米为单位）</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectFileInput.ui" line="228"/>
-        <source>Year of data</source>
-        <translation type="obsolete">数据年份</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetLoadDataSelectRasterOutput</name>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">形成</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="20"/>
-        <source>Output raster file (.tif)</source>
-        <translation type="obsolete">输出光栅文件（.tif）</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="38"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="obsolete">点击“浏览”选择一个文件...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLoadDataSelectRasterOutput.ui" line="60"/>
-        <source>Browse</source>
-        <translation type="obsolete">浏览</translation>
-    </message>
-</context>
-<context>
     <name>WidgetSelectArea</name>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="20"/>
@@ -3615,49 +3170,11 @@ areas</source>
 </context>
 <context>
     <name>WidgetSelectTELayerBase</name>
-    <message>
-        <location filename="../data_io.py" line="1042"/>
-        <source>Select a Trends.Earth output file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1042"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1062"/>
-        <source>Error</source>
-        <translation>错误</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1058"/>
-        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1062"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation>无法阅读 {}。选择一个不同的文件。</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetSelectTELayerBrowse</name>
 </context>
 <context>
     <name>WidgetSelectTELayerExisting</name>
-    <message>
-        <location filename="../gui/WidgetSelectTELayerExisting.ui" line="20"/>
-        <source>Form</source>
-        <translation type="obsolete">形成</translation>
-    </message>
 </context>
 <context>
     <name>WidgetSelectTELayerImport</name>
-    <message>
-        <location filename="../gui/WidgetSelectTELayerImport.ui" line="20"/>
-        <source>Form</source>
-        <translation type="obsolete">形成</translation>
-    </message>
 </context>
 </TS>

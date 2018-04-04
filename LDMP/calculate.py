@@ -23,7 +23,7 @@ from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        QGis, QgsMapLayerRegistry, QgsProject, QgsRasterLayer, \
+        QGis, QgsMapLayerRegistry, QgsProject, \
         QgsLayerTreeGroup, QgsLayerTreeLayer, QgsVectorFileWriter
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan

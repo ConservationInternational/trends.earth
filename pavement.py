@@ -60,7 +60,15 @@ options(
         docs_s3_prefix = 'docs/',
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
         base_language = 'en',
-        latex_documents = ['Trends.Earth.tex', 'Trends.Earth_tutorial.tex']
+        latex_documents = ['Trends.Earth.tex',
+                           'Trends.Earth_Step1_Installation.tex',
+                           'Trends.Earth_Step2_Registration.tex',
+                           'Trends.Earth_Step3_Computing_Indicators.tex',
+                           'Trends.Earth_Step4_Create_Folder.tex',
+                           'Trends.Earth_Step5_Downloading_Results.tex',
+                           'Trends.Earth_Step6_Load_Basemap.tex',
+                           'Trends.Earth_Step7_Computing_SDG_Indicator.tex',
+                           'Trends.Earth_Step8_The_Summary_Table.tex']
     )
 )
 
@@ -642,11 +650,13 @@ def builddocs(options):
         for doc in options.sphinx.latex_documents:
             for n in range(3):
                 # Run multiple times to ensure crossreferences are right
-                subprocess.check_call(['xelatex', doc], cwd=os.path.dirname(doc))
+                print os.path.dirname(doc)
+                subprocess.check_call(['xelatex', doc], cwd=tex_dir)
             # Move the PDF to the html folder so it will be uploaded with the 
             # site
-            shutil.move('{tex_dir}/Trends.Earth.pdf'.format(tex_dir=tex_dir),
-                        '{builddir}/html/{lang}/Trends.Earth.pdf'.format(builddir=options.sphinx.builddir, lang=language))
+            doc_pdf = os.path.splitext(doc)[0] + '.pdf'
+            shutil.move('{tex_dir}/{doc}'.format(tex_dir=tex_dir, doc=doc_pdf),
+                        '{builddir}/html/{lang}/{doc}'.format(builddir=options.sphinx.builddir, lang=language, doc=doc_pdf))
 
 def _localize_resources(options, language):
     print("Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir))

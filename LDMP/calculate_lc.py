@@ -233,12 +233,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                               61, 62, 63, 64, 65, 6, 67,
                               71, 72, 73, 74, 75, 76, 7]]
 
-        if len(self.lc_setup_tab.layer_custom_initial_list) == 0:
+        if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add an initial land cover layer to your map before you can run the calculation."), None)
             return
 
-        if len(self.lc_setup_tab.layer_custom_final_list) == 0:
+        if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a final land cover layer to your map before you can run the calculation."), None)
             return

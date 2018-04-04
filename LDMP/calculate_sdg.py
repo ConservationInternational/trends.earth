@@ -39,8 +39,7 @@ from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import add_layer, create_local_json_metadata, \
-        get_band_info
+from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateSummaryTableAdmin import Ui_DlgCalculateSummaryTableAdmin
@@ -887,69 +886,42 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
         # degradation layers for these datasets
-        lc_band_infos = get_band_info(self.layer_lc.dataProvider().dataSourceUri())
+        lc_band_infos = self.combo_layer_lc.get_band_info()
         lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
         lc_annual_band_indices.sort(key=lambda i: lc_band_infos[i]['metadata']['year'])
         lc_years = [bi['metadata']['year'] for bi in lc_band_infos if bi['name'] == 'Land cover (7 class)']
 
-        soc_band_infos = get_band_info(self.layer_soc.dataProvider().dataSourceUri())
+        soc_band_infos = self.combo_layer_soc.get_band_info()
         soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
         soc_annual_band_indices.sort(key=lambda i: soc_band_infos[i]['metadata']['year'])
         soc_years = [bi['metadata']['year'] for bi in soc_band_infos if bi['name'] == 'Soil organic carbon']
 
         # Make the LC degradation file first in the list
-        lc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(lc_deg_f, self.layer_lc.dataProvider().dataSourceUri(),
-                bandList=[self.combo_layer_lc.get_bandnumber()])
+        lc_deg_f = self.combo_layer_lc.get_vrt()
         lc_files = [lc_deg_f]
         for i in lc_annual_band_indices:
             f = tempfile.NamedTemporaryFile(suffix='.vrt').name
             # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f, self.layer_lc.dataProvider().dataSourceUri(),
+            gdal.BuildVRT(f,
+                          self.combo_layer_lc.get_data_file(),
                           bandList=[i + 1])
             lc_files.append(f)
 
         # Make the SOC degradation file first in the list
-        soc_deg_f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(soc_deg_f, self.layer_soc.dataProvider().dataSourceUri(),
-                      bandList=[self.combo_layer_soc.get_bandnumber()])
+        soc_deg_f = self.combo_layer_soc.get_vrt()
         soc_files = [soc_deg_f]
         for i in soc_annual_band_indices:
             f = tempfile.NamedTemporaryFile(suffix='.vrt').name
             # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f, self.layer_soc.dataProvider().dataSourceUri(),
+            gdal.BuildVRT(f,
+                          self.combo_layer_soc.get_data_file(),
                           bandList=[i + 1])
             soc_files.append(f)
 
-        #######################################################################
-        # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
-        indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log(u'Saving indicator VRT to: {}'.format(indic_vrt))
-        # The plus one is because band numbers start at 1, not zero
         in_files = lc_files
         in_files.extend(soc_files)
         lc_band_nums = np.arange(len(lc_files)) + 1
         soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
-        if prod_mode == 'Trends.Earth productivity':
-            resample_alg = self.get_resample_alg(lc_deg_f, traj_vrt)
-            in_files.extend([traj_vrt, perf_vrt, state_vrt])
-            gdal.BuildVRT(indic_vrt,
-                          in_files,
-                          outputBounds=output_bounds,
-                          resolution=resample_alg[0],
-                          resampleAlg=resample_alg[1],
-                          separate=True)
-            prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
-        else:
-            resample_alg = self.get_resample_alg(lc_deg_f, lpd_vrt)
-            in_files.append(lpd_vrt)
-            gdal.BuildVRT(indic_vrt,
-                          in_files,
-                          outputBounds=output_bounds,
-                          resolution=resample_alg[0],
-                          resampleAlg=resample_alg[1],
-                          separate=True)
-            prod_band_nums = [max(soc_band_nums) + 1]
 
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
@@ -971,6 +943,32 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
             else:
                 output_bounds = self.aoi.get_aligned_output_bounds(lpd_vrt)
 
+            #######################################################################
+            # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
+            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+            # The plus one is because band numbers start at 1, not zero
+            if prod_mode == 'Trends.Earth productivity':
+                resample_alg = self.get_resample_alg(lc_deg_f, traj_vrt)
+                in_files.extend([traj_vrt, perf_vrt, state_vrt])
+                gdal.BuildVRT(indic_vrt,
+                              in_files,
+                              outputBounds=output_bounds,
+                              resolution=resample_alg[0],
+                              resampleAlg=resample_alg[1],
+                              separate=True)
+                prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
+            else:
+                resample_alg = self.get_resample_alg(lc_deg_f, lpd_vrt)
+                in_files.append(lpd_vrt)
+                gdal.BuildVRT(indic_vrt,
+                              in_files,
+                              outputBounds=output_bounds,
+                              resolution=resample_alg[0],
+                              resampleAlg=resample_alg[1],
+                              separate=True)
+                prod_band_nums = [max(soc_band_nums) + 1]
+
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
             deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
@@ -988,10 +986,19 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                 output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '_{}.tif'.format(n)
             else:
                 output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
+
+            log('prod bands: {}'.format(prod_band_nums))
+            log('lc bands: {}'.format(lc_band_nums))
+            log('soc bands: {}'.format(soc_band_nums))
+
             output_sdg_tifs.append(output_sdg_tif)
-            deg_worker = StartWorker(DegradationSummaryWorkerSDG, 'calculating summary table',
-                                     masked_vrt, prod_band_nums, prod_mode, 
-                                     output_sdg_tif, lc_band_nums, 
+            deg_worker = StartWorker(DegradationSummaryWorkerSDG,
+                                    'calculating summary table',
+                                     masked_vrt,
+                                     prod_band_nums,
+                                     prod_mode, 
+                                     output_sdg_tif,
+                                     lc_band_nums, 
                                      soc_band_nums)
             if not deg_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),

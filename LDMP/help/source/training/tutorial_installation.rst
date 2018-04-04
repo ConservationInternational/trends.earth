@@ -1,6 +1,9 @@
 ﻿Install Trends.Earth
 ====================
 
+.. note:: `Download this page as a PDF for offline use 
+   <Trends.Earth_Step1_Installation.pdf>`_
+
 .. image:: /static/training/tut01_qgis.png
    :align: center
 

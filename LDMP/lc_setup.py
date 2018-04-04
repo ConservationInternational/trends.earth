@@ -496,7 +496,7 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
             self.groupBox_custom_tg.setEnabled(True)
 
     def get_initial_year(self):
-        initial_bandnumber_bandnumber = self.use_custom_final.get_bandnumber()
+        initial_bandnumber = self.use_custom_final.get_bandnumber()
         return self.use_custom_initial.get_band_info()[initial_bandnumber - 1]['metadata']['year']
 
     def get_final_year(self):

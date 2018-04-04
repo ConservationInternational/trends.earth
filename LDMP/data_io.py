@@ -618,6 +618,10 @@ class DlgDataIOImportBase(QtGui.QDialog):
         self.input_widget = ImportSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
+        # The datatype determines whether the dataset resampling is done with 
+        # nearest neighbor and mode or nearest neighbor and mean
+        self.datatype = 'categorical'
+
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
             if self.input_widget.lineEdit_raster_file.text() == '':
@@ -632,9 +636,14 @@ class DlgDataIOImportBase(QtGui.QDialog):
         in_res = self.get_in_res_wgs84()
         out_res = self.get_out_res_wgs84()
         if in_res < out_res:
-            # If output resolution is lower than the original data, use mode
-            log('Resampling with mode (in res: {}, out_res: {}'.format(in_res, out_res))
-            return gdal.GRA_Mode
+            if self.datatype == 'categorical':
+                log('Resampling with mode (in res: {}, out_res: {}'.format(in_res, out_res))
+                return gdal.GRA_Mode
+            elif self.datatype == 'continuous':
+                log('Resampling with average (in res: {}, out_res: {}'.format(in_res, out_res))
+                return gdal.GRA_Average
+            else:
+                raise ValueError('Unknown datatype')
         else:
             # If output resolution is finer than the original data, use nearest 
             # neighbor
@@ -658,6 +667,8 @@ class DlgDataIOImportBase(QtGui.QDialog):
         (ulx, uly, ulz) = tx.TransformPoint(geo_t[0], geo_t[3])
         (lrx, lry, lrz) = tx.TransformPoint(geo_t[0] + geo_t[1]*x_size, \
                                                      geo_t[3] + geo_t[5]*y_size)
+        log('ulx: {}, uly: {}, ulz: {}'.format(ulx, uly, ulz))
+        log('lrx: {}, lry: {}, lrz: {}'.format(lrx, lry, lrz))
         # As an approximation of what the output res would be in WGS4, use an 
         # average of the x and y res of this image
         return ((lrx - ulx)/float(x_size) + (lry - uly)/float(y_size)) / 2
@@ -834,6 +845,8 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         # button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
+
+        self.datatype = 'continuous'
 
     def done(self, value):
         if value == QtGui.QDialog.Accepted:

@@ -26,8 +26,8 @@ from openpyxl.drawing.image import Image
 from PyQt4 import QtGui, uic, QtXml
 from PyQt4.QtCore import QSettings
 
-from qgis.core import QgsGeometry, QgsRasterLayer, QgsColorRampShader, \
-    QgsRasterShader, QgsSingleBandPseudoColorRenderer, QgsVectorLayer, \
+from qgis.core import QgsGeometry, QgsColorRampShader, \
+    QgsRasterShader, QgsSingleBandPseudoColorRenderer, \
     QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
     QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, \
     QgsLayerDefinition
@@ -878,11 +878,11 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
         if prod_mode == 'Trends.Earth productivity':
-            traj_vrt = setlf.combo_layer_traj.get_vrt()
-            perf_vrt = setlf.combo_layer_perf.get_vrt()
-            state_vrt = setlf.combo_layer_state.get_vrt()
+            traj_vrt = self.combo_layer_traj.get_vrt()
+            perf_vrt = self.combo_layer_perf.get_vrt()
+            state_vrt = self.combo_layer_state.get_vrt()
         else:
-            lpd_vrt = setlf.combo_layer_lpd.get_vrt()
+            lpd_vrt = self.combo_layer_lpd.get_vrt()
 
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen

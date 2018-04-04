@@ -162,7 +162,7 @@ def round_to_n(x, sf=3):
         return round(x, -int(floor(log10(x))) + (sf - 1))
 
 
-def get_sample(f, band_number, n=10000):
+def get_sample(f, band_number, n=1e6):
     '''Get a gridded sample of a raster dataset'''
     ds = gdal.Open(f)
     b = ds.GetRasterBand(band_number)
@@ -176,7 +176,7 @@ def get_sample(f, band_number, n=10000):
     else:
         edge = xsize
     grid_size = np.ceil(edge / np.sqrt(n))
-    if (grid_size * grid_size) > (b.XSize * b.YSize):
+    if (n > xsize * ysize) or ((grid_size * grid_size) > (xsize * ysize)):
         # Don't sample if the sample would be larger than the array itself
         return b.ReadAsArray().astype(np.float)
     else:
@@ -199,6 +199,7 @@ def get_cutoff(f, band_number, band_info, percentiles):
     md = np.ma.masked_where(d == band_info['no_data_value'], d)
     if md.size == 0:
         # If all of the values are no data, return 0
+        log('All values are no data')
         return 0
     else:
         cutoffs = np.nanpercentile(md.compressed(), percentiles)

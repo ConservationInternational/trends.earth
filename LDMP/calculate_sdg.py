@@ -918,7 +918,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                           bandList=[i + 1])
             soc_files.append(f)
 
-        in_files = lc_files
+        in_files = list(lc_files)
         in_files.extend(soc_files)
         lc_band_nums = np.arange(len(lc_files)) + 1
         soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()

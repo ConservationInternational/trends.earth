@@ -23,7 +23,6 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from LDMP import log
-from LDMP.layers import get_band_info
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
@@ -498,11 +497,11 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
 
     def get_initial_year(self):
         initial_bandnumber_bandnumber = self.use_custom_final.get_bandnumber()
-        return get_band_info(self.use_custom_initial.get_layer().dataProvider().dataSourceUri())[initial_bandnumber - 1]['metadata']['year']
+        return self.use_custom_initial.get_band_info()[initial_bandnumber - 1]['metadata']['year']
 
     def get_final_year(self):
         final_bandnumber = self.use_custom_final.get_bandnumber()
-        return get_band_info(self.use_custom_final.get_layer().dataProvider().dataSourceUri())[final_bandnumber - 1]['metadata']['year']
+        return self.use_custom_final.get_band_info()[final_bandnumber - 1]['metadata']['year']
 
     def esa_agg_custom_edit(self):
         self.dlg_esa_agg.exec_()

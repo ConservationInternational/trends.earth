@@ -1064,16 +1064,22 @@ class WidgetDataIOSelectTELayerBase(QtGui.QWidget):
             else:
                 break
 
+    def get_data_file(self):
+        return self.layer_list[self.comboBox_layers.currentIndex()][0]
+
     def get_layer(self):
         return QgsRasterLayer(self.layer_list[self.comboBox_layers.currentIndex()][0], "raster file", "gdal")
 
     def get_bandnumber(self):
-        return self.layer_list[self.comboBox_layers.currentIndex()][1]
+        return self.layer_list[self.comboBox_layers.currentIndex()][2]
+
+    def get_band_info(self):
+        return get_band_info(self.layer_list[self.comboBox_layers.currentIndex()][0])
 
     def get_vrt(self):
         f = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(f,
-                      self.get_layer().dataProvider().dataSourceUri(),
+                      self.layer_list[self.comboBox_layers.currentIndex()][0],
                       bandList=[self.get_bandnumber()])
         return f
 

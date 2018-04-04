@@ -101,7 +101,7 @@ class RasterImportWorker(AbstractWorker):
         if self.out_res:
             res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                             xRes=self.out_res, yRes=-self.out_res,
-                            srcNodata=-32768, dstNodata=-32767,
+                            dstNodata=-32768,
                             dstSRS="epsg:4326",
                             outputType=self.out_data_type,
                             resampleAlg=self.resample_mode,
@@ -109,7 +109,7 @@ class RasterImportWorker(AbstractWorker):
                             callback=self.progress_callback)
         else:
             res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                            srcNodata=-32768, dstNodata=-32767,
+                            dstNodata=-32768,
                             dstSRS="epsg:4326",
                             outputType=self.out_data_type,
                             resampleAlg=self.resample_mode,
@@ -203,12 +203,13 @@ def get_unique_values_vector(l, field, max_unique=60):
         return values
 
 
-def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=-32768):
+def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0):
+    # Note that anything less than nodata value is considered no data
     if sample:
         # Note need float to correctly mark and ignore nodata for for nanmin 
         # and nanmax 
         values = get_sample(f, band_num, n=1e6).astype('float32')
-        values[values == nodata] = np.nan
+        values[values < nodata] = np.nan
         mn = np.nanmin(values)
         if mn < min_min:
             return None

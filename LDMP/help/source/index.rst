@@ -41,7 +41,7 @@ videos, are available on this website:
 * :ref:`videos`
 
 .. note:: `Download this documentation as a PDF for offline use 
-   <trends-earth.pdf>`_
+   <Trends.Earth.pdf>`_
 
 .. raw:: latex
 

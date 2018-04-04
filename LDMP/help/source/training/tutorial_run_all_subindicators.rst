@@ -1,6 +1,9 @@
 ﻿Run 1-step subindicators
 ========================
 
+.. note:: `Download this page as a PDF for offline use 
+   <Trends.Earth_Step3_Computing_Indicators.pdf>`_
+
 .. image:: /static/training/tut12_run.png
    :align: center
    

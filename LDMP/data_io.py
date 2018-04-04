@@ -1065,7 +1065,7 @@ class WidgetDataIOSelectTELayerBase(QtGui.QWidget):
                 break
 
     def get_layer(self):
-        return self.layer_list[self.comboBox_layers.currentIndex()][0]
+        return QgsVectorLayer(self.layer_list[self.comboBox_layers.currentIndex()][0], "vector file", "ogr")
 
     def get_bandnumber(self):
         return self.layer_list[self.comboBox_layers.currentIndex()][1]

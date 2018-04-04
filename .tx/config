@@ -82,6 +82,46 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/settings.po
 source_file = LDMP/help/i18n/pot/documentation/settings.pot
 source_lang = en
 
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_compute_sdg_indicator]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_sdg_indicator.po
+source_file = LDMP/help/i18n/pot/training/tutorial_compute_sdg_indicator.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_create_folder]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_create_folder.po
+source_file = LDMP/help/i18n/pot/training/tutorial_create_folder.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_installation]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_installation.po
+source_file = LDMP/help/i18n/pot/training/tutorial_installation.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_load_basemap]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_load_basemap.po
+source_file = LDMP/help/i18n/pot/training/tutorial_load_basemap.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_registration]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_registration.po
+source_file = LDMP/help/i18n/pot/training/tutorial_registration.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_run_all_subindicators]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_run_all_subindicators.po
+source_file = LDMP/help/i18n/pot/training/tutorial_run_all_subindicators.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_summary_table]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_summary_table.po
+source_file = LDMP/help/i18n/pot/training/tutorial_summary_table.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_task_download]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_task_download.po
+source_file = LDMP/help/i18n/pot/training/tutorial_task_download.pot
+source_lang = en
+
 [land_degradation_monitoring_toolbox_docs_1_0.training--video_links]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/video_links.po
 source_file = LDMP/help/i18n/pot/training/video_links.pot
@@ -92,4 +132,3 @@ file_filter = LDMP/i18n/LDMP_<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en
 type = QT
-

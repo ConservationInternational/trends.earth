@@ -84,5 +84,12 @@ videos, are available on this website:
     :maxdepth: 2
     :caption: Training materials
 
-    training/tutorial
+    training/tutorial_installation
+    training/tutorial_registration
+    training/tutorial_run_all_subindicators
+    training/tutorial_create_folder
+    training/tutorial_task_download
+    training/tutorial_load_basemap
+    training/tutorial_compute_sdg_indicator
+    training/tutorial_summary_table
     training/video_links

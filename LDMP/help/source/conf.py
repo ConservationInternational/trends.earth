@@ -229,8 +229,7 @@ latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     'papersize': 'a4paper',
     'preamble': u'''\\usepackage{fontspec}
-                    \\setmainfont{lmroman10-regular.otf}
-                    \\newfontfamily\\arabicfont[Script=Arabic]{Amiri}''',
+                    \\setmainfont{lmroman10-regular.otf}''',
 }
 
 # The name of an image file (relative to this directory) to place at the top of

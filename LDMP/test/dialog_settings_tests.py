@@ -25,12 +25,15 @@ from LDMP.settings import DlgSettingsLogin
 from LDMP.test import regular_keys, admin_keys
 
 
+# Ensure any message boxes that open are closed within 5 seconds
 def close_msg_boxes():
-    topWidgets = QApplication.topLevelWidgets();
-    for w in topWidgets:
+    for w in QApplication.topLevelWidgets():
         if isinstance(w, QMessageBox):
             print('Closing message box')
             QTest.keyClick(w, Qt.Key_Enter)
+timer = QTimer()
+timer.timeout.connect(close_msg_boxes)
+timer.start(5000)
 
 class DialogSettingsLoginTests(unittest.TestCase):
     def testLogin(self):

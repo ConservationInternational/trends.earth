@@ -2,7 +2,7 @@
 ====================
 
 .. note:: `Download this page as a PDF for offline use 
-   <Trends.Earth_Step8_The_Summary_Table.pdf>`_
+   <../pdfs/Trends.Earth_Step8_The_Summary_Table.pdf>`_
 
 .. image:: /static/training/tut37_sdg_order2.png
    :align: center

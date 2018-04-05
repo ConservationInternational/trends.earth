@@ -2,7 +2,7 @@
 ======================
 
 .. note:: `Download this page as a PDF for offline use 
-   <Trends.Earth_Step7_Computing_SDG_Indicator.pdf>`_
+   <../pdfs/Trends.Earth_Step7_Computing_SDG_Indicator.pdf>`_
 
 .. image:: /static/training/tut29_calculate_sdg.png
    :align: center

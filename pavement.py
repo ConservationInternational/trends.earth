@@ -655,8 +655,11 @@ def builddocs(options):
             # Move the PDF to the html folder so it will be uploaded with the 
             # site
             doc_pdf = os.path.splitext(doc)[0] + '.pdf'
+            out_dir = '{builddir}/html/{lang}/pdfs'.format(builddir=options.sphinx.builddir, lang=language)
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir)
             shutil.move('{tex_dir}/{doc}'.format(tex_dir=tex_dir, doc=doc_pdf),
-                        '{builddir}/html/{lang}/{doc}'.format(builddir=options.sphinx.builddir, lang=language, doc=doc_pdf))
+                        '{out_dir}/{doc}'.format(out_dir=out_dir, doc=doc_pdf))
 
 def _localize_resources(options, language):
     print("Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir))

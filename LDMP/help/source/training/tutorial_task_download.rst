@@ -2,7 +2,7 @@
 ======================
 
 .. note:: `Download this page as a PDF for offline use 
-   <Trends.Earth_Step5_Downloading_Results.pdf>`_
+   <../pdfs/Trends.Earth_Step5_Downloading_Results.pdf>`_
 
 .. image:: /static/training/tut20_running.png
    :align: center

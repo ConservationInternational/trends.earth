@@ -13,10 +13,6 @@ docker-compose ps
 sleep 10
 
 # Setup
-#$DOCKER_RUN_COMMAND "apt-get -qq update"
-#$DOCKER_RUN_COMMAND "apt-get -qq -y install curl"
-#$DOCKER_RUN_COMMAND "curl -O https://bootstrap.pypa.io/get-pip.py"
-#$DOCKER_RUN_COMMAND "python get-pip.py"
 $DOCKER_RUN_COMMAND "pip install pip==9.0.1"
 $DOCKER_RUN_COMMAND "qgis_setup.sh $PLUGIN_NAME"
 $DOCKER_RUN_COMMAND "cd /tests_directory && git submodule update --init --recursive"

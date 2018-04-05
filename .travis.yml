@@ -34,7 +34,7 @@ script:
 - docker version
 - docker-compose version
 - docker-compose exec qgis-testing-environment sh -c "GSHOSTNAME=boundless-test qgis_testrunner.sh
-  LDMP.test.dialog_settings_tests.run_all"
+  LDMP.test.dialog_settings_tests"
 after_success:
 - |
   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then

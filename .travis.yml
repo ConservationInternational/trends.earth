@@ -18,10 +18,13 @@ before_install:
 - docker-compose up -d
 - docker-compose ps
 - sleep 10
-- pip install --user --upgrade pip
+# Fix pip 10.0 issue (AttributeError: 'module' object has no attribute 
+# 'main')
+- docker-compose exec qgis-testing-environment sh -c "pip install pip==9.0.1"
 - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"
 - docker-compose exec qgis-testing-environment sh -c "pip install boto3"
+- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && git submodule update --init --recursive"
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
@@ -31,7 +34,7 @@ script:
 - docker version
 - docker-compose version
 - docker-compose exec qgis-testing-environment sh -c "GSHOSTNAME=boundless-test qgis_testrunner.sh
-  LDMP.test.dialog_settings_tests.run_all"
+  LDMP.test.dialog_settings_tests"
 after_success:
 - |
   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then

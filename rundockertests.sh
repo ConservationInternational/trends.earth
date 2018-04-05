@@ -2,15 +2,20 @@
 # Run docker tests on your local machine
 
 PLUGIN_NAME="LDMP"
+export QGIS_VERSION_TAG="master_2"
 
-DOCKER_RUN_COMMAND="docker exec -it qgis-testing-environment sh -c"
+DOCKER_RUN_COMMAND="docker exec -it trendsearth_qgis-testing-environment_1 sh -c"
 
-git clone https://github.com/boundlessgeo/qgis-testing-environment-docker qgis-testing-environment
-cd qgis-testing-environment && docker build -t qgis-testing-environment --build-arg QGIS_BRANCH=release-2_18 --build-arg LEGACY='true' .
+docker-compose down -v
+docker-compose up -d
+docker-compose ps
+
 sleep 10
 
 # Setup
+$DOCKER_RUN_COMMAND "pip install pip==9.0.1"
 $DOCKER_RUN_COMMAND "qgis_setup.sh $PLUGIN_NAME"
+$DOCKER_RUN_COMMAND "cd /tests_directory && git submodule update --init --recursive"
 $DOCKER_RUN_COMMAND "pip install paver"
 $DOCKER_RUN_COMMAND "pip install boto3"
 $DOCKER_RUN_COMMAND "cd /tests_directory && paver setup && paver package --tests"

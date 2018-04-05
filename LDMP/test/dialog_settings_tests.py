@@ -16,7 +16,7 @@ import unittest
 import sys
 
 from qgis.core import *
-from PyQt4.QtGui import QMessageBox
+from PyQt4.QtGui import QMessageBox, QApplication
 from PyQt4.QtCore import *
 from PyQt4.QtTest import QTest
 

@@ -76,30 +76,39 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         # this dialog - the one on the main setup tab
         self.lc_setup_tab.groupBox_esa_period.hide()
 
+        #######################################################################
+        #######################################################################
+        # Hack to calculate multiple countries at once for workshop preparation
+        #######################################################################
+        #######################################################################
+        # from PyQt4.QtCore import QTimer, Qt
+        # from PyQt4.QtGui import QMessageBox, QApplication
+        # from PyQt4.QtTest import QTest
         # from time import sleep
-        # countries = ["Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", 
-        #              "Burundi", "Cameroon", "Cabo Verde",
-        #              "Central African Republic", "Chad", "Comoros", "Congo", 
-        #              "Côte d'Ivoire", "Dem. Rep. Congo", 
-        #              "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", 
-        #              "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", 
-        #              "Guinea-Bissau", "Kenya", "Lesotho", "Liberia", "Libya", 
-        #              "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", 
-        #              "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", 
-        #              "Rwanda", "São Tomé and Principe", "Senegal", 
-        #              "Seychelles", "Sierra Leone", "Somalia", "South Africa", 
-        #              "Sudan", "Swaziland", "Togo", "Tunisia", "Uganda", 
-        #              "Tanzania", "Zambia", "Zimbabwe", "South Sudan"]
-        # for country in countries:
-        #     idx = self.area_tab.area_admin_0.findText(country)
-        #     log('country: {}, idx: {}'.format(country, idx))
-        #     self.area_tab.area_admin_0.setCurrentIndex(idx)
-        #     self.options_tab.task_name.setText(country)
+        #
+        # # Ensure any message boxes that open are closed within 1 second
+        # def close_msg_boxes():
+        #     for w in QApplication.topLevelWidgets():
+        #         if isinstance(w, QMessageBox):
+        #             print('Closing message box')
+        #             QTest.keyClick(w, Qt.Key_Enter)
+        # timer = QTimer()
+        # timer.timeout.connect(close_msg_boxes)
+        # timer.start(1000)
+        # for row in range(self.area_tab.area_admin_0.model().rowCount()):
+        #     self.area_tab.area_admin_0.setCurrentIndex(row)
+        #     index = self.area_tab.area_admin_0.model().index(row, 0)
+        #     country = self.area_tab.area_admin_0.model().data(index)
+        #     name = u'{}_All_Indicators_LPD'.format(country)
+        #     log(name)
+        #     self.options_tab.task_name.setText(name)
         #     self.btn_calculate()
-        #     mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-        #                    QtGui.QApplication.translate("LDMP", "Submitted {}.".format(country)),
-        #                    level=0, duration=1)
-        #     sleep(2)
+        #     sleep(3)
+        #######################################################################
+        #######################################################################
+        # End hack
+        #######################################################################
+        #######################################################################
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

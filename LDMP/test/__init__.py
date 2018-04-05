@@ -24,7 +24,7 @@ with open(os.path.join(os.path.dirname(__file__), 'trends.earth_test_user_creden
 with open(os.path.join(os.path.dirname(__file__), 'trends.earth_admin_user_credentials.json'), 'r') as fin:
     admin_keys = json.load(fin)
 
-# Ensure any message boxes that open are closed within 5 seconds
+# Ensure any message boxes that open are closed within 1 second
 def close_msg_boxes():
     for w in QApplication.topLevelWidgets():
         if isinstance(w, QMessageBox):
@@ -32,4 +32,4 @@ def close_msg_boxes():
             QTest.keyClick(w, Qt.Key_Enter)
 timer = QTimer()
 timer.timeout.connect(close_msg_boxes)
-timer.start(5000)
+timer.start(1000)

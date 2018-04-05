@@ -18,15 +18,13 @@ before_install:
 - docker-compose up -d
 - docker-compose ps
 - sleep 10
-# Attempt to fix pip issue (AttributeError: 'module' object has no attribute 
+# Fix pip 10.0 issue (AttributeError: 'module' object has no attribute 
 # 'main')
+- docker-compose exec qgis-testing-environment sh -c "pip install pip==9.0.1"
 - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
-- docker-compose exec qgis-testing-environment sh -c "apt-get -qq update"
-- docker-compose exec qgis-testing-environment sh -c "apt-get -qq -y install curl"
-- docker-compose exec qgis-testing-environment sh -c "curl -O https://bootstrap.pypa.io/get-pip.py"
-- docker-compose exec qgis-testing-environment sh -c "python get-pip.py"
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"
 - docker-compose exec qgis-testing-environment sh -c "pip install boto3"
+- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && git submodule update --init --recursive"
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)

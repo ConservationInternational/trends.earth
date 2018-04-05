@@ -23,17 +23,14 @@ from PyQt4.QtTest import QTest
 
 from LDMP.settings import DlgSettingsLogin
 
+from LDMP.test import regular_keys, admin_keys
+
 
 def close_msg_boxes():
     topWidgets = QApplication.topLevelWidgets();
     for w in topWidgets:
         if isinstance(w, QMessageBox):
             QTest.keyClick(w, Qt.Key_Enter)
-
-with open(os.path.join(os.path.dirname(__file__), 'trends.earth_test_user_credentials.json'), 'r') as fin:
-    regular_keys = json.load(fin)
-with open(os.path.join(os.path.dirname(__file__), 'trends.earth_admin_user_credentials.json'), 'r') as fin:
-    admin_keys = json.load(fin)
 
 class DialogSettingsLoginTests(unittest.TestCase):
     def testLogin(self):

@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+import os
 import json
 
 with open(os.path.join(os.path.dirname(__file__), 'trends.earth_test_user_credentials.json'), 'r') as fin:

@@ -2,7 +2,7 @@
 ====================
 
 .. note:: `Download this page as a PDF for offline use 
-   <Trends.Earth_Step6_Load_Basemap.pdf>`_
+   <../pdfs/Trends.Earth_Step6_Load_Basemap.pdf>`_
 
 .. image:: /static/training/tut25_basemap.png
    :align: center

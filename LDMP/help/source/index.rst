@@ -1,4 +1,4 @@
-﻿trends.earth
+﻿Trends.Earth
 ============
 
 .. image:: /static/common/trends_earth_logo_bl_1200.png
@@ -41,7 +41,7 @@ videos, are available on this website:
 * :ref:`videos`
 
 .. note:: `Download this documentation as a PDF for offline use 
-   <Trends.Earth.pdf>`_
+   <pdfs/Trends.Earth.pdf>`_
 
 .. raw:: latex
 

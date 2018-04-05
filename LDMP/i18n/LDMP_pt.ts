@@ -79,7 +79,7 @@
     <message>
         <location filename="../layers.py" line="106"/>
         <source>Tree-covered loss</source>
-        <translation type="unfinished"/>
+        <translation>Perda de floresta</translation>
     </message>
     <message>
         <location filename="../layers.py" line="107"/>
@@ -99,7 +99,7 @@
     <message>
         <location filename="../layers.py" line="110"/>
         <source>Artificial loss</source>
-        <translation type="unfinished"/>
+        <translation>Perda de área artificial</translation>
     </message>
     <message>
         <location filename="../layers.py" line="91"/>
@@ -134,7 +134,7 @@
     <message>
         <location filename="../layers.py" line="96"/>
         <source>1 - Tree-covered</source>
-        <translation type="unfinished"/>
+        <translation>1 - Floresta</translation>
     </message>
     <message>
         <location filename="../layers.py" line="62"/>
@@ -425,7 +425,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // PT&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name = &quot;qrichtext&quot; conteúdo = &quot;1&quot; /&gt;&lt;estilo type = &quot;texto / css&quot;&gt;
 p, li {espaço branco: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style = &quot;família-fonte: &apos;MS Shell Dlg 2&apos;; tamanho da fonte: 8.25pt; peso da fonte: 400; estilo da fonte: normal;&quot;&gt;
@@ -433,7 +433,7 @@ p, li {espaço branco: pre-wrap; }
 &lt;p align = &quot;center&quot; estilo = &quot;- qt-paragraph-type: vazio; margin-top: 0px; margem-inferior: 0px; margem-esquerda: 0px; margem-direita: 0px; -qt-block-indent: 0; recuo de texto: 0px; tamanho da fonte: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align = &quot;center&quot; estilo = &quot;margin-top: 0px; margem-fundo: 0px; margin-left: 0px; margem-direita: 0px; -qt-block-indent: 0; recuo de texto: 0px;&quot; &gt;&lt;span style = &quot;font-size: 12pt;&quot;&gt; Versão VERSION_NUMBER &lt;/span&gt;&lt;/p&gt;
 &lt;p align = &quot;center&quot; estilo = &quot;- qt-paragraph-type: vazio; margin-top: 0px; margem-inferior: 0px; margem-esquerda: 0px; margem-direita: 0px; -qt-block-indent: 0; recuo de texto: 0px; tamanho da fonte: 8pt; &quot;&gt;&lt;br /&gt; &lt;/p&gt;
-&lt;p align = &quot;center&quot; estilo = &quot;margin-top: 0px; margem-fundo: 0px; margin-left: 0px; margem-direita: 0px; -qt-block-indent: 0; recuo de texto: 0px;&quot; &gt;&lt;span style = &quot;font-size: 12pt;&quot;&gt; Acesse o guia do usuário aqui: &lt;/span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style = &quot;font-size : 12pt; texto-decoração: sublinhado; cor: # 0000ff; &quot;&gt; http://trends.earth/docs/en &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p align = &quot;center&quot; estilo = &quot;margin-top: 0px; margem-fundo: 0px; margin-left: 0px; margem-direita: 0px; -qt-block-indent: 0; recuo de texto: 0px;&quot; &gt;&lt;span style = &quot;font-size: 12pt;&quot;&gt; Acesse o guia do usuário aqui: &lt;/span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style = &quot;font-size : 12pt; texto-decoração: sublinhado; cor: # 0000ff; &quot;&gt; http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style = &quot;- qt-paragraph-type: vazio; top-de-margem: 0px; margem-inferior: 0px; margem-esquerda: 0px; margem-direita: 0px; -qt-bloco-recuo: 0; recuo de texto : 0px; tamanho da fonte: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style = &quot;margin-top: 0px; margem-inferior: 0px; margem-esquerda: 0px; margem-direita: 0px; -qt-block-indent: 0; recuo de texto: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;trends.earth (anteriormente conhecida como Land Degradation Monitoring Toolbox) é uma ferramenta para monitorar a mudança de terra. trends.earth é um &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style = &quot;tamanho-da-fonte: 8pt; texto-decoração: sublinhado; cor: # 0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt; plugin que suporta o monitoramento da mudança de terra, incluindo mudanças na produtividade, cobertura do solo e carbono orgânico do solo. A ferramenta pode apoiar o monitoramento da degradação da terra para reportar ao Global Environment Facility (GEF) e à Convenção das Nações Unidas para Combater a Desertificação (UNCCD), bem como monitorar o progresso para alcançar a meta 15.3, Neutralidade da Degradação do Solo (LDN) ). &lt;/span&gt;&lt;/p&gt;
 &lt;p style = &quot;- qt-paragraph-type: vazio; top-de-margem: 0px; margem-inferior: 0px; margem-esquerda: 0px; margem-direita: 0px; -qt-bloco-recuo: 0; recuo de texto : 0px; tamanho da fonte: 8pt; &quot;&gt;&lt;br /&gt; &lt;/p&gt;
@@ -2337,7 +2337,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualizationBasemap.ui" line="174"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt; Aviso: os limites fornecidos são de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style = &quot;text-decoration: sublinhado; cor: # 0000ff; &quot;&gt; Natural Earth &lt;/span&gt;&lt;/a&gt;, e estão no &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style =&quot; text-decoration: sublinhado; color: # 0000ff; &quot;&gt; domínio público &lt;/span&gt;&lt;/a&gt;. Os limites e nomes usados ​​e as designações usadas em trends.earth não implicam em endosso oficial ou aceitação por parte da Conservation International Foundation, ou por suas organizações parceiras e colaboradores. &lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt; Aviso: os limites fornecidos são de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style = &quot;text-decoration: sublinhado; cor: # 0000ff; &quot;&gt; Natural Earth &lt;/span&gt;&lt;/a&gt;, e estão no &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style =&quot; text-decoration: sublinhado; color: # 0000ff; &quot;&gt; domínio público &lt;/span&gt;&lt;/a&gt;. Os limites e nomes usados ​​e as designações usadas em trends.earth não implicam em endosso oficial ou aceitação por parte da Conservation International Foundation, ou por suas organizações parceiras e colaboradores. &lt;/P&gt;&lt;/p&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3114,7 +3114,7 @@ areas</translation>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt; Aviso: os limites fornecidos são de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style = &quot;text-decoration: sublinhado; cor: # 0000ff; &quot;&gt; Natural Earth &lt;/span&gt;&lt;/a&gt;, e estão no &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style =&quot; text-decoration: sublinhado; color: # 0000ff; &quot;&gt; domínio público &lt;/span&gt;&lt;/a&gt;. Os limites e nomes usados ​​e as designações usadas em trends.earth não implicam em endosso oficial ou aceitação por parte da Conservation International Foundation, ou por suas organizações parceiras e colaboradores. &lt;/P&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt; Aviso: os limites fornecidos são de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style = &quot;text-decoration: sublinhado; cor: # 0000ff; &quot;&gt; Natural Earth &lt;/span&gt;&lt;/a&gt;, e estão no &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style =&quot; text-decoration: sublinhado; color: # 0000ff; &quot;&gt; domínio público &lt;/span&gt;&lt;/a&gt;. Os limites e nomes usados ​​e as designações usadas em trends.earth não implicam em endosso oficial ou aceitação por parte da Conservation International Foundation, ou por suas organizações parceiras e colaboradores. &lt;/P&gt;&lt;/p&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="162"/>

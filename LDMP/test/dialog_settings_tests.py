@@ -16,7 +16,6 @@ import unittest
 import sys
 
 from qgis.core import *
-from PyQt4.QtGui import QMessageBox, QApplication
 from PyQt4.QtCore import *
 from PyQt4.QtTest import QTest
 
@@ -24,16 +23,6 @@ from LDMP.settings import DlgSettingsLogin
 
 from LDMP.test import regular_keys, admin_keys
 
-
-# Ensure any message boxes that open are closed within 5 seconds
-def close_msg_boxes():
-    for w in QApplication.topLevelWidgets():
-        if isinstance(w, QMessageBox):
-            print('Closing message box')
-            QTest.keyClick(w, Qt.Key_Enter)
-timer = QTimer()
-timer.timeout.connect(close_msg_boxes)
-timer.start(5000)
 
 class DialogSettingsLoginTests(unittest.TestCase):
     def testLogin(self):
@@ -49,7 +38,6 @@ class DialogSettingsLoginTests(unittest.TestCase):
 
         ret = dialog.login()
         self.assertTrue(ret)
-        close_msg_boxes()
 
         # Test login without email
         print('Testing login without email')
@@ -57,7 +45,6 @@ class DialogSettingsLoginTests(unittest.TestCase):
         dialog.password.setText(regular_keys['password'])
         ret = dialog.login()
         self.assertFalse(ret)
-        close_msg_boxes()
 
         # Test login without password
         print('Testing login without password')
@@ -65,7 +52,6 @@ class DialogSettingsLoginTests(unittest.TestCase):
         dialog.password.setText('')
         ret = dialog.login()
         self.assertFalse(ret)
-        close_msg_boxes()
 
         # Test login without email and without password
         print('Testing login without email and without password')
@@ -73,7 +59,6 @@ class DialogSettingsLoginTests(unittest.TestCase):
         dialog.password.setText('')
         ret = dialog.login()
         self.assertFalse(ret)
-        close_msg_boxes()
 
 def suite():
     suite = unittest.TestSuite()

@@ -18,7 +18,11 @@ before_install:
 - docker-compose up -d
 - docker-compose ps
 - sleep 10
-- sudo pip install --upgrade pip
+# Attempt to fix pip issue (AttributeError: 'module' object has no attribute 
+# 'main')
+- sudo apt-get --auto-remove --yes remove python-pip
+- curl -O https://bootstrap.pypa.io/get-pip.py
+- sudo python get-pip.py
 - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"
 - docker-compose exec qgis-testing-environment sh -c "pip install boto3"

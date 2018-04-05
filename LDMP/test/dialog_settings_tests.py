@@ -14,7 +14,6 @@
 
 import unittest
 import sys
-import os
 
 from qgis.core import *
 from PyQt4.QtGui import QMessageBox

@@ -1,6 +1,9 @@
 ﻿Task status & download
 ======================
 
+.. note:: `Download this page as a PDF for offline use 
+   <../pdfs/Trends.Earth_Step5_Downloading_Results.pdf>`_
+
 .. image:: /static/training/tut20_running.png
    :align: center
 

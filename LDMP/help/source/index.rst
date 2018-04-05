@@ -1,4 +1,4 @@
-﻿trends.earth
+﻿Trends.Earth
 ============
 
 .. image:: /static/common/trends_earth_logo_bl_1200.png
@@ -38,58 +38,86 @@ videos, are available on this website:
 * :ref:`background-docs`
 * :ref:`user-docs`
 * :ref:`training`
+* :ref:`videos`
 
 .. note:: `Download this documentation as a PDF for offline use 
-   <trends-earth.pdf>`_
+   <pdfs/Trends.Earth.pdf>`_
+
+.. raw:: latex
+
+   \part{About}
 
 .. _about-docs:
 
 .. toctree::
-    :maxdepth: 2
-    :caption: About
+   :maxdepth: 2
+   :caption: About
 
-    about/about
-    about/data_sources
-    about/faq
-    about/development
+   about/about
+   about/data_sources
+   about/faq
+   about/development
+
+.. raw:: latex
+
+   \part{Background}
 
 .. _background-docs:
 	
 .. toctree::
-    :maxdepth: 2
-    :caption: Background information
+   :maxdepth: 2
+   :caption: Background information
 
-    background/understanding_indicators
-    background/before_installing
-    background/installing
+   background/understanding_indicators
+   background/before_installing
+   background/installing
+
+.. raw:: latex
+
+   \part{Documentation}
 
 .. _user-docs:
 
 .. toctree::
-    :maxdepth: 2
-    :caption: Trends.Earth Documentation
+   :maxdepth: 2
+   :caption: Documentation
 
-    documentation/settings
-    documentation/calculate
-    documentation/plot_data
-    documentation/data_download
-    documentation/gee_tasks
-    documentation/reporting_tool
-    documentation/load_data
-    documentation/info
+   documentation/settings
+   documentation/calculate
+   documentation/plot_data
+   documentation/data_download
+   documentation/gee_tasks
+   documentation/reporting_tool
+   documentation/load_data
+   documentation/info
 	
+.. raw:: latex
+
+   \part{Step-by-step guides}
+
 .. _training:
 
 .. toctree::
-    :maxdepth: 2
-    :caption: Training materials
+   :maxdepth: 2
+   :caption: Step-by-step Guides
 
-    training/tutorial_installation
-    training/tutorial_registration
-    training/tutorial_run_all_subindicators
-    training/tutorial_create_folder
-    training/tutorial_task_download
-    training/tutorial_load_basemap
-    training/tutorial_compute_sdg_indicator
-    training/tutorial_summary_table
-    training/video_links
+   training/tutorial_installation
+   training/tutorial_registration
+   training/tutorial_run_all_subindicators
+   training/tutorial_create_folder
+   training/tutorial_task_download
+   training/tutorial_load_basemap
+   training/tutorial_compute_sdg_indicator
+   training/tutorial_summary_table
+
+.. raw:: latex
+
+    \part{Videos}
+
+.. _videos:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Videos
+
+   training/video_links

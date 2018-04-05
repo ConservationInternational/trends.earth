@@ -215,16 +215,21 @@ htmlhelp_basename = 'TemplateClassdoc'
 
 latex_documents = [
     ('index', u'Trends.Earth.tex', u'Trends.Earth Documentation', u'Conservation International', 'manual'),
-    ('training/tutorial', u'Trends.Earth_tutorial.tex', u'How to Setup Trends.Earth', u'Conservation International', 'howto'),
+    ('training/tutorial_installation', u'Trends.Earth_Step1_Installation.tex', u'Trends.Earth: Installation', u'Conservation International', 'howto'),
+    ('training/tutorial_registration', u'Trends.Earth_Step2_Registration.tex', u'Trends.Earth: Registration', u'Conservation International', 'howto'),
+    ('training/tutorial_run_all_subindicators', u'Trends.Earth_Step3_Computing_Indicators.tex', u'Trends.Earth: Compute Sub-indicators', u'Conservation International', 'howto'),
+    ('training/tutorial_create_folder', u'Trends.Earth_Step4_Create_Folder.tex', u'Trends.Earth: Creating an output folder', u'Conservation International', 'howto'),
+    ('training/tutorial_task_download', u'Trends.Earth_Step5_Downloading_Results.tex', u'Trends.Earth: Downloading Results', u'Conservation International', 'howto'),
+    ('training/tutorial_load_basemap', u'Trends.Earth_Step6_Load_Basemap.tex', u'Trends.Earth: Loading a Basemap', u'Conservation International', 'howto'),
+    ('training/tutorial_compute_sdg_indicator', u'Trends.Earth_Step7_Computing_SDG_Indicator.tex', u'Trends.Earth: How to Compute the SDG Indicator', u'Conservation International', 'howto'),
+    ('training/tutorial_summary_table', u'Trends.Earth_Step8_The_Summary_Table.tex', u'Trends.Earth: The Summary Table', u'Conservation International', 'howto')
 ]
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     'papersize': 'a4paper',
     'preamble': u'''\\usepackage{fontspec}
-                    \\setmainfont{lmroman10-regular.otf}
-                    \\setotherlanguage{arabic}
-                    \\newfontfamily\\arabicfont[Script=Arabic]{Amiri}''',
+                    \\setmainfont{lmroman10-regular.otf}''',
 }
 
 # The name of an image file (relative to this directory) to place at the top of

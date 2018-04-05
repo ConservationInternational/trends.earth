@@ -26,7 +26,7 @@ options(
         gui_dir = path('LDMP/gui'),
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['fr', 'es', 'sw', 'ar', 'ru', 'zh', 'pt'],
+        translations = ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('build'),
         tests = ['test'],
@@ -60,7 +60,15 @@ options(
         docs_s3_prefix = 'docs/',
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
         base_language = 'en',
-        latex_documents = ['Trends.Earth.tex', 'Trends.Earth_tutorial.tex']
+        latex_documents = ['Trends.Earth.tex',
+                           'Trends.Earth_Step1_Installation.tex',
+                           'Trends.Earth_Step2_Registration.tex',
+                           'Trends.Earth_Step3_Computing_Indicators.tex',
+                           'Trends.Earth_Step4_Create_Folder.tex',
+                           'Trends.Earth_Step5_Downloading_Results.tex',
+                           'Trends.Earth_Step6_Load_Basemap.tex',
+                           'Trends.Earth_Step7_Computing_SDG_Indicator.tex',
+                           'Trends.Earth_Step8_The_Summary_Table.tex']
     )
 )
 
@@ -208,7 +216,7 @@ def translate(options):
     if not lrelease:
         print("lrelease is not in your path---unable to release translation files")
     print("Pulling transifex translations...")
-    subprocess.check_call(['tx', 'pull', '-f', '-s'])
+    subprocess.check_call(['tx', 'pull', '-f', '-s', '--parallel'])
     print("Releasing translations using lrelease...")
     for translation in options.plugin.translations:
         subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
@@ -582,7 +590,7 @@ def pretranslate(options):
         print("pylupdate4 is not in your path---unable to gather strings for translation")
     print("Gathering strings for translation using pylupdate4")
     subprocess.check_call([pylupdate4, os.path.join(options.plugin.i18n_dir, 'i18n.pro')])
-    subprocess.check_call('tx push -s')
+    subprocess.check_call('tx push --parallel -s')
 
 
 @task
@@ -642,11 +650,16 @@ def builddocs(options):
         for doc in options.sphinx.latex_documents:
             for n in range(3):
                 # Run multiple times to ensure crossreferences are right
-                subprocess.check_call(['xelatex', doc], cwd=os.path.dirname(doc))
+                print os.path.dirname(doc)
+                subprocess.check_call(['xelatex', doc], cwd=tex_dir)
             # Move the PDF to the html folder so it will be uploaded with the 
             # site
-            shutil.move('{tex_dir}/Trends.Earth.pdf'.format(tex_dir=tex_dir),
-                        '{builddir}/html/{lang}/Trends.Earth.pdf'.format(builddir=options.sphinx.builddir, lang=language))
+            doc_pdf = os.path.splitext(doc)[0] + '.pdf'
+            out_dir = '{builddir}/html/{lang}/pdfs'.format(builddir=options.sphinx.builddir, lang=language)
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir)
+            shutil.move('{tex_dir}/{doc}'.format(tex_dir=tex_dir, doc=doc_pdf),
+                        '{out_dir}/{doc}'.format(out_dir=out_dir, doc=doc_pdf))
 
 def _localize_resources(options, language):
     print("Removing all static content from {sourcedir}/static.".format(sourcedir=options.sphinx.sourcedir))

@@ -107,6 +107,46 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
             self.jobs = jobs_cache
             self.update_jobs_table()
 
+        #######################################################################
+        #######################################################################
+        # Hack to download multiple countries at once for workshop preparation
+        #######################################################################
+        #######################################################################
+        # from PyQt4.QtCore import QTimer, Qt
+        # from PyQt4.QtGui import QMessageBox, QApplication
+        # from PyQt4.QtTest import QTest
+        # from time import sleep
+        #
+        # self.btn_refresh()
+        #
+        # # Ensure any message boxes that open are closed within 1 second
+        # def close_msg_boxes():
+        #     for w in QApplication.topLevelWidgets():
+        #         if isinstance(w, QMessageBox):
+        #             print('Closing message box')
+        #             QTest.keyClick(w, Qt.Key_Enter)
+        # timer = QTimer()
+        # timer.timeout.connect(close_msg_boxes)
+        # timer.start(1000)
+        # for row in range(len(self.jobs)):
+        #     if self.jobs[row]['status'] == 'FINISHED' and self.jobs[row]['results']['type'] == 'CloudResults':
+        #         name = self.jobs[row]['task_name']
+        #         country = name.replace('_All_Indicators_LPD', '')
+        #         out_file = os.path.join('C:/Users/azvol/Desktop/All_Indicators_for_USB', country, '{}.json'.format(name))
+        #         if not os.path.exists(out_file):
+        #             if not os.path.exists(os.path.dirname(out_file)):
+        #                 os.makedirs(os.path.dirname(out_file))
+        #             log('Downloading {} to {}'.format(name, out_file))
+        #             download_cloud_results(self.jobs[row],
+        #                                    os.path.splitext(out_file)[0],
+        #                                    self.tr,
+        #                                    add_to_map=False)
+        #######################################################################
+        #######################################################################
+        # End hack
+        #######################################################################
+        #######################################################################
+
     def connection_event_changed(self, flag):
         if flag:
             self.connection_in_progress = True
@@ -322,7 +362,7 @@ def download_result(url, out_file, job, expected_etag):
         return None
 
 
-def download_cloud_results(job, f, tr):
+def download_cloud_results(job, f, tr, add_to_map=True):
     results = job['results']
     json_file = f + '.json'
     if len(results['urls']) > 1:
@@ -354,11 +394,13 @@ def download_cloud_results(job, f, tr):
 
     create_gee_json_metadata(json_file, job, out_file)
 
-    for band_number in xrange(1, len(results['bands']) + 1):
-        # The minus 1 is because band numbers start at 1, not zero
-        band_info = results['bands'][band_number - 1]
-        if band_info['add_to_map']:
-            add_layer(out_file, band_number, band_info)
+    if add_to_map:
+        for band_number in xrange(1, len(results['bands']) + 1):
+            # The minus 1 is because band numbers start at 1, not zero
+            band_info = results['bands'][band_number - 1]
+            if band_info['add_to_map']:
+                add_layer(out_file, band_number, band_info)
+
     mb.pushMessage(tr("Downloaded"),
                    tr(u"Downloaded results to {}".format(out_file)),
                    level=0, duration=5)

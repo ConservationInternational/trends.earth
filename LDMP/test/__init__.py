@@ -15,7 +15,7 @@
 import os
 import json
 
-from PyQt4.QtCore import QTimer
+from PyQt4.QtCore import QTimer, Qt
 from PyQt4.QtGui import QMessageBox, QApplication
 from PyQt4.QtTest import QTest
 

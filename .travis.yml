@@ -21,6 +21,8 @@ before_install:
 # Attempt to fix pip issue (AttributeError: 'module' object has no attribute 
 # 'main')
 - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
+- docker-compose exec qgis-testing-environment sh -c "apt-get -qq update"
+- docker-compose exec qgis-testing-environment sh -c "apt-get -qq -y install curl"
 - docker-compose exec qgis-testing-environment sh -c "curl -O https://bootstrap.pypa.io/get-pip.py"
 - docker-compose exec qgis-testing-environment sh -c "python get-pip.py"
 - docker-compose exec qgis-testing-environment sh -c "pip install paver"

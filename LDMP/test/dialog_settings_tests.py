@@ -36,7 +36,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
         dialog = DlgSettingsLogin()
         dialog.email.setText(regular_keys['email'])
         dialog.password.setText(regular_keys['password'])
-        self.assertEquals(regular_keys['email'], dialog.username)
+        self.assertEquals(regular_keys['email'], dialog.email)
         self.assertEquals(regular_keys['password'], dialog.password)
         okWidget = dialog.buttonBox.button(dialog.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)

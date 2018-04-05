@@ -29,6 +29,7 @@ def close_msg_boxes():
     topWidgets = QApplication.topLevelWidgets();
     for w in topWidgets:
         if isinstance(w, QMessageBox):
+            print('Closing message box')
             QTest.keyClick(w, Qt.Key_Enter)
 
 class DialogSettingsLoginTests(unittest.TestCase):
@@ -38,6 +39,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
         dialog.password.setText(regular_keys['password'])
         self.assertEquals(regular_keys['email'], dialog.email.text())
         self.assertEquals(regular_keys['password'], dialog.password.text())
+        print('Testing valid login')
         okWidget = dialog.buttonBox.button(dialog.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertTrue(dialog.ok)
@@ -46,18 +48,24 @@ class DialogSettingsLoginTests(unittest.TestCase):
         self.assertTrue(ret)
         close_msg_boxes()
 
+        # Test login without email
+        print('Testing login without email')
         dialog.email.setText('')
         dialog.password.setText(regular_keys['password'])
         ret = dialog.login()
         self.assertFalse(ret)
         close_msg_boxes()
 
+        # Test login without password
+        print('Testing login without password')
         dialog.email.setText(regular_keys['email'])
         dialog.password.setText('')
         ret = dialog.login()
         self.assertFalse(ret)
         close_msg_boxes()
 
+        # Test login without email and without password
+        print('Testing login without email and without password')
         dialog.email.setText('')
         dialog.password.setText('')
         ret = dialog.login()

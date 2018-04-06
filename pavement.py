@@ -67,7 +67,7 @@ options(
                            'Trends.Earth_Tutorial04_Downloading_Results.tex',
 						   'Trends.Earth_Tutorial05_Using_Custom_Productivity.tex',
 						   'Trends.Earth_Tutorial06_Using_Custom_Land_Cover.tex',
-						   'Trends.Earth_Tutorial07_Using_Custom_Soil_Carbon.tex'
+						   'Trends.Earth_Tutorial07_Using_Custom_Soil_Carbon.tex',
                            'Trends.Earth_Tutorial08_Computing_SDG_Indicator.tex',
                            'Trends.Earth_Tutorial09_The_Summary_Table.tex',
                            'Trends.Earth_Tutorial10_Loading_a_Basemap.tex']

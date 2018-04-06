@@ -26,12 +26,7 @@ from openpyxl.drawing.image import Image
 from PyQt4 import QtGui, uic, QtXml
 from PyQt4.QtCore import QSettings
 
-from qgis.core import QgsGeometry, QgsColorRampShader, \
-    QgsRasterShader, QgsSingleBandPseudoColorRenderer, \
-    QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
-    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, \
-    QgsLayerDefinition
-from qgis.gui import QgsComposerView
+from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 

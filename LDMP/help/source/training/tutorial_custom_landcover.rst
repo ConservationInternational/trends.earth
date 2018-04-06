@@ -38,3 +38,13 @@
 
 .. image:: /static/training/t08/t10_lc_loaded.png
    :align: center
+
+.. image:: /static/training/t07/tut01_menu.png
+   :align: center
+   
+.. image:: /static/training/t07/tut02_selectinput.png
+   :align: center   
+
+   
+   
+   

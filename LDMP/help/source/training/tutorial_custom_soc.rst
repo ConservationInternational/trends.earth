@@ -21,3 +21,14 @@
    
 .. image:: /static/training/t09/t06_soc_output_map.png
    :align: center
+
+.. image:: /static/training/t07/tut01_menu.png
+   :align: center
+
+.. image:: /static/training/t07/tut02_selectinput.png
+   :align: center
+   
+.. image:: /static/training/t08/t11_load_lpd_soc.png
+   :align: center   
+
+Icons for calculator and calculate indicators menu

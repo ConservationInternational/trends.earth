@@ -2,7 +2,7 @@
 =========================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Step2_Registration.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial02_Registration.pdf>`_
 
 Trends.Earth is a free and open source which anyone can use. However, before running calculations, we do require for the users to create an account. This needs to be done only the first time you'll use the tool. Your user will be then saved for future sessions.
 

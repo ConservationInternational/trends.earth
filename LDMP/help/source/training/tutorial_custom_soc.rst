@@ -2,7 +2,7 @@
 ==========================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial_Using_Custom_Soil_Carbon.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial07_Using_Custom_Soil_Carbon.pdf>`_
 
 .. image:: /static/training/t09/custom_soc.png
    :align: center

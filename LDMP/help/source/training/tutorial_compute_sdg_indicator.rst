@@ -4,7 +4,7 @@ Compute SDG indicator
 ======================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Step5_Computing_SDG_Indicator.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial08_Computing_SDG_Indicator.pdf>`_
 
 .. image:: /static/training/t05/calculate_sdg.png
    :align: center

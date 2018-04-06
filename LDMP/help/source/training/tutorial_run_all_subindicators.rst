@@ -2,7 +2,7 @@
 ========================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Step3_Computing_Indicators.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial03_Computing_Indicators.pdf>`_
 
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center   

@@ -2,7 +2,7 @@
 ==========================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial_Using_Custom_Land_Cover.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial06_Using_Custom_Land_Cover.pdf>`_
 
 .. note::
     Refer to the :ref:`tut_compute_sdg` section of this manual for a detailed 

@@ -2,7 +2,7 @@
 ========================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial_Loading_a_Basemap.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial10_Loading_a_Basemap.pdf>`_
 
 .. image:: /static/training/t07/menu.png
    :align: center

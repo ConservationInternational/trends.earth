@@ -48,6 +48,85 @@ from LDMP.gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELa
 from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
+class RemapVectorWorker(AbstractWorker):
+    def __init__(self, l, out_file, attribute, remap_list, data_type):
+        AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+
+        self.out_res = out_res
+        self.out_data_type = out_data_type
+        self.attribute = attribute
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        crs_src_string = l.crs().toProj4()
+        crs_src = QgsCoordinateReferenceSystem()
+        crs_src.createFromProj4(crs_src_string)
+        crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
+        t = QgsCoordinateTransform(crs_src, crs_dst)
+
+        l_out = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
+                               crs=crs_dst.toProj4()),
+                               "land cover (transformed)",  
+                               "memory")
+        feats = []
+        for f in l.getFeatures():
+            geom = f.geometry()
+            if wrap:
+                n = 0
+                p = geom.vertexAt(n)
+                # Note vertexAt returns QgsPoint(0, 0) on error
+                while p != QgsPoint(0, 0):
+                    if p.x() < 0:
+                        geom.moveVertex(p.x() + 360, p.y(), n)
+                    n += 1
+                    p = geom.vertexAt(n)
+            geom.transform(t)
+            f.setGeometry(geom)
+            feats.append(f)
+        l_w.dataProvider().addFeatures(feats)
+        l_w.commitChanges()
+        if not l_w.isValid():
+            log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
+            return None
+        else:
+            return l_w
+
+
+
+
+
+
+
+
+
+
+        values = np.asarray([feat.attribute(attribute) for feat in l.getFeatures()], dtype=np.float32)
+
+        res = gdal.Rasterize(self.out_file, self.in_file,
+                             format='GTiff',
+                             xRes=self.out_res, yRes=-self.out_res,
+                             noData=-32767, attribute=self.attribute,
+                             outputSRS="epsg:4326",
+                             outputType=self.out_data_type,
+                             creationOptions=['COMPRESS=LZW'],
+                             callback=self.progress_callback)
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
+
 class RasterizeWorker(AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
                  attribute, out_data_type=gdal.GDT_Int16):
@@ -129,7 +208,7 @@ class RasterImportWorker(AbstractWorker):
             return True
 
 
-class RasterRemapWorker(AbstractWorker):
+class RemapRasterWorker(AbstractWorker):
     def __init__(self, in_file, out_file, remap_list):
         AbstractWorker.__init__(self)
 
@@ -631,8 +710,23 @@ class DlgDataIOImportBase(QtGui.QDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input raster file."))
                 return
         else:
-            if self.input_widget.lineEdit_vector_file.text() == '':
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            if in_file  == '':
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
+                return
+            l = QgsVectorLayer(vector_file, "vector file", "ogr")
+            if not l.isValid():
+                QtGui.QMessageBox.critical(None, tr("Error"),
+                        tr(u"Cannot process {}. Unable to read file.".format(in_file)))
+                return
+            if l.geometryType() == QGis.Polygon:
+                self.vector_datatype = "polygon"
+            elif l.geometryType() == QGis.Point:
+                self.vector_datatype = "point"
+            else:
+                QtGui.QMessageBox.critical(None, tr("Error"),
+                        tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.geometryType())))
+                log(u"Failed to process {} - unknown geometry type {}.".format(in_file, l.geometryType()))
                 return
 
     def get_resample_mode(self, f):
@@ -686,10 +780,10 @@ class DlgDataIOImportBase(QtGui.QDialog):
         temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
         self.warp_raster(temp_tif)
 
-        raster_remap_worker = StartWorker(RasterRemapWorker,
+        remap_raster_worker = StartWorker(RemapRasterWorker,
                                           'remapping values', temp_tif, 
                                            out_file, remap_list)
-        if not raster_remap_worker.success:
+        if not remap_raster_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Raster import failed."), None)
             return False
@@ -846,6 +940,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             #TODO: Need to remap the vector before rasterizing
             in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
+            self.remap_vector(l, attribute, self.vector_datatype)
             self.rasterize_vector(in_file, out_file, attribute)
 
         l_info = self.add_layer('Land cover (7 class)',
@@ -952,7 +1047,13 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer(in_file)
-            values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText(), max_unique=7)
+            field = self.input_widget.comboBox_fieldname.currentText()
+            idx = l.fieldNameIndex(field)
+            if not l.fields().field(idx).isNumeric():
+                QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a field that contains numbers.".format(field)))
+                return
+            else:
+                values = get_unique_values_vector(l, field, max_unique=7)
         if not values:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
             return

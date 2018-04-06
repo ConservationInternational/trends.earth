@@ -205,11 +205,11 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
                 clean_payload['password'] = '**REMOVED**'
         else:
             clean_payload = payload
-        log('API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
+        log(u'API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
         resp = worker.get_resp()
-        log('API response from "{}" request: {}'.format(method, clean_api_response(resp)))
+        log(u'API response from "{}" request: {}'.format(method, clean_api_response(resp)))
     else:
         resp = None
 
@@ -218,7 +218,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
-            QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
+            QtGui.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         ret = None
@@ -230,16 +230,17 @@ def get_header(url):
     worker = Request(url, 'head')
     worker.start()
     resp = worker.get_resp()
-    log('Response from "{}" header request: {}'.format(url, resp.status_code))
 
     if resp != None:
+        log(u'Response from "{}" header request: {}'.format(url, resp.status_code))
         if resp.status_code == 200:
             ret = resp.headers
         else:
             desc, status = get_error_status(resp)
-            QtGui.QMessageBox.critical(None, "Error", "Error: {} (status {}).".format(desc, status))
+            QtGui.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
+        log('Header request failed')
         ret = None
 
     return ret
@@ -249,22 +250,22 @@ def get_header(url):
 
 
 def recover_pwd(email):
-    return call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+    return call_api(u'/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
 
 
 def get_user(email='me'):
-    resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+    resp = call_api(u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
 
 ################################################################################
 # Functions supporting access to individual api endpoints
 
 
 def recover_pwd(email):
-    return call_api('/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+    return call_api(u'/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
 
 
 def get_user(email='me'):
-    resp = call_api('/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+    resp = call_api(u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
     if resp:
         return resp['data']
     else:
@@ -292,7 +293,7 @@ def run_script(script, params={}):
     # been sent recently - or even whether there are results already
     # available for it. Notify the user if this is the case to prevent, or
     # at least reduce, repeated identical submissions.
-    return call_api('/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params, use_token=True)
+    return call_api(u'/api/v1/script/{}/run'.format(quote_plus(script)), 'post', params, use_token=True)
 
 
 def update_user(email, name, organization, country):
@@ -308,14 +309,14 @@ def update_password(password, repeatPassword):
                "name": name,
                "institution": organization,
                "country": country}
-    return call_api('/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+    return call_api(u'/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
 
 def get_execution(id=None, date=None):
     log('Fetching executions')
     query = ['include=script']
     if id:
-        query.append('user_id={}'.format(quote_plus(id)))
+        query.append(u'user_id={}'.format(quote_plus(id)))
     if date:
         query.append('updated_at={}'.format(date))
     query = "?" + "&".join(query)

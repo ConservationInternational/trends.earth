@@ -651,7 +651,6 @@ def builddocs(options):
         for doc in options.sphinx.latex_documents:
             for n in range(3):
                 # Run multiple times to ensure crossreferences are right
-                print os.path.dirname(doc)
                 subprocess.check_call(['xelatex', doc], cwd=tex_dir)
             # Move the PDF to the html folder so it will be uploaded with the 
             # site

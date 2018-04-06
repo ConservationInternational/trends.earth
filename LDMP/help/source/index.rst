@@ -108,6 +108,7 @@ videos, are available on this website:
    training/tutorial_compute_sdg_indicator
    training/tutorial_summary_table
    training/tutorial_load_basemap
+   training/tutorial_custom_lpd
    training/tutorial_custom_landcover
    training/tutorial_custom_soc
    

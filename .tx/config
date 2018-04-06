@@ -87,9 +87,14 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_sdg_in
 source_file = LDMP/help/i18n/pot/training/tutorial_compute_sdg_indicator.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_create_folder]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_create_folder.po
-source_file = LDMP/help/i18n/pot/training/tutorial_create_folder.pot
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_landcover]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_landcover.po
+source_file = LDMP/help/i18n/pot/training/tutorial_custom_landcover.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_soc]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_soc.po
+source_file = LDMP/help/i18n/pot/training/tutorial_custom_soc.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_installation]

@@ -82,6 +82,8 @@ rst_epilog = """
    :width: 2em
 .. |iconFolder| image:: /static/common/icon-folder.png
    :width: 2em
+.. |iconReport| image:: /static/common/icon-reporting.png
+   :width: 2em
 .. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
    :width: 7em
    :alt: Trends.Earth

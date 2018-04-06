@@ -101,15 +101,16 @@ videos, are available on this website:
    :maxdepth: 2
    :caption: Step-by-step Guides
 
-   training/tutorial_installation
-   training/tutorial_registration
-   training/tutorial_run_all_subindicators
-   training/tutorial_create_folder
-   training/tutorial_task_download
-   training/tutorial_load_basemap
-   training/tutorial_compute_sdg_indicator
-   training/tutorial_summary_table
-
+   training/tutorial01_installation
+   training/tutorial02_registration
+   training/tutorial03_run_all_subindicators
+   training/tutorial04_task_download
+   training/tutorial05_compute_sdg_indicator
+   training/tutorial06_summary_table
+   training/tutorial07_load_basemap
+   training/tutorial08_custom_landcover
+   training/tutorial09_custom_soc
+   
 .. raw:: latex
 
     \part{Videos}

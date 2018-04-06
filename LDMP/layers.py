@@ -372,7 +372,7 @@ def tr_style_text(label):
             return str(label)
 
 
-def get_band_info(data_file):
+def get_band_infos(data_file):
     json_file = os.path.splitext(data_file)[0] + '.json'
     m = get_file_metadata(json_file)
     if m:

@@ -33,7 +33,7 @@ from osgeo import ogr, gdal, osr
 
 from LDMP import log
 from LDMP.layers import create_local_json_metadata, add_layer, \
-    get_file_metadata, get_band_title, get_sample, get_band_info
+    get_file_metadata, get_band_title, get_sample, get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgDataIO import Ui_DlgDataIO
 from LDMP.gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
@@ -1123,7 +1123,7 @@ def get_TE_TOC_layers(layer_type=None):
                 # are irrelevant for the toolbox
                 continue
             data_file = os.path.normcase(os.path.normpath(l.dataProvider().dataSourceUri()))
-            band_infos = get_band_info(data_file)
+            band_infos = get_band_infos(data_file)
             # Layers not produced by trends.earth won't have bandinfo, and 
             # aren't of interest, so skip if there is no bandinfo.
             if band_infos:
@@ -1146,7 +1146,7 @@ def get_TE_TOC_layers(layer_type=None):
 
 def get_layer_info_from_file(json_file, layer_type='any'):
     m = get_file_metadata(json_file)
-    band_infos = get_band_info(json_file)
+    band_infos = get_band_infos(json_file)
     layers_filtered = []
     for n in range(len(band_infos)):
         band_info = band_infos[n]

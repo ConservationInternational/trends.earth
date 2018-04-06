@@ -81,40 +81,40 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         # Hack to calculate multiple countries at once for workshop preparation
         #######################################################################
         #######################################################################
-        from PyQt4.QtCore import QTimer, Qt
-        from PyQt4.QtGui import QMessageBox, QApplication
-        from PyQt4.QtTest import QTest
-        from time import sleep
-
-        # Ensure any message boxes that open are closed within 1 second
-        def close_msg_boxes():
-            for w in QApplication.topLevelWidgets():
-                if isinstance(w, QMessageBox):
-                    print('Closing message box')
-                    QTest.keyClick(w, Qt.Key_Enter)
-        timer = QTimer()
-        timer.timeout.connect(close_msg_boxes)
-        timer.start(1000)
-
-        first_row = self.area_tab.area_admin_0.findText('Portugal') + 1
-        log('First country: {}'.format(self.area_tab.area_admin_0.itemText(first_row)))
-
-        # First make sure all admin boundaries are pre-downloaded
+        # from PyQt4.QtCore import QTimer, Qt
+        # from PyQt4.QtGui import QMessageBox, QApplication
+        # from PyQt4.QtTest import QTest
+        # from time import sleep
+        #
+        # # Ensure any message boxes that open are closed within 1 second
+        # def close_msg_boxes():
+        #     for w in QApplication.topLevelWidgets():
+        #         if isinstance(w, QMessageBox):
+        #             print('Closing message box')
+        #             QTest.keyClick(w, Qt.Key_Enter)
+        # timer = QTimer()
+        # timer.timeout.connect(close_msg_boxes)
+        # timer.start(1000)
+        #
+        # first_row = self.area_tab.area_admin_0.findText('Portugal') + 1
+        # log('First country: {}'.format(self.area_tab.area_admin_0.itemText(first_row)))
+        #
+        # # First make sure all admin boundaries are pre-downloaded
+        # # for row in range(first_row, self.area_tab.area_admin_0.model().rowCount()):
+        # #     index = self.area_tab.area_admin_0.model().index(row, 0)
+        # #     country = self.area_tab.area_admin_0.model().data(index)
+        # #     adm0_a3 = self.area_tab.admin_bounds_key[country]['code']
+        # #     admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        #
         # for row in range(first_row, self.area_tab.area_admin_0.model().rowCount()):
+        #     self.area_tab.area_admin_0.setCurrentIndex(row)
         #     index = self.area_tab.area_admin_0.model().index(row, 0)
         #     country = self.area_tab.area_admin_0.model().data(index)
-        #     adm0_a3 = self.area_tab.admin_bounds_key[country]['code']
-        #     admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
-
-        for row in range(first_row, self.area_tab.area_admin_0.model().rowCount()):
-            self.area_tab.area_admin_0.setCurrentIndex(row)
-            index = self.area_tab.area_admin_0.model().index(row, 0)
-            country = self.area_tab.area_admin_0.model().data(index)
-            name = u'{}_All_Indicators_LPD'.format(country)
-            log(name)
-            self.options_tab.task_name.setText(name)
-            self.btn_calculate()
-            sleep(60)
+        #     name = u'{}_All_Indicators_LPD'.format(country)
+        #     log(name)
+        #     self.options_tab.task_name.setText(name)
+        #     self.btn_calculate()
+        #     sleep(60)
         #######################################################################
         #######################################################################
         # End hack

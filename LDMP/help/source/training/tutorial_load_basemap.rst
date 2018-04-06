@@ -4,26 +4,26 @@
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial_Loading_a_Basemap.pdf>`_
 
-.. image:: /static/training/t07/tut01_menu.png
+.. image:: /static/training/t07/menu.png
    :align: center
 
-.. image:: /static/training/t07/tut02_selectinput.png
+.. image:: /static/training/t07/selectinput.png
    :align: center
 
-.. image:: /static/training/t07/tut03_input_list.png
+.. image:: /static/training/t07/input_list.png
    :align: center
 
-.. image:: /static/training/t07/tut04_loaded_data.png
+.. image:: /static/training/t07/loaded_data.png
    :align: center
    
-.. image:: /static/training/t07/tut05_basemap.png
+.. image:: /static/training/t07/basemap.png
    :align: center
 
-.. image:: /static/training/t07/tut06_basemap_setup.png
+.. image:: /static/training/t07/basemap_setup.png
    :align: center
 
-.. image:: /static/training/t07/tut07_basemap_downloading.png
+.. image:: /static/training/t07/basemap_downloading.png
    :align: center
 
-.. image:: /static/training/t07/tut08_basemap_loaded.png
+.. image:: /static/training/t07/basemap_loaded.png
    :align: center

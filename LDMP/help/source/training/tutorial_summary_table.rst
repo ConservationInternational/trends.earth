@@ -9,26 +9,26 @@
     explanation of how each of these subindicators is computed in 
     |trends.earth|
 
-.. image:: /static/training/t06/tut01_sdg_find_table.png
+.. image:: /static/training/t06/sdg_find_table.png
    :align: center
 
-.. image:: /static/training/t06/tut02_sdg_table_error1.png
+.. image:: /static/training/t06/sdg_table_error1.png
    :align: center
 
-.. image:: /static/training/t06/tut03_sdg_table_error2.png
+.. image:: /static/training/t06/sdg_table_error2.png
    :align: center
 
-.. image:: /static/training/t06/tut04_table_sdg.png
+.. image:: /static/training/t06/table_sdg.png
    :align: center
 
-.. image:: /static/training/t06/tut05_table_productivity.png
+.. image:: /static/training/t06/table_productivity.png
    :align: center
 
-.. image:: /static/training/t06/tut06_table_soc.png
+.. image:: /static/training/t06/table_soc.png
    :align: center
 
-.. image:: /static/training/t06/tut07_table_landcover.png
+.. image:: /static/training/t06/table_landcover.png
    :align: center
 
-.. image:: /static/training/t06/tut08_table_unccd.png
+.. image:: /static/training/t06/table_unccd.png
    :align: center

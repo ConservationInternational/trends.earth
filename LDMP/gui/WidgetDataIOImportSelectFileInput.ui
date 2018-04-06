@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>463</width>
-    <height>440</height>
+    <width>596</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="5" column="0">
-       <widget class="QLineEdit" name="lineEdit_polygon_file">
+       <widget class="QLineEdit" name="lineEdit_vector_file">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -45,7 +45,7 @@
       <item row="4" column="0" colspan="2">
        <widget class="QRadioButton" name="radio_polygon_input">
         <property name="text">
-         <string>Polygon dataset (shapefile, KML, KMZ, GeoJSON)</string>
+         <string>Polygon dataset (shapefile, KML, KMZ, geojson)</string>
         </property>
        </widget>
       </item>

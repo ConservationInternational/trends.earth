@@ -29,7 +29,7 @@ mb = iface.messageBar()
 
 import numpy as np
 
-from osgeo import gdal, osr
+from osgeo import ogr, gdal, osr
 
 from LDMP import log
 from LDMP.layers import create_local_json_metadata, add_layer, \
@@ -48,9 +48,9 @@ from LDMP.gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELa
 from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
-class ShapefileImportWorker(AbstractWorker):
+class RasterizeWorker(AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
-                 out_data_type=gdal.GDT_Int16):
+                 attribute, out_data_type=gdal.GDT_Int16):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
@@ -58,6 +58,7 @@ class ShapefileImportWorker(AbstractWorker):
 
         self.out_res = out_res
         self.out_data_type = out_data_type
+        self.attribute = attribute
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -66,7 +67,7 @@ class ShapefileImportWorker(AbstractWorker):
         res = gdal.Rasterize(self.out_file, self.in_file,
                              format='GTiff',
                              xRes=self.out_res, yRes=-self.out_res,
-                             noData=-32767, attribute=attribute,
+                             noData=-32767, attribute=self.attribute,
                              outputSRS="epsg:4326",
                              outputType=self.out_data_type,
                              creationOptions=['COMPRESS=LZW'],
@@ -203,20 +204,29 @@ def get_unique_values_vector(l, field, max_unique=60):
         return values
 
 
+def _get_min_max_tuple(values, min_min, max_max, nodata):
+    values[values < nodata] = np.nan
+    mn = np.nanmin(values)
+    if mn < min_min:
+        return None
+    mx = np.nanmax(values)
+    if mx > max_max:
+        return None
+    return (mn, mx)
+
+
+def get_vector_stats(l, attribute, min_min=0, max_max=1000, nodata=0):
+    values = np.asarray([feat.attribute(attribute) for feat in l.getFeatures()], dtype=np.float32)
+    return _get_min_max_tuple(values, min_min, max_max, nodata)
+
+
 def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0):
     # Note that anything less than nodata value is considered no data
     if sample:
         # Note need float to correctly mark and ignore nodata for for nanmin 
         # and nanmax 
         values = get_sample(f, band_num, n=1e6).astype('float32')
-        values[values < nodata] = np.nan
-        mn = np.nanmin(values)
-        if mn < min_min:
-            return None
-        mx = np.nanmax(values)
-        if mx > max_max:
-            return None
-        return (mn, mx)
+        return _get_min_max_tuple(values, min_min, max_max, nodata)
     else:
         src_ds = gdal.Open(f)
         b = src_ds.GetRasterBand(band_num)
@@ -241,16 +251,12 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
                     cols = xsize - x
 
                 d = b.ReadAsArray(x, y, cols, rows).ravel()
-                mx = x.max()
-                mn = x.min()
-                if mx > max_max:
+                mn, mx = _get_min_max_tuple(values, min_min, max_max, nodata)
+                if not mn or not mx:
                     return None
                 else:
                     if not stats[0] or mn < stats[0]:
                         stats[0] = mn
-                if mn < min_min:
-                    return None
-                else:
                     if not stats[1] or mx > stats[1]:
                         stats[1] = mx
         return stats
@@ -495,26 +501,23 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
             self.comboBox_bandnumber.setEnabled(True)
             self.label_bandnumber.setEnabled(True)
             self.btn_polygon_dataset_browse.setEnabled(False)
-            self.lineEdit_polygon_file.setEnabled(False)
+            self.lineEdit_vector_file.setEnabled(False)
             self.label_fieldname.setEnabled(False)
             self.comboBox_fieldname.setEnabled(False)
 
             if self.lineEdit_raster_file.text():
                 has_file = True
         else:
-            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                          self.tr("Processing of vector input datasets coming soon!"))
-            self.radio_raster_input.setChecked(True)
-            # self.btn_raster_dataset_browse.setEnabled(False)
-            # self.lineEdit_raster_file.setEnabled(False)
-            # self.comboBox_bandnumber.setEnabled(False)
-            # self.label_bandnumber.setEnabled(False)
-            # self.btn_polygon_dataset_browse.setEnabled(True)
-            # self.lineEdit_polygon_file.setEnabled(True)
-            # self.label_fieldname.setEnabled(True)
-            # self.comboBox_fieldname.setEnabled(True)
+            self.btn_raster_dataset_browse.setEnabled(False)
+            self.lineEdit_raster_file.setEnabled(False)
+            self.comboBox_bandnumber.setEnabled(False)
+            self.label_bandnumber.setEnabled(False)
+            self.btn_polygon_dataset_browse.setEnabled(True)
+            self.lineEdit_vector_file.setEnabled(True)
+            self.label_fieldname.setEnabled(True)
+            self.comboBox_fieldname.setEnabled(True)
 
-            if self.lineEdit_polygon_file.text():
+            if self.lineEdit_vector_file.text():
                 has_file=True
         self.inputTypeChanged.emit(has_file)
 
@@ -551,7 +554,7 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
 
     def open_vector_browse(self):
         self.comboBox_fieldname.clear()
-        self.lineEdit_polygon_file.clear()
+        self.lineEdit_vector_file.clear()
 
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a vector input file'),
@@ -573,7 +576,7 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
             return False
 
         QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
-        self.lineEdit_polygon_file.setText(vector_file)
+        self.lineEdit_vector_file.setText(vector_file)
         self.inputFileChanged.emit(True)
 
         self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
@@ -628,7 +631,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input raster file."))
                 return
         else:
-            if self.input_widget.lineEdit_polygon_file.text() == '':
+            if self.input_widget.lineEdit_vector_file.text() == '':
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
 
@@ -678,10 +681,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
         res = int(self.input_widget.spinBox_resolution.value())
         return res / (111.325 * 1000) # 111.325km in one degree
 
-    def remap_raster(self, remap_list):
-        in_file = self.input_widget.lineEdit_raster_file.text()
-        out_file = self.output_widget.lineEdit_output_file.text()
-
+    def remap_raster(self, in_file, out_file, remap_list):
         # First warp the raster to the correct CRS
         temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
         self.warp_raster(temp_tif)
@@ -696,10 +696,22 @@ class DlgDataIOImportBase(QtGui.QDialog):
         else:
             return True
 
-    def warp_raster(self, out_file):
-        in_file = self.input_widget.lineEdit_raster_file.text()
+    def rasterize_vector(self, in_file, out_file, attribute):
+        out_res = self.get_out_res_wgs84()
+        log(u'Rasterizing {} to {}, using output resolution {}, and field "{}"'.format(in_file, out_file, out_res, attribute))
+        rasterize_worker = StartWorker(RasterizeWorker,
+                                       'rasterizing vector file',
+                                       in_file, out_file, out_res, attribute)
+        if not rasterize_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Rasterizing failed."), None)
+            return False
+        else:
+            return True
 
+    def warp_raster(self, out_file):
         # Select a single output band
+        in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
@@ -811,7 +823,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
                 self.last_band_number = band_number
                 self.load_agg(values)
         else:
-            f = self.input_widget.lineEdit_polygon_file.text()
+            f = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer(f)
             idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
             if not self.dlg_agg or \
@@ -826,10 +838,15 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         self.dlg_agg.exec_()
 
     def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
-            self.remap_raster(self.dlg_agg.get_agg_as_list())
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
         else:
-            self.convert_vector()
+            #TODO: Need to remap the vector before rasterizing
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            self.rasterize_vector(in_file, out_file, attribute)
 
         l_info = self.add_layer('Land cover (7 class)',
                                 {'year': int(self.input_widget.spinBox_data_year.date().year()),
@@ -860,14 +877,20 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             return
 
         super(DlgDataIOImportSOC, self).validate_input(value)
-
+        
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
             stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
         else:
-            in_file = self.input_widget.lineEdit_polygon_file.text()
+            in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer(in_file)
-            stats = get_vector_stats(l)
+            field = self.input_widget.comboBox_fieldname.currentText()
+            idx = l.fieldNameIndex(field)
+            if not l.fields().field(idx).isNumeric():
+                QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
+                return
+            else:
+                stats = get_vector_stats(self.input_widget.get_vector_layer(in_file), field)
         log('Stats are: {}'.format(stats))
         if not stats:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
@@ -884,11 +907,13 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         self.ok_clicked()
 
     def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
-            out_file = self.output_widget.lineEdit_output_file.text()
             self.warp_raster(out_file)
         else:
-            self.convert_vector()
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            self.rasterize_vector(in_file, out_file, attribute)
 
         l_info = self.add_layer('Soil organic carbon',
                                 {'year': int(self.input_widget.spinBox_data_year.date().year()),
@@ -925,7 +950,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             in_file = self.input_widget.lineEdit_raster_file.text()
             values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=7)
         else:
-            in_file = self.input_widget.lineEdit_polygon_file.text()
+            in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer(in_file)
             values = get_unique_values_vector(l, field, max_unique=7)
         if not values:
@@ -940,11 +965,13 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         self.ok_clicked()
 
     def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
-            out_file = self.output_widget.lineEdit_output_file.text()
             self.warp_raster(out_file)
         else:
-            self.convert_vector("Land Productivity Dynamics (LPD)")
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            self.rasterize_vector(in_file, out_file, attribute)
 
         l_info = self.add_layer("Land Productivity Dynamics (LPD)",
                                 {'source': 'custom data'})

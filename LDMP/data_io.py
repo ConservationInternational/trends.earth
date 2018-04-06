@@ -775,6 +775,20 @@ class DlgDataIOImportBase(QtGui.QDialog):
         res = int(self.input_widget.spinBox_resolution.value())
         return res / (111.325 * 1000) # 111.325km in one degree
 
+    def remap_vector(self, out_file, remap_list, attribute):
+        remap_vector_worker = StartWorker(RemapVectorWorker,
+                                          'remapping values',
+                                          l, out_file,
+                                          attribute,
+                                          remap_list,
+                                          self.vector_datatype)
+        if not remap_vector_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Vector remapping failed."), None)
+            return False
+        else:
+            return True
+
     def remap_raster(self, in_file, out_file, remap_list):
         # First warp the raster to the correct CRS
         temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
@@ -785,7 +799,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
                                            out_file, remap_list)
         if not remap_raster_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Raster import failed."), None)
+                                       self.tr("Raster remapping failed."), None)
             return False
         else:
             return True
@@ -940,8 +954,12 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             #TODO: Need to remap the vector before rasterizing
             in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
-            self.remap_vector(l, attribute, self.vector_datatype)
-            self.rasterize_vector(in_file, out_file, attribute)
+            remap_ret = self.remap_vector(out_file, self.dlg_agg.get_agg_as_list(), attribute)
+            if not remap_ret:
+                return
+            vec_ret = self.rasterize_vector(temp_f, out_file, attribute)
+            if not vec_ret:
+                return
 
         l_info = self.add_layer('Land cover (7 class)',
                                 {'year': int(self.input_widget.spinBox_data_year.date().year()),
@@ -1131,10 +1149,11 @@ def get_layer_info_from_file(json_file, layer_type='any'):
     band_infos = get_band_info(json_file)
     layers_filtered = []
     for n in range(len(band_infos)):
-        band_info = band_infos[n - 1]
+        band_info = band_infos[n]
         data_file = os.path.normcase(os.path.normpath(os.path.join(os.path.dirname(json_file), m['file'])))
         if layer_type == band_info['name'] or layer_type == 'any':
-            layers_filtered.append((data_file, get_band_title(band_info), n, band_info))
+            # Band numbers start at 1, not zero
+            layers_filtered.append((data_file, get_band_title(band_info), n + 1, band_info))
     return layers_filtered
 
     
@@ -1216,7 +1235,7 @@ class WidgetDataIOSelectTELayerBase(QtGui.QWidget):
         return self.layer_list[self.comboBox_layers.currentIndex()][2]
 
     def get_band_info(self):
-        return get_band_info(self.layer_list[self.comboBox_layers.currentIndex()][0])
+        return self.layer_list[self.comboBox_layers.currentIndex()][3]
 
     def get_vrt(self):
         f = tempfile.NamedTemporaryFile(suffix='.vrt').name

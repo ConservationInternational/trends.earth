@@ -105,12 +105,12 @@ videos, are available on this website:
    training/tutorial_registration
    training/tutorial_run_all_subindicators
    training/tutorial_task_download
-   training/tutorial_compute_sdg_indicator
-   training/tutorial_summary_table
-   training/tutorial_load_basemap
    training/tutorial_custom_lpd
    training/tutorial_custom_landcover
    training/tutorial_custom_soc
+   training/tutorial_compute_sdg_indicator
+   training/tutorial_summary_table
+   training/tutorial_load_basemap
    
 .. raw:: latex
 

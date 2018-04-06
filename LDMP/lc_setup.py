@@ -189,12 +189,22 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
-            class_def = self.get_agg_as_dict()
+            class_def = self.get_agg_as_dict_list()
             with open(f, 'w') as outfile:
                 json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
 
     def get_agg_as_dict(self):
         '''Returns the chosen land cover definition as a dictionary'''
+        out = {}
+        for row in range(0, self.remap_view.model().rowCount()):
+            initial_code = self.remap_view.model().index(row, 0).data()
+            label_widget_index = self.remap_view.model().index(row, self.remap_view.model().columnCount() - 1)
+            label_widget = self.remap_view.indexWidget(label_widget_index)
+            out[initial_code] = self.final_classes[label_widget.currentText()]
+        return out
+
+    def get_agg_as_dict_list(self):
+        '''Returns the chosen land cover definition as a list of dictionaries'''
         out = []
         for row in range(0, self.remap_view.model().rowCount()):
             this_out = {}

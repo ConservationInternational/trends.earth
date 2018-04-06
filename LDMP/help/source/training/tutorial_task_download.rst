@@ -30,3 +30,5 @@
 
 .. image:: /static/training/t04/loaded_results.png
    :align: center
+
+Add compute pyramids here at the end

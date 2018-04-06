@@ -1,34 +1,37 @@
-﻿Use custom soil data
-==========================
+﻿Use custom productivity data
+=================================
 
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial_Using_Custom_Soil_Carbon.pdf>`_
 
-.. image:: /static/training/t09/custom_soc.png
-   :align: center
    
-.. image:: /static/training/t09/custom_soc_menu1.png
-   :align: center
    
-.. image:: /static/training/t09/soc_input.png
-   :align: center
-   
-.. image:: /static/training/t09/custom_soc_menu2.png
-   :align: center
-   
-.. image:: /static/training/t09/soc_output.png
-   :align: center
-   
-.. image:: /static/training/t09/soc_output_map.png
-   :align: center
+Productivity classes in the input data must be coded as follows:
 
-.. image:: /static/training/t07/menu.png
-   :align: center
+1: Declining
+2: Early signs of decline
+3: Stable but stressed
+4: Stable
+5: Increasing
+0 or -32768: No data
 
-.. image:: /static/training/t07/selectinput.png
+.. image:: /static/training/t10/call_custom_lpd_menu1.png
    :align: center
    
-.. image:: /static/training/t08/load_lpd_soc.png
-   :align: center   
-
-Icons for calculator and calculate indicators menu
+.. image:: /static/training/t10/call_custom_lpd_menu2.png
+   :align: center
+   
+.. image:: /static/training/t10/custom_lpd_load_input.png
+   :align: center
+   
+.. image:: /static/training/t10/custom_lpd_menu.png
+   :align: center
+   
+.. image:: /static/training/t10/lpd_output_loaded.png
+   :align: center
+   
+.. image:: /static/training/t10/processing.png
+   :align: center
+   
+.. image:: /static/training/t10/warning.png
+   :align: center

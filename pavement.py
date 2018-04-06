@@ -61,15 +61,16 @@ options(
         transifex_name = 'land_degradation_monitoring_toolbox_docs_1_0',
         base_language = 'en',
         latex_documents = ['Trends.Earth.tex',
-                           'Trends.Earth_Step1_Installation.tex',
-                           'Trends.Earth_Step2_Registration.tex',
-                           'Trends.Earth_Step3_Computing_Indicators.tex',
-                           'Trends.Earth_Step4_Downloading_Results.tex',
-                           'Trends.Earth_Step5_Computing_SDG_Indicator.tex',
-                           'Trends.Earth_Step6_The_Summary_Table.tex',
-                           'Trends.Earth_Tutorial_Loading_a_Basemap.tex',
-                           'Trends.Earth_Tutorial_Using_Custom_Land_Cover.tex',
-                           'Trends.Earth_Tutorial_Using_Custom_Soil_Carbon.tex']
+                           'Trends.Earth_Tutorial01_Installation.tex',
+                           'Trends.Earth_Tutorial02_Registration.tex',
+                           'Trends.Earth_Tutorial03_Computing_Indicators.tex',
+                           'Trends.Earth_Tutorial04_Downloading_Results.tex',
+						   'Trends.Earth_Tutorial05_Using_Custom_Productivity.tex',
+						   'Trends.Earth_Tutorial06_Using_Custom_Land_Cover.tex',
+						   'Trends.Earth_Tutorial07_Using_Custom_Soil_Carbon.tex',
+                           'Trends.Earth_Tutorial08_Computing_SDG_Indicator.tex',
+                           'Trends.Earth_Tutorial09_The_Summary_Table.tex',
+                           'Trends.Earth_Tutorial10_Loading_a_Basemap.tex']
     )
 )
 

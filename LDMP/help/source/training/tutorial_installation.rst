@@ -2,7 +2,7 @@
 ====================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Step1_Installation.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_
 
 Trends.Earth is a toolbox which functions as a QGIS plugin. This means that in order for you to run the calculations you need first to install QGIS.
 

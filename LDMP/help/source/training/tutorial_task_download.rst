@@ -2,7 +2,7 @@
 ======================
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Step5_Downloading_Results.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial04_Downloading_Results.pdf>`_
 
 .. image:: /static/training/t04/create_folder.png
    :align: center

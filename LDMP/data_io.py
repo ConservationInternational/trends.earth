@@ -195,8 +195,8 @@ class RasterRemapWorker(AbstractWorker):
             return True
 
 
-def get_unique_values_vector(l, field, max_unique=60):
-    idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
+def get_unique_values_vector(l, field, max_unique=100):
+    idx = l.fieldNameIndex(field)
     values = l.uniqueValues(idx)
     if len(values) > max_unique:
         return None
@@ -828,7 +828,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
             if not self.dlg_agg or \
                     (self.last_vector != f or self.last_idx != idx):
-                get_unique_values_vector(l, field, max_unique=60)
+                values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
                 if not values:
                     QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes", None))
                     return
@@ -952,7 +952,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer(in_file)
-            values = get_unique_values_vector(l, field, max_unique=7)
+            values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText(), max_unique=7)
         if not values:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
             return

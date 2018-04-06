@@ -103,7 +103,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         #     log(name)
         #     self.options_tab.task_name.setText(name)
         #     self.btn_calculate()
-        #     sleep(3)
+        #     sleep(120)
         #######################################################################
         #######################################################################
         # End hack

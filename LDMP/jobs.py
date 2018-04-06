@@ -132,15 +132,16 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         #     if self.jobs[row]['status'] == 'FINISHED' and self.jobs[row]['results']['type'] == 'CloudResults':
         #         name = self.jobs[row]['task_name']
         #         country = name.replace('_All_Indicators_LPD', '')
-        #         out_file = os.path.join('C:/Users/azvol/Desktop/All_Indicators_for_USB', country, '{}.json'.format(name))
+        #         out_file = os.path.join(u'C:/Users/azvol/Desktop/All_Indicators_for_USB', country, u'{}.json'.format(name))
         #         if not os.path.exists(out_file):
         #             if not os.path.exists(os.path.dirname(out_file)):
         #                 os.makedirs(os.path.dirname(out_file))
-        #             log('Downloading {} to {}'.format(name, out_file))
+        #             log(u'Downloading {} to {}'.format(name, out_file))
         #             download_cloud_results(self.jobs[row],
         #                                    os.path.splitext(out_file)[0],
         #                                    self.tr,
         #                                    add_to_map=False)
+        #             sleep(2)
         #######################################################################
         #######################################################################
         # End hack

@@ -20,10 +20,10 @@ import json
 from marshmallow import ValidationError
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
+from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVariant
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
-    QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup
+    QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, QGis
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -49,10 +49,10 @@ from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELaye
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
 class RemapVectorWorker(AbstractWorker):
-    def __init__(self, l, out_file, attribute, remap_list, data_type):
+    def __init__(self, l, out_file, attribute, remap_dict, data_type):
         AbstractWorker.__init__(self)
 
-        self.in_file = in_file
+        self.l = l
         self.out_file = out_file
 
         self.out_res = out_res
@@ -63,7 +63,7 @@ class RemapVectorWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        crs_src_string = l.crs().toProj4()
+        crs_src_string = self.l.crs().toProj4()
         crs_src = QgsCoordinateReferenceSystem()
         crs_src.createFromProj4(crs_src_string)
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
@@ -73,44 +73,35 @@ class RemapVectorWorker(AbstractWorker):
                                crs=crs_dst.toProj4()),
                                "land cover (transformed)",  
                                "memory")
+        out_fields = QgsFields()
+        out_fields.append(QgsField('remapped_code', QVariant.Int, 'int'))
         feats = []
         for f in l.getFeatures():
             geom = f.geometry()
-            if wrap:
-                n = 0
-                p = geom.vertexAt(n)
-                # Note vertexAt returns QgsPoint(0, 0) on error
-                while p != QgsPoint(0, 0):
-                    if p.x() < 0:
-                        geom.moveVertex(p.x() + 360, p.y(), n)
-                    n += 1
-                    p = geom.vertexAt(n)
             geom.transform(t)
             f.setGeometry(geom)
+            original_code = f.attribute(self.attribute)
+            f.setFields(out_fields)
+            f.setAttribute('remapped_code', self.remap_dict[original_code])
             feats.append(f)
         l_w.dataProvider().addFeatures(feats)
         l_w.commitChanges()
         if not l_w.isValid():
-            log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
+            log(u'Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
             return None
-        else:
-            return l_w
 
+        # Write l_w to a shapefile for usage by gdal rasterize
+        temp_shp = tempfile.NamedTemporaryFile(suffix='.shp').name
+        err = QgsVectorFileWriter.writeAsVectorFormat(l_w, temp_shp, "UTF-8", 
+                                                      crs_dst, "ESRI Shapefile")
+        if err != QgsVectorFileWriter.NoError:
+            log(u'Error writing layer to {}'.format(temp_shp))
+            return None
 
-
-
-
-
-
-
-
-
-        values = np.asarray([feat.attribute(attribute) for feat in l.getFeatures()], dtype=np.float32)
-
-        res = gdal.Rasterize(self.out_file, self.in_file,
+        res = gdal.Rasterize(self.out_file, temp_shp,
                              format='GTiff',
                              xRes=self.out_res, yRes=-self.out_res,
-                             noData=-32767, attribute=self.attribute,
+                             noData=-32768, attribute='remapped_code',
                              outputSRS="epsg:4326",
                              outputType=self.out_data_type,
                              creationOptions=['COMPRESS=LZW'],
@@ -146,7 +137,7 @@ class RasterizeWorker(AbstractWorker):
         res = gdal.Rasterize(self.out_file, self.in_file,
                              format='GTiff',
                              xRes=self.out_res, yRes=-self.out_res,
-                             noData=-32767, attribute=self.attribute,
+                             noData=-32768, attribute=self.attribute,
                              outputSRS="epsg:4326",
                              outputType=self.out_data_type,
                              creationOptions=['COMPRESS=LZW'],
@@ -387,17 +378,6 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
         self.setupUi(self)
         self.task_status.hide()
         self.statusLabel.hide()
-
-        #TODO: This is not yet working...
-        # # Convert from a grid layout to a vbox layout
-        # temp = QtGui.QWidget()
-        # temp.setLayout(self.layout())
-        # new_layout = QtGui.QVBoxLayout(self)
-        # while True:
-        #     layout_item = temp.layout().takeAt(0)
-        #     if not layout_item:
-        #         break
-        #     new_layout.addWidget(layout_item.widget())
 
 class DlgDataIO(QtGui.QDialog, Ui_DlgDataIO):
     def __init__(self, parent=None):
@@ -714,7 +694,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
             if in_file  == '':
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
-            l = QgsVectorLayer(vector_file, "vector file", "ogr")
+            l = QgsVectorLayer(in_file, "vector file", "ogr")
             if not l.isValid():
                 QtGui.QMessageBox.critical(None, tr("Error"),
                         tr(u"Cannot process {}. Unable to read file.".format(in_file)))
@@ -775,12 +755,12 @@ class DlgDataIOImportBase(QtGui.QDialog):
         res = int(self.input_widget.spinBox_resolution.value())
         return res / (111.325 * 1000) # 111.325km in one degree
 
-    def remap_vector(self, out_file, remap_list, attribute):
+    def remap_vector(self, l, out_file, remap_dict, attribute):
         remap_vector_worker = StartWorker(RemapVectorWorker,
                                           'remapping values',
                                           l, out_file,
                                           attribute,
-                                          remap_list,
+                                          remap_dict,
                                           self.vector_datatype)
         if not remap_vector_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -912,7 +892,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
 
     def load_agg(self, values):
         # Set all of the classes to no data by default
-        classes = [{'Initial_Code':value, 'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
+        classes = [{'Initial_Code':value, u'Initial_Label':unicode(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
         #TODO Fix on refactor
         from LDMP.lc_setup import DlgCalculateLCSetAggregation
         self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
@@ -954,11 +934,11 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             #TODO: Need to remap the vector before rasterizing
             in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
-            remap_ret = self.remap_vector(out_file, self.dlg_agg.get_agg_as_list(), attribute)
+            remap_ret = self.remap_vector(self.input_widget.get_vector_layer(in_file),
+                                          out_file, 
+                                          self.dlg_agg.get_agg_as_dict(), 
+                                          attribute)
             if not remap_ret:
-                return
-            vec_ret = self.rasterize_vector(temp_f, out_file, attribute)
-            if not vec_ret:
                 return
 
         l_info = self.add_layer('Land cover (7 class)',

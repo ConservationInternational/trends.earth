@@ -26,12 +26,7 @@ from openpyxl.drawing.image import Image
 from PyQt4 import QtGui, uic, QtXml
 from PyQt4.QtCore import QSettings
 
-from qgis.core import QgsGeometry, QgsColorRampShader, \
-    QgsRasterShader, QgsSingleBandPseudoColorRenderer, \
-    QgsFeature, QgsCoordinateReferenceSystem, QgsCoordinateTransform, \
-    QgsVectorFileWriter, QgsMapLayerRegistry, QgsMapSettings, QgsComposition, \
-    QgsLayerDefinition
-from qgis.gui import QgsComposerView
+from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -39,7 +34,7 @@ from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import add_layer, create_local_json_metadata
+from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateSummaryTableAdmin import Ui_DlgCalculateSummaryTableAdmin
@@ -906,12 +901,12 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
         # degradation layers for these datasets
-        lc_band_infos = self.combo_layer_lc.get_band_info()
+        lc_band_infos = get_band_infos(self.combo_layer_lc.get_data_file())
         lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
         lc_annual_band_indices.sort(key=lambda i: lc_band_infos[i]['metadata']['year'])
         lc_years = [bi['metadata']['year'] for bi in lc_band_infos if bi['name'] == 'Land cover (7 class)']
 
-        soc_band_infos = self.combo_layer_soc.get_band_info()
+        soc_band_infos = get_band_infos(self.combo_layer_soc.get_data_file())
         soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
         soc_annual_band_indices.sort(key=lambda i: soc_band_infos[i]['metadata']['year'])
         soc_years = [bi['metadata']['year'] for bi in soc_band_infos if bi['name'] == 'Soil organic carbon']

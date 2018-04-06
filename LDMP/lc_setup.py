@@ -496,12 +496,10 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
             self.groupBox_custom_tg.setEnabled(True)
 
     def get_initial_year(self):
-        initial_bandnumber = self.use_custom_final.get_bandnumber()
-        return self.use_custom_initial.get_band_info()[initial_bandnumber - 1]['metadata']['year']
+        return self.use_custom_initial.get_band_info()['metadata']['year']
 
     def get_final_year(self):
-        final_bandnumber = self.use_custom_final.get_bandnumber()
-        return self.use_custom_final.get_band_info()[final_bandnumber - 1]['metadata']['year']
+        return self.use_custom_final.get_band_info()['metadata']['year']
 
     def esa_agg_custom_edit(self):
         self.dlg_esa_agg.exec_()

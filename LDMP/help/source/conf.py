@@ -218,11 +218,12 @@ latex_documents = [
     ('training/tutorial_installation', u'Trends.Earth_Step1_Installation.tex', u'Trends.Earth: Installation', u'Conservation International', 'howto'),
     ('training/tutorial_registration', u'Trends.Earth_Step2_Registration.tex', u'Trends.Earth: Registration', u'Conservation International', 'howto'),
     ('training/tutorial_run_all_subindicators', u'Trends.Earth_Step3_Computing_Indicators.tex', u'Trends.Earth: Compute Sub-indicators', u'Conservation International', 'howto'),
-    ('training/tutorial_create_folder', u'Trends.Earth_Step4_Create_Folder.tex', u'Trends.Earth: Creating an output folder', u'Conservation International', 'howto'),
-    ('training/tutorial_task_download', u'Trends.Earth_Step5_Downloading_Results.tex', u'Trends.Earth: Downloading Results', u'Conservation International', 'howto'),
-    ('training/tutorial_load_basemap', u'Trends.Earth_Step6_Load_Basemap.tex', u'Trends.Earth: Loading a Basemap', u'Conservation International', 'howto'),
-    ('training/tutorial_compute_sdg_indicator', u'Trends.Earth_Step7_Computing_SDG_Indicator.tex', u'Trends.Earth: How to Compute the SDG Indicator', u'Conservation International', 'howto'),
-    ('training/tutorial_summary_table', u'Trends.Earth_Step8_The_Summary_Table.tex', u'Trends.Earth: The Summary Table', u'Conservation International', 'howto')
+    ('training/tutorial_task_download', u'Trends.Earth_Step4_Downloading_Results.tex', u'Trends.Earth: Downloading Results', u'Conservation International', 'howto'),
+    ('training/tutorial_compute_sdg_indicator', u'Trends.Earth_Step5_Computing_SDG_Indicator.tex', u'Trends.Earth: How to Compute the SDG Indicator', u'Conservation International', 'howto'),
+    ('training/tutorial_summary_table', u'Trends.Earth_Step6_The_Summary_Table.tex', u'Trends.Earth: The Summary Table', u'Conservation International', 'howto'),
+    ('training/tutorial_load_basemap', u'Trends.Earth_Tutorial_Loading_a_Basemap.tex', u'Trends.Earth: Loading a Basemap', u'Conservation International', 'howto'),
+    ('training/tutorial_custom_landcover', u'Trends.Earth_Tutorial_Using_Custom_Land_Cover.tex', u'Trends.Earth: Using Custom Land Cover Data', u'Conservation International', 'howto'),
+    ('training/tutorial_custom_soc', u'Trends.Earth_Tutorial_Using_Custom_Soil_Carbon.tex', u'Trends.Earth: Using Custom Soil Organic Carbon Data', u'Conservation International', 'howto'),
 ]
 
 latex_elements = {

@@ -64,11 +64,12 @@ options(
                            'Trends.Earth_Step1_Installation.tex',
                            'Trends.Earth_Step2_Registration.tex',
                            'Trends.Earth_Step3_Computing_Indicators.tex',
-                           'Trends.Earth_Step4_Create_Folder.tex',
-                           'Trends.Earth_Step5_Downloading_Results.tex',
-                           'Trends.Earth_Step6_Load_Basemap.tex',
-                           'Trends.Earth_Step7_Computing_SDG_Indicator.tex',
-                           'Trends.Earth_Step8_The_Summary_Table.tex']
+                           'Trends.Earth_Step4_Downloading_Results.tex',
+                           'Trends.Earth_Step5_Computing_SDG_Indicator.tex',
+                           'Trends.Earth_Step6_The_Summary_Table.tex',
+                           'Trends.Earth_Tutorial_Loading_a_Basemap.tex',
+                           'Trends.Earth_Tutorial_Using_Custom_Land_Cover.tex',
+                           'Trends.Earth_Tutorial_Using_Custom_Soil_Carbon.tex']
     )
 )
 

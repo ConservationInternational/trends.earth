@@ -110,14 +110,6 @@ class LandCoverChangeWorker(AbstractWorker):
         else:
             return True
 
-    def progress_callback(self, fraction, message, data):
-        if self.killed:
-            return False
-        else:
-            self.progress.emit(100 * fraction)
-            return True
-
-
 class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
     def __init__(self, parent=None):
         super(DlgCalculateLC, self).__init__(parent)

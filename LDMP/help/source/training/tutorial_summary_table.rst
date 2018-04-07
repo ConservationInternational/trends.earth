@@ -1,6 +1,12 @@
 ﻿Interpreting summary table
 ==========================
 
+- **Objective**: Learn to install the Trends.Earth plugin into QGIS using the plugin manager
+
+- **Estimated time of completion**: 10 minutes
+
+- **Internet access**: Required
+
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial09_The_Summary_Table.pdf>`_
 

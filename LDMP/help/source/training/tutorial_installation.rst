@@ -1,10 +1,14 @@
 ﻿Install Trends.Earth
 ====================
 
+- **Objective**: Learn to install the Trends.Earth plugin into QGIS using the plugin manager
+
+- **Estimated time of completion**: 10 minutes
+
+- **Internet access**: Required
+
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_
-
-Trends.Earth is a toolbox which functions as a QGIS plugin. This means that in order for you to run the calculations you need first to install QGIS.
 
 1. Once QGIS is installed open by searching in the for the QGIS icon on your computer's desktop or program menu.
 

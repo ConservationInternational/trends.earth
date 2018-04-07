@@ -122,7 +122,7 @@
         <translation>Uboreshaji</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="707"/>
+        <location filename="../data_io.py" line="721"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -332,12 +332,12 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="699"/>
+        <location filename="../data_io.py" line="713"/>
         <source>Cannot process {}. Unable to read file.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="707"/>
+        <location filename="../data_io.py" line="721"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation type="unfinished"/>
     </message>
@@ -1463,37 +1463,37 @@ p, li { white-space: pre-wrap;}
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="818"/>
+        <location filename="../data_io.py" line="832"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="690"/>
+        <location filename="../data_io.py" line="704"/>
         <source>Choose an input raster file.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="695"/>
+        <location filename="../data_io.py" line="709"/>
         <source>Choose an input polygon dataset.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="818"/>
+        <location filename="../data_io.py" line="832"/>
         <source>Raster import failed.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="794"/>
+        <location filename="../data_io.py" line="808"/>
         <source>Rasterizing failed.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="766"/>
+        <location filename="../data_io.py" line="780"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="781"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"/>
     </message>
@@ -1526,27 +1526,27 @@ p, li { white-space: pre-wrap;}
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="921"/>
+        <location filename="../data_io.py" line="935"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="861"/>
+        <location filename="../data_io.py" line="885"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="864"/>
+        <location filename="../data_io.py" line="888"/>
         <source>No definition set</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="864"/>
+        <location filename="../data_io.py" line="888"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="921"/>
+        <location filename="../data_io.py" line="935"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation type="unfinished"/>
     </message>
@@ -1580,32 +1580,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="1056"/>
+        <location filename="../data_io.py" line="1069"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1037"/>
+        <location filename="../data_io.py" line="1050"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1056"/>
+        <location filename="../data_io.py" line="1069"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1060"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1060"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="1051"/>
+        <location filename="../data_io.py" line="1064"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"/>
     </message>
@@ -1618,32 +1618,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="995"/>
+        <location filename="../data_io.py" line="1009"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="969"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="989"/>
+        <location filename="../data_io.py" line="1003"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="992"/>
+        <location filename="../data_io.py" line="1006"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="995"/>
+        <location filename="../data_io.py" line="1009"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="983"/>
+        <location filename="../data_io.py" line="997"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"/>
     </message>
@@ -1681,27 +1681,27 @@ p, li { white-space: pre-wrap; }
         <translation>Vinjari...</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="471"/>
+        <location filename="../data_io.py" line="472"/>
         <source>Select a Trends.Earth output file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="471"/>
+        <location filename="../data_io.py" line="472"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="527"/>
+        <location filename="../data_io.py" line="528"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="527"/>
+        <location filename="../data_io.py" line="528"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="502"/>
+        <location filename="../data_io.py" line="503"/>
         <source>{} does not appear to be a Trends.Earth output file</source>
         <translation type="unfinished"/>
     </message>
@@ -2405,32 +2405,32 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="587"/>
+        <location filename="../data_io.py" line="588"/>
         <source>Select a raster input file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="587"/>
+        <location filename="../data_io.py" line="588"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="632"/>
+        <location filename="../data_io.py" line="633"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="632"/>
+        <location filename="../data_io.py" line="633"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="618"/>
+        <location filename="../data_io.py" line="619"/>
         <source>Select a vector input file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="618"/>
+        <location filename="../data_io.py" line="619"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
@@ -2438,22 +2438,22 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="656"/>
+        <location filename="../data_io.py" line="658"/>
         <source>Choose a name for the output file</source>
         <translation>Chagua jina kwa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="656"/>
+        <location filename="../data_io.py" line="658"/>
         <source>Raster file (*.tif)</source>
         <translation>Faili ya Raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="666"/>
+        <location filename="../data_io.py" line="668"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="666"/>
+        <location filename="../data_io.py" line="668"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -2919,27 +2919,27 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1196"/>
         <source>Select a Trends.Earth output file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1196"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="1203"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1199"/>
+        <location filename="../data_io.py" line="1212"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="1203"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>

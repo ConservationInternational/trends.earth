@@ -23,7 +23,9 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVariant
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
-    QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, QGis
+    QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
+    QGis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsField, \
+    QgsFields, QgsMapLayerRegistry, QgsFeature
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -49,15 +51,17 @@ from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELaye
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
 class RemapVectorWorker(AbstractWorker):
-    def __init__(self, l, out_file, attribute, remap_dict, data_type):
+    def __init__(self, l, out_file, attribute, remap_dict, in_data_type, 
+                 out_res, out_data_type=gdal.GDT_Int16):
         AbstractWorker.__init__(self)
 
         self.l = l
         self.out_file = out_file
-
+        self.attribute = attribute
+        self.remap_dict = remap_dict
+        self.in_data_type = in_data_type
         self.out_res = out_res
         self.out_data_type = out_data_type
-        self.attribute = attribute
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -69,39 +73,52 @@ class RemapVectorWorker(AbstractWorker):
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
         t = QgsCoordinateTransform(crs_src, crs_dst)
 
-        l_out = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
-                               crs=crs_dst.toProj4()),
+        l_out = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj4()),
                                "land cover (transformed)",  
                                "memory")
-        out_fields = QgsFields()
-        out_fields.append(QgsField('remapped_code', QVariant.Int, 'int'))
-        feats = []
-        for f in l.getFeatures():
-            geom = f.geometry()
-            geom.transform(t)
-            f.setGeometry(geom)
-            original_code = f.attribute(self.attribute)
-            f.setFields(out_fields)
-            f.setAttribute('remapped_code', self.remap_dict[original_code])
-            feats.append(f)
-        l_w.dataProvider().addFeatures(feats)
-        l_w.commitChanges()
-        if not l_w.isValid():
-            log(u'Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
-            return None
+        l_out.dataProvider().addAttributes([QgsField('code', QVariant.Int)])
+        l_out.updateFields()
 
-        # Write l_w to a shapefile for usage by gdal rasterize
+        # Write l_out to a shapefile for usage by gdal rasterize
         temp_shp = tempfile.NamedTemporaryFile(suffix='.shp').name
-        err = QgsVectorFileWriter.writeAsVectorFormat(l_w, temp_shp, "UTF-8", 
-                                                      crs_dst, "ESRI Shapefile")
+        log(u'Writing temporary shapefile to {}'.format(temp_shp))
+        err = QgsVectorFileWriter.writeAsVectorFormat(l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile")
         if err != QgsVectorFileWriter.NoError:
             log(u'Error writing layer to {}'.format(temp_shp))
             return None
 
+        feats = []
+        n = 1
+        for f in self.l.getFeatures():
+            if self.killed:
+                log("Processing killed by user while remapping vector")
+                return None
+            geom = f.geometry()
+            geom.transform(t)
+            new_f = QgsFeature()
+            new_f.setGeometry(geom)
+            new_f.setAttributes([self.remap_dict[f.attribute(self.attribute)]])
+            feats.append(new_f)
+            n += 1
+            # Commit the changes every 5% of the way through the length of the 
+            # features
+            if n > (self.l.featureCount() / 20):
+                l_out.dataProvider().addFeatures(feats)
+                l_out.commitChanges()
+                # Note there will be two progress bars that will fill to 100%, 
+                # first one for this loop, and then another for rasterize, both 
+                # with the same title.
+                self.progress.emit(100 * float(n)/self.l.featureCount())
+                feats = []
+        if not l_out.isValid():
+            log(u'Error remapping and transforming vector layer from "{}" to "{}")'.format(crs_src_string, crs_dst.toProj4()))
+            return None
+
+        log('Rasterizing...')
         res = gdal.Rasterize(self.out_file, temp_shp,
                              format='GTiff',
                              xRes=self.out_res, yRes=-self.out_res,
-                             noData=-32768, attribute='remapped_code',
+                             noData=-32768, attribute='code',
                              outputSRS="epsg:4326",
                              outputType=self.out_data_type,
                              creationOptions=['COMPRESS=LZW'],
@@ -111,7 +128,7 @@ class RemapVectorWorker(AbstractWorker):
         else:
             return None
 
-    def progress_callback(self, fraction, message, data):
+    def progress_callback(self, fraction, message=None, data=None):
         if self.killed:
             return False
         else:
@@ -582,20 +599,19 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
         self.inputTypeChanged.emit(has_file)
 
     def open_raster_browse(self):
-        self.lineEdit_raster_file.clear()
-        self.comboBox_bandnumber.clear()
-
+        if self.lineEdit_raster_file.text():
+            initial_file = self.lineEdit_raster_file.text()
+        else:
+            initial_file = QSettings().value("LDMP/input_dir", None)
         raster_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a raster input file'),
-                                                        QSettings().value("LDMP/input_dir", None),
+                                                        initial_file,
                                                         self.tr('Raster file (*.tif *.dat *.img)'))
         # Try loading this raster to verify the file works
         if raster_file:
-            self.get_raster_layer(raster_file)
-        else:
-            self.inputFileChanged.emit(False)
+            self.update_raster_layer(raster_file)
 
-    def get_raster_layer(self, raster_file):
+    def update_raster_layer(self, raster_file):
         l = QgsRasterLayer(raster_file, "raster file", "gdal")
 
         if not os.access(raster_file, os.R_OK or not l.isValid()):
@@ -603,30 +619,29 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
                                        self.tr(u"Cannot read {}. Choose a different file.".format(raster_file)))
             self.inputFileChanged.emit(False)
             return False
+        else:
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+            self.lineEdit_raster_file.setText(raster_file)
+            self.comboBox_bandnumber.clear()
+            self.comboBox_bandnumber.addItems([str(n) for n in range(1, l.dataProvider().bandCount() + 1)])
 
-        QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
-        self.lineEdit_raster_file.setText(raster_file)
-
-        self.comboBox_bandnumber.addItems([str(n) for n in range(1, l.dataProvider().bandCount() + 1)])
-
-        self.inputFileChanged.emit(True)
-        return True
+            self.inputFileChanged.emit(True)
+            return True
 
     def open_vector_browse(self):
-        self.comboBox_fieldname.clear()
-        self.lineEdit_vector_file.clear()
-
+        if self.lineEdit_vector_file.text():
+            initial_file = self.lineEdit_vector_file.text()
+        else:
+            initial_file = QSettings().value("LDMP/input_dir", None)
         vector_file = QtGui.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a vector input file'),
-                                                        QSettings().value("LDMP/input_dir", None),
+                                                        initial_file,
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         # Try loading this vector to verify the file works
         if vector_file:
-            self.get_vector_layer(vector_file)
-        else:
-            self.inputFileChanged.emit(False)
+            self.update_vector_layer(vector_file)
 
-    def get_vector_layer(self, vector_file):
+    def update_vector_layer(self, vector_file):
         l = QgsVectorLayer(vector_file, "vector file", "ogr")
 
         if not os.access(vector_file, os.R_OK) or not l.isValid():
@@ -634,14 +649,16 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
                                        self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
             self.inputFileChanged.emit(False)
             return False
+        else:
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+            self.lineEdit_vector_file.setText(vector_file)
+            self.comboBox_fieldname.clear()
+            self.inputFileChanged.emit(True)
+            self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
+            return True
 
-        QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
-        self.lineEdit_vector_file.setText(vector_file)
-        self.inputFileChanged.emit(True)
-
-        self.comboBox_fieldname.addItems([field.name() for field in l.dataProvider().fields()])
-
-        return l
+    def get_vector_layer(self):
+        return QgsVectorLayer(self.lineEdit_vector_file.text(), "vector file", "ogr")
 
 
 class ImportSelectRasterOutput(QtGui.QWidget, Ui_WidgetDataIOImportSelectRasterOutput):
@@ -653,15 +670,17 @@ class ImportSelectRasterOutput(QtGui.QWidget, Ui_WidgetDataIOImportSelectRasterO
         self.btn_output_file_browse.clicked.connect(self.save_raster)
 
     def save_raster(self):
-        self.lineEdit_output_file.clear()
-
+        if self.lineEdit_output_file.text():
+            initial_file = self.lineEdit_output_file.text()
+        else:
+            initial_file = QSettings().value("LDMP/output_dir", None)
         raster_file = QtGui.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
-                                                        QSettings().value("LDMP/output_dir", None),
+                                                        initial_file,
                                                         self.tr('Raster file (*.tif)'))
         if raster_file:
             if os.access(os.path.dirname(raster_file), os.W_OK):
-                QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 self.lineEdit_output_file.setText(raster_file)
                 return True
             else:
@@ -708,11 +727,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
             if in_file  == '':
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
-            l = QgsVectorLayer(in_file, "vector file", "ogr")
-            if not l.isValid():
-                QtGui.QMessageBox.critical(None, tr("Error"),
-                        tr(u"Cannot process {}. Unable to read file.".format(in_file)))
-                return
+            l = self.input_widget.get_vector_layer()
             if l.geometryType() == QGis.Polygon:
                 self.vector_datatype = "polygon"
             elif l.geometryType() == QGis.Point:
@@ -770,12 +785,16 @@ class DlgDataIOImportBase(QtGui.QDialog):
         return res / (111.325 * 1000) # 111.325km in one degree
 
     def remap_vector(self, l, out_file, remap_dict, attribute):
+        out_res = self.get_out_res_wgs84()
+        log(u'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(out_file, out_res, attribute))
         remap_vector_worker = StartWorker(RemapVectorWorker,
-                                          'remapping values',
-                                          l, out_file,
+                                          'rasterizing and remapping values',
+                                          l,
+                                          out_file,
                                           attribute,
                                           remap_dict,
-                                          self.vector_datatype)
+                                          self.vector_datatype,
+                                          out_res)
         if not remap_vector_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Vector remapping failed."), None)
@@ -786,7 +805,9 @@ class DlgDataIOImportBase(QtGui.QDialog):
     def remap_raster(self, in_file, out_file, remap_list):
         # First warp the raster to the correct CRS
         temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
-        self.warp_raster(temp_tif)
+        warp_ret = self.warp_raster(temp_tif)
+        if not warp_ret:
+            return False
 
         remap_raster_worker = StartWorker(RemapRasterWorker,
                                           'remapping values', temp_tif, 
@@ -800,7 +821,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
 
     def rasterize_vector(self, in_file, out_file, attribute):
         out_res = self.get_out_res_wgs84()
-        log(u'Rasterizing {} to {}, using output resolution {}, and field "{}"'.format(in_file, out_file, out_res, attribute))
+        log(u'Rasterizing {} using output resolution {}, and field "{}"'.format(out_file, out_res, attribute))
         rasterize_worker = StartWorker(RasterizeWorker,
                                        'rasterizing vector file',
                                        in_file, out_file, out_res, attribute)
@@ -844,6 +865,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
         band_info_dict = schema.dump(band_info[0])
         add_layer(out_file, 1, band_info_dict)
         return (out_file, get_band_title(band_info_dict), 1, schema.dump(band_info[0]))
+
 
 class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
     def __init__(self, parent=None):
@@ -903,6 +925,12 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         else:
             self.btn_agg_edit_def.setEnabled(False)
         self.clear_dlg_agg()
+        if self.input_widget.radio_raster_input.isChecked():
+            self.checkBox_use_sample.setEnabled(True)
+            self.checkBox_use_sample_description.setEnabled(True)
+        else:
+            self.checkBox_use_sample.setEnabled(False)
+            self.checkBox_use_sample_description.setEnabled(False)
 
     def load_agg(self, values):
         # Set all of the classes to no data by default
@@ -926,7 +954,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
                 self.load_agg(values)
         else:
             f = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer(f)
+            l = self.input_widget.get_vector_layer()
             idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
             if not self.dlg_agg or \
                     (self.last_vector != f or self.last_idx != idx):
@@ -943,17 +971,16 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
-            self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
+            remap_ret = self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
         else:
-            #TODO: Need to remap the vector before rasterizing
-            in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
-            remap_ret = self.remap_vector(self.input_widget.get_vector_layer(in_file),
+            l = self.input_widget.get_vector_layer()
+            remap_ret = self.remap_vector(l,
                                           out_file, 
                                           self.dlg_agg.get_agg_as_dict(), 
                                           attribute)
-            if not remap_ret:
-                return
+        if not remap_ret:
+            return False
 
         l_info = self.add_layer('Land cover (7 class)',
                                 {'year': int(self.input_widget.spinBox_data_year.date().year()),
@@ -990,14 +1017,14 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer(in_file)
+            l = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
             idx = l.fieldNameIndex(field)
             if not l.fields().field(idx).isNumeric():
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
                 return
             else:
-                stats = get_vector_stats(self.input_widget.get_vector_layer(in_file), field)
+                stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
         log('Stats are: {}'.format(stats))
         if not stats:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
@@ -1016,11 +1043,14 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def ok_clicked(self):
         out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
-            self.warp_raster(out_file)
+            ret = self.warp_raster(out_file)
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
-            self.rasterize_vector(in_file, out_file, attribute)
+            ret = self.rasterize_vector(in_file, out_file, attribute)
+
+        if not ret:
+            return False
 
         l_info = self.add_layer('Soil organic carbon',
                                 {'year': int(self.input_widget.spinBox_data_year.date().year()),
@@ -1057,7 +1087,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=7)
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer(in_file)
+            l = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
             idx = l.fieldNameIndex(field)
             if not l.fields().field(idx).isNumeric():
@@ -1079,11 +1109,14 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     def ok_clicked(self):
         out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
-            self.warp_raster(out_file)
+            ret = self.warp_raster(out_file)
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
             attribute = self.input_widget.comboBox_fieldname.currentText()
-            self.rasterize_vector(in_file, out_file, attribute)
+            ret = self.rasterize_vector(in_file, out_file, attribute)
+
+        if not ret:
+            return False
 
         l_info = self.add_layer("Land Productivity Dynamics (LPD)",
                                 {'source': 'custom data'})

@@ -66,6 +66,7 @@ class AbstractWorker(QtCore.QObject):
         self.killed = True
         self.set_message.emit('Aborting...')
         self.toggle_show_progress.emit(False)
+        self.finished.emit(None)
 
 
 class UserAbortedNotification(Exception):

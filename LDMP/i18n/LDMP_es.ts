@@ -122,7 +122,7 @@
         <translation>Mejora</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="707"/>
+        <location filename="../data_io.py" line="721"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -332,12 +332,12 @@
         <translation>Error al cargar el estilo Trends.Earth. Agregar capa usando los valores predeterminados de QGIS.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="699"/>
+        <location filename="../data_io.py" line="713"/>
         <source>Cannot process {}. Unable to read file.</source>
         <translation>No se puede procesar {}. Imposible leer el archivo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="707"/>
+        <location filename="../data_io.py" line="721"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>No se puede procesar {}. Tipo de geometría desconocida: {}</translation>
     </message>
@@ -1463,37 +1463,37 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="818"/>
+        <location filename="../data_io.py" line="832"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="690"/>
+        <location filename="../data_io.py" line="704"/>
         <source>Choose an input raster file.</source>
         <translation>Elija un archivo raster de entrada.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="695"/>
+        <location filename="../data_io.py" line="709"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Elija un polígono de entrada.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="818"/>
+        <location filename="../data_io.py" line="832"/>
         <source>Raster import failed.</source>
         <translation>La importación de ráster falló.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="794"/>
+        <location filename="../data_io.py" line="808"/>
         <source>Rasterizing failed.</source>
         <translation>Rasterización fallida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="766"/>
+        <location filename="../data_io.py" line="780"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../data_io.py" line="781"/>
+        <location filename="../data_io.py" line="795"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"/>
     </message>
@@ -1526,27 +1526,27 @@ p, li {white-space: pre-wrap; }
         <translation>Nota: Si está leyendo un archivo grande, se recomienda que se marque la opción anterior, ya que acelera de manera significativa el proceso de lectura de las clases de entrada del conjunto de datos. Sin embargo, si encuentra que Trends.Earth no identifica todas las clases en el archivo de entrada, puede ser necesario desactivar esta opción.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="921"/>
+        <location filename="../data_io.py" line="935"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="861"/>
+        <location filename="../data_io.py" line="885"/>
         <source>Choose an output file.</source>
         <translation>Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="864"/>
+        <location filename="../data_io.py" line="888"/>
         <source>No definition set</source>
         <translation>Sin definición establecida</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="864"/>
+        <location filename="../data_io.py" line="888"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Haga clic en &quot;Editar definición&quot; para definir la definición de cobertura del terreno antes de exportar.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="921"/>
+        <location filename="../data_io.py" line="935"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Error al leer datos. Trends.Earth admite un máximo de 60 clases de cobertura del terreno diferentes</translation>
     </message>
@@ -1591,32 +1591,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1056"/>
+        <location filename="../data_io.py" line="1069"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1037"/>
+        <location filename="../data_io.py" line="1050"/>
         <source>Choose an output file.</source>
         <translation>Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1056"/>
+        <location filename="../data_io.py" line="1069"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1060"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1060"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido. Trends.Earth cargará el archivo de todos modos, pero revise el mapa una vez que se haya cargado para garantizar que los valores tengan sentido. Los únicos valores permitidos en un archivo de entrada de productividad son -32768, 1, 2, 3, 4 y 5. Hay {} valor (es) en el archivo de entrada que no fueron reconocidos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1051"/>
+        <location filename="../data_io.py" line="1064"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>El campo elegido ({}) no es numérico. Elija un campo que contenga números.</translation>
     </message>
@@ -1629,32 +1629,32 @@ p, li { white-space: pre-wrap; }
         <translation>Cargar un conjunto de datos de carbono orgánico de suelo personalizado (SOC)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="995"/>
+        <location filename="../data_io.py" line="1009"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="969"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Choose an output file.</source>
         <translation>Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="989"/>
+        <location filename="../data_io.py" line="1003"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El archivo debe contener valores de carbono orgánico del suelo en toneladas / hectárea.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="992"/>
+        <location filename="../data_io.py" line="1006"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El valor mínimo en este archivo es {}. El valor sin datos debe ser -32768, y todos los demás valores deben ser&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="995"/>
+        <location filename="../data_io.py" line="1009"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El valor máximo en este archivo es {}. El valor máximo permitido es de 1000 toneladas / hectárea.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="983"/>
+        <location filename="../data_io.py" line="997"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>El campo elegido ({}) no es numérico. Elige un campo numérico.</translation>
     </message>
@@ -1692,27 +1692,27 @@ p, li { white-space: pre-wrap; }
         <translation>Buscar...</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="471"/>
+        <location filename="../data_io.py" line="472"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Seleccione un archivo de salida Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="471"/>
+        <location filename="../data_io.py" line="472"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Archivo de metadatos Trends.Earth (*.json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="527"/>
+        <location filename="../data_io.py" line="528"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="527"/>
+        <location filename="../data_io.py" line="528"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="502"/>
+        <location filename="../data_io.py" line="503"/>
         <source>{} does not appear to be a Trends.Earth output file</source>
         <translation>{} no parece ser un archivo de salida Trends.Earth</translation>
     </message>
@@ -2416,32 +2416,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="587"/>
+        <location filename="../data_io.py" line="588"/>
         <source>Select a raster input file</source>
         <translation>Seleccione un archivo de entrada en formato ráster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="587"/>
+        <location filename="../data_io.py" line="588"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation>Archivo raster (*.tif *.dat *.img)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="632"/>
+        <location filename="../data_io.py" line="633"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="632"/>
+        <location filename="../data_io.py" line="633"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="618"/>
+        <location filename="../data_io.py" line="619"/>
         <source>Select a vector input file</source>
         <translation>Seleccione un archivo de entrada en formato vectorial</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="618"/>
+        <location filename="../data_io.py" line="619"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Archivo vectorial (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
@@ -2449,22 +2449,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="656"/>
+        <location filename="../data_io.py" line="658"/>
         <source>Choose a name for the output file</source>
         <translation>Elija un nombre para el archivo de salida</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="656"/>
+        <location filename="../data_io.py" line="658"/>
         <source>Raster file (*.tif)</source>
         <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="666"/>
+        <location filename="../data_io.py" line="668"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="666"/>
+        <location filename="../data_io.py" line="668"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
@@ -2930,27 +2930,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1196"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Seleccione un archivo de salida Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1183"/>
+        <location filename="../data_io.py" line="1196"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Archivo de metadatos Trends.Earth (* .json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1203"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1199"/>
+        <location filename="../data_io.py" line="1212"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation>{} no se pudo cargar o no contiene capas de este tipo de capa. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1203"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>

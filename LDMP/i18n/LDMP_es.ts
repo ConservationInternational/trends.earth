@@ -17,27 +17,27 @@
         <translation>Declinante</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="417"/>
+        <location filename="../jobs.py" line="418"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="418"/>
+        <location filename="../jobs.py" line="419"/>
         <source>Integrated NDVI</source>
         <translation>Integral de NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="418"/>
+        <location filename="../jobs.py" line="419"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="404"/>
+        <location filename="../jobs.py" line="405"/>
         <source>Downloaded</source>
         <translation>Descargado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="404"/>
+        <location filename="../jobs.py" line="405"/>
         <source>Downloaded results to {}</source>
         <translation>Resultados descargados a {}</translation>
     </message>
@@ -122,7 +122,7 @@
         <translation>Mejora</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="727"/>
+        <location filename="../data_io.py" line="721"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -332,12 +332,12 @@
         <translation>Error al cargar el estilo Trends.Earth. Agregar capa usando los valores predeterminados de QGIS.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="719"/>
+        <location filename="../data_io.py" line="713"/>
         <source>Cannot process {}. Unable to read file.</source>
         <translation>No se puede procesar {}. Imposible leer el archivo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="727"/>
+        <location filename="../data_io.py" line="721"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>No se puede procesar {}. Tipo de geometría desconocida: {}</translation>
     </message>
@@ -609,82 +609,82 @@ p, li {white-space: pre-wrap; }
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="383"/>
+        <location filename="../lc_setup.py" line="393"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="392"/>
+        <location filename="../lc_setup.py" line="402"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Definición de la matriz de transición (*.json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="392"/>
+        <location filename="../lc_setup.py" line="402"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Elija dónde guardar esta definición de matriz de transición</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="206"/>
+        <location filename="../calculate_lc.py" line="205"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="132"/>
+        <location filename="../calculate_lc.py" line="131"/>
         <source>Land Cover Setup</source>
         <translation>Configuración de la cubierta del terreno</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="135"/>
+        <location filename="../calculate_lc.py" line="134"/>
         <source>Define Degradation</source>
         <translation>Definir Degradación</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="197"/>
+        <location filename="../calculate_lc.py" line="196"/>
         <source>Choose a name for the output file</source>
         <translation>Elija un nombre para el archivo de salida</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="197"/>
+        <location filename="../calculate_lc.py" line="196"/>
         <source>Raster file (*.tif)</source>
         <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="254"/>
+        <location filename="../calculate_lc.py" line="253"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="258"/>
+        <location filename="../calculate_lc.py" line="257"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>El área de interés no está completamente dentro de la capa inicial de cobertura del terreno.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="263"/>
+        <location filename="../calculate_lc.py" line="262"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>El área de interés no está completamente dentro de la capa final de cobertura del terreno.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="287"/>
+        <location filename="../calculate_lc.py" line="286"/>
         <source>Error calculating land cover change.</source>
         <translation>Error al calcular el cambio de la cobertura del terreno.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="237"/>
+        <location filename="../calculate_lc.py" line="236"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
         <translation>Debe agregar una capa de cobertura del terreno inicial a su mapa antes de poder ejecutar el cálculo.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="242"/>
+        <location filename="../calculate_lc.py" line="241"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
         <translation>Debe agregar una capa de cobertura del terreno final a su mapa antes de poder ejecutar el cálculo.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="334"/>
+        <location filename="../lc_setup.py" line="344"/>
         <source>Land cover in initial year </source>
         <translation>Cobertura de la tierra en el año inicial</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="254"/>
+        <location filename="../calculate_lc.py" line="253"/>
         <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>El año inicial ({}) es mayor o igual que el año objetivo ({}); este análisis podría generar resultados extraños.</translation>
     </message>
@@ -737,27 +737,27 @@ p, li {white-space: pre-wrap; }
         <translation>Código de entrada</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="274"/>
+        <location filename="../lc_setup.py" line="284"/>
         <source>Grassland</source>
         <translation>Pastizal</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="276"/>
+        <location filename="../lc_setup.py" line="286"/>
         <source>Cropland</source>
         <translation>Cultivo</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="278"/>
+        <location filename="../lc_setup.py" line="288"/>
         <source>Wetland</source>
         <translation>Humedal</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="280"/>
+        <location filename="../lc_setup.py" line="290"/>
         <source>Artificial</source>
         <translation>Área artificial</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="284"/>
+        <location filename="../lc_setup.py" line="294"/>
         <source>Water body</source>
         <translation>Cuerpo de agua</translation>
     </message>
@@ -787,32 +787,32 @@ p, li {white-space: pre-wrap; }
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="239"/>
+        <location filename="../lc_setup.py" line="249"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="236"/>
+        <location filename="../lc_setup.py" line="246"/>
         <source>Some of the class codes ({}) in the definition file do not appear in the chosen data file.</source>
         <translation>Algunos de los códigos de clase ({}) en el archivo de definición no aparecen en el archivo de datos elegido.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="239"/>
+        <location filename="../lc_setup.py" line="249"/>
         <source>Some of the class codes ({}) in the data file do not appear in the chosen definition file.</source>
         <translation>Algunos de los códigos de clase ({}) en el archivo de datos no aparecen en el archivo de definición elegido.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="270"/>
+        <location filename="../lc_setup.py" line="280"/>
         <source>No data</source>
         <translation>Sin datos</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="282"/>
+        <location filename="../lc_setup.py" line="292"/>
         <source>Other land</source>
         <translation>Otra cobertura</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="272"/>
+        <location filename="../lc_setup.py" line="282"/>
         <source>Tree-covered</source>
         <translation>Area con árboles</translation>
     </message>
@@ -875,12 +875,12 @@ p, li {white-space: pre-wrap; }
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="63"/>
+        <location filename="../calculate_sdg.py" line="58"/>
         <source>Land Cover Setup</source>
         <translation>Configuración de la cobertura del terreno</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="73"/>
+        <location filename="../calculate_sdg.py" line="68"/>
         <source>Define Effects of Land Cover Change</source>
         <translation>Definir los efectos del cambio de la cobertura del terreno</translation>
     </message>
@@ -1104,137 +1104,137 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgCalculateSummaryTableAdmin</name>
     <message>
-        <location filename="../calculate_sdg.py" line="738"/>
+        <location filename="../calculate_sdg.py" line="733"/>
         <source>Choose a filename for the output file</source>
         <translation>Elija un nombre de archivo para el archivo de salida</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="738"/>
+        <location filename="../calculate_sdg.py" line="733"/>
         <source>Filename (*.json)</source>
         <translation>Nombre de archivo (*.json)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1024"/>
+        <location filename="../calculate_sdg.py" line="1019"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="760"/>
+        <location filename="../calculate_sdg.py" line="755"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="751"/>
+        <location filename="../calculate_sdg.py" line="746"/>
         <source>Choose a filename for the summary table</source>
         <translation>Elija un nombre de archivo para la tabla resumen</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="751"/>
+        <location filename="../calculate_sdg.py" line="746"/>
         <source>Summary table file (*.xlsx)</source>
         <translation>Archivo de tabla de resumen (*.xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="786"/>
+        <location filename="../calculate_sdg.py" line="781"/>
         <source>Choose an output file for the indicator layer.</source>
         <translation>Elija un archivo de salida para la capa del indicador.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="791"/>
+        <location filename="../calculate_sdg.py" line="786"/>
         <source>Choose an output file for the summary table.</source>
         <translation>Elija un archivo de salida para la tabla de resumen.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="812"/>
+        <location filename="../calculate_sdg.py" line="807"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Debe agregar una capa indicadora de trayectoria de productividad a su mapa antes de poder usar la herramienta de cálculo ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="816"/>
+        <location filename="../calculate_sdg.py" line="811"/>
         <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Debe agregar una capa de indicador de estado de productividad a su mapa antes de poder usar la herramienta de cálculo de ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="820"/>
+        <location filename="../calculate_sdg.py" line="815"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Debe agregar una capa de indicador de rendimiento de productividad a su mapa antes de poder usar la herramienta de cálculo ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="826"/>
+        <location filename="../calculate_sdg.py" line="821"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Debe agregar una capa de indicador de dinámica de la productividad de la tierra a su mapa antes de poder usar la herramienta de cálculo de ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="831"/>
+        <location filename="../calculate_sdg.py" line="826"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Debe agregar una capa indicadora de cobertura del terreno a su mapa antes de poder usar la herramienta de cálculo ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="836"/>
+        <location filename="../calculate_sdg.py" line="831"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Debe agregar una capa indicadora de carbono orgánico del suelo a su mapa antes de poder usar la herramienta de cálculo ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="844"/>
+        <location filename="../calculate_sdg.py" line="839"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>El área de interés no está completamente dentro de la capa de trayectoria.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="848"/>
+        <location filename="../calculate_sdg.py" line="843"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>El área de interés no está completamente dentro de la capa de rendimiento.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="852"/>
+        <location filename="../calculate_sdg.py" line="847"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>El área de interés no está completamente dentro de la capa de estado.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="857"/>
+        <location filename="../calculate_sdg.py" line="852"/>
         <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
         <translation>El área de interés no está completamente dentro de la capa de dinámica de productividad de la tierra.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="862"/>
+        <location filename="../calculate_sdg.py" line="857"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>El área de interés no está completamente dentro de la capa de cobertura del terreno.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="866"/>
+        <location filename="../calculate_sdg.py" line="861"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>El área de interés no está completamente dentro de la capa de carbono orgánico del suelo.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="878"/>
+        <location filename="../calculate_sdg.py" line="873"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>Las resoluciones de la capa de trayectoria y la capa de estado no coinciden.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="882"/>
+        <location filename="../calculate_sdg.py" line="877"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>Las resoluciones de la capa de trayectoria y la capa de rendimiento no coinciden.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="887"/>
+        <location filename="../calculate_sdg.py" line="882"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>Los sistemas de coordenadas de la capa de trayectoria y la capa de estado no coinciden.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="891"/>
+        <location filename="../calculate_sdg.py" line="886"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>Los sistemas de coordenadas de la capa de trayectoria y la capa de rendimiento no coinciden.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="950"/>
+        <location filename="../calculate_sdg.py" line="945"/>
         <source>Reporting tool does not yet work for split bounding boxes.</source>
         <translation>La herramienta de informes aún no funciona para areas discontinuas.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="998"/>
+        <location filename="../calculate_sdg.py" line="993"/>
         <source>Error masking SDG 15.3.1 input layers.</source>
         <translation>Error al enmascarar las capas de entrada ODS 15.3.1.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="1024"/>
+        <location filename="../calculate_sdg.py" line="1019"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
         <translation>Error al calcular la tabla de resumen ODS 15.3.1.</translation>
     </message>
@@ -1463,29 +1463,39 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="824"/>
+        <location filename="../data_io.py" line="832"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="710"/>
+        <location filename="../data_io.py" line="704"/>
         <source>Choose an input raster file.</source>
         <translation>Elija un archivo raster de entrada.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="715"/>
+        <location filename="../data_io.py" line="709"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Elija un polígono de entrada.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="824"/>
+        <location filename="../data_io.py" line="832"/>
         <source>Raster import failed.</source>
         <translation>La importación de ráster falló.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="800"/>
+        <location filename="../data_io.py" line="808"/>
         <source>Rasterizing failed.</source>
         <translation>Rasterización fallida.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="780"/>
+        <source>Vector remapping failed.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="795"/>
+        <source>Raster remapping failed.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1516,27 +1526,27 @@ p, li {white-space: pre-wrap; }
         <translation>Nota: Si está leyendo un archivo grande, se recomienda que se marque la opción anterior, ya que acelera de manera significativa el proceso de lectura de las clases de entrada del conjunto de datos. Sin embargo, si encuentra que Trends.Earth no identifica todas las clases en el archivo de entrada, puede ser necesario desactivar esta opción.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="927"/>
+        <location filename="../data_io.py" line="935"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="867"/>
+        <location filename="../data_io.py" line="885"/>
         <source>Choose an output file.</source>
         <translation>Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="870"/>
+        <location filename="../data_io.py" line="888"/>
         <source>No definition set</source>
         <translation>Sin definición establecida</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="870"/>
+        <location filename="../data_io.py" line="888"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Haga clic en &quot;Editar definición&quot; para definir la definición de cobertura del terreno antes de exportar.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="927"/>
+        <location filename="../data_io.py" line="935"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Error al leer datos. Trends.Earth admite un máximo de 60 clases de cobertura del terreno diferentes</translation>
     </message>
@@ -1581,32 +1591,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1058"/>
+        <location filename="../data_io.py" line="1069"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1039"/>
+        <location filename="../data_io.py" line="1050"/>
         <source>Choose an output file.</source>
         <translation>Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1058"/>
+        <location filename="../data_io.py" line="1069"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1062"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1062"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo de entrada de productividad válido. Trends.Earth cargará el archivo de todos modos, pero revise el mapa una vez que se haya cargado para garantizar que los valores tengan sentido. Los únicos valores permitidos en un archivo de entrada de productividad son -32768, 1, 2, 3, 4 y 5. Hay {} valor (es) en el archivo de entrada que no fueron reconocidos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1053"/>
+        <location filename="../data_io.py" line="1064"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>El campo elegido ({}) no es numérico. Elija un campo que contenga números.</translation>
     </message>
@@ -1619,32 +1629,32 @@ p, li { white-space: pre-wrap; }
         <translation>Cargar un conjunto de datos de carbono orgánico de suelo personalizado (SOC)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="997"/>
+        <location filename="../data_io.py" line="1009"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="971"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Choose an output file.</source>
         <translation>Elija un archivo de salida.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="991"/>
+        <location filename="../data_io.py" line="1003"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El archivo debe contener valores de carbono orgánico del suelo en toneladas / hectárea.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="994"/>
+        <location filename="../data_io.py" line="1006"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El valor mínimo en este archivo es {}. El valor sin datos debe ser -32768, y todos los demás valores deben ser&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="997"/>
+        <location filename="../data_io.py" line="1009"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>El archivo de entrada ({}) no parece ser un archivo válido de entrada de carbono orgánico del suelo. El valor máximo en este archivo es {}. El valor máximo permitido es de 1000 toneladas / hectárea.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="985"/>
+        <location filename="../data_io.py" line="997"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>El campo elegido ({}) no es numérico. Elige un campo numérico.</translation>
     </message>
@@ -1682,27 +1692,27 @@ p, li { white-space: pre-wrap; }
         <translation>Buscar...</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="491"/>
+        <location filename="../data_io.py" line="472"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Seleccione un archivo de salida Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="491"/>
+        <location filename="../data_io.py" line="472"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Archivo de metadatos Trends.Earth (*.json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="547"/>
+        <location filename="../data_io.py" line="528"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="547"/>
+        <location filename="../data_io.py" line="528"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="522"/>
+        <location filename="../data_io.py" line="503"/>
         <source>{} does not appear to be a Trends.Earth output file</source>
         <translation>{} no parece ser un archivo de salida Trends.Earth</translation>
     </message>
@@ -1710,17 +1720,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOLoadTEBase</name>
     <message>
-        <location filename="../data_io.py" line="470"/>
+        <location filename="../data_io.py" line="450"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="466"/>
+        <location filename="../data_io.py" line="446"/>
         <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
         <translation>No se puede agregar automáticamente &quot;{}&quot;. No se define ningún estilo para este tipo de capa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="470"/>
+        <location filename="../data_io.py" line="450"/>
         <source>Select a layer to load.</source>
         <translation>Seleccione una capa para cargar.</translation>
     </message>
@@ -1796,32 +1806,32 @@ p, li { white-space: pre-wrap; }
         <translation>Actualizar lista</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="210"/>
+        <location filename="../jobs.py" line="211"/>
         <source>Script not found</source>
         <translation>Script no encontrado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="239"/>
+        <location filename="../jobs.py" line="240"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="297"/>
+        <location filename="../jobs.py" line="298"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="284"/>
+        <location filename="../jobs.py" line="285"/>
         <source>Base filename (*.json)</source>
         <translation>Nombre de archivo base (*.json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="297"/>
+        <location filename="../jobs.py" line="298"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>No se puede escribir en {}. Elija un nombre de archivo base diferente.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="284"/>
+        <location filename="../jobs.py" line="285"/>
         <source>Choose a filename downloading results of: {}</source>
         <translation>Elija un nombre de archivo que descargue los resultados de: {}</translation>
     </message>
@@ -2406,32 +2416,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="607"/>
+        <location filename="../data_io.py" line="588"/>
         <source>Select a raster input file</source>
         <translation>Seleccione un archivo de entrada en formato ráster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="607"/>
+        <location filename="../data_io.py" line="588"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation>Archivo raster (*.tif *.dat *.img)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="652"/>
+        <location filename="../data_io.py" line="633"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="652"/>
+        <location filename="../data_io.py" line="633"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="638"/>
+        <location filename="../data_io.py" line="619"/>
         <source>Select a vector input file</source>
         <translation>Seleccione un archivo de entrada en formato vectorial</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="638"/>
+        <location filename="../data_io.py" line="619"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Archivo vectorial (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
@@ -2439,22 +2449,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="676"/>
+        <location filename="../data_io.py" line="658"/>
         <source>Choose a name for the output file</source>
         <translation>Elija un nombre para el archivo de salida</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="676"/>
+        <location filename="../data_io.py" line="658"/>
         <source>Raster file (*.tif)</source>
         <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="686"/>
+        <location filename="../data_io.py" line="668"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="686"/>
+        <location filename="../data_io.py" line="668"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
@@ -2462,62 +2472,62 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="362"/>
+        <location filename="../lc_setup.py" line="372"/>
         <source>Select a transition matrix definition file</source>
         <translation>Seleccione un archivo de definición de matriz de transición</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="362"/>
+        <location filename="../lc_setup.py" line="372"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Definición de la matriz de transición (*.json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="402"/>
+        <location filename="../lc_setup.py" line="412"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="370"/>
+        <location filename="../lc_setup.py" line="380"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="402"/>
+        <location filename="../lc_setup.py" line="412"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="305"/>
+        <location filename="../lc_setup.py" line="315"/>
         <source>Tree-covered</source>
         <translation>Área con árboles</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="306"/>
+        <location filename="../lc_setup.py" line="316"/>
         <source>Grassland</source>
         <translation>Pastizal</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="307"/>
+        <location filename="../lc_setup.py" line="317"/>
         <source>Cropland</source>
         <translation>Cultivo</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="308"/>
+        <location filename="../lc_setup.py" line="318"/>
         <source>Wetland</source>
         <translation>Humedal</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="309"/>
+        <location filename="../lc_setup.py" line="319"/>
         <source>Artificial</source>
         <translation>Artificial</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="310"/>
+        <location filename="../lc_setup.py" line="320"/>
         <source>Bare land</source>
         <translation>Tierras sin cobertura</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="311"/>
+        <location filename="../lc_setup.py" line="321"/>
         <source>Water body</source>
         <translation>Cuerpo de agua</translation>
     </message>
@@ -2545,12 +2555,12 @@ p, li { white-space: pre-wrap; }
         <translation>Enviada</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="188"/>
+        <location filename="../calculate_lc.py" line="187"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
         <translation>Tarea de cobertura enviada a Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="192"/>
+        <location filename="../calculate_lc.py" line="191"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
         <translation>No se puede enviar la tarea de cobertura del terreno a Google Earth Engine.</translation>
     </message>
@@ -2705,17 +2715,17 @@ p, li { white-space: pre-wrap; }
         <translation>No se puede enviar la tarea de productividad a Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="133"/>
+        <location filename="../calculate_sdg.py" line="128"/>
         <source>Initial and final year must be at least 10 years apart.</source>
         <translation>El año inicial y final debe tener al menos 10 años de diferencia.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="196"/>
+        <location filename="../calculate_sdg.py" line="191"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
         <translation>Tarea de cálculo de subindicadores del ODS enviada a Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="200"/>
+        <location filename="../calculate_sdg.py" line="195"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
         <translation>No se puede enviar la tarea de cáclulo de los subindicadores del ODS a Google Earth Engine.</translation>
     </message>
@@ -2728,32 +2738,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="328"/>
+        <location filename="../jobs.py" line="329"/>
         <source>Task name</source>
         <translation>Nombre de la tarea</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="329"/>
+        <location filename="../jobs.py" line="330"/>
         <source>Job</source>
         <translation>Trabajo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="330"/>
+        <location filename="../jobs.py" line="331"/>
         <source>Start time</source>
         <translation>Hora de inicio</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="331"/>
+        <location filename="../jobs.py" line="332"/>
         <source>End time</source>
         <translation>Hora de finalización</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="332"/>
+        <location filename="../jobs.py" line="333"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="333"/>
+        <location filename="../jobs.py" line="334"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>
@@ -2920,27 +2930,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1184"/>
+        <location filename="../data_io.py" line="1196"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Seleccione un archivo de salida Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1184"/>
+        <location filename="../data_io.py" line="1196"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Archivo de metadatos Trends.Earth (* .json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1204"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1200"/>
+        <location filename="../data_io.py" line="1212"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation>{} no se pudo cargar o no contiene capas de este tipo de capa. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1204"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No se puede leer {}. Elija un archivo diferente.</translation>
     </message>

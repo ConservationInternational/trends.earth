@@ -1,7 +1,9 @@
-﻿Task status & download
+﻿.. _task_download:
+
+Task status & download
 ======================
 
-- **Objective**: Learn to check the status of submitted tasks, download them and compute pyramids for faster visualization of results in QGIS.
+- **Objective**: Learn how to check the status of submitted tasks, download them and compute pyramids for faster visualization of results in QGIS.
 
 - **Estimated time of completion**: 20 minutes
 
@@ -10,40 +12,41 @@
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial04_Downloading_Results.pdf>`_
 
-1. The results of Trends.Earth analysis are rasters in TIF format for indicators and XLSX spreadsheets for the tabular outputs. You will need to define in each case where files will be stored. We recommend you create a folder where to store the results for easy posterior access. 
+The results of Trends.Earth analysis are rasters in TIF format for indicators and XLSX spreadsheets for the tabular outputs. You will need to define in each case where files will be stored in your computer. We recommend you create a folder where to store the results for easy posterior access. The **Desktop** is a location usually selected because it is easy to find. 
 
- The **Desktop** is a location usually selected because it is easy to find. To create a folder in your computer's desktop, navigate there by minimizing all the windows and programs you have open.
+1. To create a folder in your computer's desktop, navigate there by minimizing all the windows and programs you have open (Note: not closing, simply removing them from the display).
 
-2. Once on the Desktop, **right click** on an empty space and a menu will display.
+2. Once in the Desktop, **right click** on an empty space and a menu will display.
 
-3. Move your mouse cursor until the **New** option, and another menu will show to the right.
+3. Move your mouse cursor to the **New** option at the bottom of the menu, and another menu will show to the right.
 
-4. Navigate with your mouse cursos to **Folder**.
+4. Navigate with your mouse cursor to **Folder** and right-click.
    
 .. image:: /static/training/t04/create_folder.png
    :align: center
 
-5. A new folder named **New Folder** will appear in your desktop with the name highlighted in blue. Type the name you want to assign it. In this example **Trends.Earth**, and press the **Enter** key on your keyboard. You are ready now to download results!
+5. A new folder named **New Folder** will appear on your desktop with the name highlighted in blue. Type the name you want to assign it. In this example, we named it **Trends.Earth**. Then press the **Enter** key on your keyboard to save the name. 
    
 .. image:: /static/training/t04/name_folder.png
    :align: center
 
-6. Navigate again to QGIS, and click on the CLOUD (add icon) from the Trends.Earth toolbar.   
+6. Navigate again to QGIS, and click on the cloud with the arrow facing down icon (|iconCloudDownload|) from the Trends.Earth toolbar.   
    
 .. image:: /static/common/ldmt_toolbar_highlight_tasks.png
    :align: center   
 
-7. The **Download results from Earth Engine** will open. Click **Refresh List** to check the updated status of the tasks submitted.
+7. The **Download results from Earth Engine** will open. Click **Refresh List** to check the updated status of the tasks submitted in the previous section of the tutorial (:ref:`1-step_subindicators`). One of three messages will show there:
 
-.. image:: /static/training/t04/running.png
-   :align: center
+ - **RUNNING**: The task has been successfully submitted to Earth Engine and it is being processed. Wait a few minutes and click **Refresh list** again.
 
-8. If the task shows status **FINISHED**, then proceed to **Step 9**. If not, please wait a few more minutes and click **Refresh list** again. Repeat this step until the status changes to **FINISHED**. Tasks usually take ~10 minutes to run, the time depends on the size of the area selected.
-   
+ - **FINISHED**: The task has been completed and it is ready to be downloaded.
+
+ - **FAILED**: There has been some error in the parameters selected and the task could not be completed. Please run the tool again to make sure all parameters are correct.
+
 .. image:: /static/training/t04/finished.png
    :align: center
-
-9. To download the task, first selected by clicking on it (it will be highlighted in blue like shown below), and them click on the **Download results** button.   
+ 
+8. When the task shows status **FINISHED** you can select it by clicking on it (it will be highlighted in blue), and them click on the **Download results** button.   
    
 .. image:: /static/training/t04/download.png
    :align: center
@@ -53,7 +56,7 @@
 .. image:: /static/training/t04/name_output.png
    :align: center
 
-11. The Download window will dissapear and you will be brought back to the QGIS interface. You will see light blue progress bar indicating which porcentage of the file has been downloaded. This could take from a few seconds to several minutes depending on the size of the area selected and the speed of the Internet connection available.   
+11. The Download window will disappear and you will be brought back to the QGIS interface. You will see light blue progress bar indicating which percentage of the file has been downloaded. This could take from a few seconds to several minutes depending on the size of the area selected and the speed of the Internet connection available.   
    
 .. image:: /static/training/t04/downloading.png
    :align: center
@@ -71,7 +74,8 @@
 
 13. Navigate with your cursor to the layer you want to compute pyramids for and right click over it. A menu will open. Navigate to **Properties** and click on it.
 
- Note: When using the **Calculate all three sub-indicators in one step** option (described in the previous tutorial), all the bands are stored in a single TIF file, so even though you see three layers loaded in the QGIS window, they all refer to the same file. This means that the pyramids need to be computed only once for the three sub-indicators.
+.. note::
+	When using the **Calculate all three sub-indicators in one step** option (described in the previous tutorial :ref:`1-step_subindicators`), all the bands are stored in a single TIF file, so even though you see three layers loaded in the QGIS window, they all refer to the same file. This means that the pyramids need to be computed only once for the three sub-indicators.
 
 .. image:: /static/training/t04/goto_layer_properties.png
    :align: center
@@ -81,12 +85,12 @@
 .. image:: /static/training/t04/layer_properties_general.png
    :align: center
 
-15. Once on the pyramids window you will see a description about they are.
+15. Once on the **Pyramids** tab you will see a description about they are.
 
 .. image:: /static/training/t04/layer_properties_pyramids_menu.png
    :align: center
    
-16. To the right of the window you will see the **Resolutions** options. Selecting all of them will make displaying in QGIS the fastest, but this could take hours to compute depending on the file size and processing capabilities of the computer you are using. We recommend you select alternating resolutions options (i.e. one one selected one not selected, and so on). Resolutions are selected by clicking on them. When selected, they will turn blue.
+16. To the right of the window you will see the **Resolutions** options. Selecting all of them will make displaying in QGIS the fastest, but this could take hours to compute depending on the file size and processing capabilities of the computer you are using. For the Uganda example, we can select them all, but if using a larger area or higher spatial resolution than the default 250m, we recommend you select alternating resolutions options (i.e. one resolution selected and one not selected, and so on). Resolutions are selected by clicking on them. When selected, they will turn blue.
 
  Make sure that the settings at the bottom are set to:
 

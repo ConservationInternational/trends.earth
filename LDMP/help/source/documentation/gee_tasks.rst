@@ -6,7 +6,7 @@ View and download results
 Once you have submitted a calculation using |trends.earth|, it is sent to 
 Google Earth Engine to run the calculations in the cloud. To view the Google 
 Earth Engine (GEE) tasks you have running, and to download your results, select 
-the globe icon (|iconCloudDownload|). This will open up the `Download results 
+the cloud with the arrow facing down icon (|iconCloudDownload|). This will open up the `Download results 
 from Earth Engine` dialog box.
    
 Click `Refresh List` to show all the tasks you have submitted and their status.

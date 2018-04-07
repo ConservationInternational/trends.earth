@@ -102,7 +102,6 @@ videos, are available on this website:
    :caption: Step-by-step Guides
 
    training/tutorial_installation
-   training/tutorial_registration
    training/tutorial_run_all_subindicators
    training/tutorial_task_download
    training/tutorial_custom_lpd

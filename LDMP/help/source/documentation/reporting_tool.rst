@@ -5,7 +5,7 @@ Visualization tools
    :align: center
 
 
-To view the "Visualization Tools", select the report icon (|iconReporting|). This will open up 
+To view the "Visualization Tools", select the report icon (|iconVisualization|). This will open up 
 the "Visualization tools" dialog box:
 
 .. image:: /static/documentation/reporting_tool/image065.png
@@ -29,7 +29,7 @@ After submitting the above message will appear within the QGIS Desktop window. T
    :align: center
 
 If you have a map layer within your QGIS Desktop window, you will now see the Basemap with the administrative level selected clipped out to view the underlying map layer.
-If you would like to export to an image or PDF, select the report icon (|iconReporting|). This will open up the "Visualization tools" dialog box:
+If you would like to export to an image or PDF, select the report icon (|iconVisualization|). This will open up the "Visualization tools" dialog box:
 
 .. image:: /static/documentation/reporting_tool/image069.png
    :align: center

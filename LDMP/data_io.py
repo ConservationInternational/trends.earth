@@ -462,6 +462,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
 
     def showEvent(self, e):
         super(DlgDataIOLoadTE, self).showEvent(e)
+
         self.file_lineedit.clear()
         self.file = None
         self.layers_model.setStringList([])
@@ -646,6 +647,7 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
 class ImportSelectRasterOutput(QtGui.QWidget, Ui_WidgetDataIOImportSelectRasterOutput):
     def __init__(self, parent=None):
         super(ImportSelectRasterOutput, self).__init__(parent)
+
         self.setupUi(self)
 
         self.btn_output_file_browse.clicked.connect(self.save_raster)
@@ -683,6 +685,18 @@ class DlgDataIOImportBase(QtGui.QDialog):
         # The datatype determines whether the dataset resampling is done with 
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = 'categorical'
+
+    def showEvent(self, event):
+        super(DlgDataIOImportBase, self).showEvent(event)
+
+        self.center_dialog()
+
+    def center_dialog(self):
+        # Center the dialog on whatver screen has QGIS app on it
+        self.setGeometry(QtGui.QStyle.alignedRect(Qt.LeftToRight,
+                                                  Qt.AlignCenter,
+                                                  self.size(),
+                                                  QtGui.qApp.desktop().screenGeometry(iface.mainWindow())))
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
@@ -850,6 +864,16 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
 
         self.dlg_agg = None
 
+    def showEvent(self, event):
+        super(DlgDataIOImportLC, self).showEvent(event)
+
+        # Reset flags to avoid reloading of unique values when files haven't 
+        # changed:
+        self.last_raster = None
+        self.last_band_number = None
+        self.last_vector = None
+        self.idx = None
+
     def done(self, value):
         if value == QtGui.QDialog.Accepted:
             self.validate_input(value)
@@ -872,16 +896,6 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
 
     def clear_dlg_agg(self):
         self.dlg_agg = None
-
-    def showEvent(self, event):
-        super(DlgDataIOImportLC, self).showEvent(event)
-
-        # Reset flags to avoid reloading of unique values when files haven't 
-        # changed:
-        self.last_raster = None
-        self.last_band_number = None
-        self.last_vector = None
-        self.idx = None
 
     def input_changed(self, valid):
         if valid:
@@ -1021,10 +1035,9 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
+        self.verticalLayout.insertWidget(1, self.output_widget)
 
         self.input_widget.groupBox_year.hide()
-
-        self.verticalLayout.insertWidget(1, self.output_widget)
 
     def done(self, value):
         if value == QtGui.QDialog.Accepted:

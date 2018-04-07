@@ -112,11 +112,6 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_load_basemap.p
 source_file = LDMP/help/i18n/pot/training/tutorial_load_basemap.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_registration]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_registration.po
-source_file = LDMP/help/i18n/pot/training/tutorial_registration.pot
-source_lang = en
-
 [land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_run_all_subindicators]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_run_all_subindicators.po
 source_file = LDMP/help/i18n/pot/training/tutorial_run_all_subindicators.pot

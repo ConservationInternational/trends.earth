@@ -1,10 +1,16 @@
 ﻿Create account & register
 =========================
 
+- **Objective**: Learn to register a new user for the Trends.Earth plugin and how to login (steps required before using the toolbox). This step needs to be completed only the first time you use the tool. Your user will be then saved for future sessions.
+
+- **Estimated time of completion**: 5 minutes
+
+- **Internet access**: Required
+
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial02_Registration.pdf>`_
 
-Trends.Earth is a free and open source which anyone can use. However, before running calculations, we do require for the users to create an account. This needs to be done only the first time you'll use the tool. Your user will be then saved for future sessions.
+Trends.Earth is a free and open source which anyone can use. However, before running calculations, we do require for the users to create an account. 
 
 1. To create your account click on the wrench icon (|iconWrench|).
 
@@ -27,9 +33,7 @@ Trends.Earth is a free and open source which anyone can use. However, before run
    :align: center
 
 5. After registering, you will receive an email from api@trends.earth with your 
-password. If you don't see the email in your inbox after 15-20 seconds, please check your spam folder in case the email was sent there. Once you receive this email , click on **Step 2: Enter login**. This 
-will bring up a dialog asking for your email and password. Enter your email address and the password 
-you received from api@trends.earth and click **Ok**:
+password. If you don't see the email in your inbox after 15-20 seconds, please check your spam folder in case the email was sent there. Once you receive this email , click on **Step 2: Enter login**. This will bring up a dialog asking for your email and password. Enter your email address and the password you received from api@trends.earth and click **Ok**.
 
 .. image:: /static/documentation/settings/login.png
    :align: center

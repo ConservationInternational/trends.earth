@@ -3,6 +3,12 @@
 Compute SDG indicator
 ======================
 
+- **Objective**: Learn to install the Trends.Earth plugin into QGIS using the plugin manager
+
+- **Estimated time of completion**: 10 minutes
+
+- **Internet access**: Required
+
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial08_Computing_SDG_Indicator.pdf>`_
 

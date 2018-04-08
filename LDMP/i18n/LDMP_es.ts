@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" sourcelanguage="" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -335,7 +334,7 @@
     <message>
         <location filename="../data_io.py" line="713"/>
         <source>Cannot process {}. Unable to read file.</source>
-        <translation type="obsolete">No se puede procesar {}. Imposible leer el archivo.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../data_io.py" line="736"/>
@@ -406,7 +405,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -446,7 +445,7 @@ p, li {white-space: pre-wrap; }
 &lt;p align = &quot;center&quot; style = &quot;- qt-tipo-párrafo: vacío; margen-superior: 0px; margen-inferior: 0px; margen-izquierdo: 0px; margen-derecho: 0px; -qt-block-indent: 0; sangría de texto: 0px; tamaño de fuente: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align = &quot;center&quot; style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot; &gt;&lt;span style = &quot;font-size: 12pt;&quot;&gt;Acceda a la guía del usuario aquí:&lt;/span&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style = &quot;font-size : 12pt; texto-decoración: subrayado; color: # 0000ff; &quot;&gt;http://trends.earth/docs/es&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;|trends.earth| (anteriormente la Herramienta de monitoreo de la degradación de la tierra) es una herramienta para monitorear el cambio de la tierra. |trends.earth| es &lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style = &quot;font-size: 8pt; texto-decoración: subrayado; color: # 0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt; complemento que permite controlar el cambio de tierra, incluidos los cambios en la productividad, la cobertura de la tierra y el carbono orgánico del suelo. La herramienta puede respaldar el monitoreo de la degradación de la tierra para informar al Fondo Mundial para el Medio Ambiente (GEF por sus siglas en inglés) y la Convención de las Naciones Unidas de Lucha contra la Desertificación (UNCCD), así como seguir el progreso hacia el logro de los Objetivos de Desarrollo Sostenible (ODS) meta 15.3 de Neutralidad de Degradación de Tierras (LDN ).&lt;/span&gt;&lt;/p&gt;
+&lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;|trends.earth| (anteriormente la Herramienta de monitoreo de la degradación de la tierra) es una herramienta para monitorear el cambio de la tierra. |trends.earth| es &lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style = &quot;font-size: 8pt; texto-decoración: subrayado; color: # 0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt; complemento que permite controlar el cambio de tierra, incluidos los cambios en la productividad, la cobertura de la tierra y el carbono orgánico del suelo. La herramienta puede respaldar el monitoreo de la degradación de la tierra para informar al Fondo Mundial para el Medio Ambiente (GEF por sus siglas en inglés) y la Convención de las Naciones Unidas de Lucha contra la Desertificación (CNULD), así como seguir el progreso hacia el logro de los Objetivos de Desarrollo Sostenible (ODS) meta 15.3 de Neutralidad de Degradación de Tierras (LDN ).&lt;/span&gt;&lt;/p&gt;
 &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style = &quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent: 0px;&quot;&gt;&lt;span style = &quot;font-size: 8pt;&quot;&gt;trends.earth se produjo como un resultado del proyecto financiado por el GEF &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style = &quot; font-size: 8pt; texto-decoración: subrayado; color: # 0000ff; &quot;&gt;&quot; Uso de  datos globales para evaluar y monitorear la degradación del terreno en escalas múltiples &quot;&lt;/span&gt;&lt;/a&gt;&lt;span style =&quot; font-size: 8pt; &quot;&gt;. El proyecto tiene como objetivo proporcionar orientación sobre métodos sólidos y una herramienta para evaluar, monitorear el estado y estimar las tendencias en la degradación de la tierra utilizando tecnología de teledetección.&lt;/Span&gt;&lt;/p&gt;
 &lt;p style = &quot;- qt-paragraph-type: empty; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-block-indent: 0; text-indent : 0px; font-size: 8pt; &quot;&gt;&lt;br /&gt;&lt;/p&gt;
@@ -501,7 +500,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculate.ui" line="104"/>
         <source>Option 1: Use default UNCCD data</source>
-        <translation>Opción 1: Usar datos predeterminados de la UNCCD</translation>
+        <translation>Opción 1: Usar datos predeterminados de la CNULD</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="123"/>
@@ -541,12 +540,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate.py" line="346"/>
         <source>Coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Próximamente!</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="346"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -863,7 +862,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="206"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</source>
-        <translation>Datos por defecto de la UNCCD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
+        <translation>Datos por defecto de la CNULD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="216"/>
@@ -971,7 +970,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="70"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</source>
-        <translation>Datos por defecto de la UNCCD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
+        <translation>Datos por defecto de la CNULD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="120"/>
@@ -1114,42 +1113,42 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="291"/>
         <source>Choose a name for the output file</source>
-        <translation type="unfinished">Elija un nombre para el archivo de salida</translation>
+        <translation>Elija un nombre para el archivo de salida</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="291"/>
         <source>Raster file (*.tif)</source>
-        <translation type="unfinished">Archivo raster (*.tif)</translation>
+        <translation>Archivo raster (*.tif)</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="300"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">No se puede escribir en {}. Elija un archivo diferente.</translation>
+        <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="306"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="310"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="382"/>
         <source>Error calculating change in soil organic carbon.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="284"/>
         <source>Coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Próximamente!</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="284"/>
         <source>Custom SOC calculation coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1347,7 +1346,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="212"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</source>
-        <translation>Datos por defecto de la UNCCD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
+        <translation>Datos por defecto de la CNULD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="267"/>
@@ -1541,12 +1540,12 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="799"/>
         <source>Vector remapping failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vector remapping falló.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="816"/>
         <source>Raster remapping failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Raster remapping falló.</translation>
     </message>
 </context>
 <context>
@@ -1574,7 +1573,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="100"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
-        <translation type="obsolete">Nota: Si está leyendo un archivo grande, se recomienda que se marque la opción anterior, ya que acelera de manera significativa el proceso de lectura de las clases de entrada del conjunto de datos. Sin embargo, si encuentra que Trends.Earth no identifica todas las clases en el archivo de entrada, puede ser necesario desactivar esta opción.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../data_io.py" line="963"/>
@@ -1604,7 +1603,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="103"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota: Si está leyendo un archivo grande, se recomienda que se marque la opción anterior, ya que acelera de manera significativa el proceso de lectura de las clases de entrada del conjunto de datos. Sin embargo, si encuentra que Trends.Earth no identifica todas las clases en el archivo de entrada, puede ser requerido desactivar esta opción. (Solo se aplica si se elige la entrada de ráster)</translation>
     </message>
 </context>
 <context>
@@ -1624,7 +1623,7 @@ p, li {white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -1909,7 +1908,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2390,7 +2389,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="61"/>
         <source>Create Print Map</source>
-        <translation>Informes de la UNCCD</translation>
+        <translation>Informes de la CNULD</translation>
     </message>
 </context>
 <context>
@@ -2683,12 +2682,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Reporting tool</source>
-        <translation type="obsolete">Herramienta de informes</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Land degradation reporting</source>
-        <translation type="obsolete">Informes de degradación de tierras</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../plugin.py" line="240"/>
@@ -2793,12 +2792,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Visualization tool</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Visualize and summarize data</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3115,7 +3114,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="20"/>
         <source>European Space Agency CCI-LC (default land cover dataset for UNCCD reporting)</source>
-        <translation>Agencia Espacial Europea CCI-LC (datos de cobertura del terreno por defecto para la presentación de informes de la UNCCD)</translation>
+        <translation>Agencia Espacial Europea CCI-LC (datos de cobertura del terreno por defecto para la presentación de informes de la CNULD)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="30"/>

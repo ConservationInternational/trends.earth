@@ -97,7 +97,7 @@ Run 1-step subindicators
 .. image:: /static/training/t03/run_options.png
    :align: center
    
-11. A light blue bar (as shown in the image below) will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer).
+11. A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer).
 
 .. image:: /static/training/t03/submitted.png
    :align: center   

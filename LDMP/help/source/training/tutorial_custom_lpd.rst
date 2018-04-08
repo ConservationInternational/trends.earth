@@ -1,4 +1,6 @@
-﻿Use custom productivity data
+﻿.. _tut_custom_lpd:
+
+Use custom productivity data
 =================================
 
 - **Objective**: Learn how to load custom land productivity data computed outside of Trends.Earth.

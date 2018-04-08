@@ -3,21 +3,21 @@
 Run 1-step subindicators
 ========================
 
-- **Objective**: Learn to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: LPD from JRC for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Uganda as an example, but you can choose any study area.
+- **Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: LPD from JRC for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Uganda as an example, but you can choose any study area.
 
-- **Estimated time of completion**: 20 minutes
+- **Estimated time of completion**: 30 minutes
 
 - **Internet access**: Required
 
 .. note:: `Download this page as a PDF for off-line use 
    <../pdfs/Trends.Earth_Tutorial03_Computing_Indicators.pdf>`_
 
-1. Search for the Trends.Earth toolbar (shown below) within QGIS, and click on the Calculate icon (|iconCalculator|).
+1. Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|).
    
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center   
 
-2. The **Calculate Indicators** menu will open. In that window, click on **Calculate all three sub-indicators in one step** button found under option 1 of step 1.
+2. The **Calculate Indicators** menu will open. In that window, click on **Calculate all three sub-indicators in one step** button found under Step 1 - Option 1.
 
 .. image:: /static/training/t03/run.png
    :align: center

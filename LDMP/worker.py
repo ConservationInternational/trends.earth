@@ -28,6 +28,7 @@ class AbstractWorker(QtCore.QObject):
     """Abstract worker, inherit from this and implement the work method"""
     # available signals to be used in the concrete worker
     finished = QtCore.pyqtSignal(object)
+    was_killed = QtCore.pyqtSignal(object)
     error = QtCore.pyqtSignal(Exception)
     progress = QtCore.pyqtSignal(float)
     toggle_show_progress = QtCore.pyqtSignal(bool)
@@ -66,7 +67,7 @@ class AbstractWorker(QtCore.QObject):
         self.killed = True
         self.set_message.emit('Aborting...')
         self.toggle_show_progress.emit(False)
-        self.finished.emit(None)
+        self.was_killed.emit(None)
 
 
 class UserAbortedNotification(Exception):
@@ -102,6 +103,8 @@ def start_worker(worker, iface, message, with_progress=True):
     worker.finished.connect(lambda result: worker_finished(
         result, thread, worker, iface, message_bar_item))
     worker.error.connect(lambda e: worker_error(e))
+    worker.was_killed.connect(lambda result: worker_killed(
+        result, thread, worker, iface, message_bar_item))
 
     worker.progress.connect(progress_bar.setValue)
     thread.started.connect(worker.run)
@@ -109,6 +112,9 @@ def start_worker(worker, iface, message, with_progress=True):
 
     return thread, message_bar_item
 
+def worker_killed(result, thread, worker, iface, message_bar_item):
+    # remove widget from message bar
+    iface.messageBar().popWidget(message_bar_item)
 
 def worker_finished(result, thread, worker, iface, message_bar_item):
     # remove widget from message bar

@@ -1,4 +1,6 @@
-﻿Use custom land cover data
+﻿.. _tut_custom_lc:
+
+Use custom land cover data
 ==========================
 
 - **Objective**: Learn how to load custom land cover data and to compute the land cover change sub-indicator using Trends.Earth.

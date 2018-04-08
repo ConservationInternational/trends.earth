@@ -94,4 +94,5 @@ ADD BAR
 .. image:: /static/training/t08/loaded_lc_degradation.png
    :align: center  
    
- 
+.. note::
+    Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use the land cover sub-indicator to compute the final SDG 15.3.1 after integration with changes land productivity and soil organic carbon. 

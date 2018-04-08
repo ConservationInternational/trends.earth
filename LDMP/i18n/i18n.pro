@@ -51,10 +51,10 @@ SOURCES = ../about.py \
 ../data_io.py \
 ../lc_setup.py \
 ../plot.py \
-../reporting.py \
 ../settings.py \
 ../timeseries.py \
 ../timeseries.py \
+../visualization.py \
 ../worker.py
 
 TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts LDMP_sw.ts LDMP_ar.ts LDMP_zh.ts \

@@ -320,6 +320,7 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         self.btn_soc.clicked.connect(self.btn_soc_clicked)
         self.btn_sdg_onestep.clicked.connect(self.btn_sdg_onestep_clicked)
         self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+        self.btn_summary_multi_polygons.clicked.connect(self.btn_summary_multi_polygons_clicked)
 
     def btn_prod_clicked(self):
         self.close()
@@ -340,6 +341,10 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
     def btn_summary_single_polygon_clicked(self):
         self.close()
         result = self.dlg_calculate_sdg_advanced.exec_()
+
+    def btn_summary_multi_polygons_clicked(self):
+        QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                   self.tr("Multiple polygon summary table calculation coming soon!"), None)
 
 class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
     def __init__(self, parent=None):

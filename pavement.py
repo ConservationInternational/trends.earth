@@ -26,7 +26,8 @@ options(
         gui_dir = path('LDMP/gui'),
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
-        translations = ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
+        #translations = ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
+        translations = ['fr', 'es', 'pt', 'sw'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('build'),
         tests = ['test'],
@@ -217,7 +218,7 @@ def translate(options):
     if not lrelease:
         print("lrelease is not in your path---unable to release translation files")
     print("Pulling transifex translations...")
-    subprocess.check_call(['tx', 'pull', '-f', '-s', '--parallel'])
+    subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
     print("Releasing translations using lrelease...")
     for translation in options.plugin.translations:
         subprocess.check_call([lrelease, os.path.join(options.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])

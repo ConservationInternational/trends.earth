@@ -1,4 +1,6 @@
-﻿Use custom soil data
+﻿.. _tut_custom_soc:
+
+Use custom soil data
 ==========================
 
 - **Objective**: Learn how to load custom soil organic carbon data to compute the carbon change sub-indicator using Trends.Earth.

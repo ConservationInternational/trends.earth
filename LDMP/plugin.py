@@ -23,7 +23,7 @@ from LDMP.download_data import DlgDownload
 from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
-from LDMP.reporting import DlgVisualization
+from LDMP.visualization import DlgVisualization
 from LDMP.data_io import DlgDataIO
 from LDMP.about import DlgAbout
 
@@ -95,7 +95,7 @@ class LDMPPlugin:
         self.dlg_calculate = DlgCalculate()
         self.dlg_jobs = DlgJobs()
         self.dlg_timeseries = DlgTimeseries()
-        self.dlg_reporting = DlgVisualization()
+        self.dlg_visualization = DlgVisualization()
         self.dlg_download = DlgDownload()
         self.dlg_data_io = DlgDataIO()
         self.dlg_about = DlgAbout()
@@ -218,10 +218,10 @@ class LDMPPlugin:
 
         self.add_action(
             ':/plugins/LDMP/icons/document.svg',
-            text=QApplication.translate('LDMP', u'Reporting tool'),
-            callback=self.run_reporting,
+            text=QApplication.translate('LDMP', u'Visualization tool'),
+            callback=self.run_visualization,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Land degradation reporting'))
+            status_tip=QApplication.translate('LDMP', 'Visualize and summarize data'))
 
         self.add_action(
             ':/plugins/LDMP/icons/folder.svg',
@@ -278,9 +278,9 @@ class LDMPPlugin:
         self.dlg_timeseries.show()
         result = self.dlg_timeseries.exec_()
 
-    def run_reporting(self):
-        self.dlg_reporting.show()
-        result = self.dlg_reporting.exec_()
+    def run_visualization(self):
+        self.dlg_visualization.show()
+        result = self.dlg_visualization.exec_()
 
     def data_io(self):
         self.dlg_data_io.show()

@@ -1,9 +1,9 @@
 ﻿Installation and Registration
 =============================
 
-- **Objective**: Learn to install, register and login to use the Trends.Earth plugin in QGIS. These step needs to be completed only the first time you use the tool. Your user will be then saved for future sessions.
+- **Objective**: Learn how to install, register and login to use the Trends.Earth plugin in QGIS. These step needs to be completed only the first time you use the tool. Your user will be then saved for future sessions.
 
-- **Estimated time of completion**: 15 minutes
+- **Estimated time of completion**: 20 minutes
 
 - **Internet access**: Required
 

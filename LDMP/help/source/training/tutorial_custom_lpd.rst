@@ -1,9 +1,9 @@
 ﻿Use custom productivity data
 =================================
 
-- **Objective**: Learn to load custom land productivity data computed outside of Trends.Earth.
+- **Objective**: Learn how to load custom land productivity data computed outside of Trends.Earth.
 
-- **Estimated time of completion**: 15 minutes
+- **Estimated time of completion**: 20 minutes
 
 - **Internet access**: Not required
 
@@ -37,13 +37,13 @@ For the productivity data to be used in Trends.Earth the file need to be coded i
 .. image:: /static/training/t10/custom_lpd_menu1.png
    :align: center
 
-4. In the **Select input file** menu select the file and click **Open**.   
+4. Use the **Select input file** window to navigate to the file to be imported, select it, and click **Open**.   
    
 .. image:: /static/training/t10/custom_lpd_load_input.png
    :align: center
 
 5. Back at the **Load a Custom Land Productivity Dataset** window you have options for selecting the band number in which the productivity data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.
-6. Click **Browse** to select the **Output raster file** and navigate to the folder where you want to save the file. Assign it a name and click **OK**.
+6. Click **Browse** at the bottom of the window to select the **Output raster file** and navigate to the folder where you want to save the file. Assign it a name and click **OK**.
    
 .. image:: /static/training/t10/custom_lpd_menu2.png
    :align: center

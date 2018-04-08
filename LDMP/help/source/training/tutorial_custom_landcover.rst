@@ -1,9 +1,9 @@
 ﻿Use custom land cover data
 ==========================
 
-- **Objective**: Learn to load custom land cover data to compute the land cover change sub-indicator using Trends.Earth.
+- **Objective**: Learn how to load custom land cover data to compute the land cover change sub-indicator using Trends.Earth.
 
-- **Estimated time of completion**: 30 minutes
+- **Estimated time of completion**: 40 minutes
 
 - **Internet access**: Not required
 

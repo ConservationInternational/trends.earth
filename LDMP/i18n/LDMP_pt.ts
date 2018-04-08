@@ -346,32 +346,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="482"/>
+        <location filename="../calculate.py" line="487"/>
         <source>Point chooser</source>
         <translation>Seletor de ponto</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="482"/>
+        <location filename="../calculate.py" line="487"/>
         <source>Click the map to choose a point.</source>
         <translation>Clique no mapa para escolher um ponto.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="503"/>
+        <location filename="../calculate.py" line="508"/>
         <source>Select a file defining the area of interest</source>
         <translation>Selecione um arquivo que defina a área de interesse</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="503"/>
+        <location filename="../calculate.py" line="508"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Arquivo vetorial (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="513"/>
+        <location filename="../calculate.py" line="518"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="513"/>
+        <location filename="../calculate.py" line="518"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Não posso ler {}. Escolha um arquivo diferente.</translation>
     </message>
@@ -379,17 +379,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="364"/>
+        <location filename="../calculate.py" line="369"/>
         <source>Select folder containing data</source>
         <translation>Selecione a pasta que contém dados</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="373"/>
+        <location filename="../calculate.py" line="378"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="373"/>
+        <location filename="../calculate.py" line="378"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Não posso ler {}. Escolha uma pasta diferente.</translation>
     </message>
@@ -538,51 +538,61 @@ p, li {espaço branco: pre-wrap; }
         <source>Calculate area summaries of a raster on sub-units</source>
         <translation>Calcular os resumos de área de um raster em subunidades</translation>
     </message>
+    <message>
+        <location filename="../calculate.py" line="346"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="346"/>
+        <source>Multiple polygon summary table calculation coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="668"/>
+        <location filename="../calculate.py" line="673"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="630"/>
+        <location filename="../calculate.py" line="635"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Escolha um limite administrativo de primeiro nível.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="637"/>
+        <location filename="../calculate.py" line="642"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Não é possível carregar limites administrativos.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="644"/>
+        <location filename="../calculate.py" line="649"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Escolha um arquivo para definir a área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="550"/>
+        <location filename="../calculate.py" line="555"/>
         <source>Area</source>
         <translation>Área</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="553"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Options</source>
         <translation>Opções</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="652"/>
+        <location filename="../calculate.py" line="657"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Escolha um ponto para definir a área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="663"/>
+        <location filename="../calculate.py" line="668"/>
         <source>Choose an area of interest.</source>
         <translation>Escolha uma área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="668"/>
+        <location filename="../calculate.py" line="673"/>
         <source>Unable to read area of interest.</source>
         <translation>Não é possível ler a área de interesse.</translation>
     </message>
@@ -1062,37 +1072,37 @@ p, li {espaço branco: pre-wrap; }
         <translation>Conjunto de dados de carbono orgânico inicial do solo personalizado (já carregado no mapa usando a &quot;ferramenta Carregar Dados&quot;</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="198"/>
+        <location filename="../calculate_soc.py" line="245"/>
         <source>Land Cover Setup</source>
         <translation>Instalação da cobertura da terra</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="332"/>
+        <location filename="../calculate_soc.py" line="382"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="267"/>
+        <location filename="../calculate_soc.py" line="316"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>Você deve adicionar uma camada de carbono orgânico ao seu mapa antes de executar o cálculo.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="274"/>
+        <location filename="../calculate_soc.py" line="323"/>
         <source>Warning</source>
         <translation>Atenção</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="274"/>
+        <location filename="../calculate_soc.py" line="323"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>O ano da linha de base ({}) é maior ou igual ao ano de destino ({}) - essa análise pode gerar resultados estranhos.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="278"/>
+        <location filename="../calculate_soc.py" line="327"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>A área de interesse não está inteiramente dentro da camada de cobertura inicial da terra.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="283"/>
+        <location filename="../calculate_soc.py" line="332"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>A área de interesse não está inteiramente dentro da camada final da cobertura do solo.</translation>
     </message>
@@ -1102,33 +1112,43 @@ p, li {espaço branco: pre-wrap; }
         <translation>Carbono orgânico do solo</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="242"/>
+        <location filename="../calculate_soc.py" line="291"/>
         <source>Choose a name for the output file</source>
         <translation type="unfinished">Escolha um nome para o arquivo de saída</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="242"/>
+        <location filename="../calculate_soc.py" line="291"/>
         <source>Raster file (*.tif)</source>
         <translation type="unfinished">Arquivo rasterizado (*.tif)</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="251"/>
+        <location filename="../calculate_soc.py" line="300"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">Não é possível escrever para {}. Escolha um arquivo diferente.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="257"/>
+        <location filename="../calculate_soc.py" line="306"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="261"/>
+        <location filename="../calculate_soc.py" line="310"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="332"/>
+        <location filename="../calculate_soc.py" line="382"/>
         <source>Error calculating change in soil organic carbon.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="284"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="284"/>
+        <source>Custom SOC calculation coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2573,7 +2593,7 @@ areas</translation>
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="211"/>
+        <location filename="../visualization.py" line="211"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
@@ -2588,7 +2608,7 @@ areas</translation>
         <translation>Não é possível fazer o login no servidor LDMP. Verifique seu nome de usuário e senha.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="365"/>
+        <location filename="../calculate_soc.py" line="415"/>
         <source>Submitted</source>
         <translation>Submetido</translation>
     </message>
@@ -2665,12 +2685,12 @@ areas</translation>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Reporting tool</source>
-        <translation>Ferramenta de relatórios</translation>
+        <translation type="obsolete">Ferramenta de relatórios</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Land degradation reporting</source>
-        <translation>Relatório de degradação da terra</translation>
+        <translation type="obsolete">Relatório de degradação da terra</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="240"/>
@@ -2698,12 +2718,12 @@ areas</translation>
         <translation>Não é possível enviar a solicitação de download para o Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="235"/>
+        <location filename="../visualization.py" line="235"/>
         <source>Warning</source>
         <translation>Atenção</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="235"/>
+        <location filename="../visualization.py" line="235"/>
         <source>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</source>
         <translation>A ferramenta de criação de mapa ainda é experimental - a funcionalidade dessa ferramenta provavelmente será alterada no futuro.</translation>
     </message>
@@ -2733,12 +2753,12 @@ areas</translation>
         <translation>Carregar dados locais</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="365"/>
+        <location filename="../calculate_soc.py" line="415"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
         <translation>Carbono orgânico do solo enviado ao Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="369"/>
+        <location filename="../calculate_soc.py" line="419"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
         <translation>Não é possível enviar a tarefa de carbono orgânico do solo para o Google Earth Engine.</translation>
     </message>
@@ -2768,9 +2788,19 @@ areas</translation>
         <translation>Não é possível enviar a tarefa de subindicador do SDG para o Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="211"/>
+        <location filename="../visualization.py" line="211"/>
         <source>Error downloading basemap data.</source>
         <translation>Erro ao baixar dados do mapa base.</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="219"/>
+        <source>Visualization tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="219"/>
+        <source>Visualize and summarize data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

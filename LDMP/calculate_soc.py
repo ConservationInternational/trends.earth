@@ -19,9 +19,11 @@ import json
 from osgeo import gdal, osr
 
 from qgis.utils import iface
+from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
 from PyQt4 import QtGui
+from PyQt4.QtCore import QSettings
 
 from LDMP import log
 from LDMP.api import run_script
@@ -31,9 +33,13 @@ from LDMP.lc_setup import lc_setup_widget
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 
+def remap(a, remap_list):
+    for value, replacement in zip(remap_list[0], remap_list[1]):
+        a[a == int(value)] = int(replacement)
+    return a
 
 class SOCWorker(AbstractWorker):
-    def __init__(self, soc_f, lc_f, lc_years, fl, remap_matrix):
+    def __init__(self, in_vrt, out_f, lc_years, lc_band_nums, fl, remap_matrix):
         AbstractWorker.__init__(self)
         self.in_f = in_f
         self.out_f = out_f
@@ -43,16 +49,16 @@ class SOCWorker(AbstractWorker):
     def work(self):
         ds_in = gdal.Open(self.in_f)
 
-        band_initial = ds_in.GetRasterBand(1)
-        band_final = ds_in.GetRasterBand(2)
+        soc_band = ds_in.GetRasterBand(1)
+        clim_band = ds_in.GetRasterBand(2)
 
-        block_sizes = band_initial.GetBlockSize()
+        block_sizes = soc_band.GetBlockSize()
         x_block_size = block_sizes[0]
         # Need to process y line by line so that pixel area calculation can be
         # done based on latitude, which varies by line
         y_block_size = 1
-        xsize = band_initial.XSize
-        ysize = band_initial.YSize
+        xsize = soc_band.XSize
+        ysize = soc_band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
         ds_out = driver.Create(self.out_f, xsize, ysize, 4, gdal.GDT_Int16, 
@@ -62,6 +68,61 @@ class SOCWorker(AbstractWorker):
         out_srs = osr.SpatialReference()
         out_srs.ImportFromWkt(ds_in.GetProjectionRef())
         ds_out.SetProjection(out_srs.ExportToWkt())
+
+        # Setup a raster of climate regimes to use for coding Fl automatically
+        clim_fl_map = [[0, 1, 2, 3, 4, 5, 6,
+                        7, 8, 9, 10, 11, 12],
+                       [0, .69, .8, .69, .8, .69, .8,
+                        .69, .8, .64, .48, .48, .58]]
+
+        # stock change factor for land use - note the 99 and -99 will be 
+        # recoded using the chosen Fl option
+        lc_tr_fl_0_map = [[11, 12, 13, 14, 15, 16, 17,
+                           21, 22, 23, 24, 25, 26, 27,
+                           31, 32, 33, 34, 35, 36, 37,
+                           41, 42, 43, 44, 45, 46, 47,
+                           51, 52, 53, 54, 55, 56, 57,
+                           61, 62, 63, 64, 65, 66, 67,
+                           71, 72, 73, 74, 75, 76, 77],
+                          [1, 1, 99, 1, 0.1, 0.1, 1,
+                           1, 1, 99, 1, 0.1, 0.1, 1,
+                           -99, -99, 1, 1 / 0.71, 0.1, 0.1, 1,
+                           1, 1, 0.71, 1, 0.1, 0.1, 1,
+                           2, 2, 2, 2, 1, 1, 1,
+                           2, 2, 2, 2, 1, 1, 1,
+                           1, 1, 1, 1, 1, 1, 1]]
+
+        # stock change factor for management regime
+        lc_tr_fm_map = [[11, 12, 13, 14, 15, 16, 17,
+                         21, 22, 23, 24, 25, 26, 27,
+                         31, 32, 33, 34, 35, 36, 37,
+                         41, 42, 43, 44, 45, 46, 47,
+                         51, 52, 53, 54, 55, 56, 57,
+                         61, 62, 63, 64, 65, 66, 67,
+                         71, 72, 73, 74, 75, 76, 77],
+                        [1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1]]
+
+        # stock change factor for input of organic matter
+        lc_tr_fo_map = [[11, 12, 13, 14, 15, 16, 17,
+                         21, 22, 23, 24, 25, 26, 27,
+                         31, 32, 33, 34, 35, 36, 37,
+                         41, 42, 43, 44, 45, 46, 47,
+                         51, 52, 53, 54, 55, 56, 57,
+                         61, 62, 63, 64, 65, 66, 67,
+                         71, 72, 73, 74, 75, 76, 77],
+                        [1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1,
+                         1, 1, 1, 1, 1, 1, 1]]
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
@@ -79,27 +140,74 @@ class SOCWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                a_i = band_initial.ReadAsArray(x, y, cols, rows)
-                a_f = band_final.ReadAsArray(x, y, cols, rows)
+                soc = soc_band.ReadAsArray(x, y, cols, rows)
+                soc = ds_out.GetRasterBand(1).WriteArray(soc, x, y)
 
-                a_tr = a_i*10 + a_f
-                a_tr[(a_i < 1) | (a_f < 1)] <- -32768
+                if fl == 'per pixel':
+                    clim = clim_band.ReadAsArray(x, y, cols, rows)
+                    # Setup a raster of climate regimes to use for coding Fl 
+                    # automatically
+                    clim_fl = remap(clim, clim_fl_map)
 
-                a_deg = a_tr.copy()
-                for value, replacement in zip(self.trans_matrix[0], self.trans_matrix[1]):
-                    a_deg[a_deg == int(value)] = int(replacement)
-                
-                # Recode transitions so that persistence classes are easier to 
-                # map
-                for value, replacement in zip(self.persistence_remap[0], self.persistence_remap[1]):
-                    a_tr[a_tr == int(value)] = int(replacement)
+                tr_time = np.zeros(soc.shape)
+                for n in range(len(self.lc_years) - 1):
+                    year = self.lc_years[n]
 
-                ds_out.GetRasterBand(1).WriteArray(a_deg, x, y)
-                ds_out.GetRasterBand(2).WriteArray(a_i, x, y)
-                ds_out.GetRasterBand(3).WriteArray(a_f, x, y)
-                ds_out.GetRasterBand(4).WriteArray(a_tr, x, y)
+                    lc_t0 = src_ds.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
+                    lc_t1 = src_ds.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
+
+                    # compute transition map (first digit for baseline land 
+                    # cover, and second digit for target year land cover), but 
+                    # only update where changes actually ocurred.
+                    lc_tr = lc_t0*10 + lc_t1
+                    lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] <- -32768
+
+                    # Set transition time to zero for pixels that DID change
+                    tr_time[lc_t0 != lc_t1] = 0
+                    # Add one to transition time for pixels that DID NOT change 
+                    tr_time[lc_t0 == lc_t1] = tr_time[lc_t0 == lc_t1] + 1
+
+                    # stock change factor for land use
+                    lc_tr_fl = remap(lc_tr.copy(), lc_tr_fl_0_map)
+                    if fl == 'per_pixel':
+                        lc_tr_fl[lc_tr_fl == 99] = clim_fl[lc_tr_fl == 99]
+                        lc_tr_fl[lc_tr_fl == 99] = 1 / clim_fl[lc_tr_fl == 99]
+                    else:
+                        lc_tr_fl[lc_tr_fl == 99] = fl
+                        lc_tr_fl[lc_tr_fl == 99] = 1 / fl
+
+                    # stock change factor for management regime
+                    lc_tr_fm = remap(lc_tr, lc_tr_fm_map)
+
+                    # stock change factor for input of organic matter
+                    lc_tr_fo = remap(lc_tr, lc_tr_fo_map)
+
+                    soc_chg = soc - (soc * lc_tr_fl * lc_tr_fm * lc_tr_fo) / 20
+                    soc_chg[tr_time > 20] = 0
+                    soc_chg[lc_t0 == lc_t1] = 0
+
+                    soc = soc - soc_chg
+
+                    # Write out this SOC layer. Note the first band of ds_out 
+                    # is soc degradation, and as n starts at 0, need to add one 
+                    # so that the first soc band is written to band 2 of the 
+                    # output file
+                    ds_out.GetRasterBand(n + 2).WriteArray(soc, x, y)
+
+                # Write out the percent change in SOC layer
+                soc_initial = ds_out.GetRasterBand(2).ReadAsArray(x, y, cols, rows)
+                soc_final = ds_out.GetRasterBand(2 + len(lc_band_nums)).ReadAsArray(x, y, cols, rows)
+                soc_pch = ((soc_final - soc_initial) / soc_initial) * 100
+                ds_out.GetRasterBand(1).WriteArray(soc_pch, x, y)
+
+                # Write out the initial and final lc layers
+                lc_bl = src_ds.GetRasterBand(self.lc_band_nums[1]).ReadAsArray(x, y, cols, rows)
+                ds_out.GetRasterBand(2 + len(lc_band_nums) + 1).WriteArray(soc_pch, x, y)
+                lc_tg = src_ds.GetRasterBand(self.lc_band_nums[-1]).ReadAsArray(x, y, cols, rows)
+                ds_out.GetRasterBand(2 + len(lc_band_nums) + 2).WriteArray(soc_pch, x, y)
 
                 blocks += 1
+
         if self.killed:
             os.remove(out_file)
             return None
@@ -173,77 +281,41 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         if self.lc_setup_tab.use_custom.isChecked() or \
                 self.groupBox_custom_SOC.isChecked():
-            self.calculate_locally()
+            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                       self.tr("Custom SOC calculation coming soon!"), None)
+            #self.calculate_locally()
         else:
             self.calculate_on_GEE()
 
+    def get_save_raster(self):
+        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+                                                        self.tr('Choose a name for the output file'),
+                                                        QSettings().value("LDMP/output_dir", None),
+                                                        self.tr('Raster file (*.tif)'))
+        if raster_file:
+            if os.access(os.path.dirname(raster_file), os.W_OK):
+                QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+                return raster_file
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
+                return False
 
     def calculate_locally(self):
-        # Setup a raster of climate regimes to use for coding Fl automatically
-        clim_fl_map = [[0, 1, 2, 3, 4, 5, 6,
-                        7, 8, 9, 10, 11, 12],
-                       [0, .69, .8, .69, .8, .69, .8,
-                        .69, .8, .64, .48, .48, .58]]
-
-        # stock change factor for land use - note the 99 and -99 will be 
-        # recoded using the chosen Fl option
-        lc_tr_fl_0_map = [[11, 12, 13, 14, 15, 16, 17,
-                           21, 22, 23, 24, 25, 26, 27,
-                           31, 32, 33, 34, 35, 36, 37,
-                           41, 42, 43, 44, 45, 46, 47,
-                           51, 52, 53, 54, 55, 56, 57,
-                           61, 62, 63, 64, 65, 66, 67,
-                           71, 72, 73, 74, 75, 76, 77],
-                          [1, 1, 99, 1, 0.1, 0.1, 1,
-                           1, 1, 99, 1, 0.1, 0.1, 1,
-                           -99, -99, 1, 1 / 0.71, 0.1, 0.1, 1,
-                           1, 1, 0.71, 1, 0.1, 0.1, 1,
-                           2, 2, 2, 2, 1, 1, 1,
-                           2, 2, 2, 2, 1, 1, 1,
-                           1, 1, 1, 1, 1, 1, 1]]
+        if not self.groupBox_custom_SOC.isChecked():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset."), None)
+            return
+        if not self.lc_setup_tab.use_custom.isChecked():
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."), None)
+            return
 
 
-        # stock change factor for management regime
-        lc_tr_fm = [[11, 12, 13, 14, 15, 16, 17,
-                     21, 22, 23, 24, 25, 26, 27,
-                     31, 32, 33, 34, 35, 36, 37,
-                     41, 42, 43, 44, 45, 46, 47,
-                     51, 52, 53, 54, 55, 56, 57,
-                     61, 62, 63, 64, 65, 66, 67,
-                     71, 72, 73, 74, 75, 76, 77],
-                    [1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1]]
-
-        # stock change factor for input of organic matter
-        lc_tr_fo = [[11, 12, 13, 14, 15, 16, 17,
-                     21, 22, 23, 24, 25, 26, 27,
-                     31, 32, 33, 34, 35, 36, 37,
-                     41, 42, 43, 44, 45, 46, 47,
-                     51, 52, 53, 54, 55, 56, 57,
-                     61, 62, 63, 64, 65, 66, 67,
-                     71, 72, 73, 74, 75, 76, 77],
-                    [1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1,
-                     1, 1, 1, 1, 1, 1, 1]]
-
-        if len(self.layer_list) == 0:
+        if len(self.comboBox_custom_soc.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a soil organic carbon layer to your map before you can run the calculation."), None)
             return
-
-        # Select the initial and final bands from initial and final datasets 
-        # (in case there is more than one lc band per dataset)
-        lc_initial_vrt = self.lc_setup_tab.get_initial_vrt()
-        lc_final_vrt = self.lc_setup_tab.get_final_vrt()
 
         year_baseline = self.lc_setup_tab.get_initial_year()
         year_target = self.lc_setup_tab.get_final_year()
@@ -251,12 +323,12 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
             QtGui.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_initial_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.get_final_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return
@@ -267,16 +339,60 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         self.close()
 
-        #TODO: Check that climate regimes are available, and download if not
+        # Select the initial and final bands from initial and final datasets 
+        # (in case there is more than one lc band per dataset)
+        lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
+        lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
+        lc_files = [lc_initial_vrt, lc_final_vrt]
+        lc_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        log('Saving LC files to {}'.format(lc_vrt))
+        gdal.BuildVRT(lc_vrt,
+                      lc_files,
+                      outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
+                      resolution='lowest',
+                      resampleAlg=gdal.GRA_Mode,
+                      separate=True)
+        lc_years = [self.lc_setup_tab.get_initial_year(), self.lc_setup_tab.get_final_year()]
 
-        self.close()
-
+        soc_vrt = self.comboBox_custom_soc.get_vrt()
+        climate_zones = os.path.join(os.path.dirname(__file__), 'data', 'IPCC_Climate_Zones.tif')
+        in_files = [soc_vrt, climate_zones, lc_vrt], 
+        in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        log('SOC input files {}'.format(in_files))
+        log('Saving SOC input files to {}'.format(in_vrt))
         gdal.BuildVRT(in_vrt,
-                      [lc_initial_vrt, lc_final_vrt, soc_vrt], 
-                      resolution='lowest', 
+                      in_files,
+                      resolution='highest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
                       outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
                       separate=True)
+        lc_band_nums = np.arange(len(lc_files)) + 2
+
+        log(u'Saving soil organic carbon to {}'.format(out_f))
+        soc_worker = StartWorker(SOCWorker,
+                                 'calculating change in soil organic carbon', 
+                                 in_vrt,
+                                 out_f,
+                                 lc_band_nums,
+                                 lc_years,
+                                 fl,
+                                 remap_matrix)
+
+        if not soc_worker.success:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Error calculating change in soil organic carbon."), None)
+            return
+
+        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
+                     BandInfo("Land cover (7 class)", metadata={'year': year_baseline})]
+        out_json = os.path.splitext(out_f)[0] + '.json'
+        create_local_json_metadata(out_json, out_f, band_info)
+        schema = BandInfoSchema()
+        for band_number in xrange(len(band_info)):
+            b = schema.dump(band_info[band_number])
+            if b['add_to_map']:
+                # The +1 is because band numbers start at 1, not zero
+                add_layer(out_f, band_number + 1, b)
 
     def calculate_on_GEE(self):
         self.close()

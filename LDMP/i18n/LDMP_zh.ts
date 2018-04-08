@@ -341,32 +341,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="482"/>
+        <location filename="../calculate.py" line="487"/>
         <source>Point chooser</source>
         <translation>点选择器</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="482"/>
+        <location filename="../calculate.py" line="487"/>
         <source>Click the map to choose a point.</source>
         <translation>点击地图选择一个点。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="503"/>
+        <location filename="../calculate.py" line="508"/>
         <source>Select a file defining the area of interest</source>
         <translation>选择一个定义感兴趣区域的文件</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="503"/>
+        <location filename="../calculate.py" line="508"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="513"/>
+        <location filename="../calculate.py" line="518"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="513"/>
+        <location filename="../calculate.py" line="518"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
@@ -374,17 +374,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="364"/>
+        <location filename="../calculate.py" line="369"/>
         <source>Select folder containing data</source>
         <translation>选择包含数据的文件夹</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="373"/>
+        <location filename="../calculate.py" line="378"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="373"/>
+        <location filename="../calculate.py" line="378"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>无法阅读 {}。选择其他文件夹。</translation>
     </message>
@@ -533,51 +533,61 @@ p，li {空格：预包装; }
         <source>Calculate area summaries of a raster on sub-units</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../calculate.py" line="346"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="346"/>
+        <source>Multiple polygon summary table calculation coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="668"/>
+        <location filename="../calculate.py" line="673"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="630"/>
+        <location filename="../calculate.py" line="635"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>选择一级管理边界。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="637"/>
+        <location filename="../calculate.py" line="642"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>无法加载管理界限。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="644"/>
+        <location filename="../calculate.py" line="649"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>选择一个文件来定义感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="550"/>
+        <location filename="../calculate.py" line="555"/>
         <source>Area</source>
         <translation>区</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="553"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Options</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="652"/>
+        <location filename="../calculate.py" line="657"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>选择一个点来定义感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="663"/>
+        <location filename="../calculate.py" line="668"/>
         <source>Choose an area of interest.</source>
         <translation>选择一个感兴趣的领域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="668"/>
+        <location filename="../calculate.py" line="673"/>
         <source>Unable to read area of interest.</source>
         <translation>无法读取感兴趣的区域。</translation>
     </message>
@@ -1057,37 +1067,37 @@ p，li {空格：预包装; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="198"/>
+        <location filename="../calculate_soc.py" line="245"/>
         <source>Land Cover Setup</source>
         <translation>土地覆盖设置</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="332"/>
+        <location filename="../calculate_soc.py" line="382"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="267"/>
+        <location filename="../calculate_soc.py" line="316"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加土壤有机碳层。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="274"/>
+        <location filename="../calculate_soc.py" line="323"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="274"/>
+        <location filename="../calculate_soc.py" line="323"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>基准年（{}）大于或等于目标年份（{}） - 此分析可能会产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="278"/>
+        <location filename="../calculate_soc.py" line="327"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="283"/>
+        <location filename="../calculate_soc.py" line="332"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
@@ -1097,33 +1107,43 @@ p，li {空格：预包装; }
         <translation>土壤有机碳</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="242"/>
+        <location filename="../calculate_soc.py" line="291"/>
         <source>Choose a name for the output file</source>
         <translation type="unfinished">为输出文件选择一个名称</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="242"/>
+        <location filename="../calculate_soc.py" line="291"/>
         <source>Raster file (*.tif)</source>
         <translation type="unfinished">光栅文件（* .tif）</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="251"/>
+        <location filename="../calculate_soc.py" line="300"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished">无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="257"/>
+        <location filename="../calculate_soc.py" line="306"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="261"/>
+        <location filename="../calculate_soc.py" line="310"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="332"/>
+        <location filename="../calculate_soc.py" line="382"/>
         <source>Error calculating change in soil organic carbon.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="284"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_soc.py" line="284"/>
+        <source>Custom SOC calculation coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2550,7 +2570,7 @@ p，li {空格：预包装; }
 <context>
     <name>LDMP</name>
     <message>
-        <location filename="../reporting.py" line="211"/>
+        <location filename="../visualization.py" line="211"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -2565,7 +2585,7 @@ p，li {空格：预包装; }
         <translation>无法登录到LDMP服务器。检查您的用户名和密码。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="365"/>
+        <location filename="../calculate_soc.py" line="415"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
@@ -2642,12 +2662,12 @@ p，li {空格：预包装; }
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Reporting tool</source>
-        <translation>报告工具</translation>
+        <translation type="obsolete">报告工具</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="219"/>
         <source>Land degradation reporting</source>
-        <translation>土地退化报告</translation>
+        <translation type="obsolete">土地退化报告</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="240"/>
@@ -2675,12 +2695,12 @@ p，li {空格：预包装; }
         <translation>无法向Google地球引擎提交下载请求。</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="235"/>
+        <location filename="../visualization.py" line="235"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="235"/>
+        <location filename="../visualization.py" line="235"/>
         <source>The create map tool is still experimental - the functionality of this tool is likely to change in the future.</source>
         <translation>创建地图工具仍然是实验性的 - 该工具的功能未来可能会发生变化。</translation>
     </message>
@@ -2710,12 +2730,12 @@ p，li {空格：预包装; }
         <translation>加载本地数据</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="365"/>
+        <location filename="../calculate_soc.py" line="415"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
         <translation>提交给Google Earth Engine的土壤有机碳。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="369"/>
+        <location filename="../calculate_soc.py" line="419"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
         <translation>无法向Google Earth Engine提交土壤有机碳任务。</translation>
     </message>
@@ -2745,9 +2765,19 @@ p，li {空格：预包装; }
         <translation>无法将SDG子指标任务提交给Google地球引擎。</translation>
     </message>
     <message>
-        <location filename="../reporting.py" line="211"/>
+        <location filename="../visualization.py" line="211"/>
         <source>Error downloading basemap data.</source>
         <translation>下载底图数据时出错。</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="219"/>
+        <source>Visualization tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="219"/>
+        <source>Visualize and summarize data</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

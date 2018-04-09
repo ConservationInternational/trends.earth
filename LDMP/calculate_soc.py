@@ -306,6 +306,12 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
+        # These boxes may have been hidden if this widget was last shown on the 
+        # SDG one step dialog
+        self.lc_setup_tab.groupBox_esa_period.show()
+        self.lc_setup_tab.use_custom.show()
+        self.lc_setup_tab.groupBox_custom_bl.show()
+        self.lc_setup_tab.groupBox_custom_tg.show()
 
         self.comboBox_custom_soc.populate()
         self.lc_setup_tab.use_custom_initial.populate()

@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2017\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgid ""
 "\"Calculate Indicators\" dialog box."
 msgstr ""
 "Para seleccionar los métodos y los conjuntos de datos para calcular estos "
-"indicadores, haga clic en el icono de la calculadora (|iconCalculator|). "
+"indicadores, haga clic en el icono de la calculadora (| iconCalculator |). "
 "Esto abrirá el cuadro de diálogo \"Calcular indicadores\"."
 
 #: ../../source/documentation/calculate.rst:24
@@ -60,11 +60,11 @@ msgid ""
 "even replacing individual datasets with national-level or other global "
 "datasets."
 msgstr ""
-"Hay varias opciones para calcular el Indicador ODS 15.3.1. |trends.earth| "
+"Hay varias opciones para calcular el Indicador ODS 15.3.1. | trends.earth | "
 "permite calcular el indicador utilizando el mismo proceso utilizado por la "
-"CNULD para generar los datos proporcionados a los países como parte del "
-"proceso de presentación de informes 2018. La herramienta también admite la "
-"personalización de estos datos, o incluso la sustitución de conjuntos de "
+"CNULD para los datos predeterminados proporcionados a los países para el "
+"proceso de presentación de informes de 2018. La herramienta también admite "
+"la personalización de estos datos, o incluso la sustitución de conjuntos de "
 "datos individuales por conjuntos de datos nacionales u otros conjuntos de "
 "datos globales."
 
@@ -74,7 +74,7 @@ msgid ""
 "settings for most of the indicators, click \"Calculate all three indicators "
 "in one step\"."
 msgstr ""
-"Para calcular los tres indicadores ODS 15.3.1 en un solo paso, usando la "
+"Para calcular los tres indicadores SDG 15.3.1 en un solo paso, usando la "
 "configuración predeterminada para la mayoría de los indicadores, haga clic "
 "en \"Calcular los tres indicadores en un solo paso\"."
 
@@ -86,7 +86,7 @@ msgid ""
 msgstr ""
 "Para calcular uno de los tres indicadores del ODS 15.3.1, utilizando "
 "configuraciones personalizadas o datos a nivel nacional, haga clic en "
-"\"Productividad\", \"Cobertura del terreno\" o \"Carbono orgánico en el "
+"\"Productividad\", \"Cubierta del suelo\" o \"Carbono orgánico en el "
 "suelo\"."
 
 #: ../../source/documentation/calculate.rst:38
@@ -97,7 +97,7 @@ msgid ""
 "above options."
 msgstr ""
 "Para calcular una tabla resumen que muestre las estadísticas de cada uno de "
-"los tres indicadores, haga clic en \"Calcular indicador final ODS 15.3.1 y "
+"los tres indicadores, haga clic en \"Calcular indicador final SDG 15.3.1 y "
 "tabla resumen\". Tenga en cuenta que primero debe calcular los indicadores "
 "utilizando una de las opciones anteriores."
 

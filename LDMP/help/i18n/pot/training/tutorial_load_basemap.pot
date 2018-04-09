@@ -2,7 +2,7 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -18,121 +18,218 @@ msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:2
 msgid "Load results and basemap"
-msgstr ""
+msgstr "Load results and basemap"
 
 #: ../../source/training/tutorial_load_basemap.rst:4
-msgid "**Objective**: Learn how to load into QGIS results from previous analysis run on Trends.Earth, and how to load a base map to make help with the interpretation of spatial patterns displayed by the indicators."
+msgid ""
+"**Objective**: Learn how to load into QGIS results from previous analysis "
+"run on Trends.Earth, and how to load a base map to make help with the "
+"interpretation of spatial patterns displayed by the indicators."
 msgstr ""
+"**Objective**: Learn how to load into QGIS results from previous analysis "
+"run on Trends.Earth, and how to load a base map to make help with the "
+"interpretation of spatial patterns displayed by the indicators."
 
 #: ../../source/training/tutorial_load_basemap.rst:6
 msgid "**Estimated time of completion**: 15 minutes"
-msgstr ""
+msgstr "**Estimated time of completion**: 15 minutes"
 
 #: ../../source/training/tutorial_load_basemap.rst:8
-msgid "**Internet access**: Required only the first time you load a base map, since the information needs to be downloaded. Once the data is stored in your computer base maps can be loaded without Internet access."
+msgid ""
+"**Internet access**: Required only the first time you load a base map, since"
+" the information needs to be downloaded. Once the data is stored in your "
+"computer base maps can be loaded without Internet access."
 msgstr ""
+"**Internet access**: Required only the first time you load a base map, since"
+" the information needs to be downloaded. Once the data is stored in your "
+"computer base maps can be loaded without Internet access."
 
 #: ../../source/training/tutorial_load_basemap.rst:10
-msgid "`Download this page as a PDF for offline use <../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
 msgstr ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
 
 #: ../../source/training/tutorial_load_basemap.rst:13
-msgid "To load results from previous Trends.Earth analysis into QGIS click on the (|iconfolder|) icon in the Trends.Earth toolbar."
+msgid ""
+"To load results from previous Trends.Earth analysis into QGIS click on the "
+"(|iconfolder|) icon in the Trends.Earth toolbar."
 msgstr ""
+"To load results from previous Trends.Earth analysis into QGIS click on the "
+"(|iconfolder|) icon in the Trends.Earth toolbar."
 
 #: ../../source/training/tutorial_load_basemap.rst:18
-msgid "The **Load data** menu will open. Select **Load and existing TRENDS.EARTH output file** from the **Load a dataset produced by TRENDS.EARTH** section."
+msgid ""
+"The **Load data** menu will open. Select **Load and existing TRENDS.EARTH "
+"output file** from the **Load a dataset produced by TRENDS.EARTH** section."
 msgstr ""
+"The **Load data** menu will open. Select **Load and existing TRENDS.EARTH "
+"output file** from the **Load a dataset produced by TRENDS.EARTH** section."
 
 #: ../../source/training/tutorial_load_basemap.rst:23
-msgid "Click the **Browse** button on the **Open a Trends.Earth file** window."
+msgid ""
+"Click the **Browse** button on the **Open a Trends.Earth file** window."
 msgstr ""
+"Click the **Browse** button on the **Open a Trends.Earth file** window."
 
 #: ../../source/training/tutorial_load_basemap.rst:28
-msgid "On the **Select a Trends.Earth output file** window navigate to the folder where you stored the data and select the file to load, and click **Open**."
+msgid ""
+"On the **Select a Trends.Earth output file** window navigate to the folder "
+"where you stored the data and select the file to load, and click **Open**."
 msgstr ""
+"On the **Select a Trends.Earth output file** window navigate to the folder "
+"where you stored the data and select the file to load, and click **Open**."
 
 #: ../../source/training/tutorial_load_basemap.rst:33
-msgid "You will be back at the **Open a Trends.Earth file** window, but this time you will see many layers listed under the **Select a layer(s)** section. Each of those options is a band in the raster file you downloaded from Trends.Earth. The number of bands and specific information in each of them will vary, but in any case, this tool will show you information to allow you to decide which layers to display."
+msgid ""
+"You will be back at the **Open a Trends.Earth file** window, but this time "
+"you will see many layers listed under the **Select a layer(s)** section. "
+"Each of those options is a band in the raster file you downloaded from "
+"Trends.Earth. The number of bands and specific information in each of them "
+"will vary, but in any case, this tool will show you information to allow you"
+" to decide which layers to display."
 msgstr ""
+"You will be back at the **Open a Trends.Earth file** window, but this time "
+"you will see many layers listed under the **Select a layer(s)** section. "
+"Each of those options is a band in the raster file you downloaded from "
+"Trends.Earth. The number of bands and specific information in each of them "
+"will vary, but in any case, this tool will show you information to allow you"
+" to decide which layers to display."
 
 #: ../../source/training/tutorial_load_basemap.rst:35
-msgid "In this case, since this layer is the result of the 1-step analysis (:ref:`tut_compute_sdg`), the file contains information for land productivity, land cover and soil organic carbon."
+msgid ""
+"In this case, since this layer is the result of the 1-step analysis "
+"(:ref:`tut_compute_sdg`), the file contains information for land "
+"productivity, land cover and soil organic carbon."
 msgstr ""
+"In this case, since this layer is the result of the 1-step analysis "
+"(:ref:`tut_compute_sdg`), the file contains information for land "
+"productivity, land cover and soil organic carbon."
 
 #: ../../source/training/tutorial_load_basemap.rst:37
-msgid "If you only want to see the final layer for each of the sub-indicators, simply leave the default selection and click **OK**."
+msgid ""
+"If you only want to see the final layer for each of the sub-indicators, "
+"simply leave the default selection and click **OK**."
 msgstr ""
+"If you only want to see the final layer for each of the sub-indicators, "
+"simply leave the default selection and click **OK**."
 
 #: ../../source/training/tutorial_load_basemap.rst:42
 msgid "The selected layers will be displayed on the QGIS map."
-msgstr ""
+msgstr "The selected layers will be displayed on the QGIS map."
 
 #: ../../source/training/tutorial_load_basemap.rst:48
 msgid "**Adding a basemap**"
-msgstr ""
+msgstr "**Adding a basemap**"
 
 #: ../../source/training/tutorial_load_basemap.rst:50
-msgid "Basemaps are very useful as a reference for identifying specific locations in maps. When downloaded, Trends.Earth results are displayed on an empty QGIS project, which could limit the user ability for identifying know places in the landscape. To facilitate this process, you can use the **Add Basemap** tool which will load country and state boundaries, roads, rivers, cities, coastlines and water bodies with labels to the QGIS project."
+msgid ""
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
 msgstr ""
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
 
 #: ../../source/training/tutorial_load_basemap.rst:52
-msgid "To load the tool click on the visualizations tool icon on the Trends.Earth toolbar."
+msgid ""
+"To load the tool click on the visualizations tool icon on the Trends.Earth "
+"toolbar."
 msgstr ""
+"To load the tool click on the visualizations tool icon on the Trends.Earth "
+"toolbar."
 
 #: ../../source/training/tutorial_load_basemap.rst:57
 msgid "Click on **Add basemap**."
-msgstr ""
+msgstr "Click on **Add basemap**."
 
 #: ../../source/training/tutorial_load_basemap.rst:62
 msgid "On the **Add basemap** window you can do one of two things:"
-msgstr ""
+msgstr "On the **Add basemap** window you can do one of two things:"
 
 #: ../../source/training/tutorial_load_basemap.rst:64
-msgid "**Use a mask option selected** will create a mask blocking all the information outside of the selected area. In this example, all the information outside of Uganda will not be displayed on the map. This option is useful when displaying the sub-indicators downloaded from Trends.Earth, since the data download is not clipped to administrative boundaries (a bounding box is used instead). You can use first and second level administrative boundaries."
+msgid ""
+"**Use a mask option selected** will create a mask blocking all the "
+"information outside of the selected area. In this example, all the "
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
 msgstr ""
+"**Use a mask option selected** will create a mask blocking all the "
+"information outside of the selected area. In this example, all the "
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
 
 #: ../../source/training/tutorial_load_basemap.rst:66
-msgid "**Use a mask option not selected** will load all the reference information, but no mask will be applied."
+msgid ""
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
 msgstr ""
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
 
 #: ../../source/training/tutorial_load_basemap.rst:71
-msgid "The first time you run this tool after installing Trends.Earth, the information will be downloaded from the Internet, so make sure you are connected. The progress bar will indicated the percentage of the task completed. The data will remain stored in your computer for future use."
+msgid ""
+"The first time you run this tool after installing Trends.Earth, the "
+"information will be downloaded from the Internet, so make sure you are "
+"connected. The progress bar will indicated the percentage of the task "
+"completed. The data will remain stored in your computer for future use."
 msgstr ""
+"The first time you run this tool after installing Trends.Earth, the "
+"information will be downloaded from the Internet, so make sure you are "
+"connected. The progress bar will indicated the percentage of the task "
+"completed. The data will remain stored in your computer for future use."
 
 #: ../../source/training/tutorial_load_basemap.rst:76
-msgid "Once the basemap is loaded, you will notice the information added to the map and to the Layer panel. The basemap has information for:"
+msgid ""
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
 msgstr ""
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
 
 #: ../../source/training/tutorial_load_basemap.rst:78
 msgid "Lake"
-msgstr ""
+msgstr "Lake"
 
 #: ../../source/training/tutorial_load_basemap.rst:79
 msgid "River"
-msgstr ""
+msgstr "River"
 
 #: ../../source/training/tutorial_load_basemap.rst:80
 msgid "Coastline"
-msgstr ""
+msgstr "Coastline"
 
 #: ../../source/training/tutorial_load_basemap.rst:81
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: ../../source/training/tutorial_load_basemap.rst:82
 msgid "Disputed border"
-msgstr ""
+msgstr "Disputed border"
 
 #: ../../source/training/tutorial_load_basemap.rst:83
 msgid "Subnational border"
-msgstr ""
+msgstr "Subnational border"
 
 #: ../../source/training/tutorial_load_basemap.rst:84
 msgid "National border"
-msgstr ""
+msgstr "National border"
 
 #: ../../source/training/tutorial_load_basemap.rst:85
 msgid "Ocean"
-msgstr ""
-
+msgstr "Ocean"

@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators.rst:4
 msgid "SDG Indicator 15.3.1"
-msgstr "Indicador ODS 15.3.1"
+msgstr "Indicador SDG 15.3.1"
 
 #: ../../source/background/understanding_indicators.rst:6
 msgid ""
@@ -72,7 +72,7 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
-msgstr "\"proporción de tierra degradada sobre la superficie total\""
+msgstr "\"proporción de tierra que se degrada sobre la superficie total\""
 
 #: ../../source/background/understanding_indicators.rst:26
 msgid ""
@@ -83,11 +83,11 @@ msgid ""
 " providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
 "Como la agencia custodio del ODS 15.3, la Convención de las Naciones Unidas "
-"de Lucha contra la Desertificación (CNULD) ha desarrollado una `Guía de "
+"de Lucha contra la Desertificación (CNULD) ha desarrollado una \"Guía de "
 "buenas prácticas (GPG) <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
-" proporcionar recomendaciones sobre cómo calcular el Indicador 15.3.1 de los"
-" ODS."
+"links/2017 -10 / Bueno% 20Practice%20Guidance_SDG% 20Indicator% "
+"2015.3.1_Version% 201.0.pdf> `_. proporcionar recomendaciones sobre cómo "
+"calcular el Indicador 15.3.1 de los ODS."
 
 #: ../../source/background/understanding_indicators.rst:31
 msgid ""

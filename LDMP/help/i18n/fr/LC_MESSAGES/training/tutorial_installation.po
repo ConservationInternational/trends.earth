@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -28,6 +28,10 @@ msgid ""
 "Trends.Earth plugin in QGIS. These step needs to be completed only the first"
 " time you use the tool. Your user will be then saved for future sessions."
 msgstr ""
+"**Objectif**: Apprenez à installer, enregistrer et vous connecter pour "
+"utiliser le plugin Trends.Earth dans QGIS. Ces étapes doivent être "
+"complétées seulement la première fois que vous utilisez l'outil. Votre "
+"utilisateur sera ensuite enregistré pour les sessions futures."
 
 #: ../../source/training/tutorial_installation.rst:6
 msgid "**Estimated time of completion**: 20 minutes"

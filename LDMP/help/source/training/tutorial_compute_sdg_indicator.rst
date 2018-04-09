@@ -10,7 +10,7 @@ Compute SDG indicator
 - **Internet access**: Not required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial08_Computing_SDG_Indicator.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf>`_
 
 .. note::
     You will need to have previously computed the land cover, soil organic carbon and land productivity indicators prior to running this tool. If you have not, please refer to the following specific tutorials to compute them: :ref:`1-step_subindicators`, :ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`.

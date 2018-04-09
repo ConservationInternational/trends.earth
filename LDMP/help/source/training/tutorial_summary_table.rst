@@ -10,7 +10,7 @@ Interpreting summary table
 - **Internet access**: Not required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial09_The_Summary_Table.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_
 
 .. note::
     You will need to have previously computed SDG 15.3.1 using the **Calculate final SDG 15.3.1 spatial layer and summary table for total boundary** tool. Refer to the section :ref:`tut_compute_sdg` for instructions on how to run the analysis.

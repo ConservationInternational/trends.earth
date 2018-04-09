@@ -10,7 +10,7 @@ Task status & download
 - **Internet access**: Required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial04_Downloading_Results.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_
 
 The results of Trends.Earth analysis are rasters in TIF format for indicators and XLSX spreadsheets for the tabular outputs. You will need to define in each case where files will be stored in your computer. We recommend you create a folder where to store the results for easy posterior access. The **Desktop** is a location usually selected because it is easy to find. 
 

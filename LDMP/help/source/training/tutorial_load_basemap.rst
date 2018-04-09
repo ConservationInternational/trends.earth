@@ -8,7 +8,7 @@
 - **Internet access**: Required only the first time you load a base map, since the information needs to be downloaded. Once the data is stored in your computer base maps can be loaded without Internet access.
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial10_Loading_a_Basemap.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_
 
 1. To load results from previous Trends.Earth analysis into QGIS click on the (|iconfolder|) icon in the Trends.Earth toolbar.
 

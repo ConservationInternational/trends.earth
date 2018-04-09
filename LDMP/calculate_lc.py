@@ -191,7 +191,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                                         self.tr('Raster file (*.tif)'))
         if raster_file:
             if os.access(os.path.dirname(raster_file), os.W_OK):
-                QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 return raster_file
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),

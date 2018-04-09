@@ -40,7 +40,7 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
 def remap(a, remap_list):
     for value, replacement in zip(remap_list[0], remap_list[1]):
-        a[a == int(value)] = int(replacement)
+        a[a == value] = replacement
     return a
 
 class SOCWorker(AbstractWorker):
@@ -60,9 +60,7 @@ class SOCWorker(AbstractWorker):
 
         block_sizes = soc_band.GetBlockSize()
         x_block_size = block_sizes[0]
-        # Need to process y line by line so that pixel area calculation can be
-        # done based on latitude, which varies by line
-        y_block_size = 1
+        y_block_size = block_sizes[1]
         xsize = soc_band.XSize
         ysize = soc_band.YSize
 
@@ -78,27 +76,25 @@ class SOCWorker(AbstractWorker):
         ds_out.SetProjection(out_srs.ExportToWkt())
 
         # Setup a raster of climate regimes to use for coding Fl automatically
-        clim_fl_map = [[0, 1, 2, 3, 4, 5, 6,
-                        7, 8, 9, 10, 11, 12],
-                       [0, .69, .8, .69, .8, .69, .8,
-                        .69, .8, .64, .48, .48, .58]]
+        clim_fl_map = np.array([[0, 1, 2,  3,  4,  5, 6, 7, 8, 9, 10, 11, 12],
+                                [  0, .69,  .8, .69,  .8, .69, .8, .69,  .8, .64, .48, .48, .58]])
 
         # stock change factor for land use - note the 99 and -99 will be 
         # recoded using the chosen Fl option
-        lc_tr_fl_0_map = [[11, 12, 13, 14, 15, 16, 17,
-                           21, 22, 23, 24, 25, 26, 27,
-                           31, 32, 33, 34, 35, 36, 37,
-                           41, 42, 43, 44, 45, 46, 47,
-                           51, 52, 53, 54, 55, 56, 57,
-                           61, 62, 63, 64, 65, 66, 67,
-                           71, 72, 73, 74, 75, 76, 77],
-                          [1, 1, 99, 1, 0.1, 0.1, 1,
-                           1, 1, 99, 1, 0.1, 0.1, 1,
-                           -99, -99, 1, 1 / 0.71, 0.1, 0.1, 1,
-                           1, 1, 0.71, 1, 0.1, 0.1, 1,
-                           2, 2, 2, 2, 1, 1, 1,
-                           2, 2, 2, 2, 1, 1, 1,
-                           1, 1, 1, 1, 1, 1, 1]]
+        lc_tr_fl_0_map = np.array([[11, 12, 13, 14, 15, 16, 17,
+                                    21, 22, 23, 24, 25, 26, 27,
+                                    31, 32, 33, 34, 35, 36, 37,
+                                    41, 42, 43, 44, 45, 46, 47,
+                                    51, 52, 53, 54, 55, 56, 57,
+                                    61, 62, 63, 64, 65, 66, 67,
+                                    71, 72, 73, 74, 75, 76, 77],
+                                  [  1,   1,   99,        1, 0.1, 0.1, 1,
+                                     1,   1,   99,        1, 0.1, 0.1, 1,
+                                   -99, -99,    1, 1 / 0.71, 0.1, 0.1, 1,
+                                     1,   1, 0.71,        1, 0.1, 0.1, 1,
+                                     2,   2,    2,        2,   1,   1, 1,
+                                     2,   2,    2,        2,   1,   1, 1,
+                                     1,   1,    1,        1,   1,   1, 1]])
 
         # stock change factor for management regime
         lc_tr_fm_map = [[11, 12, 13, 14, 15, 16, 17,
@@ -148,23 +144,30 @@ class SOCWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                # Write initial soc to band 2 of the output file
-                soc = soc_band.ReadAsArray(x, y, cols, rows)
+                # Write initial soc to band 2 of the output file. Read SOC in 
+                # as float so the soc change calculations won't accumulate 
+                # error due to repeated truncation of ints
+                soc = np.array(soc_band.ReadAsArray(x, y, cols, rows)).astype(np.float32)
                 ds_out.GetRasterBand(2).WriteArray(soc, x, y)
 
                 if self.fl == 'per pixel':
-                    clim = clim_band.ReadAsArray(x, y, cols, rows)
+                    clim = np.array(clim_band.ReadAsArray(x, y, cols, rows)).astype(np.float32)
                     # Setup a raster of climate regimes to use for coding Fl 
                     # automatically
                     clim_fl = remap(clim, clim_fl_map)
 
-                tr_time = np.zeros(np.shape(soc))
+                tr_year = np.zeros(np.shape(soc))
+                soc_chg = np.zeros(np.shape(soc))
                 for n in range(len(self.lc_years) - 1):
-                    t0 = self.lc_years[n]
-                    t1 = self.lc_years[n + 1]
+                    t0 = float(self.lc_years[n])
+                    t1 = float(self.lc_years[n + 1])
 
                     lc_t0 = ds_in.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
                     lc_t1 = ds_in.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
+
+                    nodata = (lc_t0 == -32768) | (lc_t1 == -32768) | (soc == - 32768)
+                    if self.fl == 'per pixel':
+                        nodata[clim == -128] = True
 
                     # compute transition map (first digit for baseline land 
                     # cover, and second digit for target year land cover), but 
@@ -172,20 +175,47 @@ class SOCWorker(AbstractWorker):
                     lc_tr = lc_t0*10 + lc_t1
                     lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] <- -32768
 
-                    # Set transition time to zero for pixels that DID change
-                    tr_time[lc_t0 != lc_t1] = 0
-                    # Add time elapsed between t0 and t1 to transition time for 
-                    # pixels that DID NOT change 
-                    tr_time[lc_t0 == lc_t1] = tr_time[lc_t0 == lc_t1] + (t1 - t0)
+                    ######################################################
+                    # If more than one year has elapsed, need to split the 
+                    # period into two parts, and account for any requried 
+                    # changes in soc due to past lc transitions over the 
+                    # first part of the period, and soc changes due to lc 
+                    # changes that occurred during the period over the 
 
+                    # Calculate middle of period. Take the floor so that a 
+                    # transition that occurs when two lc layers are one 
+                    # year apart gets the full new soc_chg factor applied 
+                    # (rather than half), and none of the old soc_chg factor.
+                    t_mid = t0 + np.floor((t1 - t0) / 2)
+
+                    # Assume any lc transitions occurred in the middle of the 
+                    # period since we don't know the actual year of transition. 
+                    # Apply old soc change for appropriate number of years for 
+                    # pixels that had a transition > tr_year ago but less than 
+                    # 20 years prior to the middle of this period. Changes 
+                    # occur over a twenty year period, and then change stops.
+                    if n > 0:
+                        # Don't consider transition in lc at beginning of the 
+                        # period for the first period (as there is no data on 
+                        # what lc was prior to the first period, so soc_chg is 
+                        # undefined)
+                        yrs_lc_0 = t_mid - tr_year
+                        yrs_lc_0[yrs_lc_0 > 20] = 20
+                        soc = soc - soc_chg * yrs_lc_0
+                        soc_chg[yrs_lc_0 == 20] = 0
+                        
+                    ######################################################
+                    # Calculate new soc_chg and apply it over the second 
+                    # half of the period
+                    
                     # stock change factor for land use
-                    lc_tr_fl = remap(lc_tr, lc_tr_fl_0_map)
+                    lc_tr_fl = remap(np.array(lc_tr).astype(np.float32), lc_tr_fl_0_map)
                     if self.fl == 'per pixel':
                         lc_tr_fl[lc_tr_fl == 99] = clim_fl[lc_tr_fl == 99]
-                        lc_tr_fl[lc_tr_fl == 99] = 1 / clim_fl[lc_tr_fl == 99]
+                        lc_tr_fl[lc_tr_fl == -99] = 1. / clim_fl[lc_tr_fl == -99]
                     else:
                         lc_tr_fl[lc_tr_fl == 99] = self.fl
-                        lc_tr_fl[lc_tr_fl == 99] = 1 / self.fl
+                        lc_tr_fl[lc_tr_fl == -99] = 1. / self.fl
 
                     # stock change factor for management regime
                     lc_tr_fm = remap(lc_tr, lc_tr_fm_map)
@@ -193,37 +223,56 @@ class SOCWorker(AbstractWorker):
                     # stock change factor for input of organic matter
                     lc_tr_fo = remap(lc_tr, lc_tr_fo_map)
 
-                    soc_chg = soc - (soc * lc_tr_fl * lc_tr_fm * lc_tr_fo) / 20
-                    soc_chg[tr_time > 20] = 0
-                    soc_chg[lc_t0 == lc_t1] = 0
+                    # Set the transition year to the middle of the period for 
+                    # pixels that had a change in cover
+                    tr_year[lc_t0 != lc_t1] = t_mid
                     
-                    # Multiple the annual change by the number of years that 
-                    # have elapsed
-                    soc = soc - soc_chg * (t1 - t0)
+                    # Calculate a new soc change for pixels that changed
+                    soc_chg[lc_t0 != lc_t1] = (soc[lc_t0 != lc_t1] - \
+                                               soc[lc_t0 != lc_t1] * \
+                                               lc_tr_fl[lc_t0 != lc_t1] * \
+                                               lc_tr_fm[lc_t0 != lc_t1] * \
+                                               lc_tr_fo[lc_t0 != lc_t1]) / 20
 
+                    yrs_lc_1 = t1 - tr_year
+                    # Subtract the length of the first half of the period from 
+                    # yrs_lc_1 for pixels that weren't changed - these pixels 
+                    # have already had soc_chg applied for the first portion of 
+                    # the period
+                    yrs_lc_1[lc_t0 == lc_t1] = yrs_lc_1[lc_t0 == lc_t1] - (t_mid - t0)
+                    yrs_lc_1[yrs_lc_1 > 20] = 20
+                    soc = soc - soc_chg * yrs_lc_1
+                    soc_chg[yrs_lc_1 == 20] = 0
+                    
                     # Write out this SOC layer. Note the first band of ds_out 
                     # is soc degradation, and the second band is the initial 
                     # soc. As n starts at 0, need to add 3 so that the first 
                     # soc band derived from LC change soc band is written to 
                     # band 3 of the output file
+                    soc[nodata] = -32768
                     ds_out.GetRasterBand(n + 3).WriteArray(soc, x, y)
 
                 # Write out the percent change in SOC layer
                 soc_initial = ds_out.GetRasterBand(2).ReadAsArray(x, y, cols, rows)
-                soc_final = ds_out.GetRasterBand(2 + len(self.lc_band_nums)).ReadAsArray(x, y, cols, rows)
+                soc_final = ds_out.GetRasterBand(2 + len(self.lc_band_nums) - 1).ReadAsArray(x, y, cols, rows)
+                soc_initial = np.array(soc_initial).astype(np.float32)
+                soc_final = np.array(soc_final).astype(np.float32)
                 soc_pch = ((soc_final - soc_initial) / soc_initial) * 100
+                soc_pch[nodata] = -32768
                 ds_out.GetRasterBand(1).WriteArray(soc_pch, x, y)
 
                 # Write out the initial and final lc layers
-                lc_bl = ds_in.GetRasterBand(self.lc_band_nums[1]).ReadAsArray(x, y, cols, rows)
-                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 1).WriteArray(soc_pch, x, y)
+                lc_bl = ds_in.GetRasterBand(self.lc_band_nums[0]).ReadAsArray(x, y, cols, rows)
+                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 1).WriteArray(lc_bl, x, y)
                 lc_tg = ds_in.GetRasterBand(self.lc_band_nums[-1]).ReadAsArray(x, y, cols, rows)
-                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 2).WriteArray(soc_pch, x, y)
+                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 2).WriteArray(lc_tg, x, y)
 
                 blocks += 1
 
         if self.killed:
-            os.remove(out_file)
+            del ds_in
+            del ds_out
+            os.remove(self.out_f)
             return None
         else:
             return True
@@ -382,7 +431,9 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                       resampleAlg=gdal.GRA_NearestNeighbour,
                       outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
                       separate=True)
-        lc_band_nums = np.arange(len(lc_files)) + 2
+        # Lc bands start on band 3 as band 1 is initial soc, and band 2 is 
+        # climate zones
+        lc_band_nums = np.arange(len(lc_files)) + 3
 
         log(u'Saving soil organic carbon to {}'.format(out_f))
         soc_worker = StartWorker(SOCWorker,

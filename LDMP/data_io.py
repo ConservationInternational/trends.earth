@@ -268,17 +268,12 @@ class RemapRasterWorker(AbstractWorker):
                         d[d == int(value)] = int(replacement)
                 ds_out.GetRasterBand(1).WriteArray(d, x, y)
                 blocks += 1
+
         if self.killed:
+            del ds_out
             os.remove(out_file)
             return None
         else:
-            return True
-
-    def progress_callback(self, fraction, message, data):
-        if self.killed:
-            return False
-        else:
-            self.progress.emit(100 * fraction)
             return True
 
 

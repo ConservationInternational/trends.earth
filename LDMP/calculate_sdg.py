@@ -553,6 +553,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         self.progress.emit(100)
 
         if self.killed:
+            del dst_ds_deg
             os.remove(self.prod_out_file)
             return None
         else:

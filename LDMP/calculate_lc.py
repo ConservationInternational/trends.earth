@@ -52,9 +52,7 @@ class LandCoverChangeWorker(AbstractWorker):
 
         block_sizes = band_initial.GetBlockSize()
         x_block_size = block_sizes[0]
-        # Need to process y line by line so that pixel area calculation can be
-        # done based on latitude, which varies by line
-        y_block_size = 1
+        y_block_size = block_sizes[1]
         xsize = band_initial.XSize
         ysize = band_initial.YSize
 

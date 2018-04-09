@@ -16,6 +16,8 @@ import os
 import tempfile
 import json
 
+import numpy as np
+
 from osgeo import gdal, osr
 
 from qgis.utils import iface
@@ -33,21 +35,25 @@ from LDMP.lc_setup import lc_setup_widget
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 
+from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+
+
 def remap(a, remap_list):
     for value, replacement in zip(remap_list[0], remap_list[1]):
         a[a == int(value)] = int(replacement)
     return a
 
 class SOCWorker(AbstractWorker):
-    def __init__(self, in_vrt, out_f, lc_years, lc_band_nums, fl, remap_matrix):
+    def __init__(self, in_vrt, out_f, lc_band_nums, lc_years, fl):
         AbstractWorker.__init__(self)
-        self.in_f = in_f
+        self.in_vrt = in_vrt
         self.out_f = out_f
-        self.trans_matrix = trans_matrix
-        self.persistence_remap = persistence_remap
+        self.lc_years = lc_years
+        self.lc_band_nums = lc_band_nums
+        self.fl = fl
 
     def work(self):
-        ds_in = gdal.Open(self.in_f)
+        ds_in = gdal.Open(self.in_vrt)
 
         soc_band = ds_in.GetRasterBand(1)
         clim_band = ds_in.GetRasterBand(2)
@@ -61,7 +67,9 @@ class SOCWorker(AbstractWorker):
         ysize = soc_band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        ds_out = driver.Create(self.out_f, xsize, ysize, 4, gdal.GDT_Int16, 
+        # Need a band for SOC degradation, plus bands for annual SOC, and for 
+        # annual LC
+        ds_out = driver.Create(self.out_f, xsize, ysize, 1 + len(self.lc_years)*2, gdal.GDT_Int16, 
                                ['COMPRESS=LZW'])
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -140,21 +148,23 @@ class SOCWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
+                # Write initial soc to band 2 of the output file
                 soc = soc_band.ReadAsArray(x, y, cols, rows)
-                soc = ds_out.GetRasterBand(1).WriteArray(soc, x, y)
+                ds_out.GetRasterBand(2).WriteArray(soc, x, y)
 
-                if fl == 'per pixel':
+                if self.fl == 'per pixel':
                     clim = clim_band.ReadAsArray(x, y, cols, rows)
                     # Setup a raster of climate regimes to use for coding Fl 
                     # automatically
                     clim_fl = remap(clim, clim_fl_map)
 
-                tr_time = np.zeros(soc.shape)
+                tr_time = np.zeros(np.shape(soc))
                 for n in range(len(self.lc_years) - 1):
-                    year = self.lc_years[n]
+                    t0 = self.lc_years[n]
+                    t1 = self.lc_years[n + 1]
 
-                    lc_t0 = src_ds.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
-                    lc_t1 = src_ds.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
+                    lc_t0 = ds_in.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
+                    lc_t1 = ds_in.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
 
                     # compute transition map (first digit for baseline land 
                     # cover, and second digit for target year land cover), but 
@@ -164,17 +174,18 @@ class SOCWorker(AbstractWorker):
 
                     # Set transition time to zero for pixels that DID change
                     tr_time[lc_t0 != lc_t1] = 0
-                    # Add one to transition time for pixels that DID NOT change 
-                    tr_time[lc_t0 == lc_t1] = tr_time[lc_t0 == lc_t1] + 1
+                    # Add time elapsed between t0 and t1 to transition time for 
+                    # pixels that DID NOT change 
+                    tr_time[lc_t0 == lc_t1] = tr_time[lc_t0 == lc_t1] + (t1 - t0)
 
                     # stock change factor for land use
-                    lc_tr_fl = remap(lc_tr.copy(), lc_tr_fl_0_map)
-                    if fl == 'per_pixel':
+                    lc_tr_fl = remap(lc_tr, lc_tr_fl_0_map)
+                    if self.fl == 'per pixel':
                         lc_tr_fl[lc_tr_fl == 99] = clim_fl[lc_tr_fl == 99]
                         lc_tr_fl[lc_tr_fl == 99] = 1 / clim_fl[lc_tr_fl == 99]
                     else:
-                        lc_tr_fl[lc_tr_fl == 99] = fl
-                        lc_tr_fl[lc_tr_fl == 99] = 1 / fl
+                        lc_tr_fl[lc_tr_fl == 99] = self.fl
+                        lc_tr_fl[lc_tr_fl == 99] = 1 / self.fl
 
                     # stock change factor for management regime
                     lc_tr_fm = remap(lc_tr, lc_tr_fm_map)
@@ -185,26 +196,29 @@ class SOCWorker(AbstractWorker):
                     soc_chg = soc - (soc * lc_tr_fl * lc_tr_fm * lc_tr_fo) / 20
                     soc_chg[tr_time > 20] = 0
                     soc_chg[lc_t0 == lc_t1] = 0
-
-                    soc = soc - soc_chg
+                    
+                    # Multiple the annual change by the number of years that 
+                    # have elapsed
+                    soc = soc - soc_chg * (t1 - t0)
 
                     # Write out this SOC layer. Note the first band of ds_out 
-                    # is soc degradation, and as n starts at 0, need to add one 
-                    # so that the first soc band is written to band 2 of the 
-                    # output file
-                    ds_out.GetRasterBand(n + 2).WriteArray(soc, x, y)
+                    # is soc degradation, and the second band is the initial 
+                    # soc. As n starts at 0, need to add 3 so that the first 
+                    # soc band derived from LC change soc band is written to 
+                    # band 3 of the output file
+                    ds_out.GetRasterBand(n + 3).WriteArray(soc, x, y)
 
                 # Write out the percent change in SOC layer
                 soc_initial = ds_out.GetRasterBand(2).ReadAsArray(x, y, cols, rows)
-                soc_final = ds_out.GetRasterBand(2 + len(lc_band_nums)).ReadAsArray(x, y, cols, rows)
+                soc_final = ds_out.GetRasterBand(2 + len(self.lc_band_nums)).ReadAsArray(x, y, cols, rows)
                 soc_pch = ((soc_final - soc_initial) / soc_initial) * 100
                 ds_out.GetRasterBand(1).WriteArray(soc_pch, x, y)
 
                 # Write out the initial and final lc layers
-                lc_bl = src_ds.GetRasterBand(self.lc_band_nums[1]).ReadAsArray(x, y, cols, rows)
-                ds_out.GetRasterBand(2 + len(lc_band_nums) + 1).WriteArray(soc_pch, x, y)
-                lc_tg = src_ds.GetRasterBand(self.lc_band_nums[-1]).ReadAsArray(x, y, cols, rows)
-                ds_out.GetRasterBand(2 + len(lc_band_nums) + 2).WriteArray(soc_pch, x, y)
+                lc_bl = ds_in.GetRasterBand(self.lc_band_nums[1]).ReadAsArray(x, y, cols, rows)
+                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 1).WriteArray(soc_pch, x, y)
+                lc_tg = ds_in.GetRasterBand(self.lc_band_nums[-1]).ReadAsArray(x, y, cols, rows)
+                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 2).WriteArray(soc_pch, x, y)
 
                 blocks += 1
 
@@ -281,9 +295,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         if self.lc_setup_tab.use_custom.isChecked() or \
                 self.groupBox_custom_SOC.isChecked():
-            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                       self.tr("Custom SOC calculation coming soon!"), None)
-            #self.calculate_locally()
+            self.calculate_locally()
         else:
             self.calculate_on_GEE()
 
@@ -294,7 +306,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                                                         self.tr('Raster file (*.tif)'))
         if raster_file:
             if os.access(os.path.dirname(raster_file), os.W_OK):
-                QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 return raster_file
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -344,21 +356,25 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
         lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
         lc_files = [lc_initial_vrt, lc_final_vrt]
-        lc_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('Saving LC files to {}'.format(lc_vrt))
-        gdal.BuildVRT(lc_vrt,
-                      lc_files,
-                      outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
-                      resolution='lowest',
-                      resampleAlg=gdal.GRA_Mode,
-                      separate=True)
         lc_years = [self.lc_setup_tab.get_initial_year(), self.lc_setup_tab.get_final_year()]
+        lc_vrts = []
+        for i in range(len(lc_files)):
+            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            # Add once since band numbers don't start at zero
+            gdal.BuildVRT(f,
+                          lc_files[i],
+                          bandList=[i + 1],
+                          outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
+                          resolution='lowest',
+                          resampleAlg=gdal.GRA_Mode,
+                          separate=True)
+            lc_vrts.append(f)
 
         soc_vrt = self.comboBox_custom_soc.get_vrt()
         climate_zones = os.path.join(os.path.dirname(__file__), 'data', 'IPCC_Climate_Zones.tif')
-        in_files = [soc_vrt, climate_zones, lc_vrt], 
+        in_files = [soc_vrt, climate_zones]
+        in_files.extend(lc_vrts)
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('SOC input files {}'.format(in_files))
         log('Saving SOC input files to {}'.format(in_vrt))
         gdal.BuildVRT(in_vrt,
                       in_files,
@@ -375,21 +391,29 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                                  out_f,
                                  lc_band_nums,
                                  lc_years,
-                                 fl,
-                                 remap_matrix)
+                                 self.get_fl())
 
         if not soc_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating change in soil organic carbon."), None)
             return
 
-        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
-                     BandInfo("Land cover (7 class)", metadata={'year': year_baseline})]
+        band_infos = [BandInfo("Soil organic carbon (degradation)", add_to_map=True, metadata={'year_start': lc_years[0], 'year_end': lc_years[-1]})]
+        for year in lc_years:
+            if (year == lc_years[0]) or (year == lc_years[-1]):
+                # Add first and last years to map
+                add_to_map = True
+            else:
+                add_to_map = False
+            band_infos.append(BandInfo("Soil organic carbon", add_to_map=add_to_map, metadata={'year': year}))
+        for year in lc_years:
+            band_infos.append(BandInfo("Land cover (7 class)", metadata={'year': year}))
+
         out_json = os.path.splitext(out_f)[0] + '.json'
-        create_local_json_metadata(out_json, out_f, band_info)
+        create_local_json_metadata(out_json, out_f, band_infos)
         schema = BandInfoSchema()
-        for band_number in xrange(len(band_info)):
-            b = schema.dump(band_info[band_number])
+        for band_number in xrange(len(band_infos)):
+            b = schema.dump(band_infos[band_number])
             if b['add_to_map']:
                 # The +1 is because band numbers start at 1, not zero
                 add_layer(out_f, band_number + 1, b)

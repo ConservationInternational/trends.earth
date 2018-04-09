@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 16:52-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr ""
 #: ../../source/training/tutorial_run_all_subindicators.rst:12
 msgid ""
 "`Download this page as a PDF for off-line use "
-"<../pdfs/Trends.Earth_Tutorial03_Computing_Indicators.pdf>`_"
+"<../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
 msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:15

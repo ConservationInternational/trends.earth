@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 11:26-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,26 +28,26 @@ msgid ""
 "Trends.Earth plugin in QGIS. These step needs to be completed only the first"
 " time you use the tool. Your user will be then saved for future sessions."
 msgstr ""
-"**Objetivo**: aprender cómo instalar, registrar e iniciar sesión para usar "
+"** Objetivo **: aprende cómo instalar, registrar e iniciar sesión para usar "
 "el plugin Trends.Earth en QGIS. Estos pasos solo se deben completar la "
 "primera vez que use la herramienta. Su usuario será guardado para futuras "
 "sesiones."
 
 #: ../../source/training/tutorial_installation.rst:6
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "**Tiempo estimado de finalización**: 20 minutos"
+msgstr "** Tiempo estimado de finalización **: 20 minutos"
 
 #: ../../source/training/tutorial_installation.rst:8
 msgid "**Internet access**: Required"
-msgstr "**Acceso a Internet**: requerido"
+msgstr "** Acceso a Internet **: obligatorio"
 
 #: ../../source/training/tutorial_installation.rst:10
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_"
 msgstr ""
-"`Descargue esta página como PDF para uso fuera de línea "
-"<../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_"
+"`Descargue esta página como PDF para uso fuera de línea <../ pdfs / "
+"Trends.Earth_Tutorial01_Installation.pdf>` _"
 
 #: ../../source/training/tutorial_installation.rst:13
 msgid ""
@@ -62,13 +62,13 @@ msgid ""
 "Once QGIS loads, search in the menu bar for **Plugins**. Click and a drop "
 "down menu will open."
 msgstr ""
-"Una vez que QGIS se carga, busca en la barra de menú **Complementos**. Haga "
-"clic y se abrirá un menú desplegable."
+"Una vez que QGIS se carga, busca en la barra de menú ** Complementos **. "
+"Haga clic y se abrirá un menú desplegable."
 
 #: ../../source/training/tutorial_installation.rst:17
 msgid "Click on **Manage and Install plugins**. The Plugins window will open."
 msgstr ""
-"Haga clic en **Administrar e instalar complementos**. La ventana de "
+"Haga clic en ** Administrar e instalar complementos **. La ventana de "
 "complementos se abrirá."
 
 #: ../../source/training/tutorial_installation.rst:22

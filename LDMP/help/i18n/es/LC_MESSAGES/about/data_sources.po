@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -28,8 +28,8 @@ msgid ""
 " are owned/made available by the following organizations and individuals "
 "under separate terms as indicated in their respective metadata."
 msgstr ""
-"|trends.earth| se basa en una serie de fuentes de información. Los productos"
-" enumerados a continuación son propiedad / están disponibles por las "
+"| trends.earth | se basa en una serie de fuentes de datos. Los conjuntos de "
+"datos enumerados a continuación son propiedad / están disponibles por las "
 "siguientes organizaciones y personas en términos separados según lo indicado"
 " en sus respectivos metadatos."
 
@@ -46,7 +46,7 @@ msgstr "NDVI"
 #: ../../source/about/data_sources.rst:98
 #: ../../source/about/data_sources.rst:109
 msgid "Sensor/Dataset"
-msgstr "Sensor / Producto"
+msgstr "Sensor / Dataset"
 
 #: ../../source/about/data_sources.rst:12
 #: ../../source/about/data_sources.rst:27
@@ -79,7 +79,7 @@ msgstr "Espacial"
 #: ../../source/about/data_sources.rst:98
 #: ../../source/about/data_sources.rst:109
 msgid "Extent"
-msgstr "Extensión"
+msgstr "Grado"
 
 #: ../../source/about/data_sources.rst:12
 #: ../../source/about/data_sources.rst:27

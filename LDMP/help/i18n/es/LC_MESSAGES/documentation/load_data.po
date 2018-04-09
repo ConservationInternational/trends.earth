@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -27,28 +27,28 @@ msgid ""
 "The \"Load data\" function allows the user to load data into QGIS and "
 "|trends.earth| for analysis."
 msgstr ""
-"La función \"Cargar datos\" permite al usuario cargar datos en QGIS y "
-"|trends.earth| para analizar."
+"La función \"Cargar datos\" permite al usuario cargar datos en QGIS y | "
+"trends.earth | para analizar."
 
 #: ../../source/documentation/load_data.rst:9
 msgid ""
 "There are two options, to load results of |trends.earth| analysis or to load"
 " custom datasets which will be used to compute the indicators."
 msgstr ""
-"Hay dos opciones para cargar los resultados de |trends.earth| análisis o "
+"Hay dos opciones para cargar los resultados de | trends.earth | análisis o "
 "para cargar conjuntos de datos personalizados que se utilizarán para "
 "calcular los indicadores."
 
 #: ../../source/documentation/load_data.rst:16
 msgid "Load a dataset produced by Trends.Earth"
-msgstr "Cargar datos producidos por Trends.Earth"
+msgstr "Cargar un conjunto de datos producido por Trends.Earth"
 
 #: ../../source/documentation/load_data.rst:18
 msgid ""
 "This option lets you load already downloaded results from |trends.earth|."
 msgstr ""
-"Esta opción te permite cargar los resultados ya descargados de "
-"|trends.earth|."
+"Esta opción te permite cargar los resultados ya descargados de | "
+"trends.earth |."
 
 #: ../../source/documentation/load_data.rst:21
 #: ../../source/documentation/load_data.rst:111

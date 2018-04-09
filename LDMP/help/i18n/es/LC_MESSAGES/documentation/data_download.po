@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgid ""
 "To download data, select the globe icon (|iconGlobe|). This will open up the"
 " \"Download Data\" dialog box:"
 msgstr ""
-"Para descargar datos, seleccione el ícono del globo (|iconGlobe|). Esto "
+"Para descargar datos, seleccione el ícono del globo (| iconGlobe |). Esto "
 "abrirá el cuadro de diálogo \"Descargar datos\":"
 
 #: ../../source/documentation/data_download.rst:10
@@ -36,8 +36,8 @@ msgid ""
 " you can select select an area of interest and download the desired data for"
 " further analysis."
 msgstr ""
-"Si desea trabajar con los datos brutos originales utilizados en "
-"|trends.earth|, puede seleccionar seleccionar un área de interés y descargar"
+"Si desea trabajar con los datos brutos originales utilizados en | "
+"trends.earth |, puede seleccionar seleccionar un área de interés y descargar"
 " los datos deseados para un análisis posterior."
 
 #: ../../source/documentation/data_download.rst:17
@@ -46,7 +46,7 @@ msgid ""
 "specifies data sources, resolutions, coverage and the different indicators "
 "for which each data set is used."
 msgstr ""
-"La siguiente tabla describe los datos disponibles a través de la caja de "
-"herramientas. Especifica las fuentes de datos, las resoluciones, la "
+"La siguiente tabla describe todos los datos disponibles a través de la caja "
+"de herramientas. Especifica las fuentes de datos, las resoluciones, la "
 "cobertura y los diferentes indicadores para los que se utiliza cada conjunto"
 " de datos."

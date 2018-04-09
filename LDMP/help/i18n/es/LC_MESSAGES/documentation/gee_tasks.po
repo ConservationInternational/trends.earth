@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 11:26-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,11 +30,11 @@ msgid ""
 "select the cloud with the arrow facing down icon (|iconCloudDownload|). This"
 " will open up the `Download results from Earth Engine` dialog box."
 msgstr ""
-"Una vez que haya enviado un cálculo usando |trends.earth|, se envía a Google"
-" Earth Engine para ejecutar los cálculos en la nube. Para ver las tareas de "
-"Google Earth Engine (GEE) que tiene en ejecución y descargar sus resultados,"
-" seleccione la nube con la flecha hacia abajo (icon iconDownload |). Esto "
-"abrirá el cuadro de diálogo `Descargar resultados de Earth Engine`."
+"Una vez que haya enviado un cálculo usando | trends.earth |, se envía a "
+"Google Earth Engine para ejecutar los cálculos en la nube. Para ver las "
+"tareas de Google Earth Engine (GEE) que tiene en ejecución y descargar sus "
+"resultados, seleccione la nube con la flecha hacia abajo (icon iconDownload "
+"|). Esto abrirá el cuadro de diálogo `Descargar resultados de Earth Engine`."
 
 #: ../../source/documentation/gee_tasks.rst:12
 msgid ""
@@ -52,7 +52,7 @@ msgid ""
 "not the task was successful. The Details page outlines the different options"
 " the user chose for each task."
 msgstr ""
-"Los usuarios pueden ver sus tareas actuales y anteriores aquí. La tabla "
+"Los usuarios pueden ver sus tareas actuales y anteriores aquí. la tabla "
 "muestra el nombre de la tarea proporcionada por el usuario, qué análisis se "
 "está ejecutando (trabajo), la hora de inicio y la hora de finalización de "
 "cuando se inició y completó la tarea y si la tarea fue exitosa o no. La "

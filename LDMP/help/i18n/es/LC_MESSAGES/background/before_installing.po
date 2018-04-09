@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2017\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../../source/background/before_installing.rst:4
 msgid "Before installing the toolbox"
-msgstr "Antes de instalar Trends.Earth"
+msgstr "Antes de instalar la caja de herramientas"
 
 #: ../../source/background/before_installing.rst:6
 msgid ""
@@ -31,9 +31,9 @@ msgid ""
 "downloaded from the website, it needs to be run (double click on it). Select"
 " the options using the Default settings."
 msgstr ""
-"Antes de instalar la caja de herramientas, QGIS version |qgisMinVersion| o "
-"superior debe instalarse en la computadora (Nota: la versión 3.0.0 de QGIS "
-"no es actualmente compatible). QGIS se puede descargar desde: "
+"Antes de instalar la caja de herramientas, versión de QGIS | qgisMinVersion "
+"| o superior debe instalarse en la computadora (Nota: la versión 3.0.0 de "
+"QGIS no es actualmente compatible). QGIS se puede descargar desde: "
 "http://www.qgis.org/en/site/forusers/download.html. Una vez que el "
 "instalador se descarga desde el sitio web, debe ejecutarse (hacer doble clic"
 " en él). Seleccione las opciones usando la configuración predeterminada."
@@ -49,7 +49,7 @@ msgstr ""
 
 #: ../../source/background/before_installing.rst:16
 msgid "**Windows 7 or Windows Vista**"
-msgstr "**Windows 7 o Windows Vista**"
+msgstr "** Windows 7 o Windows Vista **"
 
 #: ../../source/background/before_installing.rst:18
 msgid ""
@@ -65,11 +65,11 @@ msgstr "En Sistema, puede ver el tipo de sistema."
 
 #: ../../source/background/before_installing.rst:22
 msgid "**Windows 8 or Windows 10**"
-msgstr "**Windows 8 o Windows 10**"
+msgstr "** Windows 8 o Windows 10 **"
 
 #: ../../source/background/before_installing.rst:24
 msgid "From the Start screen, type This PC."
-msgstr "Desde la pantalla de Inicio, escriba Mi PC."
+msgstr "Desde la pantalla de Inicio, escribe This PC."
 
 #: ../../source/background/before_installing.rst:25
 msgid "Right Click (or tap and hold) This PC, and click Properties."

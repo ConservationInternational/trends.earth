@@ -1,26 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
-#
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
-"roglich@conservation.org>, 2018\n"
-"Language: es\n"
-"Language-Team: Spanish (https://www.transifex.com/conservation-"
-"international/teams/80165/es/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/training/tutorial_load_basemap.rst:2
 msgid "Load results and basemap"
@@ -28,65 +24,86 @@ msgstr "Cargar resultados y mapa base"
 
 #: ../../source/training/tutorial_load_basemap.rst:4
 msgid ""
-"**Objective**: Learn how to load into QGIS results from previous analysis"
-" run on Trends.Earth, and how to load a base map to make help with the "
+"**Objective**: Learn how to load into QGIS results from previous analysis "
+"run on Trends.Earth, and how to load a base map to make help with the "
 "interpretation of spatial patterns displayed by the indicators."
 msgstr ""
+"** Objetivo **: aprende a cargar los resultados de QGIS del análisis previo "
+"ejecutado en Trends.Earth, y cómo cargar un mapa base para ayudar con la "
+"interpretación de los patrones espaciales que muestran los indicadores."
 
 #: ../../source/training/tutorial_load_basemap.rst:6
-#, fuzzy
 msgid "**Estimated time of completion**: 15 minutes"
-msgstr "**Tiempo estimado de finalización**: 10 minutos"
+msgstr "** Tiempo estimado de finalización **: 15 minutos"
 
 #: ../../source/training/tutorial_load_basemap.rst:8
 msgid ""
-"**Internet access**: Required only the first time you load a base map, "
-"since the information needs to be downloaded. Once the data is stored in "
-"your computer base maps can be loaded without Internet access."
+"**Internet access**: Required only the first time you load a base map, since"
+" the information needs to be downloaded. Once the data is stored in your "
+"computer base maps can be loaded without Internet access."
 msgstr ""
+"** Acceso a Internet **: Se requiere solo la primera vez que carga un mapa "
+"base, ya que la información debe descargarse. Una vez que los datos se "
+"almacenan en su computadora, los mapas base se pueden cargar sin acceso a "
+"Internet."
 
 #: ../../source/training/tutorial_load_basemap.rst:10
-#, fuzzy
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
 msgstr ""
-"`Descargue esta página en formato PDF para uso fuera de línea "
-"<../pdfs/Trends.Earth_Tutorial10_Loading_a_Basemap.pdf>`_"
+"`Descargue esta página en formato PDF para uso fuera de línea <../ pdfs / "
+"Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>` _"
 
 #: ../../source/training/tutorial_load_basemap.rst:13
 msgid ""
-"To load results from previous Trends.Earth analysis into QGIS click on "
-"the (|iconfolder|) icon in the Trends.Earth toolbar."
+"To load results from previous Trends.Earth analysis into QGIS click on the "
+"(|iconfolder|) icon in the Trends.Earth toolbar."
 msgstr ""
+"Para cargar los resultados del análisis anterior de Trends.Earth en QGIS, "
+"haga clic en el ícono (| iconfolder |) en la barra de herramientas "
+"Trends.Earth."
 
 #: ../../source/training/tutorial_load_basemap.rst:18
 msgid ""
-"The **Load data** menu will open. Select **Load and existing TRENDS.EARTH"
-" output file** from the **Load a dataset produced by TRENDS.EARTH** "
-"section."
+"The **Load data** menu will open. Select **Load and existing TRENDS.EARTH "
+"output file** from the **Load a dataset produced by TRENDS.EARTH** section."
 msgstr ""
+"Se abrirá el menú ** Cargar datos **. Seleccione ** Cargar y archivo de "
+"salida TRENDS.EARTH existente ** de la sección ** Cargar un conjunto de "
+"datos producido por TRENDS.EARTH **."
 
 #: ../../source/training/tutorial_load_basemap.rst:23
-msgid "Click the **Browse** button on the **Open a Trends.Earth file** window."
+msgid ""
+"Click the **Browse** button on the **Open a Trends.Earth file** window."
 msgstr ""
+"Haga clic en el botón ** Buscar ** en la ventana ** Abrir un archivo "
+"Tendencias.Earth **."
 
 #: ../../source/training/tutorial_load_basemap.rst:28
 msgid ""
-"On the **Select a Trends.Earth output file** window navigate to the "
-"folder where you stored the data and select the file to load, and click "
-"**Open**."
+"On the **Select a Trends.Earth output file** window navigate to the folder "
+"where you stored the data and select the file to load, and click **Open**."
 msgstr ""
+"En la ventana **Seleccionar un archivo de salida de Trends.Earth** navegue a"
+" la carpeta donde almacenó los datos y seleccione el archivo para cargar, y "
+"haga clic en **Abrir**."
 
 #: ../../source/training/tutorial_load_basemap.rst:33
 msgid ""
-"You will be back at the **Open a Trends.Earth file** window, but this "
-"time you will see many layers listed under the **Select a layer(s)** "
-"section. Each of those options is a band in the raster file you "
-"downloaded from Trends.Earth. The number of bands and specific "
-"information in each of them will vary, but in any case, this tool will "
-"show you information to allow you to decide which layers to display."
+"You will be back at the **Open a Trends.Earth file** window, but this time "
+"you will see many layers listed under the **Select a layer(s)** section. "
+"Each of those options is a band in the raster file you downloaded from "
+"Trends.Earth. The number of bands and specific information in each of them "
+"will vary, but in any case, this tool will show you information to allow you"
+" to decide which layers to display."
 msgstr ""
+"Volverá a la ventana **Abrir un archivo de Tendencias.Earth**, pero esta vez"
+" verá muchas capas en la sección **Seleccionar una (s) capa (s)**. Cada una "
+"de esas opciones es una banda en el archivo ráster que descargó de "
+"Trends.Earth. El número de bandas y la información específica en cada uno de"
+" ellos variará, pero en cualquier caso, esta herramienta le mostrará "
+"información que le permitirá decidir qué capas mostrar."
 
 #: ../../source/training/tutorial_load_basemap.rst:35
 msgid ""
@@ -94,62 +111,86 @@ msgid ""
 "(:ref:`tut_compute_sdg`), the file contains information for land "
 "productivity, land cover and soil organic carbon."
 msgstr ""
+"En este caso, dado que esta capa es el resultado del análisis de 1 paso "
+"(:ref:`tut_compute_sdg`), el archivo contiene información sobre la "
+"productividad de la tierra, la cubierta terrestre y el carbono orgánico del "
+"suelo."
 
 #: ../../source/training/tutorial_load_basemap.rst:37
 msgid ""
 "If you only want to see the final layer for each of the sub-indicators, "
 "simply leave the default selection and click **OK**."
 msgstr ""
+"Si solo desea ver la capa final para cada uno de los subindicadores, "
+"simplemente deje la selección predeterminada y haga clic en **Aceptar**."
 
 #: ../../source/training/tutorial_load_basemap.rst:42
 msgid "The selected layers will be displayed on the QGIS map."
-msgstr ""
+msgstr "Las capas seleccionadas se mostrarán en el mapa QGIS."
 
 #: ../../source/training/tutorial_load_basemap.rst:48
 msgid "**Adding a basemap**"
-msgstr ""
+msgstr "**Agregar un mapa base**"
 
 #: ../../source/training/tutorial_load_basemap.rst:50
 msgid ""
-"Basemaps are very useful as a reference for identifying specific "
-"locations in maps. When downloaded, Trends.Earth results are displayed on"
-" an empty QGIS project, which could limit the user ability for "
-"identifying know places in the landscape. To facilitate this process, you"
-" can use the **Add Basemap** tool which will load country and state "
-"boundaries, roads, rivers, cities, coastlines and water bodies with "
-"labels to the QGIS project."
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
 msgstr ""
+"Los mapas base son muy útiles como referencia para identificar ubicaciones "
+"específicas en los mapas. Cuando se descargan, los resultados de "
+"Trends.Earth se muestran en un proyecto QGIS vacío, lo que podría limitar la"
+" capacidad del usuario para identificar lugares conocidos en el paisaje. "
+"Para facilitar este proceso, puede utilizar la herramienta **Agregar mapa "
+"base** que cargará las fronteras del país y del estado, carreteras, ríos, "
+"ciudades, costas y masas de agua con etiquetas para el proyecto QGIS."
 
 #: ../../source/training/tutorial_load_basemap.rst:52
 msgid ""
-"To load the tool click on the visualizations tool icon on the "
-"Trends.Earth toolbar."
+"To load the tool click on the visualizations tool icon on the Trends.Earth "
+"toolbar."
 msgstr ""
+"Para cargar la herramienta, haga clic en el icono de la herramienta de "
+"visualizaciones en la barra de herramientas Tendencias.Earth."
 
 #: ../../source/training/tutorial_load_basemap.rst:57
 msgid "Click on **Add basemap**."
-msgstr ""
+msgstr "Haga clic en **Agregar mapa base**."
 
 #: ../../source/training/tutorial_load_basemap.rst:62
 msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
+"En la ventana **Agregar mapa base** puede hacer una de estas dos cosas:"
 
 #: ../../source/training/tutorial_load_basemap.rst:64
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This "
-"option is useful when displaying the sub-indicators downloaded from "
-"Trends.Earth, since the data download is not clipped to administrative "
-"boundaries (a bounding box is used instead). You can use first and second"
-" level administrative boundaries."
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
 msgstr ""
+"**Usar una opción de máscara seleccionada** creará una máscara que bloqueará"
+" toda la información fuera del área seleccionada. En este ejemplo, toda la "
+"información fuera de Uganda no se mostrará en el mapa. Esta opción es útil "
+"cuando se muestran los subindicadores descargados de Trends.Earth, ya que la"
+" descarga de datos no se recorta a límites administrativos (en su lugar, se "
+"usa un cuadro delimitador). Puede usar límites administrativos de primer y "
+"segundo nivel."
 
 #: ../../source/training/tutorial_load_basemap.rst:66
 msgid ""
-"**Use a mask option not selected** will load all the reference "
-"information, but no mask will be applied."
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
 msgstr ""
+"**Usar una opción de máscara no seleccionada** cargará toda la información "
+"de referencia, pero no se aplicará máscara."
 
 #: ../../source/training/tutorial_load_basemap.rst:71
 msgid ""
@@ -158,51 +199,48 @@ msgid ""
 "connected. The progress bar will indicated the percentage of the task "
 "completed. The data will remain stored in your computer for future use."
 msgstr ""
+"La primera vez que ejecuta esta herramienta después de instalar "
+"Trends.Earth, la información se descargará de Internet, así que asegúrese de"
+" estar conectado. La barra de progreso indicará el porcentaje de la tarea "
+"completada. Los datos permanecerán almacenados en su computadora para uso "
+"futuro."
 
 #: ../../source/training/tutorial_load_basemap.rst:76
 msgid ""
-"Once the basemap is loaded, you will notice the information added to the "
-"map and to the Layer panel. The basemap has information for:"
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
 msgstr ""
+"Una vez que se haya cargado el mapa base, observará la información agregada "
+"al mapa y al panel Capa. El mapa base tiene información para:"
 
 #: ../../source/training/tutorial_load_basemap.rst:78
 msgid "Lake"
-msgstr ""
+msgstr "lago"
 
 #: ../../source/training/tutorial_load_basemap.rst:79
 msgid "River"
-msgstr ""
+msgstr "Río"
 
 #: ../../source/training/tutorial_load_basemap.rst:80
 msgid "Coastline"
-msgstr ""
+msgstr "Línea costera"
 
 #: ../../source/training/tutorial_load_basemap.rst:81
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: ../../source/training/tutorial_load_basemap.rst:82
 msgid "Disputed border"
-msgstr ""
+msgstr "Límite disputado"
 
 #: ../../source/training/tutorial_load_basemap.rst:83
 msgid "Subnational border"
-msgstr ""
+msgstr "Frontera subnacional"
 
 #: ../../source/training/tutorial_load_basemap.rst:84
 msgid "National border"
-msgstr ""
+msgstr "frontera nacional"
 
 #: ../../source/training/tutorial_load_basemap.rst:85
 msgid "Ocean"
-msgstr ""
-
-#~ msgid ""
-#~ "**Objective**: Learn how to install the"
-#~ " Trends.Earth plugin into QGIS using "
-#~ "the plugin manager"
-#~ msgstr ""
-
-#~ msgid "**Internet access**: Required"
-#~ msgstr "**Acceso a Internet**: requerido"
-
+msgstr "Oceano"

@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.55\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2017\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -20,23 +20,19 @@ msgstr ""
 
 #: ../../source/training/video_links.rst:2
 msgid "Video Overviews"
-msgstr "Videos"
+msgstr "Resúmenes de video"
 
 #: ../../source/training/video_links.rst:4
 msgid "`Installing QGIS (English) <https://youtu.be/d7qCSpauj0g>`_"
-msgstr "`Instalación de QGIS (inglés) <https://youtu.be/d7qCSpauj0g>`_"
+msgstr "`Instalación de QGIS (inglés) <https://youtu.be/d7qCSpauj0g>` _"
 
 #: ../../source/training/video_links.rst:5
 msgid "`Toolbox installation (English) <https://youtu.be/uSTvNMpZF4I>`_"
-msgstr ""
-"`Instalación de la caja de herramientas (inglés) "
-"<https://youtu.be/uSTvNMpZF4I>`_"
+msgstr "`Instalación de Toolbox (inglés) <https://youtu.be/uSTvNMpZF4I>` _"
 
 #: ../../source/training/video_links.rst:6
 msgid "`Toolbox setup (English) <https://youtu.be/qm5LFF-jhaM>`_"
-msgstr ""
-"`Configuración de la caja de herramientas (inglés) <https://youtu.be/qm5LFF-"
-"jhaM>`_"
+msgstr "`Configuración de Toolbox (inglés) <https://youtu.be/qm5LFF-jhaM>` _"
 
 #: ../../source/training/video_links.rst:7
 msgid "Download data (English)"
@@ -48,7 +44,7 @@ msgid ""
 "<https://youtu.be/RFPPz8s1IJA>`_"
 msgstr ""
 "`Calcular indicadores - Productividad Parte I (inglés) "
-"<https://youtu.be/RFPPz8s1IJA>`_"
+"<https://youtu.be/RFPPz8s1IJA>` _"
 
 #: ../../source/training/video_links.rst:9
 msgid ""
@@ -56,23 +52,23 @@ msgid ""
 "<https://youtu.be/CHgGV5Xx7oc>`_"
 msgstr ""
 "`Calcular indicadores - Productividad Parte II (inglés) "
-"<https://youtu.be/CHgGV5Xx7oc>`_"
+"<https://youtu.be/CHgGV5Xx7oc>` _"
 
 #: ../../source/training/video_links.rst:10
 msgid ""
 "`Calculate Indicators - Land cover Part I (English) "
 "<https://youtu.be/cuWZFwEvXQQ>`_"
 msgstr ""
-"`Calcular indicadores: cobertura del terreno Parte I (inglés) "
-"<https://youtu.be/cuWZFwEvXQQ>`_"
+"`Calcular indicadores: cobertura del suelo Parte I (inglés) "
+"<https://youtu.be/cuWZFwEvXQQ>` _"
 
 #: ../../source/training/video_links.rst:11
 msgid ""
 "`Calculate Indicators - Land cover Part II (English) "
 "<https://youtu.be/mn1p9Q5-Ibw>`_"
 msgstr ""
-"`Calcular indicadores: cobertura del terreno Parte II (inglés) "
-"<https://youtu.be/mn1p9Q5-Ibw>`_"
+"`Calcular indicadores: cobertura terrestre Parte II (inglés) "
+"<https://youtu.be/mn1p9Q5-Ibw>` _"
 
 #: ../../source/training/video_links.rst:12
 msgid "Calculate Indicators - Soil Carbon (English)"

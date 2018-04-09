@@ -1,0 +1,309 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.55\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/about/data_sources.rst:2
+msgid "Data sources"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:4
+msgid "|trends.earth| draws on a number of data sources. The data sets listed below are owned/made available by the following organizations and individuals under separate terms as indicated in their respective metadata."
+msgstr ""
+
+#: ../../source/about/data_sources.rst:9
+msgid "NDVI"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Sensor/Dataset"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Temporal"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Spatial"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Extent"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "License"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:14
+msgid "`AVHRR/GIMMS`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:14
+msgid "1982-2015"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:14
+#: ../../source/about/data_sources.rst:100
+msgid "8 km"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:14
+#: ../../source/about/data_sources.rst:16
+#: ../../source/about/data_sources.rst:29
+#: ../../source/about/data_sources.rst:31
+#: ../../source/about/data_sources.rst:44
+#: ../../source/about/data_sources.rst:46
+#: ../../source/about/data_sources.rst:64
+#: ../../source/about/data_sources.rst:76
+#: ../../source/about/data_sources.rst:88
+#: ../../source/about/data_sources.rst:100
+#: ../../source/about/data_sources.rst:111
+msgid "Global"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:14
+#: ../../source/about/data_sources.rst:16
+#: ../../source/about/data_sources.rst:29
+#: ../../source/about/data_sources.rst:31
+#: ../../source/about/data_sources.rst:44
+#: ../../source/about/data_sources.rst:46
+#: ../../source/about/data_sources.rst:48
+#: ../../source/about/data_sources.rst:50
+#: ../../source/about/data_sources.rst:64
+#: ../../source/about/data_sources.rst:100
+#: ../../source/about/data_sources.rst:111
+msgid "`Public Domain`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:16
+msgid "`MOD13Q1-coll6`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:16
+msgid "2001-2016"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:16
+#: ../../source/about/data_sources.rst:88
+msgid "250 m"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:24
+msgid "Soil moisture"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:29
+msgid "`MERRA 2`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:29
+msgid "1980-2016"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:29
+msgid "0.5° x 0.625°"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:31
+msgid "`ERA I`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:31
+#: ../../source/about/data_sources.rst:44
+msgid "1979-2016"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:31
+msgid "0.75° x 0.75°"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:39
+msgid "Precipitation"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:44
+msgid "`GPCP v2.3 1 month`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:44
+msgid "2.5° x 2.5°"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:46
+msgid "`GPCC V7`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:46
+msgid "1901-2016"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:46
+msgid "1° x 1°"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:48
+msgid "`CHIRPS`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:48
+msgid "1981-2016"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:48
+msgid "5 km"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:48
+msgid "50N-50S"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:50
+msgid "`PERSIANN-CDR`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:50
+msgid "1983-2015"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:50
+msgid "25 km"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:50
+msgid "60N-60S"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:59
+msgid "Evapotranspiration"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:64
+msgid "MOD16A2_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:64
+msgid "2000-2014"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:64
+msgid "1 km"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:71
+msgid "Land cover"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:76
+msgid "`ESA CCI Land Cover`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:76
+msgid "1992-2015"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:76
+msgid "300 m"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:76
+msgid "`CC by-SA 3.0`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:83
+msgid "Soil carbon"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:88
+msgid "`Soil Grids (ISRIC)`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:88
+#: ../../source/about/data_sources.rst:111
+msgid "Present"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:88
+msgid "`CC by-SA 4.0`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:95
+msgid "Agroecological Zones"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:100
+msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:100
+msgid "2000"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:106
+msgid "Administrative Boundaries"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:111
+msgid "`Natural Earth Administrative Boundaries`_"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:111
+msgid "10/50m"
+msgstr ""
+
+#: ../../source/about/data_sources.rst:115
+msgid "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, are in the `public domain`_. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors."
+msgstr ""
+
+#: ../../source/about/data_sources.rst:121
+msgid "If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country."
+msgstr ""
+

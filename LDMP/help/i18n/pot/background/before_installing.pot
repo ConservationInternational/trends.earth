@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.55\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/background/before_installing.rst:4
+msgid "Before installing the toolbox"
+msgstr ""
+
+#: ../../source/background/before_installing.rst:6
+msgid "Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs to be installed on the computer (Note: QGIS version 3.0.0 is not currently supported). QGIS can be downloaded from: http://www.qgis.org/en/site/forusers/download.html. Once the installer is downloaded from the website, it needs to be run (double click on it). Select the options using the Default settings."
+msgstr ""
+
+#: ../../source/background/before_installing.rst:13
+msgid "You have the option of installing a 32-bit or 64-bit version of QGIS. To know which version to install, check which type of operating system you have:"
+msgstr ""
+
+#: ../../source/background/before_installing.rst:16
+msgid "**Windows 7 or Windows Vista**"
+msgstr ""
+
+#: ../../source/background/before_installing.rst:18
+msgid "Open System by clicking the Start button , right-clicking Computer, and then clicking Properties."
+msgstr ""
+
+#: ../../source/background/before_installing.rst:20
+msgid "Under System, you can view the system type."
+msgstr ""
+
+#: ../../source/background/before_installing.rst:22
+msgid "**Windows 8 or Windows 10**"
+msgstr ""
+
+#: ../../source/background/before_installing.rst:24
+msgid "From the Start screen, type This PC."
+msgstr ""
+
+#: ../../source/background/before_installing.rst:25
+msgid "Right Click (or tap and hold) This PC, and click Properties."
+msgstr ""
+
+#: ../../source/background/before_installing.rst:27
+msgid "**Mac**"
+msgstr ""
+
+#: ../../source/background/before_installing.rst:29
+msgid "Click the Apple icon in the top left and select About this Mac."
+msgstr ""
+

@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../../source/training/tutorial_custom_lpd.rst:2
+msgid "Use custom productivity data"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:4
+msgid ""
+"**Objective**: Learn how to load custom land productivity data computed "
+"outside of Trends.Earth."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:6
+msgid "**Estimated time of completion**: 20 minutes"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:8
+msgid "**Internet access**: Not required"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:10
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Productivity.pdf>`_"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:13
+msgid ""
+"Land productivity data should be formatted following UNCCD guidelines for "
+"reporting indicating areas of declining, early signs of decline, stable but "
+"stressed, stable, or increasing primary productivity."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:23
+msgid ""
+"For the productivity data to be used in Trends.Earth the file need to be "
+"coded in the following way:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:16
+msgid "Declining = 1"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:17
+msgid "Early signs of decline = 2"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:18
+msgid "Stable but stressed = 3"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:19
+msgid "Stable = 4"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:20
+msgid "Increasing = 5"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:21
+msgid "No data = 0 or -32768"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:23
+msgid ""
+"If your layer is not coded in such a way, please do the necessary "
+"adjustments prior to using Trends.Earth."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:25
+msgid ""
+"To load productivity data click on the (|iconfolder|) icon in the "
+"Trends.Earth toolbar."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:30
+msgid ""
+"The **Load data** menu will open. Select **Productivity** from the **Import "
+"a custom input dataset** section."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:35
+msgid ""
+"In the **Load a Custom Land Productivity Dataset** use the radio button to "
+"select the format of the input file (raster or vector). For this tutorial "
+"select raster, since the data distributed by the UNCCD is in raster format. "
+"Click on **Browse** to navigate to the productivity file you wish to import."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:40
+msgid ""
+"Use the **Select input file** window to navigate to the file to be imported,"
+" select it, and click **Open**."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:45
+msgid ""
+"Back at the **Load a Custom Land Productivity Dataset** window you have "
+"options for selecting the band number in which the productivity data is "
+"stored, in case your input file is a multi band raster. You also have the "
+"option of modifying the resolution of the file. We recommend leaving those "
+"as defaults unless you have valid reasons for changing them."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:46
+msgid ""
+"Click **Browse** at the bottom of the window to select the **Output raster "
+"file** and navigate to the folder where you want to save the file. Assign it"
+" a name and click **OK**."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:51
+msgid ""
+"Back at the **Load a Custom Land Productivity Dataset** window click **OK** "
+"on the lower right corner to process the data."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:53
+msgid ""
+"If the values of the input file do not exactly match the requirements "
+"describe above, you will see a warning message. In many cases the warning is"
+" triggered by the definition of NoData, but the tool will still try to "
+"import it. For that reason, it is **extremely important** for you to explore"
+" the output layer to make sure the results are mapped as expected."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:58
+msgid ""
+"Once you click **OK** in the warning window, a progress bar will appear "
+"showing the percentage of the task completed."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:63
+msgid ""
+"When the processing is completed, the imported land productivity dataset "
+"will be loaded to QGIS."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_lpd.rst:69
+msgid ""
+"Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
+"the imported LPD to compute the final SDG 15.3.1 after integration with land"
+" cover and soil organic carbon."
+msgstr ""

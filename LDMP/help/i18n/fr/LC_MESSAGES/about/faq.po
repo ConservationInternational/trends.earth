@@ -1,0 +1,629 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/about/faq.rst:2
+msgid "Frequently asked questions"
+msgstr "Questions fréquemment posées"
+
+#: ../../source/about/faq.rst:4
+msgid ""
+"This page lists some Frequently Asked Questions (FAQs) for the "
+"|trends.earth| tool."
+msgstr ""
+"Cette page contient des questions fréquemment posées (FAQ) sur l'outil "
+"|trends.earth|."
+
+#: ../../source/about/faq.rst:8
+msgid "General Questions"
+msgstr "Questions générales"
+
+#: ../../source/about/faq.rst:10
+msgid "**How do I find more information on the project?**"
+msgstr "**Comment trouver plus d'informations sur le projet ?**"
+
+#: ../../source/about/faq.rst:12
+msgid ""
+"More information on the toolbox can be found at `trends.earth "
+"<http://trends.earth>`_ and reports are available on the `Vital Signs "
+"Project website <http://vitalsigns.org/gef-ldmp/project-description-and-"
+"timeline>`_ You can also add your contact info at `Vital Signs LD Email "
+"Distribution List <http://vitalsigns.org/gef-ldmp/email-distribution-list>`_"
+" to stay in touch with any advancements with the projects’ distrubtion list."
+msgstr ""
+"Vous trouverez plus d'informations sur la boîte à outils sur `trends.earth "
+"<http://trends.earth>` _ et les rapports sont disponibles sur le site web "
+"`Vital Signs Project <http://vitalsigns.org/gef-ldmp/project-description-"
+"and-timeline>`_ Vous pouvez également ajouter vos coordonnées à la `liste de"
+" distribution Vital Signs LD <http://vitalsigns.org/gef-ldmp/email-"
+"distribution-list>`_ pour rester au courant des avancées."
+
+#: ../../source/about/faq.rst:19
+msgid "**How can I provide feedback on the tool?**"
+msgstr "**Comment puis-je fournir des commentaires sur l'outil ?**"
+
+#: ../../source/about/faq.rst:21
+msgid ""
+"There are three ways to give feedback, emailing the project team, visiting "
+"the project site and messaging through the anonymous form or rate the "
+"toolbox in the plugins menu of QGIS. The project technical team can address "
+"questions through trends.earth@conservation.org. Users can rate the toolbox "
+"by opening Plugins in QGIS and selecting Manage and Install Plugins. Select "
+"All in the side bar and navigate to trends.earth plugin. Click on "
+"trends.earth and rate the toolbox by selecting the number of stars you would"
+" like to give the plugin, 5 stars being highly satisfied."
+msgstr ""
+"Trois moyens existent pour donner votre avis : envoyer un e-mail à l'équipe "
+"de projet, visiter le site du projet et envoyer des messages via le "
+"formulaire anonyme ou évaluer la boîte à outils dans le menu plug-ins de "
+"QGIS. L'équipe technique du projet peut répondre aux questions via "
+"trends.earth@conservation.org. Les utilisateurs peuvent évaluer la boîte à "
+"outils en ouvrant les plug-ins dans QGIS et en sélectionnant Gérer et "
+"installer les plug-ins. Sélectionnez Tout dans la barre latérale et accédez "
+"au plug-in trends.earth. Cliquez sur trends.earth et notez la boîte à outils"
+" en sélectionnant le nombre d'étoiles que vous souhaitez donner au plug-in, "
+"5 étoiles étant synonyme de très satisfait."
+
+#: ../../source/about/faq.rst:31
+msgid "Installation of |Trends.Earth|"
+msgstr "Installation de |Trends.Earth|"
+
+#: ../../source/about/faq.rst:34
+msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"
+msgstr ""
+"**Quelle version de Quantum GIS (QGIS) faut-il pour la boîte à outils ?**"
+
+#: ../../source/about/faq.rst:36
+msgid ""
+"To download QGIS, please go to the QGIS Downloads page. As of February 2018,"
+" version 3.0 was released. Please use version 2.18 for the trends.earth "
+"plugin. A version compatible with the latest version will be released in "
+"future iterations of the project."
+msgstr ""
+"Pour télécharger QGIS, allez sur la page de téléchargement de QGIS. La "
+"version la plus récente en février 2018 est la version 3.0. Veuillez "
+"utiliser la version 2.18 pour le plug-in trends.earth. Une version "
+"compatible avec la dernière version sera publiée dans les prochaines "
+"itérations du projet."
+
+#: ../../source/about/faq.rst:41
+msgid "**Do I need to download a 32-bit or 64 bit version of QGIS?**"
+msgstr "**Dois-je télécharger une version 32 bits ou 64 bits de QGIS ?**"
+
+#: ../../source/about/faq.rst:43
+msgid ""
+"We recommend downloading 64-bit version (2.18), but you may need to download"
+" the 32-bit version for 32-bit operating systems. To find out if your "
+"computer is running a 32-bit or 64-bit version of Windows,  search for "
+"System or msinfo32. This is found in the Control Panel and will bring up a "
+"window that says the system type e.g. System type: 64-bit Operating System, "
+"x64-based processor."
+msgstr ""
+"Nous vous recommandons de télécharger la version 64 bits (2.18), mais vous "
+"devrez peut-être télécharger la version 32 bits pour les systèmes "
+"d'exploitation 32 bits. Pour savoir si votre ordinateur exécute une version "
+"32 bits ou 64 bits de Windows, cherchez Système ou msinfo32. En allant dans "
+"le panneau de configuration, une fenêtre s'affichera indiquant le type de "
+"système, par ex. Type de système : Système d'exploitation 64 bits, "
+"processeur x64."
+
+#: ../../source/about/faq.rst:50
+msgid "Windows 7 or Windows Vista:"
+msgstr "Windows 7 ou Windows Vista :"
+
+#: ../../source/about/faq.rst:52
+msgid ""
+"Open System by clicking the Start button , right-clicking Computer, and then"
+" clicking Properties."
+msgstr ""
+"Ouvrez Système en appuyant sur le bouton Démarrer, en cliquant avec le "
+"bouton droit sur Ordinateur, puis en cliquant sur Propriétés."
+
+#: ../../source/about/faq.rst:54
+msgid "Under System, you can view the system type."
+msgstr "Sous Système, vous pouvez voir le type de système."
+
+#: ../../source/about/faq.rst:56
+msgid "Windows 8 or Windows 10:"
+msgstr "Windows 8 ou Windows 10 :"
+
+#: ../../source/about/faq.rst:58
+msgid "From the Start screen, type This PC."
+msgstr "Dans l'écran Démarrer, tapez Ce PC."
+
+#: ../../source/about/faq.rst:59
+msgid "Right Click (or tap and hold) This PC, and click Properties."
+msgstr ""
+"Clic droit (ou appuyez et gardez enfoncé) Ce PC et cliquez sur Propriétés."
+
+#: ../../source/about/faq.rst:61
+msgid "Mac:"
+msgstr "Mac :"
+
+#: ../../source/about/faq.rst:63
+msgid "Click the Apple icon in the top left and select \"About this Mac\"."
+msgstr ""
+"Cliquez sur l'icône Apple en haut à gauche et sélectionnez \"À propos de ce "
+"Mac\"."
+
+#: ../../source/about/faq.rst:64
+msgid ""
+"For more advanced details click \"More Info...\" in the About This Mac "
+"window."
+msgstr ""
+"Pour plus de détails, cliquez sur \"Plus d'infos ...\" dans la fenêtre À "
+"propos de ce Mac."
+
+#: ../../source/about/faq.rst:66
+msgid "**How do I install the plugin?**"
+msgstr "**Comment installer le plug-in ?**"
+
+#: ../../source/about/faq.rst:68
+msgid ""
+"Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
+"install plugins. On the side menu, select All to view the plugins available "
+"in QGIS. Search for trends.earth and select Install plugin at the bottom of "
+"the window."
+msgstr ""
+"Ouvrez QGIS, accédez à Plug-ins dans la barre de menus, puis sélectionnez "
+"Gérer et installer les plug-ins. Dans le menu latéral, sélectionnez Tous "
+"pour afficher les plug-ins disponibles dans QGIS. Recherchez trends.earth et"
+" sélectionnez Installer le plug-in au bas de la fenêtre."
+
+#: ../../source/about/faq.rst:72
+msgid "**How do I upgrade the plugin?**"
+msgstr "**Comment mettre à jour le plug-in ?**"
+
+#: ../../source/about/faq.rst:74
+msgid ""
+"If you have already installed the plugin, navigate to Plugins on the menu "
+"bar, and select Manage and install plugins. On the side menu, select "
+"Installed to view the plugins that you have installed in your computer. At "
+"the bottom of the window, select Upgrade all to upgrade the toolbox to the "
+"latest version."
+msgstr ""
+"Si vous avez déjà installé le plug-in, naviguez jusqu'à Plug-ins dans la "
+"barre de menu et sélectionnez Gérer et installer les plug-ins. Dans le menu "
+"latéral, sélectionnez Installés pour voir les plug-ins que vous avez "
+"installés sur votre ordinateur. Au bas de la fenêtre, sélectionnez Tout "
+"mettre à jour pour mettre à jour la boîte à outils et avoir la version la "
+"plus récente."
+
+#: ../../source/about/faq.rst:80
+msgid "Datasets"
+msgstr "Séries de données"
+
+#: ../../source/about/faq.rst:82
+msgid "**When will you update datasets for the current year?**"
+msgstr ""
+"**Quand allez-vous mettre à jour les séries de données pour l'année en cours"
+" ?**"
+
+#: ../../source/about/faq.rst:84
+msgid ""
+"Trends.Earth uses publicly available data, as such the most up to date "
+"datasets will be added to the toolbox as soon as the original data providers"
+" make them public. If you notice any update that we missed, please do let us"
+" know."
+msgstr ""
+"Trends.Earth utilise des données publiquement disponibles. Ainsi, les séries"
+" de données les plus récentes sont rajoutées à la boîte à outils dès que les"
+" fournisseurs des données originales les rendent publiques. Si vous "
+"remarquez une mise à jour que nous avons ratée, veuillez nous l'indiquer."
+
+#: ../../source/about/faq.rst:88
+msgid "**Is there an option to download the original data?**"
+msgstr "**Y a-t-il une option pour télécharger les données originales ?**"
+
+#: ../../source/about/faq.rst:90
+msgid ""
+"Users can download the original data using the Download option within the "
+"toolbox."
+msgstr ""
+"Les utilisateurs peuvent télécharger les données originales en utilisant "
+"l'option Télécharger dans la boîte à outils."
+
+#: ../../source/about/faq.rst:93
+msgid "**Will the toolbox support higher resolution datasets?**"
+msgstr ""
+"**La boîte à outils supportera-t-elle des séries de données à plus haute "
+"résolution ?**"
+
+#: ../../source/about/faq.rst:95
+msgid ""
+"The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary"
+" productivity analysis, and ESA LCC CCI (300m) for land cover change "
+"analysis."
+msgstr ""
+"La boîte à outils supporte actuellement les données AVHRR (8 km) et MODIS "
+"(250 m) pour l'analyse de la productivité primaire et ESA LCC CCI (300 m) "
+"pour l'analyse du changement de la couverture terrestre."
+
+#: ../../source/about/faq.rst:98
+msgid "**Can the toolbox support analysis with national-level datasets?**"
+msgstr ""
+"**La boîte à outils peut-elle supporter l'analyse avec des séries de données"
+" au niveau national ?**"
+
+#: ../../source/about/faq.rst:100
+msgid ""
+"This is a common request from users, and one the team is working on. "
+"Trends.Earth will allow loading of national-level soil carbon and land cover"
+" datasets before the end of March, 2018. This will allow users to take "
+"advantage of existing datasets that might be of higher quality at a "
+"national-level than the global datasets that are the defaults in the tool."
+msgstr ""
+"C'est une requête commune des utilisateurs, sur laquelle l'équipe travaille."
+" Trends.Earth permettra de charger des séries de données sur le carbone et "
+"la couverture terrestre au niveau national avant la fin du mois de mars "
+"2018. Cela permettra aux utilisateurs de tirer profit de séries de données "
+"existantes qui pourraient être de meilleure qualité à l'échelle nationale, "
+"par rapport aux séries de données mondiales qui sont les valeurs par défaut "
+"dans l'outil."
+
+#: ../../source/about/faq.rst:107
+msgid "Methods"
+msgstr "Méthodes"
+
+#: ../../source/about/faq.rst:109
+msgid "**Who was the default time period for the analysis determined?**"
+msgstr "**Qui a déterminé la période par défaut pour l'analyse ?**"
+
+#: ../../source/about/faq.rst:111
+msgid ""
+"The default time period of analysis is from years 2001 to 2015. These were "
+"recommended by the `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+" a document that provides detailed recommendations for measuring land "
+"degradation and has been adopted by the UNCCD."
+msgstr ""
+"La période d'analyse par défaut est de 2001 à 2015. Elle a été recommandée "
+"par les `Lignes directrices en matière de meilleures pratiques "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+" un document qui fournit des recommandations détaillées pour mesurer la "
+"dégradation des terres et qui a été adopté par la CNULCD."
+
+#: ../../source/about/faq.rst:118
+msgid "Productivity"
+msgstr "Productivité"
+
+#: ../../source/about/faq.rst:120
+msgid "**How does the result provided by state differs from trajectory?**"
+msgstr ""
+"**Comment le résultat fourni par l'état diffère-t-il de la trajectoire ?**"
+
+#: ../../source/about/faq.rst:122
+msgid ""
+"The trajectory analysis uses linear regressions and non-parametric tests to "
+"identify long term significant trends in primary productivity. This method "
+"however, is not able to capture more recent changes in primary productivity,"
+" which could be signals of short term processes of improvement or "
+"degradation. By comparing a long term mean to the most recent period, state "
+"is able to capture such recent changes."
+msgstr ""
+"L'analyse de la trajectoire utilise des régressions linéaires et des tests "
+"non paramétriques pour identifier les tendances significatives à long terme "
+"de la productivité primaire. Cependant, cette méthode n'est pas capable de "
+"capturer les changements plus récents dans la productivité primaire, qui "
+"pourraient indiquer des processus à court terme d'amélioration ou de "
+"dégradation. En comparant une moyenne à long terme à la période la plus "
+"récente, l'état est capable de saisir ces changements récents."
+
+#: ../../source/about/faq.rst:131
+msgid "Land cover"
+msgstr "Couverture terrestre"
+
+#: ../../source/about/faq.rst:133
+msgid ""
+"**Currently, the land cover aggregation is done following the UNCCD "
+"guidelines, but that classification does not take into account country level"
+" characteristics. Could it be possible to allow the user to define the "
+"aggregation criteria?**"
+msgstr ""
+"**Actuellement, l'agrégation de la couverture terrestre est effectuée selon "
+"les directives de la CNULCD, mais cette classification ne prend pas en "
+"compte les caractéristiques au niveau des pays. Serait-il possible de "
+"permettre à l'utilisateur de définir les critères d'agrégation ?**"
+
+#: ../../source/about/faq.rst:138
+msgid ""
+"Users are able to make these changes using the advanced settings in the land"
+" cover GUI so that appropriate aggregations occur depending on the context "
+"of your country."
+msgstr ""
+"Les utilisateurs peuvent effectuer ces modifications à l'aide des paramètres"
+" avancés dans l'interface utilisateur graphique de la couverture terrestre "
+"afin que les agrégations appropriées se produisent en fonction du contexte "
+"de votre pays."
+
+#: ../../source/about/faq.rst:142
+msgid "**How can we isolate woody plant encroachment within the toolbox?**"
+msgstr ""
+"**Comment pouvons-nous isoler l'empiètement des plantes ligneuses dans la "
+"boîte à outils ?**"
+
+#: ../../source/about/faq.rst:144
+msgid ""
+"This can be altered using the land cover change matrix in the toolbox. For "
+"every transition, the user can mark the change as stable, improvement or "
+"degraded. The transition from grassland/rangeland to shrubland may indicate "
+"woody encroachment and this transition can be marked as an indicator of "
+"degradation."
+msgstr ""
+"Cela peut être modifié en utilisant la matrice de changement de couverture "
+"terrestre dans la boîte à outils. Pour chaque transition, l'utilisateur peut"
+" marquer le changement comme étant stable, amélioré ou dégradé. La "
+"transition des prairies / pâturages aux zones arbustives peut indiquer un "
+"empiétement ligneux et cette transition peut être considérée comme un "
+"indicateur de dégradation."
+
+#: ../../source/about/faq.rst:151
+msgid "Carbon stocks"
+msgstr "Stocks de carbone"
+
+#: ../../source/about/faq.rst:153
+msgid ""
+"**Why use soil organic carbon (SOC) instead of above and below-ground carbon"
+" to measure carbon stocks?**"
+msgstr ""
+"**Pourquoi utiliser le carbone organique du sol (SOC) à la place du carbone "
+"aérien et souterrain pour mesurer les stocks de carbone ?**"
+
+#: ../../source/about/faq.rst:156
+msgid ""
+"The original proposed indicator is Carbon Stocks, which would include above "
+"and below ground biomass. However, given the lack of consistently generated "
+"and comparable dataset which assess carbon stocks in woody plants (including"
+" shrubs), grasses, croplands, and other land cover types both above and "
+"below ground, the `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
+" published by the UNCCD recommends for the time being to use SOC as a proxy."
+msgstr ""
+"L'indicateur original proposé est Stocks de carbone, qui inclurait la "
+"biomasse aérienne et souterraine. Cependant, étant donné l'absence de "
+"données comparables générées et comparables qui évaluent les stocks de "
+"carbone des plantes ligneuses (y compris les arbustes), des graminées, des "
+"terres cultivées et d'autres types de couvert végétal, à la fois aériens et "
+"souterrains, les  `Lignes directrices en matière de bonnes pratiques "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
+"  publiées par la CNULCD recommandent pour le moment d'utiliser SOC en "
+"substitution."
+
+#: ../../source/about/faq.rst:164
+msgid ""
+"**Is it possible to measure identify processes of degradation linked to "
+"salinization using this tool?**"
+msgstr ""
+"**Est-il possible de mesurer les processus de dégradation liés à la "
+"salinisation à l'aide de cet outil ?**"
+
+#: ../../source/about/faq.rst:167
+msgid ""
+"Not directly. If salinization caused a reduction in primary productivity, "
+"that decrease would be identified by the productivity indicators, but the "
+"users would have to use their local knowledge to assign the causes."
+msgstr ""
+"Pas directement. Si la salinisation entraînait une réduction de la "
+"productivité primaire, cette diminution serait identifiée par les "
+"indicateurs de productivité, mais les utilisateurs devraient utiliser leurs "
+"connaissances locales pour en attribuer les causes."
+
+#: ../../source/about/faq.rst:172
+msgid "Land degradation outputs"
+msgstr "Résultats de dégradation des terres"
+
+#: ../../source/about/faq.rst:174
+msgid ""
+"**How were the layers combined to define the final land degradation layer?**"
+msgstr ""
+"**Comment les couches ont-elles été combinées pour définir la couche finale "
+"de dégradation des terres ?**"
+
+#: ../../source/about/faq.rst:176
+msgid ""
+"Performance, state, and trajectory (the three indicators of change in "
+"productivity_) are combined following a modified version of the good "
+"practice guidance developed by the UNCCD (in section SDG Indicator 15.3.1 of"
+" this manual a table is presented). Productivity, soil carbon, and land "
+"cover chance (the three sub-indicators of SDG 15.3.1) are combined using a "
+"“one out, all out” principle. In other words: if there is a decline in any "
+"of the three indicators at a particular pixel, then that pixel is mapped as "
+"being “degraded”."
+msgstr ""
+"La performance, l'état et la trajectoire (les trois indicateurs du "
+"changement de productivité_) sont combinés conformément à une version "
+"modifiée du guide de bonnes pratiques développé par la la CNULCD (dans la "
+"section Indicateur ODD 15.3.1 de ce manuel, un tableau est présenté). La "
+"productivité, le carbone du sol et le changement de couvert terrestre (les "
+"trois sous-indicateurs de l'ODD 15.3.1) sont combinés selon la règle «one "
+"out, all out». En d'autres termes, si l'un des trois indicateurs décline à "
+"un pixel particulier, alors ce pixel est cartographié comme étant "
+"\"dégradé\"."
+
+#: ../../source/about/faq.rst:184
+msgid ""
+"**Why do I see areas improving (in green) or degrading (in red) after the "
+"final analysis when I know they are not?**"
+msgstr ""
+"**Pourquoi est-ce que je vois des zones s'améliorant (en vert) ou se "
+"dégradant (en rouge) après l'analyse finale alors que je sais que ce n'est "
+"pas le cas ?**"
+
+#: ../../source/about/faq.rst:187
+msgid ""
+"The final output should be interpreted as showing areas potentially "
+"degraded. The indicator of land degradation is based on changes in "
+"productivity, land cover and soil organic carbon. Several factor could lead "
+"to the identification of patterns of degradation which do not seem to "
+"correlate to what is happening on the ground, the date of analysis being a "
+"very important one. If the climatic conditions at the beginning of the "
+"analysis were particularly wet, for example, trends from that moment on "
+"could show significant decreases in primary productivity, and degradation. "
+"The user can use Trends.Earth to address some of this issues correcting by "
+"the effect of climate. The resolution of the data could potentially be "
+"another limitation. Trends.Earth by default uses global datasets which will "
+"not be the most relevant at all scales and geographies. A functionality to "
+"use local data will be added shortly."
+msgstr ""
+"Le résultat final doit être interprété comme indiquant les zones "
+"potentiellement dégradées. L'indicateur de la dégradation des terres est "
+"basé sur les changements de productivité, de couverture terrestre et de "
+"carbone organique du sol. Plusieurs facteurs pourraient conduire à "
+"l'identification d'un schéma de dégradation qui ne semblent pas corrélé à la"
+" réalité sur le terrain, la date de l'analyse étant très importante. Si les "
+"conditions climatiques au début de l'analyse étaient particulièrement "
+"humides, par exemple, les tendances à partir de ce moment pourraient montrer"
+" des diminutions significatives de la productivité primaire et de la "
+"dégradation. L'utilisateur peut utiliser Trends.Earth pour résoudre certains"
+" de ces problèmes en corrigeant par l'effet du climat. La résolution des "
+"données pourrait être un autre facteur limitant. Trends.Earth utilise par "
+"défaut des séries de données mondiales qui ne seront pas les plus "
+"pertinentes à toutes les échelles et géographies. Une fonctionnalité "
+"permettant d'utiliser les données locales sera ajoutée sous peu."
+
+#: ../../source/about/faq.rst:200
+msgid ""
+"**All of the sub-indicators are measuring vegetation using three different "
+"methods: how does this contribute to understanding and identifying land "
+"degradation?**"
+msgstr ""
+"**Tous les sous-indicateurs mesurent la végétation en utilisant trois "
+"méthodes différentes : comment cela contribue-t-il à la compréhension et à "
+"l'identification de la dégradation des terres ?**"
+
+#: ../../source/about/faq.rst:204
+msgid ""
+"Vegetation is a key component of most ecosystems, and serve as a good proxy "
+"for their overall functioning and health. The three subindicators used for "
+"SDG 15.3.1 measure different aspects of land cover, which do relate to "
+"vegetation. Primary productivity directly measures the change in amount of "
+"biomass present in one area, but it does not inform us if that change is "
+"positive or not (not all increases in plant biomass should be interpreted as"
+" improvement). Land cover fills that gap by interpreting the landscape from "
+"a thematic perspective looking at what was there before and what is there "
+"now. It does include vegetation, but also bare land, urban and water. "
+"Finally, the soil organic carbon indicator uses the land cover map to inform"
+" the changes in soil organic carbon over time. This method is not ideal, but"
+" given the current state of global soil science and surveying, there is "
+"consensus that it this point in time and globally, this is the best "
+"approach."
+msgstr ""
+"La végétation est un élément clé de la plupart des écosystèmes et constitue "
+"un bon indicateur de leur fonctionnement global et de leur santé. Les trois "
+"sous-indicateurs utilisés pour l'ODD 15.3.1 mesurent différents aspects de "
+"la couverture terrestre, qui se rapportent à la végétation. La productivité "
+"primaire mesure directement la variation de la quantité de biomasse présente"
+" dans une zone, mais elle ne nous dit pas si ce changement est positif ou "
+"non (toutes les augmentations de la biomasse végétale ne doivent pas être "
+"interprétées comme une amélioration). La couverture du sol comble cet écart "
+"en interprétant le paysage d'un point de vue thématique, en examinant ce qui"
+" existait auparavant et ce qui existe actuellement. Cela inclut la "
+"végétation, mais aussi la terre nue, urbaine et l'eau. Enfin, l'indicateur "
+"de carbone organique du sol utilise la carte de couverture terrestre pour "
+"noter les changements dans le carbone organique du sol au fil du temps. "
+"Cette méthode n'est pas idéale, mais étant donné l'état actuel de la science"
+" et de l'inventaire des sols, il y a un consensus sur le fait que, "
+"aujourd'hui et à l'échelle mondiale, c'est la meilleure approche."
+
+#: ../../source/about/faq.rst:219
+msgid "Workshops"
+msgstr "Ateliers"
+
+#: ../../source/about/faq.rst:221
+msgid ""
+"**Will the project offer future training opportunities so users can "
+"continues working with the tool?**"
+msgstr ""
+"**Le projet offrira-t-il de futures opportunités de formation afin que les "
+"utilisateurs puissent continuer à travailler avec l'outil ?**"
+
+#: ../../source/about/faq.rst:223
+msgid ""
+"The project is working with the UNCCD to support their work training users "
+"on monitoring and reporting in support of countries’ national-level "
+"responsibilities under the convention. These trainings will be occurring in "
+"March-April 2018. In addition, the project will work with key stakeholders, "
+"such as RCMRD, to provide support through existing platforms. The project "
+"will also continue to make e-learning materials available to users, and is "
+"considering potential funding sources for further capacity-building "
+"activities in East Africa."
+msgstr ""
+"Le projet travaille avec la CNULCD pour soutenir son travail de formation "
+"des utilisateurs sur le suivi et la notification, en appui aux "
+"responsabilités nationales dans le cadre de la convention. Ces formations "
+"auront lieu en mars-avril 2018. En outre, le projet travaillera avec les "
+"principales parties prenantes, telles que RCMRD, pour fournir un soutien à "
+"travers les plateformes existantes. Le projet continuera également à mettre "
+"à la disposition des utilisateurs du matériel d'apprentissage en ligne et "
+"envisage des sources de financement potentielles pour d'autres activités de "
+"renforcement des capacités en Afrique de l'Est."
+
+#: ../../source/about/faq.rst:233
+msgid "Future plans"
+msgstr "Plans futurs"
+
+#: ../../source/about/faq.rst:235
+msgid "**When will there be an offline version of the toolbox?**"
+msgstr "**Quand y aura-t-il une version hors ligne de la boîte à outils ?**"
+
+#: ../../source/about/faq.rst:237
+msgid ""
+"The final toolbox will be available as both as an offline and online "
+"version. The online version allows users to access current datasets more "
+"easily, while also allowing users to leverage Google Earth Engine to provide"
+" computing in the cloud. An offline version allows users to access data and "
+"perform analyses where internet connectivity may be limited, but it does "
+"have the disadvantage of requiring users to have enough local computing "
+"capacity to run analyses locally. The technical team intends to build the "
+"offline version of the toolbox and provide countries with data relevant for "
+"reporting at the national level within the pilot project countries."
+msgstr ""
+"La boîte à outils finale sera disponible à la fois en version hors ligne et "
+"en ligne. La version en ligne permet aux utilisateurs d'accéder plus "
+"facilement aux séries de données actuelles, tout en leur permettant de tirer"
+" parti de Google Earth Engine pour les calculs dans le cloud. Une version "
+"hors ligne permet aux utilisateurs d'accéder aux données et d'effectuer des "
+"analyses lorsque la connectivité Internet est limitée, mais elle présente "
+"l'inconvénient de demander aux utilisateurs de disposer d'une capacité de "
+"calcul suffisante pour exécuter des analyses localement. L'équipe technique "
+"a l'intention de développer la version hors ligne de la boîte à outils et de"
+" fournir aux pays des données pertinentes pour la notification au niveau "
+"national dans les pays du projet pilote."
+
+#: ../../source/about/faq.rst:247
+msgid "**Will you create a trends.earth toolbox for ESRI users?**"
+msgstr ""
+"**Allez-vous créer une boîte à outils trends.earth pour les utilisateurs "
+"d'ESRI ?**"
+
+#: ../../source/about/faq.rst:249
+msgid ""
+"The toolbox is currently available as a plugin to QGIS, an open source "
+"software package. This allows users around the world free access to the "
+"toolbox. There are currently no plans to build a toolbox within ArcGIS or "
+"ArcPro."
+msgstr ""
+"La boîte à outils est actuellement disponible en tant que plug-in pour QGIS,"
+" un progiciel open source. Cela permet aux utilisateurs du monde entier "
+"d'accéder gratuitement à la boîte à outils. Il n'est actuellement pas prévu "
+"de créer une boîte à outils dans ArcGIS ou ArcPro."

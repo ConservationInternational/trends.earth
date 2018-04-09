@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/index.rst:2
+msgid "Trends.Earth"
+msgstr "Mwelekeo"
+
+#: ../../source/index.rst:11
+msgid "`English <../en/index.html>`_"
+msgstr "`English <../en/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`Español <../es/index.html>`_"
+msgstr "`Español <../es/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`Francais <../fr/index.html>`_"
+msgstr "`Francais <../fr/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`русский <../ru/index.html>`_"
+msgstr "`русский <../ru/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`中文 <../zh/index.html>`_"
+msgstr "`中文 <../zh/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`عربى <../ar/index.html>`_"
+msgstr "`عربى <../ar/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`Swahili <../sw/index.html>`_"
+msgstr "`Swahili <../sw/index.html>`_"
+
+#: ../../source/index.rst:11
+msgid "`Português <../pt/index.html>`_"
+msgstr "`Português <../pt/index.html>`_"
+
+#: ../../source/index.rst:14
+msgid ""
+"Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
+"platform for monitoring land change using earth observations in an "
+"innovative desktop and cloud-based system."
+msgstr ""
+"Trends.Earth (zamani ya Ufuatiliaji wa Uharibifu wa Ardhi) ni jukwaa la "
+"ufuatiliaji mabadiliko ya ardhi kwa kutumia uchunguzi wa ardhi katika mfumo "
+"wa ubunifu na mfumo wa wingu."
+
+#: ../../source/index.rst:18
+msgid ""
+"The three sub-indicators for monitoring achievement of Land Degradation "
+"Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
+"supported by |trends.earth|: productivity, land cover, and soil organic "
+"carbon.  The tool also supports countries in analyzing data to prepare for "
+"their reporting committments to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
+msgstr ""
+"Vipengele vidogo vitatu vya ufuatiliaji wa ufuatiliaji wa Usio wa Uharibifu "
+"wa Ardhi (LDN, Lengo la Maendeleo ya Kudumu (SDG) 15.3), hutumiwa na | "
+"trends.earth |: uzalishaji, kifuniko cha ardhi, na kaboni ya kaboni. Chombo "
+"hiki pia kinasaidia nchi kuchambua data ili kuandaa malipo ya taarifa zao "
+"kwenye Mkataba wa Umoja wa Mataifa wa Kupambana na Mazao ya Uharibifu "
+"(UNCCD)."
+
+#: ../../source/index.rst:25
+msgid ""
+"Trends.Earth allows users to plot time series of key indicators of land "
+"change (including degradation and improvement), to produce maps and other "
+"graphics that can support monitoring and reporting, and to track the impact "
+"of sustainable land management or other projects."
+msgstr ""
+"Trends.Earth inaruhusu watumiaji kupanga mipangilio ya wakati wa viashiria "
+"muhimu vya mabadiliko ya ardhi (ikiwa ni pamoja na uharibifu na kuboresha), "
+"ili kuzalisha ramani na vingine vingine vinavyoweza kusaidia ufuatiliaji na "
+"utoaji taarifa, na kufuatilia athari za usimamizi wa ardhi endelevu au "
+"miradi mingine."
+
+#: ../../source/index.rst:30
+msgid ""
+"See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
+"or `technical fact sheet "
+"<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
+"information."
+msgstr ""
+"Angalia `karatasi ya jumla <_static / kawaida / "
+"Trends.Earth_Fact_Sheet.pdf>`_ au `kiufundi cha karatasi <_static / kawaida "
+"/ Trends.Earth_Fact_Sheet_Technical.pdf>`_ kwa habari zaidi."
+
+#: ../../source/index.rst:34
+msgid ""
+"The documentation and training materials, including a number of "
+"demonstration videos, are available on this website:"
+msgstr ""
+"Nyaraka na vifaa vya mafunzo, ikiwa ni pamoja na video kadhaa za maonyesho, "
+"zinapatikana kwenye tovuti hii:"
+
+#: ../../source/index.rst:37
+msgid ":ref:`about-docs`"
+msgstr ":ref:`about-docs`"
+
+#: ../../source/index.rst:38
+msgid ":ref:`background-docs`"
+msgstr ": ref: `docs background '"
+
+#: ../../source/index.rst:39
+msgid ":ref:`user-docs`"
+msgstr ":ref:`user-docs`"
+
+#: ../../source/index.rst:40
+msgid ":ref:`training`"
+msgstr ": ref: `mafunzo`"
+
+#: ../../source/index.rst:41
+msgid ":ref:`videos`"
+msgstr ":ref:`videos`"
+
+#: ../../source/index.rst:43
+msgid ""
+"`Download this documentation as a PDF for offline use "
+"<pdfs/Trends.Earth.pdf>`_"
+msgstr ""
+"`Pakua nyaraka hizi kama PDF kwa matumizi ya nje ya mtandao <pdfs / "
+"Trends.Earth.pdf>` _"
+
+#: ../../source/index.rst:52
+msgid "About"
+msgstr "Kuhusu"
+
+#: ../../source/index.rst:67
+msgid "Background information"
+msgstr "Maelezo ya asili"
+
+#: ../../source/index.rst:81
+msgid "Documentation"
+msgstr "Nyaraka"
+
+#: ../../source/index.rst:100
+msgid "Step-by-step Guides"
+msgstr "Viongozi vya hatua kwa hatua"
+
+#: ../../source/index.rst:120
+msgid "Videos"
+msgstr "Video"

@@ -16,7 +16,6 @@ aws_credentials.json
 *.pyc
 *build/*
 */help/build/*
-*/help/i18n/*
 */ext-libs/*
 */ext-src/*
 */ext-libs_32/*

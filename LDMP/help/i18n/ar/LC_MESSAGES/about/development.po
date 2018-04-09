@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: ../../source/about/development.rst:2
+msgid "Development"
+msgstr "تطوير"
+
+#: ../../source/about/development.rst:4
+msgid ""
+"|trends.earth| is free and open-source software, licensed under the `GNU "
+"General Public License, version 2.0 or later <https://www.gnu.org/licenses"
+"/old-licenses/gpl-2.0.en.html>`_."
+msgstr ""
+"| trends.earth | هو برنامج مجاني ومفتوح المصدر ومرخص بموجب ترخيص GNU General"
+" Public License ، الإصدار 2.0 أو أحدث <https://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.en.html> `_."
+
+#: ../../source/about/development.rst:8
+msgid ""
+"There are a number of components to the |trends.earth| tool. The first is a "
+"QGIS plugin supporting calculation of indicators, access to raw data, "
+"reporting, and production of print maps . The code for the plugin, and "
+"further instructions on installing it if you want to modify the code, are in"
+" `trends.earth <https://github.com/ConservationInternational/trends.earth>`_"
+" github repository."
+msgstr ""
+"هناك عدد من المكونات إلى | trends.earth | أداة. الأول هو مكون QGIS المساعد "
+"الذي يدعم حساب المؤشرات ، والوصول إلى البيانات الخام ، وإعداد التقارير ، "
+"وإنتاج الخرائط المطبوعة. رمز البرنامج المساعد ، والمزيد من الإرشادات حول "
+"تثبيته إذا كنت تريد تعديل الشفرة ، موجودة في `اتجاهات الموقع "
+"<direction.earth "
+"<https://github.com/ConservationInternational/trends.earth>` _ github."
+
+#: ../../source/about/development.rst:15
+msgid ""
+"The |trends.earth| QGIS plugin is supported by a number of different Python "
+"scripts that allow calculation of the various indicators on Google Earth "
+"Engine (GEE). These scripts sit in the \"gee\" subfolder of that github "
+"repository."
+msgstr ""
+"و | الاتجاهات يدعم المكون الإضافي لـ QGIS عدد من النصوص البرمجية المختلفة لـ"
+" Python التي تسمح بحساب المؤشرات المختلفة على Google Earth Engine (GEE). هذه"
+" النصوص موجودة في المجلد الفرعي \"gee\" في مستودع github هذا."
+
+#: ../../source/about/development.rst:19
+msgid ""
+"The GEE scripts are supported by the `landdegradation` Python module, which "
+"includes code for processing inputs and outputs for the plugin, as well as "
+"other common functions supporting calculation of NDVI integrals, statistical"
+" significance, and other shared code. The code for this module is available "
+"in the `landdegradation "
+"<https://github.com/ConservationInternational/landdegradation>`_ repository "
+"on Github."
+msgstr ""
+"يتم دعم النصوص البرمجية لـ GEE بواسطة وحدة Python `landdegradation` ، والتي "
+"تتضمن رمزًا لمعالجة المدخلات والمخرجات للمكوِّن الإضافي ، بالإضافة إلى وظائف"
+" مشتركة أخرى تدعم حساب تكاملات NDVI والأهمية الإحصائية والشفرة المشتركة "
+"الأخرى. يتوفر رمز هذه الوحدة في 'landdegradation "
+"<https://github.com/ConservationInternational/landdegradation> `_ repository"
+" on Github."

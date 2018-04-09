@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language: sw\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-"
+"international/teams/80165/sw/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: ../../source/training/tutorial_custom_soc.rst:4
+msgid "Use custom soil data"
+msgstr "Tumia data ya udongo desturi"
+
+#: ../../source/training/tutorial_custom_soc.rst:6
+msgid ""
+"**Objective**: Learn how to load custom soil organic carbon data to "
+"compute the carbon change sub-indicator using Trends.Earth."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:8
+msgid "**Estimated time of completion**: 20 minutes"
+msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
+
+#: ../../source/training/tutorial_custom_soc.rst:10
+msgid "**Internet access**: Not required"
+msgstr "** Upatikanaji wa Intaneti **: Haihitajiki"
+
+#: ../../source/training/tutorial_custom_soc.rst:12
+#, fuzzy
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
+msgstr ""
+"`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
+"Trends.Earth_Tutorial07_Using_Custom_Soil_Carbon.pdf>` _"
+
+#: ../../source/training/tutorial_custom_soc.rst:18
+msgid "Loading custom soil organic carbon data"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:20
+msgid ""
+"This tool assumes that the units of the raster layer to be imported are "
+"**Metrics Tons of organic carbon per hectare**. If your layer is in "
+"different units, please make the necessary conversions before using it in"
+" Trends.Earth."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:22
+msgid ""
+"To load soil organic carbon data click on the (|iconfolder|) icon in the "
+"Trends.Earth toolbar."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:27
+msgid ""
+"The **Load data** menu will open. Select **Soil organic carbon** from the"
+" **Import a custom input dataset** section."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:32
+msgid ""
+"In the **Load a Custom Soil Organic Carbon (SOC) dataset** use the radio "
+"button to select the format of the input file (raster or vector). For "
+"this tutorial select raster, since the data distributed by the UNCCD is "
+"in raster format. Click on **Browse** to navigate to the soil organic "
+"carbon file you wish to import."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:41
+msgid ""
+"Use the **Select input file** window to navigate to the file to be "
+"imported, select it, and click **Open**."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:46
+msgid ""
+"Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** window "
+"you have options for selecting the band number in which the productivity "
+"data is stored, in case your input file is a multi band raster. You also "
+"have the option of modifying the resolution of the file. We recommend "
+"leaving those as defaults unless you have valid reasons for changing "
+"them."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:48
+msgid ""
+"Define the year of reference for the data. In this case, we will assume "
+"the soil organic carbon data is from 2000, but if using local data, make "
+"sure you are assigning the correct year."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:50
+msgid ""
+"Click **Browse** at the bottom of the window to select the **Output "
+"raster file**."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:55
+msgid ""
+"Navigate to the folder where you want to save the file. Assign it a name "
+"and click **Save**."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:60
+msgid ""
+"Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click "
+"**OK** for the tool to run."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:65
+msgid "A progress bar will appear showing the percentage of the task completed."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:70
+msgid ""
+"When the processing is completed, the imported soil organic carbon "
+"dataset will be loaded to QGIS."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:76
+msgid "Calculating soil organic carbon with custom data"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:78
+msgid ""
+"Once you have imported a custom soil organic carbon dataset, it is "
+"possible to calculate soil organic carbon degradation from that data. To "
+"do so, first ensure the custom soil organic carbon data is loaded within "
+"QGIS (see :ref:`load_custom_soc`)."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:83
+msgid ""
+"To calculate soil organic carbon degradation from custom data, first "
+"click on the (|iconCalculator|) icon on the Trends.Earth toolbar:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:89
+msgid ""
+"The \"Calculate indicators\" menu will open. Select \"Soil organic "
+"carbon\" from the \"Option 2: Use customized data\" section."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:95
+msgid ""
+"The \"Calculate Soil Organic Carbon\" window will open. Click the radio "
+"button next to \"Custom land cover dataset\" and select either \"Import\""
+" to import a custom land cover dataset, or \"Load existing\" to load a "
+"land cover dataset you have already processed in Trends.Earth. Be sure to"
+" select both an \"Initial layer\" and a \"Final layer\". See the "
+":ref:`tut_custom_lc` tutorial for more information on loading land cover "
+"datasets. Once you have selected both datasets, click next:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:106
+msgid ""
+"On the next screen, click the check box next to \"Custom initial soil "
+"organic carbon dataset\", and then use the \"Import\" or \"Load "
+"existing\" buttons to either import custom soil carbon layer "
+"(:ref:`load_custom_soc`) or to load an existing one that has already been"
+" calculated:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:114
+msgid "Click \"Next\". Now, choose the area you wish to run calculations for:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:119
+msgid ""
+"Click \"Next\". on the last screen, enter a task name or any notes you "
+"might wish to save (this is optional) and then click \"Calculate\":"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:125
+msgid ""
+"A progress bar will appear on your screen. Do not quit QGIS or turn off "
+"your computer until the calculation is complete."
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:131
+msgid ""
+"Once the calculation is complete, three layers will load onto your map: "
+"1) the final soil organic carbon layer, 2) the initial soil organic "
+"carbon layer, and 3) the soil organic carbon degradation layer:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:138
+msgid ""
+"For example, we can see areas of degradation in soil carbon around "
+"Kampala:"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_soc.rst:144
+msgid ""
+"Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to "
+"use the imported soil organic carbon data to compute the final SDG 15.3.1"
+" after integration with land cover and land productivity."
+msgstr ""
+
+#~ msgid ""
+#~ "The tool to use local soil organic"
+#~ " carbon data to estimate degradation "
+#~ "will be available shortly."
+#~ msgstr ""
+

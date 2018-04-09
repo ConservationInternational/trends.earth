@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 16:52-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../../source/training/tutorial_summary_table.rst:4
+msgid "Interpreting summary table"
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:6
+msgid ""
+"**Objective**: Learn how to open and interpret the summary tables produced "
+"by Trends.Earth when computing the final SDG 15.3.1 layer."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:8
+msgid "**Estimated time of completion**: 25 minutes"
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:10
+msgid "**Internet access**: Not required"
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:12
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial09_The_Summary_Table.pdf>`_"
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:16
+msgid ""
+"You will need to have previously computed SDG 15.3.1 using the **Calculate "
+"final SDG 15.3.1 spatial layer and summary table for total boundary** tool. "
+"Refer to the section :ref:`tut_compute_sdg` for instructions on how to run "
+"the analysis."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:18
+msgid ""
+"When you computed SDG 15.3.1 an Excel file was created with the summary "
+"table. Browse to that folder and double click on the file to open it."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:23
+msgid ""
+"If you are using Microsoft Excel, you may see the following error messages "
+"pop-up. Click **Yes** on the first one and *OK** on the second one. We are "
+"currently working trying to identify where the error comes from, but the "
+"file is fully functional."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:25
+msgid ""
+"If you are using LibreOffice or OpenOffice, the file will load with no "
+"errors."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:33
+msgid ""
+"The summary table file contains 5 tabs, which you can explore by clicking on"
+" each of the different names the bottom of the screen: SDG 15.3.1, "
+"Productivity, Soil organic carbon, Land Cover and UNCCD Reporting."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:35
+msgid ""
+"In the **SDG 15.3.1** tab you will find the area calculations derived from "
+"the indicator map you explored in QGIS."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:37
+msgid ""
+"For the area you run the analysis, you will see the total land area "
+"(excluding water bodies): land that experienced improvement, which remained "
+"stable, areas degraded, and also information on the areas with no data for "
+"the period selected. No data in the SDG 15.3.1 is an indication of no data "
+"in some of the input datasets used in the analysis."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:42
+msgid ""
+"In the **Productivity** tab you will find at the top, a similar summary as "
+"previously explained, but in this case representing the results of the land "
+"productivity sub-indicator alone."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:44
+msgid ""
+"In the sections below you will find two tables, each containing area "
+"information (in sq. km) for each of the land cover transitions found in the "
+"study are during the period analyzed broken by each of the 5 final land "
+"productivity classes: Increasing, Stable, Stable but stressed, Early signs "
+"of decline, and Declining."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:49
+msgid ""
+"In the **Soil organic carbon** tab you will find at the top, a similar "
+"summary as previously explained, but in this case representing the results "
+"of the soil organic carbon sub-indicator alone."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:51
+#: ../../source/training/tutorial_summary_table.rst:61
+msgid "In the sections below you will find two tables:"
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:53
+msgid ""
+"The first one contains information on changes in carbon stocks from the "
+"baseline (initial year of analysis) to the target (final year of analysis)."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:54
+msgid ""
+"The second presents information soil organic carbon change from baseline to "
+"target by type of land cover transition (as percentage of initial stock)."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:59
+msgid ""
+"In the **Land cover** tab you will find at the top, a similar summary as "
+"previously explained, but in this case representing the results of the land "
+"cover change sub-indicator alone."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:63
+msgid ""
+"The first contains information on land cover change by cover class (sq, km "
+"and %)."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:64
+msgid ""
+"The second contains information on land area by type of land cover "
+"transition (sq. km)."
+msgstr ""
+
+#: ../../source/training/tutorial_summary_table.rst:69
+msgid ""
+"In the **UNCCD Reporting** tab you will find five tables containing similar "
+"information as the one presented in the previous tabs, but in this case "
+"specifically formatted to match the reporting template required by the "
+"UNCCD. Each table indicates at the top the page number and section of the "
+"template the information is referring to."
+msgstr ""

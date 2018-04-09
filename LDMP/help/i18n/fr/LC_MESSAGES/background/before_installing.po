@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/background/before_installing.rst:4
+msgid "Before installing the toolbox"
+msgstr "Avant d'installer l'outil"
+
+#: ../../source/background/before_installing.rst:6
+msgid ""
+"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
+" to be installed on the computer (Note: QGIS version 3.0.0 is not currently "
+"supported). QGIS can be downloaded from: "
+"http://www.qgis.org/en/site/forusers/download.html. Once the installer is "
+"downloaded from the website, it needs to be run (double click on it). Select"
+" the options using the Default settings."
+msgstr ""
+"Avant d'installer la boîte à outils, la version de QGIS |qgisMinVersion| ou "
+"ultérieure doit être installée sur l'ordinateur (Remarque: la version 3.0.0 "
+"de QGIS n'est actuellement pas supportée). QGIS peut être téléchargé sur : "
+"http://www.qgis.org/en/site/forusers/download.html. Une fois le programme "
+"d'installation téléchargé du site web, il doit être exécuté (double-cliquez "
+"dessus). Sélectionnez les options en utilisant les paramètres par défaut."
+
+#: ../../source/background/before_installing.rst:13
+msgid ""
+"You have the option of installing a 32-bit or 64-bit version of QGIS. To "
+"know which version to install, check which type of operating system you "
+"have:"
+msgstr ""
+"Vous avez la possibilité d'installer une version 32 bits ou 64 bits de QGIS."
+" Pour savoir quelle version installer, vérifiez quel type de système "
+"d'exploitation vous avez :"
+
+#: ../../source/background/before_installing.rst:16
+msgid "**Windows 7 or Windows Vista**"
+msgstr "** Windows 7 ou Windows Vista**"
+
+#: ../../source/background/before_installing.rst:18
+msgid ""
+"Open System by clicking the Start button , right-clicking Computer, and then"
+" clicking Properties."
+msgstr ""
+"Ouvrez Système en appuyant sur le bouton Démarrer, en cliquant avec le "
+"bouton droit sur Ordinateur, puis en cliquant sur Propriétés."
+
+#: ../../source/background/before_installing.rst:20
+msgid "Under System, you can view the system type."
+msgstr "Sous Système, vous pouvez voir le type de système."
+
+#: ../../source/background/before_installing.rst:22
+msgid "**Windows 8 or Windows 10**"
+msgstr "**Windows 8 ou Windows 10**"
+
+#: ../../source/background/before_installing.rst:24
+msgid "From the Start screen, type This PC."
+msgstr "Dans l'écran Démarrer, tapez Ce PC."
+
+#: ../../source/background/before_installing.rst:25
+msgid "Right Click (or tap and hold) This PC, and click Properties."
+msgstr ""
+"Clic droit (ou appuyez et gardez enfoncé) Ce PC et cliquez sur Propriétés."
+
+#: ../../source/background/before_installing.rst:27
+msgid "**Mac**"
+msgstr "**Mac**"
+
+#: ../../source/background/before_installing.rst:29
+msgid "Click the Apple icon in the top left and select About this Mac."
+msgstr ""
+"Cliquez sur l'icône Apple en haut à gauche et sélectionnez À propos de ce "
+"Mac."

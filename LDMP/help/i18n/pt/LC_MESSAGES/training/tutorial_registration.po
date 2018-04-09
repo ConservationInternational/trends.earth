@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-07 07:54-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/training/tutorial_registration.rst:2
+msgid "Create account & register"
+msgstr "Crie uma conta e registre-se"
+
+#: ../../source/training/tutorial_registration.rst:4
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial02_Registration.pdf>`_"
+msgstr ""
+
+#: ../../source/training/tutorial_registration.rst:7
+msgid ""
+"Trends.Earth is a free and open source which anyone can use. However, before"
+" running calculations, we do require for the users to create an account. "
+"This needs to be done only the first time you'll use the tool. Your user "
+"will be then saved for future sessions."
+msgstr ""
+"Trends.Earth é uma fonte livre e aberta que qualquer um pode usar. No "
+"entanto, antes de executar cálculos, exigimos que os usuários criem uma "
+"conta. Isso precisa ser feito apenas na primeira vez que você usar a "
+"ferramenta. Seu usuário será salvo para futuras sessões."
+
+#: ../../source/training/tutorial_registration.rst:9
+msgid "To create your account click on the wrench icon (|iconWrench|)."
+msgstr ""
+"Para criar sua conta, clique no ícone de chave inglesa (|iconWrench|)."
+
+#: ../../source/training/tutorial_registration.rst:14
+msgid "To Register, click the **Step 1: Register** button."
+msgstr "Para se registrar, clique no botão **Etapa 1: Registrar**."
+
+#: ../../source/training/tutorial_registration.rst:19
+msgid "Enter your email, name, organization and country of residence."
+msgstr "Digite seu e-mail, nome, organização e país de residência."
+
+#: ../../source/training/tutorial_registration.rst:24
+msgid ""
+"Select **Ok** and you will see a message indicating your user has been "
+"registered."
+msgstr ""
+"Selecione **Ok** e você verá uma mensagem indicando que seu usuário foi "
+"registrado."
+
+#: ../../source/training/tutorial_registration.rst:29
+msgid ""
+"5. After registering, you will receive an email from api@trends.earth with "
+"your password. If you don't see the email in your inbox after 15-20 seconds,"
+" please check your spam folder in case the email was sent there. Once you "
+"receive this email , click on **Step 2: Enter login**. This will bring up a "
+"dialog asking for your email and password. Enter your email address and the "
+"password you received from api@trends.earth and click **Ok**:"
+msgstr ""
+"5. Após o cadastro, você receberá um email de api@trends.earth com sua "
+"senha. Se você não vir o e-mail na sua caixa de entrada após 15 a 20 "
+"segundos, verifique sua pasta de spam caso o e-mail tenha sido enviado para "
+"lá. Depois de receber este e-mail, clique em ** Etapa 2: insira o login **. "
+"Isso abrirá uma caixa de diálogo solicitando seu email e senha. Digite seu "
+"endereço de e-mail e a senha que você recebeu de api@trends.earth e clique "
+"em **Ok**:"
+
+#: ../../source/training/tutorial_registration.rst:37
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
+msgstr "Você verá uma mensagem indicando que você foi logado com sucesso:"
+
+#: ../../source/training/tutorial_registration.rst:42
+msgid "You are now ready to start using Trends.Earth!"
+msgstr "Agora você está pronto para começar a usar o Trends.Earth!"

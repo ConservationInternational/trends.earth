@@ -1,0 +1,529 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/background/understanding_indicators.rst:4
+msgid "SDG Indicator 15.3.1"
+msgstr "SDG指标15.3.1"
+
+#: ../../source/background/understanding_indicators.rst:6
+msgid ""
+"As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
+"Development Goal (SDG) 15 is to:"
+msgstr "作为“2030年可持续发展议程”的一部分，可持续发展目标（SDG）15将："
+
+#: ../../source/background/understanding_indicators.rst:9
+msgid ""
+"\"Protect, restore and promote sustainable use of terrestrial ecosystems, "
+"sustainably manage forests, combat desertification, and halt and reverse "
+"land degradation and halt biodiversity loss\""
+msgstr "“保护，恢复和促进陆地生态系统的可持续利用，可持续管理森林，防治荒漠化，制止和扭转土地退化并遏制生物多样性丧失”"
+
+#: ../../source/background/understanding_indicators.rst:13
+msgid ""
+"Each SDG has specific targets addressing different components, in this case,"
+" of life on land. Target 15.3 aims to:"
+msgstr "每个可持续发展目标都有针对不同部分的具体目标，在这种情况下，涉及陆地生活。目标15.3旨在："
+
+#: ../../source/background/understanding_indicators.rst:16
+msgid ""
+"\"By 2030, combat desertification, restore degraded land and soil, including"
+" land affected by desertification, drought and floods, and strive to achieve"
+" a land degradation-neutral world\""
+msgstr "“到2030年，防治荒漠化，恢复退化的土地和土壤，包括受荒漠化，干旱和洪水影响的土地，并努力实现一个土地退化中立的世界”"
+
+#: ../../source/background/understanding_indicators.rst:20
+msgid ""
+"Indicators will be used then to assess the progress of each SDG target. In "
+"the case of SDG 15.3 the progress towards a land degradation neutral world "
+"will be assessed using indicator 15.3.1:"
+msgstr "指标将用于评估每个可持续发展目标的进展情况。对于可持续发展目标15.3，将采用指标15.3.1评估中度退化土地的进展情况："
+
+#: ../../source/background/understanding_indicators.rst:24
+msgid "\"proportion of land that is degraded over total land area\""
+msgstr "“土地退化总面积比例”"
+
+#: ../../source/background/understanding_indicators.rst:26
+msgid ""
+"As the custodian agency for SDG 15.3, the United Nations Convention to "
+"Combat Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)"
+" <http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" providing recommendations on how to calculate SDG Indicator 15.3.1."
+msgstr ""
+"作为可持续发展目标15.3的监管机构，联合国防治荒漠化公约（UNCCD）制定了“良好实践指南”（GPG）<http://www2.unccd.int/sites/default/files"
+"/relevant-links/2017 -10 "
+"/良好％20Practice%20Guidance_SDG％20Indicator％2015.3.1_Version％201.0.pdf>`_。就如何计算可持续发展目标指标15.3.1提供建议。"
+
+#: ../../source/background/understanding_indicators.rst:31
+msgid ""
+"This document provides a brief introduction to SDG Indicator 15.3.1 and "
+"describes how each indicator is calculated by |trends.earth|."
+msgstr "本文件简要介绍了SDG指标15.3.1，并介绍了如何通过| trends.earth |计算每个指标。"
+
+#: ../../source/background/understanding_indicators.rst:34
+msgid ""
+"In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
+"from 3 sub-indicators:"
+msgstr "为了评估退化地区，可持续发展目标指标15.3.1使用来自3个子指标的信息："
+
+#: ../../source/background/understanding_indicators.rst:37
+msgid "Vegetation productivity"
+msgstr "植被生产力"
+
+#: ../../source/background/understanding_indicators.rst:38
+#: ../../source/background/understanding_indicators.rst:265
+msgid "Land cover"
+msgstr "土地覆盖"
+
+#: ../../source/background/understanding_indicators.rst:39
+#: ../../source/background/understanding_indicators.rst:298
+msgid "Soil organic carbon"
+msgstr "土壤有机碳"
+
+#: ../../source/background/understanding_indicators.rst:44
+msgid ""
+"|trends.earth| allows the user to compute each of these subindicators in a "
+"spatially explicit way generating raster maps which are then integrated into"
+" a final SDG 15.3.1 indicator map and produces a table result reporting "
+"areas potentially improved and degraded for the area of analysis."
+msgstr ""
+"| trends.earth |允许用户以空间明确的方式计算每个子指示符，从而生成栅格地图，然后将栅格地图集成到最终的SDG "
+"15.3.1指标图中，并生成表格结果报告区域，可能对分析区域进行改进和降级。"
+
+#: ../../source/background/understanding_indicators.rst:50
+msgid "Sub-indicators"
+msgstr "分项指标"
+
+#: ../../source/background/understanding_indicators.rst:55
+msgid "Productivity"
+msgstr "生产率"
+
+#: ../../source/background/understanding_indicators.rst:57
+msgid ""
+"Land productivity is the biological productive capacity of the land, the "
+"source of all the food, fiber and fuel that sustains humans (United Nations "
+"Statistical Commission 2016). Net primary productivity (NPP) is the net "
+"amount of carbon assimilated after photosynthesis and autotrophic "
+"respiration over a given period of time (Clark et al. 2001) and is typically"
+" represented in units such as kg/ha/yr. NPP is a variable time consuming and"
+" costly to estimate, for that reason, we rely on remotely sensed information"
+" to derive indicators of NPP."
+msgstr ""
+"土地生产力是土地的生物生产能力，是维持人类的所有食物，纤维和燃料的来源（联合国统计委员会，2016年）。净初级生产力（净初级生产力）是指在一定时期内光合作用和自养呼吸作用后吸收的碳的净量（Clark"
+" et al。2001），通常以单位如kg / ha / yr表示。核电厂估算时间长，成本高，因此，我们依靠遥感信息来推导核电厂指标。"
+
+#: ../../source/background/understanding_indicators.rst:66
+msgid ""
+"One of the most commonly used surrogates of NPP is the Normalized Difference"
+" Vegetation Index (NDVI), computed using information from the red and near "
+"infrared portions of the electromagnetic spectrum. In |trends.earth| we make"
+" use of bi-weekly products from MODIS and AVHRR to compute annual integrals "
+"of NDVI (computed as the mean annual NDVI for simplicity of interpretation "
+"of results). These annual integrals of NDVI are then used to compute each of"
+" the productivity indicators explained below."
+msgstr ""
+"NPP最常用的替代指标之一是归一化差异植被指数（NDVI），它是利用电磁波谱的红色和近红外部分的信息计算出来的。在| trends.earth "
+"|中我们利用MODIS和AVHRR的双周产品来计算NDVI的年积分（为简化结果解释，计算为年平均NDVI）。这些NDVI的年积分被用来计算下面解释的每个生产力指标。"
+
+#: ../../source/background/understanding_indicators.rst:74
+msgid ""
+"Land productivity is assessed in |trends.earth| using three measures of "
+"change derived from NDVI time series data: trajectory, performance and state"
+msgstr "土地生产力评估在trend.earth |采用三种来自NDVI时间序列数据的变化量度：轨迹，性能和状态"
+
+#: ../../source/background/understanding_indicators.rst:83
+msgid "Productivity Trajectory"
+msgstr "生产力轨迹"
+
+#: ../../source/background/understanding_indicators.rst:85
+msgid ""
+"Trajectory measures the rate of change in primary productivity over time. As"
+" indicated in the figure below, |trends.earth| computes a linear regression "
+"at the pixel level to identify areas experiencing changes in primary "
+"productivity for the period under analysis. A Mann-Kendall non-paremetric "
+"significance test is then applied, considering only significant changes "
+"those that show a p-value ≤ 0.05. Positive significant trends in NDVI would "
+"indicate potential improvement in land condition, and negative significant "
+"trends potential degradation."
+msgstr ""
+"轨迹衡量初级生产力随时间变化的速度。如下图所示，| trends.earth |计算像素级的线性回归以确定分析期间经历初级生产力变化的区域"
+"。然后应用Mann-Kendall非参数显着性检验，仅考虑显示p值≤0.05的显着变化。 "
+"NDVI的正向显着趋势表明潜在的土地状况改善，以及显着的负趋势潜在退化。"
+
+#: ../../source/background/understanding_indicators.rst:100
+msgid "Correcting for the effects of climate"
+msgstr "纠正气候的影响"
+
+#: ../../source/background/understanding_indicators.rst:102
+msgid ""
+"Within a given ecosystem, primary productivity is affected by several "
+"factors, such as temperature, and the availability of light, nutrients and "
+"water. Of those, water availability is the most variable over time, and can "
+"have very significant influences in the amount of plant tissue produced "
+"every year. When annual integrals of NDVI are used to perform the trajectory"
+" analysis, it is important to interpret the results having historical "
+"precipitation information as a context. Otherwise, declining productivity "
+"trends could be identified as human caused land degradation, when they are "
+"driven by regional patterns of changes in water availability."
+msgstr ""
+"在一个给定的生态系统内，初级生产力受到几个因素的影响，如温度，光照，营养物质和水的供应。其中，可用水量随时间变化最大，并且可能对每年生产的植物组织数量产生非常显着的影响。当使用NDVI的年积分来执行轨迹分析时，重要的是将具有历史降水信息的结果解释为上下文。否则，生产率下降趋势可能被确定为人类造成的土地退化，因为这些土地退化是由区域性水资源可用性变化驱动的。"
+
+#: ../../source/background/understanding_indicators.rst:112
+msgid ""
+"|trends.earth| allows the user to perform different types of analysis to "
+"separate the climatic causes of the changes in primary productivity, from "
+"those which could be a consequence of human land use decisions on the "
+"ground. The methods currently supported for climate corrections are:"
+msgstr ""
+"| trends.earth "
+"|允许用户进行不同类型的分析，将初级生产力变化的气候原因与可能是当地人类土地使用决策后果的因素分开。目前支持气候改正的方法是："
+
+#: ../../source/background/understanding_indicators.rst:117
+msgid ""
+"**Residual Trend Analysis (RESTREND):** RESTREND uses linear regression "
+"models to predict NDVI for a given rainfall amount. Trends in the difference"
+" between the predicted NDVI and the observed NDVI (the residual) are "
+"interpreted as non-climatically related productivity change. Please refer to"
+" the following citation more more details on the method and its limitations:"
+" `Wessels, K.J.; van den Bergh, F.; Scholes, R.J. Limits to detectability of"
+" land degradation by trend analysis of vegetation index data. Remote Sens. "
+"Environ. 2012, 125, 10–22.`"
+msgstr ""
+"**剩余趋势分析（RESTREND）：** "
+"RESTREND使用线性回归模型预测给定降雨量的NDVI。预测的NDVI和观测到的NDVI（残差）之间的差异趋势被解释为非气候相关的生产力变化。请参阅以下引文，了解更多有关该方法及其局限性的详细信息：`Wessels，K.J。;"
+" van den Bergh，F .; Scholes，R.J.通过植被指数数据的趋势分析来限制土地退化的可探测性。遥感。环境。 "
+"2012，125,10-22.`"
+
+#: ../../source/background/understanding_indicators.rst:126
+msgid ""
+"**Rain Use Efficiency (RUE):** RUE Is the ratio of annual NPP to annual "
+"precipitation. |trends.earth| uses the annual integrals of NDVI as a proxy "
+"for annual NPP, and offers the possibility of choosing among different "
+"precipitation products to compute RUE. After RUE is computed for each of the"
+" years under analysis, a linear regression and a non-parametric significance"
+" test is applied to the trend of RUE over time. Positive significant trends "
+"in RUE would indicate potential improvement in land condition, and negative "
+"significant trends potential degradation. Please refer to the following "
+"publication for details on the methods and its limitations: `Wessels, K.J.; "
+"Prince, S.D.; Malherbe, J.; Small, J.; Frost, P.E.; VanZyl, D. Can human-"
+"induced land degradation be distinguished from the effects of rainfall "
+"variability? A case study in South Africa. J. Arid Environ. 2007, 68, "
+"271–297.`"
+msgstr ""
+"**降雨使用效率（RUE）：** RUE是年度NPP与年降水量的比率。 | trends.earth "
+"|利用NDVI的年积分作为年NPP的替代指标，并提供在不同降水产品中选择RUE进行计算的可能性。在分析的每个年份计算RUE后，线性回归和非参数显着性检验适用于RUE随时间变化的趋势。"
+" RUE的积极显着趋势表明土地状况有可能改善，潜在退化的负面重要趋势。请参阅以下出版物，了解有关方法及其局限性的详细信息：`Wessels，K.J。; "
+"Prince，S.D。 Malherbe，J .;小，J。弗罗斯特，P.E。 "
+"VanZyl，D.人类引起的土地退化可以与降雨变率的影响区分开来吗？南非的案例研究。 J.干旱环境。 2007，68，271-297"
+
+#: ../../source/background/understanding_indicators.rst:139
+msgid ""
+"**Water Use Efficiency (WUE):** RUE assumes that there is a linear "
+"relationship between the amount of water that falls in the form of "
+"precipitation in a particular place and the amount of water which will be "
+"actually used by the plants. This assumption does not hold true for every "
+"system. WUE tries to address this limitation by using total annual evapo-"
+"transpiration (ET) instead precipitation. ET is defined as precipitation "
+"minus the water lost to surface runoff, recharge to groundwater and changes "
+"to soil water storage. The rest of the analysis follows as described for "
+"RUE: a linear regression and a non-parametric significance test is applied "
+"to the trend of WUE over time. Positive significant trends in WUE would "
+"indicate potential improvement in land condition, and negative significant "
+"trends potential degradation."
+msgstr ""
+
+#: ../../source/background/understanding_indicators.rst:151
+msgid ""
+"The table below list the datasets available in |trends.earth| to perform "
+"NDVI trend analysis over time using the original NDVI data or with climatic "
+"corrections:"
+msgstr "下表列出了| trends.earth |中提供的数据集利用原始NDVI数据或气候修正值随时间变化进行NDVI趋势分析："
+
+#: ../../source/background/understanding_indicators.rst:161
+msgid "Productivity State"
+msgstr "生产力状态"
+
+#: ../../source/background/understanding_indicators.rst:163
+msgid ""
+"The Productivity State indicator allows for the detection of recent changes "
+"in primary productivity as compared to a baseline period. The indicator is "
+"computed as follows:"
+msgstr "生产力状态指标允许检测与基准期相比的最近初级生产力变化。指标计算如下："
+
+#: ../../source/background/understanding_indicators.rst:167
+msgid ""
+"Define the baseline period (historical period to which to compare recent "
+"primary productivity)."
+msgstr "定义基准期（比较近期初级生产力的历史时期）。"
+
+#: ../../source/background/understanding_indicators.rst:170
+msgid ""
+"Define the comparison period (recent years used to compute comparison). It "
+"is recommended to use a 3-year to avoid annual fluctuations related to "
+"climate."
+msgstr "定义比较期（近几年用于计算比较）。建议使用3年来避免与气候相关的年度波动。"
+
+#: ../../source/background/understanding_indicators.rst:174
+msgid ""
+"For each pixel, use the annual integrals of NDVI for the baseline period to "
+"compute a frequency distribution. In case the baseline period missed some "
+"extreme values in NDVI, add 5% on both extremes of the distribution. That "
+"expanded frequency distribution curve is then used to define the cut-off "
+"values of the 10 percentile classes."
+msgstr ""
+"对于每个像素，使用基准期NDVI的年积分来计算频率分布。如果基准期在NDVI中缺少一些极值，则在两个极值分布上增加5％。然后使用该扩展频率分布曲线来定义10个百分位等级的截止值。"
+
+#: ../../source/background/understanding_indicators.rst:180
+msgid ""
+"Compute the mean NDVI for the baseline period, and determine the percentile "
+"class it belongs to. Assign to the mean NDVI for the baseline period the "
+"number corresponding to that percentile class. Possible values range from 1 "
+"(lowest class) to 10 (highest class)."
+msgstr ""
+"计算基准期的平均NDVI，并确定它所属的百分位等级。为基准期的平均NDVI分配与该百分位等级对应的数字。可能的值范围从1（最低等级）到10（最高等级）。"
+
+#: ../../source/background/understanding_indicators.rst:185
+msgid ""
+"Compute the mean NDVI for the comparison period, and determine the "
+"percentile class it belongs to. Assign to the mean NDVI for the comparison "
+"period the number corresponding to that percentile class. Possible values "
+"range from 1 (lowest class) to 10 (highest class)."
+msgstr ""
+"计算比较期间的平均NDVI，并确定它所属的百分位数等级。为比较期间的平均NDVI分配与该百分位等级对应的数字。可能的值范围从1（最低等级）到10（最高等级）。"
+
+#: ../../source/background/understanding_indicators.rst:190
+msgid ""
+"Determine the difference in class number between the comparison and the "
+"baseline period (comparison minus baseline)."
+msgstr "确定比较和基准期间（比较减去基线）之间的班级数量差异。"
+
+#: ../../source/background/understanding_indicators.rst:193
+msgid ""
+"If the difference in class between the baseline and the comparison period is"
+" ≤ 2, then that pixel could potentially be degraded. If the difference is ≥ "
+"2, that pixel would indicate a recent improvement in terms of primary "
+"productivity. Pixels with small changes are considered stable."
+msgstr ""
+"如果基线和比较期间的类别差异≤2，那么该像素可能会降级。如果差异≥2，那么该像素将显示最近在初级生产力方面的改进。小变化的像素被认为是稳定的。"
+
+#: ../../source/background/understanding_indicators.rst:201
+msgid ""
+"The table below list the datasets available in |trends.earth| to compute the"
+" Productivity State indicator:"
+msgstr "下表列出了| trends.earth |中提供的数据集计算生产力状态指标："
+
+#: ../../source/background/understanding_indicators.rst:210
+msgid "Productivity Performance"
+msgstr "生产力表现"
+
+#: ../../source/background/understanding_indicators.rst:212
+msgid ""
+"The Productivity Performance indicator measures local productivity relative "
+"to other similar vegetation types in similar land cover types or bioclimatic"
+" regions throughout the study area. |trends.earth| uses the unique "
+"combination of soil units (soil taxonomy units using USDA system provided by"
+" SoilGrids at 250m resolution) and land cover (full 37 land cover classes "
+"provided by ESA CCI at 300m resolution) to define this areas of analysis. "
+"The indicator is computed as follows:"
+msgstr ""
+"生产力绩效指标衡量整个研究区内类似土地覆盖类型或生物气候区域的相对于其他类似植被类型的当地生产力。 | trends.earth "
+"|使用土壤单元（土壤分类单元使用由SoilGrids提供的250m分辨率的土壤分类单元）和土地覆盖物（由ESA "
+"CCI以300m分辨率提供的全部37个土地覆盖类别）的独特组合来定义这个分析领域。指标计算如下："
+
+#: ../../source/background/understanding_indicators.rst:220
+msgid ""
+"Define the analysis period, and use the time series of NDVI to compute mean "
+"the NDVI for each pixel."
+msgstr "定义分析周期，并使用NDVI的时间序列计算每个像素的平均NDVI。"
+
+#: ../../source/background/understanding_indicators.rst:223
+msgid ""
+"Define similar ecologically similar units as the unique intersection of land"
+" cover and soil type."
+msgstr "定义与土地覆盖和土壤类型的独特交叉点类似的生态类似单位。"
+
+#: ../../source/background/understanding_indicators.rst:226
+msgid ""
+"For each unit, extract all the mean NDVI values computed in step 1, and "
+"create a frequency distribution. From this distribution determine the value "
+"which represents the 90th   percentile (we don't recommend using the "
+"absolute maximum NDVI value to avoid possible errors due to the presence of "
+"outliers). The value representing the 90th percentile will be considered the"
+" maximum productivity for that unit."
+msgstr ""
+"对于每个单元，提取在步骤1中计算出的所有平均NDVI值，并创建一个频率分布。根据此分布确定代表第90百分位的值（我们不建议使用绝对最大NDVI值来避免由于存在异常值而可能出现的错误）。代表第90百分位数的数值将被视为该单位的最大生产力。"
+
+#: ../../source/background/understanding_indicators.rst:233
+msgid ""
+"Compute the ratio of mean NDVI and maximum productivity (in each case "
+"compare the mean observed value to the maximum for its corresponding unit)."
+msgstr "计算平均NDVI与最大生产力的比率（在每种情况下，将平均观测值与相应单位的最大值进行比较）。"
+
+#: ../../source/background/understanding_indicators.rst:236
+msgid ""
+"If observed mean NDVI is lower than 50% than the maximum productivity, that "
+"pixel is considered potentially degraded for this indicator."
+msgstr "如果观测到的平均NDVI低于最大生产力的50％，则该像素被认为可能会降低该指标。"
+
+#: ../../source/background/understanding_indicators.rst:242
+msgid ""
+"The table below list the datasets available in |trends.earth| to compute the"
+" Productivity Performance indicator:"
+msgstr "下表列出了| trends.earth |中提供的数据集计算生产力绩效指标："
+
+#: ../../source/background/understanding_indicators.rst:251
+msgid "Combining Productivity Indicators"
+msgstr "结合生产力指标"
+
+#: ../../source/background/understanding_indicators.rst:253
+msgid ""
+"The three productivity sub-indicators are then combined as indicated in the "
+"tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, "
+"but |trends.earth| also produces a 5-class one which takes advantage of the "
+"information provided by State to inform the type of degradation occurring in"
+" the area."
+msgstr ""
+"三个生产力子指标然后按照下表所示组合。对于SDG 15.3.1报告，需要三级指标，但| trends.earth "
+"|还生产一种5级的产品，它利用国家提供的信息来说明该地区发生的退化类型。"
+
+#: ../../source/background/understanding_indicators.rst:267
+msgid ""
+"To assess changes in land cover users need land cover maps covering the "
+"study area for the baseline and target years. These maps need to be of "
+"acceptable accuracy and created in such a way which allows for valid "
+"comparisons. |trends.earth| uses ESA CCI land cover maps as the default "
+"dataset, but local maps can also be used. The indicator is computed as "
+"follows:"
+msgstr ""
+"为了评估土地覆盖的变化，用户需要覆盖研究区域的基准线和目标年的土地覆盖图。这些地图需要具有可接受的准确性，并以允许有效比较的方式创建。 | "
+"trends.earth |使用ESA CCI土地覆盖地图作为默认数据集，但也可以使用本地地图。指标计算如下："
+
+#: ../../source/background/understanding_indicators.rst:273
+msgid ""
+"Reclassify both land cover maps to the 7 land cover classes needed for "
+"reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
+"area, bare land and water)."
+msgstr "将两幅土地覆盖图重新归类为向“防治荒漠化公约”（森林，草地，农田，湿地，人造地区，裸地和水域）报告所需的7个土地覆盖类。"
+
+#: ../../source/background/understanding_indicators.rst:277
+msgid ""
+"Perform a land cover transition analysis to identify which pixels remained "
+"in the same land cover class, and which ones changed."
+msgstr "进行土地覆盖过渡分析，以确定哪些像素保留在相同的土地覆盖类中，哪些变化。"
+
+#: ../../source/background/understanding_indicators.rst:280
+msgid ""
+"Based on your local knowledge of the conditions in the study area and the "
+"land degradation processed occurring there, use the table below to identify "
+"which transitions correspond to degradation (- sign), improvement (+ sign), "
+"or no change in terms of land condition (zero)."
+msgstr ""
+"根据当地对研究区条件和发生在那里的土地退化情况的了解，使用下表来确定哪些过渡对应于退化（ - 符号），改善（+符号）或土地条件没有变化（零）。"
+
+#: ../../source/background/understanding_indicators.rst:288
+msgid ""
+"|trends.earth| will combine the information from the land cover maps and the"
+" table of degradation typologies by land cover transition to compute the "
+"land cover sub-indicator."
+msgstr "| trends.earth |将土地覆盖变化信息与退化类型表的信息相结合，计算土地覆盖变化指标。"
+
+#: ../../source/background/understanding_indicators.rst:300
+msgid ""
+"The third sub-indicator for monitoring land degradation as part of the SDG "
+"process quantifies changes in soil organic carbon (SOC) over the reporting "
+"period. Changes in SOC are particularly difficult to assess for several "
+"reasons, some of them being the high spatial variability of soil properties,"
+" the time and cost intensiveness of conducting representative soil surveys "
+"and the lack of time series data on SOC for most regions of the world. To "
+"address some of the limitations, a combined land cover/SOC method is used in"
+" |trends.earth| to estimate changes in SOC and identify potentially degraded"
+" areas. The indicator is computed as follows:"
+msgstr ""
+"作为可持续发展目标进程的一部分，监测土地退化的第三个子指标量化了报告期间土壤有机碳（SOC）的变化。 "
+"SOC的变化特别难以评估，原因有几个，其中一些原因是土壤特性的高空间变异性，进行代表性土壤调查的时间和成本密集度以及世界大多数地区缺乏关于SOC的时间序列数据。为了解决某些限制，在trend.earth"
+" |中使用了土地覆盖/ SOC组合方法估算SOC的变化并找出可能退化的地区。指标计算如下："
+
+#: ../../source/background/understanding_indicators.rst:310
+msgid ""
+"Determine the SOC reference values. |trends.earth| uses SoilGrids 250m "
+"carbon stocks for the first 30 cm of the soil profile as the reference "
+"values for calculation (NOTE: SoilGrids uses information from a variety of "
+"data sources and ranging from many years to produce this product, therefore "
+"assigning a date for calculations purposes could cause inaccuracies in the "
+"stock change calculations)."
+msgstr ""
+"确定SOC参考值。 | trends.earth |使用SoilGrids "
+"250m碳储量计算土壤剖面的前30cm作为计算参考值（注意：SoilGrids使用来自各种数据源的信息，并且从多年的时间开始生产该产品，因此为计算目的分配一个日期可能导致库存变化计算不准确）。"
+
+#: ../../source/background/understanding_indicators.rst:317
+msgid ""
+"Reclassify the land cover maps to the 7 land cover classes needed for "
+"reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
+"area, bare land and water). Ideally annual land cover maps are preferred, "
+"but at least land cover maps for the starting and end years are needed."
+msgstr ""
+"将土地覆盖地图重新归类为向UNCCD报告（森林，草地，农田，湿地，人造地区，裸地和水域）所需的7个土地覆盖类别。理想情况是年度土地覆盖地图是首选，但至少需要开始和结束年份的土地覆盖地图。"
+
+#: ../../source/background/understanding_indicators.rst:322
+msgid ""
+"To estimate the changes in C stocks for the reporting period C conversion "
+"coefficients for changes in land use, management and inputs are recommended "
+"by the IPCC and the UNCCD. However, spatially explicit information on "
+"management and C inputs is not available for most regions. As such, only "
+"land use conversion coefficient can be applied for estimating changes in C "
+"stocks (using land cover as a proxy for land use). The coefficients used "
+"were the result of a literature review performed by the UNCCD and are "
+"presented in the table below. Those coefficients represent the proportional "
+"in C stocks after 20 years of land cover change."
+msgstr ""
+"为了估算报告期内碳储存量的变化，气候变化专门组织和防治荒漠化公约建议了土地使用，管理和投入变化的C换算系数。然而，大部分地区都没有关于管理和C输入的空间明确信息。因此，只有土地利用转换系数可用于估算碳储量的变化（使用土地覆盖作为土地利用的替代指标）。所使用的系数是“防治荒漠化公约”进行的文献审查的结果，并列于下表。这些系数表示土地覆被变化20年后C储量的比例。"
+
+#: ../../source/background/understanding_indicators.rst:335
+msgid ""
+"Changes in SOC are better studied for land cover transitions involving "
+"agriculture, and for that reason there is a different set of coefficients "
+"for each of the main global climatic regions: Temperate Dry (f = 0.80), "
+"Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = "
+"0.48), and Tropical Montane (f = 0.64)."
+msgstr ""
+"对于涉及农业的土地覆盖变化，SOC的变化得到了更好的研究，因此对于每个主要的全球气候区域都有一套不同的系数：温带干燥（f = 0.80），温带湿度（f "
+"= 0.69），热带干燥（f = 0.58），热带潮湿（f = 0.48）和热带山地（f = 0.64）。"
+
+#: ../../source/background/understanding_indicators.rst:341
+msgid ""
+"Compute relative different in SOC between the baseline and the target "
+"period, areas which experienced a loss in SOC of 10% of more during the "
+"reporting period will be considered potentially degraded, and areas "
+"experiencing a gain of 10% or more as potentially improved."
+msgstr ""
+"计算基准线和目标周期内SOC相对不同的区域，在报告期内发生SOC损失10％以上的区域将被视为潜在退化，并且可能改善的区域会增加10％或更多。"
+
+#: ../../source/background/understanding_indicators.rst:351
+msgid "Combining indicators"
+msgstr "结合指标"
+
+#: ../../source/background/understanding_indicators.rst:353
+msgid ""
+"The integration of the three SDG 15.3.1 sub-indicators is done following the"
+" one-out all-out rule, this means that if an area was identified as "
+"potentially degraded by any of the sub-indicators, then that area will be "
+"considered potentially degraded for reporting purposes."
+msgstr ""
+"三项可持续发展目标15.3.1子指标的整合遵循一项全面淘汰规则，这意味着如果某个区域被任何次级指标确定为潜在退化，那么该区域将被视为潜在可能出于报告目的而降级。"

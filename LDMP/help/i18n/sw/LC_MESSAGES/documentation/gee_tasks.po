@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 11:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/documentation/gee_tasks.rst:2
+msgid "View and download results"
+msgstr "Angalia na kupakua matokeo"
+
+#: ../../source/documentation/gee_tasks.rst:6
+msgid ""
+"Once you have submitted a calculation using |trends.earth|, it is sent to "
+"Google Earth Engine to run the calculations in the cloud. To view the Google"
+" Earth Engine (GEE) tasks you have running, and to download your results, "
+"select the cloud with the arrow facing down icon (|iconCloudDownload|). This"
+" will open up the `Download results from Earth Engine` dialog box."
+msgstr ""
+"Mara baada ya kuwasilisha hesabu kutumia | trends.earth |, ni kupelekwa kwa "
+"Google Earth Engine ili kuendesha mahesabu katika wingu. Kuangalia kazi za "
+"Google Earth Engine (GEE) unazoendesha, na kupakua matokeo yako, chagua "
+"wingu na mshale unakabiliwa na icon chini (| iconCloudDownload |). Hii "
+"itafungua matokeo ya 'Pakua kutoka kwenye sanduku la dialog Engine Earth'."
+
+#: ../../source/documentation/gee_tasks.rst:12
+msgid ""
+"Click `Refresh List` to show all the tasks you have submitted and their "
+"status."
+msgstr ""
+"Bonyeza `Orodha ya Kuboresha Upya 'kuonyesha vitu vyote ulivyosilisha na "
+"hali yao."
+
+#: ../../source/documentation/gee_tasks.rst:14
+msgid ""
+"Users can view their current and previous tasks here. the table shows the "
+"task name provided by the user, which analysis is running (job), the start "
+"time and end time of when the task was started and completed and whether or "
+"not the task was successful. The Details page outlines the different options"
+" the user chose for each task."
+msgstr ""
+"Watumiaji wanaweza kuona kazi zao za sasa na zilizopita hapa. meza "
+"inaonyesha jina la kazi iliyotolewa na mtumiaji, uchambuzi unaoendesha "
+"(kazi), wakati wa mwanzo na mwisho wa wakati kazi ilianzishwa na kukamilika "
+"na ikiwa kazi haijafanikiwa. Ukurasa wa Maelezo unaonyesha chaguo tofauti "
+"ambazo mtumiaji alichagua kwa kila kazi."
+
+#: ../../source/documentation/gee_tasks.rst:26
+msgid ""
+"To download results to the computer once a task has finished, click on the "
+"task you are interested in downloading results for, then click `Download "
+"results`. In the window that appears, choose the location in which to save "
+"the download. Note that some downloads might consist of multiple files - all"
+" of these files need to be kept together if the results are moved to a "
+"different location on the computer (or saved to a USB stick)."
+msgstr ""
+"Ili kupakua matokeo kwa kompyuta mara moja kazi imekamilisha, bofya kwenye "
+"kazi unayopenda kupakua matokeo, kisha bonyeza 'Matokeo ya kupakua`. Katika "
+"dirisha inayoonekana, chagua eneo ambalo unaleta kupakua. Kumbuka kuwa "
+"baadhi ya downloads inaweza kuwa na faili nyingi - mafaili haya yote "
+"yanahitajika pamoja ikiwa matokeo yanahamishwa mahali tofauti kwenye "
+"kompyuta (au kuhifadhiwa kwenye fimbo ya USB)."

@@ -1,0 +1,333 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/about/data_sources.rst:2
+msgid "Data sources"
+msgstr "Fontes de dados"
+
+#: ../../source/about/data_sources.rst:4
+msgid ""
+"|trends.earth| draws on a number of data sources. The data sets listed below"
+" are owned/made available by the following organizations and individuals "
+"under separate terms as indicated in their respective metadata."
+msgstr ""
+"|trends.earth| baseia-se em várias fontes de dados. Os conjuntos de dados "
+"listados abaixo são de propriedade / disponibilizados pelas seguintes "
+"organizações e indivíduos em termos separados, conforme indicado em seus "
+"respectivos metadados."
+
+#: ../../source/about/data_sources.rst:9
+msgid "NDVI"
+msgstr "NDVI"
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Sensor/Dataset"
+msgstr "Sensor / conjunto de dados"
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Temporal"
+msgstr "Temporal"
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Spatial"
+msgstr "Espacial"
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "Extent"
+msgstr "Extensão"
+
+#: ../../source/about/data_sources.rst:12
+#: ../../source/about/data_sources.rst:27
+#: ../../source/about/data_sources.rst:42
+#: ../../source/about/data_sources.rst:62
+#: ../../source/about/data_sources.rst:74
+#: ../../source/about/data_sources.rst:86
+#: ../../source/about/data_sources.rst:98
+#: ../../source/about/data_sources.rst:109
+msgid "License"
+msgstr "Licença"
+
+#: ../../source/about/data_sources.rst:14
+msgid "`AVHRR/GIMMS`_"
+msgstr "`AVHRR / GIMMS`_"
+
+#: ../../source/about/data_sources.rst:14
+msgid "1982-2015"
+msgstr "1982-2015"
+
+#: ../../source/about/data_sources.rst:14
+#: ../../source/about/data_sources.rst:100
+msgid "8 km"
+msgstr "8 km"
+
+#: ../../source/about/data_sources.rst:14
+#: ../../source/about/data_sources.rst:16
+#: ../../source/about/data_sources.rst:29
+#: ../../source/about/data_sources.rst:31
+#: ../../source/about/data_sources.rst:44
+#: ../../source/about/data_sources.rst:46
+#: ../../source/about/data_sources.rst:64
+#: ../../source/about/data_sources.rst:76
+#: ../../source/about/data_sources.rst:88
+#: ../../source/about/data_sources.rst:100
+#: ../../source/about/data_sources.rst:111
+msgid "Global"
+msgstr "Global"
+
+#: ../../source/about/data_sources.rst:14
+#: ../../source/about/data_sources.rst:16
+#: ../../source/about/data_sources.rst:29
+#: ../../source/about/data_sources.rst:31
+#: ../../source/about/data_sources.rst:44
+#: ../../source/about/data_sources.rst:46
+#: ../../source/about/data_sources.rst:48
+#: ../../source/about/data_sources.rst:50
+#: ../../source/about/data_sources.rst:64
+#: ../../source/about/data_sources.rst:100
+#: ../../source/about/data_sources.rst:111
+msgid "`Public Domain`_"
+msgstr "`Domínio público`_"
+
+#: ../../source/about/data_sources.rst:16
+msgid "`MOD13Q1-coll6`_"
+msgstr "`MOD13Q1-coll6`_"
+
+#: ../../source/about/data_sources.rst:16
+msgid "2001-2016"
+msgstr "2001-2016"
+
+#: ../../source/about/data_sources.rst:16
+#: ../../source/about/data_sources.rst:88
+msgid "250 m"
+msgstr "250 m"
+
+#: ../../source/about/data_sources.rst:24
+msgid "Soil moisture"
+msgstr "Umidade do solo"
+
+#: ../../source/about/data_sources.rst:29
+msgid "`MERRA 2`_"
+msgstr "`MERRA 2`_"
+
+#: ../../source/about/data_sources.rst:29
+msgid "1980-2016"
+msgstr "1980-2016"
+
+#: ../../source/about/data_sources.rst:29
+msgid "0.5° x 0.625°"
+msgstr "0,5 ° x 0,625 °"
+
+#: ../../source/about/data_sources.rst:31
+msgid "`ERA I`_"
+msgstr "`ERA I`_"
+
+#: ../../source/about/data_sources.rst:31
+#: ../../source/about/data_sources.rst:44
+msgid "1979-2016"
+msgstr "1979-2016"
+
+#: ../../source/about/data_sources.rst:31
+msgid "0.75° x 0.75°"
+msgstr "0,75 x 0,75"
+
+#: ../../source/about/data_sources.rst:39
+msgid "Precipitation"
+msgstr "Precipitação"
+
+#: ../../source/about/data_sources.rst:44
+msgid "`GPCP v2.3 1 month`_"
+msgstr "`GPCP v2.3 1 mês`_"
+
+#: ../../source/about/data_sources.rst:44
+msgid "2.5° x 2.5°"
+msgstr "2,5 ° x 2,5 °"
+
+#: ../../source/about/data_sources.rst:46
+msgid "`GPCC V7`_"
+msgstr "`GPCC V7`_"
+
+#: ../../source/about/data_sources.rst:46
+msgid "1901-2016"
+msgstr "1901-2016"
+
+#: ../../source/about/data_sources.rst:46
+msgid "1° x 1°"
+msgstr "1 ° x 1 °"
+
+#: ../../source/about/data_sources.rst:48
+msgid "`CHIRPS`_"
+msgstr "`CHIRPS`_"
+
+#: ../../source/about/data_sources.rst:48
+msgid "1981-2016"
+msgstr "1981-2016"
+
+#: ../../source/about/data_sources.rst:48
+msgid "5 km"
+msgstr "5 km"
+
+#: ../../source/about/data_sources.rst:48
+msgid "50N-50S"
+msgstr "50N-50S"
+
+#: ../../source/about/data_sources.rst:50
+msgid "`PERSIANN-CDR`_"
+msgstr "`PERSIANN-CDR`_"
+
+#: ../../source/about/data_sources.rst:50
+msgid "1983-2015"
+msgstr "1983-2015"
+
+#: ../../source/about/data_sources.rst:50
+msgid "25 km"
+msgstr "25 km"
+
+#: ../../source/about/data_sources.rst:50
+msgid "60N-60S"
+msgstr "60N-60S"
+
+#: ../../source/about/data_sources.rst:59
+msgid "Evapotranspiration"
+msgstr "Evapotranspiração"
+
+#: ../../source/about/data_sources.rst:64
+msgid "MOD16A2_"
+msgstr "MOD16A2_"
+
+#: ../../source/about/data_sources.rst:64
+msgid "2000-2014"
+msgstr "2000-2014"
+
+#: ../../source/about/data_sources.rst:64
+msgid "1 km"
+msgstr "1 km"
+
+#: ../../source/about/data_sources.rst:71
+msgid "Land cover"
+msgstr "Cobertura da terra"
+
+#: ../../source/about/data_sources.rst:76
+msgid "`ESA CCI Land Cover`_"
+msgstr "Cobertura Terrestre da ESA CCI"
+
+#: ../../source/about/data_sources.rst:76
+msgid "1992-2015"
+msgstr "1992-2015"
+
+#: ../../source/about/data_sources.rst:76
+msgid "300 m"
+msgstr "300 m"
+
+#: ../../source/about/data_sources.rst:76
+msgid "`CC by-SA 3.0`_"
+msgstr "`CC by-SA 3.0`_"
+
+#: ../../source/about/data_sources.rst:83
+msgid "Soil carbon"
+msgstr "Carbono do solo"
+
+#: ../../source/about/data_sources.rst:88
+msgid "`Soil Grids (ISRIC)`_"
+msgstr "`Grades do solo (ISRIC)`_"
+
+#: ../../source/about/data_sources.rst:88
+#: ../../source/about/data_sources.rst:111
+msgid "Present"
+msgstr "Presente"
+
+#: ../../source/about/data_sources.rst:88
+msgid "`CC by-SA 4.0`_"
+msgstr "CC by-SA 4.0`_"
+
+#: ../../source/about/data_sources.rst:95
+msgid "Agroecological Zones"
+msgstr "Zonas agroecológicas"
+
+#: ../../source/about/data_sources.rst:100
+msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
+msgstr "`FAO - IIASA - Zonas Agroecológicas Globais (GAEZ)`_"
+
+#: ../../source/about/data_sources.rst:100
+msgid "2000"
+msgstr "2000"
+
+#: ../../source/about/data_sources.rst:106
+msgid "Administrative Boundaries"
+msgstr "Fronteiras Administrativas"
+
+#: ../../source/about/data_sources.rst:111
+msgid "`Natural Earth Administrative Boundaries`_"
+msgstr "`Limites Administrativos da Terra Natural`_"
+
+#: ../../source/about/data_sources.rst:111
+msgid "10/50m"
+msgstr "10 / 50m"
+
+#: ../../source/about/data_sources.rst:115
+msgid ""
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, are"
+" in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
+msgstr ""
+"Os 'Limites Administrativos da Terra Natural' fornecidos no Trends.Earth, "
+"estão no domínio público '. Os limites e nomes usados ​​e as designações "
+"usadas no Trends.Earth não implicam aprovação ou aceitação oficial da "
+"Conservation International Foundation ou de suas organizações parceiras e "
+"colaboradores."
+
+#: ../../source/about/data_sources.rst:121
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+"Se estiver usando o Trends.Earth para fins oficiais, é recomendável que os "
+"usuários escolham um limite oficial fornecido pelo escritório designado de "
+"seu país."

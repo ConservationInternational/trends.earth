@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.54\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/documentation/data_download.rst:2
+msgid "Download data"
+msgstr "下载数据"
+
+#: ../../source/documentation/data_download.rst:7
+msgid ""
+"To download data, select the globe icon (|iconGlobe|). This will open up the"
+" \"Download Data\" dialog box:"
+msgstr ""
+
+#: ../../source/documentation/data_download.rst:10
+msgid ""
+"If you would like to work with the original raw data used in |trends.earth|,"
+" you can select select an area of interest and download the desired data for"
+" further analysis."
+msgstr ""
+
+#: ../../source/documentation/data_download.rst:17
+msgid ""
+"The table below describes all the data available through the toolbox. It "
+"specifies data sources, resolutions, coverage and the different indicators "
+"for which each data set is used."
+msgstr "下表介绍了通过工具箱可用的所有数据。它规定了数据源，分辨率，覆盖范围以及每个数据集使用的不同指标。"

@@ -10,7 +10,7 @@ Use custom land cover data
 - **Internet access**: Not required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial06_Using_Custom_Land_Cover.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_
 
 .. note:: The land cover dataset for this tutorial were provided by the `Regional Centre For Mapping Resource For Development <http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>`_ and can be downloaded from this `link <https://www.dropbox.com/s/rl8afjh7xhnhk5a/uganda_land_cover.zip?dl=0>`_.
    

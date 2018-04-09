@@ -10,7 +10,7 @@ Use custom productivity data
 - **Internet access**: Not required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial05_Using_Custom_Productivity.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_
 
 Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of declining, early signs of decline, stable but stressed, stable, or increasing primary productivity.
    

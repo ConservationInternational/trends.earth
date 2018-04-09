@@ -10,7 +10,7 @@ Use custom soil data
 - **Internet access**: Not required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial07_Using_Custom_Soil_Carbon.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_
 
 .. note:: This tool assumes that the units of the raster layer to be imported are **Metrics Tons of organic carbon per hectare**. If your layer is in different units, please make the necessary conversions before using it in Trends.Earth.
 

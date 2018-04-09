@@ -10,7 +10,7 @@ Run 1-step subindicators
 - **Internet access**: Required
 
 .. note:: `Download this page as a PDF for off-line use 
-   <../pdfs/Trends.Earth_Tutorial03_Computing_Indicators.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_
 
 1. Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|).
    

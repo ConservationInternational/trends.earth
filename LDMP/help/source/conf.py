@@ -45,7 +45,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Trends.Earth'
-copyright = u'2017, Conservation International'
+copyright = u'2018, Conservation International'
 
 locale_dirs = ['../i18n/']
 gettext_compact = False

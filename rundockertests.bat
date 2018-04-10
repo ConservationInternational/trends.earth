@@ -2,14 +2,14 @@
 REM Run docker tests on your local machine
 
 set PLUGIN_NAME="LDMP"
-set QGIS_VERSION_TAG="master_2"
+set QGIS_VERSION_TAG=master_2
  
-set DOCKER_RUN_COMMAND="docker exec -it qgis-testing-environment sh -c"
+set DOCKER_RUN_COMMAND=docker exec -it trendsearth_qgis-testing-environment_1 sh -c
 
 docker-compose down -v
 docker-compose up -d
 docker-compose ps
-timeout 10
+timeout 2
 
 REM Setup docker instance
 %DOCKER_RUN_COMMAND% "pip install pip==9.0.1"

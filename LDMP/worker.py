@@ -130,7 +130,7 @@ def worker_finished(result, thread, worker, iface, message_bar_item):
 
 
 def worker_error(e):
-    log('Exception in worker thread: {}'.format(e))
+    log(u'Exception in worker thread: {}'.format(e))
 
 
 def set_worker_message(message, message_bar_item):

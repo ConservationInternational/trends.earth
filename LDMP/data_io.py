@@ -73,7 +73,7 @@ class RemapVectorWorker(AbstractWorker):
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
         t = QgsCoordinateTransform(crs_src, crs_dst)
 
-        l_out = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj4()),
+        l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj4()),
                                "land cover (transformed)",  
                                "memory")
         l_out.dataProvider().addAttributes([QgsField('code', QVariant.Int)])
@@ -504,7 +504,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
         if f:
             self.layer_list = get_layer_info_from_file(os.path.normcase(os.path.normpath(f)))
             if self.layer_list:
-                bands = ['Band {}: {}'.format(layer[2], layer[1]) for layer in self.layer_list]
+                bands = [u'Band {}: {}'.format(layer[2], layer[1]) for layer in self.layer_list]
                 self.layers_model.setStringList(bands)
                 self.layers_view.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
                 for n in range(len(self.layer_list)):
@@ -750,17 +750,17 @@ class DlgDataIOImportBase(QtGui.QDialog):
         out_res = self.get_out_res_wgs84()
         if in_res < out_res:
             if self.datatype == 'categorical':
-                log('Resampling with mode (in res: {}, out_res: {}'.format(in_res, out_res))
+                log(u'Resampling with mode (in res: {}, out_res: {}'.format(in_res, out_res))
                 return gdal.GRA_Mode
             elif self.datatype == 'continuous':
-                log('Resampling with average (in res: {}, out_res: {}'.format(in_res, out_res))
+                log(u'Resampling with average (in res: {}, out_res: {}'.format(in_res, out_res))
                 return gdal.GRA_Average
             else:
                 raise ValueError('Unknown datatype')
         else:
             # If output resolution is finer than the original data, use nearest 
             # neighbor
-            log('Resampling with nearest neighbor (in res: {}, out_res: {}'.format(in_res, out_res))
+            log(u'Resampling with nearest neighbor (in res: {}, out_res: {}'.format(in_res, out_res))
             return gdal.GRA_NearestNeighbour
 
     def get_in_res_wgs84(self):
@@ -780,8 +780,8 @@ class DlgDataIOImportBase(QtGui.QDialog):
         (ulx, uly, ulz) = tx.TransformPoint(geo_t[0], geo_t[3])
         (lrx, lry, lrz) = tx.TransformPoint(geo_t[0] + geo_t[1]*x_size, \
                                                      geo_t[3] + geo_t[5]*y_size)
-        log('ulx: {}, uly: {}, ulz: {}'.format(ulx, uly, ulz))
-        log('lrx: {}, lry: {}, lrz: {}'.format(lrx, lry, lrz))
+        log(u'ulx: {}, uly: {}, ulz: {}'.format(ulx, uly, ulz))
+        log(u'lrx: {}, lry: {}, lrz: {}'.format(lrx, lry, lrz))
         # As an approximation of what the output res would be in WGS4, use an 
         # average of the x and y res of this image
         return ((lrx - ulx)/float(x_size) + (lry - uly)/float(y_size)) / 2
@@ -1033,7 +1033,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                 return
             else:
                 stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
-        log('Stats are: {}'.format(stats))
+        log(u'Stats are: {}'.format(stats))
         if not stats:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
             return

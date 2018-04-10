@@ -123,7 +123,7 @@ class AOI(object):
         return self.crs_dst.toWkt()
 
     def update_from_file(self, f, wrap=False):
-        log('Setting up AOI from file at {}"'.format(f))
+        log(u'Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
             return
@@ -197,7 +197,7 @@ class AOI(object):
             w_intersection_out = w_intersection.ExportToWkt()
             union_out = union.ExportToWkt()
         else:
-            raise ValueError('Unrecognized out_format "{}"'.format(out_format))
+            raise ValueError(u'Unrecognized out_format "{}"'.format(out_format))
 
         if e_intersection.IsEmpty() or w_intersection.IsEmpty():
             # If there is no area in one of the hemispheres, return the extent 
@@ -376,7 +376,7 @@ class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
                 return True
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different folder.".format(folder)))
+                                           self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
                 return False
         else:
             return False
@@ -516,7 +516,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
                 return True
             else:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Cannot read {}. Choose a different file.".format(vector_file)))
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
                 return False
         else:
             return False
@@ -613,7 +613,7 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def load_admin_polys(self):
         adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
-        admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
         if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':

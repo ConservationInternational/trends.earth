@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=2.18
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.56
+version=0.56.1
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -21,7 +21,9 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.56
+changelog=0.56.1
+    - Fix marshhmallow error on plugin load
+  0.56
     - Fix issue with rasterizing data (empty rasters on output)
     - Force user to choose output resolution if rasterizing a vector
     - Support calculation of SOC degradation from custom SOC and LC data

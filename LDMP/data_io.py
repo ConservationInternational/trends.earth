@@ -565,6 +565,8 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
         self.btn_raster_dataset_browse.clicked.connect(self.open_raster_browse)
         self.btn_polygon_dataset_browse.clicked.connect(self.open_vector_browse)
 
+        self.groupBox_output_resolution.clicked.connect(self.output_res_toggled)
+
     def radio_raster_input_toggled(self):
         has_file = False
         if self.radio_raster_input.isChecked():
@@ -576,6 +578,7 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
             self.lineEdit_vector_file.setEnabled(False)
             self.label_fieldname.setEnabled(False)
             self.comboBox_fieldname.setEnabled(False)
+            self.groupBox_output_resolution.setChecked(False)
 
             if self.lineEdit_raster_file.text():
                 has_file = True
@@ -588,10 +591,19 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
             self.lineEdit_vector_file.setEnabled(True)
             self.label_fieldname.setEnabled(True)
             self.comboBox_fieldname.setEnabled(True)
+            self.groupBox_output_resolution.setChecked(True)
 
             if self.lineEdit_vector_file.text():
                 has_file=True
         self.inputTypeChanged.emit(has_file)
+
+    def output_res_toggled(self):
+        # Ensure the groupBox_output_resolution remains checked if vector 
+        # output is chosen
+        if self.radio_raster_input.isChecked():
+            pass
+        else:
+            self.groupBox_output_resolution.setChecked(True)
 
     def open_raster_browse(self):
         if self.lineEdit_raster_file.text():
@@ -782,6 +794,7 @@ class DlgDataIOImportBase(QtGui.QDialog):
     def remap_vector(self, l, out_file, remap_dict, attribute):
         out_res = self.get_out_res_wgs84()
         log(u'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(out_file, out_res, attribute))
+        log(u'Remap dict "{}"'.format(remap_dict))
         remap_vector_worker = StartWorker(RemapVectorWorker,
                                           'rasterizing and remapping values',
                                           l,

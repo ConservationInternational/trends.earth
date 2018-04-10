@@ -95,7 +95,7 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", 'Contacting {} server...'.format(self.server_name)))
+            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", u'Contacting {} server...'.format(self.server_name)))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
@@ -103,13 +103,13 @@ class Request(object):
             log('API unable to access server - check internet connection')
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Unable to login to {} server. Check your internet connection.".format(self.server_name)))
+                                       QtGui.QApplication.translate("LDMP", u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
             QtGui.QMessageBox.critical(None,
                                        QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Unable to connect to {} server.".format(self.server_name)))
+                                       QtGui.QApplication.translate("LDMP", u"Unable to connect to {} server.".format(self.server_name)))
             resp = None
 
     def save_resp(self, resp):
@@ -318,10 +318,10 @@ def get_execution(id=None, date=None):
     if id:
         query.append(u'user_id={}'.format(quote_plus(id)))
     if date:
-        query.append('updated_at={}'.format(date))
+        query.append(u'updated_at={}'.format(date))
     query = "?" + "&".join(query)
 
-    resp = call_api('/api/v1/execution{}'.format(query), method='get', use_token=True)
+    resp = call_api(u'/api/v1/execution{}'.format(query), method='get', use_token=True)
     if not resp:
         return None
     else:
@@ -343,9 +343,9 @@ def get_execution(id=None, date=None):
 
 def get_script(id=None):
     if id:
-        resp = call_api('/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
+        resp = call_api(u'/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
     else:
-        resp = call_api('/api/v1/script', 'get', use_token=True)
+        resp = call_api(u'/api/v1/script', 'get', use_token=True)
     if resp:
         return resp['data']
     else:

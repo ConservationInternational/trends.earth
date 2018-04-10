@@ -79,14 +79,6 @@ class RemapVectorWorker(AbstractWorker):
         l_out.dataProvider().addAttributes([QgsField('code', QVariant.Int)])
         l_out.updateFields()
 
-        # Write l_out to a shapefile for usage by gdal rasterize
-        temp_shp = tempfile.NamedTemporaryFile(suffix='.shp').name
-        log(u'Writing temporary shapefile to {}'.format(temp_shp))
-        err = QgsVectorFileWriter.writeAsVectorFormat(l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile")
-        if err != QgsVectorFileWriter.NoError:
-            log(u'Error writing layer to {}'.format(temp_shp))
-            return None
-
         feats = []
         n = 1
         for f in self.l.getFeatures():
@@ -112,6 +104,14 @@ class RemapVectorWorker(AbstractWorker):
                 feats = []
         if not l_out.isValid():
             log(u'Error remapping and transforming vector layer from "{}" to "{}")'.format(crs_src_string, crs_dst.toProj4()))
+            return None
+
+        # Write l_out to a shapefile for usage by gdal rasterize
+        temp_shp = tempfile.NamedTemporaryFile(suffix='.shp').name
+        log(u'Writing temporary shapefile to {}'.format(temp_shp))
+        err = QgsVectorFileWriter.writeAsVectorFormat(l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile")
+        if err != QgsVectorFileWriter.NoError:
+            log(u'Error writing layer to {}'.format(temp_shp))
             return None
 
         log('Rasterizing...')

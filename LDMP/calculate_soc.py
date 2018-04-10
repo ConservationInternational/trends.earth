@@ -430,7 +430,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         in_files = [soc_vrt, climate_zones]
         in_files.extend(lc_vrts)
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log('Saving SOC input files to {}'.format(in_vrt))
+        log(u'Saving SOC input files to {}'.format(in_vrt))
         gdal.BuildVRT(in_vrt,
                       in_files,
                       resolution='highest', 

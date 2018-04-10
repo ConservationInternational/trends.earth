@@ -21,7 +21,11 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.54
+changelog=0.56
+    - Fix issue with rasterizing data (empty rasters on output)
+    - Force user to choose output resolution if rasterizing a vector
+    - Support calculation of SOC degradation from custom SOC and LC data
+  0.54
     - Support loading of custom LPD, SOC, and LC data.
     - Cleanup styles so they match maps.trends.earth
     - Upgrade pyopenxl

@@ -31,10 +31,10 @@ class DialogSettingsLoginTests(unittest.TestCase):
         dialog.password.setText(regular_keys['password'])
         self.assertEquals(regular_keys['email'], dialog.email.text())
         self.assertEquals(regular_keys['password'], dialog.password.text())
-        print('Testing valid login')
         okWidget = dialog.buttonBox.button(dialog.buttonBox.Ok)
-        QTest.mouseClick(okWidget, Qt.LeftButton)
-        self.assertTrue(dialog.ok)
+        qApp.postEvent(dialog, QTest.mouseClick(okWidget, Qt.LeftButton))
+        print('Testing valid login')
+        self.assertTrue(dialog.exec_())
 
         ret = dialog.login()
         self.assertTrue(ret)

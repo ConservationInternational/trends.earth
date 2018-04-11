@@ -21,4 +21,4 @@ $DOCKER_RUN_COMMAND "pip install boto3"
 $DOCKER_RUN_COMMAND "cd /tests_directory && paver setup && paver package --tests"
 
 # Run the tests
-$DOCKER_RUN_COMMAND "DISPLAY=:99 QT_X11_NO_MITSHM=1 GSHOSTNAME=boundless-test qgis_testrunner.sh LDMP.test.dialog_settings_tests"
+$DOCKER_RUN_COMMAND "DISPLAY=:99 QT_X11_NO_MITSHM=1 GSHOSTNAME=boundless-test qgis_testrunner.sh LDMP.test.testplugin"

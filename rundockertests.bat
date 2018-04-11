@@ -23,4 +23,4 @@ docker cp trends.earth_admin_user_credentials.json %CONTAINER%:/tests_directory/
 %DOCKER_RUN_COMMAND% "cd /tests_directory && paver setup && paver package --tests"
 
 REM Run the tests
-%DOCKER_RUN_COMMAND% "DISPLAY=:99 QT_X11_NO_MITSHM=1 GSHOSTNAME=boundless-test qgis_testrunner.sh LDMP.test.dialog_settings_tests"
+%DOCKER_RUN_COMMAND% "DISPLAY=:99 QT_X11_NO_MITSHM=1 GSHOSTNAME=boundless-test qgis_testrunner.sh LDMP.test.testplugin"

@@ -43,7 +43,6 @@ class DialogSettingsLoginTests(unittest.TestCase):
         d.email.setText('')
         d.password.setText(regular_keys['password'])
         QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        print('Testing valid login')
         self.assertFalse(d.exec_())
 
         # Test login without password
@@ -52,8 +51,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
         d.email.setText(regular_keys['email'])
         d.password.setText('')
         QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        print('Testing valid login')
-        self.assertFalse(d.exec_())
+        self.assertTrue(d.exec_())
 
         # Test login without email and without password
         print('Testing login without email and without password')
@@ -61,13 +59,9 @@ class DialogSettingsLoginTests(unittest.TestCase):
         d.email.setText('')
         d.password.setText('')
         QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        print('Testing valid login')
-        self.assertFalse(d.exec_())
+        self.assertTrue(d.exec_())
 
-def suite():
+def SettingsSuite():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, 'test'))
     return suite
-
-def run_all():
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(suite())

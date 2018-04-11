@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-from LDMP.tests.test_dialog_settings import SettingSuite
+from LDMP.test.test_dialog_settings import SettingSuite
 
 def unitTests():
     _tests = []

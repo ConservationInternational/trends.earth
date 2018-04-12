@@ -1,9 +1,9 @@
+paver
 boto3
 sphinx
 sphinx-intl
 sphinx-rtd-theme
 transifex-client
-rst2pdf
 pylint
 pep8
 autopep8

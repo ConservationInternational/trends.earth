@@ -137,9 +137,11 @@ class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Enter your email address."), None)
+            return
         elif not self.password.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Enter your password."), None)
+            return
 
         resp = login(self.email.text(), self.password.text())
         if resp:
@@ -222,6 +224,7 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Enter your email address to reset your password."), None)
+            return
 
         reply = QtGui.QMessageBox.question(None, self.tr("Reset password?"),
                                            self.tr(u"Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(self.email.text())),
@@ -267,12 +270,16 @@ class DlgSettingsEditUpdate(QtGui.QDialog, Ui_DlgSettingsEditUpdate):
     def update_profile(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
+            return
         elif not self.name.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
+            return
         elif not self.organization.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
+            return
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
+            return
 
         resp = update_user(self.email.text(), self.name.text(),
                            self.organization.text(), self.country.currentText())

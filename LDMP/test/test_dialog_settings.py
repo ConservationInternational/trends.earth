@@ -27,39 +27,39 @@ from LDMP.test import regular_keys, admin_keys
 
 class DialogSettingsLoginTests(unittest.TestCase):
     def testLogin(self):
+        # Test valid login
         d = DlgSettingsLogin()
         d.email.setText(regular_keys['email'])
         d.password.setText(regular_keys['password'])
         self.assertEquals(regular_keys['email'], d.email.text())
         self.assertEquals(regular_keys['password'], d.password.text())
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
-        QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        print('Testing valid login')
-        self.assertTrue(d.exec_())
+        QTest.mouseClick(okWidget, Qt.LeftButton)
+        self.assertTrue(d.ok)
 
         # Test login without email
-        print('Testing login without email')
         d = DlgSettingsLogin()
         d.email.setText('')
         d.password.setText(regular_keys['password'])
-        QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        self.assertFalse(d.exec_())
+        okWidget = d.buttonBox.button(d.buttonBox.Ok)
+        QTest.mouseClick(okWidget, Qt.LeftButton)
+        self.assertFalse(d.ok)
 
         # Test login without password
-        print('Testing login without password')
         d = DlgSettingsLogin()
         d.email.setText(regular_keys['email'])
         d.password.setText('')
-        QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        self.assertTrue(d.exec_())
+        okWidget = d.buttonBox.button(d.buttonBox.Ok)
+        QTest.mouseClick(okWidget, Qt.LeftButton)
+        self.assertFalse(d.ok)
 
         # Test login without email and without password
-        print('Testing login without email and without password')
         d = DlgSettingsLogin()
         d.email.setText('')
         d.password.setText('')
-        QApplication.postEvent(d, QTest.mouseClick(okWidget, Qt.LeftButton))
-        self.assertTrue(d.exec_())
+        okWidget = d.buttonBox.button(d.buttonBox.Ok)
+        QTest.mouseClick(okWidget, Qt.LeftButton)
+        self.assertFalse(d.ok)
 
 def SettingsSuite():
     suite = unittest.TestSuite()

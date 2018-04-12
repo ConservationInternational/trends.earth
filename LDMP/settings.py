@@ -57,7 +57,7 @@ class DlgSettings(QtGui.QDialog, Ui_DlgSettings):
 
     def login(self):
         result = self.dlg_settings_login.exec_()
-        if result:
+        if result and self.dlg_settings_login.ok:
             self.close()
 
     def edit(self):
@@ -71,7 +71,7 @@ class DlgSettings(QtGui.QDialog, Ui_DlgSettings):
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
         ret = dlg_settings_edit_forgot_password.exec_()
-        if ret:
+        if ret and dlg_settings_edit_forgot_password.ok:
             self.done(QtGui.QDialog.Accepted)
 
 
@@ -121,6 +121,8 @@ class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
         self.buttonBox.accepted.connect(self.login)
         self.buttonBox.rejected.connect(self.close)
 
+        self.ok = False
+
     def showEvent(self, event):
         super(DlgSettingsLogin, self).showEvent(event)
 
@@ -135,11 +137,9 @@ class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Enter your email address."), None)
-            return False
         elif not self.password.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Enter your password."), None)
-            return False
 
         resp = login(self.email.text(), self.password.text())
         if resp:
@@ -148,8 +148,7 @@ class DlgSettingsLogin(QtGui.QDialog, Ui_DlgSettingsLogin):
                     self.tr(u"Logged in to the Trends.Earth server as {}.").format(self.email.text()))
             settings.setValue("LDMP/jobs_cache", None)
             self.done(QtGui.QDialog.Accepted)
-        else:
-            return False
+            self.ok = True
 
 
 class DlgSettingsEdit(QtGui.QDialog, Ui_DlgSettingsEdit):
@@ -164,10 +163,12 @@ class DlgSettingsEdit(QtGui.QDialog, Ui_DlgSettingsEdit):
 
         self.buttonBox.rejected.connect(self.close)
 
+        self.ok = False
+
     def change_user(self):
         dlg_settings_change_user = DlgSettingsLogin()
         ret = dlg_settings_change_user.exec_()
-        if ret:
+        if ret and dlg_settings_change_user.ok:
             self.close()
 
     def update_profile(self):
@@ -176,7 +177,7 @@ class DlgSettingsEdit(QtGui.QDialog, Ui_DlgSettingsEdit):
             return
         dlg_settings_edit_update = DlgSettingsEditUpdate(user)
         ret = dlg_settings_edit_update.exec_()
-        if ret:
+        if ret and dlg_settings_edit_update.ok:
             self.close()
 
     def delete(self):
@@ -196,9 +197,7 @@ class DlgSettingsEdit(QtGui.QDialog, Ui_DlgSettingsEdit):
                 settings.setValue("LDMP/password", None)
                 settings.setValue("LDMP/email", None)
                 self.close()
-                return True
-            else:
-                return False
+                self.ok = True
 
 
 class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassword):
@@ -209,6 +208,8 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
 
         self.buttonBox.accepted.connect(self.reset_password)
         self.buttonBox.rejected.connect(self.close)
+
+        self.ok = False
 
     def showEvent(self, event):
         super(DlgSettingsEditForgotPassword, self).showEvent(event)
@@ -221,7 +222,6 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Enter your email address to reset your password."), None)
-            return False
 
         reply = QtGui.QMessageBox.question(None, self.tr("Reset password?"),
                                            self.tr(u"Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(self.email.text())),
@@ -235,9 +235,7 @@ class DlgSettingsEditForgotPassword(QtGui.QDialog, Ui_DlgSettingsEditForgotPassw
                         self.tr("Success"),
                         self.tr(u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
                 settings.setValue("LDMP/password", None)
-                return True
-            else:
-                return False
+                self.ok = True
 
 
 class DlgSettingsEditUpdate(QtGui.QDialog, Ui_DlgSettingsEditUpdate):
@@ -264,19 +262,17 @@ class DlgSettingsEditUpdate(QtGui.QDialog, Ui_DlgSettingsEditUpdate):
         self.buttonBox.accepted.connect(self.update_profile)
         self.buttonBox.rejected.connect(self.close)
 
+        self.ok = False
+
     def update_profile(self):
         if not self.email.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
-            return False
         elif not self.name.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
-            return False
         elif not self.organization.text():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
-            return False
         elif not self.country.currentText():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
-            return False
 
         resp = update_user(self.email.text(), self.name.text(),
                            self.organization.text(), self.country.currentText())
@@ -285,4 +281,4 @@ class DlgSettingsEditUpdate(QtGui.QDialog, Ui_DlgSettingsEditUpdate):
             QtGui.QMessageBox.information(None, self.tr("Saved"),
                                           self.tr(u"Updated information for {}.").format(self.email.text()), None)
             self.close()
-            return True
+            self.ok = True

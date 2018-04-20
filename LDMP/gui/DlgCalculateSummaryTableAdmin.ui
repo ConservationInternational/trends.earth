@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>928</width>
-    <height>705</height>
+    <width>605</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -467,12 +467,12 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>WidgetDataIOSelectTELayerExisting</class>
+   <class>WidgetDataIOSelectTELayerImport</class>
    <extends>QComboBox</extends>
-   <header>LDMP/data_io</header>
+   <header>LDMP/data_io.h</header>
   </customwidget>
   <customwidget>
-   <class>WidgetDataIOSelectTELayerImport</class>
+   <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>

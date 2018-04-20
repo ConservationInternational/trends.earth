@@ -61,6 +61,83 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.resize(self.width(), 711)
 
+
+    def showEvent(self, event):
+        super(DlgCalculateProd, self).showEvent(event)
+
+        #######################################################################
+        #######################################################################
+        # Hack to calculate multiple countries at once for workshop preparation
+        #######################################################################
+        #######################################################################
+        # from PyQt4.QtCore import QTimer, Qt
+        # from PyQt4.QtGui import QMessageBox, QApplication
+        # from PyQt4.QtTest import QTest
+        # from LDMP.download import read_json
+        # from LDMP.worker import AbstractWorker, StartWorker
+        # from time import sleep
+        #
+        # class SleepWorker(AbstractWorker):
+        #     def __init__(self, time):
+        #         super(SleepWorker, self).__init__()
+        #         self.sleep_time = time
+        #
+        #     def work(self):
+        #         for n in range(100):
+        #             if self.killed:
+        #                 return None
+        #             else:
+        #                 sleep(self.sleep_time / float(100))
+        #                 self.progress.emit(n)
+        #         return True
+        #
+        # # Use Trends.Earth for calculation
+        # self.mode_te_prod.setChecked(True)
+        #
+        # # Ensure any message boxes that open are closed within 1 second
+        # def close_msg_boxes():
+        #     for w in QApplication.topLevelWidgets():
+        #         if isinstance(w, QMessageBox):
+        #             print('Closing message box')
+        #             QTest.keyClick(w, Qt.Key_Enter)
+        # timer = QTimer()
+        # timer.timeout.connect(close_msg_boxes)
+        # timer.start(1000)
+        #
+        # first_row = 0
+        # # first_row = self.area_tab.area_admin_0.findText('Turkey') + 1
+        # last_row = self.area_tab.area_admin_0.count()
+        # # last_row = self.area_tab.area_admin_0.findText('Portugal')
+        # log(u'First country: {}'.format(self.area_tab.area_admin_0.itemText(first_row)))
+        # log(u'Last country: {}'.format(self.area_tab.area_admin_0.itemText(last_row - 1)))
+        #
+        # # First make sure all admin boundaries are pre-downloaded
+        # for row in range(first_row, last_row):
+        #     index = self.area_tab.area_admin_0.model().index(row, 0)
+        #     country = self.area_tab.area_admin_0.model().data(index)
+        #     adm0_a3 = self.area_tab.admin_bounds_key[country]['code']
+        #     admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        #
+        # for row in range(first_row, last_row):
+        #     self.area_tab.area_admin_0.setCurrentIndex(row)
+        #     index = self.area_tab.area_admin_0.model().index(row, 0)
+        #     country = self.area_tab.area_admin_0.model().data(index)
+        #     name = u'{}_TE_Land_Productivity'.format(country)
+        #     log(name)
+        #     self.options_tab.task_name.setText(name)
+        #     self.btn_calculate()
+        #
+        #     # Sleep without freezing interface
+        #     sleep_worker = StartWorker(SleepWorker, 'sleeping', 90)
+        #     if not sleep_worker.success:
+        #         log(u'Processing error on: {}'.format(name))
+        #         #break
+        #######################################################################
+        #######################################################################
+        # End hack
+        #######################################################################
+        #######################################################################
+
     def traj_indic_changed(self):
         self.dataset_climate_update()
 

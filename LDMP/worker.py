@@ -114,7 +114,8 @@ def start_worker(worker, iface, message, with_progress=True):
 
 def worker_killed(result, thread, worker, iface, message_bar_item):
     # remove widget from message bar
-    iface.messageBar().popWidget(message_bar_item)
+    #iface.messageBar().popWidget(message_bar_item)
+    pass
 
 def worker_finished(result, thread, worker, iface, message_bar_item):
     # remove widget from message bar

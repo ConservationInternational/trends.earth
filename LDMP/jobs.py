@@ -119,6 +119,8 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         #
         # self.btn_refresh()
         #
+        # search_string = '_TE_Land_Productivity'
+        #
         # # Ensure any message boxes that open are closed within 1 second
         # def close_msg_boxes():
         #     for w in QApplication.topLevelWidgets():
@@ -128,20 +130,23 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         # timer = QTimer()
         # timer.timeout.connect(close_msg_boxes)
         # timer.start(1000)
-        # for row in range(len(self.jobs)):
-        #     if self.jobs[row]['status'] == 'FINISHED' and self.jobs[row]['results']['type'] == 'CloudResults':
-        #         name = self.jobs[row]['task_name']
-        #         country = name.replace('_All_Indicators_LPD', '')
-        #         out_file = os.path.join(u'C:/Users/azvol/Desktop/All_Indicators_for_USB', country, u'{}.json'.format(name))
-        #         if not os.path.exists(out_file):
-        #             if not os.path.exists(os.path.dirname(out_file)):
-        #                 os.makedirs(os.path.dirname(out_file))
-        #             log(u'Downloading {} to {}'.format(name, out_file))
-        #             download_cloud_results(self.jobs[row],
-        #                                    os.path.splitext(out_file)[0],
-        #                                    self.tr,
-        #                                    add_to_map=False)
-        #             sleep(2)
+        # jobs = [job for job in self.jobs if job['status'] == 'FINISHED' and \
+        #                                     job['results']['type'] == 'CloudResults' and \
+        #                                     re.search(search_string, job['task_name'])]
+        # for job in jobs:
+        #     name = job['task_name']
+        #     country = name.replace(search_string, '')
+        #     out_file = os.path.join(u'H:/Data/Trends.Earth/USB Stick Data/Trends.Earth_Data', country, u'{}.json'.format(name))
+        #     #out_file = os.path.join(u'C:/Users/azvol/Desktop/TE_Indicators_For_USB', country, u'{}.json'.format(name))
+        #     if not os.path.exists(out_file):
+        #         if not os.path.exists(os.path.dirname(out_file)):
+        #             os.makedirs(os.path.dirname(out_file))
+        #         log(u'Downloading {} to {}'.format(name, out_file))
+        #         download_cloud_results(job,
+        #                                os.path.splitext(out_file)[0],
+        #                                self.tr,
+        #                                add_to_map=False)
+        #         sleep(2)
         #######################################################################
         #######################################################################
         # End hack
@@ -283,7 +288,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                     else:
                         job_info = job['script_name']
                     f = QtGui.QFileDialog.getSaveFileName(self,
-                                                          self.tr(u'Choose a filename downloading results of: {}'.format(job_info)),
+                                                          self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
                                                           self.settings.value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
 

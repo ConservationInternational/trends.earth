@@ -33,7 +33,11 @@ from LDMP.worker import AbstractWorker, start_worker
 def check_hash_against_etag(url, filename, expected=None):
     if not expected:
         h = get_header(url)
-        expected = h.get('ETag', '').strip('"')
+        if not h:
+            log(u"Failed to fetch expected hash for {}".format(filename))
+            return False
+        else:
+            expected = h.get('ETag', '').strip('"')
 
     md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
 
@@ -41,7 +45,7 @@ def check_hash_against_etag(url, filename, expected=None):
         log(u"File hash verified for {}".format(filename))
         return True
     else:
-        log(u"Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash), 2)
+        log(u"Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash))
         return False
 
 

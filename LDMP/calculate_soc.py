@@ -419,7 +419,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
             gdal.BuildVRT(f,
                           lc_files[i],
                           bandList=[i + 1],
-                          outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
+                          outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
                           resolution='lowest',
                           resampleAlg=gdal.GRA_Mode,
                           separate=True)
@@ -435,7 +435,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                       in_files,
                       resolution='highest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
-                      outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
+                      outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
                       separate=True)
         # Lc bands start on band 3 as band 1 is initial soc, and band 2 is 
         # climate zones

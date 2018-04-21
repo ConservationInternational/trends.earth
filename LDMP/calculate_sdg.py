@@ -972,10 +972,6 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.meridian_split('layer', 'wkt')[1]
-        if len(wkts) > 1:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Reporting tool does not yet work for split bounding boxes."), None)
-            return
         n = 0
         output_sdg_tifs = []
         output_sdg_json = self.output_file_layer.text()
@@ -985,12 +981,15 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
             # keep the pixels aligned with the chosen productivity layer.
         
             if prod_mode == 'Trends.Earth productivity':
-                output_bounds = self.aoi.get_aligned_output_bounds(traj_vrt)
+                # TODO: Fix the output bounds to account for output bounds of 
+                # the wkt, not the full traj layer
+                output_bounds = self.aoi.get_aligned_output_bounds_deprecated(traj_vrt)
             else:
-                output_bounds = self.aoi.get_aligned_output_bounds(lpd_vrt)
+                # TODO: Fix the output bounds to account for output bounds of 
+                # the wkt, not the full lpd_vrt
+                output_bounds = self.aoi.get_aligned_output_bounds_deprecated(lpd_vrt)
 
-            #######################################################################
-            # Combine input rasters for SDG 15.3.1 into a VRT and crop to the AOI
+            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
@@ -1063,9 +1062,11 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                             this_sdg_tbl_prod, \
                             this_sdg_tbl_soc, \
                             this_sdg_tbl_lc = deg_worker.get_return()
+
                     soc_totals = soc_totals + this_soc_totals
                     lc_totals = lc_totals + this_lc_totals
-                    trans_prod_xtab = trans_prod_xtab + this_trans_prod_xtab
+                    if this_trans_prod_xtab[0][0].size != 0:
+                        trans_prod_xtab = merge_xtabs(trans_prod_xtab, this_trans_prod_xtab)
                     sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
                     sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc

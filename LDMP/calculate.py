@@ -216,7 +216,7 @@ class AOI(object):
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             return (True, [e_intersection_out, w_intersection_out])
 
-    def get_aligned_output_bounds(self, f):
+    def get_aligned_output_bounds_deprecated(self, f):
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
         # Use this to set bounds in vrt  files in order to keep the
         # pixels aligned with the chosen layer

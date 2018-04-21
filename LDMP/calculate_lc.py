@@ -261,7 +261,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                       [lc_initial_vrt, lc_final_vrt], 
                       resolution='lowest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
-                      outputBounds=self.aoi.get_aligned_output_bounds(lc_initial_vrt),
+                      outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
                       separate=True)
         
         lc_change_worker = StartWorker(LandCoverChangeWorker,

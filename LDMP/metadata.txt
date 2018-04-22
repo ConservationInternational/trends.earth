@@ -21,7 +21,12 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.56.2
+changelog=0.56.3
+    - Fix calculation of summary tables for AOIs that are split across the 
+      180th meridian (Fiji, Russia, etc.).
+    - Modify state calculation so areas with very small magnitude changes in 
+      NDVI integral (< .1 NDVI units over full period) are considered stable.
+  0.56.2
     - Minor unicode fixes.
   0.56.1
     - Fix marshhmallow error on plugin load

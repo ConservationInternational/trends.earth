@@ -971,24 +971,19 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
 
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
-        wkts = self.aoi.meridian_split('layer', 'wkt')[1]
-        n = 0
+        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
+        if prod_mode == 'Trends.Earth productivity':
+            bbs = self.aoi.get_aligned_output_bounds(traj_vrt)
+        else:
+            bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
+
         output_sdg_tifs = []
         output_sdg_json = self.output_file_layer.text()
-        for wkt in wkts:
+        for n in range(len(wkts)):
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
             # keep the pixels aligned with the chosen productivity layer.
         
-            if prod_mode == 'Trends.Earth productivity':
-                # TODO: Fix the output bounds to account for output bounds of 
-                # the wkt, not the full traj layer
-                output_bounds = self.aoi.get_aligned_output_bounds_deprecated(traj_vrt)
-            else:
-                # TODO: Fix the output bounds to account for output bounds of 
-                # the wkt, not the full lpd_vrt
-                output_bounds = self.aoi.get_aligned_output_bounds_deprecated(lpd_vrt)
-
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
@@ -998,7 +993,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                 in_files.extend([traj_vrt, perf_vrt, state_vrt])
                 gdal.BuildVRT(indic_vrt,
                               in_files,
-                              outputBounds=output_bounds,
+                              outputBounds=bbs[n],
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
@@ -1008,7 +1003,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                 in_files.append(lpd_vrt)
                 gdal.BuildVRT(indic_vrt,
                               in_files,
-                              outputBounds=output_bounds,
+                              outputBounds=bbs[n],
                               resolution=resample_alg[0],
                               resampleAlg=resample_alg[1],
                               separate=True)
@@ -1016,9 +1011,10 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
-            deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers', 
+            deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
                                              indic_vrt, masked_vrt, 
-                                             json.loads(QgsGeometry.fromWkt(wkt).exportToGeoJSON()))
+                                             json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
+                                             bbs[n])
             if not deg_lc_clip_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking SDG 15.3.1 input layers."), None)
@@ -1034,7 +1030,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
 
             output_sdg_tifs.append(output_sdg_tif)
             deg_worker = StartWorker(DegradationSummaryWorkerSDG,
-                                    'calculating summary table',
+                                    'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                      masked_vrt,
                                      prod_band_nums,
                                      prod_mode, 
@@ -1055,6 +1051,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                             sdg_tbl_soc, \
                             sdg_tbl_lc = deg_worker.get_return()
                 else:
+                    #TODO: Fix so it will total correctly with multiple wkts
                     this_soc_totals, \
                             this_lc_totals, \
                             this_trans_prod_xtab, \
@@ -1063,7 +1060,10 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                             this_sdg_tbl_soc, \
                             this_sdg_tbl_lc = deg_worker.get_return()
 
+                    log('soc_totals: {}'.format(soc_totals))
+                    log('this_soc_totals: {}'.format(this_soc_totals))
                     soc_totals = soc_totals + this_soc_totals
+                    log('soc_totals after addition: {}'.format(this_soc_totals))
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
                         trans_prod_xtab = merge_xtabs(trans_prod_xtab, this_trans_prod_xtab)
@@ -1071,11 +1071,11 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
                     sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc
                     sdg_tbl_lc = sdg_tbl_lc + this_sdg_tbl_lc
-            n += 1
 
         make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
-                           sdg_tbl_lc, lc_years, soc_years, self.output_file_table.text())
+                           sdg_tbl_lc, lc_years, soc_years,
+                           self.output_file_table.text())
 
 
         # Add the SDG layers to the map

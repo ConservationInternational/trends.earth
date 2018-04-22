@@ -156,7 +156,7 @@ class AOI(object):
 
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
-    def meridian_split(self, out_type='extent', out_format='geojson'):
+    def meridian_split(self, out_type='extent', out_format='geojson', warn=True):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
 
@@ -179,42 +179,67 @@ class AOI(object):
         e_intersection = hemi_e.Intersection(union)
         w_intersection = hemi_w.Intersection(union)
 
+        e_intersection_extent = get_ogr_geom_extent(e_intersection)
+        w_intersection_extent = get_ogr_geom_extent(w_intersection)
+        union_extent = get_ogr_geom_extent(union)
+
+        # Should the output be the extent of each piece? Or the actual geometry 
+        # itself (if out_type == 'layer')?
         if out_type == 'extent':
-            e_intersection = get_ogr_geom_extent(e_intersection)
-            w_intersection = get_ogr_geom_extent(w_intersection)
-            union = get_ogr_geom_extent(union)
+            e_intersection_out = e_intersection_extent
+            w_intersection_out = w_intersection_extent
+            union_out = union_extent
         elif out_type == 'layer':
-            pass
+            e_intersection_out = e_intersection
+            w_intersection_out = w_intersection
+            union_out = union
         else:
             raise ValueError('Unrecognized out_type "{}"'.format(out_type))
 
         if out_format == 'geojson':
-            e_intersection_out = json.loads(e_intersection.ExportToJson())
-            w_intersection_out = json.loads(w_intersection.ExportToJson())
-            union_out = json.loads(union.ExportToJson())
+            e_intersection_out = json.loads(e_intersection_out.ExportToJson())
+            w_intersection_out = json.loads(w_intersection_out.ExportToJson())
+            union_out = json.loads(union_out.ExportToJson())
         elif out_format == 'wkt':
-            e_intersection_out = e_intersection.ExportToWkt()
-            w_intersection_out = w_intersection.ExportToWkt()
-            union_out = union.ExportToWkt()
+            e_intersection_out = e_intersection_out.ExportToWkt()
+            w_intersection_out = w_intersection_out.ExportToWkt()
+            union_out = union_out.ExportToWkt()
         else:
             raise ValueError(u'Unrecognized out_format "{}"'.format(out_format))
 
-        if e_intersection.IsEmpty() or w_intersection.IsEmpty():
-            # If there is no area in one of the hemispheres, return the extent 
-            # of the original layer
+        if e_intersection_extent.IsEmpty() or w_intersection_extent.IsEmpty():
+            # If there is no area in one of the hemispheres, return the
+            # original layer, or extent of the original layer
             return (False, [union_out])
-        elif (w_intersection.GetArea() + e_intersection.GetArea()) > (union.GetArea() / 2):
+        elif (w_intersection_extent.GetArea() + e_intersection_extent.GetArea()) > (union_extent.GetArea() / 2):
             # If the extent of the combined extents from both hemispheres is 
             # not significantly smaller than that of the original layer, then 
             # return the original layer
             return (False, [union_out])
         else:
             log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
-            ignore = QSettings().value("LDMP/ignore_crs_warning", False)
-            if not ignore:
+            if warn:
                 QtGui.QMessageBox.information(None, tr("Warning"),
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             return (True, [e_intersection_out, w_intersection_out])
+
+    def get_aligned_output_bounds(self, f):
+        wkts = self.meridian_split(out_format='wkt', warn=False)[1]
+        out = []
+        for wkt in wkts:
+            # Compute the pixel-aligned bounding box (slightly larger than 
+            # aoi).
+            # Use this to set bounds in vrt  files in order to keep the
+            # pixels aligned with the chosen layer
+            geom = ogr.CreateGeometryFromWkt(wkt)
+            (minx, maxx, miny, maxy) = geom.GetEnvelope()
+            gt = gdal.Open(f).GetGeoTransform()
+            left = minx - (minx - gt[0]) % gt[1]
+            right = maxx + (gt[1] - ((maxx - gt[0]) % gt[1]))
+            bottom = miny + (gt[5] - ((miny - gt[3]) % gt[5]))
+            top = maxy - (maxy - gt[3]) % gt[5]
+            out.append([left, bottom, right, top])
+        return out
 
     def get_aligned_output_bounds_deprecated(self, f):
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
@@ -678,11 +703,12 @@ class DlgCalculateBase(QtGui.QDialog):
 
 
 class ClipWorker(AbstractWorker):
-    def __init__(self, in_file, out_file, geojson):
+    def __init__(self, in_file, out_file, geojson, output_bounds=None):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
+        self.output_bounds = output_bounds
 
         self.geojson = geojson
 
@@ -696,6 +722,7 @@ class ClipWorker(AbstractWorker):
 
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=json_file, srcNodata=-32768, 
+                        outputBounds=self.output_bounds,
                         dstNodata=-32767,
                         dstSRS="epsg:4326",
                         outputType=gdal.GDT_Int16,

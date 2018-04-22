@@ -497,8 +497,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator, 
                 # and SOC totals
-                a_trans = a_lc_bl*10 + a_lc_tg
-                a_trans[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
+                a_trans_bl_tg = a_lc_bl*10 + a_lc_tg
+                a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
 
                 # Mask water areas
                 prod3[a_lc_tg == 7] = -32767
@@ -512,7 +512,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # that row
                 for n in range(y_block_size):
                     cell_area = cell_areas[n]
-                    this_trans_xtab = xtab(prod5[n, :], a_trans[n, :])
+                    this_trans_xtab = xtab(prod5[n, :], a_trans_bl_tg[n, :])
                     # Don't use this_trans_xtab if it is empty (could happen if 
                     # take a crosstab where all of the values are nan's)
                     if this_trans_xtab[0][0].size != 0:
@@ -532,7 +532,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         # Convert soilgrids data from per ha to per meter since 
                         # cell_area is in meters
                         a_soc = a_soc.astype(np.float32) / (100 * 100)
-                        soc_totals_table[i - 1] = calc_total_table(a_trans[n, :],
+                        soc_totals_table[i - 1] = calc_total_table(a_trans_bl_tg[n, :],
                                                                    a_soc[n, :], 
                                                                    soc_totals_table[i - 1], 
                                                                    cell_area)
@@ -1051,7 +1051,6 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                             sdg_tbl_soc, \
                             sdg_tbl_lc = deg_worker.get_return()
                 else:
-                    #TODO: Fix so it will total correctly with multiple wkts
                     this_soc_totals, \
                             this_lc_totals, \
                             this_trans_prod_xtab, \
@@ -1062,7 +1061,8 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
 
                     log('soc_totals: {}'.format(soc_totals))
                     log('this_soc_totals: {}'.format(this_soc_totals))
-                    soc_totals = soc_totals + this_soc_totals
+                    for n in range(len(soc_totals)):
+                        soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
                     log('soc_totals after addition: {}'.format(this_soc_totals))
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:

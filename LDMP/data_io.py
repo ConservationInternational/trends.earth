@@ -567,6 +567,9 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
 
         self.groupBox_output_resolution.clicked.connect(self.output_res_toggled)
 
+        # Ensure the special value text (set to " ") is displayed by default
+        self.spinBox_data_year.setValue(self.spinBox_data_year.minimum())
+
     def radio_raster_input_toggled(self):
         has_file = False
         if self.radio_raster_input.isChecked():
@@ -744,6 +747,11 @@ class DlgDataIOImportBase(QtGui.QDialog):
                         tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.geometryType())))
                 log(u"Failed to process {} - unknown geometry type {}.".format(in_file, l.geometryType()))
                 return
+        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
+            return
+
+        return True
 
     def get_resample_mode(self, f):
         in_res = self.get_in_res_wgs84()
@@ -918,7 +926,9 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.', None))
             return
 
-        super(DlgDataIOImportLC, self).validate_input(value)
+        ret = super(DlgDataIOImportLC, self).validate_input(value)
+        if not ret:
+            return
 
         super(DlgDataIOImportLC, self).done(value)
 
@@ -991,7 +1001,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             return False
 
         l_info = self.add_layer('Land cover (7 class)',
-                                {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                                {'year': int(self.input_widget.spinBox_data_year.text()),
                                 'source': 'custom data'})
 
         self.layer_loaded.emit([l_info])
@@ -1018,7 +1028,9 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
 
-        super(DlgDataIOImportSOC, self).validate_input(value)
+        ret = super(DlgDataIOImportSOC, self).validate_input(value)
+        if not ret:
+            return
         
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
@@ -1061,7 +1073,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             return False
 
         l_info = self.add_layer('Soil organic carbon',
-                                {'year': int(self.input_widget.spinBox_data_year.date().year()),
+                                {'year': int(self.input_widget.spinBox_data_year.text()),
                                 'source': 'custom data'})
         self.layer_loaded.emit([l_info])
 
@@ -1088,7 +1100,9 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
 
-        super(DlgDataIOImportProd, self).validate_input(value)
+        ret = super(DlgDataIOImportProd, self).validate_input(value)
+        if not ret:
+            return
 
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()

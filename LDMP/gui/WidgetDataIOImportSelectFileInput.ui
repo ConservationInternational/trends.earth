@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>581</width>
-    <height>530</height>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -229,13 +229,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item alignment="Qt::AlignHCenter">
-         <widget class="QDateEdit" name="spinBox_data_year">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+         <widget class="QSpinBox" name="spinBox_data_year">
           <property name="minimumSize">
            <size>
             <width>100</width>
@@ -245,35 +239,17 @@
           <property name="maximumSize">
            <size>
             <width>120</width>
-            <height>35</height>
+            <height>16777215</height>
            </size>
           </property>
-          <property name="date">
-           <date>
-            <year>2015</year>
-            <month>12</month>
-            <day>31</day>
-           </date>
+          <property name="specialValueText">
+           <string notr="true"/>
           </property>
-          <property name="maximumDateTime">
-           <datetime>
-            <hour>23</hour>
-            <minute>59</minute>
-            <second>59</second>
-            <year>2030</year>
-            <month>12</month>
-            <day>31</day>
-           </datetime>
+          <property name="minimum">
+           <number>1979</number>
           </property>
-          <property name="minimumDate">
-           <date>
-            <year>1980</year>
-            <month>1</month>
-            <day>1</day>
-           </date>
-          </property>
-          <property name="displayFormat">
-           <string notr="true">yyyy</string>
+          <property name="maximum">
+           <number>2030</number>
           </property>
          </widget>
         </item>

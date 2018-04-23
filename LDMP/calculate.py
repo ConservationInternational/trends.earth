@@ -229,7 +229,7 @@ class AOI(object):
         for wkt in wkts:
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi).
-            # Use this to set bounds in vrt  files in order to keep the
+            # Use this to set bounds in vrt files in order to keep the
             # pixels aligned with the chosen layer
             geom = ogr.CreateGeometryFromWkt(wkt)
             (minx, maxx, miny, maxy) = geom.GetEnvelope()
@@ -243,7 +243,7 @@ class AOI(object):
 
     def get_aligned_output_bounds_deprecated(self, f):
         # Compute the pixel-aligned bounding box (slightly larger than aoi).
-        # Use this to set bounds in vrt  files in order to keep the
+        # Use this to set bounds in vrt files in order to keep the
         # pixels aligned with the chosen layer
         bb = self.bounding_box_geom().boundingBox()
         minx = bb.xMinimum()

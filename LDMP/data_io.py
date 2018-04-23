@@ -50,6 +50,7 @@ from LDMP.gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELa
 from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
+
 class RemapVectorWorker(AbstractWorker):
     def __init__(self, l, out_file, attribute, remap_dict, in_data_type, 
                  out_res, out_data_type=gdal.GDT_Int16):
@@ -782,8 +783,8 @@ class DlgDataIOImportBase(QtGui.QDialog):
         tx = osr.CoordinateTransformation(in_srs, wgs84_srs)
 
         geo_t = ds_in.GetGeoTransform()
-        x_size = ds_in.RasterXSize # Raster xsize
-        y_size = ds_in.RasterYSize # Raster ysize
+        x_size = ds_in.RasterXSize
+        y_size = ds_in.RasterYSize
         # Work out the boundaries of the new dataset in the target projection
         (ulx, uly, ulz) = tx.TransformPoint(geo_t[0], geo_t[3])
         (lrx, lry, lrz) = tx.TransformPoint(geo_t[0] + geo_t[1]*x_size, \

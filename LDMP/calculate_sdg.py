@@ -786,25 +786,6 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
-    def get_resample_alg(self, lc_f, prod_f):
-        ds_lc = gdal.Open(lc_f)
-        ds_prod = gdal.Open(prod_f)
-        # If prod layers are lower res than the lc layer, then resample lc
-        # using the mode. Otherwise use nearest neighbor:
-        lc_gt = ds_lc.GetGeoTransform()
-        prod_gt = ds_prod.GetGeoTransform()
-        if lc_gt[1] < prod_gt[1]:
-            # If the land cover is finer than the prodectory res, use mode to
-            # match the lc to the lower res productivity data
-            log('Resampling with: mode, lowest')
-            return('lowest', gdal.GRA_Mode)
-        else:
-            # If the land cover is coarser than the productivity res, use 
-            # nearest neighbor and match the lc to the higher res productivity 
-            # data
-            log('Resampling with: nearest neighour, highest')
-            return('highest', gdal.GRA_NearestNeighbour)
-
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
@@ -989,23 +970,21 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             if prod_mode == 'Trends.Earth productivity':
-                resample_alg = self.get_resample_alg(lc_deg_f, traj_vrt)
                 in_files.extend([traj_vrt, perf_vrt, state_vrt])
                 gdal.BuildVRT(indic_vrt,
                               in_files,
                               outputBounds=bbs[n],
-                              resolution=resample_alg[0],
-                              resampleAlg=resample_alg[1],
+                              resolution='highest',
+                              resampleAlg=gdal.GRA_NearestNeighbour,
                               separate=True)
                 prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
             else:
-                resample_alg = self.get_resample_alg(lc_deg_f, lpd_vrt)
                 in_files.append(lpd_vrt)
                 gdal.BuildVRT(indic_vrt,
                               in_files,
                               outputBounds=bbs[n],
-                              resolution=resample_alg[0],
-                              resampleAlg=resample_alg[1],
+                              resolution='highest',
+                              resampleAlg=gdal.GRA_NearestNeighbour,
                               separate=True)
                 prod_band_nums = [max(soc_band_nums) + 1]
 

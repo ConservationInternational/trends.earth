@@ -420,8 +420,8 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                           lc_files[i],
                           bandList=[i + 1],
                           outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
-                          resolution='lowest',
-                          resampleAlg=gdal.GRA_Mode,
+                          resolution='highest', 
+                          resampleAlg=gdal.GRA_NearestNeighbour,
                           separate=True)
             lc_vrts.append(f)
 

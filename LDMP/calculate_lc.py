@@ -259,7 +259,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(in_vrt,
                       [lc_initial_vrt, lc_final_vrt], 
-                      resolution='lowest', 
+                      resolution='highest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
                       outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
                       separate=True)

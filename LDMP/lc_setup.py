@@ -17,7 +17,7 @@ import json
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, \
-    QRegExp
+    QRegExp, QPyNullVariant
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -26,6 +26,13 @@ from LDMP import log
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
+
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, QPyNullVariant):
+        return None
+    raise TypeError("Type {} not serializable".format(type(obj)))
 
 
 class VerticalLabel(QtGui.QLabel):
@@ -109,7 +116,6 @@ def read_class_file(f):
 
     with open(f) as class_file:
         classes = json.load(class_file)
-
     if (not isinstance(classes, list)
             or not len(classes) > 0
             or not isinstance(classes[0], dict)
@@ -191,7 +197,8 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
 
             class_def = self.get_agg_as_dict_list()
             with open(f, 'w') as outfile:
-                json.dump(class_def, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+                json.dump(class_def, outfile, sort_keys=True, indent=4, 
+                          separators=(',', ': '), default=json_serial)
 
     def get_agg_as_dict(self):
         '''Returns the chosen land cover definition as a dictionary'''

@@ -57,7 +57,7 @@ Compute SDG indicator
  - Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country).
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, 
+    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
     are in the `public domain`_. The boundaries and names used, and the 
     designations used, in Trends.Earth do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 

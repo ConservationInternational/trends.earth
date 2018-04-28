@@ -1,4 +1,4 @@
-Data sources
+﻿Data sources
 ------------
 
 |trends.earth| draws on a number of data sources. The data sets listed below are 
@@ -112,7 +112,7 @@ Administrative Boundaries
 +--------------------------------------------+----------+---------+--------+------------------+
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, 
+    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
     are in the `public domain`_. The boundaries and names used, and the 
     designations used, in Trends.Earth do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 

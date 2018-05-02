@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 16:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,99 +20,87 @@ msgstr ""
 msgid "Trends.Earth"
 msgstr ""
 
-#: ../../source/index.rst:11
+#: ../../source/index.rst:15
 msgid "`English <../en/index.html>`_"
 msgstr ""
 
-#: ../../source/index.rst:11
+#: ../../source/index.rst:15
 msgid "`Español <../es/index.html>`_"
 msgstr ""
 
-#: ../../source/index.rst:11
+#: ../../source/index.rst:15
 msgid "`Francais <../fr/index.html>`_"
 msgstr ""
 
-#: ../../source/index.rst:11
-msgid "`русский <../ru/index.html>`_"
-msgstr ""
-
-#: ../../source/index.rst:11
-msgid "`中文 <../zh/index.html>`_"
-msgstr ""
-
-#: ../../source/index.rst:11
-msgid "`عربى <../ar/index.html>`_"
-msgstr ""
-
-#: ../../source/index.rst:11
+#: ../../source/index.rst:15
 msgid "`Swahili <../sw/index.html>`_"
 msgstr ""
 
-#: ../../source/index.rst:11
+#: ../../source/index.rst:15
 msgid "`Português <../pt/index.html>`_"
 msgstr ""
 
-#: ../../source/index.rst:14
-msgid "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform for monitoring land change using earth observations in an innovative desktop and cloud-based system."
+#: ../../source/index.rst:26
+msgid "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform from `Conservation International <http://www.conservation.org/trendsearth>`_ for monitoring land change using earth observations in an innovative desktop and cloud-based system."
 msgstr ""
 
-#: ../../source/index.rst:18
+#: ../../source/index.rst:31
 msgid "The three sub-indicators for monitoring achievement of Land Degradation Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported by |trends.earth|: productivity, land cover, and soil organic carbon.  The tool also supports countries in analyzing data to prepare for their reporting committments to the United Nations Convention to Combat Desertification (UNCCD)."
 msgstr ""
 
-#: ../../source/index.rst:25
+#: ../../source/index.rst:38
 msgid "Trends.Earth allows users to plot time series of key indicators of land change (including degradation and improvement), to produce maps and other graphics that can support monitoring and reporting, and to track the impact of sustainable land management or other projects."
 msgstr ""
 
-#: ../../source/index.rst:30
+#: ../../source/index.rst:43
 msgid "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ or `technical fact sheet <_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further information."
 msgstr ""
 
-#: ../../source/index.rst:34
+#: ../../source/index.rst:47
 msgid "The documentation and training materials, including a number of demonstration videos, are available on this website:"
 msgstr ""
 
-#: ../../source/index.rst:37
+#: ../../source/index.rst:50
 msgid ":ref:`about-docs`"
 msgstr ""
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:51
 msgid ":ref:`background-docs`"
 msgstr ""
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:52
 msgid ":ref:`user-docs`"
 msgstr ""
 
-#: ../../source/index.rst:40
+#: ../../source/index.rst:53
 msgid ":ref:`training`"
 msgstr ""
 
-#: ../../source/index.rst:41
+#: ../../source/index.rst:54
 msgid ":ref:`videos`"
 msgstr ""
 
-#: ../../source/index.rst:43
+#: ../../source/index.rst:56
 msgid "`Download this documentation as a PDF for offline use <pdfs/Trends.Earth.pdf>`_"
 msgstr ""
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:65
 msgid "About"
 msgstr ""
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:80
 msgid "Background information"
 msgstr ""
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:94
 msgid "Documentation"
 msgstr ""
 
-#: ../../source/index.rst:100
+#: ../../source/index.rst:113
 msgid "Step-by-step Guides"
 msgstr ""
 
-#: ../../source/index.rst:120
+#: ../../source/index.rst:133
 msgid "Videos"
 msgstr ""
 

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Monica Noon <mnoon@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,48 +24,33 @@ msgstr "Trends.Earth"
 
 #: ../../source/index.rst:11
 msgid "`English <../en/index.html>`_"
-msgstr "`English <../ en / index.html>` _"
+msgstr "`English <../en/index.html>`_"
 
 #: ../../source/index.rst:11
 msgid "`Español <../es/index.html>`_"
-msgstr "`Español <../ es / index.html>` _"
+msgstr "`Español <../es/index.html>`_"
 
 #: ../../source/index.rst:11
 msgid "`Francais <../fr/index.html>`_"
-msgstr "`Francais <../ fr / index.html>` _"
-
-#: ../../source/index.rst:11
-msgid "`русский <../ru/index.html>`_"
-msgstr "`русский <../ ru / index.html>` _"
-
-#: ../../source/index.rst:11
-msgid "`中文 <../zh/index.html>`_"
-msgstr "`中文 <../ zh / index.html>` _"
-
-#: ../../source/index.rst:11
-msgid "`عربى <../ar/index.html>`_"
-msgstr "`عربى <../ ar / index.html>` _"
+msgstr "`Francais <../fr/index.html>`_"
 
 #: ../../source/index.rst:11
 msgid "`Swahili <../sw/index.html>`_"
-msgstr "`Swahili <../ sw / index.html>` _"
+msgstr "`Swahili <../sw/index.html>`_"
 
 #: ../../source/index.rst:11
 msgid "`Português <../pt/index.html>`_"
 msgstr "`Português <../pt/index.html>`_"
 
-#: ../../source/index.rst:14
+#: ../../source/index.rst:17
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform for monitoring land change using earth observations in an "
-"innovative desktop and cloud-based system."
+"platform from `Conservation International "
+"<http://www.conservation.org/trendsearth>`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
 msgstr ""
-"Trends.Earth (anteriormente el Land Degradation Monitoring Toolbox) es una "
-"plataforma para monitorear cambios en la superficie terrestre usando "
-"observaciones satelitales en un modo innovador combinando calculos en la "
-"nube con una intefaz de escritorio (QGIS)."
 
-#: ../../source/index.rst:18
+#: ../../source/index.rst:22
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
@@ -81,7 +66,7 @@ msgstr ""
 "países a analizar los datos para preparar sus informes a la Convención de "
 "las Naciones Unidas de Lucha contra la Desertificación (CNULD)."
 
-#: ../../source/index.rst:25
+#: ../../source/index.rst:29
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
 "change (including degradation and improvement), to produce maps and other "
@@ -94,7 +79,7 @@ msgstr ""
 "respaldar el monitoreo y la generación de informes, y rastrear el impacto de"
 " la gestión sostenible de la tierra."
 
-#: ../../source/index.rst:30
+#: ../../source/index.rst:34
 msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
@@ -106,7 +91,7 @@ msgstr ""
 "<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ para obtener más "
 "información."
 
-#: ../../source/index.rst:34
+#: ../../source/index.rst:38
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -114,27 +99,27 @@ msgstr ""
 "La documentación y el material de capacitación, incluidos varios videos de "
 "demostración, están disponibles en este sitio web:"
 
-#: ../../source/index.rst:37
+#: ../../source/index.rst:41
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:42
 msgid ":ref:`background-docs`"
 msgstr ":ref:`background-docs`"
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:43
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:40
+#: ../../source/index.rst:44
 msgid ":ref:`training`"
 msgstr ":ref:`training`"
 
-#: ../../source/index.rst:41
+#: ../../source/index.rst:45
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:43
+#: ../../source/index.rst:47
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
@@ -142,22 +127,22 @@ msgstr ""
 "`Descargue esta documentación en formato PDF para uso sin conexión a "
 "internet <pdfs/Trends.Earth.pdf>`_"
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:56
 msgid "About"
 msgstr "Acerca de"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:71
 msgid "Background information"
 msgstr "Información Introductoria"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:85
 msgid "Documentation"
 msgstr "Documentación"
 
-#: ../../source/index.rst:100
+#: ../../source/index.rst:104
 msgid "Step-by-step Guides"
 msgstr "Guías paso a paso"
 
-#: ../../source/index.rst:120
+#: ../../source/index.rst:124
 msgid "Videos"
 msgstr "Videos"

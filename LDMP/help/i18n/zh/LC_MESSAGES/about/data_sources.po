@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -306,14 +306,12 @@ msgstr "10 /50米"
 
 #: ../../source/about/data_sources.rst:115
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, are"
-" in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
-"Trends.Earth提供的“自然地球行政界限”属于“公共领域”。在Trends.Earth中使用的界限和名称以及所使用的名称并不意味着由Conservation"
-" International Foundation或其合作伙伴组织和贡献者正式认可或接受。"
 
 #: ../../source/about/data_sources.rst:121
 msgid ""

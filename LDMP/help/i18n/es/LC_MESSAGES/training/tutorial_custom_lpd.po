@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -27,24 +27,24 @@ msgid ""
 "**Objective**: Learn how to load custom land productivity data computed "
 "outside of Trends.Earth."
 msgstr ""
-"** Objetivo **: aprende cómo cargar datos personalizados de productividad de"
-" la tierra calculados fuera de Trends.Earth."
+"**Objetivo**: aprende cómo cargar datos personalizados de productividad de "
+"la tierra calculados fuera de Trends.Earth."
 
 #: ../../source/training/tutorial_custom_lpd.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "** Tiempo estimado de finalización **: 20 minutos"
+msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
 #: ../../source/training/tutorial_custom_lpd.rst:10
 msgid "**Internet access**: Not required"
-msgstr "** Acceso a Internet **: no requerido"
+msgstr "**Acceso a Internet**: no requerido"
 
 #: ../../source/training/tutorial_custom_lpd.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_"
 msgstr ""
-"`Descargue esta página en formato PDF para uso fuera de línea <../ pdfs / "
-"Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>` _"
+"`Descargue esta página en formato PDF para uso fuera de línea "
+"<../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_"
 
 #: ../../source/training/tutorial_custom_lpd.rst:15
 msgid ""

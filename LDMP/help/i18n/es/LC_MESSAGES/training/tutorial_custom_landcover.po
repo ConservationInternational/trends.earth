@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -27,25 +27,25 @@ msgid ""
 "**Objective**: Learn how to load custom land cover data and to compute the "
 "land cover change sub-indicator using Trends.Earth."
 msgstr ""
-"** Objetivo **: aprende cómo cargar datos personalizados de cobertura "
+"**Objetivo**: aprende cómo cargar datos personalizados de cobertura "
 "terrestre y calcular el subindicador de cambio de cobertura terrestre usando"
 " Trends.Earth."
 
 #: ../../source/training/tutorial_custom_landcover.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr "** Tiempo estimado de finalización **: 40 minutos"
+msgstr "**Tiempo estimado de finalización**: 40 minutos"
 
 #: ../../source/training/tutorial_custom_landcover.rst:10
 msgid "**Internet access**: Not required"
-msgstr "** Acceso a Internet **: no requerido"
+msgstr "**Acceso a Internet**: no requerido"
 
 #: ../../source/training/tutorial_custom_landcover.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_"
 msgstr ""
-"`Descargar esta página en formato PDF para usar sin conexión <../ pdfs / "
-"Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>` _"
+"`Descargar esta página en formato PDF para usar sin conexión "
+"<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_"
 
 #: ../../source/training/tutorial_custom_landcover.rst:15
 msgid ""
@@ -57,9 +57,9 @@ msgid ""
 msgstr ""
 "El conjunto de datos de cobertura terrestre para este tutorial fue provisto "
 "por el `Centro Regional para Mapeo de Recursos para el Desarrollo "
-"<http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>`"
-" _ y se puede descargar desde este `link <https: // www .dropbox.com / s / "
-"rl8afjh7xhnhk5a / uganda_land_cover.zip? dl = 0> `_."
+"<http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>`_"
+" y se puede descargar desde este `link <https: // www .dropbox.com / s / "
+"rl8afjh7xhnhk5a / uganda_land_cover.zip? dl = 0>`_."
 
 #: ../../source/training/tutorial_custom_landcover.rst:18
 msgid ""
@@ -67,15 +67,15 @@ msgid ""
 "Trends.Earth toolbar."
 msgstr ""
 "Para cargar datos de cobertura terrestre personalizados, haga clic en el "
-"icono (| iconfolder |) en la barra de herramientas Tendencias.Earth."
+"icono (|iconfolder|) en la barra de herramientas Tendencias.Earth."
 
 #: ../../source/training/tutorial_custom_landcover.rst:23
 msgid ""
 "The **Load data** menu will open. Select **Land cover** from the **Import a "
 "custom input dataset** section."
 msgstr ""
-"Se abrirá el menú ** Cargar datos **. Seleccione ** Cubierta del terreno ** "
-"de la sección ** Importar un conjunto de datos de entrada personalizado **."
+"Se abrirá el menú **Cargar datos**. Seleccione **Cubierta del terreno** de "
+"la sección **Importar un conjunto de datos de entrada personalizado**."
 
 #: ../../source/training/tutorial_custom_landcover.rst:28
 msgid ""
@@ -373,17 +373,12 @@ msgstr ""
 
 #: ../../source/training/tutorial_custom_landcover.rst:139
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, are"
-" in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
-"Los `Límites Administrativos de Natural Earth`_ provistos en Trends.Earth, "
-"están en el `dominio público`_. Los límites y los nombres utilizados, y las "
-"designaciones utilizadas, en Trends.Earth no implican respaldo o aceptación "
-"oficial de Conservation International Foundation, ni de sus organizaciones "
-"asociadas y contribuyentes."
 
 #: ../../source/training/tutorial_custom_landcover.rst:145
 msgid ""

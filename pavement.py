@@ -27,7 +27,7 @@ options(
         source_dir = path('LDMP'),
         i18n_dir = path('LDMP/i18n'),
         #translations = ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
-        translations = ['fr', 'es', 'pt', 'sw'],
+        translations = ['fr', 'es', 'sq', 'pt'],
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('build'),
         tests = ['test'],

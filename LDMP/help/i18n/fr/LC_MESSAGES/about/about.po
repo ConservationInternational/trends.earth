@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-05-02 16:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2017\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -39,19 +39,13 @@ msgstr "Contacter l'équipe"
 
 #: ../../source/about/about.rst:11
 msgid ""
-"Contact the `trends.earth <mailto:trends.earth@conservation.org>`_ team with"
+"Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with"
 " any comments or suggestions. If you have specific bugs to report or "
 "improvements to the tool that you would like to suggest, you can also submit"
 " them in the `issue tracker on Github "
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
-"Contactez l'équipe `trends.earth <mailto:trends.earth@conservation.org>`_ "
-"avec vos commentaires ou suggestions. Si vous avez des bugs spécifiques à "
-"signaler ou des améliorations à l'outil que vous souhaitez suggérer, vous "
-"pouvez également les soumettre dans le `tracker sur Github "
-"<https://github.com/ConservationInternational/trends.earth/issues>`_ pour "
-"|trends.earth|."
 
 #: ../../source/about/about.rst:19
 msgid "Authors"

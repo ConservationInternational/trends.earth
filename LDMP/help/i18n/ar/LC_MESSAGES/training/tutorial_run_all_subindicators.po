@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -153,11 +153,11 @@ msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:68
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth, are"
-" in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:74

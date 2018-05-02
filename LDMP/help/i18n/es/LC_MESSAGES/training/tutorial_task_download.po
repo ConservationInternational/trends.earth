@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -27,25 +27,25 @@ msgid ""
 "**Objective**: Learn how to check the status of submitted tasks, download "
 "them and compute pyramids for faster visualization of results in QGIS."
 msgstr ""
-"** Objetivo **: aprenda a verificar el estado de las tareas enviadas, "
+"**Objetivo**: aprenda a verificar el estado de las tareas enviadas, "
 "descárguelos y calcule las pirámides para una visualización más rápida de "
 "los resultados en QGIS."
 
 #: ../../source/training/tutorial_task_download.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "** Tiempo estimado de finalización **: 20 minutos"
+msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
 #: ../../source/training/tutorial_task_download.rst:10
 msgid "**Internet access**: Required"
-msgstr "** Acceso a Internet **: obligatorio"
+msgstr "**Acceso a Internet**: obligatorio"
 
 #: ../../source/training/tutorial_task_download.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 msgstr ""
-"`Descargue esta página en formato PDF para uso fuera de línea <../ pdfs / "
-"Trends.Earth_Tutorial03_Downloading_Results.pdf>` _"
+"`Descargue esta página en formato PDF para uso fuera de línea "
+"<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 
 #: ../../source/training/tutorial_task_download.rst:15
 msgid ""
@@ -60,7 +60,7 @@ msgstr ""
 "indicadores y hojas de cálculo XLSX para los resultados tabulares. Deberá "
 "definir en cada caso dónde se almacenarán los archivos en su computadora. "
 "Recomendamos que cree una carpeta donde almacenar los resultados para "
-"facilitar el acceso posterior. El ** Escritorio ** es una ubicación "
+"facilitar el acceso posterior. El **Escritorio** es una ubicación "
 "generalmente seleccionada porque es fácil de encontrar."
 
 #: ../../source/training/tutorial_task_download.rst:17
@@ -78,7 +78,7 @@ msgid ""
 "Once in the Desktop, **right click** on an empty space and a menu will "
 "display."
 msgstr ""
-"Una vez en el escritorio, ** haga clic derecho ** en un espacio vacío y se "
+"Una vez en el escritorio, **haga clic derecho** en un espacio vacío y se "
 "mostrará un menú."
 
 #: ../../source/training/tutorial_task_download.rst:21

@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -153,9 +153,9 @@ msgid ""
 "explanation of how each of these sub-indicators is computed in "
 "|trends.earth|"
 msgstr ""
-"Reportez-vous à la section: ref: `indicator-15-3-1` de ce manuel pour une "
+"Reportez-vous à la section: ref:`indicator-15-3-1` de ce manuel pour une "
 "explication détaillée de la façon dont chacun de ces sous-indicateurs est "
-"calculé dans | trends.earth |"
+"calculé dans |trends.earth|"
 
 #: ../../source/documentation/calculate.rst:66
 msgid ""

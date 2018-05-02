@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
@@ -35,18 +35,6 @@ msgid "`Francais <../fr/index.html>`_"
 msgstr "`Francais <../fr/index.html>`_"
 
 #: ../../source/index.rst:11
-msgid "`русский <../ru/index.html>`_"
-msgstr "`русский <../ru/index.html>`_"
-
-#: ../../source/index.rst:11
-msgid "`中文 <../zh/index.html>`_"
-msgstr "`中文 <../zh/index.html>`_"
-
-#: ../../source/index.rst:11
-msgid "`عربى <../ar/index.html>`_"
-msgstr "`عربى <../ar/index.html>`_"
-
-#: ../../source/index.rst:11
 msgid "`Swahili <../sw/index.html>`_"
 msgstr "`Swahili <../sw/index.html>`_"
 
@@ -54,17 +42,15 @@ msgstr "`Swahili <../sw/index.html>`_"
 msgid "`Português <../pt/index.html>`_"
 msgstr "`Português <../pt/index.html>`_"
 
-#: ../../source/index.rst:14
+#: ../../source/index.rst:17
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform for monitoring land change using earth observations in an "
-"innovative desktop and cloud-based system."
+"platform from `Conservation International "
+"<http://www.conservation.org/trendsearth>`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
 msgstr ""
-"Trends.Tarth (ранее инструмент мониторинга деградации земель) является "
-"платформой для мониторинга изменений в земле с использованием наблюдений "
-"Земли в инновационной настольной и облачной системе."
 
-#: ../../source/index.rst:18
+#: ../../source/index.rst:22
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
@@ -80,7 +66,7 @@ msgstr ""
 "отчетности в соответствии с Конвенцией Организации Объединенных Наций по "
 "борьбе с опустыниванием (КБОООН)."
 
-#: ../../source/index.rst:25
+#: ../../source/index.rst:29
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
 "change (including degradation and improvement), to produce maps and other "
@@ -93,7 +79,7 @@ msgstr ""
 "а также отслеживать влияние устойчивого управления земельными ресурсами или "
 "других проектов."
 
-#: ../../source/index.rst:30
+#: ../../source/index.rst:34
 msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
@@ -104,7 +90,7 @@ msgstr ""
 "<_static / common / Trends.Earth_Fact_Sheet.pdf>` _ или `технический "
 "бюллетень <_static / common / Trends.Earth_Fact_Sheet_Technical.pdf>` _."
 
-#: ../../source/index.rst:34
+#: ../../source/index.rst:38
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -112,48 +98,48 @@ msgstr ""
 "Документация и учебные материалы, включая несколько демонстрационных "
 "видеороликов, доступны на этом веб-сайте:"
 
-#: ../../source/index.rst:37
+#: ../../source/index.rst:41
 msgid ":ref:`about-docs`"
 msgstr ": Ссылка: `о-docs`"
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:42
 msgid ":ref:`background-docs`"
 msgstr ": Ссылка: `фон-docs`"
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:43
 msgid ":ref:`user-docs`"
 msgstr ": Ссылка: `пользователь-docs`"
 
-#: ../../source/index.rst:40
+#: ../../source/index.rst:44
 msgid ":ref:`training`"
 msgstr ": Ссылка: `training`"
 
-#: ../../source/index.rst:41
+#: ../../source/index.rst:45
 msgid ":ref:`videos`"
 msgstr ""
 
-#: ../../source/index.rst:43
+#: ../../source/index.rst:47
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr ""
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:56
 msgid "About"
 msgstr "Около"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:71
 msgid "Background information"
 msgstr "Исходная информация"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:85
 msgid "Documentation"
 msgstr ""
 
-#: ../../source/index.rst:100
+#: ../../source/index.rst:104
 msgid "Step-by-step Guides"
 msgstr ""
 
-#: ../../source/index.rst:120
+#: ../../source/index.rst:124
 msgid "Videos"
 msgstr ""

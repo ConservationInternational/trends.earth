@@ -7,12 +7,21 @@
 
 |
 
+.. raw:: html
+
+   <center>
+
 +-------------------------------+-------------------------------+--------------------------------+--------------------------------+---------------------------------+
 | `English <../en/index.html>`_ | `Español <../es/index.html>`_ | `Francais <../fr/index.html>`_ |  `Swahili <../sw/index.html>`_ | `Português <../pt/index.html>`_ |
 +-------------------------------+-------------------------------+--------------------------------+--------------------------------+---------------------------------+
 
-.. image:: /static/common/LDMP_Animation.gif
-   :align: center
+.. raw:: html
+
+   </center>
+
+.. raw:: html
+
+    <img alt="Trends.Earth animation" class="align-center" src="_images/LDMP_Animation.gif" />
 
 Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform 
 from `Conservation International <http://www.conservation.org/trendsearth>`_  

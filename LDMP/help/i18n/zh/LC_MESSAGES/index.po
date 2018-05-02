@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -35,18 +35,6 @@ msgid "`Francais <../fr/index.html>`_"
 msgstr "`Francais <../fr/index.html>`_"
 
 #: ../../source/index.rst:11
-msgid "`русский <../ru/index.html>`_"
-msgstr "`русский <../ru/index.html>`_"
-
-#: ../../source/index.rst:11
-msgid "`中文 <../zh/index.html>`_"
-msgstr "`中文 <../zh/index.html>`_"
-
-#: ../../source/index.rst:11
-msgid "`عربى <../ar/index.html>`_"
-msgstr "`عربى <../ar/index.html>`_"
-
-#: ../../source/index.rst:11
 msgid "`Swahili <../sw/index.html>`_"
 msgstr "`Swahili <../sw/index.html>`_"
 
@@ -54,14 +42,15 @@ msgstr "`Swahili <../sw/index.html>`_"
 msgid "`Português <../pt/index.html>`_"
 msgstr "`Português <../pt/index.html>`_"
 
-#: ../../source/index.rst:14
+#: ../../source/index.rst:17
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform for monitoring land change using earth observations in an "
-"innovative desktop and cloud-based system."
-msgstr "Trends.Earth（以前的土地退化监测工具箱）是一个平台，用于在创新型桌面和基于云的系统中使用地球观测监测土地变化。"
+"platform from `Conservation International "
+"<http://www.conservation.org/trendsearth>`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
+msgstr ""
 
-#: ../../source/index.rst:18
+#: ../../source/index.rst:22
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
@@ -73,7 +62,7 @@ msgstr ""
 "监测实现土地退化中立（LDN，可持续发展目标（SDG）目标15.3）的三个子指标得到了| trends.earth "
 "|：生产力，土地覆盖和土壤有机碳的支持。该工具还支持各国分析数据，为联合国防治荒漠化公约（UNCCD）的报告工作做好准备。"
 
-#: ../../source/index.rst:25
+#: ../../source/index.rst:29
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
 "change (including degradation and improvement), to produce maps and other "
@@ -82,7 +71,7 @@ msgid ""
 msgstr ""
 "Trends.Earth允许用户绘制土地变化（包括退化和改善）关键指标的时间序列，生成可支持监测和报告的地图和其他图形，并跟踪可持续土地管理或其他项目的影响。"
 
-#: ../../source/index.rst:30
+#: ../../source/index.rst:34
 msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
@@ -93,54 +82,54 @@ msgstr ""
 "Trends.Earth_Fact_Sheet.pdf>`_或`技术资料表<_static / common / "
 "Trends.Earth_Fact_Sheet_Technical.pdf>`_"
 
-#: ../../source/index.rst:34
+#: ../../source/index.rst:38
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
 msgstr "文档和培训材料，包括一些演示视频，可在此网站上获得："
 
-#: ../../source/index.rst:37
+#: ../../source/index.rst:41
 msgid ":ref:`about-docs`"
 msgstr "：REF：`约-docs`"
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:42
 msgid ":ref:`background-docs`"
 msgstr "：REF：`背景docs`"
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:43
 msgid ":ref:`user-docs`"
 msgstr "：REF：`用户docs`"
 
-#: ../../source/index.rst:40
+#: ../../source/index.rst:44
 msgid ":ref:`training`"
 msgstr "：REF：`training`"
 
-#: ../../source/index.rst:41
+#: ../../source/index.rst:45
 msgid ":ref:`videos`"
 msgstr ""
 
-#: ../../source/index.rst:43
+#: ../../source/index.rst:47
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr ""
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:56
 msgid "About"
 msgstr "关于"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:71
 msgid "Background information"
 msgstr "背景信息"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:85
 msgid "Documentation"
 msgstr ""
 
-#: ../../source/index.rst:100
+#: ../../source/index.rst:104
 msgid "Step-by-step Guides"
 msgstr ""
 
-#: ../../source/index.rst:120
+#: ../../source/index.rst:124
 msgid "Videos"
 msgstr ""

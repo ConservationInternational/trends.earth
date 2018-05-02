@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2018-05-02 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -27,25 +27,25 @@ msgid ""
 "**Objective**: Learn how to load custom soil organic carbon data to compute "
 "the carbon change sub-indicator using Trends.Earth."
 msgstr ""
-"** Objetivo **: aprende cómo cargar datos personalizados de carbono orgánico"
-" del suelo para calcular el subindicador de cambio de carbono usando "
+"**Objetivo**: aprende cómo cargar datos personalizados de carbono orgánico "
+"del suelo para calcular el subindicador de cambio de carbono usando "
 "Trends.Earth."
 
 #: ../../source/training/tutorial_custom_soc.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "** Tiempo estimado de finalización **: 20 minutos"
+msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
 #: ../../source/training/tutorial_custom_soc.rst:10
 msgid "**Internet access**: Not required"
-msgstr "** Acceso a Internet **: no requerido"
+msgstr "**Acceso a Internet**: no requerido"
 
 #: ../../source/training/tutorial_custom_soc.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
 msgstr ""
-"`Descargue esta página en formato PDF para usar sin conexión <../ pdfs / "
-"Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>` _"
+"`Descargue esta página en formato PDF para usar sin conexión "
+"<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
 
 #: ../../source/training/tutorial_custom_soc.rst:18
 msgid "Loading custom soil organic carbon data"
@@ -59,9 +59,9 @@ msgid ""
 "Trends.Earth."
 msgstr ""
 "Esta herramienta supone que las unidades de la capa de trama que se "
-"importará son ** Métricas de carbono orgánico por hectárea **. Si su capa "
-"está en unidades diferentes, realice las conversiones necesarias antes de "
-"usarla en Trends.Earth."
+"importará son **Métricas de carbono orgánico por hectárea**. Si su capa está"
+" en unidades diferentes, realice las conversiones necesarias antes de usarla"
+" en Trends.Earth."
 
 #: ../../source/training/tutorial_custom_soc.rst:22
 msgid ""
@@ -69,7 +69,7 @@ msgid ""
 "Trends.Earth toolbar."
 msgstr ""
 "Para cargar los datos de carbono orgánico del suelo, haga clic en el ícono "
-"(| iconfolder |) en la barra de herramientas Trends.Earth."
+"(|iconfolder|) en la barra de herramientas Trends.Earth."
 
 #: ../../source/training/tutorial_custom_soc.rst:27
 msgid ""

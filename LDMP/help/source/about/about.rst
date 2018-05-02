@@ -8,7 +8,7 @@ by the Global Environment Facility.
 Contacting the team
 -------------------
 
-Contact the `trends.earth <mailto:trends.earth@conservation.org>`_ team with 
+Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with 
 any comments or suggestions. If you have specific bugs to report or 
 improvements to the tool that you would like to suggest, you can also submit 
 them in the `issue tracker on Github 

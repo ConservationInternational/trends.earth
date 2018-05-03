@@ -335,12 +335,12 @@
     <message>
         <location filename="../calculate.py" line="129"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="310"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation type="unfinished"></translation>
+        <translation>Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
     </message>
 </context>
 <context>
@@ -1536,7 +1536,7 @@ p, li { white-space: pre-wrap;}
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>Enter the year of the input data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
 </context>
 <context>
@@ -1879,7 +1879,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     <message>
         <location filename="../jobs.py" line="290"/>
         <source>Choose a filename. Downloading results of: {}</source>
-        <translation type="unfinished"></translation>
+        <translation>Chagua jina la faili. Inapakua matokeo ya: {}</translation>
     </message>
 </context>
 <context>

@@ -46,6 +46,12 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
+"Contactez l'équipe `Trends.Earth <mailto: trends.earth@conservation.org>`_ "
+"avec vos commentaires ou suggestions. Si vous avez des bugs spécifiques à "
+"signaler ou des améliorations à apporter à l'outil que vous souhaitez "
+"suggérer, vous pouvez également les soumettre dans le `track tracker sur "
+"Github <https://github.com/ConservationInternational/trends.earth/issues>`_ "
+"pour | trends.earth |."
 
 #: ../../source/about/about.rst:19
 msgid "Authors"

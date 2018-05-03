@@ -335,12 +335,12 @@
     <message>
         <location filename="../calculate.py" line="129"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de charger la zone d&apos;intérêt à partir de {}. Il peut y avoir un problème avec le fichier ou le système de coordonnées. Essayez de charger manuellement ce fichier dans QGIS pour vérifier qu&apos;il s&apos;affiche correctement. Si vous continuez à avoir des problèmes avec ce fichier, envoyez-nous un message à trends.earth@conservation.org.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="310"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de traiter la zone d&apos;intérêt - type de géométrie inconnu: {}</translation>
     </message>
 </context>
 <context>
@@ -1536,7 +1536,7 @@ p, li {white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="752"/>
         <source>Enter the year of the input data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrez l&apos;année des données d&apos;entrée.</translation>
     </message>
 </context>
 <context>
@@ -1879,7 +1879,7 @@ p, li {white-space: pré-wrap; }
     <message>
         <location filename="../jobs.py" line="290"/>
         <source>Choose a filename. Downloading results of: {}</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un nom de fichier Téléchargement des résultats de: {}</translation>
     </message>
 </context>
 <context>

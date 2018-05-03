@@ -19,9 +19,9 @@
 
    </center>
 
-.. raw:: html
-
-    <img alt="Trends.Earth animation" class="align-center" src="_images/LDMP_Animation.gif" />
+.. image:: /static/common/LDMP_Animation.*
+   :align: center
+   :alt: trends.earth
 
 Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform 
 from `Conservation International <http://www.conservation.org/trendsearth>`_  

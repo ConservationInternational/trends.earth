@@ -45,6 +45,12 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
+"Wasiliana na `Trends.Earth <mailto: trends.earth@conservation.org>`_ timu na"
+" maoni yoyote au mapendekezo. Ikiwa una mende maalum za kutoa ripoti au "
+"maboresho kwenye chombo ambacho ungependa kupendekeza, unaweza pia "
+"kuwasilisha kwenye `tracker kwenye Github "
+"<https://github.com/ConservationInternational/trends.earth/issues>`_ kwa "
+"|trends.earth|."
 
 #: ../../source/about/about.rst:19
 msgid "Authors"

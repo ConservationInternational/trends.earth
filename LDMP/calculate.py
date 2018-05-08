@@ -53,7 +53,7 @@ def get_script_slug(script_name):
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
-    log('Transforming layer from "{}" to "{}". Wrap is {}.'.format(l.crs().toProj4(), crs_dst.toProj4(), wrap))
+    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj4(), crs_dst.toProj4(), wrap, datatype))
 
     crs_src_string = l.crs().toProj4()
     if wrap:
@@ -126,6 +126,9 @@ class AOI(object):
         log(u'Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
+            QtGui.QMessageBox.critical(None, tr("Error"),
+                    tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
+            log("Unable to load area of interest.")
             return
         if l.geometryType() == QGis.Polygon:
             self.datatype = "polygon"
@@ -133,7 +136,7 @@ class AOI(object):
             self.datatype = "point"
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
-                    tr("Failed to process area of interest - unknown geometry type:{}".format(l.geometryType())))
+                    tr("Failed to process area of interest - unknown geometry type: {}".format(l.geometryType())))
             log("Failed to process area of interest - unknown geometry type.")
             return
 
@@ -163,6 +166,8 @@ class AOI(object):
         Returns multiple geometries as needed to avoid having an extent 
         crossing the 180th meridian
         """
+
+        #QgsMapLayerRegistry.instance().addMapLayer(self.get_layer_wgs84())
 
         # Calculate a single feature that is the union of all the features in 
         # this layer - that way there is a single feature to intersect with 
@@ -302,7 +307,7 @@ class AOI(object):
                 return self.meridian_split()
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
-                    tr("Failed to process area of interest - unknown geometry type:{}".format(self.datatype)))
+                    tr("Failed to process area of interest - unknown geometry type: {}".format(self.datatype)))
             log("Failed to process area of interest - unknown geometry type.")
 
 

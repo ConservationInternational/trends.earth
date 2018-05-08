@@ -159,7 +159,7 @@
         "MOD16A2": {
             "Data source": "GEE",
             "Start year": 2000,
-            "End year": 2014,
+            "End year": 2017,
             "Spatial Resolution": "1 km",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",
@@ -169,7 +169,7 @@
             "Description": "The MOD16A2 Version 6 Evapotranspiration/Latent Heat Flux product is an 8-day composite product produced at 500 meter pixel resolution. The algorithm used for the MOD16 data product collection is based on the logic of the Penman-Monteith equation, which includes inputs of daily meteorological reanalysis data along with MODIS remotely sensed data products such as vegetation property dynamics, albedo, and land cover.",
             "Units": "Annual ET km/m2 (=mm) * 10",
             "Link to Dataset": "http://files.ntsg.umt.edu/data/NTSG_Products/MOD16/",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/et_modis_2000_2014",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/et_modis_2000_2017",
             "Source code": "c03_et_modis_int_global_assets",
             "Status": "Stored as assets",
             "License": "Public Domain",

@@ -110,7 +110,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Country:</string>
+      <string>Country/Region:</string>
      </property>
     </widget>
    </item>

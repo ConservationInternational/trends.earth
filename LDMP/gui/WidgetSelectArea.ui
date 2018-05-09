@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>377</height>
+    <height>447</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -261,7 +261,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

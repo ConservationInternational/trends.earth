@@ -569,6 +569,7 @@ class ImportSelectFileInputWidget(QtGui.QWidget, Ui_WidgetDataIOImportSelectFile
         self.groupBox_output_resolution.clicked.connect(self.output_res_toggled)
 
         # Ensure the special value text (set to " ") is displayed by default
+        self.spinBox_data_year.setSpecialValueText(' ')
         self.spinBox_data_year.setValue(self.spinBox_data_year.minimum())
 
     def radio_raster_input_toggled(self):

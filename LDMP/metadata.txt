@@ -21,8 +21,14 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.57
+changelog=0.56.4
+    - Always resample imported data to the highest resolution.
+    - Fix custom SOC import climate zones to use an expanded 
     - Fix calculation of summary tables for AOIs that are split across the 
+    - Update MOD16A2 with latest data.
+    - Force entry of data on SOC and LC data import
+    - Add global Trends.Earth outputs to download tool.
+    - Fix handling of NULL values in legends.
   0.56.3
     - Fix calculation of summary tables for AOIs that are split across the 
       180th meridian (Fiji, Russia, etc.).

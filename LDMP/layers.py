@@ -366,6 +366,7 @@ def tr_style_text(label):
     if val:
         return val
     else:
+        log('value not found in translation dictionary')
         if isinstance(label, basestring):
             return label
         else:

@@ -179,7 +179,8 @@ class AOI(object):
             if n == 0:
                 union = geom
             else:
-                union = geom.Union(geom)
+                union = union.Union(geom)
+            n += 1
 
         e_intersection = hemi_e.Intersection(union)
         w_intersection = hemi_w.Intersection(union)

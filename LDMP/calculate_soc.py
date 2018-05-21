@@ -76,8 +76,8 @@ class SOCWorker(AbstractWorker):
         ds_out.SetProjection(out_srs.ExportToWkt())
 
         # Setup a raster of climate regimes to use for coding Fl automatically
-        clim_fl_map = np.array([[0, 1, 2,  3,  4,  5, 6, 7, 8, 9, 10, 11, 12],
-                                [  0, .69,  .8, .69,  .8, .69, .8, .69,  .8, .64, .48, .48, .58]])
+        clim_fl_map = np.array([[0,   1,  2,   3,   4,   5,  6,   7,   8,   9,  10,  11,  12],
+                                [0, .69, .8, .69,  .8, .69, .8, .69,  .8, .64, .48, .48, .58]])
 
         # stock change factor for land use - note the 99 and -99 will be 
         # recoded using the chosen Fl option

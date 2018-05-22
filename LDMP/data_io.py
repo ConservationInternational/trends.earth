@@ -749,9 +749,6 @@ class DlgDataIOImportBase(QtGui.QDialog):
                         tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.geometryType())))
                 log(u"Failed to process {} - unknown geometry type {}.".format(in_file, l.geometryType()))
                 return
-        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
-            return
 
         return True
 
@@ -927,6 +924,9 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         if  not self.dlg_agg:
             QtGui.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.', None))
             return
+        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
+            return
 
         ret = super(DlgDataIOImportLC, self).validate_input(value)
         if not ret:
@@ -1028,6 +1028,9 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
             return
 
         ret = super(DlgDataIOImportSOC, self).validate_input(value)

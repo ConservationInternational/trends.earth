@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=2.18
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.56.4
+version=0.56.5
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -21,12 +21,14 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.56.4
+changelog=0.56.5
+    - Fix error with LPD import requesting a data year.
+  0.56.4
     - Always resample imported data to the highest resolution.
-    - Fix custom SOC import climate zones to use an expanded 
-    - Fix calculation of summary tables for AOIs that are split across the 
+    - Fix custom SOC import climate zones to use an expanded climate zones 
+      dataset to eliminate no data.
     - Update MOD16A2 with latest data.
-    - Force entry of data on SOC and LC data import
+    - Force entry of date on SOC and LC data import
     - Add global Trends.Earth outputs to download tool.
     - Fix handling of NULL values in legends.
   0.56.3

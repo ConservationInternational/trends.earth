@@ -389,8 +389,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     ##
                     # Handle state and performance.
                     
-                    ### LPD: Declining due to agreement in perf and state
-                    prod5[(state_recode == -1) & (perf_array == -1)] = 1
+                    ### LPD: Stable due to agreement in perf and state but positive trajectory
+                    prod5[(traj_recode == 1) & (state_recode == -1) & (perf_array == -1)] = 4
                     ### LPD: Stable but stressed
                     prod5[(traj_recode == 0) & (state_recode == 0) & (perf_array == -1)] = 3
                     ### LPD: Early signs of decline

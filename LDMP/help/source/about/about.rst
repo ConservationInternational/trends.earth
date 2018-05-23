@@ -26,26 +26,9 @@ Contributors to the documentation and to |trends.earth| include Yengoh Genesis,
 Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan Schnader, Anna 
 Tengberg, and Alex Zvoleff.
 
-.. |logoCI| image:: /static/common/logo_CI_square.png
-    :width: 150
-    :target: http://www.conservation.org
-.. |logoLund| image:: /static/common/logo_Lund_square.png
-    :width: 125
-    :target: http://www.lunduniversity.lu.se
-.. |logoNASA| image:: /static/common/logo_NASA_square.png
-    :width: 125
-    :target: http://www.nasa.gov
-.. |logoGEF| image:: /static/common/logo_GEF.png
-    :width: 125
-    :target: https://www.thegef.org
-
-.. table::
+.. image:: /static/common/Logos_All_Partners.png
     :align: center
-    :widths: grid
-
-    ======== ========== ========== =========
-    |logoCI| |logoLund| |logoNASA| |logoGEF|
-    ======== ========== ========== =========
+    :width: 600
 
 |trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ to 
 compute indicators in the cloud.

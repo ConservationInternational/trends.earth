@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-03 17:07-0400\n"
+"POT-Creation-Date: 2018-05-23 17:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,51 +44,35 @@ msgstr ""
 msgid "Contributors to the documentation and to |trends.earth| include Yengoh Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan Schnader, Anna Tengberg, and Alex Zvoleff."
 msgstr ""
 
-#: ../../source/about/about.rst:47
-msgid "|logoCI|"
-msgstr ""
-
-#: ../../source/about/about.rst:47
-msgid "|logoLund|"
-msgstr ""
-
-#: ../../source/about/about.rst:47
-msgid "|logoNASA|"
-msgstr ""
-
-#: ../../source/about/about.rst:47
-msgid "|logoGEF|"
-msgstr ""
-
-#: ../../source/about/about.rst:50
+#: ../../source/about/about.rst:33
 msgid "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ to compute indicators in the cloud."
 msgstr ""
 
-#: ../../source/about/about.rst:59
+#: ../../source/about/about.rst:42
 msgid "Acknowledgements"
 msgstr ""
 
-#: ../../source/about/about.rst:61
+#: ../../source/about/about.rst:44
 msgid "The feedback provided by early users of |trends.earth| and by the participants in the webinars and workshops held by the GEF Land Degradation Monitoring Project have been critical to the development of the tool."
 msgstr ""
 
-#: ../../source/about/about.rst:65
+#: ../../source/about/about.rst:48
 msgid "Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, on the structure of the tool, and on the UNCCD reporting process, and also provided early input and testing of the tool."
 msgstr ""
 
-#: ../../source/about/about.rst:70
+#: ../../source/about/about.rst:53
 msgid "The project acknowledges the participants of the workshop held in Morogoro, Tanzania in October, 2017 for sharing their feedback and suggestions on the tool: Jones Agwata, Col. Papa Assane Ndiour, Lt. Fendama Baldé, Papa Nékhou Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, Moses Isabirye, Vettes Kalema, Joseph Kihaule, Prof. D.N. Kimaro, James Lwasa, Paulo Mandela, Modou Moustapha Sarr, Joseph Mutyaba, Stephen Muwaya, Joseph Mwalugelo, Prof. Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome Nchimbi, Elibariki Ngowi, Tabby Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
 msgstr ""
 
-#: ../../source/about/about.rst:83
+#: ../../source/about/about.rst:66
 msgid "License"
 msgstr ""
 
-#: ../../source/about/about.rst:85
+#: ../../source/about/about.rst:68
 msgid "|trends.earth| is free and open-source. It is licensed under the `GNU General Public License, version 2.0 or later <https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 msgstr ""
 
-#: ../../source/about/about.rst:89
+#: ../../source/about/about.rst:72
 msgid "This site and the products of |trends.earth| are made available under the terms of the `Creative Commons Attribution 4.0 International License (CC BY 4.0) <https://creativecommons.org/licenses/by/4.0>`_. The boundaries and names used, and the designations used, in |trends.earth| do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors."
 msgstr ""
 

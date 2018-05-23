@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:23-0400\n"
+"POT-Creation-Date: 2018-05-23 16:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -71,23 +71,7 @@ msgstr ""
 " وماريانو غونزاليس روغليش ، ومونيكا نون ، وتريستان شنايدر ، وآنا تينجبرج ، "
 "وأليكس زفوليف."
 
-#: ../../source/about/about.rst:47
-msgid "|logoCI|"
-msgstr "|logoCI|"
-
-#: ../../source/about/about.rst:47
-msgid "|logoLund|"
-msgstr "|logoLund|"
-
-#: ../../source/about/about.rst:47
-msgid "|logoNASA|"
-msgstr "|logoNASA|"
-
-#: ../../source/about/about.rst:47
-msgid "|logoGEF|"
-msgstr "| logoGEF |"
-
-#: ../../source/about/about.rst:50
+#: ../../source/about/about.rst:33
 msgid ""
 "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
 "to compute indicators in the cloud."
@@ -95,11 +79,11 @@ msgstr ""
 "|trends.earth| يستخدم `Google Earth Engine <https://earthengine.google.com>`"
 " _ لحساب المؤشرات في السحاب."
 
-#: ../../source/about/about.rst:59
+#: ../../source/about/about.rst:42
 msgid "Acknowledgements"
 msgstr "شكر وتقدير"
 
-#: ../../source/about/about.rst:61
+#: ../../source/about/about.rst:44
 msgid ""
 "The feedback provided by early users of |trends.earth| and by the "
 "participants in the webinars and workshops held by the GEF Land Degradation "
@@ -110,7 +94,7 @@ msgstr ""
 "تدهور الأراضي التابع لمرفق البيئة العالمية ، كان لهما أهمية حاسمة في تطوير "
 "الأداة."
 
-#: ../../source/about/about.rst:65
+#: ../../source/about/about.rst:48
 msgid ""
 "Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
 "on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
@@ -122,7 +106,7 @@ msgstr ""
 "وعملية الإبلاغ الخاصة باتفاقية مكافحة التصحر ، وقدمت أيضاً مدخلات مبكرة "
 "واختبار الأداة."
 
-#: ../../source/about/about.rst:70
+#: ../../source/about/about.rst:53
 msgid ""
 "The project acknowledges the participants of the workshop held in Morogoro, "
 "Tanzania in October, 2017 for sharing their feedback and suggestions on the "
@@ -146,11 +130,11 @@ msgstr ""
 " أداما سار وإدوارد سينيونجو وأوليبا سيمون وسامبا سو وفيللي موغيزي توزيمي "
 "وجون واسغي."
 
-#: ../../source/about/about.rst:83
+#: ../../source/about/about.rst:66
 msgid "License"
 msgstr "رخصة"
 
-#: ../../source/about/about.rst:85
+#: ../../source/about/about.rst:68
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
@@ -160,7 +144,7 @@ msgstr ""
 " License ، الإصدار 2.0 أو أحدث <https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html> `_."
 
-#: ../../source/about/about.rst:89
+#: ../../source/about/about.rst:72
 msgid ""
 "This site and the products of |trends.earth| are made available under the "
 "terms of the `Creative Commons Attribution 4.0 International License (CC BY "

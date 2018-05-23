@@ -123,7 +123,7 @@
         <translation>Uboreshaji</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="747"/>
+        <location filename="../data_io.py" line="748"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -328,7 +328,7 @@
         <translation>Imeshindwa kupakia Mwelekeo wa mtindo. Inaongeza safu kwa kutumia vifunguo vya QGIS.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="747"/>
+        <location filename="../data_io.py" line="748"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>Haiwezi kusindika {}. Aina ya jiometri isiyojulikana: {}</translation>
     </message>
@@ -1499,44 +1499,39 @@ p, li { white-space: pre-wrap;}
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="870"/>
+        <location filename="../data_io.py" line="868"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="734"/>
+        <location filename="../data_io.py" line="735"/>
         <source>Choose an input raster file.</source>
         <translation>Chagua faili ya raster ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="739"/>
+        <location filename="../data_io.py" line="740"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Chagua dataset ya pembejeo ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="870"/>
+        <location filename="../data_io.py" line="868"/>
         <source>Raster import failed.</source>
         <translation>Uingizaji wa kasi ulipoteza.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="846"/>
+        <location filename="../data_io.py" line="844"/>
         <source>Rasterizing failed.</source>
         <translation>Rasterizing imeshindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="816"/>
+        <location filename="../data_io.py" line="814"/>
         <source>Vector remapping failed.</source>
         <translation>Ukarabati wa Vector umeshindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="833"/>
+        <location filename="../data_io.py" line="831"/>
         <source>Raster remapping failed.</source>
         <translation>Kurejesha kwa kasi kunashindwa.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="752"/>
-        <source>Enter the year of the input data.</source>
-        <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
 </context>
 <context>
@@ -1562,27 +1557,27 @@ p, li { white-space: pre-wrap;}
         <translation>Tumia sampuli wakati wa kusoma madarasa ya kifuniko kutoka kwa faili ya uingizaji</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="982"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="924"/>
+        <location filename="../data_io.py" line="922"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="927"/>
+        <location filename="../data_io.py" line="925"/>
         <source>No definition set</source>
         <translation>Hakuna ufafanuzi uliowekwa</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="927"/>
+        <location filename="../data_io.py" line="925"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Bofya &quot;Badilisha Definition&quot; ili kufafanua ufafanuzi wa bima ya ardhi kabla ya kusafirisha.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="982"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
     </message>
@@ -1590,6 +1585,11 @@ p, li { white-space: pre-wrap;}
         <location filename="../gui/DlgDataIOImportLC.ui" line="103"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
         <translation>Kumbuka: Ikiwa unasoma faili kubwa inashauriwa kuwa chaguo hapo juu kitazingatiwa, kwani itakuwa kasi ya mchakato wa kusoma madarasa ya uingizaji kutoka kwenye dataset. Hata hivyo, ikiwa unapata kuwa Trends.Earth haitambui madarasa yote katika faili ya pembejeo, inaweza kuwa muhimu kuzima chaguo hili. (Inatumia tu ikiwa pembejeo ya raster inechaguliwa)</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="928"/>
+        <source>Enter the year of the input data.</source>
+        <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
 </context>
 <context>
@@ -1632,32 +1632,32 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 &lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt; 0 au -32768: Hakuna data &lt;/ ​​span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1122"/>
+        <location filename="../data_io.py" line="1126"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1101"/>
+        <location filename="../data_io.py" line="1105"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1122"/>
+        <location filename="../data_io.py" line="1126"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1130"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1130"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji. Trends.Earth itapakia faili wakati wowote, lakini kagua ramani mara moja imefakia ili kuhakikisha maadili yanafanya akili. Maadili pekee yanayoruhusiwa katika faili ya uingizaji wa uzalishaji ni -32768, 1, 2, 3, 4 na 5. Kuna {} thamani (s) katika faili ya uingizaji ambayo haijatambuliwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1117"/>
+        <location filename="../data_io.py" line="1121"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>Sehemu iliyochaguliwa ({}) sio nambari. Chagua shamba ambalo lina namba.</translation>
     </message>
@@ -1670,34 +1670,39 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Weka dasasiti ya udongo ya Organic Carbon (SOC) ya udongo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1057"/>
+        <location filename="../data_io.py" line="1061"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1029"/>
+        <location filename="../data_io.py" line="1030"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1051"/>
+        <location filename="../data_io.py" line="1055"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Faili inapaswa kuwa na maadili ya kaboni ya kaboni katika tani / hekta.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1054"/>
+        <location filename="../data_io.py" line="1058"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Thamani ya chini katika faili hii ni {}. Thamani ya data haipaswi kuwa -32768, na maadili mengine yote yanapaswa kuwa&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1057"/>
+        <location filename="../data_io.py" line="1061"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Thamani ya juu katika faili hii ni {}. Thamani ya juu ya kuruhusiwa ni tani 1000 / hekta.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1045"/>
+        <location filename="../data_io.py" line="1049"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>Sehemu iliyochaguliwa ({}) sio nambari. Chagua uwanja wa nambari.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1033"/>
+        <source>Enter the year of the input data.</source>
+        <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
 </context>
 <context>
@@ -2111,11 +2116,6 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Jina:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="113"/>
-        <source>Country:</source>
-        <translation>Nchi:</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="133"/>
         <source>Organization:</source>
         <translation>Shirika:</translation>
@@ -2154,6 +2154,11 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <location filename="../settings.py" line="288"/>
         <source>Updated information for {}.</source>
         <translation>Imesasishwa habari kwa {}.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="113"/>
+        <source>Country/Region:</source>
+        <translation>Nchi / Mkoa:</translation>
     </message>
 </context>
 <context>
@@ -2222,11 +2227,6 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Shirika:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="117"/>
-        <source>Country:</source>
-        <translation>Nchi:</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="101"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
@@ -2260,6 +2260,11 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <location filename="../settings.py" line="107"/>
         <source>User registered. Your password has been emailed to {}.</source>
         <translation>Mtumiaji amesajiliwa. Nenosiri lako limepelekwa barua pepe kwa {}.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="117"/>
+        <source>Country/Region:</source>
+        <translation>Nchi / Mkoa:</translation>
     </message>
 </context>
 <context>
@@ -2457,32 +2462,32 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="617"/>
+        <location filename="../data_io.py" line="618"/>
         <source>Select a raster input file</source>
         <translation>Chagua faili ya pembejeo ya raster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="617"/>
+        <location filename="../data_io.py" line="618"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation>Faili ya kasi (* .tif * .dat * .img)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="659"/>
+        <location filename="../data_io.py" line="660"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="659"/>
+        <location filename="../data_io.py" line="660"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="647"/>
+        <location filename="../data_io.py" line="648"/>
         <source>Select a vector input file</source>
         <translation>Chagua faili ya pembejeo ya vector</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="647"/>
+        <location filename="../data_io.py" line="648"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
@@ -2490,22 +2495,22 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="688"/>
+        <location filename="../data_io.py" line="689"/>
         <source>Choose a name for the output file</source>
         <translation>Chagua jina kwa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="688"/>
+        <location filename="../data_io.py" line="689"/>
         <source>Raster file (*.tif)</source>
         <translation>Faili ya Raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="698"/>
+        <location filename="../data_io.py" line="699"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="698"/>
+        <location filename="../data_io.py" line="699"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -2973,27 +2978,27 @@ maeneo</translation>
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1252"/>
+        <location filename="../data_io.py" line="1256"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Chagua Mwenendo wa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1252"/>
+        <location filename="../data_io.py" line="1256"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Mwelekeo wa faili ya metadata ya kwanza (* .json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1272"/>
+        <location filename="../data_io.py" line="1276"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1268"/>
+        <location filename="../data_io.py" line="1272"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation>{} imeshindwa kupakia au haina vyenye yoyote ya aina hii ya safu. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1272"/>
+        <location filename="../data_io.py" line="1276"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -3178,11 +3183,6 @@ maeneo</translation>
         <translation>Vinjari</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="264"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kikwazo: Mipaka iliyotolewa ni kutoka &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, na iko kwenye &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;uwanja wa umma&lt;/span&gt;&lt;/a&gt;. Mipaka na majina yaliyotumiwa, na majarida yaliyotumiwa, katika trends.earth hayataanishi kupitishwa rasmi au kukubalika na Conservation International Foundation, au kwa mashirika yake ya washirika na wafadhili.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetSelectArea.ui" line="162"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
         <translation>Bonyeza &quot;Vinjari&quot; ili kuchagua faili ...</translation>
@@ -3216,6 +3216,11 @@ maeneo</translation>
         <location filename="../gui/WidgetSelectArea.ui" line="321"/>
         <source>Wrap longitudes across central meridian before projecting into output CRS (recommended for countries like Russia and Fiji if you are using an output coordinate reference system that is continuous across the 180th meridian)</source>
         <translation>Piga mfululizo kwenye meridian ya kati kabla ya kuingia kwenye CRS ya pato (ilipendekeza kwa nchi kama Urusi na Fiji ikiwa unatumia mfumo wa rejea wa kuratibu unaoendelea unaoendelea katika meridian ya 180)</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="264"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt; &lt;kichwa /&gt; &lt;mwili&gt; &lt;p&gt; Kikwazo: Mipaka iliyotolewa ni kutoka &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;maandishi-maandishi: kusisitiza; rangi: # 0000ff; &quot;&gt; Dunia ya asili &lt;/ span&gt; &lt;/a&gt;, na iko kwenye &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; maandiko-mapambo: kusisitiza; rangi: # 0000ff; &quot;&gt; uwanja wa umma &lt;/ span&gt; &lt;/a&gt;. Mipaka na majina yaliyotumiwa, na majina yaliyotumiwa, katika Mwelekeo.Kuanzia sio maana ya kukubaliwa rasmi au kukubaliwa na Conservation International Foundation, au kwa mashirika yake ya washirika na wafadhili. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>

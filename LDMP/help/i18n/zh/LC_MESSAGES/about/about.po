@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:23-0400\n"
+"POT-Creation-Date: 2018-05-23 16:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -64,41 +64,25 @@ msgstr ""
 "文档和| trends.earth |的贡献者包括Yengoh Genesis，Lennart Olsson，Mariano Gonzalez-"
 "Roglich，Monica Noon，Tristan Schnader，Anna Tengberg和Alex Zvoleff。"
 
-#: ../../source/about/about.rst:47
-msgid "|logoCI|"
-msgstr "| logoCI |"
-
-#: ../../source/about/about.rst:47
-msgid "|logoLund|"
-msgstr "| logoLund |"
-
-#: ../../source/about/about.rst:47
-msgid "|logoNASA|"
-msgstr "| logoNASA |"
-
-#: ../../source/about/about.rst:47
-msgid "|logoGEF|"
-msgstr "| logoGEF |"
-
-#: ../../source/about/about.rst:50
+#: ../../source/about/about.rst:33
 msgid ""
 "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
 "to compute indicators in the cloud."
 msgstr ""
 "| trends.earth |使用Google地球引擎<https://earthengine.google.com>`_计算云中的指标。"
 
-#: ../../source/about/about.rst:59
+#: ../../source/about/about.rst:42
 msgid "Acknowledgements"
 msgstr "致谢"
 
-#: ../../source/about/about.rst:61
+#: ../../source/about/about.rst:44
 msgid ""
 "The feedback provided by early users of |trends.earth| and by the "
 "participants in the webinars and workshops held by the GEF Land Degradation "
 "Monitoring Project have been critical to the development of the tool."
 msgstr "由| trends.earth |的早期用户提供的反馈以及由GEF土地退化监测项目举办的网络研讨会和研讨会的参与者对该工具的开发至关重要。"
 
-#: ../../source/about/about.rst:65
+#: ../../source/about/about.rst:48
 msgid ""
 "Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
 "on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
@@ -108,7 +92,7 @@ msgstr ""
 "Neil Sims，Sasha Alexander，Renato Cumani和Sara "
 "Minelli就可持续发展目标15.3和LDN指标在工具结构和“荒漠化公约”报告过程中的实施情况提供了投入，并提供了早期投入并测试该工具。"
 
-#: ../../source/about/about.rst:70
+#: ../../source/about/about.rst:53
 msgid ""
 "The project acknowledges the participants of the workshop held in Morogoro, "
 "Tanzania in October, 2017 for sharing their feedback and suggestions on the "
@@ -130,11 +114,11 @@ msgstr ""
 "Opio，Rozalia Rwegasira，Ndeye Kany Sarr，Mamadou Adama Sarr，Edward "
 "Senyonjo，Olipa Simon，Samba Sow，Felly Mugizi Tusiime和John Wasige。"
 
-#: ../../source/about/about.rst:83
+#: ../../source/about/about.rst:66
 msgid "License"
 msgstr "执照"
 
-#: ../../source/about/about.rst:85
+#: ../../source/about/about.rst:68
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
@@ -144,7 +128,7 @@ msgstr ""
 "|是免费且开源的。它是根据`GNU通用公共许可证2.0版或更高版本<https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html>`_获得许可的。"
 
-#: ../../source/about/about.rst:89
+#: ../../source/about/about.rst:72
 msgid ""
 "This site and the products of |trends.earth| are made available under the "
 "terms of the `Creative Commons Attribution 4.0 International License (CC BY "

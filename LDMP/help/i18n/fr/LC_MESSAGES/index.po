@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:23-0400\n"
+"POT-Creation-Date: 2018-05-23 17:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -43,6 +43,10 @@ msgid "`Português <../pt/index.html>`_"
 msgstr "`Português <../pt/index.html>`_"
 
 #: ../../source/index.rst:26
+msgid "**Monitor land change**"
+msgstr "**Surveiller le changement de terrain**"
+
+#: ../../source/index.rst:28
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
 "platform from `Conservation International "
@@ -55,7 +59,11 @@ msgstr ""
 "de terres en utilisant les observations de la Terre dans un système de "
 "bureau et de cloud innovant."
 
-#: ../../source/index.rst:31
+#: ../../source/index.rst:33
+msgid "**Track achievement of the sustainable development goals**"
+msgstr "**Suivre l'atteinte des objectifs de développement durable**"
+
+#: ../../source/index.rst:35
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
@@ -72,7 +80,7 @@ msgstr ""
 "pris dans le cadre de la Convention des Nations Unies sur la lutte contre la"
 " désertification (CNULCD)."
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:42
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
 "change (including degradation and improvement), to produce maps and other "
@@ -85,7 +93,22 @@ msgstr ""
 "soutenir le suivi et la notification, et suivre l'impact de la gestion "
 "durable des terres."
 
-#: ../../source/index.rst:43
+#: ../../source/index.rst:47
+msgid ""
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF)."
+msgstr ""
+"Trends.Earth a été produit par un partenariat de Conservation International,"
+" de l'Université de Lund et de l'Administration nationale de l'aéronautique "
+"et de l'espace (NASA), avec le soutien du Fonds pour l'environnement mondial"
+" (FEM)."
+
+#: ../../source/index.rst:56
+msgid "**More information**"
+msgstr "**Plus d'information**"
+
+#: ../../source/index.rst:58
 msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
@@ -96,7 +119,7 @@ msgstr ""
 "la `fiche technique <_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
 " pour plus d'informations."
 
-#: ../../source/index.rst:47
+#: ../../source/index.rst:62
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -104,27 +127,27 @@ msgstr ""
 "La documentation et les supports de formation, y compris plusieurs vidéos de"
 " démonstration, sont disponibles sur ce site :"
 
-#: ../../source/index.rst:50
+#: ../../source/index.rst:65
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:51
+#: ../../source/index.rst:66
 msgid ":ref:`background-docs`"
 msgstr ":ref:`background-docs`"
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:67
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:53
+#: ../../source/index.rst:68
 msgid ":ref:`training`"
 msgstr ":ref:`training`"
 
-#: ../../source/index.rst:54
+#: ../../source/index.rst:69
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:56
+#: ../../source/index.rst:71
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
@@ -132,22 +155,22 @@ msgstr ""
 "`Télécharger cette documentation en format PDF pour une utilisation hors "
 "ligne <pdfs/Trends.Earth.pdf>`_"
 
-#: ../../source/index.rst:65
+#: ../../source/index.rst:80
 msgid "About"
 msgstr "À propos"
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:95
 msgid "Background information"
 msgstr "Contexte"
 
-#: ../../source/index.rst:94
+#: ../../source/index.rst:109
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../../source/index.rst:113
+#: ../../source/index.rst:128
 msgid "Step-by-step Guides"
 msgstr "Guides étape par étape"
 
-#: ../../source/index.rst:133
+#: ../../source/index.rst:148
 msgid "Videos"
 msgstr "Vidéos"

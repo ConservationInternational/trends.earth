@@ -123,7 +123,7 @@
         <translation>Amélioration</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="747"/>
+        <location filename="../data_io.py" line="748"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -328,7 +328,7 @@
         <translation>Impossible de charger le style Trends.Earth. Ajouter une couche en utilisant les valeurs par défaut de QGIS.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="747"/>
+        <location filename="../data_io.py" line="748"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>Impossible de traiter {}. Type de géométrie inconnu: {}</translation>
     </message>
@@ -1499,44 +1499,39 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="870"/>
+        <location filename="../data_io.py" line="868"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="734"/>
+        <location filename="../data_io.py" line="735"/>
         <source>Choose an input raster file.</source>
         <translation>Choisir un fichier raster en entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="739"/>
+        <location filename="../data_io.py" line="740"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Choisir un jeu de données polygone en entrée.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="870"/>
+        <location filename="../data_io.py" line="868"/>
         <source>Raster import failed.</source>
         <translation>L&apos;importation raster a échoué.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="846"/>
+        <location filename="../data_io.py" line="844"/>
         <source>Rasterizing failed.</source>
         <translation>Le tramage a échoué.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="816"/>
+        <location filename="../data_io.py" line="814"/>
         <source>Vector remapping failed.</source>
         <translation>Le remappage de vecteur a échoué.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="833"/>
+        <location filename="../data_io.py" line="831"/>
         <source>Raster remapping failed.</source>
         <translation>Le remappage matriciel a échoué.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="752"/>
-        <source>Enter the year of the input data.</source>
-        <translation>Entrez l&apos;année des données d&apos;entrée.</translation>
     </message>
 </context>
 <context>
@@ -1562,27 +1557,27 @@ p, li {white-space: pre-wrap; }
         <translation>Utiliser un exemple lors de la lecture des classes de couverture à partir du fichier d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="982"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="924"/>
+        <location filename="../data_io.py" line="922"/>
         <source>Choose an output file.</source>
         <translation>Choisir un fichier de sortie.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="927"/>
+        <location filename="../data_io.py" line="925"/>
         <source>No definition set</source>
         <translation>Pas de définition</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="927"/>
+        <location filename="../data_io.py" line="925"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Cliquer sur &quot;Modifier la définition&quot; pour définir la définition de la couverture terrestre avant l&apos;exportation.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="982"/>
+        <location filename="../data_io.py" line="983"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Erreur lors de la lecture des données Trends.Earth prend en charge un maximum de 60 classes différentes de couverture du sol</translation>
     </message>
@@ -1590,6 +1585,11 @@ p, li {white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOImportLC.ui" line="103"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
         <translation>Remarque: Si vous lisez un fichier volumineux, il est recommandé de cocher l&apos;option ci-dessus, car cela accélérera singulièrement le processus de lecture des classes d&apos;entrée de l&apos;ensemble de données. Cependant, si vous trouvez que Trends.Earth n&apos;identifie pas toutes les classes dans le fichier d&apos;entrée, il peut être nécessaire de désactiver cette option. (S&apos;applique uniquement si l&apos;entrée raster est choisie)</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="928"/>
+        <source>Enter the year of the input data.</source>
+        <translation>Entrez l&apos;année des données d&apos;entrée.</translation>
     </message>
 </context>
 <context>
@@ -1632,32 +1632,32 @@ p, li {white-space: pré-wrap; }
 &lt;p style = &quot;marge supérieure: 0 px; marge inférieure: 0 px; marge gauche: 0 px; marge droite: 0 px; &quot;font-size: 8pt;&quot;&gt; 0 ou -32768: aucune donnée &lt;/ span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1122"/>
+        <location filename="../data_io.py" line="1126"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1101"/>
+        <location filename="../data_io.py" line="1105"/>
         <source>Choose an output file.</source>
         <translation>Choisir un fichier de sortie.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1122"/>
+        <location filename="../data_io.py" line="1126"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de productivité valide.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1130"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1130"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de productivité valide. Le fichier sera chargé par Trends.Earth, mais sera examiné pour s&apos;assurer de la validité des valeurs. Les seules valeurs autorisées dans un fichier d&apos;entrée de productivité sont -32768, 1, 2, 3, 4 et 5. Des {} valeur (s) dans le fichier d&apos;entrée n&apos;ont pas été reconnues.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1117"/>
+        <location filename="../data_io.py" line="1121"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>Le champ choisi ({}) n&apos;est pas numérique. Choisissez un champ qui contient des nombres.</translation>
     </message>
@@ -1670,34 +1670,39 @@ p, li {white-space: pré-wrap; }
         <translation>Chargement d&apos;une série de données personnalisées sur le carbone organique du sol (SOC)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1057"/>
+        <location filename="../data_io.py" line="1061"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1029"/>
+        <location filename="../data_io.py" line="1030"/>
         <source>Choose an output file.</source>
         <translation>Choisir un fichier de sortie.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1051"/>
+        <location filename="../data_io.py" line="1055"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de carbone organique du sol valide. Le fichier doit contenir les valeurs du carbone organique du sol en tonnes / hectare.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1054"/>
+        <location filename="../data_io.py" line="1058"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de carbone organique du sol valide. La valeur minimale dans ce fichier est {}. La valeur no data doit être -32768 et toutes les autres valeurs doivent être&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1057"/>
+        <location filename="../data_io.py" line="1061"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>Le fichier d&apos;entrée ({}) ne semble pas être un fichier d&apos;entrée de carbone organique du sol valide. La valeur maximale dans ce fichier est {}. La valeur maximale autorisée est de 1000 tonnes / hectare.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1045"/>
+        <location filename="../data_io.py" line="1049"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>Le champ choisi ({}) n&apos;est pas numérique. Choisissez un champ numérique.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1033"/>
+        <source>Enter the year of the input data.</source>
+        <translation>Entrez l&apos;année des données d&apos;entrée.</translation>
     </message>
 </context>
 <context>
@@ -2111,11 +2116,6 @@ p, li { white-space: pre-wrap; }
         <translation>Nom:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEditUpdate.ui" line="113"/>
-        <source>Country:</source>
-        <translation>Pays:</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettingsEditUpdate.ui" line="133"/>
         <source>Organization:</source>
         <translation>Organisation:</translation>
@@ -2154,6 +2154,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="288"/>
         <source>Updated information for {}.</source>
         <translation>Informations mises à jour pour {}.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsEditUpdate.ui" line="113"/>
+        <source>Country/Region:</source>
+        <translation>Pays / Région:</translation>
     </message>
 </context>
 <context>
@@ -2222,11 +2227,6 @@ p, li { white-space: pre-wrap; }
         <translation>Organisation:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsRegister.ui" line="117"/>
-        <source>Country:</source>
-        <translation>Pays:</translation>
-    </message>
-    <message>
         <location filename="../settings.py" line="101"/>
         <source>Error</source>
         <translation>Erreur</translation>
@@ -2260,6 +2260,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../settings.py" line="107"/>
         <source>User registered. Your password has been emailed to {}.</source>
         <translation>Utilisateur enregistré. Votre mot de passe a été envoyé par courrier électronique à {}.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsRegister.ui" line="117"/>
+        <source>Country/Region:</source>
+        <translation>Pays / Région:</translation>
     </message>
 </context>
 <context>
@@ -2457,32 +2462,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="617"/>
+        <location filename="../data_io.py" line="618"/>
         <source>Select a raster input file</source>
         <translation>Sélectionner un fichier d&apos;entrée raster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="617"/>
+        <location filename="../data_io.py" line="618"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation>Fichier raster (* .tif * .dat * .img)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="659"/>
+        <location filename="../data_io.py" line="660"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="659"/>
+        <location filename="../data_io.py" line="660"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="647"/>
+        <location filename="../data_io.py" line="648"/>
         <source>Select a vector input file</source>
         <translation>Sélectionner un fichier d&apos;entrée de vecteur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="647"/>
+        <location filename="../data_io.py" line="648"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Fichier vectoriel (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
@@ -2490,22 +2495,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="688"/>
+        <location filename="../data_io.py" line="689"/>
         <source>Choose a name for the output file</source>
         <translation>Choisir un nom pour le fichier de sortie</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="688"/>
+        <location filename="../data_io.py" line="689"/>
         <source>Raster file (*.tif)</source>
         <translation>Fichier raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="698"/>
+        <location filename="../data_io.py" line="699"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="698"/>
+        <location filename="../data_io.py" line="699"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Impossible d&apos;écrire sur {}. Choisissez un fichier différent.</translation>
     </message>
@@ -2973,27 +2978,27 @@ zones</translation>
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1252"/>
+        <location filename="../data_io.py" line="1256"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Sélectionnez un fichier de sortie Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1252"/>
+        <location filename="../data_io.py" line="1256"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Fichier de métadonnées Trends.Earth (*.json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1272"/>
+        <location filename="../data_io.py" line="1276"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1268"/>
+        <location filename="../data_io.py" line="1272"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation>{} n&apos;a pas pu charger ou ne contient aucune couche de ce type de couche. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1272"/>
+        <location filename="../data_io.py" line="1276"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
@@ -3178,11 +3183,6 @@ zones</translation>
         <translation>Naviguer</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="264"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Clause de non-responsabilité: Les frontières fournies proviennent de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; # 0000ff; &quot;&gt; Natural Earth &lt;/ span&gt; &lt;/a&gt;, et se trouvent dans le &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; domaine public &lt;/ span&gt; &lt;/a&gt;. Les frontières et les noms employés ainsi que les désignations dans trends.earth n&apos;impliquent ni reconnaissance ni approbation officielles de la part de  Conservation International Foundation, ou de ses organisations partenaires et contributeurs. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
-    </message>
-    <message>
         <location filename="../gui/WidgetSelectArea.ui" line="162"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
         <translation>Cliquer sur &quot;Naviguer&quot; pour choisir un fichier...</translation>
@@ -3216,6 +3216,11 @@ zones</translation>
         <location filename="../gui/WidgetSelectArea.ui" line="321"/>
         <source>Wrap longitudes across central meridian before projecting into output CRS (recommended for countries like Russia and Fiji if you are using an output coordinate reference system that is continuous across the 180th meridian)</source>
         <translation>Enrouler les longitudes sur le méridien central avant de les projeter dans le CRS de sortie (recommandé pour les pays comme la Russie et Fidji si vous utilisez un système de référence de coordonnées de sortie qui est continu sur le 180e méridien)</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="264"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt; &lt;head /&gt; &lt;body&gt; &lt;p&gt; Avis de non-responsabilité: Les limites fournies proviennent de &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style = &quot;text-decoration: underline; # 0000ff; &quot;&gt; Terre Naturelle &lt;/ span&gt; &lt;/a&gt;, et se trouvent dans le &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0000ff; &quot;&gt; domaine public &lt;/ span&gt; &lt;/a&gt;. Les limites et les noms utilisés, ainsi que les désignations utilisées, dans Trends.Earth n&apos;impliquent pas l&apos;approbation officielle ou l&apos;acceptation par Conservation International Foundation, ou par ses organisations partenaires et contributeurs. &lt;/ P&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
 </context>
 <context>

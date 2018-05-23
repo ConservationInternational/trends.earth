@@ -87,6 +87,18 @@ rst_epilog = """
 .. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
    :width: 7em
    :alt: Trends.Earth
+.. |logoCI| image:: /static/common/logo_CI_square.png
+    :width: 150
+    :target: http://www.conservation.org
+.. |logoLund| image:: /static/common/logo_Lund_square.png
+    :width: 125
+    :target: http://www.lunduniversity.lu.se
+.. |logoNASA| image:: /static/common/logo_NASA_square.png
+    :width: 125
+    :target: http://www.nasa.gov
+.. |logoGEF| image:: /static/common/logo_GEF.png
+    :width: 125
+    :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}
 .. |qgisMinVersion| replace:: 2.18.15
 """.format(current_version=version)

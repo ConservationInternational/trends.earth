@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:23-0400\n"
+"POT-Creation-Date: 2018-05-23 16:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -78,23 +78,7 @@ msgstr ""
 "Genesis, Lennart Olson, Mariano Gonzalez-Roglich, Mônica Noon, Tristan "
 "Schnader, Anna Tengberg e Alex Zvoleff."
 
-#: ../../source/about/about.rst:47
-msgid "|logoCI|"
-msgstr "|logoCI|"
-
-#: ../../source/about/about.rst:47
-msgid "|logoLund|"
-msgstr "|logoLund|"
-
-#: ../../source/about/about.rst:47
-msgid "|logoNASA|"
-msgstr "|logoNASA|"
-
-#: ../../source/about/about.rst:47
-msgid "|logoGEF|"
-msgstr "|logoGEF|"
-
-#: ../../source/about/about.rst:50
+#: ../../source/about/about.rst:33
 msgid ""
 "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
 "to compute indicators in the cloud."
@@ -102,11 +86,11 @@ msgstr ""
 "|trends.earth| usa o `Google Earth Engine <https://earthengine.google.com>`_"
 " para calcular indicadores na nuvem."
 
-#: ../../source/about/about.rst:59
+#: ../../source/about/about.rst:42
 msgid "Acknowledgements"
 msgstr "Agradecimentos"
 
-#: ../../source/about/about.rst:61
+#: ../../source/about/about.rst:44
 msgid ""
 "The feedback provided by early users of |trends.earth| and by the "
 "participants in the webinars and workshops held by the GEF Land Degradation "
@@ -117,7 +101,7 @@ msgstr ""
 "Monitoramento de Degradação de Terras do GEF foram fundamentais para o "
 "desenvolvimento da ferramenta."
 
-#: ../../source/about/about.rst:65
+#: ../../source/about/about.rst:48
 msgid ""
 "Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
 "on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
@@ -129,7 +113,7 @@ msgstr ""
 "sobre a estrutura da ferramenta e sobre o processo de relatório da UNCCD, e "
 "também forneceram dados antecipados e teste da ferramenta."
 
-#: ../../source/about/about.rst:70
+#: ../../source/about/about.rst:53
 msgid ""
 "The project acknowledges the participants of the workshop held in Morogoro, "
 "Tanzania in October, 2017 for sharing their feedback and suggestions on the "
@@ -153,11 +137,11 @@ msgstr ""
 " Edward Senyonjo, Olipa Simon, Samba Sow, Felly Mugizi Tusiime e John "
 "Wasige."
 
-#: ../../source/about/about.rst:83
+#: ../../source/about/about.rst:66
 msgid "License"
 msgstr "Licença"
 
-#: ../../source/about/about.rst:85
+#: ../../source/about/about.rst:68
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
@@ -167,7 +151,7 @@ msgstr ""
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
 "/old-licenses/gpl-2.0.en.html>`_."
 
-#: ../../source/about/about.rst:89
+#: ../../source/about/about.rst:72
 msgid ""
 "This site and the products of |trends.earth| are made available under the "
 "terms of the `Creative Commons Attribution 4.0 International License (CC BY "

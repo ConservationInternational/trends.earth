@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:23-0400\n"
+"POT-Creation-Date: 2018-05-23 17:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -43,6 +43,10 @@ msgid "`Português <../pt/index.html>`_"
 msgstr "`Português <../pt/index.html>`_"
 
 #: ../../source/index.rst:26
+msgid "**Monitor land change**"
+msgstr "**Angalia mabadiliko ya ardhi**"
+
+#: ../../source/index.rst:28
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
 "platform from `Conservation International "
@@ -55,7 +59,11 @@ msgstr ""
 "ardhi kwa kutumia uchunguzi wa ardhi katika mfumo wa ubunifu na mfumo wa "
 "wingu."
 
-#: ../../source/index.rst:31
+#: ../../source/index.rst:33
+msgid "**Track achievement of the sustainable development goals**"
+msgstr "**Kufuatilia mafanikio ya malengo ya maendeleo endelevu**"
+
+#: ../../source/index.rst:35
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
@@ -71,7 +79,7 @@ msgstr ""
 "kwenye Mkataba wa Umoja wa Mataifa wa Kupambana na Mazao ya Uharibifu "
 "(UNCCD)."
 
-#: ../../source/index.rst:38
+#: ../../source/index.rst:42
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
 "change (including degradation and improvement), to produce maps and other "
@@ -84,7 +92,21 @@ msgstr ""
 "utoaji taarifa, na kufuatilia athari za usimamizi wa ardhi endelevu au "
 "miradi mingine."
 
-#: ../../source/index.rst:43
+#: ../../source/index.rst:47
+msgid ""
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF)."
+msgstr ""
+"Trends.Earth ilizalishwa na ushirikiano wa Conservation International, Chuo "
+"Kikuu cha Lund, na Utawala wa Taifa wa Aeronautics na Space (NASA), kwa "
+"msaada wa Global Environment Facility (GEF)."
+
+#: ../../source/index.rst:56
+msgid "**More information**"
+msgstr "**Taarifa zaidi**"
+
+#: ../../source/index.rst:58
 msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
@@ -95,7 +117,7 @@ msgstr ""
 "Trends.Earth_Fact_Sheet.pdf>`_ au `kiufundi cha karatasi <_static / kawaida "
 "/ Trends.Earth_Fact_Sheet_Technical.pdf>`_ kwa habari zaidi."
 
-#: ../../source/index.rst:47
+#: ../../source/index.rst:62
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -103,27 +125,27 @@ msgstr ""
 "Nyaraka na vifaa vya mafunzo, ikiwa ni pamoja na video kadhaa za maonyesho, "
 "zinapatikana kwenye tovuti hii:"
 
-#: ../../source/index.rst:50
+#: ../../source/index.rst:65
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:51
+#: ../../source/index.rst:66
 msgid ":ref:`background-docs`"
 msgstr ": ref: `docs background '"
 
-#: ../../source/index.rst:52
+#: ../../source/index.rst:67
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:53
+#: ../../source/index.rst:68
 msgid ":ref:`training`"
 msgstr ": ref: `mafunzo`"
 
-#: ../../source/index.rst:54
+#: ../../source/index.rst:69
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:56
+#: ../../source/index.rst:71
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
@@ -131,22 +153,22 @@ msgstr ""
 "`Pakua nyaraka hizi kama PDF kwa matumizi ya nje ya mtandao <pdfs / "
 "Trends.Earth.pdf>` _"
 
-#: ../../source/index.rst:65
+#: ../../source/index.rst:80
 msgid "About"
 msgstr "Kuhusu"
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:95
 msgid "Background information"
 msgstr "Maelezo ya asili"
 
-#: ../../source/index.rst:94
+#: ../../source/index.rst:109
 msgid "Documentation"
 msgstr "Nyaraka"
 
-#: ../../source/index.rst:113
+#: ../../source/index.rst:128
 msgid "Step-by-step Guides"
 msgstr "Viongozi vya hatua kwa hatua"
 
-#: ../../source/index.rst:133
+#: ../../source/index.rst:148
 msgid "Videos"
 msgstr "Video"

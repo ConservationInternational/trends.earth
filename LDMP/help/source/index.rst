@@ -23,10 +23,14 @@
    :align: center
    :alt: trends.earth
 
+**Monitor land change**
+
 Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform 
 from `Conservation International <http://www.conservation.org/trendsearth>`_  
 for monitoring land change using earth observations in an innovative desktop 
 and cloud-based system.
+
+**Track achievement of the sustainable development goals**
 
 The three sub-indicators for monitoring achievement of Land Degradation 
 Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported 
@@ -39,6 +43,17 @@ Trends.Earth allows users to plot time series of key indicators of land change
 (including degradation and improvement), to produce maps and other graphics 
 that can support monitoring and reporting, and to track the impact of
 sustainable land management or other projects.
+
+Trends.Earth was produced by a partnership of Conservation International, Lund 
+University, and the National Aeronautics and Space Administration (NASA), with 
+the support of the Global Environment Facility (GEF).
+
+.. image:: /static/common/Logos_All_Partners.png
+    :align: center
+    :width: 600
+
+
+**More information**
 
 See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ or 
 `technical fact sheet <_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ 

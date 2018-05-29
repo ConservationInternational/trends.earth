@@ -57,7 +57,8 @@ the support of the Global Environment Facility (GEF).
 
 See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ or 
 `technical fact sheet <_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ 
-for further information.
+for further information., or `contact the Trends.Earth team
+<mailto:trends.earth@conservation.org>`_.
 
 The documentation and training materials, including a number of demonstration 
 videos, are available on this website:

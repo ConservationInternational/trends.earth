@@ -186,7 +186,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Soil organic carbon</string>
+             <string notr="true">Soil organic carbon</string>
             </property>
            </widget>
           </item>

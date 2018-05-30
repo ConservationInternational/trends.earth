@@ -242,7 +242,7 @@
       <item row="1" column="0" colspan="8">
        <widget class="QRadioButton" name="area_fromadmin">
         <property name="text">
-         <string>Administrative area</string>
+         <string>Country / region</string>
         </property>
         <property name="checked">
          <bool>true</bool>

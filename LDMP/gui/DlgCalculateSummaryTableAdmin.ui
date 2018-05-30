@@ -81,7 +81,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Productivity trajectory (significance)</string>
+             <string notr="true">Productivity trajectory (significance)</string>
             </property>
            </widget>
           </item>
@@ -103,7 +103,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Productivity performance (degradation)</string>
+             <string notr="true">Productivity performance (degradation)</string>
             </property>
            </widget>
           </item>
@@ -125,7 +125,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Productivity state (degradation)</string>
+             <string notr="true">Productivity state (degradation)</string>
             </property>
            </widget>
           </item>
@@ -199,7 +199,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Land Productivity Dynamics (LPD)</string>
+             <string notr="true">Land Productivity Dynamics (LPD)</string>
             </property>
            </widget>
           </item>
@@ -264,7 +264,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Land cover (degradation)</string>
+             <string notr="true">Land cover (degradation)</string>
             </property>
            </widget>
           </item>
@@ -313,7 +313,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string>Soil organic carbon (degradation)</string>
+             <string notr="true">Soil organic carbon (degradation)</string>
             </property>
            </widget>
           </item>

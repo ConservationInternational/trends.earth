@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>725</width>
-    <height>264</height>
+    <height>274</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,7 +35,7 @@
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string>any</string>
+         <string notr="true">any</string>
         </property>
        </widget>
       </item>

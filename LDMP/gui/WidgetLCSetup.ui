@@ -251,7 +251,7 @@
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string>Land cover (7 class)</string>
+         <string notr="true">Land cover (7 class)</string>
         </property>
        </widget>
       </item>
@@ -279,7 +279,7 @@
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string>Land cover (7 class)</string>
+         <string notr="true">Land cover (7 class)</string>
         </property>
        </widget>
       </item>

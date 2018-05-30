@@ -1312,9 +1312,12 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
     def import_file(self):
         if self.property("layer_type") == 'Land Productivity Dynamics (LPD)':
             self.dlg_load = DlgDataIOImportProd()
-        if self.property("layer_type") == 'Land cover (7 class)':
+        elif self.property("layer_type") == 'Land cover (7 class)':
             self.dlg_load = DlgDataIOImportLC()
-        if self.property("layer_type") == 'Soil organic carbon':
+        elif self.property("layer_type") == 'Soil organic carbon':
             self.dlg_load = DlgDataIOImportSOC()
+        else:
+            log(u'Unsupported import file type: {}'.format(self.property("layer_type")))
+            return
         self.dlg_load.layer_loaded.connect(self.populate)
         self.dlg_load.exec_()

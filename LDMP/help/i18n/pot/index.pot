@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 17:00-0400\n"
+"POT-Creation-Date: 2018-05-29 09:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,14 +107,16 @@ msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
 "<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
-"information."
+"information., or `contact the Trends.Earth team "
+"<mailto:trends.earth@conservation.org>`_."
 msgstr ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
 "<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
-"information."
+"information., or `contact the Trends.Earth team "
+"<mailto:trends.earth@conservation.org>`_."
 
-#: ../../source/index.rst:62
+#: ../../source/index.rst:63
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -122,27 +124,27 @@ msgstr ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
 
-#: ../../source/index.rst:65
+#: ../../source/index.rst:66
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:67
 msgid ":ref:`background-docs`"
 msgstr ":ref:`background-docs`"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:68
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:69
 msgid ":ref:`training`"
 msgstr ":ref:`training`"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:70
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:71
+#: ../../source/index.rst:72
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
@@ -150,22 +152,22 @@ msgstr ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:81
 msgid "About"
 msgstr "About"
 
-#: ../../source/index.rst:95
+#: ../../source/index.rst:96
 msgid "Background information"
 msgstr "Background information"
 
-#: ../../source/index.rst:109
+#: ../../source/index.rst:110
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../../source/index.rst:128
+#: ../../source/index.rst:129
 msgid "Step-by-step Guides"
 msgstr "Step-by-step Guides"
 
-#: ../../source/index.rst:148
+#: ../../source/index.rst:149
 msgid "Videos"
 msgstr "Videos"

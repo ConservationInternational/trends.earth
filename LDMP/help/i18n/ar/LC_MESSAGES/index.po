@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.57\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 17:00-0400\n"
+"POT-Creation-Date: 2018-05-29 09:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -101,13 +101,11 @@ msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
 "<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
-"information."
+"information., or `contact the Trends.Earth team "
+"<mailto:trends.earth@conservation.org>`_."
 msgstr ""
-"انظر `صفحة الحقائق العامة <_static / common / Trends.Earth_Fact_Sheet.pdf>` "
-"_ أو `صحيفة الحقائق الفنية <_static / common / "
-"Trends.Earth_Fact_Sheet_Technical.pdf>` _ لمزيد من المعلومات."
 
-#: ../../source/index.rst:62
+#: ../../source/index.rst:63
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -115,48 +113,48 @@ msgstr ""
 "تتوفر الوثائق ومواد التدريب ، بما في ذلك عدد من أشرطة الفيديو التوضيحية ، "
 "على هذا الموقع:"
 
-#: ../../source/index.rst:65
+#: ../../source/index.rst:66
 msgid ":ref:`about-docs`"
 msgstr ": المرجع: `حوالي docs`"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:67
 msgid ":ref:`background-docs`"
 msgstr ": المرجع: `خلفية docs`"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:68
 msgid ":ref:`user-docs`"
 msgstr ": المرجع: `المستخدم docs`"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:69
 msgid ":ref:`training`"
 msgstr ": المرجع: `training`"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:70
 msgid ":ref:`videos`"
 msgstr ""
 
-#: ../../source/index.rst:71
+#: ../../source/index.rst:72
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr ""
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:81
 msgid "About"
 msgstr "حول"
 
-#: ../../source/index.rst:95
+#: ../../source/index.rst:96
 msgid "Background information"
 msgstr "معلومات اساسية"
 
-#: ../../source/index.rst:109
+#: ../../source/index.rst:110
 msgid "Documentation"
 msgstr ""
 
-#: ../../source/index.rst:128
+#: ../../source/index.rst:129
 msgid "Step-by-step Guides"
 msgstr ""
 
-#: ../../source/index.rst:148
+#: ../../source/index.rst:149
 msgid "Videos"
 msgstr ""

@@ -500,6 +500,23 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         #self.use_custom_initial.layers_added.connect(self.use_custom_final.populate)
         #self.use_custom_final.layers_added.connect(self.use_custom_initial.populate)
 
+    # def showEvent(self, event):
+    #     super(LCSetupWidget, self).showEvent(event)
+    #
+    #     self.show_hansen_toggle()
+    #
+    # def show_hansen_toggle(self):
+    #     if self.parent().show_hansen:
+    #         self.hansen_enabled = True
+    #         self.groupBox_hansen.show()
+    #         self.use_hansen.show()
+    #         self.use_hansen_fc.show()
+    #     else:
+    #         self.hansen_enabled = False
+    #         self.groupBox_hansen.hide()
+    #         self.use_hansen.hide()
+    #         self.use_hansen_fc.hide()
+
     def use_esa_toggled(self):
         if self.use_esa.isChecked():
             self.groupBox_esa_period.setEnabled(True)

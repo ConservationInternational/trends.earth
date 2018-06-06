@@ -16,6 +16,7 @@
     <file>icons/globe.svg</file>
     <file>icons/info.svg</file>
     <file>icons/map-marker.svg</file>
+    <file>icons/tree.svg</file>
     <file>icons/wrench.svg</file>
     <file>icons/spinner.gif</file>
   </qresource>

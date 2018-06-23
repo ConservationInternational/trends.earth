@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sw" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="sw" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -405,7 +406,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -1011,37 +1012,37 @@ p, li { white-space: pre-wrap;}
 <context>
     <name>DlgCalculateSOC</name>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="20"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="20"/>
         <source>Calculate Soil Organic Carbon</source>
         <translation>Tumia Mafuta ya Carbon ya Mchanga</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="253"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="600"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="227"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="587"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="240"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="574"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="51"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="458"/>
         <source>Climate regime</source>
         <translation>Utawala wa hali ya hewa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="124"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="470"/>
         <source>Default (determined per-pixel using global climate data)</source>
         <translation>Default (kuamua kila pixel kwa kutumia data ya hali ya hewa duniani)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="63"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="502"/>
         <source>Specify regime</source>
         <translation>Taja utawala</translation>
     </message>
@@ -1051,12 +1052,12 @@ p, li { white-space: pre-wrap;}
         <translation>Thamani ya kawaida</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="143"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="518"/>
         <source>Additional files to download</source>
         <translation>Faili za ziada za kupakuliwa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="39"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="446"/>
         <source>Advanced</source>
         <translation>Kikubwa</translation>
     </message>
@@ -1106,11 +1107,6 @@ p, li { white-space: pre-wrap;}
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya mwisho ya kifuniko cha ardhi.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="189"/>
-        <source>Soil organic carbon</source>
-        <translation>Mkaa kaboni ya udongo</translation>
-    </message>
-    <message>
         <location filename="../calculate_soc.py" line="358"/>
         <source>Choose a name for the output file</source>
         <translation>Chagua jina kwa faili ya pato</translation>
@@ -1139,6 +1135,91 @@ p, li { white-space: pre-wrap;}
         <location filename="../calculate_soc.py" line="454"/>
         <source>Error calculating change in soil organic carbon.</source>
         <translation>Hitilafu ya kuhesabu mabadiliko katika kaboni ya kaboni.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="39"/>
+        <source>Biomass data</source>
+        <translation>Data ya majina</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="51"/>
+        <source>Default aboveground biomass dataset (Woods Hole Research Center, 30 m resolution)</source>
+        <translation>Takwimu za dhamana ya juu ya ardhi ya juu (Woods Hole Research Center, mkao wa 30 m)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="67"/>
+        <source>Custom aboveground biomass dataset</source>
+        <translation>Dasaset ya asili ya chini ya ardhi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="110"/>
+        <source>Forest data</source>
+        <translation>Data ya misitu</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="122"/>
+        <source>Default (Hansen et al. 2013, 30 m resolution)</source>
+        <translation>Default (Hansen et al. 2013, azimio 30 m)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="144"/>
+        <source>Forest threshold:</source>
+        <translation>Kizingiti cha misitu:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="163"/>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="176"/>
+        <source>European Space Agency CCI-LC (default land cover dataset for UNCCD reporting)</source>
+        <translation>Shirika la Nafasi ya Ulaya CCI-LC (dhamana ya msingi ya ardhi kwa ajili ya ripoti ya UNCCD)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="186"/>
+        <source>Period</source>
+        <translation>Kipindi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="254"/>
+        <source>Target year:</source>
+        <translation>Mwaka uliopangwa:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="273"/>
+        <source>Initial year:</source>
+        <translation>Mwaka wa awali:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="329"/>
+        <source>Customize land cover aggregation method</source>
+        <translation>Customize njia ya aggregation mbinu ya ardhi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="356"/>
+        <source>Edit definition</source>
+        <translation>Badilisha ufafanuzi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="369"/>
+        <source>Custom land cover dataset</source>
+        <translation>Dasaset ya kifuniko cha ardhi maalum (tayari imewekwa kwenye ramani kwa kutumia chombo cha &quot;Mzigo Data&quot;)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="379"/>
+        <source>Initial layer (initial year)</source>
+        <translation>Safu ya awali (mwaka wa msingi)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="407"/>
+        <source>Final layer (target year)</source>
+        <translation>Safu ya mwisho (mwaka lengo)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="536"/>
+        <source>Download annual forest cover change layers (only first and last land cover layer are downloaded by default)</source>
+        <translation>Pakua tabaka za mabadiliko ya misitu ya kila mwaka (safu ya kwanza ya kwanza na ya mwisho ya bima ya ardhi inapakuliwa kwa default)</translation>
     </message>
 </context>
 <context>
@@ -1289,21 +1370,6 @@ p, li { white-space: pre-wrap;}
         <translation>Uzalishaji</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="84"/>
-        <source>Productivity trajectory (significance)</source>
-        <translation>Trajectory uzalishaji (umuhimu)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="106"/>
-        <source>Productivity performance (degradation)</source>
-        <translation>Utendaji wa ufanisi (uharibifu)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="128"/>
-        <source>Productivity state (degradation)</source>
-        <translation>Hali ya uzalishaji (uharibifu)</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="135"/>
         <source>Trends.Earth land productivity</source>
         <translation>Mwelekeo wa uzalishaji wa ardhi</translation>
@@ -1324,17 +1390,12 @@ p, li { white-space: pre-wrap;}
         <translation>Trajectory (uharibifu):</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="202"/>
-        <source>Land Productivity Dynamics (LPD)</source>
-        <translation>Mienendo ya uzalishaji wa ardhi (LPD)</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="212"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</source>
         <translation>Data ya UNCCD ya Dynamics (LPD) kutoka Tume ya Pamoja ya Utafiti)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="267"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="249"/>
         <source>Land cover (degradation)</source>
         <translation>Jalada la ardhi:</translation>
     </message>
@@ -1342,11 +1403,6 @@ p, li { white-space: pre-wrap;}
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="298"/>
         <source>Soil carbon (degradation)</source>
         <translation>Koni kaboni (uharibifu)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="316"/>
-        <source>Soil organic carbon (degradation)</source>
-        <translation>Mkaa kaboni (uharibifu)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="327"/>
@@ -1608,7 +1664,7 @@ p, li { white-space: pre-wrap;}
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -1781,6 +1837,19 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
     </message>
 </context>
 <context>
+    <name>DlgDataIOLoadTESingleLayer</name>
+    <message>
+        <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="17"/>
+        <source>Open a Trends.Earth file</source>
+        <translation>Fungua Mwelekeo wa Wavuti</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="30"/>
+        <source>Select a layer</source>
+        <translation>Chagua safu</translation>
+    </message>
+</context>
+<context>
     <name>DlgDownload</name>
     <message>
         <location filename="../gui/DlgDownload.ui" line="23"/>
@@ -1831,6 +1900,82 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <location filename="../gui/DlgDownload.ui" line="222"/>
         <source>First year:</source>
         <translation>Mwaka wa kwanza:</translation>
+    </message>
+</context>
+<context>
+    <name>DlgImportLC</name>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="23"/>
+        <source>Load a Custom Land Cover Dataset</source>
+        <translation>Weka Dataset ya Jalada ya Ardhi ya Desturi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="35"/>
+        <source>Choose a land cover aggregation method</source>
+        <translation>Chagua mbinu ya kuunganisha fomu ya ardhi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="62"/>
+        <source>Edit definition</source>
+        <translation>Badilisha ufafanuzi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="69"/>
+        <source>Use sample when reading cover classes from input file</source>
+        <translation>Tumia sampuli wakati wa kusoma madarasa ya kifuniko kutoka kwa faili ya uingizaji</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="100"/>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
+        <translation>Kumbuka: Ikiwa unasoma faili kubwa inashauriwa kuwa chaguo hapo juu kitazingatiwa, kwani itakuwa kasi ya mchakato wa kusoma madarasa ya uingizaji kutoka kwenye dataset. Hata hivyo, ikiwa unapata kuwa Trends.Earth haitambui madarasa yote katika faili ya pembejeo, inaweza kuwa muhimu kuzima chaguo hili.</translation>
+    </message>
+</context>
+<context>
+    <name>DlgImportProd</name>
+    <message>
+        <location filename="../gui/DlgImportDataProd.ui" line="23"/>
+        <source>Load a Custom Land Productivity Dataset</source>
+        <translation>Weka Dataset ya Uzalishaji wa Ardhi ya Desturi</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataProd.ui" line="35"/>
+        <source>Productivity class definition</source>
+        <translation>Ufafanuzi wa darasa la uzalishaji</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataProd.ui" line="53"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt; &lt;kichwa&gt; &lt;meta jina = &quot;qrichtext&quot; maudhui = &quot;1&quot; /&gt; &lt;aina ya style = &quot;text / css&quot;&gt;
+p, li {nyeupe-nafasi: kabla ya kufuta; }
+&lt;/ style&gt; &lt;/ kichwa &lt;&lt;style style = &quot;font-familia: &apos;MS Shell Dlg 2&apos;; ukubwa wa font: 8.25pt; font-uzito: 400; style ya style: kawaida;&quot;&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt; uzito wa font: 600;&quot;&gt; Vidokezo vya uzalishaji katika data ya pembejeo lazima zikokwe kama ifuatavyo: &lt;/ span&gt; &lt;/ p&gt;
+&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 1: Kupungua &lt;/ span&gt; &lt;/ p&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 2: Ishara za mapema ya kupungua &lt;/ span&gt; &lt;/ p&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 3: imara lakini alisisitiza &lt;/ span&gt; &lt;/ p&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 4: imara &lt;/ span&gt; &lt;/ p&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; 5: Kuongeza &lt;/ span&gt; &lt;/ p&gt;
+&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt; 0 au -32768: Hakuna data &lt;/ ​​span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>DlgImportSOC</name>
+    <message>
+        <location filename="../gui/DlgImportDataSOC.ui" line="23"/>
+        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
+        <translation>Weka dasasiti ya udongo ya Organic Carbon (SOC) ya udongo</translation>
     </message>
 </context>
 <context>
@@ -1898,7 +2043,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;kichwa&gt; &lt;meta jina = &quot;qrichtext&quot; maudhui = &quot;1&quot; /&gt; &lt;aina ya style = &quot;text / css&quot;&gt;
@@ -2973,6 +3118,26 @@ maeneo</translation>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="26"/>
+        <source>Trends.Earth layer to summarize</source>
+        <translation>Mwelekeo wa safu kwa muhtasari</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="60"/>
+        <source>Input polygon layer (.shp) with sub-units (e.g. province, states, districts)</source>
+        <translation>Pembeza safu ya poligoni (.shp) na vitengo vidogo (k.m. jimbo, majimbo, wilaya)</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="110"/>
+        <source>Field containing data:</source>
+        <translation>Shamba iliyo na data:</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="139"/>
+        <source>Output spreadsheet file name (.xls)</source>
+        <translation>Jina la faili la sahajedwali (.xls)</translation>
+    </message>
 </context>
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
@@ -3138,11 +3303,6 @@ maeneo</translation>
         <source>Final layer (target year)</source>
         <translation>Safu ya mwisho (mwaka lengo)</translation>
     </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="282"/>
-        <source>Land cover (7 class)</source>
-        <translation>Jalada la ardhi (darasa la 7)</translation>
-    </message>
 </context>
 <context>
     <name>WidgetSelectArea</name>
@@ -3155,11 +3315,6 @@ maeneo</translation>
         <location filename="../gui/WidgetSelectArea.ui" line="32"/>
         <source>Area to run calculations for</source>
         <translation>Eneo la kuendesha mahesabu kwa</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="245"/>
-        <source>Administrative area</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="72"/>

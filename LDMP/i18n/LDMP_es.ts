@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -405,7 +406,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -1011,37 +1012,37 @@ p, li {white-space: pre-wrap; }
 <context>
     <name>DlgCalculateSOC</name>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="20"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="20"/>
         <source>Calculate Soil Organic Carbon</source>
         <translation>Calcule el carbono orgánico del suelo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="253"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="600"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="227"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="587"/>
         <source>Calculate</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="240"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="574"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="51"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="458"/>
         <source>Climate regime</source>
         <translation>Régimen climático</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="124"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="470"/>
         <source>Default (determined per-pixel using global climate data)</source>
         <translation>Predeterminado (determinado por ubicación usando datos climáticos globales)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="63"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="502"/>
         <source>Specify regime</source>
         <translation>Especificar el régimen</translation>
     </message>
@@ -1051,12 +1052,12 @@ p, li {white-space: pre-wrap; }
         <translation>Valor personalizado</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="143"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="518"/>
         <source>Additional files to download</source>
         <translation>Archivos adicionales para descargar</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="39"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="446"/>
         <source>Advanced</source>
         <translation>Avanzado</translation>
     </message>
@@ -1106,11 +1107,6 @@ p, li {white-space: pre-wrap; }
         <translation>El área de interés no está completamente dentro de la capa final de cobertura del terreno.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="189"/>
-        <source>Soil organic carbon</source>
-        <translation>Carbono orgánico del suelo</translation>
-    </message>
-    <message>
         <location filename="../calculate_soc.py" line="358"/>
         <source>Choose a name for the output file</source>
         <translation>Elija un nombre para el archivo de salida</translation>
@@ -1139,6 +1135,91 @@ p, li {white-space: pre-wrap; }
         <location filename="../calculate_soc.py" line="454"/>
         <source>Error calculating change in soil organic carbon.</source>
         <translation>Error al calcular el cambio en el carbono orgánico del suelo.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="39"/>
+        <source>Biomass data</source>
+        <translation>Datos de biomasa</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="51"/>
+        <source>Default aboveground biomass dataset (Woods Hole Research Center, 30 m resolution)</source>
+        <translation>Conjunto de datos de biomasa aérea predeterminada (Woods Hole Research Center, resolución de 30 m)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="67"/>
+        <source>Custom aboveground biomass dataset</source>
+        <translation>Conjunto de datos de biomasa aérea personalizada</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="110"/>
+        <source>Forest data</source>
+        <translation>Datos forestales</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="122"/>
+        <source>Default (Hansen et al. 2013, 30 m resolution)</source>
+        <translation>Predeterminado (Hansen et al. 2013, resolución de 30 m)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="144"/>
+        <source>Forest threshold:</source>
+        <translation>Umbral forestal:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="163"/>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="176"/>
+        <source>European Space Agency CCI-LC (default land cover dataset for UNCCD reporting)</source>
+        <translation>Agencia Espacial Europea CCI-LC (datos de cobertura del terreno por defecto para la presentación de informes de la CNULD)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="186"/>
+        <source>Period</source>
+        <translation>Período</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="254"/>
+        <source>Target year:</source>
+        <translation>Año objetivo:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="273"/>
+        <source>Initial year:</source>
+        <translation>Año inicial:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="329"/>
+        <source>Customize land cover aggregation method</source>
+        <translation>Personalizar el método de agregación de la cobertura del terreno</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="356"/>
+        <source>Edit definition</source>
+        <translation>Editar definición</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="369"/>
+        <source>Custom land cover dataset</source>
+        <translation>Datos de cobertura del terreno personalizado (ya cargado en el mapa utilizando la herramienta &quot;Cargar datos&quot;)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="379"/>
+        <source>Initial layer (initial year)</source>
+        <translation>Capa inicial (año base)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="407"/>
+        <source>Final layer (target year)</source>
+        <translation>Capa final (año objetivo)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTC.ui" line="536"/>
+        <source>Download annual forest cover change layers (only first and last land cover layer are downloaded by default)</source>
+        <translation>Descargue las capas de cambio de la cubierta forestal anual (solo la primera y la última capa de cobertura terrestre se descargan por defecto)</translation>
     </message>
 </context>
 <context>
@@ -1289,21 +1370,6 @@ p, li {white-space: pre-wrap; }
         <translation>Productividad</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="84"/>
-        <source>Productivity trajectory (significance)</source>
-        <translation>Trayectoria de productividad (significancia)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="106"/>
-        <source>Productivity performance (degradation)</source>
-        <translation>Rendimiento de productividad (degradación)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="128"/>
-        <source>Productivity state (degradation)</source>
-        <translation>Estado de la productividad (degradación)</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="135"/>
         <source>Trends.Earth land productivity</source>
         <translation>Productividad de la tierra de Trends.Earth</translation>
@@ -1324,17 +1390,12 @@ p, li {white-space: pre-wrap; }
         <translation>Trayectoria (degradación):</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="202"/>
-        <source>Land Productivity Dynamics (LPD)</source>
-        <translation>Dinámica de la productividad de la tierra (LPD)</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="212"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</source>
         <translation>Datos por defecto de la CNULD (Dinámica de Productividad de la Tierra (LPD) de la Joint Research Commission)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="267"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="249"/>
         <source>Land cover (degradation)</source>
         <translation>Cobertura del terreno:</translation>
     </message>
@@ -1342,11 +1403,6 @@ p, li {white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="298"/>
         <source>Soil carbon (degradation)</source>
         <translation>Carbono del suelo (degradación)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="316"/>
-        <source>Soil organic carbon (degradation)</source>
-        <translation>Carbono orgánico del suelo (degradación)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="327"/>
@@ -1608,7 +1664,7 @@ p, li {white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -1781,6 +1837,19 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgDataIOLoadTESingleLayer</name>
+    <message>
+        <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="17"/>
+        <source>Open a Trends.Earth file</source>
+        <translation>Abra un archivo Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="30"/>
+        <source>Select a layer</source>
+        <translation>Seleccione una capa</translation>
+    </message>
+</context>
+<context>
     <name>DlgDownload</name>
     <message>
         <location filename="../gui/DlgDownload.ui" line="23"/>
@@ -1831,6 +1900,82 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDownload.ui" line="222"/>
         <source>First year:</source>
         <translation>Primer año:</translation>
+    </message>
+</context>
+<context>
+    <name>DlgImportLC</name>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="23"/>
+        <source>Load a Custom Land Cover Dataset</source>
+        <translation>Cargar un conjunto de datos personalizado de cobertura del terreno</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="35"/>
+        <source>Choose a land cover aggregation method</source>
+        <translation>Elija un método de agregación de cobertura del terreno</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="62"/>
+        <source>Edit definition</source>
+        <translation>Editar definición</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="69"/>
+        <source>Use sample when reading cover classes from input file</source>
+        <translation>Use una muestra al leer las clases de portada desde el archivo de entrada</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataLC.ui" line="100"/>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option.</source>
+        <translation>Nota: Si está leyendo un archivo grande, se recomienda que se marque la opción anterior, ya que acelera de manera significativa el proceso de lectura de las clases de entrada del conjunto de datos. Sin embargo, si encuentra que Trends.Earth no identifica todas las clases en el archivo de entrada, puede ser necesario desactivar esta opción.</translation>
+    </message>
+</context>
+<context>
+    <name>DlgImportProd</name>
+    <message>
+        <location filename="../gui/DlgImportDataProd.ui" line="23"/>
+        <source>Load a Custom Land Productivity Dataset</source>
+        <translation>Cargar un conjunto de datos de productividad terrestre personalizado</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataProd.ui" line="35"/>
+        <source>Productivity class definition</source>
+        <translation>Definición de clase de productividad</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgImportDataProd.ui" line="53"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Las clases de productividad deben estar codificadas del diguiente modo:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Early signs of decline&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Stable but stressed&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>DlgImportSOC</name>
+    <message>
+        <location filename="../gui/DlgImportDataSOC.ui" line="23"/>
+        <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
+        <translation>Cargar un conjunto de datos de carbono orgánico de suelo personalizado (SOC)</translation>
     </message>
 </context>
 <context>
@@ -1898,7 +2043,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2971,6 +3116,26 @@ p, li { white-space: pre-wrap; }
         <source>Browse</source>
         <translation>Buscar</translation>
     </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="26"/>
+        <source>Trends.Earth layer to summarize</source>
+        <translation>Tendencias. Capa de tierra para resumir</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="60"/>
+        <source>Input polygon layer (.shp) with sub-units (e.g. province, states, districts)</source>
+        <translation>Capa de polígono de entrada (.shp) con subunidades (por ejemplo, provincia, estados, distritos)</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="110"/>
+        <source>Field containing data:</source>
+        <translation>Campo que contiene datos:</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="139"/>
+        <source>Output spreadsheet file name (.xls)</source>
+        <translation>Nombre de archivo de hoja de cálculo de salida (.xls)</translation>
+    </message>
 </context>
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
@@ -3136,11 +3301,6 @@ p, li { white-space: pre-wrap; }
         <source>Final layer (target year)</source>
         <translation>Capa final (año objetivo)</translation>
     </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="282"/>
-        <source>Land cover (7 class)</source>
-        <translation>Cubierta del suelo (7 clase)</translation>
-    </message>
 </context>
 <context>
     <name>WidgetSelectArea</name>
@@ -3153,11 +3313,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/WidgetSelectArea.ui" line="32"/>
         <source>Area to run calculations for</source>
         <translation>Área en la que ejecutar cálculos</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="245"/>
-        <source>Administrative area</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="72"/>

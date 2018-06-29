@@ -277,7 +277,7 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'download_annual_lc': self.download_annual_lc.isChecked(),
+                   'method': self.download_annual_lc.isChecked(),
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,

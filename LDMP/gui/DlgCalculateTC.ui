@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>476</height>
+    <height>635</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,11 +34,18 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="BiomassTab">
+     <widget class="QWidget" name="MethodTab">
       <attribute name="title">
-       <string>Biomass data</string>
+       <string>Method</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Biomass data</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
          <property name="text">
@@ -98,6 +105,35 @@
          <property name="layer_type" stdset="0">
           <string notr="true">Productivity trajectory (significance)</string>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Method for calculation of root to shoot ratio</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="radioButton_rootshoot_ipcc">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>IPCC</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
+            <property name="text">
+             <string>Mokany et al. 2006</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>

@@ -578,10 +578,6 @@ class DlgCalculateBase(QtGui.QDialog):
 
         self.firstShowEvent.connect(self.firstShow)
         
-        # If a land cover widget is shown on the calculate dialog, by default 
-        # don't show the hansen selector
-        self.show_hansen = False
-
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
 

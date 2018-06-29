@@ -112,7 +112,7 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         super(DlgCalculateTC, self).__init__(parent)
 
         self.setupUi(self)
-        
+
     def showEvent(self, event):
         super(DlgCalculateTC, self).showEvent(event)
 
@@ -136,7 +136,12 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
 
-        # Show hansen selector 
+    def tab_changed(self):
+        super(DlgCalculateTC, self).tab_changed()
+
+        # The lc setup widget will disable the hansen selector by default every 
+        # time it is shown. So ensure that whenever a tab is changed, the 
+        # hansen selector is reenabled
         self.lc_setup_tab.show_hansen_toggle(True)
 
     def btn_calculate(self):

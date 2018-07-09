@@ -44,5 +44,9 @@
     "download-data": {
         "script version": "0.56",
         "description": "Download data from Google Earth Engine assets."
+    },
+    "total-carbon": {
+        "script version": "0.56",
+        "description": "Calculate total carbon in biomass (above and below ground)."
     }
 }

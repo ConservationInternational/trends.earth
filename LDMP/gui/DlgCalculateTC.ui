@@ -44,67 +44,69 @@
          <property name="title">
           <string>Biomass data</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
-         <property name="text">
-          <string>Default Woods Hole Research Center aboveground biomass (30 m resolution, tropics only)</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_carbon_geocarbon">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>GEOCARBON aboveground biomass (1 km resolution, global)</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_carbon_custom">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Custom aboveground biomass dataset</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="layer_type" stdset="0">
-          <string notr="true">Productivity trajectory (significance)</string>
-         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
+            <property name="text">
+             <string>Default Woods Hole Research Center aboveground biomass (30 m resolution, tropics only)</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_carbon_geocarbon">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>GEOCARBON aboveground biomass (1 km resolution, global)</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_carbon_custom">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Custom aboveground biomass dataset</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="layer_type" stdset="0">
+             <string notr="true">Productivity trajectory (significance)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>

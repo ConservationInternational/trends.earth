@@ -522,16 +522,19 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
 
     def lc_source_changed(self):
         if self.use_hansen.isChecked():
+            self.groupBox_hansen.setEnabled(True)
             self.groupBox_esa_period.setEnabled(False)
             self.groupBox_esa_agg.setEnabled(False)
             self.groupBox_custom_bl.setEnabled(False)
             self.groupBox_custom_tg.setEnabled(False)
         elif self.use_esa.isChecked():
+            self.groupBox_hansen.setEnabled(False)
             self.groupBox_esa_period.setEnabled(True)
             self.groupBox_esa_agg.setEnabled(True)
             self.groupBox_custom_bl.setEnabled(False)
             self.groupBox_custom_tg.setEnabled(False)
         elif self.use_custom.isChecked():
+            self.groupBox_hansen.setEnabled(False)
             self.groupBox_esa_period.setEnabled(False)
             self.groupBox_esa_agg.setEnabled(False)
             self.groupBox_custom_bl.setEnabled(True)

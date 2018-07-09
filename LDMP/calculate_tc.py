@@ -113,6 +113,8 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
 
         self.setupUi(self)
 
+        self.first_show = True
+
     def showEvent(self, event):
         super(DlgCalculateTC, self).showEvent(event)
 
@@ -129,12 +131,17 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         self.lc_setup_tab.use_custom_initial.populate()
         self.lc_setup_tab.use_custom_final.populate()
 
-        # Ensure the special value text (set to " ") is displayed by default
-        self.lc_setup_tab.use_hansen_fc.setSpecialValueText(' ')
-        self.lc_setup_tab.use_hansen_fc.setValue(self.lc_setup_tab.use_hansen_fc.minimum())
+        self.radioButton_carbon_custom.setEnabled(False)
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
+
+        if self.first_show:
+            self.first_show = False
+            # Ensure the special value text (set to " ") is displayed by 
+            # default
+            self.lc_setup_tab.use_hansen_fc.setSpecialValueText(' ')
+            self.lc_setup_tab.use_hansen_fc.setValue(self.lc_setup_tab.use_hansen_fc.minimum())
 
     def tab_changed(self):
         super(DlgCalculateTC, self).tab_changed()
@@ -144,6 +151,24 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         # hansen selector is reenabled
         self.lc_setup_tab.show_hansen_toggle(True)
 
+    def get_biomass_dataset(self):
+        if self.radioButton_carbon_woods_hole.isChecked():
+            return 'woodshole'
+        elif self.radioButton_carbon_geocarbon.isChecked():
+            return 'geocarbon'
+        elif self.radioButton_carbon_custom.isChecked():
+            return 'custom'
+        else:
+            return None
+
+    def get_method(self):
+        if self.radioButton_rootshoot_ipcc.isChecked():
+            return 'ipcc'
+        elif self.radioButton_rootshoot_mokany.isChecked():
+            return 'mokany'
+        else:
+            return None
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -151,15 +176,26 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         ret = super(DlgCalculateTC, self).btn_calculate()
         if not ret:
             return
-        if self.lc_setup_tab.use_hansen_fc.text() == self.lc_setup_tab.use_hansen_fc.specialValueText():
+        if (self.lc_setup_tab.use_hansen_fc.text() == self.lc_setup_tab.use_hansen_fc.specialValueText()) and \
+                self.lc_setup_tab.use_hansen.isChecked():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter a value for percent cover that is considered forest."))
+            return
+
+        method = self.get_method()
+        if not method:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a method for calculating the root to shoot ratio."))
+            return
+
+        biomass_data = self.get_biomass_dataset()
+        if not method:
+            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a biomass dataset."))
             return
 
 
         if self.lc_setup_tab.use_custom.isChecked():
-            self.calculate_locally()
+            self.calculate_locally(method, biomass_data)
         else:
-            self.calculate_on_GEE()
+            self.calculate_on_GEE(method, biomass_data)
 
     def get_save_raster(self):
         raster_file = QtGui.QFileDialog.getSaveFileName(self,
@@ -175,7 +211,7 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
-    def calculate_locally(self):
+    def calculate_locally(self, method, biomass_data):
         if not self.lc_setup_tab.use_custom.isChecked():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."), None)
@@ -238,9 +274,9 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         # climate zones
         lc_band_nums = np.arange(len(lc_files)) + 3
 
-        log(u'Saving soil organic carbon to {}'.format(out_f))
+        log(u'Saving total carbon to {}'.format(out_f))
         soc_worker = StartWorker(SOCWorker,
-                                 'calculating change in soil organic carbon', 
+                                 'calculating change in total carbon', 
                                  in_vrt,
                                  out_f,
                                  lc_band_nums,
@@ -248,17 +284,17 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
 
         if not soc_worker.success:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating change in soil organic carbon."), None)
+                                       self.tr("Error calculating change in toal carbon."), None)
             return
 
-        band_infos = [BandInfo("Soil organic carbon (degradation)", add_to_map=True, metadata={'year_start': lc_years[0], 'year_end': lc_years[-1]})]
+        band_infos = [BandInfo("Total carbon (change)", add_to_map=True, metadata={'year_start': lc_years[0], 'year_end': lc_years[-1]})]
         for year in lc_years:
             if (year == lc_years[0]) or (year == lc_years[-1]):
                 # Add first and last years to map
                 add_to_map = True
             else:
                 add_to_map = False
-            band_infos.append(BandInfo("Soil organic carbon", add_to_map=add_to_map, metadata={'year': year}))
+            band_infos.append(BandInfo("Total carbon", add_to_map=add_to_map, metadata={'year': year}))
         for year in lc_years:
             band_infos.append(BandInfo("Land cover (7 class)", metadata={'year': year}))
 
@@ -271,13 +307,15 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
                 # The +1 is because band numbers start at 1, not zero
                 add_layer(out_f, band_number + 1, b)
 
-    def calculate_on_GEE(self):
+    def calculate_on_GEE(self, method, biomass_data):
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'method': self.download_annual_lc.isChecked(),
+                   'fc_threshold': int(self.lc_setup_tab.use_hansen_fc.text().replace('%', '')),
+                   'method': method,
+                   'biomass_data': biomass_data,
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
@@ -285,13 +323,13 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        resp = run_script(get_script_slug('soil-organic-carbon'), payload)
+        resp = run_script(get_script_slug('total-carbon'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Soil organic carbon submitted to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Total carbon submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit soil organic carbon task to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
                            level=0, duration=5)

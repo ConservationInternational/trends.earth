@@ -483,7 +483,9 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         self.use_esa_tg_year.setMinimumDate(lc_start_year)
         self.use_esa_tg_year.setMaximumDate(lc_end_year)
 
-        self.use_esa.toggled.connect(self.use_esa_toggled)
+        self.use_hansen.toggled.connect(self.lc_source_changed)
+        self.use_esa.toggled.connect(self.lc_source_changed)
+        self.use_custom.toggled.connect(self.lc_source_changed)
 
         # Below is a bugfix for checkable group boxes created in QtDesigner - 
         # if they aren't checked by default in Qt Designer then checking them 
@@ -493,7 +495,7 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         self.use_esa_agg_edit.clicked.connect(self.esa_agg_custom_edit)
 
         # Make sure the custom data boxes are turned off by default
-        self.use_esa_toggled()
+        self.lc_source_changed()
 
         # Ensure that if a LC layer is loaded in one box it shows up also in 
         # the other
@@ -518,13 +520,18 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
             self.use_hansen.hide()
             self.use_hansen.setEnabled(False)
 
-    def use_esa_toggled(self):
-        if self.use_esa.isChecked():
+    def lc_source_changed(self):
+        if self.use_hansen.isChecked():
+            self.groupBox_esa_period.setEnabled(False)
+            self.groupBox_esa_agg.setEnabled(False)
+            self.groupBox_custom_bl.setEnabled(False)
+            self.groupBox_custom_tg.setEnabled(False)
+        elif self.use_esa.isChecked():
             self.groupBox_esa_period.setEnabled(True)
             self.groupBox_esa_agg.setEnabled(True)
             self.groupBox_custom_bl.setEnabled(False)
             self.groupBox_custom_tg.setEnabled(False)
-        else:
+        elif self.use_custom.isChecked():
             self.groupBox_esa_period.setEnabled(False)
             self.groupBox_esa_agg.setEnabled(False)
             self.groupBox_custom_bl.setEnabled(True)

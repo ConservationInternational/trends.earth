@@ -22,6 +22,7 @@ def run(params, logger):
     year_start = params.get('year_start')
     year_end = params.get('year_end')
     method = params.get('method')
+    biomass_data = params.get('biomass_data')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
 
@@ -32,6 +33,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = tc(fc_threshold, year_start, year_end, method, EXECUTION_ID, logger)
+    out = tc(fc_threshold, year_start, year_end, method, biomass_data, 
+             EXECUTION_ID, logger)
 
     return out.export(geojsons, 'total_carbon', crs, logger, EXECUTION_ID)

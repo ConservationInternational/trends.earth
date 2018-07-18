@@ -180,11 +180,8 @@ class AOI(object):
             geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
 
             if not geom.IsValid():
-                log(u'Invalid feature with attributes: {}. Buffering this feature in attempt to fix.'.format(f.attributes()))
-                geom = geom.Buffer(1e-9)
-
-            if not geom.IsValid():
-                log(u'Feature is still invalid after buffering. Skipping this feature.'.format(f.attributes()))
+                log(u'Invalid feature with attributes: {}.'.format(f.attributes()))
+                raise
             else:
                 if n == 0:
                     new_union = geom

@@ -146,6 +146,21 @@ style_text_dict = {
     'combined_sdg_deg_stable': tr('Stable'),
     'combined_sdg_deg_imp': tr('Improvement'),
     'combined_sdg_deg_nodata': tr('No data'),
+
+    # Forest loss
+    'f_loss_hansen_title': tr('Forest loss ({year_start} to {year_end})'),
+    'f_loss_hansen_nodata': tr('No data'),
+    'f_loss_hansen_noloss': tr('Forest (no loss)'),
+    'f_loss_hansen_year_start': tr('Forest loss ({year_start})'),
+    'f_loss_hansen_year_end': tr('Forest loss ({year_end})'),
+
+    # Total carbon
+    'tc_title': tr('Total carbon (units??)'),
+    'tc_nodata': tr('No data'),
+
+    # Root shoot ratio (below to above ground carbon in woody biomass)
+    'root_shoot_title': tr('Root/shoot ratio (x 100)'),
+    'root_shoot_nodata': tr('No data')
 }
 
 
@@ -289,6 +304,21 @@ def add_layer(f, band_number, band_info):
                                                       QtGui.QColor(item['color']),
                                                       tr_style_text(item['label'])))
 
+    if style['ramp']['type'] == 'categorical with dynamic ramp':
+        r = []
+        for item in style['ramp']['items']:
+            r.append(QgsColorRampShader.ColorRampItem(item['value'],
+                                                      QtGui.QColor(item['color']),
+                                                      tr_style_text(item['label'])))
+        # Now add in the continuous ramp with min/max values and labels 
+        # determined from the band info min/max
+        r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_min'],
+                                                  QtGui.QColor(style['ramp']['ramp min']['color']),
+                                                  tr_style_text(style['ramp']['ramp min']['label'], band_info)))
+        r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_max'],
+                                                  QtGui.QColor(style['ramp']['ramp max']['color']),
+                                                  tr_style_text(style['ramp']['ramp max']['label'], band_info)))
+
     elif style['ramp']['type'] == 'zero-centered stretch':
         # Set a colormap centred on zero, going to the max of the min and max 
         # extreme value significant to three figures.
@@ -360,11 +390,14 @@ def add_layer(f, band_number, band_info):
     return True
 
 
-def tr_style_text(label):
+def tr_style_text(label, band_info=None):
     """If no translation is available, use the original label"""
     val = style_text_dict.get(label, None)
     if val:
-        return val
+        if band_info:
+            return val.format(**band_info['metadata'])
+        else:
+            return val
     else:
         log('value not found in translation dictionary')
         if isinstance(label, basestring):

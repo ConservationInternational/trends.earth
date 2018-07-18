@@ -20,8 +20,7 @@ from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication, QMenu
 from LDMP import __version__
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
-from LDMP.calculate import DlgCalculate
-from LDMP.calculate_tc import DlgCalculateTC
+from LDMP.calculate import DlgCalculateLD, DlgCalculateTC
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
 from LDMP.visualization import DlgVisualization
@@ -93,7 +92,7 @@ class LDMPPlugin:
         self.toolbar = self.iface.addToolBar(u'trends.earth')
 
         self.dlg_settings = DlgSettings()
-        self.dlg_calculate = DlgCalculate()
+        self.dlg_calculate = DlgCalculateLD()
         self.dlg_calculate_tc = DlgCalculateTC()
         self.dlg_jobs = DlgJobs()
         self.dlg_timeseries = DlgTimeseries()

@@ -29,7 +29,8 @@ from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
 from LDMP import log
-from LDMP.gui.DlgCalculate import Ui_DlgCalculate
+from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
+from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
@@ -172,16 +173,27 @@ class AOI(object):
         # Calculate a single feature that is the union of all the features in 
         # this layer - that way there is a single feature to intersect with 
         # each hemisphere.
+        log('Merging features')
         n = 0
         for f in self.get_layer_wgs84().getFeatures():
             # Get an OGR geometry from the QGIS geometry
             geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
-            if n == 0:
-                union = geom
-            else:
-                union = union.Union(geom)
-            n += 1
 
+            if not geom.IsValid():
+                log(u'Invalid feature with attributes: {}. Buffering this feature in attempt to fix.'.format(f.attributes()))
+                geom = geom.Buffer(1e-9)
+
+            if not geom.IsValid():
+                log(u'Feature is still invalid after buffering. Skipping this feature.'.format(f.attributes()))
+            else:
+                if n == 0:
+                    new_union = geom
+                else:
+                    new_union = union.Union(geom)
+                union = new_union
+                n += 1
+
+        log(u'Calculating east and west intersection.')
         e_intersection = hemi_e.Intersection(union)
         w_intersection = hemi_w.Intersection(union)
 
@@ -202,6 +214,7 @@ class AOI(object):
         else:
             raise ValueError('Unrecognized out_type "{}"'.format(out_type))
 
+        log(u'Getting split in chosen format.')
         if out_format == 'geojson':
             e_intersection_out = json.loads(e_intersection_out.ExportToJson())
             w_intersection_out = json.loads(w_intersection_out.ExportToJson())
@@ -329,9 +342,9 @@ class AOI(object):
         log('Fractional area of overlap: {}'.format(frac))
         return frac
 
-class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
+class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):
     def __init__(self, parent=None):
-        super(DlgCalculate, self).__init__(parent)
+        super(DlgCalculateLD, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -375,7 +388,32 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
 
     def btn_summary_multi_polygons_clicked(self):
         QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                   self.tr("Multiple polygon summary table calculation coming soon!"), None)
+                                      self.tr("Multiple polygon summary table calculation coming soon!"), None)
+
+
+class DlgCalculateTC(QtGui.QDialog, Ui_DlgCalculateTC):
+    def __init__(self, parent=None):
+        super(DlgCalculateTC, self).__init__(parent)
+
+        self.setupUi(self)
+
+        # TODO: Bad style - fix when refactoring
+        from LDMP.calculate_tc import DlgCalculateTCData
+        from LDMP.calculate_tc import DlgCalculateTCSummaryTable
+        self.dlg_calculate_tc_data = DlgCalculateTCData()
+        self.dlg_calculate_tc_summary = DlgCalculateTCSummaryTable()
+
+        self.btn_calculate_carbon_change.clicked.connect(self.btn_calculate_carbon_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+
+    def btn_calculate_carbon_change_clicked(self):
+        self.close()
+        result = self.dlg_calculate_tc_data.exec_()
+
+    def btn_summary_single_polygon_clicked(self):
+        self.close()
+        result = self.dlg_calculate_tc_summary.exec_()
+
 
 class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
     def __init__(self, parent=None):

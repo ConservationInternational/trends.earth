@@ -29,12 +29,15 @@ from PyQt4.QtCore import QSettings
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.lc_setup import lc_setup_widget
 from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
+from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
+from LDMP.gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from LDMP.summary import xtab, merge_xtabs, calc_total_table, calc_area_table, \
+    merge_area_tables, get_xtab_area
 
 
 def remap(a, remap_list):
@@ -43,6 +46,7 @@ def remap(a, remap_list):
     return a
 
 
+#TODO: Still need to code below for local calculation of Total CVarbon change
 class TCWorker(AbstractWorker):
     def __init__(self, in_vrt, out_f, lc_band_nums, lc_years):
         AbstractWorker.__init__(self)
@@ -107,16 +111,17 @@ class TCWorker(AbstractWorker):
         else:
             return True
 
-class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
+
+class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
     def __init__(self, parent=None):
-        super(DlgCalculateTC, self).__init__(parent)
+        super(DlgCalculateTCData, self).__init__(parent)
 
         self.setupUi(self)
 
         self.first_show = True
 
     def showEvent(self, event):
-        super(DlgCalculateTC, self).showEvent(event)
+        super(DlgCalculateTCData, self).showEvent(event)
 
         self.lc_setup_tab = lc_setup_widget
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
@@ -144,7 +149,7 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
             self.lc_setup_tab.use_hansen_fc.setValue(self.lc_setup_tab.use_hansen_fc.minimum())
 
     def tab_changed(self):
-        super(DlgCalculateTC, self).tab_changed()
+        super(DlgCalculateTCData, self).tab_changed()
 
         # The lc setup widget will disable the hansen selector by default every 
         # time it is shown. So ensure that whenever a tab is changed, the 
@@ -173,7 +178,7 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateTC, self).btn_calculate()
+        ret = super(DlgCalculateTCData, self).btn_calculate()
         if not ret:
             return
         if (self.lc_setup_tab.use_hansen_fc.text() == self.lc_setup_tab.use_hansen_fc.specialValueText()) and \
@@ -333,3 +338,255 @@ class DlgCalculateTC(DlgCalculateBase, Ui_DlgCalculateTC):
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                            QtGui.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
                            level=0, duration=5)
+
+class TCSummaryWorker(AbstractWorker):
+    def __init__(self, src_file, year_start, year_end):
+        AbstractWorker.__init__(self)
+
+        self.src_file = src_file
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        src_ds = gdal.Open(self.src_file)
+
+        band_f_loss = src_ds.GetRasterBand(1)
+        band_tc = src_ds.GetRasterBand(2)
+
+        block_sizes = band_f_loss.GetBlockSize()
+        xsize = band_f_loss.XSize
+        ysize = band_f_loss.YSize
+        n_out_bands = 1
+
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+
+        src_gt = src_ds.GetGeoTransform()
+
+        # Width of cells in longitude
+        long_width = src_gt[1]
+        # Set initial lat ot the top left corner latitude
+        lat = src_gt[3]
+        # Width of cells in latitude
+        pixel_height = src_gt[5]
+
+        site_area = 0
+        missing_area = 0
+        initial_forest_area = 0
+        initial_carbon_total = 0
+        forest_loss = np.zeros((year_end - year_start, 1))
+        carbon_loss = np.zeros((year_end - year_start, 1))
+
+        blocks = 0
+        for y in xrange(0, ysize, y_block_size):
+            if self.killed:
+                log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
+                break
+            self.progress.emit(100 * float(y) / ysize)
+            if y + y_block_size < ysize:
+                rows = y_block_size
+            else:
+                rows = ysize - y
+            for x in xrange(0, xsize, x_block_size):
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+
+                f_loss_array = band_f_loss.ReadAsArray(x, y, cols, rows)
+                tc_array = band_tc.ReadAsArray(x, y, cols, rows)
+
+                # Caculate cell area for each horizontal line
+                cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
+                cell_areas.shape = (cell_areas.size, 1)
+                # Make an array of the same size as the input arrays containing 
+                # the area of each cell (which is identicalfor all cells ina 
+                # given row - cell areas only vary among rows)
+                cell_areas_array = np.repeat(cell_areas, cols, axis=1)
+
+                nodata = (f_loss_array == -32768) | (tc_array == -32768)
+
+                # The site area includes everything that isn't masked
+                site_area = site_area + np.sum((f_loss_array != -32767) * cell_areas_array)
+                missing_area = missing_area + np.sum(nodata * cell_areas_array)
+                initial_forest_area = initial_forest_area + np.sum((f_loss_array >= 0) * cell_areas_array)
+                initial_carbon_total = initial_carbon_total +  np.sum(tc_array * (tc_array >= 0) * cell_areas_array)
+
+                for n in range(len(year_start, year_end)):
+                    # Note the codes are year - 2000
+                    forest_loss[n] = forest_loss[n] + np.sum((f_loss_array == year_start - 2000 + n) * cell_areas_array)
+                    carbon_loss[n] = carbon_loss[n] + np.sum((f_loss_array == year_start - 2000 + n) * tc_array * cell_areas_array)
+
+                blocks += 1
+            lat += pixel_height * rows
+        self.progress.emit(100)
+
+        if self.killed:
+            return None
+        else:
+            # Convert all area tables from meters into hectares
+            forest_loss = forest_loss * 1e-8
+            carbon_loss = carbon_loss * 1e-8
+            site_area = site_area * 1e-8
+            missing_area = missing_area * 1e-8
+            initial_forest_area = initial_forest_area * 1e-8
+            initial_carbon_total = initial_carbon_total * 1e-8
+
+        return list((forest_loss, carbon_loss, site_area, missing_area, 
+                     initial_forest_area, initial_carbon_total))
+
+class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
+    def __init__(self, parent=None):
+        super(DlgCalculateTCSummaryTable, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
+
+    def showEvent(self, event):
+        super(DlgCalculateTCSummaryTable, self).showEvent(event)
+
+        self.combo_layer_f_loss.populate()
+        self.combo_layer_tc.populate()
+
+    def select_output_file_table(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the summary table'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Summary table file (*.xlsx)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_table.setText(f)
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+
+    def btn_calculate(self):
+        ######################################################################
+        # Check that all needed output files are selected
+        if not self.output_file_table.text():
+            QtGui.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the summary table."), None)
+            return
+
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateTCSummaryTable, self).btn_calculate()
+        if not ret:
+            return
+
+        ######################################################################
+        # Check that all needed input layers are selected
+        if len(self.combo_layer_f_loss.layer_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a forest loss layer to your map before you can use the carbon change summary tool."), None)
+            return
+        if len(self.combo_layer_tc.layer_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a total carbon layer to your map before you can use the carbon change summary tool."), None)
+            return
+        #######################################################################
+        # Check that the layers cover the full extent needed
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Area of interest is not entirely within the forest loss layer."), None)
+                return
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Area of interest is not entirely within the total carbon layer."), None)
+                return
+
+        #######################################################################
+        # Check that all of the productivity layers have the same resolution 
+        # and CRS
+        def res(layer):
+            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
+
+        if res(self.combo_layer_f_loss.get_layer()) != res(self.combo_layer_tc.get_layer()):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Resolutions of forest loss and total carbon layers do not match."), None)
+            return
+
+        self.close()
+
+        #######################################################################
+        # Load all datasets to VRTs (to select only the needed bands)
+        f_loss_vrt = self.combo_layer_f_loss.get_vrt()
+        tc_vrt = self.combo_layer_tc.get_vrt()
+
+        # Remember the first value is an indication of whether dataset is 
+        # wrapped across 180th meridian
+        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
+        bbs = self.aoi.get_aligned_output_bounds(f_loss_vrt)
+
+        for n in range(len(wkts)):
+            # Compute the pixel-aligned bounding box (slightly larger than 
+            # aoi). Use this instead of croptocutline in gdal.Warp in order to 
+            # keep the pixels aligned with the chosen productivity layer.
+        
+            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
+            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+            # The plus one is because band numbers start at 1, not zero
+            gdal.BuildVRT(indic_vrt,
+                          [f_loss_vrt, tc_vrt],
+                          outputBounds=bbs[n],
+                          resolution='highest',
+                          resampleAlg=gdal.GRA_NearestNeighbour,
+                          separate=True)
+
+            masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+            log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
+            clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
+                                      indic_vrt, masked_vrt, 
+                                      json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
+                                      bbs[n])
+            if not clip_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error masking carbon change input layers."), None)
+                return
+
+            ######################################################################
+            #  Calculate carbon change table
+            log('Calculating summary table...')
+            tc_summary_worker = StartWorker(TCSummaryWorker,
+                                            'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
+                                            masked_vrt)
+            if not tc_summary_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error calculating carbon change summary table."), None)
+                return
+            else:
+                if n == 0:
+                     forest_loss, \
+                             carbon_loss, \
+                             site_area, \
+                             missing_area, \
+                             initial_forest_area, \
+                             initial_carbon_total = tc_summary_worker.get_return()
+                else:
+                     this_forest_loss, \
+                             this_carbon_loss, \
+                             this_site_area, \
+                             this_missing_area, \
+                             this_initial_forest_area, \
+                             this_initial_carbon_total = tc_summary_worker.get_return()
+                     this_forest_loss = forest_loss + this_forest_loss
+                     this_carbon_loss = carbon_loss + this_carbon_loss
+                     this_site_area = site_area + this_site_area
+                     this_missing_area = missing_area + this_missing_area
+                     this_initial_forest_area = initial_forest_area + this_initial_forest_area
+                     this_initial_carbon_total = initial_carbon_total + this_initial_carbon_total
+
+        log('site_area: {}'.format(site_area))
+        log('missing_area: {}'.format(missing_area))
+        log('initial_forest_area: {}'.format(initial_forest_area))
+        log('initial_carbon_total: {}'.format(initial_carbon_total))
+
+        make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
+                           sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
+                           sdg_tbl_lc, lc_years, soc_years,
+                           self.output_file_table.text())

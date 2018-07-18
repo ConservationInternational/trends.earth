@@ -315,5 +315,42 @@
                 {"value": 5, "color": "#45A146", "label": "lpd_imp"}
             ]
         }
+    },
+    "Forest loss": {
+        "title": "f_loss_hansen_title",
+        "ramp": {
+            "type": "categorical with dynamic ramp",
+            "shader": "interpolated",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "f_loss_hansen_nodata"},
+                {"value": 0, "color": "#43AA5D", "label": "f_loss_hansen_noloss"}
+            ],
+            "ramp min": {"color": "#FFFF04", "label": "f_loss_hansen_year_start"},
+            "ramp max": {"color": "#FF1A02", "label": "f_loss_hansen_year_end"}
+        }
+    },
+    "Root/shoot ratio": {
+        "title": "root_shoot_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "root_shoot_nodata"}
+        }
+    },
+    "Total carbon": {
+        "title": "tc_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "tc_nodata"}
+        }
     }
 }

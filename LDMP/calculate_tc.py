@@ -320,7 +320,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_start': self.bl_year.date().year(),
                    'year_end': self.tg_year.date().year(),
-                   'fc_threshold': int(self.fc_threshold.text().replace('%', '')),
+                   'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
                    'method': method,
                    'biomass_data': biomass_data,
                    'geojsons': json.dumps(geojsons),

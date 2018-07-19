@@ -155,7 +155,7 @@ style_text_dict = {
     'f_loss_hansen_year_end': tr('Forest loss ({year_end})'),
 
     # Total carbon
-    'tc_title': tr('Total carbon ({year_start}, tonnes per ha)'),
+    'tc_title': tr('Total carbon ({year_start}, tonnes per ha x 10)'),
     'tc_nodata': tr('No data'),
 
     # Root shoot ratio (below to above ground carbon in woody biomass)

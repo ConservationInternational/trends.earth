@@ -20,6 +20,9 @@ import numpy as np
 
 from osgeo import gdal, osr
 
+import openpyxl
+from openpyxl.drawing.image import Image
+
 from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
@@ -35,8 +38,7 @@ from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
 from LDMP.gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.summary import xtab, merge_xtabs, calc_total_table, calc_area_table, \
-    merge_area_tables, get_xtab_area
+from LDMP.summary import *
 
 
 def remap(a, remap_list):
@@ -353,6 +355,8 @@ class TCSummaryWorker(AbstractWorker):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
+        self.year_start = year_start
+        self.year_end = year_end
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -384,8 +388,8 @@ class TCSummaryWorker(AbstractWorker):
         missing_area = 0
         initial_forest_area = 0
         initial_carbon_total = 0
-        forest_loss = np.zeros((year_end - year_start, 1))
-        carbon_loss = np.zeros((year_end - year_start, 1))
+        forest_loss = np.zeros((self.year_end - self.year_start, 1))
+        carbon_loss = np.zeros((self.year_end - self.year_start, 1))
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
@@ -422,10 +426,11 @@ class TCSummaryWorker(AbstractWorker):
                 initial_forest_area = initial_forest_area + np.sum((f_loss_array >= 0) * cell_areas_array)
                 initial_carbon_total = initial_carbon_total +  np.sum(tc_array * (tc_array >= 0) * cell_areas_array)
 
-                for n in range(len(year_start, year_end)):
+                for n in range(self.year_end - self.year_start):
                     # Note the codes are year - 2000
-                    forest_loss[n] = forest_loss[n] + np.sum((f_loss_array == year_start - 2000 + n) * cell_areas_array)
-                    carbon_loss[n] = carbon_loss[n] + np.sum((f_loss_array == year_start - 2000 + n) * tc_array * cell_areas_array)
+                    forest_loss[n] = forest_loss[n] + np.sum((f_loss_array == self.year_start - 2000 + n + 1) * cell_areas_array)
+                    # Check units here - is tc_array in per m or per ha?
+                    carbon_loss[n] = carbon_loss[n] + np.sum((f_loss_array == self.year_start - 2000 + n + 1) * tc_array * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -435,12 +440,14 @@ class TCSummaryWorker(AbstractWorker):
             return None
         else:
             # Convert all area tables from meters into hectares
-            forest_loss = forest_loss * 1e-8
-            carbon_loss = carbon_loss * 1e-8
-            site_area = site_area * 1e-8
-            missing_area = missing_area * 1e-8
-            initial_forest_area = initial_forest_area * 1e-8
-            initial_carbon_total = initial_carbon_total * 1e-8
+            forest_loss = forest_loss * 1e-4
+            # Note that carbon is scaled by 10
+            carbon_loss = carbon_loss * 1e-4 / 10
+            site_area = site_area * 1e-4
+            missing_area = missing_area * 1e-4
+            initial_forest_area = initial_forest_area * 1e-4
+            # Note that carbon is scaled by 10
+            initial_carbon_total = initial_carbon_total * 1e-4 / 10
 
         return list((forest_loss, carbon_loss, site_area, missing_area, 
                      initial_forest_area, initial_carbon_total))
@@ -526,6 +533,10 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         f_loss_vrt = self.combo_layer_f_loss.get_vrt()
         tc_vrt = self.combo_layer_tc.get_vrt()
 
+        # Figure out start and end dates
+        year_start = self.combo_layer_f_loss.get_band_info()['metadata']['year_start']
+        year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
+
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
@@ -563,7 +574,9 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
             log('Calculating summary table...')
             tc_summary_worker = StartWorker(TCSummaryWorker,
                                             'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                            masked_vrt)
+                                            masked_vrt,
+                                            year_start,
+                                            year_end)
             if not tc_summary_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating carbon change summary table."), None)
@@ -594,8 +607,52 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         log('missing_area: {}'.format(missing_area))
         log('initial_forest_area: {}'.format(initial_forest_area))
         log('initial_carbon_total: {}'.format(initial_carbon_total))
+        log('forest loss: {}'.format(forest_loss))
+        log('carbon loss: {}'.format(carbon_loss))
 
-        make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
-                           sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
-                           sdg_tbl_lc, lc_years, soc_years,
+        make_summary_table(forest_loss, carbon_loss, site_area, missing_area, 
+                           initial_forest_area, initial_carbon_total, 
+                           year_start, year_end,
                            self.output_file_table.text())
+
+def make_summary_table(forest_loss, carbon_loss, site_area, missing_area, 
+                       initial_forest_area, initial_carbon_total,
+                       year_start, year_end, out_file):
+                          
+    def tr(s):
+        return QtGui.QApplication.translate("LDMP", s)
+
+    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'CarbonSummaryTable.xlsx'))
+
+    ##########################################################################
+    # SDG table
+    ws_summary = wb.get_sheet_by_name('Total Carbon Summary Table')
+    ws_summary.cell(6, 3).value = initial_forest_area
+    ws_summary.cell(9, 3).value = missing_area
+    ws_summary.cell(10, 3).value = site_area
+
+    ws_summary.cell(18, 2).value = initial_forest_area
+    ws_summary.cell(18, 4).value = initial_carbon_total
+    write_col_to_sheet(ws_summary, np.arange(year_start, year_end + 1), 1, 18) # Years
+    write_table_to_sheet(ws_summary, forest_loss, 19, 3)
+    write_table_to_sheet(ws_summary, carbon_loss, 19, 5)
+
+    try:
+        ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_summary.add_image(ws_summary_logo, 'E1')
+    except ImportError:
+        # add_image will fail on computers without PIL installed (this will be 
+        # an issue on some Macs, likely others). it is only used here to add 
+        # our logo, so no big deal.
+        pass
+
+    try:
+        wb.save(out_file)
+        log(u'Summary table saved to {}'.format(out_file))
+        QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
+                                      QtGui.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
+
+    except IOError:
+        log(u'Error saving {}'.format(out_file))
+        QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
+                                   QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

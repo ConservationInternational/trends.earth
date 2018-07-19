@@ -483,7 +483,6 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         self.use_esa_tg_year.setMinimumDate(lc_start_year)
         self.use_esa_tg_year.setMaximumDate(lc_end_year)
 
-        self.use_hansen.toggled.connect(self.lc_source_changed)
         self.use_esa.toggled.connect(self.lc_source_changed)
         self.use_custom.toggled.connect(self.lc_source_changed)
 
@@ -502,39 +501,13 @@ class LCSetupWidget(QtGui.QWidget, Ui_WidgetLCSetup):
         #self.use_custom_initial.layers_added.connect(self.use_custom_final.populate)
         #self.use_custom_final.layers_added.connect(self.use_custom_initial.populate)
 
-    def showEvent(self, event):
-        super(LCSetupWidget, self).showEvent(event)
-
-        # By default, don't show hansen selector 
-        self.show_hansen_toggle(False)
-
-    def show_hansen_toggle(self, enable):
-        if enable:
-            self.hansen_enabled = True
-            self.groupBox_hansen.show()
-            self.use_hansen.show()
-            self.use_hansen.setEnabled(True)
-        else:
-            self.hansen_enabled = False
-            self.groupBox_hansen.hide()
-            self.use_hansen.hide()
-            self.use_hansen.setEnabled(False)
-
     def lc_source_changed(self):
-        if self.use_hansen.isChecked():
-            self.groupBox_hansen.setEnabled(True)
-            self.groupBox_esa_period.setEnabled(False)
-            self.groupBox_esa_agg.setEnabled(False)
-            self.groupBox_custom_bl.setEnabled(False)
-            self.groupBox_custom_tg.setEnabled(False)
-        elif self.use_esa.isChecked():
-            self.groupBox_hansen.setEnabled(False)
+        if self.use_esa.isChecked():
             self.groupBox_esa_period.setEnabled(True)
             self.groupBox_esa_agg.setEnabled(True)
             self.groupBox_custom_bl.setEnabled(False)
             self.groupBox_custom_tg.setEnabled(False)
         elif self.use_custom.isChecked():
-            self.groupBox_hansen.setEnabled(False)
             self.groupBox_esa_period.setEnabled(False)
             self.groupBox_esa_agg.setEnabled(False)
             self.groupBox_custom_bl.setEnabled(True)

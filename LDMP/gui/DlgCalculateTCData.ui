@@ -56,7 +56,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="1" column="1">
-           <widget class="QDateEdit" name="tg_year">
+           <widget class="QDateEdit" name="hansen_tg_year">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -112,7 +112,7 @@
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QDateEdit" name="bl_year">
+           <widget class="QDateEdit" name="hansen_bl_year">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>

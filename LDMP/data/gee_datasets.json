@@ -486,5 +486,26 @@
             "Source": "Hengl, T., Mendes de Jesus, J., Heuvelink, G. B.M., Ruiperez Gonzalez, M., Kilibarda, M. et al. (2017) SoilGrids250m: global gridded soil information based on Machine Learning. PLOS One: http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748",
             "Comments": ""
         }
+    },
+    "Forest cover": {
+        "Hansen": {
+            "Data source": "",
+            "Start year": 2000,
+            "End year": 2017,
+            "Spatial resolution": "30 m",
+            "Temporal resolution": "annual",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Units": "Percent forest cover",
+            "Description": "",
+            "Link to Dataset": "",
+            "GEE Dataset": "",
+            "License": "",
+            "License URL": "",
+            "Source": "",
+            "Comments": ""
+        }
     }
 }

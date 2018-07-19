@@ -25,7 +25,7 @@ from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, QDate
 
 from LDMP import log
 from LDMP.api import run_script
@@ -141,6 +141,14 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         self.use_custom.toggled.connect(self.lc_source_changed)
         # Ensure that dialogs are enabled/disabled as appropriate
         self.lc_source_changed()
+
+        # Setup bounds for Hansen data
+        start_year = QDate(self.datasets['Forest cover']['Hansen']['Start year'], 1, 1)
+        end_year = QDate(self.datasets['Forest cover']['Hansen']['End year'], 12, 31)
+        self.hansen_bl_year.setMinimumDate(start_year)
+        self.hansen_bl_year.setMaximumDate(end_year)
+        self.hansen_tg_year.setMinimumDate(start_year)
+        self.hansen_tg_year.setMaximumDate(end_year)
 
     def lc_source_changed(self):
         if self.use_hansen.isChecked():
@@ -318,8 +326,8 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        payload = {'year_start': self.bl_year.date().year(),
-                   'year_end': self.tg_year.date().year(),
+        payload = {'year_start': self.hansen_bl_year.date().year(),
+                   'year_end': self.hansen_tg_year.date().year(),
                    'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
                    'method': method,
                    'biomass_data': biomass_data,

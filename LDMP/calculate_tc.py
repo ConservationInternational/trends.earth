@@ -31,7 +31,6 @@ from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.layers import add_layer, create_local_json_metadata
-from LDMP.lc_setup import lc_setup_widget
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
 from LDMP.gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
@@ -123,18 +122,8 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
     def showEvent(self, event):
         super(DlgCalculateTCData, self).showEvent(event)
 
-        self.lc_setup_tab = lc_setup_widget
-        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
-
-        # These boxes may have been hidden if this widget was last shown on the 
-        # SDG one step dialog
-        self.lc_setup_tab.groupBox_esa_period.show()
-        self.lc_setup_tab.use_custom.show()
-        self.lc_setup_tab.groupBox_custom_bl.show()
-        self.lc_setup_tab.groupBox_custom_tg.show()
-
-        self.lc_setup_tab.use_custom_initial.populate()
-        self.lc_setup_tab.use_custom_final.populate()
+        self.use_custom_initial.populate()
+        self.use_custom_final.populate()
 
         self.radioButton_carbon_custom.setEnabled(False)
 
@@ -145,16 +134,29 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             self.first_show = False
             # Ensure the special value text (set to " ") is displayed by 
             # default
-            self.lc_setup_tab.use_hansen_fc.setSpecialValueText(' ')
-            self.lc_setup_tab.use_hansen_fc.setValue(self.lc_setup_tab.use_hansen_fc.minimum())
+            self.hansen_fc_threshold.setSpecialValueText(' ')
+            self.hansen_fc_threshold.setValue(self.hansen_fc_threshold.minimum())
 
-    def tab_changed(self):
-        super(DlgCalculateTCData, self).tab_changed()
+        self.use_hansen.toggled.connect(self.lc_source_changed)
+        self.use_custom.toggled.connect(self.lc_source_changed)
+        # Ensure that dialogs are enabled/disabled as appropriate
+        self.lc_source_changed()
 
-        # The lc setup widget will disable the hansen selector by default every 
-        # time it is shown. So ensure that whenever a tab is changed, the 
-        # hansen selector is reenabled
-        self.lc_setup_tab.show_hansen_toggle(True)
+    def lc_source_changed(self):
+        if self.use_hansen.isChecked():
+            self.groupBox_hansen_period.setEnabled(True)
+            self.groupBox_hansen_threshold.setEnabled(True)
+            self.groupBox_custom_bl.setEnabled(False)
+            self.groupBox_custom_tg.setEnabled(False)
+        elif self.use_custom.isChecked():
+            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                       self.tr("Custom forest cover data support is coming soon!"), None)
+            self.use_hansen.setChecked(True)
+            # self.groupBox_hansen_period.setEnabled(False)
+            # self.groupBox_hansen_threshold.setEnabled(False)
+            # self.groupBox_custom_bl.setEnabled(True)
+            # self.groupBox_custom_tg.setEnabled(True)
+
 
     def get_biomass_dataset(self):
         if self.radioButton_carbon_woods_hole.isChecked():
@@ -181,8 +183,8 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         ret = super(DlgCalculateTCData, self).btn_calculate()
         if not ret:
             return
-        if (self.lc_setup_tab.use_hansen_fc.text() == self.lc_setup_tab.use_hansen_fc.specialValueText()) and \
-                self.lc_setup_tab.use_hansen.isChecked():
+        if (self.hansen_fc_threshold.text() == self.hansen_fc_threshold.specialValueText()) and \
+                self.use_hansen.isChecked():
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter a value for percent cover that is considered forest."))
             return
 
@@ -197,7 +199,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             return
 
 
-        if self.lc_setup_tab.use_custom.isChecked():
+        if self.use_custom.isChecked():
             self.calculate_locally(method, biomass_data)
         else:
             self.calculate_on_GEE(method, biomass_data)
@@ -217,7 +219,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                 return False
 
     def calculate_locally(self, method, biomass_data):
-        if not self.lc_setup_tab.use_custom.isChecked():
+        if not self.use_custom.isChecked():
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."), None)
             return
@@ -316,15 +318,14 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
-                   'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'fc_threshold': int(self.lc_setup_tab.use_hansen_fc.text().replace('%', '')),
+        payload = {'year_start': self.bl_year.date().year(),
+                   'year_end': self.tg_year.date().year(),
+                   'fc_threshold': int(self.fc_threshold.text().replace('%', '')),
                    'method': method,
                    'biomass_data': biomass_data,
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 

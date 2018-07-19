@@ -179,7 +179,7 @@ class AOI(object):
             # Get an OGR geometry from the QGIS geometry
             geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
 
-            if not geom.IsValid():
+            if geom is None or not geom.IsValid():
                 log(u'Invalid feature with attributes: {}.'.format(f.attributes()))
                 raise
             else:

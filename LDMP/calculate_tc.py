@@ -384,12 +384,14 @@ class TCSummaryWorker(AbstractWorker):
         # Width of cells in latitude
         pixel_height = src_gt[5]
 
-        site_area = 0
-        missing_area = 0
+        area_missing = 0
+        area_non_forest = 0
+        area_water = 0
+        area_site = 0
         initial_forest_area = 0
         initial_carbon_total = 0
-        forest_loss = np.zeros((self.year_end - self.year_start, 1))
-        carbon_loss = np.zeros((self.year_end - self.year_start, 1))
+        forest_change = np.zeros((self.year_end - self.year_start, 1))
+        carbon_change = np.zeros((self.year_end - self.year_start, 1))
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
@@ -418,19 +420,20 @@ class TCSummaryWorker(AbstractWorker):
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
-                nodata = (f_loss_array == -32768) | (tc_array == -32768)
-
+                initial_forest_pixels = (f_loss_array == 0) | (f_loss_array > (self.year_start - 2000))
                 # The site area includes everything that isn't masked
-                site_area = site_area + np.sum((f_loss_array != -32767) * cell_areas_array)
-                missing_area = missing_area + np.sum(nodata * cell_areas_array)
-                initial_forest_area = initial_forest_area + np.sum((f_loss_array >= 0) * cell_areas_array)
-                initial_carbon_total = initial_carbon_total +  np.sum(tc_array * (tc_array >= 0) * cell_areas_array)
+                area_missing = area_missing + np.sum(((f_loss_array == -32768) | (tc_array == -32768)) * cell_areas_array)
+                area_water = area_water + np.sum((f_loss_array == -2) * cell_areas_array)
+                area_non_forest = area_non_forest + np.sum((f_loss_array == -1) * cell_areas_array)
+                area_site = area_site + np.sum((f_loss_array != -32767) * cell_areas_array)
+                initial_forest_area = initial_forest_area + np.sum(initial_forest_pixels * cell_areas_array)
+                initial_carbon_total = initial_carbon_total +  np.sum(initial_forest_pixels * tc_array * (tc_array >= 0) * cell_areas_array)
 
                 for n in range(self.year_end - self.year_start):
                     # Note the codes are year - 2000
-                    forest_loss[n] = forest_loss[n] + np.sum((f_loss_array == self.year_start - 2000 + n + 1) * cell_areas_array)
+                    forest_change[n] = forest_change[n] - np.sum((f_loss_array == self.year_start - 2000 + n + 1) * cell_areas_array)
                     # Check units here - is tc_array in per m or per ha?
-                    carbon_loss[n] = carbon_loss[n] + np.sum((f_loss_array == self.year_start - 2000 + n + 1) * tc_array * cell_areas_array)
+                    carbon_change[n] = carbon_change[n] - np.sum((f_loss_array == self.year_start - 2000 + n + 1) * tc_array * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -440,17 +443,20 @@ class TCSummaryWorker(AbstractWorker):
             return None
         else:
             # Convert all area tables from meters into hectares
-            forest_loss = forest_loss * 1e-4
+            forest_change = forest_change * 1e-4
             # Note that carbon is scaled by 10
-            carbon_loss = carbon_loss * 1e-4 / 10
-            site_area = site_area * 1e-4
-            missing_area = missing_area * 1e-4
+            carbon_change = carbon_change * 1e-4 / 10
+            area_missing = area_missing * 1e-4
+            area_water = area_water * 1e-4
+            area_non_forest = area_non_forest * 1e-4
+            area_site = area_site * 1e-4
             initial_forest_area = initial_forest_area * 1e-4
             # Note that carbon is scaled by 10
             initial_carbon_total = initial_carbon_total * 1e-4 / 10
 
-        return list((forest_loss, carbon_loss, site_area, missing_area, 
-                     initial_forest_area, initial_carbon_total))
+        return list((forest_change, carbon_change, area_missing, area_water, 
+                     area_non_forest, area_site, initial_forest_area, 
+                     initial_carbon_total))
 
 class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
     def __init__(self, parent=None):
@@ -583,41 +589,49 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                 return
             else:
                 if n == 0:
-                     forest_loss, \
-                             carbon_loss, \
-                             site_area, \
-                             missing_area, \
+                     forest_change, \
+                             carbon_change, \
+                             area_missing, \
+                             area_water, \
+                             area_non_forest, \
+                             area_site, \
                              initial_forest_area, \
                              initial_carbon_total = tc_summary_worker.get_return()
                 else:
-                     this_forest_loss, \
-                             this_carbon_loss, \
-                             this_site_area, \
-                             this_missing_area, \
+                     this_forest_change, \
+                             this_carbon_change, \
+                             this_area_missing, \
+                             this_area_water, \
+                             this_area_non_forest, \
+                             this_area_site, \
                              this_initial_forest_area, \
                              this_initial_carbon_total = tc_summary_worker.get_return()
-                     this_forest_loss = forest_loss + this_forest_loss
-                     this_carbon_loss = carbon_loss + this_carbon_loss
-                     this_site_area = site_area + this_site_area
-                     this_missing_area = missing_area + this_missing_area
+                     this_forest_change = forest_change + this_forest_change
+                     this_carbon_change = carbon_change + this_carbon_change
+                     this_area_missing = area_missing + this_area_missing
+                     this_area_water = area_water + this_area_water
+                     this_area_non_forest = area_non_forest + this_area_non_forest
+                     this_area_site = area_site + this_area_site
                      this_initial_forest_area = initial_forest_area + this_initial_forest_area
                      this_initial_carbon_total = initial_carbon_total + this_initial_carbon_total
 
-        log('site_area: {}'.format(site_area))
-        log('missing_area: {}'.format(missing_area))
+        log('area_missing: {}'.format(area_missing))
+        log('area_water: {}'.format(area_water))
+        log('area_non_forest: {}'.format(area_non_forest))
+        log('area_site: {}'.format(area_site))
         log('initial_forest_area: {}'.format(initial_forest_area))
         log('initial_carbon_total: {}'.format(initial_carbon_total))
-        log('forest loss: {}'.format(forest_loss))
-        log('carbon loss: {}'.format(carbon_loss))
+        log('forest loss: {}'.format(forest_change))
+        log('carbon loss: {}'.format(carbon_change))
 
-        make_summary_table(forest_loss, carbon_loss, site_area, missing_area, 
-                           initial_forest_area, initial_carbon_total, 
-                           year_start, year_end,
+        make_summary_table(forest_change, carbon_change, area_missing, area_water, 
+                           area_non_forest, area_site, initial_forest_area, 
+                           initial_carbon_total, year_start, year_end, 
                            self.output_file_table.text())
 
-def make_summary_table(forest_loss, carbon_loss, site_area, missing_area, 
-                       initial_forest_area, initial_carbon_total,
-                       year_start, year_end, out_file):
+def make_summary_table(forest_change, carbon_change, area_missing, area_water, 
+                       area_non_forest, area_site, initial_forest_area, 
+                       initial_carbon_total, year_start, year_end, out_file):
                           
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
@@ -628,14 +642,16 @@ def make_summary_table(forest_loss, carbon_loss, site_area, missing_area,
     # SDG table
     ws_summary = wb.get_sheet_by_name('Total Carbon Summary Table')
     ws_summary.cell(6, 3).value = initial_forest_area
-    ws_summary.cell(9, 3).value = missing_area
-    ws_summary.cell(10, 3).value = site_area
+    ws_summary.cell(7, 3).value = area_non_forest
+    ws_summary.cell(8, 3).value = area_water
+    ws_summary.cell(9, 3).value = area_missing
+    #ws_summary.cell(10, 3).value = area_site
 
     ws_summary.cell(18, 2).value = initial_forest_area
     ws_summary.cell(18, 4).value = initial_carbon_total
     write_col_to_sheet(ws_summary, np.arange(year_start, year_end + 1), 1, 18) # Years
-    write_table_to_sheet(ws_summary, forest_loss, 19, 3)
-    write_table_to_sheet(ws_summary, carbon_loss, 19, 5)
+    write_table_to_sheet(ws_summary, forest_change, 19, 3)
+    write_table_to_sheet(ws_summary, carbon_change, 19, 5)
 
     try:
         ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))

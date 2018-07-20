@@ -39,8 +39,7 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateSummaryTableAdmin import Ui_DlgCalculateSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.summary import xtab, merge_xtabs, calc_total_table, calc_area_table, \
-    merge_area_tables, get_xtab_area
+from LDMP.summary import *
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -223,31 +222,6 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
                            QtGui.QApplication.translate("LDMP", "Unable to submit SDG sub-indicator task to Google Earth Engine."),
                            level=0, duration=5)
-
-#  Calculate the area of a slice of the globe from the equator to the parallel
-#  at latitude f (on WGS84 ellipsoid). Based on:
-# https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
-def _slice_area(f):
-    a = 6378137 # in meters
-    b = 6356752.3142 # in meters,
-    e = np.sqrt(1 - np.square(b / a))
-    zp = 1 + e * np.sin(f)
-    zm = 1 - e * np.sin(f)
-    return np.pi * np.square(b) * ((2 * np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
-
-
-# Formula to calculate area of a raster cell, following
-# https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
-def calc_cell_area(ymin, ymax, x_width):
-    'Calculate cell area on WGS84 ellipsoid'
-    if ymin > ymax:
-        temp = ymax
-        ymax = ymin
-        ymin = temp
-    # ymin: minimum latitude
-    # ymax: maximum latitude
-    # x_width: width of cell in degrees
-    return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
 
 
 class DegradationSummaryWorkerSDG(AbstractWorker):
@@ -1039,19 +1013,6 @@ def get_soc_total(soc_table, transition):
         return 0
     else:
         return float(soc_table[1][ind])
-
-
-def write_row_to_sheet(sheet, d, row, first_col):
-    for col in range(d.size):
-        cell = sheet.cell(row=row, column=col + first_col)
-        cell.value = d[col]
-
-
-def write_table_to_sheet(sheet, d, first_row, first_col):
-    for row in range(d.shape[0]):
-        for col in range(d.shape[1]):
-            cell = sheet.cell(row=row + first_row, column=col + first_col)
-            cell.value = d[row, col]
 
 
 def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 

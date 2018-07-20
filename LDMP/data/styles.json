@@ -323,6 +323,8 @@
             "shader": "interpolated",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "f_loss_hansen_nodata"},
+                {"value": -2, "color": "#0053C4", "label": "f_loss_hansen_water"},
+                {"value": -1, "color": "#CCCCCC", "label": "f_loss_hansen_nonforest"},
                 {"value": 0, "color": "#43AA5D", "label": "f_loss_hansen_noloss"}
             ],
             "ramp min": {"color": "#FFFF04", "label": "f_loss_hansen_year_start"},

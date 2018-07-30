@@ -305,8 +305,7 @@ def add_layer(f, band_number, band_info):
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
                                                       QtGui.QColor(item['color']),
                                                       tr_style_text(item['label'])))
-
-    if style['ramp']['type'] == 'categorical with dynamic ramp':
+    elif style['ramp']['type'] == 'categorical with dynamic ramp':
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],

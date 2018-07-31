@@ -15,8 +15,8 @@
 import os
 import json
 
-from PyQt4.QtCore import QCoreApplication, QSettings
-from PyQt4 import QtGui
+from qgis.PyQt.QtCore import QCoreApplication, QSettings
+from qgis.PyQt import QtGui
 
 from qgis.utils import iface
 mb = iface.messageBar()

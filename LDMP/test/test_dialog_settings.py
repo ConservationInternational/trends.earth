@@ -17,8 +17,8 @@ import sys
 
 from qgis.core import *
 from PyQt4.QtCore import *
-from PyQt4.QtTest import QTest
-from PyQt4.QtGui import QApplication
+from qgis.PyQt.QtTest import QTest
+from qgis.PyQt.QtWidgets import QApplication
 
 from LDMP.settings import DlgSettingsLogin
 

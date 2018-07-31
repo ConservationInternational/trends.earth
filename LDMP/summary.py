@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+from builtins import zip
+from builtins import range
 import numpy as np
 
 def xtab(*cols):
@@ -30,7 +32,7 @@ def xtab(*cols):
     # Filter na values out of all columns
     nafilter = ~np.any(np.isnan(cols), 0)
 
-    headers, idx = zip(*(np.unique(col[nafilter], return_inverse=True) for col in cols))
+    headers, idx = list(zip(*(np.unique(col[nafilter], return_inverse=True) for col in cols)))
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
     xt = np.zeros(shape_xt)
     np.add.at(xt, idx, 1)

@@ -15,9 +15,9 @@
 import os
 import json
 
-from PyQt4 import QtGui, uic
+from qgis.PyQt import QtGui, uic
 
-from PyQt4.QtCore import QDate, QTextCodec
+from qgis.PyQt.QtCore import QDate, QTextCodec
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase, get_script_slug
@@ -38,7 +38,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setupUi(self)
 
-        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
+        ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
         self.dataset_ndvi.addItems(ndvi_datasets)
 
         self.start_year_climate = 0
@@ -77,7 +77,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
             for climate_type in climate_types:
                 self.climate_datasets.update(self.datasets[climate_type])
-                self.traj_climate.addItems(self.datasets[climate_type].keys())
+                self.traj_climate.addItems(list(self.datasets[climate_type].keys()))
 
     def traj_climate_changed(self):
         if self.traj_climate.currentText() == "":
@@ -102,7 +102,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if this_ndvi_dataset['Temporal resolution'] == '16 day':
             self.traj_indic.addItems(['NDVI trends'])
         else:
-            self.traj_indic.addItems(self.scripts['productivity']['trajectory functions'].keys())
+            self.traj_indic.addItems(list(self.scripts['productivity']['trajectory functions'].keys()))
 
         self.update_time_bounds()
 

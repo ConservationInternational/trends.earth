@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+from builtins import object
 import os
 import gzip
 import zipfile
@@ -19,8 +20,8 @@ import json
 import requests
 import hashlib
 
-from PyQt4 import QtGui, uic, QtCore
-from PyQt4.QtCore import QAbstractTableModel, Qt
+from qgis.PyQt import QtGui, uic, QtCore
+from qgis.PyQt.QtCore import QAbstractTableModel, Qt
 
 from qgis.utils import iface
 

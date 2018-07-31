@@ -12,10 +12,12 @@
  ***************************************************************************/
 """
 
+from builtins import range
+from builtins import object
 import os
 
-from PyQt4 import QtGui, uic, QtXml
-from PyQt4.QtCore import QSettings, QEventLoop, QTimer
+from qgis.PyQt import QtGui, uic, QtXml
+from qgis.PyQt.QtCore import QSettings, QEventLoop, QTimer
 
 from qgis.core import QgsProject, QgsVectorLayer, QgsFeature, \
     QgsMapLayerRegistry, QgsComposition, QgsLayerDefinition
@@ -53,13 +55,13 @@ class DlgVisualization(QtGui.QDialog, Ui_DlgVisualization):
 
 # Function to set brush style for a map layer in an XML layer definition
 def set_fill_style(maplayers, id, style='no'):
-    for n in xrange(maplayers.length()):
+    for n in range(maplayers.length()):
         m_l = maplayers.at(n)
         # Note that firstChild is needed as id is an element node, 
         # so its text is stored in the first child of that node
         if m_l.namedItem('id').firstChild().nodeValue() == id:
             layer_props = m_l.namedItem('renderer-v2').namedItem('symbols').namedItem('symbol').namedItem('layer').childNodes()
-            for m in xrange(layer_props.length()):
+            for m in range(layer_props.length()):
                 elem = layer_props.at(m).toElement()
                 if elem.attribute('k') == 'style':
                     elem.setAttribute('v', style)
@@ -76,7 +78,7 @@ class zoom_to_admin_poly(object):
     
     def zoom(self):
         layer = None
-        for lyr in QgsMapLayerRegistry.instance().mapLayers().values():
+        for lyr in list(QgsMapLayerRegistry.instance().mapLayers().values()):
             if self.lyr_source in os.path.normpath(lyr.source()):
                 layer = lyr
                 break

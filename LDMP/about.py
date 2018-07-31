@@ -17,7 +17,7 @@ import sys
 
 from LDMP import __version__
 
-from PyQt4 import QtGui, uic
+from qgis.PyQt import QtGui, uic
 
 # Need to use this below approach to load the dialog to about the import
 # resources_rc problem you get with QGIS plugins when loading resources. See:

@@ -12,12 +12,13 @@
  ***************************************************************************/
 """
 
+from builtins import str
+from builtins import range
 import os
 import json
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, \
-    QRegExp, QPyNullVariant
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, QRegExp, QPyNullVariant
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -119,9 +120,9 @@ def read_class_file(f):
     if (not isinstance(classes, list)
             or not len(classes) > 0
             or not isinstance(classes[0], dict)
-            or not classes[0].has_key('Initial_Code')
-            or not classes[0].has_key('Final_Code')
-            or not classes[0].has_key('Final_Label')):
+            or 'Initial_Code' not in classes[0]
+            or 'Final_Code' not in classes[0]
+            or 'Final_Label' not in classes[0]):
 
         QtGui.QMessageBox.critical(None,
                                    QtGui.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
@@ -272,7 +273,7 @@ class DlgCalculateLCSetAggregation(QtGui.QDialog, Ui_DlgCalculateLCSetAggregatio
             lc_classes = QtGui.QComboBox()
             lc_classes.currentIndexChanged.connect(self.lc_class_combo_changed)
             # Add the classes in order of their codes
-            lc_classes.addItems(sorted(self.final_classes.keys(), key=lambda k: self.final_classes[k]))
+            lc_classes.addItems(sorted(list(self.final_classes.keys()), key=lambda k: self.final_classes[k]))
             ind = lc_classes.findText(classes[row]['Final_Label'])
             if ind != -1:
                 lc_classes.setCurrentIndex(ind)

@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+from builtins import str
+from builtins import range
 import os
 import json
 from operator import attrgetter
@@ -29,8 +31,8 @@ from osgeo import gdal
 
 import numpy as np
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP import log
 
@@ -348,7 +350,7 @@ def add_layer(f, band_number, band_info):
         r.append(QgsColorRampShader.ColorRampItem(0,
                                                   QtGui.QColor(style['ramp']['zero']['color']),
                                                   '0'))
-        if style['ramp'].has_key('mid'):
+        if 'mid' in style['ramp']:
             r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
                                                       QtGui.QColor(style['ramp']['mid']['color']),
                                                       str(cutoff/2)))
@@ -401,7 +403,7 @@ def tr_style_text(label, band_info=None):
             return val
     else:
         log('value not found in translation dictionary')
-        if isinstance(label, basestring):
+        if isinstance(label, str):
             return label
         else:
             return str(label)

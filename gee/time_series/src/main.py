@@ -7,6 +7,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from builtins import str
+from builtins import zip
 import random
 import re
 import json
@@ -39,7 +41,7 @@ def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
 
     logger.debug("Formatting results.")
     res_clean = {}
-    for key, value in res.items():
+    for key, value in list(res.items()):
         field = re.search('(?<=y[0-9]{4}_)\w*', key).group(0)
         year = re.search('(?<=y)[0-9]{4}', key).group(0)
         if field not in res_clean:
@@ -51,9 +53,9 @@ def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
 
     logger.debug("Setting up results JSON.")
     timeseries = []
-    for key in res_clean.keys():
+    for key in list(res_clean.keys()):
         # Ensure the lists are in chronological order
-        year, value = zip(*sorted(zip(res_clean[key]['year'], res_clean[key]['value'])))
+        year, value = list(zip(*sorted(zip(res_clean[key]['year'], res_clean[key]['value']))))
         ts = TimeSeries(list(year), list(value), key)
         timeseries.append(ts)
 

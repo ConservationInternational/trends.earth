@@ -12,6 +12,9 @@
  ***************************************************************************/
 """
 
+from builtins import str
+from builtins import zip
+from builtins import range
 import os
 import re
 import tempfile
@@ -19,8 +22,8 @@ import tempfile
 import json
 from marshmallow import ValidationError
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVariant
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVariant
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
     QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
@@ -250,7 +253,7 @@ class RemapRasterWorker(AbstractWorker):
 
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if self.killed:
                 log(u"Processing of {} killed by user after processing {} out of {} blocks.".format(deg_file, y, ysize))
                 break
@@ -259,7 +262,7 @@ class RemapRasterWorker(AbstractWorker):
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -321,13 +324,13 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
         ysize = b.YSize
 
         stats = (None, None)
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if y + y_block_size < ysize:
                 rows = y_block_size
             else:
                 rows = ysize - y
 
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -361,13 +364,13 @@ def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
         xsize = b.XSize
         ysize = b.YSize
 
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if y + y_block_size < ysize:
                 rows = y_block_size
             else:
                 rows = ysize - y
 
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -954,7 +957,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
 
     def load_agg(self, values):
         # Set all of the classes to no data by default
-        classes = [{'Initial_Code':value, u'Initial_Label':unicode(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
+        classes = [{'Initial_Code':value, u'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
         #TODO Fix on refactor
         from LDMP.lc_setup import DlgCalculateLCSetAggregation
         self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)

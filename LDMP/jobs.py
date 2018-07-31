@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+from builtins import zip
+from builtins import range
 import os
 import json
 import re
@@ -19,8 +21,8 @@ import copy
 import base64
 
 import datetime
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal
 
 from osgeo import gdal
 
@@ -375,7 +377,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
         # Save a VRT if there are multiple files for this download
         urls = results['urls'] 
         tiles = []
-        for n in xrange(len(urls)):
+        for n in range(len(urls)):
             tiles.append(f + '_{}.tif'.format(n))
             # If file already exists, check its hash and skip redownloading if 
             # it matches
@@ -401,7 +403,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
     create_gee_json_metadata(json_file, job, out_file)
 
     if add_to_map:
-        for band_number in xrange(1, len(results['bands']) + 1):
+        for band_number in range(1, len(results['bands']) + 1):
             # The minus 1 is because band numbers start at 1, not zero
             band_info = results['bands'][band_number - 1]
             if band_info['add_to_map']:

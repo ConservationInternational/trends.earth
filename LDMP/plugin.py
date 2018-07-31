@@ -12,10 +12,12 @@
  ***************************************************************************/
 """
 
+from builtins import object
 import os
 
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication, QMenu
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu
+from qgis.PyQt.QtGui import QIcon
 
 from LDMP import __version__
 from LDMP.settings import DlgSettings
@@ -50,7 +52,7 @@ def showHelp(file='index', section=None):
         showPluginHelp(filename=help_path)
 
 
-class LDMPPlugin:
+class LDMPPlugin(object):
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):

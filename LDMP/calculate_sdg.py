@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+from builtins import range
 import os
 import json
 import tempfile
@@ -23,8 +24,8 @@ from osgeo import ogr, osr, gdal
 import openpyxl
 from openpyxl.drawing.image import Image
 
-from PyQt4 import QtGui, uic, QtXml
-from PyQt4.QtCore import QSettings
+from qgis.PyQt import QtGui, uic, QtXml
+from qgis.PyQt.QtCore import QSettings
 
 from qgis.core import QgsGeometry
 from qgis.utils import iface
@@ -298,7 +299,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         sdg_tbl_lc = np.zeros((4, 1))
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if self.killed:
                 log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                 break
@@ -307,7 +308,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -940,7 +941,7 @@ def get_lc_area(table, code):
 
 
 def get_lpd_table(table,
-                  lc_classes=range(1, 6 + 1), # Don't include water bodies in the table
+                  lc_classes=list(range(1, 6 + 1)), # Don't include water bodies in the table
                   lpd_classes=[1, 2, 3, 4, 5, -32768]):
     out = np.zeros((len(lc_classes), len(lpd_classes)))
     for lc_class_num in range(len(lc_classes)):
@@ -950,7 +951,7 @@ def get_lpd_table(table,
     return out
 
 
-def get_prod_table(table, prod_class, classes=range(1, 7 + 1)):
+def get_prod_table(table, prod_class, classes=list(range(1, 7 + 1))):
     out = np.zeros((len(classes), len(classes)))
     for bl_class in range(len(classes)):
         for tg_class in range(len(classes)):
@@ -963,7 +964,7 @@ def get_prod_table(table, prod_class, classes=range(1, 7 + 1)):
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
 def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals, 
-                                 soc_tg_totals, classes=range(1, 6 + 1)):
+                                 soc_tg_totals, classes=list(range(1, 6 + 1))):
     for row in range(len(classes)):
         for col in range(len(classes)):
             cell = sheet.cell(row=row + first_row, column=col + first_col)
@@ -978,7 +979,7 @@ def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals,
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
-def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=range(1, 6 + 1)):
+def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=list(range(1, 6 + 1))):
     out = np.zeros((len(classes), 1))
     for row in range(len(classes)):
         area = 0
@@ -998,7 +999,7 @@ def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=range(1, 6 + 1))
     return out
 
 
-def get_lc_table(table, classes=range(1, 7 + 1)):
+def get_lc_table(table, classes=list(range(1, 7 + 1))):
     out = np.zeros((len(classes), len(classes)))
     for bl_class in range(len(classes)):
         for tg_class in range(len(classes)):

@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+from builtins import zip
+from builtins import range
 import os
 import tempfile
 import json
@@ -27,8 +29,8 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
 from LDMP.api import run_script
@@ -81,7 +83,7 @@ class TCWorker(AbstractWorker):
         ds_out.SetProjection(out_srs.ExportToWkt())
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if self.killed:
                 log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
                 break
@@ -90,7 +92,7 @@ class TCWorker(AbstractWorker):
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -318,7 +320,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         out_json = os.path.splitext(out_f)[0] + '.json'
         create_local_json_metadata(out_json, out_f, band_infos)
         schema = BandInfoSchema()
-        for band_number in xrange(len(band_infos)):
+        for band_number in range(len(band_infos)):
             b = schema.dump(band_infos[band_number])
             if b['add_to_map']:
                 # The +1 is because band numbers start at 1, not zero
@@ -394,7 +396,7 @@ class TCSummaryWorker(AbstractWorker):
         carbon_change = np.zeros((self.year_end - self.year_start, 1))
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if self.killed:
                 log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                 break
@@ -403,7 +405,7 @@ class TCSummaryWorker(AbstractWorker):
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:

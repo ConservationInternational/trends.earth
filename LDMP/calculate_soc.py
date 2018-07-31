@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+from builtins import zip
+from builtins import range
 import os
 import tempfile
 import json
@@ -24,8 +26,8 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings
 
 from LDMP import log
 from LDMP.api import run_script
@@ -129,7 +131,7 @@ class SOCWorker(AbstractWorker):
                          1, 1, 1, 1, 1, 1, 1]]
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if self.killed:
                 log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
                 break
@@ -138,7 +140,7 @@ class SOCWorker(AbstractWorker):
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -469,7 +471,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         out_json = os.path.splitext(out_f)[0] + '.json'
         create_local_json_metadata(out_json, out_f, band_infos)
         schema = BandInfoSchema()
-        for band_number in xrange(len(band_infos)):
+        for band_number in range(len(band_infos)):
             b = schema.dump(band_infos[band_number])
             if b['add_to_map']:
                 # The +1 is because band numbers start at 1, not zero

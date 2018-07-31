@@ -12,14 +12,15 @@
  ***************************************************************************/
 """
 
+from builtins import range
 import os
 import json
 
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import QSettings, QAbstractTableModel, Qt, QDate
+from qgis.PyQt import QtGui, QtCore
+from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, QDate
 
 from LDMP import log
 
@@ -80,8 +81,8 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             data_dict = json.load(f)
 
         self.datasets = []
-        for cat in data_dict.keys():
-            for title in data_dict[cat].keys():
+        for cat in list(data_dict.keys()):
+            for title in list(data_dict[cat].keys()):
                 item = data_dict[cat][title]
                 item.update({'category': cat, 'title': title})
                 self.datasets.append(item)

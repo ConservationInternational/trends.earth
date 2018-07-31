@@ -12,15 +12,18 @@
  ***************************************************************************/
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import sys
 import time
 from datetime import datetime
 from dateutil import tz
 import requests
 import json
-from urllib import quote_plus
+from urllib.parse import quote_plus
 
-from PyQt4 import QtGui, QtCore
+from qgis.PyQt import QtGui, QtCore
 
 from qgis.utils import iface
 
@@ -137,9 +140,9 @@ def clean_api_response(resp):
             # JSON conversion will fail if the server didn't return a json
             # response
             response = resp.json().copy()
-            if response.has_key('password'):
+            if 'password' in response:
                 response['password'] = '**REMOVED**'
-            if response.has_key('access_token'):
+            if 'access_token' in response:
                 response['access_token'] = '**REMOVED**'
             response = json.dumps(response, indent=4, sort_keys=True)
         except ValueError:
@@ -201,7 +204,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         # Strip password out of payload for printing to QGIS logs
         if payload:
             clean_payload = payload.copy()
-            if clean_payload.has_key('password'):
+            if 'password' in clean_payload:
                 clean_payload['password'] = '**REMOVED**'
         else:
             clean_payload = payload

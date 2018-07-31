@@ -12,14 +12,17 @@
  ***************************************************************************/
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import sys
 import time
 
 from qgis.utils import iface
 
-from PyQt4 import QtCore
-from PyQt4.QtCore import QThread, Qt, QEventLoop
-from PyQt4.QtGui import QProgressBar, QPushButton, QApplication
+from qgis.PyQt import QtCore
+from qgis.PyQt.QtCore import QThread, Qt, QEventLoop
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton, QApplication
 
 from LDMP import log
 
@@ -49,7 +52,7 @@ class AbstractWorker(QtCore.QObject):
             self.finished.emit(result)
         except UserAbortedNotification:
             self.finished.emit(None)
-        except Exception, e:
+        except Exception as e:
             # forward the exception upstream
             self.error.emit(e)
             self.finished.emit(None)

@@ -11,13 +11,14 @@
         email                : GEF-LDMP@conservation.org
  ***************************************************************************/
 """
+from __future__ import print_function
 
 import os
 import json
 
-from PyQt4.QtCore import QTimer, Qt
-from PyQt4.QtGui import QMessageBox, QApplication
-from PyQt4.QtTest import QTest
+from qgis.PyQt.QtCore import QTimer, Qt
+from qgis.PyQt.QtWidgets import QMessageBox, QApplication
+from qgis.PyQt.QtTest import QTest
 
 with open(os.path.join(os.path.dirname(__file__), 'trends.earth_test_user_credentials.json'), 'r') as fin:
     regular_keys = json.load(fin)

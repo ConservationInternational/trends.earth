@@ -12,12 +12,14 @@
  ***************************************************************************/
 """
 
+from future import standard_library
+standard_library.install_aliases()
 import os
 import json
-from urllib import quote_plus
+from urllib.parse import quote_plus
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate, Qt, QTextCodec
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, QDate, Qt, QTextCodec
 
 from qgis.utils import iface
 from qgis.core import QgsJSONUtils, QgsVectorLayer, QgsGeometry
@@ -36,11 +38,11 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.setupUi(self)
 
-        self.traj_indic.addItems(self.scripts['productivity']['trajectory functions'].keys())
+        self.traj_indic.addItems(list(self.scripts['productivity']['trajectory functions'].keys()))
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
         self.dataset_climate_update()
-        ndvi_datasets = [x for x in self.datasets['NDVI'].keys() if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
+        ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
         self.dataset_ndvi.addItems(ndvi_datasets)
         self.dataset_ndvi.setCurrentIndex(1)
 
@@ -159,7 +161,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
         for climate_type in climate_types:
             self.climate_datasets.update(self.datasets[climate_type])
-            self.traj_climate.addItems(self.datasets[climate_type].keys())
+            self.traj_climate.addItems(list(self.datasets[climate_type].keys()))
 
     def traj_climate_changed(self):
         if self.traj_climate.currentText() == "":

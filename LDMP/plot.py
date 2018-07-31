@@ -17,7 +17,7 @@ import numpy as np
 
 import pyqtgraph as pg
 
-from PyQt4 import QtGui
+from qgis.PyQt import QtGui
 
 from LDMP import log
 from LDMP.gui.DlgPlot import Ui_DlgPlot as UiDialog
@@ -102,12 +102,12 @@ class DlgPlotBars(DlgPlot):
         # dict to handle string x-axis labels
         xdict = dict(enumerate(x))
 
-        bg = pg.BarGraphItem(x=xdict.keys(), height=y, width=0.6, brush='b')
+        bg = pg.BarGraphItem(x=list(xdict.keys()), height=y, width=0.6, brush='b')
         self.plot_window.addItem(bg)
         self.plot_window.setBackground('w')
 
         xaxis = self.plot_window.getPlotItem().getAxis('bottom')
-        xaxis.setTicks([xdict.items()])
+        xaxis.setTicks([list(xdict.items())])
 
         yaxis = self.plot_window.getPlotItem().getAxis('left')
         yaxis.enableAutoSIPrefix(autoSI)

@@ -12,14 +12,15 @@
  ***************************************************************************/
 """
 
+from builtins import object
 import os
 import json
 import tempfile
 
 from osgeo import gdal, ogr
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \

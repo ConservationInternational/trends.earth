@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
+from builtins import str
+from builtins import next
+from builtins import range
 import os
 import sys
 import fnmatch
@@ -526,11 +530,11 @@ def file_changed(infile, outfile):
 def compile_files(options):
     # Compile all ui and resource files
 
-    # check to see if we have pyuic4
-    pyuic4 = check_path('pyuic4')
+    # check to see if we have pyuic5
+    pyuic5 = check_path('pyuic5')
 
-    if not pyuic4:
-        print("pyuic4 is not in your path---unable to compile your ui files")
+    if not pyuic5:
+        print("pyuic5 is not in your path---unable to compile your ui files")
     else:
         ui_files = glob.glob('{}/*.ui'.format(options.plugin.gui_dir))
         ui_count = 0
@@ -539,12 +543,13 @@ def compile_files(options):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
                 if file_changed(ui, output):
+                    print(output)
                     # Fix the links to c header files that Qt Designer adds to 
                     # UI files when QGIS custom widgets are used
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
                     _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
                     print("Compiling {0} to {1}".format(ui, output))
-                    subprocess.check_call([pyuic4, '-x', ui, '-o', output])
+                    subprocess.check_call([pyuic5, '-x', ui, '-o', output])
                     ui_count += 1
                 else:
                     print("Skipping {0} (unchanged)".format(ui))

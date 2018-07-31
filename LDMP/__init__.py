@@ -19,7 +19,7 @@ import os
 import requests
 import site
 
-from PyQt4 import QtGui, QtCore, uic
+from qgis.PyQt import QtGui, QtCore, uic
 
 from qgis.core import QgsMessageLog
 from qgis.utils import iface

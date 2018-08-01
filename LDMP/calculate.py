@@ -22,9 +22,9 @@ from osgeo import gdal, ogr
 from qgis.PyQt import QtGui
 from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
-from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
+from qgis.core import QgsPoint, QgsGeometry, QgsJsonUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        QGis, QgsMapLayerRegistry, QgsProject, \
+        Qgis, QgsMapLayerRegistry, QgsProject, \
         QgsLayerTreeGroup, QgsLayerTreeLayer, QgsVectorFileWriter
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
@@ -59,7 +59,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
 
     crs_src_string = l.crs().toProj4()
     if wrap:
-        if not l.crs().geographicFlag():
+        if not l.crs().isGeographic():
             QtGui.QMessageBox.critical(None, tr("Error"),
                     tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
             log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
@@ -132,13 +132,13 @@ class AOI(object):
                     tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
-        if l.geometryType() == QGis.Polygon:
+        if l.wkbType() == Qgis.Polygon:
             self.datatype = "polygon"
-        elif l.geometryType() == QGis.Point:
+        elif l.wkbType() == Qgis.Point:
             self.datatype = "point"
         else:
             QtGui.QMessageBox.critical(None, tr("Error"),
-                    tr("Failed to process area of interest - unknown geometry type: {}".format(l.geometryType())))
+                    tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
             log("Failed to process area of interest - unknown geometry type.")
             return
 
@@ -149,8 +149,8 @@ class AOI(object):
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
-        fields = QgsJSONUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
-        features = QgsJSONUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
+        fields = QgsJsonUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
+        features = QgsJsonUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
         l.dataProvider().addFeatures(features)
         l.commitChanges()
         if not l.isValid():
@@ -178,7 +178,7 @@ class AOI(object):
         n = 0
         for f in self.get_layer_wgs84().getFeatures():
             # Get an OGR geometry from the QGIS geometry
-            geom = ogr.CreateGeometryFromWkt(f.geometry().exportToWkt())
+            geom = ogr.CreateGeometryFromWkt(f.geometry().asWkt())
 
             if geom is None or not geom.IsValid():
                 log(u'Invalid feature with attributes: {}.'.format(f.attributes()))
@@ -313,7 +313,7 @@ class AOI(object):
                     geom = f.geometry()
             if n == 1:
                 log('Layer only has one point')
-                return (False, [json.loads(geom.exportToGeoJSON())])
+                return (False, [json.loads(geom.asJson())])
             else:
                 log('Layer has many points ({})'.format(n))
                 return self.meridian_split()
@@ -727,7 +727,7 @@ class DlgCalculateBase(QtGui.QDialog):
             point = QgsPoint(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapRenderer().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst).transform(point)
-            geojson = json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
+            geojson = json.loads(QgsGeometry.fromPoint(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
                                          datatype='point')

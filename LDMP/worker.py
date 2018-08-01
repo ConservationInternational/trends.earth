@@ -151,7 +151,7 @@ def toggle_worker_progress(show_progress, progress_bar):
 
 
 def toggle_worker_cancel(show_cancel, cancel_button):
-    cancel_button.setVisible(show_cancel)
+    cancel_button.setItemVisibilityChecked(show_cancel)
 
 class StartWorker(object):
     def __init__(self, worker_class, process_name, *args):

@@ -27,7 +27,7 @@ from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVaria
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
     QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
-    QGis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsField, \
+    Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsField, \
     QgsFields, QgsMapLayerRegistry, QgsFeature
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -743,14 +743,14 @@ class DlgDataIOImportBase(QtGui.QDialog):
                 QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
             l = self.input_widget.get_vector_layer()
-            if l.geometryType() == QGis.Polygon:
+            if l.wkbType() == Qgis.Polygon:
                 self.vector_datatype = "polygon"
-            elif l.geometryType() == QGis.Point:
+            elif l.wkbType() == Qgis.Point:
                 self.vector_datatype = "point"
             else:
                 QtGui.QMessageBox.critical(None, tr("Error"),
-                        tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.geometryType())))
-                log(u"Failed to process {} - unknown geometry type {}.".format(in_file, l.geometryType()))
+                        tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.wkbType())))
+                log(u"Failed to process {} - unknown geometry type {}.".format(in_file, l.wkbType()))
                 return
 
         return True

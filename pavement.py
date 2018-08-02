@@ -251,18 +251,23 @@ def _install(folder, options):
         sys.exit(1)
 
     if options.plugin.target == 'qgis2' and sys.version_info[0] > 2:
-        error('Must use python 2 for installing plugin to QGIS 2')
-        sys.exit(1)
-    elif options.plugin.target == 'qgis3' and sys.version_info[0] < 3:
-        error('Must use python 3 for installing plugin to QGIS 2')
-        sys.exit(1)
+        if sys.version_info[0] > 2:
+            error('Must use python 2 for installing plugin to QGIS 2')
+            sys.exit(1)
+        else:
+            dst_plugins = path('~').expanduser() / folder / 'python' / 'plugins'
+    elif options.plugin.target == 'qgis3':
+        if sys.version_info[0] < 3:
+            error('Must use python 3 for installing plugin to QGIS 2')
+            sys.exit(1)
+        else:
+            dst_plugins = path('~').expanduser() / folder / 'profiles' / 'default' / 'python' / 'plugins'
 
-    print('Installing to {}'.format(folder))
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
-    dst_plugins = path('~').expanduser() / folder / 'python' / 'plugins'
     dst_this_plugin = dst_plugins / plugin_name
+    print('Installing to {}'.format(dst_this_plugin))
     src = src.abspath()
     dst_this_plugin = dst_this_plugin.abspath()
     if not hasattr(os, 'symlink') or (os.name == 'nt'):

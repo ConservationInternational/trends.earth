@@ -17,13 +17,13 @@ import numpy as np
 
 import pyqtgraph as pg
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 
 from LDMP import log
 from LDMP.gui.DlgPlot import Ui_DlgPlot as UiDialog
 
 
-class DlgPlot(QtGui.QDialog, UiDialog):
+class DlgPlot(QtWidgets.QDialog, UiDialog):
     def __init__(self, parent=None):
         super(DlgPlot, self).__init__(parent)
         self.setupUi(self)

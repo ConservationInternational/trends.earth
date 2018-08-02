@@ -23,7 +23,7 @@ import requests
 import json
 from urllib.parse import quote_plus
 
-from qgis.PyQt import QtGui, QtCore
+from qgis.PyQt import QtWidgets, QtCore
 
 from qgis.utils import iface
 
@@ -38,9 +38,9 @@ TIMEOUT = 20
 def get_user_email(warn=True):
     email = QtCore.QSettings().value("LDMP/email", None)
     if warn and email is None:
-        QtGui.QMessageBox.critical(None,
-                                   QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Please register with Trends.Earth before using this function."))
+        QtWidgets.QMessageBox.critical(None,
+                                   QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", "Please register with Trends.Earth before using this function."))
         return None
     else:
         return email
@@ -98,21 +98,21 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, QtGui.QApplication.translate("LDMP", u'Contacting {} server...'.format(self.server_name)))
+            start_worker(worker, iface, QtWidgets.QApplication.translate("LDMP", u'Contacting {} server...'.format(self.server_name)))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
-            QtGui.QMessageBox.critical(None,
-                                       QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
+            QtWidgets.QMessageBox.critical(None,
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
-            QtGui.QMessageBox.critical(None,
-                                       QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", u"Unable to connect to {} server.".format(self.server_name)))
+            QtWidgets.QMessageBox.critical(None,
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", u"Unable to connect to {} server.".format(self.server_name)))
             resp = None
 
     def save_resp(self, resp):
@@ -173,9 +173,9 @@ def login(email=None, password=None):
         password = QtCore.QSettings().value("LDMP/password", None)
     if not email or not password:
         log('API unable to login - check username/password')
-        QtGui.QMessageBox.critical(None,
-                                   QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", "Unable to login to Trends.Earth. Check your username and password."))
+        QtWidgets.QMessageBox.critical(None,
+                                   QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", "Unable to login to Trends.Earth. Check your username and password."))
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})
@@ -221,7 +221,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
-            QtGui.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
+            QtWidgets.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         ret = None
@@ -240,7 +240,7 @@ def get_header(url):
             ret = resp.headers
         else:
             desc, status = get_error_status(resp)
-            QtGui.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
+            QtWidgets.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         log('Header request failed')

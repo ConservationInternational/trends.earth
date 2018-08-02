@@ -21,7 +21,7 @@ import copy
 import base64
 
 import datetime
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal
 
 from osgeo import gdal
@@ -64,7 +64,7 @@ def create_gee_json_metadata(json_file, job, data_file):
                   sort_keys=True, indent=4, separators=(',', ': '))
 
 
-class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
+class DlgJobsDetails(QtWidgets.QDialog, Ui_DlgJobsDetails):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgJobsDetails, self).__init__(parent)
@@ -72,7 +72,7 @@ class DlgJobsDetails(QtGui.QDialog, Ui_DlgJobsDetails):
         self.setupUi(self)
 
 
-class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
+class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
     # When a connection to the api starts, emit true. When it ends, emit False
     connectionEvent = pyqtSignal(bool)
 
@@ -91,7 +91,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         self._full_width = None
 
         self.bar = QgsMessageBar()
-        self.bar.setSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        self.bar.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.layout().addWidget(self.bar, 0, 0, Qt.AlignTop)
 
         self.refresh.clicked.connect(self.btn_refresh)
@@ -115,7 +115,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
         #######################################################################
         #######################################################################
         # from PyQt4.QtCore import QTimer, Qt
-        # from PyQt4.QtGui import QMessageBox, QApplication
+        # from PyQt4.QtWidgets import QMessageBox, QApplication
         # from PyQt4.QtTest import QTest
         # from time import sleep
         #
@@ -173,7 +173,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                 self.jobs_view.frameWidth() * 2 + \
                 self.jobs_view.verticalHeader().width() + \
                 self.jobs_view.horizontalHeader().length() + \
-                self.jobs_view.style().pixelMetric(QtGui.QStyle.PM_ScrollBarExtent)
+                self.jobs_view.style().pixelMetric(QtWidgets.QStyle.PM_ScrollBarExtent)
         self.resize(self._full_width, self.height())
 
     def selection_changed(self):
@@ -238,19 +238,19 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
     def update_jobs_table(self):
         if self.jobs:
             table_model = JobsTableModel(self.jobs, self)
-            proxy_model = QtGui.QSortFilterProxyModel()
+            proxy_model = QtWidgets.QSortFilterProxyModel()
             proxy_model.setSourceModel(table_model)
             self.jobs_view.setModel(proxy_model)
 
             # Add "Notes" buttons in cell
             for row in range(0, len(self.jobs)):
-                btn = QtGui.QPushButton(self.tr("Details"))
+                btn = QtWidgets.QPushButton(self.tr("Details"))
                 btn.clicked.connect(self.btn_details)
                 self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
-            self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
-            #self.jobs_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
-            self.jobs_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+            self.jobs_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+            #self.jobs_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+            self.jobs_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
             #self.resizeWindowToColumns()
@@ -289,7 +289,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                         job_info = u'{} ({})'.format(job['script_name'], job['task_name'])
                     else:
                         job_info = job['script_name']
-                    f = QtGui.QFileDialog.getSaveFileName(self,
+                    f = QtWidgets.QFileDialog.getSaveFileName(self,
                                                           self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
                                                           self.settings.value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
@@ -302,7 +302,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
                             self.settings.setValue("LDMP/output_dir", os.path.dirname(f))
                             log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                         else:
-                            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                        self.tr(u"Cannot write to {}. Choose a different base filename.".format(f)))
                     else:
                             return False
@@ -333,12 +333,12 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', QtGui.QApplication.translate('LDMPPlugin', 'Task name')),
-                          ('script_name', QtGui.QApplication.translate('LDMPPlugin', 'Job')),
-                          ('start_date', QtGui.QApplication.translate('LDMPPlugin', 'Start time')),
-                          ('end_date', QtGui.QApplication.translate('LDMPPlugin', 'End time')),
-                          ('status', QtGui.QApplication.translate('LDMPPlugin', 'Status')),
-                          ('INVALID', QtGui.QApplication.translate('LDMPPlugin', 'Details'))]
+        colname_tuples = [('task_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Task name')),
+                          ('script_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Job')),
+                          ('start_date', QtWidgets.QApplication.translate('LDMPPlugin', 'Start time')),
+                          ('end_date', QtWidgets.QApplication.translate('LDMPPlugin', 'End time')),
+                          ('status', QtWidgets.QApplication.translate('LDMPPlugin', 'Status')),
+                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 

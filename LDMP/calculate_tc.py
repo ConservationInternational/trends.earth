@@ -29,7 +29,7 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
@@ -161,7 +161,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             self.groupBox_custom_bl.setEnabled(False)
             self.groupBox_custom_tg.setEnabled(False)
         elif self.use_custom.isChecked():
-            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+            QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
                                        self.tr("Custom forest cover data support is coming soon!"), None)
             self.use_hansen.setChecked(True)
             # self.groupBox_hansen_period.setEnabled(False)
@@ -197,17 +197,17 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             return
         if (self.hansen_fc_threshold.text() == self.hansen_fc_threshold.specialValueText()) and \
                 self.use_hansen.isChecked():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter a value for percent cover that is considered forest."))
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter a value for percent cover that is considered forest."))
             return
 
         method = self.get_method()
         if not method:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a method for calculating the root to shoot ratio."))
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a method for calculating the root to shoot ratio."))
             return
 
         biomass_data = self.get_biomass_dataset()
         if not method:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a biomass dataset."))
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a biomass dataset."))
             return
 
 
@@ -217,7 +217,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             self.calculate_on_GEE(method, biomass_data)
 
     def get_save_raster(self):
-        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))
@@ -226,13 +226,13 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 return raster_file
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
     def calculate_locally(self, method, biomass_data):
         if not self.use_custom.isChecked():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."), None)
             return
 
@@ -240,16 +240,16 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         year_baseline = self.lc_setup_tab.get_initial_year()
         year_target = self.lc_setup_tab.get_final_year()
         if int(year_baseline) >= int(year_target):
-            QtGui.QMessageBox.information(None, self.tr("Warning"),
+            QtWidgets.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return
 
@@ -302,7 +302,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                                  lc_years)
 
         if not soc_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating change in toal carbon."), None)
             return
 
@@ -344,12 +344,12 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         resp = run_script(get_script_slug('total-carbon'), payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Total carbon submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Total carbon submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
                            level=0, duration=5)
 
 class TCSummaryWorker(AbstractWorker):
@@ -475,7 +475,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         self.combo_layer_tc.populate()
 
     def select_output_file_table(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
+        f = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the summary table'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Summary table file (*.xlsx)'))
@@ -484,14 +484,14 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                 self.output_file_table.setText(f)
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
         if not self.output_file_table.text():
-            QtGui.QMessageBox.information(None, self.tr("Error"),
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output file for the summary table."), None)
             return
 
@@ -505,21 +505,21 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         ######################################################################
         # Check that all needed input layers are selected
         if len(self.combo_layer_f_loss.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a forest loss layer to your map before you can use the carbon change summary tool."), None)
             return
         if len(self.combo_layer_tc.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a total carbon layer to your map before you can use the carbon change summary tool."), None)
             return
         #######################################################################
         # Check that the layers cover the full extent needed
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the forest loss layer."), None)
                 return
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the total carbon layer."), None)
                 return
 
@@ -530,7 +530,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
 
         if res(self.combo_layer_f_loss.get_layer()) != res(self.combo_layer_tc.get_layer()):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Resolutions of forest loss and total carbon layers do not match."), None)
             return
 
@@ -573,7 +573,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                                       json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
                                       bbs[n])
             if not clip_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking carbon change input layers."), None)
                 return
 
@@ -586,7 +586,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                                             year_start,
                                             year_end)
             if not tc_summary_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating carbon change summary table."), None)
                 return
             else:
@@ -636,7 +636,7 @@ def make_summary_table(forest_change, carbon_change, area_missing, area_water,
                        initial_carbon_total, year_start, year_end, out_file):
                           
     def tr(s):
-        return QtGui.QApplication.translate("LDMP", s)
+        return QtWidgets.QApplication.translate("LDMP", s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'CarbonSummaryTable.xlsx'))
 
@@ -667,10 +667,10 @@ def make_summary_table(forest_change, carbon_change, area_missing, area_water,
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                                      QtGui.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

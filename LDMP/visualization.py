@@ -16,7 +16,7 @@ from builtins import range
 from builtins import object
 import os
 
-from qgis.PyQt import QtGui, uic, QtXml
+from qgis.PyQt import QtWidgets, uic, QtXml
 from qgis.PyQt.QtCore import QSettings, QEventLoop, QTimer
 
 from qgis.core import QgsProject, QgsVectorLayer, QgsFeature, \
@@ -33,7 +33,7 @@ from LDMP.gui.DlgVisualizationBasemap import Ui_DlgVisualizationBasemap
 from LDMP.gui.DlgVisualizationCreateMap import Ui_DlgVisualizationCreateMap
 
 
-class DlgVisualization(QtGui.QDialog, Ui_DlgVisualization):
+class DlgVisualization(QtWidgets.QDialog, Ui_DlgVisualization):
     def __init__(self, parent=None):
         super(DlgVisualization, self).__init__(parent)
         self.setupUi(self)
@@ -105,7 +105,7 @@ class zoom_to_admin_poly(object):
         self.canvas.setExtent(self.bbox)
         self.canvas.refresh()
 
-class DlgVisualizationBasemap(QtGui.QDialog, Ui_DlgVisualizationBasemap):
+class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
     def __init__(self, parent=None):
         super(DlgVisualizationBasemap, self).__init__(parent)
         self.setupUi(self)
@@ -210,15 +210,15 @@ class DlgVisualizationBasemap(QtGui.QDialog, Ui_DlgVisualizationBasemap):
                 zoomer.zoom()
 
         else:
-            QtGui.QMessageBox.critical(None,
-                                       QtGui.QApplication.translate("LDMP", "Error"),
-                                       QtGui.QApplication.translate("LDMP", "Error downloading basemap data."))
+            QtWidgets.QMessageBox.critical(None,
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Error downloading basemap data."))
 
     def cancel_clicked(self):
         self.close()
 
 
-class DlgVisualizationCreateMap(QtGui.QDialog, Ui_DlgVisualizationCreateMap):
+class DlgVisualizationCreateMap(QtWidgets.QDialog, Ui_DlgVisualizationCreateMap):
     def __init__(self, parent=None):
         super(DlgVisualizationCreateMap, self).__init__(parent)
 
@@ -234,8 +234,8 @@ class DlgVisualizationCreateMap(QtGui.QDialog, Ui_DlgVisualizationCreateMap):
     def showEvent(self, event):
         super(DlgVisualizationCreateMap, self).showEvent(event)
 
-        QtGui.QMessageBox.warning(None, QtGui.QApplication.translate("LDMP", "Warning"),
-                                  QtGui.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
+        QtWidgets.QMessageBox.warning(None, QtWidgets.QApplication.translate("LDMP", "Warning"),
+                                  QtWidgets.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
 
     def cancel_clicked(self):
         self.close()

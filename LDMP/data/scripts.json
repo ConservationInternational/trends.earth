@@ -19,7 +19,7 @@
             "Pixel RESTREND": {
                 "params": {"trajectory_method": "p_restrend"},
                 "climate types": ["Precipitation", "Soil moisture", "Evapotranspiration"],
-                "description": "Calculate pixel residual trend (RESTREND_ of annually integrated NDVI, after removing trend associated with a climate indicator."
+                "description": "Calculate pixel residual trend (RESTREND of annually integrated NDVI, after removing trend associated with a climate indicator."
             },
             "Water Use Efficiency (WUE)": {
                 "params": {"trajectory_method": "ue"},

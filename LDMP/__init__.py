@@ -19,7 +19,7 @@ import os
 import requests
 import site
 
-from qgis.PyQt import QtGui, QtCore, uic
+from qgis.PyQt import QtCore
 
 from qgis.core import QgsMessageLog
 from qgis.utils import iface
@@ -34,7 +34,7 @@ sys.path.extend(remainder)
 debug = QtCore.QSettings().value('LDMP/debug', True)
 
 
-def log(message, level=QgsMessageLog.INFO):
+def log(message, level=0):
     if debug:
         QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
 

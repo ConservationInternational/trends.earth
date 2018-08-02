@@ -15,7 +15,7 @@
 import os
 import json
 
-from qgis.PyQt import QtGui, uic
+from qgis.PyQt import QtWidgets, uic
 
 from qgis.PyQt.QtCore import QDate, QTextCodec
 

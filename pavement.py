@@ -14,6 +14,7 @@ import shutil
 import subprocess
 from tempfile import mkstemp
 from multiprocessing.pool import ThreadPool
+from appdirs import user_data_dir
 import zipfile
 
 import boto3
@@ -34,6 +35,7 @@ options(
         resource_files = [path('LDMP/resources.qrc')],
         package_dir = path('build'),
         tests = ['test'],
+        target = 'qgis3',
         excludes = [
             'LDMP/test',
             'LDMP/data_prep_scripts',
@@ -95,7 +97,7 @@ def _replace(file_path, regex, subst):
     #Create temp file
     fh, abs_path = mkstemp()
     with os.fdopen(fh, 'w') as new_file:
-        with open(file_path, 'r', encoding="utf-8") as old_file:
+        with open(file_path, 'r') as old_file:
             for line in old_file:
                 new_file.write(regex.sub(subst, line))
     os.remove(file_path)
@@ -244,6 +246,18 @@ def read_requirements():
 
 def _install(folder, options):
     '''install plugin to qgis'''
+    if options.plugin.target not in ['qgis2', 'qgis3']:
+        error('Unknown target version "{}"'.format(options.plugin.target))
+        sys.exit(1)
+
+    if options.plugin.target == 'qgis2' and sys.version_info[0] > 2:
+        error('Must use python 2 for installing plugin to QGIS 2')
+        sys.exit(1)
+    elif options.plugin.target == 'qgis3' and sys.version_info[0] < 3:
+        error('Must use python 3 for installing plugin to QGIS 2')
+        sys.exit(1)
+
+    print('Installing to {}'.format(folder))
     compile_files(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
@@ -268,12 +282,15 @@ def _install(folder, options):
 @task
 @cmdopts([
     ('fast', 'f', "don't run rmtree"),
+    ('clean', 'c', 'Clean out compiled files first'),
 ])
 def install(options):
+    options.plugin.target = 'qgis2'
     _install(".qgis2", options)
 
 @task
 @cmdopts([
+    ('clean', 'c', 'Clean out compiled files first'),
     ('fast', 'f', "don't run rmtree"),
 ])
 def installdev(options):
@@ -281,10 +298,12 @@ def installdev(options):
 
 @task
 @cmdopts([
+    ('clean', 'c', 'Clean out compiled files first'),
     ('fast', 'f', "don't run rmtree"),
 ])
 def install3(options):
-    _install(".qgis3", options)
+    options.plugin.target = 'qgis3'
+    _install(user_data_dir('QGIS3', 'QGIS', roaming=True), options)
 
 @task
 @cmdopts([
@@ -528,12 +547,17 @@ def file_changed(infile, outfile):
 
 def compile_files(options):
     # Compile all ui and resource files
+    clean = options.get('clean', False)
 
-    # check to see if we have pyuic5
-    pyuic5 = check_path('pyuic5')
+    if options.plugin.target == 'qgis3':
+        print("Using pyuic5")
+        pyuic = check_path('pyuic5')
+    else:
+        print("Using pyuic4")
+        pyuic = check_path('pyuic4')
 
-    if not pyuic5:
-        print("pyuic5 is not in your path---unable to compile your ui files")
+    if not pyuic:
+        print("pyuic is not in your path---unable to compile your ui files")
     else:
         ui_files = glob.glob('{}/*.ui'.format(options.plugin.gui_dir))
         ui_count = 0
@@ -541,14 +565,14 @@ def compile_files(options):
             if os.path.exists(ui):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
-                if file_changed(ui, output):
+                if file_changed(ui, output) or clean:
                     print(output)
                     # Fix the links to c header files that Qt Designer adds to 
                     # UI files when QGIS custom widgets are used
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
                     _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
                     print("Compiling {0} to {1}".format(ui, output))
-                    subprocess.check_call([pyuic5, '-x', ui, '-o', output])
+                    subprocess.check_call([pyuic, '-x', ui, '-o', output])
                     ui_count += 1
                 else:
                     print("Skipping {0} (unchanged)".format(ui))
@@ -556,10 +580,15 @@ def compile_files(options):
                 print("{0} does not exist---skipped".format(ui))
         print("Compiled {0} UI files".format(ui_count))
 
-    # check to see if we have pyrcc4
-    pyrcc4 = check_path('pyrcc4')
-    if not pyrcc4:
-        print("pyrcc4 is not in your path---unable to compile your resource file(s)")
+    if options.plugin.target == 'qgis3':
+        print("Using pyrcc5")
+        pyrcc = check_path('pyrcc5')
+    else:
+        print("Using pyrcc4")
+        pyrcc = check_path('pyrcc4')
+
+    if not pyrcc:
+        print("pyrcc is not in your path---unable to compile your resource file(s)")
     else:
         res_files = options.plugin.resource_files
         res_count = 0
@@ -567,9 +596,9 @@ def compile_files(options):
             if os.path.exists(res):
                 (base, ext) = os.path.splitext(res)
                 output = "{0}.py".format(base)
-                if file_changed(res, output):
+                if file_changed(res, output) or clean:
                     print("Compiling {0} to {1}".format(res, output))
-                    subprocess.check_call([pyrcc4, '-o', output, res])
+                    subprocess.check_call([pyrcc, '-o', output, res])
                     res_count += 1
                 else:
                     print("Skipping {0} (unchanged)".format(res))

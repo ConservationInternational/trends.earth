@@ -17,7 +17,7 @@ import sys
 
 from LDMP import __version__
 
-from qgis.PyQt import QtGui, uic
+from qgis.PyQt import QtWidgets, uic
 
 # Need to use this below approach to load the dialog to about the import
 # resources_rc problem you get with QGIS plugins when loading resources. See:
@@ -27,7 +27,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'gui', 'D
                                resource_suffix='')
 
 
-class DlgAbout(QtGui.QDialog, FORM_CLASS):
+class DlgAbout(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgAbout, self).__init__(parent)

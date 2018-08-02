@@ -18,7 +18,7 @@ import os
 import json
 from urllib.parse import quote_plus
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate, Qt, QTextCodec
 
 from qgis.utils import iface
@@ -73,7 +73,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         #######################################################################
         #######################################################################
         # from PyQt4.QtCore import QTimer, Qt
-        # from PyQt4.QtGui import QMessageBox, QApplication
+        # from PyQt4.QtWidgets import QMessageBox, QApplication
         # from PyQt4.QtTest import QTest
         # from LDMP.download import read_json
         # from LDMP.worker import AbstractWorker, StartWorker
@@ -219,7 +219,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                 and not (self.groupBox_traj.isChecked() or
                          self.groupBox_perf.isChecked() or
                          self.groupBox_state.isChecked()):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Choose one or more productivity sub-indicator to calculate."), None)
             return
 
@@ -273,10 +273,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(get_script_slug('productivity'), payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Productivity task submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Productivity task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit productivity task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit productivity task to Google Earth Engine."),
                            level=0, duration=5)

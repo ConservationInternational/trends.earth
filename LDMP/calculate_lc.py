@@ -18,7 +18,7 @@ import os
 import json
 import tempfile
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings
 
 from osgeo import gdal, osr
@@ -171,16 +171,16 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         resp = run_script(get_script_slug('land-cover'), payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
                            level=0, duration=5)
 
     def get_save_raster(self):
-        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))
@@ -189,7 +189,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 return raster_file
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
@@ -220,12 +220,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                               71, 72, 73, 74, 75, 76, 7]]
 
         if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add an initial land cover layer to your map before you can run the calculation."), None)
             return
 
         if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a final land cover layer to your map before you can run the calculation."), None)
             return
 
@@ -237,16 +237,16 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         year_baseline = self.lc_setup_tab.get_initial_year()
         year_target = self.lc_setup_tab.get_final_year()
         if int(year_baseline) >= int(year_target):
-            QtGui.QMessageBox.information(None, self.tr("Warning"),
+            QtWidgets.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return
 
@@ -270,7 +270,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                        'calculating land cover change', in_vrt, 
                                        out_f, trans_matrix, persistence_remap)
         if not lc_change_worker.success:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating land cover change."), None)
             return
 

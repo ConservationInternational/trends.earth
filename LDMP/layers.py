@@ -22,8 +22,7 @@ from math import floor, log10
 from marshmallow import ValidationError
 
 from qgis.core import QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsMapLayerRegistry, \
-    QgsRasterLayer
+    QgsSingleBandPseudoColorRenderer, QgsRasterLayer
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -31,7 +30,7 @@ from osgeo import gdal
 
 import numpy as np
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP import log
@@ -288,7 +287,7 @@ def add_layer(f, band_number, band_info):
     try:
         style = styles[band_info['name']]
     except KeyError:
-        QtGui.QMessageBox.information(None,
+        QtWidgets.QMessageBox.information(None,
                                       tr("Information"),
                                       tr(u"Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
         log(u'No style found for {}'.format(band_info['name'] ))
@@ -305,21 +304,21 @@ def add_layer(f, band_number, band_info):
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QtGui.QColor(item['color']),
+                                                      QtWidgets.QColor(item['color']),
                                                       tr_style_text(item['label'])))
     elif style['ramp']['type'] == 'categorical with dynamic ramp':
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QtGui.QColor(item['color']),
+                                                      QtWidgets.QColor(item['color']),
                                                       tr_style_text(item['label'])))
         # Now add in the continuous ramp with min/max values and labels 
         # determined from the band info min/max
         r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_min'],
-                                                  QtGui.QColor(style['ramp']['ramp min']['color']),
+                                                  QtWidgets.QColor(style['ramp']['ramp min']['color']),
                                                   tr_style_text(style['ramp']['ramp min']['label'], band_info)))
         r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_max'],
-                                                  QtGui.QColor(style['ramp']['ramp max']['color']),
+                                                  QtWidgets.QColor(style['ramp']['ramp max']['color']),
                                                   tr_style_text(style['ramp']['ramp max']['label'], band_info)))
 
     elif style['ramp']['type'] == 'zero-centered stretch':
@@ -329,16 +328,16 @@ def add_layer(f, band_number, band_info):
         log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-cutoff,
-                                                  QtGui.QColor(style['ramp']['min']['color']),
+                                                  QtWidgets.QColor(style['ramp']['min']['color']),
                                                   '{}'.format(-cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtGui.QColor(style['ramp']['zero']['color']),
+                                                  QtWidgets.QColor(style['ramp']['zero']['color']),
                                                   '0'))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtGui.QColor(style['ramp']['max']['color']),
+                                                  QtWidgets.QColor(style['ramp']['max']['color']),
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtGui.QColor(style['ramp']['no data']['color']),
+                                                  QtWidgets.QColor(style['ramp']['no data']['color']),
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     elif style['ramp']['type'] == 'min zero stretch':
@@ -348,22 +347,22 @@ def add_layer(f, band_number, band_info):
         log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtGui.QColor(style['ramp']['zero']['color']),
+                                                  QtWidgets.QColor(style['ramp']['zero']['color']),
                                                   '0'))
         if 'mid' in style['ramp']:
             r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
-                                                      QtGui.QColor(style['ramp']['mid']['color']),
+                                                      QtWidgets.QColor(style['ramp']['mid']['color']),
                                                       str(cutoff/2)))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtGui.QColor(style['ramp']['max']['color']),
+                                                  QtWidgets.QColor(style['ramp']['max']['color']),
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtGui.QColor(style['ramp']['no data']['color']),
+                                                  QtWidgets.QColor(style['ramp']['no data']['color']),
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     else:
         log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
-        QtGui.QMessageBox.critical(None,
+        QtWidgets.QMessageBox.critical(None,
                                    tr("Error"),
                                    tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
         return False

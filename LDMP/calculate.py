@@ -19,13 +19,13 @@ import tempfile
 
 from osgeo import gdal, ogr
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets, QtGui
 from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJsonUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        Qgis, QgsMapLayerRegistry, QgsProject, \
-        QgsLayerTreeGroup, QgsLayerTreeLayer, QgsVectorFileWriter
+        Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer, \
+        QgsVectorFileWriter
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -60,7 +60,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     crs_src_string = l.crs().toProj4()
     if wrap:
         if not l.crs().isGeographic():
-            QtGui.QMessageBox.critical(None, tr("Error"),
+            QtWidgets.QMessageBox.critical(None, tr("Error"),
                     tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
             log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
             return None
@@ -128,7 +128,7 @@ class AOI(object):
         log(u'Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
-            QtGui.QMessageBox.critical(None, tr("Error"),
+            QtWidgets.QMessageBox.critical(None, tr("Error"),
                     tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
@@ -137,7 +137,7 @@ class AOI(object):
         elif l.wkbType() == Qgis.Point:
             self.datatype = "point"
         else:
-            QtGui.QMessageBox.critical(None, tr("Error"),
+            QtWidgets.QMessageBox.critical(None, tr("Error"),
                     tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
             log("Failed to process area of interest - unknown geometry type.")
             return
@@ -154,7 +154,7 @@ class AOI(object):
         l.dataProvider().addFeatures(features)
         l.commitChanges()
         if not l.isValid():
-            QtGui.QMessageBox.critical(None, tr("Error"),
+            QtWidgets.QMessageBox.critical(None, tr("Error"),
                                        tr("Failed to add geojson to temporary layer."))
             log("Failed to add geojson to temporary layer.")
             return
@@ -168,8 +168,6 @@ class AOI(object):
         Returns multiple geometries as needed to avoid having an extent 
         crossing the 180th meridian
         """
-
-        #QgsMapLayerRegistry.instance().addMapLayer(self.get_layer_wgs84())
 
         # Calculate a single feature that is the union of all the features in 
         # this layer - that way there is a single feature to intersect with 
@@ -236,7 +234,7 @@ class AOI(object):
         else:
             log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
             if warn:
-                QtGui.QMessageBox.information(None, tr("Warning"),
+                QtWidgets.QMessageBox.information(None, tr("Warning"),
                         tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             return (True, [e_intersection_out, w_intersection_out])
 
@@ -318,7 +316,7 @@ class AOI(object):
                 log('Layer has many points ({})'.format(n))
                 return self.meridian_split()
         else:
-            QtGui.QMessageBox.critical(None, tr("Error"),
+            QtWidgets.QMessageBox.critical(None, tr("Error"),
                     tr("Failed to process area of interest - unknown geometry type: {}".format(self.datatype)))
             log("Failed to process area of interest - unknown geometry type.")
 
@@ -340,7 +338,7 @@ class AOI(object):
         log('Fractional area of overlap: {}'.format(frac))
         return frac
 
-class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):
+class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
     def __init__(self, parent=None):
         super(DlgCalculateLD, self).__init__(parent)
 
@@ -385,11 +383,11 @@ class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):
         result = self.dlg_calculate_sdg_advanced.exec_()
 
     def btn_summary_multi_polygons_clicked(self):
-        QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
                                       self.tr("Multiple polygon summary table calculation coming soon!"), None)
 
 
-class DlgCalculateTC(QtGui.QDialog, Ui_DlgCalculateTC):
+class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
     def __init__(self, parent=None):
         super(DlgCalculateTC, self).__init__(parent)
 
@@ -413,7 +411,7 @@ class DlgCalculateTC(QtGui.QDialog, Ui_DlgCalculateTC):
         result = self.dlg_calculate_tc_summary.exec_()
 
 
-class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
+class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
     def __init__(self, parent=None):
         super(CalculationOptionsWidget, self).__init__(parent)
 
@@ -433,7 +431,7 @@ class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
     def open_folder_browse(self):
         self.lineEdit_local_data_folder.clear()
 
-        folder = QtGui.QFileDialog.getExistingDirectory(self,
+        folder = QtWidgets.QFileDialog.getExistingDirectory(self,
                                                         self.tr('Select folder containing data'),
                                                         QSettings().value("LDMP/localdata_dir", None))
         if folder:
@@ -442,7 +440,7 @@ class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
                 self.lineEdit_local_data_folder.setText(folder)
                 return True
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
                 return False
         else:
@@ -457,7 +455,7 @@ class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
             self.groupBox_where_to_run.hide()
                 
 
-class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
+class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def __init__(self, parent=None):
         super(AreaWidget, self).__init__(parent)
 
@@ -492,7 +490,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
-        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapRenderer().destinationCrs().authid())
+        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
         self.mQgsProjectionSelectionWidget.setCrs(QgsCoordinateReferenceSystem('epsg:4326'))
 
     def showEvent(self, event):
@@ -551,7 +549,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
         log("Choosing point from canvas...")
         self.canvas.setMapTool(self.choose_point_tool)
         self.window().hide()
-        QtGui.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
+        QtWidgets.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
 
     def set_point_coords(self, point, button):
         log("Set point coords")
@@ -572,7 +570,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     def open_vector_browse(self):
         self.area_fromfile_file.clear()
 
-        vector_file = QtGui.QFileDialog.getOpenFileName(self,
+        vector_file = QtWidgets.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a file defining the area of interest'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
@@ -582,7 +580,7 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
                 self.area_fromfile_file.setText(vector_file)
                 return True
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
                 return False
         else:
@@ -594,7 +592,7 @@ area_widget = AreaWidget()
 options_widget = CalculationOptionsWidget()
 
 
-class DlgCalculateBase(QtGui.QDialog):
+class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
 
@@ -699,21 +697,21 @@ class DlgCalculateBase(QtGui.QDialog):
 
         if self.area_tab.area_fromadmin.isChecked():
             if not self.area_tab.area_admin_0.currentText():
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a first level administrative boundary."), None)
                 return False
             self.button_calculate.setEnabled(False)
             geojson = self.load_admin_polys()
             self.button_calculate.setEnabled(True)
             if not geojson:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Unable to load administrative boundaries."), None)
                 return False
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
         elif self.area_tab.area_fromfile.isChecked():
             if not self.area_tab.area_fromfile_file.text():
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."), None)
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
@@ -721,23 +719,23 @@ class DlgCalculateBase(QtGui.QDialog):
         elif self.area_tab.area_frompoint_enabled and self.area_tab.area_frompoint.isChecked():
             # Area from point
             if not self.area_tab.area_frompoint_point_x.text() or not self.area_tab.area_frompoint_point_y.text():
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."), None)
                 return False
             point = QgsPoint(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
-            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapRenderer().destinationCrs().authid())
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst).transform(point)
             geojson = json.loads(QgsGeometry.fromPoint(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
                                          datatype='point')
         else:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Choose an area of interest."), None)
             return False
 
         if self.aoi and not self.aoi.isValid():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Unable to read area of interest."), None)
             return False
         else:

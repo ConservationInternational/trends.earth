@@ -19,7 +19,7 @@ import json
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from qgis.PyQt import QtGui, QtCore
+from qgis.PyQt import QtWidgets, QtCore
 from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, QDate
 
 from LDMP import log
@@ -37,14 +37,14 @@ class DataTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('category', QtGui.QApplication.translate('LDMPPlugin', 'Category')),
-                          ('title', QtGui.QApplication.translate('LDMPPlugin', 'Title')),
-                          ('Units/Description', QtGui.QApplication.translate('LDMPPlugin', 'Units')),
-                          ('Spatial Resolution', QtGui.QApplication.translate('LDMPPlugin', 'Resolution')),
-                          ('Start year', QtGui.QApplication.translate('LDMPPlugin', 'Start year')),
-                          ('End year', QtGui.QApplication.translate('LDMPPlugin', 'End year')),
-                          ('Extent', QtGui.QApplication.translate('LDMPPlugin', 'Extent')),
-                          ('INVALID', QtGui.QApplication.translate('LDMPPlugin', 'Details'))]
+        colname_tuples = [('category', QtWidgets.QApplication.translate('LDMPPlugin', 'Category')),
+                          ('title', QtWidgets.QApplication.translate('LDMPPlugin', 'Title')),
+                          ('Units/Description', QtWidgets.QApplication.translate('LDMPPlugin', 'Units')),
+                          ('Spatial Resolution', QtWidgets.QApplication.translate('LDMPPlugin', 'Resolution')),
+                          ('Start year', QtWidgets.QApplication.translate('LDMPPlugin', 'Start year')),
+                          ('End year', QtWidgets.QApplication.translate('LDMPPlugin', 'End year')),
+                          ('Extent', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent')),
+                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
@@ -130,19 +130,19 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
-        proxy_model = QtGui.QSortFilterProxyModel()
+        proxy_model = QtWidgets.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.data_view.setModel(proxy_model)
 
         # Add "Notes" buttons in cell
         for row in range(0, len(self.datasets)):
-            btn = QtGui.QPushButton(self.tr("Details"))
+            btn = QtWidgets.QPushButton(self.tr("Details"))
             btn.clicked.connect(self.btn_details)
             self.data_view.setIndexWidget(proxy_model.index(row, 7), btn)
 
-        self.data_view.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
-        self.data_view.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
     def btn_details(self):
         button = self.sender()
@@ -177,10 +177,10 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             resp = run_script(get_script_slug('download-data'), payload)
 
             if resp:
-                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Success"),
-                               QtGui.QApplication.translate("LDMP", "Download request submitted to Google Earth Engine."),
+                mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Success"),
+                               QtWidgets.QApplication.translate("LDMP", "Download request submitted to Google Earth Engine."),
                                level=0, duration=5)
             else:
-                mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                               QtGui.QApplication.translate("LDMP", "Unable to submit download request to Google Earth Engine."),
+                mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                               QtWidgets.QApplication.translate("LDMP", "Unable to submit download request to Google Earth Engine."),
                                level=0, duration=5)

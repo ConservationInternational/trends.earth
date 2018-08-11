@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/plugins/LDMP">
+    <file>icons/SDG_11.svg</file>
+    <file>icons/SDG_15.svg</file>
     <file>trends_earth_logo_square_32x32.png</file>
     <file>icons/trends_earth_logo_bl_small.png</file>
     <file>icons/GEF_logo_small.png</file>

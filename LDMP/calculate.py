@@ -32,6 +32,7 @@ from LDMP import log
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
 from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
+from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
@@ -363,8 +364,10 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         result = self.dlg_calculate_tc.exec_()
 
     def btn_urban_clicked(self):
-        self.close()
-        result = self.dlg_calculate_urban.exec_()
+        QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
+                                      self.tr("Calculation of urban change coming soon!"), None)
+        # self.close()
+        # result = self.dlg_calculate_urban.exec_()
 
 
 class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):

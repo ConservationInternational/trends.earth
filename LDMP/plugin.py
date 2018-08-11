@@ -20,7 +20,7 @@ from PyQt4.QtGui import QAction, QIcon, QMessageBox, QApplication, QMenu
 from LDMP import __version__
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
-from LDMP.calculate import DlgCalculateLD, DlgCalculateTC
+from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
 from LDMP.visualization import DlgVisualization
@@ -92,8 +92,7 @@ class LDMPPlugin:
         self.toolbar = self.iface.addToolBar(u'trends.earth')
 
         self.dlg_settings = DlgSettings()
-        self.dlg_calculate = DlgCalculateLD()
-        self.dlg_calculate_tc = DlgCalculateTC()
+        self.dlg_calculate = DlgCalculate()
         self.dlg_jobs = DlgJobs()
         self.dlg_timeseries = DlgTimeseries()
         self.dlg_visualization = DlgVisualization()
@@ -201,14 +200,7 @@ class LDMPPlugin:
             text=QApplication.translate('LDMP', u'Calculate indicators'),
             callback=self.run_calculate,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Calculate land degradation indicators'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/tree.svg',
-            text=QApplication.translate('LDMP', u'Calculate change in total carbon'),
-            callback=self.run_calculate_tc,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Calculate change in total carbon'))
+            status_tip=QApplication.translate('LDMP', 'Calculate indicators'))
 
         self.add_action(
             ':/plugins/LDMP/icons/graph.svg',
@@ -276,11 +268,6 @@ class LDMPPlugin:
         # show the dialog
         self.dlg_calculate.show()
         result = self.dlg_calculate.exec_()
-
-    def run_calculate_tc(self):
-        # show the dialog
-        self.dlg_calculate_tc.show()
-        result = self.dlg_calculate_tc.exec_()
 
     def get_jobs(self):
         # show the dialog

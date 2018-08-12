@@ -18,7 +18,6 @@ from landdegradation.urban_area import urban_area
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    iso = params.get('iso')
     un_adju = params.get('un_adju')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
@@ -30,6 +29,6 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = urban_area(iso, un_adju, EXECUTION_ID, logger)
+    out = urban_area(un_adju, EXECUTION_ID, logger)
 
     return out.export(geojsons, 'urban_area', crs, logger, EXECUTION_ID)

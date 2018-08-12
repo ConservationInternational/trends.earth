@@ -13,6 +13,7 @@ import json
 import ee
 
 from landdegradation.urban_area import urban_area
+from landdegradation.schemas.schemas import CloudResultsSchema
 
 
 def run(params, logger):
@@ -29,6 +30,22 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = urban_area(un_adju, EXECUTION_ID, logger)
-
-    return out.export(geojsons, 'urban_area', crs, logger, EXECUTION_ID)
+    outs = []
+    for geojson in geojsons:
+        this_out = None
+        urb = urban_area(geojson, un_adju, EXECUTION_ID, logger)
+        if not this_out:
+            this_out = urb
+        else:
+            this_out.merge(urb)
+        outs.append(this_out.export([geojson], 'urban_area', crs, logger, 
+                                    EXECUTION_ID, proj))
+    schema = CloudResultsSchema()
+    logger.debug("Deserializing")
+    final_output = schema.load(outs[0])
+    for o in outs[1:]:
+        this_out = schema.load(o)
+        final_output.urls.extend(this_out.urls)
+    logger.debug("Serializing")
+    # Now serialize the output again and return it
+    return schema.dump(final_output)

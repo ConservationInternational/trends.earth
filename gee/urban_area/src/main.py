@@ -23,6 +23,8 @@ def run(params, logger):
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
 
+    proj = ee.Image("users/geflanddegradation/toolbox_datasets/urban_series").projection()
+
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))

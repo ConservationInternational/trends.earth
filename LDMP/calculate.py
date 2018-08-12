@@ -29,6 +29,7 @@ from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
 from LDMP import log
+from LDMP.api import run_script
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
 from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
@@ -38,6 +39,7 @@ from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
 from LDMP.download import read_json, get_admin_bounds
 from LDMP.worker import AbstractWorker
 
+mb = iface.messageBar()
 
 def tr(t):
     return QCoreApplication.translate('LDMPPlugin', t)
@@ -349,7 +351,7 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
 
         self.dlg_calculate_ld = DlgCalculateLD()
         self.dlg_calculate_tc = DlgCalculateTC()
-        #self.dlg_calculate_urban = DlgCalculateUrban()
+        self.dlg_calculate_urban = DlgCalculateUrban()
 
         self.pushButton_ld.clicked.connect(self.btn_ld_clicked)
         self.pushButton_tc.clicked.connect(self.btn_tc_clicked)
@@ -364,10 +366,8 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         result = self.dlg_calculate_tc.exec_()
 
     def btn_urban_clicked(self):
-        QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                      self.tr("Calculation of urban change coming soon!"), None)
-        # self.close()
-        # result = self.dlg_calculate_urban.exec_()
+        self.close()
+        result = self.dlg_calculate_urban.exec_()
 
 
 class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):
@@ -772,6 +772,54 @@ class DlgCalculateBase(QtGui.QDialog):
             return False
         else:
             return True
+
+
+class DlgCalculateUrban(DlgCalculateBase, Ui_DlgCalculateUrban):
+    def __init__(self, parent=None):
+        super(DlgCalculateUrban, self).__init__(parent)
+
+        self.setupUi(self)
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateUrban, self).btn_calculate()
+        if not ret:
+            return
+
+        self.calculate_on_GEE()
+
+    def get_pop_def_is_un(self):
+        if self.pop_adjusted.isChecked():
+            return True
+        elif self.pop_unadjusted.isChecked():
+            return False
+        else:
+            # Should never get here
+            raise
+
+    def calculate_on_GEE(self):
+        self.close()
+
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        payload = {'un_adju': self.get_pop_def_is_un(),
+                   'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
+                   'crosses_180th': crosses_180th,
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
+
+        resp = run_script(get_script_slug('urban-area'), payload)
+
+        if resp:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
+                           level=0, duration=5)
 
 
 class ClipWorker(AbstractWorker):

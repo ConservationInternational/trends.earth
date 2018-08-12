@@ -49,7 +49,7 @@
         "script version": "0.59",
         "description": "Calculate total carbon in biomass (above and below ground)."
     },
-    "urban": {
+    "urban-area": {
         "script version": "0.59",
         "description": "Calculate urban area."
     }

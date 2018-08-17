@@ -44,9 +44,11 @@ def tr(t):
 # translated - if it were in the syles JSON then gettext would not have access
 # to these strings.
 style_text_dict = {
+    # Shared
+    'nodata': tr('No data'),
+
     # Productivity trajectory
     'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
-    'prod_traj_trend_nodata': tr('No data'),
 
     'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
     'prod_traj_signif_dec_99': tr('Degradation (significant decrease, p < .01)'),
@@ -56,36 +58,29 @@ style_text_dict = {
     'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
     'prod_traj_signif_inc_95': tr('Improvement (significant increase, p < .05)'),
     'prod_traj_signif_inc_99': tr('Improvement (significant increase, p < .01)'),
-    'prod_traj_signif_nodata': tr('No data'),
 
     # Productivity performance
     'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
     'prod_perf_deg_potential_deg': tr('Degradation'),
     'prod_perf_deg_not_potential_deg': tr('Not degradation'),
-    'prod_perf_deg_nodata': tr('No data'),
 
     'prod_perf_ratio_title': tr('Productivity performance ({year_start} to {year_end}, ratio)'),
-    'prod_perf_ratio_nodata': tr('No data'),
 
     'prod_perf_units_title': tr('Productivity performance ({year_start}, units)'),
-    'prod_perf_units_nodata': tr('No data'),
 
     # Productivity state
     'prod_state_change_title': tr('Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
     'prod_state_change_potential_deg': tr('Degradation'),
     'prod_state_change_stable': tr('Stable'),
     'prod_state_change_potential_improvement': tr('Improvement'),
-    'prod_state_change_nodata': tr('No data'),
 
     'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),
-    'prod_state_classes_nodata': tr('No data'),
 
     # Land cover
     'lc_deg_title': tr('Land cover degradation ({year_baseline} to {year_target})'),
     'lc_deg_deg': tr('Degradation'),
     'lc_deg_stable': tr('Stable'),
     'lc_deg_imp': tr('Improvement'),
-    'lc_deg_nodata': tr('No data'),
 
     'lc_7class_title': tr('Land cover ({year}, 7 class)'),
     'lc_esa_title': tr('Land cover ({year}, ESA CCI classes)'),
@@ -110,17 +105,14 @@ style_text_dict = {
     'lc_tr_artificial_loss': tr('Artificial loss'),
     'lc_tr_bare_loss': tr('Other land loss'),
     'lc_tr_water_loss': tr('Water body loss'),
-    'lc_tr_nodata': tr('No data'),
 
     # Soil organic carbon
     'soc_title': tr('Soil organic carbon ({year}, tons / ha)'),
-    'soc_nodata': tr('No data'),
 
     'soc_deg_title': tr('Soil organic carbon degradation ({year_start} to {year_end})'),
     'soc_deg_deg': tr('Degradation'),
     'soc_deg_stable': tr('Stable'),
     'soc_deg_imp': tr('Improvement'),
-    'soc_deg_nodata': tr('No data'),
 
     # Trends.Earth land productivity
     'sdg_prod_combined_title': tr('Land productivity (Trends.Earth)'),
@@ -129,7 +121,6 @@ style_text_dict = {
     'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
     'sdg_prod_combined_stab': tr('Stable'),
     'sdg_prod_combined_imp': tr('Increasing'),
-    'sdg_prod_combined_nodata': tr('No data'),
 
     # LPD
     'lpd_title': tr('Land productivity dynamics (LPD)'),
@@ -138,18 +129,15 @@ style_text_dict = {
     'lpd_stabbutstress': tr('Stressed'),
     'lpd_stab': tr('Stable'),
     'lpd_imp': tr('Increasing'),
-    'lpd_nodata': tr('No data'),
 
     # SDG 15.3.1 indicator layer
     'combined_sdg_title': tr('SDG 15.3.1 degradation indicator'),
     'combined_sdg_deg_deg': tr('Degradation'),
     'combined_sdg_deg_stable': tr('Stable'),
     'combined_sdg_deg_imp': tr('Improvement'),
-    'combined_sdg_deg_nodata': tr('No data'),
 
     # Forest loss
     'f_loss_hansen_title': tr('Forest loss ({year_start} to {year_end})'),
-    'f_loss_hansen_nodata': tr('No data'),
     'f_loss_hansen_water': tr('Water'),
     'f_loss_hansen_nonforest': tr('Non-forest'),
     'f_loss_hansen_noloss': tr('Forest (no loss)'),
@@ -158,11 +146,19 @@ style_text_dict = {
 
     # Total carbon
     'tc_title': tr('Total carbon ({year_start}, tonnes per ha x 10)'),
-    'tc_nodata': tr('No data'),
 
     # Root shoot ratio (below to above ground carbon in woody biomass)
     'root_shoot_title': tr('Root/shoot ratio (x 100)'),
-    'root_shoot_nodata': tr('No data')
+
+    # Urban area
+    'urban_title': tr('Urban area'),
+    'urban_2000': tr('Urban (2000)'),
+    'urban_2005': tr('Urban gain (2005)'),
+    'urban_2010': tr('Urban gain (2010)'),
+    'urban_2015': tr('Urban gain (2015)'),
+
+    # Population
+    'population_title': tr('Population ({year})')
 }
 
 
@@ -175,6 +171,8 @@ def round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
     if np.isnan(x):
         return x
+    elif x == 0:
+        return 0
     else:
         return round(x, -int(floor(log10(x))) + (sf - 1))
 
@@ -289,7 +287,7 @@ def add_layer(f, band_number, band_info):
         QtGui.QMessageBox.information(None,
                                       tr("Information"),
                                       tr(u"Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
-        log(u'No style found for {}'.format(band_info['name'] ))
+        log(u'No style found for "{}"'.format(band_info['name'] ))
         return False
 
     title = get_band_title(band_info)
@@ -360,10 +358,10 @@ def add_layer(f, band_number, band_info):
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     else:
-        log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
+        log('Failed to load Trends.Earth style.')
         QtGui.QMessageBox.critical(None,
                                    tr("Error"),
-                                   tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
+                                   tr(u"Failed to load Trends.Earth style. To use this layer, try manually adding it to your map.".format(f)))
         return False
 
     fcn = QgsColorRampShader()
@@ -400,7 +398,7 @@ def tr_style_text(label, band_info=None):
         else:
             return val
     else:
-        log('value not found in translation dictionary')
+        log(u'"{}" not found in translation dictionary'.format(label))
         if isinstance(label, basestring):
             return label
         else:

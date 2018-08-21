@@ -70,7 +70,8 @@ options(
 						   'Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex',
                            'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex',
                            'Trends.Earth_Tutorial08_The_Summary_Table.tex',
-                           'Trends.Earth_Tutorial09_Loading_a_Basemap.tex']
+                           'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
+                           'Trends.Earth_Tutorial10_Forest_Carbon.tex']
     )
 )
 

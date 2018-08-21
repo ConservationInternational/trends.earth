@@ -1,4 +1,6 @@
-﻿Load results and basemap
+﻿.. _tut_load_data:
+
+Load results and basemap
 ========================
 
 - **Objective**: Learn how to load into QGIS results from previous analysis run on Trends.Earth, and how to load a base map to make help with the interpretation of spatial patterns displayed by the indicators.

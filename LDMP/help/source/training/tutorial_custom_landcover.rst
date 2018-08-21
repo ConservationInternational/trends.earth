@@ -166,7 +166,7 @@ From the Metadata of the land cover dataset, we know that the best aggregation a
 .. image:: /static/training/t08/option_uganda_lc_degradation.png
    :align: center    
 
-19. When you click **Calculate**, the **Coose a name for the output file** will open. Select where to save the file and its name, and click **Save**.  
+19. When you click **Calculate**, the **Choose a name for the output file** will open. Select where to save the file and its name, and click **Save**.  
    
 .. image:: /static/training/t08/output_lc_degradation.png
    :align: center    

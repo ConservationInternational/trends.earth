@@ -238,6 +238,7 @@ latex_documents = [
     ('training/tutorial_compute_sdg_indicator', u'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex', u'How to Compute the SDG Indicator', u'Conservation International', 'howto'),
     ('training/tutorial_summary_table', u'Trends.Earth_Tutorial08_The_Summary_Table.tex', u'The Summary Table', u'Conservation International', 'howto'),
     ('training/tutorial_load_basemap', u'Trends.Earth_Tutorial09_Loading_a_Basemap.tex', u'Loading a Basemap', u'Conservation International', 'howto'),
+	('training/tutorial_forest_carbon', u'Trends.Earth_Tutorial10_Forest_Carbon.tex', u'Forest and Carbon Change Tool', u'Conservation International', 'howto'),
 ]
 
 latex_elements = {

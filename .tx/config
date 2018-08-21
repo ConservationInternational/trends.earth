@@ -127,6 +127,11 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_task_download.
 source_file = LDMP/help/i18n/pot/training/tutorial_task_download.pot
 source_lang = en
 
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_forest_carbon]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_forest_carbon.po
+source_file = LDMP/help/i18n/pot/training/tutorial_forest_carbon.pot
+source_lang = en
+
 [land_degradation_monitoring_toolbox_docs_1_0.training--video_links]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/video_links.po
 source_file = LDMP/help/i18n/pot/training/video_links.pot

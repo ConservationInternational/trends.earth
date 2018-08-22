@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.59\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 09:24-0400\n"
+"POT-Creation-Date: 2018-08-22 12:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Monica Noon <mnoon@conservation.org>, 2018\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -112,14 +112,9 @@ msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
 "<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
-"information., or `contact the Trends.Earth team "
+"information, or `contact the Trends.Earth team "
 "<mailto:trends.earth@conservation.org>`_."
 msgstr ""
-"Consulte la `hoja de datos generales <_static / common / "
-"Trends.Earth_Fact_Sheet.pdf>`_ o `ficha técnica <_static / common / "
-"Trends.Earth_Fact_Sheet_Technical.pdf>`_ para obtener más información., O "
-"`póngase en `contacto con el equipo de Trends.Earth <mailto: "
-"trends.earth@conservation.org> _."
 
 #: ../../source/index.rst:63
 msgid ""
@@ -173,6 +168,6 @@ msgstr "Documentación"
 msgid "Step-by-step Guides"
 msgstr "Guías paso a paso"
 
-#: ../../source/index.rst:149
+#: ../../source/index.rst:150
 msgid "Videos"
 msgstr "Videos"

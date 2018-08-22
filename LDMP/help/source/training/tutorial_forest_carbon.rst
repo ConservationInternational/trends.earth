@@ -10,7 +10,7 @@ Forest and Carbon Change Tool
 - **Internet access**: Required
 
 .. note:: `Download this page as a PDF for offline use 
-   <../pdfs/Trends.Earth_Tutorial10_Carbon.pdf>`_
+   <../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_
 
 1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
 

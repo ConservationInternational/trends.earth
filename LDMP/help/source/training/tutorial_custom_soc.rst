@@ -80,19 +80,19 @@ calculate soil organic carbon degradation from that data. To do so, first
 ensure the custom soil organic carbon data is loaded within QGIS (see 
 :ref:`load_custom_soc`).
 
-#. To calculate soil organic carbon degradation from custom data, first click 
+1. To calculate soil organic carbon degradation from custom data, first click 
    on the (|iconCalculator|) icon on the Trends.Earth toolbar:
 
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center
 
-#. The "Calculate indicators" menu will open. Select "Soil organic carbon" 
+2. The "Calculate indicators" menu will open. Select "Soil organic carbon" 
    from the "Option 2: Use customized data" section.
    
 .. image:: /static/training/t09/custom_soc_calculate.png
    :align: center
 
-#. The "Calculate Soil Organic Carbon" window will open. Click the radio button 
+3. The "Calculate Soil Organic Carbon" window will open. Click the radio button 
    next to "Custom land cover dataset" and select either "Import" to import a 
    custom land cover dataset, or "Load existing" to load a land cover dataset 
    you have already processed in Trends.Earth. Be sure to select both an 
@@ -103,7 +103,7 @@ ensure the custom soil organic carbon data is loaded within QGIS (see
 .. image:: /static/training/t09/calc_soc_select_lc.png
    :align: center
 
-#. On the next screen, click the check box next to "Custom initial soil organic 
+4. On the next screen, click the check box next to "Custom initial soil organic 
    carbon dataset", and then use the "Import" or "Load existing" buttons to 
    either import custom soil carbon layer (:ref:`load_custom_soc`) or to load 
    an existing one that has already been calculated:
@@ -111,31 +111,31 @@ ensure the custom soil organic carbon data is loaded within QGIS (see
 .. image:: /static/training/t09/calc_soc_choose_soc_data.png
    :align: center
 
-#. Click "Next". Now, choose the area you wish to run calculations for:
+5. Click "Next". Now, choose the area you wish to run calculations for:
 
 .. image:: /static/training/t09/calc_soc_choose_area.png
    :align: center
 
-#. Click "Next". on the last screen, enter a task name or any notes you might 
+6. Click "Next". on the last screen, enter a task name or any notes you might 
    wish to save (this is optional) and then click "Calculate":
 
 .. image:: /static/training/t09/calc_soc_final_page.png
    :align: center
 
-#. A progress bar will appear on your screen. Do not quit QGIS or turn off your 
+7. A progress bar will appear on your screen. Do not quit QGIS or turn off your 
    computer until the calculation is complete.
 
 .. image:: /static/training/t09/calc_soc_calculating.png
    :align: center
 
-#. Once the calculation is complete, three layers will load onto your map: 1) 
+8. Once the calculation is complete, three layers will load onto your map: 1) 
    the final soil organic carbon layer, 2) the initial soil organic carbon 
    layer, and 3) the soil organic carbon degradation layer:
 
 .. image:: /static/training/t09/calc_soc_done.png
    :align: center
 
-#. For example, we can see areas of degradation in soil carbon around Kampala:
+9. For example, we can see areas of degradation in soil carbon around Kampala:
 
 .. image:: /static/training/t09/calc_soc_deg_map.png
    :align: center

@@ -12,6 +12,11 @@ Forest and Carbon Change Tool
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_
 
+.. _compute_forest_data:
+
+Compute and download forest and biomass data
+--------------------------------------------   
+   
 1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
 
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
@@ -114,33 +119,38 @@ Once the task is FINSHED running, highlight the completed task and select **Down
    :align: center
 
 If you want, you can add some context information (e.g. country boundaries, roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for detailed information on loading a basemap.
+
+.. _compute_forest_summary:
+
+Compute summary table
+---------------------  
    
-14.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
+1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
 
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center   
 
-15. The **Calculate Indicators** menu will open. In that window, click on **Calculate Calculate carbon change spatial layers** button.
+2. The **Calculate Indicators** menu will open. In that window, click on **Calculate Calculate carbon change spatial layers** button.
 
 .. image:: /static/training/t11/calc_ind.png
    :align: center
    
-16. Select Step 2: **Calculate carbon change summary table for boundary**. 
+3. Select Step 2: **Calculate carbon change summary table for boundary**. 
 
 .. image:: /static/training/t11/carbon_change.png
    :align: center
 
-17. Within the **Input** tab, select an output folder and file name.
+4. Within the **Input** tab, select an output folder and file name.
 
 .. image:: /static/training/t11/input.png
    :align: center
 
-19. Within the **Output** tab, select **Browse** to list an output folder and file name.
+5. Within the **Output** tab, select **Browse** to list an output folder and file name.
 
 .. image:: /static/training/t11/output.png
    :align: center
    
-20. In the **Area** tab define the area of analysis. There are two options:
+6. In the **Area** tab define the area of analysis. There are two options:
 
  - Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country).
 
@@ -151,7 +161,7 @@ If you want, you can add some context information (e.g. country boundaries, road
 .. image:: /static/training/t11/area_uganda.png
    :align: center
 
-21. In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:
+7. In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:
 
  - Area of analysis
  - Dates
@@ -160,22 +170,22 @@ If you want, you can add some context information (e.g. country boundaries, road
 .. image:: /static/training/t11/uganda_carbon_change.png
    :align: center 
 
-22. When done, click **Calculate** and the task will be submitted to your computer locally. You will notice that the **Calculate carbon change summary table for boundary** window will disappear and you will be brought back to QGIS. A light blue bar will appear in the QGIS window. This is running locally on your computer. DO NOT select **x** or **Cancel** until the task is finished!
+8. When done, click **Calculate** and the task will be submitted to your computer locally. You will notice that the **Calculate carbon change summary table for boundary** window will disappear and you will be brought back to QGIS. A light blue bar will appear in the QGIS window. This is running locally on your computer. DO NOT select **x** or **Cancel** until the task is finished!
 
 .. image:: /static/training/t11/summary_submit.png
    :align: center
    
-23. A window will appear when the summary is complete. Select **OK**.
+9. A window will appear when the summary is complete. Select **OK**.
 
 .. image:: /static/training/t11/success.png
    :align: center   
 
-24. If an error window appears, select the **Yes** and the summary will proceed to open.
+10. If an error window appears, select the **Yes** and the summary will proceed to open.
 
 .. image:: /static/training/t11/error.png
    :align: center   
    
-25. The summary table will appear.
+11. The summary table will appear.
 
 .. image:: /static/training/t11/summary_table.png
    :align: center   

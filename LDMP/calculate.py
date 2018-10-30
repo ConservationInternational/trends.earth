@@ -567,8 +567,8 @@ class AreaWidget(QtGui.QWidget, Ui_WidgetSelectArea):
     def populate_cities(self):
         self.secondLevel_city.clear()
         adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
-        cities = sorted([value['name_en'] for value in self.cities[adm0_a3].values()])
-        self.secondLevel_city.addItems(cities)
+        self.current_cities_key = {value['name_en']: key for key, value in self.cities[adm0_a3].items()}
+        self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
 
     def populate_admin_1(self):
         self.secondLevel_area_admin_1.clear()
@@ -760,23 +760,19 @@ class DlgCalculateBase(QtGui.QDialog):
 
     def get_city_geojson(self):
         adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
-        return (self.area_tab.cities[adm0_a3][self.area_tab.secondLevel_city.currentText()]['geojson'])
+        wof_id = self.area_tab.current_cities_key[self.area_tab.secondLevel_city.currentText()]
+        return (self.area_tab.cities[adm0_a3][wof_id]['geojson'])
 
     def get_admin_poly_geojson(self):
         adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
-        if self.area_tab.radioButton_secondLevel_city.isChecked():
-            geojson = (self.area_tab.cities[adm0_a3][self.area_tab.secondLevel_city.currentText()]['geojson'])
-            json.loads(QgsGeometry.fromPoint(point).exportToGeoJSON())
-            return 
+        admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        if not admin_polys:
+            return None
+        if not self.area_tab.secondLevel_area_admin_1.currentText() or self.area_tab.secondLevel_area_admin_1.currentText() == 'All regions':
+            return (admin_polys['geojson'])
         else:
-            admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
-            if not admin_polys:
-                return None
-            if not self.area_tab.secondLevel_area_admin_1.currentText() or self.area_tab.secondLevel_area_admin_1.currentText() == 'All regions':
-                return (admin_polys['geojson'])
-            else:
-                admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.secondLevel_area_admin_1.currentText()]['code']
-                return (admin_polys['admin1'][admin_1_code]['geojson'])
+            admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.secondLevel_area_admin_1.currentText()]['code']
+            return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
         if self.area_tab.groupBox_custom_crs.isChecked():

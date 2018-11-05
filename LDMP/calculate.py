@@ -783,11 +783,11 @@ class DlgCalculateBase(QtGui.QDialog):
         self.aoi = AOI(crs_dst)
 
         if self.area_tab.area_fromadmin.isChecked():
-            if not self.area_tab.groupBox_buffer.isChecked():
-                QtGui.QMessageBox.critical(None, tr("Error"),
-                        tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
-                return False
             if self.area_tab.radioButton_secondLevel_city.isChecked():
+                if not self.area_tab.groupBox_buffer.isChecked():
+                    QtGui.QMessageBox.critical(None, tr("Error"),
+                            tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
+                    return False
                 geojson = self.get_city_geojson()
                 self.aoi.update_from_geojson(geojson=geojson, 
                                              wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),

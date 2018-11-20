@@ -15,7 +15,7 @@ import ee
 from landdegradation.urban_area import urban_area
 from landdegradation.schemas.schemas import CloudResultsSchema
 
-def urban(isi_thr, ntl_thr, wat_thr, aoi_cr, EXECUTION_ID, logger):
+def urban(isi_thr, ntl_thr, wat_thr, geojsons, EXECUTION_ID, logger):
 	#Impervious surface index computed by Trends.Earth
 	isi_series = ee.ImageCollection("projects/trends_earth/isi_20181024_esa").reduce(ee.Reducer.mean()) \
 		.select(['isi2000_mean','isi2005_mean','isi2010_mean','isi2015_mean','isi2018_mean'],
@@ -84,31 +84,32 @@ def urban(isi_thr, ntl_thr, wat_thr, aoi_cr, EXECUTION_ID, logger):
 
 	## define function to do zonation of cities
 	def f_city_zones(built_up, EXECUTION_ID, logger):
-		dens = built_up.reduceNeighborhood({reducer: ee.Reducer.mean(),kernel: ee.Kernel.circle(1000,"meters")})
-  
-		city = ee.Image(7).where(dens.lte(0.25).And(built_up.eq(1)),3) \##rural built up (-32768 no-data)
-								.where(dens.gt(0.25).And(built_up.eq(1)),2) \## suburban
-								.where(dens.gt(0.50).And(built_up.eq(1)),1) ## urban
+		dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(),kernel=ee.Kernel.circle(1000,"meters"))
+		##rural built up (-32768 no-data), suburban, urban
+		city = ee.Image(7).where(dens.lte(0.25).And(built_up.eq(1)),3) \
+								.where(dens.gt(0.25).And(built_up.eq(1)),2) \
+								.where(dens.gt(0.50).And(built_up.eq(1)),1) 
   
 		dist = city.lte(2).fastDistanceTransform(100).sqrt()
-  
-		city = city.where(dist.gt(0).And(dist.lte(3)),4) \ ## fringe open space
-								.where(city.eq(3),3)## rural built up
+		## fringe open space, rural built up
+		city = city.where(dist.gt(0).And(dist.lte(3)),4) \
+								.where(city.eq(3),3)
   
 		open = city.updateMask(city.eq(7)).addBands(ee.Image.pixelArea())
 		open_poly = open.reduceToVectors(
 			reducer=ee.Reducer.sum().setOutputs(['area']),
-			geometry=aoi_cr,
+			geometry=geojsons,
 			geometryType='polygon',
 			eightConnected=True,
 			scale=30,               
 			maxPixels=1e10)
 	  
-		open_img = open_poly.reduceToImage({properties: ['area'],reducer: ee.Reducer.first()})
-		city =  city.where(city.eq(7).And(open_img.gt(0).And(open_img.lte(cap_ope*10000))),5) \ ## captured open space
-							.where(city.eq(7).And(open_img.gt(cap_ope*10000)),6) ## rural open space
+		open_img = open_poly.reduceToImage(properties=['area'],reducer=ee.Reducer.first())
+		## captured open space, rural open space
+		city =  city.where(city.eq(7).And(open_img.gt(0).And(open_img.lte(cap_ope*10000))),5) \
+							.where(city.eq(7).And(open_img.gt(cap_ope*10000)),6)
 				  
-		return city.where(city.eq(7),-32768)}
+		return city.where(city.eq(7),-32768)
               
 	city00 = f_city_zones(urban_series.eq(1))
 	city05 = f_city_zones(urban_series.gte(1).And(urban_series.lte(2)))
@@ -118,42 +119,36 @@ def urban(isi_thr, ntl_thr, wat_thr, aoi_cr, EXECUTION_ID, logger):
 	rast_export = city00.addBands(city05).addBands(city10).addBands(city15).addBands(gpw4_2000).addBands(gpw4_2005).addBands(gpw4_2010).addBands(gpw4_2015)
 	
 	out = TEImage(rast_export,
-                  [BandInfo("Urban (2000)", add_to_map=True, metadata={'year': 2000}),
-				   BandInfo("Urban (2005)", metadata={'year': 2005}),
-				   BandInfo("Urban (2010)", metadata={'year': 2010}),
-				   BandInfo("Urban (2015)", add_to_map=True, metadata={'year': 2015}),
-                   BandInfo("Population (2000)", add_to_map=True, metadata={'population': 2000}),
-                   BandInfo("Population (2005)", metadata={'population': 2005}),
-				   BandInfo("Population (2010)", metadata={'population': 2010}),
-                   BandInfo("Population (2015)", add_to_map=True, metadata={'population': 2015})])
-
-    out.image = out.image.unmask(-32768).int16()
-    return out
+			[BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),
+			BandInfo("Urban", metadata={'year': 2005}),
+			BandInfo("Urban", metadata={'year': 2010}),
+			BandInfo("Urban", add_to_map=True, metadata={'year': 2015}),
+			BandInfo("Population", add_to_map=True, metadata={'year': 2000}),
+			BandInfo("Population", metadata={'year': 2005}),
+			BandInfo("Population", metadata={'year': 2010}),
+            BandInfo("Population", add_to_map=True, metadata={'year': 2015})])
+	out.image = out.image.unmask(-32768).int16()
+	return out
   
 def run(params, logger):
-    """."""
-    logger.debug("Loading parameters.")
-    isi_thr = params.get('isi_thr')
+	"""."""
+	logger.debug("Loading parameters.")
+	isi_thr = params.get('isi_thr')
 	ntl_thr = params.get('ntl_thr')
 	at_thr = params.get('at_thr')
-	aoi_cr = params.get('aoi_cr')
-
-    geojsons = json.loads(params.get('geojsons'))
-    crs = params.get('crs')
-
-    proj = ee.Image("users/geflanddegradation/toolbox_datasets/urban_series").projection()
-
-    # Check the ENV. Are we running this locally or in prod?
-    if params.get('ENV') == 'dev':
-        EXECUTION_ID = str(random.randint(1000000, 99999999))
-    else:
-        EXECUTION_ID = params.get('EXECUTION_ID', None)
-
-    logger.debug("Running main script.")
-	 
-	out = urban(isi_thr, ntl_thr, wat_thr, aoi_cr,
-                    EXECUTION_ID, logger)
-   
-    # Now serialize the output again and return it
-    return schema.dump(out)
+	geojsons = json.loads(params.get('geojsons'))
+	crs = params.get('crs')
+	proj = ee.Image("users/geflanddegradation/toolbox_datasets/urban_series").projection()
+	# Check the ENV. Are we running this locally or in prod?
+	if params.get('ENV') == 'dev':
+		EXECUTION_ID = str(random.randint(1000000, 99999999))
+	else:
+		EXECUTION_ID = params.get('EXECUTION_ID', None)
+		
+	logger.debug("Running main script.")
+	
+	out = urban(isi_thr, ntl_thr, wat_thr, geojsons, EXECUTION_ID, logger)
+	
+	# Now serialize the output again and return it
+	return schema.dump(out)
 

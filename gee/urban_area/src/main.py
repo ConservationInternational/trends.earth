@@ -86,7 +86,7 @@ def urban(isi_thr, ntl_thr, wat_thr, crs, geojsons, EXECUTION_ID, logger):
     def f_city_zones(built_up):
         dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(),kernel=ee.Kernel.circle(1000,"meters"))
         ##rural built up (-32768 no-data), suburban, urban
-        city = ee.Image(7).where(dens.lte(0.25).And(built_up.eq(1)),3) \
+        city = ee.Image(10).where(dens.lte(0.25).And(built_up.eq(1)),3) \
                                 .where(dens.gt(0.25).And(built_up.eq(1)),2) \
                                 .where(dens.gt(0.50).And(built_up.eq(1)),1) 
   
@@ -95,7 +95,7 @@ def urban(isi_thr, ntl_thr, wat_thr, crs, geojsons, EXECUTION_ID, logger):
         city = city.where(dist.gt(0).And(dist.lte(3)),4) \
                                 .where(city.eq(3),3)
   
-        open = city.updateMask(city.eq(7)).addBands(ee.Image.pixelArea())
+        open = city.updateMask(city.eq(10)).addBands(ee.Image.pixelArea())
         open_poly = open.reduceToVectors(
             reducer=ee.Reducer.sum().setOutputs(['area']),
             geometry=geojsons,
@@ -106,9 +106,13 @@ def urban(isi_thr, ntl_thr, wat_thr, crs, geojsons, EXECUTION_ID, logger):
       
         open_img = open_poly.reduceToImage(properties=['area'],reducer=ee.Reducer.first())
         ## captured open space, rural open space
-        city =  city.where(city.eq(7).And(open_img.gt(0).And(open_img.lte(cap_ope*10000))),5) \
-                        .where(city.eq(7).And(open_img.gt(cap_ope*10000)),6)
-        return city.where(city.eq(7),-32768)
+        city =  city.where(city.eq(10).And(open_img.gt(0).And(open_img.lte(cap_ope*10000))),5) \
+                        .where(city.eq(10).And(open_img.gt(cap_ope*10000)),6)
+
+        return city.where(city.eq(4).and(water.gte(wat_thr)),7) \
+						.where(city.eq(5).and(water.gte(wat_thr)),8) \ 
+						.where(city.eq(6).and(water.gte(wat_thr)),9) \
+						.where(city.eq(10),-32768)
     outs = []
     
     logger.debug("Processing geojsons")

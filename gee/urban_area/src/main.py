@@ -14,7 +14,7 @@ import ee
 
 from landdegradation.util import get_coords, TEImage
 from landdegradation.urban_area import urban_area
-from landdegradation.schemas.schemas import BandInfo
+from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 
 def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID, 
         logger):
@@ -155,8 +155,15 @@ def run(params, logger):
         
     logger.debug("Running main script.")
     
-    out = urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID, logger)
-    
-    # Now serialize the output again and return it
-    return schema.dump(out)
+    out = urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, 
+                EXECUTION_ID, logger)
 
+    schema = CloudResultsSchema()
+    logger.debug("Deserializing")
+    final_output = schema.load(out[0])
+    for o in out[1:]:
+        this_out = schema.load(o)
+        final_output.urls.extend(this_out.urls)
+    logger.debug("Serializing")
+    # Now serialize the output again and return it
+    return schema.dump(final_output)

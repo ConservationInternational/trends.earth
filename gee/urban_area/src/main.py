@@ -112,9 +112,9 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID,
                 .where(city.eq(5).And(water.gte(wat_thr)), 8) \
                 .where(city.eq(6).And(water.gte(wat_thr)), 9) \
                 .where(city.eq(10), -32768)
-    outs = []
-    
+
     logger.debug("Processing geojsons")
+    outs = []
     for geojson in geojsons:
         city00 = f_city_zones(urban_series.eq(1), geojson)
         city05 = f_city_zones(urban_series.gte(1).And(urban_series.lte(2)), geojson)
@@ -123,7 +123,7 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID,
         rast_export = urban_series.addBands(city00).addBands(city05).addBands(city10).addBands(city15) \
                 .addBands(gpw4_2000).addBands(gpw4_2005).addBands(gpw4_2010).addBands(gpw4_2015)
         rast_export = rast_export.unmask(-32768).int16()
-        out = TEImage(rast_export,
+        this_out = TEImage(rast_export,
             [BandInfo("Urban series", add_to_map=True),
              BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),
              BandInfo("Urban", metadata={'year': 2005}),
@@ -133,9 +133,9 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID,
              BandInfo("Population", metadata={'year': 2005}),
              BandInfo("Population", metadata={'year': 2010}),
              BandInfo("Population", add_to_map=True, metadata={'year': 2015})])
-        outs.append(out.export([geojson], 'urban', crs, logger, EXECUTION_ID, proj))
+        outs.append(this_out.export([geojson], 'urban', crs, logger, EXECUTION_ID, proj))
     
-    return out
+    return outs
 
 def run(params, logger):
     """."""

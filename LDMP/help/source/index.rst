@@ -100,6 +100,7 @@ videos, are available on this website:
    background/understanding_indicators
    background/before_installing
    background/installing
+   background/report_overviews
 
 .. raw:: latex
 

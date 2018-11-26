@@ -352,6 +352,7 @@ class AOI(object):
             raise
         else:
             self.l = l_buffered
+            self.datatype = 'polygon'
 
     def isValid(self):
         return self.l.isValid()

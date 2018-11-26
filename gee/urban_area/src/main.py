@@ -49,55 +49,55 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID, logge
 
     urban_series = urban00.add(urban05).add(urban10).add(urban15).add(urban18)
 
-    urban_series = urban_series.where(urban_series.eq(    0), 0) \
-                               .where(urban_series.eq(    1), 0) \
-                               .where(urban_series.eq(   10), 0) \
-                               .where(urban_series.eq(   11), 4) \
-                               .where(urban_series.eq(  100), 0) \
-                               .where(urban_series.eq(  101), 3) \
-                               .where(urban_series.eq(  110), 3) \
-                               .where(urban_series.eq(  111), 3) \
-                               .where(urban_series.eq( 1000), 0) \
-                               .where(urban_series.eq( 1001), 2) \
-                               .where(urban_series.eq( 1010), 2) \
-                               .where(urban_series.eq( 1011), 2) \
-                               .where(urban_series.eq( 1100), 2) \
-                               .where(urban_series.eq( 1101), 2) \
-                               .where(urban_series.eq( 1110), 2) \
-                               .where(urban_series.eq( 1111), 2) \
-                               .where(urban_series.eq(10000), 0) \
-                               .where(urban_series.eq(10001), 0) \
-                               .where(urban_series.eq(10010), 0) \
-                               .where(urban_series.eq(10011), 1) \
-                               .where(urban_series.eq(10100), 0) \
-                               .where(urban_series.eq(10101), 1) \
-                               .where(urban_series.eq(10110), 1) \
-                               .where(urban_series.eq(10111), 1) \
-                               .where(urban_series.eq(11000), 0) \
-                               .where(urban_series.eq(11001), 1) \
-                               .where(urban_series.eq(11010), 1) \
-                               .where(urban_series.eq(11011), 1) \
-                               .where(urban_series.eq(11100), 1) \
-                               .where(urban_series.eq(11101), 1) \
-                               .where(urban_series.eq(11110), 1) \
-                               .where(urban_series.eq(11111), 1) \
-                               .where(water.gte(wat_thr), -32768)
+    urban_series = urban_series.where(urban_series.eq(0), 0) \
+            .where(urban_series.eq(    1), 0) \
+            .where(urban_series.eq(   10), 0) \
+            .where(urban_series.eq(   11), 4) \
+            .where(urban_series.eq(  100), 0) \
+            .where(urban_series.eq(  101), 3) \
+            .where(urban_series.eq(  110), 3) \
+            .where(urban_series.eq(  111), 3) \
+            .where(urban_series.eq( 1000), 0) \
+            .where(urban_series.eq( 1001), 2) \
+            .where(urban_series.eq( 1010), 2) \
+            .where(urban_series.eq( 1011), 2) \
+            .where(urban_series.eq( 1100), 2) \
+            .where(urban_series.eq( 1101), 2) \
+            .where(urban_series.eq( 1110), 2) \
+            .where(urban_series.eq( 1111), 2) \
+            .where(urban_series.eq(10000), 0) \
+            .where(urban_series.eq(10001), 0) \
+            .where(urban_series.eq(10010), 0) \
+            .where(urban_series.eq(10011), 1) \
+            .where(urban_series.eq(10100), 0) \
+            .where(urban_series.eq(10101), 1) \
+            .where(urban_series.eq(10110), 1) \
+            .where(urban_series.eq(10111), 1) \
+            .where(urban_series.eq(11000), 0) \
+            .where(urban_series.eq(11001), 1) \
+            .where(urban_series.eq(11010), 1) \
+            .where(urban_series.eq(11011), 1) \
+            .where(urban_series.eq(11100), 1) \
+            .where(urban_series.eq(11101), 1) \
+            .where(urban_series.eq(11110), 1) \
+            .where(urban_series.eq(11111), 1) \
+            .where(water.gte(wat_thr), -32768)
 
     ## define function to do zonation of cities
     def f_city_zones(built_up, geojson):
         dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(), kernel=ee.Kernel.circle(1000, "meters"))
         ##rural built up (-32768 no-data), suburban, urban
         city = ee.Image(7).where(dens.lte(0.25).And(built_up.eq(1)), 3) \
-                                .where(dens.gt(0.25).And(built_up.eq(1)), 2) \
-                                .where(dens.gt(0.50).And(built_up.eq(1)), 1) 
+                .where(dens.gt(0.25).And(built_up.eq(1)), 2) \
+                .where(dens.gt(0.50).And(built_up.eq(1)), 1) 
   
         dist = city.lte(2).fastDistanceTransform(100).sqrt()
         ## fringe open space, rural built up
         city = city.where(dist.gt(0).And(dist.lte(3)), 4) \
-                                .where(city.eq(3), 3)
+                .where(city.eq(3), 3)
   
-        open = city.updateMask(city.eq(7)).addBands(ee.Image.pixelArea())
-        open_poly = open.reduceToVectors(
+        open_space = city.updateMask(city.eq(7)).addBands(ee.Image.pixelArea())
+        open_space_poly = open_space.reduceToVectors(
             reducer=ee.Reducer.sum().setOutputs(['area']), 
             geometry=get_coords(geojson),
             geometryType='polygon',
@@ -105,11 +105,15 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID, logge
             scale=30,               
             maxPixels=1e10)
       
-        open_img = open_poly.reduceToImage(properties=['area'], reducer=ee.Reducer.first())
+        open_space_img = open_space_poly.reduceToImage(properties=['area'], reducer=ee.Reducer.first())
         ## captured open space, rural open space
-        city = city.where(city.eq(7).And(open_img.gt(0).And(open_img.lte(cap_ope*10000))), 5) \
-                .where(city.eq(7).And(open_img.gt(cap_ope*10000)), 6)
-        return city.where(city.eq(7), -32768)
+        city = city.where(city.eq(10).And(open_space_img.gt(0).And(open_space_img.lte(cap_ope*10000))), 5) \
+                .where(city.eq(10).And(open_space_img.gt(cap_ope*10000)), 6)
+
+        return city.where(city.eq(4).And(water.gte(wat_thr)), 7) \
+                .where(city.eq(5).And(water.gte(wat_thr)), 8) \
+                .where(city.eq(6).And(water.gte(wat_thr)), 9) \
+                .where(city.eq(10), -32768)
     outs = []
     
     logger.debug("Processing geojsons")
@@ -135,8 +139,6 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID, logge
     
     return out
 
-CRS = """GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]"""
-  
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
@@ -145,7 +147,7 @@ def run(params, logger):
     wat_thr = params.get('wat_thr', None)
     cap_ope = params.get('cap_ope', None)
     geojsons = json.loads(params.get('geojsons'))
-    crs = params.get('crs', CRS)
+    crs = params.get('crs', None)
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))

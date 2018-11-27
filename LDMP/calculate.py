@@ -337,7 +337,7 @@ class AOI(object):
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
-            geom_buffered = geom.buffer(km_to_degrees(d), 20)
+            geom_buffered = geom.buffer(km_to_degrees(d), 100)
             f.setGeometry(geom_buffered)
             feats.append(f)
 

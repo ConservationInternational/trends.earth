@@ -150,12 +150,25 @@ style_text_dict = {
     # Root shoot ratio (below to above ground carbon in woody biomass)
     'root_shoot_title': tr('Root/shoot ratio (x 100)'),
 
+    # Urban area series
+    'urban_series_title': tr('Urban area change'),
+    'urban_series_water': tr('Water'),
+    'urban_series_built_up_by_2000': tr('Built-up by 2000'),
+    'urban_series_built_up_by_2005': tr('Built-up by 2005'),
+    'urban_series_built_up_by_2010': tr('Built-up by 2010'),
+    'urban_series_built_up_by_2015': tr('Built-up by 2015'),
+
     # Urban area
-    'urban_title': tr('Urban area'),
-    'urban_2000': tr('Urban (2000)'),
-    'urban_2005': tr('Urban gain (2005)'),
-    'urban_2010': tr('Urban gain (2010)'),
-    'urban_2015': tr('Urban gain (2015)'),
+    'urban_title': tr('Urban area {year}'),
+    'urban_urban': tr('Urban'),
+    'urban_suburban': tr('Suburban'),
+    'urban_built_up_rural': tr('Built-up rural'),
+    'urban_fringe_open_space': tr('Open space (fringe)'),
+    'urban_captured_open_space': tr('Open space (captured)'),
+    'urban_rural_open_space': tr('Open space (rural)'),
+    'urban_fringe_open_space_water': tr('Open space (fringe, water)'),
+    'urban_captured_open_space_water': tr('Open space (captured, water)'),
+    'urban_rural_open_space_water': tr('Open space (rural, water)'),
 
     # Population
     'population_title': tr('Population ({year})')
@@ -286,8 +299,8 @@ def add_layer(f, band_number, band_info):
     except KeyError:
         QtGui.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr(u"Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
-        log(u'No style found for "{}"'.format(band_info['name'] ))
+                                      tr(u'Trends.Earth does not have a style assigned for "{}" in {}. To use this layer, manually add it to your map.'.format(styles[band_info['name']], f)))
+        log(u'No style found for "{}" in {}'.format(band_info['name'], f))
         return False
 
     title = get_band_title(band_info)
@@ -384,6 +397,8 @@ def add_layer(f, band_number, band_info):
                                                       shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
+    if band_info.has_key('activated') and not band_info['activated']:
+        iface.legendInterface().setLayerVisible(l, False)
     iface.legendInterface().refreshLayerSymbology(l)
 
     return True

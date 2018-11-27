@@ -356,16 +356,36 @@
         }
     },
     "Urban series": {
+        "title": "urban_series_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#777777", "label": "nodata"},
+                {"value": -1, "color": "#0000FF", "label": "urban_series_water"},
+                {"value": 1, "color": "#000000", "label": "urban_series_built_up_by_2000"},
+                {"value": 2, "color": "#FF0000", "label": "urban_series_built_up_by_2005"},
+                {"value": 3, "color": "#FF9400", "label": "urban_series_built_up_by_2010"},
+                {"value": 4, "color": "#FFFF00", "label": "urban_series_built_up_by_2015"}
+            ]
+        }
+    },
+    "Urban": {
         "title": "urban_title",
         "ramp": {
             "type": "categorical",
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#993404", "label": "urban_2000"},
-                {"value": 2, "color": "#D95F0E", "label": "urban_2005"},
-                {"value": 3, "color": "#FE9929", "label": "urban_2010"},
-                {"value": 4, "color": "#FED98E", "label": "urban_2015"}
+                {"value": 1, "color": "#D40300", "label": "urban_urban"},
+                {"value": 2, "color": "#FF4901", "label": "urban_suburban"},
+                {"value": 3, "color": "#4B4B4B", "label": "urban_built_up_rural"},
+                {"value": 4, "color": "#0AC506", "label": "urban_fringe_open_space"},
+                {"value": 5, "color": "#054C00", "label": "urban_captured_open_space"},
+                {"value": 6, "color": "#C5C5C5", "label": "urban_rural_open_space"},
+                {"value": 7, "color": "#007ED8", "label": "urban_fringe_open_space_water"},
+                {"value": 8, "color": "#1201FF", "label": "urban_captured_open_space_water"},
+                {"value": 9, "color": "#808080", "label": "urban_rural_open_space_water"}
             ]
         }
     },

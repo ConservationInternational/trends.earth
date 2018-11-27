@@ -22,6 +22,7 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
     isi_series = ee.ImageCollection("projects/trends_earth/isi_20181024_esa").reduce(ee.Reducer.mean()) \
         .select(['isi2000_mean', 'isi2005_mean', 'isi2010_mean', 'isi2015_mean', 'isi2018_mean'],
         ['isi2000', 'isi2005', 'isi2010', 'isi2015', 'isi2018'])
+    proj = isi_series.select('isi2000').projection()
 
     # JRC Global Surface Water Mapping Layers, v1.0 (>20% occurrence)
     water = ee.Image("JRC/GSW1_0/GlobalSurfaceWater").select("occurrence")
@@ -33,20 +34,23 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
             .clip(ee.Geometry.Polygon([-180, 57, 0, 57, 180, 57, 180, -88, 0, -88, -180, -88], None, False)).unmask(10)
           
     # Mask urban areas based ntl
-    urban00 = isi_series.select("isi2000").gte(isi_thr).unmask(0).where(ntl.lte(ntl_thr), 0).multiply(10000)
-    urban05 = isi_series.select("isi2005").gte(isi_thr).unmask(0).where(ntl.lte(ntl_thr), 0).multiply(1000)
-    urban10 = isi_series.select("isi2010").gte(isi_thr).unmask(0).where(ntl.lte(ntl_thr), 0).multiply(100)
-    urban15 = isi_series.select("isi2015").gte(isi_thr).unmask(0).where(ntl.lte(ntl_thr), 0).multiply(10)
-    urban18 = isi_series.select("isi2018").gte(isi_thr).unmask(0).where(ntl.lte(ntl_thr), 0).multiply(1)
+    urban00 = isi_series.select("isi2000").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(10000)
+    urban05 = isi_series.select("isi2005").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(1000)
+    urban10 = isi_series.select("isi2010").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(100)
+    urban15 = isi_series.select("isi2015").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(10)
+    urban18 = isi_series.select("isi2018").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(1)
 
     urban_series = urban00.add(urban05).add(urban10).add(urban15).add(urban18)
-    proj = urban_series.projection()
 
     # Gridded Population of the World Version 4, UN-Adjusted Population Density
-    gpw4_2000 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2000").select(["population-density"], ["p2000"]).reproject(crs=proj)
-    gpw4_2005 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2005").select(["population-density"], ["p2005"]).reproject(crs=proj)
-    gpw4_2010 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2010").select(["population-density"], ["p2010"]).reproject(crs=proj)
-    gpw4_2015 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2015").select(["population-density"], ["p2015"]).reproject(crs=proj)
+    gpw4_2000 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2000") \
+            .select(["population-density"], ["p2000"]).reproject(crs=proj, scale=30)
+    gpw4_2005 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2005") \
+            .select(["population-density"], ["p2005"]).reproject(crs=proj, scale=30)
+    gpw4_2010 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2010") \
+            .select(["population-density"], ["p2010"]).reproject(crs=proj, scale=30)
+    gpw4_2015 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2015") \
+            .select(["population-density"], ["p2015"]).reproject(crs=proj, scale=30)
 
     urban_series = urban_series.where(urban_series.eq(0), 0) \
             .where(urban_series.eq(    1), 0) \
@@ -80,7 +84,8 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
             .where(urban_series.eq(11101), 1) \
             .where(urban_series.eq(11110), 1) \
             .where(urban_series.eq(11111), 1) \
-            .where(water.gte(wat_thr), -32768)
+            .where(water.gte(wat_thr), -1) \
+            .reproject(crs=proj, scale=30)
 
     ## define function to do zonation of cities
     def f_city_zones(built_up, geojson):
@@ -120,20 +125,20 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
         city05 = f_city_zones(urban_series.gte(1).And(urban_series.lte(2)), geojson)
         city10 = f_city_zones(urban_series.gte(1).And(urban_series.lte(3)), geojson)
         city15 = f_city_zones(urban_series.gte(1).And(urban_series.lte(4)), geojson)
-        rast_export = urban_series.addBands(city00).addBands(city05).addBands(city10).addBands(city15) \
-                .addBands(gpw4_2000).addBands(gpw4_2005).addBands(gpw4_2010).addBands(gpw4_2015)
-        rast_export = rast_export.unmask(-32768).int16()
+        rast_export = city00.addBands(city05).addBands(city10).addBands(city15) \
+                .addBands(gpw4_2000).addBands(gpw4_2005).addBands(gpw4_2010).addBands(gpw4_2015).addBands(urban_series)
+        rast_export = rast_export.unmask(-32768).int16().reproject(crs=proj, scale=30)
         this_out = TEImage(rast_export,
-            [BandInfo("Urban series", add_to_map=True),
-             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2000}),
+            [BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2000}),
              BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2005}),
              BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2010}),
              BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2015}),
              BandInfo("Population", metadata={'year': 2000}),
              BandInfo("Population", metadata={'year': 2005}),
              BandInfo("Population", metadata={'year': 2010}),
-             BandInfo("Population", metadata={'year': 2015})])
-        outs.append(this_out.export([geojson], 'urban', crs, logger, EXECUTION_ID, proj))
+             BandInfo("Population", metadata={'year': 2015}),
+             BandInfo("Urban series", add_to_map=True)])
+        outs.append(this_out.export([geojson], 'urban', crs, logger, EXECUTION_ID))
     
     return outs
 

@@ -33,19 +33,19 @@ from PyQt4.QtCore import QSettings, QDate
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
+from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
+from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
 from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-class TCSummaryWorker(AbstractWorker):
-    def __init__(self, src_file, year_start, year_end):
+class UrbanWorker(AbstractWorker):
+    def __init__(self, src_filed):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
-        self.year_start = year_start
-        self.year_end = year_end
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -54,7 +54,6 @@ class TCSummaryWorker(AbstractWorker):
         src_ds = gdal.Open(self.src_file)
 
         band_f_loss = src_ds.GetRasterBand(1)
-        band_tc = src_ds.GetRasterBand(2)
 
         block_sizes = band_f_loss.GetBlockSize()
         xsize = band_f_loss.XSize
@@ -73,8 +72,6 @@ class TCSummaryWorker(AbstractWorker):
         # Width of cells in latitude
         pixel_height = src_gt[5]
 
-        area_missing = 0
-        area_non_forest = 0
         area_water = 0
         area_site = 0
         initial_forest_area = 0
@@ -100,6 +97,53 @@ class TCSummaryWorker(AbstractWorker):
 
                 f_loss_array = band_f_loss.ReadAsArray(x, y, cols, rows)
                 tc_array = band_tc.ReadAsArray(x, y, cols, rows)
+
+
+                # Process: Con
+                arcpy.gp.Con_sa(Band_1__2_, Input_true_raster_or_constant_value__2_, r01_urb2000_tif, Input_false_raster_or_constant_value__2_, "\"Value\" = 1")
+                # Process: Focal Statistics (2)
+                arcpy.gp.FocalStatistics_sa(r01_urb2000_tif, r02_urb2000_mean_tif, "Circle 17 CELL", "MEAN", "DATA")
+                # Process: Reclassify (4)
+                arcpy.Reclassify_3d(r02_urb2000_mean_tif, "VALUE", "0 0.250000 1;0.250000 0.500000 2;0.500000 1 3", r03_urb2000_mean_class_tif, "DATA")
+                # Process: Con (18)
+                arcpy.gp.Con_sa(r01_urb2000_tif, r03_urb2000_mean_class_tif, r04_urb2000_3cl_tif, Input_false_raster_or_constant_value__11_, "Value = 1")
+                # Process: Set Null (2)
+                arcpy.gp.SetNull_sa(r04_urb2000_3cl_tif, Input_false_raster_or_constant_value__12_, r05_urb2000_tif, "Value IN (0,1)")
+                # Process: Euclidean Distance (2)
+                arcpy.gp.EucDistance_sa(r05_urb2000_tif, r06_urb2000_eudist_tif, "", "2.69494585235857E-04", Output_direction_raster__2_)
+                # Process: Raster Calculator (7)
+                arcpy.gp.RasterCalculator_sa("Con((\"%r06_urb2000_eudist.tif%\" < 0.000898315)  & (\"%r04_urb2000_3cl.tif%\" == 0),4,0)", r12_fringe_2010_tif)
+                # Process: Set Null (5)
+                arcpy.gp.SetNull_sa(r06_urb2000_eudist_tif, Input_false_raster_or_constant_value__14_, r08_open2000_tif, "Value < 0.000898315")
+                # Process: Region Group (2)
+                arcpy.gp.RegionGroup_sa(r08_open2000_tif, r09_open2000_regions_tif, "FOUR", "WITHIN", "ADD_LINK", "")
+                # Process: Con (19)
+                arcpy.gp.Con_sa(r06_urb2000_eudist_tif, Input_true_raster_or_constant_value__7_, r07_open2000_bin_tif, Input_false_raster_or_constant_value__13_, Lenght_of_the_longest_open_space_in_your_city)
+                # Process: Zonal Statistics (2)
+                arcpy.gp.ZonalStatistics_sa(r09_open2000_regions_tif, "Value", r07_open2000_bin_tif, r10_open2000_mean_tif, "MEAN", "DATA")
+                # Process: Reclassify (5)
+                arcpy.gp.Reclassify_sa(r10_open2000_mean_tif, "VALUE", "0 0.999990 0;1 5;NODATA 0", r11_captured_2000_tif, "DATA")
+                # Process: Raster Calculator (4)
+                arcpy.gp.RasterCalculator_sa("\"%r04_urb2000_3cl.tif%\"+\"%r12_fringe_2010.tif%\"+\"%r11_captured_2000.tif%\"", r13_city2000_tif)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 # Caculate cell area for each horizontal line
                 cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
@@ -147,6 +191,233 @@ class TCSummaryWorker(AbstractWorker):
                      area_non_forest, area_site, initial_forest_area, 
                      initial_carbon_total))
 
+
+class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
+    def __init__(self, parent=None):
+        super(DlgCalculateUrbanData, self).__init__(parent)
+
+        self.setupUi(self)
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateUrbanData, self).btn_calculate()
+        if not ret:
+            return
+
+        self.calculate_on_GEE()
+
+    def get_pop_def_is_un(self):
+        if self.pop_adjusted.isChecked():
+            return True
+        elif self.pop_unadjusted.isChecked():
+            return False
+        else:
+            # Should never get here
+            raise
+
+    def calculate_on_GEE(self):
+        self.close()
+
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        payload = {'un_adju': self.get_pop_def_is_un(),
+                   'isi_thr': self.spinBox_isi_thr.value(),
+                   'ntl_thr': self.spinBox_ntl_thr.value(),
+                   'wat_thr': self.spinBox_wat_thr.value(),
+                   'cap_ope': self.spinBox_cap_ope.value(),
+                   'pct_suburban': self.spinBox_pct_suburban.value()/100.,
+                   'pct_urban': self.spinBox_pct_urban.value()/100.,
+                   'geojsons': json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
+                   'crosses_180th': crosses_180th,
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
+
+        resp = run_script(get_script_slug('urban-area'), payload)
+
+        if resp:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
+                           QtGui.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
+                           level=0, duration=5)
+
+
+class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummaryTable):
+    def __init__(self, parent=None):
+        super(DlgCalculateUrbanSummaryTable, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
+
+    def showEvent(self, event):
+        super(DlgCalculateUrbanSummaryTable, self).showEvent(event)
+
+        self.combo_layer_f_loss.populate()
+        self.combo_layer_tc.populate()
+
+    def select_output_file_table(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the summary table'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Summary table file (*.xlsx)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_table.setText(f)
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+
+    def btn_calculate(self):
+        ######################################################################
+        # Check that all needed output files are selected
+        if not self.output_file_table.text():
+            QtGui.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the summary table."), None)
+            return
+
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateUrbanSummaryTable, self).btn_calculate()
+        if not ret:
+            return
+
+        ######################################################################
+        # Check that all needed input layers are selected
+        if len(self.combo_layer_f_loss.layer_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a forest loss layer to your map before you can use the carbon change summary tool."), None)
+            return
+        if len(self.combo_layer_tc.layer_list) == 0:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a total carbon layer to your map before you can use the carbon change summary tool."), None)
+            return
+        #######################################################################
+        # Check that the layers cover the full extent needed
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Area of interest is not entirely within the forest loss layer."), None)
+                return
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Area of interest is not entirely within the total carbon layer."), None)
+                return
+
+        #######################################################################
+        # Check that all of the productivity layers have the same resolution 
+        # and CRS
+        def res(layer):
+            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
+
+        if res(self.combo_layer_f_loss.get_layer()) != res(self.combo_layer_tc.get_layer()):
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Resolutions of forest loss and total carbon layers do not match."), None)
+            return
+
+        self.close()
+
+        #######################################################################
+        # Load all datasets to VRTs (to select only the needed bands)
+        f_loss_vrt = self.combo_layer_f_loss.get_vrt()
+        tc_vrt = self.combo_layer_tc.get_vrt()
+
+        # Figure out start and end dates
+        year_start = self.combo_layer_f_loss.get_band_info()['metadata']['year_start']
+        year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
+
+        # Remember the first value is an indication of whether dataset is 
+        # wrapped across 180th meridian
+        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
+        bbs = self.aoi.get_aligned_output_bounds(f_loss_vrt)
+
+        for n in range(len(wkts)):
+            # Compute the pixel-aligned bounding box (slightly larger than 
+            # aoi). Use this instead of croptocutline in gdal.Warp in order to 
+            # keep the pixels aligned with the chosen productivity layer.
+        
+            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
+            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+            # The plus one is because band numbers start at 1, not zero
+            gdal.BuildVRT(indic_vrt,
+                          [f_loss_vrt, tc_vrt],
+                          outputBounds=bbs[n],
+                          resolution='highest',
+                          resampleAlg=gdal.GRA_NearestNeighbour,
+                          separate=True)
+
+            masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+            log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
+            clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
+                                      indic_vrt, masked_vrt, 
+                                      json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
+                                      bbs[n])
+            if not clip_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error masking carbon change input layers."), None)
+                return
+
+            ######################################################################
+            #  Calculate carbon change table
+            log('Calculating summary table...')
+            tc_summary_worker = StartWorker(UrbanSummaryWorker,
+                                            'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
+                                            masked_vrt,
+                                            year_start,
+                                            year_end)
+            if not tc_summary_worker.success:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error calculating carbon change summary table."), None)
+                return
+            else:
+                if n == 0:
+                     forest_change, \
+                             carbon_change, \
+                             area_missing, \
+                             area_water, \
+                             area_non_forest, \
+                             area_site, \
+                             initial_forest_area, \
+                             initial_carbon_total = tc_summary_worker.get_return()
+                else:
+                     this_forest_change, \
+                             this_carbon_change, \
+                             this_area_missing, \
+                             this_area_water, \
+                             this_area_non_forest, \
+                             this_area_site, \
+                             this_initial_forest_area, \
+                             this_initial_carbon_total = tc_summary_worker.get_return()
+                     this_forest_change = forest_change + this_forest_change
+                     this_carbon_change = carbon_change + this_carbon_change
+                     this_area_missing = area_missing + this_area_missing
+                     this_area_water = area_water + this_area_water
+                     this_area_non_forest = area_non_forest + this_area_non_forest
+                     this_area_site = area_site + this_area_site
+                     this_initial_forest_area = initial_forest_area + this_initial_forest_area
+                     this_initial_carbon_total = initial_carbon_total + this_initial_carbon_total
+
+        log('area_missing: {}'.format(area_missing))
+        log('area_water: {}'.format(area_water))
+        log('area_non_forest: {}'.format(area_non_forest))
+        log('area_site: {}'.format(area_site))
+        log('initial_forest_area: {}'.format(initial_forest_area))
+        log('initial_carbon_total: {}'.format(initial_carbon_total))
+        log('forest loss: {}'.format(forest_change))
+        log('carbon loss: {}'.format(carbon_change))
+
+        make_summary_table(forest_change, carbon_change, area_missing, area_water, 
+                           area_non_forest, area_site, initial_forest_area, 
+                           initial_carbon_total, year_start, year_end, 
+                           self.output_file_table.text())
+
+
 def make_summary_table(forest_change, carbon_change, area_missing, area_water, 
                        area_non_forest, area_site, initial_forest_area, 
                        initial_carbon_total, year_start, year_end, out_file):
@@ -154,11 +425,11 @@ def make_summary_table(forest_change, carbon_change, area_missing, area_water,
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)
 
-    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'CarbonSummaryTable.xlsx'))
+    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'UrbanSummaryTable.xlsx'))
 
     ##########################################################################
     # SDG table
-    ws_summary = wb.get_sheet_by_name('Total Carbon Summary Table')
+    ws_summary = wb.get_sheet_by_name('SDG 11.3.1 Summary Table')
     ws_summary.cell(6, 3).value = initial_forest_area
     ws_summary.cell(7, 3).value = area_non_forest
     ws_summary.cell(8, 3).value = area_water

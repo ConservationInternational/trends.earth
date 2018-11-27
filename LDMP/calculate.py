@@ -471,6 +471,30 @@ class DlgCalculateTC(QtGui.QDialog, Ui_DlgCalculateTC):
         result = self.dlg_calculate_tc_summary.exec_()
 
 
+class DlgCalculateUrban(QtGui.QDialog, Ui_DlgCalculateUrban):
+    def __init__(self, parent=None):
+        super(DlgCalculateUrban, self).__init__(parent)
+
+        self.setupUi(self)
+
+        # TODO: Bad style - fix when refactoring
+        from LDMP.calculate_urban import DlgCalculateUrbanData
+        from LDMP.calculate_urban import DlgCalculateUrbanSummaryTable
+        self.dlg_calculate_urban_data = DlgCalculateUrbanData()
+        self.dlg_calculate_urban_summary = DlgCalculateUrbanSummaryTable()
+
+        self.btn_calculate_urban_change.clicked.connect(self.btn_calculate_urban_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+
+    def btn_calculate_urban_change_clicked(self):
+        self.close()
+        result = self.dlg_calculate_urban_data.exec_()
+
+    def btn_summary_single_polygon_clicked(self):
+        self.close()
+        result = self.dlg_calculate_urban_summary.exec_()
+
+
 class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
     def __init__(self, parent=None):
         super(CalculationOptionsWidget, self).__init__(parent)
@@ -840,54 +864,6 @@ class DlgCalculateBase(QtGui.QDialog):
             if self.area_tab.groupBox_buffer.isChecked():
                 self.aoi.buffer(self.area_tab.buffer_size_km.value())
             return True
-
-
-class DlgCalculateUrban(DlgCalculateBase, Ui_DlgCalculateUrban):
-    def __init__(self, parent=None):
-        super(DlgCalculateUrban, self).__init__(parent)
-
-        self.setupUi(self)
-
-    def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super(DlgCalculateUrban, self).btn_calculate()
-        if not ret:
-            return
-
-        self.calculate_on_GEE()
-
-    def get_pop_def_is_un(self):
-        if self.pop_adjusted.isChecked():
-            return True
-        elif self.pop_unadjusted.isChecked():
-            return False
-        else:
-            # Should never get here
-            raise
-
-    def calculate_on_GEE(self):
-        self.close()
-
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        payload = {'un_adju': self.get_pop_def_is_un(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
-
-        resp = run_script(get_script_slug('urban-area'), payload)
-
-        if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
-                           level=0, duration=5)
-        else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
-                           level=0, duration=5)
 
 
 class ClipWorker(AbstractWorker):

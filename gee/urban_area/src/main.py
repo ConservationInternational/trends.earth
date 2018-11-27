@@ -16,8 +16,8 @@ from landdegradation.util import get_coords, TEImage
 from landdegradation.urban_area import urban_area
 from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 
-def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID, 
-        logger):
+def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs, 
+          geojsons, EXECUTION_ID, logger):
     # Impervious surface index computed by Trends.Earth
     isi_series = ee.ImageCollection("projects/trends_earth/isi_20181024_esa").reduce(ee.Reducer.mean()) \
         .select(['isi2000_mean', 'isi2005_mean', 'isi2010_mean', 'isi2015_mean', 'isi2018_mean'],
@@ -86,9 +86,9 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID,
     def f_city_zones(built_up, geojson):
         dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(), kernel=ee.Kernel.circle(1000, "meters"))
         ##rural built up (-32768 no-data), suburban, urban
-        city = ee.Image(10).where(dens.lte(0.25).And(built_up.eq(1)), 3) \
-                .where(dens.gt(0.25).And(built_up.eq(1)), 2) \
-                .where(dens.gt(0.50).And(built_up.eq(1)), 1) 
+        city = ee.Image(10).where(dens.lte(pct_suburban).And(built_up.eq(1)), 3) \
+                .where(dens.gt(pct_suburban).And(built_up.eq(1)), 2) \
+                .where(dens.gt(pct_urban).And(built_up.eq(1)), 1) 
   
         dist = city.lte(2).fastDistanceTransform(100).sqrt()
 
@@ -125,14 +125,14 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, EXECUTION_ID,
         rast_export = rast_export.unmask(-32768).int16()
         this_out = TEImage(rast_export,
             [BandInfo("Urban series", add_to_map=True),
-             BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),
-             BandInfo("Urban", metadata={'year': 2005}),
-             BandInfo("Urban", metadata={'year': 2010}),
-             BandInfo("Urban", add_to_map=True, metadata={'year': 2015}),
-             BandInfo("Population", add_to_map=True, metadata={'year': 2000}),
+             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2000}),
+             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2005}),
+             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2010}),
+             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2015}),
+             BandInfo("Population", metadata={'year': 2000}),
              BandInfo("Population", metadata={'year': 2005}),
              BandInfo("Population", metadata={'year': 2010}),
-             BandInfo("Population", add_to_map=True, metadata={'year': 2015})])
+             BandInfo("Population", metadata={'year': 2015})])
         outs.append(this_out.export([geojson], 'urban', crs, logger, EXECUTION_ID, proj))
     
     return outs
@@ -145,6 +145,8 @@ def run(params, logger):
     ntl_thr = float(params.get('ntl_thr', None))
     wat_thr = float(params.get('wat_thr', None))
     cap_ope = float(params.get('cap_ope', None))
+    pct_suburban = float(params.get('pct_suburban', None))
+    pct_urban = float(params.get('pct_urban', None))
     geojsons = json.loads(params.get('geojsons', None))
     crs = params.get('crs', None)
     # Check the ENV. Are we running this locally or in prod?
@@ -155,8 +157,8 @@ def run(params, logger):
         
     logger.debug("Running main script.")
     
-    out = urban(isi_thr, ntl_thr, wat_thr, cap_ope, crs, geojsons, 
-                EXECUTION_ID, logger)
+    out = urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, 
+                crs, geojsons, EXECUTION_ID, logger)
 
     schema = CloudResultsSchema()
     logger.debug("Deserializing")

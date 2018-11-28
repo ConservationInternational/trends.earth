@@ -35,17 +35,20 @@ from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
 from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
-from LDMP.layers import add_layer, create_local_json_metadata
+from LDMP.layers import get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-class UrbanWorker(AbstractWorker):
-    def __init__(self, src_filed):
+class UrbanSummaryWorker(AbstractWorker):
+    def __init__(self, src_file, urban_band_nums, pop_band_nums, n_classes):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
+        self.urban_band_nums = urban_band_nums
+        self.pop_band_nums = pop_band_nums
+        self.n_classes = n_classes
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -53,12 +56,12 @@ class UrbanWorker(AbstractWorker):
 
         src_ds = gdal.Open(self.src_file)
 
-        band_f_loss = src_ds.GetRasterBand(1)
+        urban_bands = [src_ds.GetRasterBand(b) for b in self.urban_band_nums]
+        pop_bands = [src_ds.GetRasterBand(b) for b in self.pop_band_nums]
 
-        block_sizes = band_f_loss.GetBlockSize()
-        xsize = band_f_loss.XSize
-        ysize = band_f_loss.YSize
-        n_out_bands = 1
+        block_sizes = urban_bands[1].GetBlockSize()
+        xsize = urban_bands[1].XSize
+        ysize = urban_bands[1].YSize
 
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
@@ -72,12 +75,8 @@ class UrbanWorker(AbstractWorker):
         # Width of cells in latitude
         pixel_height = src_gt[5]
 
-        area_water = 0
-        area_site = 0
-        initial_forest_area = 0
-        initial_carbon_total = 0
-        forest_change = np.zeros((self.year_end - self.year_start, 1))
-        carbon_change = np.zeros((self.year_end - self.year_start, 1))
+        areas = np.zeros((self.n_classes, len(self.urban_band_nums)))
+        populations = np.zeros((self.n_classes, len(self.pop_band_nums)))
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
@@ -95,78 +94,28 @@ class UrbanWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                f_loss_array = band_f_loss.ReadAsArray(x, y, cols, rows)
-                tc_array = band_tc.ReadAsArray(x, y, cols, rows)
-
-
-                # Process: Con
-                arcpy.gp.Con_sa(Band_1__2_, Input_true_raster_or_constant_value__2_, r01_urb2000_tif, Input_false_raster_or_constant_value__2_, "\"Value\" = 1")
-                # Process: Focal Statistics (2)
-                arcpy.gp.FocalStatistics_sa(r01_urb2000_tif, r02_urb2000_mean_tif, "Circle 17 CELL", "MEAN", "DATA")
-                # Process: Reclassify (4)
-                arcpy.Reclassify_3d(r02_urb2000_mean_tif, "VALUE", "0 0.250000 1;0.250000 0.500000 2;0.500000 1 3", r03_urb2000_mean_class_tif, "DATA")
-                # Process: Con (18)
-                arcpy.gp.Con_sa(r01_urb2000_tif, r03_urb2000_mean_class_tif, r04_urb2000_3cl_tif, Input_false_raster_or_constant_value__11_, "Value = 1")
-                # Process: Set Null (2)
-                arcpy.gp.SetNull_sa(r04_urb2000_3cl_tif, Input_false_raster_or_constant_value__12_, r05_urb2000_tif, "Value IN (0,1)")
-                # Process: Euclidean Distance (2)
-                arcpy.gp.EucDistance_sa(r05_urb2000_tif, r06_urb2000_eudist_tif, "", "2.69494585235857E-04", Output_direction_raster__2_)
-                # Process: Raster Calculator (7)
-                arcpy.gp.RasterCalculator_sa("Con((\"%r06_urb2000_eudist.tif%\" < 0.000898315)  & (\"%r04_urb2000_3cl.tif%\" == 0),4,0)", r12_fringe_2010_tif)
-                # Process: Set Null (5)
-                arcpy.gp.SetNull_sa(r06_urb2000_eudist_tif, Input_false_raster_or_constant_value__14_, r08_open2000_tif, "Value < 0.000898315")
-                # Process: Region Group (2)
-                arcpy.gp.RegionGroup_sa(r08_open2000_tif, r09_open2000_regions_tif, "FOUR", "WITHIN", "ADD_LINK", "")
-                # Process: Con (19)
-                arcpy.gp.Con_sa(r06_urb2000_eudist_tif, Input_true_raster_or_constant_value__7_, r07_open2000_bin_tif, Input_false_raster_or_constant_value__13_, Lenght_of_the_longest_open_space_in_your_city)
-                # Process: Zonal Statistics (2)
-                arcpy.gp.ZonalStatistics_sa(r09_open2000_regions_tif, "Value", r07_open2000_bin_tif, r10_open2000_mean_tif, "MEAN", "DATA")
-                # Process: Reclassify (5)
-                arcpy.gp.Reclassify_sa(r10_open2000_mean_tif, "VALUE", "0 0.999990 0;1 5;NODATA 0", r11_captured_2000_tif, "DATA")
-                # Process: Raster Calculator (4)
-                arcpy.gp.RasterCalculator_sa("\"%r04_urb2000_3cl.tif%\"+\"%r12_fringe_2010.tif%\"+\"%r11_captured_2000.tif%\"", r13_city2000_tif)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 # Caculate cell area for each horizontal line
                 cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
+                # Convert areas from meters into hectares
+                cell_areas = cell_areas * 1e-4
                 cell_areas.shape = (cell_areas.size, 1)
                 # Make an array of the same size as the input arrays containing 
                 # the area of each cell (which is identicalfor all cells ina 
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
-                initial_forest_pixels = (f_loss_array == 0) | (f_loss_array > (self.year_start - 2000))
-                # The site area includes everything that isn't masked
-                area_missing = area_missing + np.sum(((f_loss_array == -32768) | (tc_array == -32768)) * cell_areas_array)
-                area_water = area_water + np.sum((f_loss_array == -2) * cell_areas_array)
-                area_non_forest = area_non_forest + np.sum((f_loss_array == -1) * cell_areas_array)
-                area_site = area_site + np.sum((f_loss_array != -32767) * cell_areas_array)
-                initial_forest_area = initial_forest_area + np.sum(initial_forest_pixels * cell_areas_array)
-                initial_carbon_total = initial_carbon_total +  np.sum(initial_forest_pixels * tc_array * (tc_array >= 0) * cell_areas_array)
-
-                for n in range(self.year_end - self.year_start):
-                    # Note the codes are year - 2000
-                    forest_change[n] = forest_change[n] - np.sum((f_loss_array == self.year_start - 2000 + n + 1) * cell_areas_array)
-                    # Check units here - is tc_array in per m or per ha?
-                    carbon_change[n] = carbon_change[n] - np.sum((f_loss_array == self.year_start - 2000 + n + 1) * tc_array * cell_areas_array)
+                # Loop over the bands (years)
+                for i in xrange(len(self.urban_band_nums)):
+                    urban_array = urban_bands[i].ReadAsArray(x, y, cols, rows)
+                    pop_array = pop_bands[i].ReadAsArray(x, y, cols, rows)
+                    # Now loop over the classes
+                    for c in xrange(1, self.n_classes + 1):
+                        areas[c - 1, i] += np.sum((urban_array == c) * cell_areas_array)
+                        pop_masked = pop_array.copy() * (urban_array == c)
+                        # Convert population densities to persons per hectare 
+                        # from persons per sq km
+                        pop_masked = pop_masked / 100
+                        populations[c - 1, i] += np.sum(pop_masked * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -175,21 +124,7 @@ class UrbanWorker(AbstractWorker):
         if self.killed:
             return None
         else:
-            # Convert all area tables from meters into hectares
-            forest_change = forest_change * 1e-4
-            # Note that carbon is scaled by 10
-            carbon_change = carbon_change * 1e-4 / 10
-            area_missing = area_missing * 1e-4
-            area_water = area_water * 1e-4
-            area_non_forest = area_non_forest * 1e-4
-            area_site = area_site * 1e-4
-            initial_forest_area = initial_forest_area * 1e-4
-            # Note that carbon is scaled by 10
-            initial_carbon_total = initial_carbon_total * 1e-4 / 10
-
-        return list((forest_change, carbon_change, area_missing, area_water, 
-                     area_non_forest, area_site, initial_forest_area, 
-                     initial_carbon_total))
+            return list((areas, populations))
 
 
 class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
@@ -305,10 +240,12 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
         #######################################################################
         # Check that the layers cover the full extent needed
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_urban_series.get_layer().extent())) < .99:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the urban series layer."), None)
-                return
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_urban_series.get_layer().extent())) < .99:
+            QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the urban series layer."), None)
+            return
+
+        self.close()
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
@@ -335,7 +272,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             f = tempfile.NamedTemporaryFile(suffix='.vrt').name
             # Add once since band numbers don't start at zero
             gdal.BuildVRT(f,
-                          self.combo_layer_pop_series.get_data_file(),
+                          self.combo_layer_urban_series.get_data_file(),
                           bandList=[i + 1])
             pop_files.append(f)
 
@@ -387,7 +324,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             urban_summary_worker = StartWorker(UrbanSummaryWorker,
                                                'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                                masked_vrt,
-                                               urban_band_nums, pop_band_nums)
+                                               urban_band_nums, pop_band_nums, 9)
             if not urban_summary_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating urban change summary table."), None)
@@ -402,7 +339,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                      areas = areas + these_areas
                      populations = populations + these_populations
 
-        log('aresa: {}'.format(areas))
+        log('areas: {}'.format(areas))
         log('populations: {}'.format(populations))
 
         make_summary_table(areas, populations, self.output_file_table.text())
@@ -418,17 +355,8 @@ def make_summary_table(areas, populations, out_file):
     ##########################################################################
     # SDG table
     ws_summary = wb.get_sheet_by_name('SDG 11.3.1 Summary Table')
-    ws_summary.cell(6, 3).value = initial_forest_area
-    ws_summary.cell(7, 3).value = area_non_forest
-    ws_summary.cell(8, 3).value = area_water
-    ws_summary.cell(9, 3).value = area_missing
-    #ws_summary.cell(10, 3).value = area_site
-
-    ws_summary.cell(18, 2).value = initial_forest_area
-    ws_summary.cell(18, 4).value = initial_carbon_total
-    write_col_to_sheet(ws_summary, np.arange(year_start, year_end + 1), 1, 18) # Years
-    write_table_to_sheet(ws_summary, forest_change, 19, 3)
-    write_table_to_sheet(ws_summary, carbon_change, 19, 5)
+    write_table_to_sheet(ws_summary, areas, 23, 2)
+    write_table_to_sheet(ws_summary, populations, 37, 2)
 
     try:
         ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
@@ -437,6 +365,7 @@ def make_summary_table(areas, populations, out_file):
         # add_image will fail on computers without PIL installed (this will be 
         # an issue on some Macs, likely others). it is only used here to add 
         # our logo, so no big deal.
+        log('Adding Trends.Earth logo to worksheet FAILED')
         pass
 
     try:

@@ -198,6 +198,11 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
 
         self.setupUi(self)
 
+        self.urban_thresholds_updated()
+
+        self.spinBox_pct_urban.valueChanged.connect(self.urban_thresholds_updated)
+        self.spinBox_pct_suburban.valueChanged.connect(self.urban_thresholds_updated)
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -207,6 +212,10 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
             return
 
         self.calculate_on_GEE()
+
+    def urban_thresholds_updated(self):
+        self.spinBox_pct_suburban.setRange(0, self.spinBox_pct_urban.value() - 1)
+        self.spinBox_pct_urban.setRange(self.spinBox_pct_suburban.value() + 1, 100)
 
     def get_pop_def_is_un(self):
         if self.pop_adjusted.isChecked():
@@ -257,8 +266,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
     def showEvent(self, event):
         super(DlgCalculateUrbanSummaryTable, self).showEvent(event)
 
-        self.combo_layer_f_loss.populate()
-        self.combo_layer_tc.populate()
+        self.combo_layer_urban_series.populate()
 
     def select_output_file_table(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -290,52 +298,62 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
         ######################################################################
         # Check that all needed input layers are selected
-        if len(self.combo_layer_f_loss.layer_list) == 0:
+        if len(self.combo_layer_urban_series.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a forest loss layer to your map before you can use the carbon change summary tool."), None)
+                                       self.tr("You must add an urban series layer to your map before you can use the urban change summary tool."), None)
             return
-        if len(self.combo_layer_tc.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a total carbon layer to your map before you can use the carbon change summary tool."), None)
-            return
+
         #######################################################################
         # Check that the layers cover the full extent needed
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_urban_series.get_layer().extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the forest loss layer."), None)
+                                           self.tr("Area of interest is not entirely within the urban series layer."), None)
                 return
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the total carbon layer."), None)
-                return
-
-        #######################################################################
-        # Check that all of the productivity layers have the same resolution 
-        # and CRS
-        def res(layer):
-            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
-
-        if res(self.combo_layer_f_loss.get_layer()) != res(self.combo_layer_tc.get_layer()):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Resolutions of forest loss and total carbon layers do not match."), None)
-            return
-
-        self.close()
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
-        f_loss_vrt = self.combo_layer_f_loss.get_vrt()
-        tc_vrt = self.combo_layer_tc.get_vrt()
+        band_infos = get_band_infos(self.combo_layer_urban_series.get_data_file())
 
-        # Figure out start and end dates
-        year_start = self.combo_layer_f_loss.get_band_info()['metadata']['year_start']
-        year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
+        urban_annual_band_indices = [i for i, bi in enumerate(band_infos) if bi['name'] == 'Urban']
+        urban_annual_band_indices.sort(key=lambda i: band_infos[i]['metadata']['year'])
+        urban_years = [bi['metadata']['year'] for bi in band_infos if bi['name'] == 'Urban']
+        urban_files = []
+        for i in urban_annual_band_indices:
+            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            # Add once since band numbers don't start at zero
+            gdal.BuildVRT(f,
+                          self.combo_layer_urban_series.get_data_file(),
+                          bandList=[i + 1])
+            urban_files.append(f)
+
+
+        pop_annual_band_indices = [i for i, bi in enumerate(band_infos) if bi['name'] == 'Population']
+        pop_annual_band_indices.sort(key=lambda i: band_infos[i]['metadata']['year'])
+        pop_years = [bi['metadata']['year'] for bi in band_infos if bi['name'] == 'Population']
+        pop_files = []
+        for i in pop_annual_band_indices:
+            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            # Add once since band numbers don't start at zero
+            gdal.BuildVRT(f,
+                          self.combo_layer_pop_series.get_data_file(),
+                          bandList=[i + 1])
+            pop_files.append(f)
+
+        assert (len(pop_files) == len(urban_files))
+        assert (urban_years == pop_years)
+
+        in_files = list(urban_files)
+        in_files.extend(pop_files)
+        urban_band_nums = np.arange(len(urban_files)) + 1
+        pop_band_nums = np.arange(len(pop_files)) + 1 + urban_band_nums.max()
 
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
-        bbs = self.aoi.get_aligned_output_bounds(f_loss_vrt)
+        bbs = self.aoi.get_aligned_output_bounds(urban_files[1])
 
+        ######################################################################
+        # Process the wkts using a summary worker
         for n in range(len(wkts)):
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
@@ -346,81 +364,51 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             gdal.BuildVRT(indic_vrt,
-                          [f_loss_vrt, tc_vrt],
+                          in_files,
                           outputBounds=bbs[n],
                           resolution='highest',
                           resampleAlg=gdal.GRA_NearestNeighbour,
                           separate=True)
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
+            log(u'Saving urban clipped files to {}'.format(masked_vrt))
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
                                       indic_vrt, masked_vrt, 
                                       json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
                                       bbs[n])
             if not clip_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error masking carbon change input layers."), None)
+                                           self.tr("Error masking urban change input layers."), None)
                 return
 
             ######################################################################
-            #  Calculate carbon change table
+            #  Calculate urban change table
             log('Calculating summary table...')
-            tc_summary_worker = StartWorker(UrbanSummaryWorker,
-                                            'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                            masked_vrt,
-                                            year_start,
-                                            year_end)
-            if not tc_summary_worker.success:
+            urban_summary_worker = StartWorker(UrbanSummaryWorker,
+                                               'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
+                                               masked_vrt,
+                                               urban_band_nums, pop_band_nums)
+            if not urban_summary_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating carbon change summary table."), None)
+                                           self.tr("Error calculating urban change summary table."), None)
                 return
             else:
                 if n == 0:
-                     forest_change, \
-                             carbon_change, \
-                             area_missing, \
-                             area_water, \
-                             area_non_forest, \
-                             area_site, \
-                             initial_forest_area, \
-                             initial_carbon_total = tc_summary_worker.get_return()
+                     areas, \
+                             populations = urban_summary_worker.get_return()
                 else:
-                     this_forest_change, \
-                             this_carbon_change, \
-                             this_area_missing, \
-                             this_area_water, \
-                             this_area_non_forest, \
-                             this_area_site, \
-                             this_initial_forest_area, \
-                             this_initial_carbon_total = tc_summary_worker.get_return()
-                     this_forest_change = forest_change + this_forest_change
-                     this_carbon_change = carbon_change + this_carbon_change
-                     this_area_missing = area_missing + this_area_missing
-                     this_area_water = area_water + this_area_water
-                     this_area_non_forest = area_non_forest + this_area_non_forest
-                     this_area_site = area_site + this_area_site
-                     this_initial_forest_area = initial_forest_area + this_initial_forest_area
-                     this_initial_carbon_total = initial_carbon_total + this_initial_carbon_total
+                     these_areas, \
+                             these_populations = urban_summary_worker.get_return()
+                     areas = areas + these_areas
+                     populations = populations + these_populations
 
-        log('area_missing: {}'.format(area_missing))
-        log('area_water: {}'.format(area_water))
-        log('area_non_forest: {}'.format(area_non_forest))
-        log('area_site: {}'.format(area_site))
-        log('initial_forest_area: {}'.format(initial_forest_area))
-        log('initial_carbon_total: {}'.format(initial_carbon_total))
-        log('forest loss: {}'.format(forest_change))
-        log('carbon loss: {}'.format(carbon_change))
+        log('aresa: {}'.format(areas))
+        log('populations: {}'.format(populations))
 
-        make_summary_table(forest_change, carbon_change, area_missing, area_water, 
-                           area_non_forest, area_site, initial_forest_area, 
-                           initial_carbon_total, year_start, year_end, 
-                           self.output_file_table.text())
+        make_summary_table(areas, populations, self.output_file_table.text())
 
 
-def make_summary_table(forest_change, carbon_change, area_missing, area_water, 
-                       area_non_forest, area_site, initial_forest_area, 
-                       initial_carbon_total, year_start, year_end, out_file):
+def make_summary_table(areas, populations, out_file):
                           
     def tr(s):
         return QtGui.QApplication.translate("LDMP", s)

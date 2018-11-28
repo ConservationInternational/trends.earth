@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>422</width>
-    <height>442</height>
+    <height>478</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -42,7 +42,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -66,11 +66,11 @@
           </font>
          </property>
          <property name="title">
-          <string>Forest loss</string>
+          <string>Urban series</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_f_loss">
+           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_urban_series">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -84,56 +84,7 @@
              </size>
             </property>
             <property name="layer_type" stdset="0">
-             <string notr="true">Forest loss</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="title">
-          <string>Total carbon</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
-          <item>
-           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_tc">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>275</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="layer_type" stdset="0">
-             <string notr="true">Total carbon</string>
+             <string notr="true">Urban series</string>
             </property>
            </widget>
           </item>
@@ -269,8 +220,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>TabBox</tabstop>
-  <tabstop>combo_layer_f_loss</tabstop>
-  <tabstop>combo_layer_tc</tabstop>
+  <tabstop>combo_layer_urban_series</tabstop>
   <tabstop>button_prev</tabstop>
   <tabstop>button_next</tabstop>
   <tabstop>button_calculate</tabstop>

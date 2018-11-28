@@ -606,14 +606,14 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                              this_area_site, \
                              this_initial_forest_area, \
                              this_initial_carbon_total = tc_summary_worker.get_return()
-                     this_forest_change = forest_change + this_forest_change
-                     this_carbon_change = carbon_change + this_carbon_change
-                     this_area_missing = area_missing + this_area_missing
-                     this_area_water = area_water + this_area_water
-                     this_area_non_forest = area_non_forest + this_area_non_forest
-                     this_area_site = area_site + this_area_site
-                     this_initial_forest_area = initial_forest_area + this_initial_forest_area
-                     this_initial_carbon_total = initial_carbon_total + this_initial_carbon_total
+                     forest_change = forest_change + this_forest_change
+                     carbon_change = carbon_change + this_carbon_change
+                     area_missing = area_missing + this_area_missing
+                     area_water = area_water + this_area_water
+                     area_non_forest = area_non_forest + this_area_non_forest
+                     area_site = area_site + this_area_site
+                     initial_forest_area = initial_forest_area + this_initial_forest_area
+                     initial_carbon_total = initial_carbon_total + this_initial_carbon_total
 
         log('area_missing: {}'.format(area_missing))
         log('area_water: {}'.format(area_water))

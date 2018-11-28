@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>597</width>
-    <height>186</height>
+    <height>216</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,11 +40,26 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>30</height>
+          <height>40</height>
          </size>
         </property>
         <property name="text">
-         <string>Land degradation indicators (SDG indicator 15.3.1)</string>
+         <string>Land degradation indicators
+(SDG indicator 15.3.1)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_urban">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Urban area change indicators
+(SDG indicator 11.3.1, ratio of land consumption rate to population growth rate)</string>
         </property>
        </widget>
       </item>
@@ -67,24 +82,11 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>30</height>
+          <height>40</height>
          </size>
         </property>
         <property name="text">
          <string>Total carbon (above and belowground, emissions from deforestation)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_urban">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Urban area change (SDG indicator 11.3.1, ratio of land consumption rate to population growth rate)</string>
         </property>
        </widget>
       </item>

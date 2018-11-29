@@ -293,7 +293,7 @@ def create_local_json_metadata(json_file, data_file, bands, metadata={}):
                   sort_keys=True, indent=4, separators=(',', ': '))
 
 
-def add_layer(f, band_number, band_info):
+def add_layer(f, band_number, band_info, activated='default'):
     try:
         style = styles[band_info['name']]
     except KeyError:
@@ -397,7 +397,14 @@ def add_layer(f, band_number, band_info):
                                                       shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
-    if band_info.has_key('activated') and not band_info['activated']:
+    if activated == 'default':
+        if band_info.has_key('activated') and not band_info['activated']:
+            iface.legendInterface().setLayerVisible(l, False)
+    elif activated:
+        # The layer is visible by default, so if activated is true, don't need 
+        # to change anything in order to make it visible
+        pass
+    elif not activated:
         iface.legendInterface().setLayerVisible(l, False)
     iface.legendInterface().refreshLayerSymbology(l)
 

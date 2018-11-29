@@ -452,7 +452,7 @@ class DlgDataIOLoadTEBase(QtGui.QDialog):
                 f = os.path.normcase(os.path.normpath(self.layer_list[row][0]))
                 # Note that the third item in the tuple is the band number, and 
                 # the fourth (layer_list[3]) is the band info object
-                resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3])
+                resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
                 if resp:
                     added_layers.append(self.layer_list[row])
                 else:

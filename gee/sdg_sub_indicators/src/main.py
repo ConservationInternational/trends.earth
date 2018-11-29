@@ -99,6 +99,7 @@ def run(params, logger):
                                  'Soil organic carbon'])
             out.merge(soc_out)
 
+            logger.debug("Setting up layers to add to the map.")
             out.setAddToMap(['Soil organic carbon (degradation)',
                              'Land cover (degradation)',
                              'Productivity trajectory (significance)',

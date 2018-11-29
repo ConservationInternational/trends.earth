@@ -8,6 +8,11 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateSummaryTableAdmin.ui \
 ../gui/DlgCalculateSummaryTablePolygons.ui \
 ../gui/DlgCalculateTC.ui \
+../gui/DlgCalculateTCData.ui \
+../gui/DlgCalculateTCSummaryTable.ui \
+../gui/DlgCalculateUrban.ui \
+../gui/DlgCalculateUrbanData.ui \
+../gui/DlgCalculateUrbanSummaryTable.ui \
 ../gui/DlgDataIO.ui \
 ../gui/DlgDataIOImportLC.ui \
 ../gui/DlgDataIOImportProd.ui \

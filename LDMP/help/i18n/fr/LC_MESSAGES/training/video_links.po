@@ -1,15 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2017
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.59\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-11-29 09:09-0500\n"
+"PO-Revision-Date: 2017-11-21 20:57+0000\n"
 "Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2017\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -44,39 +47,27 @@ msgstr "Télécharger les données (en anglais)"
 
 #: ../../source/training/video_links.rst:8
 msgid ""
-"`Calculate Indicators - Productivity Part I (English) "
-"<https://youtu.be/RFPPz8s1IJA>`_"
+"`Calculate Indicators - Trends.Earth Overview (English) "
+"<https://youtu.be/MY1iuedIkFE>`_"
 msgstr ""
-"`Calculer les indicateurs - Productivité Partie I (en anglais) "
-"<https://youtu.be/RFPPz8s1IJA>`_"
 
 #: ../../source/training/video_links.rst:9
 msgid ""
-"`Calculate Indicators - Productivity Part II (English) "
-"<https://youtu.be/CHgGV5Xx7oc>`_"
+"`Calculate Indicators - Detailed Trends.Earth Tutorial (English) "
+"<https://youtu.be/MY1iuedIkFE>`_"
 msgstr ""
-"`Calculer les indicateurs - Productivity Part II (Anglais) "
-"<https://youtu.be/CHgGV5Xx7oc>`_"
 
 #: ../../source/training/video_links.rst:10
-msgid ""
-"`Calculate Indicators - Land cover Part I (English) "
-"<https://youtu.be/cuWZFwEvXQQ>`_"
+msgid "Calculate Indicators - Productivity(English)"
 msgstr ""
-"`Calculer les indicateurs - Couverture terrestre Partie I (en anglais) "
-"<https://youtu.be/cuWZFwEvXQQ>`_"
 
 #: ../../source/training/video_links.rst:11
-msgid ""
-"`Calculate Indicators - Land cover Part II (English) "
-"<https://youtu.be/mn1p9Q5-Ibw>`_"
+msgid "Calculate Indicators - Land Cover (English)"
 msgstr ""
-"`Calculer les indicateurs - Couverture terrestre Partie II (en anglais) "
-"<https://youtu.be/mn1p9Q5-Ibw>`_"
 
 #: ../../source/training/video_links.rst:12
-msgid "Calculate Indicators - Soil Carbon (English)"
-msgstr "Calculer les indicateurs - carbone du sol (en anglais)"
+msgid "Calculate Indicators - Soil Organic Carbon (English)"
+msgstr ""
 
 #: ../../source/training/video_links.rst:13
 msgid "Visualizing indicators (English)"

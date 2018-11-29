@@ -35,7 +35,7 @@ from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
 from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
 from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
-from LDMP.layers import get_band_infos
+from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
@@ -108,6 +108,7 @@ class UrbanSummaryWorker(AbstractWorker):
                 for i in xrange(len(self.urban_band_nums)):
                     urban_array = urban_bands[i].ReadAsArray(x, y, cols, rows)
                     pop_array = pop_bands[i].ReadAsArray(x, y, cols, rows)
+                    pop_array[pop_array == -32768] = 0
                     # Now loop over the classes
                     for c in xrange(1, self.n_classes + 1):
                         areas[c - 1, i] += np.sum((urban_array == c) * cell_areas_array)
@@ -197,11 +198,25 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         self.setupUi(self)
 
         self.browse_output_file_table.clicked.connect(self.select_output_file_table)
+        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
 
     def showEvent(self, event):
         super(DlgCalculateUrbanSummaryTable, self).showEvent(event)
 
         self.combo_layer_urban_series.populate()
+
+    def select_output_file_layer(self):
+        f = QtGui.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the output file'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Filename (*.json)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_layer.setText(f)
+            else:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def select_output_file_table(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -219,6 +234,11 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
+        if not self.output_file_layer.text():
+            QtGui.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the indicator layer."), None)
+            return
+
         if not self.output_file_table.text():
             QtGui.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output file for the summary table."), None)
@@ -291,6 +311,8 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
         ######################################################################
         # Process the wkts using a summary worker
+        output_indicator_tifs = []
+        output_indicator_json = self.output_file_layer.text()
         for n in range(len(wkts)):
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
@@ -307,10 +329,15 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                           resampleAlg=gdal.GRA_NearestNeighbour,
                           separate=True)
 
-            masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log(u'Saving urban clipped files to {}'.format(masked_vrt))
+            if len(wkts) > 1:
+                output_indicator_tif = os.path.splitext(output_indicator_json)[0] + '_{}.tif'.format(n)
+            else:
+                output_indicator_tif = os.path.splitext(output_indicator_json)[0] + '.tif'
+            output_indicator_tifs.append(output_indicator_tif)
+
+            log(u'Saving urban clipped files to {}'.format(output_indicator_tif))
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                      indic_vrt, masked_vrt, 
+                                      indic_vrt, output_indicator_tif,
                                       json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
                                       bbs[n])
             if not clip_worker.success:
@@ -323,7 +350,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             log('Calculating summary table...')
             urban_summary_worker = StartWorker(UrbanSummaryWorker,
                                                'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                               masked_vrt,
+                                               output_indicator_tif,
                                                urban_band_nums, pop_band_nums, 9)
             if not urban_summary_worker.success:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
@@ -339,10 +366,30 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                      areas = areas + these_areas
                      populations = populations + these_populations
 
-        log('areas: {}'.format(areas))
-        log('populations: {}'.format(populations))
-
         make_summary_table(areas, populations, self.output_file_table.text())
+
+        # Add the indicator layers to the map
+        output_indicator_bandinfos = [BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),
+                                      BandInfo("Urban", add_to_map=True, metadata={'year': 2005}),
+                                      BandInfo("Urban", add_to_map=True, metadata={'year': 2010}),
+                                      BandInfo("Urban", add_to_map=True, metadata={'year': 2015}),
+                                      BandInfo("Population", metadata={'year': 2000}),
+                                      BandInfo("Population", metadata={'year': 2005}),
+                                      BandInfo("Population", metadata={'year': 2010}),
+                                      BandInfo("Population", metadata={'year': 2015})]
+        if len(output_indicator_tifs) == 1:
+            output_file = output_indicator_tifs[0]
+        else:
+            output_file = os.path.splitext(output_indicator_json)[0] + '.vrt'
+            gdal.BuildVRT(output_file, output_indicator_tifs)
+        create_local_json_metadata(output_indicator_json, output_file, 
+                output_indicator_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
+                                                'task_notes': self.options_tab.task_notes.toPlainText()})
+        schema = BandInfoSchema()
+        add_layer(output_file, 1, schema.dump(output_indicator_bandinfos[0]))
+        add_layer(output_file, 2, schema.dump(output_indicator_bandinfos[1]))
+        add_layer(output_file, 3, schema.dump(output_indicator_bandinfos[2]))
+        add_layer(output_file, 4, schema.dump(output_indicator_bandinfos[3]))
 
 
 def make_summary_table(areas, populations, out_file):

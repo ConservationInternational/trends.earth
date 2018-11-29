@@ -3,14 +3,19 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Khalid Mwakoba <khalid.mwakoba@gmail.com>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.59\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:03-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"POT-Creation-Date: 2018-08-22 12:16-0400\n"
+"PO-Revision-Date: 2018-03-15 06:44+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +25,7 @@ msgstr ""
 
 #: ../../source/about/data_sources.rst:2
 msgid "Data sources"
-msgstr "Vyanzo vya data"
+msgstr "Vyanzo vya taarifa/data"
 
 #: ../../source/about/data_sources.rst:4
 msgid ""
@@ -28,10 +33,10 @@ msgid ""
 " are owned/made available by the following organizations and individuals "
 "under separate terms as indicated in their respective metadata."
 msgstr ""
-"|trends.earth| inakaribia vyanzo vya data kadhaa. Seti za data "
-"zilizoorodheshwa hapa chini zinamilikiwa / zinafanywa kupatikana na "
-"mashirika na watu wafuatayo kwa masharti tofauti kama ilivyoonyeshwa kwenye "
-"metadata yao husika."
+"|trends.earth| inatumia vyanzo kadhaa vya taarifa. Vyanzo vilivyoorodheshwa "
+"hapa chini vinamilikiwa au vinawekwa na taasisi na watu binafsi wafuato "
+"chini ya masharti yao kama ilivyooneshwa katika sehemu zinazoelezea wasifu "
+"wa takwimu hizo."
 
 #: ../../source/about/data_sources.rst:9
 msgid "NDVI"

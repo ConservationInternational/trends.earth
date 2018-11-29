@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -310,7 +309,7 @@
     <message>
         <location filename="../layers.py" line="287"/>
         <source>Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.</source>
-        <translation type="obsolete">Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="120"/>
@@ -380,27 +379,27 @@
     <message>
         <location filename="../layers.py" line="154"/>
         <source>Urban area change</source>
-        <translation type="unfinished">Urban area</translation>
+        <translation>Urban area</translation>
     </message>
     <message>
         <location filename="../layers.py" line="155"/>
         <source>Urban (2000)</source>
-        <translation type="obsolete">Urban (2000)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="156"/>
         <source>Urban gain (2005)</source>
-        <translation type="obsolete">Urban gain (2005)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="157"/>
         <source>Built-up by 2005</source>
-        <translation type="unfinished">Urban gain (2010)</translation>
+        <translation>Urban gain (2010)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="158"/>
         <source>Built-up by 2010</source>
-        <translation type="unfinished">Urban gain (2015)</translation>
+        <translation>Urban gain (2015)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="174"/>
@@ -415,72 +414,72 @@
     <message>
         <location filename="../calculate.py" line="813"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation type="unfinished"></translation>
+        <translation>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="156"/>
         <source>Built-up by 2000</source>
-        <translation type="unfinished"></translation>
+        <translation>Built-up by 2000</translation>
     </message>
     <message>
         <location filename="../layers.py" line="159"/>
         <source>Built-up by 2015</source>
-        <translation type="unfinished"></translation>
+        <translation>Built-up by 2015</translation>
     </message>
     <message>
         <location filename="../layers.py" line="162"/>
         <source>Urban area {year}</source>
-        <translation type="unfinished"></translation>
+        <translation>Urban area {year}</translation>
     </message>
     <message>
         <location filename="../layers.py" line="163"/>
         <source>Urban</source>
-        <translation type="unfinished"></translation>
+        <translation>Urban</translation>
     </message>
     <message>
         <location filename="../layers.py" line="164"/>
         <source>Suburban</source>
-        <translation type="unfinished"></translation>
+        <translation>Suburban</translation>
     </message>
     <message>
         <location filename="../layers.py" line="165"/>
         <source>Built-up rural</source>
-        <translation type="unfinished"></translation>
+        <translation>Built-up rural</translation>
     </message>
     <message>
         <location filename="../layers.py" line="166"/>
         <source>Open space (fringe)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space (fringe)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="167"/>
         <source>Open space (captured)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space (captured)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="168"/>
         <source>Open space (rural)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space (rural)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="169"/>
         <source>Open space (fringe, water)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space (fringe, water)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="170"/>
         <source>Open space (captured, water)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space (captured, water)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="171"/>
         <source>Open space (rural, water)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space (rural, water)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="300"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; in {}. To use this layer, manually add it to your map.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trends.Earth does not have a style assigned for &quot;{}&quot; in {}. To use this layer, manually add it to your map.</translation>
     </message>
 </context>
 <context>
@@ -546,7 +545,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -626,12 +625,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculate.ui" line="47"/>
         <source>Land degradation indicators (SDG indicator 15.3.1)</source>
-        <translation type="obsolete">Land degradation indicators (SDG indicator 15.3.1)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="62"/>
         <source>Experimental tools (BETA versions - these analyses are still under development, and are supplied for testing only)</source>
-        <translation type="obsolete">Experimental tools (BETA versions - these analyses are still under development, and are supplied for testing only)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="101"/>
@@ -641,24 +640,26 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculate.ui" line="87"/>
         <source>Urban area change (SDG indicator 11.3.1, ratio of land consumption rate to population growth rate)</source>
-        <translation type="obsolete">Urban area change (SDG indicator 11.3.1, ratio of land consumption rate to population growth rate)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="53"/>
         <source>Land degradation indicator
 (SDG indicator 15.3.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Land degradation indicator
+(SDG indicator 15.3.1)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="73"/>
         <source>Urban change and land consumption indicators
 (SDG indicator 11.3.1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Urban change and land consumption indicators
+(SDG indicator 11.3.1)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="89"/>
         <source>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</translation>
     </message>
 </context>
 <context>
@@ -1558,7 +1559,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTC.ui" line="23"/>
         <source>Calculate Carbon Change Indicators</source>
-        <translation type="unfinished">Calculate Indicators</translation>
+        <translation>Calculate Indicators</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTC.ui" line="35"/>
@@ -1586,112 +1587,112 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="20"/>
         <source>Calculate Change in Total Carbon</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate Change in Total Carbon</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="39"/>
         <source>Forest Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Forest Definition</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="45"/>
         <source>Hansen et. al. Global Forest Change product (30 m resolution)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hansen et. al. Global Forest Change product (30 m resolution)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="55"/>
         <source>Period</source>
-        <translation type="unfinished">Period</translation>
+        <translation>Period</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="175"/>
         <source>Initial year:</source>
-        <translation type="unfinished"></translation>
+        <translation>Initial year:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="188"/>
         <source>Target year:</source>
-        <translation type="unfinished">Target year:</translation>
+        <translation>Target year:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="198"/>
         <source>Percent forest cover considered forest</source>
-        <translation type="unfinished"></translation>
+        <translation>Percent forest cover considered forest</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="225"/>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="244"/>
         <source>Custom forest cover dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Custom forest cover dataset</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="254"/>
         <source>Initial layer (initial year)</source>
-        <translation type="unfinished">Initial layer (baseline year)</translation>
+        <translation>Initial layer (baseline year)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="282"/>
         <source>Final layer (target year)</source>
-        <translation type="unfinished">Final layer (target year)</translation>
+        <translation>Final layer (target year)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="321"/>
         <source>Method</source>
-        <translation type="unfinished"></translation>
+        <translation>Method</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="327"/>
         <source>Aboveground biomass dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Aboveground biomass dataset</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="333"/>
         <source>Default Woods Hole Research Center (30 m resolution, tropics only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Woods Hole Research Center (30 m resolution, tropics only)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="349"/>
         <source>GEOCARBON (1 km resolution, global)</source>
-        <translation type="unfinished"></translation>
+        <translation>GEOCARBON (1 km resolution, global)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="365"/>
         <source>Custom dataset - COMING SOON!</source>
-        <translation type="unfinished"></translation>
+        <translation>Custom dataset - COMING SOON!</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="397"/>
         <source>Method for calculation of root to shoot ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Method for calculation of root to shoot ratio</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="406"/>
         <source>IPCC</source>
-        <translation type="unfinished"></translation>
+        <translation>IPCC</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="416"/>
         <source>Mokany et al. 2006</source>
-        <translation type="unfinished"></translation>
+        <translation>Mokany et al. 2006</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="451"/>
         <source>Calculate</source>
-        <translation type="unfinished">Calculate</translation>
+        <translation>Calculate</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="464"/>
         <source>Previous</source>
-        <translation type="unfinished">Previous</translation>
+        <translation>Previous</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="477"/>
         <source>Next</source>
-        <translation type="unfinished">Next</translation>
+        <translation>Next</translation>
     </message>
 </context>
 <context>
@@ -1699,57 +1700,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="20"/>
         <source>Calculate Carbon Change Summary Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate Carbon Change Summary Table</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="39"/>
         <source>Input</source>
-        <translation type="unfinished">Input</translation>
+        <translation>Input</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="69"/>
         <source>Forest loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Forest loss</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="118"/>
         <source>Total carbon</source>
-        <translation type="unfinished"></translation>
+        <translation>Total carbon</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="160"/>
         <source>Output</source>
-        <translation type="unfinished">Output</translation>
+        <translation>Output</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="166"/>
         <source>Output file for summary table</source>
-        <translation type="unfinished">Output file for summary table</translation>
+        <translation>Output file for summary table</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="181"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">Click &quot;Browse&quot; to choose a file...</translation>
+        <translation>Click &quot;Browse&quot; to choose a file...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="194"/>
         <source>Browse</source>
-        <translation type="unfinished">Browse</translation>
+        <translation>Browse</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="229"/>
         <source>Previous</source>
-        <translation type="unfinished">Previous</translation>
+        <translation>Previous</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="242"/>
         <source>Next</source>
-        <translation type="unfinished">Next</translation>
+        <translation>Next</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="255"/>
         <source>Calculate</source>
-        <translation type="unfinished">Calculate</translation>
+        <translation>Calculate</translation>
     </message>
 </context>
 <context>
@@ -1757,27 +1758,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrban.ui" line="23"/>
         <source>Calculate Urban Change Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate Urban Change Indicators</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrban.ui" line="35"/>
         <source>Step 1: Calculate urban change</source>
-        <translation type="unfinished"></translation>
+        <translation>Step 1: Calculate urban change</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrban.ui" line="53"/>
         <source>Calculate urban change spatial layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate urban change spatial layers</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrban.ui" line="69"/>
         <source>Step 2: Calculate urban change summary table</source>
-        <translation type="unfinished"></translation>
+        <translation>Step 2: Calculate urban change summary table</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrban.ui" line="87"/>
         <source>Calculate urban change summary table for city</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate urban change summary table for city</translation>
     </message>
 </context>
 <context>
@@ -1785,106 +1786,110 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="20"/>
         <source>Calculate Urban Area Change Metrics</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate Urban Area Change Metrics</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="39"/>
         <source>Settings</source>
-        <translation type="unfinished">Settings</translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="51"/>
         <source>Thresholds</source>
-        <translation type="unfinished"></translation>
+        <translation>Thresholds</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="73"/>
         <source>&lt;b&gt;Impervious Surface Index (0-100)&lt;/b&gt;&lt;br&gt;
 (higher values reduce urban area)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Impervious Surface Index (0-100)&lt;/b&gt;&lt;br&gt;
+(higher values reduce urban area)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="100"/>
         <source>&lt;b&gt;Night Time Lights Index (0-100)&lt;/b&gt;&lt;br&gt;
 (higher values reduce urban area)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Night Time Lights Index (0-100)&lt;/b&gt;&lt;br&gt;
+(higher values reduce urban area)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="111"/>
         <source>&lt;b&gt;Water Frequency (0-100)&lt;/b&gt;&lt;br&gt;
 (higher values increase urban area)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Water Frequency (0-100)&lt;/b&gt;&lt;br&gt;
+(higher values increase urban area)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="150"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;See the &lt;/span&gt;&lt;a href=&quot;https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Urban Mapper page&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; for assistance choosing these values.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;See the &lt;/span&gt;&lt;a href=&quot;https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Urban Mapper page&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; for assistance choosing these values.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="177"/>
         <source>Advanced</source>
-        <translation type="unfinished">Advanced</translation>
+        <translation>Advanced</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="183"/>
         <source>Urban definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Urban definition</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="189"/>
         <source>&lt;b&gt;Percentage built-up considered urban&lt;/b&gt;&lt;br/&gt;
 (values below this will be considered suburban)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Percentage built-up considered urban&lt;/b&gt;&lt;br/&gt;
+(values below this will be considered suburban)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="225"/>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="238"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Percentage built-up considered suburban&lt;/span&gt;&lt;br/&gt;(values below this will be considered rural)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Percentage built-up considered suburban&lt;/span&gt;&lt;br/&gt;(values below this will be considered rural)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="251"/>
         <source>Open space definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Open space definition</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="257"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Area of largest captured open space (hectares)&lt;/span&gt;&lt;br/&gt;(continguous captured open space larger than this area will be considered rural)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Area of largest captured open space (hectares)&lt;/span&gt;&lt;br/&gt;(continguous captured open space larger than this area will be considered rural)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="286"/>
         <source>Population definition (Gridded Population of the World, v4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Population definition (Gridded Population of the World, v4)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="292"/>
         <source>Population density consistent with national census and population registers</source>
-        <translation type="unfinished"></translation>
+        <translation>Population density consistent with national census and population registers</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="302"/>
         <source>Population density adjusted to match official UN population estimates</source>
-        <translation type="unfinished"></translation>
+        <translation>Population density adjusted to match official UN population estimates</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="337"/>
         <source>Previous</source>
-        <translation type="unfinished">Previous</translation>
+        <translation>Previous</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="350"/>
         <source>Next</source>
-        <translation type="unfinished">Next</translation>
+        <translation>Next</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="363"/>
         <source>Calculate</source>
-        <translation type="unfinished">Calculate</translation>
+        <translation>Calculate</translation>
     </message>
 </context>
 <context>
@@ -1892,52 +1897,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="20"/>
         <source>Calculate Urban Change Summary Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculate Urban Change Summary Table</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="39"/>
         <source>Input</source>
-        <translation type="unfinished">Input</translation>
+        <translation>Input</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="69"/>
         <source>Urban series</source>
-        <translation type="unfinished"></translation>
+        <translation>Urban series</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="111"/>
         <source>Output</source>
-        <translation type="unfinished">Output</translation>
+        <translation>Output</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="117"/>
         <source>Output file for summary table</source>
-        <translation type="unfinished">Output file for summary table</translation>
+        <translation>Output file for summary table</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="132"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation type="unfinished">Click &quot;Browse&quot; to choose a file...</translation>
+        <translation>Click &quot;Browse&quot; to choose a file...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="145"/>
         <source>Browse</source>
-        <translation type="unfinished">Browse</translation>
+        <translation>Browse</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="180"/>
         <source>Previous</source>
-        <translation type="unfinished">Previous</translation>
+        <translation>Previous</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="193"/>
         <source>Next</source>
-        <translation type="unfinished">Next</translation>
+        <translation>Next</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="206"/>
         <source>Calculate</source>
-        <translation type="unfinished">Calculate</translation>
+        <translation>Calculate</translation>
     </message>
 </context>
 <context>
@@ -2091,7 +2096,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2374,7 +2379,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2470,7 +2475,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -3351,12 +3356,12 @@ areas</translation>
     <message>
         <location filename="../calculate.py" line="816"/>
         <source>Urban area change calculation submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Urban area change calculation submitted to Google Earth Engine.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../calculate.py" line="820"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
-        <translation type="obsolete">Unable to submit urban area task to Google Earth Engine.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3751,12 +3756,12 @@ areas</translation>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="72"/>
         <source>First level:</source>
-        <translation type="obsolete">First level:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="228"/>
         <source>Second level:</source>
-        <translation type="obsolete">Second level:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="61"/>
@@ -3811,42 +3816,42 @@ areas</translation>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="245"/>
         <source>Country / region</source>
-        <translation type="obsolete">Country / region</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="151"/>
         <source>Country / Region</source>
-        <translation type="unfinished"></translation>
+        <translation>Country / Region</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="205"/>
         <source>First level</source>
-        <translation type="unfinished"></translation>
+        <translation>First level</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="230"/>
         <source>Second level</source>
-        <translation type="unfinished"></translation>
+        <translation>Second level</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="248"/>
         <source>City:</source>
-        <translation type="unfinished"></translation>
+        <translation>City:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="299"/>
         <source>Region:</source>
-        <translation type="unfinished"></translation>
+        <translation>Region:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="315"/>
         <source>Apply a buffer to the chosen area</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply a buffer to the chosen area</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="360"/>
         <source>Buffer size (kilometers):</source>
-        <translation type="unfinished"></translation>
+        <translation>Buffer size (kilometers):</translation>
     </message>
 </context>
 <context>

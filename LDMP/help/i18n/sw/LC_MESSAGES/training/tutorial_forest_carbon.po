@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.59\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-22 12:16-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-11-29 09:09-0500\n"
+"PO-Revision-Date: 2018-08-22 16:17+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
@@ -40,24 +44,28 @@ msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
 #: ../../source/training/tutorial_forest_carbon.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
-"<../pdfs/Trends.Earth_Tutorial10_Carbon.pdf>`_"
+"<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:15
-#: ../../source/training/tutorial_forest_carbon.rst:118
+#: ../../source/training/tutorial_forest_carbon.rst:18
+msgid "Compute and download forest and biomass data"
+msgstr ""
+
+#: ../../source/training/tutorial_forest_carbon.rst:20
+#: ../../source/training/tutorial_forest_carbon.rst:128
 msgid ""
 "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
 " QGIS."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:20
-#: ../../source/training/tutorial_forest_carbon.rst:123
+#: ../../source/training/tutorial_forest_carbon.rst:25
+#: ../../source/training/tutorial_forest_carbon.rst:133
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Calculate Calculate carbon change spatial layers** button."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:25
+#: ../../source/training/tutorial_forest_carbon.rst:30
 msgid ""
 "A window will appear with two steps: Step 1 is to **Calculate carbon change "
 "spatial layers**, and Step 2 is to **Calculate carbon change summary table "
@@ -65,26 +73,26 @@ msgid ""
 "completed this process, skip to step 14 in the guide."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:30
+#: ../../source/training/tutorial_forest_carbon.rst:35
 msgid ""
 "After selecting Step 1, the user will fill out the desired parameters in the"
 " **Forest Definition** tab."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:35
+#: ../../source/training/tutorial_forest_carbon.rst:40
 msgid ""
 "Next, select the desired aboveground biomass dataset and the method for "
 "calculating the root to shoot ratio."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:40
-#: ../../source/training/tutorial_forest_carbon.rst:143
+#: ../../source/training/tutorial_forest_carbon.rst:45
+#: ../../source/training/tutorial_forest_carbon.rst:153
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:42
-#: ../../source/training/tutorial_forest_carbon.rst:145
+#: ../../source/training/tutorial_forest_carbon.rst:47
+#: ../../source/training/tutorial_forest_carbon.rst:155
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -95,7 +103,7 @@ msgstr ""
 "hakikisha ** chaguo la eneo la Utawala ** linaelezwa, kisha uchagua Ngazi ya"
 " Kwanza (nchi) au Ngazi ya Pili (hali au jimbo kulingana na nchi)."
 
-#: ../../source/training/tutorial_forest_carbon.rst:45
+#: ../../source/training/tutorial_forest_carbon.rst:50
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -109,7 +117,7 @@ msgstr ""
 "rasmi au kukubalika na Conservation International Foundation, au kwa "
 "mashirika yake ya washirika na wafadhili."
 
-#: ../../source/training/tutorial_forest_carbon.rst:51
+#: ../../source/training/tutorial_forest_carbon.rst:56
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -119,8 +127,8 @@ msgstr ""
 "watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
 "yao."
 
-#: ../../source/training/tutorial_forest_carbon.rst:59
-#: ../../source/training/tutorial_forest_carbon.rst:147
+#: ../../source/training/tutorial_forest_carbon.rst:64
+#: ../../source/training/tutorial_forest_carbon.rst:157
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -131,15 +139,15 @@ msgstr ""
 "Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
 "iliyohifadhiwa."
 
-#: ../../source/training/tutorial_forest_carbon.rst:61
-#: ../../source/training/tutorial_forest_carbon.rst:149
+#: ../../source/training/tutorial_forest_carbon.rst:66
+#: ../../source/training/tutorial_forest_carbon.rst:159
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
 msgstr "Ukichagua eneo ambalo unataka kuhesabu viashiria, bonyeza ** Next **."
 
-#: ../../source/training/tutorial_forest_carbon.rst:66
-#: ../../source/training/tutorial_forest_carbon.rst:154
+#: ../../source/training/tutorial_forest_carbon.rst:71
+#: ../../source/training/tutorial_forest_carbon.rst:164
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -149,22 +157,22 @@ msgstr ""
 "kufanya baadhi ya ** Vidokezo ** kutambua uchambuzi unaoendesha. Maelezo "
 "gani ambayo yanaonyesha ni ya hiari, lakini tunapendekeza kutaja:"
 
-#: ../../source/training/tutorial_forest_carbon.rst:68
-#: ../../source/training/tutorial_forest_carbon.rst:156
+#: ../../source/training/tutorial_forest_carbon.rst:73
+#: ../../source/training/tutorial_forest_carbon.rst:166
 msgid "Area of analysis"
 msgstr "Eneo la uchambuzi"
 
-#: ../../source/training/tutorial_forest_carbon.rst:69
-#: ../../source/training/tutorial_forest_carbon.rst:157
+#: ../../source/training/tutorial_forest_carbon.rst:74
+#: ../../source/training/tutorial_forest_carbon.rst:167
 msgid "Dates"
 msgstr "Tarehe"
 
-#: ../../source/training/tutorial_forest_carbon.rst:70
-#: ../../source/training/tutorial_forest_carbon.rst:158
+#: ../../source/training/tutorial_forest_carbon.rst:75
+#: ../../source/training/tutorial_forest_carbon.rst:168
 msgid "Indicators run"
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:75
+#: ../../source/training/tutorial_forest_carbon.rst:80
 msgid ""
 "When done, click **Calculate** and the task will be submitted to Google "
 "Earth Engine for calculations. You will notice that the **Calculate Change "
@@ -172,7 +180,7 @@ msgid ""
 "QGIS."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:77
+#: ../../source/training/tutorial_forest_carbon.rst:82
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and could"
@@ -180,14 +188,14 @@ msgid ""
 "(larger areas tend to take longer)."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:83
+#: ../../source/training/tutorial_forest_carbon.rst:88
 msgid ""
 "Refer to the :ref:`task_download` tutorial for detailed information on how "
 "to check the status of the tasks submitted and for downloading results from "
 "Trends.Earth."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:88
+#: ../../source/training/tutorial_forest_carbon.rst:93
 msgid ""
 "10. To view the Google Earth Engine (GEE) tasks you have running, and to "
 "download your results, select the cloud with the arrow facing down icon "
@@ -195,48 +203,52 @@ msgid ""
 "Engine` dialog box. Select **Refresh list** to show the task."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:95
+#: ../../source/training/tutorial_forest_carbon.rst:100
 msgid ""
 "The task will state: RUNNING under the Status column if it is still "
 "processing. When the task is complete, it will say FINISHED after selecting "
 "**Refresh List** again."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:100
+#: ../../source/training/tutorial_forest_carbon.rst:105
 msgid ""
 "Once the task is FINSHED running, highlight the completed task and select "
 "**Download Results**. Save the task."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:105
+#: ../../source/training/tutorial_forest_carbon.rst:110
 msgid ""
 "You will see a message indicating the task is downloading. Once it is "
 "complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest "
 "loss (2000 to 2017)` outputs in the QGIS window."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:116
+#: ../../source/training/tutorial_forest_carbon.rst:121
 msgid ""
 "If you want, you can add some context information (e.g. country boundaries, "
 "roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for "
 "detailed information on loading a basemap."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:128
-msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
-msgstr ""
-
-#: ../../source/training/tutorial_forest_carbon.rst:133
-msgid "Within the **Input** tab, select an output folder and file name."
+#: ../../source/training/tutorial_forest_carbon.rst:126
+msgid "Compute summary table"
 msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:138
+msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
+msgstr ""
+
+#: ../../source/training/tutorial_forest_carbon.rst:143
+msgid "Within the **Input** tab, select an output folder and file name."
+msgstr ""
+
+#: ../../source/training/tutorial_forest_carbon.rst:148
 msgid ""
 "Within the **Output** tab, select **Browse** to list an output folder and "
 "file name."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:163
+#: ../../source/training/tutorial_forest_carbon.rst:173
 msgid ""
 "When done, click **Calculate** and the task will be submitted to your "
 "computer locally. You will notice that the **Calculate carbon change summary"
@@ -246,16 +258,16 @@ msgid ""
 "is finished!"
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:168
+#: ../../source/training/tutorial_forest_carbon.rst:178
 msgid "A window will appear when the summary is complete. Select **OK**."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:173
+#: ../../source/training/tutorial_forest_carbon.rst:183
 msgid ""
 "If an error window appears, select the **Yes** and the summary will proceed "
 "to open."
 msgstr ""
 
-#: ../../source/training/tutorial_forest_carbon.rst:178
+#: ../../source/training/tutorial_forest_carbon.rst:188
 msgid "The summary table will appear."
 msgstr ""

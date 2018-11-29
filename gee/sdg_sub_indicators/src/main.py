@@ -99,12 +99,12 @@ def run(params, logger):
                                  'Soil organic carbon'])
             out.merge(soc_out)
 
-            out.setVisible(['Soil organic carbon (degradation)',
-                            'Land cover (degradation)',
-                            'Productivity trajectory (significance)',
-                            'Productivity state (degradation)',
-                            'Productivity performance (degradation)',
-                            'Land Productivity Dynamics (LPD)'])
+            out.setAddToMap(['Soil organic carbon (degradation)',
+                             'Land cover (degradation)',
+                             'Productivity trajectory (significance)',
+                             'Productivity state (degradation)',
+                             'Productivity performance (degradation)',
+                             'Land Productivity Dynamics (LPD)'])
 
             outs.append(out.export([geojson], 'sdg_sub_indicators', crs, logger,
                                    EXECUTION_ID, proj))
@@ -143,12 +143,12 @@ def run(params, logger):
                              'Soil organic carbon'])
         out.merge(soc_out)
 
-        out.setVisible(['Soil organic carbon (degradation)',
-                        'Land cover (degradation)',
-                        'Productivity trajectory (significance)',
-                        'Productivity state (degradation)',
-                        'Productivity performance (degradation)',
-                        'Land Productivity Dynamics (LPD)'])
+        out.setAddToMap(['Soil organic carbon (degradation)',
+                         'Land cover (degradation)',
+                         'Productivity trajectory (significance)',
+                         'Productivity state (degradation)',
+                         'Productivity performance (degradation)',
+                         'Land Productivity Dynamics (LPD)'])
 
         return out.export(geojsons, 'sdg_sub_indicators', crs, logger,
                           EXECUTION_ID, proj)

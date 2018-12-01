@@ -23,7 +23,7 @@
    <item>
     <widget class="QGroupBox" name="area_groupbox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -44,6 +44,12 @@
       </item>
       <item row="0" column="6">
        <widget class="QPushButton" name="area_frompoint_choose_point">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -96,6 +102,12 @@
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -115,6 +127,12 @@
       </item>
       <item row="0" column="5">
        <widget class="QLineEdit" name="area_frompoint_point_y">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -130,6 +148,12 @@
        <widget class="QLineEdit" name="area_fromfile_file">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <property name="minimumSize">
          <size>
@@ -160,6 +184,12 @@
       </item>
       <item row="0" column="3">
        <widget class="QLineEdit" name="area_frompoint_point_x">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -196,7 +226,7 @@
       <item row="2" column="0" colspan="7">
        <widget class="QGroupBox" name="groupBox_first_level">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -208,7 +238,7 @@
          <item>
           <widget class="QComboBox" name="area_admin_0">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -226,6 +256,12 @@
       </item>
       <item row="3" column="0" colspan="7">
        <widget class="QGroupBox" name="groupBox_second_level">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="title">
          <string>Second level</string>
         </property>
@@ -252,7 +288,7 @@
          <item row="3" column="1">
           <widget class="QComboBox" name="secondLevel_city">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -268,7 +304,7 @@
          <item row="2" column="1">
           <widget class="QComboBox" name="secondLevel_area_admin_1">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -311,6 +347,12 @@
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_buffer">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Apply a buffer to the chosen area</string>
      </property>
@@ -363,6 +405,12 @@
          </item>
          <item>
           <widget class="QDoubleSpinBox" name="buffer_size_km">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -397,6 +445,12 @@
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_custom_crs">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Use custom coordinate reference system (CRS) for output</string>
      </property>

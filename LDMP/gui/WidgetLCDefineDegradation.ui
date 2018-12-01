@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>934</width>
-    <height>601</height>
+    <width>1231</width>
+    <height>654</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -148,6 +148,12 @@
         </item>
         <item row="1" column="0">
          <widget class="QLineEdit" name="legend_deg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -177,6 +183,12 @@
         </item>
         <item row="1" column="2">
          <widget class="QLineEdit" name="legend_imp">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -199,6 +211,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="legend_stable">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -242,6 +260,12 @@
     <layout class="QGridLayout" name="gridLayout_7">
      <item row="0" column="2">
       <widget class="QPushButton" name="btn_transmatrix_savefile">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -255,6 +279,12 @@
      </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="btn_transmatrix_reset">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -268,6 +298,12 @@
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="btn_transmatrix_loadfile">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>

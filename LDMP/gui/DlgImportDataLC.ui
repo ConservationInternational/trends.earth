@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>352</height>
+    <height>368</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,6 +31,12 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="title">
       <string>Choose a land cover aggregation method</string>
      </property>
@@ -41,7 +47,7 @@
          <bool>true</bool>
         </property>
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>

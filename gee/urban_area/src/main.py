@@ -16,8 +16,8 @@ from landdegradation.util import get_coords, TEImage
 from landdegradation.urban_area import urban_area
 from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 
-def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
-          un_adju, geojsons, EXECUTION_ID, logger):
+def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
+          crs, geojsons, EXECUTION_ID, logger):
     # Impervious surface index computed by Trends.Earth
     isi_series = ee.ImageCollection("projects/trends_earth/isi_20181024_esa").reduce(ee.Reducer.mean()) \
         .select(['isi2000_mean', 'isi2005_mean', 'isi2010_mean', 'isi2015_mean', 'isi2018_mean'],
@@ -156,7 +156,7 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    un_adju = bool(params.get('un_adju', None))
+    un_adju = json.loads(params.get('un_adju', None))
     isi_thr = float(params.get('isi_thr', None))
     ntl_thr = float(params.get('ntl_thr', None))
     wat_thr = float(params.get('wat_thr', None))

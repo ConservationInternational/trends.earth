@@ -156,7 +156,7 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    un_adju = json.loads(params.get('un_adju', None))
+    un_adju = params.get('un_adju', None)
     isi_thr = float(params.get('isi_thr', None))
     ntl_thr = float(params.get('ntl_thr', None))
     wat_thr = float(params.get('wat_thr', None))

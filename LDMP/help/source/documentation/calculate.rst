@@ -18,7 +18,12 @@ To select the methods and datasets to calculate these indicators, indicators
 click on the calculator icon (|iconCalculator|). This will open up the 
 "Calculate Indicators" dialog box.
 
-.. image:: /static/documentation/calculate/image021.png
+.. image:: /static/documentation/calculate/LDindicator.png
+   :align: center
+
+Select the Land degradation indicator (SDG indicator 15.3.1) to open the window for this analysis.
+
+.. image:: /static/documentation/calculate/SDG15.png
    :align: center
 
 There are several options for calculating the SDG 15.3.1 Indicator. 
@@ -401,7 +406,7 @@ To calculate degradation in soil organic carbon:
    and select "Download results" at the bottom of the window. A pop up window 
    will open for you to select where to save the layer and to assign it a name. 
    Then click "Save". The layer will be saved on your computer and 
-   automatically loaded into yoour current QGIS project.
+   automatically loaded into your current QGIS project.
 
 .. image:: /static/documentation/calculate/output_soc.png
    :align: center

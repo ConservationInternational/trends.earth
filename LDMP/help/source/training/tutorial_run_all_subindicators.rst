@@ -17,7 +17,12 @@ Run 1-step subindicators
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center   
 
-2. The **Calculate Indicators** menu will open. In that window, click on **Calculate all three sub-indicators in one step** button found under Step 1 - Option 1.
+2. The **Calculate Indicators** menu will open. In that window, click on Land degradation indicator (SDG indicator 15.3.1)
+
+.. image:: /static/documentation/calculate/LDindicator.png
+   :align: center
+
+Select **Calculate all three sub-indicators in one step** button found under Step 1 - Option 1.
 
 .. image:: /static/training/t03/run.png
    :align: center

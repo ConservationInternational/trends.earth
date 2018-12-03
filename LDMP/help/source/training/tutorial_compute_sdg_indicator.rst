@@ -20,7 +20,12 @@ Compute SDG indicator
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center   
 
-2. The **Calculate Indicators** menu will open. In that window, click on **Calculate final SDG 15.3.1 spatial layer and summary table for total boundary** button found under Step 2 - Option 1.
+2. The **Calculate Indicators** menu will open. In that window, click on Land degradation indicator (SDG indicator 15.3.1)
+
+.. image:: /static/documentation/calculate/LDindicator.png
+   :align: center
+
+Select **Calculate final SDG 15.3.1 spatial layer and summary table for total boundary** button found under Step 2 - Option 1.
 
 .. image:: /static/training/t05/calculate_sdg.png
    :align: center

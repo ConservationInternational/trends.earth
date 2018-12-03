@@ -100,6 +100,7 @@ videos, are available on this website:
    background/understanding_indicators
    background/before_installing
    background/installing
+   background/report_overviews
 
 .. raw:: latex
 
@@ -140,6 +141,7 @@ videos, are available on this website:
    training/tutorial_compute_sdg_indicator
    training/tutorial_summary_table
    training/tutorial_forest_carbon
+   training/tutorial_compute_urban_indicator
    
 .. raw:: latex
 

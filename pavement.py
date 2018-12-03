@@ -71,7 +71,8 @@ options(
                            'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex',
                            'Trends.Earth_Tutorial08_The_Summary_Table.tex',
                            'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
-                           'Trends.Earth_Tutorial10_Forest_Carbon.tex']
+                           'Trends.Earth_Tutorial10_Forest_Carbon.tex',
+						   'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex']
     )
 )
 

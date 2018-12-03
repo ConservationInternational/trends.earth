@@ -239,6 +239,7 @@ latex_documents = [
     ('training/tutorial_summary_table', u'Trends.Earth_Tutorial08_The_Summary_Table.tex', u'The Summary Table', u'Conservation International', 'howto'),
     ('training/tutorial_load_basemap', u'Trends.Earth_Tutorial09_Loading_a_Basemap.tex', u'Loading a Basemap', u'Conservation International', 'howto'),
 	('training/tutorial_forest_carbon', u'Trends.Earth_Tutorial10_Forest_Carbon.tex', u'Forest and Carbon Change Tool', u'Conservation International', 'howto'),
+    ('training/tutorial_compute_urban_indicator', u'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex', u'Urban Change SDG 11.3.1', u'Conservation International', 'howto'),
 ]
 
 latex_elements = {

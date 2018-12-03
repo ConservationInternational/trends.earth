@@ -3,14 +3,18 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 16:24-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2017\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"PO-Revision-Date: 2017-12-15 10:08+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,11 +143,25 @@ msgstr ""
 " Rozalia Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, "
 "Olipa Simon, Samba Sow, Felly Mugizi Tusiime et John Wasige."
 
-#: ../../source/about/about.rst:66
+#: ../../source/about/about.rst:65
+msgid "Citation"
+msgstr ""
+
+#: ../../source/about/about.rst:67
+msgid "If you wish to cite |trends.earth|, please use the following citation:"
+msgstr ""
+
+#: ../../source/about/about.rst:69
+msgid ""
+"Trends.Earth. Conservation International. Available online at: "
+"`http://trends.earth <http://trends.earth>`_. 2018."
+msgstr ""
+
+#: ../../source/about/about.rst:73
 msgid "License"
 msgstr "Licence"
 
-#: ../../source/about/about.rst:68
+#: ../../source/about/about.rst:75
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
@@ -153,7 +171,7 @@ msgstr ""
 "Public License, version 2.0 ou ultérieure <https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html>`_."
 
-#: ../../source/about/about.rst:72
+#: ../../source/about/about.rst:79
 msgid ""
 "This site and the products of |trends.earth| are made available under the "
 "terms of the `Creative Commons Attribution 4.0 International License (CC BY "

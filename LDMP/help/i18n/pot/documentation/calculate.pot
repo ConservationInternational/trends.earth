@@ -2,13 +2,13 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 13:59-0500\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,362 +18,788 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:2
 msgid "Calculate indicators"
-msgstr ""
+msgstr "Calculate indicators"
 
 #: ../../source/documentation/calculate.rst:7
-msgid "Sustainable Development Goal 15.3 intends to combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods, and strive to achieve a land degradation-neutral world by 2030. In order to assess the progress to this goal, the agreed-upon indicator for SDG 15.3 (proportion of land area degraded) is a combination of three sub-indicators: change in land productivity, change in land cover and change in soil organic carbon."
+msgid ""
+"Sustainable Development Goal 15.3 intends to combat desertification, restore"
+" degraded land and soil, including land affected by desertification, drought"
+" and floods, and strive to achieve a land degradation-neutral world by 2030."
+" In order to assess the progress to this goal, the agreed-upon indicator for"
+" SDG 15.3 (proportion of land area degraded) is a combination of three sub-"
+"indicators: change in land productivity, change in land cover and change in "
+"soil organic carbon."
 msgstr ""
+"Sustainable Development Goal 15.3 intends to combat desertification, restore"
+" degraded land and soil, including land affected by desertification, drought"
+" and floods, and strive to achieve a land degradation-neutral world by 2030."
+" In order to assess the progress to this goal, the agreed-upon indicator for"
+" SDG 15.3 (proportion of land area degraded) is a combination of three sub-"
+"indicators: change in land productivity, change in land cover and change in "
+"soil organic carbon."
 
 #: ../../source/documentation/calculate.rst:17
-msgid "To select the methods and datasets to calculate these indicators, indicators click on the calculator icon (|iconCalculator|). This will open up the \"Calculate Indicators\" dialog box."
+msgid ""
+"To select the methods and datasets to calculate these indicators, indicators"
+" click on the calculator icon (|iconCalculator|). This will open up the "
+"\"Calculate Indicators\" dialog box."
 msgstr ""
+"To select the methods and datasets to calculate these indicators, indicators"
+" click on the calculator icon (|iconCalculator|). This will open up the "
+"\"Calculate Indicators\" dialog box."
 
 #: ../../source/documentation/calculate.rst:24
-msgid "There are several options for calculating the SDG 15.3.1 Indicator. |trends.earth| supports calculating the indicator using the same process as was used by the UNCCD for the default data provided to countries for the 2018 reporting process. The tool also supports customizing this data, or even replacing individual datasets with national-level or other global datasets."
+msgid ""
+"Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
+"window for this analysis."
 msgstr ""
+"Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
+"window for this analysis."
 
-#: ../../source/documentation/calculate.rst:30
-msgid "To calculate all three SDG 15.3.1 indicators in one step, using default settings for most of the indicators, click \"Calculate all three indicators in one step\"."
+#: ../../source/documentation/calculate.rst:29
+msgid ""
+"There are several options for calculating the SDG 15.3.1 Indicator. "
+"|trends.earth| supports calculating the indicator using the same process as "
+"was used by the UNCCD for the default data provided to countries for the "
+"2018 reporting process. The tool also supports customizing this data, or "
+"even replacing individual datasets with national-level or other global "
+"datasets."
 msgstr ""
+"There are several options for calculating the SDG 15.3.1 Indicator. "
+"|trends.earth| supports calculating the indicator using the same process as "
+"was used by the UNCCD for the default data provided to countries for the "
+"2018 reporting process. The tool also supports customizing this data, or "
+"even replacing individual datasets with national-level or other global "
+"datasets."
 
-#: ../../source/documentation/calculate.rst:34
-msgid "To calculate one of the three SDG 15.3.1 indicators, using customized settings, or national-level data, click \"Productivity\", \"Land cover\", or \"Soil organic carbon\"."
+#: ../../source/documentation/calculate.rst:35
+msgid ""
+"To calculate all three SDG 15.3.1 indicators in one step, using default "
+"settings for most of the indicators, click \"Calculate all three indicators "
+"in one step\"."
 msgstr ""
+"To calculate all three SDG 15.3.1 indicators in one step, using default "
+"settings for most of the indicators, click \"Calculate all three indicators "
+"in one step\"."
 
-#: ../../source/documentation/calculate.rst:38
-msgid "To calculate a summary table showing statistics on each of the three indicators, click \"Calculate final SDG 15.3.1 indicator and summary table\". Note that you must first compute the indicators using one of the above options."
+#: ../../source/documentation/calculate.rst:39
+msgid ""
+"To calculate one of the three SDG 15.3.1 indicators, using customized "
+"settings, or national-level data, click \"Productivity\", \"Land cover\", or"
+" \"Soil organic carbon\"."
 msgstr ""
+"To calculate one of the three SDG 15.3.1 indicators, using customized "
+"settings, or national-level data, click \"Productivity\", \"Land cover\", or"
+" \"Soil organic carbon\"."
 
 #: ../../source/documentation/calculate.rst:43
-msgid "To calculate a summary table showing statistics on each of the three indicators for multiple sub-divisions, click \"Calculate area summaries of a raster on sub-units\". Note that you must first compute the indicators using one of the above options."
+msgid ""
+"To calculate a summary table showing statistics on each of the three "
+"indicators, click \"Calculate final SDG 15.3.1 indicator and summary "
+"table\". Note that you must first compute the indicators using one of the "
+"above options."
 msgstr ""
+"To calculate a summary table showing statistics on each of the three "
+"indicators, click \"Calculate final SDG 15.3.1 indicator and summary "
+"table\". Note that you must first compute the indicators using one of the "
+"above options."
 
 #: ../../source/documentation/calculate.rst:48
-msgid "There are three different indicators that are combined to create the SDG 15.3.1 indicator"
+msgid ""
+"To calculate a summary table showing statistics on each of the three "
+"indicators for multiple sub-divisions, click \"Calculate area summaries of a"
+" raster on sub-units\". Note that you must first compute the indicators "
+"using one of the above options."
 msgstr ""
+"To calculate a summary table showing statistics on each of the three "
+"indicators for multiple sub-divisions, click \"Calculate area summaries of a"
+" raster on sub-units\". Note that you must first compute the indicators "
+"using one of the above options."
 
-#: ../../source/documentation/calculate.rst:51
-msgid "Productivity: measures the trajectory, performance and state of primary productivity"
+#: ../../source/documentation/calculate.rst:53
+msgid ""
+"There are three different indicators that are combined to create the SDG "
+"15.3.1 indicator"
 msgstr ""
+"There are three different indicators that are combined to create the SDG "
+"15.3.1 indicator"
 
-#: ../../source/documentation/calculate.rst:54
-msgid "Land cover: calculates land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement."
+#: ../../source/documentation/calculate.rst:56
+msgid ""
+"Productivity: measures the trajectory, performance and state of primary "
+"productivity"
 msgstr ""
+"Productivity: measures the trajectory, performance and state of primary "
+"productivity"
 
-#: ../../source/documentation/calculate.rst:58
-msgid "Soil carbon: compute changes in soil organic carbon as a consequence of changes in land cover."
+#: ../../source/documentation/calculate.rst:59
+msgid ""
+"Land cover: calculates land cover change relative to a baseline period, "
+"enter a transition matrix indicating which transitions indicate degradation,"
+" stability or improvement."
 msgstr ""
+"Land cover: calculates land cover change relative to a baseline period, "
+"enter a transition matrix indicating which transitions indicate degradation,"
+" stability or improvement."
 
-#: ../../source/documentation/calculate.rst:62
-msgid "Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed explanation of how each of these sub-indicators is computed in |trends.earth|"
+#: ../../source/documentation/calculate.rst:63
+msgid ""
+"Soil carbon: compute changes in soil organic carbon as a consequence of "
+"changes in land cover."
 msgstr ""
+"Soil carbon: compute changes in soil organic carbon as a consequence of "
+"changes in land cover."
 
-#: ../../source/documentation/calculate.rst:66
-msgid "There are two ways to calculate the indicators: 1) using a simplified tool that will calculate all three indicators at once, but with limited options for customization, or 2) using individual tools for each indicator that offer complete control over how they are calculated."
+#: ../../source/documentation/calculate.rst:67
+msgid ""
+"Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed "
+"explanation of how each of these sub-indicators is computed in "
+"|trends.earth|"
 msgstr ""
+"Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed "
+"explanation of how each of these sub-indicators is computed in "
+"|trends.earth|"
 
-#: ../../source/documentation/calculate.rst:72
-msgid "Calculate indicators with simplified tool"
+#: ../../source/documentation/calculate.rst:71
+msgid ""
+"There are two ways to calculate the indicators: 1) using a simplified tool "
+"that will calculate all three indicators at once, but with limited options "
+"for customization, or 2) using individual tools for each indicator that "
+"offer complete control over how they are calculated."
 msgstr ""
-
-#: ../../source/documentation/calculate.rst:74
-msgid "This tool allows users to calculate all three sub-indicators in one step. Select the \"Calculate all three sub-indicators in one step\" button."
-msgstr ""
+"There are two ways to calculate the indicators: 1) using a simplified tool "
+"that will calculate all three indicators at once, but with limited options "
+"for customization, or 2) using individual tools for each indicator that "
+"offer complete control over how they are calculated."
 
 #: ../../source/documentation/calculate.rst:77
-msgid "Select the parameters for Setup. The Period is the Initial and Final year for the analysis and select one of the two Land Productivity datasets. Select Next."
-msgstr ""
+msgid "Calculate indicators with simplified tool"
+msgstr "Calculate indicators with simplified tool"
 
-#: ../../source/documentation/calculate.rst:84
-msgid "Select the Land Cover dataset. The first option is the default ESA dataset."
+#: ../../source/documentation/calculate.rst:79
+msgid ""
+"This tool allows users to calculate all three sub-indicators in one step. "
+"Select the \"Calculate all three sub-indicators in one step\" button."
 msgstr ""
+"This tool allows users to calculate all three sub-indicators in one step. "
+"Select the \"Calculate all three sub-indicators in one step\" button."
+
+#: ../../source/documentation/calculate.rst:82
+msgid ""
+"Select the parameters for Setup. The Period is the Initial and Final year "
+"for the analysis and select one of the two Land Productivity datasets. "
+"Select Next."
+msgstr ""
+"Select the parameters for Setup. The Period is the Initial and Final year "
+"for the analysis and select one of the two Land Productivity datasets. "
+"Select Next."
 
 #: ../../source/documentation/calculate.rst:89
-msgid "Select Edit definition to change the aggregation from the ESA Land Cover dataset into 7 classes."
+msgid ""
+"Select the Land Cover dataset. The first option is the default ESA dataset."
 msgstr ""
+"Select the Land Cover dataset. The first option is the default ESA dataset."
 
-#: ../../source/documentation/calculate.rst:95
-msgid "The second option allows users to upload a custom land cover dataset. This requires two datasets to compare change over time. Select Next."
+#: ../../source/documentation/calculate.rst:94
+msgid ""
+"Select Edit definition to change the aggregation from the ESA Land Cover "
+"dataset into 7 classes."
 msgstr ""
+"Select Edit definition to change the aggregation from the ESA Land Cover "
+"dataset into 7 classes."
 
-#: ../../source/documentation/calculate.rst:101
-msgid "The user can now define the effects of land cover change and how it is classified as degrading or improving."
+#: ../../source/documentation/calculate.rst:100
+msgid ""
+"The second option allows users to upload a custom land cover dataset. This "
+"requires two datasets to compare change over time. Select Next."
 msgstr ""
+"The second option allows users to upload a custom land cover dataset. This "
+"requires two datasets to compare change over time. Select Next."
 
-#: ../../source/documentation/calculate.rst:107
+#: ../../source/documentation/calculate.rst:106
+msgid ""
+"The user can now define the effects of land cover change and how it is "
+"classified as degrading or improving."
+msgstr ""
+"The user can now define the effects of land cover change and how it is "
+"classified as degrading or improving."
+
+#: ../../source/documentation/calculate.rst:112
 msgid "Select an area to run the analysis or upload a shapefile boundary"
-msgstr ""
+msgstr "Select an area to run the analysis or upload a shapefile boundary"
 
-#: ../../source/documentation/calculate.rst:110
-msgid "The provided boundaries are from `Natural Earth <http://www.naturalearthdata.com>`_, and are in the `public domain <https://creativecommons.org/publicdomain>`_. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors."
+#: ../../source/documentation/calculate.rst:115
+msgid ""
+"The provided boundaries are from `Natural Earth "
+"<http://www.naturalearthdata.com>`_, and are in the `public domain "
+"<https://creativecommons.org/publicdomain>`_. The boundaries and names used,"
+" and the designations used, in Trends.Earth do not imply official "
+"endorsement or acceptance by Conservation International Foundation, or by "
+"its partner organizations and contributors."
 msgstr ""
+"The provided boundaries are from `Natural Earth "
+"<http://www.naturalearthdata.com>`_, and are in the `public domain "
+"<https://creativecommons.org/publicdomain>`_. The boundaries and names used,"
+" and the designations used, in Trends.Earth do not imply official "
+"endorsement or acceptance by Conservation International Foundation, or by "
+"its partner organizations and contributors."
 
-#: ../../source/documentation/calculate.rst:117
-msgid "If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country."
+#: ../../source/documentation/calculate.rst:122
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
 msgstr ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
 
-#: ../../source/documentation/calculate.rst:124
+#: ../../source/documentation/calculate.rst:129
 msgid "Name the task and make notes for future reference"
-msgstr ""
+msgstr "Name the task and make notes for future reference"
 
-#: ../../source/documentation/calculate.rst:126
+#: ../../source/documentation/calculate.rst:131
 msgid "Click on \"Calculate\" to submit your task to Google Earth Engine"
-msgstr ""
+msgstr "Click on \"Calculate\" to submit your task to Google Earth Engine"
 
-#: ../../source/documentation/calculate.rst:133
+#: ../../source/documentation/calculate.rst:138
 msgid "Calculate productivity"
-msgstr ""
+msgstr "Calculate productivity"
 
-#: ../../source/documentation/calculate.rst:136
-msgid "Refer to the :ref:`indicator-productivity` background information in this manual for a detailed explanation of how productivity is computed."
+#: ../../source/documentation/calculate.rst:141
+msgid ""
+"Refer to the :ref:`indicator-productivity` background information in this "
+"manual for a detailed explanation of how productivity is computed."
 msgstr ""
+"Refer to the :ref:`indicator-productivity` background information in this "
+"manual for a detailed explanation of how productivity is computed."
 
-#: ../../source/documentation/calculate.rst:139
-msgid "Productivity measures the trajectory, performance and state of primary productivity using either 8km AVHRR or 250m MODIS datasets. The user can select one or multiple indicators to calculate, the NDVI dataset, name the tasks and enter in explanatory notes for their intended reporting area."
+#: ../../source/documentation/calculate.rst:144
+msgid ""
+"Productivity measures the trajectory, performance and state of primary "
+"productivity using either 8km AVHRR or 250m MODIS datasets. The user can "
+"select one or multiple indicators to calculate, the NDVI dataset, name the "
+"tasks and enter in explanatory notes for their intended reporting area."
 msgstr ""
+"Productivity measures the trajectory, performance and state of primary "
+"productivity using either 8km AVHRR or 250m MODIS datasets. The user can "
+"select one or multiple indicators to calculate, the NDVI dataset, name the "
+"tasks and enter in explanatory notes for their intended reporting area."
 
-#: ../../source/documentation/calculate.rst:145
+#: ../../source/documentation/calculate.rst:150
 msgid "Productivity Trajectory"
-msgstr ""
+msgstr "Productivity Trajectory"
 
-#: ../../source/documentation/calculate.rst:147
-msgid "Trajectory assesses the rate of change of productivity over time. To calculate trajectory:"
+#: ../../source/documentation/calculate.rst:152
+msgid ""
+"Trajectory assesses the rate of change of productivity over time. To "
+"calculate trajectory:"
 msgstr ""
-
-#: ../../source/documentation/calculate.rst:151
-msgid "Refer to the :ref:`indicator-productivity-trajectory` section in this manual for a detailed explanation of this indicator is computed."
-msgstr ""
-
-#: ../../source/documentation/calculate.rst:154
-msgid "Select an indicator to calculate"
-msgstr ""
+"Trajectory assesses the rate of change of productivity over time. To "
+"calculate trajectory:"
 
 #: ../../source/documentation/calculate.rst:156
-msgid "Select NDVI dataset to use and select Next"
+msgid ""
+"Refer to the :ref:`indicator-productivity-trajectory` section in this manual"
+" for a detailed explanation of this indicator is computed."
 msgstr ""
+"Refer to the :ref:`indicator-productivity-trajectory` section in this manual"
+" for a detailed explanation of this indicator is computed."
 
 #: ../../source/documentation/calculate.rst:159
-msgid "The valid date range is set by the NDVI dataset selected within the first tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
-msgstr ""
+msgid "Select an indicator to calculate"
+msgstr "Select an indicator to calculate"
 
-#: ../../source/documentation/calculate.rst:165
-msgid "In the tab \"Advanced\", select the method to be used to compute the productivity trajectory analysis. The options are:"
-msgstr ""
+#: ../../source/documentation/calculate.rst:161
+msgid "Select NDVI dataset to use and select Next"
+msgstr "Select NDVI dataset to use and select Next"
 
-#: ../../source/documentation/calculate.rst:169
-msgid "Refer to the :ref:`indicator-productivity-climate-correction` information in this manual for a more detailed explanation of each of these calculations."
+#: ../../source/documentation/calculate.rst:164
+msgid ""
+"The valid date range is set by the NDVI dataset selected within the first "
+"tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
 msgstr ""
+"The valid date range is set by the NDVI dataset selected within the first "
+"tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
 
-#: ../../source/documentation/calculate.rst:173
-msgid "**NDVI trend**: This dataset shows the trend in annually integrated NDVI time series (2001-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio of the difference between near-infrared band (NIR) and the red band (RED) and the sum of these two bands (Rouse et al., 1974; Deering 1978) and reviewed in Tucker (1979)."
+#: ../../source/documentation/calculate.rst:170
+msgid ""
+"In the tab \"Advanced\", select the method to be used to compute the "
+"productivity trajectory analysis. The options are:"
 msgstr ""
+"In the tab \"Advanced\", select the method to be used to compute the "
+"productivity trajectory analysis. The options are:"
 
-#: ../../source/documentation/calculate.rst:181
-msgid "**RUE**: is defined as the ratio between net primary production (NPP), in this case annual integrals of NDVI, and rainfall. It has been increasingly used to analyze the variability of vegetation production in arid and semi-arid biomes, where rainfall is a major limiting factor for plant growth"
+#: ../../source/documentation/calculate.rst:174
+msgid ""
+"Refer to the :ref:`indicator-productivity-climate-correction` information in"
+" this manual for a more detailed explanation of each of these calculations."
 msgstr ""
+"Refer to the :ref:`indicator-productivity-climate-correction` information in"
+" this manual for a more detailed explanation of each of these calculations."
 
-#: ../../source/documentation/calculate.rst:187
-msgid "**RESTREND**: this method attempts to adjust the NDVI signals from the effect of particular climatic drivers, such as rainfall or soil moisture, using a pixel-by-pixel linear regression on the NDVI time series and the climate signal. The linear model and the climatic data is used then to predict NDVI, and to compute the residuals between the observed and climate-predicted NDVI annual integrals. The NDVI residual trend is finally plotted to spatially represent overall trends in primary productivity independent of climate."
+#: ../../source/documentation/calculate.rst:178
+msgid ""
+"**NDVI trend**: This dataset shows the trend in annually integrated NDVI "
+"time series (2001-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
+"GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio "
+"of the difference between near-infrared band (NIR) and the red band (RED) "
+"and the sum of these two bands (Rouse et al., 1974; Deering 1978) and "
+"reviewed in Tucker (1979)."
 msgstr ""
+"**NDVI trend**: This dataset shows the trend in annually integrated NDVI "
+"time series (2001-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
+"GIMMS3g.v1). The normalized difference vegetation index (NDVI) is the ratio "
+"of the difference between near-infrared band (NIR) and the red band (RED) "
+"and the sum of these two bands (Rouse et al., 1974; Deering 1978) and "
+"reviewed in Tucker (1979)."
 
-#: ../../source/documentation/calculate.rst:195
-msgid "**WUE**: is defined as the ratio between net primary production (NPP), in this case annual integrals of NDVI, and evapotranspiration."
+#: ../../source/documentation/calculate.rst:186
+msgid ""
+"**RUE**: is defined as the ratio between net primary production (NPP), in "
+"this case annual integrals of NDVI, and rainfall. It has been increasingly "
+"used to analyze the variability of vegetation production in arid and semi-"
+"arid biomes, where rainfall is a major limiting factor for plant growth"
 msgstr ""
+"**RUE**: is defined as the ratio between net primary production (NPP), in "
+"this case annual integrals of NDVI, and rainfall. It has been increasingly "
+"used to analyze the variability of vegetation production in arid and semi-"
+"arid biomes, where rainfall is a major limiting factor for plant growth"
 
-#: ../../source/documentation/calculate.rst:202
-msgid "Productivity Performance"
+#: ../../source/documentation/calculate.rst:192
+msgid ""
+"**RESTREND**: this method attempts to adjust the NDVI signals from the "
+"effect of particular climatic drivers, such as rainfall or soil moisture, "
+"using a pixel-by-pixel linear regression on the NDVI time series and the "
+"climate signal. The linear model and the climatic data is used then to "
+"predict NDVI, and to compute the residuals between the observed and climate-"
+"predicted NDVI annual integrals. The NDVI residual trend is finally plotted "
+"to spatially represent overall trends in primary productivity independent of"
+" climate."
 msgstr ""
+"**RESTREND**: this method attempts to adjust the NDVI signals from the "
+"effect of particular climatic drivers, such as rainfall or soil moisture, "
+"using a pixel-by-pixel linear regression on the NDVI time series and the "
+"climate signal. The linear model and the climatic data is used then to "
+"predict NDVI, and to compute the residuals between the observed and climate-"
+"predicted NDVI annual integrals. The NDVI residual trend is finally plotted "
+"to spatially represent overall trends in primary productivity independent of"
+" climate."
 
-#: ../../source/documentation/calculate.rst:203
-msgid "Performance is a comparison of how productivity in an area compares to productivity in similar areas at the same point in time. To calculate performance:"
+#: ../../source/documentation/calculate.rst:200
+msgid ""
+"**WUE**: is defined as the ratio between net primary production (NPP), in "
+"this case annual integrals of NDVI, and evapotranspiration."
 msgstr ""
+"**WUE**: is defined as the ratio between net primary production (NPP), in "
+"this case annual integrals of NDVI, and evapotranspiration."
 
 #: ../../source/documentation/calculate.rst:207
-msgid "Select the start and end year of the period of analysis  for comparison."
-msgstr ""
+msgid "Productivity Performance"
+msgstr "Productivity Performance"
 
-#: ../../source/documentation/calculate.rst:210
-msgid "Refer to the :ref:`indicator-productivity-performance` section in this manual for a detailed explanation of this indicator is computed."
+#: ../../source/documentation/calculate.rst:208
+msgid ""
+"Performance is a comparison of how productivity in an area compares to "
+"productivity in similar areas at the same point in time. To calculate "
+"performance:"
 msgstr ""
+"Performance is a comparison of how productivity in an area compares to "
+"productivity in similar areas at the same point in time. To calculate "
+"performance:"
 
-#: ../../source/documentation/calculate.rst:214
-msgid "Productivity State"
+#: ../../source/documentation/calculate.rst:212
+msgid ""
+"Select the start and end year of the period of analysis  for comparison."
 msgstr ""
+"Select the start and end year of the period of analysis  for comparison."
 
 #: ../../source/documentation/calculate.rst:215
-msgid "State performs a comparison of how current productivity in an area compares to past productivity. To calculate state:"
+msgid ""
+"Refer to the :ref:`indicator-productivity-performance` section in this "
+"manual for a detailed explanation of this indicator is computed."
 msgstr ""
+"Refer to the :ref:`indicator-productivity-performance` section in this "
+"manual for a detailed explanation of this indicator is computed."
 
-#: ../../source/documentation/calculate.rst:218
-msgid "Define the baseline and comparison periods for the computation of the State sub-indicator."
+#: ../../source/documentation/calculate.rst:219
+msgid "Productivity State"
+msgstr "Productivity State"
+
+#: ../../source/documentation/calculate.rst:220
+msgid ""
+"State performs a comparison of how current productivity in an area compares "
+"to past productivity. To calculate state:"
 msgstr ""
+"State performs a comparison of how current productivity in an area compares "
+"to past productivity. To calculate state:"
 
-#: ../../source/documentation/calculate.rst:222
-msgid "Refer to the :ref:`indicator-productivity-state` section in this manual for a detailed explanation of this indicator is computed."
+#: ../../source/documentation/calculate.rst:223
+msgid ""
+"Define the baseline and comparison periods for the computation of the State "
+"sub-indicator."
 msgstr ""
+"Define the baseline and comparison periods for the computation of the State "
+"sub-indicator."
 
-#: ../../source/documentation/calculate.rst:225
-msgid "The next step is to define the study area on which to perform the analysis. The tool allows selecting the area of interest in one of two ways:"
+#: ../../source/documentation/calculate.rst:227
+msgid ""
+"Refer to the :ref:`indicator-productivity-state` section in this manual for "
+"a detailed explanation of this indicator is computed."
 msgstr ""
+"Refer to the :ref:`indicator-productivity-state` section in this manual for "
+"a detailed explanation of this indicator is computed."
 
-#: ../../source/documentation/calculate.rst:228
-msgid "Selects first (i.e. country) and/or second (i.e. province or state) administrative boundary from a drop-down menu."
+#: ../../source/documentation/calculate.rst:230
+msgid ""
+"The next step is to define the study area on which to perform the analysis. "
+"The tool allows selecting the area of interest in one of two ways:"
 msgstr ""
+"The next step is to define the study area on which to perform the analysis. "
+"The tool allows selecting the area of interest in one of two ways:"
 
-#: ../../source/documentation/calculate.rst:231
-msgid "The user can provide a shapefile, KML, or geojson defining an area of interest. Once this is done, Select Next."
+#: ../../source/documentation/calculate.rst:233
+msgid ""
+"Selects first (i.e. country) and/or second (i.e. province or state) "
+"administrative boundary from a drop-down menu."
 msgstr ""
+"Selects first (i.e. country) and/or second (i.e. province or state) "
+"administrative boundary from a drop-down menu."
 
-#: ../../source/documentation/calculate.rst:237
-msgid "The next step is to write a Task name and some notes to indicate which options were selected for the analysis."
+#: ../../source/documentation/calculate.rst:236
+msgid ""
+"The user can provide a shapefile, KML, or geojson defining an area of "
+"interest. Once this is done, Select Next."
 msgstr ""
+"The user can provide a shapefile, KML, or geojson defining an area of "
+"interest. Once this is done, Select Next."
 
-#: ../../source/documentation/calculate.rst:243
-#: ../../source/documentation/calculate.rst:337
-#: ../../source/documentation/calculate.rst:393
-msgid "When all the parameters have been defined, click \"Calculate\", and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion."
+#: ../../source/documentation/calculate.rst:242
+msgid ""
+"The next step is to write a Task name and some notes to indicate which "
+"options were selected for the analysis."
 msgstr ""
+"The next step is to write a Task name and some notes to indicate which "
+"options were selected for the analysis."
 
-#: ../../source/documentation/calculate.rst:249
-#: ../../source/documentation/calculate.rst:344
-#: ../../source/documentation/calculate.rst:399
-msgid "When the Google Earth Engine task has completed and you received the email, click \"Refresh List\" and the status will show FINISHED. Click on the task and select \"Download results\" at the bottom of the window. A pop up window will open for you to select where to save the layer and to assign it a name. Then click \"Save\". The layer will be saved on your computer and automatically loaded into yoour current QGIS project."
+#: ../../source/documentation/calculate.rst:248
+#: ../../source/documentation/calculate.rst:342
+#: ../../source/documentation/calculate.rst:398
+msgid ""
+"When all the parameters have been defined, click \"Calculate\", and the task"
+" will be submitted to Google Earth Engine for computing. When the task is "
+"completed (processing time will vary depending on server usage, but for most"
+" countries it takes only a few minutes most of the time), you’ll receive an "
+"email notifying the successful completion."
 msgstr ""
+"When all the parameters have been defined, click \"Calculate\", and the task"
+" will be submitted to Google Earth Engine for computing. When the task is "
+"completed (processing time will vary depending on server usage, but for most"
+" countries it takes only a few minutes most of the time), you’ll receive an "
+"email notifying the successful completion."
 
-#: ../../source/documentation/calculate.rst:261
+#: ../../source/documentation/calculate.rst:254
+#: ../../source/documentation/calculate.rst:349
+msgid ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED. Click on the task "
+"and select \"Download results\" at the bottom of the window. A pop up window"
+" will open for you to select where to save the layer and to assign it a "
+"name. Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into yoour current QGIS project."
+msgstr ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED. Click on the task "
+"and select \"Download results\" at the bottom of the window. A pop up window"
+" will open for you to select where to save the layer and to assign it a "
+"name. Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into yoour current QGIS project."
+
+#: ../../source/documentation/calculate.rst:266
 msgid "Calculate land cover"
-msgstr ""
+msgstr "Calculate land cover"
 
-#: ../../source/documentation/calculate.rst:263
-msgid "Changes in land cover is one of the indicators used to track potential land degradation which need to be reported to the UNCCD and to track progress towards SDG 15.3.1. While some land cover transitions indicate, in most cases, processes of land degradation, the interpretation of those transitions are for the most part context specific. For that reason, this indicator requires the input of the user to identify which changes in land cover will be considered as degradation, improvement or no change in terms of degradation. The toolbox allows users to calculate land cover change relative to a baseline period, enter a transition matrix indicating which transitions indicate degradation, stability or improvement."
+#: ../../source/documentation/calculate.rst:268
+msgid ""
+"Changes in land cover is one of the indicators used to track potential land "
+"degradation which need to be reported to the UNCCD and to track progress "
+"towards SDG 15.3.1. While some land cover transitions indicate, in most "
+"cases, processes of land degradation, the interpretation of those "
+"transitions are for the most part context specific. For that reason, this "
+"indicator requires the input of the user to identify which changes in land "
+"cover will be considered as degradation, improvement or no change in terms "
+"of degradation. The toolbox allows users to calculate land cover change "
+"relative to a baseline period, enter a transition matrix indicating which "
+"transitions indicate degradation, stability or improvement."
 msgstr ""
-
-#: ../../source/documentation/calculate.rst:275
-msgid "Refer to the :ref:`indicator-land-cover` background information in this manual for a detailed explanation of how land cover change is computed."
-msgstr ""
-
-#: ../../source/documentation/calculate.rst:278
-msgid "To calculate the land cover change indicator:"
-msgstr ""
+"Changes in land cover is one of the indicators used to track potential land "
+"degradation which need to be reported to the UNCCD and to track progress "
+"towards SDG 15.3.1. While some land cover transitions indicate, in most "
+"cases, processes of land degradation, the interpretation of those "
+"transitions are for the most part context specific. For that reason, this "
+"indicator requires the input of the user to identify which changes in land "
+"cover will be considered as degradation, improvement or no change in terms "
+"of degradation. The toolbox allows users to calculate land cover change "
+"relative to a baseline period, enter a transition matrix indicating which "
+"transitions indicate degradation, stability or improvement."
 
 #: ../../source/documentation/calculate.rst:280
-msgid "Click on the Calculate Indicators button from the toolbox bar, then select Land cover."
+msgid ""
+"Refer to the :ref:`indicator-land-cover` background information in this "
+"manual for a detailed explanation of how land cover change is computed."
 msgstr ""
+"Refer to the :ref:`indicator-land-cover` background information in this "
+"manual for a detailed explanation of how land cover change is computed."
 
-#: ../../source/documentation/calculate.rst:286
-msgid "Within the \"Land Cover Setup tab\" the user selects the baseline and target years"
+#: ../../source/documentation/calculate.rst:283
+msgid "To calculate the land cover change indicator:"
+msgstr "To calculate the land cover change indicator:"
+
+#: ../../source/documentation/calculate.rst:285
+msgid ""
+"Click on the Calculate Indicators button from the toolbox bar, then select "
+"Land cover."
 msgstr ""
+"Click on the Calculate Indicators button from the toolbox bar, then select "
+"Land cover."
 
 #: ../../source/documentation/calculate.rst:291
-msgid "The land cover aggregation can be customized using the 'Edit definition' button. The user can define their own aggregation of land cover classes from the 37 ESA land cover classes to the 7 UNCCD categories."
+msgid ""
+"Within the \"Land Cover Setup tab\" the user selects the baseline and target"
+" years"
 msgstr ""
+"Within the \"Land Cover Setup tab\" the user selects the baseline and target"
+" years"
 
-#: ../../source/documentation/calculate.rst:295
-msgid "Select the dial button for the \"Custom\" option and select \"Create new definition\""
+#: ../../source/documentation/calculate.rst:296
+msgid ""
+"The land cover aggregation can be customized using the 'Edit definition' "
+"button. The user can define their own aggregation of land cover classes from"
+" the 37 ESA land cover classes to the 7 UNCCD categories."
 msgstr ""
-
-#: ../../source/documentation/calculate.rst:298
-msgid "Edit the aggregation suitable for the area of interest"
-msgstr ""
+"The land cover aggregation can be customized using the 'Edit definition' "
+"button. The user can define their own aggregation of land cover classes from"
+" the 37 ESA land cover classes to the 7 UNCCD categories."
 
 #: ../../source/documentation/calculate.rst:300
-msgid "Select \"Save definition\" and select Next"
+msgid ""
+"Select the dial button for the \"Custom\" option and select \"Create new "
+"definition\""
 msgstr ""
+"Select the dial button for the \"Custom\" option and select \"Create new "
+"definition\""
+
+#: ../../source/documentation/calculate.rst:303
+msgid "Edit the aggregation suitable for the area of interest"
+msgstr "Edit the aggregation suitable for the area of interest"
 
 #: ../../source/documentation/calculate.rst:305
-msgid "Within the \"Define Degradation tab\" user define the meaning of each land cover transition in terms of degradation. The options are: stable (0), degradation (-) or improvement (+). For example, the default for cropland to cropland is 0 because the land cover stays the same and is therefore stable. The default for forest to cropland is -1 because forest is likely cut to clear way for agriculture and would be considered deforestation. The user is encouraged to thoroughly evaluate the meaning of each transition based on their knowledge of the study area, since this matrix will have an important effect on the land degradation identified by this subindicator."
-msgstr ""
+msgid "Select \"Save definition\" and select Next"
+msgstr "Select \"Save definition\" and select Next"
 
-#: ../../source/documentation/calculate.rst:315
-msgid "Users can keep the default values or create unique transition values of their own."
+#: ../../source/documentation/calculate.rst:310
+msgid ""
+"Within the \"Define Degradation tab\" user define the meaning of each land "
+"cover transition in terms of degradation. The options are: stable (0), "
+"degradation (-) or improvement (+). For example, the default for cropland to"
+" cropland is 0 because the land cover stays the same and is therefore "
+"stable. The default for forest to cropland is -1 because forest is likely "
+"cut to clear way for agriculture and would be considered deforestation. The "
+"user is encouraged to thoroughly evaluate the meaning of each transition "
+"based on their knowledge of the study area, since this matrix will have an "
+"important effect on the land degradation identified by this subindicator."
 msgstr ""
+"Within the \"Define Degradation tab\" user define the meaning of each land "
+"cover transition in terms of degradation. The options are: stable (0), "
+"degradation (-) or improvement (+). For example, the default for cropland to"
+" cropland is 0 because the land cover stays the same and is therefore "
+"stable. The default for forest to cropland is -1 because forest is likely "
+"cut to clear way for agriculture and would be considered deforestation. The "
+"user is encouraged to thoroughly evaluate the meaning of each transition "
+"based on their knowledge of the study area, since this matrix will have an "
+"important effect on the land degradation identified by this subindicator."
 
-#: ../../source/documentation/calculate.rst:321
-msgid "The next step is to define the study area on which to perform the analysis. The toolbox allows this task to be completed in one of two ways:"
+#: ../../source/documentation/calculate.rst:320
+msgid ""
+"Users can keep the default values or create unique transition values of "
+"their own."
 msgstr ""
+"Users can keep the default values or create unique transition values of "
+"their own."
 
-#: ../../source/documentation/calculate.rst:324
-msgid "The user selects first (i.e. country) and second (i.e. province or state) administrative boundary from a drop-down menu."
+#: ../../source/documentation/calculate.rst:326
+msgid ""
+"The next step is to define the study area on which to perform the analysis. "
+"The toolbox allows this task to be completed in one of two ways:"
 msgstr ""
+"The next step is to define the study area on which to perform the analysis. "
+"The toolbox allows this task to be completed in one of two ways:"
 
-#: ../../source/documentation/calculate.rst:327
-msgid "The user can upload a shapefile with an area of interest."
+#: ../../source/documentation/calculate.rst:329
+msgid ""
+"The user selects first (i.e. country) and second (i.e. province or state) "
+"administrative boundary from a drop-down menu."
 msgstr ""
+"The user selects first (i.e. country) and second (i.e. province or state) "
+"administrative boundary from a drop-down menu."
 
 #: ../../source/documentation/calculate.rst:332
-#: ../../source/documentation/calculate.rst:391
-msgid "The next step is to add the task name and relevant notes for the analysis."
-msgstr ""
+msgid "The user can upload a shapefile with an area of interest."
+msgstr "The user can upload a shapefile with an area of interest."
 
-#: ../../source/documentation/calculate.rst:355
+#: ../../source/documentation/calculate.rst:337
+#: ../../source/documentation/calculate.rst:396
+msgid ""
+"The next step is to add the task name and relevant notes for the analysis."
+msgstr ""
+"The next step is to add the task name and relevant notes for the analysis."
+
+#: ../../source/documentation/calculate.rst:360
 msgid "Calculate soil carbon"
-msgstr ""
+msgstr "Calculate soil carbon"
 
-#: ../../source/documentation/calculate.rst:357
-msgid "Soil Organic Carbon is calculated as a proxy for carbon stocks. It is measured using soil data and changes in land cover."
+#: ../../source/documentation/calculate.rst:362
+msgid ""
+"Soil Organic Carbon is calculated as a proxy for carbon stocks. It is "
+"measured using soil data and changes in land cover."
 msgstr ""
+"Soil Organic Carbon is calculated as a proxy for carbon stocks. It is "
+"measured using soil data and changes in land cover."
 
-#: ../../source/documentation/calculate.rst:361
-msgid "Refer to the :ref:`indicator-soc` background information in this manual for a detailed explanation of how soil organic carbon change is computed."
+#: ../../source/documentation/calculate.rst:366
+msgid ""
+"Refer to the :ref:`indicator-soc` background information in this manual for "
+"a detailed explanation of how soil organic carbon change is computed."
 msgstr ""
-
-#: ../../source/documentation/calculate.rst:364
-msgid "To calculate degradation in soil organic carbon:"
-msgstr ""
+"Refer to the :ref:`indicator-soc` background information in this manual for "
+"a detailed explanation of how soil organic carbon change is computed."
 
 #: ../../source/documentation/calculate.rst:369
-msgid "Select Soil organic carbon button under Calculate Indicators"
-msgstr ""
+msgid "To calculate degradation in soil organic carbon:"
+msgstr "To calculate degradation in soil organic carbon:"
 
 #: ../../source/documentation/calculate.rst:374
-msgid "The Land Cover Setup tab allows the user to define the period for analysis with the baseline and target year. Users can select the Edit definition button to change the land cover aggregation method or upload a datasets."
-msgstr ""
+msgid "Select Soil organic carbon button under Calculate Indicators"
+msgstr "Select Soil organic carbon button under Calculate Indicators"
 
-#: ../../source/documentation/calculate.rst:381
-msgid "The \"Advanced\" tab allows users to specify the Climate regime."
+#: ../../source/documentation/calculate.rst:379
+msgid ""
+"The Land Cover Setup tab allows the user to define the period for analysis "
+"with the baseline and target year. Users can select the Edit definition "
+"button to change the land cover aggregation method or upload a datasets."
 msgstr ""
+"The Land Cover Setup tab allows the user to define the period for analysis "
+"with the baseline and target year. Users can select the Edit definition "
+"button to change the land cover aggregation method or upload a datasets."
 
 #: ../../source/documentation/calculate.rst:386
+msgid "The \"Advanced\" tab allows users to specify the Climate regime."
+msgstr "The \"Advanced\" tab allows users to specify the Climate regime."
+
+#: ../../source/documentation/calculate.rst:391
 msgid "Users can select an area or upload a polygon shapefile for analysis"
-msgstr ""
+msgstr "Users can select an area or upload a polygon shapefile for analysis"
 
-#: ../../source/documentation/calculate.rst:410
+#: ../../source/documentation/calculate.rst:404
+msgid ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED. Click on the task "
+"and select \"Download results\" at the bottom of the window. A pop up window"
+" will open for you to select where to save the layer and to assign it a "
+"name. Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into your current QGIS project."
+msgstr ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED. Click on the task "
+"and select \"Download results\" at the bottom of the window. A pop up window"
+" will open for you to select where to save the layer and to assign it a "
+"name. Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into your current QGIS project."
+
+#: ../../source/documentation/calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"
-msgstr ""
+msgstr "Compute SDG Indicator 15.3.1"
 
-#: ../../source/documentation/calculate.rst:413
-msgid "Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this manual for a detailed explanation of how the sub-indicators are combined to calculate the final SDG 15.3.1 indicator."
+#: ../../source/documentation/calculate.rst:418
+msgid ""
+"Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this "
+"manual for a detailed explanation of how the sub-indicators are combined to "
+"calculate the final SDG 15.3.1 indicator."
 msgstr ""
+"Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this "
+"manual for a detailed explanation of how the sub-indicators are combined to "
+"calculate the final SDG 15.3.1 indicator."
 
-#: ../../source/documentation/calculate.rst:417
-msgid "Once you have computed the three sub-indicators (productivity, land cover and soil organic carbon), and they are loaded into the QGIS project. Click on the Calculate icon (|iconCalculator|). This will open up the \"Calculate Indicator\" dialog box. This time click on Step 2 \"Calculate final SDG 15.3.1 indicator and summary table\"."
+#: ../../source/documentation/calculate.rst:422
+msgid ""
+"Once you have computed the three sub-indicators (productivity, land cover "
+"and soil organic carbon), and they are loaded into the QGIS project. Click "
+"on the Calculate icon (|iconCalculator|). This will open up the \"Calculate "
+"Indicator\" dialog box. This time click on Step 2 \"Calculate final SDG "
+"15.3.1 indicator and summary table\"."
 msgstr ""
+"Once you have computed the three sub-indicators (productivity, land cover "
+"and soil organic carbon), and they are loaded into the QGIS project. Click "
+"on the Calculate icon (|iconCalculator|). This will open up the \"Calculate "
+"Indicator\" dialog box. This time click on Step 2 \"Calculate final SDG "
+"15.3.1 indicator and summary table\"."
 
-#: ../../source/documentation/calculate.rst:423
-msgid "The input window will open already populated with the correct sub-indicators (that if you have them loaded to the QGIS map)"
+#: ../../source/documentation/calculate.rst:428
+msgid ""
+"The input window will open already populated with the correct sub-indicators"
+" (that if you have them loaded to the QGIS map)"
 msgstr ""
+"The input window will open already populated with the correct sub-indicators"
+" (that if you have them loaded to the QGIS map)"
 
-#: ../../source/documentation/calculate.rst:429
-msgid "Select the name and location where to save the output raster layer and the excel file with the areas computed."
+#: ../../source/documentation/calculate.rst:434
+msgid ""
+"Select the name and location where to save the output raster layer and the "
+"excel file with the areas computed."
 msgstr ""
-
-#: ../../source/documentation/calculate.rst:435
-msgid "Define the area of analysis. In this example, the country boundary."
-msgstr ""
+"Select the name and location where to save the output raster layer and the "
+"excel file with the areas computed."
 
 #: ../../source/documentation/calculate.rst:440
-msgid "Give a name to the task and click \"Calculate\""
-msgstr ""
+msgid "Define the area of analysis. In this example, the country boundary."
+msgstr "Define the area of analysis. In this example, the country boundary."
 
 #: ../../source/documentation/calculate.rst:445
-msgid "This calculation is run on your computer, so depending on the size of the area and the computing power of your computer, it could take a few minutes. When completed, the final SDG indicator will be loaded into the QGIS map and the Excel file with the areas will be saved in the folder you selected. when done, a message will pop up."
-msgstr ""
+msgid "Give a name to the task and click \"Calculate\""
+msgstr "Give a name to the task and click \"Calculate\""
 
-#: ../../source/documentation/calculate.rst:454
-msgid "Click OK and two layers will be loaded to your map: the **5 classes productivity** and the **SDG 15.3.1** indicators."
+#: ../../source/documentation/calculate.rst:450
+msgid ""
+"This calculation is run on your computer, so depending on the size of the "
+"area and the computing power of your computer, it could take a few minutes. "
+"When completed, the final SDG indicator will be loaded into the QGIS map and"
+" the Excel file with the areas will be saved in the folder you selected. "
+"when done, a message will pop up."
 msgstr ""
+"This calculation is run on your computer, so depending on the size of the "
+"area and the computing power of your computer, it could take a few minutes. "
+"When completed, the final SDG indicator will be loaded into the QGIS map and"
+" the Excel file with the areas will be saved in the folder you selected. "
+"when done, a message will pop up."
 
-#: ../../source/documentation/calculate.rst:460
-msgid "If you navigate to the folder you selected for storing the files, you can open the Excel files with the areas computed for each of the sub-indicators and the final SDG. NOTE: You may get an error message when opening the file, just click ok and the file will open regardless. We are working to fix this error."
+#: ../../source/documentation/calculate.rst:459
+msgid ""
+"Click OK and two layers will be loaded to your map: the **5 classes "
+"productivity** and the **SDG 15.3.1** indicators."
 msgstr ""
+"Click OK and two layers will be loaded to your map: the **5 classes "
+"productivity** and the **SDG 15.3.1** indicators."
 
+#: ../../source/documentation/calculate.rst:465
+msgid ""
+"If you navigate to the folder you selected for storing the files, you can "
+"open the Excel files with the areas computed for each of the sub-indicators "
+"and the final SDG. NOTE: You may get an error message when opening the file,"
+" just click ok and the file will open regardless. We are working to fix this"
+" error."
+msgstr ""
+"If you navigate to the folder you selected for storing the files, you can "
+"open the Excel files with the areas computed for each of the sub-indicators "
+"and the final SDG. NOTE: You may get an error message when opening the file,"
+" just click ok and the file will open regardless. We are working to fix this"
+" error."

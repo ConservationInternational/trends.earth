@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 16:03-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"PO-Revision-Date: 2018-04-04 19:03+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
@@ -63,15 +67,17 @@ msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:20
 msgid ""
-"The **Calculate Indicators** menu will open. In that window, click on "
-"**Calculate all three sub-indicators in one step** button found under Step 1"
-" - Option 1."
+"The **Calculate Indicators** menu will open. In that window, click on Land "
+"degradation indicator (SDG indicator 15.3.1)"
 msgstr ""
-"Mfumo wa Mahesabu ** ** utafunguliwa. Katika dirisha hilo, bofya kwenye ** "
-"Pata mahesabu ya viungo vidogo vitatu kwenye hatua moja ** kifungo cha "
-"kupatikana chini ya Hatua ya 1 - Chaguo 1."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:25
+msgid ""
+"Select **Calculate all three sub-indicators in one step** button found under"
+" Step 1 - Option 1."
+msgstr ""
+
+#: ../../source/training/tutorial_run_all_subindicators.rst:30
 msgid ""
 "In the **Setup** tab, select the years of analysis (2000-2015) and make sure"
 " that the **UNCCD default data** is selected, and click next."
@@ -79,7 +85,7 @@ msgstr ""
 "Katika usanidi wa ** **, chagua miaka ya uchambuzi (2000-2015) na uhakikishe"
 " kuwa ** data ya UNCCD ya default ** imechaguliwa, na bofya ijayo."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:28
+#: ../../source/training/tutorial_run_all_subindicators.rst:33
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
 "the Trends.Earth productivity indicators developed following the `UNCCD Good"
@@ -93,7 +99,7 @@ msgstr ""
 "/ files / viungo husika / 2017-10 / Good% 20Practice%20Guidance_SDG% "
 "20Indicator% 2015.3.1_Version% 201.0.pdf> `_."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:33
+#: ../../source/training/tutorial_run_all_subindicators.rst:38
 msgid ""
 "In the **Land Cover Setup** tab you have the option of using the default "
 "aggregation method proposed by the UNCCD default data or you can customize "
@@ -109,7 +115,7 @@ msgstr ""
 "kuifanya Customize, bofya ** Badilisha ufafanuzi ** na ** Kuunganisha "
 "upangilio wa data ya bima ya ardhi ** dirisha litafungua."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:38
+#: ../../source/training/tutorial_run_all_subindicators.rst:43
 msgid ""
 "In this window you will see the original ESA CCI land cover class in the "
 "column **Input class** and the final aggregation in the column **Output "
@@ -127,7 +133,7 @@ msgstr ""
 "unafikiria kuwa mpango wa uchangamfu usiowakilisha haukuwakilisha masharti "
 "ya eneo lako la kujifunza."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:40
+#: ../../source/training/tutorial_run_all_subindicators.rst:45
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
@@ -137,17 +143,17 @@ msgstr ""
 "litawaokoa muda ujao wakati wa kukimbia chombo, kwa kupakia faili ya "
 "ufafanuzi uliyohifadhiwa hapo awali."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:42
+#: ../../source/training/tutorial_run_all_subindicators.rst:47
 msgid "Click **Save** to continue"
 msgstr "Bonyeza ** Hifadhi ** ili uendelee"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:47
+#: ../../source/training/tutorial_run_all_subindicators.rst:52
 msgid "You will be back at the **Land Cover Setup** tab, click **Next**."
 msgstr ""
 "Utarudi kwenye ** Kitabu cha Jalada la Jalada la Ardhi **, bofya ** Ifuatayo"
 " **."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:52
+#: ../../source/training/tutorial_run_all_subindicators.rst:57
 msgid ""
 "The **Define Effects of Land Cover Change** tab is where you define the "
 "meaning of each land cover transition in terms of degradation. Transitions "
@@ -162,7 +168,7 @@ msgstr ""
 "yatatambuliwa kama imara, na mabadiliko ya kijani (pamoja na ishara) "
 "itajulikana kama maboresho."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:54
+#: ../../source/training/tutorial_run_all_subindicators.rst:59
 msgid ""
 "For example, by default it is considered that a pixel that changed from "
 "**Grassland** to **Tree-covered** will be considered as improved. However, "
@@ -176,14 +182,14 @@ msgstr ""
 "mchakato wa uharibifu, mabadiliko hayo yanapaswa kubadilishwa kwa eneo hilo "
 "la utafiti kwa uharibifu (minus ishara)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:56
+#: ../../source/training/tutorial_run_all_subindicators.rst:61
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
 msgstr ""
 "Ikiwa haukufanya mabadiliko yoyote kwenye tumri ya default, bonyeza tu ** "
 "Ifuatayo **."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:58
+#: ../../source/training/tutorial_run_all_subindicators.rst:63
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
@@ -193,14 +199,14 @@ msgstr ""
 "faili ... ** ili uhifadhi ufafanuzi wa matumizi ya baadaye. Kisha bonyeza **"
 " Next **."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:63
+#: ../../source/training/tutorial_run_all_subindicators.rst:68
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 "Katika eneo ** Eneo la ** ** hufafanua eneo la uchambuzi. Kuna chaguzi "
 "mbili:"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:65
+#: ../../source/training/tutorial_run_all_subindicators.rst:70
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -211,7 +217,7 @@ msgstr ""
 "hakikisha ** chaguo la eneo la Utawala ** linaelezwa, kisha uchagua Ngazi ya"
 " Kwanza (nchi) au Ngazi ya Pili (hali au jimbo kulingana na nchi)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:68
+#: ../../source/training/tutorial_run_all_subindicators.rst:73
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -225,7 +231,7 @@ msgstr ""
 "rasmi au kukubalika na Conservation International Foundation, au kwa "
 "mashirika yake ya washirika na wafadhili."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:74
+#: ../../source/training/tutorial_run_all_subindicators.rst:79
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -235,7 +241,7 @@ msgstr ""
 "watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
 "yao."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:82
+#: ../../source/training/tutorial_run_all_subindicators.rst:87
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -246,13 +252,13 @@ msgstr ""
 "Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
 "iliyohifadhiwa."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:84
+#: ../../source/training/tutorial_run_all_subindicators.rst:89
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
 msgstr "Ukichagua eneo ambalo unataka kuhesabu viashiria, bonyeza ** Next **."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:89
+#: ../../source/training/tutorial_run_all_subindicators.rst:94
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -262,19 +268,19 @@ msgstr ""
 "kufanya baadhi ya ** Vidokezo ** kutambua uchambuzi unaoendesha. Maelezo "
 "gani ambayo yanaonyesha ni ya hiari, lakini tunapendekeza kutaja:"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:91
+#: ../../source/training/tutorial_run_all_subindicators.rst:96
 msgid "Area of analysis"
 msgstr "Eneo la uchambuzi"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:92
+#: ../../source/training/tutorial_run_all_subindicators.rst:97
 msgid "Dates"
 msgstr "Tarehe"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:93
+#: ../../source/training/tutorial_run_all_subindicators.rst:98
 msgid "Indicators run"
 msgstr "Viashiria vinaendesha"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:95
+#: ../../source/training/tutorial_run_all_subindicators.rst:100
 msgid ""
 "When done, click **Calculate** and the task will be submitted to Google "
 "Earth Engine for calculations. You will notice that the **Calculate SDG "
@@ -285,7 +291,7 @@ msgstr ""
 "Engine kwa hesabu. Utaona kwamba ** Fanya kielelezo cha SDG 15.3.1 (hatua "
 "moja) ** dirisha itatoweka na utarejeshwa kwa QGIS."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:100
+#: ../../source/training/tutorial_run_all_subindicators.rst:105
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and could"
@@ -297,7 +303,7 @@ msgstr ""
 "kuchukua kati ya dakika 5 na 15 kulingana na ukubwa wa eneo la utafiti "
 "(maeneo makubwa huwa na muda mrefu)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:106
+#: ../../source/training/tutorial_run_all_subindicators.rst:111
 msgid ""
 "Refer to the :ref:`task_download` tutorial for instructions on how to check "
 "the status of the tasks submitted and for downloading results from "

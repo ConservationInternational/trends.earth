@@ -560,39 +560,47 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- // W3C // DTD HTML 4.0 // EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt; &lt;kichwa&gt; &lt;meta jina = &quot;qrichtext&quot; maudhui = &quot;1&quot; /&gt; &lt;aina ya style = &quot;text / css&quot;&gt;
-p, li { white-space: pre-wrap;}
-&lt;/ style&gt; &lt;/ kichwa &lt;&lt;style style = &quot;font-familia: &apos;MS Shell Dlg 2&apos;; ukubwa wa font: 8.25pt; font-uzito: 400; style ya style: kawaida;&quot;&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / mwenendo_earth_logo_bl_small.png&quot; /&gt; &lt;/ p&gt;
-&lt;p align = &quot;katikati&quot; style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;span style = &quot;ukubwa wa font: 12pt;&quot;&gt; Toleo VERSION_NUMBER &lt;/ span&gt; &lt;/ p&gt;
-&lt;p align = &quot;katikati&quot; style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;span style = &quot;ukubwa wa font: 12pt;&quot;&gt; Pata mwongozo wa mtumiaji hapa: &lt;/ span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt; &lt;span style = &quot;font-size : 12pt; mapambo ya maandiko: tazama: rangi: # 0000ff; &quot;&gt; http://trends.earth/docs/en &lt;/ span&gt; &lt;/a&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; trends.earth (zamani ya Uharibifu wa Ardhi Ufuatiliaji Toolbox) ni chombo cha kufuatilia mabadiliko ya ardhi. trends.earth ni &lt;/ span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt; mapambo ya maandiko: kusisitiza; rangi: # 0000ff;&quot;&gt; QGIS &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt; Plugin inayounga mkono ufuatiliaji wa mabadiliko ya ardhi, ikiwa ni pamoja na mabadiliko katika uzalishaji, kifuniko cha ardhi, na kaboni ya kaboni. Chombo hiki kinaweza kusaidia ufuatiliaji wa uharibifu wa ardhi kwa taarifa kwa Global Environment Facility (GEF) na Mkataba wa Umoja wa Mataifa wa Kupambana na Maafa ya Umoja wa Mataifa (UNCCD), pamoja na kufuatilia maendeleo kwa lengo la lengo la kudumisha lengo la maendeleo (SDG) 15.3, Utoaji wa Uharibifu wa Ardhi (LDN) ) &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; trends.earth ilitolewa kama pato la mradi unaofadhiliwa na GEF &lt;/ hanf=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt; &lt;span style = &quot; ukubwa wa maandishi: 8pt; maandiko-mapambo: kusisitiza, rangi: # 0000ff; &quot;&gt;&quot; Kuwezesha matumizi ya vyanzo vya data duniani ili kuchunguza na kufuatilia uharibifu wa ardhi kwa mizani mingi &quot;&lt;/ span&gt; &lt;/a&gt; &lt;span style =&quot; ukubwa wa font: 8pt; &quot;&gt;. Mradi unalenga kutoa mwongozo juu ya mbinu imara na chombo cha kutathmini, hali ya ufuatiliaji, na kutathmini mwenendo katika uharibifu wa ardhi kwa kutumia teknolojia ya kuhisi kijijini. &lt;/ Span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt; trends.earth ni chanzo cha bure na wazi. &lt;/ Span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt; mapambo ya maandishi: kusisitiza; rangi: # 0000ff;&quot;&gt; msimbo hupatikana kwa urahisi mtandaoni &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt;. Nambari hii inaruhusiwa chini ya Leseni ya Umma GNU General, toleo 2.0 au baadaye. &lt;/ Span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt; Bidhaa hizi za trends.earth zinapatikana chini ya Sheria ya Leseni ya Creative Commons Attribution 4.0 (&lt;/ span&gt; &lt;a href = &quot;https://creativecommons.org/licenses/by /4.0/&quot;&gt;&lt;span style = &quot;font-size: 8pt; maandishi-mapambo: kusisitiza; rangi: # 0000ff;&quot;&gt; CC BY 4.0 &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt ; &quot;&gt;). Mipaka na majina yaliyotumiwa, na majina yaliyotumiwa, katika mwenendo wa maadili hayataanishi kupitishwa rasmi au kukubaliwa na Conservation International Foundation, au mashirika yake ya washirika na wafadhili. &lt;/ Span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt; Ikiwa unakutana na mende yoyote au una masuala yoyote kwa kutumia Plugin, tafadhali wasiliana nasi kwenye &lt;/ span&gt; &lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt; &lt;style span = &quot;ukubwa wa maandishi: 8pt; mapambo ya maandishi: tazama: rangi: # 0000ff;&quot;&gt; trends.earth@conservation.org &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;font-size: 8pt;&quot;&gt;, au &lt;/ span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt; &lt;span style = &quot;font-size: 8pt; maandishi-mapambo: kusisitiza, rangi: # 0000ff;&quot; &gt; ripoti suala la github &lt;/ span&gt; &lt;/a&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt;. &lt;/ span&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;p style = &quot;- aina ya qt-aya: tupu; juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; : 0px; ukubwa wa font: 8pt; &quot;&gt; &lt;br /&gt; &lt;/ p&gt;
-&lt;border border = &quot;0&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px;&quot; upana = &quot;100%&quot; cellspacing = &quot;0&quot; cellpadding = &quot;0&quot;&gt;
+        <translation type="unfinished"/>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="../gui/DlgAbout.ui" line="23"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here: &lt;/span&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for monitoring land change. trends.earth is a &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; plugin that supports monitoring of land change, including changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth was produced as an output of the GEF-funded project &lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;“Enabling the use of global data sources to assess and monitor land degradation at multiple scales”&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The project aims to provide guidance on robust methods and a tool for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This products of trends.earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: http://trends.earth. 2018.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
 &lt;tr&gt;
-&lt;td style = &quot;wima-align: kati;&quot;&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / GEF_logo_small.png&quot; style = &quot;wima-align: kati;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
-&lt;td style = &quot;wima-align: kati;&quot;&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / CI_logo_small.png&quot; style = &quot;wima-align: kati;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
-&lt;td style = &quot;wima-align: kati;&quot;&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / LU_logo_small.png&quot; style = &quot;wima-align: kati;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
-&lt;td style = &quot;wima-align: kati;&quot;&gt;
-&lt;p align = &quot;kituo cha&quot; style = &quot;juu ya juu: 0px; chini ya chini: 0px; upande wa kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot; &gt; &lt;img src = &quot;: / plugins / LDMP / icons / NASA_logo_small.png&quot; style = &quot;wima-align: kati;&quot; /&gt; &lt;/ p&gt; &lt;/ td&gt;
-&lt;td&gt; &lt;/ td&gt; &lt;/ tr&gt; &lt;/ table&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
+&lt;td style=&quot; vertical-align:middle;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/GEF_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td style=&quot; vertical-align:middle;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/CI_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td style=&quot; vertical-align:middle;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/LU_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td style=&quot; vertical-align:middle;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1530,22 +1538,22 @@ p, li { white-space: pre-wrap;}
         <translation>Viashiria vya Hesabu</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTC.ui" line="35"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="41"/>
         <source>Step 1: Calculate forest change and total carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTC.ui" line="59"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="65"/>
         <source>Calculate carbon change spatial layers</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTC.ui" line="75"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="87"/>
         <source>Step 2: Calculate carbon change summary table</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTC.ui" line="99"/>
+        <location filename="../gui/DlgCalculateTC.ui" line="111"/>
         <source>Calculate carbon change summary table for boundary</source>
         <translation type="unfinished"/>
     </message>
@@ -1729,22 +1737,22 @@ p, li { white-space: pre-wrap;}
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrban.ui" line="35"/>
+        <location filename="../gui/DlgCalculateUrban.ui" line="41"/>
         <source>Step 1: Calculate urban change</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrban.ui" line="59"/>
+        <location filename="../gui/DlgCalculateUrban.ui" line="65"/>
         <source>Calculate urban change spatial layers</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrban.ui" line="75"/>
+        <location filename="../gui/DlgCalculateUrban.ui" line="87"/>
         <source>Step 2: Calculate urban change summary table</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrban.ui" line="99"/>
+        <location filename="../gui/DlgCalculateUrban.ui" line="111"/>
         <source>Calculate urban change summary table for city</source>
         <translation type="unfinished"/>
     </message>
@@ -2517,7 +2525,7 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Watumiaji wapya</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="166"/>
+        <location filename="../gui/DlgSettings.ui" line="172"/>
         <source>Existing users</source>
         <translation>Watumiaji wanaoishi</translation>
     </message>
@@ -2542,12 +2550,12 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Hatua ya 2: Ingiza kuingia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="190"/>
+        <location filename="../gui/DlgSettings.ui" line="196"/>
         <source>Update account</source>
         <translation>Sasisha akaunti</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="215"/>
+        <location filename="../gui/DlgSettings.ui" line="221"/>
         <source>Reset password</source>
         <translation>Weka upya nenosiri</translation>
     </message>
@@ -2989,17 +2997,17 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Mwandishi (s):</translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="131"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="137"/>
         <source>Layout</source>
         <translation>Mpangilio</translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="137"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="143"/>
         <source>Portrait</source>
         <translation>Picha</translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="147"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="153"/>
         <source>Landscape</source>
         <translation>Mazingira</translation>
     </message>
@@ -3495,12 +3503,12 @@ maeneo</translation>
 <context>
     <name>WidgetDataIOImportSelectRasterOutput</name>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="20"/>
+        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="26"/>
         <source>Output raster file (.tif)</source>
         <translation>Panga faili raster (.tif)</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="44"/>
+        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="50"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
         <translation>Bonyeza &quot;Vinjari&quot; ili kuchagua faili ...</translation>
     </message>
@@ -3510,7 +3518,7 @@ maeneo</translation>
         <translation>Fomu</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="72"/>
+        <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="78"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>

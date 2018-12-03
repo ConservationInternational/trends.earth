@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 15:51-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"PO-Revision-Date: 2018-04-04 19:03+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -53,18 +56,23 @@ msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:20
 msgid ""
-"The **Calculate Indicators** menu will open. In that window, click on "
-"**Calculate all three sub-indicators in one step** button found under Step 1"
-" - Option 1."
+"The **Calculate Indicators** menu will open. In that window, click on Land "
+"degradation indicator (SDG indicator 15.3.1)"
 msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:25
+msgid ""
+"Select **Calculate all three sub-indicators in one step** button found under"
+" Step 1 - Option 1."
+msgstr ""
+
+#: ../../source/training/tutorial_run_all_subindicators.rst:30
 msgid ""
 "In the **Setup** tab, select the years of analysis (2000-2015) and make sure"
 " that the **UNCCD default data** is selected, and click next."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:28
+#: ../../source/training/tutorial_run_all_subindicators.rst:33
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
 "the Trends.Earth productivity indicators developed following the `UNCCD Good"
@@ -73,7 +81,7 @@ msgid ""
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:33
+#: ../../source/training/tutorial_run_all_subindicators.rst:38
 msgid ""
 "In the **Land Cover Setup** tab you have the option of using the default "
 "aggregation method proposed by the UNCCD default data or you can customize "
@@ -83,7 +91,7 @@ msgid ""
 "open."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:38
+#: ../../source/training/tutorial_run_all_subindicators.rst:43
 msgid ""
 "In this window you will see the original ESA CCI land cover class in the "
 "column **Input class** and the final aggregation in the column **Output "
@@ -94,22 +102,22 @@ msgid ""
 "study area."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:40
+#: ../../source/training/tutorial_run_all_subindicators.rst:45
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
 "file you previously saved."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:42
+#: ../../source/training/tutorial_run_all_subindicators.rst:47
 msgid "Click **Save** to continue"
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:47
+#: ../../source/training/tutorial_run_all_subindicators.rst:52
 msgid "You will be back at the **Land Cover Setup** tab, click **Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:52
+#: ../../source/training/tutorial_run_all_subindicators.rst:57
 msgid ""
 "The **Define Effects of Land Cover Change** tab is where you define the "
 "meaning of each land cover transition in terms of degradation. Transitions "
@@ -118,7 +126,7 @@ msgid ""
 "transitions in green (plus sign) will be identified as improvements."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:54
+#: ../../source/training/tutorial_run_all_subindicators.rst:59
 msgid ""
 "For example, by default it is considered that a pixel that changed from "
 "**Grassland** to **Tree-covered** will be considered as improved. However, "
@@ -127,24 +135,24 @@ msgid ""
 "degradation (minus sign)."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:56
+#: ../../source/training/tutorial_run_all_subindicators.rst:61
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:58
+#: ../../source/training/tutorial_run_all_subindicators.rst:63
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
 "**Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:63
+#: ../../source/training/tutorial_run_all_subindicators.rst:68
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:65
+#: ../../source/training/tutorial_run_all_subindicators.rst:70
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -152,7 +160,7 @@ msgid ""
 "the country)."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:68
+#: ../../source/training/tutorial_run_all_subindicators.rst:73
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -161,46 +169,46 @@ msgid ""
 "contributors."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:74
+#: ../../source/training/tutorial_run_all_subindicators.rst:79
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:82
+#: ../../source/training/tutorial_run_all_subindicators.rst:87
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
 " navigate to the folder in your computer where you have the file stored."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:84
+#: ../../source/training/tutorial_run_all_subindicators.rst:89
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:89
+#: ../../source/training/tutorial_run_all_subindicators.rst:94
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:91
+#: ../../source/training/tutorial_run_all_subindicators.rst:96
 msgid "Area of analysis"
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:92
+#: ../../source/training/tutorial_run_all_subindicators.rst:97
 msgid "Dates"
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:93
+#: ../../source/training/tutorial_run_all_subindicators.rst:98
 msgid "Indicators run"
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:95
+#: ../../source/training/tutorial_run_all_subindicators.rst:100
 msgid ""
 "When done, click **Calculate** and the task will be submitted to Google "
 "Earth Engine for calculations. You will notice that the **Calculate SDG "
@@ -208,7 +216,7 @@ msgid ""
 "back to QGIS."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:100
+#: ../../source/training/tutorial_run_all_subindicators.rst:105
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and could"
@@ -216,7 +224,7 @@ msgid ""
 "(larger areas tend to take longer)."
 msgstr ""
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:106
+#: ../../source/training/tutorial_run_all_subindicators.rst:111
 msgid ""
 "Refer to the :ref:`task_download` tutorial for instructions on how to check "
 "the status of the tasks submitted and for downloading results from "

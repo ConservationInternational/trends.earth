@@ -1,15 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +45,12 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:24
 msgid ""
+"Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
+"window for this analysis."
+msgstr ""
+
+#: ../../source/documentation/calculate.rst:29
+msgid ""
 "There are several options for calculating the SDG 15.3.1 Indicator. "
 "|trends.earth| supports calculating the indicator using the same process as "
 "was used by the UNCCD for the default data provided to countries for the "
@@ -52,21 +61,21 @@ msgstr ""
 "计算可持续发展目标15.3.1指标有多种选择。 | trends.earth "
 "|支持使用与“荒漠化公约”所使用的关于为各国提供2018年报告过程的默认数据相同的程序来计算指标。该工具还支持自定义此数据，甚至可以用国家级或其他全局数据集替换个别数据集。"
 
-#: ../../source/documentation/calculate.rst:30
+#: ../../source/documentation/calculate.rst:35
 msgid ""
 "To calculate all three SDG 15.3.1 indicators in one step, using default "
 "settings for most of the indicators, click \"Calculate all three indicators "
 "in one step\"."
 msgstr "要一步计算所有三个SDG 15.3.1指标，使用大多数指标的默认设置，请单击“一步计算所有三个指标”。"
 
-#: ../../source/documentation/calculate.rst:34
+#: ../../source/documentation/calculate.rst:39
 msgid ""
 "To calculate one of the three SDG 15.3.1 indicators, using customized "
 "settings, or national-level data, click \"Productivity\", \"Land cover\", or"
 " \"Soil organic carbon\"."
 msgstr "要计算三个SDG 15.3.1指标中的一个，使用自定义设置或国家级数据，请单击“生产力”，“土地覆盖”或“土壤有机碳”。"
 
-#: ../../source/documentation/calculate.rst:38
+#: ../../source/documentation/calculate.rst:43
 msgid ""
 "To calculate a summary table showing statistics on each of the three "
 "indicators, click \"Calculate final SDG 15.3.1 indicator and summary "
@@ -75,7 +84,7 @@ msgid ""
 msgstr ""
 "要计算显示三个指标中的每一个的统计数据的汇总表，请单击“计算最终SDG 15.3.1指标和汇总表”。请注意，您必须首先使用上述选项之一计算指标。"
 
-#: ../../source/documentation/calculate.rst:43
+#: ../../source/documentation/calculate.rst:48
 msgid ""
 "To calculate a summary table showing statistics on each of the three "
 "indicators for multiple sub-divisions, click \"Calculate area summaries of a"
@@ -83,39 +92,39 @@ msgid ""
 "using one of the above options."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:48
+#: ../../source/documentation/calculate.rst:53
 msgid ""
 "There are three different indicators that are combined to create the SDG "
 "15.3.1 indicator"
 msgstr "有三个不同的指标可以组合起来创建SDG 15.3.1指标"
 
-#: ../../source/documentation/calculate.rst:51
+#: ../../source/documentation/calculate.rst:56
 msgid ""
 "Productivity: measures the trajectory, performance and state of primary "
 "productivity"
 msgstr "生产力：衡量初级生产力的轨迹，表现和状态"
 
-#: ../../source/documentation/calculate.rst:54
+#: ../../source/documentation/calculate.rst:59
 msgid ""
 "Land cover: calculates land cover change relative to a baseline period, "
 "enter a transition matrix indicating which transitions indicate degradation,"
 " stability or improvement."
 msgstr "土地覆盖：计算相对于基准期的土地覆盖变化，输入转换矩阵，指出哪些转换表明退化，稳定性或改善。"
 
-#: ../../source/documentation/calculate.rst:58
+#: ../../source/documentation/calculate.rst:63
 msgid ""
 "Soil carbon: compute changes in soil organic carbon as a consequence of "
 "changes in land cover."
 msgstr "土壤碳：作为土地覆盖变化的结果，计算土壤有机碳的变化。"
 
-#: ../../source/documentation/calculate.rst:62
+#: ../../source/documentation/calculate.rst:67
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed "
 "explanation of how each of these sub-indicators is computed in "
 "|trends.earth|"
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:66
+#: ../../source/documentation/calculate.rst:71
 msgid ""
 "There are two ways to calculate the indicators: 1) using a simplified tool "
 "that will calculate all three indicators at once, but with limited options "
@@ -124,51 +133,51 @@ msgid ""
 msgstr ""
 "有两种计算指标的方法：1）使用一个简化的工具，它将一次计算所有三个指标，但用于定制的选项有限，或者2）对每个指标提供完全控制计算方法的个别工具。"
 
-#: ../../source/documentation/calculate.rst:72
+#: ../../source/documentation/calculate.rst:77
 msgid "Calculate indicators with simplified tool"
 msgstr "用简化的工具计算指标"
 
-#: ../../source/documentation/calculate.rst:74
+#: ../../source/documentation/calculate.rst:79
 msgid ""
 "This tool allows users to calculate all three sub-indicators in one step. "
 "Select the \"Calculate all three sub-indicators in one step\" button."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:77
+#: ../../source/documentation/calculate.rst:82
 msgid ""
 "Select the parameters for Setup. The Period is the Initial and Final year "
 "for the analysis and select one of the two Land Productivity datasets. "
 "Select Next."
 msgstr "选择安装程序的参数。本期是分析的初始和最后一年，并选择两个土地生产力数据集中的一个。选择下一步。"
 
-#: ../../source/documentation/calculate.rst:84
+#: ../../source/documentation/calculate.rst:89
 msgid ""
 "Select the Land Cover dataset. The first option is the default ESA dataset."
 msgstr "选择土地覆盖数据集。第一个选项是默认的ESA数据集。"
 
-#: ../../source/documentation/calculate.rst:89
+#: ../../source/documentation/calculate.rst:94
 msgid ""
 "Select Edit definition to change the aggregation from the ESA Land Cover "
 "dataset into 7 classes."
 msgstr "选择编辑定义可将ESA Land Cover数据集中的聚合更改为7个类。"
 
-#: ../../source/documentation/calculate.rst:95
+#: ../../source/documentation/calculate.rst:100
 msgid ""
 "The second option allows users to upload a custom land cover dataset. This "
 "requires two datasets to compare change over time. Select Next."
 msgstr "第二个选项允许用户上传自定义土地覆盖数据集。这需要两个数据集来比较随时间的变化。选择下一步。"
 
-#: ../../source/documentation/calculate.rst:101
+#: ../../source/documentation/calculate.rst:106
 msgid ""
 "The user can now define the effects of land cover change and how it is "
 "classified as degrading or improving."
 msgstr "用户现在可以定义土地覆盖变化的影响以及它如何被归类为退化或改善。"
 
-#: ../../source/documentation/calculate.rst:107
+#: ../../source/documentation/calculate.rst:112
 msgid "Select an area to run the analysis or upload a shapefile boundary"
 msgstr "选择一个区域来运行分析或上传一个shapefile边界"
 
-#: ../../source/documentation/calculate.rst:110
+#: ../../source/documentation/calculate.rst:115
 msgid ""
 "The provided boundaries are from `Natural Earth "
 "<http://www.naturalearthdata.com>`_, and are in the `public domain "
@@ -180,32 +189,32 @@ msgstr ""
 "提供的边界来自`自然地球<http://www.naturalearthdata.com>`_，并位于公共领域<https://creativecommons.org/publicdomain>`_中。在Trends.Earth中使用的界限和名称以及所使用的名称并不意味着由Conservation"
 " International Foundation或其合作伙伴组织和贡献者正式认可或接受。"
 
-#: ../../source/documentation/calculate.rst:117
+#: ../../source/documentation/calculate.rst:122
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
-#: ../../source/documentation/calculate.rst:124
+#: ../../source/documentation/calculate.rst:129
 msgid "Name the task and make notes for future reference"
 msgstr "命名任务并做笔记以备将来参考"
 
-#: ../../source/documentation/calculate.rst:126
+#: ../../source/documentation/calculate.rst:131
 msgid "Click on \"Calculate\" to submit your task to Google Earth Engine"
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:133
+#: ../../source/documentation/calculate.rst:138
 msgid "Calculate productivity"
 msgstr "计算生产力"
 
-#: ../../source/documentation/calculate.rst:136
+#: ../../source/documentation/calculate.rst:141
 msgid ""
 "Refer to the :ref:`indicator-productivity` background information in this "
 "manual for a detailed explanation of how productivity is computed."
 msgstr "请参阅本手册中的：ref：`indicator-productivity`背景信息，以详细说明如何计算生产率。"
 
-#: ../../source/documentation/calculate.rst:139
+#: ../../source/documentation/calculate.rst:144
 msgid ""
 "Productivity measures the trajectory, performance and state of primary "
 "productivity using either 8km AVHRR or 250m MODIS datasets. The user can "
@@ -215,49 +224,49 @@ msgstr ""
 "生产力使用8km AVHRR或250m "
 "MODIS数据集测量初级生产力的轨迹，性能和状态。用户可以选择一个或多个指标来计算，NDVI数据集，命名任务并输入他们预期报告区域的解释说明。"
 
-#: ../../source/documentation/calculate.rst:145
+#: ../../source/documentation/calculate.rst:150
 msgid "Productivity Trajectory"
 msgstr "生产力轨迹"
 
-#: ../../source/documentation/calculate.rst:147
+#: ../../source/documentation/calculate.rst:152
 msgid ""
 "Trajectory assesses the rate of change of productivity over time. To "
 "calculate trajectory:"
 msgstr "轨迹评估随着时间的推移生产率的变化率。要计算轨迹："
 
-#: ../../source/documentation/calculate.rst:151
+#: ../../source/documentation/calculate.rst:156
 msgid ""
 "Refer to the :ref:`indicator-productivity-trajectory` section in this manual"
 " for a detailed explanation of this indicator is computed."
 msgstr "请参阅本手册中的：ref：`indicator-productivity-trajectory`部分，以计算该指标的详细说明。"
 
-#: ../../source/documentation/calculate.rst:154
+#: ../../source/documentation/calculate.rst:159
 msgid "Select an indicator to calculate"
 msgstr "选择一个指标进行计算"
 
-#: ../../source/documentation/calculate.rst:156
+#: ../../source/documentation/calculate.rst:161
 msgid "Select NDVI dataset to use and select Next"
 msgstr "选择要使用的NDVI数据集，然后选择下一步"
 
-#: ../../source/documentation/calculate.rst:159
+#: ../../source/documentation/calculate.rst:164
 msgid ""
 "The valid date range is set by the NDVI dataset selected within the first "
 "tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
 msgstr "有效日期范围由第一个选项卡中选择的NDVI数据集设置：AVHRR日期比较1982-2015和MODIS 2001-2016。"
 
-#: ../../source/documentation/calculate.rst:165
+#: ../../source/documentation/calculate.rst:170
 msgid ""
 "In the tab \"Advanced\", select the method to be used to compute the "
 "productivity trajectory analysis. The options are:"
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:169
+#: ../../source/documentation/calculate.rst:174
 msgid ""
 "Refer to the :ref:`indicator-productivity-climate-correction` information in"
 " this manual for a more detailed explanation of each of these calculations."
 msgstr "请参阅本手册中的：ref：`指标 - 生产力 - 气候 - 修正'信息，以获得对这些计算结果的更详细解释。"
 
-#: ../../source/documentation/calculate.rst:173
+#: ../../source/documentation/calculate.rst:178
 msgid ""
 "**NDVI trend**: This dataset shows the trend in annually integrated NDVI "
 "time series (2001-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
@@ -270,7 +279,7 @@ msgstr ""
 "GIMMS3g.v1）的年度综合NDVI时间序列（2001-2015）的趋势。归一化差异植被指数（NDVI）是近红外波段（NIR）与红色波段（RED）之差与这两个波段之和的比值（Rouse等，1974;"
 " Deering 1978）塔克（1979）。"
 
-#: ../../source/documentation/calculate.rst:181
+#: ../../source/documentation/calculate.rst:186
 msgid ""
 "**RUE**: is defined as the ratio between net primary production (NPP), in "
 "this case annual integrals of NDVI, and rainfall. It has been increasingly "
@@ -280,7 +289,7 @@ msgstr ""
 "** RUE "
 "**：定义为净初级生产力（NPP）（在本例中为NDVI的年积分）与降雨量之间的比率。它越来越多地用于分析干旱和半干旱生物群落中植被生产的变异性，其中降雨是植物生长的主要限制因素"
 
-#: ../../source/documentation/calculate.rst:187
+#: ../../source/documentation/calculate.rst:192
 msgid ""
 "**RESTREND**: this method attempts to adjust the NDVI signals from the "
 "effect of particular climatic drivers, such as rainfall or soil moisture, "
@@ -295,83 +304,83 @@ msgstr ""
 "**：此方法尝试使用NDVI时间序列和气候信号的逐像素线性回归，从特定气候驱动因素（如降雨或土壤湿度）的影响中调整NDVI信号。然后使用线性模型和气候数据来预测NDVI，并计算观测的和气候预测的NDVI年积分之间的残差。"
 " NDVI剩余趋势最终绘制为空间代表与气候无关的初级生产力总体趋势。"
 
-#: ../../source/documentation/calculate.rst:195
+#: ../../source/documentation/calculate.rst:200
 msgid ""
 "**WUE**: is defined as the ratio between net primary production (NPP), in "
 "this case annual integrals of NDVI, and evapotranspiration."
 msgstr "** WUE **：定义为净初级生产力（NPP）（在本例中为NDVI的年积分）与蒸散量之间的比率。"
 
-#: ../../source/documentation/calculate.rst:202
+#: ../../source/documentation/calculate.rst:207
 msgid "Productivity Performance"
 msgstr "生产力表现"
 
-#: ../../source/documentation/calculate.rst:203
+#: ../../source/documentation/calculate.rst:208
 msgid ""
 "Performance is a comparison of how productivity in an area compares to "
 "productivity in similar areas at the same point in time. To calculate "
 "performance:"
 msgstr "性能是比较同一时间点某个地区的生产力与类似地区的生产力的比较。要计算性能："
 
-#: ../../source/documentation/calculate.rst:207
+#: ../../source/documentation/calculate.rst:212
 msgid ""
 "Select the start and end year of the period of analysis  for comparison."
 msgstr "选择分析期间的开始和结束年份进行比较。"
 
-#: ../../source/documentation/calculate.rst:210
+#: ../../source/documentation/calculate.rst:215
 msgid ""
 "Refer to the :ref:`indicator-productivity-performance` section in this "
 "manual for a detailed explanation of this indicator is computed."
 msgstr "请参阅本手册中的：ref：`indicator-productivity-performance`部分，以计算该指标的详细说明。"
 
-#: ../../source/documentation/calculate.rst:214
+#: ../../source/documentation/calculate.rst:219
 msgid "Productivity State"
 msgstr "生产力状态"
 
-#: ../../source/documentation/calculate.rst:215
+#: ../../source/documentation/calculate.rst:220
 msgid ""
 "State performs a comparison of how current productivity in an area compares "
 "to past productivity. To calculate state:"
 msgstr "州对一个地区当前的生产力与过去的生产力进行比较。要计算状态："
 
-#: ../../source/documentation/calculate.rst:218
+#: ../../source/documentation/calculate.rst:223
 msgid ""
 "Define the baseline and comparison periods for the computation of the State "
 "sub-indicator."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:222
+#: ../../source/documentation/calculate.rst:227
 msgid ""
 "Refer to the :ref:`indicator-productivity-state` section in this manual for "
 "a detailed explanation of this indicator is computed."
 msgstr "请参阅本手册中的：ref：`指标 - 生产力状态`部分，以计算该指标的详细说明。"
 
-#: ../../source/documentation/calculate.rst:225
+#: ../../source/documentation/calculate.rst:230
 msgid ""
 "The next step is to define the study area on which to perform the analysis. "
 "The tool allows selecting the area of interest in one of two ways:"
 msgstr "下一步是定义进行分析的研究区域。该工具允许以两种方式之一选择感兴趣的区域："
 
-#: ../../source/documentation/calculate.rst:228
+#: ../../source/documentation/calculate.rst:233
 msgid ""
 "Selects first (i.e. country) and/or second (i.e. province or state) "
 "administrative boundary from a drop-down menu."
 msgstr "从下拉菜单中选择第一个（即国家）和/或第二个（即省或州）管理边界。"
 
-#: ../../source/documentation/calculate.rst:231
+#: ../../source/documentation/calculate.rst:236
 msgid ""
 "The user can provide a shapefile, KML, or geojson defining an area of "
 "interest. Once this is done, Select Next."
 msgstr "用户可以提供定义感兴趣区域的shapefile，KML或geojson。一旦完成，请选择下一步。"
 
-#: ../../source/documentation/calculate.rst:237
+#: ../../source/documentation/calculate.rst:242
 msgid ""
 "The next step is to write a Task name and some notes to indicate which "
 "options were selected for the analysis."
 msgstr "下一步是编写一个任务名称和一些注释，以指示选择哪些选项用于分析。"
 
-#: ../../source/documentation/calculate.rst:243
-#: ../../source/documentation/calculate.rst:337
-#: ../../source/documentation/calculate.rst:393
+#: ../../source/documentation/calculate.rst:248
+#: ../../source/documentation/calculate.rst:342
+#: ../../source/documentation/calculate.rst:398
 msgid ""
 "When all the parameters have been defined, click \"Calculate\", and the task"
 " will be submitted to Google Earth Engine for computing. When the task is "
@@ -382,9 +391,8 @@ msgstr ""
 "当所有参数定义完毕后，点击“计算”，任务将提交给Google Earth "
 "Engine进行计算。任务完成后（处理时间将根据服务器使用情况而变化，但对于大多数国家/地区大多数时间只需几分钟），您将收到一封电子邮件，通知成功完成。"
 
-#: ../../source/documentation/calculate.rst:249
-#: ../../source/documentation/calculate.rst:344
-#: ../../source/documentation/calculate.rst:399
+#: ../../source/documentation/calculate.rst:254
+#: ../../source/documentation/calculate.rst:349
 msgid ""
 "When the Google Earth Engine task has completed and you received the email, "
 "click \"Refresh List\" and the status will show FINISHED. Click on the task "
@@ -395,11 +403,11 @@ msgid ""
 msgstr ""
 "当Google地球引擎任务完成并收到电子邮件时，请点击“刷新列表”，状态将显示为“已完成”。点击任务，然后选择窗口底部的“下载结果”。弹出窗口将打开，您可以选择要保存图层的位置并为其指定名称。然后点击“保存”。该图层将保存在您的计算机上，并自动加载到您当前的QGIS项目中。"
 
-#: ../../source/documentation/calculate.rst:261
+#: ../../source/documentation/calculate.rst:266
 msgid "Calculate land cover"
 msgstr "计算土地覆盖"
 
-#: ../../source/documentation/calculate.rst:263
+#: ../../source/documentation/calculate.rst:268
 msgid ""
 "Changes in land cover is one of the indicators used to track potential land "
 "degradation which need to be reported to the UNCCD and to track progress "
@@ -414,50 +422,50 @@ msgid ""
 msgstr ""
 "土地覆盖变化是用于追踪可能出现的土地退化的指标之一，需要向“荒漠化公约”报告并跟踪实现可持续发展目标15.3.1的进展情况。尽管一些土地覆盖变化在大多数情况下表明了土地退化的过程，但对这些变化的解释在大部分情况下是特定的。因此，该指标需要用户的输入来确定土地覆盖的哪些变化将被视为退化，改善或无变化。工具箱允许用户计算相对于基准期的土地覆盖变化，输入转换矩阵，指示哪些转换表明退化，稳定性或改进。"
 
-#: ../../source/documentation/calculate.rst:275
+#: ../../source/documentation/calculate.rst:280
 msgid ""
 "Refer to the :ref:`indicator-land-cover` background information in this "
 "manual for a detailed explanation of how land cover change is computed."
 msgstr "关于如何计算土地覆盖变化的详细说明，请参阅本手册中的：ref：`指示器 - 土地覆盖率 - 背景信息。"
 
-#: ../../source/documentation/calculate.rst:278
+#: ../../source/documentation/calculate.rst:283
 msgid "To calculate the land cover change indicator:"
 msgstr "计算土地覆盖变化指标："
 
-#: ../../source/documentation/calculate.rst:280
+#: ../../source/documentation/calculate.rst:285
 msgid ""
 "Click on the Calculate Indicators button from the toolbox bar, then select "
 "Land cover."
 msgstr "点击工具箱栏中的计算指标按钮，然后选择土地覆盖。"
 
-#: ../../source/documentation/calculate.rst:286
+#: ../../source/documentation/calculate.rst:291
 msgid ""
 "Within the \"Land Cover Setup tab\" the user selects the baseline and target"
 " years"
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:291
+#: ../../source/documentation/calculate.rst:296
 msgid ""
 "The land cover aggregation can be customized using the 'Edit definition' "
 "button. The user can define their own aggregation of land cover classes from"
 " the 37 ESA land cover classes to the 7 UNCCD categories."
 msgstr "可以使用“编辑定义”按钮来定制土地覆盖集合。用户可以从37个ESA土地覆盖类到7个UNCCD类定义他们自己的土地覆盖类汇总。"
 
-#: ../../source/documentation/calculate.rst:295
+#: ../../source/documentation/calculate.rst:300
 msgid ""
 "Select the dial button for the \"Custom\" option and select \"Create new "
 "definition\""
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:298
+#: ../../source/documentation/calculate.rst:303
 msgid "Edit the aggregation suitable for the area of interest"
 msgstr "编辑适合感兴趣区域的聚合"
 
-#: ../../source/documentation/calculate.rst:300
+#: ../../source/documentation/calculate.rst:305
 msgid "Select \"Save definition\" and select Next"
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:305
+#: ../../source/documentation/calculate.rst:310
 msgid ""
 "Within the \"Define Degradation tab\" user define the meaning of each land "
 "cover transition in terms of degradation. The options are: stable (0), "
@@ -470,59 +478,59 @@ msgid ""
 "important effect on the land degradation identified by this subindicator."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:315
+#: ../../source/documentation/calculate.rst:320
 msgid ""
 "Users can keep the default values or create unique transition values of "
 "their own."
 msgstr "用户可以保留默认值或创建自己的唯一过渡值。"
 
-#: ../../source/documentation/calculate.rst:321
+#: ../../source/documentation/calculate.rst:326
 msgid ""
 "The next step is to define the study area on which to perform the analysis. "
 "The toolbox allows this task to be completed in one of two ways:"
 msgstr "下一步是定义进行分析的研究区域。工具箱允许通过以下两种方式之一来完成此任务："
 
-#: ../../source/documentation/calculate.rst:324
+#: ../../source/documentation/calculate.rst:329
 msgid ""
 "The user selects first (i.e. country) and second (i.e. province or state) "
 "administrative boundary from a drop-down menu."
 msgstr "用户从下拉菜单中选择第一个（即国家）和第二个（即省或州）管理边界。"
 
-#: ../../source/documentation/calculate.rst:327
+#: ../../source/documentation/calculate.rst:332
 msgid "The user can upload a shapefile with an area of interest."
 msgstr "用户可以上传带有感兴趣区域的shape文件。"
 
-#: ../../source/documentation/calculate.rst:332
-#: ../../source/documentation/calculate.rst:391
+#: ../../source/documentation/calculate.rst:337
+#: ../../source/documentation/calculate.rst:396
 msgid ""
 "The next step is to add the task name and relevant notes for the analysis."
 msgstr "下一步是为分析添加任务名称和相关注释。"
 
-#: ../../source/documentation/calculate.rst:355
+#: ../../source/documentation/calculate.rst:360
 msgid "Calculate soil carbon"
 msgstr "计算土壤碳"
 
-#: ../../source/documentation/calculate.rst:357
+#: ../../source/documentation/calculate.rst:362
 msgid ""
 "Soil Organic Carbon is calculated as a proxy for carbon stocks. It is "
 "measured using soil data and changes in land cover."
 msgstr "计算土壤有机碳作为碳储量的代表。它是使用土壤数据和土地覆盖变化来衡量的。"
 
-#: ../../source/documentation/calculate.rst:361
+#: ../../source/documentation/calculate.rst:366
 msgid ""
 "Refer to the :ref:`indicator-soc` background information in this manual for "
 "a detailed explanation of how soil organic carbon change is computed."
 msgstr "有关如何计算土壤有机碳变化的详细说明，请参阅本手册中的：ref：`indicator-soc`背景信息。"
 
-#: ../../source/documentation/calculate.rst:364
+#: ../../source/documentation/calculate.rst:369
 msgid "To calculate degradation in soil organic carbon:"
 msgstr "计算土壤有机碳的降解："
 
-#: ../../source/documentation/calculate.rst:369
+#: ../../source/documentation/calculate.rst:374
 msgid "Select Soil organic carbon button under Calculate Indicators"
 msgstr "在计算指标下选择土壤有机碳按钮"
 
-#: ../../source/documentation/calculate.rst:374
+#: ../../source/documentation/calculate.rst:379
 msgid ""
 "The Land Cover Setup tab allows the user to define the period for analysis "
 "with the baseline and target year. Users can select the Edit definition "
@@ -530,26 +538,36 @@ msgid ""
 msgstr ""
 "Land Cover Setup（土地覆盖设置）选项卡允许用户定义基线和目标年份的分析周期。用户可以选择编辑定义按钮来更改土地覆盖集合方法或上传数据集。"
 
-#: ../../source/documentation/calculate.rst:381
+#: ../../source/documentation/calculate.rst:386
 msgid "The \"Advanced\" tab allows users to specify the Climate regime."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:386
+#: ../../source/documentation/calculate.rst:391
 msgid "Users can select an area or upload a polygon shapefile for analysis"
 msgstr "用户可以选择一个区域或上传一个多边形shapefile进行分析"
 
-#: ../../source/documentation/calculate.rst:410
+#: ../../source/documentation/calculate.rst:404
+msgid ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED. Click on the task "
+"and select \"Download results\" at the bottom of the window. A pop up window"
+" will open for you to select where to save the layer and to assign it a "
+"name. Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into your current QGIS project."
+msgstr ""
+
+#: ../../source/documentation/calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"
 msgstr "计算SDG指标15.3.1"
 
-#: ../../source/documentation/calculate.rst:413
+#: ../../source/documentation/calculate.rst:418
 msgid ""
 "Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this "
 "manual for a detailed explanation of how the sub-indicators are combined to "
 "calculate the final SDG 15.3.1 indicator."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:417
+#: ../../source/documentation/calculate.rst:422
 msgid ""
 "Once you have computed the three sub-indicators (productivity, land cover "
 "and soil organic carbon), and they are loaded into the QGIS project. Click "
@@ -558,27 +576,27 @@ msgid ""
 "15.3.1 indicator and summary table\"."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:423
+#: ../../source/documentation/calculate.rst:428
 msgid ""
 "The input window will open already populated with the correct sub-indicators"
 " (that if you have them loaded to the QGIS map)"
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:429
+#: ../../source/documentation/calculate.rst:434
 msgid ""
 "Select the name and location where to save the output raster layer and the "
 "excel file with the areas computed."
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:435
+#: ../../source/documentation/calculate.rst:440
 msgid "Define the area of analysis. In this example, the country boundary."
 msgstr "定义分析区域。在这个例子中，国家边界。"
 
-#: ../../source/documentation/calculate.rst:440
+#: ../../source/documentation/calculate.rst:445
 msgid "Give a name to the task and click \"Calculate\""
 msgstr ""
 
-#: ../../source/documentation/calculate.rst:445
+#: ../../source/documentation/calculate.rst:450
 msgid ""
 "This calculation is run on your computer, so depending on the size of the "
 "area and the computing power of your computer, it could take a few minutes. "
@@ -588,13 +606,13 @@ msgid ""
 msgstr ""
 "此计算是在您的计算机上运行的，因此根据该区域的大小和计算机的计算能力，可能需要几分钟的时间。完成后，最终的SDG指标将被加载到QGIS地图中，带有区域的Excel文件将保存在您选择的文件夹中。完成后，会弹出一条消息。"
 
-#: ../../source/documentation/calculate.rst:454
+#: ../../source/documentation/calculate.rst:459
 msgid ""
 "Click OK and two layers will be loaded to your map: the **5 classes "
 "productivity** and the **SDG 15.3.1** indicators."
 msgstr "单击确定，将会有两个图层加载到您的地图上：** 5班生产力**和** SDG 15.3.1 **指标。"
 
-#: ../../source/documentation/calculate.rst:460
+#: ../../source/documentation/calculate.rst:465
 msgid ""
 "If you navigate to the folder you selected for storing the files, you can "
 "open the Excel files with the areas computed for each of the sub-indicators "

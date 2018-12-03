@@ -2,13 +2,13 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.59\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 09:09-0500\n"
+"POT-Creation-Date: 2018-12-01 11:09-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,307 +18,159 @@ msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:4
 msgid "Forest and Carbon Change Tool"
-msgstr "Forest and Carbon Change Tool"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:6
-msgid ""
-"**Objective**: Learn how to compute forest cover, forest loss, above and "
-"below ground biomass and emissions from deforestation in raster format and "
-"tabular outputs with areas estimated."
+msgid "**Objective**: Learn how to compute forest cover, forest loss, above and below ground biomass and emissions from deforestation in raster format and tabular outputs with areas estimated."
 msgstr ""
-"**Objective**: Learn how to compute forest cover, forest loss, above and "
-"below ground biomass and emissions from deforestation in raster format and "
-"tabular outputs with areas estimated."
 
 #: ../../source/training/tutorial_forest_carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "**Estimated time of completion**: 20 minutes"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:10
 msgid "**Internet access**: Required"
-msgstr "**Internet access**: Required"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:12
-msgid ""
-"`Download this page as a PDF for offline use "
-"<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
+msgid "`Download this page as a PDF for offline use <../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 msgstr ""
-"`Download this page as a PDF for offline use "
-"<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 
 #: ../../source/training/tutorial_forest_carbon.rst:18
 msgid "Compute and download forest and biomass data"
-msgstr "Compute and download forest and biomass data"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:20
 #: ../../source/training/tutorial_forest_carbon.rst:128
-msgid ""
-"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
-" QGIS."
+msgid "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS."
 msgstr ""
-"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
-" QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:25
 #: ../../source/training/tutorial_forest_carbon.rst:133
-msgid ""
-"The **Calculate Indicators** menu will open. In that window, click on "
-"**Calculate Calculate carbon change spatial layers** button."
+msgid "The **Calculate Indicators** menu will open. In that window, click on **Calculate Calculate carbon change spatial layers** button."
 msgstr ""
-"The **Calculate Indicators** menu will open. In that window, click on "
-"**Calculate Calculate carbon change spatial layers** button."
 
 #: ../../source/training/tutorial_forest_carbon.rst:30
-msgid ""
-"A window will appear with two steps: Step 1 is to **Calculate carbon change "
-"spatial layers**, and Step 2 is to **Calculate carbon change summary table "
-"for boundary**. Step 1 will be addressed first. If the user has already "
-"completed this process, skip to step 14 in the guide."
+msgid "A window will appear with two steps: Step 1 is to **Calculate carbon change spatial layers**, and Step 2 is to **Calculate carbon change summary table for boundary**. Step 1 will be addressed first. If the user has already completed this process, skip to step 14 in the guide."
 msgstr ""
-"A window will appear with two steps: Step 1 is to **Calculate carbon change "
-"spatial layers**, and Step 2 is to **Calculate carbon change summary table "
-"for boundary**. Step 1 will be addressed first. If the user has already "
-"completed this process, skip to step 14 in the guide."
 
 #: ../../source/training/tutorial_forest_carbon.rst:35
-msgid ""
-"After selecting Step 1, the user will fill out the desired parameters in the"
-" **Forest Definition** tab."
+msgid "After selecting Step 1, the user will fill out the desired parameters in the **Forest Definition** tab."
 msgstr ""
-"After selecting Step 1, the user will fill out the desired parameters in the"
-" **Forest Definition** tab."
 
 #: ../../source/training/tutorial_forest_carbon.rst:40
-msgid ""
-"Next, select the desired aboveground biomass dataset and the method for "
-"calculating the root to shoot ratio."
+msgid "Next, select the desired aboveground biomass dataset and the method for calculating the root to shoot ratio."
 msgstr ""
-"Next, select the desired aboveground biomass dataset and the method for "
-"calculating the root to shoot ratio."
 
 #: ../../source/training/tutorial_forest_carbon.rst:45
 #: ../../source/training/tutorial_forest_carbon.rst:153
-msgid ""
-"In the **Area** tab define the area of analysis. There are two options:"
+msgid "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
-"In the **Area** tab define the area of analysis. There are two options:"
 
 #: ../../source/training/tutorial_forest_carbon.rst:47
 #: ../../source/training/tutorial_forest_carbon.rst:155
-msgid ""
-"Use provided country and state boundaries: If you want to use this option "
-"make sure the **Administrative area** option is highlighted, and then select"
-" the First Level (country) or Second Level (state or province depending on "
-"the country)."
+msgid "Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country)."
 msgstr ""
-"Use provided country and state boundaries: If you want to use this option "
-"make sure the **Administrative area** option is highlighted, and then select"
-" the First Level (country) or Second Level (state or province depending on "
-"the country)."
 
 #: ../../source/training/tutorial_forest_carbon.rst:50
-msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+msgid "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are in the `public domain`_. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors."
 msgstr ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
 
 #: ../../source/training/tutorial_forest_carbon.rst:56
-msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
-"country."
+msgid "If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country."
 msgstr ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
-"country."
 
 #: ../../source/training/tutorial_forest_carbon.rst:64
 #: ../../source/training/tutorial_forest_carbon.rst:157
-msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+msgid "Use your own area file: If you want to use your own area of analysis, make sure the **Area from file** option is highlighted. Then click **Browse** and navigate to the folder in your computer where you have the file stored."
 msgstr ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
 
 #: ../../source/training/tutorial_forest_carbon.rst:66
 #: ../../source/training/tutorial_forest_carbon.rst:159
-msgid ""
-"When you have selected the area for which you want to compute the "
-"indicators, click **Next**."
+msgid "When you have selected the area for which you want to compute the indicators, click **Next**."
 msgstr ""
-"When you have selected the area for which you want to compute the "
-"indicators, click **Next**."
 
 #: ../../source/training/tutorial_forest_carbon.rst:71
 #: ../../source/training/tutorial_forest_carbon.rst:164
-msgid ""
-"In the **Options** tab you can define the **Task name** and make some "
-"**Notes** to identify the analysis you are running. What information to "
-"indicate is optional, but we suggest noting:"
+msgid "In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:"
 msgstr ""
-"In the **Options** tab you can define the **Task name** and make some "
-"**Notes** to identify the analysis you are running. What information to "
-"indicate is optional, but we suggest noting:"
 
 #: ../../source/training/tutorial_forest_carbon.rst:73
 #: ../../source/training/tutorial_forest_carbon.rst:166
 msgid "Area of analysis"
-msgstr "Area of analysis"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:74
 #: ../../source/training/tutorial_forest_carbon.rst:167
 msgid "Dates"
-msgstr "Dates"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:75
 #: ../../source/training/tutorial_forest_carbon.rst:168
 msgid "Indicators run"
-msgstr "Indicators run"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:80
-msgid ""
-"When done, click **Calculate** and the task will be submitted to Google "
-"Earth Engine for calculations. You will notice that the **Calculate Change "
-"in Total Carbon** window will disappear and you will be brought back to "
-"QGIS."
+msgid "When done, click **Calculate** and the task will be submitted to Google Earth Engine for calculations. You will notice that the **Calculate Change in Total Carbon** window will disappear and you will be brought back to QGIS."
 msgstr ""
-"When done, click **Calculate** and the task will be submitted to Google "
-"Earth Engine for calculations. You will notice that the **Calculate Change "
-"in Total Carbon** window will disappear and you will be brought back to "
-"QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:82
-msgid ""
-"A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
+msgid "A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer)."
 msgstr ""
-"A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
 
 #: ../../source/training/tutorial_forest_carbon.rst:88
-msgid ""
-"Refer to the :ref:`task_download` tutorial for detailed information on how "
-"to check the status of the tasks submitted and for downloading results from "
-"Trends.Earth."
+msgid "Refer to the :ref:`task_download` tutorial for detailed information on how to check the status of the tasks submitted and for downloading results from Trends.Earth."
 msgstr ""
-"Refer to the :ref:`task_download` tutorial for detailed information on how "
-"to check the status of the tasks submitted and for downloading results from "
-"Trends.Earth."
 
 #: ../../source/training/tutorial_forest_carbon.rst:93
-msgid ""
-"10. To view the Google Earth Engine (GEE) tasks you have running, and to "
-"download your results, select the cloud with the arrow facing down icon "
-"(|iconCloudDownload|). This will open up the `Download results from Earth "
-"Engine` dialog box. Select **Refresh list** to show the task."
+msgid "10. To view the Google Earth Engine (GEE) tasks you have running, and to download your results, select the cloud with the arrow facing down icon (|iconCloudDownload|). This will open up the `Download results from Earth Engine` dialog box. Select **Refresh list** to show the task."
 msgstr ""
-"10. To view the Google Earth Engine (GEE) tasks you have running, and to "
-"download your results, select the cloud with the arrow facing down icon "
-"(|iconCloudDownload|). This will open up the `Download results from Earth "
-"Engine` dialog box. Select **Refresh list** to show the task."
 
 #: ../../source/training/tutorial_forest_carbon.rst:100
-msgid ""
-"The task will state: RUNNING under the Status column if it is still "
-"processing. When the task is complete, it will say FINISHED after selecting "
-"**Refresh List** again."
+msgid "The task will state: RUNNING under the Status column if it is still processing. When the task is complete, it will say FINISHED after selecting **Refresh List** again."
 msgstr ""
-"The task will state: RUNNING under the Status column if it is still "
-"processing. When the task is complete, it will say FINISHED after selecting "
-"**Refresh List** again."
 
 #: ../../source/training/tutorial_forest_carbon.rst:105
-msgid ""
-"Once the task is FINSHED running, highlight the completed task and select "
-"**Download Results**. Save the task."
+msgid "Once the task is FINSHED running, highlight the completed task and select **Download Results**. Save the task."
 msgstr ""
-"Once the task is FINSHED running, highlight the completed task and select "
-"**Download Results**. Save the task."
 
 #: ../../source/training/tutorial_forest_carbon.rst:110
-msgid ""
-"You will see a message indicating the task is downloading. Once it is "
-"complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest "
-"loss (2000 to 2017)` outputs in the QGIS window."
+msgid "You will see a message indicating the task is downloading. Once it is complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest loss (2000 to 2017)` outputs in the QGIS window."
 msgstr ""
-"You will see a message indicating the task is downloading. Once it is "
-"complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest "
-"loss (2000 to 2017)` outputs in the QGIS window."
 
 #: ../../source/training/tutorial_forest_carbon.rst:121
-msgid ""
-"If you want, you can add some context information (e.g. country boundaries, "
-"roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for "
-"detailed information on loading a basemap."
+msgid "If you want, you can add some context information (e.g. country boundaries, roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for detailed information on loading a basemap."
 msgstr ""
-"If you want, you can add some context information (e.g. country boundaries, "
-"roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for "
-"detailed information on loading a basemap."
 
 #: ../../source/training/tutorial_forest_carbon.rst:126
 msgid "Compute summary table"
-msgstr "Compute summary table"
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:138
 msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
 msgstr ""
-"Select Step 2: **Calculate carbon change summary table for boundary**."
 
 #: ../../source/training/tutorial_forest_carbon.rst:143
 msgid "Within the **Input** tab, select an output folder and file name."
-msgstr "Within the **Input** tab, select an output folder and file name."
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:148
-msgid ""
-"Within the **Output** tab, select **Browse** to list an output folder and "
-"file name."
+msgid "Within the **Output** tab, select **Browse** to list an output folder and file name."
 msgstr ""
-"Within the **Output** tab, select **Browse** to list an output folder and "
-"file name."
 
 #: ../../source/training/tutorial_forest_carbon.rst:173
-msgid ""
-"When done, click **Calculate** and the task will be submitted to your "
-"computer locally. You will notice that the **Calculate carbon change summary"
-" table for boundary** window will disappear and you will be brought back to "
-"QGIS. A light blue bar will appear in the QGIS window. This is running "
-"locally on your computer. DO NOT select **x** or **Cancel** until the task "
-"is finished!"
+msgid "When done, click **Calculate** and the task will be submitted to your computer locally. You will notice that the **Calculate carbon change summary table for boundary** window will disappear and you will be brought back to QGIS. A light blue bar will appear in the QGIS window. This is running locally on your computer. DO NOT select **x** or **Cancel** until the task is finished!"
 msgstr ""
-"When done, click **Calculate** and the task will be submitted to your "
-"computer locally. You will notice that the **Calculate carbon change summary"
-" table for boundary** window will disappear and you will be brought back to "
-"QGIS. A light blue bar will appear in the QGIS window. This is running "
-"locally on your computer. DO NOT select **x** or **Cancel** until the task "
-"is finished!"
 
 #: ../../source/training/tutorial_forest_carbon.rst:178
 msgid "A window will appear when the summary is complete. Select **OK**."
-msgstr "A window will appear when the summary is complete. Select **OK**."
+msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:183
-msgid ""
-"If an error window appears, select the **Yes** and the summary will proceed "
-"to open."
+msgid "If an error window appears, select the **Yes** and the summary will proceed to open."
 msgstr ""
-"If an error window appears, select the **Yes** and the summary will proceed "
-"to open."
 
 #: ../../source/training/tutorial_forest_carbon.rst:188
 msgid "The summary table will appear."
-msgstr "The summary table will appear."
+msgstr ""
+

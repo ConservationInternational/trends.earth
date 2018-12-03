@@ -21,7 +21,13 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.58
+changelog=0.60
+    - Add calculation of change in urban area and population growth 
+      rate (SDG 11.3.1)
+    - Fix default button/entry field heights
+      Add city selection for AOI
+    - Add optional buffering of AOI
+  0.58
     - Add a testing section to the calculations page
     - Add testing version of total carbon (above and below-ground) and 
       emissions due to deforestation

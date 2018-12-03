@@ -16,8 +16,8 @@ from landdegradation.util import get_coords, TEImage
 from landdegradation.urban_area import urban_area
 from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 
-def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs, 
-          geojsons, EXECUTION_ID, logger):
+def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
+          crs, geojsons, EXECUTION_ID, logger):
     # Impervious surface index computed by Trends.Earth
     isi_series = ee.ImageCollection("projects/trends_earth/isi_20181024_esa").reduce(ee.Reducer.mean()) \
         .select(['isi2000_mean', 'isi2005_mean', 'isi2010_mean', 'isi2015_mean', 'isi2018_mean'],
@@ -42,15 +42,26 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
 
     urban_series = urban00.add(urban05).add(urban10).add(urban15).add(urban18)
 
-    # Gridded Population of the World Version 4, UN-Adjusted Population Density
-    gpw4_2000 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2000") \
-            .select(["population-density"], ["p2000"]).reproject(crs=proj, scale=30)
-    gpw4_2005 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2005") \
-            .select(["population-density"], ["p2005"]).reproject(crs=proj, scale=30)
-    gpw4_2010 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2010") \
-            .select(["population-density"], ["p2010"]).reproject(crs=proj, scale=30)
-    gpw4_2015 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2015") \
-            .select(["population-density"], ["p2015"]).reproject(crs=proj, scale=30)
+    if un_adju:
+        # Gridded Population of the World Version 4, UN-Adjusted Population 
+        # Density
+        gpw4_2000 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2000") \
+                .select(["population-density"], ["p2000"]).reproject(crs=proj, scale=30)
+        gpw4_2005 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2005") \
+                .select(["population-density"], ["p2005"]).reproject(crs=proj, scale=30)
+        gpw4_2010 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2010") \
+                .select(["population-density"], ["p2010"]).reproject(crs=proj, scale=30)
+        gpw4_2015 = ee.Image("CIESIN/GPWv4/unwpp-adjusted-population-density/2015") \
+                .select(["population-density"], ["p2015"]).reproject(crs=proj, scale=30)
+    else:
+        gpw4_2000 = ee.Image("CIESIN/GPWv4/population-density/2000") \
+                .select(["population-density"], ["p2000"]).reproject(crs=proj, scale=30)
+        gpw4_2005 = ee.Image("CIESIN/GPWv4/population-density/2005") \
+                .select(["population-density"], ["p2005"]).reproject(crs=proj, scale=30)
+        gpw4_2010 = ee.Image("CIESIN/GPWv4/population-density/2010") \
+                .select(["population-density"], ["p2010"]).reproject(crs=proj, scale=30)
+        gpw4_2015 = ee.Image("CIESIN/GPWv4/population-density/2015") \
+                .select(["population-density"], ["p2015"]).reproject(crs=proj, scale=30)
 
     urban_series = urban_series.where(urban_series.eq(0), 0) \
             .where(urban_series.eq(    1), 0) \
@@ -129,10 +140,10 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
                 .addBands(gpw4_2000).addBands(gpw4_2005).addBands(gpw4_2010).addBands(gpw4_2015).addBands(urban_series)
         rast_export = rast_export.unmask(-32768).int16().reproject(crs=proj, scale=30)
         this_out = TEImage(rast_export,
-            [BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2000}),
-             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2005}),
-             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2010}),
-             BandInfo("Urban", activated=False, add_to_map=True, metadata={'year': 2015}),
+            [BandInfo("Urban", metadata={'year': 2000}),
+             BandInfo("Urban", metadata={'year': 2005}),
+             BandInfo("Urban", metadata={'year': 2010}),
+             BandInfo("Urban", metadata={'year': 2015}),
              BandInfo("Population", metadata={'year': 2000}),
              BandInfo("Population", metadata={'year': 2005}),
              BandInfo("Population", metadata={'year': 2010}),
@@ -145,7 +156,7 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, crs,
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    un_adju = bool(params.get('un_adju', None))
+    un_adju = params.get('un_adju', None)
     isi_thr = float(params.get('isi_thr', None))
     ntl_thr = float(params.get('ntl_thr', None))
     wat_thr = float(params.get('wat_thr', None))
@@ -163,7 +174,7 @@ def run(params, logger):
     logger.debug("Running main script.")
     
     out = urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, 
-                crs, geojsons, EXECUTION_ID, logger)
+                un_adju, crs, geojsons, EXECUTION_ID, logger)
 
     schema = CloudResultsSchema()
     logger.debug("Deserializing")

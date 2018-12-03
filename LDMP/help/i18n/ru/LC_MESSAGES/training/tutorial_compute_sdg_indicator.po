@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 15:51-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"PO-Revision-Date: 2018-04-04 19:02+0000\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,12 +59,17 @@ msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:23
 msgid ""
-"The **Calculate Indicators** menu will open. In that window, click on "
-"**Calculate final SDG 15.3.1 spatial layer and summary table for total "
-"boundary** button found under Step 2 - Option 1."
+"The **Calculate Indicators** menu will open. In that window, click on Land "
+"degradation indicator (SDG indicator 15.3.1)"
 msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:28
+msgid ""
+"Select **Calculate final SDG 15.3.1 spatial layer and summary table for "
+"total boundary** button found under Step 2 - Option 1."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:33
 msgid ""
 "In the **Input** tab you will select each of the input layers needed for "
 "computing the final SDG 15.3.1. You ave the option of using **Trends.Earth "
@@ -72,7 +77,7 @@ msgid ""
 "default data."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:31
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:36
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
 "the Trends.Earth productivity indicators developed following the `UNCCD Good"
@@ -81,14 +86,14 @@ msgid ""
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:33
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:38
 msgid ""
 "If you have the sub-indicators loaded into the QGIS map, the tool will "
 "recognize them and they will show up pre-filled in each corresponding "
 "section."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:36
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:41
 msgid ""
 "If you have more than one layer loaded into the map per sub-indicator (for "
 "example, land cover change computed with default and also with custom data) "
@@ -96,34 +101,34 @@ msgid ""
 "one you want."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:38
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:43
 msgid ""
 "If the sub-indicators are not loaded in your QGIS map, then click **Load "
 "existing** next to each of the sub-indicators sections, and nagivate to the "
 "folder where you stored them in your computer."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:40
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:45
 msgid "When done selecting inputs, click **Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:45
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:50
 msgid ""
 "In the **Output** tab you will need to define the name and location for the "
 "final **SDG 15.3.1 indicator** and the **summary table**. Click **Browse** "
 "next to each of them to select the output location and to define names."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:50
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:55
 msgid "When done, click **Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:55
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:60
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:57
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:62
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -131,7 +136,7 @@ msgid ""
 "the country)."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:60
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:65
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -140,52 +145,52 @@ msgid ""
 "contributors."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:66
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:71
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:74
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:79
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
 " navigate to the folder in your computer where you have the file stored."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:76
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:81
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:81
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:86
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:83
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:88
 msgid "Area of analysis"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:84
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:89
 msgid "Dates"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:85
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:90
 msgid "Indicators run"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:90
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:95
 msgid ""
 "When done, click **Calculate**. A light blue bar will temporarily show, "
 "indicating that the task was successfully submitted."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:92
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:97
 msgid ""
 "This analysis will be run in your local computer, so the processing time "
 "will depend on the size of the area, resolution of the data, and the "
@@ -193,13 +198,13 @@ msgid ""
 "it to sleep while running, because the analysis will fail."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:97
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:102
 msgid ""
 "When the analysis is completed a **Success** message will notify you and the"
 " indicator will be loaded to the map."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:106
+#: ../../source/training/tutorial_compute_sdg_indicator.rst:111
 msgid ""
 "Refer to the :ref:`tut_interpret_table` section of this manual to learn how "
 "to open and interpret the information in the summary table created by this "

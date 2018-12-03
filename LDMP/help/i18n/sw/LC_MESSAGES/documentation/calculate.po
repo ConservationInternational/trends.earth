@@ -1,16 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.60\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,6 +57,12 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:24
 msgid ""
+"Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
+"window for this analysis."
+msgstr ""
+
+#: ../../source/documentation/calculate.rst:29
+msgid ""
 "There are several options for calculating the SDG 15.3.1 Indicator. "
 "|trends.earth| supports calculating the indicator using the same process as "
 "was used by the UNCCD for the default data provided to countries for the "
@@ -67,7 +77,7 @@ msgstr ""
 "kuchukua nafasi ya dasasets ya kila mtu na ngazi za kitaifa au nyingine za "
 "data za kimataifa."
 
-#: ../../source/documentation/calculate.rst:30
+#: ../../source/documentation/calculate.rst:35
 msgid ""
 "To calculate all three SDG 15.3.1 indicators in one step, using default "
 "settings for most of the indicators, click \"Calculate all three indicators "
@@ -77,7 +87,7 @@ msgstr ""
 "mipangilio ya default kwa viashiria vingi, bofya \"Piga maelekezo yote ya "
 "tatu katika hatua moja\"."
 
-#: ../../source/documentation/calculate.rst:34
+#: ../../source/documentation/calculate.rst:39
 msgid ""
 "To calculate one of the three SDG 15.3.1 indicators, using customized "
 "settings, or national-level data, click \"Productivity\", \"Land cover\", or"
@@ -87,7 +97,7 @@ msgstr ""
 "mipangilio iliyoboreshwa, au data ya ngazi ya kitaifa, bofya \"Uzalishaji\","
 " \"Bima la Ardhi\", au \"Mkaa kaboni\"."
 
-#: ../../source/documentation/calculate.rst:38
+#: ../../source/documentation/calculate.rst:43
 msgid ""
 "To calculate a summary table showing statistics on each of the three "
 "indicators, click \"Calculate final SDG 15.3.1 indicator and summary "
@@ -99,7 +109,7 @@ msgstr ""
 "muhtasari\". Kumbuka kwamba lazima kwanza uzingatie vigezo kwa kutumia moja "
 "ya chaguo hapo juu."
 
-#: ../../source/documentation/calculate.rst:43
+#: ../../source/documentation/calculate.rst:48
 msgid ""
 "To calculate a summary table showing statistics on each of the three "
 "indicators for multiple sub-divisions, click \"Calculate area summaries of a"
@@ -111,7 +121,7 @@ msgstr ""
 " raster kwenye vitengo vidogo\". Kumbuka kwamba lazima kwanza uzingatie "
 "vigezo kwa kutumia moja ya chaguo hapo juu."
 
-#: ../../source/documentation/calculate.rst:48
+#: ../../source/documentation/calculate.rst:53
 msgid ""
 "There are three different indicators that are combined to create the SDG "
 "15.3.1 indicator"
@@ -119,14 +129,14 @@ msgstr ""
 "Kuna viashiria tatu tofauti vinavyochanganywa ili kuunda kiashiria cha SDG "
 "15.3.1"
 
-#: ../../source/documentation/calculate.rst:51
+#: ../../source/documentation/calculate.rst:56
 msgid ""
 "Productivity: measures the trajectory, performance and state of primary "
 "productivity"
 msgstr ""
 "Uzalishaji: hatua ya trajectory, utendaji na hali ya uzalishaji wa msingi"
 
-#: ../../source/documentation/calculate.rst:54
+#: ../../source/documentation/calculate.rst:59
 msgid ""
 "Land cover: calculates land cover change relative to a baseline period, "
 "enter a transition matrix indicating which transitions indicate degradation,"
@@ -136,7 +146,7 @@ msgstr ""
 "kipindi cha msingi, ingiza matriko ya mpito ambayo inaonyesha mabadiliko "
 "ambayo yanaonyesha uharibifu, utulivu au kuboresha."
 
-#: ../../source/documentation/calculate.rst:58
+#: ../../source/documentation/calculate.rst:63
 msgid ""
 "Soil carbon: compute changes in soil organic carbon as a consequence of "
 "changes in land cover."
@@ -144,7 +154,7 @@ msgstr ""
 "Mchanga wa udongo: Tengeneze mabadiliko katika kaboni ya kaboni kama matokeo"
 " ya mabadiliko ya kifuniko cha ardhi."
 
-#: ../../source/documentation/calculate.rst:62
+#: ../../source/documentation/calculate.rst:67
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed "
 "explanation of how each of these sub-indicators is computed in "
@@ -154,7 +164,7 @@ msgstr ""
 "kina wa jinsi kila moja ya viashiria hivi vilivyohesabiwa katika | "
 "trends.earth |"
 
-#: ../../source/documentation/calculate.rst:66
+#: ../../source/documentation/calculate.rst:71
 msgid ""
 "There are two ways to calculate the indicators: 1) using a simplified tool "
 "that will calculate all three indicators at once, but with limited options "
@@ -166,11 +176,11 @@ msgstr ""
 "kwa chaguo mdogo kwa ajili ya uboreshaji, au 2) kwa kutumia zana binafsi kwa"
 " kila kiashiria ambacho hutoa udhibiti kamili juu ya jinsi wanavyohesabu."
 
-#: ../../source/documentation/calculate.rst:72
+#: ../../source/documentation/calculate.rst:77
 msgid "Calculate indicators with simplified tool"
 msgstr "Weka viashiria kwa chombo kilichorahisishwa"
 
-#: ../../source/documentation/calculate.rst:74
+#: ../../source/documentation/calculate.rst:79
 msgid ""
 "This tool allows users to calculate all three sub-indicators in one step. "
 "Select the \"Calculate all three sub-indicators in one step\" button."
@@ -178,7 +188,7 @@ msgstr ""
 "Chombo hiki kinawezesha watumiaji kuhesabu nambari zote tatu ndogo kwa hatua"
 " moja. Chagua \"Ondoa vifungo vyote vitatu katika kifungo kimoja\"."
 
-#: ../../source/documentation/calculate.rst:77
+#: ../../source/documentation/calculate.rst:82
 msgid ""
 "Select the parameters for Setup. The Period is the Initial and Final year "
 "for the analysis and select one of the two Land Productivity datasets. "
@@ -188,14 +198,14 @@ msgstr ""
 "uchambuzi na kuchagua mojawapo ya dasasets mbili za Uzalishaji wa Ardhi. "
 "Chagua Ijayo."
 
-#: ../../source/documentation/calculate.rst:84
+#: ../../source/documentation/calculate.rst:89
 msgid ""
 "Select the Land Cover dataset. The first option is the default ESA dataset."
 msgstr ""
 "Chagua dataset ya Jalada ya Ardhi. Chaguo la kwanza ni dataset ya ESA ya "
 "default."
 
-#: ../../source/documentation/calculate.rst:89
+#: ../../source/documentation/calculate.rst:94
 msgid ""
 "Select Edit definition to change the aggregation from the ESA Land Cover "
 "dataset into 7 classes."
@@ -203,7 +213,7 @@ msgstr ""
 "Chagua ufafanuzi wa Hifadhi ya kubadilisha uchanganyiko kutoka kwenye "
 "Dasasti ya Jalada ya Ardhi ya ESA katika vikundi 7."
 
-#: ../../source/documentation/calculate.rst:95
+#: ../../source/documentation/calculate.rst:100
 msgid ""
 "The second option allows users to upload a custom land cover dataset. This "
 "requires two datasets to compare change over time. Select Next."
@@ -212,7 +222,7 @@ msgstr ""
 "desturi. Hii inahitaji datasets mbili kulinganisha mabadiliko kwa wakati. "
 "Chagua Ijayo."
 
-#: ../../source/documentation/calculate.rst:101
+#: ../../source/documentation/calculate.rst:106
 msgid ""
 "The user can now define the effects of land cover change and how it is "
 "classified as degrading or improving."
@@ -220,11 +230,11 @@ msgstr ""
 "Mtumiaji anaweza sasa kufafanua athari za mabadiliko ya kifuniko cha ardhi "
 "na jinsi inavyogunduliwa kama kuharibu au kuboresha."
 
-#: ../../source/documentation/calculate.rst:107
+#: ../../source/documentation/calculate.rst:112
 msgid "Select an area to run the analysis or upload a shapefile boundary"
 msgstr "Chagua eneo la kukimbia uchambuzi au kupakia mipaka ya muundo"
 
-#: ../../source/documentation/calculate.rst:110
+#: ../../source/documentation/calculate.rst:115
 msgid ""
 "The provided boundaries are from `Natural Earth "
 "<http://www.naturalearthdata.com>`_, and are in the `public domain "
@@ -240,7 +250,7 @@ msgstr ""
 "kupitishwa rasmi au kukubalika na Conservation International Foundation, au "
 "kwa mashirika yake ya washirika na wafadhili."
 
-#: ../../source/documentation/calculate.rst:117
+#: ../../source/documentation/calculate.rst:122
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -250,19 +260,19 @@ msgstr ""
 "watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
 "yao."
 
-#: ../../source/documentation/calculate.rst:124
+#: ../../source/documentation/calculate.rst:129
 msgid "Name the task and make notes for future reference"
 msgstr "Jina kazi na ufanye maelezo kwa kutaja baadaye"
 
-#: ../../source/documentation/calculate.rst:126
+#: ../../source/documentation/calculate.rst:131
 msgid "Click on \"Calculate\" to submit your task to Google Earth Engine"
 msgstr "Bofya kwenye \"Tumia\" ili kuwasilisha kazi yako kwa Google Earth Engine"
 
-#: ../../source/documentation/calculate.rst:133
+#: ../../source/documentation/calculate.rst:138
 msgid "Calculate productivity"
 msgstr "Tathmini uzalishaji"
 
-#: ../../source/documentation/calculate.rst:136
+#: ../../source/documentation/calculate.rst:141
 msgid ""
 "Refer to the :ref:`indicator-productivity` background information in this "
 "manual for a detailed explanation of how productivity is computed."
@@ -270,7 +280,7 @@ msgstr ""
 "Rejea: ref: 'habari ya uzalishaji' wa habari katika mwongozo huu kwa "
 "ufafanuzi wa kina wa jinsi uzalishaji unavyohesabiwa."
 
-#: ../../source/documentation/calculate.rst:139
+#: ../../source/documentation/calculate.rst:144
 msgid ""
 "Productivity measures the trajectory, performance and state of primary "
 "productivity using either 8km AVHRR or 250m MODIS datasets. The user can "
@@ -282,11 +292,11 @@ msgstr ""
 "viashiria moja au vingi ili kuhesabu, dataset ya NDVI, jina majukumu na "
 "uingize katika maelezo ya maelezo kwa eneo la taarifa ya lengo."
 
-#: ../../source/documentation/calculate.rst:145
+#: ../../source/documentation/calculate.rst:150
 msgid "Productivity Trajectory"
 msgstr "Uzalishaji wa Trajectory"
 
-#: ../../source/documentation/calculate.rst:147
+#: ../../source/documentation/calculate.rst:152
 msgid ""
 "Trajectory assesses the rate of change of productivity over time. To "
 "calculate trajectory:"
@@ -294,7 +304,7 @@ msgstr ""
 "Trajectory inathibitisha kiwango cha mabadiliko ya tija kwa muda. Ili "
 "kuhesabu trajectory:"
 
-#: ../../source/documentation/calculate.rst:151
+#: ../../source/documentation/calculate.rst:156
 msgid ""
 "Refer to the :ref:`indicator-productivity-trajectory` section in this manual"
 " for a detailed explanation of this indicator is computed."
@@ -302,15 +312,15 @@ msgstr ""
 "Rejea: ref: `sehemu ya kiashiria-uzalishaji-trajectory` katika mwongozo huu "
 "kwa ufafanuzi wa kina wa kiashiria hiki huhesabiwa."
 
-#: ../../source/documentation/calculate.rst:154
+#: ../../source/documentation/calculate.rst:159
 msgid "Select an indicator to calculate"
 msgstr "Chagua kiashiria kuhesabu"
 
-#: ../../source/documentation/calculate.rst:156
+#: ../../source/documentation/calculate.rst:161
 msgid "Select NDVI dataset to use and select Next"
 msgstr "Chagua dataset ya NDVI ya kutumia na chagua ijayo"
 
-#: ../../source/documentation/calculate.rst:159
+#: ../../source/documentation/calculate.rst:164
 msgid ""
 "The valid date range is set by the NDVI dataset selected within the first "
 "tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
@@ -319,7 +329,7 @@ msgstr ""
 "kichupo cha kwanza: Tarehe za AVHRR zinalinganisha 1982-2015 na MODIS "
 "2001-2016."
 
-#: ../../source/documentation/calculate.rst:165
+#: ../../source/documentation/calculate.rst:170
 msgid ""
 "In the tab \"Advanced\", select the method to be used to compute the "
 "productivity trajectory analysis. The options are:"
@@ -327,7 +337,7 @@ msgstr ""
 "Katika kichupo cha \"Advanced\", chagua njia ya kutumiwa kuhesabu uchambuzi "
 "wa trajectory. Chaguo ni:"
 
-#: ../../source/documentation/calculate.rst:169
+#: ../../source/documentation/calculate.rst:174
 msgid ""
 "Refer to the :ref:`indicator-productivity-climate-correction` information in"
 " this manual for a more detailed explanation of each of these calculations."
@@ -335,7 +345,7 @@ msgstr ""
 "Rejea: ref: 'habari-uzalishaji-hali ya marekebisho` habari katika mwongozo "
 "huu kwa ufafanuzi zaidi wa kila moja ya mahesabu haya."
 
-#: ../../source/documentation/calculate.rst:173
+#: ../../source/documentation/calculate.rst:178
 msgid ""
 "**NDVI trend**: This dataset shows the trend in annually integrated NDVI "
 "time series (2001-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
@@ -351,7 +361,7 @@ msgstr ""
 "na bendi nyekundu (RED) na jumla ya bendi hizi mbili (Rouse et al., 1974; "
 "Deering 1978) na kupitiwa katika Tucker (1979)."
 
-#: ../../source/documentation/calculate.rst:181
+#: ../../source/documentation/calculate.rst:186
 msgid ""
 "**RUE**: is defined as the ratio between net primary production (NPP), in "
 "this case annual integrals of NDVI, and rainfall. It has been increasingly "
@@ -363,7 +373,7 @@ msgstr ""
 "ikizidi kutumiwa kuchambua utofauti wa uzalishaji wa mimea katika biomes "
 "kavu na nusu iliyokaa, ambapo mvua ni sababu kubwa ya ukuaji wa mimea"
 
-#: ../../source/documentation/calculate.rst:187
+#: ../../source/documentation/calculate.rst:192
 msgid ""
 "**RESTREND**: this method attempts to adjust the NDVI signals from the "
 "effect of particular climatic drivers, such as rainfall or soil moisture, "
@@ -383,7 +393,7 @@ msgstr ""
 "hatimaye umepangwa kwa spatially kuwakilisha mwelekeo wa jumla katika "
 "uzalishaji wa msingi huru wa hali ya hewa."
 
-#: ../../source/documentation/calculate.rst:195
+#: ../../source/documentation/calculate.rst:200
 msgid ""
 "**WUE**: is defined as the ratio between net primary production (NPP), in "
 "this case annual integrals of NDVI, and evapotranspiration."
@@ -392,11 +402,11 @@ msgstr ""
 "(NPP), katika kesi hii ya kila mwaka ya integrals ya NDVI, na "
 "evapotranspiration."
 
-#: ../../source/documentation/calculate.rst:202
+#: ../../source/documentation/calculate.rst:207
 msgid "Productivity Performance"
 msgstr "Ufanisi wa Utendaji"
 
-#: ../../source/documentation/calculate.rst:203
+#: ../../source/documentation/calculate.rst:208
 msgid ""
 "Performance is a comparison of how productivity in an area compares to "
 "productivity in similar areas at the same point in time. To calculate "
@@ -406,12 +416,12 @@ msgstr ""
 "uzalishaji katika maeneo sawa katika hatua sawa kwa wakati. Ili kuhesabu "
 "utendaji:"
 
-#: ../../source/documentation/calculate.rst:207
+#: ../../source/documentation/calculate.rst:212
 msgid ""
 "Select the start and end year of the period of analysis  for comparison."
 msgstr "Chagua mwanzo na mwisho wa kipindi cha uchambuzi wa kulinganisha."
 
-#: ../../source/documentation/calculate.rst:210
+#: ../../source/documentation/calculate.rst:215
 msgid ""
 "Refer to the :ref:`indicator-productivity-performance` section in this "
 "manual for a detailed explanation of this indicator is computed."
@@ -419,11 +429,11 @@ msgstr ""
 "Rejea: ref: 'sehemu ya kiashiria-utendaji' katika mwongozo huu kwa ufafanuzi"
 " wa kina wa kiashiria hiki kinahesabiwa."
 
-#: ../../source/documentation/calculate.rst:214
+#: ../../source/documentation/calculate.rst:219
 msgid "Productivity State"
 msgstr "Hali ya Uzalishaji"
 
-#: ../../source/documentation/calculate.rst:215
+#: ../../source/documentation/calculate.rst:220
 msgid ""
 "State performs a comparison of how current productivity in an area compares "
 "to past productivity. To calculate state:"
@@ -431,7 +441,7 @@ msgstr ""
 "Hali inafanya kulinganisha jinsi uzalishaji wa sasa unaofanana na uzalishaji"
 " wa zamani. Ili kuhesabu hali:"
 
-#: ../../source/documentation/calculate.rst:218
+#: ../../source/documentation/calculate.rst:223
 msgid ""
 "Define the baseline and comparison periods for the computation of the State "
 "sub-indicator."
@@ -439,7 +449,7 @@ msgstr ""
 "Eleza vipindi vya msingi na kulinganisha kwa hesabu ya kiashiria cha "
 "Serikali."
 
-#: ../../source/documentation/calculate.rst:222
+#: ../../source/documentation/calculate.rst:227
 msgid ""
 "Refer to the :ref:`indicator-productivity-state` section in this manual for "
 "a detailed explanation of this indicator is computed."
@@ -447,7 +457,7 @@ msgstr ""
 "Rejea: ref: `sehemu ya kiashiria-taifa` katika kitabu hiki kwa ufafanuzi wa "
 "kina wa kiashiria hiki kinahesabiwa."
 
-#: ../../source/documentation/calculate.rst:225
+#: ../../source/documentation/calculate.rst:230
 msgid ""
 "The next step is to define the study area on which to perform the analysis. "
 "The tool allows selecting the area of interest in one of two ways:"
@@ -455,7 +465,7 @@ msgstr ""
 "Hatua inayofuata ni kufafanua eneo la utafiti ambalo linafanya uchambuzi. "
 "Chombo kinaruhusu kuchagua eneo la maslahi kwa moja ya njia mbili:"
 
-#: ../../source/documentation/calculate.rst:228
+#: ../../source/documentation/calculate.rst:233
 msgid ""
 "Selects first (i.e. country) and/or second (i.e. province or state) "
 "administrative boundary from a drop-down menu."
@@ -463,7 +473,7 @@ msgstr ""
 "Inachagua mipaka ya kwanza ya (yaani nchi) na / au pili (yaani, jimbo au "
 "serikali) kutoka kwenye orodha ya kushuka."
 
-#: ../../source/documentation/calculate.rst:231
+#: ../../source/documentation/calculate.rst:236
 msgid ""
 "The user can provide a shapefile, KML, or geojson defining an area of "
 "interest. Once this is done, Select Next."
@@ -471,7 +481,7 @@ msgstr ""
 "Mtumiaji anaweza kutoa shaba, KML, au geojson kufafanua eneo la riba. Mara "
 "hii imefanywa, Chagua Ijayo."
 
-#: ../../source/documentation/calculate.rst:237
+#: ../../source/documentation/calculate.rst:242
 msgid ""
 "The next step is to write a Task name and some notes to indicate which "
 "options were selected for the analysis."
@@ -479,9 +489,9 @@ msgstr ""
 "Hatua inayofuata ni kuandika jina la Task na maelezo mengine ili kuonyesha "
 "chaguo ambazo zilichaguliwa kwa ajili ya uchambuzi."
 
-#: ../../source/documentation/calculate.rst:243
-#: ../../source/documentation/calculate.rst:337
-#: ../../source/documentation/calculate.rst:393
+#: ../../source/documentation/calculate.rst:248
+#: ../../source/documentation/calculate.rst:342
+#: ../../source/documentation/calculate.rst:398
 msgid ""
 "When all the parameters have been defined, click \"Calculate\", and the task"
 " will be submitted to Google Earth Engine for computing. When the task is "
@@ -495,9 +505,8 @@ msgstr ""
 "nyingi inachukua dakika chache tu mara nyingi), utapokea barua pepe "
 "kuwafahamu kukamilika kwa mafanikio."
 
-#: ../../source/documentation/calculate.rst:249
-#: ../../source/documentation/calculate.rst:344
-#: ../../source/documentation/calculate.rst:399
+#: ../../source/documentation/calculate.rst:254
+#: ../../source/documentation/calculate.rst:349
 msgid ""
 "When the Google Earth Engine task has completed and you received the email, "
 "click \"Refresh List\" and the status will show FINISHED. Click on the task "
@@ -513,11 +522,11 @@ msgstr ""
 "kwenye kompyuta yako na imewekwa kwa moja kwa moja kwenye mradi wa sasa wa "
 "QGIS."
 
-#: ../../source/documentation/calculate.rst:261
+#: ../../source/documentation/calculate.rst:266
 msgid "Calculate land cover"
 msgstr "Fanya kizuizi cha ardhi"
 
-#: ../../source/documentation/calculate.rst:263
+#: ../../source/documentation/calculate.rst:268
 msgid ""
 "Changes in land cover is one of the indicators used to track potential land "
 "degradation which need to be reported to the UNCCD and to track progress "
@@ -542,7 +551,7 @@ msgstr ""
 "ingiza matrix ya mpito ambayo inaonyesha mabadiliko ambayo yanaonyesha "
 "uharibifu, utulivu au kuboresha."
 
-#: ../../source/documentation/calculate.rst:275
+#: ../../source/documentation/calculate.rst:280
 msgid ""
 "Refer to the :ref:`indicator-land-cover` background information in this "
 "manual for a detailed explanation of how land cover change is computed."
@@ -550,11 +559,11 @@ msgstr ""
 "Rejea: ref: `habari ya kiashiria-ardhi-kifuniko` katika mwongozo huu kwa "
 "ufafanuzi wa kina kuhusu jinsi mabadiliko ya bima ya ardhi yanapohesabiwa."
 
-#: ../../source/documentation/calculate.rst:278
+#: ../../source/documentation/calculate.rst:283
 msgid "To calculate the land cover change indicator:"
 msgstr "Kuhesabu kiashiria cha mabadiliko ya kifuniko cha ardhi:"
 
-#: ../../source/documentation/calculate.rst:280
+#: ../../source/documentation/calculate.rst:285
 msgid ""
 "Click on the Calculate Indicators button from the toolbox bar, then select "
 "Land cover."
@@ -562,7 +571,7 @@ msgstr ""
 "Bofya kwenye kifungo cha Kiashiria cha Mahesabu kutoka kwenye bar ya kibao, "
 "halafu chagua kifuniko cha Ardhi."
 
-#: ../../source/documentation/calculate.rst:286
+#: ../../source/documentation/calculate.rst:291
 msgid ""
 "Within the \"Land Cover Setup tab\" the user selects the baseline and target"
 " years"
@@ -570,7 +579,7 @@ msgstr ""
 "Ndani ya \"Tabia ya Kuweka Jalada la Nchi\" mtumiaji huchagua miaka ya "
 "msingi na lengo"
 
-#: ../../source/documentation/calculate.rst:291
+#: ../../source/documentation/calculate.rst:296
 msgid ""
 "The land cover aggregation can be customized using the 'Edit definition' "
 "button. The user can define their own aggregation of land cover classes from"
@@ -581,7 +590,7 @@ msgstr ""
 "wa madarasa ya bima ya ardhi kutoka kwa madarasa 37 ya kufunika kwa ardhi ya"
 " ESA kwa makundi 7 ya UNCCD."
 
-#: ../../source/documentation/calculate.rst:295
+#: ../../source/documentation/calculate.rst:300
 msgid ""
 "Select the dial button for the \"Custom\" option and select \"Create new "
 "definition\""
@@ -589,15 +598,15 @@ msgstr ""
 "Chagua kifungo cha kupiga simu kwa chaguo la \"Desturi\" na chagua \"Unda "
 "ufafanuzi mpya\""
 
-#: ../../source/documentation/calculate.rst:298
+#: ../../source/documentation/calculate.rst:303
 msgid "Edit the aggregation suitable for the area of interest"
 msgstr "Badilisha mkusanyiko unaofaa kwa eneo la riba"
 
-#: ../../source/documentation/calculate.rst:300
+#: ../../source/documentation/calculate.rst:305
 msgid "Select \"Save definition\" and select Next"
 msgstr "Chagua \"Hifadhi ufafanuzi\" na chagua Ijayo"
 
-#: ../../source/documentation/calculate.rst:305
+#: ../../source/documentation/calculate.rst:310
 msgid ""
 "Within the \"Define Degradation tab\" user define the meaning of each land "
 "cover transition in terms of degradation. The options are: stable (0), "
@@ -619,7 +628,7 @@ msgstr ""
 "utafiti, kwa kuwa tumbo hili litakuwa na athari muhimu juu ya uharibifu wa "
 "ardhi uliotambuliwa na subindicator hii."
 
-#: ../../source/documentation/calculate.rst:315
+#: ../../source/documentation/calculate.rst:320
 msgid ""
 "Users can keep the default values or create unique transition values of "
 "their own."
@@ -627,7 +636,7 @@ msgstr ""
 "Watumiaji wanaweza kuweka maadili ya msingi au kuunda maadili ya pekee ya "
 "mpito."
 
-#: ../../source/documentation/calculate.rst:321
+#: ../../source/documentation/calculate.rst:326
 msgid ""
 "The next step is to define the study area on which to perform the analysis. "
 "The toolbox allows this task to be completed in one of two ways:"
@@ -635,7 +644,7 @@ msgstr ""
 "Hatua inayofuata ni kufafanua eneo la utafiti ambalo linafanya uchambuzi. "
 "Bodi ya zana inaruhusu kazi hii kukamilika kwa moja ya njia mbili:"
 
-#: ../../source/documentation/calculate.rst:324
+#: ../../source/documentation/calculate.rst:329
 msgid ""
 "The user selects first (i.e. country) and second (i.e. province or state) "
 "administrative boundary from a drop-down menu."
@@ -643,22 +652,22 @@ msgstr ""
 "Mtumiaji huchagua mipaka ya kwanza (yaani nchi) na pili (yaani mkoa au "
 "serikali) mipaka ya utawala kutoka kwenye orodha ya kushuka."
 
-#: ../../source/documentation/calculate.rst:327
+#: ../../source/documentation/calculate.rst:332
 msgid "The user can upload a shapefile with an area of interest."
 msgstr "Mtumiaji anaweza kupakia faili ya muundo na eneo la riba."
 
-#: ../../source/documentation/calculate.rst:332
-#: ../../source/documentation/calculate.rst:391
+#: ../../source/documentation/calculate.rst:337
+#: ../../source/documentation/calculate.rst:396
 msgid ""
 "The next step is to add the task name and relevant notes for the analysis."
 msgstr ""
 "Hatua inayofuata ni kuongeza jina la kazi na maelezo muhimu kwa uchambuzi."
 
-#: ../../source/documentation/calculate.rst:355
+#: ../../source/documentation/calculate.rst:360
 msgid "Calculate soil carbon"
 msgstr "Tumia kaboni ya udongo"
 
-#: ../../source/documentation/calculate.rst:357
+#: ../../source/documentation/calculate.rst:362
 msgid ""
 "Soil Organic Carbon is calculated as a proxy for carbon stocks. It is "
 "measured using soil data and changes in land cover."
@@ -666,7 +675,7 @@ msgstr ""
 "Soli Organic Carbon inahesabiwa kama wakala wa hisa za kaboni. Inapimwa "
 "kutumia data ya udongo na mabadiliko katika kifuniko cha ardhi."
 
-#: ../../source/documentation/calculate.rst:361
+#: ../../source/documentation/calculate.rst:366
 msgid ""
 "Refer to the :ref:`indicator-soc` background information in this manual for "
 "a detailed explanation of how soil organic carbon change is computed."
@@ -675,15 +684,15 @@ msgstr ""
 "ufafanuzi wa kina kuhusu jinsi mabadiliko ya kaboni ya kaboni "
 "yanavyohesabiwa."
 
-#: ../../source/documentation/calculate.rst:364
+#: ../../source/documentation/calculate.rst:369
 msgid "To calculate degradation in soil organic carbon:"
 msgstr "Kuhesabu uharibifu katika kaboni ya kaboni:"
 
-#: ../../source/documentation/calculate.rst:369
+#: ../../source/documentation/calculate.rst:374
 msgid "Select Soil organic carbon button under Calculate Indicators"
 msgstr "Chagua kifungo kikaboni cha kaboni chini ya Kiashiria cha Hesabu"
 
-#: ../../source/documentation/calculate.rst:374
+#: ../../source/documentation/calculate.rst:379
 msgid ""
 "The Land Cover Setup tab allows the user to define the period for analysis "
 "with the baseline and target year. Users can select the Edit definition "
@@ -694,20 +703,30 @@ msgstr ""
 "cha ufafanuzi cha Hifadhi ili kubadilisha njia ya aggregation ya ardhi au "
 "kupakia dasasets."
 
-#: ../../source/documentation/calculate.rst:381
+#: ../../source/documentation/calculate.rst:386
 msgid "The \"Advanced\" tab allows users to specify the Climate regime."
 msgstr "Tabia ya \"Advanced\" inaruhusu watumiaji kutaja utawala wa hali ya hewa."
 
-#: ../../source/documentation/calculate.rst:386
+#: ../../source/documentation/calculate.rst:391
 msgid "Users can select an area or upload a polygon shapefile for analysis"
 msgstr ""
 "Watumiaji wanaweza kuchagua eneo au kupakia muundo wa polygon kwa uchambuzi"
 
-#: ../../source/documentation/calculate.rst:410
+#: ../../source/documentation/calculate.rst:404
+msgid ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED. Click on the task "
+"and select \"Download results\" at the bottom of the window. A pop up window"
+" will open for you to select where to save the layer and to assign it a "
+"name. Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into your current QGIS project."
+msgstr ""
+
+#: ../../source/documentation/calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"
 msgstr "Tumia Kiashiria cha SDG 15.3.1"
 
-#: ../../source/documentation/calculate.rst:413
+#: ../../source/documentation/calculate.rst:418
 msgid ""
 "Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this "
 "manual for a detailed explanation of how the sub-indicators are combined to "
@@ -717,7 +736,7 @@ msgstr ""
 "mwongozo huu kwa ufafanuzi wa kina wa jinsi viashiria vidogo "
 "vinavyounganishwa kuhesabu mwisho wa SDG 15.3.1."
 
-#: ../../source/documentation/calculate.rst:417
+#: ../../source/documentation/calculate.rst:422
 msgid ""
 "Once you have computed the three sub-indicators (productivity, land cover "
 "and soil organic carbon), and they are loaded into the QGIS project. Click "
@@ -731,7 +750,7 @@ msgstr ""
 "Kiashiria\". Bonyeza wakati huu juu ya Hatua ya 2 \"Fanya kiashiria cha "
 "mwisho cha SDG 15.3.1 na meza ya muhtasari\"."
 
-#: ../../source/documentation/calculate.rst:423
+#: ../../source/documentation/calculate.rst:428
 msgid ""
 "The input window will open already populated with the correct sub-indicators"
 " (that if you have them loaded to the QGIS map)"
@@ -739,7 +758,7 @@ msgstr ""
 "Dirisha la pembejeo limefungua tayari limeishi na viashiria vyenye sahihi "
 "(kwamba ikiwa unavyobeba kwenye ramani ya QGIS)"
 
-#: ../../source/documentation/calculate.rst:429
+#: ../../source/documentation/calculate.rst:434
 msgid ""
 "Select the name and location where to save the output raster layer and the "
 "excel file with the areas computed."
@@ -747,15 +766,15 @@ msgstr ""
 "Chagua jina na mahali ambapo uhifadhi safu ya rasta ya pato na faili bora "
 "zaidi ya maeneo yaliyohesabiwa."
 
-#: ../../source/documentation/calculate.rst:435
+#: ../../source/documentation/calculate.rst:440
 msgid "Define the area of analysis. In this example, the country boundary."
 msgstr "Eleza eneo la uchambuzi. Katika mfano huu, mipaka ya nchi."
 
-#: ../../source/documentation/calculate.rst:440
+#: ../../source/documentation/calculate.rst:445
 msgid "Give a name to the task and click \"Calculate\""
 msgstr "Toa jina kwa kazi na bofya \"Weka\""
 
-#: ../../source/documentation/calculate.rst:445
+#: ../../source/documentation/calculate.rst:450
 msgid ""
 "This calculation is run on your computer, so depending on the size of the "
 "area and the computing power of your computer, it could take a few minutes. "
@@ -769,7 +788,7 @@ msgstr ""
 " ramani ya QGIS na faili ya Excel na maeneo yatahifadhiwa kwenye folda "
 "uliyochaguliwa. wakati uliofanywa, ujumbe utatokea."
 
-#: ../../source/documentation/calculate.rst:454
+#: ../../source/documentation/calculate.rst:459
 msgid ""
 "Click OK and two layers will be loaded to your map: the **5 classes "
 "productivity** and the **SDG 15.3.1** indicators."
@@ -777,7 +796,7 @@ msgstr ""
 "Bonyeza OK na tabaka mbili zitarejeshwa kwenye ramani yako: ** ** madarasa "
 "ya uzalishaji na ** na SDG 15.3.1 **."
 
-#: ../../source/documentation/calculate.rst:460
+#: ../../source/documentation/calculate.rst:465
 msgid ""
 "If you navigate to the folder you selected for storing the files, you can "
 "open the Excel files with the areas computed for each of the sub-indicators "

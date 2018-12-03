@@ -61,6 +61,13 @@ Tabby Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia Rwegasira,
 Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa Simon, Samba Sow, 
 Felly Mugizi Tusiime and John Wasige.
 
+Citation
+--------
+
+If you wish to cite |trends.earth|, please use the following citation:
+
+Trends.Earth. Conservation International. Available online at: 
+`http://trends.earth <http://trends.earth>`_. 2018.
 
 License
 -------

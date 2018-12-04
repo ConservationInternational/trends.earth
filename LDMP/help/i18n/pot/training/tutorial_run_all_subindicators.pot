@@ -2,13 +2,13 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.61\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2018-12-04 12:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,292 +18,129 @@ msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:4
 msgid "Run 1-step subindicators"
-msgstr "Run 1-step subindicators"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:6
-msgid ""
-"**Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land "
-"productivity, land cover and soil organic carbon) using Trends.Earth and the"
-" default data: LPD from JRC for land productivity, ESA CCI for land cover, "
-"and SoilGrids for soil organic carbon. In this tutorial we will use Uganda "
-"as an example, but you can choose any study area."
+msgid "**Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: LPD from JRC for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Uganda as an example, but you can choose any study area."
 msgstr ""
-"**Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land "
-"productivity, land cover and soil organic carbon) using Trends.Earth and the"
-" default data: LPD from JRC for land productivity, ESA CCI for land cover, "
-"and SoilGrids for soil organic carbon. In this tutorial we will use Uganda "
-"as an example, but you can choose any study area."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:8
 msgid "**Estimated time of completion**: 30 minutes"
-msgstr "**Estimated time of completion**: 30 minutes"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:10
 msgid "**Internet access**: Required"
-msgstr "**Internet access**: Required"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:12
-msgid ""
-"`Download this page as a PDF for off-line use "
-"<../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
+msgid "`Download this page as a PDF for off-line use <../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
 msgstr ""
-"`Download this page as a PDF for off-line use "
-"<../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:15
-msgid ""
-"Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
-"icon (|iconCalculator|)."
+msgid "Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|)."
 msgstr ""
-"Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
-"icon (|iconCalculator|)."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:20
-msgid ""
-"The **Calculate Indicators** menu will open. In that window, click on Land "
-"degradation indicator (SDG indicator 15.3.1)"
+msgid "The **Calculate Indicators** menu will open. In that window, click on Land degradation indicator (SDG indicator 15.3.1)"
 msgstr ""
-"The **Calculate Indicators** menu will open. In that window, click on Land "
-"degradation indicator (SDG indicator 15.3.1)"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:25
-msgid ""
-"Select **Calculate all three sub-indicators in one step** button found under"
-" Step 1 - Option 1."
+msgid "Select **Calculate all three sub-indicators in one step** button found under Step 1 - Option 1."
 msgstr ""
-"Select **Calculate all three sub-indicators in one step** button found under"
-" Step 1 - Option 1."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:30
-msgid ""
-"In the **Setup** tab, select the years of analysis (2000-2015) and make sure"
-" that the **UNCCD default data** is selected, and click next."
+msgid "In the **Setup** tab, select the years of analysis (2000-2015) and make sure that the **UNCCD default data** is selected, and click next."
 msgstr ""
-"In the **Setup** tab, select the years of analysis (2000-2015) and make sure"
-" that the **UNCCD default data** is selected, and click next."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:33
-msgid ""
-"Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
-"the Trends.Earth productivity indicators developed following the `UNCCD Good"
-" Practice Guidance (GPG) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+msgid "Refer to the :ref:`indicator-15-3-1` section of this manual to learn about the Trends.Earth productivity indicators developed following the `UNCCD Good Practice Guidance (GPG) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
-"the Trends.Earth productivity indicators developed following the `UNCCD Good"
-" Practice Guidance (GPG) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:38
-msgid ""
-"In the **Land Cover Setup** tab you have the option of using the default "
-"aggregation method proposed by the UNCCD default data or you can customize "
-"the aggregation of the legend from the original ESA CCI land cover classes "
-"to the 7 required for UNCCD reporting. To customize it, click on **Edit "
-"definition** and the **Setup aggregation of land cover data** window will "
-"open."
+msgid "In the **Land Cover Setup** tab you have the option of using the default aggregation method proposed by the UNCCD default data or you can customize the aggregation of the legend from the original ESA CCI land cover classes to the 7 required for UNCCD reporting. To customize it, click on **Edit definition** and the **Setup aggregation of land cover data** window will open."
 msgstr ""
-"In the **Land Cover Setup** tab you have the option of using the default "
-"aggregation method proposed by the UNCCD default data or you can customize "
-"the aggregation of the legend from the original ESA CCI land cover classes "
-"to the 7 required for UNCCD reporting. To customize it, click on **Edit "
-"definition** and the **Setup aggregation of land cover data** window will "
-"open."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:43
-msgid ""
-"In this window you will see the original ESA CCI land cover class in the "
-"column **Input class** and the final aggregation in the column **Output "
-"class**. To change the output class simply click in the drop down arrow next"
-" to the color, and select the final output class you want the input class to"
-" be reassigned to. Note that this step is only needed if you consider that "
-"the default aggregation scheme does not represent the conditions of your "
-"study area."
+msgid "In this window you will see the original ESA CCI land cover class in the column **Input class** and the final aggregation in the column **Output class**. To change the output class simply click in the drop down arrow next to the color, and select the final output class you want the input class to be reassigned to. Note that this step is only needed if you consider that the default aggregation scheme does not represent the conditions of your study area."
 msgstr ""
-"In this window you will see the original ESA CCI land cover class in the "
-"column **Input class** and the final aggregation in the column **Output "
-"class**. To change the output class simply click in the drop down arrow next"
-" to the color, and select the final output class you want the input class to"
-" be reassigned to. Note that this step is only needed if you consider that "
-"the default aggregation scheme does not represent the conditions of your "
-"study area."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:45
-msgid ""
-"When you are done editing, click **Save definition file**. This option will "
-"save you time next time you run the tool, by simply loading the definition "
-"file you previously saved."
+msgid "When you are done editing, click **Save definition file**. This option will save you time next time you run the tool, by simply loading the definition file you previously saved."
 msgstr ""
-"When you are done editing, click **Save definition file**. This option will "
-"save you time next time you run the tool, by simply loading the definition "
-"file you previously saved."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:47
 msgid "Click **Save** to continue"
-msgstr "Click **Save** to continue"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:52
 msgid "You will be back at the **Land Cover Setup** tab, click **Next**."
-msgstr "You will be back at the **Land Cover Setup** tab, click **Next**."
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:57
-msgid ""
-"The **Define Effects of Land Cover Change** tab is where you define the "
-"meaning of each land cover transition in terms of degradation. Transitions "
-"indicated in red (minus sign) will be identified as degradation in the final"
-" output, transitions in beige (zero) will be identified as stable, and "
-"transitions in green (plus sign) will be identified as improvements."
+msgid "The **Define Effects of Land Cover Change** tab is where you define the meaning of each land cover transition in terms of degradation. Transitions indicated in red (minus sign) will be identified as degradation in the final output, transitions in beige (zero) will be identified as stable, and transitions in green (plus sign) will be identified as improvements."
 msgstr ""
-"The **Define Effects of Land Cover Change** tab is where you define the "
-"meaning of each land cover transition in terms of degradation. Transitions "
-"indicated in red (minus sign) will be identified as degradation in the final"
-" output, transitions in beige (zero) will be identified as stable, and "
-"transitions in green (plus sign) will be identified as improvements."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:59
-msgid ""
-"For example, by default it is considered that a pixel that changed from "
-"**Grassland** to **Tree-covered** will be considered as improved. However, "
-"if in your study area woody plant encroachment is a degradation process, "
-"that transition should be changed for that particular study area to "
-"degradation (minus sign)."
+msgid "For example, by default it is considered that a pixel that changed from **Grassland** to **Tree-covered** will be considered as improved. However, if in your study area woody plant encroachment is a degradation process, that transition should be changed for that particular study area to degradation (minus sign)."
 msgstr ""
-"For example, by default it is considered that a pixel that changed from "
-"**Grassland** to **Tree-covered** will be considered as improved. However, "
-"if in your study area woody plant encroachment is a degradation process, "
-"that transition should be changed for that particular study area to "
-"degradation (minus sign)."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:61
-msgid ""
-"If you have made no changes to the default matrix, simply click **Next**."
+msgid "If you have made no changes to the default matrix, simply click **Next**."
 msgstr ""
-"If you have made no changes to the default matrix, simply click **Next**."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:63
-msgid ""
-"If you did change the meaning of some of the transitions, click on **Save "
-"table to file...** to save the definition for later use. Then click "
-"**Next**."
+msgid "If you did change the meaning of some of the transitions, click on **Save table to file...** to save the definition for later use. Then click **Next**."
 msgstr ""
-"If you did change the meaning of some of the transitions, click on **Save "
-"table to file...** to save the definition for later use. Then click "
-"**Next**."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:68
-msgid ""
-"In the **Area** tab define the area of analysis. There are two options:"
+msgid "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
-"In the **Area** tab define the area of analysis. There are two options:"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:70
-msgid ""
-"Use provided country and state boundaries: If you want to use this option "
-"make sure the **Administrative area** option is highlighted, and then select"
-" the First Level (country) or Second Level (state or province depending on "
-"the country)."
+msgid "Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country)."
 msgstr ""
-"Use provided country and state boundaries: If you want to use this option "
-"make sure the **Administrative area** option is highlighted, and then select"
-" the First Level (country) or Second Level (state or province depending on "
-"the country)."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:73
-msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+msgid "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are in the `public domain`_. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors."
 msgstr ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:79
-msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
-"country."
+msgid "If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country."
 msgstr ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
-"country."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:87
-msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+msgid "Use your own area file: If you want to use your own area of analysis, make sure the **Area from file** option is highlighted. Then click **Browse** and navigate to the folder in your computer where you have the file stored."
 msgstr ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:89
-msgid ""
-"When you have selected the area for which you want to compute the "
-"indicators, click **Next**."
+msgid "When you have selected the area for which you want to compute the indicators, click **Next**."
 msgstr ""
-"When you have selected the area for which you want to compute the "
-"indicators, click **Next**."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:94
-msgid ""
-"In the **Options** tab you can define the **Task name** and make some "
-"**Notes** to identify the analysis you are running. What information to "
-"indicate is optional, but we suggest noting:"
+msgid "In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:"
 msgstr ""
-"In the **Options** tab you can define the **Task name** and make some "
-"**Notes** to identify the analysis you are running. What information to "
-"indicate is optional, but we suggest noting:"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:96
 msgid "Area of analysis"
-msgstr "Area of analysis"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:97
 msgid "Dates"
-msgstr "Dates"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:98
 msgid "Indicators run"
-msgstr "Indicators run"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:100
-msgid ""
-"When done, click **Calculate** and the task will be submitted to Google "
-"Earth Engine for calculations. You will notice that the **Calculate SDG "
-"15.3.1 indicator (one-step)** window will disappear and you will be brought "
-"back to QGIS."
+msgid "When done, click **Calculate** and the task will be submitted to Google Earth Engine for calculations. You will notice that the **Calculate SDG 15.3.1 indicator (one-step)** window will disappear and you will be brought back to QGIS."
 msgstr ""
-"When done, click **Calculate** and the task will be submitted to Google "
-"Earth Engine for calculations. You will notice that the **Calculate SDG "
-"15.3.1 indicator (one-step)** window will disappear and you will be brought "
-"back to QGIS."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:105
-msgid ""
-"A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
+msgid "A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer)."
 msgstr ""
-"A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and could"
-" take between 5 and 15 minutes depending on the size of the study area "
-"(larger areas tend to take longer)."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:111
-msgid ""
-"Refer to the :ref:`task_download` tutorial for instructions on how to check "
-"the status of the tasks submitted and for downloading results from "
-"Trends.Earth."
+msgid "Refer to the :ref:`task_download` tutorial for instructions on how to check the status of the tasks submitted and for downloading results from Trends.Earth."
 msgstr ""
-"Refer to the :ref:`task_download` tutorial for instructions on how to check "
-"the status of the tasks submitted and for downloading results from "
-"Trends.Earth."
+

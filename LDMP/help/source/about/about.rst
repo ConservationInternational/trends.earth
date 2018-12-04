@@ -1,5 +1,5 @@
-﻿About
-=====
+﻿General information
+===================
 
 |trends.earth| was produced as part of the project "Enabling the use of global 
 data sources to assess and monitor land degradation at multiple scales", funded 

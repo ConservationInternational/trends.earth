@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgCalculateTCSummaryTable</class>
- <widget class="QDialog" name="DlgCalculateTCSummaryTable">
+ <class>DlgCalculateRestBiomassSummaryTable</class>
+ <widget class="QDialog" name="DlgCalculateRestBiomassSummaryTable">
   <property name="geometry">
    <rect>
     <x>0</x>

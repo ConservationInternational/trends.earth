@@ -80,23 +80,24 @@ def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
       
         logger.debug("Setting up output for terrestrial restoration.")
         out = TEImage(output,
-                      [BandInfo("Biomass (tons CO2e per ha)", add_to_map=True),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Natural regeneration'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Agroforestry'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Teak plantation'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Eucalyptus plantation'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Oak plantation'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Other broadleaf plantation'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Pine plantation'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Conifer plantation'})])
+                      [BandInfo("Biomass (tonnes CO2e per ha)", add_to_map=True,
+                           metadata={'year': 'current'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'natural regeneration'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'agroforestry'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'teak plantation'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'eucalyptus plantation'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'oak plantation'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'other broadleaf plantation'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'pine plantation'}),
+                       BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                           metadata={'years': length_yr, 'type': 'conifer plantation'})])
     elif rest_type == "coastal":
         if length_yr <= 20:
             d_mshrr = mshrr0020.multiply(length_yr).subtract(current_co2)
@@ -111,11 +112,12 @@ def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
       
         logger.debug("Setting up output for coastal restoration.")
         out = TEImage(current_co2.addBands(d_mshrr).addBands(d_mtrer).rename(['current','mshrr','mtrer']),
-                      [BandInfo("Biomass (tons CO2e per ha)", add_to_map=True),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Mangrove shrub'}),
-                       BandInfo("Biomass difference (tons CO2e per ha)", metadata={'type': 'restoration',
-                                                                                   'type_restoration': 'Mangrove tree'})])
+                [BandInfo("Biomass (tonnes CO2e per ha)", add_to_map=True,
+                    metadata={'year': 'current'}),
+                 BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                    metadata={'years': length_yr, 'type': 'mangrove shrub'}),
+                 BandInfo("Restoration biomass difference (tonnes CO2e per ha)",
+                    metadata={'years': length_yr, 'type': 'mangrove tree'})])
     else:
         raise
 

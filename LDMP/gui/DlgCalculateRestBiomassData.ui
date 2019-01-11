@@ -56,7 +56,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton_rest_type_marine">
+           <widget class="QRadioButton" name="radioButton_rest_type_coastal">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -64,7 +64,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Marine (mangrove)</string>
+             <string>Coastal (mangrove)</string>
             </property>
             <property name="checked">
              <bool>false</bool>

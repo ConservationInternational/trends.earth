@@ -400,5 +400,31 @@
             "max": {"color": "#FDE629"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
+    },
+    "Biomass (tonnes CO2e per ha)": {
+        "title": "biomass_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Restoration biomass difference (tonnes CO2e per ha)": {
+        "title": "biomass_difference_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
     }
 }

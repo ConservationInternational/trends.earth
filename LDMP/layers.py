@@ -171,7 +171,11 @@ style_text_dict = {
     'urban_rural_open_space_water': tr('Open space (rural, water)'),
 
     # Population
-    'population_title': tr('Population ({year})')
+    'population_title': tr('Population ({year})'),
+
+    # Biomass
+    'biomass_title': tr('Biomass (tonnes CO2e per ha, {year})'),
+    'biomass_difference_title': tr('Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)')
 }
 
 
@@ -299,8 +303,8 @@ def add_layer(f, band_number, band_info, activated='default'):
     except KeyError:
         QtGui.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr(u'Trends.Earth does not have a style assigned for "{}" in {}. To use this layer, manually add it to your map.'.format(band_info['name'], f)))
-        log(u'No style found for "{}" in {}'.format(band_info['name'], f))
+                                      tr(u'Trends.Earth does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], f)))
+        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, f))
         return False
 
     title = get_band_title(band_info)

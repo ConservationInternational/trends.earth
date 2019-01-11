@@ -52,5 +52,9 @@
     "urban-area": {
         "script version": "0.61",
         "description": "Calculate urban area."
+    },
+    "restoration-biomass": {
+        "script version": "0.61",
+        "description": "Calculate potential change in biomass with restoration."
     }
 }

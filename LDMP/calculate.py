@@ -490,10 +490,10 @@ class DlgCalculateRestBiomass(QtGui.QDialog, Ui_DlgCalculateRestBiomass):
         self.dlg_calculate_rest_biomass_data = DlgCalculateRestBiomassData()
         self.dlg_calculate_rest_biomass_summary = DlgCalculateRestBiomassSummaryTable()
 
-        self.btn_calculate_carbon_change.clicked.connect(self.btn_calculate_carbon_change_clicked)
+        self.btn_calculate_rest_biomass_change.clicked.connect(self.btn_calculate_rest_biomass_change_clicked)
         self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
 
-    def btn_calculate_carbon_change_clicked(self):
+    def btn_calculate_rest_biomass_change_clicked(self):
         self.close()
         result = self.dlg_calculate_rest_biomass_data.exec_()
 

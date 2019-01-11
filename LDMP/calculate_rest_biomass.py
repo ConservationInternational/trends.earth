@@ -68,8 +68,8 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
     def get_rest_type(self):
         if self.radioButton_rest_type_terrestrial.isChecked():
             return "terrestrial"
-        elif self.radioButton_rest_type_marine.isChecked():
-            return "marine"
+        elif self.radioButton_rest_type_coastal.isChecked():
+            return "coastal"
         else:
             # Should never get here
             raise
@@ -104,11 +104,11 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Total carbon submitted to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Restoration biomass change submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
+                           QtGui.QApplication.translate("LDMP", "Unable to submit restoration biomass change task to Google Earth Engine."),
                            level=0, duration=5)
 
 class RestBiomassSummaryWorker(AbstractWorker):

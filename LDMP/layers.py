@@ -299,7 +299,7 @@ def add_layer(f, band_number, band_info, activated='default'):
     except KeyError:
         QtGui.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr(u'Trends.Earth does not have a style assigned for "{}" in {}. To use this layer, manually add it to your map.'.format(styles[band_info['name']], f)))
+                                      tr(u'Trends.Earth does not have a style assigned for "{}" in {}. To use this layer, manually add it to your map.'.format(band_info['name'], f)))
         log(u'No style found for "{}" in {}'.format(band_info['name'], f))
         return False
 

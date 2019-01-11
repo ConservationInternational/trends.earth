@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>818</width>
-    <height>839</height>
+    <width>655</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Calculate Change in Total Carbon</string>
+   <string>Estimate Likely Change in Biomass Due to Restoration</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -34,315 +34,21 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="ForestDefinitionTab">
+     <widget class="QWidget" name="ApproachTab">
       <attribute name="title">
-       <string>Forest Definition</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QRadioButton" name="use_hansen">
-         <property name="text">
-          <string>Hansen et. al. Global Forest Change product (30 m resolution)</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_hansen_period">
-         <property name="title">
-          <string>Period</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <item row="1" column="1">
-           <widget class="QDateEdit" name="hansen_tg_year">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>120</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="date">
-             <date>
-              <year>2015</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
-            <property name="minimumDateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </datetime>
-            </property>
-            <property name="maximumDate">
-             <date>
-              <year>2030</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
-            <property name="minimumDate">
-             <date>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
-            <property name="displayFormat">
-             <string notr="true">yyyy</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QDateEdit" name="hansen_bl_year">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>120</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="date">
-             <date>
-              <year>2001</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
-            <property name="maximumDate">
-             <date>
-              <year>2015</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
-            <property name="minimumDate">
-             <date>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
-            <property name="displayFormat">
-             <string notr="true">yyyy</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <weight>50</weight>
-              <bold>false</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Initial year:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_3">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Target year:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_hansen_threshold">
-         <property name="title">
-          <string>Percent forest cover considered forest</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QSpinBox" name="hansen_fc_threshold">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string/>
-            </property>
-            <property name="suffix">
-             <string>%</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="value">
-             <number>9</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="use_custom">
-         <property name="text">
-          <string>Custom forest cover dataset</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_custom_bl">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="title">
-          <string>Initial layer (initial year)</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="1">
-           <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_initial">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="layer_type" stdset="0">
-             <string notr="true">Land cover (7 class)</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_custom_tg">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="title">
-          <string>Final layer (target year)</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="1">
-           <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_final">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="layer_type" stdset="0">
-             <string notr="true">Land cover (7 class)</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="MethodTab">
-      <attribute name="title">
-       <string>Method</string>
+       <string>Approach</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Aboveground biomass dataset</string>
+          <string>Type of restoration</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
+           <widget class="QRadioButton" name="radioButton_rest_type_terrestrial">
             <property name="text">
-             <string>Default Woods Hole Research Center (30 m resolution, tropics only)</string>
+             <string>Terrestrial</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -350,7 +56,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton_carbon_geocarbon">
+           <widget class="QRadioButton" name="radioButton_rest_type_marine">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -358,45 +64,10 @@
              </size>
             </property>
             <property name="text">
-             <string>GEOCARBON (1 km resolution, global)</string>
+             <string>Marine (mangrove)</string>
             </property>
             <property name="checked">
              <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_carbon_custom">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Custom dataset - COMING SOON!</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="layer_type" stdset="0">
-             <string notr="true">Productivity trajectory (significance)</string>
             </property>
            </widget>
           </item>
@@ -406,26 +77,25 @@
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Method for calculation of root to shoot ratio</string>
+          <string>Number of years since restoration</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QRadioButton" name="radioButton_rootshoot_ipcc">
-            <property name="enabled">
-             <bool>true</bool>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QSpinBox" name="spinBox_years">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
             </property>
-            <property name="text">
-             <string>IPCC</string>
+            <property name="minimum">
+             <number>1</number>
             </property>
-            <property name="checked">
-             <bool>true</bool>
+            <property name="maximum">
+             <number>100</number>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
-            <property name="text">
-             <string>Mokany et al. 2006</string>
+            <property name="value">
+             <number>20</number>
             </property>
            </widget>
           </item>
@@ -512,18 +182,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>WidgetDataIOSelectTELayerImport</class>
-   <extends>QComboBox</extends>
-   <header>LDMP/data_io</header>
-  </customwidget>
-  <customwidget>
-   <class>WidgetDataIOSelectTELayerExisting</class>
-   <extends>QComboBox</extends>
-   <header>LDMP/data_io</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>TabBox</tabstop>
   <tabstop>button_prev</tabstop>

@@ -52,67 +52,8 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
     def showEvent(self, event):
         super(DlgCalculateRestBiomassData, self).showEvent(event)
 
-        self.use_custom_initial.populate()
-        self.use_custom_final.populate()
-
-        self.radioButton_carbon_custom.setEnabled(False)
-
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
-
-        if self.first_show:
-            self.first_show = False
-            # Ensure the special value text (set to " ") is displayed by 
-            # default
-            self.hansen_fc_threshold.setSpecialValueText(' ')
-            self.hansen_fc_threshold.setValue(self.hansen_fc_threshold.minimum())
-
-        self.use_hansen.toggled.connect(self.lc_source_changed)
-        self.use_custom.toggled.connect(self.lc_source_changed)
-        # Ensure that dialogs are enabled/disabled as appropriate
-        self.lc_source_changed()
-
-        # Setup bounds for Hansen data
-        start_year = QDate(self.datasets['Forest cover']['Hansen']['Start year'], 1, 1)
-        end_year = QDate(self.datasets['Forest cover']['Hansen']['End year'], 12, 31)
-        self.hansen_bl_year.setMinimumDate(start_year)
-        self.hansen_bl_year.setMaximumDate(end_year)
-        self.hansen_tg_year.setMinimumDate(start_year)
-        self.hansen_tg_year.setMaximumDate(end_year)
-
-    def lc_source_changed(self):
-        if self.use_hansen.isChecked():
-            self.groupBox_hansen_period.setEnabled(True)
-            self.groupBox_hansen_threshold.setEnabled(True)
-            self.groupBox_custom_bl.setEnabled(False)
-            self.groupBox_custom_tg.setEnabled(False)
-        elif self.use_custom.isChecked():
-            QtGui.QMessageBox.information(None, self.tr("Coming soon!"),
-                                       self.tr("Custom forest cover data support is coming soon!"), None)
-            self.use_hansen.setChecked(True)
-            # self.groupBox_hansen_period.setEnabled(False)
-            # self.groupBox_hansen_threshold.setEnabled(False)
-            # self.groupBox_custom_bl.setEnabled(True)
-            # self.groupBox_custom_tg.setEnabled(True)
-
-
-    def get_biomass_dataset(self):
-        if self.radioButton_carbon_woods_hole.isChecked():
-            return 'woodshole'
-        elif self.radioButton_carbon_geocarbon.isChecked():
-            return 'geocarbon'
-        elif self.radioButton_carbon_custom.isChecked():
-            return 'custom'
-        else:
-            return None
-
-    def get_method(self):
-        if self.radioButton_rootshoot_ipcc.isChecked():
-            return 'ipcc'
-        elif self.radioButton_rootshoot_mokany.isChecked():
-            return 'mokany'
-        else:
-            return None
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -121,26 +62,17 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
         ret = super(DlgCalculateRestBiomassData, self).btn_calculate()
         if not ret:
             return
-        if (self.hansen_fc_threshold.text() == self.hansen_fc_threshold.specialValueText()) and \
-                self.use_hansen.isChecked():
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter a value for percent cover that is considered forest."))
-            return
 
-        method = self.get_method()
-        if not method:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a method for calculating the root to shoot ratio."))
-            return
+        self.calculate_on_GEE()
 
-        biomass_data = self.get_biomass_dataset()
-        if not method:
-            QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Choose a biomass dataset."))
-            return
-
-
-        if self.use_custom.isChecked():
-            self.calculate_locally(method, biomass_data)
+    def get_rest_type(self):
+        if self.radioButton_rest_type_terrestrial.isChecked():
+            return "terrestrial"
+        elif self.radioButton_rest_type_marine.isChecked():
+            return "marine"
         else:
-            self.calculate_on_GEE(method, biomass_data)
+            # Should never get here
+            raise
 
     def get_save_raster(self):
         raster_file = QtGui.QFileDialog.getSaveFileName(self,
@@ -156,53 +88,19 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
-    def calculate_locally(self, method, biomass_data):
-        if not self.use_custom.isChecked():
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."), None)
-            return
-
-
-        year_baseline = self.lc_setup_tab.get_initial_year()
-        year_target = self.lc_setup_tab.get_final_year()
-        if int(year_baseline) >= int(year_target):
-            QtGui.QMessageBox.information(None, self.tr("Warning"),
-                self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
-
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
-            return
-
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
-            return
-
-        out_f = self.get_save_raster()
-        if not out_f:
-            return
-
-        self.close()
-
-        # TODO: Code this - see the SOC code for a model
-
-    def calculate_on_GEE(self, method, biomass_data):
+    def calculate_on_GEE(self):
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        payload = {'year_start': self.hansen_bl_year.date().year(),
-                   'year_end': self.hansen_tg_year.date().year(),
-                   'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
-                   'method': method,
-                   'biomass_data': biomass_data,
+        payload = {'length_yr': self.spinBox_years.value(),
+                   'rest_type': self.get_rest_type(),
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        resp = run_script(get_script_slug('total-carbon'), payload)
+        resp = run_script(get_script_slug('restoration-biomass'), payload)
 
         if resp:
             mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
@@ -227,12 +125,12 @@ class RestBiomassSummaryWorker(AbstractWorker):
 
         src_ds = gdal.Open(self.src_file)
 
-        band_f_loss = src_ds.GetRasterBand(1)
+        band_biomass_diff = src_ds.GetRasterBand(1)
         band_tc = src_ds.GetRasterBand(2)
 
-        block_sizes = band_f_loss.GetBlockSize()
-        xsize = band_f_loss.XSize
-        ysize = band_f_loss.YSize
+        block_sizes = band_biomass_diff.GetBlockSize()
+        xsize = band_biomass_diff.XSize
+        ysize = band_biomass_diff.YSize
         n_out_bands = 1
 
         x_block_size = block_sizes[0]
@@ -272,7 +170,7 @@ class RestBiomassSummaryWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                f_loss_array = band_f_loss.ReadAsArray(x, y, cols, rows)
+                biomass_diff_array = band_biomass_diff.ReadAsArray(x, y, cols, rows)
                 tc_array = band_tc.ReadAsArray(x, y, cols, rows)
 
                 # Caculate cell area for each horizontal line
@@ -283,20 +181,20 @@ class RestBiomassSummaryWorker(AbstractWorker):
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
-                initial_forest_pixels = (f_loss_array == 0) | (f_loss_array > (self.year_start - 2000))
+                initial_forest_pixels = (biomass_diff_array == 0) | (biomass_diff_array > (self.year_start - 2000))
                 # The site area includes everything that isn't masked
-                area_missing = area_missing + np.sum(((f_loss_array == -32768) | (tc_array == -32768)) * cell_areas_array)
-                area_water = area_water + np.sum((f_loss_array == -2) * cell_areas_array)
-                area_non_forest = area_non_forest + np.sum((f_loss_array == -1) * cell_areas_array)
-                area_site = area_site + np.sum((f_loss_array != -32767) * cell_areas_array)
+                area_missing = area_missing + np.sum(((biomass_diff_array == -32768) | (tc_array == -32768)) * cell_areas_array)
+                area_water = area_water + np.sum((biomass_diff_array == -2) * cell_areas_array)
+                area_non_forest = area_non_forest + np.sum((biomass_diff_array == -1) * cell_areas_array)
+                area_site = area_site + np.sum((biomass_diff_array != -32767) * cell_areas_array)
                 initial_forest_area = initial_forest_area + np.sum(initial_forest_pixels * cell_areas_array)
                 initial_carbon_total = initial_carbon_total +  np.sum(initial_forest_pixels * tc_array * (tc_array >= 0) * cell_areas_array)
 
                 for n in range(self.year_end - self.year_start):
                     # Note the codes are year - 2000
-                    forest_change[n] = forest_change[n] - np.sum((f_loss_array == self.year_start - 2000 + n + 1) * cell_areas_array)
+                    forest_change[n] = forest_change[n] - np.sum((biomass_diff_array == self.year_start - 2000 + n + 1) * cell_areas_array)
                     # Check units here - is tc_array in per m or per ha?
-                    carbon_change[n] = carbon_change[n] - np.sum((f_loss_array == self.year_start - 2000 + n + 1) * tc_array * cell_areas_array)
+                    carbon_change[n] = carbon_change[n] - np.sum((biomass_diff_array == self.year_start - 2000 + n + 1) * tc_array * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -332,8 +230,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
     def showEvent(self, event):
         super(DlgCalculateRestBiomassSummaryTable, self).showEvent(event)
 
-        self.combo_layer_f_loss.populate()
-        self.combo_layer_tc.populate()
+        self.combo_layer_biomass_diff.populate()
 
     def select_output_file_table(self):
         f = QtGui.QFileDialog.getSaveFileName(self,
@@ -365,51 +262,32 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
 
         ######################################################################
         # Check that all needed input layers are selected
-        if len(self.combo_layer_f_loss.layer_list) == 0:
+        if len(self.combo_layer_biomass_diff.layer_list) == 0:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a forest loss layer to your map before you can use the carbon change summary tool."), None)
-            return
-        if len(self.combo_layer_tc.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a total carbon layer to your map before you can use the carbon change summary tool."), None)
+                                       self.tr("You must add a change in biomass layer to your map before you can use the summary tool."), None)
             return
         #######################################################################
         # Check that the layers cover the full extent needed
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_biomass_diff.get_layer().extent())) < .99:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the forest loss layer."), None)
                 return
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the total carbon layer."), None)
-                return
-
-        #######################################################################
-        # Check that all of the productivity layers have the same resolution 
-        # and CRS
-        def res(layer):
-            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
-
-        if res(self.combo_layer_f_loss.get_layer()) != res(self.combo_layer_tc.get_layer()):
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Resolutions of forest loss and total carbon layers do not match."), None)
-            return
 
         self.close()
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
-        f_loss_vrt = self.combo_layer_f_loss.get_vrt()
+        biomass_diff_vrt = self.combo_layer_biomass_diff.get_vrt()
         tc_vrt = self.combo_layer_tc.get_vrt()
 
         # Figure out start and end dates
-        year_start = self.combo_layer_f_loss.get_band_info()['metadata']['year_start']
-        year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
+        year_start = self.combo_layer_biomass_diff.get_band_info()['metadata']['year_start']
+        year_end = self.combo_layer_biomass_diff.get_band_info()['metadata']['year_end']
 
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
-        bbs = self.aoi.get_aligned_output_bounds(f_loss_vrt)
+        bbs = self.aoi.get_aligned_output_bounds(biomass_diff_vrt)
 
         for n in range(len(wkts)):
             # Compute the pixel-aligned bounding box (slightly larger than 
@@ -421,7 +299,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             gdal.BuildVRT(indic_vrt,
-                          [f_loss_vrt, tc_vrt],
+                          [biomass_diff_vrt, tc_vrt],
                           outputBounds=bbs[n],
                           resolution='highest',
                           resampleAlg=gdal.GRA_NearestNeighbour,

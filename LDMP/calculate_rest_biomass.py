@@ -187,7 +187,7 @@ class RestBiomassSummaryWorker(AbstractWorker):
 
                 for n in range(n_types):
                     biomass_rest_array = src_ds.GetRasterBand(n + 2).ReadAsArray(x, y, cols, rows)
-                    biomass_change[n] = biomass_change[n] + np.sum((biomass_rest_array - biomass_initial_array) * cell_areas_array * site_pixels)
+                    biomass_change[n] = biomass_change[n] + np.sum((biomass_rest_array) * cell_areas_array * site_pixels)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -373,7 +373,7 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
 
     ##########################################################################
     # SDG table
-    ws_summary = wb.get_sheet_by_name('Restoration Biomass Change')
+    ws_summary = wb['Restoration Biomass Change']
     ws_summary.cell(6, 2).value = area_site
     ws_summary.cell(7, 2).value = length_yr
     ws_summary.cell(8, 2).value = biomass_initial
@@ -386,6 +386,7 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
         for n in range(len(rest_types) - 1):
             copy_style(ws_summary.cell(13 + offset, 1), ws_summary.cell(13 + n, 1))
             copy_style(ws_summary.cell(13 + offset, 2), ws_summary.cell(13 + n, 2))
+            copy_style(ws_summary.cell(13 + offset, 3), ws_summary.cell(13 + n, 3))
 
         # Need to remerge cells due to row insertion
         ws_summary.merge_cells(start_row=16 + offset, start_column=1,
@@ -408,6 +409,7 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     for n in range(len(rest_types)):
         ws_summary.cell(13 + n, 1).value = rest_types[n].capitalize()
         ws_summary.cell(13 + n, 2).value = biomass_change[n]
+        ws_summary.cell(13 + n, 3).value = biomass_initial + biomass_change[n]
 
     try:
         ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))

@@ -51,13 +51,9 @@ style_text_dict = {
     'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
 
     'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
-    'prod_traj_signif_dec_99': tr('Degradation (significant decrease, p < .01)'),
     'prod_traj_signif_dec_95': tr('Degradation (significant decrease, p < .05)'),
-    'prod_traj_signif_dec_90': tr('Stable (significant decrease, p < .1)'),
     'prod_traj_signif_zero': tr('Stable (no significant change)'),
-    'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
     'prod_traj_signif_inc_95': tr('Improvement (significant increase, p < .05)'),
-    'prod_traj_signif_inc_99': tr('Improvement (significant increase, p < .01)'),
 
     # Productivity performance
     'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),

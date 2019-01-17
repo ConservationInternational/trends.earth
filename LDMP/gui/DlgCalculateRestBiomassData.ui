@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>655</width>
-    <height>473</height>
+    <width>258</width>
+    <height>328</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -77,7 +77,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
-          <string>Number of years since restoration</string>
+          <string>Planned longevity of intervention (years)</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item alignment="Qt::AlignHCenter">

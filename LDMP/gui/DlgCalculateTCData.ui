@@ -32,7 +32,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ForestDefinitionTab">
       <attribute name="title">
@@ -410,6 +410,16 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
+           <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
+            <property name="text">
+             <string>Mokany et al. 2006</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QRadioButton" name="radioButton_rootshoot_ipcc">
             <property name="enabled">
              <bool>true</bool>
@@ -418,14 +428,7 @@
              <string>IPCC</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
-            <property name="text">
-             <string>Mokany et al. 2006</string>
+             <bool>false</bool>
             </property>
            </widget>
           </item>

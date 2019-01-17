@@ -123,12 +123,12 @@
         <translation>Uboreshaji</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="748"/>
+        <location filename="../layers.py" line="379"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="165"/>
+        <location filename="../calculate.py" line="166"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>Imeshindwa kuongeza geojson kwa safu ya muda mfupi.</translation>
     </message>
@@ -193,17 +193,17 @@
         <translation>Uharibifu wa kaboni ya kikaboni ya ardhi ({year_start} hadi {year_end})</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="66"/>
+        <location filename="../calculate.py" line="67"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>Hitilafu - safu sio mfumo wa kuratibu wa kijiografia. Haiwezi kuunganisha safu kwenye meridian ya 180.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="247"/>
+        <location filename="../calculate.py" line="248"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="247"/>
+        <location filename="../calculate.py" line="248"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation>Eneo lililochaguliwa linavuka meridian ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi kwenye mfumo wa kuratibu wa eneo (tazama kichupo cha &quot;CRS&quot; cha dirisha la &quot;Programu ya Programu&quot; kutoka kwenye &quot;Mradi&quot; wa menyu.)</translation>
     </message>
@@ -303,7 +303,7 @@
         <translation>Kiashiria cha uharibifu wa SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="300"/>
+        <location filename="../layers.py" line="304"/>
         <source>Information</source>
         <translation>Taarifa</translation>
     </message>
@@ -318,17 +318,17 @@
         <translation>Imara lakini imesisitiza</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="748"/>
+        <location filename="../data_io.py" line="745"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation>Haiwezi kusindika {}. Aina ya jiometri isiyojulikana: {}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="139"/>
+        <location filename="../calculate.py" line="140"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
         <translation>Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="329"/>
+        <location filename="../calculate.py" line="330"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
     </message>
@@ -393,12 +393,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="375"/>
+        <location filename="../layers.py" line="379"/>
         <source>Failed to load Trends.Earth style. To use this layer, try manually adding it to your map.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="813"/>
+        <location filename="../calculate.py" line="844"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -463,40 +463,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="300"/>
-        <source>Trends.Earth does not have a style assigned for &quot;{}&quot; in {}. To use this layer, manually add it to your map.</source>
+        <location filename="../layers.py" line="177"/>
+        <source>Biomass (tonnes CO2e per ha, {year})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="178"/>
+        <source>Change in biomass
+(tonnes CO2e per ha, {type} after {years} years)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="304"/>
+        <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="659"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="659"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="680"/>
+        <location filename="../calculate.py" line="711"/>
         <source>Select a file defining the area of interest</source>
         <translation>Chagua faili inayofafanua eneo la riba</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="680"/>
+        <location filename="../calculate.py" line="711"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="721"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="721"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -504,17 +515,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="518"/>
+        <location filename="../calculate.py" line="549"/>
         <source>Select folder containing data</source>
         <translation>Chagua folda iliyo na data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="527"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="527"/>
+        <location filename="../calculate.py" line="558"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
@@ -601,51 +612,56 @@ p, li { white-space: pre-wrap; }
         <source>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="150"/>
+        <source>Potential change in biomass due to restoration (above and belowground woody)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="860"/>
+        <location filename="../calculate.py" line="891"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="822"/>
+        <location filename="../calculate.py" line="853"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="829"/>
+        <location filename="../calculate.py" line="860"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="836"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="727"/>
+        <location filename="../calculate.py" line="758"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="730"/>
+        <location filename="../calculate.py" line="761"/>
         <source>Options</source>
         <translation>Chaguo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="844"/>
+        <location filename="../calculate.py" line="875"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="855"/>
+        <location filename="../calculate.py" line="886"/>
         <source>Choose an area of interest.</source>
         <translation>Chagua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="860"/>
+        <location filename="../calculate.py" line="891"/>
         <source>Unable to read area of interest.</source>
         <translation>Haiwezi kusoma eneo la riba.</translation>
     </message>
@@ -884,12 +900,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="446"/>
+        <location filename="../calculate.py" line="453"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="446"/>
+        <location filename="../calculate.py" line="453"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1073,6 +1089,92 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_prod.py" line="220"/>
         <source>Choose one or more productivity sub-indicator to calculate.</source>
         <translation>Chagua moja au zaidi ya kiashiria cha uzalishaji cha kuzalisha.</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateRestBiomassData</name>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="81"/>
+        <source>Choose a name for the output file</source>
+        <translation type="unfinished">Chagua jina kwa faili ya pato</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="81"/>
+        <source>Raster file (*.tif)</source>
+        <translation type="unfinished">Faili ya Raster (* .tif)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="90"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="90"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateRestBiomassSummaryTable</name>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="216"/>
+        <source>Choose a filename for the summary table</source>
+        <translation type="unfinished">Chagua jina la faili kwa meza ya muhtasari</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="216"/>
+        <source>Summary table file (*.xlsx)</source>
+        <translation type="unfinished">Faili ya meza ya muhtasari (* .xlsx)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="310"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="238"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="229"/>
+        <source>Choose a filename for the output file</source>
+        <translation type="unfinished">Chagua jina la faili kwa faili ya pato</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="229"/>
+        <source>Filename (*.json)</source>
+        <translation type="unfinished">Faili ya faili (* .json)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="244"/>
+        <source>Choose an output file for the biomass difference layers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="249"/>
+        <source>Choose an output file for the summary table.</source>
+        <translation type="unfinished">Chagua faili ya pato kwa meza ya muhtasari.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="263"/>
+        <source>You must add a biomass layer to your map before you can use the summary tool.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="269"/>
+        <source>Area of interest is not entirely within the biomass layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="299"/>
+        <source>Error masking input layers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="310"/>
+        <source>Error calculating biomass change summary table.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1361,67 +1463,67 @@ p, li { white-space: pre-wrap; }
         <translation>Utendaji:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="170"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="176"/>
         <source>State (degradation):</source>
         <translation>Hali (uharibifu):</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="186"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="192"/>
         <source>Trajectory (degradation):</source>
         <translation>Trajectory (uharibifu):</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="218"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="224"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</source>
         <translation>Data ya UNCCD ya Dynamics (LPD) kutoka Tume ya Pamoja ya Utafiti)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="255"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="261"/>
         <source>Land cover (degradation)</source>
         <translation>Jalada la ardhi:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="304"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="310"/>
         <source>Soil carbon (degradation)</source>
         <translation>Koni kaboni (uharibifu)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="333"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="352"/>
         <source>Output</source>
         <translation>Pato</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="345"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="364"/>
         <source>Output file for indicator layer</source>
         <translation>Faili ya kuingiza kwa safu ya kiashiria</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="422"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="441"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
         <translation>Bonyeza &quot;Vinjari&quot; ili kuchagua faili ...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="441"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="460"/>
         <source>Browse</source>
         <translation>Vinjari</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="401"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="420"/>
         <source>Output file for summary table</source>
         <translation>Faili ya Pato kwa meza ya muhtasari</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="482"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="501"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="501"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="520"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="520"/>
+        <location filename="../gui/DlgCalculateSummaryTableAdmin.ui" line="539"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
@@ -1634,6 +1736,76 @@ p, li { white-space: pre-wrap; }
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
+    <message>
+        <location filename="../calculate_tc.py" line="90"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished">Inakuja hivi karibuni!</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="90"/>
+        <source>Custom forest cover data support is coming soon!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="178"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="126"/>
+        <source>Enter a value for percent cover that is considered forest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="131"/>
+        <source>Choose a method for calculating the root to shoot ratio.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="136"/>
+        <source>Choose a biomass dataset.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="146"/>
+        <source>Choose a name for the output file</source>
+        <translation type="unfinished">Chagua jina kwa faili ya pato</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="146"/>
+        <source>Raster file (*.tif)</source>
+        <translation type="unfinished">Faili ya Raster (* .tif)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="155"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="161"/>
+        <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
+        <translation type="unfinished">Kutokana na chaguo ulizochagua, hesabu hii inapaswa kutokea nje ya mtandao. UNAFANYA kuchagua dataset ya desturi ya ardhi ya desturi.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="169"/>
+        <source>Warning</source>
+        <translation type="unfinished">Onyo</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="169"/>
+        <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
+        <translation type="unfinished">Mwaka wa msingi ({}) ni mkubwa kuliko au sawa na mwaka uliolengwa ({}) - uchambuzi huu unaweza kuzalisha matokeo ya ajabu.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="173"/>
+        <source>Area of interest is not entirely within the initial land cover layer.</source>
+        <translation type="unfinished">Eneo la maslahi sio kabisa ndani ya safu ya awali ya bima ya ardhi.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="178"/>
+        <source>Area of interest is not entirely within the final land cover layer.</source>
+        <translation type="unfinished">Eneo la maslahi sio kabisa ndani ya safu ya mwisho ya kifuniko cha ardhi.</translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateTCSummaryTable</name>
@@ -1691,6 +1863,66 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="285"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="339"/>
+        <source>Choose a filename for the summary table</source>
+        <translation type="unfinished">Chagua jina la faili kwa meza ya muhtasari</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="339"/>
+        <source>Summary table file (*.xlsx)</source>
+        <translation type="unfinished">Faili ya meza ya muhtasari (* .xlsx)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="450"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="348"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="355"/>
+        <source>Choose an output file for the summary table.</source>
+        <translation type="unfinished">Chagua faili ya pato kwa meza ya muhtasari.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="369"/>
+        <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="373"/>
+        <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="379"/>
+        <source>Area of interest is not entirely within the forest loss layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="383"/>
+        <source>Area of interest is not entirely within the total carbon layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="394"/>
+        <source>Resolutions of forest loss and total carbon layers do not match.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="437"/>
+        <source>Error masking carbon change input layers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="450"/>
+        <source>Error calculating carbon change summary table.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1885,6 +2117,66 @@ p, li { white-space: pre-wrap; }
         <source>Output file for indicator layer</source>
         <translation>Faili ya kuingiza kwa safu ya kiashiria</translation>
     </message>
+    <message>
+        <location filename="../calculate_urban.py" line="209"/>
+        <source>Choose a filename for the output file</source>
+        <translation type="unfinished">Chagua jina la faili kwa faili ya pato</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="209"/>
+        <source>Filename (*.json)</source>
+        <translation type="unfinished">Faili ya faili (* .json)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="356"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="231"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="222"/>
+        <source>Choose a filename for the summary table</source>
+        <translation type="unfinished">Chagua jina la faili kwa meza ya muhtasari</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="222"/>
+        <source>Summary table file (*.xlsx)</source>
+        <translation type="unfinished">Faili ya meza ya muhtasari (* .xlsx)</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="238"/>
+        <source>Choose an output file for the indicator layer.</source>
+        <translation type="unfinished">Chagua faili ya pato kwa safu ya kiashiria.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="243"/>
+        <source>Choose an output file for the summary table.</source>
+        <translation type="unfinished">Chagua faili ya pato kwa meza ya muhtasari.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="257"/>
+        <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="264"/>
+        <source>Area of interest is not entirely within the urban series layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="344"/>
+        <source>Error masking urban change input layers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="356"/>
+        <source>Error calculating urban change summary table.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgDataIO</name>
@@ -1927,37 +2219,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="868"/>
+        <location filename="../data_io.py" line="865"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="735"/>
+        <location filename="../data_io.py" line="732"/>
         <source>Choose an input raster file.</source>
         <translation>Chagua faili ya raster ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="740"/>
+        <location filename="../data_io.py" line="737"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Chagua dataset ya pembejeo ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="868"/>
+        <location filename="../data_io.py" line="865"/>
         <source>Raster import failed.</source>
         <translation>Uingizaji wa kasi ulipoteza.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="844"/>
+        <location filename="../data_io.py" line="841"/>
         <source>Rasterizing failed.</source>
         <translation>Rasterizing imeshindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="814"/>
+        <location filename="../data_io.py" line="811"/>
         <source>Vector remapping failed.</source>
         <translation>Ukarabati wa Vector umeshindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="831"/>
+        <location filename="../data_io.py" line="828"/>
         <source>Raster remapping failed.</source>
         <translation>Kurejesha kwa kasi kunashindwa.</translation>
     </message>
@@ -1985,27 +2277,27 @@ p, li { white-space: pre-wrap; }
         <translation>Tumia sampuli wakati wa kusoma madarasa ya kifuniko kutoka kwa faili ya uingizaji</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="983"/>
+        <location filename="../data_io.py" line="980"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="922"/>
+        <location filename="../data_io.py" line="919"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="925"/>
+        <location filename="../data_io.py" line="922"/>
         <source>No definition set</source>
         <translation>Hakuna ufafanuzi uliowekwa</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="925"/>
+        <location filename="../data_io.py" line="922"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Bofya &quot;Badilisha Definition&quot; ili kufafanua ufafanuzi wa bima ya ardhi kabla ya kusafirisha.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="983"/>
+        <location filename="../data_io.py" line="980"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
     </message>
@@ -2015,7 +2307,7 @@ p, li { white-space: pre-wrap; }
         <translation>Kumbuka: Ikiwa unasoma faili kubwa inashauriwa kuwa chaguo hapo juu kitazingatiwa, kwani itakuwa kasi ya mchakato wa kusoma madarasa ya uingizaji kutoka kwenye dataset. Hata hivyo, ikiwa unapata kuwa Trends.Earth haitambui madarasa yote katika faili ya pembejeo, inaweza kuwa muhimu kuzima chaguo hili. (Inatumia tu ikiwa pembejeo ya raster inechaguliwa)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="928"/>
+        <location filename="../data_io.py" line="925"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
@@ -2060,32 +2352,32 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 &lt;p style = &quot;juu ya juu: 0px; chini ya chini: 0px; margin-kushoto: 0px; upande wa kulia: 0px; -qt-block-indent: 0; asilia ya maandishi: 0px;&quot;&gt; &lt;span style = &quot;ukubwa wa font: 8pt;&quot;&gt; 0 au -32768: Hakuna data &lt;/ ​​span&gt; &lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1123"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1105"/>
+        <location filename="../data_io.py" line="1102"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1126"/>
+        <location filename="../data_io.py" line="1123"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1130"/>
+        <location filename="../data_io.py" line="1127"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1130"/>
+        <location filename="../data_io.py" line="1127"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji. Trends.Earth itapakia faili wakati wowote, lakini kagua ramani mara moja imefakia ili kuhakikisha maadili yanafanya akili. Maadili pekee yanayoruhusiwa katika faili ya uingizaji wa uzalishaji ni -32768, 1, 2, 3, 4 na 5. Kuna {} thamani (s) katika faili ya uingizaji ambayo haijatambuliwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1121"/>
+        <location filename="../data_io.py" line="1118"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>Sehemu iliyochaguliwa ({}) sio nambari. Chagua shamba ambalo lina namba.</translation>
     </message>
@@ -2098,37 +2390,37 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Weka dasasiti ya udongo ya Organic Carbon (SOC) ya udongo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1061"/>
+        <location filename="../data_io.py" line="1058"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1030"/>
+        <location filename="../data_io.py" line="1027"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1055"/>
+        <location filename="../data_io.py" line="1052"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Faili inapaswa kuwa na maadili ya kaboni ya kaboni katika tani / hekta.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1058"/>
+        <location filename="../data_io.py" line="1055"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Thamani ya chini katika faili hii ni {}. Thamani ya data haipaswi kuwa -32768, na maadili mengine yote yanapaswa kuwa&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1061"/>
+        <location filename="../data_io.py" line="1058"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Thamani ya juu katika faili hii ni {}. Thamani ya juu ya kuruhusiwa ni tani 1000 / hekta.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1049"/>
+        <location filename="../data_io.py" line="1046"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>Sehemu iliyochaguliwa ({}) sio nambari. Chagua uwanja wa nambari.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1033"/>
+        <location filename="../data_io.py" line="1030"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
@@ -2166,27 +2458,27 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
         <translation>Vinjari...</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="485"/>
+        <location filename="../data_io.py" line="482"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Chagua Mwenendo wa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="485"/>
+        <location filename="../data_io.py" line="482"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Mwelekeo wa faili ya metadata ya kwanza (* .json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="541"/>
+        <location filename="../data_io.py" line="538"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="541"/>
+        <location filename="../data_io.py" line="538"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="516"/>
+        <location filename="../data_io.py" line="513"/>
         <source>{} does not appear to be a Trends.Earth output file</source>
         <translation>{} haionekani kuwa Trends.Faili ya pato la msingi</translation>
     </message>
@@ -2194,17 +2486,12 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>DlgDataIOLoadTEBase</name>
     <message>
-        <location filename="../data_io.py" line="463"/>
+        <location filename="../data_io.py" line="460"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="459"/>
-        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation>Haiwezi kuongeza moja kwa moja &quot;{}&quot;. Hakuna mtindo unaelezewa kwa aina hii ya safu.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="463"/>
+        <location filename="../data_io.py" line="460"/>
         <source>Select a layer to load.</source>
         <translation>Chagua safu ya kupakia.</translation>
     </message>
@@ -2979,32 +3266,32 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="618"/>
+        <location filename="../data_io.py" line="615"/>
         <source>Select a raster input file</source>
         <translation>Chagua faili ya pembejeo ya raster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="618"/>
+        <location filename="../data_io.py" line="615"/>
         <source>Raster file (*.tif *.dat *.img)</source>
         <translation>Faili ya kasi (* .tif * .dat * .img)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="660"/>
+        <location filename="../data_io.py" line="657"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="660"/>
+        <location filename="../data_io.py" line="657"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="648"/>
+        <location filename="../data_io.py" line="645"/>
         <source>Select a vector input file</source>
         <translation>Chagua faili ya pembejeo ya vector</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="648"/>
+        <location filename="../data_io.py" line="645"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
@@ -3012,22 +3299,22 @@ p, li {nyeupe-nafasi: kabla ya kufuta; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="689"/>
+        <location filename="../data_io.py" line="686"/>
         <source>Choose a name for the output file</source>
         <translation>Chagua jina kwa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="689"/>
+        <location filename="../data_io.py" line="686"/>
         <source>Raster file (*.tif)</source>
         <translation>Faili ya Raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="699"/>
+        <location filename="../data_io.py" line="696"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="699"/>
+        <location filename="../data_io.py" line="696"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -3115,7 +3402,7 @@ maeneo</translation>
         <translation>Haiwezi kuingia kwenye seva ya LDMP. Angalia jina lako la mtumiaji na nenosiri.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="496"/>
+        <location filename="../calculate_urban.py" line="185"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
@@ -3293,6 +3580,36 @@ maeneo</translation>
         <location filename="../plugin.py" line="219"/>
         <source>Visualize and summarize data</source>
         <translation>Tazama na muhtasari data</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="109"/>
+        <source>Restoration biomass change submitted to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="113"/>
+        <source>Unable to submit restoration biomass change task to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="208"/>
+        <source>Total carbon submitted to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="212"/>
+        <source>Unable to submit total carbon task to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="185"/>
+        <source>Urban area change calculation submitted to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="189"/>
+        <source>Unable to submit urban area task to Google Earth Engine.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3510,27 +3827,27 @@ maeneo</translation>
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1256"/>
+        <location filename="../data_io.py" line="1253"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Chagua Mwenendo wa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1256"/>
+        <location filename="../data_io.py" line="1253"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Mwelekeo wa faili ya metadata ya kwanza (* .json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1276"/>
+        <location filename="../data_io.py" line="1273"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1272"/>
+        <location filename="../data_io.py" line="1269"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation>{} imeshindwa kupakia au haina vyenye yoyote ya aina hii ya safu. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1276"/>
+        <location filename="../data_io.py" line="1273"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>

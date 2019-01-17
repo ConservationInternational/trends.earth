@@ -53,8 +53,9 @@ def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
     if rest_type == "terrestrial":
         if length_yr <= 20:
             d_natre = natre0020.multiply(length_yr).subtract(current_co2)
-            d_natre = d_natre.where(d_natre.lte(0),0)
+            d_natre = d_natre.where(d_natre.lte(0), 0)
             d_agfor = agfor0020.multiply(length_yr).subtract(current_co2)
+            d_agfor = d_agfor.where(d_agfor.lte(0), 0)
             d_pwtea = pwtea0020.multiply(length_yr).subtract(current_co2)
             d_pweuc = pweuc0020.multiply(length_yr).subtract(current_co2)
             d_pwoak = pwoak0020.multiply(length_yr).subtract(current_co2)
@@ -63,8 +64,9 @@ def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
             d_pwoco = pwoco0020.multiply(length_yr).subtract(current_co2)
         if length_yr > 20:
             d_natre = natre0020.multiply(20).add(natre2060.multiply(length_yr-20)).subtract(current_co2)
-            d_natre = d_natre.where(d_natre.lte(0),0)
+            d_natre = d_natre.where(d_natre.lte(0), 0)
             d_agfor = agfor0020.multiply(20).add(agfor2060.multiply(length_yr-20)).subtract(current_co2)
+            d_agfor = d_agfor.where(d_agfor.lte(0), 0)
             d_pwtea = pwtea0020.multiply(20).subtract(current_co2)
             d_pweuc = pweuc0020.multiply(20).subtract(current_co2)
             d_pwoak = pwoak0020.multiply(20).subtract(current_co2)
@@ -101,14 +103,14 @@ def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
     elif rest_type == "coastal":
         if length_yr <= 20:
             d_mshrr = mshrr0020.multiply(length_yr).subtract(current_co2)
-            d_mshrr = d_mshrr.where(d_mshrr.lte(0),0)
+            d_mshrr = d_mshrr.where(d_mshrr.lte(0), 0)
             d_mtrer = mtrer0020.multiply(length_yr).subtract(current_co2)
-            d_mtrer = d_mtrer.where(d_mtrer.lte(0),0)
+            d_mtrer = d_mtrer.where(d_mtrer.lte(0), 0)
         if length_yr > 20:
             d_mshrr = mshrr0020.multiply(20).add(mshrr2060.multiply(length_yr-20)).subtract(current_co2)
-            d_mshrr = d_mshrr.where(d_mshrr.lte(0),0)
+            d_mshrr = d_mshrr.where(d_mshrr.lte(0), 0)
             d_mtrer = mtrer0020.multiply(20).add(mtrer2060.multiply(length_yr-20)).subtract(current_co2)
-            d_mtrer = d_mtrer.where(d_mtrer.lte(0),0)
+            d_mtrer = d_mtrer.where(d_mtrer.lte(0), 0)
       
         logger.debug("Setting up output for coastal restoration.")
         out = TEImage(current_co2.addBands(d_mshrr).addBands(d_mtrer).rename(['current','mshrr','mtrer']),

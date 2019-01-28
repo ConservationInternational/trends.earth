@@ -3,17 +3,17 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../layers.py" line="136"/>
+        <location filename="../layers.py" line="132"/>
         <source>Stable</source>
         <translation>稳定</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="131"/>
+        <location filename="../layers.py" line="127"/>
         <source>Increasing</source>
         <translation>增加</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="127"/>
+        <location filename="../layers.py" line="123"/>
         <source>Declining</source>
         <translation>下降</translation>
     </message>
@@ -48,82 +48,82 @@
         <translation>没有数据</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="69"/>
+        <location filename="../layers.py" line="65"/>
         <source>Productivity performance ({year_start}, units)</source>
         <translation>生产力表现（{year_start}，单位）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="92"/>
+        <location filename="../layers.py" line="88"/>
         <source>2 - Grassland</source>
         <translation>农田持久性</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="93"/>
+        <location filename="../layers.py" line="89"/>
         <source>3 - Cropland</source>
         <translation>农田</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="94"/>
+        <location filename="../layers.py" line="90"/>
         <source>4 - Wetland</source>
         <translation>湿地持久性</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="95"/>
+        <location filename="../layers.py" line="91"/>
         <source>5 - Artificial</source>
         <translation>人工区域</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="97"/>
+        <location filename="../layers.py" line="93"/>
         <source>7 - Water body</source>
         <translation>水体</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="101"/>
+        <location filename="../layers.py" line="97"/>
         <source>Tree-covered loss</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="102"/>
+        <location filename="../layers.py" line="98"/>
         <source>Grassland loss</source>
         <translation>草原损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="103"/>
+        <location filename="../layers.py" line="99"/>
         <source>Cropland loss</source>
         <translation>土地覆盖退化</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="104"/>
+        <location filename="../layers.py" line="100"/>
         <source>Wetland loss</source>
         <translation>湿地丧失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="105"/>
+        <location filename="../layers.py" line="101"/>
         <source>Artificial loss</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="86"/>
+        <location filename="../layers.py" line="82"/>
         <source>Land cover ({year}, ESA CCI classes)</source>
         <translation>土地覆盖（{年}，ESA CCI类）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="107"/>
+        <location filename="../layers.py" line="103"/>
         <source>Water body loss</source>
         <translation>水体损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="135"/>
+        <location filename="../layers.py" line="131"/>
         <source>Degradation</source>
         <translation>降解</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="137"/>
+        <location filename="../layers.py" line="133"/>
         <source>Improvement</source>
         <translation>起色</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="379"/>
+        <location filename="../layers.py" line="375"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -133,32 +133,32 @@
         <translation>无法将geojson添加到临时图层。</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="91"/>
+        <location filename="../layers.py" line="87"/>
         <source>1 - Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="63"/>
+        <location filename="../layers.py" line="59"/>
         <source>Productivity performance degradation ({year_start} to {year_end})</source>
         <translation>生产力表现下降（{year_start}至{year_end}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="67"/>
+        <location filename="../layers.py" line="63"/>
         <source>Productivity performance ({year_start} to {year_end}, ratio)</source>
         <translation>生产力表现（{year_start}至{year_end}，比率）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="72"/>
+        <location filename="../layers.py" line="68"/>
         <source>Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</source>
         <translation>生产力状态恶化（{year_bl_start}  -  {year_bl_end}至{year_tg_start}  -  {year_tg_end}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="88"/>
+        <location filename="../layers.py" line="84"/>
         <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
         <translation>土地覆盖（过渡，{}  -  {}至{}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="100"/>
+        <location filename="../layers.py" line="96"/>
         <source>No change</source>
         <translation>不用找了</translation>
     </message>
@@ -168,27 +168,27 @@
         <translation>生产力轨迹（{year_start}至{year_end}，NDVI x 10000 /年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="77"/>
+        <location filename="../layers.py" line="73"/>
         <source>Productivity state classes ({year_start}-{year_end})</source>
         <translation>生产力状态类（{year_start}  -  {year_end}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="85"/>
+        <location filename="../layers.py" line="81"/>
         <source>Land cover ({year}, 7 class)</source>
         <translation>土地覆盖（{年}，7班）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="87"/>
+        <location filename="../layers.py" line="83"/>
         <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
         <translation>土地覆盖模式（{year_start}  -  {year_end}，7类）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="110"/>
+        <location filename="../layers.py" line="106"/>
         <source>Soil organic carbon ({year}, tons / ha)</source>
         <translation>土壤有机碳（{年}，吨/公顷）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="112"/>
+        <location filename="../layers.py" line="108"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
         <translation>土壤有机碳降解（{year_start}至{year_end}）</translation>
     </message>
@@ -215,105 +215,105 @@
     <message>
         <location filename="../layers.py" line="54"/>
         <source>Degradation (significant decrease, p &lt; .01)</source>
-        <translation>退化（显着下降，p &lt;.01）</translation>
+        <translation type="obsolete">退化（显着下降，p &lt;.01）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="55"/>
+        <location filename="../layers.py" line="54"/>
         <source>Degradation (significant decrease, p &lt; .05)</source>
         <translation>降解（显着降低，p &lt;.05）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="56"/>
         <source>Stable (significant decrease, p &lt; .1)</source>
-        <translation>稳定（显着下降，p &lt;.1）</translation>
+        <translation type="obsolete">稳定（显着下降，p &lt;.1）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="57"/>
+        <location filename="../layers.py" line="55"/>
         <source>Stable (no significant change)</source>
         <translation>稳定（无重大变化）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="58"/>
         <source>Stable (significant increase, p &lt; .1)</source>
-        <translation>稳定（显着增加，p &lt;.1）</translation>
+        <translation type="obsolete">稳定（显着增加，p &lt;.1）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="59"/>
+        <location filename="../layers.py" line="56"/>
         <source>Improvement (significant increase, p &lt; .05)</source>
         <translation>改进（显着增加，p &lt;.05）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="60"/>
         <source>Improvement (significant increase, p &lt; .01)</source>
-        <translation>改进（显着增加，p &lt;.01）</translation>
+        <translation type="obsolete">改进（显着增加，p &lt;.01）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="65"/>
+        <location filename="../layers.py" line="61"/>
         <source>Not degradation</source>
         <translation>不退化</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="80"/>
+        <location filename="../layers.py" line="76"/>
         <source>Land cover degradation ({year_baseline} to {year_target})</source>
         <translation>土地覆盖退化（{year_baseline}至{year_target}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="90"/>
+        <location filename="../layers.py" line="86"/>
         <source>-32768 - No data</source>
         <translation>-32768  - 没有数据</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="96"/>
+        <location filename="../layers.py" line="92"/>
         <source>6 - Other land</source>
         <translation>6  - 其他土地</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="99"/>
+        <location filename="../layers.py" line="95"/>
         <source>Land cover (transitions, {year_baseline} to {year_target})</source>
         <translation>土地覆盖（过渡，{year_baseline}至{year_target}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="106"/>
+        <location filename="../layers.py" line="102"/>
         <source>Other land loss</source>
         <translation>其他土地损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="118"/>
+        <location filename="../layers.py" line="114"/>
         <source>Land productivity (Trends.Earth)</source>
         <translation>土地生产力（Trends.Earth）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="128"/>
+        <location filename="../layers.py" line="124"/>
         <source>Moderate decline</source>
         <translation>适度下降</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="129"/>
+        <location filename="../layers.py" line="125"/>
         <source>Stressed</source>
         <translation>强调</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="126"/>
+        <location filename="../layers.py" line="122"/>
         <source>Land productivity dynamics (LPD)</source>
         <translation>土地生产力动态（LPD）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="134"/>
+        <location filename="../layers.py" line="130"/>
         <source>SDG 15.3.1 degradation indicator</source>
         <translation>SDG 15.3.1降解指标</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="304"/>
+        <location filename="../layers.py" line="300"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="120"/>
+        <location filename="../layers.py" line="116"/>
         <source>Early signs of decline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="121"/>
+        <location filename="../layers.py" line="117"/>
         <source>Stable but stressed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,67 +333,67 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="140"/>
+        <location filename="../layers.py" line="136"/>
         <source>Forest loss ({year_start} to {year_end})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="155"/>
+        <location filename="../layers.py" line="151"/>
         <source>Water</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="142"/>
+        <location filename="../layers.py" line="138"/>
         <source>Non-forest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="143"/>
+        <location filename="../layers.py" line="139"/>
         <source>Forest (no loss)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="144"/>
+        <location filename="../layers.py" line="140"/>
         <source>Forest loss ({year_start})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="145"/>
+        <location filename="../layers.py" line="141"/>
         <source>Forest loss ({year_end})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="148"/>
+        <location filename="../layers.py" line="144"/>
         <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="151"/>
+        <location filename="../layers.py" line="147"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="154"/>
+        <location filename="../layers.py" line="150"/>
         <source>Urban area change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="157"/>
+        <location filename="../layers.py" line="153"/>
         <source>Built-up by 2005</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="158"/>
+        <location filename="../layers.py" line="154"/>
         <source>Built-up by 2010</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="174"/>
+        <location filename="../layers.py" line="170"/>
         <source>Population ({year})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="379"/>
+        <location filename="../layers.py" line="375"/>
         <source>Failed to load Trends.Earth style. To use this layer, try manually adding it to your map.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -403,78 +403,78 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="156"/>
+        <location filename="../layers.py" line="152"/>
         <source>Built-up by 2000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="159"/>
+        <location filename="../layers.py" line="155"/>
         <source>Built-up by 2015</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="162"/>
+        <location filename="../layers.py" line="158"/>
         <source>Urban area {year}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="163"/>
+        <location filename="../layers.py" line="159"/>
         <source>Urban</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="164"/>
+        <location filename="../layers.py" line="160"/>
         <source>Suburban</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="165"/>
+        <location filename="../layers.py" line="161"/>
         <source>Built-up rural</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="166"/>
+        <location filename="../layers.py" line="162"/>
         <source>Open space (fringe)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="167"/>
+        <location filename="../layers.py" line="163"/>
         <source>Open space (captured)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="168"/>
+        <location filename="../layers.py" line="164"/>
         <source>Open space (rural)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="169"/>
+        <location filename="../layers.py" line="165"/>
         <source>Open space (fringe, water)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="170"/>
+        <location filename="../layers.py" line="166"/>
         <source>Open space (captured, water)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="171"/>
+        <location filename="../layers.py" line="167"/>
         <source>Open space (rural, water)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="177"/>
+        <location filename="../layers.py" line="173"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="178"/>
+        <location filename="../layers.py" line="174"/>
         <source>Change in biomass
 (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="304"/>
+        <location filename="../layers.py" line="300"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1692,11 +1692,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
-        <source>Default Woods Hole Research Center (30 m resolution, tropics only)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="361"/>
         <source>GEOCARBON (1 km resolution, global)</source>
         <translation type="unfinished"></translation>
@@ -1712,27 +1707,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="418"/>
+        <location filename="../gui/DlgCalculateTCData.ui" line="428"/>
         <source>IPCC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="428"/>
+        <location filename="../gui/DlgCalculateTCData.ui" line="415"/>
         <source>Mokany et al. 2006</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="469"/>
+        <location filename="../gui/DlgCalculateTCData.ui" line="472"/>
         <source>Calculate</source>
         <translation>计算</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="488"/>
+        <location filename="../gui/DlgCalculateTCData.ui" line="491"/>
         <source>Previous</source>
         <translation>以前</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="507"/>
+        <location filename="../gui/DlgCalculateTCData.ui" line="510"/>
         <source>Next</source>
         <translation>下一个</translation>
     </message>
@@ -1805,6 +1800,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_tc.py" line="178"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation type="unfinished">感兴趣的区域不完全在最终的土地覆盖层内。</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
+        <source>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2417,32 +2417,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOLoadTE</name>
     <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="17"/>
+        <location filename="../gui/DlgDataIOLoadTE.ui" line="23"/>
         <source>Open a Trends.Earth file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="36"/>
+        <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
         <source>Select a layer(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="67"/>
+        <location filename="../gui/DlgDataIOLoadTE.ui" line="73"/>
         <source>View file metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="83"/>
+        <location filename="../gui/DlgDataIOLoadTE.ui" line="89"/>
         <source>Select a file</source>
         <translation>选择一个文件</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="104"/>
+        <location filename="../gui/DlgDataIOLoadTE.ui" line="110"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
         <translation>点击“浏览”选择一个文件...</translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="123"/>
+        <location filename="../gui/DlgDataIOLoadTE.ui" line="129"/>
         <source>Browse...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3145,22 +3145,22 @@ p，li {空格：预包装; }
 <context>
     <name>DlgVisualization</name>
     <message>
-        <location filename="../gui/DlgVisualization.ui" line="23"/>
+        <location filename="../gui/DlgVisualization.ui" line="29"/>
         <source>Visualization tools</source>
         <translation>土地退化报告</translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualization.ui" line="35"/>
+        <location filename="../gui/DlgVisualization.ui" line="41"/>
         <source>Visualization tools:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualization.ui" line="54"/>
+        <location filename="../gui/DlgVisualization.ui" line="60"/>
         <source>Add Basemap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualization.ui" line="73"/>
+        <location filename="../gui/DlgVisualization.ui" line="79"/>
         <source>Create Print Map</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3168,37 +3168,37 @@ p，li {空格：预包装; }
 <context>
     <name>DlgVisualizationBasemap</name>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="20"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="26"/>
         <source>Add basemap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="32"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="38"/>
         <source>Mask </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="44"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="50"/>
         <source>Use a mask</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="54"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="60"/>
         <source>Mask all areas outside of:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="90"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="96"/>
         <source>Second level:</source>
         <translation>第二级：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="143"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="149"/>
         <source>First level:</source>
         <translation>第一级：</translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationBasemap.ui" line="180"/>
+        <location filename="../gui/DlgVisualizationBasemap.ui" line="186"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>声明：所提供的边界来自&lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt; &lt;span style =“text-decoration：underline; color： ＃0000ff;“&gt;自然地球&lt;/ span&gt; &lt;/a&gt;，并且位于&lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt; &lt;span style =”text-decoration：underline; color：＃ 0000ff;“&gt;公共领域&lt;/ span&gt; &lt;/a&gt;。在趋势中使用的界限和名称以及所用的名称.earth并不意味着由国际保护基金会或其合作组织和贡献者正式认可或接受。&lt;/ p&gt; &lt;/ body&gt; &lt;/ html&gt;</translation>
     </message>
@@ -3206,37 +3206,37 @@ p，li {空格：预包装; }
 <context>
     <name>DlgVisualizationCreateMap</name>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="14"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="20"/>
         <source>Create Map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="32"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="44"/>
         <source>Layer to display:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="67"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="85"/>
         <source>Map name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="105"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="129"/>
         <source>Author(s):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="137"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="161"/>
         <source>Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="143"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="167"/>
         <source>Portrait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgVisualizationCreateMap.ui" line="153"/>
+        <location filename="../gui/DlgVisualizationCreateMap.ui" line="177"/>
         <source>Landscape</source>
         <translation type="unfinished"></translation>
     </message>

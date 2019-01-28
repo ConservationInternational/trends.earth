@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -215,7 +214,7 @@
     <message>
         <location filename="../layers.py" line="54"/>
         <source>Degradation (significant decrease, p &lt; .01)</source>
-        <translation type="obsolete">Degradation (significant decrease, p &lt; .01)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="54"/>
@@ -225,7 +224,7 @@
     <message>
         <location filename="../layers.py" line="56"/>
         <source>Stable (significant decrease, p &lt; .1)</source>
-        <translation type="obsolete">Stable (significant decrease, p &lt; .1)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="55"/>
@@ -235,7 +234,7 @@
     <message>
         <location filename="../layers.py" line="58"/>
         <source>Stable (significant increase, p &lt; .1)</source>
-        <translation type="obsolete">Stable (significant increase, p &lt; .1)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="56"/>
@@ -245,7 +244,7 @@
     <message>
         <location filename="../layers.py" line="60"/>
         <source>Improvement (significant increase, p &lt; .01)</source>
-        <translation type="obsolete">Improvement (significant increase, p &lt; .01)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="61"/>
@@ -543,7 +542,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -1134,22 +1133,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_rest_biomass.py" line="81"/>
         <source>Choose a name for the output file</source>
-        <translation type="unfinished">Choose a name for the output file</translation>
+        <translation>Choose a name for the output file</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="81"/>
         <source>Raster file (*.tif)</source>
-        <translation type="unfinished">Raster file (*.tif)</translation>
+        <translation>Raster file (*.tif)</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="90"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="90"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Cannot write to {}. Choose a different file.</translation>
+        <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
 </context>
 <context>
@@ -1157,62 +1156,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_rest_biomass.py" line="216"/>
         <source>Choose a filename for the summary table</source>
-        <translation type="unfinished">Choose a filename for the summary table</translation>
+        <translation>Choose a filename for the summary table</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="216"/>
         <source>Summary table file (*.xlsx)</source>
-        <translation type="unfinished">Summary table file (*.xlsx)</translation>
+        <translation>Summary table file (*.xlsx)</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="310"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="238"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Cannot write to {}. Choose a different file.</translation>
+        <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="229"/>
         <source>Choose a filename for the output file</source>
-        <translation type="unfinished">Choose a filename for the output file</translation>
+        <translation>Choose a filename for the output file</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="229"/>
         <source>Filename (*.json)</source>
-        <translation type="unfinished">Filename (*.json)</translation>
+        <translation>Filename (*.json)</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="244"/>
         <source>Choose an output file for the biomass difference layers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose an output file for the biomass difference layers.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="249"/>
         <source>Choose an output file for the summary table.</source>
-        <translation type="unfinished">Choose an output file for the summary table.</translation>
+        <translation>Choose an output file for the summary table.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="263"/>
         <source>You must add a biomass layer to your map before you can use the summary tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>You must add a biomass layer to your map before you can use the summary tool.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="269"/>
         <source>Area of interest is not entirely within the biomass layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Area of interest is not entirely within the biomass layer.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="299"/>
         <source>Error masking input layers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error masking input layers.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="310"/>
         <source>Error calculating biomass change summary table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error calculating biomass change summary table.</translation>
     </message>
 </context>
 <context>
@@ -1732,7 +1731,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
         <source>Default Woods Hole Research Center (30 m resolution, tropics only)</source>
-        <translation type="obsolete">Default Woods Hole Research Center (30 m resolution, tropics only)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="361"/>
@@ -1777,77 +1776,77 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_tc.py" line="90"/>
         <source>Coming soon!</source>
-        <translation type="unfinished">Coming soon!</translation>
+        <translation>Coming soon!</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="90"/>
         <source>Custom forest cover data support is coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Custom forest cover data support is coming soon!</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="178"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="126"/>
         <source>Enter a value for percent cover that is considered forest.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter a value for percent cover that is considered forest.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="131"/>
         <source>Choose a method for calculating the root to shoot ratio.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a method for calculating the root to shoot ratio.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="136"/>
         <source>Choose a biomass dataset.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a biomass dataset.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="146"/>
         <source>Choose a name for the output file</source>
-        <translation type="unfinished">Choose a name for the output file</translation>
+        <translation>Choose a name for the output file</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="146"/>
         <source>Raster file (*.tif)</source>
-        <translation type="unfinished">Raster file (*.tif)</translation>
+        <translation>Raster file (*.tif)</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="155"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Cannot write to {}. Choose a different file.</translation>
+        <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="161"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
-        <translation type="unfinished">Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</translation>
+        <translation>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="169"/>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation>Warning</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="169"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation type="unfinished">The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</translation>
+        <translation>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="173"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
-        <translation type="unfinished">Area of interest is not entirely within the initial land cover layer.</translation>
+        <translation>Area of interest is not entirely within the initial land cover layer.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="178"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
-        <translation type="unfinished">Area of interest is not entirely within the final land cover layer.</translation>
+        <translation>Area of interest is not entirely within the final land cover layer.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
         <source>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</translation>
     </message>
 </context>
 <context>
@@ -1910,62 +1909,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_tc.py" line="339"/>
         <source>Choose a filename for the summary table</source>
-        <translation type="unfinished">Choose a filename for the summary table</translation>
+        <translation>Choose a filename for the summary table</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="339"/>
         <source>Summary table file (*.xlsx)</source>
-        <translation type="unfinished">Summary table file (*.xlsx)</translation>
+        <translation>Summary table file (*.xlsx)</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="450"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="348"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Cannot write to {}. Choose a different file.</translation>
+        <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="355"/>
         <source>Choose an output file for the summary table.</source>
-        <translation type="unfinished">Choose an output file for the summary table.</translation>
+        <translation>Choose an output file for the summary table.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="369"/>
         <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>You must add a forest loss layer to your map before you can use the carbon change summary tool.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="373"/>
         <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>You must add a total carbon layer to your map before you can use the carbon change summary tool.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="379"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Area of interest is not entirely within the forest loss layer.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="383"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Area of interest is not entirely within the total carbon layer.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="394"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Resolutions of forest loss and total carbon layers do not match.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="437"/>
         <source>Error masking carbon change input layers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error masking carbon change input layers.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="450"/>
         <source>Error calculating carbon change summary table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error calculating carbon change summary table.</translation>
     </message>
 </context>
 <context>
@@ -2167,62 +2166,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_urban.py" line="209"/>
         <source>Choose a filename for the output file</source>
-        <translation type="unfinished">Choose a filename for the output file</translation>
+        <translation>Choose a filename for the output file</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="209"/>
         <source>Filename (*.json)</source>
-        <translation type="unfinished">Filename (*.json)</translation>
+        <translation>Filename (*.json)</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="356"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="231"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="unfinished">Cannot write to {}. Choose a different file.</translation>
+        <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="222"/>
         <source>Choose a filename for the summary table</source>
-        <translation type="unfinished">Choose a filename for the summary table</translation>
+        <translation>Choose a filename for the summary table</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="222"/>
         <source>Summary table file (*.xlsx)</source>
-        <translation type="unfinished">Summary table file (*.xlsx)</translation>
+        <translation>Summary table file (*.xlsx)</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="238"/>
         <source>Choose an output file for the indicator layer.</source>
-        <translation type="unfinished">Choose an output file for the indicator layer.</translation>
+        <translation>Choose an output file for the indicator layer.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="243"/>
         <source>Choose an output file for the summary table.</source>
-        <translation type="unfinished">Choose an output file for the summary table.</translation>
+        <translation>Choose an output file for the summary table.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="257"/>
         <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>You must add an urban series layer to your map before you can use the urban change summary tool.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="264"/>
         <source>Area of interest is not entirely within the urban series layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Area of interest is not entirely within the urban series layer.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="344"/>
         <source>Error masking urban change input layers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error masking urban change input layers.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="356"/>
         <source>Error calculating urban change summary table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error calculating urban change summary table.</translation>
     </message>
 </context>
 <context>
@@ -2376,7 +2375,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2654,7 +2653,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2750,7 +2749,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -3631,32 +3630,32 @@ areas</translation>
     <message>
         <location filename="../calculate_rest_biomass.py" line="109"/>
         <source>Restoration biomass change submitted to Google Earth Engine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Restoration biomass change submitted to Google Earth Engine.</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="113"/>
         <source>Unable to submit restoration biomass change task to Google Earth Engine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to submit restoration biomass change task to Google Earth Engine.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="208"/>
         <source>Total carbon submitted to Google Earth Engine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Total carbon submitted to Google Earth Engine.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="212"/>
         <source>Unable to submit total carbon task to Google Earth Engine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to submit total carbon task to Google Earth Engine.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="185"/>
         <source>Urban area change calculation submitted to Google Earth Engine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Urban area change calculation submitted to Google Earth Engine.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="189"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to submit urban area task to Google Earth Engine.</translation>
     </message>
 </context>
 <context>

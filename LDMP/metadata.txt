@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=2.18
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.61
+version=0.62
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -21,7 +21,15 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.60
+changelog=0.62
+    - Add experimental tool for mapping potential carbon returns from 
+      alternative restoration interventions.
+    - Add 2018 MODIS data.
+    - Miscellaneous fixes to window sizing for GUI windows.
+    - Upgrade to latest openpyxl - fixes loading of Trends.Earth logo in 
+      summary tables.
+    - Add publication list to help docs.
+  0.60
     - Add calculation of change in urban area and population growth 
       rate (SDG 11.3.1)
     - Fix default button/entry field heights

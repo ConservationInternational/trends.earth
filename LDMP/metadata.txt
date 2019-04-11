@@ -21,7 +21,12 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.62
+changelog=0.64
+    - Fix handling of nodata in total carbon tool.
+    - Add support for 2018 Hansen data in total carbon tool.
+    - Add support for global 30m biomass data from Wood's Hole in total carbon 
+      tool.
+  0.62
     - Add experimental tool for mapping potential carbon returns from 
       alternative restoration interventions.
     - Add 2018 MODIS data.

@@ -342,7 +342,7 @@
           <item>
            <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
             <property name="text">
-             <string>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</string>
+             <string>Woods Hole Research Center (30 m resolution)</string>
             </property>
             <property name="checked">
              <bool>true</bool>

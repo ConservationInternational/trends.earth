@@ -21,7 +21,7 @@
                 {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -2, "color": "#AB2727", "label": "prod_traj_signif_dec_95"},
                 {"value": 1, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
-                {"value": 2, "color": "#45A146", "label": "prod_traj_signif_inc_95"}
+                {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_95"}
             ]
         }
     },

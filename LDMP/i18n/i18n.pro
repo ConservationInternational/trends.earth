@@ -2,8 +2,12 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculate.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
+../gui/DlgCalculateLD.ui \
 ../gui/DlgCalculateOneStep.ui \
 ../gui/DlgCalculateProd.ui \
+../gui/DlgCalculateRestBiomass.ui \
+../gui/DlgCalculateRestBiomassData.ui \
+../gui/DlgCalculateRestBiomassSummaryTable.ui \
 ../gui/DlgCalculateSOC.ui \
 ../gui/DlgCalculateSummaryTableAdmin.ui \
 ../gui/DlgCalculateSummaryTablePolygons.ui \

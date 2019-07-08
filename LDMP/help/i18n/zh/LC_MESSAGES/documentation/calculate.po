@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,19 +35,20 @@ msgid ""
 "indicators: change in land productivity, change in land cover and change in "
 "soil organic carbon."
 msgstr ""
+"可持续发展目标15.3旨在防治荒漠化，恢复退化的土地和土壤，包括受荒漠化，干旱和洪水影响的土地，并努力在2030年前实现土地退化中性世界。为了评估实现这一目标的进展，可持续发展目标15.3（土地面积退化比例）的指标是三个子指标的组合：土地生产力的变化，土地覆盖的变化和土壤有机碳的变化。"
 
 #: ../../source/documentation/calculate.rst:17
 msgid ""
 "To select the methods and datasets to calculate these indicators, indicators"
 " click on the calculator icon (|iconCalculator|). This will open up the "
 "\"Calculate Indicators\" dialog box."
-msgstr ""
+msgstr "要选择方法和数据集来计算这些指标，请点击计算器图标（| iconCalculator |）。这将打开“计算指标”对话框。"
 
 #: ../../source/documentation/calculate.rst:24
 msgid ""
 "Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
 "window for this analysis."
-msgstr ""
+msgstr "选择土地退化指标（SDG指标15.3.1）以打开此分析的窗口。"
 
 #: ../../source/documentation/calculate.rst:29
 msgid ""
@@ -91,6 +92,7 @@ msgid ""
 " raster on sub-units\". Note that you must first compute the indicators "
 "using one of the above options."
 msgstr ""
+"要计算显示多个子划分的三个指标中每个指标的统计数据的汇总表，请单击“计算子单位上栅格的面积汇总”。请注意，您必须首先使用上述选项之一计算指标。"
 
 #: ../../source/documentation/calculate.rst:53
 msgid ""
@@ -122,7 +124,7 @@ msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed "
 "explanation of how each of these sub-indicators is computed in "
 "|trends.earth|"
-msgstr ""
+msgstr "有关如何在| trends.earth |中计算每个子指标的详细说明，请参阅本手册的：ref：`indicator-15-3-1`部分。"
 
 #: ../../source/documentation/calculate.rst:71
 msgid ""
@@ -141,7 +143,7 @@ msgstr "用简化的工具计算指标"
 msgid ""
 "This tool allows users to calculate all three sub-indicators in one step. "
 "Select the \"Calculate all three sub-indicators in one step\" button."
-msgstr ""
+msgstr "该工具允许用户一步计算所有三个子指标。选择“一步计算所有三个子指标”按钮。"
 
 #: ../../source/documentation/calculate.rst:82
 msgid ""
@@ -202,7 +204,7 @@ msgstr "命名任务并做笔记以备将来参考"
 
 #: ../../source/documentation/calculate.rst:131
 msgid "Click on \"Calculate\" to submit your task to Google Earth Engine"
-msgstr ""
+msgstr "点击“计算”将您的任务提交到Google地球引擎"
 
 #: ../../source/documentation/calculate.rst:138
 msgid "Calculate productivity"
@@ -258,7 +260,7 @@ msgstr "有效日期范围由第一个选项卡中选择的NDVI数据集设置�
 msgid ""
 "In the tab \"Advanced\", select the method to be used to compute the "
 "productivity trajectory analysis. The options are:"
-msgstr ""
+msgstr "在“高级”选项卡中，选择用于计算生产率轨迹分析的方法。选项是："
 
 #: ../../source/documentation/calculate.rst:174
 msgid ""
@@ -346,7 +348,7 @@ msgstr "州对一个地区当前的生产力与过去的生产力进行比较。
 msgid ""
 "Define the baseline and comparison periods for the computation of the State "
 "sub-indicator."
-msgstr ""
+msgstr "定义State子指标计算的基线和比较周期。"
 
 #: ../../source/documentation/calculate.rst:227
 msgid ""
@@ -442,7 +444,7 @@ msgstr "点击工具箱栏中的计算指标按钮，然后选择土地覆盖。
 msgid ""
 "Within the \"Land Cover Setup tab\" the user selects the baseline and target"
 " years"
-msgstr ""
+msgstr "在“土地覆盖设置选项卡”中，用户选择基线和目标年份"
 
 #: ../../source/documentation/calculate.rst:296
 msgid ""
@@ -455,7 +457,7 @@ msgstr "可以使用“编辑定义”按钮来定制土地覆盖集合。用户
 msgid ""
 "Select the dial button for the \"Custom\" option and select \"Create new "
 "definition\""
-msgstr ""
+msgstr "选择“自定义”选项的拨号按钮，然后选择“创建新定义”"
 
 #: ../../source/documentation/calculate.rst:303
 msgid "Edit the aggregation suitable for the area of interest"
@@ -463,7 +465,7 @@ msgstr "编辑适合感兴趣区域的聚合"
 
 #: ../../source/documentation/calculate.rst:305
 msgid "Select \"Save definition\" and select Next"
-msgstr ""
+msgstr "选择“保存定义”并选择“下一步”"
 
 #: ../../source/documentation/calculate.rst:310
 msgid ""
@@ -477,6 +479,8 @@ msgid ""
 "based on their knowledge of the study area, since this matrix will have an "
 "important effect on the land degradation identified by this subindicator."
 msgstr ""
+"在“定义降级”选项卡中，用户根据退化定义每个土地覆盖过渡的含义。选项包括：稳定（0），降级（ - "
+"）或改进（+）。例如，农田到农田的默认值为0，因为土地覆盖保持不变，因此是稳定的。森林到农田的默认值为-1，因为森林很可能被砍伐为农业，并被视为森林砍伐。鼓励用户根据他们对研究区域的了解彻底评估每个过渡的含义，因为该矩阵将对该子指示器识别的土地退化产生重要影响。"
 
 #: ../../source/documentation/calculate.rst:320
 msgid ""
@@ -540,7 +544,7 @@ msgstr ""
 
 #: ../../source/documentation/calculate.rst:386
 msgid "The \"Advanced\" tab allows users to specify the Climate regime."
-msgstr ""
+msgstr "“高级”选项卡允许用户指定气候制度。"
 
 #: ../../source/documentation/calculate.rst:391
 msgid "Users can select an area or upload a polygon shapefile for analysis"
@@ -555,6 +559,7 @@ msgid ""
 "name. Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
 msgstr ""
+"Google地球引擎任务完成后您收到了电子邮件，请点击“刷新列表”，状态将显示已完成。单击任务，然后选择窗口底部的“下载结果”。将打开一个弹出窗口，供您选择保存图层的位置并为其指定名称。然后单击“保存”。该图层将保存在您的计算机上并自动加载到您当前的QGIS项目中。"
 
 #: ../../source/documentation/calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"
@@ -566,6 +571,8 @@ msgid ""
 "manual for a detailed explanation of how the sub-indicators are combined to "
 "calculate the final SDG 15.3.1 indicator."
 msgstr ""
+"有关如何组合子指标以计算最终SDG 15.3.1指标的详细说明，请参阅本手册的：ref：`indicator-15-3-1-combined-"
+"indicators`部分。"
 
 #: ../../source/documentation/calculate.rst:422
 msgid ""
@@ -575,18 +582,20 @@ msgid ""
 "Indicator\" dialog box. This time click on Step 2 \"Calculate final SDG "
 "15.3.1 indicator and summary table\"."
 msgstr ""
+"计算出三个子指标（生产力，土地覆盖率和土壤有机碳）后，将它们加载到QGIS项目中。单击Calculate图标（| iconCalculator "
+"|）。这将打开“计算指标”对话框。这次单击步骤2“计算最终SDG 15.3.1指标和汇总表”。"
 
 #: ../../source/documentation/calculate.rst:428
 msgid ""
 "The input window will open already populated with the correct sub-indicators"
 " (that if you have them loaded to the QGIS map)"
-msgstr ""
+msgstr "输入窗口将打开，已经填充了正确的子指示符（如果您将它们加载到QGIS地图中）"
 
 #: ../../source/documentation/calculate.rst:434
 msgid ""
 "Select the name and location where to save the output raster layer and the "
 "excel file with the areas computed."
-msgstr ""
+msgstr "选择保存输出栅格图层的名称和位置以及计算区域的Excel文件。"
 
 #: ../../source/documentation/calculate.rst:440
 msgid "Define the area of analysis. In this example, the country boundary."
@@ -594,7 +603,7 @@ msgstr "定义分析区域。在这个例子中，国家边界。"
 
 #: ../../source/documentation/calculate.rst:445
 msgid "Give a name to the task and click \"Calculate\""
-msgstr ""
+msgstr "为任务命名并单击“计算”"
 
 #: ../../source/documentation/calculate.rst:450
 msgid ""
@@ -620,3 +629,4 @@ msgid ""
 " just click ok and the file will open regardless. We are working to fix this"
 " error."
 msgstr ""
+"如果导航到选择用于存储文件的文件夹，则可以打开Excel文件，其中包含为每个子指示符和最终SDG计算的区域。注意：打开文件时可能会收到错误消息，只需单击“确定”即可打开文件。我们正在努力解决此错误。"

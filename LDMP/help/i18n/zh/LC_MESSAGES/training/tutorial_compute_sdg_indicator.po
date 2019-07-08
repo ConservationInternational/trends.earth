@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2018-04-04 19:02+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,28 +23,30 @@ msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:4
 msgid "Compute SDG indicator"
-msgstr ""
+msgstr "计算SDG指标"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:6
 msgid ""
 "**Objective**: Learn to integrate the land cover, primary productivity and "
 "soil organic carbon sub-indicators to compute SDG 15.3.1 in raster format "
 "and tabular outputs with areas estimated."
-msgstr ""
+msgstr "**目标**：学习整合土地覆盖，初级生产力和土壤有机碳子指标，以栅格格式计算SDG 15.3.1和估算面积的表格输出。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "**预计完成时间**：20分钟"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:10
 msgid "**Internet access**: Not required"
-msgstr ""
+msgstr "**互联网接入**：不需要"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf>`_"
 msgstr ""
+"`将此页面下载为PDF以供离线使用&lt;../ pdfs / "
+"Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf&gt;`_"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:16
 msgid ""
@@ -54,24 +56,25 @@ msgid ""
 ":ref:`1-step_subindicators`, :ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, "
 "and :ref:`tut_custom_soc`."
 msgstr ""
+"在运行此工具之前，您需要先计算土地覆盖，土壤有机碳和土地生产力指标。如果还没有，请参考以下特定教程来计算它们：ref：`1-step_subindicators`，：ref：`tut_custom_lc`，：ref：`tut_custom_lpd`，和：ref：`tut_custom_soc`。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:18
 msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
 "icon (|iconCalculator|)."
-msgstr ""
+msgstr "在QGIS中搜索Trends.Earth工具栏，然后单击Calculate图标（| iconCalculator |）。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:23
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on Land "
 "degradation indicator (SDG indicator 15.3.1)"
-msgstr ""
+msgstr "**计算指标**菜单将打开。在该窗口中，单击土地退化指标（SDG指标15.3.1）"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:28
 msgid ""
 "Select **Calculate final SDG 15.3.1 spatial layer and summary table for "
 "total boundary** button found under Step 2 - Option 1."
-msgstr ""
+msgstr "在步骤2  - 选项1中选择**计算最终SDG 15.3.1空间层和总边界**按钮摘要表。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:33
 msgid ""
@@ -80,6 +83,8 @@ msgid ""
 "land productivity** or **UNCCD default data**. In this case select UNCCD "
 "default data."
 msgstr ""
+"在**输入**选项卡中，您将选择计算最终SDG 15.3.1所需的每个输入层。您可以选择使用** Trends.Earth土地生产力**或** "
+"UNCCD默认数据**。在这种情况下，选择UNCCD默认数据。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:36
 msgid ""
@@ -89,13 +94,17 @@ msgid ""
 "/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
+"请参阅本手册的：ref：`indicator-15-3-1`部分，了解根据“UNCCD良好实践指南”（GPG）制定的Trends.Earth生产率指标<http://www2.unccd.int/sites/default/files"
+"/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>"
+" `_。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:38
 msgid ""
 "If you have the sub-indicators loaded into the QGIS map, the tool will "
 "recognize them and they will show up pre-filled in each corresponding "
 "section."
-msgstr ""
+msgstr "如果将子指示器加载到QGIS地图中，该工具将识别它们，并且它们将显示在每个相应部分中预先填充。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:41
 msgid ""
@@ -104,17 +113,18 @@ msgid ""
 "make sure to check that the one being used to compute the final SDG is the "
 "one you want."
 msgstr ""
+"如果每个子指标有多个图层加载到地图中（例如，使用默认值和自定义数据计算的土地覆盖变化），请确保检查用于计算最终SDG的那个是否是您想要的那个。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:43
 msgid ""
 "If the sub-indicators are not loaded in your QGIS map, then click **Load "
 "existing** next to each of the sub-indicators sections, and nagivate to the "
 "folder where you stored them in your computer."
-msgstr ""
+msgstr "如果未在QGIS地图中加载子指示器，则单击每个子指示器部分旁边的**加载现有**，并将其放在计算机中存储它们的文件夹中。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:45
 msgid "When done selecting inputs, click **Next**."
-msgstr ""
+msgstr "完成选择输入后，单击**下一步**。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:50
 msgid ""
@@ -122,15 +132,17 @@ msgid ""
 "final **SDG 15.3.1 indicator** and the **summary table**. Click **Browse** "
 "next to each of them to select the output location and to define names."
 msgstr ""
+"在**输出**选项卡中，您需要定义最终** SDG "
+"15.3.1指标**和**汇总表**的名称和位置。单击每个旁边的**浏览**以选择输出位置并定义名称。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:55
 msgid "When done, click **Next**."
-msgstr ""
+msgstr "完成后，单击**下一步**。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:60
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
-msgstr ""
+msgstr "在**区域**选项卡中定义分析区域。有两种选择："
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:62
 msgid ""
@@ -139,6 +151,7 @@ msgid ""
 " the First Level (country) or Second Level (state or province depending on "
 "the country)."
 msgstr ""
+"使用提供的国家和州界限：如果要使用此选项，请确保突出显示**管理区域**选项，然后选择第一级别（国家/地区）或第二级别（州或省，具体取决于国家/地区）。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:65
 msgid ""
@@ -148,6 +161,7 @@ msgid ""
 "Conservation International Foundation, or by its partner organizations and "
 "contributors."
 msgstr ""
+"在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:71
 msgid ""
@@ -162,37 +176,38 @@ msgid ""
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
 " navigate to the folder in your computer where you have the file stored."
 msgstr ""
+"使用您自己的区域文件：如果您想使用自己的分析区域，请确保突出显示**文件区域**选项。然后单击**浏览**并导航到计算机中存储文件的文件夹。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:81
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
-msgstr ""
+msgstr "选择要计算指标的区域后，单击**下一步**。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:86
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
-msgstr ""
+msgstr "在**选项**选项卡中，您可以定义**任务名称**并制作一些**注释**以标识您正在运行的分析。要指出的信息是可选的，但我们建议您注意："
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:88
 msgid "Area of analysis"
-msgstr ""
+msgstr "分析领域"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:89
 msgid "Dates"
-msgstr ""
+msgstr "日期"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:90
 msgid "Indicators run"
-msgstr ""
+msgstr "指标运行"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:95
 msgid ""
 "When done, click **Calculate**. A light blue bar will temporarily show, "
 "indicating that the task was successfully submitted."
-msgstr ""
+msgstr "完成后，单击**计算**。将暂时显示浅蓝色条，表示任务已成功提交。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:97
 msgid ""
@@ -201,16 +216,17 @@ msgid ""
 "processing capabilities of your computer. Do not close your computer or put "
 "it to sleep while running, because the analysis will fail."
 msgstr ""
+"此分析将在您的本地计算机上运行，因此处理时间取决于区域大小，数据分辨率以及计算机的处理能力。运行时请勿关闭计算机或将其置于睡眠状态，因为分析将失败。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:102
 msgid ""
 "When the analysis is completed a **Success** message will notify you and the"
 " indicator will be loaded to the map."
-msgstr ""
+msgstr "分析完成后，** Success **消息将通知您，指示符将加载到地图中。"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:111
 msgid ""
 "Refer to the :ref:`tut_interpret_table` section of this manual to learn how "
 "to open and interpret the information in the summary table created by this "
 "analysis."
-msgstr ""
+msgstr "请参阅本手册的：ref：`tut_interpret_table`部分，了解如何打开和解释此分析创建的汇总表中的信息。"

@@ -5,17 +5,17 @@
 # 
 # Translators:
 # Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,12 +72,16 @@ msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on Land "
 "degradation indicator (SDG indicator 15.3.1)"
 msgstr ""
+"Le menu ** Calculer indicateurs ** s&#39;ouvre. Dans cette fenêtre, cliquez "
+"sur Indicateur de dégradation des terres (indicateur SDG 15.3.1)."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:25
 msgid ""
 "Select **Calculate all three sub-indicators in one step** button found under"
 " Step 1 - Option 1."
 msgstr ""
+"Sélectionnez ** Calculez les trois sous-indicateurs en une seule étape ** "
+"bouton situé sous Étape 1 - Option 1."
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:30
 msgid ""

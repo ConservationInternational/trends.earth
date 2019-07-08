@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.61\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-05 21:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2019-01-28 02:15+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -24,17 +24,20 @@ msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:2
 msgid "SDG 11.3.1 - Land Consumption Rate"
-msgstr ""
+msgstr "SDG 11.3.1 - Kiwango cha matumizi ya ardhi"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:3
 msgid ""
 "**Objective**: Learn how to compute urban extent and population for 2000, "
 "2005, 2010, 2015 in raster format and tabular outputs with areas estimated."
 msgstr ""
+"** Lengo **: Jifunze jinsi ya kuhesabu kiwango cha mijini na idadi ya watu "
+"kwa 2000, 2005, 2010, 2015, katika muundo wa raster na matokeo ya tabular na"
+" maeneo yaliyotarajiwa."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:5
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr ""
+msgstr "** Muda uliotarajiwa wa kukamilisha **: dakika 40"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:7
 msgid "**Internet access**: Required"
@@ -45,10 +48,12 @@ msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_"
 msgstr ""
+"`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao &lt;../ pdfs / "
+"Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf&gt;` _"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:15
 msgid "Urban Mapper"
-msgstr ""
+msgstr "Mjini Mapper"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:16
 msgid ""
@@ -62,6 +67,15 @@ msgid ""
 " different parameters impact the extent of the built up area data which will"
 " be then used to define changes in urban extent."
 msgstr ""
+"Hatua ya kwanza kabla ya kuchambua mabadiliko ya mijini ni kufafanua kiwango"
+" cha maeneo yaliyoundwa. Kwa hiyo, tumeunda interface ya mtandao "
+"inayoingiliana inayoitwa `Trends.Earth Mjini Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_. Hatua hii ni ya msingi ili kuhakikisha kuwa eneo la kujengwa "
+"lililobuniwa na viashiria vinaonyesha kwa usahihi hali katika eneo lako la "
+"kujifunza. Chombo cha Mjini Mapper katika GEE inaruhusu watumiaji kuchunguza"
+" jinsi mabadiliko ya vigezo tofauti huathiri kiwango cha data iliyojengwa "
+"eneo ambalo litatumika kufafanua mabadiliko katika kiwango cha mijini."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:18
 msgid ""
@@ -69,6 +83,9 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_.before you run the analysis in QGIS."
 msgstr ""
+"Nenda kwenye &#39;Trends.Earth Mjini Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_ kabla ya kukimbia uchambuzi katika QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:21
 msgid ""
@@ -77,6 +94,11 @@ msgid ""
 "the page and type the city you want to analyze. In this example we'll type "
 "\"Kampala, Uganda\" and click on the option showing right underneath."
 msgstr ""
+"Chombo hiki kinaweza kutumika kuchambua mabadiliko katika eneo la kujengwa "
+"karibu na mji wowote wa ulimwengu. Bonyeza dirisha ** Tafuta Maeneo ** "
+"kwenye kituo cha juu cha ukurasa na uchague jiji unayotaka kuchambua. Katika"
+" mfano huu tutaiga &quot;Kampala, Uganda&quot; na bonyeza chaguo "
+"inayoonyesha chini ya chini."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:24
 msgid ""
@@ -88,28 +110,37 @@ msgid ""
 "To compare to satellite images, we can click on **Satellite** in the top "
 "right corner of the map window."
 msgstr ""
+"Chombo hiki kinakuwezesha kubadilisha vigezo vitatu ili kutambua kwa usahihi"
+" kiwango kilichofaa zaidi cha jiji lako: Nambari ya uso isiyo na uso, index "
+"ya taa za usiku, na mzunguko wa maji. Mara ya kwanza ukitumia chombo katika "
+"jiji jipya, bonyeza ** Futa uchambuzi ** ili kuona jinsi vigezo vya msingi "
+"vinavyofanya, na kutoka huko unaweza kuboresha uchambuzi. Ili kulinganisha "
+"na picha za satelaiti, tunaweza bonyeza ** Satellite ** kwenye kona ya juu "
+"ya kulia ya dirisha la ramani."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:26
 msgid ""
 "Now the map with the built up area defined by the default parameters will "
 "load into the map color coded in the following way:"
 msgstr ""
+"Sasa ramani na eneo lililojengwa linalotafsiriwa na vigezo vya msingi "
+"hupakia kwenye rangi ya ramani iliyochukuliwa kwa njia ifuatayo:"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:28
 msgid "Black: Built-up areas present since before 2000"
-msgstr ""
+msgstr "Nyeusi: Sehemu zilizojengwa zipo sasa kabla ya 2000"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:29
 msgid "Red: Built-up areas constructed between 2000 and 2005"
-msgstr ""
+msgstr "Nyekundu: Sehemu zilizojengwa zilijengwa kati ya 2000 na 2005"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:30
 msgid "Orange: Built-up areas constructed between 2005 and 2010"
-msgstr ""
+msgstr "Orange: Maeneo yanayojengwa yalijengwa kati ya 2005 na 2010"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:31
 msgid "Yellow: Built-up areas constructed between 2010 and 2015"
-msgstr ""
+msgstr "Njano: Sehemu zilizojengwa zilijengwa kati ya 2010 na 2015"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:36
 msgid ""
@@ -117,6 +148,9 @@ msgid ""
 "can, for example, zoom in to an area in western Kampala to see how the "
 "default parameters perform (ISI:20, NTLI:10, WF:25):"
 msgstr ""
+"Sasa unapaswa kutumia ujuzi wako wa jiji kuchunguza kuweka data. Tunaweza, "
+"kwa mfano, kupanua kwenye eneo la magharibi mwa Kampala ili kuona jinsi "
+"vipimo vya default vinavyofanya (ISI: 20, NTLI: 10, WF: 25):"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:41
 msgid ""
@@ -129,6 +163,15 @@ msgid ""
 "we need to lower the value of the NTLI. In this case we'll try changing it "
 "from 10 to 2, and click **Run Analysis** again (ISI-20, NTLI-2, WF - 25)."
 msgstr ""
+"Tunaweza kutambua mipaka mikubwa ya mraba katika seti ya data iliyojengwa "
+"ambayo haionekani kufanana na muundo wa anga unaoonyeshwa na picha ya "
+"satelaiti ya nyuma. Hiyo ni ishara kwamba kiashiria cha wakati wa usiku "
+"kinachowekwa juu (yaani ni kuondokana na maeneo yetu ya ramani ya kujengwa "
+"yenye viwango vya chini vya mwanga vinavyopaswa kuingizwa). Hii ni hali ya "
+"kawaida katika maeneo ya miji na viwango vya chini vya mwanga. Ikiwa "
+"tunataka kuingiza maeneo hayo, tunahitaji kupunguza thamani ya NTLI. Katika "
+"kesi hii tutajaribu kubadilisha kutoka 10 hadi 2, na bonyeza ** Futa "
+"Uchambuzi ** tena (ISI-20, NTLI-2, WF - 25)."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:46
 msgid ""
@@ -136,6 +179,9 @@ msgid ""
 "previously excluded (i.e. showing no data) now display information on the "
 "map."
 msgstr ""
+"Unaweza kuona sasa matokeo ya kubadilisha parameter hiyo. Maeneo hayo "
+"yaliyotengwa hapo awali (yaani, hakuna data) sasa inaonyesha habari kwenye "
+"ramani."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:48
 msgid ""
@@ -149,6 +195,15 @@ msgid ""
 "built-up area our map will display. The example we just run (ISI-30, NTLI-2,"
 " WF-25) would look something like this:"
 msgstr ""
+"Ikiwa tunafikiria kwamba kiwango cha jumla cha eneo lililojengwa kwenye "
+"ramani ni sahihi, lakini kwamba wiani ni kubwa sana, tunaweza kutumia "
+"Kiashiria cha Surface ya Uharibifu ili kuifanya. Ikiwa tunaongeza thamani ya"
+" ISI kutoka 20 hadi 30, na bonyeza ** Futa uchambuzi ** safu mpya itaonyesha"
+" kuonyesha ngazi za chini za kujengwa. Hii hutokea kwa sababu tunasema "
+"chombo &quot;tu fikiria maeneo yaliyojengwa yaliyo na thamani ya kiashiria "
+"cha uso cha kutosha cha 30 au zaidi&quot;, kwa hiyo juu huweka thamani hii "
+"kwa, sehemu ndogo iliyojengwa ramani yetu itaonyesha. Mfano tunayokimbia "
+"(ISI-30, NTLI-2, WF-25) utaangalia kitu kama hiki:"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:53
 msgid ""
@@ -156,6 +211,9 @@ msgid ""
 "value. For example, with ISI-10, NTLI-2, WF-25, the same region in Kampala "
 "would look:"
 msgstr ""
+"Ikiwa tunataka kuingiza sehemu zaidi, tunafanya kinyume, na kupunguza "
+"thamani ya ISI. Kwa mfano, pamoja na ISI-10, NTLI-2, WF-25, kanda moja huko "
+"Kampala ingeonekana:"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:58
 msgid ""
@@ -165,12 +223,18 @@ msgid ""
 "out and change parameters until you feel you have found the set that better "
 "describes your city."
 msgstr ""
+"Ni muhimu sana kutathmini matokeo ya kubadilisha kila moja ya vigezo katika "
+"eneo lako la jumla la uchambuzi (yaani jiji lako), kwa kuwa seti moja ya "
+"vigezo itaelezwa kwa uchambuzi. Tembea kuzunguka, ongeza ndani na nje na "
+"ubadilishe vigezo mpaka ufikie umepata seti inayoelezea vizuri jiji lako."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:60
 msgid ""
 "For example, the overall urban area in Kampala with ISI-10, NTLI-2, and "
 "WF-25 would look like this:"
 msgstr ""
+"Kwa mfano, eneo la miji ya Kampala na ISI-10, NTLI-2, na WF-25 ingeonekana "
+"kama hii:"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:65
 msgid ""
@@ -180,6 +244,12 @@ msgid ""
 "where some areas originally covered with water have been filled and "
 "constructed, the water frequency parameter can be used to capture them."
 msgstr ""
+"Kipimo cha tatu na cha mwisho ambacho unaweza kubadilisha katika Ramani ya "
+"Mjini ili kufafanua sehemu iliyojengwa ni Frequency ya Maji. Katika hali "
+"nyingi parameter hii haiathiri matokeo, lakini katika baadhi ya matukio "
+"inafanya. Kwa mfano, huko Dubai ambako maeneo fulani yaliyofunikwa na maji "
+"yamejazwa na kujengwa, parameter ya maji ya mzunguko inaweza kutumika "
+"kuitumia."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:67
 msgid ""
@@ -189,33 +259,47 @@ msgid ""
 "the higher the value, the less water the map will show and the more land "
 "(i.e. built up if that is the case)."
 msgstr ""
+"Kipimo cha mzunguko wa maji kinapaswa kutafsiriwa kama ifuatavyo: pixel "
+"inahitaji kufunikwa na maji kwa angalau asilimia X ya wakati ili kuchukuliwa"
+" kuwa maji, vinginevyo itachukuliwa kuwa ardhi &quot;Hii inamaanisha kwamba "
+"thamani ya juu, chini ya maji ramani itaonyesha na ardhi zaidi (yaani "
+"kujengwa kama hiyo ni kesi)."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:69
 msgid ""
 "In the Dubai example, we can see these features in the satellite image."
 msgstr ""
+"Katika mfano wa Dubai, tunaweza kuona vipengele hivi kwenye picha ya "
+"satellite."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:74
 msgid ""
 "But we can't see them in the built-up area map using the following "
 "parameters: ISI-35, NTLI-5, and WF-25."
 msgstr ""
+"Lakini hatuwezi kuwaona kwenye ramani ya eneo la kujengwa kwa kutumia vigezo"
+" zifuatazo: ISI-35, NTLI-5, na WF-25."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:79
 msgid ""
 "If we change the Water frequency parameter to 80, we can start seeing the "
 "recently built-up areas in the water (ISI-35, NTLI-5, WF-80)"
 msgstr ""
+"Ikiwa tunabadili parameter ya mzunguko wa Maji hadi 80, tunaweza kuanza "
+"kuona maeneo yaliyojengwa hivi karibuni ndani ya maji (ISI-35, NTLI-5, "
+"WF-80)"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:84
 msgid ""
 "Once you have found the set of parameters which best work for your city, you"
 " are ready to run the analysis in QGIS."
 msgstr ""
+"Mara baada ya kupatikana seti ya vigezo vinavyofaa zaidi kwa jiji lako, uko "
+"tayari kuendesha uchambuzi katika QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:87
 msgid "Compute urban area change"
-msgstr ""
+msgstr "Futa mabadiliko ya eneo la mijini"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:88
 #: ../../source/training/tutorial_compute_urban_indicator.rst:186
@@ -223,6 +307,8 @@ msgid ""
 "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
 " QGIS."
 msgstr ""
+"Chagua icon ya kuhesabu (| iconCalculator |) kutoka kwa Trends.Earth Plugin "
+"katika QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:93
 #: ../../source/training/tutorial_compute_urban_indicator.rst:191
@@ -231,16 +317,21 @@ msgid ""
 "**Urban change and land consumption indicators (SDG indicator 11.3.1)** "
 "button."
 msgstr ""
+"Mfumo wa Mahesabu ** ** utafunguliwa. Katika dirisha hilo, bonyeza ** "
+"Mabadiliko ya mijini na viashiria vya matumizi ya ardhi (kiashiria cha SDG "
+"11.3.1) **."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:98
 msgid "Select Step 1: Calculate urban change spatial layers"
-msgstr ""
+msgstr "Chagua Hatua ya 1: Fanya tabaka za mabadiliko ya mijini"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:103
 msgid ""
 "The **Calculate Urban Area Change Metrics** menu will open. In that window, "
 "you will step through the four tabs to set the parameters for your analysis."
 msgstr ""
+"Mahesabu ** Mipangilio ya Mipangilio ya Eneo la Mjini ** hufungua. Katika "
+"dirisha hilo, utapita kupitia tabo nne ili kuweka vigezo vya uchambuzi wako."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:105
 msgid ""
@@ -251,6 +342,12 @@ msgid ""
 "identified by the indicators accurately reflects the conditions in your area"
 " of study."
 msgstr ""
+"Kabla ya kuanza kuanza kujaza mipangilio hii, utahitaji kuchunguza eneo lako"
+" la riba kwa kutumia ukurasa unaoingiliana wa `Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_. Hatua hii ni ya msingi ili kuhakikisha kuwa eneo la kujengwa "
+"lililobuniwa na viashiria vinaonyesha kwa usahihi hali katika eneo lako la "
+"kujifunza."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:107
 msgid ""
@@ -261,6 +358,11 @@ msgid ""
 "mapper>`_ and identified the best set of parameters for your city before "
 "running."
 msgstr ""
+"Kumbuka kuwa kwa kuwa tunajua kuwa tumejaribu kupima katika Uganda na Dubai,"
+" na tangu sasa tutaendesha vitu huko Nairobi, na hakikisha kwamba umetumia "
+"ukurasa wa `Urban Mapper &#39; "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_ na kutambua seti bora ya vigezo vya jiji lako kabla ya kuendesha."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:109
 msgid "Settings"
@@ -268,25 +370,31 @@ msgstr "Mipangilio"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:111
 msgid "By default your window will be open on the Settings tab."
-msgstr ""
+msgstr "Kwa dirisha dirisha lako litafunguliwa kwenye kichupo cha Mipangilio."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:113
 msgid ""
 "Select the Impervious Surface Index (ISI) by choosing a value between 0-100."
 " The higher the value the smaller the urban area."
 msgstr ""
+"Chagua Nambari ya Ufafanuzi isiyo na Ubora (ISI) kwa kuchagua thamani kati "
+"ya 0-100. Ya juu ni thamani ndogo eneo la miji."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:115
 msgid ""
 "Select the Night Time Lights Index (NTLI) by choosing a value between 0-100."
 " The higher the value the smaller the urban area."
 msgstr ""
+"Chagua Night Time Lights Index (NTLI) kwa kuchagua thamani kati ya 0-100. Ya"
+" juu ni thamani ndogo eneo la miji."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:117
 msgid ""
 "Select the Water Frequency (WF) by choosing a value between 0-100. The "
 "higher the value the larger the urban area."
 msgstr ""
+"Chagua Frequency ya Maji (WF) kwa kuchagua thamani kati ya 0-100. Ya juu ya "
+"thamani kubwa eneo la mijini."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:122
 msgid "Advanced"
@@ -297,28 +405,34 @@ msgid ""
 "Click Next from the Settings tab to view the Advanced tab. Here you will "
 "need to define:"
 msgstr ""
+"Bofya Jipya kutoka kwenye kichupo cha Mipangilio ili uone kichupo cha juu. "
+"Hapa utahitaji kufafanua:"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:126
 msgid "The thresholds for suburban and urban built up areas."
-msgstr ""
+msgstr "Vizingiti kwa maeneo ya mijini na mijini yaliyojengwa."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:128
 msgid ""
 "Define the area of largest captured open space (ha) which is the contiguous "
 "captured open space larger than this area that will be considered rural."
 msgstr ""
+"Eleza eneo la nafasi kubwa iliyofunguliwa (ha) ambayo inajenga nafasi iliyo "
+"wazi zaidi kuliko eneo hili ambalo litazingatiwa vijijini."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:130
 msgid ""
 "Select which population density dataset you would like to use for the "
 "analysis."
-msgstr ""
+msgstr "Chagua darasetani ya idadi ya watu ungependa kutumia kwa uchambuzi."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:135
 msgid ""
 "Click Next from the Advanced tab to view the Area tab. Here you will need to"
 " define the area for your analysis."
 msgstr ""
+"Bonyeza Ijayo kutoka kwenye kichupo cha Juu ili uone kichupo cha Eneo. Hapa "
+"utahitaji kufafanua eneo kwa uchambuzi wako."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:137
 msgid ""
@@ -327,6 +441,10 @@ msgid ""
 "of a city, apply a buffer to the chosen area so that analysis encompasses "
 "all potential urban areas."
 msgstr ""
+"Eneo: Unaweza kuchagua nchi, mkoa au jiji kutoka orodha ya kushuka au "
+"kupakia eneo kutoka faili. Ikiwa unachagua jiji au kupakia eneo la uhakika "
+"la jiji, tumia eneo la eneo lililochaguliwa ili uchambuzi uhusishe maeneo "
+"yote ya mijini."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:139
 msgid ""
@@ -334,6 +452,9 @@ msgid ""
 " do not use buffers, since that will affect the area of analysis and the "
 "final area calculation."
 msgstr ""
+"Ikiwa unatumia mipangilio yako mwenyewe kwa ajili ya uchambuzi, "
+"tunapendekeza usitumie vifungo, kwani hilo litaathiri eneo la uchambuzi na "
+"hesabu ya eneo la mwisho."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:145
 msgid ""
@@ -344,6 +465,12 @@ msgid ""
 "endorsement or acceptance by Conservation International Foundation, or by "
 "its partner organizations and contributors."
 msgstr ""
+"Mipaka iliyotolewa ni kutoka `Dunia ya Asili "
+"<http://www.naturalearthdata.com> `_, na ni katika &#39;uwanja wa umma "
+"<https://creativecommons.org/publicdomain> `_. Mipaka na majina "
+"yaliyotumiwa, na majina yaliyotumiwa, katika Mwelekeo.Kuanzia haimaanishi "
+"kupitishwa rasmi au kukubaliwa na Conservation International Foundation, au "
+"kwa mashirika yake ya washirika na wafadhili."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:152
 msgid ""
@@ -360,6 +487,8 @@ msgid ""
 "Options: Name the task and some note on how you customized the parameters "
 "for your analysis for future reference."
 msgstr ""
+"Chaguo: Jina la kazi na baadhi ya maelezo kuhusu jinsi ulivyoboresha vigezo "
+"vya uchambuzi wako kwa kutaja baadaye."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:158
 msgid ""
@@ -369,16 +498,23 @@ msgid ""
 " countries it takes only a few minutes most of the time), you’ll receive an "
 "email notifying the successful completion."
 msgstr ""
+"Wakati vigezo vyote vimefafanuliwa, bofya &quot;Hesabu&quot;, na kazi "
+"itawasilishwa kwa Google Earth Engine kwa kompyuta. Wakati kazi imekamilika "
+"(wakati wa usindikaji utatofautiana kulingana na matumizi ya seva, lakini "
+"kwa nchi nyingi inachukua dakika chache tu mara nyingi), utapata barua pepe "
+"kuwafahamu kukamilika kwa mafanikio."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:164
 msgid "Download results"
-msgstr ""
+msgstr "Pakua matokeo"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:169
 msgid ""
 "When the Google Earth Engine task has completed and you received the email, "
 "click \"Refresh List\" and the status will show FINISHED."
 msgstr ""
+"Wakati kazi ya Google Earth Engine imekamilika na upokea barua pepe, bofya "
+"&quot;Rejesha Orodha&quot; na hali itaonyesha FINISHED."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:174
 msgid ""
@@ -386,36 +522,45 @@ msgid ""
 "window. A pop up window will open for you to select where to save the layer "
 "and to assign it a name."
 msgstr ""
+"Bofya kwenye kazi na chagua &quot;Pakua matokeo&quot; chini ya dirisha. "
+"Dirisha la pop up litakufungua ili ugue wapi kuokoa safu na kuipa jina."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:179
 msgid ""
 "Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
 msgstr ""
+"Kisha bofya &quot;Weka&quot;. Safu itahifadhiwa kwenye kompyuta yako na "
+"imewekwa moja kwa moja kwenye mradi wako wa sasa wa QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:185
 msgid "Compute urban area for 2000, 2005, 2010 and 2015"
-msgstr ""
+msgstr "Futa eneo la mijini kwa 2000, 2005, 2010 na 2015"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:196
 msgid "Select Step 2: Calculate urban change summary table for city."
 msgstr ""
+"Chagua Hatua ya 2: Fanya meza ya muhtasari wa mabadiliko ya mijini kwa jiji."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:201
 msgid ""
 "Input: Load an existing .json file if it has not been populated within the "
 "dropdown automatically from your QGIS project."
 msgstr ""
+"Input: Weka faili iliyopo ya .json kama haijawahi kuwa na watu ndani ya "
+"kushuka kwa moja kwa moja kutoka kwa mradi wako wa QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:207
 msgid ""
 "Output: Select browse to navigate to a file on your computer and save the "
 "json file and excel table."
 msgstr ""
+"Pato: Chagua kuvinjari ili uende kwenye faili kwenye kompyuta yako na "
+"uhifadhi faili la json na meza bora zaidi."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:212
 msgid "Area: Define the area for your analysis"
-msgstr ""
+msgstr "Eneo: Eleza eneo kwa uchambuzi wako"
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:217
 msgid ""
@@ -423,18 +568,25 @@ msgid ""
 "calculated locally on your computer, it will load automatically in your QGIS"
 " project window."
 msgstr ""
+"Chaguzi: Ingiza jina la kazi na maelezo kwa uchambuzi. Hatua hii ya mwisho "
+"imehesabiwa ndani ya kompyuta kwenye kompyuta yako, itapakia moja kwa moja "
+"kwenye dirisha la mradi wa QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:222
 msgid ""
 "View results: A window will appear when the processing is complete. Select "
 "**OK**."
 msgstr ""
+"Tazama matokeo: dirisha itaonekana wakati usindikaji ukamilika. Chagua ** OK"
+" **."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:227
 msgid ""
 "After clicking OK, the four annual urban extent maps with their "
 "corresponding zoning will load into the QGIS project."
 msgstr ""
+"Baada ya kubofya Sawa, ramani za miji nne za kila mwaka za eneo la mijini na"
+" ugawaji wao sawa zitaingizwa kwenye mradi wa QGIS."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:232
 msgid ""
@@ -442,6 +594,10 @@ msgid ""
 "you saved the excel file and double click on it to open. If an error window "
 "appears, select the **Yes** and the summary will proceed to open."
 msgstr ""
+"Ili kuchunguza meza ya muhtasari, nenda kwenye folda kwenye kompyuta yako "
+"ambako ulihifadhi faili bora na bonyeza mara mbili juu yake kufungua. Ikiwa "
+"dirisha la hitilafu linaonekana, chagua ** Ndio ** na muhtasari utaendelea "
+"kufungua."
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:240
 msgid ""
@@ -450,3 +606,7 @@ msgid ""
 "rural areas. You'll also find the population for each of the years analyzed "
 "(2000, 2005, 2010, and 2015) and the final SDG 11.3.1."
 msgstr ""
+"Katika meza hii utapata eneo la madarasa tofauti ya jiji la ardhi (mijini, "
+"mijini, nafasi ya wazi, kukamata nafasi na maji) na maeneo ya vijijini. "
+"Utapata pia idadi ya watu kwa kila mmoja wa miaka iliyochambuliwa (2000, "
+"2005, 2010, na 2015) na SDG ya mwisho 11.3.1."

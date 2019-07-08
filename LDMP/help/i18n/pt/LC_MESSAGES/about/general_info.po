@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.61\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-05 21:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2019-01-28 02:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/about/general_info.rst:2
 msgid "General information"
-msgstr ""
+msgstr "Informação geral"
 
 #: ../../source/about/general_info.rst:4
 msgid ""
@@ -38,7 +38,7 @@ msgstr ""
 
 #: ../../source/about/general_info.rst:9
 msgid "Contacting the team"
-msgstr ""
+msgstr "Entrando em contato com a equipe"
 
 #: ../../source/about/general_info.rst:11
 msgid ""
@@ -58,7 +58,7 @@ msgstr ""
 
 #: ../../source/about/general_info.rst:19
 msgid "Authors"
-msgstr ""
+msgstr "Autores"
 
 #: ../../source/about/general_info.rst:21
 msgid ""
@@ -67,6 +67,10 @@ msgid ""
 "Administration (NASA), and is funded by the Global Environment Facility "
 "(GEF)."
 msgstr ""
+"O Projeto de Monitoramento da Degradação da Terra é uma parceria entre a "
+"Conservation International, a Universidade de Lund e a Administração "
+"Nacional de Aeronáutica e Espaço (NASA), e é financiada pelo Fundo Global "
+"para o Meio Ambiente (GEF)."
 
 #: ../../source/about/general_info.rst:25
 msgid ""
@@ -74,6 +78,9 @@ msgid ""
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
 "Schnader, Anna Tengberg, and Alex Zvoleff."
 msgstr ""
+"Colaboradores para a documentação e para | trends.earth | incluem Genesis de"
+" Yengoh, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
+"Schnader, Anna Tengberg e Alex Zvoleff."
 
 #: ../../source/about/general_info.rst:33
 msgid ""
@@ -85,7 +92,7 @@ msgstr ""
 
 #: ../../source/about/general_info.rst:42
 msgid "Acknowledgements"
-msgstr ""
+msgstr "Agradecimentos"
 
 #: ../../source/about/general_info.rst:44
 msgid ""
@@ -123,20 +130,32 @@ msgid ""
 "Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa "
 "Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
 msgstr ""
+"O projeto reconhece os participantes do workshop realizado em Morogoro, "
+"Tanzânia, em outubro de 2017, para compartilhar seus comentários e sugestões"
+" sobre o instrumento: Jones Agwata, Cel. Papa Assane Ndiour, Tenente Fendama"
+" Baldé, Papa Nékhou Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, "
+"Moisés Isabirye, Vette Kalema, Joseph Kihaule, Prof. Kemora, Joseph Mutyaba,"
+" Joseph Mwalugelo, Prof. Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome "
+"Nchimbi, Elibariki Ngowi , Tabby Njunge, Daniel Nkondola, Blaise Okinyi, "
+"Joseph Opio, Rozalia Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward "
+"Senyonjo, Olipa Simon, Samba Sow, Felly Mugizi Tusiime e John Wasige."
 
 #: ../../source/about/general_info.rst:65
 msgid "Citation"
-msgstr ""
+msgstr "Citação"
 
 #: ../../source/about/general_info.rst:67
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
 msgstr ""
+"Se você deseja citar | trends.earth |, por favor use a seguinte citação:"
 
 #: ../../source/about/general_info.rst:69
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2018."
 msgstr ""
+"Trends.Earth. Conservation International. Disponível online em: "
+"`http://trends.earth <http://trends.earth> `_. 2018."
 
 #: ../../source/about/general_info.rst:73
 msgid "License"

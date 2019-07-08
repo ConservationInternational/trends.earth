@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2018-04-04 19:03+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,27 +23,29 @@ msgstr ""
 
 #: ../../source/training/tutorial_task_download.rst:4
 msgid "Task status & download"
-msgstr ""
+msgstr "任务状态和下载"
 
 #: ../../source/training/tutorial_task_download.rst:6
 msgid ""
 "**Objective**: Learn how to check the status of submitted tasks, download "
 "them and compute pyramids for faster visualization of results in QGIS."
-msgstr ""
+msgstr "**目标**：了解如何检查已提交任务的状态，下载它们并计算金字塔，以便在QGIS中更快地显示结果。"
 
 #: ../../source/training/tutorial_task_download.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "**预计完成时间**：20分钟"
 
 #: ../../source/training/tutorial_task_download.rst:10
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "**互联网接入**：必填"
 
 #: ../../source/training/tutorial_task_download.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 msgstr ""
+"`将此页面下载为PDF以供离线使用&lt;../ pdfs / "
+"Trends.Earth_Tutorial03_Downloading_Results.pdf&gt;`_"
 
 #: ../../source/training/tutorial_task_download.rst:15
 msgid ""
@@ -50,29 +56,31 @@ msgid ""
 "access. The **Desktop** is a location usually selected because it is easy to"
 " find."
 msgstr ""
+"Trends.Earth分析的结果是指标的TIF格式和表格输出的XLSX电子表格的栅格。您需要在每种情况下定义文件将存储在您的计算机中。我们建议您创建一个文件夹，用于存储结果以便于后方访问。"
+" **桌面**是一个通常选择的位置，因为它很容易找到。"
 
 #: ../../source/training/tutorial_task_download.rst:17
 msgid ""
 "To create a folder in your computer's desktop, navigate there by minimizing "
 "all the windows and programs you have open (Note: not closing, simply "
 "removing them from the display)."
-msgstr ""
+msgstr "要在计算机桌面上创建一个文件夹，请通过最小化所有打开的窗口和程序来导航（注意：不关闭，只需将其从显示中删除）。"
 
 #: ../../source/training/tutorial_task_download.rst:19
 msgid ""
 "Once in the Desktop, **right click** on an empty space and a menu will "
 "display."
-msgstr ""
+msgstr "进入桌面后，**在空白处右键单击**，将显示一个菜单。"
 
 #: ../../source/training/tutorial_task_download.rst:21
 msgid ""
 "Move your mouse cursor to the **New** option at the bottom of the menu, and "
 "another menu will show to the right."
-msgstr ""
+msgstr "将鼠标光标移动到菜单底部的** New **选项，另一个菜单将显示在右侧。"
 
 #: ../../source/training/tutorial_task_download.rst:23
 msgid "Navigate with your mouse cursor to **Folder** and right-click."
-msgstr ""
+msgstr "用鼠标光标导航到**文件夹**并右键单击。"
 
 #: ../../source/training/tutorial_task_download.rst:28
 msgid ""
@@ -81,12 +89,14 @@ msgid ""
 "we named it **Trends.Earth**. Then press the **Enter** key on your keyboard "
 "to save the name."
 msgstr ""
+"名为** New Folder **的新文件夹将出现在桌面上，名称以蓝色突出显示。输入要为其分配的名称。在这个例子中，我们将其命名为** "
+"Trends.Earth **。然后按键盘上的** Enter **键保存名称。"
 
 #: ../../source/training/tutorial_task_download.rst:33
 msgid ""
 "Navigate again to QGIS, and click on the cloud with the arrow facing down "
 "icon (|iconCloudDownload|) from the Trends.Earth toolbar."
-msgstr ""
+msgstr "再次导航到QGIS，然后从Trends.Earth工具栏中单击箭头朝下的图标（| iconCloudDownload |）。"
 
 #: ../../source/training/tutorial_task_download.rst:38
 msgid ""
@@ -95,31 +105,33 @@ msgid ""
 "of the tutorial (:ref:`1-step_subindicators`). One of three messages will "
 "show there:"
 msgstr ""
+"** Earth Engine "
+"**的下载结果将打开。单击**刷新列表**以检查在本教程的上一部分中提交的任务的更新状态（：ref：`1-step_subindicators`）。三条消息中的一条将显示在那里："
 
 #: ../../source/training/tutorial_task_download.rst:40
 msgid ""
 "**RUNNING**: The task has been successfully submitted to Earth Engine and it"
 " is being processed. Wait a few minutes and click **Refresh list** again."
-msgstr ""
+msgstr "** RUNNING **：该任务已成功提交给Earth Engine并正在处理中。等待几分钟，然后再次单击**刷新列表**。"
 
 #: ../../source/training/tutorial_task_download.rst:42
 msgid ""
 "**FINISHED**: The task has been completed and it is ready to be downloaded."
-msgstr ""
+msgstr "**完成**：任务已完成，可以下载了。"
 
 #: ../../source/training/tutorial_task_download.rst:44
 msgid ""
 "**FAILED**: There has been some error in the parameters selected and the "
 "task could not be completed. Please run the tool again to make sure all "
 "parameters are correct."
-msgstr ""
+msgstr "** FAILED **：所选参数出现一些错误，无法完成任务。请再次运行该工具以确保所有参数都正确。"
 
 #: ../../source/training/tutorial_task_download.rst:49
 msgid ""
 "When the task shows status **FINISHED** you can select it by clicking on it "
 "(it will be highlighted in blue), and them click on the **Download results**"
 " button."
-msgstr ""
+msgstr "当任务显示状态**完成**时，您可以通过单击选择它（它将以蓝色突出显示），然后单击**下载结果**按钮。"
 
 #: ../../source/training/tutorial_task_download.rst:54
 msgid ""
@@ -128,6 +140,7 @@ msgid ""
 "informative as possible so you can tell what information it contains the "
 "next time you want to use those results."
 msgstr ""
+"将打开一个窗口，供您定义位置（您刚在桌面上创建的文件夹）和输出文件的名称。使名称尽可能提供信息，以便您可以在下次要使用这些结果时告诉它包含哪些信息。"
 
 #: ../../source/training/tutorial_task_download.rst:59
 msgid ""
@@ -137,17 +150,18 @@ msgid ""
 "several minutes depending on the size of the area selected and the speed of "
 "the Internet connection available."
 msgstr ""
+"“下载”窗口将消失，您将返回QGIS界面。您将看到浅蓝色进度条，指示已下载文件的百分比。这可能需要几秒钟到几分钟，具体取决于所选区域的大小和可用的Internet连接速度。"
 
 #: ../../source/training/tutorial_task_download.rst:64
 msgid ""
 "Once the download is completed, the results will be loaded in QGIS. In this "
 "example you'll see a layer for each of the SDG 15.3.1 computed: land "
 "productivity, land cover, and soil organic carbon."
-msgstr ""
+msgstr "下载完成后，结果将加载到QGIS中。在这个例子中，您将看到每个SDG 15.3.1计算的层：土地生产力，土地覆盖率和土壤有机碳。"
 
 #: ../../source/training/tutorial_task_download.rst:71
 msgid "**OPTIONAL: Computing Pyramids**"
-msgstr ""
+msgstr "**可选：计算金字塔**"
 
 #: ../../source/training/tutorial_task_download.rst:73
 msgid ""
@@ -160,13 +174,14 @@ msgid ""
 " sure to have enough time for it to process. To compute pyramids you have "
 "to:"
 msgstr ""
+"当光栅文件太大时，由于研究区域较大，空间分辨率较高或文件中存在大量条带，数据可能需要几秒钟才能显示。如果您经常更改缩放或关闭图层，这可能会使工作有点令人沮丧。克服这个问题的一个选择是计算**金字塔**到文件。这个过程需要**分钟到几小时**才能运行，具体取决于区域的大小，因此请确保有足够的时间进行处理。要计算金字塔，您必须："
 
 #: ../../source/training/tutorial_task_download.rst:75
 msgid ""
 "Navigate with your cursor to the layer you want to compute pyramids for and "
 "right click over it. A menu will open. Navigate to **Properties** and click "
 "on it."
-msgstr ""
+msgstr "使用光标导航到要为其计算金字塔的图层，然后右键单击它。菜单将打开。导航到**属性**并单击它。"
 
 #: ../../source/training/tutorial_task_download.rst:78
 msgid ""
@@ -176,17 +191,18 @@ msgid ""
 "loaded in the QGIS window, they all refer to the same file. This means that "
 "the pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
+"当使用**计算所有三个子指标的一步**选项（在前一个教程中描述：ref：`1-step_subindicators`）时，所有的波段都存储在一个TIF文件中，所以即使你看到三个在QGIS窗口中加载的图层，它们都引用同一个文件。这意味着金字塔只需要为三个子指标计算一次。"
 
 #: ../../source/training/tutorial_task_download.rst:83
 msgid ""
 "The Layer Properties menu will open. From the options on the left, navigate "
 "to **Pyramids** and click on it."
-msgstr ""
+msgstr "图层属性菜单将打开。从左侧的选项中，导航到** Pyramids **并单击它。"
 
 #: ../../source/training/tutorial_task_download.rst:88
 msgid ""
 "Once on the **Pyramids** tab you will see a description about they are."
-msgstr ""
+msgstr "进入**金字塔**标签后，您将看到有关它们的描述。"
 
 #: ../../source/training/tutorial_task_download.rst:93
 msgid ""
@@ -200,31 +216,33 @@ msgid ""
 "Resolutions are selected by clicking on them. When selected, they will turn "
 "blue."
 msgstr ""
+"在窗口右侧，您将看到** Resolutions "
+"**选项。选择所有这些将使QGIS中的显示速度最快，但这可能需要数小时才能计算，具体取决于您使用的计算机的文件大小和处理能力。对于乌干达的例子，我们可以全部选择它们，但是如果使用比默认250米更大的区域或更高的空间分辨率，我们建议您选择交替分辨率选项（即选择一个分辨率，一个未选择，等等）。通过单击选择分辨率。选中后，它们将变为蓝色。"
 
 #: ../../source/training/tutorial_task_download.rst:95
 msgid "Make sure that the settings at the bottom are set to:"
-msgstr ""
+msgstr "确保底部的设置设置为："
 
 #: ../../source/training/tutorial_task_download.rst:97
 msgid "**Overview format**: External"
-msgstr ""
+msgstr "**概述格式**：外部"
 
 #: ../../source/training/tutorial_task_download.rst:98
 msgid "**Resampling method**: Nearest Neighbour"
-msgstr ""
+msgstr "**重采样方法**：最近邻"
 
 #: ../../source/training/tutorial_task_download.rst:100
 msgid ""
 "Then click on the **Build pyramids** button. The progress bar next to it "
 "will show which percentage of the task has been completed."
-msgstr ""
+msgstr "然后单击** Build pyramids **按钮。旁边的进度条将显示已完成任务的百分比。"
 
 #: ../../source/training/tutorial_task_download.rst:105
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
 "resolutions will have changed from **red crosses** to **yellow pyramids**."
-msgstr ""
+msgstr "当建立金字塔时，您会注意到分辨率旁边的图标将从**红色交叉**变为**黄色金字塔**。"
 
 #: ../../source/training/tutorial_task_download.rst:110
 msgid "Click **OK** to go back to the QGIS main interface."
-msgstr ""
+msgstr "单击**确定**返回QGIS主界面。"

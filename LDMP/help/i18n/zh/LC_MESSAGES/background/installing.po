@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-08 09:26-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,8 @@ msgid ""
 " you must install QGIS version 2.18. See :ref:`before-installing` for more "
 "information."
 msgstr ""
+"| trends.earth |目前不支持QGIS 3，因此如果您使用QGIS 3.0，插件将不会出现在插件窗口中。使用| trends.earth "
+"|您必须安装QGIS版本2.18。有关更多信息，请参阅：ref：`before-installed`。"
 
 #: ../../source/background/installing.rst:14
 msgid "Installing the stable version (recommended)"

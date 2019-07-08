@@ -27,8 +27,8 @@ side bar and navigate to trends.earth plugin. Click on trends.earth and rate
 the toolbox by selecting the number of stars you would like to give the plugin, 
 5 stars being highly satisfied.
 
-Installation of |Trends.Earth|
-______________________________
+Installation of Trends.Earth
+____________________________
 
 
 **What version of Quantum GIS (QGIS) do I need for the toolbox?**

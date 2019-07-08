@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.61\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-17 14:08-0500\n"
+"PO-Revision-Date: 2019-01-28 02:04+0000\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/about/publications.rst:2
+msgid "Publications"
+msgstr ""
+
+#: ../../source/about/publications.rst:4
+msgid "The below publications either use or relate to |trends.earth|."
+msgstr ""
+
+#: ../../source/about/publications.rst:6
+msgid ""
+"Gonzalez-Roglich, M. et al. Synergizing global tools to monitor progress "
+"towards land degradation neutrality: Trends. Earth and the World Overview of"
+" Conservation Approaches and Technologies sustainable land management "
+"database. Environmental Science & Policy 93, 34–42 (2019). "
+"https://www.sciencedirect.com/science/article/pii/S1462901118306543"
+msgstr ""
+
+#: ../../source/about/publications.rst:11
+msgid ""
+"Meyer, D. & Riechert, M. Open source QGIS toolkit for the Advanced Research "
+"WRF modelling system. Environmental Modelling & Software 112, 166–178 "
+"(2019). https://www.sciencedirect.com/science/article/pii/S1364815218304523"
+msgstr ""
+
+#: ../../source/about/publications.rst:14
+msgid ""
+"Sims, N. C. et al. Developing good practice guidance for estimating land "
+"degradation in the context of the United Nations Sustainable Development "
+"Goals. Environmental Science & Policy 92, 349–355 (2019). "
+"https://www.sciencedirect.com/science/article/pii/S1462901118305768"
+msgstr ""
+
+#: ../../source/about/publications.rst:18
+msgid ""
+"Timm Hoffman, M., Skowno, A., Bell, W. & Mashele, S. Long-term changes in "
+"land use, land cover and vegetation in the Karoo drylands of South Africa: "
+"implications for degradation monitoring. African Journal of Range & Forage "
+"Science 35, 209–221 (2018). "
+"https://www.tandfonline.com/doi/abs/10.2989/10220119.2018.1516237"
+msgstr ""

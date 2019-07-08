@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.64\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/background/report_overviews.rst:2
+msgid "Other resources"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:4
+msgid "Print documentation from the Trends.Earth project (including fact sheets, reports, and other materials) is listed below."
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:8
+msgid "Reports"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:10
+msgid "`Using Spectral Vegetation Indices to Measure Gross Primary Productivity as an Indicator of Land Degradation <http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:13
+msgid "`Evaluation of approaches for incorporating higher-resolution data for disaggregation or targeted analysis <http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:16
+msgid "`Disentangling the effects of climate and land use on land degradation <http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:18
+msgid "`Monitoring and assessing land degradation to support sustainable development <http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:20
+msgid "`(French) Suivre et évaluer la dégradation des terres pour soutenir le développement durable <http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:25
+msgid "Fact sheets"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:27
+msgid "`Conceptual Fact Sheet for Trends.Earth <http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
+msgstr ""
+
+#: ../../source/background/report_overviews.rst:29
+msgid "`Technical Fact Sheet for Trends.Earth <http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
+msgstr ""
+

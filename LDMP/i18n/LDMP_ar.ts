@@ -3892,32 +3892,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="130"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation>انقر على &amp;quot;تصفح&amp;quot; لاختيار ملف ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="64"/>
         <source>Raster dataset (.tif, .dat, .img)</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة البيانات النقطية (.tif ، .dat ، .img)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="105"/>
         <source>Field containing data:</source>
-        <translation type="unfinished"/>
+        <translation>حقل يحتوي على البيانات:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="137"/>
         <source>Band number:</source>
-        <translation type="unfinished"/>
+        <translation>رقم الفرقة:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="224"/>
         <source>Modify resolution (in meters)</source>
-        <translation type="unfinished"/>
+        <translation>تعديل القرار (بالأمتار)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="270"/>
         <source>Year of data</source>
-        <translation type="unfinished"/>
+        <translation>سنة البيانات</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="14"/>
@@ -3932,7 +3932,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="54"/>
         <source>Polygon dataset (shapefile, KML, KMZ, geojson)</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات Polygon (شكل ملف ، KML ، KMZ ، geojson)</translation>
     </message>
 </context>
 <context>
@@ -3940,12 +3940,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="26"/>
         <source>Output raster file (.tif)</source>
-        <translation type="unfinished"/>
+        <translation>ملف نقطي الإخراج (.tif)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="50"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation>انقر على &amp;quot;تصفح&amp;quot; لاختيار ملف ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectRasterOutput.ui" line="14"/>
@@ -3960,22 +3960,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="32"/>
         <source>Trends.Earth layer to summarize</source>
-        <translation type="unfinished"/>
+        <translation>Trends.Earth طبقة لتلخيص</translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="72"/>
         <source>Input polygon layer (.shp) with sub-units (e.g. province, states, districts)</source>
-        <translation type="unfinished"/>
+        <translation>طبقة مضلع الإدخال (.shp) مع وحدات فرعية (مثل المقاطعة ، والولايات ، والمناطق)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="134"/>
         <source>Field containing data:</source>
-        <translation type="unfinished"/>
+        <translation>حقل يحتوي على البيانات:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalcMultSDGSummary.ui" line="169"/>
         <source>Output spreadsheet file name (.xls)</source>
-        <translation type="unfinished"/>
+        <translation>اسم ملف جدول البيانات الناتج (.xls)</translation>
     </message>
 </context>
 <context>
@@ -3998,12 +3998,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="1269"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
-        <translation type="unfinished"/>
+        <translation>{} فشل التحميل أو لا يحتوي على أي طبقات من هذا النوع من الطبقات. اختيار ملف مختلف.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1273"/>
         <source>Cannot read {}. Choose a different file.</source>
-        <translation>لا يمكن قراءة {}. اختر ملفًا مختلفًا.</translation>
+        <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
 </context>
 <context>
@@ -4016,7 +4016,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="57"/>
         <source>Load existing</source>
-        <translation type="unfinished"/>
+        <translation>تحميل القائمة</translation>
     </message>
 </context>
 <context>
@@ -4029,12 +4029,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="57"/>
         <source>Import</source>
-        <translation type="unfinished"/>
+        <translation>استيراد</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="76"/>
         <source>Load existing</source>
-        <translation type="unfinished"/>
+        <translation>تحميل القائمة</translation>
     </message>
 </context>
 <context>
@@ -4067,7 +4067,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="243"/>
         <source>*The &quot;Grassland&quot; class consists of grassland, shrub, and sparsely vegetated areas (if the default aggregation is used).</source>
-        <translation>* تتكون فئة &quot;الأراضي المعشبة&quot; من الأراضي العشبية والشجيرات والمناطق ذات النباتات القليلة (إذا تم استخدام التجميع الافتراضي).</translation>
+        <translation>* تتكون فئة &amp;quot;الأراضي العشبية&amp;quot; من مناطق المراعي والشجيرات والمناطق ذات الغطاء النباتي القليل (إذا تم استخدام التجميع الافتراضي).</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="250"/>
@@ -4077,17 +4077,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="276"/>
         <source>Save table to file...</source>
-        <translation>حفظ الجدول في الملف ...</translation>
+        <translation>حفظ الجدول إلى ملف ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="295"/>
         <source>Reset table</source>
-        <translation>إعادة ضبط الجدول</translation>
+        <translation>إعادة تعيين الجدول</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCDefineDegradation.ui" line="314"/>
         <source>Load saved table...</source>
-        <translation>تحميل الجدول المحفوظة ...</translation>
+        <translation>تحميل الجدول المحفوظ ...</translation>
     </message>
 </context>
 <context>
@@ -4100,7 +4100,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="20"/>
         <source>European Space Agency CCI-LC (default land cover dataset for UNCCD reporting)</source>
-        <translation>وكالة الفضاء الأوروبية CCI-LC (مجموعة بيانات الغطاء الأرضي الافتراضية لأغراض الإبلاغ عن اتفاقية الأمم المتحدة لمكافحة التصحر)</translation>
+        <translation>وكالة الفضاء الأوروبية CCI-LC (مجموعة بيانات الغطاء الأرضي الافتراضية للإبلاغ عن اتفاقية مكافحة التصحر)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="30"/>
@@ -4115,12 +4115,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="104"/>
         <source>Initial year:</source>
-        <translation type="unfinished"/>
+        <translation>سنة الأساس:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="173"/>
         <source>Customize land cover aggregation method</source>
-        <translation>تخصيص طريقة تجميع غطاء الأرض</translation>
+        <translation>تخصيص طريقة تجميع الغطاء الأرضي</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="206"/>
@@ -4130,7 +4130,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="219"/>
         <source>Custom land cover dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات مخصصة للغطاء الأرضي (تم تحميلها بالفعل على الخريطة باستخدام أداة &amp;quot;تحميل البيانات&amp;quot;)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="229"/>
@@ -4158,7 +4158,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="67"/>
         <source>Area from file</source>
-        <translation>المنطقة من الملف</translation>
+        <translation>منطقة من الملف</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="124"/>
@@ -4168,7 +4168,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="168"/>
         <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>انقر فوق &quot;تصفح&quot; لاختيار ملف ...</translation>
+        <translation>انقر على &amp;quot;تصفح&amp;quot; لاختيار ملف ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="83"/>
@@ -4193,52 +4193,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="455"/>
         <source>Use custom coordinate reference system (CRS) for output</source>
-        <translation>استخدم نظام مرجع إحداثي مخصص (CRS) للإخراج</translation>
+        <translation>استخدم نظام الإحداثيات المرجعي المخصص (CRS) للإخراج</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="480"/>
         <source>Wrap longitudes across central meridian before projecting into output CRS (recommended for countries like Russia and Fiji if you are using an output coordinate reference system that is continuous across the 180th meridian)</source>
-        <translation>لف خطوط الطول عبر خط الطول المركزي قبل الإسقاط إلى خرج CRS (موصى به لبلدان مثل روسيا وفيجي إذا كنت تستخدم نظام إحداثيات مرجعي للخارج متواصل عبر خط الطول 180)</translation>
+        <translation>التفاف خطوط الطول عبر خط الزوال المركزي قبل الإسقاط في CRS الإخراج (مستحسن بالنسبة لدول مثل روسيا وفيجي إذا كنت تستخدم نظام مرجعي تنسيق إحداثيات مستمر عبر خط الطول 180)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="216"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تنويه: الحدود المقدمة هي من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الأرض الطبيعية&lt;/span&gt;&lt;/a&gt; ، وهي في &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;المجال العام&lt;/span&gt;&lt;/a&gt; . الحدود والأسماء المستخدمة ، والتسميات المستخدمة ، في Trends.Earth لا تعني المصادقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="175"/>
         <source>Country / Region</source>
-        <translation type="unfinished"/>
+        <translation>البلد / المنطقة</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="235"/>
         <source>First level</source>
-        <translation type="unfinished"/>
+        <translation>مستوى اول</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="266"/>
         <source>Second level</source>
-        <translation type="unfinished"/>
+        <translation>المستوى الثاني</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="284"/>
         <source>City:</source>
-        <translation type="unfinished"/>
+        <translation>مدينة:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="335"/>
         <source>Region:</source>
-        <translation type="unfinished"/>
+        <translation>منطقة:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="357"/>
         <source>Apply a buffer to the chosen area</source>
-        <translation type="unfinished"/>
+        <translation>تطبيق المخزن المؤقت على المنطقة المختارة</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="402"/>
         <source>Buffer size (kilometers):</source>
-        <translation type="unfinished"/>
+        <translation>حجم العازلة (كيلومترات):</translation>
     </message>
 </context>
 <context>

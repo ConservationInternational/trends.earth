@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-07-03 09:38-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,27 +23,29 @@ msgstr ""
 
 #: ../../source/training/tutorial_custom_landcover.rst:4
 msgid "Use custom land cover data"
-msgstr ""
+msgstr "使用自定义土地覆盖数据"
 
 #: ../../source/training/tutorial_custom_landcover.rst:6
 msgid ""
 "**Objective**: Learn how to load custom land cover data and to compute the "
 "land cover change sub-indicator using Trends.Earth."
-msgstr ""
+msgstr "**目标**：了解如何使用Trends.Earth加载自定义土地覆盖数据并计算土地覆盖变化子指标。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr ""
+msgstr "**预计完成时间**：40分钟"
 
 #: ../../source/training/tutorial_custom_landcover.rst:10
 msgid "**Internet access**: Not required"
-msgstr ""
+msgstr "**互联网接入**：不需要"
 
 #: ../../source/training/tutorial_custom_landcover.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_"
 msgstr ""
+"`将此页面下载为PDF以供离线使用&lt;../ pdfs / "
+"Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf&gt;`_"
 
 #: ../../source/training/tutorial_custom_landcover.rst:15
 msgid ""
@@ -53,18 +55,22 @@ msgid ""
 " and can be downloaded from this `link "
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_."
 msgstr ""
+"本教程的土地覆盖数据集由“地图发展资源中心”提供<http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>"
+" "
+"`_并且可以从这个链接下载<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>"
+" `_。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:21
 msgid ""
 "To load custom land cover data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
-msgstr ""
+msgstr "要加载自定义土地覆盖数据，请单击Trends.Earth工具栏中的（| iconfolder |）图标。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:26
 msgid ""
 "The **Load data** menu will open. Select **Land cover** from the **Import a "
 "custom input dataset** section."
-msgstr ""
+msgstr "**加载数据**菜单将打开。从**导入自定义输入数据集**部分中选择**土地覆盖**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:31
 msgid ""
@@ -73,12 +79,13 @@ msgid ""
 "raster, but you could run it with your land cover vector data if you prefer."
 " Click on **Browse** to navigate to the land cover file you wish to import."
 msgstr ""
+"在**加载自定义土地覆盖数据集**中，使用单选按钮选择输入文件的格式（栅格或矢量）。对于本教程，请选择栅格，但如果您愿意，可以使用土地覆盖矢量数据运行它。单击**浏览**以导航到要导入的土地覆盖文件。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:36
 msgid ""
 "Use the **Select input file** window to navigate to the file to be imported,"
 " select it, and click **Open**."
-msgstr ""
+msgstr "使用**选择输入文件**窗口导航到要导入的文件，选择它，然后单击**打开**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:41
 msgid ""
@@ -88,19 +95,20 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"返回**加载自定义土地覆盖数据集**窗口，您可以选择存储生产率数据的区域编号，以防您的输入文件是多波段栅格。您还可以选择修改文件的分辨率。除非您有正当理由更改它们，否则我们建议将它们保留为默认值。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:43
 msgid ""
 "Define the year of reference for the data. In this case, since the land "
 "cover dataset for Uganda was developed for the **year 2000**, define it as "
 "such. Make sure you are assigning the correct year."
-msgstr ""
+msgstr "定义数据的参考年份。在这种情况下，由于乌干达的土地覆盖数据集是在2000年** **开发的，因此将其定义为此类。确保分配正确的年份。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:45
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file**."
-msgstr ""
+msgstr "单击窗口底部的**浏览**以选择**输出光栅文件**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:50
 msgid ""
@@ -109,95 +117,96 @@ msgid ""
 "original input values of your dataset to one of the 7 UNCCD recommended land"
 " cover classes."
 msgstr ""
+"单击**编辑定义**按钮，这将打开**设置聚合土地覆盖数据菜单**。在这里，您需要将数据集的每个原始输入值分配给7个UNCCD推荐的土地覆盖类别之一。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:55
 msgid "For this example, the Uganda dataset has 18 land cover classes:"
-msgstr ""
+msgstr "在这个例子中，乌干达数据集有18个土地覆盖类："
 
 #: ../../source/training/tutorial_custom_landcover.rst:68
 msgid ""
 "From the Metadata of the land cover dataset, we know that the best "
 "aggregation approach is the following:"
-msgstr ""
+msgstr "根据土地覆盖数据集的元数据，我们知道最佳聚合方法如下："
 
 #: ../../source/training/tutorial_custom_landcover.rst:61
 msgid "No data = 0"
-msgstr ""
+msgstr "没有数据= 0"
 
 #: ../../source/training/tutorial_custom_landcover.rst:62
 msgid "Tree covered = 1 through 7"
-msgstr ""
+msgstr "覆盖的树= 1到7"
 
 #: ../../source/training/tutorial_custom_landcover.rst:63
 msgid "Grassland = 8 through 11"
-msgstr ""
+msgstr "草原= 8到11"
 
 #: ../../source/training/tutorial_custom_landcover.rst:64
 msgid "Cropland = 12 through 14"
-msgstr ""
+msgstr "农田= 12至14"
 
 #: ../../source/training/tutorial_custom_landcover.rst:65
 msgid "Wetland = 15"
-msgstr ""
+msgstr "湿地= 15"
 
 #: ../../source/training/tutorial_custom_landcover.rst:66
 msgid "Water body = 16"
-msgstr ""
+msgstr "水体= 16"
 
 #: ../../source/training/tutorial_custom_landcover.rst:67
 msgid "Artificial = 17"
-msgstr ""
+msgstr "人工= 17"
 
 #: ../../source/training/tutorial_custom_landcover.rst:68
 msgid "Other land = 18"
-msgstr ""
+msgstr "其他土地= 18"
 
 #: ../../source/training/tutorial_custom_landcover.rst:70
 msgid ""
 "Use the **Setup aggregation of land cover data menu** to assign to each "
 "number in the **Input class** its corresponding **Output class**."
-msgstr ""
+msgstr "使用**设置聚合土地覆盖数据菜单**为**输入类**中的每个数字分配其对应的**输出类**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:72
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
 "file you previously saved."
-msgstr ""
+msgstr "完成编辑后，单击**保存定义文件**。通过简单地加载先前保存的定义文件，此选项将为您下次运行该工具节省时间。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:74
 msgid "Click **Save** to continue"
-msgstr ""
+msgstr "单击**保存**继续"
 
 #: ../../source/training/tutorial_custom_landcover.rst:79
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** window, click **Browse** at"
 " the bottom of the window to select the **Output raster file**."
-msgstr ""
+msgstr "返回**加载自定义土地覆盖数据集**窗口，单击窗口底部的**浏览**以选择**输出栅格文件**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:84
 msgid ""
 "Navigate to the folder where you want to save the file. Assign it a name and"
 " click **Save**."
-msgstr ""
+msgstr "导航到要保存文件的文件夹。为其指定名称，然后单击**保存**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:89
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** click **OK** for the tool "
 "to run."
-msgstr ""
+msgstr "返回**加载自定义土地覆盖数据集**单击**确定**以运行该工具。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:94
 #: ../../source/training/tutorial_custom_landcover.rst:177
 msgid ""
 "A progress bar will appear showing the percentage of the task completed."
-msgstr ""
+msgstr "将出现一个进度条，显示已完成任务的百分比。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:99
 msgid ""
 "When the processing is completed, the imported land cover dataset will be "
 "loaded to QGIS."
-msgstr ""
+msgstr "处理完成后，导入的土地覆盖数据集将加载到QGIS。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:104
 msgid ""
@@ -207,12 +216,13 @@ msgid ""
 "tutorial, we will use another land cover map from Uganda from the year 2015."
 " **Make sure to change the year date in the import menu**."
 msgstr ""
+"您有一年的进口自定义土地覆盖数据（2000年），但需要两个进行土地覆盖变化分析。现在重复步骤1到11，但这次使用最新的土地覆盖图。在本教程中，我们将使用2015年乌干达的另一张土地覆盖图。**确保在导入菜单中更改年份日期**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:106
 msgid ""
 "Once you have imported the land cover maps for years 2000 and 2015, you "
 "should have them both loaded to QGIS."
-msgstr ""
+msgstr "一旦您导入2000年和2015年的土地覆盖地图，您应该将它们都加载到QGIS。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:111
 msgid ""
@@ -220,12 +230,14 @@ msgid ""
 "land cover change analysis tool needs to be run. Search for the Trends.Earth"
 " toolbar within QGIS, and click on the Calculate icon (|iconCalculator|)."
 msgstr ""
+"现在两个土地覆盖数据集已导入到Trends.Earth中，需要运行土地覆盖变化分析工具。在QGIS中搜索Trends.Earth工具栏，然后单击Calculate图标（|"
+" iconCalculator |）。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:116
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on **Land"
 " cover** button found under Step 1 - Option 2."
-msgstr ""
+msgstr "**计算指标**菜单将打开。在该窗口中，单击步骤1  - 选项2下的**土地覆盖**按钮。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:121
 msgid ""
@@ -234,6 +246,8 @@ msgid ""
 "**Initial layer (initial year)** and **Final layer (target year)** to change"
 " the dates accordingly. When done, click **Next**."
 msgstr ""
+"**计算土地覆盖变化**窗口将打开。在** Setup **选项卡中，单击** Custom land cover dataset "
+"**。使用**初始图层（初始年份）**和**最终图层（目标年份）**旁边的下拉选项**来相应地更改日期。完成后，单击**下一步**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:126
 msgid ""
@@ -243,6 +257,7 @@ msgid ""
 "transitions in beige (zero) will be identified as stable, and transitions in"
 " green (plus sign) will be identified as improvements."
 msgstr ""
+"**定义降级**选项卡用于定义每个土地覆盖转换在降级方面的含义。以红色（减号）表示的过渡将被识别为最终输出中的劣化，米色（零）的过渡将被识别为稳定，并且绿色（加号）的过渡将被识别为改进。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:128
 msgid ""
@@ -252,23 +267,25 @@ msgid ""
 "that transition should be changed for that particular study area to "
 "degradation (minus sign)."
 msgstr ""
+"例如，默认情况下，认为从** Grassland **更改为** Tree-covered "
+"**的像素将被视为已改进。但是，如果在您的研究区域木本植物侵染是一个退化过程，那么该特定研究区域的转变应该改变为降解（减号）。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:130
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
-msgstr ""
+msgstr "如果您未对默认矩阵进行任何更改，只需单击**下一步**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:132
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
 "**Next**."
-msgstr ""
+msgstr "如果您确实更改了某些转换的含义，请单击**将表保存到文件... **以保存该定义以供以后使用。然后单击**下一步**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:137
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
-msgstr ""
+msgstr "在**区域**选项卡中定义分析区域。有两种选择："
 
 #: ../../source/training/tutorial_custom_landcover.rst:139
 msgid ""
@@ -277,6 +294,7 @@ msgid ""
 " the First Level (country) or Second Level (state or province depending on "
 "the country)."
 msgstr ""
+"使用提供的国家和州界限：如果要使用此选项，请确保突出显示**管理区域**选项，然后选择第一级别（国家/地区）或第二级别（州或省，具体取决于国家/地区）。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:142
 msgid ""
@@ -286,6 +304,7 @@ msgid ""
 "Conservation International Foundation, or by its partner organizations and "
 "contributors."
 msgstr ""
+"在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:148
 msgid ""
@@ -300,43 +319,44 @@ msgid ""
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
 " navigate to the folder in your computer where you have the file stored."
 msgstr ""
+"使用您自己的区域文件：如果您想使用自己的分析区域，请确保突出显示**文件区域**选项。然后单击**浏览**并导航到计算机中存储文件的文件夹。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:158
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
-msgstr ""
+msgstr "选择要计算指标的区域后，单击**下一步**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:163
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
-msgstr ""
+msgstr "在**选项**选项卡中，您可以定义**任务名称**并制作一些**注释**以标识您正在运行的分析。要指出的信息是可选的，但我们建议您注意："
 
 #: ../../source/training/tutorial_custom_landcover.rst:165
 msgid "Area of analysis"
-msgstr ""
+msgstr "分析领域"
 
 #: ../../source/training/tutorial_custom_landcover.rst:166
 msgid "Dates"
-msgstr ""
+msgstr "日期"
 
 #: ../../source/training/tutorial_custom_landcover.rst:167
 msgid "Indicators run"
-msgstr ""
+msgstr "指标运行"
 
 #: ../../source/training/tutorial_custom_landcover.rst:172
 msgid ""
 "When you click **Calculate**, the **Choose a name for the output file** will"
 " open. Select where to save the file and its name, and click **Save**."
-msgstr ""
+msgstr "单击**计算**时，将打开**选择输出文件的名称**。选择保存文件的位置及其名称，然后单击**保存**。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:182
 msgid ""
 "When the processing is completed, the imported land cover degradation sub-"
 "indicator dataset will be loaded to QGIS."
-msgstr ""
+msgstr "处理完成后，导入的土地覆盖退化子指标数据集将被加载到QGIS。"
 
 #: ../../source/training/tutorial_custom_landcover.rst:188
 msgid ""
@@ -344,3 +364,4 @@ msgid ""
 "the land cover sub-indicator to compute the final SDG 15.3.1 after "
 "integration with changes land productivity and soil organic carbon."
 msgstr ""
+"请参阅：ref：`tut_compute_sdg`教程，了解如何使用土地覆盖子指标计算最终SDG 15.3.1，同时改变土地生产力和土壤有机碳。"

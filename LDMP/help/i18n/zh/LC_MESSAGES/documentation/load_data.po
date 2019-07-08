@@ -1,16 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2018-03-14 19:33+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,11 +35,11 @@ msgstr "“加载数据”功能允许用户将数据加载到QGIS和| trends.ea
 msgid ""
 "There are two options, to load results of |trends.earth| analysis or to load"
 " custom datasets which will be used to compute the indicators."
-msgstr ""
+msgstr "加载| trends.earth |的结果有两个选项分析或加载将用于计算指标的自定义数据集。"
 
 #: ../../source/documentation/load_data.rst:16
 msgid "Load a dataset produced by Trends.Earth"
-msgstr ""
+msgstr "加载由Trends.Earth生成的数据集"
 
 #: ../../source/documentation/load_data.rst:18
 msgid ""
@@ -52,7 +55,7 @@ msgstr "生产率"
 msgid ""
 "Use this function to load into the QGIS map pre-computed productivity "
 "indicators which had been processed to identify land degradation."
-msgstr ""
+msgstr "使用此功能将预先计算的生产力指标加载到QGIS地图中，该指标已经过处理以识别土地退化。"
 
 #: ../../source/documentation/load_data.rst:26
 msgid ""
@@ -64,6 +67,7 @@ msgid ""
 "default: trajectory (degradation and slope), performance and state. If you "
 "want to load the other layers, simply select them and click OK."
 msgstr ""
+"导航到存储下载文件的文件夹并选择它。下载的文件是一个8波段栅格，每个波段代表三个子指示符（轨迹，性能和状态）以及可帮助您解释所识别趋势的其他信息。要加载到QGIS地图中的图层是以灰色突出显示的图层。默认情况下：轨迹（退化和斜率），性能和状态。如果要加载其他图层，只需选择它们，然后单击“确定”。"
 
 #: ../../source/documentation/load_data.rst:34
 #: ../../source/documentation/load_data.rst:56
@@ -71,7 +75,7 @@ msgstr ""
 #: ../../source/documentation/load_data.rst:100
 msgid ""
 "The layers will be loaded in the QGIS map with its corresponding symbology."
-msgstr ""
+msgstr "这些图层将加载到QGIS地图中，并带有相应的符号系统。"
 
 #: ../../source/documentation/load_data.rst:40
 #: ../../source/documentation/load_data.rst:129
@@ -82,7 +86,7 @@ msgstr "土地覆盖"
 msgid ""
 "This option lets you load pre-computed land cover indicators which had been "
 "processed to identify land degradation."
-msgstr ""
+msgstr "此选项允许您加载预先计算的土地覆盖指标，这些指标已经过处理以识别土地退化。"
 
 #: ../../source/documentation/load_data.rst:45
 msgid ""
@@ -92,6 +96,8 @@ msgid ""
 "ESA CCI land cover was used, for example, annual land cover maps will be "
 "downloaded."
 msgstr ""
+"导航到存储下载文件的文件夹并选择它。下载的文件是多波段栅格。频带数量取决于所选分析周期和使用的数据源。例如，如果使用默认的ESA "
+"CCI土地覆盖，将下载年度土地覆盖图。"
 
 #: ../../source/documentation/load_data.rst:49
 msgid ""
@@ -101,6 +107,8 @@ msgid ""
 " identified by this subindicator. If you want to load the other layers not "
 "selected by default, simply select them and click OK."
 msgstr ""
+"堆栈中的条带代表：原始分类方案中的初始和最终土地覆盖（年度，如果可用）和使用UNCCD "
+"7级土地覆盖表，土地覆盖过渡和土地覆盖退化，如该子指示器所确定的。如果要加载默认情况下未选中的其他图层，只需选择它们，然后单击“确定”。"
 
 #: ../../source/documentation/load_data.rst:63
 #: ../../source/documentation/load_data.rst:145
@@ -111,7 +119,7 @@ msgstr "土壤有机碳"
 msgid ""
 "This option lets you load pre-computed soil organic carbon indicators which "
 "had been processed to identify land degradation."
-msgstr ""
+msgstr "此选项允许您加载预先计算的土壤有机碳指标，这些指标已经过处理以识别土地退化。"
 
 #: ../../source/documentation/load_data.rst:68
 msgid ""
@@ -121,6 +129,8 @@ msgid ""
 "ESA CCI land cover was used, for example, annual soil organic carbon maps "
 "will be downloaded."
 msgstr ""
+"导航到存储下载文件的文件夹并选择它。下载的文件是多波段栅格。频带数量取决于所选分析周期和使用的数据源。例如，如果使用默认的ESA "
+"CCI土地覆盖，将下载年度土壤有机碳地图。"
 
 #: ../../source/documentation/load_data.rst:72
 msgid ""
@@ -133,17 +143,19 @@ msgid ""
 "the change. If you want to load the other layers not selected by default, "
 "simply select them and click OK."
 msgstr ""
+"堆栈中的条带代表：初始和最终土壤有机碳储量（如果可获得年度土地数据，则为年度soc），使用UNCCD "
+"7类土地覆盖分类的初始和最终土地覆盖图，以及该子指标所确定的退化。降解层的单位是“％变化”，如果该期间的变化大于10％，则根据变化的符号将它们视为改善或降级。如果要加载默认情况下未选中的其他图层，只需选择它们，然后单击“确定”。"
 
 #: ../../source/documentation/load_data.rst:88
 msgid "SDG 15.3.1 indicator"
-msgstr ""
+msgstr "SDG 15.3.1指标"
 
 #: ../../source/documentation/load_data.rst:90
 msgid ""
 "This option lets you load pre-computed productivity subindicator (the "
 "integration of trajectory, performance and state) as well as the final SDG "
 "15.3.1 (the integration of productivity, land cover and soil organic carbon)"
-msgstr ""
+msgstr "此选项允许您加载预先计算的生产力子指示器（轨迹，性能和状态的集成）以及最终的SDG 15.3.1（生产率，土地覆盖和土壤有机碳的整合）"
 
 #: ../../source/documentation/load_data.rst:94
 msgid ""
@@ -151,27 +163,27 @@ msgid ""
 "The downloaded file is an 2 band raster, the first one containing "
 "information on the SDG and the second on the 5 classes productivity "
 "subindicator."
-msgstr ""
+msgstr "导航到存储下载文件的文件夹并选择它。下载的文件是2波段栅格，第一个包含有关SDG的信息，第二个包含5类生产力子指示器。"
 
 #: ../../source/documentation/load_data.rst:107
 msgid "Load a custom input dataset"
-msgstr ""
+msgstr "加载自定义输入数据集"
 
 #: ../../source/documentation/load_data.rst:113
 msgid ""
 "Use this option to load productivity datasets which have already been "
 "generated outside of |trends.earth|."
-msgstr ""
+msgstr "使用此选项可加载已在| trends.earth |之外生成的生产力数据集。"
 
 #: ../../source/documentation/load_data.rst:115
 msgid "Productivity classes in the input data must be coded as follows:"
-msgstr ""
+msgstr "输入数据中的生产力类必须按如下方式编码："
 
 #: ../../source/documentation/load_data.rst:117
 msgid ""
 "1: Declining 2: Early signs of decline 3: Stable but stressed 4: Stable 5: "
 "Increasing 0 or -32768: No data"
-msgstr ""
+msgstr "1：下降2：早期下降迹象3：稳定但强调4：稳定5：增加0或-32768：无数据"
 
 #: ../../source/documentation/load_data.rst:131
 msgid ""
@@ -194,4 +206,4 @@ msgstr ""
 
 #: ../../source/documentation/load_data.rst:147
 msgid "Processing of custom soil organic carbon data will be available soon."
-msgstr ""
+msgstr "即将提供定制土壤有机碳数据的处理。"

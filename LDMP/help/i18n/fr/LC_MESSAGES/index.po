@@ -3,14 +3,19 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.59\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-22 12:16-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,6 +121,11 @@ msgid ""
 "information, or `contact the Trends.Earth team "
 "<mailto:trends.earth@conservation.org>`_."
 msgstr ""
+"Voir la fiche technique générale &lt;_static / common / "
+"Trends.Earth_Fact_Sheet.pdf&gt; `_ ou` la fiche technique technique "
+"&lt;_static / common / Trends.Earth_Fact_Sheet_Technical.pdf&gt; `_ pour "
+"plus d&#39;informations, ou` contacter l&#39;équipe de Trends.Earth "
+"<mailto:trends.earth@conservation.org> `_."
 
 #: ../../source/index.rst:63
 msgid ""
@@ -157,18 +167,18 @@ msgstr ""
 msgid "About"
 msgstr "À propos"
 
-#: ../../source/index.rst:96
+#: ../../source/index.rst:97
 msgid "Background information"
 msgstr "Contexte"
 
-#: ../../source/index.rst:110
+#: ../../source/index.rst:112
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../../source/index.rst:129
+#: ../../source/index.rst:131
 msgid "Step-by-step Guides"
 msgstr "Guides étape par étape"
 
-#: ../../source/index.rst:150
+#: ../../source/index.rst:153
 msgid "Videos"
 msgstr "Vidéos"

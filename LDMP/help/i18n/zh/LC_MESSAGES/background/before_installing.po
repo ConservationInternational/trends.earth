@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-08 09:26-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr "在安装工具箱之前"
 msgid ""
 "Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
 " to be installed on the computer."
-msgstr ""
+msgstr "在安装工具箱之前，QGIS版本| qgisMinVersion |或者更高版本需要安装在计算机上。"
 
 #: ../../source/background/before_installing.rst:10
 msgid ""
@@ -39,15 +39,17 @@ msgid ""
 "issue and is actively working on a new version of the plugin that will "
 "support QGIS 3."
 msgstr ""
+"| trends.earth |目前不支持QGIS 3，因此如果您使用QGIS 3，插件将不会出现在插件窗口中。使用| trends.earth "
+"|您必须安装QGIS版本2.18。 Trends.Earth团队意识到了这个问题，并正在积极开发支持QGIS 3的新版插件。"
 
 #: ../../source/background/before_installing.rst:16
 msgid ""
 "To install the plugin, first install QGIS 2.18 following the below steps:"
-msgstr ""
+msgstr "要安装插件，请按照以下步骤首先安装QGIS 2.18："
 
 #: ../../source/background/before_installing.rst:18
 msgid "Choose either 32 or 64 bit version"
-msgstr ""
+msgstr "选择32位或64位版本"
 
 #: ../../source/background/before_installing.rst:20
 msgid ""
@@ -58,25 +60,25 @@ msgstr "您可以选择安装QGIS的32位或64位版本。要知道要安装哪�
 
 #: ../../source/background/before_installing.rst:23
 msgid "Windows 8 or Windows 10"
-msgstr ""
+msgstr "Windows 8或Windows 10"
 
 #: ../../source/background/before_installing.rst:25
 msgid "From the \"Start\" screen, type \"This PC\"."
-msgstr ""
+msgstr "在“开始”屏幕中，键入“此PC”。"
 
 #: ../../source/background/before_installing.rst:27
 msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
-msgstr ""
+msgstr "右键单击（或点击并按住）“此PC”，然后单击“属性”。"
 
 #: ../../source/background/before_installing.rst:29
 msgid "Windows 7, or Vista"
-msgstr ""
+msgstr "Windows 7或Vista"
 
 #: ../../source/background/before_installing.rst:31
 msgid ""
 "Open \"System\" by clicking the \"Start\" button , right-clicking "
 "\"Computer\", and then clicking \"Properties\"."
-msgstr ""
+msgstr "单击“开始”按钮，右键单击“计算机”，然后单击“属性”，打开“系统”。"
 
 #: ../../source/background/before_installing.rst:34
 msgid "Under System, you can view the system type."
@@ -84,48 +86,56 @@ msgstr "在系统下，您可以查看系统类型。"
 
 #: ../../source/background/before_installing.rst:36
 msgid "Mac: Click the Apple icon in the top left and select \"About this Mac\"."
-msgstr ""
+msgstr "Mac：单击左上角的Apple图标，然后选择“关于此Mac”。"
 
 #: ../../source/background/before_installing.rst:38
 msgid "Download installer for QGIS 2.18"
-msgstr ""
+msgstr "下载QGIS 2.18的安装程序"
 
 #: ../../source/background/before_installing.rst:40
 msgid ""
 "Windows: Choose either the 32 or 64 bit version, and download from the "
 "appropriate link below."
-msgstr ""
+msgstr "Windows：选择32位或64位版本，然后从下面的相应链接下载。"
 
 #: ../../source/background/before_installing.rst:43
 msgid ""
 "`64 bit Windows <http://download.osgeo.org/qgis/win32/QGIS-OSGeo4W-2.18.28-3"
 "-Setup-x86_64.exe>`_"
 msgstr ""
+"`64位Windows <http://download.osgeo.org/qgis/win32/QGIS-OSGeo4W-2.18.28-3"
+"-Setup-x86_64.exe> `_"
 
 #: ../../source/background/before_installing.rst:46
 msgid ""
 "`32 bit Windows <http://download.osgeo.org/qgis/win32/QGIS-"
 "OSGeo4W-2.18.28-3-Setup-x86.exe>`_"
 msgstr ""
+"`32位Windows <http://download.osgeo.org/qgis/win32/QGIS-"
+"OSGeo4W-2.18.28-3-Setup-x86.exe> `_"
 
 #: ../../source/background/before_installing.rst:49
 msgid ""
 "Mac: Download from `here "
 "<http://www.kyngchaos.com/files/software/qgis/QGIS-2.18.0-1.dmg>`_."
 msgstr ""
+"Mac：从这里下载<http://www.kyngchaos.com/files/software/qgis/QGIS-2.18.0-1.dmg> "
+"`_。"
 
 #: ../../source/background/before_installing.rst:52
 msgid ""
 "Linux: `See instructions from the QGIS team on how to install on Linux "
 "<https://www.qgis.org/en/site/forusers/alldownloads.html#linux>`_."
 msgstr ""
+"Linux：`请参阅QGIS团队关于如何在Linux上安装的说明<https://www.qgis.org/en/site/forusers/alldownloads.html#linux>"
+" `_。"
 
 #: ../../source/background/before_installing.rst:56
 msgid "Install QGIS"
-msgstr ""
+msgstr "安装QGIS"
 
 #: ../../source/background/before_installing.rst:58
 msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the options using the Default settings."
-msgstr ""
+msgstr "从网站下载安装程序后，需要运行它（双击它）。使用默认设置选择选项。"

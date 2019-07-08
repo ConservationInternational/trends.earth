@@ -43,6 +43,10 @@ msgid ""
 " you must install QGIS version 2.18. See :ref:`before-installing` for more "
 "information."
 msgstr ""
+"QGIS 3 actualmente no es compatible con |trends.earth|, por lo que el "
+"complemento no aparecerá en la ventana del complemento si está utilizando "
+"QGIS 3.0. Para utilizar |trends.earth| debe instalar QGIS versión 2.18. Ver "
+":ref:`before-installing` para más información."
 
 #: ../../source/background/installing.rst:14
 msgid "Installing the stable version (recommended)"

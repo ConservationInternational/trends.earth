@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:4
 msgid "Run 1-step subindicators"
-msgstr ""
+msgstr "运行一步子指示器"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:6
 msgid ""
@@ -33,44 +33,49 @@ msgid ""
 "and SoilGrids for soil organic carbon. In this tutorial we will use Uganda "
 "as an example, but you can choose any study area."
 msgstr ""
+"**目标**：了解如何使用Trends.Earth和默认数据运行SDG "
+"15.3.1子指标（土地生产力，土地覆盖和土壤有机碳的变化）：来自JRC的LPD用于土地生产力，ESA "
+"CCI用于土地覆盖，土壤有机碳的土壤。在本教程中，我们将以乌干达为例，但您可以选择任何研究区域。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:8
 msgid "**Estimated time of completion**: 30 minutes"
-msgstr ""
+msgstr "**预计完成时间**：30分钟"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:10
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "**互联网接入**：必填"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:12
 msgid ""
 "`Download this page as a PDF for off-line use "
 "<../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
 msgstr ""
+"`将此页面下载为PDF以供离线使用&lt;../ pdfs / "
+"Trends.Earth_Tutorial02_Computing_Indicators.pdf&gt;`_"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:15
 msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
 "icon (|iconCalculator|)."
-msgstr ""
+msgstr "在QGIS中搜索Trends.Earth工具栏，然后单击Calculate图标（| iconCalculator |）。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:20
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on Land "
 "degradation indicator (SDG indicator 15.3.1)"
-msgstr ""
+msgstr "**计算指标**菜单将打开。在该窗口中，单击土地退化指标（SDG指标15.3.1）"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:25
 msgid ""
 "Select **Calculate all three sub-indicators in one step** button found under"
 " Step 1 - Option 1."
-msgstr ""
+msgstr "选择**在步骤1  - 选项1下找到的一步计算所有三个子指示**按钮。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:30
 msgid ""
 "In the **Setup** tab, select the years of analysis (2000-2015) and make sure"
 " that the **UNCCD default data** is selected, and click next."
-msgstr ""
+msgstr "在** Setup **选项卡中，选择分析年份（2000-2015）并确保选择** UNCCD默认数据**，然后单击下一步。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:33
 msgid ""
@@ -80,6 +85,10 @@ msgid ""
 "/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
+"请参阅本手册的：ref：`indicator-15-3-1`部分，了解根据“UNCCD良好实践指南”（GPG）制定的Trends.Earth生产率指标<http://www2.unccd.int/sites/default/files"
+"/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>"
+" `_。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:38
 msgid ""
@@ -90,6 +99,8 @@ msgid ""
 "definition** and the **Setup aggregation of land cover data** window will "
 "open."
 msgstr ""
+"在**土地覆盖设置**选项卡中，您可以选择使用UNCCD默认数据建议的默认聚合方法，也可以自定义从原始ESA "
+"CCI土地覆盖类别到UNCCD报告所需的7的图例聚合。要自定义它，请单击**编辑定义**，将打开**土地覆盖数据的设置聚合**窗口。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:43
 msgid ""
@@ -101,21 +112,23 @@ msgid ""
 "the default aggregation scheme does not represent the conditions of your "
 "study area."
 msgstr ""
+"在此窗口中，您将看到列中的原始ESA "
+"CCI土地覆盖类**输入类**和列中的最终聚合**输出类**。要更改输出类，只需单击颜色旁边的下拉箭头，然后选择要将输入类重新分配给的最终输出类。请注意，只有在您认为默认聚合方案不代表研究区域的条件时才需要执行此步骤。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:45
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
 "file you previously saved."
-msgstr ""
+msgstr "完成编辑后，单击**保存定义文件**。通过简单地加载先前保存的定义文件，此选项将为您下次运行该工具节省时间。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:47
 msgid "Click **Save** to continue"
-msgstr ""
+msgstr "单击**保存**继续"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:52
 msgid "You will be back at the **Land Cover Setup** tab, click **Next**."
-msgstr ""
+msgstr "您将返回** Land Cover Setup **标签，单击** Next **。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:57
 msgid ""
@@ -125,6 +138,7 @@ msgid ""
 " output, transitions in beige (zero) will be identified as stable, and "
 "transitions in green (plus sign) will be identified as improvements."
 msgstr ""
+"**定义土地覆盖变化的影响**选项卡是您根据退化定义每个土地覆盖过渡的含义的位置。以红色（减号）表示的过渡将被识别为最终输出中的劣化，米色（零）的过渡将被识别为稳定，并且绿色（加号）的过渡将被识别为改进。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:59
 msgid ""
@@ -134,23 +148,25 @@ msgid ""
 "that transition should be changed for that particular study area to "
 "degradation (minus sign)."
 msgstr ""
+"例如，默认情况下，认为从** Grassland **更改为** Tree-covered "
+"**的像素将被视为已改进。但是，如果在您的研究区域木本植物侵染是一个退化过程，那么该特定研究区域的转变应该改变为降解（减号）。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:61
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
-msgstr ""
+msgstr "如果您未对默认矩阵进行任何更改，只需单击**下一步**。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:63
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
 "**Next**."
-msgstr ""
+msgstr "如果您确实更改了某些转换的含义，请单击**将表保存到文件... **以保存该定义以供以后使用。然后单击**下一步**。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:68
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
-msgstr ""
+msgstr "在**区域**选项卡中定义分析区域。有两种选择："
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:70
 msgid ""
@@ -159,6 +175,7 @@ msgid ""
 " the First Level (country) or Second Level (state or province depending on "
 "the country)."
 msgstr ""
+"使用提供的国家和州界限：如果要使用此选项，请确保突出显示**管理区域**选项，然后选择第一级别（国家/地区）或第二级别（州或省，具体取决于国家/地区）。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:73
 msgid ""
@@ -168,6 +185,7 @@ msgid ""
 "Conservation International Foundation, or by its partner organizations and "
 "contributors."
 msgstr ""
+"在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:79
 msgid ""
@@ -182,31 +200,32 @@ msgid ""
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
 " navigate to the folder in your computer where you have the file stored."
 msgstr ""
+"使用您自己的区域文件：如果您想使用自己的分析区域，请确保突出显示**文件区域**选项。然后单击**浏览**并导航到计算机中存储文件的文件夹。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:89
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
-msgstr ""
+msgstr "选择要计算指标的区域后，单击**下一步**。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:94
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
-msgstr ""
+msgstr "在**选项**选项卡中，您可以定义**任务名称**并制作一些**注释**以标识您正在运行的分析。要指出的信息是可选的，但我们建议您注意："
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:96
 msgid "Area of analysis"
-msgstr ""
+msgstr "分析领域"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:97
 msgid "Dates"
-msgstr ""
+msgstr "日期"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:98
 msgid "Indicators run"
-msgstr ""
+msgstr "指标运行"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:100
 msgid ""
@@ -215,6 +234,8 @@ msgid ""
 "15.3.1 indicator (one-step)** window will disappear and you will be brought "
 "back to QGIS."
 msgstr ""
+"完成后，单击**计算**，任务将提交给Google Earth Engine进行计算。您会注意到** Calculate SDG "
+"15.3.1指示器（一步）**窗口将消失，您将被带回QGIS。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:105
 msgid ""
@@ -223,10 +244,11 @@ msgid ""
 " take between 5 and 15 minutes depending on the size of the study area "
 "(larger areas tend to take longer)."
 msgstr ""
+"将暂时显示浅蓝色条，表示任务已成功提交。该分析将在Google服务器中运行，可能需要5到15分钟，具体取决于研究区域的大小（较大的区域往往需要更长的时间）。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:111
 msgid ""
 "Refer to the :ref:`task_download` tutorial for instructions on how to check "
 "the status of the tasks submitted and for downloading results from "
 "Trends.Earth."
-msgstr ""
+msgstr "有关如何检查提交的任务的状态以及从Trends.Earth下载结果的说明，请参阅：ref：`task_download`教程。"

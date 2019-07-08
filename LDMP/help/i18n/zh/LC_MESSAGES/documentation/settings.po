@@ -1,16 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +27,7 @@ msgstr "注册和设置"
 
 #: ../../source/documentation/settings.rst:10
 msgid "Registration"
-msgstr ""
+msgstr "注册"
 
 #: ../../source/documentation/settings.rst:12
 msgid ""
@@ -36,17 +39,17 @@ msgstr "工具箱可以免费使用，但在使用任何基于云的功能之前
 msgid ""
 "To register your email address and obtain a free account, select the wrench "
 "icon (|iconWrench|). This will open up the \"Settings\" dialog box:"
-msgstr ""
+msgstr "要注册您的电子邮件地址并获得免费帐户，请选择扳手图标（| iconWrench |）。这将打开“设置”对话框："
 
 #: ../../source/documentation/settings.rst:21
 msgid ""
 "To Register, click the \"Step 1: Register\" button. Enter your email, name, "
 "organization and country of residence and select \"Ok\":"
-msgstr ""
+msgstr "要注册，请单击“步骤1：注册”按钮。输入您的电子邮件，姓名，组织和居住国家，然后选择“确定”："
 
 #: ../../source/documentation/settings.rst:27
 msgid "You will see a meesage indicating your user has been registered:"
-msgstr ""
+msgstr "您将看到一条表明您的用户已注册的meesage："
 
 #: ../../source/documentation/settings.rst:32
 msgid ""
@@ -55,15 +58,16 @@ msgid ""
 "This will bring up a dialog asking for your email and password. Enter the "
 "password you received from api@trends.earth and click \"Ok\":"
 msgstr ""
+"注册后，您将收到来自api@trends.earth的电子邮件，其中包含您的密码。收到此电子邮件后，单击“步骤2：输入登录”。这将显示一个对话框，询问您的电子邮件和密码。输入您从api@trends.earth收到的密码，然后单击“确定”："
 
 #: ../../source/documentation/settings.rst:40
 msgid ""
 "You will see a message indicating you have successfully been logged in:"
-msgstr ""
+msgstr "您将看到一条消息，表明您已成功登录："
 
 #: ../../source/documentation/settings.rst:46
 msgid "Updating your user"
-msgstr ""
+msgstr "更新您的用户"
 
 #: ../../source/documentation/settings.rst:48
 msgid ""
@@ -71,6 +75,7 @@ msgid ""
 "login information; update your name, organization, or country; or delete "
 "your user, click on \"Update user\" from the \"Settings\" dialog."
 msgstr ""
+"如果您已经注册了| Trends.Earth |但想要更改您的登录信息;更新您的姓名，组织或国家;或删除您的用户，单击“设置”对话框中的“更新用户”。"
 
 #: ../../source/documentation/settings.rst:55
 msgid ""
@@ -80,28 +85,30 @@ msgid ""
 ":ref:`registration`. To change your user, enter the email and password you "
 "wish to change to and click \"Ok\":"
 msgstr ""
+"如果要更改用户名，请单击“更改用户”。请注意，此功能仅在您已有另一个| trends.earth "
+"|时才有用您要切换到的帐户。要注册新用户，请参阅：ref：`registration`。要更改您的用户，请输入您要更改的电子邮件和密码，然后单击“确定”："
 
 #: ../../source/documentation/settings.rst:64
 msgid ""
 "If you want to update your profile, click on \"Update profile\". Update your"
 " information in the box that appears and click \"Save\":"
-msgstr ""
+msgstr "如果要更新个人资料，请单击“更新个人资料”。在显示的框中更新您的信息，然后单击“保存”："
 
 #: ../../source/documentation/settings.rst:70
 msgid ""
 "To delete your user, click \"Delete user\". A warning message will appear. "
 "Click \"Ok\" if you are sure you want to delete your user:"
-msgstr ""
+msgstr "要删除您的用户，请单击“删除用户”。将出现一条警告消息。如果您确定要删除用户，请单击“确定”："
 
 #: ../../source/documentation/settings.rst:78
 msgid "Forgot password"
-msgstr ""
+msgstr "忘记密码"
 
 #: ../../source/documentation/settings.rst:80
 msgid ""
 "If you forget your password, click on \"Reset password\" from the settings "
 "dialog box."
-msgstr ""
+msgstr "如果忘记密码，请单击设置对话框中的“重置密码”。"
 
 #: ../../source/documentation/settings.rst:83
 msgid ""
@@ -113,4 +120,4 @@ msgstr "密码将发送到您的电子邮件。如果您在收件箱中找不到
 msgid ""
 "Once you receive your new password, return to the \"Settings\" screen and "
 "use \"Step 2: Enter login\" to enter your new pasword."
-msgstr ""
+msgstr "收到新密码后，返回“设置”屏幕并使用“步骤2：输入登录”输入新密码。"

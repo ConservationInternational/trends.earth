@@ -6,17 +6,17 @@
 # Translators:
 # Monica Noon <mnoon@conservation.org>, 2017
 # Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,6 +62,8 @@ msgid ""
 "Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
 "window for this analysis."
 msgstr ""
+"Sélectionnez l&#39;indicateur de dégradation des terres (indicateur SDG "
+"15.3.1) pour ouvrir la fenêtre de cette analyse."
 
 #: ../../source/documentation/calculate.rst:29
 msgid ""
@@ -753,6 +755,14 @@ msgid ""
 "name. Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
 msgstr ""
+"Lorsque la tâche Moteur Google Earth est terminée et que vous avez reçu "
+"l&#39;e-mail, cliquez sur &quot;Actualiser la liste&quot; pour afficher "
+"l&#39;état FINISHED. Cliquez sur la tâche et sélectionnez &quot;Télécharger "
+"les résultats&quot; en bas de la fenêtre. Une fenêtre contextuelle "
+"s&#39;ouvrira pour vous permettre de sélectionner l&#39;emplacement "
+"d&#39;enregistrement du calque et de lui attribuer un nom. Puis cliquez sur "
+"&quot;Enregistrer&quot;. La couche sera sauvegardée sur votre ordinateur et "
+"automatiquement chargée dans votre projet QGIS actuel."
 
 #: ../../source/documentation/calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"

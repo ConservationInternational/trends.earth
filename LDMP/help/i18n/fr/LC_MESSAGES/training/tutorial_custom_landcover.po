@@ -5,17 +5,17 @@
 # 
 # Translators:
 # Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-07-03 09:38-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,6 +60,12 @@ msgid ""
 " and can be downloaded from this `link "
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_."
 msgstr ""
+"Les données sur la couverture terrestre de ce didacticiel ont été fournies "
+"par le Centre régional de cartographie des ressources pour le développement."
+" <http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>"
+" `_ et peut être téléchargé à partir de ce lien` "
+"<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip> "
+"`_."
 
 #: ../../source/training/tutorial_custom_landcover.rst:21
 msgid ""
@@ -451,6 +457,10 @@ msgid ""
 "When you click **Calculate**, the **Choose a name for the output file** will"
 " open. Select where to save the file and its name, and click **Save**."
 msgstr ""
+"Lorsque vous cliquez sur ** Calculer **, le ** Choisissez un nom pour le "
+"fichier de sortie ** s&#39;ouvrira. Sélectionnez l&#39;emplacement où vous "
+"souhaitez enregistrer le fichier et son nom, puis cliquez sur ** Enregistrer"
+" **."
 
 #: ../../source/training/tutorial_custom_landcover.rst:182
 msgid ""

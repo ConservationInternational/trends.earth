@@ -7,6 +7,7 @@
 # Monica Noon <mnoon@conservation.org>, 2017
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-08 09:26-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +45,10 @@ msgid ""
 " you must install QGIS version 2.18. See :ref:`before-installing` for more "
 "information."
 msgstr ""
+"QGIS 3 n&#39;est actuellement pas pris en charge par | trends.earth |, de "
+"sorte que le plugin n&#39;apparaîtra pas dans la fenêtre du plugin si vous "
+"utilisez QGIS 3.0. Pour utiliser | trends.earth | vous devez installer QGIS "
+"version 2.18. Voir: ref: `before-installed` pour plus d&#39;informations."
 
 #: ../../source/background/installing.rst:14
 msgid "Installing the stable version (recommended)"

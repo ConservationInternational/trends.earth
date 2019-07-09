@@ -25,7 +25,10 @@ changelog=0.64
     - Fix handling of nodata in total carbon tool.
     - Add support for 2018 Hansen data in total carbon tool.
     - Add support for global 30m biomass data from Wood's Hole in total carbon 
-      tool.
+    - Set maximum final year for one step SDG 15.3.1 tool to be 2015 (matching 
+      the ESA data).
+    - Make Trends.Earth productivity the default dataset in SDG one step tool 
+      for 15.3.1.
   0.62
     - Add experimental tool for mapping potential carbon returns from 
       alternative restoration interventions.

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1216</width>
-    <height>574</height>
+    <width>605</width>
+    <height>381</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -200,20 +200,23 @@
           <string>Land productivity dataset</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0" colspan="2">
+          <item row="1" column="0" colspan="2">
            <widget class="QRadioButton" name="mode_lpd_jrc">
             <property name="text">
              <string>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="2">
+          <item row="0" column="0">
            <widget class="QRadioButton" name="mode_te_prod">
             <property name="text">
              <string>Trends.Earth land productivity</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

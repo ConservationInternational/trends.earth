@@ -31,10 +31,31 @@ the plugin.
 
 ## Installation
 
-### Stable version (recommended)
+### Stable version from within QGIS (recommended)
 
 The easiest way to install the plugin is from within QGIS, using the [QGIS 
 plugin repository](http://plugins.qgis.org/plugins/LDMP/).
+
+### Stable version from zipfile
+
+Download a stable version of `Trends.Earth` from
+[the list of available releases on 
+GitHub](https://github.com/ConservationInternational/trends.earth/releases).
+
+Extract the `LDMP.zip` file you donwloaded into the python plugins folder for 
+your installation of QGIS. For example, if you are using Windows and your 
+username is "azvol", then this might be `C:\Users\azvol\.qgis2\python\plugins`. 
+If you are using a Mac and your username is "azvol", then this might be
+`/Users/azvol/.qgis2/python/plugins`.
+
+Once you are finished, you should have a folder named "LDMP" within your 
+`.qgis2/python/plugins` folder.
+
+Start QGIS, and click on "Plugins" then "Manage and install plugins". In the 
+plugins window that appears, click on "Installed", and then make sure there is 
+a check in the box next to "Land Degradation Monitoring Tool". The plugin is 
+now installed and activated. Click "Close", and start using the plugin.
+
 
 ### Development version
 

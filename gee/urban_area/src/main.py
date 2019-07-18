@@ -19,9 +19,9 @@ from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
           crs, geojsons, EXECUTION_ID, logger):
     # Impervious surface index computed by Trends.Earth
-    isi_series = ee.ee.ImageCollection("projects/trends_earth/isi_1998_2018_20190403").reduce(ee.Reducer.mean()) \
+    isi_series = ee.ImageCollection("projects/trends_earth/isi_1998_2018_20190403").reduce(ee.Reducer.mean()) \
          .select(['isi1998_mean','isi2000_mean','isi2005_mean','isi2010_mean','isi2015_mean','isi2018_mean'],
-         ['isi1998','isi2000','isi2005','isi2010','isi2015','isi2018']);
+         ['isi1998','isi2000','isi2005','isi2010','isi2015','isi2018'])
     proj = isi_series.select('isi2000').projection()
 
     # JRC Global Surface Water Mapping Layers, v1.0 (>20% occurrence)
@@ -41,12 +41,12 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
     urban15 = isi_series.select("isi2015").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
     urban18 = isi_series.select("isi2018").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
 
-    urban_series = (urban98.multiply(100000)).add
-                   (urban00.multiply(10000)).add
-                   (urban05.multiply(1000)).add
-                   (urban10.multiply(100)).add
-                   (urban15.multiply(10)).add
-                   (urban18.multiply(1));      
+    urban_series = (urban98.multiply(100000)).add \
+                   (urban00.multiply(10000)).add \
+                   (urban05.multiply(1000)).add \
+                   (urban10.multiply(100)).add \
+                   (urban15.multiply(10)).add \
+                   (urban18.multiply(1))
           
     urban_sum = urban98.add(urban00).add(urban05).add(urban10).add(urban15).add(urban18)
 
@@ -103,8 +103,8 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
                                .where(urban_series.eq(11101), 1) \
                                .where(urban_series.eq(11110), 1) \
                                .where(urban_series.eq(11111), 1) \
-                               .where(urban_series.gte(100000).and(urban_sum.gte(3)),1) \
-                               .where(urban_series.gte(100000).and(urban_sum.lte(2)),0) \
+                               .where(urban_series.gte(100000).And(urban_sum.gte(3)),1) \
+                               .where(urban_series.gte(100000).And(urban_sum.lte(2)),0) \
                                .where(water.gte(wat_thr), 5) \
                                .reproject(crs=proj, scale=30)
 
@@ -180,6 +180,17 @@ def run(params, logger):
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+
+    logger.debug("Checking total area of supplied geojsons:")
+    area = 0
+    for geojson in geojsons:
+        aoi = ee.Geometry.MultiPolygon(get_coords(geojson))
+        area += aoi.area().divide(1000000).getInfo()
+    if area > 10000:
+        logger.debug("Area ({:.6n} km sq) is too large - failing task".format(area))
+        raise Exception
+    else:
+        logger.debug("Processing total area of {:.6n} km sq".format(area))
         
     logger.debug("Running main script.")
     

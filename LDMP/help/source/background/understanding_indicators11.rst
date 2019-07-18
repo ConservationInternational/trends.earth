@@ -162,17 +162,6 @@ Urban extent is determined by the combined area of classes 1, 2, 4, 5, 7, and 8 
 
 With this information we can now estimate the rates of urban expansion over time for the periods 2000-2005, 2010, and 2010-2015 needed to estimate the annual land consumption rate.
 
-.. image:: /static/documentation/understanding_indicators11/sdg11_kampala_animation.*
-   :align: center
-   :alt: trends.earth
-
-.. image:: /static/common/LDMP_Animation.*
-   :align: center
-   :alt: trends.earth
-
-
-`Figure 11: Urban expansion in Kampala (Uganda) for the years 2000, 2005, 2010, and 2015.`
-
 Population growth
 -----------------
 
@@ -201,7 +190,7 @@ The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:
 .. image:: /static/documentation/urban/summary_table_sdg11.PNG
    :align: center 
 
-`Figure 12: One of the final outputs of the SDG 11.3.1 analysis in |trends.earth| is a tabular outputs displaying the area, population and the indicator for SDG 11.3.1 for the city analyzed.`
+`Figure 11: One of the final outputs of the SDG 11.3.1 analysis in |trends.earth| is a tabular outputs displaying the area, population and the indicator for SDG 11.3.1 for the city analyzed.`
 
 .. note::
     For a step-by-step guide on how to run the aalysis in |trends.earth|, please refer to the following tutorial: :ref:`indicator-11-3-1-tutorial`.

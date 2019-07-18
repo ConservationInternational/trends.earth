@@ -148,11 +148,11 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
             return
 
         # Limit area for the urban tool to 10,000 sq km
-        aoi_area = round(self.aoi.get_area() / (1000 * 1000))
-        log(u'AOi area is: {}'.format(aoi_area))
+        aoi_area = self.aoi.get_area() / (1000 * 1000)
+        log(u'AOI area is: {:n}'.format(aoi_area))
         if aoi_area > 1e4:
             QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("The requested area ({}) sq km is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.".format(aoi_area)), None)
+                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.".format(aoi_area)), None)
             return False
 
         self.calculate_on_GEE()

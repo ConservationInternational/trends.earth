@@ -286,7 +286,7 @@ class AOI(object):
         target.ImportFromEPSG(54030)
         transform = osr.CoordinateTransformation(source, target)
         # Returns area of aoi components in sq m
-        wkts = self.meridian_split(out_type='layer', out_format='wkt', warn=False)[1]
+        wkts = self.meridian_split(out_format='wkt', warn=False)[1]
         area = 0.
         for wkt in wkts:
             geom = ogr.CreateGeometryFromWkt(wkt)
@@ -918,10 +918,10 @@ class DlgCalculateBase(QtGui.QDialog):
         # Limit processing area to be no greater than 10^7 sq km if using a 
         # custom shapefile
         if not self.area_tab.area_fromadmin.isChecked():
-            aoi_area = round(self.aoi.get_area() / (1000 * 1000))
+            aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > 1e7:
                 QtGui.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("The requested area ({}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
+                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
                 return False
 
         return True

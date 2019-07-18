@@ -6,16 +6,16 @@
 # Translators:
 # Monica Noon <mnoon@conservation.org>, 2017
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.61\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2018-12-05 21:33-0500\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,6 +61,8 @@ msgid ""
 "Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
 "window for this analysis."
 msgstr ""
+"Seleccione el indicador de degradación de la tierra (indicador SDG 15.3.1) "
+"para abrir la ventana de este análisis."
 
 #: ../../source/documentation/calculate.rst:29
 msgid ""
@@ -751,6 +753,13 @@ msgid ""
 "name. Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
 msgstr ""
+"Cuando la tarea del motor de Google Earth haya finalizado y haya recibido el"
+" correo electrónico, haga clic en \"Actualizar lista\" y el estado se "
+"mostrará TERMINADO. Haga clic en la tarea y seleccione \"Descargar "
+"resultados\" en la parte inferior de la ventana. Se abrirá una ventana "
+"emergente para que seleccione dónde guardar la capa y le asigne un nombre. "
+"Luego haga clic en \"Guardar\". La capa se guardará en su computadora y se "
+"cargará automáticamente en su proyecto actual de QGIS."
 
 #: ../../source/documentation/calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"

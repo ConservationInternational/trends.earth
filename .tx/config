@@ -52,10 +52,16 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/report_overviews.po
 source_file = LDMP/help/i18n/pot/background/report_overviews.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators.po
-source_file = LDMP/help/i18n/pot/background/understanding_indicators.pot
+[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators11]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators11.po
+source_file = LDMP/help/i18n/pot/background/understanding_indicators11.pot
 source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators15]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators15.po
+source_file = LDMP/help/i18n/pot/background/understanding_indicators15.pot
+source_lang = en
+
 
 [land_degradation_monitoring_toolbox_docs_1_0.documentation--calculate]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/calculate.po

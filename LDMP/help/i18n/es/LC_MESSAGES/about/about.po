@@ -5,8 +5,8 @@
 # 
 # Translators:
 # Monica Noon <mnoon@conservation.org>, 2017
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-03 15:33-0500\n"
 "PO-Revision-Date: 2017-12-15 10:08+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,17 +146,19 @@ msgstr ""
 
 #: ../../source/about/about.rst:65
 msgid "Citation"
-msgstr ""
+msgstr "Cita"
 
 #: ../../source/about/about.rst:67
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
-msgstr ""
+msgstr "Si desea citar |trends.earth|, use la siguiente cita:"
 
 #: ../../source/about/about.rst:69
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2018."
 msgstr ""
+"Trends.Earth. Conservación Internacional. Disponible en línea en: "
+"`http://trends.earth <http://trends.earth>`_. 2018."
 
 #: ../../source/about/about.rst:73
 msgid "License"

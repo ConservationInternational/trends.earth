@@ -5,7 +5,7 @@ Run 1-step subindicators
 
 - **Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: LPD from JRC for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Uganda as an example, but you can choose any study area.
 
-- **Estimated time of completion**: 30 minutes
+- **Estimated time of completion**: 35 minutes
 
 - **Internet access**: Required
 

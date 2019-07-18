@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.59\n"
+"Project-Id-Version: Trends.Earth 0.61\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 09:09-0500\n"
+"POT-Creation-Date: 2018-12-05 21:33-0500\n"
 "PO-Revision-Date: 2018-08-22 16:17+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/training/tutorial_forest_carbon.rst:4
 msgid "Forest and Carbon Change Tool"
-msgstr ""
+msgstr "Herramienta de cambio de cobertura de bosque y carbono"
 
 #: ../../source/training/tutorial_forest_carbon.rst:6
 msgid ""
@@ -32,6 +32,9 @@ msgid ""
 "below ground biomass and emissions from deforestation in raster format and "
 "tabular outputs with areas estimated."
 msgstr ""
+"**Objetivo**: Aprenda cómo calcular la cobertura forestal, la pérdida de "
+"bosques, la biomasa por encima y por debajo del suelo y las emisiones de la "
+"deforestación en formato raster y productos tabulares con áreas estimadas."
 
 #: ../../source/training/tutorial_forest_carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -39,17 +42,19 @@ msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
 #: ../../source/training/tutorial_forest_carbon.rst:10
 msgid "**Internet access**: Required"
-msgstr "**Acceso a Internet**: obligatorio"
+msgstr "**Acceso a Internet**: Necesario"
 
 #: ../../source/training/tutorial_forest_carbon.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 msgstr ""
+"`Descargue esta página como PDF para uso sin conexión "
+"<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 
 #: ../../source/training/tutorial_forest_carbon.rst:18
 msgid "Compute and download forest and biomass data"
-msgstr ""
+msgstr "Calcular y descargar datos forestales y de biomasa."
 
 #: ../../source/training/tutorial_forest_carbon.rst:20
 #: ../../source/training/tutorial_forest_carbon.rst:128
@@ -57,6 +62,8 @@ msgid ""
 "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
 " QGIS."
 msgstr ""
+"Seleccione el icono Calcular (|iconCalculator|) desde el complemento "
+"Trends.Earth en QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:25
 #: ../../source/training/tutorial_forest_carbon.rst:133
@@ -64,6 +71,8 @@ msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Calculate Calculate carbon change spatial layers** button."
 msgstr ""
+"Se abrirá el menú **Calcular indicadores**. En esa ventana, haga clic en el "
+"botón **Calcular Calcular el cambio de carbono en las capas espaciales**."
 
 #: ../../source/training/tutorial_forest_carbon.rst:30
 msgid ""
@@ -72,18 +81,27 @@ msgid ""
 "for boundary**. Step 1 will be addressed first. If the user has already "
 "completed this process, skip to step 14 in the guide."
 msgstr ""
+"Aparecerá una ventana con dos pasos: el Paso 1 es **Calcular las capas "
+"espaciales del cambio de carbono**, y el Paso 2 es **Calcular la tabla de "
+"resumen del cambio de carbono para el límite**. El paso 1 se abordará "
+"primero. Si el usuario ya ha completado este proceso, vaya al paso 14 de la "
+"guía."
 
 #: ../../source/training/tutorial_forest_carbon.rst:35
 msgid ""
 "After selecting Step 1, the user will fill out the desired parameters in the"
 " **Forest Definition** tab."
 msgstr ""
+"Después de seleccionar el Paso 1, el usuario completará los parámetros "
+"deseados en la pestaña **Definición de bosque**."
 
 #: ../../source/training/tutorial_forest_carbon.rst:40
 msgid ""
 "Next, select the desired aboveground biomass dataset and the method for "
 "calculating the root to shoot ratio."
 msgstr ""
+"A continuación, seleccione el conjunto de datos de biomasa aérea deseado y "
+"el método para calcular la proporción de raíz a disparo."
 
 #: ../../source/training/tutorial_forest_carbon.rst:45
 #: ../../source/training/tutorial_forest_carbon.rst:153
@@ -182,6 +200,9 @@ msgid ""
 "in Total Carbon** window will disappear and you will be brought back to "
 "QGIS."
 msgstr ""
+"Cuando haya terminado, haga clic en **Calcular** y la tarea se enviará al "
+"motor de Google Earth Engine para realizar los cálculos. Notará que la "
+"ventana **Calcular cambio en carbono total** desaparecerá y volverá a QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:82
 msgid ""
@@ -201,6 +222,9 @@ msgid ""
 "to check the status of the tasks submitted and for downloading results from "
 "Trends.Earth."
 msgstr ""
+"Consulte el tutorial :ref:`task_download` para obtener información detallada"
+" sobre cómo verificar el estado de las tareas enviadas y para descargar los "
+"resultados de Trends.Earth."
 
 #: ../../source/training/tutorial_forest_carbon.rst:93
 msgid ""
@@ -209,6 +233,11 @@ msgid ""
 "(|iconCloudDownload|). This will open up the `Download results from Earth "
 "Engine` dialog box. Select **Refresh list** to show the task."
 msgstr ""
+"10. Para ver las tareas del motor de Google Earth (GEE) que está ejecutando "
+"y para descargar sus resultados, seleccione la nube con el ícono de la "
+"flecha hacia abajo (|iconCloudDownload|). Esto abrirá el cuadro de diálogo "
+"`Descargar resultados de Earth Engine`. Seleccione **Actualizar lista** para"
+" mostrar la tarea."
 
 #: ../../source/training/tutorial_forest_carbon.rst:100
 msgid ""
@@ -216,12 +245,17 @@ msgid ""
 "processing. When the task is complete, it will say FINISHED after selecting "
 "**Refresh List** again."
 msgstr ""
+"La tarea indicará: EJECUTANDO bajo la columna Estado si aún se está "
+"procesando. Cuando se complete la tarea, dirá FINALIZADO después de "
+"seleccionar **Actualizar lista** nuevamente."
 
 #: ../../source/training/tutorial_forest_carbon.rst:105
 msgid ""
 "Once the task is FINSHED running, highlight the completed task and select "
 "**Download Results**. Save the task."
 msgstr ""
+"Una vez que la tarea está FINALIZADA en ejecución, resalte la tarea "
+"completada y seleccione **Descargar Resultados**. Guarda la tarea."
 
 #: ../../source/training/tutorial_forest_carbon.rst:110
 msgid ""
@@ -229,6 +263,9 @@ msgid ""
 "complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest "
 "loss (2000 to 2017)` outputs in the QGIS window."
 msgstr ""
+"Verá un mensaje que indica que la tarea se está descargando. Una vez que "
+"esté completo, habrá una salida de `Carbono total (2000, toneladas por "
+"hectárea)` y `Pérdida de bosques (2000 a 2017)` en la ventana de QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:121
 msgid ""
@@ -236,24 +273,34 @@ msgid ""
 "roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for "
 "detailed information on loading a basemap."
 msgstr ""
+"Si lo desea, puede agregar información de contexto (por ejemplo, límites de "
+"países, carreteras y ciudades principales). Consulte el tutorial "
+":ref:`tut_load_data` para obtener información detallada sobre cómo cargar un"
+" mapa base."
 
 #: ../../source/training/tutorial_forest_carbon.rst:126
 msgid "Compute summary table"
-msgstr ""
+msgstr "Calcular tabla de resumen"
 
 #: ../../source/training/tutorial_forest_carbon.rst:138
 msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
 msgstr ""
+"Seleccione el Paso 2: **Calcular la tabla de resumen de cambio de carbono "
+"para el límite**."
 
 #: ../../source/training/tutorial_forest_carbon.rst:143
 msgid "Within the **Input** tab, select an output folder and file name."
 msgstr ""
+"Dentro de la pestaña **Entrada**, seleccione una carpeta de salida y un "
+"nombre de archivo."
 
 #: ../../source/training/tutorial_forest_carbon.rst:148
 msgid ""
 "Within the **Output** tab, select **Browse** to list an output folder and "
 "file name."
 msgstr ""
+"Dentro de la pestaña **Salida**, seleccione **Examinar** para mostrar una "
+"carpeta de salida y el nombre del archivo."
 
 #: ../../source/training/tutorial_forest_carbon.rst:173
 msgid ""
@@ -264,17 +311,25 @@ msgid ""
 "locally on your computer. DO NOT select **x** or **Cancel** until the task "
 "is finished!"
 msgstr ""
+"Cuando termine, haga clic en **Calcular** y la tarea se enviará a su "
+"computadora localmente. Notará que la ventana **Calcular tabla de resumen de"
+" cambio de carbono para el límite** desaparecerá y volverá a QGIS. Aparecerá"
+" una barra azul clara en la ventana de QGIS. Esto se está ejecutando "
+"localmente en su computadora. NO seleccione **x** o **Cancelar** hasta que "
+"la tarea haya finalizado!"
 
 #: ../../source/training/tutorial_forest_carbon.rst:178
 msgid "A window will appear when the summary is complete. Select **OK**."
 msgstr ""
+"Aparecerá una ventana cuando se complete el resumen. Seleccione **OK**."
 
 #: ../../source/training/tutorial_forest_carbon.rst:183
 msgid ""
 "If an error window appears, select the **Yes** and the summary will proceed "
 "to open."
 msgstr ""
+"Si aparece una ventana de error, seleccione **Sí** y se abrirá el resumen."
 
 #: ../../source/training/tutorial_forest_carbon.rst:188
 msgid "The summary table will appear."
-msgstr ""
+msgstr "Aparecerá la tabla de resumen."

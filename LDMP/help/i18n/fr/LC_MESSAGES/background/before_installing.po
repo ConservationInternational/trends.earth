@@ -1,16 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Monica Noon <mnoon@conservation.org>, 2017
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
+"POT-Creation-Date: 2019-07-08 09:26-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,20 +30,38 @@ msgstr "Avant d'installer l'outil"
 #: ../../source/background/before_installing.rst:6
 msgid ""
 "Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
-" to be installed on the computer (Note: QGIS version 3.0.0 is not currently "
-"supported). QGIS can be downloaded from: "
-"http://www.qgis.org/en/site/forusers/download.html. Once the installer is "
-"downloaded from the website, it needs to be run (double click on it). Select"
-" the options using the Default settings."
+" to be installed on the computer."
 msgstr ""
-"Avant d'installer la boîte à outils, la version de QGIS |qgisMinVersion| ou "
-"ultérieure doit être installée sur l'ordinateur (Remarque: la version 3.0.0 "
-"de QGIS n'est actuellement pas supportée). QGIS peut être téléchargé sur : "
-"http://www.qgis.org/en/site/forusers/download.html. Une fois le programme "
-"d'installation téléchargé du site web, il doit être exécuté (double-cliquez "
-"dessus). Sélectionnez les options en utilisant les paramètres par défaut."
+"Avant d&#39;installer la boîte à outils, QGIS version | qgisMinVersion | ou "
+"supérieur doit être installé sur l&#39;ordinateur."
 
-#: ../../source/background/before_installing.rst:13
+#: ../../source/background/before_installing.rst:10
+msgid ""
+"QGIS 3 is not currently supported by |trends.earth|, so the plugin will not "
+"appear in the plugin window if you are using QGIS 3. To use |trends.earth| "
+"you must install QGIS version 2.18. The Trends.Earth team is aware of this "
+"issue and is actively working on a new version of the plugin that will "
+"support QGIS 3."
+msgstr ""
+"QGIS 3 n&#39;est actuellement pas pris en charge par | trends.earth |, le "
+"plugin n&#39;apparaîtra donc pas dans la fenêtre du plugin si vous utilisez "
+"QGIS 3. Pour utiliser | trends.earth | vous devez installer QGIS version "
+"2.18. L’équipe de Trends.Earth est consciente de ce problème et travaille "
+"activement à la mise au point d’une nouvelle version du plug-in qui prendra "
+"en charge QGIS 3."
+
+#: ../../source/background/before_installing.rst:16
+msgid ""
+"To install the plugin, first install QGIS 2.18 following the below steps:"
+msgstr ""
+"Pour installer le plug-in, commencez par installer QGIS 2.18 en procédant "
+"comme suit:"
+
+#: ../../source/background/before_installing.rst:18
+msgid "Choose either 32 or 64 bit version"
+msgstr "Choisissez la version 32 ou 64 bits"
+
+#: ../../source/background/before_installing.rst:20
 msgid ""
 "You have the option of installing a 32-bit or 64-bit version of QGIS. To "
 "know which version to install, check which type of operating system you "
@@ -48,41 +71,97 @@ msgstr ""
 " Pour savoir quelle version installer, vérifiez quel type de système "
 "d'exploitation vous avez :"
 
-#: ../../source/background/before_installing.rst:16
-msgid "**Windows 7 or Windows Vista**"
-msgstr "** Windows 7 ou Windows Vista**"
+#: ../../source/background/before_installing.rst:23
+msgid "Windows 8 or Windows 10"
+msgstr "Windows 8 ou Windows 10"
 
-#: ../../source/background/before_installing.rst:18
-msgid ""
-"Open System by clicking the Start button , right-clicking Computer, and then"
-" clicking Properties."
+#: ../../source/background/before_installing.rst:25
+msgid "From the \"Start\" screen, type \"This PC\"."
+msgstr "Dans l&#39;écran &quot;Démarrer&quot;, tapez &quot;Ce PC&quot;."
+
+#: ../../source/background/before_installing.rst:27
+msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
 msgstr ""
-"Ouvrez Système en appuyant sur le bouton Démarrer, en cliquant avec le "
-"bouton droit sur Ordinateur, puis en cliquant sur Propriétés."
+"Cliquez avec le bouton droit de la souris sur &quot;Ce PC&quot; (ou "
+"maintenez votre doigt dessus), puis cliquez sur &quot;Propriétés&quot;."
 
-#: ../../source/background/before_installing.rst:20
+#: ../../source/background/before_installing.rst:29
+msgid "Windows 7, or Vista"
+msgstr "Windows 7 ou Vista"
+
+#: ../../source/background/before_installing.rst:31
+msgid ""
+"Open \"System\" by clicking the \"Start\" button , right-clicking "
+"\"Computer\", and then clicking \"Properties\"."
+msgstr ""
+"Ouvrez &quot;Système&quot; en cliquant sur le bouton &quot;Démarrer&quot;, "
+"en cliquant avec le bouton droit de la souris sur &quot;Ordinateur&quot;, "
+"puis en cliquant sur &quot;Propriétés&quot;."
+
+#: ../../source/background/before_installing.rst:34
 msgid "Under System, you can view the system type."
 msgstr "Sous Système, vous pouvez voir le type de système."
 
-#: ../../source/background/before_installing.rst:22
-msgid "**Windows 8 or Windows 10**"
-msgstr "**Windows 8 ou Windows 10**"
-
-#: ../../source/background/before_installing.rst:24
-msgid "From the Start screen, type This PC."
-msgstr "Dans l'écran Démarrer, tapez Ce PC."
-
-#: ../../source/background/before_installing.rst:25
-msgid "Right Click (or tap and hold) This PC, and click Properties."
+#: ../../source/background/before_installing.rst:36
+msgid "Mac: Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr ""
-"Clic droit (ou appuyez et gardez enfoncé) Ce PC et cliquez sur Propriétés."
+"Mac: Cliquez sur l&#39;icône Apple en haut à gauche et sélectionnez &quot;À "
+"propos de ce Mac&quot;."
 
-#: ../../source/background/before_installing.rst:27
-msgid "**Mac**"
-msgstr "**Mac**"
+#: ../../source/background/before_installing.rst:38
+msgid "Download installer for QGIS 2.18"
+msgstr "Télécharger le programme d&#39;installation de QGIS 2.18"
 
-#: ../../source/background/before_installing.rst:29
-msgid "Click the Apple icon in the top left and select About this Mac."
+#: ../../source/background/before_installing.rst:40
+msgid ""
+"Windows: Choose either the 32 or 64 bit version, and download from the "
+"appropriate link below."
 msgstr ""
-"Cliquez sur l'icône Apple en haut à gauche et sélectionnez À propos de ce "
-"Mac."
+"Windows: Choisissez la version 32 ou 64 bits et téléchargez-la à partir du "
+"lien approprié ci-dessous."
+
+#: ../../source/background/before_installing.rst:43
+msgid ""
+"`64 bit Windows <http://download.osgeo.org/qgis/win32/QGIS-OSGeo4W-2.18.28-3"
+"-Setup-x86_64.exe>`_"
+msgstr ""
+"`Windows 64 bits <http://download.osgeo.org/qgis/win32/QGIS-"
+"OSGeo4W-2.18.28-3-Setup-x86_64.exe> `_"
+
+#: ../../source/background/before_installing.rst:46
+msgid ""
+"`32 bit Windows <http://download.osgeo.org/qgis/win32/QGIS-"
+"OSGeo4W-2.18.28-3-Setup-x86.exe>`_"
+msgstr ""
+"`Windows 32 bits <http://download.osgeo.org/qgis/win32/QGIS-"
+"OSGeo4W-2.18.28-3-Setup-x86.exe> `_"
+
+#: ../../source/background/before_installing.rst:49
+msgid ""
+"Mac: Download from `here "
+"<http://www.kyngchaos.com/files/software/qgis/QGIS-2.18.0-1.dmg>`_."
+msgstr ""
+"Mac: Télécharger depuis `ici "
+"<http://www.kyngchaos.com/files/software/qgis/QGIS-2.18.0-1.dmg> `_."
+
+#: ../../source/background/before_installing.rst:52
+msgid ""
+"Linux: `See instructions from the QGIS team on how to install on Linux "
+"<https://www.qgis.org/en/site/forusers/alldownloads.html#linux>`_."
+msgstr ""
+"Linux: `Voir les instructions de l&#39;équipe QGIS pour savoir comment "
+"installer sur Linux "
+"<https://www.qgis.org/en/site/forusers/alldownloads.html#linux> `_."
+
+#: ../../source/background/before_installing.rst:56
+msgid "Install QGIS"
+msgstr "Installer QGIS"
+
+#: ../../source/background/before_installing.rst:58
+msgid ""
+"Once the installer is downloaded from the website, it needs to be run "
+"(double click on it). Select the options using the Default settings."
+msgstr ""
+"Une fois le programme d&#39;installation téléchargé sur le site Web, vous "
+"devez l&#39;exécuter (double-cliquez dessus). Sélectionnez les options en "
+"utilisant les paramètres par défaut."

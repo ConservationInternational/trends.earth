@@ -84,6 +84,7 @@ videos, are available on this website:
 
    about/general_info
    about/data_sources
+   about/publications
    about/faq
    about/development
 

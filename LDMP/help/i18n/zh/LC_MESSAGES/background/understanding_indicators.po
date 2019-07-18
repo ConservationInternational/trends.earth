@@ -1,16 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2018-03-14 19:32+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,6 +251,10 @@ msgid ""
 "indicate potential improvement in land condition, and negative significant "
 "trends potential degradation."
 msgstr ""
+"**水的利用效率（WUE）：** RUE假定在特定地方以降水形式落下的水量与植物实际使用的水量之间存在线性关系。这种假设并不适用于每个系统。 "
+"WUE试图通过使用总蒸发蒸腾（ET）代替降水来解决这一局限性。 "
+"ET定义为降水量减去地表径流损失的水量，地下水补给量和土壤蓄水量的变化。其余分析如RUE所述：线性回归和非参数显着性检验应用于WUE随时间的变化趋势。 "
+"WUE的积极显着趋势表明土地状况可能有所改善，而负面显着趋势可能导致退化。"
 
 #: ../../source/background/understanding_indicators.rst:151
 msgid ""

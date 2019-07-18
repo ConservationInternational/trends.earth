@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>818</width>
+    <width>851</width>
     <height>839</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
    <item>
     <widget class="QTabWidget" name="TabBox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -32,7 +32,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="ForestDefinitionTab">
       <attribute name="title">
@@ -342,7 +342,7 @@
           <item>
            <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
             <property name="text">
-             <string>Default Woods Hole Research Center (30 m resolution, tropics only)</string>
+             <string>Woods Hole Research Center (30 m resolution)</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -410,6 +410,16 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
+           <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
+            <property name="text">
+             <string>Mokany et al. 2006</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QRadioButton" name="radioButton_rootshoot_ipcc">
             <property name="enabled">
              <bool>true</bool>
@@ -418,14 +428,7 @@
              <string>IPCC</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
-            <property name="text">
-             <string>Mokany et al. 2006</string>
+             <bool>false</bool>
             </property>
            </widget>
           </item>

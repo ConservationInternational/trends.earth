@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -213,28 +214,8 @@
     </message>
     <message>
         <location filename="../layers.py" line="54"/>
-        <source>Degradation (significant decrease, p &lt; .01)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="54"/>
         <source>Degradation (significant decrease, p &lt; .05)</source>
         <translation>Degradation (significant decrease, p &lt; .05)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="56"/>
-        <source>Stable (significant decrease, p &lt; .1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="55"/>
-        <source>Stable (no significant change)</source>
-        <translation>Stable (no significant change)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="58"/>
-        <source>Stable (significant increase, p &lt; .1)</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="56"/>
@@ -242,9 +223,9 @@
         <translation>Improvement (significant increase, p &lt; .05)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="60"/>
-        <source>Improvement (significant increase, p &lt; .01)</source>
-        <translation type="unfinished"/>
+        <location filename="../layers.py" line="55"/>
+        <source>Stable (no significant change)</source>
+        <translation>Stable (no significant change)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="61"/>
@@ -542,7 +523,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -946,6 +927,71 @@ p, li { white-space: pre-wrap; }
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Multiple polygon summary table calculation coming soon!</translation>
     </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="23"/>
+        <source>Calculate Indicators</source>
+        <translation>Calculate Indicators</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="35"/>
+        <source>Step 1: Prepare sub-indicators</source>
+        <translation>Step 1: Prepare sub-indicators</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="59"/>
+        <source>Productivity</source>
+        <translation>Productivity</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="84"/>
+        <source>Land cover</source>
+        <translation>Land cover</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="109"/>
+        <source>Calculate all three sub-indicators in one step</source>
+        <translation>Calculate all three sub-indicators in one step</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="122"/>
+        <source>Option 1: Use default UNCCD data</source>
+        <translation>Option 1: Use default UNCCD data</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="147"/>
+        <source>Soil organic carbon</source>
+        <translation>Soil organic carbon</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="160"/>
+        <source>Option 2: Use customized data</source>
+        <translation>Option 2: Use customized data</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="176"/>
+        <source>Step 2: Calculate final SDG 15.3.1 indicator</source>
+        <translation>Step 2: Calculate final SDG 15.3.1 indicator</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="188"/>
+        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
+        <translation>Option 1: Use single unit for analysis (e.g. country boundary)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="213"/>
+        <source>Calculate final SDG 15.3.1 spatial layer and summary table for total boundary</source>
+        <translation>Calculate final SDG 15.3.1 spatial layer and summary table for total boundary</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="226"/>
+        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
+        <translation>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLD.ui" line="251"/>
+        <source>Calculate area summaries of a raster on sub-units</source>
+        <translation>Calculate area summaries of a raster on sub-units</translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateOneStep</name>
@@ -1129,6 +1175,34 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>DlgCalculateRestBiomass</name>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomass.ui" line="23"/>
+        <source>Estimate Likely Change in Biomass Due to Restoration</source>
+        <translation>Estimate Likely Change in Biomass Due to Restoration</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomass.ui" line="41"/>
+        <source>Step 1: Estimate likely change in biomass from restoration</source>
+        <translation>Step 1: Estimate likely change in biomass from restoration</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomass.ui" line="65"/>
+        <source>Estimate biomass change due to restoration</source>
+        <translation>Estimate biomass change due to restoration</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomass.ui" line="87"/>
+        <source>Step 2: Calculate biomass change summary table</source>
+        <translation>Step 2: Calculate biomass change summary table</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomass.ui" line="111"/>
+        <source>Calculate table summarizing likely changes in biomass due to restoration</source>
+        <translation>Calculate table summarizing likely changes in biomass due to restoration</translation>
+    </message>
+</context>
+<context>
     <name>DlgCalculateRestBiomassData</name>
     <message>
         <location filename="../calculate_rest_biomass.py" line="81"/>
@@ -1149,6 +1223,51 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_rest_biomass.py" line="90"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Cannot write to {}. Choose a different file.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="20"/>
+        <source>Estimate Likely Change in Biomass Due to Restoration</source>
+        <translation>Estimate Likely Change in Biomass Due to Restoration</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="39"/>
+        <source>Approach</source>
+        <translation>Approach</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="51"/>
+        <source>Type of restoration</source>
+        <translation>Type of restoration</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="57"/>
+        <source>Terrestrial</source>
+        <translation>Terrestrial</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="73"/>
+        <source>Coastal (mangrove)</source>
+        <translation>Coastal (mangrove)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="92"/>
+        <source>Planned longevity of intervention (years)</source>
+        <translation>Planned longevity of intervention (years)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="151"/>
+        <source>Calculate</source>
+        <translation>Calculate</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="170"/>
+        <source>Previous</source>
+        <translation>Previous</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="189"/>
+        <source>Next</source>
+        <translation>Next</translation>
     </message>
 </context>
 <context>
@@ -1212,6 +1331,61 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_rest_biomass.py" line="310"/>
         <source>Error calculating biomass change summary table.</source>
         <translation>Error calculating biomass change summary table.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="20"/>
+        <source>Calculate Carbon Change Summary Table</source>
+        <translation>Calculate Carbon Change Summary Table</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="39"/>
+        <source>Input</source>
+        <translation>Input</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="69"/>
+        <source>Biomass change</source>
+        <translation>Biomass change</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="111"/>
+        <source>Output</source>
+        <translation>Output</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="117"/>
+        <source>Output file for biomass difference layers</source>
+        <translation>Output file for biomass difference layers</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="188"/>
+        <source>Click &quot;Browse&quot; to choose a file...</source>
+        <translation>Click &quot;Browse&quot; to choose a file...</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="207"/>
+        <source>Browse</source>
+        <translation>Browse</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="167"/>
+        <source>Output file for summary table</source>
+        <translation>Output file for summary table</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="248"/>
+        <source>Previous</source>
+        <translation>Previous</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="267"/>
+        <source>Next</source>
+        <translation>Next</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="286"/>
+        <source>Calculate</source>
+        <translation>Calculate</translation>
     </message>
 </context>
 <context>
@@ -1730,8 +1904,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
-        <source>Default Woods Hole Research Center (30 m resolution, tropics only)</source>
-        <translation type="unfinished"/>
+        <source>Woods Hole Research Center (30 m resolution)</source>
+        <translation>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="361"/>
@@ -1842,11 +2016,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_tc.py" line="178"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>Area of interest is not entirely within the final land cover layer.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
-        <source>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</source>
-        <translation>Default Woods Hole Research Center (30 m resolution, 30N - 30S only)</translation>
     </message>
 </context>
 <context>
@@ -2375,7 +2544,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2653,7 +2822,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2749,7 +2918,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;

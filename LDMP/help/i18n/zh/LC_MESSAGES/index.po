@@ -3,14 +3,18 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.59\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-22 12:16-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +24,7 @@ msgstr ""
 
 #: ../../source/index.rst:2
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/index.rst:15
 msgid "`English <../en/index.html>`_"
@@ -44,7 +48,7 @@ msgstr "`Português <../pt/index.html>`_"
 
 #: ../../source/index.rst:26
 msgid "**Monitor land change**"
-msgstr ""
+msgstr "**监测土地变化**"
 
 #: ../../source/index.rst:28
 msgid ""
@@ -53,10 +57,13 @@ msgid ""
 "<http://www.conservation.org/trendsearth>`_ for monitoring land change using"
 " earth observations in an innovative desktop and cloud-based system."
 msgstr ""
+"Trends.Earth（以前的Land Degradation Monitoring "
+"Toolbox）是来自保护国际的平台<http://www.conservation.org/trendsearth> "
+"`_用于在创新的桌面和基于云的系统中使用地球观测监测土地变化。"
 
 #: ../../source/index.rst:33
 msgid "**Track achievement of the sustainable development goals**"
-msgstr ""
+msgstr "**追踪可持续发展目标的实现**"
 
 #: ../../source/index.rst:35
 msgid ""
@@ -84,11 +91,11 @@ msgid ""
 "Trends.Earth was produced by a partnership of Conservation International, "
 "Lund University, and the National Aeronautics and Space Administration "
 "(NASA), with the support of the Global Environment Facility (GEF)."
-msgstr ""
+msgstr "Trends.Earth由国际保护组织，隆德大学和美国国家航空航天局（NASA）合作制作，并得到全球环境基金（GEF）的支持。"
 
 #: ../../source/index.rst:56
 msgid "**More information**"
-msgstr ""
+msgstr "**更多信息**"
 
 #: ../../source/index.rst:58
 msgid ""
@@ -98,6 +105,10 @@ msgid ""
 "information, or `contact the Trends.Earth team "
 "<mailto:trends.earth@conservation.org>`_."
 msgstr ""
+"请参阅`一般情况说明书&lt;_static / common / "
+"Trends.Earth_Fact_Sheet.pdf&gt;`_或`技术情况说明书&lt;_static / common / "
+"Trends.Earth_Fact_Sheet_Technical.pdf&gt;`_以获取更多信息，或者“联系Trends.Earth团队<mailto:trends.earth@conservation.org>"
+" `_。"
 
 #: ../../source/index.rst:63
 msgid ""
@@ -123,30 +134,30 @@ msgstr "：REF：`training`"
 
 #: ../../source/index.rst:70
 msgid ":ref:`videos`"
-msgstr ""
+msgstr "：REF：`videos`"
 
 #: ../../source/index.rst:72
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
-msgstr ""
+msgstr "`将此文档下载为PDF以供离线使用<pdfs/Trends.Earth.pdf> `_"
 
 #: ../../source/index.rst:81
 msgid "About"
 msgstr "关于"
 
-#: ../../source/index.rst:96
+#: ../../source/index.rst:97
 msgid "Background information"
 msgstr "背景信息"
 
-#: ../../source/index.rst:110
+#: ../../source/index.rst:112
 msgid "Documentation"
-msgstr ""
+msgstr "文档"
 
-#: ../../source/index.rst:129
+#: ../../source/index.rst:131
 msgid "Step-by-step Guides"
-msgstr ""
+msgstr "循序渐进的指南"
 
-#: ../../source/index.rst:150
+#: ../../source/index.rst:153
 msgid "Videos"
-msgstr ""
+msgstr "影片"

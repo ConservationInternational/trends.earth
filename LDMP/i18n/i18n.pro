@@ -2,8 +2,12 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculate.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
+../gui/DlgCalculateLD.ui \
 ../gui/DlgCalculateOneStep.ui \
 ../gui/DlgCalculateProd.ui \
+../gui/DlgCalculateRestBiomass.ui \
+../gui/DlgCalculateRestBiomassData.ui \
+../gui/DlgCalculateRestBiomassSummaryTable.ui \
 ../gui/DlgCalculateSOC.ui \
 ../gui/DlgCalculateSummaryTableAdmin.ui \
 ../gui/DlgCalculateSummaryTablePolygons.ui \
@@ -52,8 +56,11 @@ SOURCES = ../about.py \
 ../calculate.py \
 ../calculate_lc.py \
 ../calculate_prod.py \
+../calculate_rest_biomass.py \
 ../calculate_sdg.py \
 ../calculate_soc.py \
+../calculate_tc.py \
+../calculate_urban.py \
 ../data_io.py \
 ../download.py \
 ../download_data.py \
@@ -62,8 +69,8 @@ SOURCES = ../about.py \
 ../lc_setup.py \
 ../plot.py \
 ../plugin.py \
-../data_io.py \
 ../settings.py \
+../summary.py \
 ../timeseries.py \
 ../visualization.py \
 ../worker.py

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1216</width>
-    <height>633</height>
+    <width>605</width>
+    <height>381</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -116,30 +116,6 @@
               <day>1</day>
              </date>
             </property>
-            <property name="minimumDateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </datetime>
-            </property>
-            <property name="maximumDate">
-             <date>
-              <year>2030</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
-            <property name="minimumDate">
-             <date>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
             <property name="displayFormat">
              <string notr="true">yyyy</string>
             </property>
@@ -172,20 +148,6 @@
               <day>1</day>
              </date>
             </property>
-            <property name="maximumDate">
-             <date>
-              <year>2015</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
-            <property name="minimumDate">
-             <date>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
             <property name="displayFormat">
              <string notr="true">yyyy</string>
             </property>
@@ -200,20 +162,23 @@
           <string>Land productivity dataset</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0" colspan="2">
+          <item row="1" column="0" colspan="2">
            <widget class="QRadioButton" name="mode_lpd_jrc">
             <property name="text">
              <string>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="2">
+          <item row="0" column="0">
            <widget class="QRadioButton" name="mode_te_prod">
             <property name="text">
              <string>Trends.Earth land productivity</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -253,7 +218,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>40</height>
         </size>
        </property>
        <property name="text">
@@ -272,7 +237,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>40</height>
         </size>
        </property>
        <property name="text">
@@ -291,7 +256,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>40</height>
         </size>
        </property>
        <property name="text">

@@ -12,7 +12,10 @@ Use custom land cover data
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_
 
-.. note:: The land cover dataset for this tutorial were provided by the `Regional Centre For Mapping Resource For Development <http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>`_ and can be downloaded from this `link <https://www.dropbox.com/s/rl8afjh7xhnhk5a/uganda_land_cover.zip?dl=0>`_.
+.. note:: The land cover dataset for this tutorial were provided by the 
+   `Regional Centre For Mapping Resource For Development 
+   <http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>`_ 
+   and can be downloaded from this `link <https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_.
    
 
 1. To load custom land cover data click on the (|iconfolder|) icon in the Trends.Earth toolbar.

@@ -27,14 +27,14 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/faq.po
 source_file = LDMP/help/i18n/pot/about/faq.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators15]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators15.po
-source_file = LDMP/help/i18n/pot/background/understanding_indicators15.pot
+[land_degradation_monitoring_toolbox_docs_1_0.about--general_info]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/general_info.po
+source_file = LDMP/help/i18n/pot/about/general_info.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators11]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators11.po
-source_file = LDMP/help/i18n/pot/background/understanding_indicators11.pot
+[land_degradation_monitoring_toolbox_docs_1_0.about--publications]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/publications.po
+source_file = LDMP/help/i18n/pot/about/publications.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.background--before_installing]
@@ -45,6 +45,16 @@ source_lang = en
 [land_degradation_monitoring_toolbox_docs_1_0.background--installing]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/installing.po
 source_file = LDMP/help/i18n/pot/background/installing.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.background--report_overviews]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/report_overviews.po
+source_file = LDMP/help/i18n/pot/background/report_overviews.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators.po
+source_file = LDMP/help/i18n/pot/background/understanding_indicators.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.documentation--calculate]
@@ -92,9 +102,19 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_sdg_in
 source_file = LDMP/help/i18n/pot/training/tutorial_compute_sdg_indicator.pot
 source_lang = en
 
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_compute_urban_indicator]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_urban_indicator.po
+source_file = LDMP/help/i18n/pot/training/tutorial_compute_urban_indicator.pot
+source_lang = en
+
 [land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_landcover]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_landcover.po
 source_file = LDMP/help/i18n/pot/training/tutorial_custom_landcover.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_lpd]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_lpd.po
+source_file = LDMP/help/i18n/pot/training/tutorial_custom_lpd.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_soc]
@@ -102,9 +122,9 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_soc.po
 source_file = LDMP/help/i18n/pot/training/tutorial_custom_soc.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_lpd]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_lpd.po
-source_file = LDMP/help/i18n/pot/training/tutorial_custom_lpd.pot
+[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_forest_carbon]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_forest_carbon.po
+source_file = LDMP/help/i18n/pot/training/tutorial_forest_carbon.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_installation]
@@ -130,11 +150,6 @@ source_lang = en
 [land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_task_download]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_task_download.po
 source_file = LDMP/help/i18n/pot/training/tutorial_task_download.pot
-source_lang = en
-
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_forest_carbon]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_forest_carbon.po
-source_file = LDMP/help/i18n/pot/training/tutorial_forest_carbon.pot
 source_lang = en
 
 [land_degradation_monitoring_toolbox_docs_1_0.training--video_links]

@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.64\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2018-04-06 10:56+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,31 +23,33 @@ msgstr ""
 
 #: ../../source/training/tutorial_custom_soc.rst:4
 msgid "Use custom soil data"
-msgstr ""
+msgstr "使用自定义土壤数据"
 
 #: ../../source/training/tutorial_custom_soc.rst:6
 msgid ""
 "**Objective**: Learn how to load custom soil organic carbon data to compute "
 "the carbon change sub-indicator using Trends.Earth."
-msgstr ""
+msgstr "**目标**：了解如何使用Trends.Earth加载自定义土壤有机碳数据以计算碳变化子指标。"
 
 #: ../../source/training/tutorial_custom_soc.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "**预计完成时间**：20分钟"
 
 #: ../../source/training/tutorial_custom_soc.rst:10
 msgid "**Internet access**: Not required"
-msgstr ""
+msgstr "**互联网接入**：不需要"
 
 #: ../../source/training/tutorial_custom_soc.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
 msgstr ""
+"`将此页面下载为PDF以供离线使用&lt;../ pdfs / "
+"Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf&gt;`_"
 
 #: ../../source/training/tutorial_custom_soc.rst:18
 msgid "Loading custom soil organic carbon data"
-msgstr ""
+msgstr "加载定制土壤有机碳数据"
 
 #: ../../source/training/tutorial_custom_soc.rst:20
 msgid ""
@@ -52,18 +58,19 @@ msgid ""
 "different units, please make the necessary conversions before using it in "
 "Trends.Earth."
 msgstr ""
+"此工具假定要导入的栅格图层的单位是**公制吨每公顷有机碳**。如果您的图层位于不同的单位，请在Trends.Earth中使用之前进行必要的转换。"
 
 #: ../../source/training/tutorial_custom_soc.rst:22
 msgid ""
 "To load soil organic carbon data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
-msgstr ""
+msgstr "要加载土壤有机碳数据，请单击Trends.Earth工具栏中的（| iconfolder |）图标。"
 
 #: ../../source/training/tutorial_custom_soc.rst:27
 msgid ""
 "The **Load data** menu will open. Select **Soil organic carbon** from the "
 "**Import a custom input dataset** section."
-msgstr ""
+msgstr "**加载数据**菜单将打开。从**导入自定义输入数据集**部分中选择**土壤有机碳**。"
 
 #: ../../source/training/tutorial_custom_soc.rst:32
 msgid ""
@@ -73,12 +80,13 @@ msgid ""
 " format. Click on **Browse** to navigate to the soil organic carbon file you"
 " wish to import."
 msgstr ""
+"在**加载自定义土壤有机碳（SOC）数据集**中，使用单选按钮选择输入文件的格式（栅格或矢量）。对于本教程，请选择栅格，因为UNCCD分发的数据采用栅格格式。单击**浏览**以导航到您要导入的土壤有机碳文件。"
 
 #: ../../source/training/tutorial_custom_soc.rst:41
 msgid ""
 "Use the **Select input file** window to navigate to the file to be imported,"
 " select it, and click **Open**."
-msgstr ""
+msgstr "使用**选择输入文件**窗口导航到要导入的文件，选择它，然后单击**打开**。"
 
 #: ../../source/training/tutorial_custom_soc.rst:46
 msgid ""
@@ -88,46 +96,47 @@ msgid ""
 "option of modifying the resolution of the file. We recommend leaving those "
 "as defaults unless you have valid reasons for changing them."
 msgstr ""
+"返回**加载自定义土壤有机碳（SOC）数据集**窗口，您可以选择存储生产率数据的带编号，以防您的输入文件是多波段栅格。您还可以选择修改文件的分辨率。除非您有正当理由更改它们，否则我们建议将它们保留为默认值。"
 
 #: ../../source/training/tutorial_custom_soc.rst:48
 msgid ""
 "Define the year of reference for the data. In this case, we will assume the "
 "soil organic carbon data is from 2000, but if using local data, make sure "
 "you are assigning the correct year."
-msgstr ""
+msgstr "定义数据的参考年份。在这种情况下，我们假设土壤有机碳数据来自2000年，但如果使用本地数据，请确保分配正确的年份。"
 
 #: ../../source/training/tutorial_custom_soc.rst:50
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file**."
-msgstr ""
+msgstr "单击窗口底部的**浏览**以选择**输出光栅文件**。"
 
 #: ../../source/training/tutorial_custom_soc.rst:55
 msgid ""
 "Navigate to the folder where you want to save the file. Assign it a name and"
 " click **Save**."
-msgstr ""
+msgstr "导航到要保存文件的文件夹。为其指定名称，然后单击**保存**。"
 
 #: ../../source/training/tutorial_custom_soc.rst:60
 msgid ""
 "Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK**"
 " for the tool to run."
-msgstr ""
+msgstr "返回**加载自定义土壤有机碳（SOC）数据集**单击**确定**以运行工具。"
 
 #: ../../source/training/tutorial_custom_soc.rst:65
 msgid ""
 "A progress bar will appear showing the percentage of the task completed."
-msgstr ""
+msgstr "将出现一个进度条，显示已完成任务的百分比。"
 
 #: ../../source/training/tutorial_custom_soc.rst:70
 msgid ""
 "When the processing is completed, the imported soil organic carbon dataset "
 "will be loaded to QGIS."
-msgstr ""
+msgstr "处理完成后，导入的土壤有机碳数据集将加载到QGIS。"
 
 #: ../../source/training/tutorial_custom_soc.rst:76
 msgid "Calculating soil organic carbon with custom data"
-msgstr ""
+msgstr "用定制数据计算土壤有机碳"
 
 #: ../../source/training/tutorial_custom_soc.rst:78
 msgid ""
@@ -136,18 +145,19 @@ msgid ""
 " ensure the custom soil organic carbon data is loaded within QGIS (see "
 ":ref:`load_custom_soc`)."
 msgstr ""
+"导入自定义土壤有机碳数据集后，可以根据该数据计算土壤有机碳降解量。为此，首先确保在QGIS中加载自定义土壤有机碳数据（参见：ref：`load_custom_soc`）。"
 
 #: ../../source/training/tutorial_custom_soc.rst:83
 msgid ""
 "To calculate soil organic carbon degradation from custom data, first click "
 "on the (|iconCalculator|) icon on the Trends.Earth toolbar:"
-msgstr ""
+msgstr "要从自定义数据计算土壤有机碳降解，首先单击Trends.Earth工具栏上的（| iconCalculator |）图标："
 
 #: ../../source/training/tutorial_custom_soc.rst:89
 msgid ""
 "The \"Calculate indicators\" menu will open. Select \"Soil organic carbon\" "
 "from the \"Option 2: Use customized data\" section."
-msgstr ""
+msgstr "“计算指标”菜单将打开。从“选项2：使用自定义数据”部分中选择“土壤有机碳”。"
 
 #: ../../source/training/tutorial_custom_soc.rst:95
 msgid ""
@@ -159,6 +169,7 @@ msgid ""
 ":ref:`tut_custom_lc` tutorial for more information on loading land cover "
 "datasets. Once you have selected both datasets, click next:"
 msgstr ""
+"“计算土壤有机碳”窗口将打开。单击“自定义土地覆盖数据集”旁边的单选按钮，然后选择“导入”以导入自定义土地覆盖数据集，或选择“加载现有”以加载已在Trends.Earth中处理的土地覆盖数据集。务必同时选择“初始图层”和“最终图层”。有关加载土地覆盖数据集的更多信息，请参阅：ref：`tut_custom_lc`教程。选择两个数据集后，单击“下一步”："
 
 #: ../../source/training/tutorial_custom_soc.rst:106
 msgid ""
@@ -167,34 +178,35 @@ msgid ""
 "buttons to either import custom soil carbon layer (:ref:`load_custom_soc`) "
 "or to load an existing one that has already been calculated:"
 msgstr ""
+"在下一个屏幕上，单击“自定义初始土壤有机碳数据集”旁边的复选框，然后使用“导入”或“加载现有”按钮导入自定义土壤碳层（：ref：`load_custom_soc`）或加载已经计算过的现有的："
 
 #: ../../source/training/tutorial_custom_soc.rst:114
 msgid "Click \"Next\". Now, choose the area you wish to run calculations for:"
-msgstr ""
+msgstr "点击下一步”。现在，选择您要运行的区域计算："
 
 #: ../../source/training/tutorial_custom_soc.rst:119
 msgid ""
 "Click \"Next\". on the last screen, enter a task name or any notes you might"
 " wish to save (this is optional) and then click \"Calculate\":"
-msgstr ""
+msgstr "点击下一步”。在最后一个屏幕上，输入任务名称或您可能希望保存的任何注释（这是可选的），然后单击“计算”："
 
 #: ../../source/training/tutorial_custom_soc.rst:125
 msgid ""
 "A progress bar will appear on your screen. Do not quit QGIS or turn off your"
 " computer until the calculation is complete."
-msgstr ""
+msgstr "屏幕上会出现一个进度条。在计算完成之前，请勿退出QGIS或关闭计算机。"
 
 #: ../../source/training/tutorial_custom_soc.rst:131
 msgid ""
 "Once the calculation is complete, three layers will load onto your map: 1) "
 "the final soil organic carbon layer, 2) the initial soil organic carbon "
 "layer, and 3) the soil organic carbon degradation layer:"
-msgstr ""
+msgstr "一旦计算完成，将在地图上加载三层：1）最终的土壤有机碳层，2）初始土壤有机碳层，和3）土壤有机碳降解层："
 
 #: ../../source/training/tutorial_custom_soc.rst:138
 msgid ""
 "For example, we can see areas of degradation in soil carbon around Kampala:"
-msgstr ""
+msgstr "例如，我们可以看到坎帕拉周围土壤碳的退化区域："
 
 #: ../../source/training/tutorial_custom_soc.rst:144
 msgid ""
@@ -202,3 +214,4 @@ msgid ""
 "the imported soil organic carbon data to compute the final SDG 15.3.1 after "
 "integration with land cover and land productivity."
 msgstr ""
+"请参阅：ref：`tut_compute_sdg`教程，了解如何使用进口土壤有机碳数据计算与土地覆盖和土地生产力相结合后的最终SDG 15.3.1。"

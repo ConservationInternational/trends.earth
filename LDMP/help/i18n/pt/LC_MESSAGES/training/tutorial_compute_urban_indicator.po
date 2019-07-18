@@ -1,0 +1,620 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.64\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"PO-Revision-Date: 2019-01-28 02:15+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:2
+msgid "SDG 11.3.1 - Land Consumption Rate"
+msgstr "ODS 11.3.1 - Taxa de Consumo da Terra"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:3
+msgid ""
+"**Objective**: Learn how to compute urban extent and population for 2000, "
+"2005, 2010, 2015 in raster format and tabular outputs with areas estimated."
+msgstr ""
+"** Objetivo **: Aprender a calcular a extensão urbana e a população para "
+"2000, 2005, 2010, 2015 em formato raster e saídas tabulares com áreas "
+"estimadas."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:5
+msgid "**Estimated time of completion**: 40 minutes"
+msgstr "**Tempo estimado de conclusão**: 40 minutos"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:7
+msgid "**Internet access**: Required"
+msgstr "**Acesso à Internet**: Obrigatório"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:9
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_"
+msgstr ""
+"`Faça o download desta página como um PDF para uso off-line &lt;../ pdfs / "
+"Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf&gt;` _"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:15
+msgid "Urban Mapper"
+msgstr "Mapeador Urbano"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:16
+msgid ""
+"The first step before analyzing urban change is to define the extent of "
+"built up areas. For that, we have created an interactive web interface "
+"called `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_. This step is fundamental to make sure that the built up area "
+"identified by the indicators accurately reflects the conditions in your area"
+" of study. The Urban Mapper tool in GEE allows users to explore how changing"
+" different parameters impact the extent of the built up area data which will"
+" be then used to define changes in urban extent."
+msgstr ""
+"O primeiro passo antes de analisar a mudança urbana é definir a extensão das"
+" áreas construídas. Para isso, criamos uma interface web interativa chamada "
+"Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_. Esta etapa é fundamental para garantir que a área construída "
+"identificada pelos indicadores reflita com precisão as condições em sua área"
+" de estudo. A ferramenta Urban Mapper no GEE permite que os usuários "
+"explorem como a mudança de diferentes parâmetros afeta a extensão dos dados "
+"da área construída, que serão usados para definir mudanças na extensão "
+"urbana."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:18
+msgid ""
+"Navigate to the `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_.before you run the analysis in QGIS."
+msgstr ""
+"Navegue até o Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_.antes de executar a análise no QGIS."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:21
+msgid ""
+"This tool can be used to analyze changes in built up area in almost any city"
+" of the world. Click on the **Search Places** window in the top center of "
+"the page and type the city you want to analyze. In this example we'll type "
+"\"Kampala, Uganda\" and click on the option showing right underneath."
+msgstr ""
+"Essa ferramenta pode ser usada para analisar mudanças na área construída em "
+"praticamente qualquer cidade do mundo. Clique na janela ** Pesquisar locais "
+"** na parte superior central da página e digite a cidade que você deseja "
+"analisar. Neste exemplo, vamos digitar &quot;Kampala, Uganda&quot; e clicar "
+"na opção que aparece logo abaixo."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:24
+msgid ""
+"This tool allows you to change three parameters in order to correctly "
+"identify the most appropriate built up extent for your city: Impervious "
+"surface index, night time lights index, and water frequency. The first time "
+"you run the tool in a new city, click **Run analysis** to see how the "
+"default parameters perform, and from there you can customize the analysis. "
+"To compare to satellite images, we can click on **Satellite** in the top "
+"right corner of the map window."
+msgstr ""
+"Esta ferramenta permite que você altere três parâmetros para identificar "
+"corretamente a extensão mais apropriada para sua cidade: Índice de "
+"superfície impermeável, índice de luzes noturnas e freqüência da água. Na "
+"primeira vez que você executar a ferramenta em uma nova cidade, clique em **"
+" Executar análise ** para ver como os parâmetros padrão são executados e, a "
+"partir daí, você poderá personalizar a análise. Para comparar com imagens de"
+" satélite, podemos clicar em ** Satélite ** no canto superior direito da "
+"janela do mapa."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:26
+msgid ""
+"Now the map with the built up area defined by the default parameters will "
+"load into the map color coded in the following way:"
+msgstr ""
+"Agora, o mapa com a área construída definida pelos parâmetros padrão será "
+"carregado na cor do mapa codificada da seguinte maneira:"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:28
+msgid "Black: Built-up areas present since before 2000"
+msgstr "Preto: Áreas construídas presentes desde antes de 2000"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:29
+msgid "Red: Built-up areas constructed between 2000 and 2005"
+msgstr "Vermelho: áreas construídas entre 2000 e 2005"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:30
+msgid "Orange: Built-up areas constructed between 2005 and 2010"
+msgstr "Laranja: áreas construídas entre 2005 e 2010"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:31
+msgid "Yellow: Built-up areas constructed between 2010 and 2015"
+msgstr "Amarelo: áreas construídas construídas entre 2010 e 2015"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:36
+msgid ""
+"Now you should use your knowledge of the city to explore the data set. We "
+"can, for example, zoom in to an area in western Kampala to see how the "
+"default parameters perform (ISI:20, NTLI:10, WF:25):"
+msgstr ""
+"Agora você deve usar seu conhecimento da cidade para explorar o conjunto de "
+"dados. Podemos, por exemplo, aumentar o zoom em uma área no oeste de Kampala"
+" para ver como os parâmetros padrão funcionam (ISI: 20, NTLI: 10, WF: 25):"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:41
+msgid ""
+"We can easily identify large square boundaries in the built up area data set"
+" which do not seem to match the spatial pattern displayed by the background "
+"satellite image. That is a sign that the Night time light indicator is set "
+"too high (i.e. it is removing from our built-up area map zones with low "
+"levels of light which should be included). This is a common situation in "
+"suburban areas with low levels of light. If we want to include those areas, "
+"we need to lower the value of the NTLI. In this case we'll try changing it "
+"from 10 to 2, and click **Run Analysis** again (ISI-20, NTLI-2, WF - 25)."
+msgstr ""
+"Podemos facilmente identificar grandes limites quadrados no conjunto de "
+"dados da área construída que não parecem corresponder ao padrão espacial "
+"exibido pela imagem de satélite de fundo. Isso é um sinal de que o indicador"
+" de luz da noite está ajustado muito alto (isto é, está removendo de nossas "
+"zonas de mapa da área construída com baixos níveis de luz que devem ser "
+"incluídos). Esta é uma situação comum em áreas suburbanas com baixos níveis "
+"de luz. Se quisermos incluir essas áreas, precisamos diminuir o valor do "
+"NTLI. Nesse caso, tentaremos alterá-lo de 10 para 2 e clicar novamente em **"
+" Executar análise ** (ISI-20, NTLI-2, WF-25)."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:46
+msgid ""
+"You can see now the effect of changing that parameter. Those areas "
+"previously excluded (i.e. showing no data) now display information on the "
+"map."
+msgstr ""
+"Você pode ver agora o efeito de alterar esse parâmetro. As áreas "
+"anteriormente excluídas (ou seja, mostrando nenhum dado) agora exibem "
+"informações no mapa."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:48
+msgid ""
+"If we consider that the overall extent of the built-up area shown in the map"
+" is correct, but that the density is too high, we can use the Impervious "
+"Surface Indicator to adjust it. If we increase the value of the ISI from 20 "
+"to 30, and click **Run analysis** a new layer will display showing overall "
+"lower levels of built-up. This happens because we are saying the tool \"only"
+" consider built-up areas which have a value of impervious surface indicator "
+"of 30 or higher\", so the higher we set this value to, the smaller the "
+"built-up area our map will display. The example we just run (ISI-30, NTLI-2,"
+" WF-25) would look something like this:"
+msgstr ""
+"Se considerarmos que a extensão total da área construída mostrada no mapa "
+"está correta, mas que a densidade é muito alta, podemos usar o Indicador de "
+"superfície impermeável para ajustá-la. Se aumentarmos o valor do ISI de 20 "
+"para 30 e clicarmos em ** Executar análise **, uma nova camada será exibida "
+"mostrando os níveis gerais mais baixos de construção. Isso acontece porque "
+"estamos dizendo que a ferramenta &quot;considera apenas áreas construídas "
+"que têm um valor de indicador de superfície impermeável de 30 ou mais&quot;,"
+" então quanto mais alto definirmos esse valor, menor será a área construída "
+"em nosso mapa. O exemplo que acabamos de executar (ISI-30, NTLI-2, WF-25) "
+"seria algo como isto:"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:53
+msgid ""
+"If we want to include more area, we do the opposite, and lower the ISI "
+"value. For example, with ISI-10, NTLI-2, WF-25, the same region in Kampala "
+"would look:"
+msgstr ""
+"Se quisermos incluir mais área, fazemos o oposto e diminuímos o valor ISI. "
+"Por exemplo, com ISI-10, NTLI-2, WF-25, a mesma região em Kampala seria:"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:58
+msgid ""
+"It is very important that you assess the impact of changing each of these "
+"parameters in your overall area of analysis (i.e. your city), since one set "
+"of parameters will be defined for the analysis. Scroll around, zoom in and "
+"out and change parameters until you feel you have found the set that better "
+"describes your city."
+msgstr ""
+"É muito importante que você avalie o impacto de alterar cada um desses "
+"parâmetros em sua área geral de análise (ou seja, sua cidade), pois um "
+"conjunto de parâmetros será definido para a análise. Role, amplie e reduza "
+"os parâmetros até sentir que encontrou o conjunto que melhor descreve sua "
+"cidade."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:60
+msgid ""
+"For example, the overall urban area in Kampala with ISI-10, NTLI-2, and "
+"WF-25 would look like this:"
+msgstr ""
+"Por exemplo, a área urbana total em Kampala com ISI-10, NTLI-2 e WF-25 seria"
+" assim:"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:65
+msgid ""
+"The third and last parameter which you can change in the Urban Mapper to "
+"define the built up area is Water Frequency. In most cases this parameter "
+"won't affect the results, but in some cases it does. For example, in Dubai "
+"where some areas originally covered with water have been filled and "
+"constructed, the water frequency parameter can be used to capture them."
+msgstr ""
+"O terceiro e último parâmetro que você pode alterar no Urban Mapper para "
+"definir a área construída é a Frequência da Água. Na maioria dos casos, esse"
+" parâmetro não afeta os resultados, mas em alguns casos isso afeta. Por "
+"exemplo, em Dubai, onde algumas áreas originalmente cobertas com água foram "
+"preenchidas e construídas, o parâmetro de frequência da água pode ser usado "
+"para capturá-las."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:67
+msgid ""
+"The water frequency parameter should be interpreted as follows: A pixel "
+"needs to be covered by water for at least X percent of the time for it to be"
+" considered water, otherwise it will be considered land\". This means that "
+"the higher the value, the less water the map will show and the more land "
+"(i.e. built up if that is the case)."
+msgstr ""
+"O parâmetro de freqüência da água deve ser interpretado da seguinte forma: "
+"Um pixel precisa ser coberto por água por pelo menos X por cento do tempo "
+"para ser considerado água, caso contrário, será considerado terra &quot;. "
+"Isso significa que quanto maior o valor, menos água será mostrada no mapa e "
+"mais terra (isto é, se for o caso)."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:69
+msgid ""
+"In the Dubai example, we can see these features in the satellite image."
+msgstr ""
+"No exemplo de Dubai, podemos ver esses recursos na imagem de satélite."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:74
+msgid ""
+"But we can't see them in the built-up area map using the following "
+"parameters: ISI-35, NTLI-5, and WF-25."
+msgstr ""
+"Mas não podemos vê-los no mapa da área construída usando os seguintes "
+"parâmetros: ISI-35, NTLI-5 e WF-25."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:79
+msgid ""
+"If we change the Water frequency parameter to 80, we can start seeing the "
+"recently built-up areas in the water (ISI-35, NTLI-5, WF-80)"
+msgstr ""
+"Se mudarmos o parâmetro de frequência da água para 80, podemos começar a ver"
+" as áreas recentemente construídas na água (ISI-35, NTLI-5, WF-80)"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:84
+msgid ""
+"Once you have found the set of parameters which best work for your city, you"
+" are ready to run the analysis in QGIS."
+msgstr ""
+"Depois de encontrar o conjunto de parâmetros que melhor funcionam para sua "
+"cidade, você estará pronto para executar a análise no QGIS."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:87
+msgid "Compute urban area change"
+msgstr "Computar mudança de área urbana"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:88
+#: ../../source/training/tutorial_compute_urban_indicator.rst:186
+msgid ""
+"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
+" QGIS."
+msgstr ""
+"Selecione o ícone Calcular (| iconCalculator |) no plug-in Trends.Earth no "
+"QGIS."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:93
+#: ../../source/training/tutorial_compute_urban_indicator.rst:191
+msgid ""
+"The **Calculate Indicators** menu will open. In that window, click on "
+"**Urban change and land consumption indicators (SDG indicator 11.3.1)** "
+"button."
+msgstr ""
+"O menu ** Calculate Indicators ** será aberto. Nessa janela, clique no botão"
+" ** Indicadores de mudança urbana e consumo de terra (indicador SDG 11.3.1) "
+"**."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:98
+msgid "Select Step 1: Calculate urban change spatial layers"
+msgstr "Selecione Etapa 1: Calcular camadas espaciais de mudança urbana"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:103
+msgid ""
+"The **Calculate Urban Area Change Metrics** menu will open. In that window, "
+"you will step through the four tabs to set the parameters for your analysis."
+msgstr ""
+"O menu ** Calcular métricas de mudança de área urbana ** será aberto. Nessa "
+"janela, você percorrerá as quatro guias para definir os parâmetros para sua "
+"análise."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:105
+msgid ""
+"Before you begin filling out these settings, you will have to explore your "
+"area of interest using the interactive `Urban Mapper page "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_. This step is fundamental to make sure that the built up area "
+"identified by the indicators accurately reflects the conditions in your area"
+" of study."
+msgstr ""
+"Antes de começar a preencher essas configurações, você terá que explorar sua"
+" área de interesse usando a página interativa do Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_. Esta etapa é fundamental para garantir que a área construída "
+"identificada pelos indicadores reflita com precisão as condições em sua área"
+" de estudo."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:107
+msgid ""
+"Note that in that up to know we have tested parameters in Uganda and Dubai, "
+"and from now on we'll run things in Nairobi, so make sure that you have used"
+" the `Urban Mapper page "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ and identified the best set of parameters for your city before "
+"running."
+msgstr ""
+"Note que até sabermos que testamos parâmetros em Uganda e em Dubai e, a "
+"partir de agora, executaremos as tarefas em Nairóbi, portanto, certifique-se"
+" de ter usado a página &quot;Urban Mapper&quot;. "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_ e identificou o melhor conjunto de parâmetros para a sua cidade "
+"antes de executar."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:109
+msgid "Settings"
+msgstr "Configurações"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:111
+msgid "By default your window will be open on the Settings tab."
+msgstr "Por padrão, sua janela será aberta na guia Configurações."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:113
+msgid ""
+"Select the Impervious Surface Index (ISI) by choosing a value between 0-100."
+" The higher the value the smaller the urban area."
+msgstr ""
+"Selecione o Índice de Superfície Impermeável (ISI) escolhendo um valor entre"
+" 0-100. Quanto maior o valor, menor a área urbana."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:115
+msgid ""
+"Select the Night Time Lights Index (NTLI) by choosing a value between 0-100."
+" The higher the value the smaller the urban area."
+msgstr ""
+"Selecione o índice de luzes nocturnas (NTLI) seleccionando um valor entre 0 "
+"e 100. Quanto maior o valor, menor a área urbana."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:117
+msgid ""
+"Select the Water Frequency (WF) by choosing a value between 0-100. The "
+"higher the value the larger the urban area."
+msgstr ""
+"Selecione a Freqüência da Água (WF) escolhendo um valor entre 0-100. Quanto "
+"maior o valor, maior a área urbana."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:122
+msgid "Advanced"
+msgstr "Avançado"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:124
+msgid ""
+"Click Next from the Settings tab to view the Advanced tab. Here you will "
+"need to define:"
+msgstr ""
+"Clique em Avançar na guia Configurações para exibir a guia Avançado. Aqui "
+"você precisará definir:"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:126
+msgid "The thresholds for suburban and urban built up areas."
+msgstr "Os limiares para áreas urbanas suburbanas e urbanas."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:128
+msgid ""
+"Define the area of largest captured open space (ha) which is the contiguous "
+"captured open space larger than this area that will be considered rural."
+msgstr ""
+"Defina a área do maior espaço aberto capturado (ha) que é o espaço aberto "
+"capturado contíguo maior que essa área que será considerada rural."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:130
+msgid ""
+"Select which population density dataset you would like to use for the "
+"analysis."
+msgstr ""
+"Selecione qual conjunto de dados de densidade populacional você gostaria de "
+"usar para a análise."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:135
+msgid ""
+"Click Next from the Advanced tab to view the Area tab. Here you will need to"
+" define the area for your analysis."
+msgstr ""
+"Clique em Avançar na guia Avançado para exibir a guia Área. Aqui você "
+"precisará definir a área para sua análise."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:137
+msgid ""
+"Area: You can select a country, region or city from the drop-down lists or "
+"upload an area from a file. If you select a city or upload a point location "
+"of a city, apply a buffer to the chosen area so that analysis encompasses "
+"all potential urban areas."
+msgstr ""
+"Área: Você pode selecionar um país, região ou cidade nas listas suspensas ou"
+" fazer upload de uma área de um arquivo. Se você selecionar uma cidade ou "
+"fizer o upload de uma localização de ponto de uma cidade, aplique um buffer "
+"à área escolhida para que a análise englobe todas as áreas urbanas "
+"potenciais."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:139
+msgid ""
+"If you are using your own boundary shapefiile for analysis, we recommend you"
+" do not use buffers, since that will affect the area of analysis and the "
+"final area calculation."
+msgstr ""
+"Se você estiver usando seu próprio shapefiile de limite para análise, "
+"recomendamos não usar buffers, pois isso afetará a área de análise e o "
+"cálculo final da área."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:145
+msgid ""
+"The provided boundaries are from `Natural Earth "
+"<http://www.naturalearthdata.com>`_, and are in the `public domain "
+"<https://creativecommons.org/publicdomain>`_. The boundaries and names used,"
+" and the designations used, in Trends.Earth do not imply official "
+"endorsement or acceptance by Conservation International Foundation, or by "
+"its partner organizations and contributors."
+msgstr ""
+"Os limites fornecidos são do `Natural Earth "
+"<http://www.naturalearthdata.com>`_, e estão no `domínio público "
+"<https://creativecommons.org/publicdomain>`_. Os limites e nomes usados ​​e "
+"as designações usadas no Trends.Earth não implicam aprovação ou aceitação "
+"oficial da Conservation International Foundation ou de suas organizações "
+"parceiras e colaboradores."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:152
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+"Se estiver usando o Trends.Earth para fins oficiais, é recomendável que os "
+"usuários escolham um limite oficial fornecido pelo escritório designado de "
+"seu país."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:156
+msgid ""
+"Options: Name the task and some note on how you customized the parameters "
+"for your analysis for future reference."
+msgstr ""
+"Opções: Nomeie a tarefa e algumas notas sobre como você personalizou os "
+"parâmetros para sua análise para referência futura."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:158
+msgid ""
+"When all the parameters have been defined, click \"Calculate\", and the task"
+" will be submitted to Google Earth Engine for computing. When the task is "
+"completed (processing time will vary depending on server usage, but for most"
+" countries it takes only a few minutes most of the time), you’ll receive an "
+"email notifying the successful completion."
+msgstr ""
+"Quando todos os parâmetros tiverem sido definidos, clique em "
+"&quot;Calcular&quot; e a tarefa será enviada ao Google Earth Engine para "
+"computação. Quando a tarefa é concluída (o tempo de processamento varia "
+"dependendo do uso do servidor, mas na maioria dos países leva apenas alguns "
+"minutos na maior parte do tempo), você receberá um email notificando a "
+"conclusão bem-sucedida."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:164
+msgid "Download results"
+msgstr "Download de resultados"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:169
+msgid ""
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED."
+msgstr ""
+"Quando a tarefa do Google Earth Engine estiver concluída e você receber o "
+"e-mail, clique em &quot;Atualizar lista&quot; e o status será FINALIZADO."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:174
+msgid ""
+"Click on the task and select \"Download results\" at the bottom of the "
+"window. A pop up window will open for you to select where to save the layer "
+"and to assign it a name."
+msgstr ""
+"Clique na tarefa e selecione &quot;Download results&quot; na parte inferior "
+"da janela. Uma janela pop-up será aberta para você selecionar onde salvar a "
+"camada e atribuir um nome a ela."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:179
+msgid ""
+"Then click \"Save\". The layer will be saved on your computer and "
+"automatically loaded into your current QGIS project."
+msgstr ""
+"Em seguida, clique em &quot;Salvar&quot;. A camada será salva no seu "
+"computador e carregada automaticamente em seu projeto QGIS atual."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:185
+msgid "Compute urban area for 2000, 2005, 2010 and 2015"
+msgstr "Computar área urbana para 2000, 2005, 2010 e 2015"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:196
+msgid "Select Step 2: Calculate urban change summary table for city."
+msgstr ""
+"Selecione a Etapa 2: Calcular a tabela de resumo de alterações urbanas para "
+"a cidade."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:201
+msgid ""
+"Input: Load an existing .json file if it has not been populated within the "
+"dropdown automatically from your QGIS project."
+msgstr ""
+"Entrada: Carregue um arquivo .json existente se ele não tiver sido "
+"preenchido automaticamente no menu suspenso do seu projeto QGIS."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:207
+msgid ""
+"Output: Select browse to navigate to a file on your computer and save the "
+"json file and excel table."
+msgstr ""
+"Saída: Selecione navegar para navegar para um arquivo no seu computador e "
+"salve o arquivo json e a tabela do Excel."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:212
+msgid "Area: Define the area for your analysis"
+msgstr "Área: defina a área para sua análise"
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:217
+msgid ""
+"Options: Enter a task name and notes for the analysis. This final step is "
+"calculated locally on your computer, it will load automatically in your QGIS"
+" project window."
+msgstr ""
+"Opções: insira um nome de tarefa e notas para a análise. Este passo final é "
+"calculado localmente no seu computador, ele será carregado automaticamente "
+"na janela do seu projeto QGIS."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:222
+msgid ""
+"View results: A window will appear when the processing is complete. Select "
+"**OK**."
+msgstr ""
+"Exibir resultados: uma janela será exibida quando o processamento for "
+"concluído. Selecione ** OK **."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:227
+msgid ""
+"After clicking OK, the four annual urban extent maps with their "
+"corresponding zoning will load into the QGIS project."
+msgstr ""
+"Depois de clicar em OK, os quatro mapas anuais de extensão urbana com seu "
+"zoneamento correspondente serão carregados no projeto QGIS."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:232
+msgid ""
+"To explore the summary table, navigate to the folder in your computer where "
+"you saved the excel file and double click on it to open. If an error window "
+"appears, select the **Yes** and the summary will proceed to open."
+msgstr ""
+"Para explorar a tabela de resumo, navegue até a pasta em seu computador onde"
+" você salvou o arquivo excel e clique duas vezes nele para abrir. Se "
+"aparecer uma janela de erro, selecione o ** Sim ** e o resumo continuará "
+"abrindo."
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:240
+msgid ""
+"In this table you'll find the area of the different city land cover classes "
+"(urban, suburban, fringe open space, capture open space and water) and the "
+"rural areas. You'll also find the population for each of the years analyzed "
+"(2000, 2005, 2010, and 2015) and the final SDG 11.3.1."
+msgstr ""
+"Nesta tabela, você encontrará a área das diferentes classes de cobertura da "
+"cidade (áreas urbanas, suburbanas, marginais, captura de espaços abertos e "
+"água) e as áreas rurais. Você também encontrará a população para cada um dos"
+" anos analisados (2000, 2005, 2010 e 2015) e o SDG final 11.3.1."

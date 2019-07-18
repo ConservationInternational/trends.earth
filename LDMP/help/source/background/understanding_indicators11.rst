@@ -41,7 +41,7 @@ Assessing changes in SDG 11.3.1. over time requires a significant amount of info
 .. image:: /static/documentation/understanding_indicators11/sdg11_data_needs.png
    :align: center
    
-`Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m impervious surface indices have been pre-computed and are available for the users to explore in the` `Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_`, where the user defines built-up extent by simply assigning a series of thresholds.`
+`Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m impervious surface indices have been pre-computed and are available for the users to explore in the` `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ `where the user defines built-up extent by simply assigning a series of thresholds.`
 
 Land consumption
 ----------------
@@ -51,14 +51,14 @@ To estimate land consumption in |trends.earth|, a pre-computed time series of im
 ISI in Trends.Earth
 ~~~~~~~~~~~~~~~~~~~~
 
-Given the lack availability of a time series of impervious surface dataset at fine spatial resolution to capture urban changes globally, we computed one making use of the best impervious surface dataset available, the Global Man-made Impervious Surface for the year 2010 (GMIS, Brown de Colstoun et al 2017) to train a series of global random forest models (Breiman 2001) in Google Earth Engine (Gorelick et al 2017) making use 2.3 million Landsat images (1.15 Peta-bytes of data) between the years 1997 and 2019. To make sure that the models were trained only with high quality data, we combined GMIS with ESA CCI land cover data for the year 2010 as indicated in Figure 3. This dataset allowed us to train random forest models, which where then applied to a set of 24 band stacks derived from Landsat surface reflectance data to generate imprervious surface indicators for the years 1998, 2000, 2005, 2010, 2015, and 2018. A series of 846 models were run, one per eco region as defined by the RESOLVE dataset (Dinerstein et al 2017).
+Given the lack of availability of a time series of impervious surface dataset at fine spatial resolution to capture urban changes globally, we computed one making use of the best impervious surface dataset available, the Global Man-made Impervious Surface for the year 2010 (GMIS, Brown de Colstoun et al 2017) to train a series of global random forest models (Breiman 2001) in Google Earth Engine (Gorelick et al 2017) making use of 2.3 million Landsat images (1.15 Peta-bytes of data) between the years 1997 and 2019. To make sure that the models were trained only with high quality data, we combined GMIS with ESA CCI land cover data for the year 2010 as indicated in Figure 3. This dataset allowed us to train random forest models, which where then applied to a set of 24 band stacks derived from Landsat surface reflectance data to generate impervious surface indicators for the years 1998, 2000, 2005, 2010, 2015, and 2018. A series of 846 models were run, one per eco region as defined by the RESOLVE dataset (Dinerstein et al 2017).
 
 .. image:: /static/documentation/understanding_indicators11/sdg11_isi_workflow.png
    :align: center
    
 `Figure 3: A series of 846 random forest models were run. Each model was trained using the GMIS and ESA CCI datasets, and then applied to a stack of 24 bands derived from Landsat imagery to predict impervious surface area for the years 1998, 2000, 2005, 2010, 2015, and 2018.`
 
-Since image availability is, in some areas, limited we included for each year images from the previous and posterior years (e.g. stack for 2005 includes images from 2004, 2005, and 2006). Each of the 24 band stacks contained the 7 reflectance bands (median for the 3 year period), 15 normalized difference indices representing all the possible combinations of the 7 original bands, and then 2 NDVI specific bands representing the maximum and the standard deviation of NDVI for each particular pixel during the 3-year period. Six of these stacks were generated for 1998, 2000, 2005, 2010, 2015, and 2018, and were the input to the random forest models.
+Since image availability is limited, in some areas, we included for each year images from the previous and posterior years (e.g. stack for 2005 includes images from 2004, 2005, and 2006). Each of the 24 band stacks contained the 7 reflectance bands (median for the 3 year period), 15 normalized difference indices representing all the possible combinations of the 7 original bands, and then 2 NDVI specific bands representing the maximum and the standard deviation of NDVI for each particular pixel during the 3-year period. Six of these stacks were generated for 1998, 2000, 2005, 2010, 2015, and 2018, and were the input to the random forest models.
 
 .. image:: /static/documentation/understanding_indicators11/sdg11_isi_input_bands.png
    :align: center
@@ -91,7 +91,7 @@ In |trends.earth| the user needs to define 3 threshold values which will be used
 Consistency test
 ~~~~~~~~~~~~~~~~~~~~
 
-When classifying remote sensing data into derived products, such as the impervious surface index computed by |trends.earth|, omission and commission errors occur. One of the advantages of performing time series analysis is that the images from different years can be used to identify inconsistencies in the analysis. For that reason was that 1998 and 2018 ISI layers were computed in this analysis, to add pre and post data points to filter possible errors in the classifications of the 2000 through 2015 series.
+When classifying remote sensing data into derived products, such as the impervious surface index computed by |trends.earth|, omission and commission errors occur. One of the advantages of performing time series analysis is that the images from different years can be used to identify inconsistencies in the analysis. For that reason, 1998 and 2018 ISI layers were computed in this analysis, to add pre and post data points to filter possible errors in the classifications of the 2000 through 2015 series.
 
 The thresholds defined in the previous section (ISI, NTL, and WFR) are applied to each of the individual layers of 1998, 2000, 2005, 2010, 2015, and 2018, generating a series of binary maps. The six binary maps are later combined into a time series dataset which contains information on the nature of each pixel for each year as "built-up" or "not-built". One main rule is later applied to that series:
 
@@ -102,7 +102,7 @@ Global testing
 
 |trends.earth| provides through the `Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and the QGIS plug-in access to the global 30m time series of impervious surface indices. It is important however understand that the dataset has its limitations, and user's input and control is needed to assess changes in indicator SDG 11.3.1 accurately. To test the performance of the indicator, we run the analysis on 224 cities globally (200 national capitals + 24 large cities in the Unites States of America, Figure 7). Using the `Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and visually comparing the product to very high spatial resolution images, we were able to define the thresholds appropriate for each city (ISI, NTL, and WFI) and also assess the quality of the product in a scale from 0 to 5. The results show that for 83% of the cities assessed Trends.Earth data can be used for estimating indicator SDG 11.3.1.  The biggest limitation remains in small island states (for which no training data was available), hyper arid areas, and areas with low image availability.
 
-0. **No data**: Cities for which no training data was available to build the impervious surface data set. This cities represent 6.2% of the sample assessed.
+0. **No data**: Cities for which no training data was available to build the impervious surface data set. These cities represent 6.2% of the sample assessed.
 1. **Unusable**: Cities for which results are available, but due to low Landsat images availability prevented the production of a good quality product. These results  should not be used for computing SDG 11.3.1 indicator. These cities represent 0.9% of the sample assessed.
 2. **Problematic**: Cities with results of potential use for visually understating spatial patterns of built-up area expansion, but with significant errors. These results should not be used for computing SDG 11.3.1 indicator. These cities represent 4.0% of the sample assessed.
 3. **Some issues**: Cities with results showing some issues confusing bare soil surfaces with built up area, could be used for computing SDG 11.3.1 after detailed inspection of the data. These cities represent 6.2% of the sample assessed.
@@ -201,7 +201,7 @@ The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:
 .. image:: /static/documentation/urban/summary_table_sdg11.PNG
    :align: center 
 
-`Figure 10: One of the final outputs of the SDG 11.3.1 analysis in |trends.earth| is a tabular outputs displaying the area, population and the indicator for SDG 11.3.1 for the city analyzed.`
+`Figure 12: One of the final outputs of the SDG 11.3.1 analysis in |trends.earth| is a tabular outputs displaying the area, population and the indicator for SDG 11.3.1 for the city analyzed.`
 
 .. note::
     For a step-by-step guide on how to run the aalysis in |trends.earth|, please refer to the following tutorial: :ref:`indicator-11-3-1-tutorial`.

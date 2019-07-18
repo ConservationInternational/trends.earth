@@ -455,9 +455,6 @@ class DlgDataIOLoadTEBase(QtGui.QDialog):
                 resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
                 if resp:
                     added_layers.append(self.layer_list[row])
-                else:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"), 
-                                               self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
             self.layers_loaded.emit(added_layers)
         else:
             QtGui.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))

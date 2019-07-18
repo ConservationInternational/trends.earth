@@ -51,13 +51,9 @@ style_text_dict = {
     'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
 
     'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
-    'prod_traj_signif_dec_99': tr('Degradation (significant decrease, p < .01)'),
     'prod_traj_signif_dec_95': tr('Degradation (significant decrease, p < .05)'),
-    'prod_traj_signif_dec_90': tr('Stable (significant decrease, p < .1)'),
     'prod_traj_signif_zero': tr('Stable (no significant change)'),
-    'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
     'prod_traj_signif_inc_95': tr('Improvement (significant increase, p < .05)'),
-    'prod_traj_signif_inc_99': tr('Improvement (significant increase, p < .01)'),
 
     # Productivity performance
     'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
@@ -171,7 +167,11 @@ style_text_dict = {
     'urban_rural_open_space_water': tr('Open space (rural, water)'),
 
     # Population
-    'population_title': tr('Population ({year})')
+    'population_title': tr('Population ({year})'),
+
+    # Biomass
+    'biomass_title': tr('Biomass (tonnes CO2e per ha, {year})'),
+    'biomass_difference_title': tr('Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)')
 }
 
 
@@ -299,8 +299,8 @@ def add_layer(f, band_number, band_info, activated='default'):
     except KeyError:
         QtGui.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr(u'Trends.Earth does not have a style assigned for "{}" in {}. To use this layer, manually add it to your map.'.format(styles[band_info['name']], f)))
-        log(u'No style found for "{}" in {}'.format(band_info['name'], f))
+                                      tr(u'Trends.Earth does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], f)))
+        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, f))
         return False
 
     title = get_band_title(band_info)

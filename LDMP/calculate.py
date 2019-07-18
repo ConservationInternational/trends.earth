@@ -33,6 +33,7 @@ from LDMP.api import run_script
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
 from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
+from LDMP.gui.DlgCalculateRestBiomass import Ui_DlgCalculateRestBiomass
 from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
@@ -379,10 +380,12 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
 
         self.dlg_calculate_ld = DlgCalculateLD()
         self.dlg_calculate_tc = DlgCalculateTC()
+        self.dlg_calculate_rest_biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_urban = DlgCalculateUrban()
 
         self.pushButton_ld.clicked.connect(self.btn_ld_clicked)
         self.pushButton_tc.clicked.connect(self.btn_tc_clicked)
+        self.pushButton_rest_biomass.clicked.connect(self.btn_rest_biomass_clicked)
         self.pushButton_urban.clicked.connect(self.btn_urban_clicked)
 
     def btn_ld_clicked(self):
@@ -392,6 +395,10 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
     def btn_tc_clicked(self):
         self.close()
         result = self.dlg_calculate_tc.exec_()
+
+    def btn_rest_biomass_clicked(self):
+        self.close()
+        result = self.dlg_calculate_rest_biomass.exec_()
 
     def btn_urban_clicked(self):
         self.close()
@@ -469,6 +476,30 @@ class DlgCalculateTC(QtGui.QDialog, Ui_DlgCalculateTC):
     def btn_summary_single_polygon_clicked(self):
         self.close()
         result = self.dlg_calculate_tc_summary.exec_()
+
+
+class DlgCalculateRestBiomass(QtGui.QDialog, Ui_DlgCalculateRestBiomass):
+    def __init__(self, parent=None):
+        super(DlgCalculateRestBiomass, self).__init__(parent)
+
+        self.setupUi(self)
+
+        # TODO: Bad style - fix when refactoring
+        from LDMP.calculate_rest_biomass import DlgCalculateRestBiomassData
+        from LDMP.calculate_rest_biomass import DlgCalculateRestBiomassSummaryTable
+        self.dlg_calculate_rest_biomass_data = DlgCalculateRestBiomassData()
+        self.dlg_calculate_rest_biomass_summary = DlgCalculateRestBiomassSummaryTable()
+
+        self.btn_calculate_rest_biomass_change.clicked.connect(self.btn_calculate_rest_biomass_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+
+    def btn_calculate_rest_biomass_change_clicked(self):
+        self.close()
+        result = self.dlg_calculate_rest_biomass_data.exec_()
+
+    def btn_summary_single_polygon_clicked(self):
+        self.close()
+        result = self.dlg_calculate_rest_biomass_summary.exec_()
 
 
 class DlgCalculateUrban(QtGui.QDialog, Ui_DlgCalculateUrban):

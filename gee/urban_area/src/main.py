@@ -19,9 +19,9 @@ from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
           crs, geojsons, EXECUTION_ID, logger):
     # Impervious surface index computed by Trends.Earth
-    isi_series = ee.ImageCollection("projects/trends_earth/isi_20181024_esa").reduce(ee.Reducer.mean()) \
-        .select(['isi2000_mean', 'isi2005_mean', 'isi2010_mean', 'isi2015_mean', 'isi2018_mean'],
-        ['isi2000', 'isi2005', 'isi2010', 'isi2015', 'isi2018'])
+    isi_series = ee.ee.ImageCollection("projects/trends_earth/isi_1998_2018_20190403").reduce(ee.Reducer.mean()) \
+         .select(['isi1998_mean','isi2000_mean','isi2005_mean','isi2010_mean','isi2015_mean','isi2018_mean'],
+         ['isi1998','isi2000','isi2005','isi2010','isi2015','isi2018']);
     proj = isi_series.select('isi2000').projection()
 
     # JRC Global Surface Water Mapping Layers, v1.0 (>20% occurrence)
@@ -34,13 +34,21 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
             .clip(ee.Geometry.Polygon([-180, 57, 0, 57, 180, 57, 180, -88, 0, -88, -180, -88], None, False)).unmask(10)
           
     # Mask urban areas based ntl
-    urban00 = isi_series.select("isi2000").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(10000)
-    urban05 = isi_series.select("isi2005").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(1000)
-    urban10 = isi_series.select("isi2010").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(100)
-    urban15 = isi_series.select("isi2015").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(10)
-    urban18 = isi_series.select("isi2018").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0).multiply(1)
+    urban98 = isi_series.select("isi1998").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
+    urban00 = isi_series.select("isi2000").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
+    urban05 = isi_series.select("isi2005").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
+    urban10 = isi_series.select("isi2010").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
+    urban15 = isi_series.select("isi2015").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
+    urban18 = isi_series.select("isi2018").gte(isi_thr).unmask(0).where(ntl.lte(-1+ntl_thr*31/100), 0)
 
-    urban_series = urban00.add(urban05).add(urban10).add(urban15).add(urban18)
+    urban_series = (urban98.multiply(100000)).add
+                   (urban00.multiply(10000)).add
+                   (urban05.multiply(1000)).add
+                   (urban10.multiply(100)).add
+                   (urban15.multiply(10)).add
+                   (urban18.multiply(1));      
+          
+    urban_sum = urban98.add(urban00).add(urban05).add(urban10).add(urban15).add(urban18)
 
     if un_adju:
         # Gridded Population of the World Version 4, UN-Adjusted Population 
@@ -63,54 +71,56 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
         gpw4_2015 = ee.Image("CIESIN/GPWv4/population-density/2015") \
                 .select(["population-density"], ["p2015"]).reproject(crs=proj, scale=30)
 
-    urban_series = urban_series.where(urban_series.eq(0), 0) \
-            .where(urban_series.eq(    1), 0) \
-            .where(urban_series.eq(   10), 0) \
-            .where(urban_series.eq(   11), 4) \
-            .where(urban_series.eq(  100), 0) \
-            .where(urban_series.eq(  101), 3) \
-            .where(urban_series.eq(  110), 3) \
-            .where(urban_series.eq(  111), 3) \
-            .where(urban_series.eq( 1000), 0) \
-            .where(urban_series.eq( 1001), 2) \
-            .where(urban_series.eq( 1010), 2) \
-            .where(urban_series.eq( 1011), 2) \
-            .where(urban_series.eq( 1100), 2) \
-            .where(urban_series.eq( 1101), 2) \
-            .where(urban_series.eq( 1110), 2) \
-            .where(urban_series.eq( 1111), 2) \
-            .where(urban_series.eq(10000), 0) \
-            .where(urban_series.eq(10001), 0) \
-            .where(urban_series.eq(10010), 0) \
-            .where(urban_series.eq(10011), 1) \
-            .where(urban_series.eq(10100), 0) \
-            .where(urban_series.eq(10101), 1) \
-            .where(urban_series.eq(10110), 1) \
-            .where(urban_series.eq(10111), 1) \
-            .where(urban_series.eq(11000), 0) \
-            .where(urban_series.eq(11001), 1) \
-            .where(urban_series.eq(11010), 1) \
-            .where(urban_series.eq(11011), 1) \
-            .where(urban_series.eq(11100), 1) \
-            .where(urban_series.eq(11101), 1) \
-            .where(urban_series.eq(11110), 1) \
-            .where(urban_series.eq(11111), 1) \
-            .where(water.gte(wat_thr), -1) \
-            .reproject(crs=proj, scale=30)
+    urban_series = urban_series.where(urban_series.eq(    0), 0) \
+                               .where(urban_series.eq(    1), 0) \
+                               .where(urban_series.eq(   10), 1) \
+                               .where(urban_series.eq(   11), 4) \
+                               .where(urban_series.eq(  100), 0) \
+                               .where(urban_series.eq(  101), 3) \
+                               .where(urban_series.eq(  110), 3) \
+                               .where(urban_series.eq(  111), 3) \
+                               .where(urban_series.eq( 1000), 0) \
+                               .where(urban_series.eq( 1001), 2) \
+                               .where(urban_series.eq( 1010), 2) \
+                               .where(urban_series.eq( 1011), 2) \
+                               .where(urban_series.eq( 1100), 2) \
+                               .where(urban_series.eq( 1101), 2) \
+                               .where(urban_series.eq( 1110), 2) \
+                               .where(urban_series.eq( 1111), 2) \
+                               .where(urban_series.eq(10000), 0) \
+                               .where(urban_series.eq(10001), 0) \
+                               .where(urban_series.eq(10010), 0) \
+                               .where(urban_series.eq(10011), 1) \
+                               .where(urban_series.eq(10100), 0) \
+                               .where(urban_series.eq(10101), 1) \
+                               .where(urban_series.eq(10110), 1) \
+                               .where(urban_series.eq(10111), 1) \
+                               .where(urban_series.eq(11000), 0) \
+                               .where(urban_series.eq(11001), 1) \
+                               .where(urban_series.eq(11010), 1) \
+                               .where(urban_series.eq(11011), 1) \
+                               .where(urban_series.eq(11100), 1) \
+                               .where(urban_series.eq(11101), 1) \
+                               .where(urban_series.eq(11110), 1) \
+                               .where(urban_series.eq(11111), 1) \
+                               .where(urban_series.gte(100000).and(urban_sum.gte(3)),1) \
+                               .where(urban_series.gte(100000).and(urban_sum.lte(2)),0) \
+                               .where(water.gte(wat_thr), 5) \
+                               .reproject(crs=proj, scale=30)
 
     ## define function to do zonation of cities
     def f_city_zones(built_up, geojson):
         dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(), kernel=ee.Kernel.circle(1000, "meters"))
         ##rural built up (-32768 no-data), suburban, urban
         city = ee.Image(10).where(dens.lte(pct_suburban).And(built_up.eq(1)), 3) \
-                .where(dens.gt(pct_suburban).And(built_up.eq(1)), 2) \
-                .where(dens.gt(pct_urban).And(built_up.eq(1)), 1) 
+                           .where(dens.gt(pct_suburban).And(built_up.eq(1)), 2) \
+                           .where(dens.gt(pct_urban).And(built_up.eq(1)), 1) 
   
         dist = city.lte(2).fastDistanceTransform(100).sqrt()
 
         ## fringe open space, rural built up
         city = city.where(dist.gt(0).And(dist.lte(3)), 4) \
-                .where(city.eq(3), 3)
+                                    .where(city.eq(3), 3)
   
         open_space = city.updateMask(city.eq(10)).addBands(ee.Image.pixelArea())
         open_space_poly = open_space.reduceToVectors(

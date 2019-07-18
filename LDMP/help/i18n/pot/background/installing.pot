@@ -2,13 +2,13 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.65\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-08 09:26-0400\n"
+"POT-Creation-Date: 2019-07-18 17:11-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,72 +18,37 @@ msgstr ""
 
 #: ../../source/background/installing.rst:2
 msgid "Installing the toolbox"
-msgstr "Installing the toolbox"
+msgstr ""
 
 #: ../../source/background/installing.rst:4
-msgid ""
-"There are different ways to install |trends.earth|, depending on whether you"
-" want to install the stable version (recommended) or the development "
-"version."
+msgid "There are different ways to install |trends.earth|, depending on whether you want to install the stable version (recommended) or the development version."
 msgstr ""
-"There are different ways to install |trends.earth|, depending on whether you"
-" want to install the stable version (recommended) or the development "
-"version."
 
 #: ../../source/background/installing.rst:8
-msgid ""
-"QGIS 3 is not currently supported by |trends.earth|, so the plugin will not "
-"appear in the plugin window if you are using QGIS 3.0. To use |trends.earth|"
-" you must install QGIS version 2.18. See :ref:`before-installing` for more "
-"information."
+msgid "QGIS 3 is not currently supported by |trends.earth|, so the plugin will not appear in the plugin window if you are using QGIS 3.0. To use |trends.earth| you must install QGIS version 2.18. See :ref:`before-installing` for more information."
 msgstr ""
-"QGIS 3 is not currently supported by |trends.earth|, so the plugin will not "
-"appear in the plugin window if you are using QGIS 3.0. To use |trends.earth|"
-" you must install QGIS version 2.18. See :ref:`before-installing` for more "
-"information."
 
 #: ../../source/background/installing.rst:14
 msgid "Installing the stable version (recommended)"
-msgstr "Installing the stable version (recommended)"
+msgstr ""
 
 #: ../../source/background/installing.rst:15
-msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To install "
-"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
-"bar at the top of the program and select `Manage and install plugins`."
+msgid "The preferred way to install the |trends.earth| is through QGIS. To install from within QGIS, first launch QGIS, and then go to `Plugins` in the menu bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
-"The preferred way to install the |trends.earth| is through QGIS. To install "
-"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
-"bar at the top of the program and select `Manage and install plugins`."
 
 #: ../../source/background/installing.rst:22
-msgid ""
-"Then search for a plugin called `trends.earth` and select `Install plugin` "
-"at the bottom right of the screen."
+msgid "Then search for a plugin called `trends.earth` and select `Install plugin` at the bottom right of the screen."
 msgstr ""
-"Then search for a plugin called `trends.earth` and select `Install plugin` "
-"at the bottom right of the screen."
 
 #: ../../source/background/installing.rst:28
-msgid ""
-"If your plugin has been installed properly, there will be a menu bar in the "
-"top left of your browser that looks like this:"
+msgid "If your plugin has been installed properly, there will be a menu bar in the top left of your browser that looks like this:"
 msgstr ""
-"If your plugin has been installed properly, there will be a menu bar in the "
-"top left of your browser that looks like this:"
 
 #: ../../source/background/installing.rst:35
 msgid "Installing the development version (advanced users)"
-msgstr "Installing the development version (advanced users)"
+msgstr ""
 
 #: ../../source/background/installing.rst:37
-msgid ""
-"There are two ways to install the development version of the plugin. For "
-"more details, see the `README "
-"<https://github.com/ConservationInternational/trends.earth#development-"
-"version>`_ for |trends.earth|."
+msgid "There are two ways to install the development version of the plugin. For more details, see the `README <https://github.com/ConservationInternational/trends.earth#development-version>`_ for |trends.earth|."
 msgstr ""
-"There are two ways to install the development version of the plugin. For "
-"more details, see the `README "
-"<https://github.com/ConservationInternational/trends.earth#development-"
-"version>`_ for |trends.earth|."
+

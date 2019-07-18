@@ -1,15 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.65\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2019-07-18 17:11-0400\n"
+"PO-Revision-Date: 2018-03-14 19:31+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -68,8 +71,8 @@ msgstr ""
 "有三种方式可以提供反馈，通过电子邮件发送项目团队，访问项目站点并通过匿名表单发送消息或对QGIS插件菜单中的工具箱评分。项目技术团队可以通过trends.earth@conservation.org解决问题。用户可以通过在QGIS中打开插件并选择管理和安装插件来评估工具箱。在侧边栏中选择全部并导航到trends.earth插件。点击trends.earth并通过选择您想要插件的星星数来评定工具箱，5颗星非常满意。"
 
 #: ../../source/about/faq.rst:31
-msgid "Installation of |Trends.Earth|"
-msgstr "安装| Trends.Earth |"
+msgid "Installation of Trends.Earth"
+msgstr ""
 
 #: ../../source/about/faq.rst:34
 msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"

@@ -3,14 +3,19 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Monica Noon <mnoon@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.65\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-18 17:11-0400\n"
+"PO-Revision-Date: 2018-03-14 19:31+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,8 +32,8 @@ msgid ""
 "This page lists some Frequently Asked Questions (FAQs) for the "
 "|trends.earth| tool."
 msgstr ""
-"Esta página enumera algunas de las preguntas más frecuentes (FAQ) para | "
-"trends.earth | herramienta."
+"Esta página enumera algunas de las preguntas más frecuentes (FAQ) para "
+"|trends.earth| herramienta."
 
 #: ../../source/about/faq.rst:8
 msgid "General Questions"
@@ -48,12 +53,12 @@ msgid ""
 " to stay in touch with any advancements with the projects’ distrubtion list."
 msgstr ""
 "Se puede encontrar más información sobre la caja de herramientas en "
-"`trends.earth <http://trends.earth>` _ y hay informes disponibles en el "
-"sitio web `Vital Signs Project <http://vitalsigns.org/gef-ldmp/project- "
-"description-and-timeline> `_ También puede agregar su información de "
-"contacto en` Vital Signs LD Email Distribution List <http://vitalsigns.org"
-"/gef-ldmp/email-distribution-list> `_ para mantenerse en contacto con "
-"cualquier avances con la lista de distribución de proyectos."
+"`trends.earth <http://trends.earth>`_ y hay informes disponibles en el sitio"
+" web `Vital Signs Project <http://vitalsigns.org/gef-ldmp/project- "
+"description-and-timeline>`_ También puede agregar su información de contacto"
+" en` Vital Signs LD Email Distribution List <http://vitalsigns.org/gef-ldmp"
+"/email-distribution-list> `_ para mantenerse en contacto con cualquier "
+"avances con la lista de distribución de proyectos."
 
 #: ../../source/about/faq.rst:19
 msgid "**How can I provide feedback on the tool?**"
@@ -82,8 +87,8 @@ msgstr ""
 " le gustaría dar al plugin, 5 estrellas están muy satisfechas."
 
 #: ../../source/about/faq.rst:31
-msgid "Installation of |Trends.Earth|"
-msgstr "Instalación de | Trends.Earth |"
+msgid "Installation of Trends.Earth"
+msgstr ""
 
 #: ../../source/about/faq.rst:34
 msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"
@@ -292,9 +297,9 @@ msgid ""
 "degradation and has been adopted by the UNCCD."
 msgstr ""
 "El período de análisis predeterminado es de los años 2001 a 2015. Estos "
-"fueron recomendados por las `Guía de buenas prácticas "
+"fueron recomendados por las `Good Practice Guidelines "
 "<http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+"links/2017-10/Good%20Practiceuidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 " Un documento que proporciona recomendaciones detalladas para medir la "
 "degradación de la tierra y ha sido adoptado por la CNULD."
 
@@ -399,9 +404,9 @@ msgstr ""
 " datos consistentemente generados y comparables que evalúen las reservas de "
 "carbono en plantas leñosas (incluidos arbustos), pastos, tierras de cultivo "
 "y otros tipos de cobertura terrestre tanto sobre la superficie como bajo "
-"tierra, las `Guía de buenas prácticas <http: // www2. "
-"unccd.int/sites/default/files/relevant-"
-"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>``"
+"tierra, las `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practiceuidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
 " publicado por la CNULD recomienda por el momento utilizar SOC como proxy."
 
 #: ../../source/about/faq.rst:164

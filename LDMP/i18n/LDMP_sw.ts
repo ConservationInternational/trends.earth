@@ -127,7 +127,7 @@
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="166"/>
+        <location filename="../calculate.py" line="161"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>Imeshindwa kuongeza geojson kwa safu ya muda mfupi.</translation>
     </message>
@@ -197,12 +197,12 @@
         <translation>Hitilafu - safu sio mfumo wa kuratibu wa kijiografia. Haiwezi kuunganisha safu kwenye meridian ya 180.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="248"/>
+        <location filename="../calculate.py" line="243"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="248"/>
+        <location filename="../calculate.py" line="243"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation>Eneo lililochaguliwa linavuka meridian ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi kwenye mfumo wa kuratibu wa eneo (tazama kichupo cha &quot;CRS&quot; cha dirisha la &quot;Programu ya Programu&quot; kutoka kwenye &quot;Mradi&quot; wa menyu.)</translation>
     </message>
@@ -302,12 +302,12 @@
         <translation>Haiwezi kusindika {}. Aina ya jiometri isiyojulikana: {}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="140"/>
+        <location filename="../calculate.py" line="135"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
         <translation>Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="330"/>
+        <location filename="../calculate.py" line="342"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
     </message>
@@ -377,7 +377,7 @@
         <translation>Imeshindwa kupakia Mwelekeo wa mtindo. Ili kutumia safu hii, jaribu kuongeza manually kwenye ramani yako.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="844"/>
+        <location filename="../calculate.py" line="864"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>Umechagua kuendesha mahesabu kwa jiji. Lazima ukitenge umbali wa umbali ili ueleze eneo la hesabu unapokuwa usindikaji mji.</translation>
     </message>
@@ -461,32 +461,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="710"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="710"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="711"/>
+        <location filename="../calculate.py" line="731"/>
         <source>Select a file defining the area of interest</source>
         <translation>Chagua faili inayofafanua eneo la riba</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="711"/>
+        <location filename="../calculate.py" line="731"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="721"/>
+        <location filename="../calculate.py" line="741"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="721"/>
+        <location filename="../calculate.py" line="741"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -494,17 +494,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="549"/>
+        <location filename="../calculate.py" line="569"/>
         <source>Select folder containing data</source>
         <translation>Chagua folda iliyo na data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="558"/>
+        <location filename="../calculate.py" line="578"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="558"/>
+        <location filename="../calculate.py" line="578"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
@@ -602,49 +602,54 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="923"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="853"/>
+        <location filename="../calculate.py" line="873"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="860"/>
+        <location filename="../calculate.py" line="880"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="887"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="758"/>
+        <location filename="../calculate.py" line="778"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="761"/>
+        <location filename="../calculate.py" line="781"/>
         <source>Options</source>
         <translation>Chaguo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="875"/>
+        <location filename="../calculate.py" line="895"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="886"/>
+        <location filename="../calculate.py" line="906"/>
         <source>Choose an area of interest.</source>
         <translation>Chagua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="911"/>
         <source>Unable to read area of interest.</source>
         <translation>Haiwezi kusoma eneo la riba.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="923"/>
+        <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -881,12 +886,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="453"/>
+        <location filename="../calculate.py" line="473"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="453"/>
+        <location filename="../calculate.py" line="473"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Hesabu ya hesabu ya meza ya polygoni nyingi ijayo hivi karibuni!</translation>
     </message>
@@ -984,42 +989,42 @@ p, li { white-space: pre-wrap; }
         <translation>Mwaka wa mwisho:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="200"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="162"/>
         <source>Land productivity dataset</source>
         <translation>Dasaset ya uzalishaji wa ardhi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="206"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="168"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</source>
         <translation>Data ya UNCCD ya Dynamics (LPD) kutoka Tume ya Pamoja ya Utafiti)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="216"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="178"/>
         <source>Trends.Earth land productivity</source>
         <translation>Mwelekeo wa uzalishaji wa ardhi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="260"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="225"/>
         <source>Next</source>
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="279"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="244"/>
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="298"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="263"/>
         <source>Previous</source>
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="59"/>
+        <location filename="../calculate_sdg.py" line="81"/>
         <source>Land Cover Setup</source>
         <translation>Kuweka Jalada la Jalada</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="69"/>
+        <location filename="../calculate_sdg.py" line="91"/>
         <source>Define Effects of Land Cover Change</source>
         <translation>Kufafanua Madhara ya Mabadiliko ya Jalada la Ardhi</translation>
     </message>
@@ -1482,132 +1487,132 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateSummaryTableAdmin</name>
     <message>
-        <location filename="../calculate_sdg.py" line="619"/>
+        <location filename="../calculate_sdg.py" line="641"/>
         <source>Choose a filename for the output file</source>
         <translation>Chagua jina la faili kwa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="619"/>
+        <location filename="../calculate_sdg.py" line="641"/>
         <source>Filename (*.json)</source>
         <translation>Faili ya faili (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="875"/>
+        <location filename="../calculate_sdg.py" line="897"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="641"/>
+        <location filename="../calculate_sdg.py" line="663"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="632"/>
+        <location filename="../calculate_sdg.py" line="654"/>
         <source>Choose a filename for the summary table</source>
         <translation>Chagua jina la faili kwa meza ya muhtasari</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="632"/>
+        <location filename="../calculate_sdg.py" line="654"/>
         <source>Summary table file (*.xlsx)</source>
         <translation>Faili ya meza ya muhtasari (* .xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="648"/>
+        <location filename="../calculate_sdg.py" line="670"/>
         <source>Choose an output file for the indicator layer.</source>
         <translation>Chagua faili ya pato kwa safu ya kiashiria.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="653"/>
+        <location filename="../calculate_sdg.py" line="675"/>
         <source>Choose an output file for the summary table.</source>
         <translation>Chagua faili ya pato kwa meza ya muhtasari.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="674"/>
+        <location filename="../calculate_sdg.py" line="696"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha trajectory kwenye ramani yako kabla ya kutumia zana ya uhesabuji wa SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="678"/>
+        <location filename="../calculate_sdg.py" line="700"/>
         <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha hali ya uzalishaji kwenye ramani yako kabla ya kutumia zana ya kuhesabu SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="682"/>
+        <location filename="../calculate_sdg.py" line="704"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya utendaji wa utendaji kwenye ramani yako kabla ya kutumia zana ya uhesabuji wa SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="688"/>
+        <location filename="../calculate_sdg.py" line="710"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya dalili ya kiashiria cha uzalishaji wa ardhi kwenye ramani yako kabla ya kutumia zana ya uhesabuji wa SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="693"/>
+        <location filename="../calculate_sdg.py" line="715"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha bima ya ardhi kwenye ramani yako kabla ya kutumia zana ya kuhesabu SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="698"/>
+        <location filename="../calculate_sdg.py" line="720"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha kaboni ya kaboni kwenye ramani yako kabla ya kutumia zana ya uhesabuji wa SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="706"/>
+        <location filename="../calculate_sdg.py" line="728"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya trajectory.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="710"/>
+        <location filename="../calculate_sdg.py" line="732"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya utendaji.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="714"/>
+        <location filename="../calculate_sdg.py" line="736"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya hali.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="719"/>
+        <location filename="../calculate_sdg.py" line="741"/>
         <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya mienendo ya uzalishaji wa ardhi.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="724"/>
+        <location filename="../calculate_sdg.py" line="746"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya kifuniko cha ardhi.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="728"/>
+        <location filename="../calculate_sdg.py" line="750"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya kaboni ya kaboni.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="740"/>
+        <location filename="../calculate_sdg.py" line="762"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>Maazimio ya safu ya trajectory na safu ya hali hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="744"/>
+        <location filename="../calculate_sdg.py" line="766"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>Maamuzi ya safu ya trajectory na safu ya utendaji haifai.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="749"/>
+        <location filename="../calculate_sdg.py" line="771"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>Kuratibu mifumo ya safu ya trajectory na safu ya hali hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="753"/>
+        <location filename="../calculate_sdg.py" line="775"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>Kuratibu mifumo ya safu ya trajectory na safu ya utendaji hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="853"/>
+        <location filename="../calculate_sdg.py" line="875"/>
         <source>Error masking SDG 15.3.1 input layers.</source>
         <translation>Hitilafu ya kutengeneza tabaka za kuingia za SDG 15.3.1.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="875"/>
+        <location filename="../calculate_sdg.py" line="897"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
         <translation>Hitilafu kuhesabu SDG 15.3.1 meza ya muhtasari.</translation>
     </message>
@@ -2147,20 +2152,20 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="79"/>
         <source>&lt;b&gt;Impervious Surface Index (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values reduce urban area)</source>
-        <translation>&lt;b&gt;Inpervious Surface Index (0-100)&lt;/b&gt; &lt;br&gt; (maadili ya juu hupunguza eneo la mijini)</translation>
+(lower values will include low density areas)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="112"/>
         <source>&lt;b&gt;Night Time Lights Index (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values reduce urban area)</source>
-        <translation>&lt;b&gt;Usiku wa Taa za Usiku (0-100)&lt;/b&gt; &lt;br&gt; (maadili ya juu hupunguza eneo la mijini)</translation>
+(lower values will include low light areas)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="123"/>
         <source>&lt;b&gt;Water Frequency (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values increase urban area)</source>
-        <translation>&lt;b&gt;Frequency ya Maji (0-100)&lt;/b&gt; &lt;br&gt; (maadili ya juu huongeza eneo la mijini)</translation>
+(lower values will include low frequency waters)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="168"/>
@@ -2233,6 +2238,16 @@ p, li { white-space: pre-wrap; }
         <source>Calculate</source>
         <translation>Tumia</translation>
     </message>
+    <message>
+        <location filename="../calculate_urban.py" line="154"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="154"/>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>DlgCalculateUrbanSummaryTable</name>
@@ -2292,62 +2307,62 @@ p, li { white-space: pre-wrap; }
         <translation>Faili ya kuingiza kwa safu ya kiashiria</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="209"/>
+        <location filename="../calculate_urban.py" line="217"/>
         <source>Choose a filename for the output file</source>
         <translation>Chagua jina la faili kwa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="209"/>
+        <location filename="../calculate_urban.py" line="217"/>
         <source>Filename (*.json)</source>
         <translation>Faili ya faili (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="356"/>
+        <location filename="../calculate_urban.py" line="364"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="231"/>
+        <location filename="../calculate_urban.py" line="239"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="222"/>
+        <location filename="../calculate_urban.py" line="230"/>
         <source>Choose a filename for the summary table</source>
         <translation>Chagua jina la faili kwa meza ya muhtasari</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="222"/>
+        <location filename="../calculate_urban.py" line="230"/>
         <source>Summary table file (*.xlsx)</source>
         <translation>Faili ya meza ya muhtasari (* .xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="238"/>
+        <location filename="../calculate_urban.py" line="246"/>
         <source>Choose an output file for the indicator layer.</source>
         <translation>Chagua faili ya pato kwa safu ya kiashiria.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="243"/>
+        <location filename="../calculate_urban.py" line="251"/>
         <source>Choose an output file for the summary table.</source>
         <translation>Chagua faili ya pato kwa meza ya muhtasari.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="257"/>
+        <location filename="../calculate_urban.py" line="265"/>
         <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
         <translation>Lazima uongeze safu ya mfululizo wa mjini kwenye ramani yako kabla ya kutumia chombo cha muhtasari wa mabadiliko ya miji.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="264"/>
+        <location filename="../calculate_urban.py" line="272"/>
         <source>Area of interest is not entirely within the urban series layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya mfululizo wa mjini.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="344"/>
+        <location filename="../calculate_urban.py" line="352"/>
         <source>Error masking urban change input layers.</source>
         <translation>Hitilafu ya masking tabaka za mabadiliko ya mijini.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="356"/>
+        <location filename="../calculate_urban.py" line="364"/>
         <source>Error calculating urban change summary table.</source>
         <translation>Hitilafu ya kuhesabu meza ya muhtasari wa mabadiliko ya mijini.</translation>
     </message>
@@ -3576,7 +3591,7 @@ maeneo</translation>
         <translation>Haiwezi kuingia kwenye seva ya LDMP. Angalia jina lako la mtumiaji na nenosiri.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="185"/>
+        <location filename="../calculate_urban.py" line="193"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
@@ -3731,17 +3746,17 @@ maeneo</translation>
         <translation>Imeshindwa kuwasilisha kazi ya uzalishaji kwa injini ya Google Earth.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="155"/>
+        <location filename="../calculate_sdg.py" line="177"/>
         <source>Initial and final year must be at least 10 years apart.</source>
         <translation>Mwaka wa kwanza na wa mwisho lazima iwe angalau miaka 10 mbali.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="218"/>
+        <location filename="../calculate_sdg.py" line="240"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
         <translation>Kazi ya kiashiria cha chini ya SDG iliyowasilishwa kwa Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="222"/>
+        <location filename="../calculate_sdg.py" line="244"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
         <translation>Imeshindwa kuwasilisha kazi ya kiashiria cha SDG kwa injini ya Google Earth.</translation>
     </message>
@@ -3776,12 +3791,12 @@ maeneo</translation>
         <translation>Haiwezi kuwasilisha kazi kamili ya kaboni kwenye Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="185"/>
+        <location filename="../calculate_urban.py" line="193"/>
         <source>Urban area change calculation submitted to Google Earth Engine.</source>
         <translation>Eneo la mijini mabadiliko ya hesabu iliyowasilishwa kwa Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="189"/>
+        <location filename="../calculate_urban.py" line="197"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>Imeshindwa kuwasilisha kazi ya eneo la mijini kwa Google Earth Engine.</translation>
     </message>

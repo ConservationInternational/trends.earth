@@ -97,7 +97,8 @@ videos, are available on this website:
    :maxdepth: 2
    :caption: Background information
 
-   background/understanding_indicators
+   background/understanding_indicators11
+   background/understanding_indicators15
    background/before_installing
    background/installing
    background/report_overviews

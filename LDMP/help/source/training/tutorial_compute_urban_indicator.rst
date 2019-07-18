@@ -1,3 +1,5 @@
+.. _indicator-11-3-1-tutorial:
+
 SDG 11.3.1 - Land Consumption Rate
 ==================================
 - **Objective**: Learn how to compute urban extent and population for 2000, 2005, 2010, 2015 in raster format and tabular outputs with areas estimated.
@@ -9,7 +11,11 @@ SDG 11.3.1 - Land Consumption Rate
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_
 
-.. _compute_urban:
+
+.. note::
+    For a detailed description on the concepts behind SDG 11.3.1, the data needs and a detailed description on how the data and analysis is handled in |trends.earth|, please refer to the background section: :ref:`indicator-11-3-1-background`.
+
+https://github.com/ConservationInternational/trends.earth/releases/tag/0.64
 
 Urban Mapper
 --------------------------------------------   
@@ -33,12 +39,12 @@ Now the map with the built up area defined by the default parameters will load i
 .. image:: /static/documentation/urban/calc_urban_mapper1.PNG
    :align: center
    
-4. Now you should use your knowledge of the city to explore the data set. We can, for example, zoom in to an area in western Kampala to see how the default parameters perform (ISI:20, NTLI:10, WF:25):
+4. Now you should use your knowledge of the city to explore the data set. We can, for example, zoom in to an area in western Kampala to see how the default parameters perform (ISI: 30, NTL: 10, WFR: 25):
 
 .. image:: /static/documentation/urban/calc_urban_mapper2.PNG
    :align: center
  
-5. We can easily identify large square boundaries in the built up area data set which do not seem to match the spatial pattern displayed by the background satellite image. That is a sign that the Night time light indicator is set too high (i.e. it is removing from our built-up area map zones with low levels of light which should be included). This is a common situation in suburban areas with low levels of light. If we want to include those areas, we need to lower the value of the NTLI. In this case we'll try changing it from 10 to 2, and click **Run Analysis** again (ISI-20, NTLI-2, WF - 25).
+5. We can easily identify large square boundaries in the built up area data set which do not seem to match the spatial pattern displayed by the background satellite image. That is a sign that the Night time light indicator is set too high (i.e. it is removing from our built-up area map zones with low levels of light which should be included). This is a common situation in suburban areas with low levels of light. If we want to include those areas, we need to lower the value of the NTLI. In this case we'll try changing it from 10 to 5, and click **Run Analysis** again (ISI: 30, NTL: 5, WFR: 25).
 
 .. image:: /static/documentation/urban/calc_urban_mapper3.PNG
    :align: center

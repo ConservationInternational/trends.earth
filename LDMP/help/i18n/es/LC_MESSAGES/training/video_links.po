@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2017
 # Alex Zvoleff <azvoleff@conservation.org>, 2017
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.59\n"
+"Project-Id-Version: Trends.Earth 0.61\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-29 09:09-0500\n"
+"POT-Creation-Date: 2018-12-05 21:33-0500\n"
 "PO-Revision-Date: 2017-11-21 20:57+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2017\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,24 +47,28 @@ msgid ""
 "`Calculate Indicators - Trends.Earth Overview (English) "
 "<https://youtu.be/MY1iuedIkFE>`_"
 msgstr ""
+"`Calcular indicadores - Descripción general de Trends.Earth (inglés) "
+"<https://youtu.be/MY1iuedIkFE>`_"
 
 #: ../../source/training/video_links.rst:9
 msgid ""
 "`Calculate Indicators - Detailed Trends.Earth Tutorial (English) "
 "<https://youtu.be/MY1iuedIkFE>`_"
 msgstr ""
+"`Calcular indicadores - Tutorial detallado de tendencias de la tierra "
+"(inglés) <https://youtu.be/MY1iuedIkFE>`_"
 
 #: ../../source/training/video_links.rst:10
 msgid "Calculate Indicators - Productivity(English)"
-msgstr ""
+msgstr "Calcular Indicadores - Productividad (Inglés)"
 
 #: ../../source/training/video_links.rst:11
 msgid "Calculate Indicators - Land Cover (English)"
-msgstr ""
+msgstr "Calcular Indicadores - Cobertura Terrestre (Inglés)"
 
 #: ../../source/training/video_links.rst:12
 msgid "Calculate Indicators - Soil Organic Carbon (English)"
-msgstr ""
+msgstr "Calcular indicadores - Carbón orgánico del suelo (inglés)"
 
 #: ../../source/training/video_links.rst:13
 msgid "Visualizing indicators (English)"

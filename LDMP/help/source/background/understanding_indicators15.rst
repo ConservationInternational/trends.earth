@@ -38,7 +38,7 @@ from 3 sub-indicators:
 #. Land cover
 #. Soil organic carbon
 
-.. image:: /static/documentation/understanding_indicators/indicator_15_3_1.png
+.. image:: /static/documentation/understanding_indicators15/indicator_15_3_1.png
    :align: center
 
 |trends.earth| allows the user to compute each of these subindicators in a 
@@ -74,7 +74,7 @@ productivity indicators explained below.
 Land productivity is assessed in |trends.earth| using three measures of change 
 derived from NDVI time series data: trajectory, performance and state
 
-.. image:: /static/documentation/understanding_indicators/indicator_15_3_1_prod_subindicators.png
+.. image:: /static/documentation/understanding_indicators15/indicator_15_3_1_prod_subindicators.png
    :align: center
 
 .. _indicator-productivity-trajectory:
@@ -91,7 +91,7 @@ is then applied, considering only significant changes those that show a p-value
 improvement in land condition, and negative significant trends potential 
 degradation.
 
-.. image:: /static/documentation/understanding_indicators/lp_traj_flow.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_traj_flow.PNG
    :align: center
 
 .. _indicator-productivity-climate-correction:
@@ -152,7 +152,7 @@ The table below list the datasets available in |trends.earth| to perform NDVI
 trend analysis over time using the original NDVI data or with climatic 
 corrections:
 
-.. image:: /static/documentation/understanding_indicators/lp_traj_variables.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_traj_variables.PNG
    :align: center
 
 .. _indicator-productivity-state:
@@ -195,13 +195,13 @@ computed as follows:
    2, that pixel would indicate a recent improvement in terms of primary 
    productivity. Pixels with small changes are considered stable.
 
-.. image:: /static/documentation/understanding_indicators/lp_state_flow.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_state_flow.PNG
    :align: center
 
 The table below list the datasets available in |trends.earth| to compute the 
 Productivity State indicator:
 
-.. image:: /static/documentation/understanding_indicators/lp_state_variables.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_state_variables.PNG
    :align: center
 
 .. _indicator-productivity-performance:
@@ -236,13 +236,13 @@ as follows:
 5. If observed mean NDVI is lower than 50% than the maximum productivity, that 
    pixel is considered potentially degraded for this indicator.
 
-.. image:: /static/documentation/understanding_indicators/lp_perf_flow.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_perf_flow.PNG
    :align: center
    
 The table below list the datasets available in |trends.earth| to compute the 
 Productivity Performance indicator:
  
-.. image:: /static/documentation/understanding_indicators/lp_perf_variables.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_perf_variables.PNG
    :align: center
 
 .. _indicator-15-3-1-combining-indicators:
@@ -256,7 +256,7 @@ tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, but
 information provided by State to inform the type of degradation occurring in 
 the area.
 
-.. image:: /static/documentation/understanding_indicators/lp_aggregation.PNG
+.. image:: /static/documentation/understanding_indicators15/lp_aggregation.PNG
    :align: center
 
 .. _indicator-land-cover:
@@ -282,14 +282,14 @@ maps can also be used. The indicator is computed as follows:
    which transitions correspond to degradation (- sign), improvement (+ sign), 
    or no change in terms of land condition (zero).
 
-.. image:: /static/documentation/understanding_indicators/lc_matrix.PNG
+.. image:: /static/documentation/understanding_indicators15/lc_matrix.PNG
    :align: center
 
 #. |trends.earth| will combine the information from the land cover maps and the 
    table of degradation typologies by land cover transition to compute the land 
    cover sub-indicator.
 
-.. image:: /static/documentation/understanding_indicators/lc_flow.PNG
+.. image:: /static/documentation/understanding_indicators15/lc_flow.PNG
    :align: center
 
 .. _indicator-soc:
@@ -329,7 +329,7 @@ areas. The indicator is computed as follows:
    presented in the table below. Those coefficients represent the proportional 
    in C stocks after 20 years of land cover change.
 
-.. image:: /static/documentation/understanding_indicators/soc_coeff.PNG
+.. image:: /static/documentation/understanding_indicators15/soc_coeff.PNG
    :align: center
 
 Changes in SOC are better studied for land cover transitions involving 
@@ -343,7 +343,7 @@ Tropical Montane (f = 0.64).
    reporting period will be considered potentially degraded, and areas 
    experiencing a gain of 10% or more as potentially improved.
    
-.. image:: /static/documentation/understanding_indicators/soc.PNG
+.. image:: /static/documentation/understanding_indicators15/soc.PNG
    :align: center
 
    
@@ -355,7 +355,7 @@ one-out all-out rule, this means that if an area was identified as potentially
 degraded by any of the sub-indicators, then that area will be considered 
 potentially degraded for reporting purposes.
 
-.. image:: /static/documentation/understanding_indicators/sdg_aggregation.PNG
+.. image:: /static/documentation/understanding_indicators15/sdg_aggregation.PNG
    :align: center
 
 

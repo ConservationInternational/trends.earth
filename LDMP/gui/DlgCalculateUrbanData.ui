@@ -69,7 +69,7 @@
              <number>100</number>
             </property>
             <property name="value">
-             <number>20</number>
+             <number>30</number>
             </property>
            </widget>
           </item>
@@ -77,7 +77,7 @@
            <widget class="QLabel" name="label">
             <property name="text">
              <string>&lt;b&gt;Impervious Surface Index (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values reduce urban area)</string>
+(lower values will include low density areas)</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -110,7 +110,7 @@
            <widget class="QLabel" name="label_2">
             <property name="text">
              <string>&lt;b&gt;Night Time Lights Index (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values reduce urban area)</string>
+(lower values will include low light areas)</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -121,7 +121,7 @@
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>&lt;b&gt;Water Frequency (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values increase urban area)</string>
+(lower values will include low frequency waters)</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>

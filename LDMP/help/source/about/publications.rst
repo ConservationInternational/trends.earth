@@ -3,11 +3,10 @@
 
 The below publications either use or relate to |trends.earth|.
 
-* Gonzalez-Roglich, M. et al. Synergizing global tools to monitor progress 
-  towards land degradation neutrality: Trends. Earth and the World Overview of 
-  Conservation Approaches and Technologies sustainable land management 
-  database. Environmental Science & Policy 93, 34–42 (2019). 
-  https://www.sciencedirect.com/science/article/pii/S1462901118306543
+* Gonzalez-Roglich, M., Zvoleff, A., Noon, M., Liniger, H., Fleiner, R., Harari, N., Garcia,
+  C., 2019. Synergizing global tools to monitor progress towards land degradation neutrality:
+  Trends.Earth and the World Overview of Conservation Approaches and Technologies sustainable
+  land management database. Environ. Sci. Policy 93, 34–42. https://doi.org/10.1016/j.envsci.2018.12.019
 * Arnold S., Jun C., Olav E. 2019. Global and Complementary (Non-authoritative)
   Geospatial Data for SDGs: Role and Utilisation. Report produced jointly by the Task
   Team on Global Data and Task Team on Alternative Data Sources by the Working Group

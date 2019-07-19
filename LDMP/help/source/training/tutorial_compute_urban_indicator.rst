@@ -11,23 +11,23 @@ SDG 11.3.1 - Land Consumption Rate
 .. note:: `Download this page as a PDF for offline use 
    <../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_
 
+.. note::
+    For a description on the concepts behind SDG 11.3.1, the data needs and methods used in |trends.earth|, please refer to the background section: :ref:`indicator-11-3-1-background`.
 
 .. note::
-    For a detailed description on the concepts behind SDG 11.3.1, the data needs and a detailed description on how the data and analysis is handled in |trends.earth|, please refer to the background section: :ref:`indicator-11-3-1-background`.
+    On July 20th 2019 we launched an updated version of the ISI dataset. We recommend using the most current version. However, if you run any analysis of SDG 11.3.1 in |trends.earth| before that date and would like to replicate them, please use the previous plug in version available `here <https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_ and refer to this `website <https://github.com/ConservationInternational/trends.earth#development-version>`_ for instruction on how to install it.
 
-https://github.com/ConservationInternational/trends.earth/releases/tag/0.64
-
-Urban Mapper
+Exploring the Urban Mapper
 --------------------------------------------   
-The first step before analyzing urban change is to define the extent of built up areas. For that, we have created an interactive web interface called `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. This step is fundamental to make sure that the built up area identified by the indicators accurately reflects the conditions in your area of study. The Urban Mapper tool in GEE allows users to explore how changing different parameters impact the extent of the built up area data which will be then used to define changes in urban extent. 
+The first step before analyzing urban change is to define the extent of built up areas. For that, we have created an interactive web interface called `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. This step is fundamental to make sure that the built up area identified by the indicators accurately reflects the conditions in your area of study. The `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ allows users to explore how changing different parameters impact the extent of the built up area data which will be then used to define changes in urban extent. 
 
-1. Navigate to the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_.before you run the analysis in QGIS.
-
-
-2. This tool can be used to analyze changes in built up area in almost any city of the world. Click on the **Search Places** window in the top center of the page and type the city you want to analyze. In this example we'll type "Kampala, Uganda" and click on the option showing right underneath.
+1. Navigate to the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ before you run the analysis in QGIS.
 
 
-3. This tool allows you to change three parameters in order to correctly identify the most appropriate built up extent for your city: Impervious surface index, night time lights index, and water frequency. The first time you run the tool in a new city, click **Run analysis** to see how the default parameters perform, and from there you can customize the analysis. To compare to satellite images, we can click on **Satellite** in the top right corner of the map window.
+2. This tool can be used to analyze changes in built up area in almost any city of the world. Click on the **Search Places** window in the top center of the page and type the city you want to analyze. For this tutorial, type **Kampala, Uganda** and click on the option showing right underneath.
+
+
+3. This tool allows you to change three parameters in order to correctly identify the most appropriate built up extent for your city: **Impervious surface index, night time lights index, and water frequency**. The first time you run the tool in a new city, click **Run analysis** to see how the default parameters perform, and from there you can customize the analysis. You can use the high spatial resolution images in the background to evaluate the product.
 
 Now the map with the built up area defined by the default parameters will load into the map color coded in the following way:
 
@@ -36,60 +36,40 @@ Now the map with the built up area defined by the default parameters will load i
 	- Orange: Built-up areas constructed between 2005 and 2010
 	- Yellow: Built-up areas constructed between 2010 and 2015
 
-.. image:: /static/documentation/urban/calc_urban_mapper1.PNG
+.. image:: /static/training/t12/calc_urban_mapper1.PNG
    :align: center
    
 4. Now you should use your knowledge of the city to explore the data set. We can, for example, zoom in to an area in western Kampala to see how the default parameters perform (ISI: 30, NTL: 10, WFR: 25):
 
-.. image:: /static/documentation/urban/calc_urban_mapper2.PNG
+.. image:: /static/training/t12/calc_urban_mapper2.PNG
    :align: center
  
-5. We can easily identify large square boundaries in the built up area data set which do not seem to match the spatial pattern displayed by the background satellite image. That is a sign that the Night time light indicator is set too high (i.e. it is removing from our built-up area map zones with low levels of light which should be included). This is a common situation in suburban areas with low levels of light. If we want to include those areas, we need to lower the value of the NTLI. In this case we'll try changing it from 10 to 5, and click **Run Analysis** again (ISI: 30, NTL: 5, WFR: 25).
+5. In this area, the data set seems to be missing some constructions, so we can adjust the ISI threshold to a lower value to include areas with lower density of impervious surface into our definition of built-up for Kampala. Let's **change the Impervious Surface Indicator threshold from 30 to 25 and click Run Analysis**
 
-.. image:: /static/documentation/urban/calc_urban_mapper3.PNG
+.. image:: /static/training/t12/calc_urban_mapper3.PNG
    :align: center
 
-6. You can see now the effect of changing that parameter. Those areas previously excluded (i.e. showing no data) now display information on the map.
-   
-7. If we consider that the overall extent of the built-up area shown in the map is correct, but that the density is too high, we can use the Impervious Surface Indicator to adjust it. If we increase the value of the ISI from 20 to 30, and click **Run analysis** a new layer will display showing overall lower levels of built-up. This happens because we are saying the tool "only consider built-up areas which have a value of impervious surface indicator of 30 or higher", so the higher we set this value to, the smaller the built-up area our map will display. The example we just run (ISI-30, NTLI-2, WF-25) would look something like this:
+6. This seems to have increased the built-up area in the direction we wanted, but we can now see some straight discontinuity lines in the outskirts of the city after which there is no information. This is a sign that the Night Time Lights threshold is being too restrictive. If we set the parameter to a lower value, we will allow the analysis to include areas with low night time light density. **Change the Night Time Light threshold from 10 to 2 and click Run Analysis.**
 
-.. image:: /static/documentation/urban/calc_urban_mapper4.PNG
-   :align: center
-   
-8. If we want to include more area, we do the opposite, and lower the ISI value. For example, with ISI-10, NTLI-2, WF-25, the same region in Kampala would look:
-
-.. image:: /static/documentation/urban/calc_urban_mapper5.PNG
-   :align: center
-   
-9. It is very important that you assess the impact of changing each of these parameters in your overall area of analysis (i.e. your city), since one set of parameters will be defined for the analysis. Scroll around, zoom in and out and change parameters until you feel you have found the set that better describes your city.
-
-For example, the overall urban area in Kampala with ISI-10, NTLI-2, and WF-25 would look like this:
-
-.. image:: /static/documentation/urban/calc_urban_mapper6.PNG
-   :align: center
-   
-10. The third and last parameter which you can change in the Urban Mapper to define the built up area is Water Frequency. In most cases this parameter won't affect the results, but in some cases it does. For example, in Dubai where some areas originally covered with water have been filled and constructed, the water frequency parameter can be used to capture them. 
-
-The water frequency parameter should be interpreted as follows: A pixel needs to be covered by water for at least X percent of the time for it to be considered water, otherwise it will be considered land". This means that the higher the value, the less water the map will show and the more land (i.e. built up if that is the case).
-
-In the Dubai example, we can see these features in the satellite image.
-
-.. image:: /static/documentation/urban/calc_urban_mapper8.PNG
-   :align: center
-   
-But we can't see them in the built-up area map using the following parameters: ISI-35, NTLI-5, and WF-25.
-
-.. image:: /static/documentation/urban/calc_urban_mapper7.PNG
-   :align: center
-   
-11. If we change the Water frequency parameter to 80, we can start seeing the recently built-up areas in the water (ISI-35, NTLI-5, WF-80)
-
-.. image:: /static/documentation/urban/calc_urban_mapper9.PNG
+.. image:: /static/training/t12/calc_urban_mapper4.PNG
    :align: center
 
-12. Once you have found the set of parameters which best work for your city, you are ready to run the analysis in QGIS.   
-   
-Compute urban area change
+7. We can now see that the built up area information extends too all the area we were exploring. We can run the analysis as many times as we need. Each time we click **Run Analysis** a new layer will be added to the map. You can turns the different layers on and off or change the transparency of each of them in the **Layers Menu** on the top right section of the map.
+
+.. image:: /static/training/t12/layers_menu.PNG
+   :align: center
+
+8. We recommend you spend some time exploring the effect of the different values in each parameter for your city, since your results will greatly depend on them. Make sure to navigate to different parts of the city to make sure the parameters work well in areas the high density areas close to downtown and also in moderate and low density areas. You can find below the spatial distribution of threshold parameters selected for the sample of 224 cities tested which may serve you as a guide for identifying which values may be most relevant for your city of interest. Once you feel like you have identified the best values for the city you want to analyze, you are ready to go to QGIS to run the analysis.
+
+.. image:: /static/documentation/understanding_indicators11/sdg11_map_cities_isi.png
+   :align: center
+.. image:: /static/documentation/understanding_indicators11/sdg11_map_cities_ntl.png
+   :align: center
+.. image:: /static/documentation/understanding_indicators11/sdg11_map_cities_wfr.png
+   :align: center
+
+  
+Step 1: Built-up series
 --------------------------------------------   
 1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
 
@@ -98,36 +78,31 @@ Compute urban area change
 
 2. The **Calculate Indicators** menu will open. In that window, click on **Urban change and land consumption indicators (SDG indicator 11.3.1)** button.
 
-.. image:: /static/documentation/urban/calc_indicators.PNG
+.. image:: /static/training/t12/calc_indicators.PNG
    :align: center
 
 3. Select Step 1: Calculate urban change spatial layers
 
-.. image:: /static/documentation/urban/calc_urban.PNG
+.. image:: /static/training/t12/calc_urban.PNG
    :align: center
 
-4. The **Calculate Urban Area Change Metrics** menu will open. In that window, you will step through the four tabs to set the parameters for your analysis.
+4. The **Calculate Urban Area Change Metrics** menu will open. In that window, you will step through the four tabs to set the parameters for your analysis. In the settings tab you will input the parameters you have determined as most appropriate for the city by exploring the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_.
 
-Before you begin filling out these settings, you will have to explore your area of interest using the interactive `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. This step is fundamental to make sure that the built up area identified by the indicators accurately reflects the conditions in your area of study.
+A. Select the Impervious Surface Index (ISI) by choosing a value between 0-100. Lower values will include low density areas.
 
-Note that in that up to know we have tested parameters in Uganda and Dubai, and from now on we'll run things in Nairobi, so make sure that you have used the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and identified the best set of parameters for your city before running.
+B. Select the Night Time Lights Index (NTL) by choosing a value between 0-100. Lower values will include low light areas.
 
-5. Settings
+C. Select the Water Frequency (WFR) by choosing a value between 0-100. Lower values will include low frequency water bodies.
 
-By default your window will be open on the Settings tab.
+.. image:: /static/training/t12/calc_indicators_settings1.PNG
+   :align: center
 
-A. Select the Impervious Surface Index (ISI) by choosing a value between 0-100. The higher the value the smaller the urban area.
+In this case, we will change them to: ISI = 25, NTL = 2, and WFR = 25 and click Next.
 
-B. Select the Night Time Lights Index (NTLI) by choosing a value between 0-100. The higher the value the smaller the urban area.
-
-C. Select the Water Frequency (WF) by choosing a value between 0-100. The higher the value the larger the urban area.
-
-.. image:: /static/documentation/urban/calc_indicators_settings.PNG
+.. image:: /static/training/t12/calc_indicators_settings2.PNG
    :align: center
    
-6. Advanced
-
-Click Next from the Settings tab to view the Advanced tab. Here you will need to define:
+6. On the Advanced tab, you will need to define:
 
 A. The thresholds for suburban and urban built up areas.
 
@@ -135,112 +110,143 @@ B. Define the area of largest captured open space (ha) which is the contiguous c
 
 C. Select which population density dataset you would like to use for the analysis.
 
-.. image:: /static/documentation/urban/calc_indicators_advanced.PNG
+.. image:: /static/training/t12/calc_indicators_advanced.PNG
    :align: center
 
-Click Next from the Advanced tab to view the Area tab. Here you will need to define the area for your analysis.
+We'll use the default options for now, but you can change them to fit the needs of your analysis. Click Next.
 
-7. Area: You can select a country, region or city from the drop-down lists or upload an area from a file. If you select a city or upload a point location of a city, apply a buffer to the chosen area so that analysis encompasses all potential urban areas.
+7. On the Area tab you can select a country, region or city from the drop-down lists or upload an area from a file. If you select a city or upload a point location of a city, apply a buffer to the chosen area so that analysis encompasses all potential urban areas.
 
-If you are using your own boundary shapefiile for analysis, we recommend you do not use buffers, since that will affect the area of analysis and the final area calculation.
+If you are using your own polygon for analysis, we recommend you do not use buffers, since that will affect the area of analysis and the final area calculation.
 
-.. image:: /static/documentation/urban/calc_indicators_area.PNG
+.. image:: /static/training/t12/calc_indicators_area.PNG
    :align: center
 
 .. note::
-    The provided boundaries are from `Natural Earth 
-    <http://www.naturalearthdata.com>`_, and are in the `public domain
-    <https://creativecommons.org/publicdomain>`_. The boundaries and names 
-    used, and the designations used, in Trends.Earth do not imply official 
-    endorsement or acceptance by Conservation International Foundation, or by 
-    its partner organizations and contributors.
+    The provided boundaries are from `Natural Earth <http://www.naturalearthdata.com>`_, and are in the `public domain <https://creativecommons.org/publicdomain>`_. The boundaries and names  used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors. If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country.
 
-    If using Trends.Earth for official purposes, it is recommended that users 
-    choose an official boundary provided by the designated office of their 
-    country.
+8. On the Options tab you have to assign a name the task and some notes on how you customized the parameters for your analysis for future reference.
 
-8. Options: Name the task and some note on how you customized the parameters for your analysis for future reference.
+When all the parameters have been defined, click "Calculate", and the task will be submitted to Google Earth Engine for computing. 
 
-When all the parameters have been defined, click "Calculate", and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion.
-
-.. image:: /static/documentation/urban/calc_indicators_options.PNG
+.. image:: /static/training/t12/calc_indicators_options.PNG
    :align: center
 
-
-9. Download results
+9. The analysis for cities takes approximately 30 min to run, depending on the size of the area and the servers usage. To check the status of the task you can click on the Download button on the |trends.earth| tool-bar. When the windows open, click **Refresh list**.
 
 .. image:: /static/common/ldmt_toolbar_highlight_tasks.png
    :align: center 
-   
+  
+.. image:: /static/training/t12/task_running.PNG
+   :align: center
+  
 When the Google Earth Engine task has completed and you received the email, click "Refresh List" and the status will show FINISHED.  
 
-.. image:: /static/documentation/urban/download_task.PNG
+.. image:: /static/training/t12/task_completed.PNG
    :align: center
    
-Click on the task and select "Download results" at the bottom of the window. A pop up window will open for you to select where to save the layer and to assign it a name. 
+10. To download the results, click on the task and select "Download results" at the bottom of the window. A pop up window will open for you to select where to save the layer and to assign it a name. 
 
-.. image:: /static/documentation/urban/save_json.PNG
+.. image:: /static/training/t12/save_json.PNG
    :align: center
    
 Then click "Save". The layer will be saved on your computer and automatically loaded into your current QGIS project.
 
-.. image:: /static/documentation/urban/urban_area_change.PNG
+.. image:: /static/training/t12/urban_area_change.PNG
    :align: center
 
-Compute urban area for 2000, 2005, 2010 and 2015
+Step 2: Urban change
 --------------------------------------------------
-1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
+1.	You have now downloaded the detaset to your local computer, but we still need to estimate the change over time in order to compute the SDG indicator 11.3.1. For that, select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
 
 .. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center   
 
 2. The **Calculate Indicators** menu will open. In that window, click on **Urban change and land consumption indicators (SDG indicator 11.3.1)** button.
 
-.. image:: /static/documentation/urban/calc_indicators.PNG
+.. image:: /static/training/t12/calc_indicators.PNG
    :align: center
 
 3. Select Step 2: Calculate urban change summary table for city.
 
-.. image:: /static/documentation/urban/calc_urban2.PNG
+.. image:: /static/training/t12/calc_urban2.PNG
    :align: center
 
 4. Input: Load an existing .json file if it has not been populated within the dropdown automatically from your QGIS project.
 
-.. image:: /static/documentation/urban/summary_input.PNG
+.. image:: /static/training/t12/summary_input.PNG
    :align: center
 
 
 5. Output: Select browse to navigate to a file on your computer and save the json file and excel table.
 
-.. image:: /static/documentation/urban/summary_outputs.PNG
+.. image:: /static/training/t12/summary_outputs.PNG
    :align: center
 
 6. Area: Define the area for your analysis
 
-.. image:: /static/documentation/urban/summary_area.PNG
+.. image:: /static/training/t12/summary_area.PNG
    :align: center
 
 7. Options: Enter a task name and notes for the analysis. This final step is calculated locally on your computer, it will load automatically in your QGIS project window. 
 
-.. image:: /static/documentation/urban/summary_options.PNG
+.. image:: /static/training/t12/summary_options.PNG
    :align: center
    
 8. View results: A window will appear when the processing is complete. Select **OK**.
 
-.. image:: /static/documentation/urban/success.PNG
+.. image:: /static/training/t12/success.PNG
    :align: center
 
 After clicking OK, the four annual urban extent maps with their corresponding zoning will load into the QGIS project.
+
+.. note::
+    If you selected the buffer option for running the analysis, you may notice that the results do not seem to display a perfectly circular shape. We use planar coordinates to measure distance when computing the buffer, while displaying the results in geographic coordinates. This will cause an apparent distortion the further away your area is from the equator, but there is nothing to worry, the results are correct.
    
-.. image:: /static/documentation/urban/urban_change.PNG
+.. image:: /static/training/t12/urban_change.PNG
    :align: center
    
 9. To explore the summary table, navigate to the folder in your computer where you saved the excel file and double click on it to open. If an error window appears, select the **Yes** and the summary will proceed to open.
 
-.. image:: /static/documentation/urban/error.png
-   :align: center   
+.. image:: /static/training/t12/error1.png
+   :align: center  
+
+.. image:: /static/training/t12/error2.png
+   :align: center     
    
-.. image:: /static/documentation/urban/summary_table_sdg11.PNG
+.. image:: /static/training/t12/summary_table_sdg11.PNG
    :align: center 
    
 10. In this table you'll find the area of the different city land cover classes (urban, suburban, fringe open space, capture open space and water) and the rural areas. You'll also find the population for each of the years analyzed (2000, 2005, 2010, and 2015) and the final SDG 11.3.1.
+
+.. note::
+    In order to improve the Impervious Surface Index and the guidance we provide to users, it would be very useful for us to learn the parameters you selected for your city, and your assessment on how the tool performed by filling this `online form <https://docs.google.com/forms/d/e/1FAIpQLSdLRBzeQ5ZknHJKEtTTzd2VBo2lroPy2RLUSKFpfCyCBRqPKg/viewform>`_ it will not take you more than 30 seconds to fill, and it will help us improve the tool. Thanks!
+
+
+Extra: Water frequency parameter
+--------------------------------------------
+
+On this tutorial we did not explore the effect of the third parameter the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. allow us to change, Water Frequency. This parameter will remain unchanged for most cities, but for those places in which capturing water dynamics is important for understanding how a city is changing, it will be very useful. 
+
+The water Frequency parameter should be interpreted as follows: A pixel needs to be covered by water for at least X percent of the time for it to be considered water, otherwise it will be considered land". This means that the higher the value, the less water the map will show and the more land (i.e. built up if that is the case).
+
+To explore one of such cases, navigate to the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and let's go to **Dubai**.
+
+.. image:: /static/training/t12/wfr_satellite.PNG
+   :align: center
+   
+One of the main feature we'll notice is a set of islands. However, when we click **Run Analysis**, the dataset seems to miss them 
+
+.. image:: /static/training/t12/wfr_default.PNG
+   :align: center
+   
+If we change the Water Frequency parameter from 25 to 80, we can start seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR = 80). But we are still missing some portions.
+
+.. image:: /static/training/t12/wfr_wfr.PNG
+   :align: center
+
+12. In this case, it seems like portions of these newly constructed islands don't have much lights on them. So if we set the NTL threshold to a lower value (e.g. 5) we will capture them.
+
+.. image:: /static/training/t12/wfr_ntl.PNG
+   :align: center
+

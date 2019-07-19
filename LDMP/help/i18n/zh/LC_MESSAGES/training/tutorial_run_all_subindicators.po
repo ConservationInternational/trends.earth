@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.65\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-07-18 17:11-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -38,8 +38,8 @@ msgstr ""
 "CCI用于土地覆盖，土壤有机碳的土壤。在本教程中，我们将以乌干达为例，但您可以选择任何研究区域。"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:8
-msgid "**Estimated time of completion**: 30 minutes"
-msgstr "**预计完成时间**：30分钟"
+msgid "**Estimated time of completion**: 35 minutes"
+msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:10
 msgid "**Internet access**: Required"

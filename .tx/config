@@ -62,7 +62,6 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicat
 source_file = LDMP/help/i18n/pot/background/understanding_indicators15.pot
 source_lang = en
 
-
 [land_degradation_monitoring_toolbox_docs_1_0.documentation--calculate]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/calculate.po
 source_file = LDMP/help/i18n/pot/documentation/calculate.pot

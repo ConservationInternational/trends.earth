@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=2.18
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.65
+version=0.66
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -21,7 +21,16 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 repository=https://github.com/ConservationInternational/trends.earth
 
 # Uncomment the following line and add your changelog:
-changelog=0.64
+changelog=0.66
+    - Limit maximum area for tasks to 10,000,000 sq km, except for urban area 
+      tasks, which is limited to 10,000 sq km.
+    - Add background section on SDG 11.3.1, and update SDG 11.3.1 tutorial.
+    - Fix date restrictions in SDG 15.3.1 all-in-one tool to account for both 
+      ESA and MODIS availability.
+    - Add section to readme on how to install Github releases.
+    - Update and review Spanish translations, update google translations for 
+      other languages.
+  0.64
     - Fix handling of nodata in total carbon tool.
     - Add support for 2018 Hansen data in total carbon tool.
     - Add support for global 30m biomass data from Wood's Hole in total carbon 

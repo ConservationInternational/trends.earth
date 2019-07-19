@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ar" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="ar" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -127,7 +128,7 @@
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="166"/>
+        <location filename="../calculate.py" line="161"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>فشل في إضافة geojson إلى طبقة مؤقتة.</translation>
     </message>
@@ -197,12 +198,12 @@
         <translation>خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="248"/>
+        <location filename="../calculate.py" line="243"/>
         <source>Warning</source>
         <translation>تحذير</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="248"/>
+        <location filename="../calculate.py" line="243"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation>المنطقة المختارة تعبر خط الطول 180. يوصى بتعيين نظام إحداثيات المشروع على نظام إحداثيات محلي (انظر علامة التبويب &amp;quot;CRS&amp;quot; في نافذة &amp;quot;خصائص المشروع&amp;quot; من قائمة &amp;quot;المشروع&amp;quot;.)</translation>
     </message>
@@ -302,12 +303,12 @@
         <translation>لا يمكن معالجة {}. نوع هندسة غير معروف: {}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="140"/>
+        <location filename="../calculate.py" line="135"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
         <translation>غير قادر على تحميل مجال الاهتمام من {}. قد تكون هناك مشكلة في نظام الملفات أو الإحداثيات. جرِّب تحميل هذا الملف يدويًا في QGIS للتحقق من عرضه بشكل صحيح. إذا كنت لا تزال تواجه مشكلات مع هذا الملف ، فأرسل لنا رسالة على trends.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="330"/>
+        <location filename="../calculate.py" line="342"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>فشل في معالجة مجال الاهتمام - نوع هندسي غير معروف: {}</translation>
     </message>
@@ -377,7 +378,7 @@
         <translation>فشل تحميل نمط Trends.Earth. لاستخدام هذه الطبقة ، حاول إضافتها يدويًا إلى خريطتك.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="844"/>
+        <location filename="../calculate.py" line="864"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>لقد اخترت تشغيل الحسابات للمدينة. يجب عليك تحديد مسافة عازلة لتحديد منطقة الحساب عندما تقوم بمعالجة مدينة.</translation>
     </message>
@@ -461,32 +462,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="710"/>
         <source>Point chooser</source>
         <translation>نقطة منتقي</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="710"/>
         <source>Click the map to choose a point.</source>
         <translation>انقر على الخريطة لاختيار نقطة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="711"/>
+        <location filename="../calculate.py" line="731"/>
         <source>Select a file defining the area of interest</source>
         <translation>حدد ملفًا يحدد مجال الاهتمام</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="711"/>
+        <location filename="../calculate.py" line="731"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="721"/>
+        <location filename="../calculate.py" line="741"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="721"/>
+        <location filename="../calculate.py" line="741"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
@@ -494,17 +495,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="549"/>
+        <location filename="../calculate.py" line="569"/>
         <source>Select folder containing data</source>
         <translation>حدد مجلد يحتوي على البيانات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="558"/>
+        <location filename="../calculate.py" line="578"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="558"/>
+        <location filename="../calculate.py" line="578"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
     </message>
@@ -521,7 +522,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -602,49 +603,54 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="923"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="853"/>
+        <location filename="../calculate.py" line="873"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>اختر حدود إدارية من المستوى الأول.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="860"/>
+        <location filename="../calculate.py" line="880"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>غير قادر على تحميل الحدود الإدارية.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="887"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>اختر ملفًا لتعريف مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="758"/>
+        <location filename="../calculate.py" line="778"/>
         <source>Area</source>
         <translation>منطقة</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="761"/>
+        <location filename="../calculate.py" line="781"/>
         <source>Options</source>
         <translation>خيارات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="875"/>
+        <location filename="../calculate.py" line="895"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>اختر نقطة لتحديد مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="886"/>
+        <location filename="../calculate.py" line="906"/>
         <source>Choose an area of interest.</source>
         <translation>اختيار مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="911"/>
         <source>Unable to read area of interest.</source>
         <translation>غير قادر على قراءة مجال الاهتمام.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="923"/>
+        <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -881,12 +887,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="453"/>
+        <location filename="../calculate.py" line="473"/>
         <source>Coming soon!</source>
         <translation>قريبا!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="453"/>
+        <location filename="../calculate.py" line="473"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>مضلع متعددة جدول ملخص حساب قريبا!</translation>
     </message>
@@ -984,42 +990,42 @@ p, li { white-space: pre-wrap; }
         <translation>السنة النهائية:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="200"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="162"/>
         <source>Land productivity dataset</source>
         <translation>مجموعة بيانات إنتاجية الأراضي</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="206"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="168"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</source>
         <translation>البيانات الافتراضية لاتفاقية الأمم المتحدة لمكافحة التصحر (ديناميات إنتاجية الأراضي (LPD) من لجنة البحوث المشتركة)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="216"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="178"/>
         <source>Trends.Earth land productivity</source>
         <translation>اتجاهات. إنتاج الأرض</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="260"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="225"/>
         <source>Next</source>
         <translation>التالى</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="279"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="244"/>
         <source>Calculate</source>
         <translation>حساب</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="298"/>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="263"/>
         <source>Previous</source>
         <translation>سابق</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="59"/>
+        <location filename="../calculate_sdg.py" line="81"/>
         <source>Land Cover Setup</source>
         <translation>إعداد الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="69"/>
+        <location filename="../calculate_sdg.py" line="91"/>
         <source>Define Effects of Land Cover Change</source>
         <translation>تحديد آثار تغيير الغطاء الأرضي</translation>
     </message>
@@ -1482,132 +1488,132 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateSummaryTableAdmin</name>
     <message>
-        <location filename="../calculate_sdg.py" line="619"/>
+        <location filename="../calculate_sdg.py" line="641"/>
         <source>Choose a filename for the output file</source>
         <translation>اختر اسم ملف لملف الإخراج</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="619"/>
+        <location filename="../calculate_sdg.py" line="641"/>
         <source>Filename (*.json)</source>
         <translation>اسم الملف (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="875"/>
+        <location filename="../calculate_sdg.py" line="897"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="641"/>
+        <location filename="../calculate_sdg.py" line="663"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="632"/>
+        <location filename="../calculate_sdg.py" line="654"/>
         <source>Choose a filename for the summary table</source>
         <translation>اختر اسم ملف لجدول الملخص</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="632"/>
+        <location filename="../calculate_sdg.py" line="654"/>
         <source>Summary table file (*.xlsx)</source>
         <translation>ملف جدول الملخص (* .xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="648"/>
+        <location filename="../calculate_sdg.py" line="670"/>
         <source>Choose an output file for the indicator layer.</source>
         <translation>اختيار ملف الإخراج لطبقة المؤشر.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="653"/>
+        <location filename="../calculate_sdg.py" line="675"/>
         <source>Choose an output file for the summary table.</source>
         <translation>اختر ملف الإخراج لجدول الملخص.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="674"/>
+        <location filename="../calculate_sdg.py" line="696"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>يجب إضافة طبقة مؤشر مسار الإنتاجية إلى الخريطة قبل أن تتمكن من استخدام أداة حساب SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="678"/>
+        <location filename="../calculate_sdg.py" line="700"/>
         <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>يجب إضافة طبقة مؤشر حالة الإنتاجية إلى الخريطة قبل أن تتمكن من استخدام أداة حساب SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="682"/>
+        <location filename="../calculate_sdg.py" line="704"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>يجب إضافة طبقة مؤشر أداء الإنتاجية إلى خريطتك قبل أن تتمكن من استخدام أداة حساب SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="688"/>
+        <location filename="../calculate_sdg.py" line="710"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>يجب إضافة طبقة مؤشر ديناميكيات إنتاجية الأرض إلى خريطتك قبل أن تتمكن من استخدام أداة حساب SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="693"/>
+        <location filename="../calculate_sdg.py" line="715"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>يجب إضافة طبقة مؤشر الغطاء الأرضي إلى خريطتك قبل أن تتمكن من استخدام أداة حساب SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="698"/>
+        <location filename="../calculate_sdg.py" line="720"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>يجب إضافة طبقة مؤشر الكربون العضوي للتربة إلى خريطتك قبل أن تتمكن من استخدام أداة حساب SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="706"/>
+        <location filename="../calculate_sdg.py" line="728"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة المسار.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="710"/>
+        <location filename="../calculate_sdg.py" line="732"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة الأداء.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="714"/>
+        <location filename="../calculate_sdg.py" line="736"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة الدولة.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="719"/>
+        <location filename="../calculate_sdg.py" line="741"/>
         <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة ديناميات إنتاجية الأرض.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="724"/>
+        <location filename="../calculate_sdg.py" line="746"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة الغطاء الأرضي.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="728"/>
+        <location filename="../calculate_sdg.py" line="750"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة الكربون العضوية في التربة.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="740"/>
+        <location filename="../calculate_sdg.py" line="762"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>لا تتطابق قرارات طبقة المسار وطبقة الحالة.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="744"/>
+        <location filename="../calculate_sdg.py" line="766"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>لا تتطابق قرارات طبقة المسار وطبقة الأداء.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="749"/>
+        <location filename="../calculate_sdg.py" line="771"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>تنسيق نظم طبقة المسار وطبقة الدولة لا تتطابق.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="753"/>
+        <location filename="../calculate_sdg.py" line="775"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>تنسيق نظم طبقة المسار وطبقة الأداء لا تتطابق.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="853"/>
+        <location filename="../calculate_sdg.py" line="875"/>
         <source>Error masking SDG 15.3.1 input layers.</source>
         <translation>خطأ في إخفاء طبقات إدخال SDG 15.3.1.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="875"/>
+        <location filename="../calculate_sdg.py" line="897"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
         <translation>خطأ في حساب جدول ملخص SDG 15.3.1.</translation>
     </message>
@@ -2147,20 +2153,20 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="79"/>
         <source>&lt;b&gt;Impervious Surface Index (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values reduce urban area)</source>
-        <translation>&lt;b&gt;مؤشر السطح منيع (0-100)&lt;/b&gt; &lt;br&gt; (القيم الأعلى تقلل من المناطق الحضرية)</translation>
+(lower values will include low density areas)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="112"/>
         <source>&lt;b&gt;Night Time Lights Index (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values reduce urban area)</source>
-        <translation>&lt;b&gt;مؤشر الأنوار ليلا (0-100)&lt;/b&gt; &lt;br&gt; (القيم الأعلى تقلل من المناطق الحضرية)</translation>
+(lower values will include low light areas)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="123"/>
         <source>&lt;b&gt;Water Frequency (0-100)&lt;/b&gt;&lt;br&gt;
-(higher values increase urban area)</source>
-        <translation>&lt;b&gt;تردد المياه (0-100)&lt;/b&gt; &lt;br&gt; (القيم الأعلى تزيد المساحة الحضرية)</translation>
+(lower values will include low frequency waters)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="168"/>
@@ -2233,6 +2239,16 @@ p, li { white-space: pre-wrap; }
         <source>Calculate</source>
         <translation>حساب</translation>
     </message>
+    <message>
+        <location filename="../calculate_urban.py" line="154"/>
+        <source>Error</source>
+        <translation>خطأ</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="154"/>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateUrbanSummaryTable</name>
@@ -2292,62 +2308,62 @@ p, li { white-space: pre-wrap; }
         <translation>ملف الإخراج لطبقة المؤشر</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="209"/>
+        <location filename="../calculate_urban.py" line="217"/>
         <source>Choose a filename for the output file</source>
         <translation>اختر اسم ملف لملف الإخراج</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="209"/>
+        <location filename="../calculate_urban.py" line="217"/>
         <source>Filename (*.json)</source>
         <translation>اسم الملف (* .json)</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="356"/>
+        <location filename="../calculate_urban.py" line="364"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="231"/>
+        <location filename="../calculate_urban.py" line="239"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="222"/>
+        <location filename="../calculate_urban.py" line="230"/>
         <source>Choose a filename for the summary table</source>
         <translation>اختر اسم ملف لجدول الملخص</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="222"/>
+        <location filename="../calculate_urban.py" line="230"/>
         <source>Summary table file (*.xlsx)</source>
         <translation>ملف جدول الملخص (* .xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="238"/>
+        <location filename="../calculate_urban.py" line="246"/>
         <source>Choose an output file for the indicator layer.</source>
         <translation>اختيار ملف الإخراج لطبقة المؤشر.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="243"/>
+        <location filename="../calculate_urban.py" line="251"/>
         <source>Choose an output file for the summary table.</source>
         <translation>اختر ملف الإخراج لجدول الملخص.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="257"/>
+        <location filename="../calculate_urban.py" line="265"/>
         <source>You must add an urban series layer to your map before you can use the urban change summary tool.</source>
         <translation>يجب إضافة طبقة سلسلة حضرية إلى الخريطة قبل أن تتمكن من استخدام أداة ملخص التغيير الحضري.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="264"/>
+        <location filename="../calculate_urban.py" line="272"/>
         <source>Area of interest is not entirely within the urban series layer.</source>
         <translation>مجال الاهتمام ليس بالكامل داخل طبقة السلسلة الحضرية.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="344"/>
+        <location filename="../calculate_urban.py" line="352"/>
         <source>Error masking urban change input layers.</source>
         <translation>خطأ في إخفاء طبقات إدخال التغيير الحضري.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="356"/>
+        <location filename="../calculate_urban.py" line="364"/>
         <source>Error calculating urban change summary table.</source>
         <translation>خطأ في حساب جدول ملخص التغيير الحضري.</translation>
     </message>
@@ -2503,7 +2519,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2772,7 +2788,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2859,7 +2875,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -3556,7 +3572,7 @@ p, li { white-space: pre-wrap; }
         <translation>غير قادر على تسجيل الدخول إلى خادم LDMP. تحقق اسم المستخدم وكلمة المرور الخاصة بك.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="185"/>
+        <location filename="../calculate_urban.py" line="193"/>
         <source>Submitted</source>
         <translation>قدمت</translation>
     </message>
@@ -3711,17 +3727,17 @@ p, li { white-space: pre-wrap; }
         <translation>غير قادر على إرسال مهمة إنتاجية إلى Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="155"/>
+        <location filename="../calculate_sdg.py" line="177"/>
         <source>Initial and final year must be at least 10 years apart.</source>
         <translation>يجب أن تكون السنة الأولى والأخيرة على بعد 10 سنوات على الأقل.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="218"/>
+        <location filename="../calculate_sdg.py" line="240"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
         <translation>تم إرسال مهمة مؤشر SDG الفرعي إلى Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_sdg.py" line="222"/>
+        <location filename="../calculate_sdg.py" line="244"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
         <translation>يتعذر إرسال مهمة مؤشر SDG الفرعي إلى Google Earth Engine.</translation>
     </message>
@@ -3756,12 +3772,12 @@ p, li { white-space: pre-wrap; }
         <translation>غير قادر على إرسال مهمة الكربون الإجمالية إلى Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="185"/>
+        <location filename="../calculate_urban.py" line="193"/>
         <source>Urban area change calculation submitted to Google Earth Engine.</source>
         <translation>تم إرسال حساب تغيير المنطقة الحضرية إلى Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="189"/>
+        <location filename="../calculate_urban.py" line="197"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>غير قادر على إرسال مهمة المناطق الحضرية إلى Google Earth Engine.</translation>
     </message>

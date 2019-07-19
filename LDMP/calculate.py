@@ -16,7 +16,7 @@ import os
 import json
 import tempfile
 
-from osgeo import gdal, ogr
+from osgeo import gdal, ogr, osr
 
 from PyQt4 import QtGui
 from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
@@ -98,11 +98,6 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         return None
     else:
         return l_w
-
-
-#TODO: make this function better and vary with latitude
-def km_to_degrees(km, lat=0):
-    return km / 111.325 # 111.325km in one degree
 
 
 def get_ogr_geom_extent(geom):
@@ -283,6 +278,23 @@ class AOI(object):
         top = maxy - (maxy - gt[3]) % gt[5]
         return [left, bottom, right, top]
 
+    def get_area(self):
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(4326)
+        # Use world robinson as an approximation to calculate polygon area
+        target = osr.SpatialReference()
+        target.ImportFromEPSG(54030)
+        transform = osr.CoordinateTransformation(source, target)
+        # Returns area of aoi components in sq m
+        wkts = self.meridian_split(out_format='wkt', warn=False)[1]
+        area = 0.
+        for wkt in wkts:
+            geom = ogr.CreateGeometryFromWkt(wkt)
+            geom.Transform(transform)
+            this_area = geom.GetArea()
+            area += this_area
+        return area
+
     def get_layer(self):
         """
         Return layer
@@ -334,11 +346,19 @@ class AOI(object):
 
     def buffer(self, d):
         log('Buffering layer by {} km.'.format(d))
+        
+        wgs84_crs = QgsCoordinateReferenceSystem('epsg:4326')
+        robinson_crs = QgsCoordinateReferenceSystem('epsg:54030')
+        to_wgs84  = QgsCoordinateTransform(robinson_crs, wgs84_crs)
+        to_robinson = QgsCoordinateTransform(wgs84_crs, robinson_crs)
 
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
-            geom_buffered = geom.buffer(km_to_degrees(d), 100)
+            geom.transform(to_robinson)
+            # Need to convert from km to meters
+            geom_buffered = geom.buffer(d * 1000, 100)
+            geom_buffered.transform(to_wgs84)
             f.setGeometry(geom_buffered)
             feats.append(f)
 
@@ -891,10 +911,20 @@ class DlgCalculateBase(QtGui.QDialog):
             QtGui.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Unable to read area of interest."), None)
             return False
-        else:
-            if self.area_tab.groupBox_buffer.isChecked():
-                self.aoi.buffer(self.area_tab.buffer_size_km.value())
-            return True
+
+        if self.area_tab.groupBox_buffer.isChecked():
+            self.aoi.buffer(self.area_tab.buffer_size_km.value())
+
+        # Limit processing area to be no greater than 10^7 sq km if using a 
+        # custom shapefile
+        if not self.area_tab.area_fromadmin.isChecked():
+            aoi_area = self.aoi.get_area() / (1000 * 1000)
+            if aoi_area > 1e7:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
+                return False
+
+        return True
 
 
 class ClipWorker(AbstractWorker):

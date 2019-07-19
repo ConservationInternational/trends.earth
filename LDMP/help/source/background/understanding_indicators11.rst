@@ -187,7 +187,7 @@ The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:
 
 2. A table which summarizes the area calculations for the different spaces within the city space (urban, suburban, and the different classes of open space), and also the corresponding population numbers. In this table the SDG 11.3.1 will also be computed automatically, and a trend of the indicator over time will be provided.
 
-.. image:: /static/documentation/urban/summary_table_sdg11.PNG
+.. image:: /static/training/t12/summary_table_sdg11.PNG
    :align: center 
 
 `Figure 11: One of the final outputs of the SDG 11.3.1 analysis in |trends.earth| is a tabular outputs displaying the area, population and the indicator for SDG 11.3.1 for the city analyzed.`

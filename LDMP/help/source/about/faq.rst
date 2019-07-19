@@ -7,6 +7,10 @@ tool.
 General Questions
 _________________
 
+**Is there a user group I can share experiences with and learn from?**
+
+Yes, we recently created a `Google group for Trends.Earth users <https://groups.google.com/forum/#!forum/trendsearth>`_ so please join and participate! We aim for this group to be a forum for users to post questions about the tool, methods, and datasets in support of Sustainable Development Goals monitoring. The |trends.earth| team will monitor the group and answer questions as needed, but we'll get the most out of this community if users support each other by answering questions based on their unique background and experiences. The group will also be used for announcements on tool updates and capacity building efforts.
+
 **How do I find more information on the project?**
 
 More information on the toolbox can be found at `trends.earth 

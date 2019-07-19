@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-19 10:32-0400\n"
+"POT-Creation-Date: 2019-07-19 16:44-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,32 +36,32 @@ msgstr ""
 msgid "`Download this page as a PDF for offline use <../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:16
-msgid "For a detailed description on the concepts behind SDG 11.3.1, the data needs and a detailed description on how the data and analysis is handled in |trends.earth|, please refer to the background section: :ref:`indicator-11-3-1-background`."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:15
+msgid "For a description on the concepts behind SDG 11.3.1, the data needs and methods used in |trends.earth|, please refer to the background section: :ref:`indicator-11-3-1-background`."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:18
-msgid "https://github.com/ConservationInternational/trends.earth/releases/tag/0.64"
+msgid "On July 20th 2019 we launched an updated version of the ISI dataset. We recommend using the most current version. However, if you run any analysis of SDG 11.3.1 in |trends.earth| before that date and would like to replicate them, please use the previous plug in version available `here <https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_ and refer to this `website <https://github.com/ConservationInternational/trends.earth#development-version>`_ for instruction on how to install it."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:21
-msgid "Urban Mapper"
+msgid "Exploring the Urban Mapper"
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:22
-msgid "The first step before analyzing urban change is to define the extent of built up areas. For that, we have created an interactive web interface called `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. This step is fundamental to make sure that the built up area identified by the indicators accurately reflects the conditions in your area of study. The Urban Mapper tool in GEE allows users to explore how changing different parameters impact the extent of the built up area data which will be then used to define changes in urban extent."
+msgid "The first step before analyzing urban change is to define the extent of built up areas. For that, we have created an interactive web interface called `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. This step is fundamental to make sure that the built up area identified by the indicators accurately reflects the conditions in your area of study. The `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ allows users to explore how changing different parameters impact the extent of the built up area data which will be then used to define changes in urban extent."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:24
-msgid "Navigate to the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_.before you run the analysis in QGIS."
+msgid "Navigate to the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ before you run the analysis in QGIS."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:27
-msgid "This tool can be used to analyze changes in built up area in almost any city of the world. Click on the **Search Places** window in the top center of the page and type the city you want to analyze. In this example we'll type \"Kampala, Uganda\" and click on the option showing right underneath."
+msgid "This tool can be used to analyze changes in built up area in almost any city of the world. Click on the **Search Places** window in the top center of the page and type the city you want to analyze. For this tutorial, type **Kampala, Uganda** and click on the option showing right underneath."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:30
-msgid "This tool allows you to change three parameters in order to correctly identify the most appropriate built up extent for your city: Impervious surface index, night time lights index, and water frequency. The first time you run the tool in a new city, click **Run analysis** to see how the default parameters perform, and from there you can customize the analysis. To compare to satellite images, we can click on **Satellite** in the top right corner of the map window."
+msgid "This tool allows you to change three parameters in order to correctly identify the most appropriate built up extent for your city: **Impervious surface index, night time lights index, and water frequency**. The first time you run the tool in a new city, click **Run analysis** to see how the default parameters perform, and from there you can customize the analysis. You can use the high spatial resolution images in the background to evaluate the product."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:32
@@ -89,204 +89,191 @@ msgid "Now you should use your knowledge of the city to explore the data set. We
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:47
-msgid "We can easily identify large square boundaries in the built up area data set which do not seem to match the spatial pattern displayed by the background satellite image. That is a sign that the Night time light indicator is set too high (i.e. it is removing from our built-up area map zones with low levels of light which should be included). This is a common situation in suburban areas with low levels of light. If we want to include those areas, we need to lower the value of the NTLI. In this case we'll try changing it from 10 to 5, and click **Run Analysis** again (ISI: 30, NTL: 5, WFR: 25)."
+msgid "In this area, the data set seems to be missing some constructions, so we can adjust the ISI threshold to a lower value to include areas with lower density of impervious surface into our definition of built-up for Kampala. Let's **change the Impervious Surface Indicator threshold from 30 to 25 and click Run Analysis**"
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:52
-msgid "You can see now the effect of changing that parameter. Those areas previously excluded (i.e. showing no data) now display information on the map."
+msgid "This seems to have increased the built-up area in the direction we wanted, but we can now see some straight discontinuity lines in the outskirts of the city after which there is no information. This is a sign that the Night Time Lights threshold is being too restrictive. If we set the parameter to a lower value, we will allow the analysis to include areas with low night time light density. **Change the Night Time Light threshold from 10 to 2 and click Run Analysis.**"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:54
-msgid "If we consider that the overall extent of the built-up area shown in the map is correct, but that the density is too high, we can use the Impervious Surface Indicator to adjust it. If we increase the value of the ISI from 20 to 30, and click **Run analysis** a new layer will display showing overall lower levels of built-up. This happens because we are saying the tool \"only consider built-up areas which have a value of impervious surface indicator of 30 or higher\", so the higher we set this value to, the smaller the built-up area our map will display. The example we just run (ISI-30, NTLI-2, WF-25) would look something like this:"
+#: ../../source/training/tutorial_compute_urban_indicator.rst:57
+msgid "We can now see that the built up area information extends too all the area we were exploring. We can run the analysis as many times as we need. Each time we click **Run Analysis** a new layer will be added to the map. You can turns the different layers on and off or change the transparency of each of them in the **Layers Menu** on the top right section of the map."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:59
-msgid "If we want to include more area, we do the opposite, and lower the ISI value. For example, with ISI-10, NTLI-2, WF-25, the same region in Kampala would look:"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:64
-msgid "It is very important that you assess the impact of changing each of these parameters in your overall area of analysis (i.e. your city), since one set of parameters will be defined for the analysis. Scroll around, zoom in and out and change parameters until you feel you have found the set that better describes your city."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:66
-msgid "For example, the overall urban area in Kampala with ISI-10, NTLI-2, and WF-25 would look like this:"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:71
-msgid "The third and last parameter which you can change in the Urban Mapper to define the built up area is Water Frequency. In most cases this parameter won't affect the results, but in some cases it does. For example, in Dubai where some areas originally covered with water have been filled and constructed, the water frequency parameter can be used to capture them."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:62
+msgid "We recommend you spend some time exploring the effect of the different values in each parameter for your city, since your results will greatly depend on them. Make sure to navigate to different parts of the city to make sure the parameters work well in areas the high density areas close to downtown and also in moderate and low density areas. You can find below the spatial distribution of threshold parameters selected for the sample of 224 cities tested which may serve you as a guide for identifying which values may be most relevant for your city of interest. Once you feel like you have identified the best values for the city you want to analyze, you are ready to go to QGIS to run the analysis."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:73
-msgid "The water frequency parameter should be interpreted as follows: A pixel needs to be covered by water for at least X percent of the time for it to be considered water, otherwise it will be considered land\". This means that the higher the value, the less water the map will show and the more land (i.e. built up if that is the case)."
+msgid "Step 1: Built-up series"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:75
-msgid "In the Dubai example, we can see these features in the satellite image."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:80
-msgid "But we can't see them in the built-up area map using the following parameters: ISI-35, NTLI-5, and WF-25."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:85
-msgid "If we change the Water frequency parameter to 80, we can start seeing the recently built-up areas in the water (ISI-35, NTLI-5, WF-80)"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:90
-msgid "Once you have found the set of parameters which best work for your city, you are ready to run the analysis in QGIS."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:93
-msgid "Compute urban area change"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:94
-#: ../../source/training/tutorial_compute_urban_indicator.rst:192
+#: ../../source/training/tutorial_compute_urban_indicator.rst:74
 msgid "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:99
-#: ../../source/training/tutorial_compute_urban_indicator.rst:197
+#: ../../source/training/tutorial_compute_urban_indicator.rst:79
+#: ../../source/training/tutorial_compute_urban_indicator.rst:165
 msgid "The **Calculate Indicators** menu will open. In that window, click on **Urban change and land consumption indicators (SDG indicator 11.3.1)** button."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:104
+#: ../../source/training/tutorial_compute_urban_indicator.rst:84
 msgid "Select Step 1: Calculate urban change spatial layers"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:109
-msgid "The **Calculate Urban Area Change Metrics** menu will open. In that window, you will step through the four tabs to set the parameters for your analysis."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:89
+msgid "The **Calculate Urban Area Change Metrics** menu will open. In that window, you will step through the four tabs to set the parameters for your analysis. In the settings tab you will input the parameters you have determined as most appropriate for the city by exploring the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:111
-msgid "Before you begin filling out these settings, you will have to explore your area of interest using the interactive `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. This step is fundamental to make sure that the built up area identified by the indicators accurately reflects the conditions in your area of study."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:91
+msgid "Select the Impervious Surface Index (ISI) by choosing a value between 0-100. Lower values will include low density areas."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:113
-msgid "Note that in that up to know we have tested parameters in Uganda and Dubai, and from now on we'll run things in Nairobi, so make sure that you have used the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and identified the best set of parameters for your city before running."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:93
+msgid "Select the Night Time Lights Index (NTL) by choosing a value between 0-100. Lower values will include low light areas."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:115
-msgid "Settings"
+#: ../../source/training/tutorial_compute_urban_indicator.rst:95
+msgid "Select the Water Frequency (WFR) by choosing a value between 0-100. Lower values will include low frequency water bodies."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:117
-msgid "By default your window will be open on the Settings tab."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:100
+msgid "In this case, we will change them to: ISI = 25, NTL = 2, and WFR = 25 and click Next."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:119
-msgid "Select the Impervious Surface Index (ISI) by choosing a value between 0-100. The higher the value the smaller the urban area."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:105
+msgid "On the Advanced tab, you will need to define:"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:121
-msgid "Select the Night Time Lights Index (NTLI) by choosing a value between 0-100. The higher the value the smaller the urban area."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:123
-msgid "Select the Water Frequency (WF) by choosing a value between 0-100. The higher the value the larger the urban area."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:128
-msgid "Advanced"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:130
-msgid "Click Next from the Settings tab to view the Advanced tab. Here you will need to define:"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:132
+#: ../../source/training/tutorial_compute_urban_indicator.rst:107
 msgid "The thresholds for suburban and urban built up areas."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:134
+#: ../../source/training/tutorial_compute_urban_indicator.rst:109
 msgid "Define the area of largest captured open space (ha) which is the contiguous captured open space larger than this area that will be considered rural."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:136
+#: ../../source/training/tutorial_compute_urban_indicator.rst:111
 msgid "Select which population density dataset you would like to use for the analysis."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:141
-msgid "Click Next from the Advanced tab to view the Area tab. Here you will need to define the area for your analysis."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:116
+msgid "We'll use the default options for now, but you can change them to fit the needs of your analysis. Click Next."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:118
+msgid "On the Area tab you can select a country, region or city from the drop-down lists or upload an area from a file. If you select a city or upload a point location of a city, apply a buffer to the chosen area so that analysis encompasses all potential urban areas."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:120
+msgid "If you are using your own polygon for analysis, we recommend you do not use buffers, since that will affect the area of analysis and the final area calculation."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:126
+msgid "The provided boundaries are from `Natural Earth <http://www.naturalearthdata.com>`_, and are in the `public domain <https://creativecommons.org/publicdomain>`_. The boundaries and names  used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors. If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:128
+msgid "On the Options tab you have to assign a name the task and some notes on how you customized the parameters for your analysis for future reference."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:130
+msgid "When all the parameters have been defined, click \"Calculate\", and the task will be submitted to Google Earth Engine for computing."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:135
+msgid "The analysis for cities takes approximately 30 min to run, depending on the size of the area and the servers usage. To check the status of the task you can click on the Download button on the |trends.earth| tool-bar. When the windows open, click **Refresh list**."
 msgstr ""
 
 #: ../../source/training/tutorial_compute_urban_indicator.rst:143
-msgid "Area: You can select a country, region or city from the drop-down lists or upload an area from a file. If you select a city or upload a point location of a city, apply a buffer to the chosen area so that analysis encompasses all potential urban areas."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:145
-msgid "If you are using your own boundary shapefiile for analysis, we recommend you do not use buffers, since that will affect the area of analysis and the final area calculation."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:151
-msgid "The provided boundaries are from `Natural Earth <http://www.naturalearthdata.com>`_, and are in the `public domain <https://creativecommons.org/publicdomain>`_. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:158
-msgid "If using Trends.Earth for official purposes, it is recommended that users choose an official boundary provided by the designated office of their country."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:162
-msgid "Options: Name the task and some note on how you customized the parameters for your analysis for future reference."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:164
-msgid "When all the parameters have been defined, click \"Calculate\", and the task will be submitted to Google Earth Engine for computing. When the task is completed (processing time will vary depending on server usage, but for most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful completion."
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:170
-msgid "Download results"
-msgstr ""
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:175
 msgid "When the Google Earth Engine task has completed and you received the email, click \"Refresh List\" and the status will show FINISHED."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:180
-msgid "Click on the task and select \"Download results\" at the bottom of the window. A pop up window will open for you to select where to save the layer and to assign it a name."
+#: ../../source/training/tutorial_compute_urban_indicator.rst:148
+msgid "To download the results, click on the task and select \"Download results\" at the bottom of the window. A pop up window will open for you to select where to save the layer and to assign it a name."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:185
+#: ../../source/training/tutorial_compute_urban_indicator.rst:153
 msgid "Then click \"Save\". The layer will be saved on your computer and automatically loaded into your current QGIS project."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:191
-msgid "Compute urban area for 2000, 2005, 2010 and 2015"
+#: ../../source/training/tutorial_compute_urban_indicator.rst:159
+msgid "Step 2: Urban change"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:202
+#: ../../source/training/tutorial_compute_urban_indicator.rst:160
+msgid "You have now downloaded the detaset to your local computer, but we still need to estimate the change over time in order to compute the SDG indicator 11.3.1. For that, select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:170
 msgid "Select Step 2: Calculate urban change summary table for city."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:207
+#: ../../source/training/tutorial_compute_urban_indicator.rst:175
 msgid "Input: Load an existing .json file if it has not been populated within the dropdown automatically from your QGIS project."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:213
+#: ../../source/training/tutorial_compute_urban_indicator.rst:181
 msgid "Output: Select browse to navigate to a file on your computer and save the json file and excel table."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:218
+#: ../../source/training/tutorial_compute_urban_indicator.rst:186
 msgid "Area: Define the area for your analysis"
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:223
+#: ../../source/training/tutorial_compute_urban_indicator.rst:191
 msgid "Options: Enter a task name and notes for the analysis. This final step is calculated locally on your computer, it will load automatically in your QGIS project window."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:228
+#: ../../source/training/tutorial_compute_urban_indicator.rst:196
 msgid "View results: A window will appear when the processing is complete. Select **OK**."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:233
+#: ../../source/training/tutorial_compute_urban_indicator.rst:201
 msgid "After clicking OK, the four annual urban extent maps with their corresponding zoning will load into the QGIS project."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:238
+#: ../../source/training/tutorial_compute_urban_indicator.rst:204
+msgid "If you selected the buffer option for running the analysis, you may notice that the results do not seem to display a perfectly circular shape. We use planar coordinates to measure distance when computing the buffer, while displaying the results in geographic coordinates. This will cause an apparent distortion the further away your area is from the equator, but there is nothing to worry, the results are correct."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:209
 msgid "To explore the summary table, navigate to the folder in your computer where you saved the excel file and double click on it to open. If an error window appears, select the **Yes** and the summary will proceed to open."
 msgstr ""
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:246
+#: ../../source/training/tutorial_compute_urban_indicator.rst:220
 msgid "In this table you'll find the area of the different city land cover classes (urban, suburban, fringe open space, capture open space and water) and the rural areas. You'll also find the population for each of the years analyzed (2000, 2005, 2010, and 2015) and the final SDG 11.3.1."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:223
+msgid "In order to improve the Impervious Surface Index and the guidance we provide to users, it would be very useful for us to learn the parameters you selected for your city, and your assessment on how the tool performed by filling this `online form <https://docs.google.com/forms/d/e/1FAIpQLSdLRBzeQ5ZknHJKEtTTzd2VBo2lroPy2RLUSKFpfCyCBRqPKg/viewform>`_ it will not take you more than 30 seconds to fill, and it will help us improve the tool. Thanks!"
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:227
+msgid "Extra: Water frequency parameter"
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:229
+msgid "On this tutorial we did not explore the effect of the third parameter the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_. allow us to change, Water Frequency. This parameter will remain unchanged for most cities, but for those places in which capturing water dynamics is important for understanding how a city is changing, it will be very useful."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:231
+msgid "The water Frequency parameter should be interpreted as follows: A pixel needs to be covered by water for at least X percent of the time for it to be considered water, otherwise it will be considered land\". This means that the higher the value, the less water the map will show and the more land (i.e. built up if that is the case)."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:233
+msgid "To explore one of such cases, navigate to the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and let's go to **Dubai**."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:238
+msgid "One of the main feature we'll notice is a set of islands. However, when we click **Run Analysis**, the dataset seems to miss them"
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:243
+msgid "If we change the Water Frequency parameter from 25 to 80, we can start seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR = 80). But we are still missing some portions."
+msgstr ""
+
+#: ../../source/training/tutorial_compute_urban_indicator.rst:248
+msgid "In this case, it seems like portions of these newly constructed islands don't have much lights on them. So if we set the NTL threshold to a lower value (e.g. 5) we will capture them."
 msgstr ""
 

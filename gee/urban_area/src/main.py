@@ -103,9 +103,9 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
                                .where(urban_series.eq(11101), 1) \
                                .where(urban_series.eq(11110), 1) \
                                .where(urban_series.eq(11111), 1) \
-                               .where(urban_series.gte(100000).And(urban_sum.gte(3)),1) \
-                               .where(urban_series.gte(100000).And(urban_sum.lte(2)),0) \
-                               .where(water.gte(wat_thr), 5) \
+                               .where(urban_series.gte(100000).And(urban_sum.gte(3)), 1) \
+                               .where(urban_series.gte(100000).And(urban_sum.lte(2)), 0) \
+                               .where(water.gte(wat_thr), -1) \
                                .reproject(crs=proj, scale=30)
 
     ## define function to do zonation of cities

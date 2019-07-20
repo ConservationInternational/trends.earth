@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.65\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-18 17:11-0400\n"
+"POT-Creation-Date: 2019-07-19 16:44-0400\n"
 "PO-Revision-Date: 2018-03-14 19:31+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
@@ -38,10 +38,27 @@ msgid "General Questions"
 msgstr "Общие вопросы"
 
 #: ../../source/about/faq.rst:10
+msgid "**Is there a user group I can share experiences with and learn from?**"
+msgstr ""
+
+#: ../../source/about/faq.rst:12
+msgid ""
+"Yes, we recently created a `Google group for Trends.Earth users "
+"<https://groups.google.com/forum/#!forum/trendsearth>`_ so please join and "
+"participate! We aim for this group to be a forum for users to post questions"
+" about the tool, methods, and datasets in support of Sustainable Development"
+" Goals monitoring. The |trends.earth| team will monitor the group and answer"
+" questions as needed, but we'll get the most out of this community if users "
+"support each other by answering questions based on their unique background "
+"and experiences. The group will also be used for announcements on tool "
+"updates and capacity building efforts."
+msgstr ""
+
+#: ../../source/about/faq.rst:14
 msgid "**How do I find more information on the project?**"
 msgstr "** Как найти дополнительную информацию о проекте? **"
 
-#: ../../source/about/faq.rst:12
+#: ../../source/about/faq.rst:16
 msgid ""
 "More information on the toolbox can be found at `trends.earth "
 "<http://trends.earth>`_ and reports are available on the `Vital Signs "
@@ -57,11 +74,11 @@ msgstr ""
 "Distribution List <http://vitalsigns.org/gef-ldmp/email-distribution-list> "
 "`_, чтобы оставаться на связи с любым продвижение с перечнем проектов."
 
-#: ../../source/about/faq.rst:19
+#: ../../source/about/faq.rst:23
 msgid "**How can I provide feedback on the tool?**"
 msgstr "** Как я могу предоставить обратную связь по инструменту? **"
 
-#: ../../source/about/faq.rst:21
+#: ../../source/about/faq.rst:25
 msgid ""
 "There are three ways to give feedback, emailing the project team, visiting "
 "the project site and messaging through the anonymous form or rate the "
@@ -82,16 +99,16 @@ msgstr ""
 "количество звезд, которые вы хотели бы предоставить плагину, 5 звезд были "
 "очень довольны."
 
-#: ../../source/about/faq.rst:31
+#: ../../source/about/faq.rst:35
 msgid "Installation of Trends.Earth"
 msgstr ""
 
-#: ../../source/about/faq.rst:34
+#: ../../source/about/faq.rst:38
 msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"
 msgstr ""
 "** Какую версию Quantum GIS (QGIS) мне нужно для панели инструментов? **"
 
-#: ../../source/about/faq.rst:36
+#: ../../source/about/faq.rst:40
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of February 2018,"
 " version 3.0 was released. Please use version 2.18 for the trends.earth "
@@ -103,11 +120,11 @@ msgstr ""
 "2.18 для плагина trend.earth. Версия, совместимая с последней версией, будет"
 " выпущена в будущих итерациях проекта."
 
-#: ../../source/about/faq.rst:41
+#: ../../source/about/faq.rst:45
 msgid "**Do I need to download a 32-bit or 64 bit version of QGIS?**"
 msgstr "** Нужно ли загружать 32-битную или 64-разрядную версию QGIS? **"
 
-#: ../../source/about/faq.rst:43
+#: ../../source/about/faq.rst:47
 msgid ""
 "We recommend downloading 64-bit version (2.18), but you may need to download"
 " the 32-bit version for 32-bit operating systems. To find out if your "
@@ -124,11 +141,11 @@ msgstr ""
 "системы, например. Тип системы: 64-разрядная операционная система, процессор"
 " на базе процессоров x64."
 
-#: ../../source/about/faq.rst:50
+#: ../../source/about/faq.rst:54
 msgid "Windows 7 or Windows Vista:"
 msgstr "Windows 7 или Windows Vista:"
 
-#: ../../source/about/faq.rst:52
+#: ../../source/about/faq.rst:56
 msgid ""
 "Open System by clicking the Start button , right-clicking Computer, and then"
 " clicking Properties."
@@ -136,33 +153,33 @@ msgstr ""
 "Откройте систему, нажав кнопку «Пуск», щелкнув правой кнопкой мыши "
 "«Компьютер», а затем «Свойства»."
 
-#: ../../source/about/faq.rst:54
+#: ../../source/about/faq.rst:58
 msgid "Under System, you can view the system type."
 msgstr "В разделе «Система» вы можете просмотреть тип системы."
 
-#: ../../source/about/faq.rst:56
+#: ../../source/about/faq.rst:60
 msgid "Windows 8 or Windows 10:"
 msgstr "Windows 8 или Windows 10:"
 
-#: ../../source/about/faq.rst:58
+#: ../../source/about/faq.rst:62
 msgid "From the Start screen, type This PC."
 msgstr "На Начальном экране введите этот ПК."
 
-#: ../../source/about/faq.rst:59
+#: ../../source/about/faq.rst:63
 msgid "Right Click (or tap and hold) This PC, and click Properties."
 msgstr ""
 "Щелкните правой кнопкой мыши (или коснитесь и удерживайте) на этом ПК и "
 "нажмите «Свойства»."
 
-#: ../../source/about/faq.rst:61
+#: ../../source/about/faq.rst:65
 msgid "Mac:"
 msgstr "Mac:"
 
-#: ../../source/about/faq.rst:63
+#: ../../source/about/faq.rst:67
 msgid "Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr "Нажмите значок Apple в левом верхнем углу и выберите «Об этом Mac»."
 
-#: ../../source/about/faq.rst:64
+#: ../../source/about/faq.rst:68
 msgid ""
 "For more advanced details click \"More Info...\" in the About This Mac "
 "window."
@@ -170,11 +187,11 @@ msgstr ""
 "Для получения более подробной информации нажмите «Подробнее ...» в окне «Об "
 "этом Mac»."
 
-#: ../../source/about/faq.rst:66
+#: ../../source/about/faq.rst:70
 msgid "**How do I install the plugin?**"
 msgstr "** Как установить плагин? **"
 
-#: ../../source/about/faq.rst:68
+#: ../../source/about/faq.rst:72
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins available "
@@ -186,11 +203,11 @@ msgstr ""
 "плагины, доступные в QGIS. Найдите тренды и выберите Установить плагин в "
 "нижней части окна."
 
-#: ../../source/about/faq.rst:72
+#: ../../source/about/faq.rst:76
 msgid "**How do I upgrade the plugin?**"
 msgstr "** Как обновить плагин? **"
 
-#: ../../source/about/faq.rst:74
+#: ../../source/about/faq.rst:78
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu "
 "bar, and select Manage and install plugins. On the side menu, select "
@@ -204,15 +221,15 @@ msgstr ""
 " компьютере. В нижней части окна выберите «Обновить все», чтобы обновить "
 "панель инструментов до последней версии."
 
-#: ../../source/about/faq.rst:80
+#: ../../source/about/faq.rst:84
 msgid "Datasets"
 msgstr "Datasets"
 
-#: ../../source/about/faq.rst:82
+#: ../../source/about/faq.rst:86
 msgid "**When will you update datasets for the current year?**"
 msgstr "** Когда вы обновите наборы данных за текущий год? **"
 
-#: ../../source/about/faq.rst:84
+#: ../../source/about/faq.rst:88
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data providers"
@@ -224,11 +241,11 @@ msgstr ""
 "поставщики данных сделают их общедоступными. Если вы заметили какое-либо "
 "обновление, которое мы пропустили, сообщите нам об этом."
 
-#: ../../source/about/faq.rst:88
+#: ../../source/about/faq.rst:92
 msgid "**Is there an option to download the original data?**"
 msgstr "** Есть ли возможность загрузить исходные данные? **"
 
-#: ../../source/about/faq.rst:90
+#: ../../source/about/faq.rst:94
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
@@ -236,13 +253,13 @@ msgstr ""
 "Пользователи могут загружать исходные данные, используя параметр «Загрузить»"
 " в панели инструментов."
 
-#: ../../source/about/faq.rst:93
+#: ../../source/about/faq.rst:97
 msgid "**Will the toolbox support higher resolution datasets?**"
 msgstr ""
 "** Будет ли панель инструментов поддерживать наборы данных с более высоким "
 "разрешением? **"
 
-#: ../../source/about/faq.rst:95
+#: ../../source/about/faq.rst:99
 msgid ""
 "The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary"
 " productivity analysis, and ESA LCC CCI (300m) for land cover change "
@@ -252,13 +269,13 @@ msgstr ""
 "(250 м) для анализа первичной производительности и ESA LCC CCI (300 м) для "
 "анализа изменений земельного покрова."
 
-#: ../../source/about/faq.rst:98
+#: ../../source/about/faq.rst:102
 msgid "**Can the toolbox support analysis with national-level datasets?**"
 msgstr ""
 "** Может ли поддержка инструментария проводить анализ с наборами данных на "
 "национальном уровне? **"
 
-#: ../../source/about/faq.rst:100
+#: ../../source/about/faq.rst:104
 msgid ""
 "This is a common request from users, and one the team is working on. "
 "Trends.Earth will allow loading of national-level soil carbon and land cover"
@@ -273,15 +290,15 @@ msgstr ""
 "национальном уровне, чем глобальные наборы данных, которые являются "
 "значениями по умолчанию в инструменте."
 
-#: ../../source/about/faq.rst:107
+#: ../../source/about/faq.rst:111
 msgid "Methods"
 msgstr "методы"
 
-#: ../../source/about/faq.rst:109
+#: ../../source/about/faq.rst:113
 msgid "**Who was the default time period for the analysis determined?**"
 msgstr "** Кто определялся по умолчанию для анализа? **"
 
-#: ../../source/about/faq.rst:111
+#: ../../source/about/faq.rst:115
 msgid ""
 "The default time period of analysis is from years 2001 to 2015. These were "
 "recommended by the `Good Practice Guidelines "
@@ -297,16 +314,16 @@ msgstr ""
 "2015.3.1_Version% 201.0.pdf> `_., Документ, содержащий подробные "
 "рекомендации по измерению деградации земель и принятый КБОООН."
 
-#: ../../source/about/faq.rst:118
+#: ../../source/about/faq.rst:122
 msgid "Productivity"
 msgstr "производительность"
 
-#: ../../source/about/faq.rst:120
+#: ../../source/about/faq.rst:124
 msgid "**How does the result provided by state differs from trajectory?**"
 msgstr ""
 "** Как результат, предоставляемый государством, отличается от траектории? **"
 
-#: ../../source/about/faq.rst:122
+#: ../../source/about/faq.rst:126
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests to "
 "identify long term significant trends in primary productivity. This method "
@@ -323,11 +340,11 @@ msgstr ""
 "среднее значение с самым последним периодом, государство может фиксировать "
 "такие недавние изменения."
 
-#: ../../source/about/faq.rst:131
+#: ../../source/about/faq.rst:135
 msgid "Land cover"
 msgstr "Растительного покрова"
 
-#: ../../source/about/faq.rst:133
+#: ../../source/about/faq.rst:137
 msgid ""
 "**Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country level"
@@ -339,7 +356,7 @@ msgstr ""
 "учитывает характеристики на уровне стран. Можно ли разрешить пользователю "
 "определять критерии агрегации? **"
 
-#: ../../source/about/faq.rst:138
+#: ../../source/about/faq.rst:142
 msgid ""
 "Users are able to make these changes using the advanced settings in the land"
 " cover GUI so that appropriate aggregations occur depending on the context "
@@ -349,13 +366,13 @@ msgstr ""
 "GUI с обложками, чтобы соответствующие агрегации происходили в зависимости "
 "от контекста вашей страны."
 
-#: ../../source/about/faq.rst:142
+#: ../../source/about/faq.rst:146
 msgid "**How can we isolate woody plant encroachment within the toolbox?**"
 msgstr ""
 "** Как мы можем изолировать проникновение древесных растений в панель "
 "инструментов? **"
 
-#: ../../source/about/faq.rst:144
+#: ../../source/about/faq.rst:148
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. For "
 "every transition, the user can mark the change as stable, improvement or "
@@ -369,11 +386,11 @@ msgstr ""
 "пастбищных угодий к кустарнику может указывать на проникновение древесины и "
 "этот переход можно отметить как показатель деградации."
 
-#: ../../source/about/faq.rst:151
+#: ../../source/about/faq.rst:155
 msgid "Carbon stocks"
 msgstr "Запасы углерода"
 
-#: ../../source/about/faq.rst:153
+#: ../../source/about/faq.rst:157
 msgid ""
 "**Why use soil organic carbon (SOC) instead of above and below-ground carbon"
 " to measure carbon stocks?**"
@@ -381,7 +398,7 @@ msgstr ""
 "** Зачем использовать почвенный органический углерод (SOC) вместо надземного"
 " и подземного углерода для измерения запасов углерода? **"
 
-#: ../../source/about/faq.rst:156
+#: ../../source/about/faq.rst:160
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include above "
 "and below ground biomass. However, given the lack of consistently generated "
@@ -403,7 +420,7 @@ msgstr ""
 " ``, опубликованный UNCCD, рекомендует в настоящее время использовать SOC в "
 "качестве прокси."
 
-#: ../../source/about/faq.rst:164
+#: ../../source/about/faq.rst:168
 msgid ""
 "**Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?**"
@@ -411,7 +428,7 @@ msgstr ""
 "** Можно ли измерить процессы деградации, связанные с засолением, используя "
 "этот инструмент? **"
 
-#: ../../source/about/faq.rst:167
+#: ../../source/about/faq.rst:171
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity, "
 "that decrease would be identified by the productivity indicators, but the "
@@ -422,17 +439,17 @@ msgstr ""
 "пользователям придется использовать свои местные знания для определения "
 "причин."
 
-#: ../../source/about/faq.rst:172
+#: ../../source/about/faq.rst:176
 msgid "Land degradation outputs"
 msgstr "Результаты деградации земель"
 
-#: ../../source/about/faq.rst:174
+#: ../../source/about/faq.rst:178
 msgid ""
 "**How were the layers combined to define the final land degradation layer?**"
 msgstr ""
 "** Как слои объединялись для определения конечного слоя деградации почвы? **"
 
-#: ../../source/about/faq.rst:176
+#: ../../source/about/faq.rst:180
 msgid ""
 "Performance, state, and trajectory (the three indicators of change in "
 "productivity_) are combined following a modified version of the good "
@@ -452,7 +469,7 @@ msgstr ""
 "все». Другими словами: если есть снижение любого из трех индикаторов на "
 "определенном пикселе, тогда этот пиксель отображается как «деградированный»."
 
-#: ../../source/about/faq.rst:184
+#: ../../source/about/faq.rst:188
 msgid ""
 "**Why do I see areas improving (in green) or degrading (in red) after the "
 "final analysis when I know they are not?**"
@@ -460,7 +477,7 @@ msgstr ""
 "** Почему после окончательного анализа я вижу области, улучшающие (зеленые) "
 "или ухудшающиеся (красным), когда я знаю, что они не являются? **"
 
-#: ../../source/about/faq.rst:187
+#: ../../source/about/faq.rst:191
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -491,7 +508,7 @@ msgstr ""
 "во всех масштабах и географических регионах. В ближайшее время будет "
 "добавлена ​​возможность использования локальных данных."
 
-#: ../../source/about/faq.rst:200
+#: ../../source/about/faq.rst:204
 msgid ""
 "**All of the sub-indicators are measuring vegetation using three different "
 "methods: how does this contribute to understanding and identifying land "
@@ -500,7 +517,7 @@ msgstr ""
 "** Все под-индикаторы измеряют растительность, используя три разных метода: "
 "как это способствует пониманию и выявлению деградации земель? **"
 
-#: ../../source/about/faq.rst:204
+#: ../../source/about/faq.rst:208
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good proxy "
 "for their overall functioning and health. The three subindicators used for "
@@ -534,11 +551,11 @@ msgstr ""
 "консенсус в отношении того, что этот момент во времени и во всем мире "
 "является наилучшим подходом."
 
-#: ../../source/about/faq.rst:219
+#: ../../source/about/faq.rst:223
 msgid "Workshops"
 msgstr "Мастерские"
 
-#: ../../source/about/faq.rst:221
+#: ../../source/about/faq.rst:225
 msgid ""
 "**Will the project offer future training opportunities so users can "
 "continues working with the tool?**"
@@ -546,7 +563,7 @@ msgstr ""
 "** Будет ли проект предлагать будущие возможности обучения, чтобы "
 "пользователи могли продолжать работать с инструментом? **"
 
-#: ../../source/about/faq.rst:223
+#: ../../source/about/faq.rst:227
 msgid ""
 "The project is working with the UNCCD to support their work training users "
 "on monitoring and reporting in support of countries’ national-level "
@@ -567,15 +584,15 @@ msgstr ""
 "рассматривает потенциальные источники финансирования для дальнейшей "
 "деятельности по укреплению потенциала в Восточной Африке."
 
-#: ../../source/about/faq.rst:233
+#: ../../source/about/faq.rst:237
 msgid "Future plans"
 msgstr "Планы на будущее"
 
-#: ../../source/about/faq.rst:235
+#: ../../source/about/faq.rst:239
 msgid "**When will there be an offline version of the toolbox?**"
 msgstr "** Когда появится автономная версия панели инструментов? **"
 
-#: ../../source/about/faq.rst:237
+#: ../../source/about/faq.rst:241
 msgid ""
 "The final toolbox will be available as both as an offline and online "
 "version. The online version allows users to access current datasets more "
@@ -599,12 +616,12 @@ msgstr ""
 "предоставить странам данные, имеющие отношение к отчетности на национальном "
 "уровне в странах-пилотных проектах."
 
-#: ../../source/about/faq.rst:247
+#: ../../source/about/faq.rst:251
 msgid "**Will you create a trends.earth toolbox for ESRI users?**"
 msgstr ""
 "** Создаете ли вы панель инструментов trend.earth для пользователей ESRI? **"
 
-#: ../../source/about/faq.rst:249
+#: ../../source/about/faq.rst:253
 msgid ""
 "The toolbox is currently available as a plugin to QGIS, an open source "
 "software package. This allows users around the world free access to the "

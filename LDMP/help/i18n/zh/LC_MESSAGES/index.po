@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-07-22 11:17-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -112,52 +112,61 @@ msgstr ""
 
 #: ../../source/index.rst:63
 msgid ""
+"`Join the Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
+"the community of |trends.earth| users. This is a great place to discuss any "
+"questions you might have about |trends.earth|, or about monitoring land "
+"change."
+msgstr ""
+
+#: ../../source/index.rst:68
+msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
 msgstr "文档和培训材料，包括一些演示视频，可在此网站上获得："
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:71
 msgid ":ref:`about-docs`"
 msgstr "：REF：`约-docs`"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:72
 msgid ":ref:`background-docs`"
 msgstr "：REF：`背景docs`"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:73
 msgid ":ref:`user-docs`"
 msgstr "：REF：`用户docs`"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:74
 msgid ":ref:`training`"
 msgstr "：REF：`training`"
 
-#: ../../source/index.rst:70
+#: ../../source/index.rst:75
 msgid ":ref:`videos`"
 msgstr "：REF：`videos`"
 
-#: ../../source/index.rst:72
+#: ../../source/index.rst:77
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr "`将此文档下载为PDF以供离线使用<pdfs/Trends.Earth.pdf> `_"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:86
 msgid "About"
 msgstr "关于"
 
-#: ../../source/index.rst:97
+#: ../../source/index.rst:102
 msgid "Background information"
 msgstr "背景信息"
 
-#: ../../source/index.rst:112
+#: ../../source/index.rst:118
 msgid "Documentation"
 msgstr "文档"
 
-#: ../../source/index.rst:131
+#: ../../source/index.rst:137
 msgid "Step-by-step Guides"
 msgstr "循序渐进的指南"
 
-#: ../../source/index.rst:153
+#: ../../source/index.rst:159
 msgid "Videos"
 msgstr "影片"

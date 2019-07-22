@@ -3,14 +3,18 @@
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.59\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-22 12:16-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"POT-Creation-Date: 2019-07-22 11:17-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,54 +113,63 @@ msgstr ""
 
 #: ../../source/index.rst:63
 msgid ""
+"`Join the Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
+"the community of |trends.earth| users. This is a great place to discuss any "
+"questions you might have about |trends.earth|, or about monitoring land "
+"change."
+msgstr ""
+
+#: ../../source/index.rst:68
+msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
 msgstr ""
 "Документация и учебные материалы, включая несколько демонстрационных "
 "видеороликов, доступны на этом веб-сайте:"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:71
 msgid ":ref:`about-docs`"
 msgstr ": Ссылка: `о-docs`"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:72
 msgid ":ref:`background-docs`"
 msgstr ": Ссылка: `фон-docs`"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:73
 msgid ":ref:`user-docs`"
 msgstr ": Ссылка: `пользователь-docs`"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:74
 msgid ":ref:`training`"
 msgstr ": Ссылка: `training`"
 
-#: ../../source/index.rst:70
+#: ../../source/index.rst:75
 msgid ":ref:`videos`"
 msgstr ""
 
-#: ../../source/index.rst:72
+#: ../../source/index.rst:77
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr ""
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:86
 msgid "About"
 msgstr "Около"
 
-#: ../../source/index.rst:96
+#: ../../source/index.rst:102
 msgid "Background information"
 msgstr "Исходная информация"
 
-#: ../../source/index.rst:110
+#: ../../source/index.rst:118
 msgid "Documentation"
 msgstr ""
 
-#: ../../source/index.rst:129
+#: ../../source/index.rst:137
 msgid "Step-by-step Guides"
 msgstr ""
 
-#: ../../source/index.rst:150
+#: ../../source/index.rst:159
 msgid "Videos"
 msgstr ""

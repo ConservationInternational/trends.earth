@@ -20,6 +20,18 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 
 repository=https://github.com/ConservationInternational/trends.earth
 
+# Tags are comma separated with spaces allowed
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
+
+homepage=http://trends.earth
+category=Plugins
+icon=trends_earth_logo_square_32x32.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
 # Uncomment the following line and add your changelog:
 changelog=0.66
     - Limit maximum area for tasks to 10,000,000 sq km, except for urban area 
@@ -141,15 +153,3 @@ changelog=0.66
       from CCI data.
   0.36
     - Fix issue with showEvent on create map reporting tool.
-
-# Tags are comma separated with spaces allowed
-tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
-
-homepage=http://trends.earth
-category=Plugins
-icon=trends_earth_logo_square_32x32.png
-# experimental flag
-experimental=False
-
-# deprecated flag (applies to the whole plugin, not just a single version)
-deprecated=False

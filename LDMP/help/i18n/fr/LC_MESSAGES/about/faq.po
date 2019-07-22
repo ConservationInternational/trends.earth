@@ -7,6 +7,7 @@
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Monica Noon <mnoon@conservation.org>, 2018
 # Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-19 16:44-0400\n"
 "PO-Revision-Date: 2018-03-14 19:31+0000\n"
-"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +43,8 @@ msgstr "Questions générales"
 #: ../../source/about/faq.rst:10
 msgid "**Is there a user group I can share experiences with and learn from?**"
 msgstr ""
+"** Y a-t-il un groupe d&#39;utilisateurs avec lequel je peux partager des "
+"expériences et apprendre? **"
 
 #: ../../source/about/faq.rst:12
 msgid ""
@@ -55,6 +58,17 @@ msgid ""
 "and experiences. The group will also be used for announcements on tool "
 "updates and capacity building efforts."
 msgstr ""
+"Oui, nous avons récemment créé un groupe Google pour les utilisateurs de "
+"Trends.Earth. <https://groups.google.com/forum/#!forum/trendsearth> `_ alors"
+" s&#39;il vous plaît rejoindre et participer! Nous souhaitons que ce groupe "
+"soit un forum permettant aux utilisateurs de poser des questions sur "
+"l&#39;outil, les méthodes et les jeux de données à l&#39;appui du suivi des "
+"objectifs de développement durable. Le | trends.earth | L’équipe surveillera"
+" le groupe et répondra aux questions au besoin, mais nous tirerons le "
+"meilleur parti de cette communauté si les utilisateurs se soutiennent en "
+"répondant aux questions en fonction de leurs antécédents et de leurs "
+"expériences uniques. Le groupe sera également utilisé pour des annonces sur "
+"les mises à jour d&#39;outils et les efforts de renforcement des capacités."
 
 #: ../../source/about/faq.rst:14
 msgid "**How do I find more information on the project?**"
@@ -104,7 +118,7 @@ msgstr ""
 
 #: ../../source/about/faq.rst:35
 msgid "Installation of Trends.Earth"
-msgstr ""
+msgstr "Installation de Trends.Earth"
 
 #: ../../source/about/faq.rst:38
 msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"

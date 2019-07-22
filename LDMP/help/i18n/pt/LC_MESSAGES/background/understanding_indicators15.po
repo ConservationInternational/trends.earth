@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.65\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-18 17:11-0400\n"
+"POT-Creation-Date: 2019-07-19 10:32-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -23,13 +23,15 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators15.rst:4
 msgid "SDG Indicator 15.3.1"
-msgstr ""
+msgstr "Indicador SDG 15.3.1"
 
 #: ../../source/background/understanding_indicators15.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
 msgstr ""
+"Como parte da &quot;Agenda 2030 para o Desenvolvimento Sustentável&quot;, o "
+"Objetivo de Desenvolvimento Sustentável (ODS) 15 é:"
 
 #: ../../source/background/understanding_indicators15.rst:9
 msgid ""
@@ -37,12 +39,18 @@ msgid ""
 "sustainably manage forests, combat desertification, and halt and reverse "
 "land degradation and halt biodiversity loss\""
 msgstr ""
+"&quot;Proteger, restaurar e promover o uso sustentável de ecossistemas "
+"terrestres, manejar florestas de forma sustentável, combater a "
+"desertificação e deter e reverter a degradação da terra e deter a perda de "
+"biodiversidade&quot;"
 
 #: ../../source/background/understanding_indicators15.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
 msgstr ""
+"Cada ODS tem metas específicas que abordam diferentes componentes, neste "
+"caso, da vida em terra. A meta 15.3 visa:"
 
 #: ../../source/background/understanding_indicators15.rst:16
 msgid ""
@@ -50,6 +58,10 @@ msgid ""
 " land affected by desertification, drought and floods, and strive to achieve"
 " a land degradation-neutral world\""
 msgstr ""
+"&quot;Até 2030, combater a desertificação, restaurar terras e solos "
+"degradados, incluindo terras afectadas pela desertificação, secas e "
+"inundações, e esforçar-se por alcançar um mundo neutro em termos de "
+"degradação da terra&quot;"
 
 #: ../../source/background/understanding_indicators15.rst:20
 msgid ""
@@ -57,10 +69,15 @@ msgid ""
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
 "will be assessed using indicator 15.3.1:"
 msgstr ""
+"Os indicadores serão utilizados para avaliar o progresso de cada meta dos "
+"ODS. No caso do ODS 15.3, o progresso em direção a um mundo neutro de "
+"degradação da terra será avaliado usando o indicador 15.3.1:"
 
 #: ../../source/background/understanding_indicators15.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
 msgstr ""
+"&quot;proporção de terra que é degradada em cima de área de terra "
+"total&quot;"
 
 #: ../../source/background/understanding_indicators15.rst:26
 msgid ""
@@ -89,10 +106,12 @@ msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
 msgstr ""
+"Para avaliar a área degradada, o Indicador 15.3.1 do SDG usa informações de "
+"três subindicadores:"
 
 #: ../../source/background/understanding_indicators15.rst:37
 msgid "Vegetation productivity"
-msgstr ""
+msgstr "Produtividade de vegetação"
 
 #: ../../source/background/understanding_indicators15.rst:38
 #: ../../source/background/understanding_indicators15.rst:265
@@ -119,7 +138,7 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators15.rst:50
 msgid "Sub-indicators"
-msgstr ""
+msgstr "Sub-indicadores"
 
 #: ../../source/background/understanding_indicators15.rst:55
 msgid "Productivity"
@@ -176,7 +195,7 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators15.rst:83
 msgid "Productivity Trajectory"
-msgstr ""
+msgstr "Trajetória de Produtividade"
 
 #: ../../source/background/understanding_indicators15.rst:85
 msgid ""
@@ -201,7 +220,7 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators15.rst:100
 msgid "Correcting for the effects of climate"
-msgstr ""
+msgstr "Corrigindo os efeitos do clima"
 
 #: ../../source/background/understanding_indicators15.rst:102
 msgid ""
@@ -215,6 +234,16 @@ msgid ""
 "trends could be identified as human caused land degradation, when they are "
 "driven by regional patterns of changes in water availability."
 msgstr ""
+"Dentro de um determinado ecossistema, a produtividade primária é afetada por"
+" vários fatores, como a temperatura e a disponibilidade de luz, nutrientes e"
+" água. Destes, a disponibilidade de água é a mais variável ao longo do "
+"tempo, e pode ter influências muito significativas na quantidade de tecido "
+"vegetal produzido a cada ano. Quando as integrais anuais do NDVI são usadas "
+"para realizar a análise de trajetória, é importante interpretar os "
+"resultados com informações históricas de precipitação como um contexto. Caso"
+" contrário, as tendências de produtividade em declínio poderiam ser "
+"identificadas como a degradação do solo causada pelo homem, quando elas são "
+"impulsionadas por padrões regionais de mudanças na disponibilidade de água."
 
 #: ../../source/background/understanding_indicators15.rst:112
 msgid ""
@@ -328,12 +357,17 @@ msgid ""
 "in primary productivity as compared to a baseline period. The indicator is "
 "computed as follows:"
 msgstr ""
+"O indicador do Estado de Produtividade permite a detecção de alterações "
+"recentes na produtividade primária em comparação com um período de "
+"referência. O indicador é calculado da seguinte forma:"
 
 #: ../../source/background/understanding_indicators15.rst:167
 msgid ""
 "Define the baseline period (historical period to which to compare recent "
 "primary productivity)."
 msgstr ""
+"Defina o período de linha de base (período histórico ao qual comparar a "
+"produtividade primária recente)."
 
 #: ../../source/background/understanding_indicators15.rst:170
 msgid ""
@@ -341,6 +375,9 @@ msgid ""
 "is recommended to use a 3-year to avoid annual fluctuations related to "
 "climate."
 msgstr ""
+"Defina o período de comparação (últimos anos usados para calcular a "
+"comparação). Recomenda-se usar um período de 3 anos para evitar flutuações "
+"anuais relacionadas ao clima."
 
 #: ../../source/background/understanding_indicators15.rst:174
 msgid ""
@@ -350,6 +387,12 @@ msgid ""
 "expanded frequency distribution curve is then used to define the cut-off "
 "values of the 10 percentile classes."
 msgstr ""
+"Para cada pixel, use as integrais anuais do NDVI para o período de linha de "
+"base para calcular uma distribuição de frequência. Caso o período de "
+"referência tenha perdido alguns valores extremos no NDVI, adicione 5% em "
+"ambos os extremos da distribuição. Essa curva de distribuição de frequência "
+"expandida é então usada para definir os valores de corte das classes de 10 "
+"percentis."
 
 #: ../../source/background/understanding_indicators15.rst:180
 msgid ""
@@ -358,6 +401,10 @@ msgid ""
 "number corresponding to that percentile class. Possible values range from 1 "
 "(lowest class) to 10 (highest class)."
 msgstr ""
+"Calcule o NDVI médio para o período da linha de base e determine a classe "
+"percentual a que pertence. Atribuir ao NDVI médio para o período de "
+"referência o número correspondente a essa classe de percentil. Os valores "
+"possíveis variam de 1 (classe mais baixa) a 10 (classe mais alta)."
 
 #: ../../source/background/understanding_indicators15.rst:185
 msgid ""
@@ -366,12 +413,18 @@ msgid ""
 "period the number corresponding to that percentile class. Possible values "
 "range from 1 (lowest class) to 10 (highest class)."
 msgstr ""
+"Calcule o NDVI médio para o período de comparação e determine a classe "
+"percentual a que pertence. Atribuir ao NDVI médio para o período de "
+"comparação o número correspondente a essa classe de percentis. Os valores "
+"possíveis variam de 1 (classe mais baixa) a 10 (classe mais alta)."
 
 #: ../../source/background/understanding_indicators15.rst:190
 msgid ""
 "Determine the difference in class number between the comparison and the "
 "baseline period (comparison minus baseline)."
 msgstr ""
+"Determine a diferença no número da classe entre a comparação e o período da "
+"linha de base (comparação menos a linha de base)."
 
 #: ../../source/background/understanding_indicators15.rst:193
 msgid ""
@@ -380,6 +433,10 @@ msgid ""
 "2, that pixel would indicate a recent improvement in terms of primary "
 "productivity. Pixels with small changes are considered stable."
 msgstr ""
+"Se a diferença na classe entre a linha de base e o período de comparação for"
+" ≤ 2, esse pixel poderá ser potencialmente degradado. Se a diferença for ≥ "
+"2, esse pixel indicará uma melhoria recente em termos de produtividade "
+"primária. Pixels com pequenas alterações são considerados estáveis."
 
 #: ../../source/background/understanding_indicators15.rst:201
 msgid ""
@@ -403,18 +460,30 @@ msgid ""
 "provided by ESA CCI at 300m resolution) to define this areas of analysis. "
 "The indicator is computed as follows:"
 msgstr ""
+"O indicador de Desempenho de Produtividade mede a produtividade local em "
+"relação a outros tipos de vegetação semelhantes em tipos de cobertura de "
+"terra semelhantes ou regiões bioclimáticas em toda a área de estudo. | "
+"trends.earth | usa a combinação única de unidades de solo (unidades de "
+"taxonomia do solo usando o sistema USDA fornecido por SoilGrids a 250m de "
+"resolução) e cobertura do solo (37 classes de cobertura terrestre fornecidas"
+" pela ESA CCI a 300m de resolução) para definir estas áreas de análise. O "
+"indicador é calculado da seguinte forma:"
 
 #: ../../source/background/understanding_indicators15.rst:220
 msgid ""
 "Define the analysis period, and use the time series of NDVI to compute mean "
 "the NDVI for each pixel."
 msgstr ""
+"Defina o período de análise e use a série temporal do NDVI para calcular o "
+"NDVI de cada pixel."
 
 #: ../../source/background/understanding_indicators15.rst:223
 msgid ""
 "Define similar ecologically similar units as the unique intersection of land"
 " cover and soil type."
 msgstr ""
+"Defina unidades semelhantes ecologicamente semelhantes à interseção única de"
+" cobertura da terra e tipo de solo."
 
 #: ../../source/background/understanding_indicators15.rst:226
 msgid ""
@@ -425,18 +494,28 @@ msgid ""
 "outliers). The value representing the 90th percentile will be considered the"
 " maximum productivity for that unit."
 msgstr ""
+"Para cada unidade, extraia todos os valores médios de NDVI computados no "
+"passo 1 e crie uma distribuição de frequência. A partir dessa distribuição, "
+"determine o valor que representa o 90º percentil (não recomendamos o uso do "
+"valor máximo absoluto de NDVI para evitar possíveis erros devido à presença "
+"de outliers). O valor que representa o 90º percentil será considerado a "
+"produtividade máxima para aquela unidade."
 
 #: ../../source/background/understanding_indicators15.rst:233
 msgid ""
 "Compute the ratio of mean NDVI and maximum productivity (in each case "
 "compare the mean observed value to the maximum for its corresponding unit)."
 msgstr ""
+"Calcule a razão média do NDVI e a produtividade máxima (em cada caso, "
+"compare o valor médio observado com o máximo para a unidade correspondente)."
 
 #: ../../source/background/understanding_indicators15.rst:236
 msgid ""
 "If observed mean NDVI is lower than 50% than the maximum productivity, that "
 "pixel is considered potentially degraded for this indicator."
 msgstr ""
+"Se o NDVI médio observado for inferior a 50% da produtividade máxima, esse "
+"pixel é considerado potencialmente degradado para este indicador."
 
 #: ../../source/background/understanding_indicators15.rst:242
 msgid ""
@@ -448,7 +527,7 @@ msgstr ""
 
 #: ../../source/background/understanding_indicators15.rst:251
 msgid "Combining Productivity Indicators"
-msgstr ""
+msgstr "Combinando Indicadores de Produtividade"
 
 #: ../../source/background/understanding_indicators15.rst:253
 msgid ""
@@ -458,6 +537,11 @@ msgid ""
 "information provided by State to inform the type of degradation occurring in"
 " the area."
 msgstr ""
+"Os três subindicadores de produtividade são então combinados conforme "
+"indicado nas tabelas abaixo. Para o relatório do SDG 15.3.1, o indicador de "
+"3 classes é obrigatório, mas | trends.earth | também produz uma classe 5 que"
+" aproveita as informações fornecidas pelo Estado para informar o tipo de "
+"degradação que ocorre na área."
 
 #: ../../source/background/understanding_indicators15.rst:267
 msgid ""
@@ -482,12 +566,18 @@ msgid ""
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
 "area, bare land and water)."
 msgstr ""
+"Reclassificar ambos os mapas de cobertura da terra para as 7 classes de "
+"cobertura da terra necessárias para reportar à UNCCD (floresta, pastagem, "
+"terra de cultivo, zona húmida, área artificial, terra nua e água)."
 
 #: ../../source/background/understanding_indicators15.rst:277
 msgid ""
 "Perform a land cover transition analysis to identify which pixels remained "
 "in the same land cover class, and which ones changed."
 msgstr ""
+"Realize uma análise de transição da cobertura da terra para identificar "
+"quais pixels permaneceram na mesma classe de cobertura territorial e quais "
+"mudaram."
 
 #: ../../source/background/understanding_indicators15.rst:280
 msgid ""
@@ -496,6 +586,10 @@ msgid ""
 "which transitions correspond to degradation (- sign), improvement (+ sign), "
 "or no change in terms of land condition (zero)."
 msgstr ""
+"Com base no seu conhecimento local das condições na área de estudo e da "
+"degradação da terra processada que ocorre lá, use a tabela abaixo para "
+"identificar quais transições correspondem à degradação (sinal), melhoria "
+"(sinal +) ou nenhuma mudança em termos de condição da terra (zero)."
 
 #: ../../source/background/understanding_indicators15.rst:288
 msgid ""
@@ -554,6 +648,11 @@ msgid ""
 "area, bare land and water). Ideally annual land cover maps are preferred, "
 "but at least land cover maps for the starting and end years are needed."
 msgstr ""
+"Reclassificar os mapas de cobertura da terra para as 7 classes de cobertura "
+"da terra necessárias para reportar à UNCCD (floresta, pastagem, terra "
+"cultivável, zona húmida, área artificial, terra nua e água). Idealmente, "
+"mapas de cobertura de terra anuais são preferidos, mas pelo menos mapas de "
+"cobertura de terra para os anos inicial e final são necessários."
 
 #: ../../source/background/understanding_indicators15.rst:322
 msgid ""
@@ -567,6 +666,17 @@ msgid ""
 "presented in the table below. Those coefficients represent the proportional "
 "in C stocks after 20 years of land cover change."
 msgstr ""
+"Para estimar as mudanças nos estoques de C para o período de relatório, os "
+"coeficientes de conversão C para mudanças no uso, gestão e entradas de terra"
+" são recomendados pelo IPCC e pelo UNCCD. No entanto, informações "
+"espacialmente explícitas sobre gerenciamento e entradas C não estão "
+"disponíveis para a maioria das regiões. Como tal, apenas o coeficiente de "
+"conversão do uso da terra pode ser aplicado para estimar as mudanças nos "
+"estoques de carbono (usando a cobertura da terra como uma proxy para o uso "
+"da terra). Os coeficientes utilizados foram o resultado de uma revisão da "
+"literatura realizada pela UNCCD e são apresentados na tabela abaixo. Esses "
+"coeficientes representam os estoques proporcionais em C após 20 anos de "
+"mudança da cobertura da terra."
 
 #: ../../source/background/understanding_indicators15.rst:335
 msgid ""
@@ -576,6 +686,11 @@ msgid ""
 "Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = "
 "0.48), and Tropical Montane (f = 0.64)."
 msgstr ""
+"As mudanças no SOC são melhor estudadas para as transições de cobertura da "
+"terra envolvendo agricultura e, por essa razão, há um conjunto diferente de "
+"coeficientes para cada uma das principais regiões climáticas globais: seca "
+"temperada (f = 0,80), úmida temperada (f = 0,69), Seco (f = 0,58), Tropical "
+"úmido (f = 0,48) e Tropical Montane (f = 0,64)."
 
 #: ../../source/background/understanding_indicators15.rst:341
 msgid ""
@@ -584,10 +699,14 @@ msgid ""
 "reporting period will be considered potentially degraded, and areas "
 "experiencing a gain of 10% or more as potentially improved."
 msgstr ""
+"Calcule a diferença relativa em SOC entre a linha de base e o período alvo, "
+"áreas que tiveram uma perda em SOC de 10% ou mais durante o período do "
+"relatório serão consideradas potencialmente degradadas e áreas que "
+"experimentarem um ganho de 10% ou mais como potencialmente melhoradas."
 
 #: ../../source/background/understanding_indicators15.rst:351
 msgid "Combining indicators"
-msgstr ""
+msgstr "Combinando indicadores"
 
 #: ../../source/background/understanding_indicators15.rst:353
 msgid ""
@@ -596,3 +715,7 @@ msgid ""
 "potentially degraded by any of the sub-indicators, then that area will be "
 "considered potentially degraded for reporting purposes."
 msgstr ""
+"A integração dos três subindicadores dos ODS 15.3.1 é feita seguindo a regra"
+" de uma única exceção, o que significa que se uma área foi identificada como"
+" potencialmente degradada por qualquer um dos subindicadores, então essa "
+"área será considerada potencialmente degradada para fins de relatório."

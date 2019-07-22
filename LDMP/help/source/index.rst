@@ -60,6 +60,11 @@ See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ or
 for further information, or `contact the Trends.Earth team
 <mailto:trends.earth@conservation.org>`_.
 
+`Join the Trends.Earth discussion group 
+<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to the 
+community of |trends.earth| users. This is a great place to discuss any 
+questions you might have about |trends.earth|, or about monitoring land change.
+
 The documentation and training materials, including a number of demonstration 
 videos, are available on this website:
 

@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-07-22 11:17-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -129,33 +129,47 @@ msgstr ""
 
 #: ../../source/index.rst:63
 msgid ""
+"`Join the Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
+"the community of |trends.earth| users. This is a great place to discuss any "
+"questions you might have about |trends.earth|, or about monitoring land "
+"change."
+msgstr ""
+"`Rejoignez le groupe de discussion Trends.Earth "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ se connecter à "
+"la communauté de |trends.earth| utilisateurs. C&#39;est un endroit idéal "
+"pour discuter de vos questions sur |trends.earth|, ou sur la surveillance du"
+" changement de terrain."
+
+#: ../../source/index.rst:68
+msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
 msgstr ""
 "La documentation et les supports de formation, y compris plusieurs vidéos de"
 " démonstration, sont disponibles sur ce site :"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:71
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:72
 msgid ":ref:`background-docs`"
 msgstr ":ref:`background-docs`"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:73
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:74
 msgid ":ref:`training`"
 msgstr ":ref:`training`"
 
-#: ../../source/index.rst:70
+#: ../../source/index.rst:75
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:72
+#: ../../source/index.rst:77
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
@@ -163,22 +177,22 @@ msgstr ""
 "`Télécharger cette documentation en format PDF pour une utilisation hors "
 "ligne <pdfs/Trends.Earth.pdf>`_"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:86
 msgid "About"
 msgstr "À propos"
 
-#: ../../source/index.rst:97
+#: ../../source/index.rst:102
 msgid "Background information"
 msgstr "Contexte"
 
-#: ../../source/index.rst:112
+#: ../../source/index.rst:118
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../../source/index.rst:131
+#: ../../source/index.rst:137
 msgid "Step-by-step Guides"
 msgstr "Guides étape par étape"
 
-#: ../../source/index.rst:153
+#: ../../source/index.rst:159
 msgid "Videos"
 msgstr "Vidéos"

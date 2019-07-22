@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-07-22 11:17-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -126,33 +126,47 @@ msgstr ""
 
 #: ../../source/index.rst:63
 msgid ""
+"`Join the Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
+"the community of |trends.earth| users. This is a great place to discuss any "
+"questions you might have about |trends.earth|, or about monitoring land "
+"change."
+msgstr ""
+"`Jiunge na Mwelekeo wa kikundi cha mkutano "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ kuungana na "
+"jamii ya |trends.earth| watumiaji. Hii ni nafasi nzuri ya kujadili maswali "
+"yoyote ambayo unaweza kuwa nayo kuhusu |trends.earth|, au kuhusu kufuatilia "
+"mabadiliko ya ardhi."
+
+#: ../../source/index.rst:68
+msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
 msgstr ""
 "Nyaraka na vifaa vya mafunzo, ikiwa ni pamoja na video kadhaa za maonyesho, "
 "zinapatikana kwenye tovuti hii:"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:71
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:67
+#: ../../source/index.rst:72
 msgid ":ref:`background-docs`"
 msgstr ": ref: `docs background '"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:73
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:74
 msgid ":ref:`training`"
 msgstr ": ref: `mafunzo`"
 
-#: ../../source/index.rst:70
+#: ../../source/index.rst:75
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:72
+#: ../../source/index.rst:77
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
@@ -160,22 +174,22 @@ msgstr ""
 "`Pakua nyaraka hizi kama PDF kwa matumizi ya nje ya mtandao <pdfs / "
 "Trends.Earth.pdf>` _"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:86
 msgid "About"
 msgstr "Kuhusu"
 
-#: ../../source/index.rst:97
+#: ../../source/index.rst:102
 msgid "Background information"
 msgstr "Maelezo ya asili"
 
-#: ../../source/index.rst:112
+#: ../../source/index.rst:118
 msgid "Documentation"
 msgstr "Nyaraka"
 
-#: ../../source/index.rst:131
+#: ../../source/index.rst:137
 msgid "Step-by-step Guides"
 msgstr "Viongozi vya hatua kwa hatua"
 
-#: ../../source/index.rst:153
+#: ../../source/index.rst:159
 msgid "Videos"
 msgstr "Video"

@@ -2,13 +2,13 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-19 10:32-0400\n"
+"POT-Creation-Date: 2019-07-22 11:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,105 +18,170 @@ msgstr ""
 
 #: ../../source/index.rst:2
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/index.rst:15
 msgid "`English <../en/index.html>`_"
-msgstr ""
+msgstr "`English <../en/index.html>`_"
 
 #: ../../source/index.rst:15
 msgid "`Español <../es/index.html>`_"
-msgstr ""
+msgstr "`Español <../es/index.html>`_"
 
 #: ../../source/index.rst:15
 msgid "`Francais <../fr/index.html>`_"
-msgstr ""
+msgstr "`Francais <../fr/index.html>`_"
 
 #: ../../source/index.rst:15
 msgid "`Swahili <../sw/index.html>`_"
-msgstr ""
+msgstr "`Swahili <../sw/index.html>`_"
 
 #: ../../source/index.rst:15
 msgid "`Português <../pt/index.html>`_"
-msgstr ""
+msgstr "`Português <../pt/index.html>`_"
 
 #: ../../source/index.rst:26
 msgid "**Monitor land change**"
-msgstr ""
+msgstr "**Monitor land change**"
 
 #: ../../source/index.rst:28
-msgid "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform from `Conservation International <http://www.conservation.org/trendsearth>`_ for monitoring land change using earth observations in an innovative desktop and cloud-based system."
+msgid ""
+"Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
+"platform from `Conservation International "
+"<http://www.conservation.org/trendsearth>`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
 msgstr ""
+"Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
+"platform from `Conservation International "
+"<http://www.conservation.org/trendsearth>`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
 
 #: ../../source/index.rst:33
 msgid "**Track achievement of the sustainable development goals**"
-msgstr ""
+msgstr "**Track achievement of the sustainable development goals**"
 
 #: ../../source/index.rst:35
-msgid "The three sub-indicators for monitoring achievement of Land Degradation Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported by |trends.earth|: productivity, land cover, and soil organic carbon.  The tool also supports countries in analyzing data to prepare for their reporting committments to the United Nations Convention to Combat Desertification (UNCCD)."
+msgid ""
+"The three sub-indicators for monitoring achievement of Land Degradation "
+"Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
+"supported by |trends.earth|: productivity, land cover, and soil organic "
+"carbon.  The tool also supports countries in analyzing data to prepare for "
+"their reporting committments to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 msgstr ""
+"The three sub-indicators for monitoring achievement of Land Degradation "
+"Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
+"supported by |trends.earth|: productivity, land cover, and soil organic "
+"carbon.  The tool also supports countries in analyzing data to prepare for "
+"their reporting committments to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 
 #: ../../source/index.rst:42
-msgid "Trends.Earth allows users to plot time series of key indicators of land change (including degradation and improvement), to produce maps and other graphics that can support monitoring and reporting, and to track the impact of sustainable land management or other projects."
+msgid ""
+"Trends.Earth allows users to plot time series of key indicators of land "
+"change (including degradation and improvement), to produce maps and other "
+"graphics that can support monitoring and reporting, and to track the impact "
+"of sustainable land management or other projects."
 msgstr ""
+"Trends.Earth allows users to plot time series of key indicators of land "
+"change (including degradation and improvement), to produce maps and other "
+"graphics that can support monitoring and reporting, and to track the impact "
+"of sustainable land management or other projects."
 
 #: ../../source/index.rst:47
-msgid "Trends.Earth was produced by a partnership of Conservation International, Lund University, and the National Aeronautics and Space Administration (NASA), with the support of the Global Environment Facility (GEF)."
+msgid ""
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF)."
 msgstr ""
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF)."
 
 #: ../../source/index.rst:56
 msgid "**More information**"
-msgstr ""
+msgstr "**More information**"
 
 #: ../../source/index.rst:58
-msgid "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ or `technical fact sheet <_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further information, or `contact the Trends.Earth team <mailto:trends.earth@conservation.org>`_."
+msgid ""
+"See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
+"or `technical fact sheet "
+"<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
+"information, or `contact the Trends.Earth team "
+"<mailto:trends.earth@conservation.org>`_."
 msgstr ""
+"See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
+"or `technical fact sheet "
+"<_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_ for further "
+"information, or `contact the Trends.Earth team "
+"<mailto:trends.earth@conservation.org>`_."
 
 #: ../../source/index.rst:63
-msgid "The documentation and training materials, including a number of demonstration videos, are available on this website:"
+msgid ""
+"`Join the Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
+"the community of |trends.earth| users. This is a great place to discuss any "
+"questions you might have about |trends.earth|, or about monitoring land "
+"change."
 msgstr ""
-
-#: ../../source/index.rst:66
-msgid ":ref:`about-docs`"
-msgstr ""
-
-#: ../../source/index.rst:67
-msgid ":ref:`background-docs`"
-msgstr ""
+"`Join the Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
+"the community of |trends.earth| users. This is a great place to discuss any "
+"questions you might have about |trends.earth|, or about monitoring land "
+"change."
 
 #: ../../source/index.rst:68
-msgid ":ref:`user-docs`"
+msgid ""
+"The documentation and training materials, including a number of "
+"demonstration videos, are available on this website:"
 msgstr ""
+"The documentation and training materials, including a number of "
+"demonstration videos, are available on this website:"
 
-#: ../../source/index.rst:69
-msgid ":ref:`training`"
-msgstr ""
-
-#: ../../source/index.rst:70
-msgid ":ref:`videos`"
-msgstr ""
+#: ../../source/index.rst:71
+msgid ":ref:`about-docs`"
+msgstr ":ref:`about-docs`"
 
 #: ../../source/index.rst:72
-msgid "`Download this documentation as a PDF for offline use <pdfs/Trends.Earth.pdf>`_"
-msgstr ""
+msgid ":ref:`background-docs`"
+msgstr ":ref:`background-docs`"
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:73
+msgid ":ref:`user-docs`"
+msgstr ":ref:`user-docs`"
+
+#: ../../source/index.rst:74
+msgid ":ref:`training`"
+msgstr ":ref:`training`"
+
+#: ../../source/index.rst:75
+msgid ":ref:`videos`"
+msgstr ":ref:`videos`"
+
+#: ../../source/index.rst:77
+msgid ""
+"`Download this documentation as a PDF for offline use "
+"<pdfs/Trends.Earth.pdf>`_"
+msgstr ""
+"`Download this documentation as a PDF for offline use "
+"<pdfs/Trends.Earth.pdf>`_"
+
+#: ../../source/index.rst:86
 msgid "About"
-msgstr ""
+msgstr "About"
 
-#: ../../source/index.rst:97
+#: ../../source/index.rst:102
 msgid "Background information"
-msgstr ""
+msgstr "Background information"
 
-#: ../../source/index.rst:113
+#: ../../source/index.rst:118
 msgid "Documentation"
-msgstr ""
+msgstr "Documentation"
 
-#: ../../source/index.rst:132
+#: ../../source/index.rst:137
 msgid "Step-by-step Guides"
-msgstr ""
+msgstr "Step-by-step Guides"
 
-#: ../../source/index.rst:154
+#: ../../source/index.rst:159
 msgid "Videos"
-msgstr ""
-
+msgstr "Videos"

@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.65\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-18 17:11-0400\n"
+"POT-Creation-Date: 2019-07-19 10:32-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:8
 msgid "**Estimated time of completion**: 35 minutes"
-msgstr ""
+msgstr "** Temps d&#39;exécution estimé **: 35 minutes"
 
 #: ../../source/training/tutorial_run_all_subindicators.rst:10
 msgid "**Internet access**: Required"

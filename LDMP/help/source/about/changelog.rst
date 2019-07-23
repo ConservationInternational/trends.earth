@@ -1,0 +1,240 @@
+Changelog
+======================
+
+This page lists the version history of |trends.earth|.
+
+`0.66 (July 20, 2019) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Limit maximum area for tasks to 10,000,000 sq km, except for urban area 
+      tasks, which is limited to 10,000 sq km.
+    - Add background section on SDG 11.3.1, and update SDG 11.3.1 tutorial.
+    - Update SDG 11.3.1 code to include 1998 in the series (internally during 
+      calculation) in order to filter noise from the beginning of the urban series.
+    - Fix date restrictions in SDG 15.3.1 all-in-one tool to account for both 
+      ESA and MODIS availability.
+    - Add section to readme on how to install Github releases.
+    - Update and review Spanish translations, update google translations for 
+      other languages.
+
+`0.64 (July 9, 2019) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix handling of nodata in total carbon tool.
+    - Add support for 2018 Hansen data in total carbon tool.
+    - Add support for global 30m biomass data from Wood's Hole in total carbon 
+    - Set maximum final year for one step SDG 15.3.1 tool to be 2015 (matching 
+      the ESA data).
+    - Make Trends.Earth productivity the default dataset in SDG one step tool 
+      for 15.3.1.
+
+`0.62 (January 27, 2019) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Add experimental tool for mapping potential carbon returns from 
+      alternative restoration interventions.
+    - Add 2018 MODIS data.
+    - Miscellaneous fixes to window sizing for GUI windows.
+    - Upgrade to latest openpyxl - fixes loading of Trends.Earth logo in 
+      summary tables.
+    - Add publication list to help docs.
+
+`0.60 (December 3, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Add calculation of change in urban area and population growth 
+      rate (SDG 11.3.1)
+    - Fix default button/entry field heights
+      Add city selection for AOI
+    - Add optional buffering of AOI
+
+`0.58 (August 11, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Add a testing section to the calculations page
+    - Add testing version of total carbon (above and below-ground) and 
+      emissions due to deforestation
+    - Minor bug fixes, including for invalid polygons in input AOIs
+
+`0.56.5 (May 21, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix error with LPD import requesting a data year.
+
+`0.56.4 (May 21, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Always resample imported data to the highest resolution.
+    - Fix custom SOC import climate zones to use an expanded climate zones 
+      dataset to eliminate no data.
+    - Update MOD16A2 with latest data.
+    - Force entry of date on SOC and LC data import
+    - Add global Trends.Earth outputs to download tool.
+    - Fix handling of NULL values in legends.
+
+`0.56.3 (April 21, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix calculation of summary tables for AOIs that are split across the 
+      180th meridian (Fiji, Russia, etc.).
+    - Modify state calculation so areas with very small magnitude changes in 
+      NDVI integral (< .01 NDVI units over full period) are considered stable.
+
+`0.56.2 (April 10, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Minor unicode fixes.
+
+`0.56.1 (April 10, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix marshhmallow error on plugin load
+
+`0.56 (April 9, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix issue with rasterizing data (empty rasters on output)
+    - Force user to choose output resolution if rasterizing a vector
+    - Support calculation of SOC degradation from custom SOC and LC data
+
+`0.54 (April 8, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Support loading of custom LPD, SOC, and LC data.
+    - Cleanup styles so they match maps.trends.earth
+    - Upgrade pyopenxl
+    - Add import/load icons to all layer selector boxes
+
+`0.52.1 (March 21, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Minor bug fixes during Antalya workshop.
+
+`0.52.1 (March 21, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Minor bug fixes during Antalya workshop.
+
+`0.52 (March 19, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Clean AOI processing code.
+
+`0.50 (March 15, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Pass exception if only related to Trends.Earth logo addition in Excel 
+      file.
+    - Various minor bug fixes.
+
+`0.48 (March 13, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix table formatting
+
+`0.46 (March 13, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Support reporting table calculation with multiple geometries (Fiji, Russia)
+    - Add LPD and LC tables to UNCCD worksheet tab
+    - Clean up the warning message in the LPD import tool
+    - Fix TE final combined productivity layer loading
+    - Fix download tasks (still no styles)
+
+`0.44 (March 12, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Add JRC LPD
+    - Add tool for uploading custom land cover data
+    - Add tool for uploading custom productivity data
+    - Add note that custom SOC upload is coming soon
+    - Add tool to add basemaps using Natural Earth data
+    - Add all-in-one tool for calculating all three sub-indicators at once
+    - Rename "Bare lands" class to "Other lands" for consistency with UNCCD
+    - Update docs
+    - Upgrade to marshmallow 3.0.0b7
+    - Move GEE code into the main trends.earth repository
+    - Improve handling of AOIs, particularly when shapefiles are used for input
+    - Handle multi-file outputs from GEE by tiling them in VRTs
+    - Support processing data for countries that cross the 180th meridian
+    - Improve formatting of summary table
+    - From now on, GEE script versions will be matched to the plugin version
+
+`0.42 (February 4, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix crash on change of LC aggregation (due setEnabled on removed label)
+
+`0.40 (February 4, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Remove use of mode for land cover indicator.
+    - Combine the summary table and SDG indicator map creation tools.
+    - Add stub for where JRC LPD product will be available.
+    - Save productivity sub-indicator as band 2 in SDG indicator file.
+    - Bump GEE script to v0.3.
+    - Fix error due to divide by zero on summary table generation when a class 
+      has zero area.
+    - Default to MODIS for productivity calculations.
+
+`0.38 (January 16, 2018) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Add annual soil organic carbon calculation
+    - Cleanup AOI processing code, allow multiple input polygons in shapefile 
+      AOIs
+    - Add shading to side of land cover aggregation table items
+    - Fix firstShow issue on aggregation table
+    - Revise summary table output to provide further information on each of the 
+      three indicators
+    - Add supplemental datasets to performance, state, land cover and soil 
+      organic carbon output.
+    - Update no data and masking values to consistently be -32768 (no data) and 
+      -32767 (masked data)
+    - Allow naming of file downloads
+    - Add icon to toolbar menu, fix plugin name.
+    - Refactor layer styling code to pull band info from GEE output.
+    - Add a tool to load existing trends.earth datasets into QGIS.
+    - Fix land cover date limits - don't allow invalid dates toi be selected 
+      from CCI data.
+
+`0.36 (December 14, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix issue with showEvent on create map reporting tool.
+
+`0.34 (December 14, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.32 (December 14, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.30 (December 12, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.24 (December 6, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.22 (December 4, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.18 (December 2, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.16 (November 6, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.14 (October 25, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+`0.12 (October 6, 2017) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_
+-----------------------------------------------------------------------------------------------------------------------------
+

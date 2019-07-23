@@ -614,7 +614,7 @@ def gettext(options):
     ('clean', 'c', 'clean out built artifacts first'),
     ('ignore_errors', 'i', 'ignore documentation errors'),
     ('language=', 'l', "which language to build (all are built by default)"),
-    ('fast', 'f', "only build english docs"),
+    ('fast', 'f', "only build english html docs"),
 ])
 def builddocs(options):
     if options.get('clean', False):
@@ -649,6 +649,9 @@ def builddocs(options):
             sh("sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}".format(sphinx_opts=SPHINX_OPTS,
                 builddir=options.sphinx.builddir, lang=language))
         print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=language, builddir=options.sphinx.builddir))
+
+        if options.get('fast', False):
+            break
 
         # Build PDF, by first making latex from sphinx, then pdf from that
         tex_dir = "{builddir}/latex/{lang}".format(builddir=options.sphinx.builddir, lang=language)

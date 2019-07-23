@@ -36,27 +36,27 @@ Now the map with the built up area defined by the default parameters will load i
 	- Orange: Built-up areas constructed between 2005 and 2010
 	- Yellow: Built-up areas constructed between 2010 and 2015
 
-.. image:: /static/training/t12/calc_urban_mapper1.PNG
+.. image:: /static/training/t12/calc_urban_mapper1.png
    :align: center
    
 4. Now you should use your knowledge of the city to explore the data set. We can, for example, zoom in to an area in western Kampala to see how the default parameters perform (ISI: 30, NTL: 10, WFR: 25):
 
-.. image:: /static/training/t12/calc_urban_mapper2.PNG
+.. image:: /static/training/t12/calc_urban_mapper2.png
    :align: center
  
 5. In this area, the data set seems to be missing some constructions, so we can adjust the ISI threshold to a lower value to include areas with lower density of impervious surface into our definition of built-up for Kampala. Let's **change the Impervious Surface Indicator threshold from 30 to 25 and click Run Analysis**
 
-.. image:: /static/training/t12/calc_urban_mapper3.PNG
+.. image:: /static/training/t12/calc_urban_mapper3.png
    :align: center
 
 6. This seems to have increased the built-up area in the direction we wanted, but we can now see some straight discontinuity lines in the outskirts of the city after which there is no information. This is a sign that the Night Time Lights threshold is being too restrictive. If we set the parameter to a lower value, we will allow the analysis to include areas with low night time light density. **Change the Night Time Light threshold from 10 to 2 and click Run Analysis.**
 
-.. image:: /static/training/t12/calc_urban_mapper4.PNG
+.. image:: /static/training/t12/calc_urban_mapper4.png
    :align: center
 
 7. We can now see that the built up area information extends too all the area we were exploring. We can run the analysis as many times as we need. Each time we click **Run Analysis** a new layer will be added to the map. You can turns the different layers on and off or change the transparency of each of them in the **Layers Menu** on the top right section of the map.
 
-.. image:: /static/training/t12/layers_menu.PNG
+.. image:: /static/training/t12/layers_menu.png
    :align: center
 
 8. We recommend you spend some time exploring the effect of the different values in each parameter for your city, since your results will greatly depend on them. Make sure to navigate to different parts of the city to make sure the parameters work well in areas the high density areas close to downtown and also in moderate and low density areas. You can find below the spatial distribution of threshold parameters selected for the sample of 224 cities tested which may serve you as a guide for identifying which values may be most relevant for your city of interest. Once you feel like you have identified the best values for the city you want to analyze, you are ready to go to QGIS to run the analysis.
@@ -78,12 +78,12 @@ Step 1: Built-up series
 
 2. The **Calculate Indicators** menu will open. In that window, click on **Urban change and land consumption indicators (SDG indicator 11.3.1)** button.
 
-.. image:: /static/training/t12/calc_indicators.PNG
+.. image:: /static/training/t12/calc_indicators.png
    :align: center
 
 3. Select Step 1: Calculate urban change spatial layers
 
-.. image:: /static/training/t12/calc_urban.PNG
+.. image:: /static/training/t12/calc_urban.png
    :align: center
 
 4. The **Calculate Urban Area Change Metrics** menu will open. In that window, you will step through the four tabs to set the parameters for your analysis. In the settings tab you will input the parameters you have determined as most appropriate for the city by exploring the `Trends.Earth Urban Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_.
@@ -94,12 +94,12 @@ B. Select the Night Time Lights Index (NTL) by choosing a value between 0-100. L
 
 C. Select the Water Frequency (WFR) by choosing a value between 0-100. Lower values will include low frequency water bodies.
 
-.. image:: /static/training/t12/calc_indicators_settings1.PNG
+.. image:: /static/training/t12/calc_indicators_settings1.png
    :align: center
 
 In this case, we will change them to: ISI = 25, NTL = 2, and WFR = 25 and click Next.
 
-.. image:: /static/training/t12/calc_indicators_settings2.PNG
+.. image:: /static/training/t12/calc_indicators_settings2.png
    :align: center
    
 6. On the Advanced tab, you will need to define:
@@ -110,7 +110,7 @@ B. Define the area of largest captured open space (ha) which is the contiguous c
 
 C. Select which population density dataset you would like to use for the analysis.
 
-.. image:: /static/training/t12/calc_indicators_advanced.PNG
+.. image:: /static/training/t12/calc_indicators_advanced.png
    :align: center
 
 We'll use the default options for now, but you can change them to fit the needs of your analysis. Click Next.
@@ -119,7 +119,7 @@ We'll use the default options for now, but you can change them to fit the needs 
 
 If you are using your own polygon for analysis, we recommend you do not use buffers, since that will affect the area of analysis and the final area calculation.
 
-.. image:: /static/training/t12/calc_indicators_area.PNG
+.. image:: /static/training/t12/calc_indicators_area.png
    :align: center
 
 .. note::
@@ -129,7 +129,7 @@ If you are using your own polygon for analysis, we recommend you do not use buff
 
 When all the parameters have been defined, click "Calculate", and the task will be submitted to Google Earth Engine for computing. 
 
-.. image:: /static/training/t12/calc_indicators_options.PNG
+.. image:: /static/training/t12/calc_indicators_options.png
    :align: center
 
 9. The analysis for cities takes approximately 30 min to run, depending on the size of the area and the servers usage. To check the status of the task you can click on the Download button on the |trends.earth| tool-bar. When the windows open, click **Refresh list**.
@@ -137,22 +137,22 @@ When all the parameters have been defined, click "Calculate", and the task will 
 .. image:: /static/common/ldmt_toolbar_highlight_tasks.png
    :align: center 
   
-.. image:: /static/training/t12/task_running.PNG
+.. image:: /static/training/t12/task_running.png
    :align: center
   
 When the Google Earth Engine task has completed and you received the email, click "Refresh List" and the status will show FINISHED.  
 
-.. image:: /static/training/t12/task_completed.PNG
+.. image:: /static/training/t12/task_completed.png
    :align: center
    
 10. To download the results, click on the task and select "Download results" at the bottom of the window. A pop up window will open for you to select where to save the layer and to assign it a name. 
 
-.. image:: /static/training/t12/save_json.PNG
+.. image:: /static/training/t12/save_json.png
    :align: center
    
 Then click "Save". The layer will be saved on your computer and automatically loaded into your current QGIS project.
 
-.. image:: /static/training/t12/urban_area_change.PNG
+.. image:: /static/training/t12/urban_area_change.png
    :align: center
 
 Step 2: Urban change
@@ -164,38 +164,38 @@ Step 2: Urban change
 
 2. The **Calculate Indicators** menu will open. In that window, click on **Urban change and land consumption indicators (SDG indicator 11.3.1)** button.
 
-.. image:: /static/training/t12/calc_indicators.PNG
+.. image:: /static/training/t12/calc_indicators.png
    :align: center
 
 3. Select Step 2: Calculate urban change summary table for city.
 
-.. image:: /static/training/t12/calc_urban2.PNG
+.. image:: /static/training/t12/calc_urban2.png
    :align: center
 
 4. Input: Load an existing .json file if it has not been populated within the dropdown automatically from your QGIS project.
 
-.. image:: /static/training/t12/summary_input.PNG
+.. image:: /static/training/t12/summary_input.png
    :align: center
 
 
 5. Output: Select browse to navigate to a file on your computer and save the json file and excel table.
 
-.. image:: /static/training/t12/summary_outputs.PNG
+.. image:: /static/training/t12/summary_outputs.png
    :align: center
 
 6. Area: Define the area for your analysis
 
-.. image:: /static/training/t12/summary_area.PNG
+.. image:: /static/training/t12/summary_area.png
    :align: center
 
 7. Options: Enter a task name and notes for the analysis. This final step is calculated locally on your computer, it will load automatically in your QGIS project window. 
 
-.. image:: /static/training/t12/summary_options.PNG
+.. image:: /static/training/t12/summary_options.png
    :align: center
    
 8. View results: A window will appear when the processing is complete. Select **OK**.
 
-.. image:: /static/training/t12/success.PNG
+.. image:: /static/training/t12/success.png
    :align: center
 
 After clicking OK, the four annual urban extent maps with their corresponding zoning will load into the QGIS project.
@@ -203,7 +203,7 @@ After clicking OK, the four annual urban extent maps with their corresponding zo
 .. note::
     If you selected the buffer option for running the analysis, you may notice that the results do not seem to display a perfectly circular shape. We use planar coordinates to measure distance when computing the buffer, while displaying the results in geographic coordinates. This will cause an apparent distortion the further away your area is from the equator, but there is nothing to worry, the results are correct.
    
-.. image:: /static/training/t12/urban_change.PNG
+.. image:: /static/training/t12/urban_change.png
    :align: center
    
 9. To explore the summary table, navigate to the folder in your computer where you saved the excel file and double click on it to open. If an error window appears, select the **Yes** and the summary will proceed to open.
@@ -214,7 +214,7 @@ After clicking OK, the four annual urban extent maps with their corresponding zo
 .. image:: /static/training/t12/error2.png
    :align: center     
    
-.. image:: /static/training/t12/summary_table_sdg11.PNG
+.. image:: /static/training/t12/summary_table_sdg11.png
    :align: center 
    
 10. In this table you'll find the area of the different city land cover classes (urban, suburban, fringe open space, capture open space and water) and the rural areas. You'll also find the population for each of the years analyzed (2000, 2005, 2010, and 2015) and the final SDG 11.3.1.
@@ -232,21 +232,21 @@ The water Frequency parameter should be interpreted as follows: A pixel needs to
 
 To explore one of such cases, navigate to the `Urban Mapper page <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper>`_ and let's go to **Dubai**.
 
-.. image:: /static/training/t12/wfr_satellite.PNG
+.. image:: /static/training/t12/wfr_satellite.png
    :align: center
    
 One of the main feature we'll notice is a set of islands. However, when we click **Run Analysis**, the dataset seems to miss them 
 
-.. image:: /static/training/t12/wfr_default.PNG
+.. image:: /static/training/t12/wfr_default.png
    :align: center
    
 If we change the Water Frequency parameter from 25 to 80, we can start seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR = 80). But we are still missing some portions.
 
-.. image:: /static/training/t12/wfr_wfr.PNG
+.. image:: /static/training/t12/wfr_wfr.png
    :align: center
 
 12. In this case, it seems like portions of these newly constructed islands don't have much lights on them. So if we set the NTL threshold to a lower value (e.g. 5) we will capture them.
 
-.. image:: /static/training/t12/wfr_ntl.PNG
+.. image:: /static/training/t12/wfr_ntl.png
    :align: center
 

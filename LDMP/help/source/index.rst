@@ -92,6 +92,7 @@ videos, are available on this website:
    about/publications
    about/faq
    about/development
+   about/changelog
 
 .. raw:: latex
 

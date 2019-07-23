@@ -10,9 +10,9 @@ know how the data is coded. The tables below provide guidance on what the exact
 layers are that are produced by each analysis in |trends.earth|.
 
 To see which of the below layers is contained within a |trends.earth| output 
-file, use the `load data <../documentation/load_data>`_ tool. When you choose a 
-file with that toool, it will show you a list of the layers within that file, 
-as well as the band number for each layer.
+file, use the `load data <../documentation/load_data.html>`_ tool. When you 
+choose a file with that toool, it will show you a list of the layers within 
+that file, as well as the band number for each layer.
 
 SDG 15.3.1 Indicator
 ____________________

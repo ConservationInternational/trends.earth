@@ -93,6 +93,7 @@ videos, are available on this website:
    about/faq
    about/development
    about/changelog
+   about/layers
 
 .. raw:: latex
 

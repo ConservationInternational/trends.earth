@@ -22,6 +22,16 @@ file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/development.po
 source_file = LDMP/help/i18n/pot/about/development.pot
 source_lang = en
 
+[land_degradation_monitoring_toolbox_docs_1_0.about--changelog]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/changelog.po
+source_file = LDMP/help/i18n/pot/about/changelog.pot
+source_lang = en
+
+[land_degradation_monitoring_toolbox_docs_1_0.about--layers]
+file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/layers.po
+source_file = LDMP/help/i18n/pot/about/layers.pot
+source_lang = en
+
 [land_degradation_monitoring_toolbox_docs_1_0.about--faq]
 file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/faq.po
 source_file = LDMP/help/i18n/pot/about/faq.pot

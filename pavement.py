@@ -626,6 +626,9 @@ def builddocs(options):
         languages = [options.sphinx.base_language]
         languages.extend(options.plugin.translations)
 
+    print("\nBuilding changelog...")
+    build_changelog()
+
     for language in languages:
         print("\nBuilding {lang} documentation...".format(lang=language))
         SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=language,
@@ -683,3 +686,34 @@ def _localize_resources(options, language):
                 shutil.copytree(s, d)
             else:
                 shutil.copy2(s, d)
+
+
+@task
+def build_changelog(options):
+    out_txt = ['Changelog\n',
+               '======================\n',
+               '\n',
+               'This page lists the version history of |trends.earth|.\n']
+
+    with open(os.path.join(options.source_dir, 'metadata.txt'), 'r') as fin:
+        metadata = fin.readlines()
+
+    changelog_header = re.compile('^changelog=', re.IGNORECASE)
+    version_header = re.compile('  [0-9]*\.[0-9]*', re.IGNORECASE)
+
+    at_changelog = False
+    for line in metadata:
+        if not at_changelog and not changelog_header.match(line):
+            continue
+        elif changelog_header.match(line):
+            line = changelog_header.sub('  ', line)
+            at_changelog = True
+        if version_header.match(line):
+            line = line.strip(' \n')
+            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/{}>`_\n".format(line, line)
+            line = [line, '-------------------------------------------------------------------------------------------------------\n\n']
+        out_txt.extend(line)
+
+    out_file = '{docroot}/source/about/changelog.rst'.format(docroot=options.sphinx.docroot)
+    with open(out_file, 'w') as fout:
+        metadata = fout.writelines(out_txt)

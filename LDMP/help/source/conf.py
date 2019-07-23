@@ -232,13 +232,13 @@ latex_documents = [
     ('training/tutorial_installation', u'Trends.Earth_Tutorial01_Installation.tex', u'Installation', u'Conservation International', 'howto'),
     ('training/tutorial_run_all_subindicators', u'Trends.Earth_Tutorial02_Computing_Indicators.tex', u'Compute Sub-indicators', u'Conservation International', 'howto'),
     ('training/tutorial_task_download', u'Trends.Earth_Tutorial03_Downloading_Results.tex', u'Downloading Results', u'Conservation International', 'howto'),
-	('training/tutorial_custom_lpd', u'Trends.Earth_Tutorial04_Using_Custom_Productivity.tex', u'Using Custom Land Productivity Data', u'Conservation International', 'howto'),
-	('training/tutorial_custom_landcover', u'Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex', u'Using Custom Land Cover Data', u'Conservation International', 'howto'),
+    ('training/tutorial_custom_lpd', u'Trends.Earth_Tutorial04_Using_Custom_Productivity.tex', u'Using Custom Land Productivity Data', u'Conservation International', 'howto'),
+    ('training/tutorial_custom_landcover', u'Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex', u'Using Custom Land Cover Data', u'Conservation International', 'howto'),
     ('training/tutorial_custom_soc', u'Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex', u'Using Custom Soil Organic Carbon Data', u'Conservation International', 'howto'),
     ('training/tutorial_compute_sdg_indicator', u'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex', u'How to Compute the SDG Indicator', u'Conservation International', 'howto'),
     ('training/tutorial_summary_table', u'Trends.Earth_Tutorial08_The_Summary_Table.tex', u'The Summary Table', u'Conservation International', 'howto'),
     ('training/tutorial_load_basemap', u'Trends.Earth_Tutorial09_Loading_a_Basemap.tex', u'Loading a Basemap', u'Conservation International', 'howto'),
-	('training/tutorial_forest_carbon', u'Trends.Earth_Tutorial10_Forest_Carbon.tex', u'Forest and Carbon Change Tool', u'Conservation International', 'howto'),
+    ('training/tutorial_forest_carbon', u'Trends.Earth_Tutorial10_Forest_Carbon.tex', u'Forest and Carbon Change Tool', u'Conservation International', 'howto'),
     ('training/tutorial_compute_urban_indicator', u'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex', u'Urban Change SDG 11.3.1', u'Conservation International', 'howto'),
 ]
 

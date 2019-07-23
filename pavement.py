@@ -698,20 +698,23 @@ def build_changelog(options):
     with open(os.path.join(options.source_dir, 'metadata.txt'), 'r') as fin:
         metadata = fin.readlines()
 
-    changelog_header = re.compile('^changelog=', re.IGNORECASE)
-    version_header = re.compile('  [0-9]*\.[0-9]*', re.IGNORECASE)
+    changelog_header_re = re.compile('^changelog=', re.IGNORECASE)
+    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}', re.IGNORECASE)
 
     at_changelog = False
     for line in metadata:
-        if not at_changelog and not changelog_header.match(line):
+        if not at_changelog and not changelog_header_re.match(line):
             continue
-        elif changelog_header.match(line):
-            line = changelog_header.sub('  ', line)
+        elif changelog_header_re.match(line):
+            line = changelog_header_re.sub('  ', line)
             at_changelog = True
-        if version_header.match(line):
+        version_header = version_header_re.match(line)
+        if version_header:
+            version_number = version_header.group(0)
+            version_number = version_number.strip(' \n')
             line = line.strip(' \n')
-            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/{}>`_\n".format(line, line)
-            line = [line, '-------------------------------------------------------------------------------------------------------\n\n']
+            line = "\n`{} <https://github.com/ConservationInternational/trends.earth/releases/tag/{}>`_\n".format(line, version_number)
+            line = [line, '-----------------------------------------------------------------------------------------------------------------------------\n\n']
         out_txt.extend(line)
 
     out_file = '{docroot}/source/about/changelog.rst'.format(docroot=options.sphinx.docroot)

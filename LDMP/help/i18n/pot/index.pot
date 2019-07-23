@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-22 14:48-0400\n"
+"POT-Creation-Date: 2019-07-23 15:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,19 +108,19 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../../source/index.rst:102
+#: ../../source/index.rst:104
 msgid "Background information"
 msgstr ""
 
-#: ../../source/index.rst:118
+#: ../../source/index.rst:120
 msgid "Documentation"
 msgstr ""
 
-#: ../../source/index.rst:137
+#: ../../source/index.rst:139
 msgid "Step-by-step Guides"
 msgstr ""
 
-#: ../../source/index.rst:159
+#: ../../source/index.rst:161
 msgid "Videos"
 msgstr ""
 

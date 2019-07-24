@@ -2,13 +2,13 @@
 # Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-23 15:35-0400\n"
+"POT-Creation-Date: 2019-07-24 07:48-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,1131 +18,1144 @@ msgstr ""
 
 #: ../../source/about/layers.rst:2
 msgid "Dataset coding"
-msgstr "Dataset coding"
+msgstr ""
 
 #: ../../source/about/layers.rst:4
-msgid ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
-"widely supported format, so theese datasets can be used within QGIS as well "
-"as within any other GIS software."
+msgid "The spatial data produced by |trends.earth| is in GeoTiff format. This is a widely supported format, so theese datasets can be used within QGIS as well as within any other GIS software."
 msgstr ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
-"widely supported format, so theese datasets can be used within QGIS as well "
-"as within any other GIS software."
 
 #: ../../source/about/layers.rst:8
-msgid ""
-"If you wish to use |trends.earth| data outside of the tool itself, you will "
-"need to know how the data is coded. The tables below provide guidance on "
-"what the exact layers are that are produced by each analysis in "
-"|trends.earth|."
+msgid "If you wish to use |trends.earth| data outside of the tool itself, you will need to know how the data is coded. The tables below provide guidance on what the exact layers are that are produced by each analysis in |trends.earth|."
 msgstr ""
-"If you wish to use |trends.earth| data outside of the tool itself, you will "
-"need to know how the data is coded. The tables below provide guidance on "
-"what the exact layers are that are produced by each analysis in "
-"|trends.earth|."
 
 #: ../../source/about/layers.rst:12
-msgid ""
-"To see which of the below layers is contained within a |trends.earth| output"
-" file, use the `load data <../documentation/load_data>`_ tool. When you "
-"choose a file with that toool, it will show you a list of the layers within "
-"that file, as well as the band number for each layer."
+msgid "To see which of the below layers is contained within a |trends.earth| output file, use the `load data <../documentation/load_data.html>`_ tool. When you choose a file with that toool, it will show you a list of the layers within that file, as well as the band number for each layer."
 msgstr ""
-"To see which of the below layers is contained within a |trends.earth| output"
-" file, use the `load data <../documentation/load_data>`_ tool. When you "
-"choose a file with that toool, it will show you a list of the layers within "
-"that file, as well as the band number for each layer."
 
 #: ../../source/about/layers.rst:18
 msgid "SDG 15.3.1 Indicator"
-msgstr "SDG 15.3.1 Indicator"
+msgstr ""
 
-#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
-#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
-#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
-#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
-#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
-#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
-#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
-#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
-#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
-#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
+#: ../../source/about/layers.rst:21
+#: ../../source/about/layers.rst:40
+#: ../../source/about/layers.rst:52
+#: ../../source/about/layers.rst:75
+#: ../../source/about/layers.rst:88
+#: ../../source/about/layers.rst:100
+#: ../../source/about/layers.rst:112
+#: ../../source/about/layers.rst:126
+#: ../../source/about/layers.rst:138
+#: ../../source/about/layers.rst:151
+#: ../../source/about/layers.rst:170
+#: ../../source/about/layers.rst:192
+#: ../../source/about/layers.rst:207
+#: ../../source/about/layers.rst:230
+#: ../../source/about/layers.rst:313
+#: ../../source/about/layers.rst:424
+#: ../../source/about/layers.rst:437
+#: ../../source/about/layers.rst:452
+#: ../../source/about/layers.rst:479
+#: ../../source/about/layers.rst:498
 msgid "Value"
-msgstr "Value"
+msgstr ""
 
-#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
-#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
-#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
-#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
-#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
-#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
-#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
-#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
-#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
-#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
+#: ../../source/about/layers.rst:21
+#: ../../source/about/layers.rst:40
+#: ../../source/about/layers.rst:52
+#: ../../source/about/layers.rst:75
+#: ../../source/about/layers.rst:88
+#: ../../source/about/layers.rst:100
+#: ../../source/about/layers.rst:112
+#: ../../source/about/layers.rst:126
+#: ../../source/about/layers.rst:138
+#: ../../source/about/layers.rst:151
+#: ../../source/about/layers.rst:170
+#: ../../source/about/layers.rst:192
+#: ../../source/about/layers.rst:207
+#: ../../source/about/layers.rst:230
+#: ../../source/about/layers.rst:313
+#: ../../source/about/layers.rst:424
+#: ../../source/about/layers.rst:437
+#: ../../source/about/layers.rst:452
+#: ../../source/about/layers.rst:479
+#: ../../source/about/layers.rst:498
 msgid "Meaning"
-msgstr "Meaning"
+msgstr ""
 
-#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
-#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
-#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
-#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
-#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
-#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
-#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
-#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
-#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
-#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
+#: ../../source/about/layers.rst:23
+#: ../../source/about/layers.rst:42
+#: ../../source/about/layers.rst:54
+#: ../../source/about/layers.rst:77
+#: ../../source/about/layers.rst:90
+#: ../../source/about/layers.rst:102
+#: ../../source/about/layers.rst:114
+#: ../../source/about/layers.rst:128
+#: ../../source/about/layers.rst:140
+#: ../../source/about/layers.rst:153
+#: ../../source/about/layers.rst:172
+#: ../../source/about/layers.rst:194
+#: ../../source/about/layers.rst:209
+#: ../../source/about/layers.rst:232
+#: ../../source/about/layers.rst:315
+#: ../../source/about/layers.rst:426
+#: ../../source/about/layers.rst:439
+#: ../../source/about/layers.rst:454
+#: ../../source/about/layers.rst:481
+#: ../../source/about/layers.rst:500
 msgid "-32768"
-msgstr "-32768"
+msgstr ""
 
-#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
-#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
-#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
-#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
-#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
-#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
-#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
-#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
-#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
-#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
+#: ../../source/about/layers.rst:23
+#: ../../source/about/layers.rst:42
+#: ../../source/about/layers.rst:54
+#: ../../source/about/layers.rst:77
+#: ../../source/about/layers.rst:90
+#: ../../source/about/layers.rst:102
+#: ../../source/about/layers.rst:114
+#: ../../source/about/layers.rst:128
+#: ../../source/about/layers.rst:140
+#: ../../source/about/layers.rst:153
+#: ../../source/about/layers.rst:172
+#: ../../source/about/layers.rst:194
+#: ../../source/about/layers.rst:209
+#: ../../source/about/layers.rst:232
+#: ../../source/about/layers.rst:315
+#: ../../source/about/layers.rst:426
+#: ../../source/about/layers.rst:439
+#: ../../source/about/layers.rst:454
+#: ../../source/about/layers.rst:481
+#: ../../source/about/layers.rst:500
 msgid "No data"
-msgstr "No data"
+msgstr ""
 
-#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:60
-#: ../../source/about/layers.rst:79 ../../source/about/layers.rst:196
+#: ../../source/about/layers.rst:25
+#: ../../source/about/layers.rst:60
+#: ../../source/about/layers.rst:79
+#: ../../source/about/layers.rst:196
 #: ../../source/about/layers.rst:483
 msgid "-1"
-msgstr "-1"
+msgstr ""
 
-#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:79
+#: ../../source/about/layers.rst:25
+#: ../../source/about/layers.rst:79
 #: ../../source/about/layers.rst:196
 msgid "Degradation"
-msgstr "Degradation"
+msgstr ""
 
-#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:62
-#: ../../source/about/layers.rst:81 ../../source/about/layers.rst:92
+#: ../../source/about/layers.rst:27
+#: ../../source/about/layers.rst:62
+#: ../../source/about/layers.rst:81
+#: ../../source/about/layers.rst:92
 #: ../../source/about/layers.rst:198
 msgid "0"
-msgstr "0"
+msgstr ""
 
-#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:81
+#: ../../source/about/layers.rst:27
+#: ../../source/about/layers.rst:81
 #: ../../source/about/layers.rst:198
 msgid "No change"
-msgstr "No change"
+msgstr ""
 
-#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:64
-#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
-#: ../../source/about/layers.rst:200 ../../source/about/layers.rst:211
-#: ../../source/about/layers.rst:317 ../../source/about/layers.rst:456
+#: ../../source/about/layers.rst:29
+#: ../../source/about/layers.rst:64
+#: ../../source/about/layers.rst:155
+#: ../../source/about/layers.rst:174
+#: ../../source/about/layers.rst:200
+#: ../../source/about/layers.rst:211
+#: ../../source/about/layers.rst:317
+#: ../../source/about/layers.rst:456
 #: ../../source/about/layers.rst:485
 msgid "1"
-msgstr "1"
+msgstr ""
 
-#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:200
+#: ../../source/about/layers.rst:29
+#: ../../source/about/layers.rst:200
 msgid "Improvement"
-msgstr "Improvement"
+msgstr ""
 
 #: ../../source/about/layers.rst:34
 msgid "Productivity"
-msgstr "Productivity"
+msgstr ""
 
 #: ../../source/about/layers.rst:37
 msgid "Productivity trajectory (trend)"
-msgstr "Productivity trajectory (trend)"
+msgstr ""
 
-#: ../../source/about/layers.rst:44 ../../source/about/layers.rst:104
-#: ../../source/about/layers.rst:116 ../../source/about/layers.rst:130
-#: ../../source/about/layers.rst:142 ../../source/about/layers.rst:428
-#: ../../source/about/layers.rst:441 ../../source/about/layers.rst:502
+#: ../../source/about/layers.rst:44
+#: ../../source/about/layers.rst:104
+#: ../../source/about/layers.rst:116
+#: ../../source/about/layers.rst:130
+#: ../../source/about/layers.rst:142
+#: ../../source/about/layers.rst:428
+#: ../../source/about/layers.rst:441
+#: ../../source/about/layers.rst:502
 msgid "Any other value"
-msgstr "Any other value"
+msgstr ""
 
 #: ../../source/about/layers.rst:44
 msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
-msgstr "Linear trend of annually integrated NDVI, scaled by 10,000"
+msgstr ""
 
 #: ../../source/about/layers.rst:49
 msgid "Productivity trajectory (significance)"
-msgstr "Productivity trajectory (significance)"
+msgstr ""
 
 #: ../../source/about/layers.rst:56
 msgid "-3"
-msgstr "-3"
+msgstr ""
 
 #: ../../source/about/layers.rst:56
 msgid "Significant decline (p > .99)"
-msgstr "Significant decline (p > .99)"
+msgstr ""
 
 #: ../../source/about/layers.rst:58
 msgid "-2"
-msgstr "-2"
+msgstr ""
 
 #: ../../source/about/layers.rst:58
 msgid "Significant decline (p > .95)"
-msgstr "Significant decline (p > .95)"
+msgstr ""
 
 #: ../../source/about/layers.rst:60
 msgid "Significant decline (p > .90)"
-msgstr "Significant decline (p > .90)"
+msgstr ""
 
 #: ../../source/about/layers.rst:62
 msgid "No significant change"
-msgstr "No significant change"
+msgstr ""
 
 #: ../../source/about/layers.rst:64
 msgid "Significant increase (p > .90)"
-msgstr "Significant increase (p > .90)"
+msgstr ""
 
-#: ../../source/about/layers.rst:66 ../../source/about/layers.rst:157
-#: ../../source/about/layers.rst:176 ../../source/about/layers.rst:213
-#: ../../source/about/layers.rst:319 ../../source/about/layers.rst:458
+#: ../../source/about/layers.rst:66
+#: ../../source/about/layers.rst:157
+#: ../../source/about/layers.rst:176
+#: ../../source/about/layers.rst:213
+#: ../../source/about/layers.rst:319
+#: ../../source/about/layers.rst:458
 #: ../../source/about/layers.rst:487
 msgid "2"
-msgstr "2"
+msgstr ""
 
 #: ../../source/about/layers.rst:66
 msgid "Significant increase (p > .95)"
-msgstr "Significant increase (p > .95)"
+msgstr ""
 
-#: ../../source/about/layers.rst:68 ../../source/about/layers.rst:159
-#: ../../source/about/layers.rst:178 ../../source/about/layers.rst:215
-#: ../../source/about/layers.rst:321 ../../source/about/layers.rst:460
+#: ../../source/about/layers.rst:68
+#: ../../source/about/layers.rst:159
+#: ../../source/about/layers.rst:178
+#: ../../source/about/layers.rst:215
+#: ../../source/about/layers.rst:321
+#: ../../source/about/layers.rst:460
 #: ../../source/about/layers.rst:489
 msgid "3"
-msgstr "3"
+msgstr ""
 
 #: ../../source/about/layers.rst:68
 msgid "Significant increase (p > .99)"
-msgstr "Significant increase (p > .99)"
+msgstr ""
 
 #: ../../source/about/layers.rst:72
 msgid "Productivity performance (degradation)"
-msgstr "Productivity performance (degradation)"
+msgstr ""
 
 #: ../../source/about/layers.rst:85
 msgid "Productivity performance (ratio)"
-msgstr "Productivity performance (ratio)"
+msgstr ""
 
 #: ../../source/about/layers.rst:92
-msgid ""
-"Ratio of mean NDVI and maximum productivity. See background on `performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+msgid "Ratio of mean NDVI and maximum productivity. See background on `performance <../background/understanding_indicators15.html#productivity-performance>`_."
 msgstr ""
-"Ratio of mean NDVI and maximum productivity. See background on `performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
 
 #: ../../source/about/layers.rst:97
 msgid "Productivity performance (units)"
-msgstr "Productivity performance (units)"
+msgstr ""
 
 #: ../../source/about/layers.rst:104
-msgid ""
-"ID number of unit used to calculate performance. See background on "
-"`performance <../background/understanding_indicators15.html#productivity-"
-"performance>`_."
+msgid "ID number of unit used to calculate performance. See background on `performance <../background/understanding_indicators15.html#productivity-performance>`_."
 msgstr ""
-"ID number of unit used to calculate performance. See background on "
-"`performance <../background/understanding_indicators15.html#productivity-"
-"performance>`_."
 
 #: ../../source/about/layers.rst:109
 msgid "Productivity state (degradation)"
-msgstr "Productivity state (degradation)"
+msgstr ""
 
 #: ../../source/about/layers.rst:116
-msgid ""
-"Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the baseline "
-"period. Positive values indicate improvement, negative values indicate "
-"decline."
+msgid "Change in productivity state classes between baseline and target period, calculated as the rank in the target period minus the rank in the baseline period. Positive values indicate improvement, negative values indicate decline."
 msgstr ""
-"Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the baseline "
-"period. Positive values indicate improvement, negative values indicate "
-"decline."
 
 #: ../../source/about/layers.rst:123
 msgid "Productivity state classes"
-msgstr "Productivity state classes"
+msgstr ""
 
 #: ../../source/about/layers.rst:130
-msgid ""
-"Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-state>`_."
+msgid "Percentile class for productivity state. See background on `productivity state <../background/understanding_indicators15.html#productivity-state>`_."
 msgstr ""
-"Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-state>`_."
 
 #: ../../source/about/layers.rst:135
 msgid "Productivity state NDVI mean"
-msgstr "Productivity state NDVI mean"
+msgstr ""
 
 #: ../../source/about/layers.rst:142
-msgid ""
-"Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity state "
-"<../background/understanding_indicators15.html#productivity-state>`_."
+msgid "Mean annually integrated NDVI for the baseline period chosen for productivity state, scaled by 10,000. See background on `productivity state <../background/understanding_indicators15.html#productivity-state>`_."
 msgstr ""
-"Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity state "
-"<../background/understanding_indicators15.html#productivity-state>`_."
 
 #: ../../source/about/layers.rst:148
 msgid "SDG 15.3.1 productivity indicator"
-msgstr "SDG 15.3.1 productivity indicator"
+msgstr ""
 
-#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
+#: ../../source/about/layers.rst:155
+#: ../../source/about/layers.rst:174
 msgid "Declining"
-msgstr "Declining"
+msgstr ""
 
 #: ../../source/about/layers.rst:157
 msgid "Early signs of decline"
-msgstr "Early signs of decline"
+msgstr ""
 
 #: ../../source/about/layers.rst:159
 msgid "Stable but stressed"
-msgstr "Stable but stressed"
+msgstr ""
 
-#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
-#: ../../source/about/layers.rst:217 ../../source/about/layers.rst:323
-#: ../../source/about/layers.rst:462 ../../source/about/layers.rst:491
+#: ../../source/about/layers.rst:161
+#: ../../source/about/layers.rst:180
+#: ../../source/about/layers.rst:217
+#: ../../source/about/layers.rst:323
+#: ../../source/about/layers.rst:462
+#: ../../source/about/layers.rst:491
 msgid "4"
-msgstr "4"
+msgstr ""
 
-#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
+#: ../../source/about/layers.rst:161
+#: ../../source/about/layers.rst:180
 msgid "Stable"
-msgstr "Stable"
+msgstr ""
 
-#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
-#: ../../source/about/layers.rst:219 ../../source/about/layers.rst:325
+#: ../../source/about/layers.rst:163
+#: ../../source/about/layers.rst:182
+#: ../../source/about/layers.rst:219
+#: ../../source/about/layers.rst:325
 #: ../../source/about/layers.rst:464
 msgid "5"
-msgstr "5"
+msgstr ""
 
-#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
+#: ../../source/about/layers.rst:163
+#: ../../source/about/layers.rst:182
 msgid "Increasing"
-msgstr "Increasing"
+msgstr ""
 
 #: ../../source/about/layers.rst:167
 msgid "Land productivity dynamics"
-msgstr "Land productivity dynamics"
+msgstr ""
 
 #: ../../source/about/layers.rst:176
 msgid "Moderate decline"
-msgstr "Moderate decline"
+msgstr ""
 
 #: ../../source/about/layers.rst:178
 msgid "Stressed"
-msgstr "Stressed"
+msgstr ""
 
 #: ../../source/about/layers.rst:186
 msgid "Land cover"
-msgstr "Land cover"
+msgstr ""
 
 #: ../../source/about/layers.rst:189
 msgid "Land cover (degradation)"
-msgstr "Land cover (degradation)"
+msgstr ""
 
 #: ../../source/about/layers.rst:204
 msgid "Land cover (7 class)"
-msgstr "Land cover (7 class)"
+msgstr ""
 
 #: ../../source/about/layers.rst:211
 msgid "Tree-covered"
-msgstr "Tree-covered"
+msgstr ""
 
 #: ../../source/about/layers.rst:213
 msgid "Grasslands"
-msgstr "Grasslands"
+msgstr ""
 
 #: ../../source/about/layers.rst:215
 msgid "Cropland"
-msgstr "Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:217
 msgid "Wetland"
-msgstr "Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:219
 msgid "Artificial"
-msgstr "Artificial"
+msgstr ""
 
-#: ../../source/about/layers.rst:221 ../../source/about/layers.rst:327
+#: ../../source/about/layers.rst:221
+#: ../../source/about/layers.rst:327
 #: ../../source/about/layers.rst:466
 msgid "6"
-msgstr "6"
+msgstr ""
 
 #: ../../source/about/layers.rst:221
 msgid "Other land"
-msgstr "Other land"
+msgstr ""
 
-#: ../../source/about/layers.rst:223 ../../source/about/layers.rst:329
+#: ../../source/about/layers.rst:223
+#: ../../source/about/layers.rst:329
 #: ../../source/about/layers.rst:468
 msgid "7"
-msgstr "7"
+msgstr ""
 
 #: ../../source/about/layers.rst:223
 msgid "Water body"
-msgstr "Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:227
 msgid "Land cover (ESA classes)"
-msgstr "Land cover (ESA classes)"
+msgstr ""
 
 #: ../../source/about/layers.rst:234
 msgid "10"
-msgstr "10"
+msgstr ""
 
 #: ../../source/about/layers.rst:234
 msgid "Cropland, rainfed"
-msgstr "Cropland, rainfed"
+msgstr ""
 
 #: ../../source/about/layers.rst:236
 msgid "11"
-msgstr "11"
+msgstr ""
 
 #: ../../source/about/layers.rst:236
 msgid "Herbaceous cover"
-msgstr "Herbaceous cover"
+msgstr ""
 
-#: ../../source/about/layers.rst:238 ../../source/about/layers.rst:331
+#: ../../source/about/layers.rst:238
+#: ../../source/about/layers.rst:331
 msgid "12"
-msgstr "12"
+msgstr ""
 
 #: ../../source/about/layers.rst:238
 msgid "Tree or shrub cover"
-msgstr "Tree or shrub cover"
+msgstr ""
 
 #: ../../source/about/layers.rst:240
 msgid "20"
-msgstr "20"
+msgstr ""
 
 #: ../../source/about/layers.rst:240
 msgid "Cropland, irrigated or post‐flooding"
-msgstr "Cropland, irrigated or post‐flooding"
+msgstr ""
 
 #: ../../source/about/layers.rst:242
 msgid "30"
-msgstr "30"
+msgstr ""
 
 #: ../../source/about/layers.rst:242
-msgid ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
-"(<50%)"
+msgid "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"
 msgstr ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
-"(<50%)"
 
 #: ../../source/about/layers.rst:244
 msgid "40"
-msgstr "40"
+msgstr ""
 
 #: ../../source/about/layers.rst:244
-msgid ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland "
-"(<50%)"
+msgid "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"
 msgstr ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland "
-"(<50%)"
 
 #: ../../source/about/layers.rst:246
 msgid "50"
-msgstr "50"
+msgstr ""
 
 #: ../../source/about/layers.rst:246
 msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
-msgstr "Tree cover, broadleaved, evergreen, closed to open (>15%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:248
 msgid "60"
-msgstr "60"
+msgstr ""
 
 #: ../../source/about/layers.rst:248
 msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
-msgstr "Tree cover, broadleaved, deciduous, closed to open (>15%)"
+msgstr ""
 
-#: ../../source/about/layers.rst:250 ../../source/about/layers.rst:391
+#: ../../source/about/layers.rst:250
+#: ../../source/about/layers.rst:391
 msgid "61"
-msgstr "61"
+msgstr ""
 
 #: ../../source/about/layers.rst:250
 msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
-msgstr "Tree cover, broadleaved, deciduous, closed (>40%)"
+msgstr ""
 
-#: ../../source/about/layers.rst:252 ../../source/about/layers.rst:393
+#: ../../source/about/layers.rst:252
+#: ../../source/about/layers.rst:393
 msgid "62"
-msgstr "62"
+msgstr ""
 
 #: ../../source/about/layers.rst:252
 msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
-msgstr "Tree cover, broadleaved, deciduous, open (15‐40%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:254
 msgid "70"
-msgstr "70"
+msgstr ""
 
 #: ../../source/about/layers.rst:254
 msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
-msgstr "Tree cover, needleleaved, evergreen, closed to open (>15%)"
+msgstr ""
 
-#: ../../source/about/layers.rst:256 ../../source/about/layers.rst:403
+#: ../../source/about/layers.rst:256
+#: ../../source/about/layers.rst:403
 msgid "71"
-msgstr "71"
+msgstr ""
 
 #: ../../source/about/layers.rst:256
 msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
-msgstr "Tree cover, needleleaved, evergreen, closed (>40%)"
+msgstr ""
 
-#: ../../source/about/layers.rst:258 ../../source/about/layers.rst:405
+#: ../../source/about/layers.rst:258
+#: ../../source/about/layers.rst:405
 msgid "72"
-msgstr "72"
+msgstr ""
 
 #: ../../source/about/layers.rst:258
 msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
-msgstr "Tree cover, needleleaved, evergreen, open (15‐40%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:260
 msgid "80"
-msgstr "80"
+msgstr ""
 
 #: ../../source/about/layers.rst:260
 msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
-msgstr "Tree cover, needleleaved, deciduous, closed to open (>15%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:262
 msgid "81"
-msgstr "81"
+msgstr ""
 
 #: ../../source/about/layers.rst:262
 msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
-msgstr "Tree cover, needleleaved, deciduous, closed (>40%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:264
 msgid "82"
-msgstr "82"
+msgstr ""
 
 #: ../../source/about/layers.rst:264
 msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
-msgstr "Tree cover, needleleaved, deciduous, open (15‐40%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:266
 msgid "90"
-msgstr "90"
+msgstr ""
 
 #: ../../source/about/layers.rst:266
 msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
-msgstr "Tree cover, mixed leaf type (broadleaved and needleleaved)"
+msgstr ""
 
 #: ../../source/about/layers.rst:268
 msgid "100"
-msgstr "100"
+msgstr ""
 
 #: ../../source/about/layers.rst:268
 msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
-msgstr "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:270
 msgid "110"
-msgstr "110"
+msgstr ""
 
 #: ../../source/about/layers.rst:270
 msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
-msgstr "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:272
 msgid "120"
-msgstr "120"
+msgstr ""
 
 #: ../../source/about/layers.rst:272
 msgid "Shrubland"
-msgstr "Shrubland"
+msgstr ""
 
 #: ../../source/about/layers.rst:274
 msgid "121"
-msgstr "121"
+msgstr ""
 
 #: ../../source/about/layers.rst:274
 msgid "Evergreen shrubland"
-msgstr "Evergreen shrubland"
+msgstr ""
 
 #: ../../source/about/layers.rst:276
 msgid "122"
-msgstr "122"
+msgstr ""
 
 #: ../../source/about/layers.rst:276
 msgid "Deciduous shrubland"
-msgstr "Deciduous shrubland"
+msgstr ""
 
 #: ../../source/about/layers.rst:278
 msgid "130"
-msgstr "130"
+msgstr ""
 
 #: ../../source/about/layers.rst:278
 msgid "Grassland"
-msgstr "Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:280
 msgid "140"
-msgstr "140"
+msgstr ""
 
 #: ../../source/about/layers.rst:280
 msgid "Lichens and mosses"
-msgstr "Lichens and mosses"
+msgstr ""
 
 #: ../../source/about/layers.rst:282
 msgid "150"
-msgstr "150"
+msgstr ""
 
 #: ../../source/about/layers.rst:282
 msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
-msgstr "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:284
 msgid "151"
-msgstr "151"
+msgstr ""
 
 #: ../../source/about/layers.rst:284
 msgid "Sparse tree (<15%)"
-msgstr "Sparse tree (<15%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:286
 msgid "152"
-msgstr "152"
+msgstr ""
 
 #: ../../source/about/layers.rst:286
 msgid "Sparse shrub (<15%)"
-msgstr "Sparse shrub (<15%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:288
 msgid "153"
-msgstr "153"
+msgstr ""
 
 #: ../../source/about/layers.rst:288
 msgid "Sparse herbaceous cover (<15%)"
-msgstr "Sparse herbaceous cover (<15%)"
+msgstr ""
 
 #: ../../source/about/layers.rst:290
 msgid "160"
-msgstr "160"
+msgstr ""
 
 #: ../../source/about/layers.rst:290
 msgid "Tree cover, flooded, fresh or brakish water"
-msgstr "Tree cover, flooded, fresh or brakish water"
+msgstr ""
 
 #: ../../source/about/layers.rst:292
 msgid "170"
-msgstr "170"
+msgstr ""
 
 #: ../../source/about/layers.rst:292
 msgid "Tree cover, flooded, saline water"
-msgstr "Tree cover, flooded, saline water"
+msgstr ""
 
 #: ../../source/about/layers.rst:294
 msgid "180"
-msgstr "180"
+msgstr ""
 
 #: ../../source/about/layers.rst:294
 msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
-msgstr "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+msgstr ""
 
 #: ../../source/about/layers.rst:296
 msgid "190"
-msgstr "190"
+msgstr ""
 
 #: ../../source/about/layers.rst:296
 msgid "Urban areas"
-msgstr "Urban areas"
+msgstr ""
 
 #: ../../source/about/layers.rst:298
 msgid "200"
-msgstr "200"
+msgstr ""
 
 #: ../../source/about/layers.rst:298
 msgid "Bare areas"
-msgstr "Bare areas"
+msgstr ""
 
 #: ../../source/about/layers.rst:300
 msgid "201"
-msgstr "201"
+msgstr ""
 
 #: ../../source/about/layers.rst:300
 msgid "Consolidated bare areas"
-msgstr "Consolidated bare areas"
+msgstr ""
 
 #: ../../source/about/layers.rst:302
 msgid "202"
-msgstr "202"
+msgstr ""
 
 #: ../../source/about/layers.rst:302
 msgid "Unconsolidated bare areas"
-msgstr "Unconsolidated bare areas"
+msgstr ""
 
 #: ../../source/about/layers.rst:304
 msgid "210"
-msgstr "210"
+msgstr ""
 
 #: ../../source/about/layers.rst:304
 msgid "Water bodies"
-msgstr "Water bodies"
+msgstr ""
 
 #: ../../source/about/layers.rst:306
 msgid "220"
-msgstr "220"
+msgstr ""
 
 #: ../../source/about/layers.rst:306
 msgid "Permanent snow and ice"
-msgstr "Permanent snow and ice"
+msgstr ""
 
 #: ../../source/about/layers.rst:310
 msgid "Land cover (transitions)"
-msgstr "Land cover (transitions)"
+msgstr ""
 
 #: ../../source/about/layers.rst:317
 msgid "Tree-covered - Tree-covered (no change)"
-msgstr "Tree-covered - Tree-covered (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:319
 msgid "Grassland - Grassland (no change)"
-msgstr "Grassland - Grassland (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:321
 msgid "Cropland - Cropland (no change)"
-msgstr "Cropland - Cropland (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:323
 msgid "Wetland - Wetland (no change)"
-msgstr "Wetland - Wetland (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:325
 msgid "Artificial - Artificial (no change)"
-msgstr "Artificial - Artificial (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:327
 msgid "Other land - Other land (no change)"
-msgstr "Other land - Other land (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:329
 msgid "Water body - Water body (no change)"
-msgstr "Water body - Water body (no change)"
+msgstr ""
 
 #: ../../source/about/layers.rst:331
 msgid "Forest - Grassland"
-msgstr "Forest - Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:333
 msgid "13"
-msgstr "13"
+msgstr ""
 
 #: ../../source/about/layers.rst:333
 msgid "Forest - Cropland"
-msgstr "Forest - Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:335
 msgid "14"
-msgstr "14"
+msgstr ""
 
 #: ../../source/about/layers.rst:335
 msgid "Forest - Wetland"
-msgstr "Forest - Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:337
 msgid "15"
-msgstr "15"
+msgstr ""
 
 #: ../../source/about/layers.rst:337
 msgid "Forest - Artificial"
-msgstr "Forest - Artificial"
+msgstr ""
 
 #: ../../source/about/layers.rst:339
 msgid "16"
-msgstr "16"
+msgstr ""
 
 #: ../../source/about/layers.rst:339
 msgid "Forest - Other land"
-msgstr "Forest - Other land"
+msgstr ""
 
 #: ../../source/about/layers.rst:341
 msgid "17"
-msgstr "17"
+msgstr ""
 
 #: ../../source/about/layers.rst:341
 msgid "Forest - Water body"
-msgstr "Forest - Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:343
 msgid "21"
-msgstr "21"
+msgstr ""
 
 #: ../../source/about/layers.rst:343
 msgid "Grassland - Forest"
-msgstr "Grassland - Forest"
+msgstr ""
 
 #: ../../source/about/layers.rst:345
 msgid "23"
-msgstr "23"
+msgstr ""
 
 #: ../../source/about/layers.rst:345
 msgid "Grassland - Cropland"
-msgstr "Grassland - Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:347
 msgid "24"
-msgstr "24"
+msgstr ""
 
 #: ../../source/about/layers.rst:347
 msgid "Grassland - Wetland"
-msgstr "Grassland - Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:349
 msgid "25"
-msgstr "25"
+msgstr ""
 
 #: ../../source/about/layers.rst:349
 msgid "Grassland - Artificial"
-msgstr "Grassland - Artificial"
+msgstr ""
 
 #: ../../source/about/layers.rst:351
 msgid "26"
-msgstr "26"
+msgstr ""
 
 #: ../../source/about/layers.rst:351
 msgid "Grassland - Other land"
-msgstr "Grassland - Other land"
+msgstr ""
 
 #: ../../source/about/layers.rst:353
 msgid "27"
-msgstr "27"
+msgstr ""
 
 #: ../../source/about/layers.rst:353
 msgid "Grassland - Water body"
-msgstr "Grassland - Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:355
 msgid "31"
-msgstr "31"
+msgstr ""
 
 #: ../../source/about/layers.rst:355
 msgid "Cropland - Forest"
-msgstr "Cropland - Forest"
+msgstr ""
 
 #: ../../source/about/layers.rst:357
 msgid "32"
-msgstr "32"
+msgstr ""
 
 #: ../../source/about/layers.rst:357
 msgid "Cropland - Grassland"
-msgstr "Cropland - Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:359
 msgid "34"
-msgstr "34"
+msgstr ""
 
 #: ../../source/about/layers.rst:359
 msgid "Cropland - Wetland"
-msgstr "Cropland - Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:361
 msgid "35"
-msgstr "35"
+msgstr ""
 
 #: ../../source/about/layers.rst:361
 msgid "Cropland - Artificial"
-msgstr "Cropland - Artificial"
+msgstr ""
 
 #: ../../source/about/layers.rst:363
 msgid "36"
-msgstr "36"
+msgstr ""
 
 #: ../../source/about/layers.rst:363
 msgid "Cropland - Other land"
-msgstr "Cropland - Other land"
+msgstr ""
 
 #: ../../source/about/layers.rst:365
 msgid "37"
-msgstr "37"
+msgstr ""
 
 #: ../../source/about/layers.rst:365
 msgid "Cropland - Water body"
-msgstr "Cropland - Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:367
 msgid "41"
-msgstr "41"
+msgstr ""
 
 #: ../../source/about/layers.rst:367
 msgid "Wetland - Forest"
-msgstr "Wetland - Forest"
+msgstr ""
 
 #: ../../source/about/layers.rst:369
 msgid "42"
-msgstr "42"
+msgstr ""
 
 #: ../../source/about/layers.rst:369
 msgid "Wetland - Grassland"
-msgstr "Wetland - Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:371
 msgid "43"
-msgstr "43"
+msgstr ""
 
 #: ../../source/about/layers.rst:371
 msgid "Wetland - Cropland"
-msgstr "Wetland - Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:373
 msgid "45"
-msgstr "45"
+msgstr ""
 
 #: ../../source/about/layers.rst:373
 msgid "Wetland - Artificial"
-msgstr "Wetland - Artificial"
+msgstr ""
 
 #: ../../source/about/layers.rst:375
 msgid "46"
-msgstr "46"
+msgstr ""
 
 #: ../../source/about/layers.rst:375
 msgid "Wetland - Other land"
-msgstr "Wetland - Other land"
+msgstr ""
 
 #: ../../source/about/layers.rst:377
 msgid "47"
-msgstr "47"
+msgstr ""
 
 #: ../../source/about/layers.rst:377
 msgid "Wetland - Water body"
-msgstr "Wetland - Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:379
 msgid "51"
-msgstr "51"
+msgstr ""
 
 #: ../../source/about/layers.rst:379
 msgid "Artificial - Forest"
-msgstr "Artificial - Forest"
+msgstr ""
 
 #: ../../source/about/layers.rst:381
 msgid "52"
-msgstr "52"
+msgstr ""
 
 #: ../../source/about/layers.rst:381
 msgid "Artificial - Grassland"
-msgstr "Artificial - Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:383
 msgid "53"
-msgstr "53"
+msgstr ""
 
 #: ../../source/about/layers.rst:383
 msgid "Artificial - Cropland"
-msgstr "Artificial - Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:385
 msgid "54"
-msgstr "54"
+msgstr ""
 
 #: ../../source/about/layers.rst:385
 msgid "Artificial - Wetland"
-msgstr "Artificial - Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:387
 msgid "56"
-msgstr "56"
+msgstr ""
 
 #: ../../source/about/layers.rst:387
 msgid "Artificial - Other land"
-msgstr "Artificial - Other land"
+msgstr ""
 
 #: ../../source/about/layers.rst:389
 msgid "57"
-msgstr "57"
+msgstr ""
 
 #: ../../source/about/layers.rst:389
 msgid "Artificial - Water body"
-msgstr "Artificial - Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:391
 msgid "Other land - Forest"
-msgstr "Other land - Forest"
+msgstr ""
 
 #: ../../source/about/layers.rst:393
 msgid "Other land - Grassland"
-msgstr "Other land - Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:395
 msgid "63"
-msgstr "63"
+msgstr ""
 
 #: ../../source/about/layers.rst:395
 msgid "Other land - Cropland"
-msgstr "Other land - Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:397
 msgid "64"
-msgstr "64"
+msgstr ""
 
 #: ../../source/about/layers.rst:397
 msgid "Other land - Wetland"
-msgstr "Other land - Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:399
 msgid "65"
-msgstr "65"
+msgstr ""
 
 #: ../../source/about/layers.rst:399
 msgid "Other land - Artificial"
-msgstr "Other land - Artificial"
+msgstr ""
 
 #: ../../source/about/layers.rst:401
 msgid "67"
-msgstr "67"
+msgstr ""
 
 #: ../../source/about/layers.rst:401
 msgid "Other land - Water body"
-msgstr "Other land - Water body"
+msgstr ""
 
 #: ../../source/about/layers.rst:403
 msgid "Water body - Forest"
-msgstr "Water body - Forest"
+msgstr ""
 
 #: ../../source/about/layers.rst:405
 msgid "Water body - Grassland"
-msgstr "Water body - Grassland"
+msgstr ""
 
 #: ../../source/about/layers.rst:407
 msgid "73"
-msgstr "73"
+msgstr ""
 
 #: ../../source/about/layers.rst:407
 msgid "Water body - Cropland"
-msgstr "Water body - Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:409
 msgid "74"
-msgstr "74"
+msgstr ""
 
 #: ../../source/about/layers.rst:409
 msgid "Water body - Wetland"
-msgstr "Water body - Wetland"
+msgstr ""
 
 #: ../../source/about/layers.rst:411
 msgid "75"
-msgstr "75"
+msgstr ""
 
 #: ../../source/about/layers.rst:411
 msgid "Water body - Artificial"
-msgstr "Water body - Artificial"
+msgstr ""
 
 #: ../../source/about/layers.rst:413
 msgid "76"
-msgstr "76"
+msgstr ""
 
 #: ../../source/about/layers.rst:413
 msgid "Water body - Other land"
-msgstr "Water body - Other land"
+msgstr ""
 
-#: ../../source/about/layers.rst:417 ../../source/about/layers.rst:434
+#: ../../source/about/layers.rst:417
+#: ../../source/about/layers.rst:434
 msgid "Soil organic carbon"
-msgstr "Soil organic carbon"
+msgstr ""
 
 #: ../../source/about/layers.rst:421
 msgid "Soil organic carbon (degradation)"
-msgstr "Soil organic carbon (degradation)"
+msgstr ""
 
 #: ../../source/about/layers.rst:428
-msgid ""
-"Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative values "
-"indicate decrease."
+msgid "Percentage change in soil organic carbon content (0 - 30 cm depth) from baseline to target year. Positive values indicate increase, negative values indicate decrease."
 msgstr ""
-"Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative values "
-"indicate decrease."
 
 #: ../../source/about/layers.rst:441
-msgid ""
-"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
-"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 
 #: ../../source/about/layers.rst:445
 msgid "SDG 11.3.1 (sustainable urbanization)"
-msgstr "SDG 11.3.1 (sustainable urbanization)"
+msgstr ""
 
-#: ../../source/about/layers.rst:449 ../../source/about/layers.rst:456
+#: ../../source/about/layers.rst:449
+#: ../../source/about/layers.rst:456
 msgid "Urban"
-msgstr "Urban"
+msgstr ""
 
 #: ../../source/about/layers.rst:458
 msgid "Suburban"
-msgstr "Suburban"
+msgstr ""
 
 #: ../../source/about/layers.rst:460
 msgid "Built-up rural"
-msgstr "Built-up rural"
+msgstr ""
 
 #: ../../source/about/layers.rst:462
 msgid "Open space (fringe)"
-msgstr "Open space (fringe)"
+msgstr ""
 
 #: ../../source/about/layers.rst:464
 msgid "Open space (captured)"
-msgstr "Open space (captured)"
+msgstr ""
 
 #: ../../source/about/layers.rst:466
 msgid "Open space (rural)"
-msgstr "Open space (rural)"
+msgstr ""
 
 #: ../../source/about/layers.rst:468
 msgid "Open space (fringe water)"
-msgstr "Open space (fringe water)"
+msgstr ""
 
 #: ../../source/about/layers.rst:470
 msgid "8"
-msgstr "8"
+msgstr ""
 
 #: ../../source/about/layers.rst:470
 msgid "Open space (captured water)"
-msgstr "Open space (captured water)"
+msgstr ""
 
 #: ../../source/about/layers.rst:472
 msgid "9"
-msgstr "9"
+msgstr ""
 
 #: ../../source/about/layers.rst:472
 msgid "Open space (rural water)"
-msgstr "Open space (rural water)"
+msgstr ""
 
 #: ../../source/about/layers.rst:476
 msgid "Urban series"
-msgstr "Urban series"
+msgstr ""
 
 #: ../../source/about/layers.rst:483
 msgid "Water"
-msgstr "Water"
+msgstr ""
 
 #: ../../source/about/layers.rst:485
 msgid "Built up by 2000"
-msgstr "Built up by 2000"
+msgstr ""
 
 #: ../../source/about/layers.rst:487
 msgid "Built up by 2005"
-msgstr "Built up by 2005"
+msgstr ""
 
 #: ../../source/about/layers.rst:489
 msgid "Built up by 2010"
-msgstr "Built up by 2010"
+msgstr ""
 
 #: ../../source/about/layers.rst:491
 msgid "Built up by 2015"
-msgstr "Built up by 2015"
+msgstr ""
 
 #: ../../source/about/layers.rst:495
 msgid "Population"
-msgstr "Population"
+msgstr ""
 
 #: ../../source/about/layers.rst:502
 msgid "Total population within grid cell"
-msgstr "Total population within grid cell"
+msgstr ""
+

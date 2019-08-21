@@ -1,0 +1,23 @@
+/* table.align-center { */
+/*     margin-left: auto; */
+/*     margin-right: auto; */
+/*     text-align: center; */
+/* } */
+div.admonition.note {
+    background: #e2e2e2;
+}
+.rst-content .note .admonition-title {
+    background: #646464;
+}
+.wy-nav-top {
+    background-color: #646464;
+}
+.wy-side-nav-search {
+    background-color: #646464;
+}
+/* .wy-nav-side { */
+/*     background: #222c32; */
+/* } */
+/* .rst-versions .rst-current-version { */
+/*     background: #222c32; */
+/* } */

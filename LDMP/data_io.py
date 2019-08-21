@@ -20,7 +20,7 @@ import json
 from marshmallow import ValidationError
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVariant
+from PyQt4.QtCore import QSettings, Qt, pyqtSignal, QVariant
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
     QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \

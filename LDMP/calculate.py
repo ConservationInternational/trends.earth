@@ -19,7 +19,7 @@ import tempfile
 from osgeo import gdal, ogr, osr
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
+from PyQt4.QtCore import QTextCodec, QSettings, pyqtSignal
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJSONUtils, QgsVectorLayer, \
         QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
@@ -43,7 +43,7 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 def tr(t):
-    return QCoreApplication.translate('LDMPPlugin', t)
+    return QtGui.QApplication.translate('LDMPPlugin', t)
 
 
 # Make a function to get a script slug from a script name, including the script 

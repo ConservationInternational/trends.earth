@@ -366,8 +366,6 @@ def copy_style(a, b):
 
 def make_summary_table(out_file, biomass_initial, biomass_change, area_site, 
                        length_yr, rest_types):
-    def tr(s):
-        return QtGui.QApplication.translate("LDMP", s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_restoration.xlsx'))
 

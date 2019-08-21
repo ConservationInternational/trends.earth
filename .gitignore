@@ -23,7 +23,7 @@ aws_credentials.json
 LDMP/gui/*.py
 LDMP/resources.py
 LDMP/data_prep_scripts/*
-LDMP/docs/source/static
-LDMP/docs/build
+docs/build/*
+docs/source/.doctrees/*
 trends.earth_admin_user_credentials.json
 trends.earth_test_user_credentials.json

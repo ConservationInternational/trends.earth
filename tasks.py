@@ -177,7 +177,7 @@ def install(c, fast=True, folder='qgis2'):
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
     if not hasattr(os, 'symlink') or (os.name == 'nt'):
-        if not c.get('fast', False):
+        if not fast:
             if os.path.exists(dst_this_plugin):
                 rmtree(dst_this_plugin)
         for root, dirs, files in os.walk(src):
@@ -331,8 +331,8 @@ def pretranslate(c):
 
 
 @task(help={'language': 'language'})
-def gettext(c):
-    if not c.get('language', False):
+def gettext(c, language=None):
+    if not language:
         language = c.sphinx.base_language
     SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=language,
             sourcedir=c.sphinx.sourcedir)
@@ -347,12 +347,12 @@ def gettext(c):
     'ignore_errors': 'ignore documentation errors',
     'language': "which language to build (all are built by default)",
     'fast': "only build english html docs"})
-def build_docs(c):
-    if c.get('clean', False):
+def build_docs(c, clean=False, ignore_errors=False, language=None, fast=False):
+    if clean:
         c.sphinx.builddir.rmtree()
 
-    if c.get('language', False):
-        languages = [c.get('language')]
+    if language:
+        languages = [language]
     else:
         languages = [c.sphinx.base_language]
         languages.extend(c.plugin.translations)
@@ -364,8 +364,6 @@ def build_docs(c):
         print("\nBuilding {lang} documentation...".format(lang=language))
         SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=language,
                 sourcedir=c.sphinx.sourcedir)
-
-        ignore_errors = c.get('ignore_errors', False)
 
         _localize_resources(c, language)
 
@@ -381,7 +379,7 @@ def build_docs(c):
                 builddir=c.sphinx.builddir, lang=language))
         print("HTML Build finished. The HTML pages for '{lang}' are in {builddir}.".format(lang=language, builddir=c.sphinx.builddir))
 
-        if c.get('fast', False):
+        if fast:
             break
 
         # Build PDF, by first making latex from sphinx, then pdf from that

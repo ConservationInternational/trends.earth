@@ -1,10 +1,7 @@
-paver
+invoke
 boto3
 sphinx
 sphinx-intl
 sphinx-rtd-theme
 transifex-client
 pylint
-pep8
-autopep8
-ablog

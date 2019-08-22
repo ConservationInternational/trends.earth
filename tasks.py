@@ -71,7 +71,7 @@ def rmtree(top):
 def _replace(file_path, regex, subst):
     #Create temp file
     fh, abs_path = mkstemp()
-    with os.fdopen(fh,'wb') as new_file:
+    with os.fdopen(fh,'w') as new_file:
         with open(file_path) as old_file:
             for line in old_file:
                 new_file.write(regex.sub(subst, line))

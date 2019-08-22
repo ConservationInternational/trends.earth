@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.60\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 15:33-0500\n"
+"POT-Creation-Date: 2019-08-22 11:07-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
@@ -34,6 +34,10 @@ msgid ""
 " SDG 15.3 (proportion of land area degraded) is a combination of three sub-"
 "indicators: change in land productivity, change in land cover and change in "
 "soil organic carbon."
+msgstr ""
+
+#: ../../source/documentation/calculate.rst:15
+msgid "Contents"
 msgstr ""
 
 #: ../../source/documentation/calculate.rst:17

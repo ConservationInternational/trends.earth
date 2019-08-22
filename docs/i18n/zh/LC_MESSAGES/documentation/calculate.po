@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.66\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
+"POT-Creation-Date: 2019-08-22 11:07-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -36,6 +36,10 @@ msgid ""
 "soil organic carbon."
 msgstr ""
 "可持续发展目标15.3旨在防治荒漠化，恢复退化的土地和土壤，包括受荒漠化，干旱和洪水影响的土地，并努力在2030年前实现土地退化中性世界。为了评估实现这一目标的进展，可持续发展目标15.3（土地面积退化比例）的指标是三个子指标的组合：土地生产力的变化，土地覆盖的变化和土壤有机碳的变化。"
+
+#: ../../source/documentation/calculate.rst:15
+msgid "Contents"
+msgstr ""
 
 #: ../../source/documentation/calculate.rst:17
 msgid ""

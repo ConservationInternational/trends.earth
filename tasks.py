@@ -335,11 +335,11 @@ def translate_pull(c):
     for translation in c.plugin.translations:
         subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
 
-@task
-def translate_update_resources(c):
-    print("Updating transifex...")
-    subprocess.check_call("sphinx-intl update-txconfig-resources --pot-dir {docroot}/i18n/pot --transifex-project-name {transifex_name}".format(docroot=c.sphinx.docroot, transifex_name=c.sphinx.transifex_name))
-
+# @task
+# def translate_update_resources(c):
+#     print("Updating transifex...")
+#     subprocess.check_call("sphinx-intl update-txconfig-resources --pot-dir {docroot}/i18n/pot --transifex-project-name {transifex_name}".format(docroot=c.sphinx.docroot, transifex_name=c.sphinx.transifex_name))
+#
 
 @task
 def translate_push(c):
@@ -479,9 +479,9 @@ def changelog_build(c):
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
-ns = Collection(set_version, setup, install, translate_pull, 
-        translate_push, translate_update_resources, docs_build, 
-        changelog_build, tecli_login, tecli_publish, tecli_run)
+ns = Collection(set_version, setup, install,
+        docs_build, translate_pull, translate_push,
+        tecli_login, tecli_publish, tecli_run)
 
 ns.configure({
     'plugin': {

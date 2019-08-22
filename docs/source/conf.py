@@ -31,6 +31,8 @@ import sphinx_rtd_theme
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
 extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
 
+todo_include_todos=True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

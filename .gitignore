@@ -2,6 +2,8 @@
 .RData
 LDMP.zip
 aws_credentials.json
+*.mo
+*.qm
 *.swp
 *.swo
 *.csv

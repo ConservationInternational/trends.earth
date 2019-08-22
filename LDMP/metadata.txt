@@ -33,7 +33,13 @@ experimental=False
 deprecated=False
 
 # Uncomment the following line and add your changelog:
-changelog=0.66 (July 20, 2019)
+changelog=0.67 (not yet released)
+    - Move documentation into docs folder at root of trends.earth repository.
+    - Add more details on how to documentation on how to contribute to 
+      development of Trends.Earth,
+    - Clean up repository by removing compiled translations files, and adding 
+      these file types to .gitignore.
+  0.66 (July 20, 2019)
     - Limit maximum area for tasks to 10,000,000 sq km, except for urban area 
       tasks, which is limited to 10,000 sq km.
     - Add background section on SDG 11.3.1, and update SDG 11.3.1 tutorial.

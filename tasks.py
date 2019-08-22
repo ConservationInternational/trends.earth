@@ -14,6 +14,44 @@ from tempfile import mkstemp
 
 import boto3
 
+# Below is from:
+# https://stackoverflow.com/questions/3041986/apt-command-line-interface-like-yes-no-input
+def query_yes_no(question, default="yes"):
+    """Ask a yes/no question via input() and return answer.
+
+    "question" is a string that is presented to the user.
+    "default" is the presumed answer if the user just hits <Enter>.
+        It must be "yes" (the default), "no" or None (meaning
+        an answer is required of the user).
+
+    The "answer" return value is True for "yes" or False for "no".
+    """
+    valid = {"yes": True, "y": True, "ye": True,
+             "no": False, "n": False}
+    if default is None:
+        prompt = " [y/n] "
+    elif default == "yes":
+        prompt = " [Y/n] "
+    elif default == "no":
+        prompt = " [y/N] "
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
+
+    while True:
+        sys.stdout.write(question + prompt)
+        choice = input().lower()
+        if default is not None and choice == '':
+            return valid[default]
+        elif choice in valid:
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' "
+                             "(or 'y' or 'n').\n")
+
+def get_version():
+    with open('version.txt', 'r') as f:
+        v = f.read()
+    return v.strip('\n')
 
 # Handle long filenames or readonly files on windows, see: 
 # http://bit.ly/2g58Yxu
@@ -50,6 +88,11 @@ def set_version(c, v):
     if not v or not re.match("[0-9]+([.][0-9]+)+", v):
         print('Must specify a valid version (example: 0.36)')
         return
+    
+    # Set in version.txt
+    print('Setting version to {} in version.txt'.format(v))
+    with open('version.txt', 'w') as f:
+        f.write(v)
      
     # Set in Sphinx docs in make.conf
     print('Setting version to {} in sphinx conf.py'.format(v))
@@ -108,6 +151,11 @@ def tecli_login(c):
 
 @task(help={'script': 'Script name'})
 def tecli_publish(c, script=None):
+    if not script:
+        ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version()))
+        if not ret:
+            return
+
     dirs = next(os.walk(c.gee.script_dir))[1]
     n = 0
     for dir in dirs:
@@ -223,7 +271,8 @@ def compile_files(options):
     pyuic4 = check_path('pyuic4')
 
     if not pyuic4:
-        print("pyuic4 is not in your path---unable to compile your ui files")
+        print("ERROR: pyuic4 is not in your path---unable to compile your ui files")
+        return
     else:
         ui_files = glob.glob('{}/*.ui'.format(options.plugin.gui_dir))
         ui_count = 0
@@ -248,7 +297,8 @@ def compile_files(options):
     # check to see if we have pyrcc4
     pyrcc4 = check_path('pyrcc4')
     if not pyrcc4:
-        print("pyrcc4 is not in your path---unable to compile your resource file(s)")
+        print("ERROR: pyrcc4 is not in your path---unable to compile your resource file(s)")
+        return
     else:
         res_files = options.plugin.resource_files
         res_count = 0
@@ -328,7 +378,8 @@ def check_path(app):
 def translate_pull(c):
     lrelease = check_path('lrelease')
     if not lrelease:
-        print("lrelease is not in your path---unable to release translation files")
+        print("ERROR: lrelease is not in your path---unable to release translation files")
+        return
     print("Pulling transifex translations...")
     subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
     print("Releasing translations using lrelease...")
@@ -343,16 +394,23 @@ def translate_pull(c):
 
 @task
 def translate_push(c):
+    print("Building changelog...")
+    changelog_build(c)
+
+    print("Gathering strings...")
     gettext(c)
-    print("Generating the pot files for the LDMP toolbox help files.")
+    print("Generating the pot files for the LDMP toolbox help files...")
     for translation in c.plugin.translations:
         subprocess.check_call("sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}".format(sourcedir=c.sphinx.sourcedir, docroot=c.sphinx.docroot, lang=translation))
 
+    print("Gathering strings for translation using pylupdate4...")
     pylupdate4 = check_path('pylupdate4')
     if not pylupdate4:
-        print("pylupdate4 is not in your path---unable to gather strings for translation")
-    print("Gathering strings for translation using pylupdate4")
-    subprocess.check_call([pylupdate4, os.path.join(c.plugin.i18n_dir, 'i18n.pro')])
+        print("ERROR: pylupdate4 is not in your path---unable to gather strings for translation")
+        return
+    else:
+        subprocess.check_call([pylupdate4, os.path.join(c.plugin.i18n_dir, 'i18n.pro')])
+
     subprocess.check_call('tx push --parallel -s')
 
 

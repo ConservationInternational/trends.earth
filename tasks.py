@@ -103,15 +103,41 @@ def set_version(c, v):
     _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
 
 @task
-def publish_gee(c):
+def tecli_login(c):
+    subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'login'])
+
+@task(help={'script': 'Script name'})
+def tecli_publish(c, script=None):
     dirs = next(os.walk(c.gee.script_dir))[1]
+    n = 0
     for dir in dirs:
         script_dir = os.path.join(c.gee.script_dir, dir) 
-        if os.path.exists(os.path.join(script_dir, 'configuration.json')):
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
+                (script == None or script == dir):
             print('Publishing {}...'.format(dir))
             subprocess.check_call(['python',
-                                   c.gee.tecli,
+                                   os.path.abspath(c.gee.tecli),
                                    'publish', '--public=True', '--overwrite=True'], cwd=script_dir)
+            n += 1
+    if script and n == 0:
+        print('Script "{}" not found.'.format(script))
+
+@task(help={'script': 'Script name'})
+def tecli_run(c, script):
+    dirs = next(os.walk(c.gee.script_dir))[1]
+    n = 0
+    script_dir = None
+    for dir in dirs:
+        script_dir = os.path.join(c.gee.script_dir, dir) 
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
+                 script == dir:
+            print('Running {}...'.format(dir))
+            subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start'], cwd=script_dir)
+                                   
+            n += 1
+            break
+    if script and n == 0:
+        print('Script "{}" not found.'.format(script))
 
 ###############################################################################
 # Setup dependencies and install package
@@ -143,7 +169,7 @@ def setup(c, clean=False):
     runtime, test = read_requirements()
 
     try:
-        import pip
+        from pip._internal import main as pip
     except:
         error('FATAL: Unable to import pip, please install it first!')
         sys.exit(1)
@@ -153,18 +179,18 @@ def setup(c, clean=False):
         # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
         # the --no-deps flag (-N for short) with that package only.
         if ('pyqtgraph' in req):
-            pip.main(['install',
-                      '--upgrade',
-                      '--no-deps',
-                      '-t',
-                      ext_libs,
-                      req])
+            pip(['install',
+                 '--upgrade',
+                 '--no-deps',
+                 '-t',
+                 ext_libs,
+                 req])
         else:
-            pip.main(['install',
-                      '--upgrade',
-                      '-t',
-                      ext_libs,
-                      req])
+            pip(['install',
+                 '--upgrade',
+                 '-t',
+                 ext_libs,
+                 req])
 
 @task(help={'fast': "don't run rmtree", 'folder': 'where to install to'})
 def install(c, fast=True, folder='qgis2'):
@@ -299,7 +325,7 @@ def check_path(app):
 ###############################################################################
 
 @task
-def translate(c):
+def translate_pull(c):
     lrelease = check_path('lrelease')
     if not lrelease:
         print("lrelease is not in your path---unable to release translation files")
@@ -310,13 +336,13 @@ def translate(c):
         subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
 
 @task
-def update_transifex(c):
+def translate_update_resources(c):
     print("Updating transifex...")
     subprocess.check_call("sphinx-intl update-txconfig-resources --pot-dir {docroot}/i18n/pot --transifex-project-name {transifex_name}".format(docroot=c.sphinx.docroot, transifex_name=c.sphinx.transifex_name))
 
 
 @task
-def pretranslate(c):
+def translate_push(c):
     gettext(c)
     print("Generating the pot files for the LDMP toolbox help files.")
     for translation in c.plugin.translations:
@@ -347,7 +373,7 @@ def gettext(c, language=None):
     'ignore_errors': 'ignore documentation errors',
     'language': "which language to build (all are built by default)",
     'fast': "only build english html docs"})
-def build_docs(c, clean=False, ignore_errors=False, language=None, fast=False):
+def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     if clean:
         c.sphinx.builddir.rmtree()
 
@@ -358,7 +384,7 @@ def build_docs(c, clean=False, ignore_errors=False, language=None, fast=False):
         languages.extend(c.plugin.translations)
 
     print("\nBuilding changelog...")
-    build_changelog(c)
+    changelog_build(c)
 
     for language in languages:
         print("\nBuilding {lang} documentation...".format(lang=language))
@@ -421,7 +447,7 @@ def _localize_resources(c, language):
 
 
 @task
-def build_changelog(c):
+def changelog_build(c):
     out_txt = ['Changelog\n',
                '======================\n',
                '\n',
@@ -453,8 +479,9 @@ def build_changelog(c):
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
-ns = Collection(set_version, publish_gee, setup, install, translate, 
-        pretranslate, build_docs, build_changelog)
+ns = Collection(set_version, setup, install, translate_pull, 
+        translate_push, translate_update_resources, docs_build, 
+        changelog_build, tecli_login, tecli_publish, tecli_run)
 
 ns.configure({
     'plugin': {
@@ -484,6 +511,7 @@ ns.configure({
     },
     'gee': {
         'script_dir': 'gee',
+        'tecli': '../trends.earth-CLI/tecli'
     },
     'sphinx' : {
         'docroot': 'docs',

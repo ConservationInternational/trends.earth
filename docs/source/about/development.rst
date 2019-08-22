@@ -30,22 +30,57 @@ translating the website and plugin.
 Modifying the QGIS Plugin code
 ______________________________
 
-.. todo::
-   1. Add note on invoke
-   2. Add note on Python 2.7 vs 3
 
 Downloading the trends.earth code
 ---------------------------------
 
-.. todo:: add note on how to do this
+The Trends.Earth code for both the plugin and the Google Earth Engine scripts 
+that support it are located on github in the `trends.earth
+<https://github.com/ConservationInternational/trends.earth>`_ repository. Clone 
+this repository to a convenient place on your machine in order to ensure you 
+have the latest version of the code.
+
+There are a number of different branches of the trends.earth repository that 
+are under active development. As the plugin does not yet officially support 
+QGIS3, the "qgis2" branch is where most development work is happening. The 
+"master" branch has some initial changes to support on the "qgis3", and will 
+eventually become the primary place for development once that version is 
+released.
 
 Installing dependencies
 -----------------------
 
+Python
+~~~~~~
+
+The plugin is coded in Python. In addition to being used to run the plugin 
+through QGIS, Python is also used to support managing the plugin (changing the 
+version, installing development versions, etc.). Though Python is included with 
+QGIS, you will also need a local version of Python that you can setup with the 
+software needed to manage the plugin. The easiest way to manage multiple 
+versions of Python is through the `Anaconda distribution 
+<https://www.anaconda.com>`_. For work developing the plugin, Python 
+3 is required. To download Python 3.7 (recommended) though Anaconda,
+`see this page <https://www.anaconda.com/distribution/#download-section>`_.
+
 Python dependencies
 ~~~~~~~~~~~~~~~~~~~
 
-.. todo:: add note on how to do this
+In order to work with the trends.earth code, you need to have Invoke
+installed on your machine, as well as a number of other packages that are used 
+for managing the documentation, translations, etc. These packages are all 
+listed in the "dev" requirements file for Trends.Earth, so they can be 
+installed by navigating in a command prompt to the root of the trends.earth 
+code folder and typing::
+
+   pip install -r requirements-dev.txt
+
+.. note::
+   If you are using Anaconda, you will first want to activate a Python 3.7 
+   virtual environment before running the above command (and any of the other 
+   invoke commands listed on the page). One way to do this is by starting an 
+   "Anaconda prompt", by `following the instructions on this Anaconda page
+   <https://docs.anaconda.com/anaconda/user-guide/getting-started/#write-a-python-program-using-anaconda-prompt-or-terminal>`_.
 
 PyQt4
 ~~~~~
@@ -53,12 +88,12 @@ PyQt4
 PyQt4 is the graphics toolkit used by QGIS2. To compile the user interface for 
 Trends.Earth you need to install PyQt4. The best source for this package is 
 from the set of packages maintained by Christoph Gohlke at UC Irvine. To 
-download PyQt4, select `the appropriate package from this 
-page<https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4>`_. Choose the 
-appropriate file for the version of Python you are using. For example, if you 
-are using Python 2.7, choose the version with "cp27" in the filename. If you 
-are using Python 3.7, choose the version with "cp37" in the filename. Choose 
-"amd64" for 64-bit python, and "win32" for 32-bit python.
+download PyQt4, select `the appropriate package from this page 
+<https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4>`_. Choose the appropriate 
+file for the version of Python you are using. For example, if you are using 
+Python 2.7, choose the version with "cp27" in the filename. If you are using 
+Python 3.7, choose the version with "cp37" in the filename. Choose "amd64" for 
+64-bit python, and "win32" for 32-bit python.
 
 After downloading from the above link, use ``pip`` to install it. For example, 
 for the 64-bit wheel for Python 3.7, you would run::
@@ -229,8 +264,36 @@ with the system clock. Restarting docker should fix this error.
 Deploying a GEE script to api.trends.earth
 ------------------------------------------
 
-.. todo::
-   Add section on how to publish scripts to api.trends.earth server
+When you have finished testing a GEE script and would like it to be accessible 
+using the QGIS plugin (and by other users of Trends.Earth), you can deploy it 
+to the api.trends.earth server. The first step in the process is logging in to 
+the api.trends.earth server. To login, run::
+   
+   invoke tecli-login
+
+You will be asked for a username and password. These are the same as the 
+username and password that you use to login to the Trends.Earth server from the 
+QGIS plugin. Note that if you are not an adminstrator, you will be able to 
+login, but the below command will fail. To upload a script (for example, the 
+"land_cover" script) to the server, run::
+   
+   invoke tecli-publish land_cover
+
+If this script already exists on the server, you will be asked if you want to 
+overwrite the existing script. Be very careful uploading scripts with 
+even-numbered versions, as these are publicly available scripts, and any errors
+that you make will affect anyone using the plugin. Whenever you are testing be 
+sure to use development version numbers (odd version numbers).
+
+If you are making a new release of the plugin, and want to upload ALL of the 
+GEE scripts at once (this is necessary whenenever the plugin version number 
+changes), run::
+   
+   invoke tecli-publish
+
+Again - never run the above on a publicly released version of the plugin unless 
+you are intending to overwrite all the publicly available scripts used by the 
+plugin.
 
 Contributing to the documentation
 _________________________________
@@ -250,7 +313,7 @@ and folders to be aware of:
 
    + build: contains the build documenation for trends.earth (in PDF and HTML 
      format). Note it will only appear on your machine after running the 
-     docs-build` invoke task.
+     ``docs-build`` invoke task.
    + i18n: contains translations of the documenation into other languages. The 
      files in here are normally processed automatically using invoke tasks, so 
      you shouldn't ever have reason to modify anything in this folder.
@@ -278,15 +341,24 @@ command prompt to the root of the trends.earth code folder and typing::
 LaTeX
 ~~~~~
 
-LaTeX is used to produce PDF outputs of the documentation for Trends.Earth
+LaTeX is used to produce PDF outputs of the documentation for Trends.Earth.
 
-.. todo:: add instructions on how to install LaTeX
+To install on Windows, `follow the process outlined here 
+<https://www.tug.org/protext>`_ to install the proTeXt distribution of LaTeX 
+from `the zipfile available here 
+<http://ftp.math.purdue.edu/mirrors/ctan.org/systems/windows/protext/>`_. The 
+LaTeX installer is quite large (several GB) so it might take some time to 
+download and install.
 
+On MacOS, MacTeX is a good option, and can be installed `following the 
+instructions here <http://www.tug.org/mactex/>`_.
+
+On Linux, installing LaTeX should be much easier - use your distribution's 
+package manager to find and install whatever LaTeX distribution is included by 
+default.
 
 Updating and building the documentation
 ---------------------------------------
-
-.. todo:: add details on where built files end up
 
 Once you have installed the sphinx requirements, you are ready to begin 
 modifying the documentation. The files to modify are located under the 
@@ -304,10 +376,18 @@ few seconds. To build using the fast option, run::
 
    invoke docs-build -f
 
+The above command will take a few seconds to fun, and then if you look under 
+"docs\build\html\en", you will see the HTML version of the documentation. Load 
+the "index.html" file in a web browser to see how it looks.
+
 To build the full documentation, for all languages, in PDF and in HTML 
 (remember this could take a few hours to complete), run::
 
    invoke docs-build
+
+After running the above command you will see (for English) the HTML 
+documentation under "docs\build\html\en", and the PDFs of the documentation 
+under "docs\build\html\en\pdfs".
 
 If you want to test a specific language (when testing translations, for 
 example), you can specify a two letter language code to only build the docs for 
@@ -373,15 +453,14 @@ several configuration files to ensure they are properly translated, and (for
 tutorials) to ensure that they are generated in PDF so they can be downloaded 
 for offline use.
 
-.. todo:: add note on how to do this
+.. todo:: add this
 
 Files that need to be made available as separate PDFs (typically the tutorial 
 sections of the documentation) also need to be listed in the 
 
-.. todo:: add note on how to do this
+.. todo:: add this
 
 Contributing as a translator
 ----------------------------
 
-.. todo:: add note on how to do this
-
+.. todo:: add this

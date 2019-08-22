@@ -3,6 +3,15 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`0.67 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.67>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Move documentation into docs folder at root of trends.earth repository.
+    - Add more details on how to documentation on how to contribute to 
+      development of Trends.Earth,
+    - Clean up repository by removing compiled translations files, and adding 
+      these file types to .gitignore.
+
 `0.66 (July 20, 2019) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

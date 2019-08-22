@@ -122,8 +122,10 @@ version to be 0.67, you would run::
 
    invoke set-version -v 0.67
 
-To avoid confusion, never change the version to one that has already been 
-released - always INCREASE the value of the version tag to the next odd number.
+Running the above command will update the version number every place it is 
+referenced in the code. To avoid confusion, never change the version to one 
+that has already been released - always INCREASE the value of the version tag 
+to the next odd number.
 
 Testing changes to the plugin
 -----------------------------
@@ -426,15 +428,15 @@ update the strings on transifex with any new changes, run::
 Note that to successfully run the above command you will need to have the key 
 for the Trends.Earth transifex account.
 
-Additional notes on building documentation for release
-------------------------------------------------------
+Building documentation for release
+----------------------------------
 
 Before releasing new documentation, always pull the latest translations from 
 transifex so that all translations are up to date. To do this, run::
 
    invoke translate-pull
 
-To build a version of hte documentation for public release (either to the 
+To build a version of the documentation for public release (either to the 
 website, or in PDF) you must build the entire documentation using 
 ``docs-build`` with no additional parameters::
 

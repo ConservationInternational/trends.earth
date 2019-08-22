@@ -468,14 +468,15 @@ several configuration files to ensure they are properly translated, and (for
 tutorials) to ensure that they are generated in PDF so they can be downloaded 
 for offline use.
 
-.. todo:: add this
+.. todo:: Add this. Remember to mention that docs\source\static should never be 
+   used for resources - they should go under docs\resources\en.
 
 Files that need to be made available as separate PDFs (typically the tutorial 
 sections of the documentation) also need to be listed in the 
 
-.. todo:: add this
+.. todo:: Add this
 
 Contributing as a translator
 ----------------------------
 
-.. todo:: add this
+.. todo:: Add this

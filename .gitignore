@@ -2,8 +2,6 @@
 .RData
 LDMP.zip
 aws_credentials.json
-*.doctree
-*.pot
 *.mo
 *.qm
 *.swp
@@ -29,5 +27,6 @@ LDMP/resources.py
 LDMP/data_prep_scripts/*
 docs/build/*
 docs/source/.doctrees/*
+invoke.yaml
 trends.earth_admin_user_credentials.json
 trends.earth_test_user_credentials.json

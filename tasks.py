@@ -4,6 +4,7 @@ from invoke import Collection, task
 
 import os
 import sys
+import platform
 import fnmatch
 import re
 import glob
@@ -208,7 +209,7 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx+1, None)
 
 @task(help={'clean': 'Clean out dependencies first'})
-def setup(c, clean=False):
+def plugin_setup(c, clean=False):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs)
     if clean:
@@ -240,18 +241,35 @@ def setup(c, clean=False):
                  ext_libs,
                  req])
 
-@task(help={'fast': "don't run rmtree", 'folder': 'where to install to'})
-def install(c, fast=True, folder='qgis2'):
+@task(help={'clean': "don't run rmtree",
+            'version': 'what version of QGIS to install to',
+            'profile': 'what profile to install to (only applies to QGIS3'})
+def plugin_install(c, clean=False, version=2, profile='default'):
     '''install plugin to qgis'''
     compile_files(c)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
+
+    if version == 2:
+        folder = '.qgis2'
+    elif version == 3:
+        if platform.system() == 'Darwin':
+            folder = 'Library/Application Support/QGIS/QGIS3/profiles/'
+        if platform.system() == 'Linux':
+            folder = 'local/share/QGIS/QGIS3/profiles/'
+        if platform.system() == 'Windows':
+            folder ='AppData\\Roaming\\QGIS\\QGIS3\\profiles\\'
+        folder = os.path.join(folder, profile)
+    else:
+        print("ERROR: unknown qgis version {}".format(version))
+        return
+
     dst_plugins = os.path.join(os.path.expanduser('~'), folder, 'python', 'plugins')
     dst_this_plugin = os.path.join(dst_plugins, plugin_name)
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
     if not hasattr(os, 'symlink') or (os.name == 'nt'):
-        if not fast:
+        if not clean:
             if os.path.exists(dst_this_plugin):
                 rmtree(dst_this_plugin)
         for root, dirs, files in os.walk(src):
@@ -537,7 +555,7 @@ def changelog_build(c):
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
-ns = Collection(set_version, setup, install,
+ns = Collection(set_version, plugin_setup, plugin_install,
         docs_build, translate_pull, translate_push,
         tecli_login, tecli_publish, tecli_run)
 

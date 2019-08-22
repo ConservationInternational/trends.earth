@@ -43,9 +43,8 @@ have the latest version of the code.
 There are a number of different branches of the trends.earth repository that 
 are under active development. As the plugin does not yet officially support 
 QGIS3, the "qgis2" branch is where most development work is happening. The 
-"master" branch has some initial changes to support on the "qgis3", and will 
-eventually become the primary place for development once that version is 
-released.
+"master" branch has some initial changes to support QGIS3, and will eventually 
+become the primary place for development once that version is released.
 
 The first time you download the trends.earth code, you will also need to clone 
 the "schemas" submodule that is located within it, under "LDMP\schemas". If you 

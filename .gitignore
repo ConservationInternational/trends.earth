@@ -2,6 +2,8 @@
 .RData
 LDMP.zip
 aws_credentials.json
+*.doctree
+*.pot
 *.mo
 *.qm
 *.swp

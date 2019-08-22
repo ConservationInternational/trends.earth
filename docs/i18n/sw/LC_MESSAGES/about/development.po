@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.54\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-08 07:43-0400\n"
+"POT-Creation-Date: 2019-08-22 11:07-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
+"roglich@conservation.org>, 2018\n"
 "Language: sw\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-"
+"international/teams/80165/sw/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
 
 #: ../../source/about/development.rst:2
 msgid "Development"
@@ -25,55 +29,273 @@ msgstr "Maendeleo"
 #: ../../source/about/development.rst:4
 msgid ""
 "|trends.earth| is free and open-source software, licensed under the `GNU "
-"General Public License, version 2.0 or later <https://www.gnu.org/licenses"
-"/old-licenses/gpl-2.0.en.html>`_."
+"General Public License, version 2.0 or later "
+"<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 msgstr ""
-"|trends.earth| ni programu ya bure na ya chanzo, iliyoidhinishwa chini ya "
-"'GNU General Public License, version 2.0 au baadaye "
+"|trends.earth| ni programu ya bure na ya chanzo, iliyoidhinishwa chini ya"
+" 'GNU General Public License, version 2.0 au baadaye "
 "<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 
 #: ../../source/about/development.rst:8
 msgid ""
-"There are a number of components to the |trends.earth| tool. The first is a "
-"QGIS plugin supporting calculation of indicators, access to raw data, "
+"There are a number of components to the |trends.earth| tool. The first is"
+" a QGIS plugin supporting calculation of indicators, access to raw data, "
 "reporting, and production of print maps . The code for the plugin, and "
-"further instructions on installing it if you want to modify the code, are in"
-" `trends.earth <https://github.com/ConservationInternational/trends.earth>`_"
-" github repository."
-msgstr ""
-"Kuna idadi ya vipengele kwenye |trends.earth| chombo. Ya kwanza ni Plugin ya"
-" QGIS inayounga mkono hesabu ya viashiria, upatikanaji wa data ghafi, "
-"taarifa, na uzalishaji wa ramani za magazeti. Nambari ya Plugin, na maagizo "
-"zaidi juu ya kuifanya ikiwa unataka kurekebisha msimbo, iko katika "
-"`trends.earth <https://github.com/ConservationInternational/trends.earth>`_ "
-"github kuhifadhi."
-
-#: ../../source/about/development.rst:15
-msgid ""
-"The |trends.earth| QGIS plugin is supported by a number of different Python "
-"scripts that allow calculation of the various indicators on Google Earth "
-"Engine (GEE). These scripts sit in the \"gee\" subfolder of that github "
+"further instructions on installing it if you want to modify the code, are"
+" in `trends.earth "
+"<https://github.com/ConservationInternational/trends.earth>`_ github "
 "repository."
 msgstr ""
-"The | trends.earth | Plugin ya QGIS inashirikiwa na script tofauti za Python"
-" zinazo kuruhusu hesabu ya viashiria vingine kwenye Google Earth Engine "
-"(GEE). Maandiko haya hukaa katika sehemu ndogo ya \"gee\" ya hifadhi hiyo ya"
-" github."
+"Kuna idadi ya vipengele kwenye |trends.earth| chombo. Ya kwanza ni Plugin"
+" ya QGIS inayounga mkono hesabu ya viashiria, upatikanaji wa data ghafi, "
+"taarifa, na uzalishaji wa ramani za magazeti. Nambari ya Plugin, na "
+"maagizo zaidi juu ya kuifanya ikiwa unataka kurekebisha msimbo, iko "
+"katika `trends.earth "
+"<https://github.com/ConservationInternational/trends.earth>`_ github "
+"kuhifadhi."
 
-#: ../../source/about/development.rst:19
+#: ../../source/about/development.rst:15
+#, fuzzy
 msgid ""
-"The GEE scripts are supported by the `landdegradation` Python module, which "
-"includes code for processing inputs and outputs for the plugin, as well as "
-"other common functions supporting calculation of NDVI integrals, statistical"
-" significance, and other shared code. The code for this module is available "
-"in the `landdegradation "
-"<https://github.com/ConservationInternational/landdegradation>`_ repository "
-"on Github."
+"The |trends.earth| QGIS plugin is supported by a number of different "
+"Python scripts that allow calculation of the various indicators on Google"
+" Earth Engine (GEE). These scripts sit in the \"gee\" subfolder of that "
+"github repository. The GEE scripts are supported by the `landdegradation`"
+" Python module, which includes code for processing inputs and outputs for"
+" the plugin, as well as other common functions supporting calculation of "
+"NDVI integrals, statistical significance, and other shared code. The code"
+" for this module is available in the `landdegradation "
+"<https://github.com/ConservationInternational/landdegradation>`_ "
+"repository on Github."
 msgstr ""
 "Machapisho ya GEE yanasaidiwa na moduli ya `Pyrene 'ya ardhi ya ardhi, "
-"ambayo inajumuisha msimbo wa pembejeo za usindikaji na matokeo ya Plugin, "
-"pamoja na kazi nyingine za kawaida zinazounga mkono uhesabu wa vipindi vya "
-"NDVI, umuhimu wa takwimu, na kanuni nyingine iliyoshirikiwa. Nambari ya "
-"moduli hii inapatikana katika `uhamishaji wa ardhi "
-"<https://github.com/ConservationInternational/landdegradation>` _ kuhifadhi "
-"kwenye Github."
+"ambayo inajumuisha msimbo wa pembejeo za usindikaji na matokeo ya Plugin,"
+" pamoja na kazi nyingine za kawaida zinazounga mkono uhesabu wa vipindi "
+"vya NDVI, umuhimu wa takwimu, na kanuni nyingine iliyoshirikiwa. Nambari "
+"ya moduli hii inapatikana katika `uhamishaji wa ardhi "
+"<https://github.com/ConservationInternational/landdegradation>` _ "
+"kuhifadhi kwenye Github."
+
+#: ../../source/about/development.rst:26
+msgid ""
+"Further details are below on how to contribute to Trends.Earth by working"
+" on the plugin code, by modifying the processing code, or by contributing"
+" to translating the website and plugin."
+msgstr ""
+
+#: ../../source/about/development.rst:31
+msgid "Modifying the QGIS Plugin code"
+msgstr ""
+
+#: ../../source/about/development.rst:34
+msgid "Installing a local development version of the plugin"
+msgstr ""
+
+#: ../../source/about/development.rst:39
+msgid "Modifying the Earth Engine processing code"
+msgstr ""
+
+#: ../../source/about/development.rst:42
+msgid "Testing an Earth Engine script locally"
+msgstr ""
+
+#: ../../source/about/development.rst:44
+msgid ""
+"While converting a GEE script from JavaScript to Python, or when making "
+"modifications to the code within the script, it can be useful to test the"
+" script locally, without deploying it to the api.trends.earth server. To "
+"do this, use the `run` invoke task. For example, to test the "
+"\"land_cover\" script, go to the root directory of the Trends.Earth code,"
+" and run::"
+msgstr ""
+
+#: ../../source/about/development.rst:52
+msgid ""
+"This will use the trends.earth-CLI package to build and run a docker "
+"container that will attempt to run the \"land_cover\" script. If there "
+"are any syntax errors in the script, these will show up when the "
+"container is run. Before submitting a new script to api.trends.earth, "
+"always make sure that `invoke tecli-run` is able to run the script "
+"without any errors."
+msgstr ""
+
+#: ../../source/about/development.rst:58
+msgid "When using `invoke tecli-run` you may get an error saying:"
+msgstr ""
+
+#: ../../source/about/development.rst:66
+msgid ""
+"This error can be caused if the clock on the docker container gets out of"
+" sync with the system clock. Restarting docker should fix this error."
+msgstr ""
+
+#: ../../source/about/development.rst:70
+msgid "Contributing to the documentation"
+msgstr ""
+
+#: ../../source/about/development.rst:73
+msgid "Overview"
+msgstr ""
+
+#: ../../source/about/development.rst:75
+msgid ""
+"The documentation for Trends.Earth is produced using `Sphinx <http://www"
+".sphinx-doc.org/en/master/>`_, and is written in `reStructuredText "
+"<http://docutils.sourceforge.net/rst.html>`_ format. If you are "
+"unfamiliar with either of these tools, see their documentation for more "
+"information on how they are used."
+msgstr ""
+
+#: ../../source/about/development.rst:81
+msgid ""
+"The documentation for Trends.Earth is stored in the `docs` folder under "
+"the main trends.earth directory. Within that folder there are a number of"
+" key files and folders to be aware of:"
+msgstr ""
+
+#: ../../source/about/development.rst:85
+msgid ""
+"`build`: contains the build documenation for trends.earth (in PDF and "
+"HTML format). Note it will only appear on your machine after running the "
+"`docs-build` invoke task."
+msgstr ""
+
+#: ../../source/about/development.rst:88
+msgid ""
+"`i18n`: contains translations of the documenation into other languages. "
+"The files in here are normally processed automatically using invoke "
+"tasks, so you shouldn't ever have reason to modify anything in this "
+"folder."
+msgstr ""
+
+#: ../../source/about/development.rst:91
+msgid ""
+"`resources`: contains any resourcess (primarily images or PDFs) that are "
+"referred to in the documentation."
+msgstr ""
+
+#: ../../source/about/development.rst:93
+msgid ""
+"`source`: contains the reStructuredText source files that define the "
+"documentation (these are the actual English text of the documentation, "
+"and are the files you are most likely to need to modify)."
+msgstr ""
+
+#: ../../source/about/development.rst:97
+msgid ""
+"In order to work with the documentation, you need to have invoke, Sphinx,"
+" sphinx-intl, and sphinx-rtd-theme (the theme for the Trends.Earth "
+"website) installed on your machine. These packages are all listed in the "
+"\"dev\" requirements file for Trends.Earth, so they can be installed by "
+"navigating to the root of the trends.earth code folder and typing::"
+msgstr ""
+
+#: ../../source/about/development.rst:106
+msgid "Building the documentation"
+msgstr ""
+
+#: ../../source/about/development.rst:108
+msgid ""
+"Once you have installed the sphinx requirements, you are ready to begin "
+"modifying the documentation. The files to modify are located under the "
+"`docs\\source` folder. After making any changes to these files, you will "
+"need to build the documenation in order to view the results. There are "
+"two versions of the Trends.Earth documentation: an HTML version (used for"
+" the website) and a PDF version (for offline download). To build the "
+"documentation for Trends.Earth, use the `docs-build` invoke task. By "
+"default, this task will build the full documentation for Trends.Earth, in"
+" HTML and PDF, for all supported languages. This can take some time to "
+"run (up to a few hours). If you are just testing the results of some "
+"minor changes to the documentation, it is usually best to use the `-f` "
+"option (for \"fast\"). This option will build only the English HTML "
+"documentation, which should take only a few seconds. To build using the "
+"fast option, run::"
+msgstr ""
+
+#: ../../source/about/development.rst:124
+msgid ""
+"To build the full documentation, for all languages, in PDF and in HTML "
+"(remember this could take a few hours to complete), run::"
+msgstr ""
+
+#: ../../source/about/development.rst:129
+msgid ""
+"If you want to test a specific language (when testing translations, for "
+"example), you can specify a two letter language code to only build the "
+"docs for that language. For example, to build the Spanish documentation "
+"only, run::"
+msgstr ""
+
+#: ../../source/about/development.rst:136
+msgid ""
+"Note that options can be combined, so you can use the fast option to "
+"build only the HTML version of the Spanish documentation by running::"
+msgstr ""
+
+#: ../../source/about/development.rst:141
+msgid ""
+"When building the full documentation for the website, it is a good idea "
+"to first remove any old builds of the documentation, as they might "
+"contain files that are no longer used in the updated documentation. To do"
+" this, use the `-c` (clean) option::"
+msgstr ""
+
+#: ../../source/about/development.rst:148
+msgid ""
+"In general, docs-build MUST complete without any errors if you are "
+"planning to share the documentation or post it on the website. However, "
+"when testing things locally, you might want to ignore documentation "
+"errors that pop up only for some of the languages (due to syntax errors "
+"arising from translation errors, etc.), and continue building the "
+"remaining documentation regardless of whether there are any errors. To do"
+" this, use the `-i` (ignore errors) option::"
+msgstr ""
+
+#: ../../source/about/development.rst:158
+msgid "Adding new documentation files"
+msgstr ""
+
+#: ../../source/about/development.rst:160
+msgid ""
+"Any new .rst files that are added to the documentation need to be added "
+"to several configuration files to ensure they are properly translated, "
+"and (for tutorials) to ensure that they are generated in PDF so they can "
+"be downloaded for offline use."
+msgstr ""
+
+#: ../../source/about/development.rst:165
+#: ../../source/about/development.rst:170
+msgid "<TODO>"
+msgstr ""
+
+#: ../../source/about/development.rst:167
+msgid ""
+"Files that need to be made available as separate PDFs (typically the "
+"tutorial sections of the documentation) also need to be listed in the"
+msgstr ""
+
+#: ../../source/about/development.rst:172
+msgid "Pretranslate::"
+msgstr ""
+
+#: ../../source/about/development.rst:177
+msgid "Contributing as a translator"
+msgstr ""
+
+#~ msgid ""
+#~ "The |trends.earth| QGIS plugin is "
+#~ "supported by a number of different "
+#~ "Python scripts that allow calculation of"
+#~ " the various indicators on Google "
+#~ "Earth Engine (GEE). These scripts sit"
+#~ " in the \"gee\" subfolder of that "
+#~ "github repository."
+#~ msgstr ""
+#~ "The | trends.earth | Plugin ya "
+#~ "QGIS inashirikiwa na script tofauti za"
+#~ " Python zinazo kuruhusu hesabu ya "
+#~ "viashiria vingine kwenye Google Earth "
+#~ "Engine (GEE). Maandiko haya hukaa katika"
+#~ " sehemu ndogo ya \"gee\" ya hifadhi"
+#~ " hiyo ya github."
+

@@ -47,6 +47,20 @@ QGIS3, the "qgis2" branch is where most development work is happening. The
 eventually become the primary place for development once that version is 
 released.
 
+The first time you download the trends.earth code, you will also need to clone 
+the "schemas" submodule that is located within it, under "LDMP\schemas". If you 
+are using TortoiseGit on Windows, you can right-click anywhere within the 
+trends.earth folder and choose "TortoiseGit" and then "Submodule Update...". 
+Clicking ok in the window that comes up will checkout the schemas submodule. If 
+you prefer, you can also do this from the command line by running the below two 
+commands in shell::
+
+   git submodule init
+   git submodule update
+
+Once you are done you should see files within the "LDMP\schemas" folder within 
+the trends.earth folder.
+
 Installing dependencies
 -----------------------
 

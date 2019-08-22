@@ -4,6 +4,8 @@ LDMP.zip
 aws_credentials.json
 *.mo
 *.qm
+*.doctree
+*.pot
 *.swp
 *.swo
 *.csv

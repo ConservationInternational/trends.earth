@@ -30,8 +30,8 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import QSettings, QDate
+from qgis.PyQt import QtGui
+from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
 from LDMP.api import run_script

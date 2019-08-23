@@ -114,9 +114,9 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         # Hack to download multiple countries at once for workshop preparation
         #######################################################################
         #######################################################################
-        # from PyQt4.QtCore import QTimer, Qt
-        # from PyQt4.QtWidgets import QMessageBox, QApplication
-        # from PyQt4.QtTest import QTest
+        # from qgis.PyQt.QtCore import QTimer, Qt
+        # from qgis.PyQt.QtWidgets import QMessageBox, QApplication
+        # from qgis.PyQt.QtTest import QTest
         # from time import sleep
         #
         # self.btn_refresh()

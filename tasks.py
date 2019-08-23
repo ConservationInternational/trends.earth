@@ -233,7 +233,7 @@ def plugin_setup(c, clean=False):
             'profile': 'what profile to install to (only applies to QGIS3'})
 def plugin_install(c, clean=False, version=2, profile='default'):
     '''install plugin to qgis'''
-    compile_files(c)
+    compile_files(c, version)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -269,17 +269,24 @@ def plugin_install(c, clean=False, version=2, profile='default'):
     elif not dst_this_plugin.exists():
         src.symlink(dst_this_plugin)
 
-def compile_files(options):
+def compile_files(c, version):
     # Compile all ui and resource files
 
-    # check to see if we have pyuic4
-    pyuic4 = check_path('pyuic4')
+    # check to see if we have pyuic
+    if version == 2:
+        pyuic = 'pyuic4'
+    elif version ==3:
+        pyuic = 'pyuic5'
+    else:
+        print("ERROR: unknown qgis version {}".format(version))
+        return
+    pyuic_path = check_path(pyuic)
 
-    if not pyuic4:
-        print("ERROR: pyuic4 is not in your path---unable to compile your ui files")
+    if not pyuic_path:
+        print("ERROR: {} is not in your path---unable to compile ui files".format(pyuic))
         return
     else:
-        ui_files = glob.glob('{}/*.ui'.format(options.plugin.gui_dir))
+        ui_files = glob.glob('{}/*.ui'.format(c.plugin.gui_dir))
         ui_count = 0
         for ui in ui_files:
             if os.path.exists(ui):
@@ -291,7 +298,7 @@ def compile_files(options):
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
                     _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
                     print("Compiling {0} to {1}".format(ui, output))
-                    subprocess.check_call([pyuic4, '-x', ui, '-o', output])
+                    subprocess.check_call([pyuic_path, '-x', ui, '-o', output])
                     ui_count += 1
                 else:
                     print("Skipping {0} (unchanged)".format(ui))
@@ -299,13 +306,22 @@ def compile_files(options):
                 print("{0} does not exist---skipped".format(ui))
         print("Compiled {0} UI files".format(ui_count))
 
-    # check to see if we have pyrcc4
+    # check to see if we have pyrcc
     pyrcc4 = check_path('pyrcc4')
-    if not pyrcc4:
-        print("ERROR: pyrcc4 is not in your path---unable to compile your resource file(s)")
+    if version == 2:
+        pyrcc = 'pyrcc4'
+    elif version ==3:
+        pyrcc = 'pyrcc5'
+    else:
+        print("ERROR: unknown qgis version {}".format(version))
+        return
+    pyrcc_path = check_path(pyrcc)
+
+    if not pyrcc:
+        print("ERROR: {} is not in your path---unable to compile resource file(s)".format(pyrcc))
         return
     else:
-        res_files = options.plugin.resource_files
+        res_files = c.plugin.resource_files
         res_count = 0
         for res in res_files:
             if os.path.exists(res):
@@ -313,7 +329,7 @@ def compile_files(options):
                 output = "{0}.py".format(base)
                 if file_changed(res, output):
                     print("Compiling {0} to {1}".format(res, output))
-                    subprocess.check_call([pyrcc4, '-o', output, res])
+                    subprocess.check_call([pyrcc_path, '-o', output, res])
                     res_count += 1
                 else:
                     print("Skipping {0} (unchanged)".format(res))
@@ -329,9 +345,9 @@ def file_changed(infile, outfile):
     except:
         return True
 
-def _filter_excludes(root, items, options):
-    excludes = set(options.plugin.excludes)
-    skips = options.plugin.skip_exclude
+def _filter_excludes(root, items, c):
+    excludes = set(c.plugin.excludes)
+    skips = c.plugin.skip_exclude
 
     exclude = lambda p: any([fnmatch.fnmatch(p, e) for e in excludes])
     if not items:
@@ -552,11 +568,12 @@ def changelog_build(c):
 # Package plugin zipfile
 ###############################################################################
 
-@task(help={'clean': 'Clean out dependencies before packaging'})
-def zipfile_build(c, clean=False):
+@task(help={'clean': 'Clean out dependencies before packaging',
+            'version': 'what version of QGIS to prepare ZIP file for'})
+def zipfile_build(c, clean=False, version=2):
     """Create plugin package"""
     plugin_setup(c)
-    compile_files(c)
+    compile_files(c, version)
     tests = c.get('tests', False)
     package_dir = c.plugin.package_dir
     os.makedirs(package_dir, exist_ok=True)

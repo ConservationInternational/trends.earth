@@ -226,7 +226,7 @@
         "MODIS (MOD13Q1, annual)": {
             "Data source": "GEE",
             "Start year": 2001,
-            "End year": 2017,
+            "End year": 2018,
             "Spatial Resolution": "250 m",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",
@@ -236,7 +236,7 @@
             "Units": "Mean anual NDVI * 10000",
             "Description": "The MOD13Q1 Version 6 product provides a Vegetation Index (VI) value at a per pixel basis. There are two primary vegetation layers. The first is the Normalized Difference Vegetation Index (NDVI) which is referred to as the continuity index to the existing National Oceanic and Atmospheric Administration-Advanced Very High Resolution Radiometer (NOAA-AVHRR) derived NDVI. The second vegetation layer is the Enhanced Vegetation Index (EVI), which has improved sensitivity over high biomass regions.",
             "Link to Dataset": "https://explorer.earthengine.google.com/#detail/MODIS%2FMOD13Q1",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2017",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2018",
             "Source code": "c02_ndvi_modis_int_global_assets",
             "Status": "Stored as assets",
             "License": "Public Domain",
@@ -491,7 +491,7 @@
         "Hansen": {
             "Data source": "",
             "Start year": 2000,
-            "End year": 2017,
+            "End year": 2018,
             "Spatial resolution": "30 m",
             "Temporal resolution": "annual",
             "Min Latitude": -90,

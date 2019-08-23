@@ -31,16 +31,46 @@ the plugin.
 
 ## Installation
 
-### Stable version (recommended)
+### Stable version
+
+The easiest way to install the plugin is from within QGIS, using the [QGIS 
+plugin repository](http://plugins.qgis.org/plugins/LDMP/). However, It is also 
+possible to install the plugin manually from a zipfile, which can be useful to 
+access an old version of the plugin, or to install the plugin without internet. 
+Instructions for both of these possibilities are below.
+
+#### Stable version from within QGIS (recommended)
 
 The easiest way to install the plugin is from within QGIS, using the [QGIS 
 plugin repository](http://plugins.qgis.org/plugins/LDMP/).
 
+#### Stable version from zipfile
+
+Download a stable version of `Trends.Earth` from
+[the list of available releases on 
+GitHub](https://github.com/ConservationInternational/trends.earth/releases).
+
+Extract the `LDMP.zip` file you donwloaded into the python plugins folder for 
+your installation of QGIS. For example, if you are using Windows and your 
+username is "azvol", then this might be `C:\Users\azvol\.qgis2\python\plugins`. 
+If you are using a Mac and your username is "azvol", then this might be
+`/Users/azvol/.qgis2/python/plugins`.
+
+Once you are finished, you should have a folder named "LDMP" within your 
+`.qgis2/python/plugins` folder.
+
+Start QGIS, and click on "Plugins" then "Manage and install plugins". In the 
+plugins window that appears, click on "Installed", and then make sure there is 
+a check in the box next to "Land Degradation Monitoring Tool". The plugin is 
+now installed and activated. Click "Close", and start using the plugin.
+
+
 ### Development version
 
-If you are interested in using the very latest version of the plugin, or in 
-contributing to the development of it, you will want to install the development 
-version. There are two ways to install the development version:
+If you are interested in using the development version of the plugin, with the 
+very latest (but not as well tested) features, or in contributing to the 
+development of it, you will want to install the development version. There are 
+two ways to install the development version:
 
 * Using a packaged version (zipfile)
 
@@ -50,7 +80,7 @@ It is easier to install the plugin from a zipfile than from github, so this
 option is recommended unless you are interested in contributing to development 
 of the plugin.
 
-#### Installing the latest packaged version
+#### Installing latest packaged development version
 
 Download [the latest `Trends.Earth` 
 zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip).

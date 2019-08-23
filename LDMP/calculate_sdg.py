@@ -49,9 +49,31 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
 
         self.setupUi(self)
 
-        # TODO:
-        # Set max/min values for year_start and year_final, taking into account 
-        # the ESA and MODIS data availability years
+        self.update_time_bounds()
+
+        self.mode_te_prod.toggled.connect(self.update_time_bounds)
+
+    def update_time_bounds(self):
+        if self.mode_te_prod.isChecked():
+            ndvi_dataset = self.datasets['NDVI']['MODIS (MOD13Q1, annual)']
+            start_year_ndvi = ndvi_dataset['Start year']
+            end_year_ndvi = ndvi_dataset['End year']
+        else:
+            start_year_ndvi = 2000
+            end_year_ndvi = 2015
+
+        lc_dataset = self.datasets['Land cover']['ESA CCI']
+        start_year_lc = lc_dataset['Start year']
+        end_year_lc = lc_dataset['End year']
+
+        
+        start_year = QDate(max(start_year_ndvi, start_year_lc), 1, 1)
+        end_year = QDate(min(end_year_ndvi, end_year_lc), 1, 1)
+
+        self.year_initial.setMinimumDate(start_year)
+        self.year_initial.setMaximumDate(end_year)
+        self.year_final.setMinimumDate(start_year)
+        self.year_final.setMaximumDate(end_year)
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)

@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Khalid Mwakoba <khalid.mwakoba@gmail.com>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2019-01-28 02:04+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/about/general_info.rst:2
+msgid "General information"
+msgstr "Habari za jumla"
+
+#: ../../source/about/general_info.rst:4
+msgid ""
+"|trends.earth| was produced as part of the project \"Enabling the use of "
+"global data sources to assess and monitor land degradation at multiple "
+"scales\", funded by the Global Environment Facility."
+msgstr ""
+"Trends.earth ilizalishwa kama sehemu ya mradi wa \"kuwezesha matumizi ya "
+"vyanzo vya data duniani kupima na kufuatilia uharibifu wa ardhi (mazingira) "
+"katika ukubwa tofauti tofauti \", ukifadhiliwa na Global Environment "
+"Facility yaani Taasisi ya Mazingira Duniani."
+
+#: ../../source/about/general_info.rst:9
+msgid "Contacting the team"
+msgstr "Kuwasiliana na timu ya Itrends.earthI"
+
+#: ../../source/about/general_info.rst:11
+msgid ""
+"Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with"
+" any comments or suggestions. If you have specific bugs to report or "
+"improvements to the tool that you would like to suggest, you can also submit"
+" them in the `issue tracker on Github "
+"<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
+"|trends.earth|."
+msgstr ""
+"Wasiliana na timu ya `Trends.Earth <mailto: trends.earth@conservation.org>` "
+"kwa kutoa maoni au mapendekezo yoyote. Kama una taarifa za kuripoti juu ya "
+"virusi au kupendekeza kuhimarishwa kwa chombo hiki unaweza kuwasilisha "
+"kwenye `tracker ya Github "
+"<https://github.com/ConservationInternational/trends.earth/issues>`_ kwa "
+"|trends.earth|."
+
+#: ../../source/about/general_info.rst:19
+msgid "Authors"
+msgstr "Waandishi"
+
+#: ../../source/about/general_info.rst:21
+msgid ""
+"The Land Degradation Monitoring Project is a partnership of Conservation "
+"International, Lund University, and the National Aeronautics and Space "
+"Administration (NASA), and is funded by the Global Environment Facility "
+"(GEF)."
+msgstr ""
+"Mradi wa Ufuatiliaji wa Uharibifu wa Ardhi ni ushirikiano wa shirika la "
+"Conservation International, Chuo Kikuu cha Lund, na  National Aeronautics "
+"and Space (NASA), na unafadhiliwa na Global Environment Facility (GEF)/ "
+"Chombo cha Mazingira Duniani."
+
+#: ../../source/about/general_info.rst:25
+msgid ""
+"Contributors to the documentation and to |trends.earth| include Yengoh "
+"Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
+"Schnader, Anna Tengberg, and Alex Zvoleff."
+msgstr ""
+"Wachangiaji  katika uandishi wa nyaraka za Itrends.earth| ni pamoja na "
+"Yengoh Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, "
+"Tristan Schnader, Anna Tengberg, na Alex Zvoleff."
+
+#: ../../source/about/general_info.rst:33
+msgid ""
+"|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
+"to compute indicators in the cloud."
+msgstr ""
+"|trends.earth| inatumia `Google Earth Engine "
+"<https://earthengine.google.com>`_ kupitia mtandao kukokotoa viashiria vya "
+"uharibifu wa ardhi."
+
+#: ../../source/about/general_info.rst:42
+msgid "Acknowledgements"
+msgstr "Shukrani"
+
+#: ../../source/about/general_info.rst:44
+msgid ""
+"The feedback provided by early users of |trends.earth| and by the "
+"participants in the webinars and workshops held by the GEF Land Degradation "
+"Monitoring Project have been critical to the development of the tool."
+msgstr ""
+"Maoni yaliyotolewa na watumiaji wa awali wa |trends.earth| na washiriki kwa "
+"njia ya video na warsha zilizofanywa na Mradi wa Ufuatiliaji wa Uharibifu wa"
+" Ardhi ya GEF zimekuwa muhimu kwa maendeleo ya chombo hiki."
+
+#: ../../source/about/general_info.rst:48
+msgid ""
+"Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
+"on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
+"on the structure of the tool, and on the UNCCD reporting process, and also "
+"provided early input and testing of the tool."
+msgstr ""
+"Neil Sims, Sasha Alexander, Renato Cumani, na Sara Minelli walitoa "
+"mapendekezo juu ya utekelezaji wa viashiria vya SDG 15.3 na LDN vya "
+"uharibifu wa ardhi katika |trends.earth|, juu ya muundo wa chombo, na "
+"mchakato wa kuripoti kwa UNCCD, na pia walitoa mapendekezo ya awali na "
+"kujaribiwa kwa utendaji kazi wa chombo."
+
+#: ../../source/about/general_info.rst:53
+msgid ""
+"The project acknowledges the participants of the workshop held in Morogoro, "
+"Tanzania in October, 2017 for sharing their feedback and suggestions on the "
+"tool: Jones Agwata, Col. Papa Assane Ndiour, Lt. Fendama Baldé, Papa Nékhou "
+"Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, Moses Isabirye, Vettes "
+"Kalema, Joseph Kihaule, Prof. D.N. Kimaro, James Lwasa, Paulo Mandela, Modou"
+" Moustapha Sarr, Joseph Mutyaba, Stephen Muwaya, Joseph Mwalugelo, Prof. "
+"Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome Nchimbi, Elibariki Ngowi, "
+"Tabby Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia "
+"Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa "
+"Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
+msgstr ""
+"Mradi unawatambua washiriki wa semina iliyofanyika Morogoro, Tanzania "
+"Oktoba, 2017 kwa kutoa mrejesho na maoni yao  juu ya chombo hiki: Jones "
+"Agwata, Col. Papa Assane Ndiour, Lt Fendama Baldé, Papa Nékhou Diagne, "
+"Abdoul Aziz Diouf, Richard Alfonce Giliba, Moses Isabirye, Vettes Kalema, "
+"Joseph Kihaule, Prof. DN Kimaro, James Lwasa, Paulo Mandela, Modou Moustapha"
+" Sarr, Joseph Mutyaba, Stephen Muwaya, Joseph Mwalugelo, Prof Majaliwa "
+"Mwanjalolo, Edson Aspon Mwijage, Jerome Nchimbi, Elibariki Ngowi , Tabby "
+"Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia Rwegasira, "
+"Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa Simon, Samba "
+"Sow, Felly Mugizi Tusiime na John Wasige."
+
+#: ../../source/about/general_info.rst:65
+msgid "Citation"
+msgstr "Citation"
+
+#: ../../source/about/general_info.rst:67
+msgid "If you wish to cite |trends.earth|, please use the following citation:"
+msgstr ""
+"Ikiwa ungependa kutaja | trends.earth |, tafadhali tumia funguo ifuatayo:"
+
+#: ../../source/about/general_info.rst:69
+msgid ""
+"Trends.Earth. Conservation International. Available online at: "
+"`http://trends.earth <http://trends.earth>`_. 2018."
+msgstr ""
+"Mwelekeo. Uhifadhi wa Kimataifa. Inapatikana mtandaoni kwa: "
+"`http://trends.earth <http://trends.earth> `_. 2018."
+
+#: ../../source/about/general_info.rst:73
+msgid "License"
+msgstr "Leseni"
+
+#: ../../source/about/general_info.rst:75
+msgid ""
+"|trends.earth| is free and open-source. It is licensed under the `GNU "
+"General Public License, version 2.0 or later <https://www.gnu.org/licenses"
+"/old-licenses/gpl-2.0.en.html>`_."
+msgstr ""
+"|trends.earth| ni bure and huru kwa waendelezaji wa chombo hiki. Kimeundwa "
+"chini ya mpango wa Leseni Huru kwa Umma yaani `GNU General Public License, "
+"toleo 2.0 au zaidi <https://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.en.html>`_."
+
+#: ../../source/about/general_info.rst:79
+msgid ""
+"This site and the products of |trends.earth| are made available under the "
+"terms of the `Creative Commons Attribution 4.0 International License (CC BY "
+"4.0) <https://creativecommons.org/licenses/by/4.0>`_. The boundaries and "
+"names used, and the designations used, in |trends.earth| do not imply "
+"official endorsement or acceptance by Conservation International Foundation,"
+" or its partner organizations and contributors."
+msgstr ""
+"Tovuti hii na vitu vyote vya |trends.earth| hupatikana chini ya masharti ya "
+"`Leseni ya Kimataifa ya Creative Commons Attribution 4.0 (CC BY 4.0) "
+"<https://creativecommons.org/licenses/by/4.0>`_. Mipaka ya matumizi na "
+"majina yaliyotumika katika |trends.earth| haimaanishi vimeidhinishwa rasmi "
+"au kukubaliwa na Conservation International Foundation, au mashirika "
+"washirika wake na wachangiaji."

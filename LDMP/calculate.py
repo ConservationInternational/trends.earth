@@ -17,7 +17,7 @@ import os
 import json
 import tempfile
 
-from osgeo import gdal, ogr
+from osgeo import gdal, ogr, osr
 
 from qgis.PyQt import QtWidgets, QtGui
 from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
@@ -30,16 +30,21 @@ from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
 from LDMP import log
+from LDMP.api import run_script
+from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
 from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
+from LDMP.gui.DlgCalculateRestBiomass import Ui_DlgCalculateRestBiomass
+from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
-from LDMP.download import read_json, get_admin_bounds
+from LDMP.download import read_json, get_admin_bounds, get_cities
 from LDMP.worker import AbstractWorker
 
+mb = iface.messageBar()
 
 def tr(t):
-    return QCoreApplication.translate('LDMPPlugin', t)
+    return QtGui.QApplication.translate('LDMPPlugin', t)
 
 
 # Make a function to get a script slug from a script name, including the script 
@@ -272,6 +277,23 @@ class AOI(object):
         top = maxy - (maxy - gt[3]) % gt[5]
         return [left, bottom, right, top]
 
+    def get_area(self):
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(4326)
+        # Use world robinson as an approximation to calculate polygon area
+        target = osr.SpatialReference()
+        target.ImportFromEPSG(54030)
+        transform = osr.CoordinateTransformation(source, target)
+        # Returns area of aoi components in sq m
+        wkts = self.meridian_split(out_format='wkt', warn=False)[1]
+        area = 0.
+        for wkt in wkts:
+            geom = ogr.CreateGeometryFromWkt(wkt)
+            geom.Transform(transform)
+            this_area = geom.GetArea()
+            area += this_area
+        return area
+
     def get_layer(self):
         """
         Return layer
@@ -321,6 +343,44 @@ class AOI(object):
             log("Failed to process area of interest - unknown geometry type.")
 
 
+    def buffer(self, d):
+        log('Buffering layer by {} km.'.format(d))
+        
+        wgs84_crs = QgsCoordinateReferenceSystem('epsg:4326')
+        robinson_crs = QgsCoordinateReferenceSystem('epsg:54030')
+        to_wgs84  = QgsCoordinateTransform(robinson_crs, wgs84_crs)
+        to_robinson = QgsCoordinateTransform(wgs84_crs, robinson_crs)
+
+        feats = []
+        for f in self.l.getFeatures():
+            geom = f.geometry()
+            try:
+                geom.transform(to_robinson)
+            except:
+                log('Error buffering layer while transforming to Robinson')
+                QtGui.QMessageBox.critical(None, tr("Error"),
+                                           tr("Error transforming coordinates. Check that the input geometry is valid."), None)
+                return False
+            # Need to convert from km to meters
+            geom_buffered = geom.buffer(d * 1000, 100)
+            geom_buffered.transform(to_wgs84)
+            f.setGeometry(geom_buffered)
+            feats.append(f)
+
+        l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj4()),
+                                    "calculation boundary (transformed)",  
+                                    "memory")
+        l_buffered.dataProvider().addFeatures(feats)
+        l_buffered.commitChanges()
+
+        if not l_buffered.isValid():
+            log('Error buffering layer')
+            raise
+        else:
+            self.l = l_buffered
+            self.datatype = 'polygon'
+        return True
+
     def isValid(self):
         return self.l.isValid()
 
@@ -338,7 +398,40 @@ class AOI(object):
         log('Fractional area of overlap: {}'.format(frac))
         return frac
 
-class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
+class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
+    def __init__(self, parent=None):
+        super(DlgCalculate, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.dlg_calculate_ld = DlgCalculateLD()
+        self.dlg_calculate_tc = DlgCalculateTC()
+        self.dlg_calculate_rest_biomass = DlgCalculateRestBiomass()
+        self.dlg_calculate_urban = DlgCalculateUrban()
+
+        self.pushButton_ld.clicked.connect(self.btn_ld_clicked)
+        self.pushButton_tc.clicked.connect(self.btn_tc_clicked)
+        self.pushButton_rest_biomass.clicked.connect(self.btn_rest_biomass_clicked)
+        self.pushButton_urban.clicked.connect(self.btn_urban_clicked)
+
+    def btn_ld_clicked(self):
+        self.close()
+        result = self.dlg_calculate_ld.exec_()
+
+    def btn_tc_clicked(self):
+        self.close()
+        result = self.dlg_calculate_tc.exec_()
+
+    def btn_rest_biomass_clicked(self):
+        self.close()
+        result = self.dlg_calculate_rest_biomass.exec_()
+
+    def btn_urban_clicked(self):
+        self.close()
+        result = self.dlg_calculate_urban.exec_()
+
+
+class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):
     def __init__(self, parent=None):
         super(DlgCalculateLD, self).__init__(parent)
 
@@ -411,7 +504,55 @@ class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
         result = self.dlg_calculate_tc_summary.exec_()
 
 
-class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
+class DlgCalculateRestBiomass(QtGui.QDialog, Ui_DlgCalculateRestBiomass):
+    def __init__(self, parent=None):
+        super(DlgCalculateRestBiomass, self).__init__(parent)
+
+        self.setupUi(self)
+
+        # TODO: Bad style - fix when refactoring
+        from LDMP.calculate_rest_biomass import DlgCalculateRestBiomassData
+        from LDMP.calculate_rest_biomass import DlgCalculateRestBiomassSummaryTable
+        self.dlg_calculate_rest_biomass_data = DlgCalculateRestBiomassData()
+        self.dlg_calculate_rest_biomass_summary = DlgCalculateRestBiomassSummaryTable()
+
+        self.btn_calculate_rest_biomass_change.clicked.connect(self.btn_calculate_rest_biomass_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+
+    def btn_calculate_rest_biomass_change_clicked(self):
+        self.close()
+        result = self.dlg_calculate_rest_biomass_data.exec_()
+
+    def btn_summary_single_polygon_clicked(self):
+        self.close()
+        result = self.dlg_calculate_rest_biomass_summary.exec_()
+
+
+class DlgCalculateUrban(QtGui.QDialog, Ui_DlgCalculateUrban):
+    def __init__(self, parent=None):
+        super(DlgCalculateUrban, self).__init__(parent)
+
+        self.setupUi(self)
+
+        # TODO: Bad style - fix when refactoring
+        from LDMP.calculate_urban import DlgCalculateUrbanData
+        from LDMP.calculate_urban import DlgCalculateUrbanSummaryTable
+        self.dlg_calculate_urban_data = DlgCalculateUrbanData()
+        self.dlg_calculate_urban_summary = DlgCalculateUrbanSummaryTable()
+
+        self.btn_calculate_urban_change.clicked.connect(self.btn_calculate_urban_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+
+    def btn_calculate_urban_change_clicked(self):
+        self.close()
+        result = self.dlg_calculate_urban_data.exec_()
+
+    def btn_summary_single_polygon_clicked(self):
+        self.close()
+        result = self.dlg_calculate_urban_summary.exec_()
+
+
+class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
     def __init__(self, parent=None):
         super(CalculationOptionsWidget, self).__init__(parent)
 
@@ -467,14 +608,23 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
+        self.cities = get_cities()
+        if not self.cities:
+            raise ValueError('Cities list not available')
+
         self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
         self.populate_admin_1()
+        self.populate_cities()
 
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
+        self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
         self.area_fromadmin.toggled.connect(self.area_fromadmin_toggle)
         self.area_fromfile.toggled.connect(self.area_fromfile_toggle)
+
+        self.radioButton_secondLevel_region.toggled.connect(self.radioButton_secondLevel_region_toggle)
+        self.radioButton_secondLevel_region_toggle()
 
         icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
         self.area_frompoint_choose_point.setIcon(icon)
@@ -496,10 +646,16 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def showEvent(self, event):
         super(AreaWidget, self).showEvent(event)
 
+    def populate_cities(self):
+        self.secondLevel_city.clear()
+        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
+        self.current_cities_key = {value['name_en']: key for key, value in self.cities[adm0_a3].items()}
+        self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
+
     def populate_admin_1(self):
-        self.area_admin_1.clear()
-        self.area_admin_1.addItems(['All regions'])
-        self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
+        self.secondLevel_area_admin_1.clear()
+        self.secondLevel_area_admin_1.addItems(['All regions'])
+        self.secondLevel_area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
     def area_frompoint_toggle(self):
         if self.area_frompoint.isChecked():
@@ -513,11 +669,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def area_fromadmin_toggle(self):
         if self.area_fromadmin.isChecked():
-            self.area_admin_0.setEnabled(True)
-            self.area_admin_1.setEnabled(True)
+            self.groupBox_first_level.setEnabled(True)
+            self.groupBox_second_level.setEnabled(True)
         else:
-            self.area_admin_0.setEnabled(False)
-            self.area_admin_1.setEnabled(False)
+            self.groupBox_first_level.setEnabled(False)
+            self.groupBox_second_level.setEnabled(False)
 
     def area_fromfile_toggle(self):
         if self.area_fromfile.isChecked():
@@ -526,6 +682,14 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         else:
             self.area_fromfile_file.setEnabled(False)
             self.area_fromfile_browse.setEnabled(False)
+
+    def radioButton_secondLevel_region_toggle(self):
+        if self.radioButton_secondLevel_region.isChecked():
+            self.secondLevel_area_admin_1.setEnabled(True)
+            self.secondLevel_city.setEnabled(False)
+        else:
+            self.secondLevel_area_admin_1.setEnabled(False)
+            self.secondLevel_city.setEnabled(True)
 
     def show_areafrom_point_toggle(self, enable):
         if enable:
@@ -676,15 +840,20 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def btn_cancel(self):
         self.close()
 
-    def load_admin_polys(self):
+    def get_city_geojson(self):
+        adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
+        wof_id = self.area_tab.current_cities_key[self.area_tab.secondLevel_city.currentText()]
+        return (self.area_tab.cities[adm0_a3][wof_id]['geojson'])
+
+    def get_admin_poly_geojson(self):
         adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
         admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
-        if not self.area_tab.area_admin_1.currentText() or self.area_tab.area_admin_1.currentText() == 'All regions':
+        if not self.area_tab.secondLevel_area_admin_1.currentText() or self.area_tab.secondLevel_area_admin_1.currentText() == 'All regions':
             return (admin_polys['geojson'])
         else:
-            admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.area_admin_1.currentText()]['code']
+            admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.secondLevel_area_admin_1.currentText()]['code']
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
@@ -696,19 +865,29 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.aoi = AOI(crs_dst)
 
         if self.area_tab.area_fromadmin.isChecked():
-            if not self.area_tab.area_admin_0.currentText():
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a first level administrative boundary."), None)
-                return False
-            self.button_calculate.setEnabled(False)
-            geojson = self.load_admin_polys()
-            self.button_calculate.setEnabled(True)
-            if not geojson:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Unable to load administrative boundaries."), None)
-                return False
-            self.aoi.update_from_geojson(geojson=geojson, 
-                                         wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
+            if self.area_tab.radioButton_secondLevel_city.isChecked():
+                if not self.area_tab.groupBox_buffer.isChecked():
+                    QtGui.QMessageBox.critical(None, tr("Error"),
+                            tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
+                    return False
+                geojson = self.get_city_geojson()
+                self.aoi.update_from_geojson(geojson=geojson, 
+                                             wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
+                                             datatype='point')
+            else:
+                if not self.area_tab.area_admin_0.currentText():
+                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                               self.tr("Choose a first level administrative boundary."), None)
+                    return False
+                self.button_calculate.setEnabled(False)
+                geojson = self.get_admin_poly_geojson()
+                self.button_calculate.setEnabled(True)
+                if not geojson:
+                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                                               self.tr("Unable to load administrative boundaries."), None)
+                    return False
+                self.aoi.update_from_geojson(geojson=geojson, 
+                                             wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
         elif self.area_tab.area_fromfile.isChecked():
             if not self.area_tab.area_fromfile_file.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -738,8 +917,22 @@ class DlgCalculateBase(QtWidgets.QDialog):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Unable to read area of interest."), None)
             return False
-        else:
-            return True
+
+        if self.area_tab.groupBox_buffer.isChecked():
+            ret = self.aoi.buffer(self.area_tab.buffer_size_km.value())
+            if not ret:
+                return False
+
+        # Limit processing area to be no greater than 10^7 sq km if using a 
+        # custom shapefile
+        if not self.area_tab.area_fromadmin.isChecked():
+            aoi_area = self.aoi.get_area() / (1000 * 1000)
+            if aoi_area > 1e7:
+                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
+                return False
+
+        return True
 
 
 class ClipWorker(AbstractWorker):

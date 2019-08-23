@@ -1,0 +1,280 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Monica Noon <mnoon@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2018-03-14 19:33+0000\n"
+"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/documentation/load_data.rst:2
+msgid "Load data tool"
+msgstr "Charger l'outil de données"
+
+#: ../../source/documentation/load_data.rst:6
+msgid ""
+"The \"Load data\" function allows the user to load data into QGIS and "
+"|trends.earth| for analysis."
+msgstr ""
+"La fonction \"Charger les données\" permet à l'utilisateur de charger des "
+"données dans QGIS et |trends.earth| pour l'analyse."
+
+#: ../../source/documentation/load_data.rst:9
+msgid ""
+"There are two options, to load results of |trends.earth| analysis or to load"
+" custom datasets which will be used to compute the indicators."
+msgstr ""
+"Deux options existent: charger les résultats de l'analyse de |trends.earth| "
+"ou charger des séries personnalisées de données qui seront utilisées pour "
+"calculer les indicateurs."
+
+#: ../../source/documentation/load_data.rst:16
+msgid "Load a dataset produced by Trends.Earth"
+msgstr "Charger un jeu de données produit par Trends.Earth"
+
+#: ../../source/documentation/load_data.rst:18
+msgid ""
+"This option lets you load already downloaded results from |trends.earth|."
+msgstr ""
+"Cette option vous permet de charger les résultats déjà téléchargés à partir "
+"de |trends.earth|."
+
+#: ../../source/documentation/load_data.rst:21
+#: ../../source/documentation/load_data.rst:111
+msgid "Productivity"
+msgstr "Productivité"
+
+#: ../../source/documentation/load_data.rst:23
+msgid ""
+"Use this function to load into the QGIS map pre-computed productivity "
+"indicators which had been processed to identify land degradation."
+msgstr ""
+"Utilisez cette fonction pour charger dans la carte QGIS des indicateurs de "
+"productivité pré-calculés qui ont été traités pour identifier la dégradation"
+" des terres."
+
+#: ../../source/documentation/load_data.rst:26
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is an 8 band raster, with each band representing the "
+"three subindicators (trajectory, performance and state) plus other "
+"information which may help you interpret the trends identified. The layers "
+"to be loaded into the QGIS maps are the ones highlighted in gray. By "
+"default: trajectory (degradation and slope), performance and state. If you "
+"want to load the other layers, simply select them and click OK."
+msgstr ""
+"Accédez au dossier dans lequel vous avez enregistré le fichier téléchargé et"
+" sélectionnez-le. Le fichier téléchargé est un raster à 8 bandes, chaque "
+"bande représentant les trois sous-indicateurs (trajectoire, performance et "
+"état) ainsi que d'autres informations pouvant vous aider à interpréter les "
+"tendances identifiées. Les couches à charger dans les cartes QGIS sont "
+"celles qui sont surlignées en gris. Par défaut: trajectoire (dégradation et "
+"pente), performance et état. Si vous souhaitez charger les autres couches, "
+"sélectionnez-les et cliquez sur OK."
+
+#: ../../source/documentation/load_data.rst:34
+#: ../../source/documentation/load_data.rst:56
+#: ../../source/documentation/load_data.rst:81
+#: ../../source/documentation/load_data.rst:100
+msgid ""
+"The layers will be loaded in the QGIS map with its corresponding symbology."
+msgstr ""
+"Les couches seront chargées dans la carte QGIS avec sa symbologie "
+"correspondante."
+
+#: ../../source/documentation/load_data.rst:40
+#: ../../source/documentation/load_data.rst:129
+msgid "Land cover"
+msgstr "Couverture terrestre"
+
+#: ../../source/documentation/load_data.rst:42
+msgid ""
+"This option lets you load pre-computed land cover indicators which had been "
+"processed to identify land degradation."
+msgstr ""
+"Cette option vous permet de charger des indicateurs de couverture du sol "
+"précalculés qui ont été traités pour identifier la dégradation des terres."
+
+#: ../../source/documentation/load_data.rst:45
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is a multi band raster. The number of bands will depend "
+"on the period of analysis selected and the data source used. If the default "
+"ESA CCI land cover was used, for example, annual land cover maps will be "
+"downloaded."
+msgstr ""
+"Accédez au dossier dans lequel vous avez enregistré le fichier téléchargé et"
+" sélectionnez-le. Le fichier téléchargé est un raster multi-bandes. Le "
+"nombre de bandes dépendra de la période d'analyse sélectionnée et de la "
+"source de données utilisée. Si la couverture terrestre par défaut de l'ESA "
+"CCI était utilisée, par exemple, les cartes annuelles de la couverture "
+"terrestre seront téléchargées."
+
+#: ../../source/documentation/load_data.rst:49
+msgid ""
+"The bands in the stack represent: initial and final land cover (annual if "
+"available) both in the original classification scheme and using the UNCCD 7 "
+"class land cover table, land cover transitions and land cover degradation as"
+" identified by this subindicator. If you want to load the other layers not "
+"selected by default, simply select them and click OK."
+msgstr ""
+"Les bandes dans la pile représentent: la couverture terrestre initiale et "
+"finale (annuelle si disponible) à la fois dans le système de classification "
+"original et en utilisant le tableau de couverture terrestre des 7 classes de"
+" la CNULCD, les transitions de couverture terrestre et la dégradation du "
+"couvert terrestre identifiées par ce sous-indicateur. Si vous souhaitez "
+"charger les autres couches non sélectionnées par défaut, sélectionnez-les et"
+" cliquez sur OK."
+
+#: ../../source/documentation/load_data.rst:63
+#: ../../source/documentation/load_data.rst:145
+msgid "Soil organic carbon"
+msgstr "Carbone organique du sol"
+
+#: ../../source/documentation/load_data.rst:65
+msgid ""
+"This option lets you load pre-computed soil organic carbon indicators which "
+"had been processed to identify land degradation."
+msgstr ""
+"Cette option vous permet de charger des indicateurs de carbone organique du "
+"sol précalculés qui ont été traités pour identifier la dégradation des "
+"terres."
+
+#: ../../source/documentation/load_data.rst:68
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is a multi band raster. The number of bands will depend "
+"on the period of analysis selected and the data source used. If the default "
+"ESA CCI land cover was used, for example, annual soil organic carbon maps "
+"will be downloaded."
+msgstr ""
+"Accédez au dossier dans lequel vous avez enregistré le fichier téléchargé et"
+" sélectionnez-le. Le fichier téléchargé est un raster multi-bandes. Le "
+"nombre de bandes dépendra de la période d'analyse sélectionnée et de la "
+"source de données utilisée. Si la couverture terrestre par défaut de l'ESA "
+"CCI était utilisée, par exemple, des cartes annuelles de carbone organique "
+"du sol seront téléchargées."
+
+#: ../../source/documentation/load_data.rst:72
+msgid ""
+"The bands in the stack represent: initial and final soil organic carbon "
+"stocks (annual soc if annual land data is available), initial and final land"
+" cover maps using the UNCCD 7 class land cover classification,and "
+"degradation as identified by this subindicator. The units of the degradation"
+" layer are \"% change\", if changes are larger than 10% for the period, they"
+" will be considered as improvement or degradation depending on the sign of "
+"the change. If you want to load the other layers not selected by default, "
+"simply select them and click OK."
+msgstr ""
+"Les bandes de la pile représentent: les stocks initial et final de carbone "
+"organique du sol (données annuelles sur le COS et les terres si "
+"disponibles), les cartes de couverture terrestre initiale et finale "
+"utilisant la classification de la couverture terrestre des 7 classes de la "
+"CNULCD et la dégradation identifiée par ce sous-indicateur. Les unités de la"
+" couche de dégradation sont des «% de changement». Si les changements sont "
+"supérieurs à 10% pour la période, ils seront considérés comme une "
+"amélioration ou une dégradation selon le signe du changement. Si vous "
+"souhaitez charger les autres couches non sélectionnées par défaut, "
+"sélectionnez-les et cliquez sur OK."
+
+#: ../../source/documentation/load_data.rst:88
+msgid "SDG 15.3.1 indicator"
+msgstr "Indicateur ODD 15.3.1"
+
+#: ../../source/documentation/load_data.rst:90
+msgid ""
+"This option lets you load pre-computed productivity subindicator (the "
+"integration of trajectory, performance and state) as well as the final SDG "
+"15.3.1 (the integration of productivity, land cover and soil organic carbon)"
+msgstr ""
+"Cette option vous permet de charger un sous-indicateur de productivité pré-"
+"calculé (intégration de la trajectoire, de la performance et de l'état) "
+"ainsi que l'ODD final 15.3.1 (intégration de la productivité, de la "
+"couverture terrestre et du carbone organique du sol)"
+
+#: ../../source/documentation/load_data.rst:94
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is an 2 band raster, the first one containing "
+"information on the SDG and the second on the 5 classes productivity "
+"subindicator."
+msgstr ""
+"Accédez au dossier dans lequel vous avez enregistré le fichier téléchargé et"
+" sélectionnez-le. Le fichier téléchargé est un raster à 2 bandes, le premier"
+" contenant des informations sur l'ODD et le second sur le sous-indicateur de"
+" productivité pour 5 classes."
+
+#: ../../source/documentation/load_data.rst:107
+msgid "Load a custom input dataset"
+msgstr "Charger une série personnalisée de données d'entrée "
+
+#: ../../source/documentation/load_data.rst:113
+msgid ""
+"Use this option to load productivity datasets which have already been "
+"generated outside of |trends.earth|."
+msgstr ""
+"Utilisez cette option pour charger des jeux de données de productivité déjà "
+"générés en dehors de |trends.earth|."
+
+#: ../../source/documentation/load_data.rst:115
+msgid "Productivity classes in the input data must be coded as follows:"
+msgstr ""
+"Les classes de productivité dans les données d'entrée doivent être codées "
+"comme suit:"
+
+#: ../../source/documentation/load_data.rst:117
+msgid ""
+"1: Declining 2: Early signs of decline 3: Stable but stressed 4: Stable 5: "
+"Increasing 0 or -32768: No data"
+msgstr ""
+"1: En déclin 2: Premiers signes de déclin 3: Stable mais sous stress 4: "
+"Stable 5: En hausse 0 ou -32768: Aucune donnée"
+
+#: ../../source/documentation/load_data.rst:131
+msgid ""
+"Use this option to load land cover datasets which will then be used for land"
+" cover change analysis and/or soil organic carbon change analysis."
+msgstr ""
+"Utilisez cette option pour charger des jeux de données de couverture "
+"terrestre qui seront ensuite utilisés pour l'analyse du changement de la "
+"couverture terrestre et / ou l'analyse du changement de carbone organique du"
+" sol."
+
+#: ../../source/documentation/load_data.rst:137
+msgid ""
+"If you'll be using the `CORINE land cover data "
+"<https://www.eea.europa.eu/publications/COR0-landcover>`_, you can use `this"
+" definition file "
+"<https://s3.amazonaws.com/trends.earth/sharing/Corine_Land_Cover_to_UNCCD_TrendsEarth_Definition.json>`_"
+" to pre-load a suggested aggregation of the land cover classes in Corine to "
+"convert them to the 7 UNCCD land cover classes."
+msgstr ""
+"Si vous utilisez les `données sur la couverture terrestre CORINE "
+"<https://www.eea.europa.eu/publications/COR0-landcover>`_,  vous pouvez "
+"utiliser ce fichier de définition "
+"<https://s3.amazonaws.com/trends.earth/sharing/Corine_Land_Cover_to_UNCCD_TrendsEarth_Definition.json>`_"
+" pour pré-charger une agrégation suggérée des classes de couverture "
+"terrestre dans CORINE afin de les convertir aux 7 classes de couverture "
+"terrestre de la CNULCD. "
+
+#: ../../source/documentation/load_data.rst:147
+msgid "Processing of custom soil organic carbon data will be available soon."
+msgstr ""
+"Le traitement des données personnalisées sur le carbone organique du sol "
+"sera bientôt disponible."

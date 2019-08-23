@@ -112,6 +112,11 @@ def get_admin_bounds():
     return admin_bounds_key
 
 
+def get_cities():
+    cities_key = read_json('cities.json.gz', verify=False)
+    return cities_key
+
+
 class DownloadError(Exception):
     def __init__(self, message):
         self.message = message

@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2018-04-06 23:09+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/training/tutorial_custom_lpd.rst:4
+msgid "Use custom productivity data"
+msgstr "Use dados de produtividade personalizados"
+
+#: ../../source/training/tutorial_custom_lpd.rst:6
+msgid ""
+"**Objective**: Learn how to load custom land productivity data computed "
+"outside of Trends.Earth."
+msgstr ""
+"**Objetivo**: saiba como carregar dados de produtividade do solo "
+"personalizados computados fora do Trends.Earth."
+
+#: ../../source/training/tutorial_custom_lpd.rst:8
+msgid "**Estimated time of completion**: 20 minutes"
+msgstr "**Tempo estimado de conclusão**: 20 minutos"
+
+#: ../../source/training/tutorial_custom_lpd.rst:10
+msgid "**Internet access**: Not required"
+msgstr "**Acesso à Internet**: não obrigatório"
+
+#: ../../source/training/tutorial_custom_lpd.rst:12
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_"
+msgstr ""
+"`Faça o download desta página como um PDF para uso offline "
+"<../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_"
+
+#: ../../source/training/tutorial_custom_lpd.rst:15
+msgid ""
+"Land productivity data should be formatted following UNCCD guidelines for "
+"reporting indicating areas of declining, early signs of decline, stable but "
+"stressed, stable, or increasing primary productivity."
+msgstr ""
+"Os dados de produtividade da terra devem ser formatados de acordo com as "
+"diretrizes da UNCCD para relatórios indicando áreas de declínio, sinais "
+"precoces de declínio, produtividade primária estável, estressada, estável ou"
+" crescente."
+
+#: ../../source/training/tutorial_custom_lpd.rst:25
+msgid ""
+"For the productivity data to be used in Trends.Earth the file need to be "
+"coded in the following way:"
+msgstr ""
+"Para os dados de produtividade a serem usados ​​no Trends.Earth, o arquivo "
+"precisa ser codificado da seguinte maneira:"
+
+#: ../../source/training/tutorial_custom_lpd.rst:18
+msgid "Declining = 1"
+msgstr "Recusando = 1"
+
+#: ../../source/training/tutorial_custom_lpd.rst:19
+msgid "Early signs of decline = 2"
+msgstr "Primeiros sinais de declínio = 2"
+
+#: ../../source/training/tutorial_custom_lpd.rst:20
+msgid "Stable but stressed = 3"
+msgstr "Estável mas estressado = 3"
+
+#: ../../source/training/tutorial_custom_lpd.rst:21
+msgid "Stable = 4"
+msgstr "Estável = 4"
+
+#: ../../source/training/tutorial_custom_lpd.rst:22
+msgid "Increasing = 5"
+msgstr "Aumentando = 5"
+
+#: ../../source/training/tutorial_custom_lpd.rst:23
+msgid "No data = 0 or -32768"
+msgstr "Nenhum dado = 0 ou -32768"
+
+#: ../../source/training/tutorial_custom_lpd.rst:25
+msgid ""
+"If your layer is not coded in such a way, please do the necessary "
+"adjustments prior to using Trends.Earth."
+msgstr ""
+"Se a sua camada não estiver codificada de tal forma, faça os ajustes "
+"necessários antes de usar o Trends.Earth."
+
+#: ../../source/training/tutorial_custom_lpd.rst:27
+msgid ""
+"To load productivity data click on the (|iconfolder|) icon in the "
+"Trends.Earth toolbar."
+msgstr ""
+"Para carregar dados de produtividade, clique no ícone (|iconfolder|) na "
+"barra de ferramentas Trends.Earth."
+
+#: ../../source/training/tutorial_custom_lpd.rst:32
+msgid ""
+"The **Load data** menu will open. Select **Productivity** from the **Import "
+"a custom input dataset** section."
+msgstr ""
+"O menu **Carregar dados** será aberto. Selecione **Produtividade** na seção "
+"**Importar um conjunto de dados de entrada personalizado**."
+
+#: ../../source/training/tutorial_custom_lpd.rst:37
+msgid ""
+"In the **Load a Custom Land Productivity Dataset** use the radio button to "
+"select the format of the input file (raster or vector). For this tutorial "
+"select raster, since the data distributed by the UNCCD is in raster format. "
+"Click on **Browse** to navigate to the productivity file you wish to import."
+msgstr ""
+"No **Carregar um Conjunto de Dados de Produtividade de Terrenos "
+"Personalizados**, use o botão de rádio para selecionar o formato do arquivo "
+"de entrada (raster ou vetor). Para este tutorial, selecione raster, pois os "
+"dados distribuídos pelo UNCCD são em formato raster. Clique em **Browse** "
+"para navegar até o arquivo de produtividade que você deseja importar."
+
+#: ../../source/training/tutorial_custom_lpd.rst:42
+msgid ""
+"Use the **Select input file** window to navigate to the file to be imported,"
+" select it, and click **Open**."
+msgstr ""
+"Use a janela **Selecionar arquivo de entrada** para navegar até o arquivo a "
+"ser importado, selecione-o e clique em **Abrir**."
+
+#: ../../source/training/tutorial_custom_lpd.rst:47
+msgid ""
+"Back at the **Load a Custom Land Productivity Dataset** window you have "
+"options for selecting the band number in which the productivity data is "
+"stored, in case your input file is a multi band raster. You also have the "
+"option of modifying the resolution of the file. We recommend leaving those "
+"as defaults unless you have valid reasons for changing them."
+msgstr ""
+"De volta à janela **Carregar um Conjunto de Dados de Produtividade Agrícola "
+"Personalizada**, você tem opções para selecionar o número da banda na qual "
+"os dados de produtividade são armazenados, caso seu arquivo de entrada seja "
+"uma varredura de múltiplas bandas. Você também tem a opção de modificar a "
+"resolução do arquivo. Recomendamos deixar esses como padrões, a menos que "
+"você tenha motivos válidos para alterá-los."
+
+#: ../../source/training/tutorial_custom_lpd.rst:48
+msgid ""
+"Click **Browse** at the bottom of the window to select the **Output raster "
+"file** and navigate to the folder where you want to save the file. Assign it"
+" a name and click **OK**."
+msgstr ""
+"Clique em **Navegar** na parte inferior da janela para selecionar o "
+"**Arquivo de saída raster** e navegue até a pasta onde deseja salvar o "
+"arquivo. Atribua um nome e clique em **OK**."
+
+#: ../../source/training/tutorial_custom_lpd.rst:53
+msgid ""
+"Back at the **Load a Custom Land Productivity Dataset** window click **OK** "
+"on the lower right corner to process the data."
+msgstr ""
+"De volta à janela **Carregar um Conjunto de Dados de Produtividade Agrícola "
+"Personalizada**, clique em **OK** no canto inferior direito para processar "
+"os dados."
+
+#: ../../source/training/tutorial_custom_lpd.rst:55
+msgid ""
+"If the values of the input file do not exactly match the requirements "
+"describe above, you will see a warning message. In many cases the warning is"
+" triggered by the definition of NoData, but the tool will still try to "
+"import it. For that reason, it is **extremely important** for you to explore"
+" the output layer to make sure the results are mapped as expected."
+msgstr ""
+"Se os valores do arquivo de entrada não corresponderem exatamente aos "
+"requisitos descritos acima, você verá uma mensagem de aviso. Em muitos "
+"casos, o aviso é acionado pela definição de NoData, mas a ferramenta ainda "
+"tentará importá-lo. Por esse motivo, é extremamente importante ** explorar a"
+" camada de saída para garantir que os resultados sejam mapeados conforme o "
+"esperado."
+
+#: ../../source/training/tutorial_custom_lpd.rst:60
+msgid ""
+"Once you click **OK** in the warning window, a progress bar will appear "
+"showing the percentage of the task completed."
+msgstr ""
+"Depois de clicar em **OK** na janela de aviso, uma barra de progresso "
+"aparecerá mostrando a porcentagem da tarefa concluída."
+
+#: ../../source/training/tutorial_custom_lpd.rst:65
+msgid ""
+"When the processing is completed, the imported land productivity dataset "
+"will be loaded to QGIS."
+msgstr ""
+"Quando o processamento estiver concluído, o conjunto de dados de "
+"produtividade do solo importado será carregado no QGIS."
+
+#: ../../source/training/tutorial_custom_lpd.rst:71
+msgid ""
+"Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
+"the imported LPD to compute the final SDG 15.3.1 after integration with land"
+" cover and soil organic carbon."
+msgstr ""
+"Consulte o tutorial :ref:`tut_compute_sdg` para obter instruções sobre como "
+"usar o LPD importado para calcular o ODS final 15.3.1 após a integração com "
+"cobertura da terra e carbono orgânico do solo."

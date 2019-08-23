@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 80.732322 15.641131"
+   height="15.641131mm"
+   width="80.732323mm">
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-86.862775,-76.112824)"
+     id="layer1">
+    <text
+       id="text4486"
+       y="90.647644"
+       x="98.95256"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:141.11109924px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#646464;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:'Proxima Nova';-inkscape-font-specification:'Proxima Nova';letter-spacing:0.26458332px;fill:#646464;fill-opacity:1;stroke-width:0.26458332px"
+         y="90.647644"
+         x="98.95256"
+         id="tspan4484">tracking land change</tspan></text>
+    <g
+       transform="translate(-0.54760391)"
+       id="g4496">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:141.11109924px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="87.118279"
+         y="84.723427"
+         id="text4487"><tspan
+           id="tspan4485"
+           x="87.118279"
+           y="84.723427"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12.69999981px;line-height:150%;font-family:'Proxima Nova Condensed';-inkscape-font-specification:'Proxima Nova Condensed, Semi-Bold';letter-spacing:0.39687499px;fill:#ff0134;fill-opacity:1;stroke-width:0.26458332px">TRENDS </tspan></text>
+      <path
+         id="path4490-7"
+         d="m 131.15909,81.216837 -0.4562,0.79044 -0.45654,0.79044 h 0.91274 0.91273 l -0.45621,-0.79044 z m 0,0.999815 0.37392,0.23947 0.37394,0.239468 h -0.74786 -0.74755 l 0.37362,-0.239468 z"
+         style="fill:#fd0134;fill-opacity:1;stroke:none;stroke-width:0.9592818;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         style="fill:#646464;fill-opacity:1;stroke:none;stroke-width:2.23506165;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path4488"
+         cx="131.15913"
+         cy="84.199989"
+         r="0.67584002" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:145.977005px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#646464;fill-opacity:1;stroke:none;stroke-width:0.27370688px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="133.33847"
+         y="84.875824"
+         id="text4528"><tspan
+           id="tspan4526"
+           x="133.33847"
+           y="84.875824"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:13.13793087px;font-family:'Proxima Nova Condensed';-inkscape-font-specification:'Proxima Nova Condensed, Semi-Bold';letter-spacing:0.41056034px;fill:#646464;fill-opacity:1;stroke-width:0.27370688px">EARTH</tspan></text>
+    </g>
+  </g>
+</svg>

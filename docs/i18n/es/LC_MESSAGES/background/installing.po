@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Monica Noon <mnoon@conservation.org>, 2017
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/background/installing.rst:2
+msgid "Installing the toolbox"
+msgstr "Instalando la caja de herramientas"
+
+#: ../../source/background/installing.rst:4
+msgid ""
+"There are different ways to install |trends.earth|, depending on whether you"
+" want to install the stable version (recommended) or the development "
+"version."
+msgstr ""
+"Existen diferentes formas de instalar |trends.earth|, según si desea "
+"instalar la versión estable (recomendada) o la versión de desarrollo."
+
+#: ../../source/background/installing.rst:8
+msgid ""
+"QGIS 3 is not currently supported by |trends.earth|, so the plugin will not "
+"appear in the plugin window if you are using QGIS 3.0. To use |trends.earth|"
+" you must install QGIS version 2.18. See :ref:`before-installing` for more "
+"information."
+msgstr ""
+"QGIS 3 actualmente no es compatible con |trends.earth|, por lo que el "
+"complemento no aparecerá en la ventana del complemento si está utilizando "
+"QGIS 3.0. Para utilizar |trends.earth| debe instalar QGIS versión 2.18. Ver "
+":ref:`before-installing` para más información."
+
+#: ../../source/background/installing.rst:14
+msgid "Installing the stable version (recommended)"
+msgstr "Instalación de la versión estable (recomendado)"
+
+#: ../../source/background/installing.rst:15
+msgid ""
+"The preferred way to install the |trends.earth| is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
+msgstr ""
+"La forma preferida de instalar |trends.earth| es a través de QGIS. Para "
+"instalar desde dentro de QGIS, primero inicie QGIS, y luego vaya a "
+"`Complementos` en la barra de menú en la parte superior del programa y "
+"seleccione` Administrar e instalar complementos`."
+
+#: ../../source/background/installing.rst:22
+msgid ""
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
+msgstr ""
+"Luego, busca un complemento llamado `trends.earth` y selecciona` Install "
+"plugin` en la esquina inferior derecha de la pantalla."
+
+#: ../../source/background/installing.rst:28
+msgid ""
+"If your plugin has been installed properly, there will be a menu bar in the "
+"top left of your browser that looks like this:"
+msgstr ""
+"Si su plugin se ha instalado correctamente, habrá una barra de menú en la "
+"parte superior izquierda de su navegador que se ve así:"
+
+#: ../../source/background/installing.rst:35
+msgid "Installing the development version (advanced users)"
+msgstr "Instalación de la versión de desarrollo (usuarios avanzados)"
+
+#: ../../source/background/installing.rst:37
+msgid ""
+"There are two ways to install the development version of the plugin. For "
+"more details, see the `README "
+"<https://github.com/ConservationInternational/trends.earth#development-"
+"version>`_ for |trends.earth|."
+msgstr ""
+"Hay dos formas de instalar la versión de desarrollo del complemento. Para "
+"obtener más información, consulte el `README "
+"<https://github.com/ConservationInternational/trends.earth#development-"
+"version>`_ for |trends.earth|."

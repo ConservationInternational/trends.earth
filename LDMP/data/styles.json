@@ -8,7 +8,7 @@
             "min": {"color": "#AB2727"},
             "zero": {"color": "#FFFFE0"},
             "max": {"color": "#45A146"},
-            "no data": {"value": -32768, "color": "#000000", "label": "prod_traj_trend_nodata"
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
     },
@@ -18,12 +18,10 @@
             "type": "categorical",
             "shader": "discrete",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "prod_traj_signif_nodata"},
-                {"value": -3, "color": "#AB2727", "label": "prod_traj_signif_dec_99"},
-                {"value": -2, "color": "#D79888", "label": "prod_traj_signif_dec_95"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -2, "color": "#AB2727", "label": "prod_traj_signif_dec_95"},
                 {"value": 1, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
-                {"value": 2, "color": "#B5D9A2", "label": "prod_traj_signif_inc_95"},
-                {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_99"}
+                {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_95"}
             ]
         }
     },
@@ -33,7 +31,7 @@
             "type": "categorical",
             "shader": "discrete",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "prod_state_change_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -2, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
                 {"value": 1, "color": "#FFFFE0", "label": "prod_state_change_stable"},
                 {"value": 10, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
@@ -46,7 +44,7 @@
             "type": "categorical",
             "shader": "interpolated",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "prod_state_classes_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": 1, "color": "#461554", "label": "1"},
                 {"value": 5, "color": "#28898C", "label": "5"},
                 {"value": 10, "color": "#FDE629", "label": "10"}
@@ -59,7 +57,7 @@
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "prod_perf_deg_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -1, "color": "#AB2727", "label": "prod_perf_deg_potential_deg"},
                 {"value": 0, "color": "#FFFFE0", "label": "prod_perf_deg_not_potential_deg"}
             ]
@@ -74,7 +72,7 @@
             "zero": {"color": "#461554"},
             "mid": {"color": "#28898C"},
             "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "prod_perf_ratio_nodata"}
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
     "Productivity performance (units)": {
@@ -86,7 +84,7 @@
             "zero": {"color": "#461554"},
             "mid": {"color": "#28898C"},
             "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "prod_perf_units_nodata"}
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
     "Soil organic carbon": {
@@ -98,7 +96,7 @@
             "zero": {"color": "#461554"},
             "mid": {"color": "#28898C"},
             "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "soc_nodata"}
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
     "Soil organic carbon (degradation)": {
@@ -107,7 +105,7 @@
             "type": "categorical",
             "shader": "discrete",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "soc_deg_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
                 {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_stable"},
                 {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
@@ -248,7 +246,7 @@
             "type": "categorical",
             "shader": "discrete",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "lc_tr_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": 9, "color": "#FFFFE0", "label": "lc_tr_nochange"},
                 {"value": 19, "color": "#787F1B", "label": "lc_tr_forest_loss"},
                 {"value": 29, "color": "#FFAC42", "label": "lc_tr_grassland_loss"},
@@ -266,7 +264,7 @@
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "lc_deg_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -1, "color": "#AB2727", "label": "lc_deg_deg"},
                 {"value": 0, "color": "#FFFFE0", "label": "lc_deg_stable"},
                 {"value": 1, "color": "#45A146", "label": "lc_deg_imp"}
@@ -279,7 +277,7 @@
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "combined_sdg_deg_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -1, "color": "#AB2727", "label": "combined_sdg_deg_deg"},
                 {"value": 0, "color": "#FFFFE0", "label": "combined_sdg_deg_stable"},
                 {"value": 1, "color": "#45A146", "label": "combined_sdg_deg_imp"}
@@ -292,7 +290,7 @@
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "sdg_prod_combined_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
                 {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
                 {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
@@ -307,7 +305,7 @@
             "type": "categorical",
             "shader": "exact",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "lpd_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": 1, "color": "#AB2727", "label": "lpd_declining"},
                 {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
                 {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
@@ -322,7 +320,7 @@
             "type": "categorical with dynamic ramp",
             "shader": "interpolated",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "f_loss_hansen_nodata"},
+                {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": -2, "color": "#0053C4", "label": "f_loss_hansen_water"},
                 {"value": -1, "color": "#CCCCCC", "label": "f_loss_hansen_nonforest"},
                 {"value": 0, "color": "#43AA5D", "label": "f_loss_hansen_noloss"}
@@ -340,7 +338,7 @@
             "zero": {"color": "#461554"},
             "mid": {"color": "#28898C"},
             "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "root_shoot_nodata"}
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
     "Total carbon": {
@@ -352,7 +350,79 @@
             "zero": {"color": "#461554"},
             "mid": {"color": "#28898C"},
             "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "tc_nodata"}
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Urban series": {
+        "title": "urban_series_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#777777", "label": "nodata"},
+                {"value": -1, "color": "#0000FF", "label": "urban_series_water"},
+                {"value": 1, "color": "#000000", "label": "urban_series_built_up_by_2000"},
+                {"value": 2, "color": "#FF0000", "label": "urban_series_built_up_by_2005"},
+                {"value": 3, "color": "#FF9400", "label": "urban_series_built_up_by_2010"},
+                {"value": 4, "color": "#FFFF00", "label": "urban_series_built_up_by_2015"}
+            ]
+        }
+    },
+    "Urban": {
+        "title": "urban_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 1, "color": "#D40300", "label": "urban_urban"},
+                {"value": 2, "color": "#FF4901", "label": "urban_suburban"},
+                {"value": 3, "color": "#4B4B4B", "label": "urban_built_up_rural"},
+                {"value": 4, "color": "#0AC506", "label": "urban_fringe_open_space"},
+                {"value": 5, "color": "#054C00", "label": "urban_captured_open_space"},
+                {"value": 6, "color": "#C5C5C5", "label": "urban_rural_open_space"},
+                {"value": 7, "color": "#007ED8", "label": "urban_fringe_open_space_water"},
+                {"value": 8, "color": "#1201FF", "label": "urban_captured_open_space_water"},
+                {"value": 9, "color": "#808080", "label": "urban_rural_open_space_water"}
+            ]
+        }
+    },
+    "Population": {
+        "title": "population_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Biomass (tonnes CO2e per ha)": {
+        "title": "biomass_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Restoration biomass difference (tonnes CO2e per ha)": {
+        "title": "biomass_difference_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
         }
     }
 }

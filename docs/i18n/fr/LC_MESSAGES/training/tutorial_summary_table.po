@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2018-04-04 19:03+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../source/training/tutorial_summary_table.rst:4
+msgid "Interpreting summary table"
+msgstr "Interpréter le tableau récapitulatif"
+
+#: ../../source/training/tutorial_summary_table.rst:6
+msgid ""
+"**Objective**: Learn how to open and interpret the summary tables produced "
+"by Trends.Earth when computing the final SDG 15.3.1 layer."
+msgstr ""
+"**Objectif**: Apprenez à ouvrir et à interpréter les tableaux récapitulatifs"
+" produits par Trends.Earth lors du calcul de la couche finale SDG 15.3.1."
+
+#: ../../source/training/tutorial_summary_table.rst:8
+msgid "**Estimated time of completion**: 25 minutes"
+msgstr "**Temps d'achèvement estimé**: 25 minutes"
+
+#: ../../source/training/tutorial_summary_table.rst:10
+msgid "**Internet access**: Not required"
+msgstr "**Accès Internet**: Non requis"
+
+#: ../../source/training/tutorial_summary_table.rst:12
+msgid ""
+"`Download this page as a PDF for offline use "
+"<../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
+msgstr ""
+"`Télécharger cette page en format PDF pour une utilisation hors connexion "
+"<../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
+
+#: ../../source/training/tutorial_summary_table.rst:16
+msgid ""
+"You will need to have previously computed SDG 15.3.1 using the **Calculate "
+"final SDG 15.3.1 spatial layer and summary table for total boundary** tool. "
+"Refer to the section :ref:`tut_compute_sdg` for instructions on how to run "
+"the analysis."
+msgstr ""
+"Vous aurez besoin d'avoir précédemment calculé SDG 15.3.1 en utilisant "
+"l'outil **Calculer la couche finale SDG 15.3.1 et la table récapitulative "
+"pour la limite totale**. Reportez-vous à la section :ref:`tut_compute_sdg` "
+"pour des instructions sur la façon d'exécuter l'analyse."
+
+#: ../../source/training/tutorial_summary_table.rst:18
+msgid ""
+"When you computed SDG 15.3.1 an Excel file was created with the summary "
+"table. Browse to that folder and double click on the file to open it."
+msgstr ""
+"Lorsque vous avez calculé SDG 15.3.1, un fichier Excel a été créé avec la "
+"table récapitulative. Accédez à ce dossier et double-cliquez sur le fichier "
+"pour l'ouvrir."
+
+#: ../../source/training/tutorial_summary_table.rst:23
+msgid ""
+"If you are using Microsoft Excel, you may see the following error messages "
+"pop-up. Click **Yes** on the first one and *OK** on the second one. We are "
+"currently working trying to identify where the error comes from, but the "
+"file is fully functional."
+msgstr ""
+"Si vous utilisez Microsoft Excel, les messages d'erreur suivants peuvent "
+"s'afficher. Cliquez sur **Oui** sur le premier et sur **OK** sur le second. "
+"Nous travaillons actuellement en essayant d'identifier d'où vient l'erreur, "
+"mais le fichier est entièrement fonctionnel."
+
+#: ../../source/training/tutorial_summary_table.rst:25
+msgid ""
+"If you are using LibreOffice or OpenOffice, the file will load with no "
+"errors."
+msgstr ""
+"Si vous utilisez LibreOffice ou OpenOffice, le fichier se chargera sans "
+"erreur."
+
+#: ../../source/training/tutorial_summary_table.rst:33
+msgid ""
+"The summary table file contains 5 tabs, which you can explore by clicking on"
+" each of the different names the bottom of the screen: SDG 15.3.1, "
+"Productivity, Soil organic carbon, Land Cover and UNCCD Reporting."
+msgstr ""
+"Le fichier du tableau récapitulatif contient 5 onglets, que vous pouvez "
+"explorer en cliquant sur chacun des différents noms au bas de l'écran: ODD "
+"15.3.1, Productivité, Carbone organique du sol, Couverture terrestre et "
+"Rapport UNCCD."
+
+#: ../../source/training/tutorial_summary_table.rst:35
+msgid ""
+"In the **SDG 15.3.1** tab you will find the area calculations derived from "
+"the indicator map you explored in QGIS."
+msgstr ""
+"Dans l'onglet **SDG 15.3.1**, vous trouverez les calculs de surface dérivés "
+"de la carte des indicateurs que vous avez explorée dans QGIS."
+
+#: ../../source/training/tutorial_summary_table.rst:37
+msgid ""
+"For the area you run the analysis, you will see the total land area "
+"(excluding water bodies): land that experienced improvement, which remained "
+"stable, areas degraded, and also information on the areas with no data for "
+"the period selected. No data in the SDG 15.3.1 is an indication of no data "
+"in some of the input datasets used in the analysis."
+msgstr ""
+"Pour la zone où vous effectuez l'analyse, vous verrez la superficie totale "
+"(à l'exclusion des masses d'eau): terres qui ont connu une amélioration, qui"
+" sont restées stables, zones dégradées, ainsi que les informations sur les "
+"zones sans données pour la période sélectionnée. Aucune donnée dans l'ODD "
+"15.3.1 n'est une indication de l'absence de données dans certains ensembles "
+"de données d'entrée utilisés dans l'analyse."
+
+#: ../../source/training/tutorial_summary_table.rst:42
+msgid ""
+"In the **Productivity** tab you will find at the top, a similar summary as "
+"previously explained, but in this case representing the results of the land "
+"productivity sub-indicator alone."
+msgstr ""
+"Dans l'onglet **Productivité**, vous trouverez en haut un résumé similaire à"
+" celui expliqué précédemment, mais dans ce cas, il représente uniquement les"
+" résultats du sous-indicateur de la productivité des terres."
+
+#: ../../source/training/tutorial_summary_table.rst:44
+msgid ""
+"In the sections below you will find two tables, each containing area "
+"information (in sq. km) for each of the land cover transitions found in the "
+"study are during the period analyzed broken by each of the 5 final land "
+"productivity classes: Increasing, Stable, Stable but stressed, Early signs "
+"of decline, and Declining."
+msgstr ""
+"Dans les sections ci-dessous, vous trouverez deux tableaux, chacun contenant"
+" des informations sur la superficie (en kilomètres carrés) pour chacune des "
+"transitions de couverture terrestre trouvées dans l'étude pendant la période"
+" analysée par chacune des 5 classes finales de productivité: Augmentation, "
+"Stable , Stable mais stressé, signes précoces de déclin, et déclin."
+
+#: ../../source/training/tutorial_summary_table.rst:49
+msgid ""
+"In the **Soil organic carbon** tab you will find at the top, a similar "
+"summary as previously explained, but in this case representing the results "
+"of the soil organic carbon sub-indicator alone."
+msgstr ""
+"Dans l'onglet **Carbone organique du sol**, vous trouverez en haut, un "
+"résumé similaire à celui expliqué précédemment, mais dans ce cas "
+"représentant les résultats du sous-indicateur carbone organique du sol seul."
+
+#: ../../source/training/tutorial_summary_table.rst:51
+#: ../../source/training/tutorial_summary_table.rst:61
+msgid "In the sections below you will find two tables:"
+msgstr "Dans les sections ci-dessous, vous trouverez deux tableaux:"
+
+#: ../../source/training/tutorial_summary_table.rst:53
+msgid ""
+"The first one contains information on changes in carbon stocks from the "
+"baseline (initial year of analysis) to the target (final year of analysis)."
+msgstr ""
+"Le premier contient des informations sur les changements dans les stocks de "
+"carbone de la base (première année d'analyse) à la cible (dernière année "
+"d'analyse)."
+
+#: ../../source/training/tutorial_summary_table.rst:54
+msgid ""
+"The second presents information soil organic carbon change from baseline to "
+"target by type of land cover transition (as percentage of initial stock)."
+msgstr ""
+"La seconde présente l'évolution du carbone organique du sol entre le niveau "
+"de référence et la cible par type de transition de la couverture terrestre "
+"(en pourcentage du stock initial)."
+
+#: ../../source/training/tutorial_summary_table.rst:59
+msgid ""
+"In the **Land cover** tab you will find at the top, a similar summary as "
+"previously explained, but in this case representing the results of the land "
+"cover change sub-indicator alone."
+msgstr ""
+"Dans l'onglet **Land cover**, vous trouverez en haut un résumé similaire à "
+"celui expliqué précédemment, mais dans ce cas, il représente uniquement les "
+"résultats du sous-indicateur de changement de la couverture terrestre."
+
+#: ../../source/training/tutorial_summary_table.rst:63
+msgid ""
+"The first contains information on land cover change by cover class (sq, km "
+"and %)."
+msgstr ""
+"Le premier contient des informations sur le changement de la couverture du "
+"sol par classe de couverture (sq, km et%)."
+
+#: ../../source/training/tutorial_summary_table.rst:64
+msgid ""
+"The second contains information on land area by type of land cover "
+"transition (sq. km)."
+msgstr ""
+"La seconde contient des informations sur la superficie des terres par type "
+"de transition de la couverture terrestre (km2)."
+
+#: ../../source/training/tutorial_summary_table.rst:69
+msgid ""
+"In the **UNCCD Reporting** tab you will find five tables containing similar "
+"information as the one presented in the previous tabs, but in this case "
+"specifically formatted to match the reporting template required by the "
+"UNCCD. Each table indicates at the top the page number and section of the "
+"template the information is referring to."
+msgstr ""
+"Dans l'onglet **UNCCD Reporting**, vous trouverez cinq tableaux contenant "
+"des informations similaires à celles présentées dans les onglets précédents,"
+" mais dans ce cas spécifiquement formatés pour correspondre au modèle de "
+"rapport requis par la UNCCD. Chaque tableau indique en haut le numéro de "
+"page et la section du modèle auquel l'information se réfère."

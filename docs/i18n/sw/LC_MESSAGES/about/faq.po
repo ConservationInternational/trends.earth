@@ -1,0 +1,633 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2018-03-14 19:31+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/about/faq.rst:2
+msgid "Frequently asked questions"
+msgstr "Maswali yanayoulizwa mara kwa mara"
+
+#: ../../source/about/faq.rst:4
+msgid ""
+"This page lists some Frequently Asked Questions (FAQs) for the "
+"|trends.earth| tool."
+msgstr ""
+"Ukurasa huu unaorodhesha maswali Maswali Yanayoulizwa Mara kwa mara (FAQs) "
+"kwa | trends.earth | chombo."
+
+#: ../../source/about/faq.rst:8
+msgid "General Questions"
+msgstr "Maswali Ya jumla"
+
+#: ../../source/about/faq.rst:10
+msgid "**Is there a user group I can share experiences with and learn from?**"
+msgstr ""
+"** Je! Kuna kundi la mtumiaji ninaweza kushiriki uzoefu na kujifunza kutoka?"
+" **"
+
+#: ../../source/about/faq.rst:12
+msgid ""
+"Yes, we recently created a `Google group for Trends.Earth users "
+"<https://groups.google.com/forum/#!forum/trendsearth>`_ so please `join "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ and "
+"participate! We aim for this group to be a forum for users to post questions"
+" about the tool, methods, and datasets in support of Sustainable Development"
+" Goals monitoring. The |trends.earth| team will monitor the group and answer"
+" questions as needed, but we'll get the most out of this community if users "
+"support each other by answering questions based on their unique background "
+"and experiences. The group will also be used for announcements on tool "
+"updates and capacity building efforts."
+msgstr ""
+"Ndiyo, hivi karibuni tuliunda &#39;kundi la Google kwa Mwelekeo wa "
+"`Watumiaji <https://groups.google.com/forum/#!forum/trendsearth>`_ tafadhali"
+" tafadhali &#39;`kujiunga "
+"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ na ushiriki! "
+"Tunalenga kikundi hiki kuwa jukwaa la watumiaji kuandika maswali kuhusu "
+"zana, njia, na dasasets ili kuunga mkono ufuatiliaji wa Malengo ya "
+"Maendeleo. The |trends.earth| timu itafuatilia kikundi na kujibu maswali "
+"kama inahitajika, lakini tutapata zaidi kutoka kwa jumuiya hii ikiwa "
+"watumiaji wanaunga mkono kwa kujibu maswali kulingana na historia na uzoefu "
+"wao wa kipekee. Kundi pia litatumiwa kwa matangazo juu ya sasisho la zana na"
+" jitihada za kujenga uwezo."
+
+#: ../../source/about/faq.rst:23
+msgid "**How do I find more information on the project?**"
+msgstr "** Ninapataje habari zaidi juu ya mradi? **"
+
+#: ../../source/about/faq.rst:25
+msgid ""
+"More information on the toolbox can be found at `trends.earth "
+"<http://trends.earth>`_ and reports are available on the `Vital Signs "
+"Project website <http://vitalsigns.org/gef-ldmp/project-description-and-"
+"timeline>`_ You can also add your contact info at `Vital Signs LD Email "
+"Distribution List <http://vitalsigns.org/gef-ldmp/email-distribution-list>`_"
+" to stay in touch with any advancements with the projects’ distrubtion list."
+msgstr ""
+"Maelezo zaidi juu ya sanduku la zana yanaweza kupatikana katika "
+"`trends.earth <http://trends.earth>` _ na ripoti zinapatikana kwenye tovuti "
+"ya `Project Vital Signs <http://vitalsigns.org/gef-ldmp/project- maelezo-na-"
+"ratiba> `_ Unaweza pia kuongeza maelezo yako ya kuwasiliana kwenye Orodha ya"
+" Usambazaji wa` Vital Signs LD Email <http://vitalsigns.org/gef-ldmp/email-"
+"distribution-list> `_ ili uendelee kuwasiliana na yeyote maendeleo na orodha"
+" ya miradi ya kusafirisha."
+
+#: ../../source/about/faq.rst:32
+msgid "**How can I provide feedback on the tool?**"
+msgstr "** Ninawezaje kutoa maoni juu ya chombo? **"
+
+#: ../../source/about/faq.rst:34
+msgid ""
+"There are three ways to give feedback, emailing the project team, visiting "
+"the project site and messaging through the anonymous form or rate the "
+"toolbox in the plugins menu of QGIS. The project technical team can address "
+"questions through trends.earth@conservation.org. Users can rate the toolbox "
+"by opening Plugins in QGIS and selecting Manage and Install Plugins. Select "
+"All in the side bar and navigate to trends.earth plugin. Click on "
+"trends.earth and rate the toolbox by selecting the number of stars you would"
+" like to give the plugin, 5 stars being highly satisfied."
+msgstr ""
+"Kuna njia tatu za kutoa maoni, barua pepe kwa timu ya mradi, kutembelea "
+"tovuti ya mradi na ujumbe kwa njia ya fomu isiyojulikana au kupima chaguo la"
+" zana katika orodha ya programu za programu za programu za QGIS. Timu ya "
+"kiufundi ya mradi inaweza kushughulikia maswali kwa njia ya "
+"trends.earth@conservation.org. Watumiaji wanaweza kupima lebo ya zana kwa "
+"kufungua Plugins katika QGIS na kuchagua Kusimamia na Kufunga Plugins. "
+"Chagua Wote kwenye bar ya upande na uende kwenye programu ya trends.earth. "
+"Bonyeza kwenye trends.earth na ukadilishe sanduku la zana kwa kuchagua idadi"
+" ya nyota ambazo ungependa kutoa programu, nyota 5 zimejaa kuridhika."
+
+#: ../../source/about/faq.rst:44
+msgid "Installation of Trends.Earth"
+msgstr "Uwekaji wa Mwelekeo"
+
+#: ../../source/about/faq.rst:47
+msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"
+msgstr ""
+"** Nini toleo la Quantum GIS (QGIS) ninahitaji kwa sanduku la zana? **"
+
+#: ../../source/about/faq.rst:49
+msgid ""
+"To download QGIS, please go to the QGIS Downloads page. As of February 2018,"
+" version 3.0 was released. Please use version 2.18 for the trends.earth "
+"plugin. A version compatible with the latest version will be released in "
+"future iterations of the project."
+msgstr ""
+"Ili kupakua QGIS, tafadhali nenda kwenye ukurasa wa Mkono wa QGIS. Kuanzia "
+"Februari 2018, toleo 3.0 ilitolewa. Tafadhali tumia toleo la 2.18 kwa Plugin"
+" trends.earth. Toleo linalolingana na toleo la hivi karibuni litatolewa "
+"katika utaratibu ujao wa mradi huo."
+
+#: ../../source/about/faq.rst:54
+msgid "**Do I need to download a 32-bit or 64 bit version of QGIS?**"
+msgstr "** Je, ninahitaji kupakua toleo 32-bit au 64 bit ya QGIS? **"
+
+#: ../../source/about/faq.rst:56
+msgid ""
+"We recommend downloading 64-bit version (2.18), but you may need to download"
+" the 32-bit version for 32-bit operating systems. To find out if your "
+"computer is running a 32-bit or 64-bit version of Windows,  search for "
+"System or msinfo32. This is found in the Control Panel and will bring up a "
+"window that says the system type e.g. System type: 64-bit Operating System, "
+"x64-based processor."
+msgstr ""
+"Tunapendekeza kupakua toleo la 64-bit (2.18), lakini huenda unahitaji "
+"kupakua toleo la 32-bit kwa mifumo ya uendeshaji 32-bit. Ili kujua kama "
+"kompyuta yako inaendesha 32-bit au 64-bit version ya Windows, tafuta System "
+"au msinfo32. Hii inapatikana katika Jopo la Kudhibiti na italeta dirisha "
+"linalosema aina ya mfumo k.m. Aina ya mfumo: Mfumo wa uendeshaji 64-bit, "
+"processor ya msingi ya x64."
+
+#: ../../source/about/faq.rst:63
+msgid "Windows 7 or Windows Vista:"
+msgstr "Windows 7 au Windows Vista:"
+
+#: ../../source/about/faq.rst:65
+msgid ""
+"Open System by clicking the Start button , right-clicking Computer, and then"
+" clicking Properties."
+msgstr ""
+"Fungua Mfumo kwa kubonyeza kifungo cha Mwanzo, kubofya kwa kulia Kompyuta, "
+"na kisha kubofya Mali."
+
+#: ../../source/about/faq.rst:67
+msgid "Under System, you can view the system type."
+msgstr "Chini ya Mfumo, unaweza kuona aina ya mfumo."
+
+#: ../../source/about/faq.rst:69
+msgid "Windows 8 or Windows 10:"
+msgstr "Windows 8 au Windows 10:"
+
+#: ../../source/about/faq.rst:71
+msgid "From the Start screen, type This PC."
+msgstr "Kutoka skrini ya Mwanzo, funga PC hii."
+
+#: ../../source/about/faq.rst:72
+msgid "Right Click (or tap and hold) This PC, and click Properties."
+msgstr "Bonyeza Bonyeza (au bomba na ushikilie) PC hii, na bonyeza Mali."
+
+#: ../../source/about/faq.rst:74
+msgid "Mac:"
+msgstr "Mac:"
+
+#: ../../source/about/faq.rst:76
+msgid "Click the Apple icon in the top left and select \"About this Mac\"."
+msgstr "Bonyeza icon ya Apple upande wa kushoto na chagua \"Kuhusu Mac hii\"."
+
+#: ../../source/about/faq.rst:77
+msgid ""
+"For more advanced details click \"More Info...\" in the About This Mac "
+"window."
+msgstr ""
+"Kwa maelezo zaidi ya juu bonyeza \"Maelezo Zaidi ...\" kwenye dirisha la "
+"Kuhusu Hii la Mac."
+
+#: ../../source/about/faq.rst:79
+msgid "**How do I install the plugin?**"
+msgstr "** Je, ninawekaje Plugin? **"
+
+#: ../../source/about/faq.rst:81
+msgid ""
+"Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
+"install plugins. On the side menu, select All to view the plugins available "
+"in QGIS. Search for trends.earth and select Install plugin at the bottom of "
+"the window."
+msgstr ""
+"Fungua QGIS, nenda kwenye Plugins kwenye bar ya menyu, na chagua Kusimamia "
+"na kufunga programu. Kwenye orodha ya upande, chagua Wote ili kuona Plugins "
+"inapatikana katika QGIS. Utafute trends.earth na chagua Sakinisha Plugin "
+"chini ya dirisha."
+
+#: ../../source/about/faq.rst:85
+msgid "**How do I upgrade the plugin?**"
+msgstr "** Ninawezaje kuboresha Plugin? **"
+
+#: ../../source/about/faq.rst:87
+msgid ""
+"If you have already installed the plugin, navigate to Plugins on the menu "
+"bar, and select Manage and install plugins. On the side menu, select "
+"Installed to view the plugins that you have installed in your computer. At "
+"the bottom of the window, select Upgrade all to upgrade the toolbox to the "
+"latest version."
+msgstr ""
+"Ikiwa umeweka tayari Plugin, nenda kwenye Plugins kwenye bar ya menyu, na "
+"chagua Kusimamia na kufunga programu. Kwenye orodha ya upande, chagua "
+"Umewekwa ili uone Plugins uliyoweka kwenye kompyuta yako. Chini ya dirisha, "
+"chagua Uboreshaji wote ili kuboresha kisanduku cha zana kwenye toleo la hivi"
+" karibuni."
+
+#: ../../source/about/faq.rst:93
+msgid "Datasets"
+msgstr "Datasets"
+
+#: ../../source/about/faq.rst:95
+msgid "**When will you update datasets for the current year?**"
+msgstr "** Utasasisha vipi data wakati wa sasa? **"
+
+#: ../../source/about/faq.rst:97
+msgid ""
+"Trends.Earth uses publicly available data, as such the most up to date "
+"datasets will be added to the toolbox as soon as the original data providers"
+" make them public. If you notice any update that we missed, please do let us"
+" know."
+msgstr ""
+"Trends.Earth hutumia data ya umma, kama vile vituo vya data vya juu hadi "
+"sasa vinaongezwa kwenye boti la zana mara tu watoa data ya awali wanawafanya"
+" wa umma. Ikiwa unatambua sasisho lolote tulilokosa, tafadhali tukujulishe."
+
+#: ../../source/about/faq.rst:101
+msgid "**Is there an option to download the original data?**"
+msgstr "** Kuna chaguo la kupakua data ya awali? **"
+
+#: ../../source/about/faq.rst:103
+msgid ""
+"Users can download the original data using the Download option within the "
+"toolbox."
+msgstr ""
+"Watumiaji wanaweza kupakua data ya awali kwa kutumia chaguo la Chakula ndani"
+" ya sanduku la zana."
+
+#: ../../source/about/faq.rst:106
+msgid "**Will the toolbox support higher resolution datasets?**"
+msgstr "** Je, sanduku la zana litaunga mkono dasasets ya juu ya azimio? **"
+
+#: ../../source/about/faq.rst:108
+msgid ""
+"The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary"
+" productivity analysis, and ESA LCC CCI (300m) for land cover change "
+"analysis."
+msgstr ""
+"Bodi ya zana sasa inasaidia AVHRR (8km) na MODIS (250m) data kwa uchambuzi "
+"wa uzalishaji wa msingi, na ESA LCC CCI (300m) kwa uchambuzi wa mabadiliko "
+"ya bima ya ardhi."
+
+#: ../../source/about/faq.rst:111
+msgid "**Can the toolbox support analysis with national-level datasets?**"
+msgstr ""
+"** Je, uchambuzi wa msaada wa sanduku la zana unaweza kuwa na dasasets ya "
+"kiwango cha kitaifa? **"
+
+#: ../../source/about/faq.rst:113
+msgid ""
+"This is a common request from users, and one the team is working on. "
+"Trends.Earth will allow loading of national-level soil carbon and land cover"
+" datasets before the end of March, 2018. This will allow users to take "
+"advantage of existing datasets that might be of higher quality at a "
+"national-level than the global datasets that are the defaults in the tool."
+msgstr ""
+"Hii ni ombi la kawaida kutoka kwa watumiaji, na timu moja inafanya kazi. "
+"Trends.Earth itawawezesha upakiaji wa dasasets za udongo wa kaboni na udongo"
+" wa ardhi kabla ya mwishoni mwa Machi, 2018. Hii itawawezesha watumiaji "
+"kutumia faida zilizopo za data ambazo zinaweza kuwa na kiwango cha juu "
+"katika ngazi ya kitaifa kuliko data za kimataifa ni defaults katika chombo."
+
+#: ../../source/about/faq.rst:120
+msgid "Methods"
+msgstr "Njia"
+
+#: ../../source/about/faq.rst:122
+msgid "**Who was the default time period for the analysis determined?**"
+msgstr "** Ni wakati gani wa wakati wa kutosha wa uchambuzi uliowekwa? **"
+
+#: ../../source/about/faq.rst:124
+msgid ""
+"The default time period of analysis is from years 2001 to 2015. These were "
+"recommended by the `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.,"
+" a document that provides detailed recommendations for measuring land "
+"degradation and has been adopted by the UNCCD."
+msgstr ""
+"Kipindi cha muda cha uchambuzi cha uchambuzi ni kutoka miaka ya 2001 hadi "
+"2015. Hizi zilipendekezwa na \"Mwongozo Mzuri wa Mazoezi\" "
+"http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG % 20Indicator% "
+"2015.3.1_Version% 201.0.pdf> `_., Hati ambayo inatoa mapendekezo ya kina kwa"
+" kupima uharibifu wa ardhi na imechukuliwa na UNCCD."
+
+#: ../../source/about/faq.rst:131
+msgid "Productivity"
+msgstr "Uzalishaji"
+
+#: ../../source/about/faq.rst:133
+msgid "**How does the result provided by state differs from trajectory?**"
+msgstr "** Matokeo ya zinazotolewa na hali yanatofautianaje na trajectory? **"
+
+#: ../../source/about/faq.rst:135
+msgid ""
+"The trajectory analysis uses linear regressions and non-parametric tests to "
+"identify long term significant trends in primary productivity. This method "
+"however, is not able to capture more recent changes in primary productivity,"
+" which could be signals of short term processes of improvement or "
+"degradation. By comparing a long term mean to the most recent period, state "
+"is able to capture such recent changes."
+msgstr ""
+"Uchambuzi wa trajectory hutumia regressions linear na vipimo visivyo na "
+"parametric ili kutambua mwenendo wa muda mrefu wa utendaji wa msingi. Njia "
+"hii hata hivyo, haiwezi kukata mabadiliko zaidi ya hivi karibuni katika "
+"uzalishaji wa msingi, ambayo inaweza kuwa ishara ya michakato ya muda mfupi "
+"ya kuboresha au uharibifu. Kwa kulinganisha maana ya muda mrefu kwa kipindi "
+"cha hivi karibuni, hali inaweza kukamata mabadiliko hayo ya hivi karibuni."
+
+#: ../../source/about/faq.rst:144
+msgid "Land cover"
+msgstr "Bima ya ardhi"
+
+#: ../../source/about/faq.rst:146
+msgid ""
+"**Currently, the land cover aggregation is done following the UNCCD "
+"guidelines, but that classification does not take into account country level"
+" characteristics. Could it be possible to allow the user to define the "
+"aggregation criteria?**"
+msgstr ""
+"** Hivi sasa, usaniko wa kifuniko cha ardhi unafanyika kufuatia miongozo ya "
+"UNCCD, lakini uainishaji huo hauzingati sifa za kiwango cha nchi. Je! "
+"Inawezekana kuruhusu mtumiaji kufafanua vigezo vya uchanganyiko? **"
+
+#: ../../source/about/faq.rst:151
+msgid ""
+"Users are able to make these changes using the advanced settings in the land"
+" cover GUI so that appropriate aggregations occur depending on the context "
+"of your country."
+msgstr ""
+"Watumiaji wanaweza kufanya mabadiliko haya kwa kutumia mipangilio ya juu "
+"katika GUI ya bima ya ardhi ili kuunganisha sahihi iwezekane kulingana na "
+"mazingira ya nchi yako."
+
+#: ../../source/about/faq.rst:155
+msgid "**How can we isolate woody plant encroachment within the toolbox?**"
+msgstr ""
+"** Tunawezaje kutenganisha usingizi wa mmea wa mbegu ndani ya sanduku la "
+"zana? **"
+
+#: ../../source/about/faq.rst:157
+msgid ""
+"This can be altered using the land cover change matrix in the toolbox. For "
+"every transition, the user can mark the change as stable, improvement or "
+"degraded. The transition from grassland/rangeland to shrubland may indicate "
+"woody encroachment and this transition can be marked as an indicator of "
+"degradation."
+msgstr ""
+"Hii inaweza kubadilishwa kwa kutumia matrix ya kifuniko cha ardhi katika "
+"boksi la zana. Kwa kila mpito, mtumiaji anaweza kuashiria mabadiliko kama "
+"imara, kuboresha au kuharibiwa. Mpito kutoka majani hadi nchi hadi shrubland"
+" inaweza kuonyesha kuingilia kwa nguvu na mabadiliko haya yanaweza kuonekana"
+" kama kiashiria cha uharibifu."
+
+#: ../../source/about/faq.rst:164
+msgid "Carbon stocks"
+msgstr "Hifadhi za kaboni"
+
+#: ../../source/about/faq.rst:166
+msgid ""
+"**Why use soil organic carbon (SOC) instead of above and below-ground carbon"
+" to measure carbon stocks?**"
+msgstr ""
+"** Kwa nini matumizi ya kaboni ya kaboni (SOC) badala ya juu na chini ya "
+"chini ya kaboni kupima hisa za kaboni? **"
+
+#: ../../source/about/faq.rst:169
+msgid ""
+"The original proposed indicator is Carbon Stocks, which would include above "
+"and below ground biomass. However, given the lack of consistently generated "
+"and comparable dataset which assess carbon stocks in woody plants (including"
+" shrubs), grasses, croplands, and other land cover types both above and "
+"below ground, the `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
+" published by the UNCCD recommends for the time being to use SOC as a proxy."
+msgstr ""
+"Kiashiria cha awali kilichopendekezwa ni Hifadhi za Carbon, ambazo "
+"zitajumuisha juu na chini ya mimea ya ardhi. Hata hivyo, kutokana na ukosefu"
+" wa dataset inayozalishwa na kulinganishwa kwa mara kwa mara ambayo "
+"hutathmini hifadhi za kaboni kwenye mimea yenye mboga (ikiwa ni pamoja na "
+"vichaka), nyasi, mazao ya mimea, na aina nyingine za kufunika ardhi hapo juu"
+" na chini ya ardhi, Kanuni za Mazoea Bora <http: // www2. "
+"unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
+" iliyochapishwa na UNCCD inapendekeza wakati wa kutumia SOC kama "
+"mwendeshaji."
+
+#: ../../source/about/faq.rst:177
+msgid ""
+"**Is it possible to measure identify processes of degradation linked to "
+"salinization using this tool?**"
+msgstr ""
+"** Inawezekana kupima taratibu za kutambua uharibifu unaohusishwa na "
+"salinization kwa kutumia chombo hiki **"
+
+#: ../../source/about/faq.rst:180
+msgid ""
+"Not directly. If salinization caused a reduction in primary productivity, "
+"that decrease would be identified by the productivity indicators, but the "
+"users would have to use their local knowledge to assign the causes."
+msgstr ""
+"Sio moja kwa moja. Ikiwa salinization imesababisha kupungua kwa tija ya "
+"msingi, kupungua kwa hiyo kutafahamika na viashiria vya uzalishaji, lakini "
+"watumiaji watatakiwa kutumia ujuzi wao wa ndani kugawa sababu."
+
+#: ../../source/about/faq.rst:185
+msgid "Land degradation outputs"
+msgstr "Uharibifu wa ardhi uharibifu"
+
+#: ../../source/about/faq.rst:187
+msgid ""
+"**How were the layers combined to define the final land degradation layer?**"
+msgstr ""
+"** Je, vipande viliunganishwaje ili kufafanua safu ya mwisho ya uharibifu wa"
+" ardhi? **"
+
+#: ../../source/about/faq.rst:189
+msgid ""
+"Performance, state, and trajectory (the three indicators of change in "
+"productivity_) are combined following a modified version of the good "
+"practice guidance developed by the UNCCD (in section SDG Indicator 15.3.1 of"
+" this manual a table is presented). Productivity, soil carbon, and land "
+"cover chance (the three sub-indicators of SDG 15.3.1) are combined using a "
+"“one out, all out” principle. In other words: if there is a decline in any "
+"of the three indicators at a particular pixel, then that pixel is mapped as "
+"being “degraded”."
+msgstr ""
+"Utendaji, hali, na trajectory (vigezo vitatu vya mabadiliko katika "
+"productivity_) vinajumuishwa kufuatia toleo la marekebisho ya maelekezo "
+"mazuri yaliyotengenezwa na UNCCD (katika sehemu ya SDG Kiashiria 15.3.1 ya "
+"mwongozo huu meza imewasilishwa). Uzalishaji, udongo wa kaboni na nafasi ya "
+"kufunika ardhi (tatu ndogo-viashiria vya SDG 15.3.1) huunganishwa kwa "
+"kutumia \"kanuni moja nje, nje\". Kwa maneno mengine: ikiwa kuna kushuka kwa"
+" kiashiria chochote cha tatu kwenye pixel fulani, basi pixel hiyo inaonekana"
+" kama \"iliyoharibika\"."
+
+#: ../../source/about/faq.rst:197
+msgid ""
+"**Why do I see areas improving (in green) or degrading (in red) after the "
+"final analysis when I know they are not?**"
+msgstr ""
+"** Kwa nini ninaona maeneo yanayoboresha (katika kijani) au ya kupoteza "
+"(katika nyekundu) baada ya uchambuzi wa mwisho wakati ninajua sio? **"
+
+#: ../../source/about/faq.rst:200
+msgid ""
+"The final output should be interpreted as showing areas potentially "
+"degraded. The indicator of land degradation is based on changes in "
+"productivity, land cover and soil organic carbon. Several factor could lead "
+"to the identification of patterns of degradation which do not seem to "
+"correlate to what is happening on the ground, the date of analysis being a "
+"very important one. If the climatic conditions at the beginning of the "
+"analysis were particularly wet, for example, trends from that moment on "
+"could show significant decreases in primary productivity, and degradation. "
+"The user can use Trends.Earth to address some of this issues correcting by "
+"the effect of climate. The resolution of the data could potentially be "
+"another limitation. Trends.Earth by default uses global datasets which will "
+"not be the most relevant at all scales and geographies. A functionality to "
+"use local data will be added shortly."
+msgstr ""
+"Pato la mwisho linapaswa kutafanuliwa kama kuonyesha maeneo ambayo yanaweza "
+"kuharibiwa. Kiashiria cha uharibifu wa ardhi kinategemea mabadiliko katika "
+"uzalishaji, bima ya ardhi na kaboni ya kaboni. Sababu kadhaa zinaweza "
+"kusababisha utambulisho wa mifumo ya uharibifu ambayo haionekani kuhusisha "
+"na kinachoendelea chini, tarehe ya uchambuzi kuwa muhimu sana. Ikiwa hali ya"
+" hali ya hewa mwanzoni mwa uchambuzi ilikuwa hasa mvua, kwa mfano, mwenendo "
+"kutoka wakati huo juu inaweza kuonyesha kupungua kwa ufanisi wa msingi, na "
+"uharibifu. Mtumiaji anaweza kutumia Mwelekeo.Earth kushughulikia baadhi ya "
+"masuala haya kurekebisha na athari za hali ya hewa. Azimio la data inaweza "
+"uwezekano wa kuwa kikwazo kingine. Mwelekeo.Kuanza kwa default hutumia "
+"datasets za kimataifa ambazo hazitakuwa muhimu zaidi kwa mizani yote na "
+"geographies. Utendaji wa kutumia data za mitaa utaongezwa muda mfupi."
+
+#: ../../source/about/faq.rst:213
+msgid ""
+"**All of the sub-indicators are measuring vegetation using three different "
+"methods: how does this contribute to understanding and identifying land "
+"degradation?**"
+msgstr ""
+"** Viashiria vyote vinapima mimea kwa kutumia mbinu tatu tofauti: hii "
+"inachangiaje kuelewa na kutambua uharibifu wa ardhi? **"
+
+#: ../../source/about/faq.rst:217
+msgid ""
+"Vegetation is a key component of most ecosystems, and serve as a good proxy "
+"for their overall functioning and health. The three subindicators used for "
+"SDG 15.3.1 measure different aspects of land cover, which do relate to "
+"vegetation. Primary productivity directly measures the change in amount of "
+"biomass present in one area, but it does not inform us if that change is "
+"positive or not (not all increases in plant biomass should be interpreted as"
+" improvement). Land cover fills that gap by interpreting the landscape from "
+"a thematic perspective looking at what was there before and what is there "
+"now. It does include vegetation, but also bare land, urban and water. "
+"Finally, the soil organic carbon indicator uses the land cover map to inform"
+" the changes in soil organic carbon over time. This method is not ideal, but"
+" given the current state of global soil science and surveying, there is "
+"consensus that it this point in time and globally, this is the best "
+"approach."
+msgstr ""
+"Mboga ni sehemu muhimu ya mazingira mengi, na hutumikia kama wakala mzuri "
+"kwa kazi zao zote na afya. Wafanyabiashara watatu walitumia SDG 15.3.1 "
+"kupima vipengele tofauti vya bima ya ardhi, ambayo yanahusiana na mimea. "
+"Uzalishaji wa msingi hubadilishana moja kwa moja mabadiliko ya kiasi cha "
+"mimea iliyopo katika eneo moja, lakini haijui kama mabadiliko hayo ni chanya"
+" au la (sio ongezeko lote la mimea ya mimea linapaswa kutafsiriwa kama "
+"kuboresha). Vifuniko vya ardhi hujaza pengo kwa kutafsiri mazingira kutoka "
+"kwa mtazamo wa kimazingira kuangalia nini kilichokuwa hapo awali na "
+"kilichopo sasa. Inajumuisha mimea, lakini pia ardhi isiyovuliwa, mijini na "
+"maji. Hatimaye, kiashiria cha kaboni cha kaboni cha udongo hutumia ramani ya"
+" bima ya ardhi ili kuwajulisha mabadiliko katika kaboni ya kaboni kwa muda. "
+"Njia hii sio bora, lakini kutokana na hali ya sasa ya sayansi ya udongo "
+"duniani na uchunguzi, kuna makubaliano ya kwamba hii inaonyesha wakati na "
+"kimataifa, hii ndiyo njia bora zaidi."
+
+#: ../../source/about/faq.rst:232
+msgid "Workshops"
+msgstr "Warsha"
+
+#: ../../source/about/faq.rst:234
+msgid ""
+"**Will the project offer future training opportunities so users can "
+"continues working with the tool?**"
+msgstr ""
+"** Je, mradi utawapa fursa za mafunzo ya baadaye ili watumiaji wanaweza "
+"kuendelea kufanya kazi na chombo? **"
+
+#: ../../source/about/faq.rst:237
+msgid ""
+"The project is working with the UNCCD to support their work training users "
+"on monitoring and reporting in support of countries’ national-level "
+"responsibilities under the convention. These trainings will be occurring in "
+"March-April 2018. In addition, the project will work with key stakeholders, "
+"such as RCMRD, to provide support through existing platforms. The project "
+"will also continue to make e-learning materials available to users, and is "
+"considering potential funding sources for further capacity-building "
+"activities in East Africa."
+msgstr ""
+"Mradi huo unafanya kazi na UNCCD ili kusaidia watumiaji wa mafunzo ya kazi "
+"juu ya ufuatiliaji na kutoa taarifa kwa msaada wa majukumu ya ngazi ya "
+"kitaifa chini ya mkataba. Mafunzo haya yatafanyika Machi-Aprili 2018. Kwa "
+"kuongeza, mradi utafanya kazi na wadau muhimu, kama vile RCMRD, kutoa msaada"
+" kupitia jukwaa zilizopo. Mradi huo utaendelea kufanya vifaa vya kujifunza "
+"e-mail ambavyo vinapatikana kwa watumiaji, na inazingatia vyanzo vya fedha "
+"ambazo zinaweza kupata shughuli za kujenga uwezo zaidi katika Afrika "
+"Mashariki."
+
+#: ../../source/about/faq.rst:247
+msgid "Future plans"
+msgstr "Mipango ya baadaye"
+
+#: ../../source/about/faq.rst:249
+msgid "**When will there be an offline version of the toolbox?**"
+msgstr "** Ni lini kutakuwa na toleo la nje ya mtandao la boti la zana? **"
+
+#: ../../source/about/faq.rst:251
+msgid ""
+"The final toolbox will be available as both as an offline and online "
+"version. The online version allows users to access current datasets more "
+"easily, while also allowing users to leverage Google Earth Engine to provide"
+" computing in the cloud. An offline version allows users to access data and "
+"perform analyses where internet connectivity may be limited, but it does "
+"have the disadvantage of requiring users to have enough local computing "
+"capacity to run analyses locally. The technical team intends to build the "
+"offline version of the toolbox and provide countries with data relevant for "
+"reporting at the national level within the pilot project countries."
+msgstr ""
+"Bodi ya zana ya mwisho itakuwa inapatikana kama wote kama toleo la offline "
+"na la mtandaoni. Toleo la mtandaoni inaruhusu watumiaji kufikia dasasets za "
+"sasa kwa urahisi zaidi, huku pia kuruhusu watumiaji kuimarisha Google Earth "
+"Engine ili kutoa kompyuta katika wingu. Toleo la nje ya mtandao linaruhusu "
+"watumiaji kufikia data na kufanya uchambuzi ambapo uunganisho wa mtandao "
+"unaweza kuwa mdogo, lakini hauna hasara ya kuhitaji watumiaji kuwa na uwezo "
+"wa kutosha wa kompyuta wa ndani kutekeleza uchambuzi ndani ya nchi. Timu ya "
+"kiufundi inakusudia kujenga toleo la nje la mkondo la boti la zana na kutoa "
+"nchi kwa data zinazofaa kwa taarifa katika ngazi ya kitaifa ndani ya nchi za"
+" mradi wa majaribio."
+
+#: ../../source/about/faq.rst:261
+msgid "**Will you create a trends.earth toolbox for ESRI users?**"
+msgstr "** Je, utaunda lebo ya zana ya trends.earth kwa watumiaji wa ESRI? **"
+
+#: ../../source/about/faq.rst:263
+msgid ""
+"The toolbox is currently available as a plugin to QGIS, an open source "
+"software package. This allows users around the world free access to the "
+"toolbox. There are currently no plans to build a toolbox within ArcGIS or "
+"ArcPro."
+msgstr ""
+"Bodi ya zana sasa inapatikana kama Plugin kwa QGIS, pakiti ya programu ya "
+"wazi. Hii inaruhusu watumiaji duniani kote kupata ufikiaji kwenye boti la "
+"zana. Kwa sasa hakuna mipango ya kujenga boksi la zana ndani ya ArcGIS au "
+"ArcPro."

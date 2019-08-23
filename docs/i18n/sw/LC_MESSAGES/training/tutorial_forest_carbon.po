@@ -1,58 +1,69 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-23 07:52-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2018-08-22 16:17+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/training/tutorial_forest_carbon.rst:4
 msgid "Forest and Carbon Change Tool"
-msgstr ""
+msgstr "Chombo cha Misitu na Carbon"
 
 #: ../../source/training/tutorial_forest_carbon.rst:6
 msgid ""
 "**Objective**: Learn how to compute forest cover, forest loss, above and "
-"below ground biomass and emissions from deforestation in raster format "
-"and tabular outputs with areas estimated."
+"below ground biomass and emissions from deforestation in raster format and "
+"tabular outputs with areas estimated."
 msgstr ""
+"** Lengo **: Jifunze jinsi ya kuhesabu kifuniko cha msitu, upotevu wa "
+"misitu, juu na chini ya mimea ya ardhi na uzalishaji kutoka kwa msitu katika"
+" muundo wa raster na matokeo ya tabular na maeneo yaliyotarajiwa."
 
 #: ../../source/training/tutorial_forest_carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
 
 #: ../../source/training/tutorial_forest_carbon.rst:10
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
 
 #: ../../source/training/tutorial_forest_carbon.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 msgstr ""
+"`Pakua ukurasa huu kama PDF kwa ajili ya matumizi ya nje ya mtandao &lt;../ "
+"pdfs / Trends.Earth_Tutorial10_Forest_Carbon.pdf&gt;` _"
 
 #: ../../source/training/tutorial_forest_carbon.rst:18
 msgid "Compute and download forest and biomass data"
-msgstr ""
+msgstr "Tumia na kupakua data ya misitu na majani"
 
 #: ../../source/training/tutorial_forest_carbon.rst:20
 #: ../../source/training/tutorial_forest_carbon.rst:128
 msgid ""
-"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin"
-" in QGIS."
+"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
+" QGIS."
 msgstr ""
+"Chagua icon ya kuhesabu (| iconCalculator |) kutoka kwa Trends.Earth Plugin "
+"katika QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:25
 #: ../../source/training/tutorial_forest_carbon.rst:133
@@ -60,72 +71,100 @@ msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Calculate Calculate carbon change spatial layers** button."
 msgstr ""
+"Mfumo wa Mahesabu ** ** utafunguliwa. Katika dirisha hilo, bofya kwenye ** "
+"Hesabu Calculate mabadiliko ya kaboni tabaka nafasi ** kifungo."
 
 #: ../../source/training/tutorial_forest_carbon.rst:30
 msgid ""
-"A window will appear with two steps: Step 1 is to **Calculate carbon "
-"change spatial layers**, and Step 2 is to **Calculate carbon change "
-"summary table for boundary**. Step 1 will be addressed first. If the user"
-" has already completed this process, skip to step 14 in the guide."
+"A window will appear with two steps: Step 1 is to **Calculate carbon change "
+"spatial layers**, and Step 2 is to **Calculate carbon change summary table "
+"for boundary**. Step 1 will be addressed first. If the user has already "
+"completed this process, skip to step 14 in the guide."
 msgstr ""
+"Dirisha litatokea kwa hatua mbili: hatua ya kwanza ni ** Kuhesabu tabaka za "
+"mabadiliko ya kaboni ya eneo la kaboni **, na Hatua ya 2 ni ** Kuhesabu meza"
+" ya muhtasari wa mabadiliko ya kaboni kwa mipaka **. Hatua ya 1 "
+"itashughulikiwa kwanza. Ikiwa mtumiaji amekamilisha mchakato huu, ruka kwa "
+"hatua ya 14 katika mwongozo."
 
 #: ../../source/training/tutorial_forest_carbon.rst:35
 msgid ""
-"After selecting Step 1, the user will fill out the desired parameters in "
-"the **Forest Definition** tab."
+"After selecting Step 1, the user will fill out the desired parameters in the"
+" **Forest Definition** tab."
 msgstr ""
+"Baada ya kuchagua Hatua ya 1, mtumiaji atajaza vigezo vinavyohitajika kwenye"
+" kichupo cha ** cha Misitu **."
 
 #: ../../source/training/tutorial_forest_carbon.rst:40
 msgid ""
 "Next, select the desired aboveground biomass dataset and the method for "
 "calculating the root to shoot ratio."
 msgstr ""
+"Kisha, chagua dataset ya taka ya juu ya juu na njia ya kuhesabu mizizi kwa "
+"uwiano wa risasi."
 
 #: ../../source/training/tutorial_forest_carbon.rst:45
 #: ../../source/training/tutorial_forest_carbon.rst:153
-msgid "In the **Area** tab define the area of analysis. There are two options:"
+msgid ""
+"In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
+"Katika eneo ** Eneo la ** ** hufafanua eneo la uchambuzi. Kuna chaguzi "
+"mbili:"
 
 #: ../../source/training/tutorial_forest_carbon.rst:47
 #: ../../source/training/tutorial_forest_carbon.rst:155
 msgid ""
-"Use provided country and state boundaries: If you want to use this option"
-" make sure the **Administrative area** option is highlighted, and then "
-"select the First Level (country) or Second Level (state or province "
-"depending on the country)."
+"Use provided country and state boundaries: If you want to use this option "
+"make sure the **Administrative area** option is highlighted, and then select"
+" the First Level (country) or Second Level (state or province depending on "
+"the country)."
 msgstr ""
+"Tumia mipaka ya nchi na mipaka ya nchi: Ikiwa unataka kutumia chaguo hili "
+"hakikisha ** chaguo la eneo la Utawala ** linaelezwa, kisha uchagua Ngazi ya"
+" Kwanza (nchi) au Ngazi ya Pili (hali au jimbo kulingana na nchi)."
 
 #: ../../source/training/tutorial_forest_carbon.rst:50
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
+"Mipaka ya `Natural Earth Administrative Boundaries`_ iliyotolewa katika "
+"Mwelekeo.Earth iko katika `public domain`_. Mipaka na majina yaliyotumiwa, "
+"na majarida yaliyotumiwa, katika Mwelekeo.Kuanzia haimaanishi kupitishwa "
+"rasmi au kukubalika na Conservation International Foundation, au kwa "
+"mashirika yake ya washirika na wafadhili."
 
 #: ../../source/training/tutorial_forest_carbon.rst:56
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
+"Ikiwa unatumia Mwelekeo.Kuanzia kwa madhumuni rasmi, inashauriwa kuwa "
+"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
+"yao."
 
 #: ../../source/training/tutorial_forest_carbon.rst:64
 #: ../../source/training/tutorial_forest_carbon.rst:157
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, "
-"make sure the **Area from file** option is highlighted. Then click "
-"**Browse** and navigate to the folder in your computer where you have the"
-" file stored."
+"Use your own area file: If you want to use your own area of analysis, make "
+"sure the **Area from file** option is highlighted. Then click **Browse** and"
+" navigate to the folder in your computer where you have the file stored."
 msgstr ""
+"Tumia faili yako ya eneo: Ikiwa unataka kutumia eneo lako la uchambuzi, "
+"hakikisha ** Eneo kutoka kwa faili ** chaguo linaonyeshwa. Kisha bonyeza ** "
+"Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
+"iliyohifadhiwa."
 
 #: ../../source/training/tutorial_forest_carbon.rst:66
 #: ../../source/training/tutorial_forest_carbon.rst:159
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
-msgstr ""
+msgstr "Ukichagua eneo ambalo unataka kuhesabu viashiria, bonyeza ** Next **."
 
 #: ../../source/training/tutorial_forest_carbon.rst:71
 #: ../../source/training/tutorial_forest_carbon.rst:164
@@ -134,119 +173,161 @@ msgid ""
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
 msgstr ""
+"Katika kitambulisho ** Chaguzi ** unaweza kufafanua ** Jina la Task ** na "
+"kufanya baadhi ya ** Vidokezo ** kutambua uchambuzi unaoendesha. Maelezo "
+"gani ambayo yanaonyesha ni ya hiari, lakini tunapendekeza kutaja:"
 
 #: ../../source/training/tutorial_forest_carbon.rst:73
 #: ../../source/training/tutorial_forest_carbon.rst:166
 msgid "Area of analysis"
-msgstr ""
+msgstr "Eneo la uchambuzi"
 
 #: ../../source/training/tutorial_forest_carbon.rst:74
 #: ../../source/training/tutorial_forest_carbon.rst:167
 msgid "Dates"
-msgstr ""
+msgstr "Tarehe"
 
 #: ../../source/training/tutorial_forest_carbon.rst:75
 #: ../../source/training/tutorial_forest_carbon.rst:168
 msgid "Indicators run"
-msgstr ""
+msgstr "Viashiria vinaendesha"
 
 #: ../../source/training/tutorial_forest_carbon.rst:80
 msgid ""
 "When done, click **Calculate** and the task will be submitted to Google "
-"Earth Engine for calculations. You will notice that the **Calculate "
-"Change in Total Carbon** window will disappear and you will be brought "
-"back to QGIS."
+"Earth Engine for calculations. You will notice that the **Calculate Change "
+"in Total Carbon** window will disappear and you will be brought back to "
+"QGIS."
 msgstr ""
+"Ukitengenezwa, bofya ** Hesabu ** na kazi itawasilishwa kwa Google Earth "
+"Engine kwa hesabu. Utaona kwamba ** Kubadilisha Mabadiliko ya Jumla ya "
+"Carbon ** dirisha itatoweka na utarejeshwa kwa QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:82
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and "
-"could take between 5 and 15 minutes depending on the size of the study "
-"area (larger areas tend to take longer)."
+"successfully submitted. The analysis will be run in Google servers and could"
+" take between 5 and 15 minutes depending on the size of the study area "
+"(larger areas tend to take longer)."
 msgstr ""
+"Bar bluu nyembamba itaonyesha kwa muda mfupi, kuonyesha kwamba kazi "
+"imewasilishwa kwa ufanisi. Uchunguzi utatumika kwenye seva za Google na "
+"inaweza kuchukua kati ya dakika 5 na 15 kulingana na ukubwa wa eneo la "
+"utafiti (maeneo makubwa huwa na muda mrefu)."
 
 #: ../../source/training/tutorial_forest_carbon.rst:88
 msgid ""
-"Refer to the :ref:`task_download` tutorial for detailed information on "
-"how to check the status of the tasks submitted and for downloading "
-"results from Trends.Earth."
+"Refer to the :ref:`task_download` tutorial for detailed information on how "
+"to check the status of the tasks submitted and for downloading results from "
+"Trends.Earth."
 msgstr ""
+"Rejea: ref: `tarehe_download` ya mafunzo kwa maelezo zaidi juu ya jinsi ya "
+"kuangalia hali ya kazi zinazowasilishwa na kupakua matokeo kutoka kwa "
+"Trends.Earth."
 
 #: ../../source/training/tutorial_forest_carbon.rst:93
 msgid ""
 "10. To view the Google Earth Engine (GEE) tasks you have running, and to "
 "download your results, select the cloud with the arrow facing down icon "
-"(|iconCloudDownload|). This will open up the `Download results from Earth"
-" Engine` dialog box. Select **Refresh list** to show the task."
+"(|iconCloudDownload|). This will open up the `Download results from Earth "
+"Engine` dialog box. Select **Refresh list** to show the task."
 msgstr ""
+"10. Kuangalia kazi za Google Earth Engine (GEE) unazoendesha, na kupakua "
+"matokeo yako, chagua wingu na mshale unaoonekana chini ya icon (| "
+"iconCloudDownload |). Hii itafungua matokeo ya &#39;Pakua kutoka kwenye "
+"sanduku la dialog Engine Earth&#39;. Chagua ** Rudisha orodha ** ili "
+"kuonyesha kazi."
 
 #: ../../source/training/tutorial_forest_carbon.rst:100
 msgid ""
 "The task will state: RUNNING under the Status column if it is still "
-"processing. When the task is complete, it will say FINISHED after "
-"selecting **Refresh List** again."
+"processing. When the task is complete, it will say FINISHED after selecting "
+"**Refresh List** again."
 msgstr ""
+"Kazi itasema: KUTUMA chini ya safu ya Hali ikiwa bado inachukuliwa. Wakati "
+"kazi hiyo imekamilika, itasema ifafanuliwa baada ya kuchagua ** Fungua Upya "
+"Orodha ** tena."
 
 #: ../../source/training/tutorial_forest_carbon.rst:105
 msgid ""
-"Once the task is FINSHED running, highlight the completed task and select"
-" **Download Results**. Save the task."
+"Once the task is FINSHED running, highlight the completed task and select "
+"**Download Results**. Save the task."
 msgstr ""
+"Mara kazi ni FINSHED kukimbia, onyesha kazi iliyokamilishwa na chagua ** "
+"Pakua Matokeo **. Hifadhi kazi."
 
 #: ../../source/training/tutorial_forest_carbon.rst:110
 msgid ""
 "You will see a message indicating the task is downloading. Once it is "
-"complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest"
-" loss (2000 to 2017)` outputs in the QGIS window."
+"complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest "
+"loss (2000 to 2017)` outputs in the QGIS window."
 msgstr ""
+"Utaona ujumbe unaoonyesha kazi ni kupakua. Mara baada ya kukamilika kutakuwa"
+" na &#39;Jumla ya kaboni (2000, tani kwa kila ha )` na &quot;Hasara ya "
+"Misitu (2000 hadi 2017)` matokeo katika dirisha la QGIS."
 
 #: ../../source/training/tutorial_forest_carbon.rst:121
 msgid ""
-"If you want, you can add some context information (e.g. country "
-"boundaries, roads, and main cities). Refer to the :ref:`tut_load_data` "
-"tutorial for detailed information on loading a basemap."
+"If you want, you can add some context information (e.g. country boundaries, "
+"roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for "
+"detailed information on loading a basemap."
 msgstr ""
+"Ikiwa unataka, unaweza kuongeza maelezo ya mazingira (kwa mfano mipaka ya "
+"nchi, barabara, na miji kuu). Rejea: ref: tut_load_data` mafunzo kwa maelezo"
+" zaidi kuhusu upakiaji wa basemap."
 
 #: ../../source/training/tutorial_forest_carbon.rst:126
 msgid "Compute summary table"
-msgstr ""
+msgstr "Futa meza ya muhtasari"
 
 #: ../../source/training/tutorial_forest_carbon.rst:138
 msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
 msgstr ""
+"Chagua Hatua ya 2: ** Fanya meza ya muhtasari wa mabadiliko ya kaboni kwa "
+"mipaka **."
 
 #: ../../source/training/tutorial_forest_carbon.rst:143
 msgid "Within the **Input** tab, select an output folder and file name."
 msgstr ""
+"Ndani ya ** Kitambulisho cha Input **, chagua folda ya pato na jina la "
+"faili."
 
 #: ../../source/training/tutorial_forest_carbon.rst:148
 msgid ""
-"Within the **Output** tab, select **Browse** to list an output folder and"
-" file name."
+"Within the **Output** tab, select **Browse** to list an output folder and "
+"file name."
 msgstr ""
+"Ndani ya ** Kitabu cha Pato **, chagua ** Pitia ** ili uorodhe folda ya pato"
+" na jina la faili."
 
 #: ../../source/training/tutorial_forest_carbon.rst:173
 msgid ""
 "When done, click **Calculate** and the task will be submitted to your "
-"computer locally. You will notice that the **Calculate carbon change "
-"summary table for boundary** window will disappear and you will be "
-"brought back to QGIS. A light blue bar will appear in the QGIS window. "
-"This is running locally on your computer. DO NOT select **x** or "
-"**Cancel** until the task is finished!"
+"computer locally. You will notice that the **Calculate carbon change summary"
+" table for boundary** window will disappear and you will be brought back to "
+"QGIS. A light blue bar will appear in the QGIS window. This is running "
+"locally on your computer. DO NOT select **x** or **Cancel** until the task "
+"is finished!"
 msgstr ""
+"Ukitengenezwa, bofya ** Hesabu ** na kazi itawasilishwa kwa kompyuta yako "
+"ndani ya nchi. Utaona kuwa ** Kuhesabu meza ya muhtasari wa mabadiliko ya "
+"kaboni kwa dirisha ** dirisha itatoweka na utarejeshwa kwa QGIS. Bar bluu ya"
+" mwanga itaonekana kwenye dirisha la QGIS. Hii inaendesha ndani ya kompyuta "
+"kwenye kompyuta yako. Usichague ** x ** au ** kufuta ** mpaka kazi "
+"imekamilika!"
 
 #: ../../source/training/tutorial_forest_carbon.rst:178
 msgid "A window will appear when the summary is complete. Select **OK**."
-msgstr ""
+msgstr "Dirisha itaonekana wakati muhtasari ukamilika. Chagua ** OK **."
 
 #: ../../source/training/tutorial_forest_carbon.rst:183
 msgid ""
-"If an error window appears, select the **Yes** and the summary will "
-"proceed to open."
+"If an error window appears, select the **Yes** and the summary will proceed "
+"to open."
 msgstr ""
+"Ikiwa dirisha la hitilafu linaonekana, chagua ** Ndio ** na muhtasari "
+"utaendelea kufungua."
 
 #: ../../source/training/tutorial_forest_carbon.rst:188
 msgid "The summary table will appear."
-msgstr ""
-
+msgstr "Jedwali la muhtasari litaonekana."

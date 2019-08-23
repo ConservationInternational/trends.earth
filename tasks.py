@@ -377,14 +377,17 @@ def check_path(app):
 # Translation
 ###############################################################################
 
-@task
-def translate_pull(c):
+@task(help={'force': 'Force the download of the translations files regardless of whether timestamps on the local computer are newer than those on the server'})
+def translate_pull(c, force=False):
     lrelease = check_path('lrelease')
     if not lrelease:
         print("ERROR: lrelease is not in your path---unable to release translation files")
         return
     print("Pulling transifex translations...")
-    subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
+    if force:
+        subprocess.check_call(['tx', 'pull', '-s', '-f', '--parallel'])
+    else:
+        subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
     print("Releasing translations using lrelease...")
     for translation in c.plugin.translations:
         subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
@@ -395,8 +398,8 @@ def translate_pull(c):
 #     subprocess.check_call("sphinx-intl update-txconfig-resources --pot-dir {docroot}/i18n/pot --transifex-project-name {transifex_name}".format(docroot=c.sphinx.docroot, transifex_name=c.sphinx.transifex_name))
 #
 
-@task
-def translate_push(c):
+@task(help={'force': 'Push source files to transifex without checking modification times'})
+def translate_push(c, force=False):
     print("Building changelog...")
     changelog_build(c)
 
@@ -414,7 +417,10 @@ def translate_push(c):
     else:
         subprocess.check_call([pylupdate4, os.path.join(c.plugin.i18n_dir, 'i18n.pro')])
 
-    subprocess.check_call('tx push --parallel -s')
+    if force:
+        subprocess.check_call('tx push --parallel -f -s')
+    else:
+        subprocess.check_call('tx push --parallel -s')
 
 
 @task(help={'language': 'language'})

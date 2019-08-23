@@ -1,114 +1,150 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-23 07:52-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2018-04-04 19:03+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/training/tutorial_task_download.rst:4
 msgid "Task status & download"
-msgstr ""
+msgstr "Estado de la tarea y descarga"
 
 #: ../../source/training/tutorial_task_download.rst:6
 msgid ""
-"**Objective**: Learn how to check the status of submitted tasks, download"
-" them and compute pyramids for faster visualization of results in QGIS."
+"**Objective**: Learn how to check the status of submitted tasks, download "
+"them and compute pyramids for faster visualization of results in QGIS."
 msgstr ""
+"**Objetivo**: aprenda a verificar el estado de las tareas enviadas, "
+"descárguelos y calcule las pirámides para una visualización más rápida de "
+"los resultados en QGIS."
 
 #: ../../source/training/tutorial_task_download.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
 #: ../../source/training/tutorial_task_download.rst:10
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "**Acceso a Internet**: obligatorio"
 
 #: ../../source/training/tutorial_task_download.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 msgstr ""
+"`Descargue esta página en formato PDF para uso fuera de línea "
+"<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 
 #: ../../source/training/tutorial_task_download.rst:15
 msgid ""
 "The results of Trends.Earth analysis are rasters in TIF format for "
-"indicators and XLSX spreadsheets for the tabular outputs. You will need "
-"to define in each case where files will be stored in your computer. We "
-"recommend you create a folder where to store the results for easy "
-"posterior access. The **Desktop** is a location usually selected because "
-"it is easy to find."
+"indicators and XLSX spreadsheets for the tabular outputs. You will need to "
+"define in each case where files will be stored in your computer. We "
+"recommend you create a folder where to store the results for easy posterior "
+"access. The **Desktop** is a location usually selected because it is easy to"
+" find."
 msgstr ""
+"Los resultados del análisis Trends.Earth son rásteres en formato TIF para "
+"indicadores y hojas de cálculo XLSX para los resultados tabulares. Deberá "
+"definir en cada caso dónde se almacenarán los archivos en su computadora. "
+"Recomendamos que cree una carpeta donde almacenar los resultados para "
+"facilitar el acceso posterior. El **Escritorio** es una ubicación "
+"generalmente seleccionada porque es fácil de encontrar."
 
 #: ../../source/training/tutorial_task_download.rst:17
 msgid ""
-"To create a folder in your computer's desktop, navigate there by "
-"minimizing all the windows and programs you have open (Note: not closing,"
-" simply removing them from the display)."
+"To create a folder in your computer's desktop, navigate there by minimizing "
+"all the windows and programs you have open (Note: not closing, simply "
+"removing them from the display)."
 msgstr ""
+"Para crear una carpeta en el escritorio de su computadora, navegue hasta "
+"allí minimizando todas las ventanas y programas que tenga abiertos (Nota: no"
+" se cierra, simplemente eliminándolos de la pantalla)."
 
 #: ../../source/training/tutorial_task_download.rst:19
 msgid ""
 "Once in the Desktop, **right click** on an empty space and a menu will "
 "display."
 msgstr ""
+"Una vez en el escritorio, **haga clic derecho** en un espacio vacío y se "
+"mostrará un menú."
 
 #: ../../source/training/tutorial_task_download.rst:21
 msgid ""
-"Move your mouse cursor to the **New** option at the bottom of the menu, "
-"and another menu will show to the right."
+"Move your mouse cursor to the **New** option at the bottom of the menu, and "
+"another menu will show to the right."
 msgstr ""
+"Mueva el cursor del mouse a la opción **Nuevo** en la parte inferior del "
+"menú y aparecerá otro menú a la derecha."
 
 #: ../../source/training/tutorial_task_download.rst:23
 msgid "Navigate with your mouse cursor to **Folder** and right-click."
 msgstr ""
+"Navegue con el cursor del mouse hasta **Carpeta** y haga clic con el botón "
+"derecho."
 
 #: ../../source/training/tutorial_task_download.rst:28
 msgid ""
-"A new folder named **New Folder** will appear on your desktop with the "
-"name highlighted in blue. Type the name you want to assign it. In this "
-"example, we named it **Trends.Earth**. Then press the **Enter** key on "
-"your keyboard to save the name."
+"A new folder named **New Folder** will appear on your desktop with the name "
+"highlighted in blue. Type the name you want to assign it. In this example, "
+"we named it **Trends.Earth**. Then press the **Enter** key on your keyboard "
+"to save the name."
 msgstr ""
+"Una nueva carpeta llamada **Nueva carpeta** aparecerá en su escritorio con "
+"el nombre resaltado en azul. Escriba el nombre que desea asignarle. En este "
+"ejemplo, lo llamamos **Trends.Earth**. Luego presione la tecla **Enter** en "
+"su teclado para guardar el nombre."
 
 #: ../../source/training/tutorial_task_download.rst:33
 msgid ""
-"Navigate again to QGIS, and click on the cloud with the arrow facing down"
-" icon (|iconCloudDownload|) from the Trends.Earth toolbar."
+"Navigate again to QGIS, and click on the cloud with the arrow facing down "
+"icon (|iconCloudDownload|) from the Trends.Earth toolbar."
 msgstr ""
+"Navegue de nuevo a QGIS y haga clic en la nube con la flecha hacia abajo en "
+"el ícono (|iconCloudDownload|) de la barra de herramientas Trends.Earth."
 
 #: ../../source/training/tutorial_task_download.rst:38
 msgid ""
-"The **Download results from Earth Engine** will open. Click **Refresh "
-"List** to check the updated status of the tasks submitted in the previous"
-" section of the tutorial (:ref:`1-step_subindicators`). One of three "
-"messages will show there:"
+"The **Download results from Earth Engine** will open. Click **Refresh List**"
+" to check the updated status of the tasks submitted in the previous section "
+"of the tutorial (:ref:`1-step_subindicators`). One of three messages will "
+"show there:"
 msgstr ""
+"Se abrirán los **Resultados de la descarga de Earth Engine**. Haga clic en "
+"**Refresh List** para verificar el estado actualizado de las tareas enviadas"
+" en la sección previa del tutorial (:ref:`1-step_subindicators`). Uno de los"
+" tres mensajes se mostrará allí:"
 
 #: ../../source/training/tutorial_task_download.rst:40
 msgid ""
-"**RUNNING**: The task has been successfully submitted to Earth Engine and"
-" it is being processed. Wait a few minutes and click **Refresh list** "
-"again."
+"**RUNNING**: The task has been successfully submitted to Earth Engine and it"
+" is being processed. Wait a few minutes and click **Refresh list** again."
 msgstr ""
+"**EN EJECUCIÓN**: la tarea se ha enviado correctamente a Earth Engine y se "
+"está procesando. Espere unos minutos y haga clic en **Actualizar lista** "
+"nuevamente."
 
 #: ../../source/training/tutorial_task_download.rst:42
 msgid ""
-"**FINISHED**: The task has been completed and it is ready to be "
-"downloaded."
+"**FINISHED**: The task has been completed and it is ready to be downloaded."
 msgstr ""
+"**FINALIZADO**: la tarea se ha completado y está lista para descargarse."
 
 #: ../../source/training/tutorial_task_download.rst:44
 msgid ""
@@ -116,120 +152,174 @@ msgid ""
 "task could not be completed. Please run the tool again to make sure all "
 "parameters are correct."
 msgstr ""
+"**FALLIDO**: Ha habido algún error en los parámetros seleccionados y la "
+"tarea no se pudo completar. Vuelva a ejecutar la herramienta para asegurarse"
+" de que todos los parámetros sean correctos."
 
 #: ../../source/training/tutorial_task_download.rst:49
 msgid ""
-"When the task shows status **FINISHED** you can select it by clicking on "
-"it (it will be highlighted in blue), and them click on the **Download "
-"results** button."
+"When the task shows status **FINISHED** you can select it by clicking on it "
+"(it will be highlighted in blue), and them click on the **Download results**"
+" button."
 msgstr ""
+"Cuando la tarea muestre el estado **FINALIZADO**, puede seleccionarlo "
+"haciendo clic en él (se resaltará en azul), y haga clic en el botón "
+"**Descargar resultados**."
 
 #: ../../source/training/tutorial_task_download.rst:54
 msgid ""
 "A window will open for you to define the location (the folder you just "
-"created on the Desktop) and the name of the output file. Make the name as"
-" informative as possible so you can tell what information it contains the"
-" next time you want to use those results."
+"created on the Desktop) and the name of the output file. Make the name as "
+"informative as possible so you can tell what information it contains the "
+"next time you want to use those results."
 msgstr ""
+"Se abrirá una ventana para que defina la ubicación (la carpeta que acaba de "
+"crear en el Escritorio) y el nombre del archivo de salida. Haga que el "
+"nombre sea lo más informativo posible para que pueda saber qué información "
+"contiene la próxima vez que quiera usar esos resultados."
 
 #: ../../source/training/tutorial_task_download.rst:59
 msgid ""
-"The Download window will disappear and you will be brought back to the "
-"QGIS interface. You will see light blue progress bar indicating which "
-"percentage of the file has been downloaded. This could take from a few "
-"seconds to several minutes depending on the size of the area selected and"
-" the speed of the Internet connection available."
+"The Download window will disappear and you will be brought back to the QGIS "
+"interface. You will see light blue progress bar indicating which percentage "
+"of the file has been downloaded. This could take from a few seconds to "
+"several minutes depending on the size of the area selected and the speed of "
+"the Internet connection available."
 msgstr ""
+"La ventana de descarga desaparecerá y volverá a la interfaz de QGIS. Verá "
+"una barra de progreso de color azul claro que indica qué porcentaje del "
+"archivo se ha descargado. Esto podría llevar de unos pocos segundos a varios"
+" minutos dependiendo del tamaño del área seleccionada y la velocidad de la "
+"conexión a Internet disponible."
 
 #: ../../source/training/tutorial_task_download.rst:64
 msgid ""
-"Once the download is completed, the results will be loaded in QGIS. In "
-"this example you'll see a layer for each of the SDG 15.3.1 computed: land"
-" productivity, land cover, and soil organic carbon."
+"Once the download is completed, the results will be loaded in QGIS. In this "
+"example you'll see a layer for each of the SDG 15.3.1 computed: land "
+"productivity, land cover, and soil organic carbon."
 msgstr ""
+"Una vez que se completa la descarga, los resultados se cargarán en QGIS. En "
+"este ejemplo, verá una capa para cada uno de los ODS 15.3.1 calculados: "
+"productividad de la tierra, cobertura de la tierra y carbono orgánico del "
+"suelo."
 
 #: ../../source/training/tutorial_task_download.rst:71
 msgid "**OPTIONAL: Computing Pyramids**"
-msgstr ""
+msgstr "**OPCIONAL: Cálculo de Pirmámides**"
 
 #: ../../source/training/tutorial_task_download.rst:73
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
-"several seconds to display. If you change the zoom or turn layers on an  "
-"off frequently, this could make the work a bit frustrating. An option to "
-"overcome this is to compute **Pyramids** to the file. This process will "
-"take from **minutes to hours** to run depending on the size of the area, "
-"so make sure to have enough time for it to process. To compute pyramids "
-"you have to:"
+"several seconds to display. If you change the zoom or turn layers on an  off"
+" frequently, this could make the work a bit frustrating. An option to "
+"overcome this is to compute **Pyramids** to the file. This process will take"
+" from **minutes to hours** to run depending on the size of the area, so make"
+" sure to have enough time for it to process. To compute pyramids you have "
+"to:"
 msgstr ""
+"Cuando el archivo de trama es demasiado grande, debido a un área de estudio "
+"grande, una resolución espacial alta o un gran número de bandas en el "
+"archivo, los datos pueden tardar varios segundos en mostrarse. Si cambia el "
+"zoom o apaga las capas con frecuencia, esto podría hacer que el trabajo sea "
+"un poco frustrante. Una opción para superar esto es calcular **Pirámides** "
+"para el archivo. Este proceso tomará de **minutos a horas** para ejecutarse "
+"dependiendo del tamaño del área, así que asegúrese de tener suficiente "
+"tiempo para procesarlo. Para calcular las pirámides tienes que:"
 
 #: ../../source/training/tutorial_task_download.rst:75
 msgid ""
-"Navigate with your cursor to the layer you want to compute pyramids for "
-"and right click over it. A menu will open. Navigate to **Properties** and"
-" click on it."
+"Navigate with your cursor to the layer you want to compute pyramids for and "
+"right click over it. A menu will open. Navigate to **Properties** and click "
+"on it."
 msgstr ""
+"Navegue con el cursor hasta la capa para la que desea calcular las pirámides"
+" y haga clic con el botón derecho sobre ella. Se abrirá un menú. Navega a "
+"**Propiedades** y haz clic en él."
 
 #: ../../source/training/tutorial_task_download.rst:78
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
-"(described in the previous tutorial :ref:`1-step_subindicators`), all the"
-" bands are stored in a single TIF file, so even though you see three "
-"layers loaded in the QGIS window, they all refer to the same file. This "
-"means that the pyramids need to be computed only once for the three sub-"
-"indicators."
+"(described in the previous tutorial :ref:`1-step_subindicators`), all the "
+"bands are stored in a single TIF file, so even though you see three layers "
+"loaded in the QGIS window, they all refer to the same file. This means that "
+"the pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
+"Al utilizar la opción **Calcular los tres subindicadores en un solo paso** "
+"(descrita en el tutorial anterior :ref:`1-step_subindicators`), todas las "
+"bandas se almacenan en un solo archivo TIF, por lo que aunque vea tres capas"
+" cargadas en la ventana QGIS, todas se refieren al mismo archivo. Esto "
+"significa que las pirámides deben computarse solo una vez para los tres "
+"subindicadores."
 
 #: ../../source/training/tutorial_task_download.rst:83
 msgid ""
-"The Layer Properties menu will open. From the options on the left, "
-"navigate to **Pyramids** and click on it."
+"The Layer Properties menu will open. From the options on the left, navigate "
+"to **Pyramids** and click on it."
 msgstr ""
+"Se abrirá el menú Propiedades de capa. Desde las opciones de la izquierda, "
+"navegue hasta **Pirmámides** y haga clic en él."
 
 #: ../../source/training/tutorial_task_download.rst:88
-msgid "Once on the **Pyramids** tab you will see a description about they are."
+msgid ""
+"Once on the **Pyramids** tab you will see a description about they are."
 msgstr ""
+"Una vez en la pestaña **Pirámides**, verá una descripción sobre ellos."
 
 #: ../../source/training/tutorial_task_download.rst:93
 msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
 "could take hours to compute depending on the file size and processing "
-"capabilities of the computer you are using. For the Uganda example, we "
-"can select them all, but if using a larger area or higher spatial "
-"resolution than the default 250m, we recommend you select alternating "
-"resolutions options (i.e. one resolution selected and one not selected, "
-"and so on). Resolutions are selected by clicking on them. When selected, "
-"they will turn blue."
+"capabilities of the computer you are using. For the Uganda example, we can "
+"select them all, but if using a larger area or higher spatial resolution "
+"than the default 250m, we recommend you select alternating resolutions "
+"options (i.e. one resolution selected and one not selected, and so on). "
+"Resolutions are selected by clicking on them. When selected, they will turn "
+"blue."
 msgstr ""
+"A la derecha de la ventana, verá las opciones **Resoluciones**. "
+"Seleccionarlos hará que la visualización en QGIS sea la más rápida, pero "
+"esto podría tomar horas para computarse dependiendo del tamaño del archivo y"
+" las capacidades de procesamiento de la computadora que esté utilizando. "
+"Para el ejemplo de Uganda, podemos seleccionarlos todos, pero si utiliza un "
+"área más grande o una resolución espacial superior a los 250 m "
+"predeterminados, le recomendamos que seleccione opciones de resoluciones "
+"alternas (es decir, una resolución seleccionada y una no seleccionada, y así"
+" sucesivamente). Las resoluciones se seleccionan haciendo clic en ellas. "
+"Cuando se seleccionen, se pondrán azules."
 
 #: ../../source/training/tutorial_task_download.rst:95
 msgid "Make sure that the settings at the bottom are set to:"
 msgstr ""
+"Asegúrese de que la configuración en la parte inferior esté configurada "
+"para:"
 
 #: ../../source/training/tutorial_task_download.rst:97
 msgid "**Overview format**: External"
-msgstr ""
+msgstr "**Formato de resumen**: Externo"
 
 #: ../../source/training/tutorial_task_download.rst:98
 msgid "**Resampling method**: Nearest Neighbour"
-msgstr ""
+msgstr "**Método de remuestreo**: vecino más cercano"
 
 #: ../../source/training/tutorial_task_download.rst:100
 msgid ""
 "Then click on the **Build pyramids** button. The progress bar next to it "
 "will show which percentage of the task has been completed."
 msgstr ""
+"Luego haga clic en el botón **Crear pirámides**. La barra de progreso al "
+"lado mostrará el porcentaje de la tarea que se ha completado."
 
 #: ../../source/training/tutorial_task_download.rst:105
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
-"resolutions will have changed from **red crosses** to **yellow "
-"pyramids**."
+"resolutions will have changed from **red crosses** to **yellow pyramids**."
 msgstr ""
+"Cuando se hayan construido las pirámides, observará que los íconos al lado "
+"de las resoluciones habrán cambiado de **cruces rojas** a **pirámides "
+"amarillas**."
 
 #: ../../source/training/tutorial_task_download.rst:110
 msgid "Click **OK** to go back to the QGIS main interface."
-msgstr ""
-
+msgstr "Haga clic en **Aceptar** para volver a la interfaz principal de QGIS."

@@ -596,7 +596,7 @@ ns.configure({
         'resourcedir': 'docs/resources',
         'deploy_s3_bucket': 'trends.earth',
         'docs_s3_prefix': 'docs/',
-        'transifex_name': 'trends.earth',
+        'transifex_name': 'trendsearth',
         'base_language': 'en',
         'latex_documents': ['Trends.Earth.tex',
                            'Trends.Earth_Tutorial01_Installation.tex',

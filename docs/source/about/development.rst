@@ -10,18 +10,18 @@ QGIS plugin supporting calculation of indicators, access to raw data,
 reporting, and production of print maps . The code for the plugin, and further 
 instructions on installing it if you want to modify the code, are in 
 `trends.earth <https://github.com/ConservationInternational/trends.earth>`_ 
-github repository.
+GitHub repository.
 
 The |trends.earth| QGIS plugin is supported by a number of different Python 
 scripts that allow calculation of the various indicators on Google Earth Engine 
-(GEE). These scripts sit in the "gee" subfolder of that github repository. The 
+(GEE). These scripts sit in the "gee" sub-folder of that GitHub repository. The 
 GEE scripts are supported by the `landdegradation` Python module, which 
 includes code for processing inputs and outputs for the plugin, as well as 
 other common functions supporting calculation of NDVI integrals, statistical 
 significance, and other shared code. The code for this module is available in 
 the `landdegradation 
 <https://github.com/ConservationInternational/landdegradation>`_ repository on 
-Github.
+GitHub.
 
 Further details are below on how to contribute to Trends.Earth by working on 
 the plugin code, by modifying the processing code, or by contributing to 
@@ -35,7 +35,7 @@ Downloading the trends.earth code
 ---------------------------------
 
 The Trends.Earth code for both the plugin and the Google Earth Engine scripts 
-that support it are located on github in the `trends.earth
+that support it are located on GitHub in the `trends.earth
 <https://github.com/ConservationInternational/trends.earth>`_ repository. Clone 
 this repository to a convenient place on your machine in order to ensure you 
 have the latest version of the code.
@@ -173,11 +173,11 @@ use the `plugin reloader <https://plugins.qgis.org/plugins/plugin_reloader/>`_
 to reload the Trends.Earth plugin in order to see the effects of the changes 
 you have made.
 
-Note that by default ``plugin-install`` will overwrite any existing plugin 
-files on your machine, but leave in place any data (adminstrative boundaries, 
-etc.) that the plugin might have downloaded. To start from scratch, add the 
-``-c`` (clean) flag to the above command. You may need to close QGIS in order 
-to succesfully perform a clean install of the plugin using the ``-c`` flag.
+By default ``plugin-install`` will overwrite any existing plugin files on your 
+machine, but leave in place any data (administrative boundaries, etc.) that the 
+plugin might have downloaded. To start from scratch, add the ``-c`` (clean) 
+flag to the above command. You may need to close QGIS in order to successfully 
+perform a clean install of the plugin using the ``-c`` flag.
 
 .. note::
    By default plugin-install assumes you want to install the plugin to be used 
@@ -186,15 +186,43 @@ to succesfully perform a clean install of the plugin using the ``-c`` flag.
    QGIS3 - the plugin was designed for QGIS2 and is still being tested on 
    QGIS3.
 
-Building a plugin zipfile
--------------------------
+Building a plugin ZIP file
+--------------------------
 
-.. todo:: add documentation for ``invoke zipfile-build``
+There are several invoke tasks to help with building a ZIP file to deploy the 
+plugin to the QGIS repository, or to share the development version of the 
+plugin with others. To package the plugin and all of its dependencies into a 
+ZIP file that can be installed following `the process described in the 
+Trends.Earth readme 
+<https://github.com/ConservationInternational/trends.earth#installing-latest-packaged-development-version>`_, 
+run::
 
-Deploying the development version zipfile
------------------------------------------
+   invoke zipfile-build
 
-.. todo:: add documentation for ``invoke zipfile-deploy``
+This command will create a folder named ``build`` at the root of the 
+trends.earth code folder, and in that folder it will create a file called 
+``LDMP.zip``. This file can be shared with others, who can use it to `manually 
+install Trends.Earth 
+<https://github.com/ConservationInternational/trends.earth#installing-latest-packaged-development-version>`_. 
+This can be useful if there is a need to share the latest features with someone 
+before they are available in the publicly released version of the plugin.
+
+Deploying the development version ZIP file
+------------------------------------------
+
+The Trends.Earth GitHub page gives a link a ZIP file that allows users who may 
+not be developers to access the development version of Trends.Earth. To create 
+a ZIP file and make it available on that page (the ZIP file is stored on S3), 
+run::
+
+   invoke zipfile-deploy
+
+This command will package the plugin and copy it to 
+`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip 
+<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip>`_.
+
+.. note:: The above command will fail if you do not have keys allowing write 
+   access to the ``trends.earth`` bucket on S3.
 
 Modifying the Earth Engine processing code
 __________________________________________
@@ -215,7 +243,7 @@ trends.earth-CLI
 ~~~~~~~~~~~~~~~~
 
 The "trends.earth-CLI" Python package is required in order to work with the 
-api.trends.earth server. This package is located on github in the 
+api.trends.earth server. This package is located on GitHub in the 
 `trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ 
 repository.
 
@@ -242,8 +270,8 @@ you downloaded the code on Windows into a folder called
     gee:
         tecli: "C:/Users/azvol/Code/trends.earth-CLI/tecli"
 
-Again, note that you do NOT need to add this .yaml file if you setup your 
-system as recommended above.
+Again, you **do not** need to add this .yaml file if you setup your system as 
+recommended above.
 
 docker
 ~~~~~~
@@ -298,8 +326,8 @@ the api.trends.earth server. To login, run::
 
 You will be asked for a username and password. These are the same as the 
 username and password that you use to login to the Trends.Earth server from the 
-QGIS plugin. Note that if you are not an adminstrator, you will be able to 
-login, but the below command will fail. To upload a script (for example, the 
+QGIS plugin. **If you are not an administrator, you will be able to login, but 
+the below command will fail**. To upload a script (for example, the 
 "land_cover" script) to the server, run::
    
    invoke tecli-publish land_cover
@@ -311,7 +339,7 @@ that you make will affect anyone using the plugin. Whenever you are testing be
 sure to use development version numbers (odd version numbers).
 
 If you are making a new release of the plugin, and want to upload ALL of the 
-GEE scripts at once (this is necessary whenenever the plugin version number 
+GEE scripts at once (this is necessary whenever the plugin version number 
 changes), run::
    
    invoke tecli-publish
@@ -342,7 +370,7 @@ and folders to be aware of:
    - i18n: contains translations of the documentation into other languages. The 
      files in here are normally processed automatically using invoke tasks, so 
      you shouldn't ever have reason to modify anything in this folder.
-   - resources: contains any resourcess (primarily images or PDFs) that are 
+   - resources: contains any resources (primarily images or PDFs) that are 
      referred to in the documentation. Currently there is only one folder 
      ("EN", for English) as all of the images in the documentation are from the 
      English version of the plugin - if appropriate additional folders can be 
@@ -446,19 +474,19 @@ there are any errors. To do this, use the ``-i`` (ignore errors) option::
    invoke docs-build -i
 
 Whenever you make any changes to the text of the documentation, it is a good 
-idea to push the latest strings to transifex so they can be translated. To 
-update the strings on transifex with any new changes, run::
+idea to push the latest strings to Transifex so they can be translated. To 
+update the strings on Transifex with any new changes, run::
 
    invoke translate-push
 
-Note that to successfully run the above command you will need to have the key 
-for the Trends.Earth transifex account.
+.. note:: To successfully run the above command you will need to have the key 
+   for the Trends.Earth transifex account.
 
 Building documentation for release
 ----------------------------------
 
 Before releasing new documentation, always pull the latest translations from 
-transifex so that all translations are up to date. To do this, run::
+Transifex so that all translations are up to date. To do this, run::
 
    invoke translate-pull
 
@@ -472,6 +500,13 @@ This process must complete successfully with no errors. If any errors occur
 during the process, review the error message, and make any modifications needed 
 to allow the build to complete successfully. Once the build completes with no 
 errors, the files are ready to be deployed on the website.
+
+.. note:: Both of the above commands also have ``-f`` (force) options that 
+   force pulling or pushing the latest translations from or to Transifex 
+   (respectively). Only use these options if you are VERY sure of what you are 
+   doing, as they can completely overwrite the translations on Transifex, 
+   leading to lost work done by the translators if the latest translations have 
+   not yet been committed to github.
 
 Adding new documentation text
 -----------------------------
@@ -489,15 +524,33 @@ generated in PDF so they can be downloaded for offline use.
    - docs\\source\\conf.py: if you want to generate a PDF file of page of the 
      website, then you must list that page here in the ``latex_documents`` 
      list. Usually we do this only for tutorial pages that we want to make 
-     available to workshop partitipants in individual PDFs. Every page on the 
+     available to workshop participants in individual PDFs. Every page on the 
      site will be included in the PDF version of the website as a whole, 
      regardless of whether it is in the ``latex_documents`` list. 
 
 Adding new images or other resources
 ------------------------------------
 
-.. todo:: Add this. Remember to mention that docs\\source\\static should never 
-   be used for resources - they should go under docs\\resources\\en.
+Any new images or other resources (PDFs, etc.) that are needed by the 
+documentation should be added under "docs\\resources\\en". If desired, it is 
+possible to upload different versions of an image so that the image appears 
+with the proper translations. This could be useful if you want to show the GUI 
+interface in the appropriate language, for example. to do this, first
+upload a copy of the image to "docs\\resources\en" (with English text in it). 
+Then, create a copy of the image with translated text and place that image 
+under the appropriate folder for that language (for example an image showing 
+Spanish translations would go under "docs\\resources\\es"). The English version 
+of the image will be used as the default for all languages for which a native 
+version of the image is not provided, while a localized version will be used 
+when available.
+
+.. note:: There is another folder, ``docs\\source\\static``, that is used to 
+   hold resources temporarily while running the scripts that build the 
+   Trends.Earth documenation. You may have images listed under that folder if 
+   you have ever built the documenation on that machine. **This folder should 
+   never be used to add new resources** - new resources should always go under 
+   ``docs\\resources\\en`` or, for translated images, the appropriate
+   language-specific folder under ``docs\\resources``.
 
 Contributing as a translator
 ----------------------------

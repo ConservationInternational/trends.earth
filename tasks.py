@@ -217,29 +217,14 @@ def plugin_setup(c, clean=False):
     os.makedirs(ext_libs, exist_ok=True)
     runtime, test = read_requirements()
 
-    try:
-        from pip._internal import main as pip
-    except:
-        error('FATAL: Unable to import pip, please install it first!')
-        sys.exit(1)
-
-    os.environ['PYTHONPATH']=ext_libs
+    os.environ['PYTHONPATH'] = ext_libs
     for req in runtime + test:
         # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
         # the --no-deps flag (-N for short) with that package only.
         if ('pyqtgraph' in req):
-            pip(['install',
-                 '--upgrade',
-                 '--no-deps',
-                 '-t',
-                 ext_libs,
-                 req])
+            subprocess.check_call(['pip', 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
         else:
-            pip(['install',
-                 '--upgrade',
-                 '-t',
-                 ext_libs,
-                 req])
+            subprocess.check_call(['pip', 'install', '--upgrade', '-t', ext_libs, req])
 
 @task(help={'clean': "don't run rmtree",
             'version': 'what version of QGIS to install to',

@@ -1,208 +1,288 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-23 07:52-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2018-04-06 10:56+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/training/tutorial_custom_soc.rst:4
 msgid "Use custom soil data"
-msgstr ""
+msgstr "Use dados de solo personalizados"
 
 #: ../../source/training/tutorial_custom_soc.rst:6
 msgid ""
-"**Objective**: Learn how to load custom soil organic carbon data to "
-"compute the carbon change sub-indicator using Trends.Earth."
+"**Objective**: Learn how to load custom soil organic carbon data to compute "
+"the carbon change sub-indicator using Trends.Earth."
 msgstr ""
+"**Objetivo**: Aprenda como carregar dados de carbono orgânico do solo "
+"personalizados para calcular o subindicador de alteração de carbono usando o"
+" Trends.Earth."
 
 #: ../../source/training/tutorial_custom_soc.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "**Tempo estimado de conclusão**: 20 minutos"
 
 #: ../../source/training/tutorial_custom_soc.rst:10
 msgid "**Internet access**: Not required"
-msgstr ""
+msgstr "** Acesso à Internet **: não obrigatório"
 
 #: ../../source/training/tutorial_custom_soc.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
 msgstr ""
+"`Faça o download desta página como um PDF para uso off-line "
+"<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
 
 #: ../../source/training/tutorial_custom_soc.rst:18
 msgid "Loading custom soil organic carbon data"
-msgstr ""
+msgstr "Carregamento de dados de carbono orgânico do solo personalizados"
 
 #: ../../source/training/tutorial_custom_soc.rst:20
 msgid ""
 "This tool assumes that the units of the raster layer to be imported are "
 "**Metrics Tons of organic carbon per hectare**. If your layer is in "
-"different units, please make the necessary conversions before using it in"
-" Trends.Earth."
+"different units, please make the necessary conversions before using it in "
+"Trends.Earth."
 msgstr ""
+"Esta ferramenta assume que as unidades da camada de raster a serem "
+"importadas são **Metrics Toneladas de carbono orgânico por hectare**. Se sua"
+" camada estiver em unidades diferentes, faça as conversões necessárias antes"
+" de usá-la no Trends.Earth."
 
 #: ../../source/training/tutorial_custom_soc.rst:22
 msgid ""
 "To load soil organic carbon data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
 msgstr ""
+"Para carregar os dados de carbono orgânico do solo, clique no ícone "
+"(|iconfolder|) na barra de ferramentas Trends.Earth."
 
 #: ../../source/training/tutorial_custom_soc.rst:27
 msgid ""
-"The **Load data** menu will open. Select **Soil organic carbon** from the"
-" **Import a custom input dataset** section."
+"The **Load data** menu will open. Select **Soil organic carbon** from the "
+"**Import a custom input dataset** section."
 msgstr ""
+"O menu **Carregar dados** será aberto. Selecione **Carbono orgânico do "
+"solo** na seção **Importar um conjunto de dados de entrada personalizado**."
 
 #: ../../source/training/tutorial_custom_soc.rst:32
 msgid ""
 "In the **Load a Custom Soil Organic Carbon (SOC) dataset** use the radio "
-"button to select the format of the input file (raster or vector). For "
-"this tutorial select raster, since the data distributed by the UNCCD is "
-"in raster format. Click on **Browse** to navigate to the soil organic "
-"carbon file you wish to import."
+"button to select the format of the input file (raster or vector). For this "
+"tutorial select raster, since the data distributed by the UNCCD is in raster"
+" format. Click on **Browse** to navigate to the soil organic carbon file you"
+" wish to import."
 msgstr ""
+"No **Carregar um conjunto de dados SOC (Organic Soil Organic Carbon)**, use "
+"o botão de rádio para selecionar o formato do arquivo de entrada (raster ou "
+"vetor). Para este tutorial, selecione raster, pois os dados distribuídos "
+"pelo UNCCD são em formato raster. Clique em **Browse** para navegar até o "
+"arquivo de carbono orgânico do solo que você deseja importar."
 
 #: ../../source/training/tutorial_custom_soc.rst:41
 msgid ""
-"Use the **Select input file** window to navigate to the file to be "
-"imported, select it, and click **Open**."
+"Use the **Select input file** window to navigate to the file to be imported,"
+" select it, and click **Open**."
 msgstr ""
+"Use a janela **Selecionar arquivo de entrada** para navegar até o arquivo a "
+"ser importado, selecione-o e clique em **Abrir**."
 
 #: ../../source/training/tutorial_custom_soc.rst:46
 msgid ""
-"Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** window "
-"you have options for selecting the band number in which the productivity "
-"data is stored, in case your input file is a multi band raster. You also "
-"have the option of modifying the resolution of the file. We recommend "
-"leaving those as defaults unless you have valid reasons for changing "
-"them."
+"Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** window you "
+"have options for selecting the band number in which the productivity data is"
+" stored, in case your input file is a multi band raster. You also have the "
+"option of modifying the resolution of the file. We recommend leaving those "
+"as defaults unless you have valid reasons for changing them."
 msgstr ""
+"De volta à janela **Carregar um dataset de carbono orgânico personalizado "
+"(SOC)**, você tem opções para selecionar o número da banda na qual os dados "
+"de produtividade são armazenados, caso seu arquivo de entrada seja uma "
+"varredura de múltiplas bandas. Você também tem a opção de modificar a "
+"resolução do arquivo. Recomendamos deixar esses como padrões, a menos que "
+"você tenha motivos válidos para alterá-los."
 
 #: ../../source/training/tutorial_custom_soc.rst:48
 msgid ""
-"Define the year of reference for the data. In this case, we will assume "
-"the soil organic carbon data is from 2000, but if using local data, make "
-"sure you are assigning the correct year."
+"Define the year of reference for the data. In this case, we will assume the "
+"soil organic carbon data is from 2000, but if using local data, make sure "
+"you are assigning the correct year."
 msgstr ""
+"Defina o ano de referência para os dados. Nesse caso, vamos supor que os "
+"dados de carbono orgânico do solo são de 2000, mas se você usar dados "
+"locais, certifique-se de atribuir o ano correto."
 
 #: ../../source/training/tutorial_custom_soc.rst:50
 msgid ""
-"Click **Browse** at the bottom of the window to select the **Output "
-"raster file**."
+"Click **Browse** at the bottom of the window to select the **Output raster "
+"file**."
 msgstr ""
+"Clique em **Navegar** na parte inferior da janela para selecionar o "
+"**Arquivo de saída raster**."
 
 #: ../../source/training/tutorial_custom_soc.rst:55
 msgid ""
-"Navigate to the folder where you want to save the file. Assign it a name "
-"and click **Save**."
+"Navigate to the folder where you want to save the file. Assign it a name and"
+" click **Save**."
 msgstr ""
+"Navegue até a pasta onde você deseja salvar o arquivo. Atribua um nome e "
+"clique em **Salvar**."
 
 #: ../../source/training/tutorial_custom_soc.rst:60
 msgid ""
-"Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click "
-"**OK** for the tool to run."
+"Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK**"
+" for the tool to run."
 msgstr ""
+"De volta ao **Carregar um conjunto de dados de carbono orgânico de solo "
+"(SOC)** clique **OK** para a ferramenta a ser executada."
 
 #: ../../source/training/tutorial_custom_soc.rst:65
-msgid "A progress bar will appear showing the percentage of the task completed."
+msgid ""
+"A progress bar will appear showing the percentage of the task completed."
 msgstr ""
+"Uma barra de progresso aparecerá mostrando a porcentagem da tarefa "
+"concluída."
 
 #: ../../source/training/tutorial_custom_soc.rst:70
 msgid ""
-"When the processing is completed, the imported soil organic carbon "
-"dataset will be loaded to QGIS."
+"When the processing is completed, the imported soil organic carbon dataset "
+"will be loaded to QGIS."
 msgstr ""
+"Quando o processamento estiver concluído, o conjunto de dados de carbono "
+"orgânico importado do solo será carregado no QGIS."
 
 #: ../../source/training/tutorial_custom_soc.rst:76
 msgid "Calculating soil organic carbon with custom data"
-msgstr ""
+msgstr "Calculando o carbono orgânico do solo com dados personalizados"
 
 #: ../../source/training/tutorial_custom_soc.rst:78
 msgid ""
-"Once you have imported a custom soil organic carbon dataset, it is "
-"possible to calculate soil organic carbon degradation from that data. To "
-"do so, first ensure the custom soil organic carbon data is loaded within "
-"QGIS (see :ref:`load_custom_soc`)."
+"Once you have imported a custom soil organic carbon dataset, it is possible "
+"to calculate soil organic carbon degradation from that data. To do so, first"
+" ensure the custom soil organic carbon data is loaded within QGIS (see "
+":ref:`load_custom_soc`)."
 msgstr ""
+"Depois de ter importado um conjunto de dados de carbono orgânico do solo "
+"personalizado, é possível calcular a degradação do carbono orgânico do solo "
+"a partir desses dados. Para fazer isso, primeiro certifique-se de que os "
+"dados de carbono orgânico do solo personalizados sejam carregados no QGIS "
+"(consulte :ref:`load_custom_soc`)."
 
 #: ../../source/training/tutorial_custom_soc.rst:83
 msgid ""
-"To calculate soil organic carbon degradation from custom data, first "
-"click on the (|iconCalculator|) icon on the Trends.Earth toolbar:"
+"To calculate soil organic carbon degradation from custom data, first click "
+"on the (|iconCalculator|) icon on the Trends.Earth toolbar:"
 msgstr ""
+"Para calcular a degradação do carbono orgânico do solo a partir de dados "
+"personalizados, primeiro clique no ícone (|iconCalculator|) na barra de "
+"ferramentas Trends.Earth:"
 
 #: ../../source/training/tutorial_custom_soc.rst:89
 msgid ""
-"The \"Calculate indicators\" menu will open. Select \"Soil organic "
-"carbon\" from the \"Option 2: Use customized data\" section."
+"The \"Calculate indicators\" menu will open. Select \"Soil organic carbon\" "
+"from the \"Option 2: Use customized data\" section."
 msgstr ""
+"O menu \"Calcular indicadores\" será aberto. Selecione \"Carbono orgânico do"
+" solo\" na seção \"Opção 2: usar dados personalizados\"."
 
 #: ../../source/training/tutorial_custom_soc.rst:95
 msgid ""
 "The \"Calculate Soil Organic Carbon\" window will open. Click the radio "
-"button next to \"Custom land cover dataset\" and select either \"Import\""
-" to import a custom land cover dataset, or \"Load existing\" to load a "
-"land cover dataset you have already processed in Trends.Earth. Be sure to"
-" select both an \"Initial layer\" and a \"Final layer\". See the "
+"button next to \"Custom land cover dataset\" and select either \"Import\" to"
+" import a custom land cover dataset, or \"Load existing\" to load a land "
+"cover dataset you have already processed in Trends.Earth. Be sure to select "
+"both an \"Initial layer\" and a \"Final layer\". See the "
 ":ref:`tut_custom_lc` tutorial for more information on loading land cover "
 "datasets. Once you have selected both datasets, click next:"
 msgstr ""
+"A janela \"Calculate Soil Organic Carbon\" será aberta. Clique no botão de "
+"opção ao lado de \"Conjunto de dados de cobertura territorial "
+"personalizado\" e selecione \"Importar\" para importar um conjunto de dados "
+"de cobertura territorial personalizado ou \"Carregar existente\" para "
+"carregar um conjunto de dados de cobertura territorial já processado no "
+"Trends.Earth. Certifique-se de selecionar tanto uma \"camada inicial\" "
+"quanto uma \"camada final\". Veja o tutorial :ref:`tut_custom_lc` para mais "
+"informações sobre o carregamento de conjuntos de dados de cobertura "
+"territorial. Depois de selecionar os dois conjuntos de dados, clique em "
+"próximo:"
 
 #: ../../source/training/tutorial_custom_soc.rst:106
 msgid ""
 "On the next screen, click the check box next to \"Custom initial soil "
-"organic carbon dataset\", and then use the \"Import\" or \"Load "
-"existing\" buttons to either import custom soil carbon layer "
-"(:ref:`load_custom_soc`) or to load an existing one that has already been"
-" calculated:"
+"organic carbon dataset\", and then use the \"Import\" or \"Load existing\" "
+"buttons to either import custom soil carbon layer (:ref:`load_custom_soc`) "
+"or to load an existing one that has already been calculated:"
 msgstr ""
+"Na próxima tela, clique na caixa de seleção ao lado de \"Conjunto de dados "
+"de carbono orgânico inicial personalizado\" e use os botões \"Importar\" ou "
+"\"Carregar existente\" para importar camada de carbono do solo personalizada"
+" (:ref:`load_custom_soc`) ou carregar um já existente que já foi calculado:"
 
 #: ../../source/training/tutorial_custom_soc.rst:114
 msgid "Click \"Next\". Now, choose the area you wish to run calculations for:"
 msgstr ""
+"Clique em \"Next\". Agora, escolha a área para a qual você deseja executar "
+"os cálculos:"
 
 #: ../../source/training/tutorial_custom_soc.rst:119
 msgid ""
-"Click \"Next\". on the last screen, enter a task name or any notes you "
-"might wish to save (this is optional) and then click \"Calculate\":"
+"Click \"Next\". on the last screen, enter a task name or any notes you might"
+" wish to save (this is optional) and then click \"Calculate\":"
 msgstr ""
+"Clique em \"Next\". na última tela, digite um nome de tarefa ou notas que "
+"você queira salvar (isto é opcional) e então clique em \"Calcular\":"
 
 #: ../../source/training/tutorial_custom_soc.rst:125
 msgid ""
-"A progress bar will appear on your screen. Do not quit QGIS or turn off "
-"your computer until the calculation is complete."
+"A progress bar will appear on your screen. Do not quit QGIS or turn off your"
+" computer until the calculation is complete."
 msgstr ""
+"Uma barra de progresso aparecerá na sua tela. Não saia do QGIS ou desligue o"
+" computador até que o cálculo esteja concluído."
 
 #: ../../source/training/tutorial_custom_soc.rst:131
 msgid ""
-"Once the calculation is complete, three layers will load onto your map: "
-"1) the final soil organic carbon layer, 2) the initial soil organic "
-"carbon layer, and 3) the soil organic carbon degradation layer:"
+"Once the calculation is complete, three layers will load onto your map: 1) "
+"the final soil organic carbon layer, 2) the initial soil organic carbon "
+"layer, and 3) the soil organic carbon degradation layer:"
 msgstr ""
+"Quando o cálculo estiver concluído, três camadas serão carregadas no seu "
+"mapa: 1) a camada final de carbono orgânico do solo, 2) a camada de carbono "
+"orgânico inicial do solo e 3) a camada de degradação do carbono orgânico do "
+"solo:"
 
 #: ../../source/training/tutorial_custom_soc.rst:138
 msgid ""
-"For example, we can see areas of degradation in soil carbon around "
-"Kampala:"
+"For example, we can see areas of degradation in soil carbon around Kampala:"
 msgstr ""
+"Por exemplo, podemos ver áreas de degradação no carbono do solo em torno de "
+"Kampala:"
 
 #: ../../source/training/tutorial_custom_soc.rst:144
 msgid ""
-"Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to "
-"use the imported soil organic carbon data to compute the final SDG 15.3.1"
-" after integration with land cover and land productivity."
+"Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
+"the imported soil organic carbon data to compute the final SDG 15.3.1 after "
+"integration with land cover and land productivity."
 msgstr ""
-
+"Consulte o tutorial :ref:`tut_compute_sdg` para obter instruções sobre como "
+"usar os dados de carbono orgânico importados do solo para calcular o ODS "
+"final 15.3.1 após a integração com a cobertura da terra e a produtividade da"
+" terra."

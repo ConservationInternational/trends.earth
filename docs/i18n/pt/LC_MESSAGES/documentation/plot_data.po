@@ -1,54 +1,70 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-23 07:52-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/documentation/plot_data.rst:2
 msgid "Plot data"
-msgstr ""
+msgstr "Dados de plotagem"
 
 #: ../../source/documentation/plot_data.rst:6
 msgid ""
-"To view plotted time series, select the graph icon (|iconGraph|). This "
-"will open up the `Plot data` dialog box:"
+"To view plotted time series, select the graph icon (|iconGraph|). This will "
+"open up the `Plot data` dialog box:"
 msgstr ""
+"Para visualizar a série temporal plotada, selecione o ícone do gráfico (| "
+"iconGraph |). Isto irá abrir a caixa de diálogo \"Plot data\":"
 
 #: ../../source/documentation/plot_data.rst:9
 msgid ""
 "The toolbox also supports plotting time series showing how a particular "
-"indicator has changed over time. To use this feature, click on the Plot "
-"data button from the toolbox bar. Then select a dataset, indicator, and "
-"area to plot:"
+"indicator has changed over time. To use this feature, click on the Plot data"
+" button from the toolbox bar. Then select a dataset, indicator, and area to "
+"plot:"
 msgstr ""
+"A caixa de ferramentas também oferece suporte a séries temporais de "
+"plotagem, mostrando como um determinado indicador foi alterado ao longo do "
+"tempo. Para usar este recurso, clique no botão Dados de plotagem na barra de"
+" ferramentas. Em seguida, selecione um conjunto de dados, indicador e área "
+"para traçar:"
 
 #: ../../source/documentation/plot_data.rst:20
 msgid ""
-"When all the parameters have been defined, click `Calculate`, and the "
-"task will be submitted to Google Earth Engine for computing. When the "
-"task is completed (processing time will vary depending on server usage, "
-"but for most countries it takes only a few minutes most of the time), "
-"you’ll receive an email notifying you of the successful completion of the"
-" task."
+"When all the parameters have been defined, click `Calculate`, and the task "
+"will be submitted to Google Earth Engine for computing. When the task is "
+"completed (processing time will vary depending on server usage, but for most"
+" countries it takes only a few minutes most of the time), you’ll receive an "
+"email notifying you of the successful completion of the task."
 msgstr ""
+"Quando todos os parâmetros tiverem sido definidos, clique em \"Calcular\" e "
+"a tarefa será enviada ao Google Earth Engine para computação. Quando a "
+"tarefa é concluída (o tempo de processamento varia dependendo do uso do "
+"servidor, mas na maioria dos países leva apenas alguns minutos na maior "
+"parte do tempo), você receberá um e-mail notificando sobre a conclusão bem-"
+"sucedida da tarefa."
 
 #: ../../source/documentation/plot_data.rst:22
 msgid ""
-"Use the `View Google Earth Egngine tasks` tool described above to "
-"download and plot the results:"
+"Use the `View Google Earth Egngine tasks` tool described above to download "
+"and plot the results:"
 msgstr ""
-
+"Use a ferramenta \"Visualizar tarefas do Google Earth Egngine\" descrita "
+"acima para baixar e plotar os resultados:"

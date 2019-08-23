@@ -355,7 +355,13 @@ class AOI(object):
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
-            geom.transform(to_robinson)
+            try:
+                geom.transform(to_robinson)
+            except:
+                log('Error buffering layer while transforming to Robinson')
+                QtGui.QMessageBox.critical(None, tr("Error"),
+                                           tr("Error transforming coordinates. Check that the input geometry is valid."), None)
+                return False
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
             geom_buffered.transform(to_wgs84)
@@ -374,6 +380,7 @@ class AOI(object):
         else:
             self.l = l_buffered
             self.datatype = 'polygon'
+        return True
 
     def isValid(self):
         return self.l.isValid()
@@ -913,7 +920,9 @@ class DlgCalculateBase(QtGui.QDialog):
             return False
 
         if self.area_tab.groupBox_buffer.isChecked():
-            self.aoi.buffer(self.area_tab.buffer_size_km.value())
+            ret = self.aoi.buffer(self.area_tab.buffer_size_km.value())
+            if not ret:
+                return False
 
         # Limit processing area to be no greater than 10^7 sq km if using a 
         # custom shapefile

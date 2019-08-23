@@ -38,132 +38,141 @@ from LDMP import log
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
 def tr(t):
-    return QCoreApplication.translate('LDMPPlugin', t)
+    return QtGui.QApplication.translate('LDMPPlugin', t)
 
 
 # Store layer titles and label text in a dictionary here so that it can be
 # translated - if it were in the syles JSON then gettext would not have access
 # to these strings.
 style_text_dict = {
-    # Productivity trajectory
-    'prod_traj_trend_title': tr('Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
-    'prod_traj_trend_nodata': tr('No data'),
+    # Shared
+    'nodata': tr(u'No data'),
 
-    'prod_traj_signif_title': tr('Productivity trajectory degradation ({year_start} to {year_end})'),
-    'prod_traj_signif_dec_99': tr('Degradation (significant decrease, p < .01)'),
-    'prod_traj_signif_dec_95': tr('Degradation (significant decrease, p < .05)'),
-    'prod_traj_signif_dec_90': tr('Stable (significant decrease, p < .1)'),
-    'prod_traj_signif_zero': tr('Stable (no significant change)'),
-    'prod_traj_signif_inc_90': tr('Stable (significant increase, p < .1)'),
-    'prod_traj_signif_inc_95': tr('Improvement (significant increase, p < .05)'),
-    'prod_traj_signif_inc_99': tr('Improvement (significant increase, p < .01)'),
-    'prod_traj_signif_nodata': tr('No data'),
+    # Productivity trajectory
+    'prod_traj_trend_title': tr(u'Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
+
+    'prod_traj_signif_title': tr(u'Productivity trajectory degradation ({year_start} to {year_end})'),
+    'prod_traj_signif_dec_95': tr(u'Degradation (significant decrease, p < .05)'),
+    'prod_traj_signif_zero': tr(u'Stable (no significant change)'),
+    'prod_traj_signif_inc_95': tr(u'Improvement (significant increase, p < .05)'),
 
     # Productivity performance
-    'prod_perf_deg_title': tr('Productivity performance degradation ({year_start} to {year_end})'),
-    'prod_perf_deg_potential_deg': tr('Degradation'),
-    'prod_perf_deg_not_potential_deg': tr('Not degradation'),
-    'prod_perf_deg_nodata': tr('No data'),
+    'prod_perf_deg_title': tr(u'Productivity performance degradation ({year_start} to {year_end})'),
+    'prod_perf_deg_potential_deg': tr(u'Degradation'),
+    'prod_perf_deg_not_potential_deg': tr(u'Not degradation'),
 
-    'prod_perf_ratio_title': tr('Productivity performance ({year_start} to {year_end}, ratio)'),
-    'prod_perf_ratio_nodata': tr('No data'),
+    'prod_perf_ratio_title': tr(u'Productivity performance ({year_start} to {year_end}, ratio)'),
 
-    'prod_perf_units_title': tr('Productivity performance ({year_start}, units)'),
-    'prod_perf_units_nodata': tr('No data'),
+    'prod_perf_units_title': tr(u'Productivity performance ({year_start}, units)'),
 
     # Productivity state
-    'prod_state_change_title': tr('Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
-    'prod_state_change_potential_deg': tr('Degradation'),
-    'prod_state_change_stable': tr('Stable'),
-    'prod_state_change_potential_improvement': tr('Improvement'),
-    'prod_state_change_nodata': tr('No data'),
+    'prod_state_change_title': tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
+    'prod_state_change_potential_deg': tr(u'Degradation'),
+    'prod_state_change_stable': tr(u'Stable'),
+    'prod_state_change_potential_improvement': tr(u'Improvement'),
 
-    'prod_state_classes_title': tr('Productivity state classes ({year_start}-{year_end})'),
-    'prod_state_classes_nodata': tr('No data'),
+    'prod_state_classes_title': tr(u'Productivity state classes ({year_start}-{year_end})'),
 
     # Land cover
-    'lc_deg_title': tr('Land cover degradation ({year_baseline} to {year_target})'),
-    'lc_deg_deg': tr('Degradation'),
-    'lc_deg_stable': tr('Stable'),
-    'lc_deg_imp': tr('Improvement'),
-    'lc_deg_nodata': tr('No data'),
+    'lc_deg_title': tr(u'Land cover degradation ({year_baseline} to {year_target})'),
+    'lc_deg_deg': tr(u'Degradation'),
+    'lc_deg_stable': tr(u'Stable'),
+    'lc_deg_imp': tr(u'Improvement'),
 
-    'lc_7class_title': tr('Land cover ({year}, 7 class)'),
-    'lc_esa_title': tr('Land cover ({year}, ESA CCI classes)'),
-    'lc_7class_mode_title': tr('Land cover mode ({year_start}-{year_end}, 7 class)'),
-    'lc_esa_mode_title': tr('Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
+    'lc_7class_title': tr(u'Land cover ({year}, 7 class)'),
+    'lc_esa_title': tr(u'Land cover ({year}, ESA CCI classes)'),
+    'lc_7class_mode_title': tr(u'Land cover mode ({year_start}-{year_end}, 7 class)'),
+    'lc_esa_mode_title': tr(u'Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
 
-    'lc_class_nodata': tr('-32768 - No data'),
-    'lc_class_forest': tr('1 - Tree-covered'),
-    'lc_class_grassland': tr('2 - Grassland'),
-    'lc_class_cropland': tr('3 - Cropland'),
-    'lc_class_wetland': tr('4 - Wetland'),
-    'lc_class_artificial': tr('5 - Artificial'),
-    'lc_class_bare': tr('6 - Other land'),
-    'lc_class_water': tr('7 - Water body'),
+    'lc_class_nodata': tr(u'-32768 - No data'),
+    'lc_class_forest': tr(u'1 - Tree-covered'),
+    'lc_class_grassland': tr(u'2 - Grassland'),
+    'lc_class_cropland': tr(u'3 - Cropland'),
+    'lc_class_wetland': tr(u'4 - Wetland'),
+    'lc_class_artificial': tr(u'5 - Artificial'),
+    'lc_class_bare': tr(u'6 - Other land'),
+    'lc_class_water': tr(u'7 - Water body'),
 
-    'lc_tr_title': tr('Land cover (transitions, {year_baseline} to {year_target})'),
-    'lc_tr_nochange': tr('No change'),
-    'lc_tr_forest_loss': tr('Tree-covered loss'),
-    'lc_tr_grassland_loss': tr('Grassland loss'),
-    'lc_tr_cropland_loss': tr('Cropland loss'),
-    'lc_tr_wetland_loss': tr('Wetland loss'),
-    'lc_tr_artificial_loss': tr('Artificial loss'),
-    'lc_tr_bare_loss': tr('Other land loss'),
-    'lc_tr_water_loss': tr('Water body loss'),
-    'lc_tr_nodata': tr('No data'),
+    'lc_tr_title': tr(u'Land cover (transitions, {year_baseline} to {year_target})'),
+    'lc_tr_nochange': tr(u'No change'),
+    'lc_tr_forest_loss': tr(u'Tree-covered loss'),
+    'lc_tr_grassland_loss': tr(u'Grassland loss'),
+    'lc_tr_cropland_loss': tr(u'Cropland loss'),
+    'lc_tr_wetland_loss': tr(u'Wetland loss'),
+    'lc_tr_artificial_loss': tr(u'Artificial loss'),
+    'lc_tr_bare_loss': tr(u'Other land loss'),
+    'lc_tr_water_loss': tr(u'Water body loss'),
 
     # Soil organic carbon
-    'soc_title': tr('Soil organic carbon ({year}, tons / ha)'),
-    'soc_nodata': tr('No data'),
+    'soc_title': tr(u'Soil organic carbon ({year}, tons / ha)'),
 
-    'soc_deg_title': tr('Soil organic carbon degradation ({year_start} to {year_end})'),
-    'soc_deg_deg': tr('Degradation'),
-    'soc_deg_stable': tr('Stable'),
-    'soc_deg_imp': tr('Improvement'),
-    'soc_deg_nodata': tr('No data'),
+    'soc_deg_title': tr(u'Soil organic carbon degradation ({year_start} to {year_end})'),
+    'soc_deg_deg': tr(u'Degradation'),
+    'soc_deg_stable': tr(u'Stable'),
+    'soc_deg_imp': tr(u'Improvement'),
 
     # Trends.Earth land productivity
-    'sdg_prod_combined_title': tr('Land productivity (Trends.Earth)'),
-    'sdg_prod_combined_declining': tr('Declining'),
-    'sdg_prod_combined_earlysigns': tr('Early signs of decline'),
-    'sdg_prod_combined_stabbutstress': tr('Stable but stressed'),
-    'sdg_prod_combined_stab': tr('Stable'),
-    'sdg_prod_combined_imp': tr('Increasing'),
-    'sdg_prod_combined_nodata': tr('No data'),
+    'sdg_prod_combined_title': tr(u'Land productivity (Trends.Earth)'),
+    'sdg_prod_combined_declining': tr(u'Declining'),
+    'sdg_prod_combined_earlysigns': tr(u'Early signs of decline'),
+    'sdg_prod_combined_stabbutstress': tr(u'Stable but stressed'),
+    'sdg_prod_combined_stab': tr(u'Stable'),
+    'sdg_prod_combined_imp': tr(u'Increasing'),
 
     # LPD
-    'lpd_title': tr('Land productivity dynamics (LPD)'),
-    'lpd_declining': tr('Declining'),
-    'lpd_earlysigns': tr('Moderate decline'),
-    'lpd_stabbutstress': tr('Stressed'),
-    'lpd_stab': tr('Stable'),
-    'lpd_imp': tr('Increasing'),
-    'lpd_nodata': tr('No data'),
+    'lpd_title': tr(u'Land productivity dynamics (LPD)'),
+    'lpd_declining': tr(u'Declining'),
+    'lpd_earlysigns': tr(u'Moderate decline'),
+    'lpd_stabbutstress': tr(u'Stressed'),
+    'lpd_stab': tr(u'Stable'),
+    'lpd_imp': tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr('SDG 15.3.1 degradation indicator'),
-    'combined_sdg_deg_deg': tr('Degradation'),
-    'combined_sdg_deg_stable': tr('Stable'),
-    'combined_sdg_deg_imp': tr('Improvement'),
-    'combined_sdg_deg_nodata': tr('No data'),
+    'combined_sdg_title': tr(u'SDG 15.3.1 degradation indicator'),
+    'combined_sdg_deg_deg': tr(u'Degradation'),
+    'combined_sdg_deg_stable': tr(u'Stable'),
+    'combined_sdg_deg_imp': tr(u'Improvement'),
 
     # Forest loss
-    'f_loss_hansen_title': tr('Forest loss ({year_start} to {year_end})'),
-    'f_loss_hansen_nodata': tr('No data'),
-    'f_loss_hansen_water': tr('Water'),
-    'f_loss_hansen_nonforest': tr('Non-forest'),
-    'f_loss_hansen_noloss': tr('Forest (no loss)'),
-    'f_loss_hansen_year_start': tr('Forest loss ({year_start})'),
-    'f_loss_hansen_year_end': tr('Forest loss ({year_end})'),
+    'f_loss_hansen_title': tr(u'Forest loss ({year_start} to {year_end})'),
+    'f_loss_hansen_water': tr(u'Water'),
+    'f_loss_hansen_nonforest': tr(u'Non-forest'),
+    'f_loss_hansen_noloss': tr(u'Forest (no loss)'),
+    'f_loss_hansen_year_start': tr(u'Forest loss ({year_start})'),
+    'f_loss_hansen_year_end': tr(u'Forest loss ({year_end})'),
 
     # Total carbon
-    'tc_title': tr('Total carbon ({year_start}, tonnes per ha x 10)'),
-    'tc_nodata': tr('No data'),
+    'tc_title': tr(u'Total carbon ({year_start}, tonnes per ha x 10)'),
 
     # Root shoot ratio (below to above ground carbon in woody biomass)
-    'root_shoot_title': tr('Root/shoot ratio (x 100)'),
-    'root_shoot_nodata': tr('No data')
+    'root_shoot_title': tr(u'Root/shoot ratio (x 100)'),
+
+    # Urban area series
+    'urban_series_title': tr(u'Urban area change'),
+    'urban_series_water': tr(u'Water'),
+    'urban_series_built_up_by_2000': tr(u'Built-up by 2000'),
+    'urban_series_built_up_by_2005': tr(u'Built-up by 2005'),
+    'urban_series_built_up_by_2010': tr(u'Built-up by 2010'),
+    'urban_series_built_up_by_2015': tr(u'Built-up by 2015'),
+
+    # Urban area
+    'urban_title': tr(u'Urban area {year}'),
+    'urban_urban': tr(u'Urban'),
+    'urban_suburban': tr(u'Suburban'),
+    'urban_built_up_rural': tr(u'Built-up rural'),
+    'urban_fringe_open_space': tr(u'Open space (fringe)'),
+    'urban_captured_open_space': tr(u'Open space (captured)'),
+    'urban_rural_open_space': tr(u'Open space (rural)'),
+    'urban_fringe_open_space_water': tr(u'Open space (fringe, water)'),
+    'urban_captured_open_space_water': tr(u'Open space (captured, water)'),
+    'urban_rural_open_space_water': tr(u'Open space (rural, water)'),
+
+    # Population
+    'population_title': tr(u'Population ({year})'),
+
+    # Biomass
+    'biomass_title': tr(u'Biomass (tonnes CO2e per ha, {year})'),
+    'biomass_difference_title': tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)')
 }
 
 
@@ -176,6 +185,8 @@ def round_to_n(x, sf=3):
     'Function to round a positive value to n significant figures'
     if np.isnan(x):
         return x
+    elif x == 0:
+        return 0
     else:
         return round(x, -int(floor(log10(x))) + (sf - 1))
 
@@ -283,14 +294,14 @@ def create_local_json_metadata(json_file, data_file, bands, metadata={}):
                   sort_keys=True, indent=4, separators=(',', ': '))
 
 
-def add_layer(f, band_number, band_info):
+def add_layer(f, band_number, band_info, activated='default'):
     try:
         style = styles[band_info['name']]
     except KeyError:
         QtWidgets.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr(u"Trends.Earth does not have a style assigned for {}. To use this layer, manually add it to your map.".format(f)))
-        log(u'No style found for {}'.format(band_info['name'] ))
+                                      tr(u'Trends.Earth does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], band_number, f)))
+        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, f))
         return False
 
     title = get_band_title(band_info)
@@ -363,8 +374,8 @@ def add_layer(f, band_number, band_info):
     else:
         log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
         QtWidgets.QMessageBox.critical(None,
-                                   tr("Error"),
-                                   tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
+                                       tr("Error"),
+                                       tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
         return False
 
     fcn = QgsColorRampShader()
@@ -387,6 +398,15 @@ def add_layer(f, band_number, band_info):
                                                       shader)
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
+    if activated == 'default':
+        if band_info.has_key('activated') and not band_info['activated']:
+            iface.legendInterface().setLayerVisible(l, False)
+    elif activated:
+        # The layer is visible by default, so if activated is true, don't need 
+        # to change anything in order to make it visible
+        pass
+    elif not activated:
+        iface.legendInterface().setLayerVisible(l, False)
     iface.legendInterface().refreshLayerSymbology(l)
 
     return True
@@ -395,13 +415,15 @@ def add_layer(f, band_number, band_info):
 def tr_style_text(label, band_info=None):
     """If no translation is available, use the original label"""
     val = style_text_dict.get(label, None)
+    log('label is: {}'.format(label))
+    log('val is: {}'.format(tr(val)))
     if val:
         if band_info:
             return val.format(**band_info['metadata'])
         else:
             return val
     else:
-        log('value not found in translation dictionary')
+        log(u'"{}" not found in translation dictionary'.format(label))
         if isinstance(label, str):
             return label
         else:

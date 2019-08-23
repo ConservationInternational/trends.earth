@@ -455,12 +455,12 @@ class DlgDataIOLoadTEBase(QtWidgets.QDialog):
                 f = os.path.normcase(os.path.normpath(self.layer_list[row][0]))
                 # Note that the third item in the tuple is the band number, and 
                 # the fourth (layer_list[3]) is the band info object
-                resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3])
+                resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
                 if resp:
                     added_layers.append(self.layer_list[row])
                 else:
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"), 
-                                               self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
+                                                   self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
             self.layers_loaded.emit(added_layers)
         else:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))

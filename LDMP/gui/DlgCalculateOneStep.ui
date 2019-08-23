@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>605</width>
-    <height>361</height>
+    <height>381</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -23,7 +23,7 @@
    <item>
     <widget class="QTabWidget" name="TabBox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -92,7 +92,7 @@
           <item row="1" column="1">
            <widget class="QDateEdit" name="year_final">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -112,30 +112,6 @@
             <property name="date">
              <date>
               <year>2015</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
-            <property name="minimumDateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </datetime>
-            </property>
-            <property name="maximumDate">
-             <date>
-              <year>2030</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
-            <property name="minimumDate">
-             <date>
-              <year>1992</year>
               <month>1</month>
               <day>1</day>
              </date>
@@ -172,20 +148,6 @@
               <day>1</day>
              </date>
             </property>
-            <property name="maximumDate">
-             <date>
-              <year>2015</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
-            <property name="minimumDate">
-             <date>
-              <year>1992</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
             <property name="displayFormat">
              <string notr="true">yyyy</string>
             </property>
@@ -200,20 +162,23 @@
           <string>Land productivity dataset</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0" colspan="2">
+          <item row="1" column="0" colspan="2">
            <widget class="QRadioButton" name="mode_lpd_jrc">
             <property name="text">
              <string>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="2">
+          <item row="0" column="0">
            <widget class="QRadioButton" name="mode_te_prod">
             <property name="text">
              <string>Trends.Earth land productivity</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -244,10 +209,16 @@
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="1">
       <widget class="QPushButton" name="button_next">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>40</height>
         </size>
        </property>
        <property name="text">
@@ -257,10 +228,16 @@
      </item>
      <item row="1" column="0" colspan="2">
       <widget class="QPushButton" name="button_calculate">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>40</height>
         </size>
        </property>
        <property name="text">
@@ -270,10 +247,16 @@
      </item>
      <item row="0" column="0">
       <widget class="QPushButton" name="button_prev">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>30</height>
+         <height>40</height>
         </size>
        </property>
        <property name="text">

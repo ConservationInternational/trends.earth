@@ -1,5 +1,5 @@
 """
-Code for calculating soil organic carbon indicator.
+Code for calculating total carbon.
 """
 # Copyright 2017 Conservation International
 

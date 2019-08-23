@@ -1,0 +1,1167 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Monica Noon <mnoon@conservation.org>, 2019
+# Alex Zvoleff <azvoleff@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2019-07-23 19:36+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/about/layers.rst:2
+msgid "Dataset coding"
+msgstr "Codificación del conjunto de datos"
+
+#: ../../source/about/layers.rst:4
+msgid ""
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
+"widely supported format, so theese datasets can be used within QGIS as well "
+"as within any other GIS software."
+msgstr ""
+"Los datos espaciales producidos por |trends.earth| están en formato GeoTiff."
+" Este es un formato ampliamente compatible, por lo que estos conjuntos de "
+"datos se pueden utilizar dentro de QGIS, así como en cualquier otro software"
+" GIS."
+
+#: ../../source/about/layers.rst:8
+msgid ""
+"If you wish to use |trends.earth| data outside of the tool itself, you will "
+"need to know how the data is coded. The tables below provide guidance on "
+"what the exact layers are that are produced by each analysis in "
+"|trends.earth|."
+msgstr ""
+"Si desea utilizar |trends.earth| datos fuera de la herramienta en sí, "
+"necesitará saber cómo se codifican los datos. Las tablas a continuación "
+"proporcionan una guía sobre cuáles son las capas exactas que se producen en "
+"cada análisis en |trends.earth|."
+
+#: ../../source/about/layers.rst:12
+msgid ""
+"To see which of the below layers is contained within a |trends.earth| output"
+" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
+" choose a file with that toool, it will show you a list of the layers within"
+" that file, as well as the band number for each layer."
+msgstr ""
+"Para ver cuál de las capas siguientes está contenida dentro de un "
+"|trends.earth| archivo de salida, use la herramienta `load data "
+"<../documentation/load_data.html>`_ Cuando elija un archivo con esa "
+"herramienta, le mostrará una lista de las capas dentro de ese archivo, así "
+"como el número de banda para cada capa."
+
+#: ../../source/about/layers.rst:18
+msgid "SDG 15.3.1 Indicator"
+msgstr "Indicador ODS 15.3.1"
+
+#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
+#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
+#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
+#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
+#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
+#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
+#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
+#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
+#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
+#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
+msgid "Value"
+msgstr "Valor"
+
+#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
+#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
+#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
+#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
+#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
+#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
+#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
+#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
+#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
+#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
+msgid "Meaning"
+msgstr "Significado"
+
+#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
+#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
+#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
+#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
+#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
+#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
+#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
+#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
+#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
+#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
+msgid "-32768"
+msgstr "-32768"
+
+#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
+#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
+#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
+#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
+#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
+#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
+#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
+#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
+#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
+#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
+msgid "No data"
+msgstr "Sin datos"
+
+#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:60
+#: ../../source/about/layers.rst:79 ../../source/about/layers.rst:196
+#: ../../source/about/layers.rst:483
+msgid "-1"
+msgstr "-1"
+
+#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:79
+#: ../../source/about/layers.rst:196
+msgid "Degradation"
+msgstr "Degradación"
+
+#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:62
+#: ../../source/about/layers.rst:81 ../../source/about/layers.rst:92
+#: ../../source/about/layers.rst:198
+msgid "0"
+msgstr "0"
+
+#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:81
+#: ../../source/about/layers.rst:198
+msgid "No change"
+msgstr "Sin cambio"
+
+#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:64
+#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
+#: ../../source/about/layers.rst:200 ../../source/about/layers.rst:211
+#: ../../source/about/layers.rst:317 ../../source/about/layers.rst:456
+#: ../../source/about/layers.rst:485
+msgid "1"
+msgstr "1"
+
+#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:200
+msgid "Improvement"
+msgstr "Mejora"
+
+#: ../../source/about/layers.rst:34
+msgid "Productivity"
+msgstr "Productividad"
+
+#: ../../source/about/layers.rst:37
+msgid "Productivity trajectory (trend)"
+msgstr "Trayectoria de productividad (tendencia)"
+
+#: ../../source/about/layers.rst:44 ../../source/about/layers.rst:104
+#: ../../source/about/layers.rst:116 ../../source/about/layers.rst:130
+#: ../../source/about/layers.rst:142 ../../source/about/layers.rst:428
+#: ../../source/about/layers.rst:441 ../../source/about/layers.rst:502
+msgid "Any other value"
+msgstr "Cualquier otro valor"
+
+#: ../../source/about/layers.rst:44
+msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
+msgstr "Tendencia lineal del NDVI integrado anualmente, escalado en 10,000."
+
+#: ../../source/about/layers.rst:49
+msgid "Productivity trajectory (significance)"
+msgstr "Trayectoria de productividad (significancia)"
+
+#: ../../source/about/layers.rst:56
+msgid "-3"
+msgstr "-3"
+
+#: ../../source/about/layers.rst:56
+msgid "Significant decline (p > .99)"
+msgstr "Disminución significativa (> .99)"
+
+#: ../../source/about/layers.rst:58
+msgid "-2"
+msgstr "-2"
+
+#: ../../source/about/layers.rst:58
+msgid "Significant decline (p > .95)"
+msgstr "Disminución significativa (> .95)"
+
+#: ../../source/about/layers.rst:60
+msgid "Significant decline (p > .90)"
+msgstr "Disminución significativa (>.90)"
+
+#: ../../source/about/layers.rst:62
+msgid "No significant change"
+msgstr "Sin cambio significativo"
+
+#: ../../source/about/layers.rst:64
+msgid "Significant increase (p > .90)"
+msgstr "Aumento significativo (> .90)"
+
+#: ../../source/about/layers.rst:66 ../../source/about/layers.rst:157
+#: ../../source/about/layers.rst:176 ../../source/about/layers.rst:213
+#: ../../source/about/layers.rst:319 ../../source/about/layers.rst:458
+#: ../../source/about/layers.rst:487
+msgid "2"
+msgstr "2"
+
+#: ../../source/about/layers.rst:66
+msgid "Significant increase (p > .95)"
+msgstr "Aumento significativo (> .95)"
+
+#: ../../source/about/layers.rst:68 ../../source/about/layers.rst:159
+#: ../../source/about/layers.rst:178 ../../source/about/layers.rst:215
+#: ../../source/about/layers.rst:321 ../../source/about/layers.rst:460
+#: ../../source/about/layers.rst:489
+msgid "3"
+msgstr "3"
+
+#: ../../source/about/layers.rst:68
+msgid "Significant increase (p > .99)"
+msgstr "Aumento significativo (> .99)"
+
+#: ../../source/about/layers.rst:72
+msgid "Productivity performance (degradation)"
+msgstr "Rendimiento de productividad (degradación)"
+
+#: ../../source/about/layers.rst:85
+msgid "Productivity performance (ratio)"
+msgstr "Rendimiento de productividad (cociente)"
+
+#: ../../source/about/layers.rst:92
+msgid ""
+"Ratio of mean NDVI and maximum productivity. See background on `performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_."
+msgstr ""
+"Ratio de media NDVI y productividad máxima. Consulte el fondo sobre "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
+
+#: ../../source/about/layers.rst:97
+msgid "Productivity performance (units)"
+msgstr "Rendimiento de productividad (unidades)"
+
+#: ../../source/about/layers.rst:104
+msgid ""
+"ID number of unit used to calculate performance. See background on "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
+msgstr ""
+"Número de identificación de la unidad utilizada para calcular el "
+"rendimiento. Consulte el fondo sobre `performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_."
+
+#: ../../source/about/layers.rst:109
+msgid "Productivity state (degradation)"
+msgstr "Estado de la productividad (degradación)"
+
+#: ../../source/about/layers.rst:116
+msgid ""
+"Change in productivity state classes between baseline and target period, "
+"calculated as the rank in the target period minus the rank in the baseline "
+"period. Positive values indicate improvement, negative values indicate "
+"decline."
+msgstr ""
+"Cambio en las clases de estado de productividad entre la línea base y el "
+"período objetivo, calculado como la clasificación en el período objetivo "
+"menos la clasificación en el período base. Los valores positivos indican una"
+" mejora, los valores negativos indican una disminución."
+
+#: ../../source/about/layers.rst:123
+msgid "Productivity state classes"
+msgstr "Clases de estado de productividad"
+
+#: ../../source/about/layers.rst:130
+msgid ""
+"Percentile class for productivity state. See background on `productivity "
+"state <../background/understanding_indicators15.html#productivity-state>`_."
+msgstr ""
+"Clase percentil por estado de productividad. Consulte los antecedentes sobre"
+" `productivity state <../background/understanding_indicators15.html"
+"#productivity-state>`_."
+
+#: ../../source/about/layers.rst:135
+msgid "Productivity state NDVI mean"
+msgstr "Estado de productividad NDVI media"
+
+#: ../../source/about/layers.rst:142
+msgid ""
+"Mean annually integrated NDVI for the baseline period chosen for "
+"productivity state, scaled by 10,000. See background on `productivity state "
+"<../background/understanding_indicators15.html#productivity-state>`_."
+msgstr ""
+"Promedio anual NDVI integrado para el período de línea de base elegido para "
+"el estado de productividad, escalado en 10.000. Consulte los antecedentes "
+"sobre `productivity state <../background/understanding_indicators15.html"
+"#productivity-state>`_."
+
+#: ../../source/about/layers.rst:148
+msgid "SDG 15.3.1 productivity indicator"
+msgstr "Indicador de productividad ODS 15.3.1"
+
+#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
+msgid "Declining"
+msgstr "Declinante"
+
+#: ../../source/about/layers.rst:157
+msgid "Early signs of decline"
+msgstr "Primeros signos de disminución"
+
+#: ../../source/about/layers.rst:159
+msgid "Stable but stressed"
+msgstr "Estable pero estresado"
+
+#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
+#: ../../source/about/layers.rst:217 ../../source/about/layers.rst:323
+#: ../../source/about/layers.rst:462 ../../source/about/layers.rst:491
+msgid "4"
+msgstr "4"
+
+#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
+msgid "Stable"
+msgstr "Estable"
+
+#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
+#: ../../source/about/layers.rst:219 ../../source/about/layers.rst:325
+#: ../../source/about/layers.rst:464
+msgid "5"
+msgstr "5"
+
+#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
+msgid "Increasing"
+msgstr "Creciente"
+
+#: ../../source/about/layers.rst:167
+msgid "Land productivity dynamics"
+msgstr "Dinámica de la productividad del suelo."
+
+#: ../../source/about/layers.rst:176
+msgid "Moderate decline"
+msgstr "Disminución moderada"
+
+#: ../../source/about/layers.rst:178
+msgid "Stressed"
+msgstr "Estresado"
+
+#: ../../source/about/layers.rst:186
+msgid "Land cover"
+msgstr "Cobertura del terreno"
+
+#: ../../source/about/layers.rst:189
+msgid "Land cover (degradation)"
+msgstr "Cobertura del suelo (degradación)"
+
+#: ../../source/about/layers.rst:204
+msgid "Land cover (7 class)"
+msgstr "Cubierta del suelo (7 clase)"
+
+#: ../../source/about/layers.rst:211
+msgid "Tree-covered"
+msgstr "Cubierto de arboles"
+
+#: ../../source/about/layers.rst:213
+msgid "Grasslands"
+msgstr "Pastizales"
+
+#: ../../source/about/layers.rst:215
+msgid "Cropland"
+msgstr "Cultivo"
+
+#: ../../source/about/layers.rst:217
+msgid "Wetland"
+msgstr "Humedal"
+
+#: ../../source/about/layers.rst:219
+msgid "Artificial"
+msgstr "Artificial"
+
+#: ../../source/about/layers.rst:221 ../../source/about/layers.rst:327
+#: ../../source/about/layers.rst:466
+msgid "6"
+msgstr "6"
+
+#: ../../source/about/layers.rst:221
+msgid "Other land"
+msgstr "Otra cobertura"
+
+#: ../../source/about/layers.rst:223 ../../source/about/layers.rst:329
+#: ../../source/about/layers.rst:468
+msgid "7"
+msgstr "7"
+
+#: ../../source/about/layers.rst:223
+msgid "Water body"
+msgstr "Cuerpo de agua"
+
+#: ../../source/about/layers.rst:227
+msgid "Land cover (ESA classes)"
+msgstr "Cobertura del suelo (clases ESA)"
+
+#: ../../source/about/layers.rst:234
+msgid "10"
+msgstr "10"
+
+#: ../../source/about/layers.rst:234
+msgid "Cropland, rainfed"
+msgstr "Tierras de cultivo, de secano"
+
+#: ../../source/about/layers.rst:236
+msgid "11"
+msgstr "11"
+
+#: ../../source/about/layers.rst:236
+msgid "Herbaceous cover"
+msgstr "Cubierta herbácea"
+
+#: ../../source/about/layers.rst:238 ../../source/about/layers.rst:331
+msgid "12"
+msgstr "12"
+
+#: ../../source/about/layers.rst:238
+msgid "Tree or shrub cover"
+msgstr "Cubierta de arbol o arbusto"
+
+#: ../../source/about/layers.rst:240
+msgid "20"
+msgstr "20"
+
+#: ../../source/about/layers.rst:240
+msgid "Cropland, irrigated or post‐flooding"
+msgstr "Tierras de cultivo, irrigadas o post inundaciones"
+
+#: ../../source/about/layers.rst:242
+msgid "30"
+msgstr "30"
+
+#: ../../source/about/layers.rst:242
+msgid ""
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
+"(<50%)"
+msgstr ""
+"Tierras de cultivo de mosaico (> 50%) / vegetación natural (árbol, arbusto, "
+"cubierta herbácea) (<50%)"
+
+#: ../../source/about/layers.rst:244
+msgid "40"
+msgstr "40"
+
+#: ../../source/about/layers.rst:244
+msgid ""
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland "
+"(<50%)"
+msgstr ""
+"Vegetación natural mosaica (árbol, arbusto, cubierta herbácea) (> 50%) / "
+"tierras de cultivo (< 50%)"
+
+#: ../../source/about/layers.rst:246
+msgid "50"
+msgstr "50"
+
+#: ../../source/about/layers.rst:246
+msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
+msgstr ""
+"Cubierta arbórea, de hoja ancha, siempreverde, cerrada a abierta (> 15%)"
+
+#: ../../source/about/layers.rst:248
+msgid "60"
+msgstr "60"
+
+#: ../../source/about/layers.rst:248
+msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
+msgstr "Cubierta arbórea, de hoja ancha, decidua, cerrada a abierta (> 15%)"
+
+#: ../../source/about/layers.rst:250 ../../source/about/layers.rst:391
+msgid "61"
+msgstr "61"
+
+#: ../../source/about/layers.rst:250
+msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
+msgstr "Cubierta arbórea, de hoja ancha, decidua, cerrada (> 40%)"
+
+#: ../../source/about/layers.rst:252 ../../source/about/layers.rst:393
+msgid "62"
+msgstr "62"
+
+#: ../../source/about/layers.rst:252
+msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
+msgstr "Cubierta arbórea, de hoja ancha, decidua, abierta (15‐40%)"
+
+#: ../../source/about/layers.rst:254
+msgid "70"
+msgstr "70"
+
+#: ../../source/about/layers.rst:254
+msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
+msgstr ""
+"Cubierta de árbol, hojas de hojas sueltas, de hoja perenne, cerrada para "
+"abrir (> 15%)"
+
+#: ../../source/about/layers.rst:256 ../../source/about/layers.rst:403
+msgid "71"
+msgstr "71"
+
+#: ../../source/about/layers.rst:256
+msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
+msgstr "Cubierta arbórea, hojas acanaladas, siempreverdes, cerrada (> 40%)"
+
+#: ../../source/about/layers.rst:258 ../../source/about/layers.rst:405
+msgid "72"
+msgstr "72"
+
+#: ../../source/about/layers.rst:258
+msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
+msgstr ""
+"Cubierta de árbol, hojas de hojas sueltas, siempreverdes, abierta (15‐40%)"
+
+#: ../../source/about/layers.rst:260
+msgid "80"
+msgstr "80"
+
+#: ../../source/about/layers.rst:260
+msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
+msgstr ""
+"Cubierta arbórea, hoja de hojas, caducifolio, cerrada a abierta (> 15%)"
+
+#: ../../source/about/layers.rst:262
+msgid "81"
+msgstr "81"
+
+#: ../../source/about/layers.rst:262
+msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
+msgstr "Cubierta arbórea, sin hojas, decidua, cerrada (> 40%)"
+
+#: ../../source/about/layers.rst:264
+msgid "82"
+msgstr "82"
+
+#: ../../source/about/layers.rst:264
+msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
+msgstr "Cubierta arbórea, hoja de hojas, caducifolio, abierta (15‐40%)"
+
+#: ../../source/about/layers.rst:266
+msgid "90"
+msgstr "90"
+
+#: ../../source/about/layers.rst:266
+msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
+msgstr ""
+"Cubierta arbórea, tipo de hoja mixta (de hoja ancha y de hoja afilada)"
+
+#: ../../source/about/layers.rst:268
+msgid "100"
+msgstr "100"
+
+#: ../../source/about/layers.rst:268
+msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+msgstr "Mosaico de árboles y arbustos (> 50%) / cubierta herbácea (< 50%)"
+
+#: ../../source/about/layers.rst:270
+msgid "110"
+msgstr "110"
+
+#: ../../source/about/layers.rst:270
+msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+msgstr "Cobertura herbácea de mosaico (> 50%) / árbol y arbusto (<50%)"
+
+#: ../../source/about/layers.rst:272
+msgid "120"
+msgstr "120"
+
+#: ../../source/about/layers.rst:272
+msgid "Shrubland"
+msgstr "Shrubland"
+
+#: ../../source/about/layers.rst:274
+msgid "121"
+msgstr "121"
+
+#: ../../source/about/layers.rst:274
+msgid "Evergreen shrubland"
+msgstr "Arbustos de hoja perenne"
+
+#: ../../source/about/layers.rst:276
+msgid "122"
+msgstr "122"
+
+#: ../../source/about/layers.rst:276
+msgid "Deciduous shrubland"
+msgstr "Arbustos de hoja caduca"
+
+#: ../../source/about/layers.rst:278
+msgid "130"
+msgstr "130"
+
+#: ../../source/about/layers.rst:278
+msgid "Grassland"
+msgstr "Pastizal"
+
+#: ../../source/about/layers.rst:280
+msgid "140"
+msgstr "140"
+
+#: ../../source/about/layers.rst:280
+msgid "Lichens and mosses"
+msgstr "Líquenes y musgos"
+
+#: ../../source/about/layers.rst:282
+msgid "150"
+msgstr "150"
+
+#: ../../source/about/layers.rst:282
+msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+msgstr "Vegetación escasa (árbol, arbusto, cubierta herbácea) (<15%)"
+
+#: ../../source/about/layers.rst:284
+msgid "151"
+msgstr "151"
+
+#: ../../source/about/layers.rst:284
+msgid "Sparse tree (<15%)"
+msgstr "Árbol disperso (<15%)"
+
+#: ../../source/about/layers.rst:286
+msgid "152"
+msgstr "152"
+
+#: ../../source/about/layers.rst:286
+msgid "Sparse shrub (<15%)"
+msgstr "Arbusto escaso (<15%)"
+
+#: ../../source/about/layers.rst:288
+msgid "153"
+msgstr "153"
+
+#: ../../source/about/layers.rst:288
+msgid "Sparse herbaceous cover (<15%)"
+msgstr "Cobertura herbácea escasa (<15%)"
+
+#: ../../source/about/layers.rst:290
+msgid "160"
+msgstr "160"
+
+#: ../../source/about/layers.rst:290
+msgid "Tree cover, flooded, fresh or brakish water"
+msgstr "Cubierta de árboles, agua inundada, fresca o brava."
+
+#: ../../source/about/layers.rst:292
+msgid "170"
+msgstr "170"
+
+#: ../../source/about/layers.rst:292
+msgid "Tree cover, flooded, saline water"
+msgstr "Cubierta arbórea, inundada, agua salina."
+
+#: ../../source/about/layers.rst:294
+msgid "180"
+msgstr "180"
+
+#: ../../source/about/layers.rst:294
+msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+msgstr "Arbusto o cubierta herbácea, inundada, agua dulce / salina / brakish"
+
+#: ../../source/about/layers.rst:296
+msgid "190"
+msgstr "190"
+
+#: ../../source/about/layers.rst:296
+msgid "Urban areas"
+msgstr "Areas urbanas"
+
+#: ../../source/about/layers.rst:298
+msgid "200"
+msgstr "200"
+
+#: ../../source/about/layers.rst:298
+msgid "Bare areas"
+msgstr "Areas desnudas"
+
+#: ../../source/about/layers.rst:300
+msgid "201"
+msgstr "201"
+
+#: ../../source/about/layers.rst:300
+msgid "Consolidated bare areas"
+msgstr "Áreas desnudas consolidadas"
+
+#: ../../source/about/layers.rst:302
+msgid "202"
+msgstr "202"
+
+#: ../../source/about/layers.rst:302
+msgid "Unconsolidated bare areas"
+msgstr "Áreas desnudas no consolidadas"
+
+#: ../../source/about/layers.rst:304
+msgid "210"
+msgstr "210"
+
+#: ../../source/about/layers.rst:304
+msgid "Water bodies"
+msgstr "Cuerpos de agua"
+
+#: ../../source/about/layers.rst:306
+msgid "220"
+msgstr "220"
+
+#: ../../source/about/layers.rst:306
+msgid "Permanent snow and ice"
+msgstr "Nieve y hielo permanente"
+
+#: ../../source/about/layers.rst:310
+msgid "Land cover (transitions)"
+msgstr "Cobertura del suelo (transiciones)"
+
+#: ../../source/about/layers.rst:317
+msgid "Tree-covered - Tree-covered (no change)"
+msgstr "Cubierto de árboles - Cubierto de árboles (sin cambios)"
+
+#: ../../source/about/layers.rst:319
+msgid "Grassland - Grassland (no change)"
+msgstr "Pradera - Pradera (sin cambios)"
+
+#: ../../source/about/layers.rst:321
+msgid "Cropland - Cropland (no change)"
+msgstr "Tierras de cultivo - Tierras de cultivo (sin cambios)"
+
+#: ../../source/about/layers.rst:323
+msgid "Wetland - Wetland (no change)"
+msgstr "Humedal - Humedal (sin cambios)"
+
+#: ../../source/about/layers.rst:325
+msgid "Artificial - Artificial (no change)"
+msgstr "Artificial - Artificial (sin cambios)"
+
+#: ../../source/about/layers.rst:327
+msgid "Other land - Other land (no change)"
+msgstr "Otras tierras - Otras tierras (sin cambios)"
+
+#: ../../source/about/layers.rst:329
+msgid "Water body - Water body (no change)"
+msgstr "Cuerpo de agua - Cuerpo de agua (sin cambios)"
+
+#: ../../source/about/layers.rst:331
+msgid "Forest - Grassland"
+msgstr "Bosque - Pradera"
+
+#: ../../source/about/layers.rst:333
+msgid "13"
+msgstr "13"
+
+#: ../../source/about/layers.rst:333
+msgid "Forest - Cropland"
+msgstr "Bosque - Tierras de cultivo"
+
+#: ../../source/about/layers.rst:335
+msgid "14"
+msgstr "14"
+
+#: ../../source/about/layers.rst:335
+msgid "Forest - Wetland"
+msgstr "Bosque - Humedal"
+
+#: ../../source/about/layers.rst:337
+msgid "15"
+msgstr "15"
+
+#: ../../source/about/layers.rst:337
+msgid "Forest - Artificial"
+msgstr "Bosque - Artificial"
+
+#: ../../source/about/layers.rst:339
+msgid "16"
+msgstr "16"
+
+#: ../../source/about/layers.rst:339
+msgid "Forest - Other land"
+msgstr "Bosque - Otras tierras"
+
+#: ../../source/about/layers.rst:341
+msgid "17"
+msgstr "17"
+
+#: ../../source/about/layers.rst:341
+msgid "Forest - Water body"
+msgstr "Bosque - Cuerpo de agua"
+
+#: ../../source/about/layers.rst:343
+msgid "21"
+msgstr "21"
+
+#: ../../source/about/layers.rst:343
+msgid "Grassland - Forest"
+msgstr "Pastizales - Bosque"
+
+#: ../../source/about/layers.rst:345
+msgid "23"
+msgstr "23"
+
+#: ../../source/about/layers.rst:345
+msgid "Grassland - Cropland"
+msgstr "Pastizales - Tierras de cultivo"
+
+#: ../../source/about/layers.rst:347
+msgid "24"
+msgstr "24"
+
+#: ../../source/about/layers.rst:347
+msgid "Grassland - Wetland"
+msgstr "Pradera - Humedal"
+
+#: ../../source/about/layers.rst:349
+msgid "25"
+msgstr "25"
+
+#: ../../source/about/layers.rst:349
+msgid "Grassland - Artificial"
+msgstr "Pradera - Artificial"
+
+#: ../../source/about/layers.rst:351
+msgid "26"
+msgstr "26"
+
+#: ../../source/about/layers.rst:351
+msgid "Grassland - Other land"
+msgstr "Pradera - Otras tierras"
+
+#: ../../source/about/layers.rst:353
+msgid "27"
+msgstr "27"
+
+#: ../../source/about/layers.rst:353
+msgid "Grassland - Water body"
+msgstr "Pastizales - Cuerpo de agua"
+
+#: ../../source/about/layers.rst:355
+msgid "31"
+msgstr "31"
+
+#: ../../source/about/layers.rst:355
+msgid "Cropland - Forest"
+msgstr "Tierras de cultivo - Bosque"
+
+#: ../../source/about/layers.rst:357
+msgid "32"
+msgstr "32"
+
+#: ../../source/about/layers.rst:357
+msgid "Cropland - Grassland"
+msgstr "Tierras de cultivo - Pastizales"
+
+#: ../../source/about/layers.rst:359
+msgid "34"
+msgstr "34"
+
+#: ../../source/about/layers.rst:359
+msgid "Cropland - Wetland"
+msgstr "Tierras de cultivo - Humedal"
+
+#: ../../source/about/layers.rst:361
+msgid "35"
+msgstr "35"
+
+#: ../../source/about/layers.rst:361
+msgid "Cropland - Artificial"
+msgstr "Tierras de cultivo - Artificial"
+
+#: ../../source/about/layers.rst:363
+msgid "36"
+msgstr "36"
+
+#: ../../source/about/layers.rst:363
+msgid "Cropland - Other land"
+msgstr "Tierras de cultivo - Otras tierras"
+
+#: ../../source/about/layers.rst:365
+msgid "37"
+msgstr "37"
+
+#: ../../source/about/layers.rst:365
+msgid "Cropland - Water body"
+msgstr "Tierras de cultivo - Cuerpo de agua."
+
+#: ../../source/about/layers.rst:367
+msgid "41"
+msgstr "41"
+
+#: ../../source/about/layers.rst:367
+msgid "Wetland - Forest"
+msgstr "Humedal - Bosque"
+
+#: ../../source/about/layers.rst:369
+msgid "42"
+msgstr "42"
+
+#: ../../source/about/layers.rst:369
+msgid "Wetland - Grassland"
+msgstr "Humedal - Pastizal"
+
+#: ../../source/about/layers.rst:371
+msgid "43"
+msgstr "43"
+
+#: ../../source/about/layers.rst:371
+msgid "Wetland - Cropland"
+msgstr "Humedal - Tierras de cultivo"
+
+#: ../../source/about/layers.rst:373
+msgid "45"
+msgstr "45"
+
+#: ../../source/about/layers.rst:373
+msgid "Wetland - Artificial"
+msgstr "Humedal - Artificial"
+
+#: ../../source/about/layers.rst:375
+msgid "46"
+msgstr "46"
+
+#: ../../source/about/layers.rst:375
+msgid "Wetland - Other land"
+msgstr "Humedal - Otras tierras"
+
+#: ../../source/about/layers.rst:377
+msgid "47"
+msgstr "47"
+
+#: ../../source/about/layers.rst:377
+msgid "Wetland - Water body"
+msgstr "Humedal - Cuerpo de agua"
+
+#: ../../source/about/layers.rst:379
+msgid "51"
+msgstr "51"
+
+#: ../../source/about/layers.rst:379
+msgid "Artificial - Forest"
+msgstr "Artificial - Bosque"
+
+#: ../../source/about/layers.rst:381
+msgid "52"
+msgstr "52"
+
+#: ../../source/about/layers.rst:381
+msgid "Artificial - Grassland"
+msgstr "Artificial - Pastizal"
+
+#: ../../source/about/layers.rst:383
+msgid "53"
+msgstr "53"
+
+#: ../../source/about/layers.rst:383
+msgid "Artificial - Cropland"
+msgstr "Artificial - Tierras de cultivo"
+
+#: ../../source/about/layers.rst:385
+msgid "54"
+msgstr "54"
+
+#: ../../source/about/layers.rst:385
+msgid "Artificial - Wetland"
+msgstr "Artificial - Humedal"
+
+#: ../../source/about/layers.rst:387
+msgid "56"
+msgstr "56"
+
+#: ../../source/about/layers.rst:387
+msgid "Artificial - Other land"
+msgstr "Artificial - Otras tierras"
+
+#: ../../source/about/layers.rst:389
+msgid "57"
+msgstr "57"
+
+#: ../../source/about/layers.rst:389
+msgid "Artificial - Water body"
+msgstr "Artificial - Cuerpo de agua."
+
+#: ../../source/about/layers.rst:391
+msgid "Other land - Forest"
+msgstr "Otras tierras - Bosque"
+
+#: ../../source/about/layers.rst:393
+msgid "Other land - Grassland"
+msgstr "Otras tierras - Pastizales"
+
+#: ../../source/about/layers.rst:395
+msgid "63"
+msgstr "63"
+
+#: ../../source/about/layers.rst:395
+msgid "Other land - Cropland"
+msgstr "Otras tierras - Cropland"
+
+#: ../../source/about/layers.rst:397
+msgid "64"
+msgstr "64"
+
+#: ../../source/about/layers.rst:397
+msgid "Other land - Wetland"
+msgstr "Otras tierras - humedales"
+
+#: ../../source/about/layers.rst:399
+msgid "65"
+msgstr "65"
+
+#: ../../source/about/layers.rst:399
+msgid "Other land - Artificial"
+msgstr "Otras tierras - Artificial"
+
+#: ../../source/about/layers.rst:401
+msgid "67"
+msgstr "67"
+
+#: ../../source/about/layers.rst:401
+msgid "Other land - Water body"
+msgstr "Otras tierras - Cuerpo de agua."
+
+#: ../../source/about/layers.rst:403
+msgid "Water body - Forest"
+msgstr "Cuerpo de agua - Bosque"
+
+#: ../../source/about/layers.rst:405
+msgid "Water body - Grassland"
+msgstr "Cuerpo de agua - Pastizal"
+
+#: ../../source/about/layers.rst:407
+msgid "73"
+msgstr "73"
+
+#: ../../source/about/layers.rst:407
+msgid "Water body - Cropland"
+msgstr "Cuerpo de agua - Tierras de cultivo"
+
+#: ../../source/about/layers.rst:409
+msgid "74"
+msgstr "74"
+
+#: ../../source/about/layers.rst:409
+msgid "Water body - Wetland"
+msgstr "Cuerpo de agua - Humedal"
+
+#: ../../source/about/layers.rst:411
+msgid "75"
+msgstr "75"
+
+#: ../../source/about/layers.rst:411
+msgid "Water body - Artificial"
+msgstr "Cuerpo de agua - Artificial."
+
+#: ../../source/about/layers.rst:413
+msgid "76"
+msgstr "76"
+
+#: ../../source/about/layers.rst:413
+msgid "Water body - Other land"
+msgstr "Cuerpo de agua - Otras tierras"
+
+#: ../../source/about/layers.rst:417 ../../source/about/layers.rst:434
+msgid "Soil organic carbon"
+msgstr "Carbono orgánico del suelo"
+
+#: ../../source/about/layers.rst:421
+msgid "Soil organic carbon (degradation)"
+msgstr "Carbono orgánico del suelo (degradación)"
+
+#: ../../source/about/layers.rst:428
+msgid ""
+"Percentage change in soil organic carbon content (0 - 30 cm depth) from "
+"baseline to target year. Positive values indicate increase, negative values "
+"indicate decrease."
+msgstr ""
+"Cambio porcentual en el contenido de carbono orgánico del suelo (0 a 30 cm "
+"de profundidad) desde la línea de base hasta el año objetivo. Los valores "
+"positivos indican aumento, los valores negativos indican disminución."
+
+#: ../../source/about/layers.rst:441
+msgid ""
+"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgstr ""
+"Contenido de carbono orgánico del suelo (0 - 30 cm de profundidad) en "
+"toneladas métricas por hectárea"
+
+#: ../../source/about/layers.rst:445
+msgid "SDG 11.3.1 (sustainable urbanization)"
+msgstr "ODS 11.3.1 (urbanización sostenible)"
+
+#: ../../source/about/layers.rst:449 ../../source/about/layers.rst:456
+msgid "Urban"
+msgstr "Urbano"
+
+#: ../../source/about/layers.rst:458
+msgid "Suburban"
+msgstr "Suburbano"
+
+#: ../../source/about/layers.rst:460
+msgid "Built-up rural"
+msgstr "Edifición rural"
+
+#: ../../source/about/layers.rst:462
+msgid "Open space (fringe)"
+msgstr "Espacio abierto (borde)"
+
+#: ../../source/about/layers.rst:464
+msgid "Open space (captured)"
+msgstr "Espacio abierto (capturado)"
+
+#: ../../source/about/layers.rst:466
+msgid "Open space (rural)"
+msgstr "Espacio abierto (rural)"
+
+#: ../../source/about/layers.rst:468
+msgid "Open space (fringe water)"
+msgstr "Espacio abierto (agua borde)"
+
+#: ../../source/about/layers.rst:470
+msgid "8"
+msgstr "8"
+
+#: ../../source/about/layers.rst:470
+msgid "Open space (captured water)"
+msgstr "Espacio abierto (agua capturada)"
+
+#: ../../source/about/layers.rst:472
+msgid "9"
+msgstr "9"
+
+#: ../../source/about/layers.rst:472
+msgid "Open space (rural water)"
+msgstr "Espacio abierto (agua rural)"
+
+#: ../../source/about/layers.rst:476
+msgid "Urban series"
+msgstr "Series urbanas"
+
+#: ../../source/about/layers.rst:483
+msgid "Water"
+msgstr "Agua"
+
+#: ../../source/about/layers.rst:485
+msgid "Built up by 2000"
+msgstr "Construido en el año 2000"
+
+#: ../../source/about/layers.rst:487
+msgid "Built up by 2005"
+msgstr "Construido en 2005"
+
+#: ../../source/about/layers.rst:489
+msgid "Built up by 2010"
+msgstr "Construido en 2010"
+
+#: ../../source/about/layers.rst:491
+msgid "Built up by 2015"
+msgstr "Construido en 2015"
+
+#: ../../source/about/layers.rst:495
+msgid "Population"
+msgstr "Población"
+
+#: ../../source/about/layers.rst:502
+msgid "Total population within grid cell"
+msgstr "Población total dentro de la celda de la cuadrícula"

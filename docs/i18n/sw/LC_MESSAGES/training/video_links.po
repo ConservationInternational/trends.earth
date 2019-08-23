@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2017-11-21 20:57+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/training/video_links.rst:2
+msgid "Video Overviews"
+msgstr "Uhtasari wa Video"
+
+#: ../../source/training/video_links.rst:4
+msgid "`Installing QGIS (English) <https://youtu.be/d7qCSpauj0g>`_"
+msgstr "`Kufunga QGIS (Kiingereza) <https://youtu.be/d7qCSpauj0g>`_"
+
+#: ../../source/training/video_links.rst:5
+msgid "`Toolbox installation (English) <https://youtu.be/uSTvNMpZF4I>`_"
+msgstr "`Bodi ya ufungaji (Kiingereza) <https://youtu.be/uSTvNMpZF4I>`_"
+
+#: ../../source/training/video_links.rst:6
+msgid "`Toolbox setup (English) <https://youtu.be/qm5LFF-jhaM>`_"
+msgstr "`Kusaniko la Bodi (Kiingereza) <https://youtu.be/qm5LFF-jhaM>`_"
+
+#: ../../source/training/video_links.rst:7
+msgid "Download data (English)"
+msgstr "Pakua data (Kiingereza)"
+
+#: ../../source/training/video_links.rst:8
+msgid ""
+"`Calculate Indicators - Trends.Earth Overview (English) "
+"<https://youtu.be/MY1iuedIkFE>`_"
+msgstr ""
+"&#39;Vigezo vya Hesabu - Mwelekeo wa Maelezo ya Kati (Kiingereza) "
+"<https://youtu.be/MY1iuedIkFE> `_"
+
+#: ../../source/training/video_links.rst:9
+msgid ""
+"`Calculate Indicators - Detailed Trends.Earth Tutorial (English) "
+"<https://youtu.be/MY1iuedIkFE>`_"
+msgstr ""
+"&#39;Vigezo vya Hesabu - Mwelekeo wa kina.Mafunzo Tatu (Kiingereza) "
+"<https://youtu.be/MY1iuedIkFE> `_"
+
+#: ../../source/training/video_links.rst:10
+msgid "Calculate Indicators - Productivity(English)"
+msgstr "Viashiria vya Hesabu - Uzalishaji (Kiingereza)"
+
+#: ../../source/training/video_links.rst:11
+msgid "Calculate Indicators - Land Cover (English)"
+msgstr "Viashiria vya Hesabu - Jalada la Nchi (Kiingereza)"
+
+#: ../../source/training/video_links.rst:12
+msgid "Calculate Indicators - Soil Organic Carbon (English)"
+msgstr "Viashiria vya Hesabu - Soli Organic Carbon (Kiingereza)"
+
+#: ../../source/training/video_links.rst:13
+msgid "Visualizing indicators (English)"
+msgstr "Kuangalia viashiria (Kiingereza)"
+
+#: ../../source/training/video_links.rst:14
+msgid "`Plotting time series data (English) <https://youtu.be/w3J6o9HMbJ0>`_"
+msgstr ""
+"`Plotting data series mfululizo (Kiingereza) "
+"<https://youtu.be/w3J6o9HMbJ0>`_"
+
+#: ../../source/training/video_links.rst:15
+msgid "Reporting SDG and UNCCD (English)"
+msgstr "Taarifa ya SDG na UNCCD (Kiingereza)"
+
+#: ../../source/training/video_links.rst:16
+msgid "Interpreting results (English)"
+msgstr "Kutafsiri matokeo (Kiingereza)"

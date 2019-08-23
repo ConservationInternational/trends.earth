@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2017-11-20 21:06+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/documentation/gee_tasks.rst:2
+msgid "View and download results"
+msgstr "Visualizar e baixar resultados"
+
+#: ../../source/documentation/gee_tasks.rst:6
+msgid ""
+"Once you have submitted a calculation using |trends.earth|, it is sent to "
+"Google Earth Engine to run the calculations in the cloud. To view the Google"
+" Earth Engine (GEE) tasks you have running, and to download your results, "
+"select the cloud with the arrow facing down icon (|iconCloudDownload|). This"
+" will open up the `Download results from Earth Engine` dialog box."
+msgstr ""
+"Depois de enviar um cálculo usando | trends.earth |, ele é enviado ao Google"
+" Earth Engine para executar os cálculos na nuvem. Para ver as tarefas do "
+"Google Earth Engine (GEE) em execução e para fazer o download dos "
+"resultados, selecione a nuvem com o ícone da seta voltada para baixo (| "
+"iconCloudDownload |). Isso abrirá a caixa de diálogo \"Baixar resultados do "
+"Earth Engine\"."
+
+#: ../../source/documentation/gee_tasks.rst:12
+msgid ""
+"Click `Refresh List` to show all the tasks you have submitted and their "
+"status."
+msgstr ""
+"Clique em `Atualizar lista` para mostrar todas as tarefas que você enviou e "
+"seu status."
+
+#: ../../source/documentation/gee_tasks.rst:14
+msgid ""
+"Users can view their current and previous tasks here. the table shows the "
+"task name provided by the user, which analysis is running (job), the start "
+"time and end time of when the task was started and completed and whether or "
+"not the task was successful. The Details page outlines the different options"
+" the user chose for each task."
+msgstr ""
+"Os usuários podem visualizar suas tarefas atuais e anteriores aqui. a tabela"
+" mostra o nome da tarefa fornecido pelo usuário, qual análise está em "
+"execução (job), a hora de início e de término de quando a tarefa foi "
+"iniciada e concluída e se a tarefa foi bem-sucedida ou não. A página "
+"Detalhes descreve as diferentes opções que o usuário escolheu para cada "
+"tarefa."
+
+#: ../../source/documentation/gee_tasks.rst:26
+msgid ""
+"To download results to the computer once a task has finished, click on the "
+"task you are interested in downloading results for, then click `Download "
+"results`. In the window that appears, choose the location in which to save "
+"the download. Note that some downloads might consist of multiple files - all"
+" of these files need to be kept together if the results are moved to a "
+"different location on the computer (or saved to a USB stick)."
+msgstr ""
+"Para baixar os resultados para o computador assim que a tarefa terminar, "
+"clique na tarefa que você está interessado em baixar os resultados e, em "
+"seguida, clique em \"Download results\". Na janela exibida, escolha o local "
+"no qual salvar o download. Observe que alguns downloads podem consistir em "
+"vários arquivos - todos esses arquivos precisam ser mantidos juntos se os "
+"resultados forem movidos para um local diferente no computador (ou salvos em"
+" um pendrive)."

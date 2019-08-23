@@ -1,9 +1,8 @@
-paver
+invoke
 boto3
 sphinx
 sphinx-intl
 sphinx-rtd-theme
-transifex-client
+transifex-client>=0.13.6
 pylint
-pep8
-autopep8
+pip>=10.0.0

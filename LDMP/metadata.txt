@@ -10,7 +10,7 @@
 name=trends.earth
 qgisMinimumVersion=3.0
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.57
+version=0.67
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -20,10 +20,67 @@ tracker=https://github.com/ConservationInternational/trends.earth/issues
 
 repository=https://github.com/ConservationInternational/trends.earth
 
+# Tags are comma separated with spaces allowed
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
+
+homepage=http://trends.earth
+category=Plugins
+icon=trends_earth_logo_square_32x32.png
+# experimental flag
+experimental=False
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
 # Uncomment the following line and add your changelog:
-changelog=0.56.5
+changelog=0.67 (not yet released)
+    - Move documentation into docs folder at root of trends.earth repository.
+    - Add more details on how to documentation on how to contribute to 
+      development of Trends.Earth,
+    - Clean up repository by removing compiled translations files, and adding 
+      these file types to .gitignore.
+    - Change transifex project name to be "trendsearth".
+  0.66 (July 20, 2019)
+    - Limit maximum area for tasks to 10,000,000 sq km, except for urban area 
+      tasks, which is limited to 10,000 sq km.
+    - Add background section on SDG 11.3.1, and update SDG 11.3.1 tutorial.
+    - Update SDG 11.3.1 code to include 1998 in the series (internally during 
+      calculation) in order to filter noise from the beginning of the urban series.
+    - Fix date restrictions in SDG 15.3.1 all-in-one tool to account for both 
+      ESA and MODIS availability.
+    - Add section to readme on how to install Github releases.
+    - Update and review Spanish translations, update google translations for 
+      other languages.
+  0.64 (July 9, 2019)
+    - Fix handling of nodata in total carbon tool.
+    - Add support for 2018 Hansen data in total carbon tool.
+    - Add support for global 30m biomass data from Wood's Hole in total carbon 
+    - Set maximum final year for one step SDG 15.3.1 tool to be 2015 (matching 
+      the ESA data).
+    - Make Trends.Earth productivity the default dataset in SDG one step tool 
+      for 15.3.1.
+  0.62 (January 27, 2019)
+    - Add experimental tool for mapping potential carbon returns from 
+      alternative restoration interventions.
+    - Add 2018 MODIS data.
+    - Miscellaneous fixes to window sizing for GUI windows.
+    - Upgrade to latest openpyxl - fixes loading of Trends.Earth logo in 
+      summary tables.
+    - Add publication list to help docs.
+  0.60 (December 3, 2018)
+    - Add calculation of change in urban area and population growth 
+      rate (SDG 11.3.1)
+    - Fix default button/entry field heights
+      Add city selection for AOI
+    - Add optional buffering of AOI
+  0.58 (August 11, 2018)
+    - Add a testing section to the calculations page
+    - Add testing version of total carbon (above and below-ground) and 
+      emissions due to deforestation
+    - Minor bug fixes, including for invalid polygons in input AOIs
+  0.56.5 (May 21, 2018)
     - Fix error with LPD import requesting a data year.
-  0.56.4
+  0.56.4 (May 21, 2018)
     - Always resample imported data to the highest resolution.
     - Fix custom SOC import climate zones to use an expanded climate zones 
       dataset to eliminate no data.
@@ -31,31 +88,43 @@ changelog=0.56.5
     - Force entry of date on SOC and LC data import
     - Add global Trends.Earth outputs to download tool.
     - Fix handling of NULL values in legends.
-  0.56.3
+  0.56.3 (April 21, 2018)
     - Fix calculation of summary tables for AOIs that are split across the 
       180th meridian (Fiji, Russia, etc.).
     - Modify state calculation so areas with very small magnitude changes in 
-      NDVI integral (< .1 NDVI units over full period) are considered stable.
-  0.56.2
+      NDVI integral (< .01 NDVI units over full period) are considered stable.
+  0.56.2 (April 10, 2018)
     - Minor unicode fixes.
-  0.56.1
+  0.56.1 (April 10, 2018)
     - Fix marshhmallow error on plugin load
-  0.56
+  0.56 (April 9, 2018)
     - Fix issue with rasterizing data (empty rasters on output)
     - Force user to choose output resolution if rasterizing a vector
     - Support calculation of SOC degradation from custom SOC and LC data
-  0.54
+  0.54 (April 8, 2018)
     - Support loading of custom LPD, SOC, and LC data.
     - Cleanup styles so they match maps.trends.earth
     - Upgrade pyopenxl
     - Add import/load icons to all layer selector boxes
-  0.46
+  0.52.1 (March 21, 2018)
+    - Minor bug fixes during Antalya workshop.
+  0.52.1 (March 21, 2018)
+    - Minor bug fixes during Antalya workshop.
+  0.52 (March 19, 2018)
+    - Clean AOI processing code.
+  0.50 (March 15, 2018)
+    - Pass exception if only related to Trends.Earth logo addition in Excel 
+      file.
+    - Various minor bug fixes.
+  0.48 (March 13, 2018)
+    - Fix table formatting
+  0.46 (March 13, 2018)
     - Support reporting table calculation with multiple geometries (Fiji, Russia)
     - Add LPD and LC tables to UNCCD worksheet tab
     - Clean up the warning message in the LPD import tool
     - Fix TE final combined productivity layer loading
     - Fix download tasks (still no styles)
-  0.44
+  0.44 (March 12, 2018)
     - Add JRC LPD
     - Add tool for uploading custom land cover data
     - Add tool for uploading custom productivity data
@@ -71,9 +140,9 @@ changelog=0.56.5
     - Support processing data for countries that cross the 180th meridian
     - Improve formatting of summary table
     - From now on, GEE script versions will be matched to the plugin version
-  0.42
+  0.42 (February 4, 2018)
     - Fix crash on change of LC aggregation (due setEnabled on removed label)
-  0.40
+  0.40 (February 4, 2018)
     - Remove use of mode for land cover indicator.
     - Combine the summary table and SDG indicator map creation tools.
     - Add stub for where JRC LPD product will be available.
@@ -82,8 +151,7 @@ changelog=0.56.5
     - Fix error due to divide by zero on summary table generation when a class 
       has zero area.
     - Default to MODIS for productivity calculations.
-  0.38
-    - Add annual soil organic carbon calculation
+  0.38 (January 16, 2018)
     - Add annual soil organic carbon calculation
     - Cleanup AOI processing code, allow multiple input polygons in shapefile 
       AOIs
@@ -101,17 +169,14 @@ changelog=0.56.5
     - Add a tool to load existing trends.earth datasets into QGIS.
     - Fix land cover date limits - don't allow invalid dates toi be selected 
       from CCI data.
-  0.36
+  0.36 (December 14, 2017)
     - Fix issue with showEvent on create map reporting tool.
-
-# Tags are comma separated with spaces allowed
-tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
-
-homepage=http://trends.earth
-category=Plugins
-icon=trends_earth_logo_square_32x32.png
-# experimental flag
-experimental=False
-
-# deprecated flag (applies to the whole plugin, not just a single version)
-deprecated=False
+  0.34 (December 14, 2017)
+  0.32 (December 14, 2017)
+  0.30 (December 12, 2017)
+  0.24 (December 6, 2017)
+  0.22 (December 4, 2017)
+  0.18 (December 2, 2017)
+  0.16 (November 6, 2017)
+  0.14 (October 25, 2017)
+  0.12 (October 6, 2017)

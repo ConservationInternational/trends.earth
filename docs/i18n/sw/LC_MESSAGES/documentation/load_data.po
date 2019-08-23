@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2018-03-14 19:33+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/documentation/load_data.rst:2
+msgid "Load data tool"
+msgstr "Weka chombo cha data"
+
+#: ../../source/documentation/load_data.rst:6
+msgid ""
+"The \"Load data\" function allows the user to load data into QGIS and "
+"|trends.earth| for analysis."
+msgstr ""
+"Kazi ya \"Dhibiti data\" inaruhusu mtumiaji kupakia data katika QGIS na | "
+"trends.earth | kwa uchambuzi."
+
+#: ../../source/documentation/load_data.rst:9
+msgid ""
+"There are two options, to load results of |trends.earth| analysis or to load"
+" custom datasets which will be used to compute the indicators."
+msgstr ""
+"Kuna chaguzi mbili, kupakia matokeo ya | trends.earth | uchambuzi au kupakia"
+" dasaset za desturi zitakazotumiwa kuhesabu viashiria."
+
+#: ../../source/documentation/load_data.rst:16
+msgid "Load a dataset produced by Trends.Earth"
+msgstr "Weka dasaset iliyotolewa na Trends.Earth"
+
+#: ../../source/documentation/load_data.rst:18
+msgid ""
+"This option lets you load already downloaded results from |trends.earth|."
+msgstr ""
+"Chaguo hili inakuwezesha kupakia matokeo tayari kupakuliwa kutoka | "
+"trends.earth |."
+
+#: ../../source/documentation/load_data.rst:21
+#: ../../source/documentation/load_data.rst:111
+msgid "Productivity"
+msgstr "Uzalishaji"
+
+#: ../../source/documentation/load_data.rst:23
+msgid ""
+"Use this function to load into the QGIS map pre-computed productivity "
+"indicators which had been processed to identify land degradation."
+msgstr ""
+"Tumia kazi hii kupakia kwenye ramani ya QGIS ramani ambazo hazijaanzishwa "
+"kabla ya kuchambuliwa ambazo zimekusanywa kutambua uharibifu wa ardhi."
+
+#: ../../source/documentation/load_data.rst:26
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is an 8 band raster, with each band representing the "
+"three subindicators (trajectory, performance and state) plus other "
+"information which may help you interpret the trends identified. The layers "
+"to be loaded into the QGIS maps are the ones highlighted in gray. By "
+"default: trajectory (degradation and slope), performance and state. If you "
+"want to load the other layers, simply select them and click OK."
+msgstr ""
+"Nenda kwenye folda ambapo ulihifadhi faili iliyopakuliwa na uipate. Faili "
+"iliyopakuliwa ni raster ya bandari 8, na kila bendi inayowakilisha "
+"subindicators tatu (trajectory, utendaji na hali) pamoja na maelezo mengine "
+"ambayo yanaweza kukusaidia kutafsiri mwenendo uliotambuliwa. Vipande "
+"vinavyopakiwa kwenye ramani za QGIS nizo zilizotajwa kwenye kijivu. Kwa "
+"default: trajectory (uharibifu na mteremko), utendaji na hali. Ikiwa unataka"
+" kupakia tabaka zingine, chagua tu na bofya OK."
+
+#: ../../source/documentation/load_data.rst:34
+#: ../../source/documentation/load_data.rst:56
+#: ../../source/documentation/load_data.rst:81
+#: ../../source/documentation/load_data.rst:100
+msgid ""
+"The layers will be loaded in the QGIS map with its corresponding symbology."
+msgstr ""
+"Vipande vilivyowekwa kwenye ramani ya QGIS na ishara yake inayofanana."
+
+#: ../../source/documentation/load_data.rst:40
+#: ../../source/documentation/load_data.rst:129
+msgid "Land cover"
+msgstr "Bima ya ardhi"
+
+#: ../../source/documentation/load_data.rst:42
+msgid ""
+"This option lets you load pre-computed land cover indicators which had been "
+"processed to identify land degradation."
+msgstr ""
+"Chaguo hili inakuwezesha kupakia vigezo vya kifuniko cha ardhi kabla ya "
+"kuchambuliwa ambayo imechukuliwa ili kutambua uharibifu wa ardhi."
+
+#: ../../source/documentation/load_data.rst:45
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is a multi band raster. The number of bands will depend "
+"on the period of analysis selected and the data source used. If the default "
+"ESA CCI land cover was used, for example, annual land cover maps will be "
+"downloaded."
+msgstr ""
+"Nenda kwenye folda ambapo ulihifadhi faili iliyopakuliwa na uipate. Faili "
+"iliyopakuliwa ni raster ya bendi nyingi. Idadi ya bendi itategemea kipindi "
+"cha uchambuzi kilichochaguliwa na chanzo cha data kinatumika. Ikiwa chanjo "
+"ya ardhi ya ESA CCI cha kutumiwa ilitumiwa, kwa mfano, ramani za ramani za "
+"kila mwaka zitapakuliwa."
+
+#: ../../source/documentation/load_data.rst:49
+msgid ""
+"The bands in the stack represent: initial and final land cover (annual if "
+"available) both in the original classification scheme and using the UNCCD 7 "
+"class land cover table, land cover transitions and land cover degradation as"
+" identified by this subindicator. If you want to load the other layers not "
+"selected by default, simply select them and click OK."
+msgstr ""
+"Bendi zilizowekwa kwenye ufuatiliaji zinawakilisha: bima ya awali na ya "
+"mwisho ya ardhi (kila mwaka ikiwa inapatikana) wote katika mpango wa awali "
+"wa uainishaji na kutumia meza ya cover ya ardhi ya UNCCD 7, mabadiliko ya "
+"kifuniko cha ardhi na uharibifu wa kifuniko cha ardhi kama ilivyotambuliwa "
+"na subindicator hii. Ikiwa unataka kupakia tabaka zingine ambazo "
+"hazichaguliwa kwa default, chagua tu na bonyeza OK."
+
+#: ../../source/documentation/load_data.rst:63
+#: ../../source/documentation/load_data.rst:145
+msgid "Soil organic carbon"
+msgstr "Mkaa kaboni ya udongo"
+
+#: ../../source/documentation/load_data.rst:65
+msgid ""
+"This option lets you load pre-computed soil organic carbon indicators which "
+"had been processed to identify land degradation."
+msgstr ""
+"Chaguo hili inakuwezesha kupakia viashiria vya kaboni za kaboni ambavyo "
+"vilikuwa vimeongezwa ili kutambua uharibifu wa ardhi."
+
+#: ../../source/documentation/load_data.rst:68
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is a multi band raster. The number of bands will depend "
+"on the period of analysis selected and the data source used. If the default "
+"ESA CCI land cover was used, for example, annual soil organic carbon maps "
+"will be downloaded."
+msgstr ""
+"Nenda kwenye folda ambapo ulihifadhi faili iliyopakuliwa na uipate. Faili "
+"iliyopakuliwa ni raster ya bendi nyingi. Idadi ya bendi itategemea kipindi "
+"cha uchambuzi kilichochaguliwa na chanzo cha data kinatumika. Ikiwa chanjo "
+"ya ardhi ya ESA CCI cha kutumiwa ilitumiwa, kwa mfano, ramani za kila kaboni"
+" za kaboni za udongo zitapakuliwa."
+
+#: ../../source/documentation/load_data.rst:72
+msgid ""
+"The bands in the stack represent: initial and final soil organic carbon "
+"stocks (annual soc if annual land data is available), initial and final land"
+" cover maps using the UNCCD 7 class land cover classification,and "
+"degradation as identified by this subindicator. The units of the degradation"
+" layer are \"% change\", if changes are larger than 10% for the period, they"
+" will be considered as improvement or degradation depending on the sign of "
+"the change. If you want to load the other layers not selected by default, "
+"simply select them and click OK."
+msgstr ""
+"Bendi zilizowekwa ndani ya stack zinawakilisha: kwanza na ya mwisho ya "
+"udongo wa kaboni ya kikaboni (kila mwaka ikiwa data ya ardhi inapatikana), "
+"ramani za kwanza za mwisho na za mwisho kutumia ramani ya UNCCD ya darasa la"
+" 7 la kifuniko cha ardhi, na uharibifu kama ilivyoelezwa na subindicator "
+"hii. Vitengo vya safu ya uharibifu ni \"% ya mabadiliko\", ikiwa mabadiliko "
+"yana kubwa zaidi ya 10% kwa kipindi hicho, yatachukuliwa kama kuboresha au "
+"uharibifu kulingana na ishara ya mabadiliko. Ikiwa unataka kupakia tabaka "
+"zingine ambazo hazichaguliwa kwa default, chagua tu na bonyeza OK."
+
+#: ../../source/documentation/load_data.rst:88
+msgid "SDG 15.3.1 indicator"
+msgstr "SDG 15.3.1 kiashiria"
+
+#: ../../source/documentation/load_data.rst:90
+msgid ""
+"This option lets you load pre-computed productivity subindicator (the "
+"integration of trajectory, performance and state) as well as the final SDG "
+"15.3.1 (the integration of productivity, land cover and soil organic carbon)"
+msgstr ""
+"Chaguo hili inakuwezesha kupakia subindicator ya uzalishaji wa awali "
+"(ushirikiano wa trajectory, utendaji na hali) pamoja na SDG ya mwisho 15.3.1"
+" (ushirikiano wa tija, bomba la ardhi na kaboni ya kaboni ya udongo)"
+
+#: ../../source/documentation/load_data.rst:94
+msgid ""
+"Navigate to the folder where you stored the downloaded file and select it. "
+"The downloaded file is an 2 band raster, the first one containing "
+"information on the SDG and the second on the 5 classes productivity "
+"subindicator."
+msgstr ""
+"Nenda kwenye folda ambapo ulihifadhi faili iliyopakuliwa na uipate. Faili "
+"iliyopakuliwa ni raster 2 ya bandari, ya kwanza iliyo na habari kwenye SDG "
+"na ya pili kwenye subindicator ya uzalishaji wa madarasa 5."
+
+#: ../../source/documentation/load_data.rst:107
+msgid "Load a custom input dataset"
+msgstr "Weka dasaset ya pembejeo ya desturi"
+
+#: ../../source/documentation/load_data.rst:113
+msgid ""
+"Use this option to load productivity datasets which have already been "
+"generated outside of |trends.earth|."
+msgstr ""
+"Tumia chaguo hili kupakia dasasets za uzalishaji ambayo tayari imezalishwa "
+"nje ya | trends.earth |."
+
+#: ../../source/documentation/load_data.rst:115
+msgid "Productivity classes in the input data must be coded as follows:"
+msgstr ""
+"Madarasa ya uzalishaji katika data ya pembejeo lazima ionyeshe kama "
+"ifuatavyo:"
+
+#: ../../source/documentation/load_data.rst:117
+msgid ""
+"1: Declining 2: Early signs of decline 3: Stable but stressed 4: Stable 5: "
+"Increasing 0 or -32768: No data"
+msgstr ""
+"1: Kupungua 2: Ishara za mapema ya kushuka kwa 3: imara lakini imesisitiza "
+"4: imara 5: kuongeza 0 au -32768: hakuna data"
+
+#: ../../source/documentation/load_data.rst:131
+msgid ""
+"Use this option to load land cover datasets which will then be used for land"
+" cover change analysis and/or soil organic carbon change analysis."
+msgstr ""
+"Tumia chaguo hili kupakia datasets ya kifuniko cha ardhi ambacho kitatumika "
+"kwa uchambuzi wa mabadiliko ya bima ya ardhi na / au uchambuzi wa mabadiliko"
+" ya kaboni ya kaboni."
+
+#: ../../source/documentation/load_data.rst:137
+msgid ""
+"If you'll be using the `CORINE land cover data "
+"<https://www.eea.europa.eu/publications/COR0-landcover>`_, you can use `this"
+" definition file "
+"<https://s3.amazonaws.com/trends.earth/sharing/Corine_Land_Cover_to_UNCCD_TrendsEarth_Definition.json>`_"
+" to pre-load a suggested aggregation of the land cover classes in Corine to "
+"convert them to the 7 UNCCD land cover classes."
+msgstr ""
+"Ikiwa utatumia data ya 'CORINE data cover' "
+"https://www.eea.europa.eu/publications/COR0-landcover> `_, unaweza kutumia "
+"'faili hii ya ufafanuzi <https: //s3.amazonaws. com / trends.earth / "
+"kushiriki / Corine_Land_Cover_to_UNCCD_TrendsKuanzia_Definition.json> `_ "
+"kabla ya kupakia uchanganuzi uliopendekezwa wa madarasa ya kifuniko cha "
+"ardhi huko Corine ili kuwabadilisha kwenye madarasa ya 7 ya UNCCD ya bima ya"
+" ardhi."
+
+#: ../../source/documentation/load_data.rst:147
+msgid "Processing of custom soil organic carbon data will be available soon."
+msgstr ""
+"Usindikaji wa data ya udongo wa kaboni ya udongo utapatikana hivi karibuni."

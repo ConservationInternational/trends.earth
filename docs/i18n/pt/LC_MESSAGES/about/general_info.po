@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2018, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 0.67\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: 2019-01-28 02:04+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/about/general_info.rst:2
+msgid "General information"
+msgstr "Informação geral"
+
+#: ../../source/about/general_info.rst:4
+msgid ""
+"|trends.earth| was produced as part of the project \"Enabling the use of "
+"global data sources to assess and monitor land degradation at multiple "
+"scales\", funded by the Global Environment Facility."
+msgstr ""
+"|trends.earth| foi produzido como parte do projeto \"Possibilitando o uso de"
+" fontes de dados globais para avaliar e monitorar a degradação da terra em "
+"múltiplas escalas\", financiado pelo Global Environment Facility."
+
+#: ../../source/about/general_info.rst:9
+msgid "Contacting the team"
+msgstr "Entrando em contato com a equipe"
+
+#: ../../source/about/general_info.rst:11
+msgid ""
+"Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with"
+" any comments or suggestions. If you have specific bugs to report or "
+"improvements to the tool that you would like to suggest, you can also submit"
+" them in the `issue tracker on Github "
+"<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
+"|trends.earth|."
+msgstr ""
+"Entre em contato com o time `Trends.Earth <mailto: "
+"trends.earth@conservation.org>`_ com quaisquer comentários ou sugestões. Se "
+"você tem bugs específicos para relatar ou melhorias na ferramenta que você "
+"gostaria de sugerir, você também pode enviá-los no `issue tracker on Github "
+"<https://github.com/ConservationInternational/trends.earth/issues>`_ para "
+"|trends.earth|."
+
+#: ../../source/about/general_info.rst:19
+msgid "Authors"
+msgstr "Autores"
+
+#: ../../source/about/general_info.rst:21
+msgid ""
+"The Land Degradation Monitoring Project is a partnership of Conservation "
+"International, Lund University, and the National Aeronautics and Space "
+"Administration (NASA), and is funded by the Global Environment Facility "
+"(GEF)."
+msgstr ""
+"O Projeto de Monitoramento da Degradação da Terra é uma parceria entre a "
+"Conservation International, a Universidade de Lund e a Administração "
+"Nacional de Aeronáutica e Espaço (NASA), e é financiada pelo Fundo Global "
+"para o Meio Ambiente (GEF)."
+
+#: ../../source/about/general_info.rst:25
+msgid ""
+"Contributors to the documentation and to |trends.earth| include Yengoh "
+"Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
+"Schnader, Anna Tengberg, and Alex Zvoleff."
+msgstr ""
+"Colaboradores para a documentação e para | trends.earth | incluem Genesis de"
+" Yengoh, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
+"Schnader, Anna Tengberg e Alex Zvoleff."
+
+#: ../../source/about/general_info.rst:33
+msgid ""
+"|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
+"to compute indicators in the cloud."
+msgstr ""
+"|trends.earth| usa o `Google Earth Engine <https://earthengine.google.com>`_"
+" para calcular indicadores na nuvem."
+
+#: ../../source/about/general_info.rst:42
+msgid "Acknowledgements"
+msgstr "Agradecimentos"
+
+#: ../../source/about/general_info.rst:44
+msgid ""
+"The feedback provided by early users of |trends.earth| and by the "
+"participants in the webinars and workshops held by the GEF Land Degradation "
+"Monitoring Project have been critical to the development of the tool."
+msgstr ""
+"O feedback fornecido pelos primeiros usuários de |trends.earth| e pelos "
+"participantes nos webinars e workshops realizados pelo Projeto de "
+"Monitoramento de Degradação de Terras do GEF foram fundamentais para o "
+"desenvolvimento da ferramenta."
+
+#: ../../source/about/general_info.rst:48
+msgid ""
+"Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
+"on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
+"on the structure of the tool, and on the UNCCD reporting process, and also "
+"provided early input and testing of the tool."
+msgstr ""
+"Neil Sims, Sasha Alexander, Renato Cumani e Sara Minelli forneceram dados "
+"sobre a implementação dos indicadores ODS 15.3 e LDN em |trends.earth|, "
+"sobre a estrutura da ferramenta e sobre o processo de relatório da UNCCD, e "
+"também forneceram dados antecipados e teste da ferramenta."
+
+#: ../../source/about/general_info.rst:53
+msgid ""
+"The project acknowledges the participants of the workshop held in Morogoro, "
+"Tanzania in October, 2017 for sharing their feedback and suggestions on the "
+"tool: Jones Agwata, Col. Papa Assane Ndiour, Lt. Fendama Baldé, Papa Nékhou "
+"Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, Moses Isabirye, Vettes "
+"Kalema, Joseph Kihaule, Prof. D.N. Kimaro, James Lwasa, Paulo Mandela, Modou"
+" Moustapha Sarr, Joseph Mutyaba, Stephen Muwaya, Joseph Mwalugelo, Prof. "
+"Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome Nchimbi, Elibariki Ngowi, "
+"Tabby Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia "
+"Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa "
+"Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
+msgstr ""
+"O projeto reconhece os participantes do workshop realizado em Morogoro, "
+"Tanzânia, em outubro de 2017, para compartilhar seus comentários e sugestões"
+" sobre o instrumento: Jones Agwata, Cel. Papa Assane Ndiour, Tenente Fendama"
+" Baldé, Papa Nékhou Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, "
+"Moisés Isabirye, Vette Kalema, Joseph Kihaule, Prof. Kemora, Joseph Mutyaba,"
+" Joseph Mwalugelo, Prof. Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome "
+"Nchimbi, Elibariki Ngowi , Tabby Njunge, Daniel Nkondola, Blaise Okinyi, "
+"Joseph Opio, Rozalia Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward "
+"Senyonjo, Olipa Simon, Samba Sow, Felly Mugizi Tusiime e John Wasige."
+
+#: ../../source/about/general_info.rst:65
+msgid "Citation"
+msgstr "Citação"
+
+#: ../../source/about/general_info.rst:67
+msgid "If you wish to cite |trends.earth|, please use the following citation:"
+msgstr ""
+"Se você deseja citar | trends.earth |, por favor use a seguinte citação:"
+
+#: ../../source/about/general_info.rst:69
+msgid ""
+"Trends.Earth. Conservation International. Available online at: "
+"`http://trends.earth <http://trends.earth>`_. 2018."
+msgstr ""
+"Trends.Earth. Conservation International. Disponível online em: "
+"`http://trends.earth <http://trends.earth> `_. 2018."
+
+#: ../../source/about/general_info.rst:73
+msgid "License"
+msgstr "Licença"
+
+#: ../../source/about/general_info.rst:75
+msgid ""
+"|trends.earth| is free and open-source. It is licensed under the `GNU "
+"General Public License, version 2.0 or later <https://www.gnu.org/licenses"
+"/old-licenses/gpl-2.0.en.html>`_."
+msgstr ""
+"|trends.earth| é gratuito e de código aberto. É licenciado sob a `GNU "
+"General Public License, version 2.0 or later <https://www.gnu.org/licenses"
+"/old-licenses/gpl-2.0.en.html>`_."
+
+#: ../../source/about/general_info.rst:79
+msgid ""
+"This site and the products of |trends.earth| are made available under the "
+"terms of the `Creative Commons Attribution 4.0 International License (CC BY "
+"4.0) <https://creativecommons.org/licenses/by/4.0>`_. The boundaries and "
+"names used, and the designations used, in |trends.earth| do not imply "
+"official endorsement or acceptance by Conservation International Foundation,"
+" or its partner organizations and contributors."
+msgstr ""
+"Este site e os produtos de |trends.earth| estão disponíveis sob os termos da"
+" Licença Internacional `Creative Commons Attribution 4.0 (CC BY 4.0) "
+"<https://creativecommons.org/licenses/by/4.0>`_. Os limites e nomes usados "
+"​​e as designações usadas em |trends.earth| não implica endosso oficial ou "
+"aceitação pela Conservation International Foundation, ou suas organizações "
+"parceiras e contribuintes."

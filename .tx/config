@@ -2,137 +2,172 @@
 host = https://www.transifex.com
 type = PO
 
-[land_degradation_monitoring_toolbox_docs_1_0.index]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/index.po
-source_file = LDMP/help/i18n/pot/index.pot
+[trendsearth.index]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/index.po
+source_file = docs/i18n/pot/index.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.about--about]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/about.po
-source_file = LDMP/help/i18n/pot/about/about.pot
+[trendsearth.about--changelog]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/changelog.po
+source_file = docs/i18n/pot/about/changelog.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.about--data_sources]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/data_sources.po
-source_file = LDMP/help/i18n/pot/about/data_sources.pot
+[trendsearth.about--data_sources]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/data_sources.po
+source_file = docs/i18n/pot/about/data_sources.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.about--development]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/development.po
-source_file = LDMP/help/i18n/pot/about/development.pot
+[trendsearth.about--development]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/development.po
+source_file = docs/i18n/pot/about/development.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.about--faq]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/about/faq.po
-source_file = LDMP/help/i18n/pot/about/faq.pot
+[trendsearth.about--faq]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/faq.po
+source_file = docs/i18n/pot/about/faq.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.background--understanding_indicators]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/understanding_indicators.po
-source_file = LDMP/help/i18n/pot/background/understanding_indicators.pot
+[trendsearth.about--general_info]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/general_info.po
+source_file = docs/i18n/pot/about/general_info.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.background--before_installing]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/before_installing.po
-source_file = LDMP/help/i18n/pot/background/before_installing.pot
+[trendsearth.about--layers]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/layers.po
+source_file = docs/i18n/pot/about/layers.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.background--installing]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/background/installing.po
-source_file = LDMP/help/i18n/pot/background/installing.pot
+[trendsearth.about--publications]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/about/publications.po
+source_file = docs/i18n/pot/about/publications.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--calculate]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/calculate.po
-source_file = LDMP/help/i18n/pot/documentation/calculate.pot
+[trendsearth.background--before_installing]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/background/before_installing.po
+source_file = docs/i18n/pot/background/before_installing.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--data_download]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/data_download.po
-source_file = LDMP/help/i18n/pot/documentation/data_download.pot
+[trendsearth.background--installing]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/background/installing.po
+source_file = docs/i18n/pot/background/installing.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--gee_tasks]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/gee_tasks.po
-source_file = LDMP/help/i18n/pot/documentation/gee_tasks.pot
+[trendsearth.background--report_overviews]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/background/report_overviews.po
+source_file = docs/i18n/pot/background/report_overviews.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--info]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/info.po
-source_file = LDMP/help/i18n/pot/documentation/info.pot
+[trendsearth.background--understanding_indicators11]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/background/understanding_indicators11.po
+source_file = docs/i18n/pot/background/understanding_indicators11.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--load_data]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/load_data.po
-source_file = LDMP/help/i18n/pot/documentation/load_data.pot
+[trendsearth.background--understanding_indicators15]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/background/understanding_indicators15.po
+source_file = docs/i18n/pot/background/understanding_indicators15.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--plot_data]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/plot_data.po
-source_file = LDMP/help/i18n/pot/documentation/plot_data.pot
+[trendsearth.documentation--calculate]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/calculate.po
+source_file = docs/i18n/pot/documentation/calculate.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--reporting_tool]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/reporting_tool.po
-source_file = LDMP/help/i18n/pot/documentation/reporting_tool.pot
+[trendsearth.documentation--data_download]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/data_download.po
+source_file = docs/i18n/pot/documentation/data_download.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.documentation--settings]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/documentation/settings.po
-source_file = LDMP/help/i18n/pot/documentation/settings.pot
+[trendsearth.documentation--gee_tasks]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/gee_tasks.po
+source_file = docs/i18n/pot/documentation/gee_tasks.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_compute_sdg_indicator]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_sdg_indicator.po
-source_file = LDMP/help/i18n/pot/training/tutorial_compute_sdg_indicator.pot
+[trendsearth.documentation--info]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/info.po
+source_file = docs/i18n/pot/documentation/info.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_landcover]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_landcover.po
-source_file = LDMP/help/i18n/pot/training/tutorial_custom_landcover.pot
+[trendsearth.documentation--load_data]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/load_data.po
+source_file = docs/i18n/pot/documentation/load_data.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_soc]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_soc.po
-source_file = LDMP/help/i18n/pot/training/tutorial_custom_soc.pot
+[trendsearth.documentation--plot_data]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/plot_data.po
+source_file = docs/i18n/pot/documentation/plot_data.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_custom_lpd]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_lpd.po
-source_file = LDMP/help/i18n/pot/training/tutorial_custom_lpd.pot
+[trendsearth.documentation--reporting_tool]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/reporting_tool.po
+source_file = docs/i18n/pot/documentation/reporting_tool.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_installation]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_installation.po
-source_file = LDMP/help/i18n/pot/training/tutorial_installation.pot
+[trendsearth.documentation--settings]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/documentation/settings.po
+source_file = docs/i18n/pot/documentation/settings.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_load_basemap]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_load_basemap.po
-source_file = LDMP/help/i18n/pot/training/tutorial_load_basemap.pot
+[trendsearth.training--tutorial_compute_sdg_indicator]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_sdg_indicator.po
+source_file = docs/i18n/pot/training/tutorial_compute_sdg_indicator.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_run_all_subindicators]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_run_all_subindicators.po
-source_file = LDMP/help/i18n/pot/training/tutorial_run_all_subindicators.pot
+[trendsearth.training--tutorial_compute_urban_indicator]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_compute_urban_indicator.po
+source_file = docs/i18n/pot/training/tutorial_compute_urban_indicator.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_summary_table]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_summary_table.po
-source_file = LDMP/help/i18n/pot/training/tutorial_summary_table.pot
+[trendsearth.training--tutorial_custom_landcover]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_landcover.po
+source_file = docs/i18n/pot/training/tutorial_custom_landcover.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--tutorial_task_download]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/tutorial_task_download.po
-source_file = LDMP/help/i18n/pot/training/tutorial_task_download.pot
+[trendsearth.training--tutorial_custom_lpd]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_lpd.po
+source_file = docs/i18n/pot/training/tutorial_custom_lpd.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.training--video_links]
-file_filter = LDMP/help/i18n/<lang>/LC_MESSAGES/training/video_links.po
-source_file = LDMP/help/i18n/pot/training/video_links.pot
+[trendsearth.training--tutorial_custom_soc]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_custom_soc.po
+source_file = docs/i18n/pot/training/tutorial_custom_soc.pot
 source_lang = en
 
-[land_degradation_monitoring_toolbox_docs_1_0.gui]
+[trendsearth.training--tutorial_forest_carbon]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_forest_carbon.po
+source_file = docs/i18n/pot/training/tutorial_forest_carbon.pot
+source_lang = en
+
+[trendsearth.training--tutorial_installation]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_installation.po
+source_file = docs/i18n/pot/training/tutorial_installation.pot
+source_lang = en
+
+[trendsearth.training--tutorial_load_basemap]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_load_basemap.po
+source_file = docs/i18n/pot/training/tutorial_load_basemap.pot
+source_lang = en
+
+[trendsearth.training--tutorial_run_all_subindicators]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_run_all_subindicators.po
+source_file = docs/i18n/pot/training/tutorial_run_all_subindicators.pot
+source_lang = en
+
+[trendsearth.training--tutorial_summary_table]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_summary_table.po
+source_file = docs/i18n/pot/training/tutorial_summary_table.pot
+source_lang = en
+
+[trendsearth.training--tutorial_task_download]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/tutorial_task_download.po
+source_file = docs/i18n/pot/training/tutorial_task_download.pot
+source_lang = en
+
+[trendsearth.training--video_links]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/training/video_links.po
+source_file = docs/i18n/pot/training/video_links.pot
+source_lang = en
+
+[trendsearth.gui]
 file_filter = LDMP/i18n/LDMP_<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en

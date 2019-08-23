@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017, Conservation International
+# Copyright (C) 2018, Conservation International
 # This file is distributed under the same license as the Trends.Earth
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
@@ -7,16 +7,12 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.54\n"
+"Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-22 16:26-0400\n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
-"roglich@conservation.org>, 2018\n"
-"Language: pt\n"
-"Language-Team: Portuguese (https://www.transifex.com/conservation-"
-"international/teams/80165/pt/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +20,7 @@ msgstr ""
 
 #: ../../source/about/development.rst:2
 msgid "Development"
-msgstr "Desenvolvimento"
+msgstr ""
 
 #: ../../source/about/development.rst:4
 msgid ""
@@ -32,9 +28,6 @@ msgid ""
 "General Public License, version 2.0 or later "
 "<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 msgstr ""
-"|trends.earth| é um software livre e de código aberto, licenciado sob a "
-"`GNU General Public License, version 2.0 or later "
-"<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 
 #: ../../source/about/development.rst:8
 msgid ""
@@ -46,15 +39,8 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth>`_ github "
 "repository."
 msgstr ""
-"Existem vários componentes para o |trends.earth| ferramenta. O primeiro é"
-" um plugin do QGIS que suporta o cálculo de indicadores, o acesso a dados"
-" brutos, relatórios e produção de mapas impressos. O código para o "
-"plugin, e mais instruções sobre como instalá-lo, se você quiser modificar"
-" o código, estão no repositório `trends.earth "
-"<https://github.com/ConservationInternational/trends.earth>`_ github."
 
 #: ../../source/about/development.rst:15
-#, fuzzy
 msgid ""
 "The |trends.earth| QGIS plugin is supported by a number of different "
 "Python scripts that allow calculation of the various indicators on Google"
@@ -67,13 +53,6 @@ msgid ""
 "<https://github.com/ConservationInternational/landdegradation>`_ "
 "repository on Github."
 msgstr ""
-"Os scripts GEE são suportados pelo módulo Python `landdegradation`, que "
-"inclui código para processar entradas e saídas para o plugin, bem como "
-"outras funções comuns que suportam o cálculo de integrais do NDVI, "
-"significância estatística e outros códigos compartilhados. O código para "
-"este módulo está disponível no repositório `landdegradation "
-"<https://github.com/ConservationInternational/landdegradation>`_ no "
-"Github."
 
 #: ../../source/about/development.rst:26
 msgid ""
@@ -104,20 +83,38 @@ msgid ""
 "There are a number of different branches of the trends.earth repository "
 "that are under active development. As the plugin does not yet officially "
 "support QGIS3, the \"qgis2\" branch is where most development work is "
-"happening. The \"master\" branch has some initial changes to support on "
-"the \"qgis3\", and will eventually become the primary place for "
-"development once that version is released."
+"happening. The \"master\" branch has some initial changes to support "
+"QGIS3, and will eventually become the primary place for development once "
+"that version is released."
 msgstr ""
 
-#: ../../source/about/development.rst:51 ../../source/about/development.rst:328
+#: ../../source/about/development.rst:49
+msgid ""
+"The first time you download the trends.earth code, you will also need to "
+"clone the \"schemas\" submodule that is located within it, under "
+"\"LDMP\\\\schemas\". If you are using TortoiseGit on Windows, you can "
+"right-click anywhere within the trends.earth folder and choose "
+"\"TortoiseGit\" and then \"Submodule Update...\". Clicking ok in the "
+"window that comes up will checkout the schemas submodule. If you prefer, "
+"you can also do this from the command line by running the below two "
+"commands in shell::"
+msgstr ""
+
+#: ../../source/about/development.rst:60
+msgid ""
+"Once you are done you should see files within the \"LDMP\\\\schemas\" "
+"folder within the trends.earth folder."
+msgstr ""
+
+#: ../../source/about/development.rst:64 ../../source/about/development.rst:346
 msgid "Installing dependencies"
 msgstr ""
 
-#: ../../source/about/development.rst:54
+#: ../../source/about/development.rst:67
 msgid "Python"
 msgstr ""
 
-#: ../../source/about/development.rst:56
+#: ../../source/about/development.rst:69
 msgid ""
 "The plugin is coded in Python. In addition to being used to run the "
 "plugin through QGIS, Python is also used to support managing the plugin "
@@ -131,11 +128,11 @@ msgid ""
 "/#download-section>`_."
 msgstr ""
 
-#: ../../source/about/development.rst:67 ../../source/about/development.rst:331
+#: ../../source/about/development.rst:80 ../../source/about/development.rst:349
 msgid "Python dependencies"
 msgstr ""
 
-#: ../../source/about/development.rst:69
+#: ../../source/about/development.rst:82
 msgid ""
 "In order to work with the trends.earth code, you need to have Invoke "
 "installed on your machine, as well as a number of other packages that are"
@@ -145,7 +142,7 @@ msgid ""
 "trends.earth code folder and typing::"
 msgstr ""
 
-#: ../../source/about/development.rst:79
+#: ../../source/about/development.rst:92
 msgid ""
 "If you are using Anaconda, you will first want to activate a Python 3.7 "
 "virtual environment before running the above command (and any of the "
@@ -155,11 +152,11 @@ msgid ""
 "started/#write-a-python-program-using-anaconda-prompt-or-terminal>`_."
 msgstr ""
 
-#: ../../source/about/development.rst:86
+#: ../../source/about/development.rst:99
 msgid "PyQt4"
 msgstr ""
 
-#: ../../source/about/development.rst:88
+#: ../../source/about/development.rst:101
 msgid ""
 "PyQt4 is the graphics toolkit used by QGIS2. To compile the user "
 "interface for Trends.Earth you need to install PyQt4. The best source for"
@@ -173,17 +170,17 @@ msgid ""
 "\"win32\" for 32-bit python."
 msgstr ""
 
-#: ../../source/about/development.rst:98
+#: ../../source/about/development.rst:111
 msgid ""
 "After downloading from the above link, use ``pip`` to install it. For "
 "example, for the 64-bit wheel for Python 3.7, you would run::"
 msgstr ""
 
-#: ../../source/about/development.rst:104
+#: ../../source/about/development.rst:117
 msgid "Changing the version of the plugin"
 msgstr ""
 
-#: ../../source/about/development.rst:106
+#: ../../source/about/development.rst:119
 msgid ""
 "The convention for Trends.Earth is that version numbers ending in an odd "
 "number (for example 0.65) are development versions, while versions ending"
@@ -194,7 +191,7 @@ msgid ""
 "testing new features prior to their public release."
 msgstr ""
 
-#: ../../source/about/development.rst:114
+#: ../../source/about/development.rst:127
 msgid ""
 "If you wish to make changes to the code and have downloaded a public "
 "release of the plugin (one ending in an even number), the first step is "
@@ -207,18 +204,19 @@ msgid ""
 "you would run::"
 msgstr ""
 
-#: ../../source/about/development.rst:125
+#: ../../source/about/development.rst:138
 msgid ""
-"To avoid confusion, never change the version to one that has already been"
-" released - always INCREASE the value of the version tag to the next odd "
-"number."
+"Running the above command will update the version number every place it "
+"is referenced in the code. To avoid confusion, never change the version "
+"to one that has already been released - always INCREASE the value of the "
+"version tag to the next odd number."
 msgstr ""
 
-#: ../../source/about/development.rst:129
+#: ../../source/about/development.rst:144
 msgid "Testing changes to the plugin"
 msgstr ""
 
-#: ../../source/about/development.rst:131
+#: ../../source/about/development.rst:146
 msgid ""
 "After making changes to the plugin code, you will need to test them to "
 "ensure the plugin behaves as expected, and to ensure no bugs or errors "
@@ -227,7 +225,7 @@ msgid ""
 " to ensure that any changes to the code do not break the plugin."
 msgstr ""
 
-#: ../../source/about/development.rst:137
+#: ../../source/about/development.rst:152
 msgid ""
 "To test any changes that you have made to the plugin within QGIS, you "
 "will need to install it locally. There are invoke tasks that assist with "
@@ -236,7 +234,7 @@ msgid ""
 " in order to run from within QGIS. To do this, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:145
+#: ../../source/about/development.rst:160
 msgid ""
 "The above task only needs to be run immediately after downloading the "
 "trends.earth code, or if any changes are made to the dependencies for the"
@@ -245,13 +243,13 @@ msgid ""
 " command."
 msgstr ""
 
-#: ../../source/about/development.rst:151
+#: ../../source/about/development.rst:166
 msgid ""
 "After running ``plugin-setup``, you are ready to install the plugin to "
 "the QGIS plugins folder on your machine. To do this, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:156
+#: ../../source/about/development.rst:171
 msgid ""
 "After running the above command, you will need to either 1) restart QGIS,"
 " or 2) use the `plugin reloader "
@@ -260,7 +258,7 @@ msgid ""
 "made."
 msgstr ""
 
-#: ../../source/about/development.rst:161
+#: ../../source/about/development.rst:176
 msgid ""
 "Note that by default ``plugin-install`` will overwrite any existing "
 "plugin files on your machine, but leave in place any data (adminstrative "
@@ -270,7 +268,7 @@ msgid ""
 "plugin using the ``-c`` flag."
 msgstr ""
 
-#: ../../source/about/development.rst:168
+#: ../../source/about/development.rst:183
 msgid ""
 "By default plugin-install assumes you want to install the plugin to be "
 "used in QGIS2. To install the plugin for use in QGIS3, add the flag ``-v "
@@ -279,11 +277,11 @@ msgid ""
 "tested on QGIS3."
 msgstr ""
 
-#: ../../source/about/development.rst:175
+#: ../../source/about/development.rst:190
 msgid "Modifying the Earth Engine processing code"
 msgstr ""
 
-#: ../../source/about/development.rst:178
+#: ../../source/about/development.rst:193
 msgid ""
 "The Google Earth Engine (GEE) processing scripts used by Trends.Earth are"
 " all stored in the \"gee\" folder under the main trends.earth folder. For"
@@ -295,15 +293,15 @@ msgid ""
 "deploy GEE scripts to be used with Trends.Earth."
 msgstr ""
 
-#: ../../source/about/development.rst:187
+#: ../../source/about/development.rst:202
 msgid "Setting up dependencies"
 msgstr ""
 
-#: ../../source/about/development.rst:190
+#: ../../source/about/development.rst:205
 msgid "trends.earth-CLI"
 msgstr ""
 
-#: ../../source/about/development.rst:192
+#: ../../source/about/development.rst:207
 msgid ""
 "The \"trends.earth-CLI\" Python package is required in order to work with"
 " the api.trends.earth server. This package is located on github in the "
@@ -311,7 +309,7 @@ msgid ""
 "repository."
 msgstr ""
 
-#: ../../source/about/development.rst:197
+#: ../../source/about/development.rst:212
 msgid ""
 "The first step is to clone this repository onto your machine. We "
 "recommend that you clone the repository into the same folder where you "
@@ -323,7 +321,7 @@ msgid ""
 "repository into that same folder."
 msgstr ""
 
-#: ../../source/about/development.rst:206
+#: ../../source/about/development.rst:221
 msgid ""
 "When you setup your system as recommended above, trends.earth-CLI will "
 "work with the invoke tasks used to manage trends.earth without any "
@@ -336,17 +334,17 @@ msgid ""
 "CLI/tecli\"):"
 msgstr ""
 
-#: ../../source/about/development.rst:220
+#: ../../source/about/development.rst:235
 msgid ""
 "Again, note that you do NOT need to add this .yaml file if you setup your"
 " system as recommended above."
 msgstr ""
 
-#: ../../source/about/development.rst:224
+#: ../../source/about/development.rst:239
 msgid "docker"
 msgstr ""
 
-#: ../../source/about/development.rst:226
+#: ../../source/about/development.rst:241
 msgid ""
 "The trends.earth-CLI package requires `docker <http://www.docker.com>`_ "
 "in order to function. `Follow these instructions to install docker on "
@@ -357,11 +355,11 @@ msgid ""
 "appropriate for the Linux distribution you are using."
 msgstr ""
 
-#: ../../source/about/development.rst:236
+#: ../../source/about/development.rst:251
 msgid "Testing an Earth Engine script locally"
 msgstr ""
 
-#: ../../source/about/development.rst:238
+#: ../../source/about/development.rst:253
 msgid ""
 "While converting a script specifying code to be run on GEE from "
 "JavaScript to Python, or when making modifications to that code, it can "
@@ -371,7 +369,7 @@ msgid ""
 "the Trends.Earth code, and, in a command prompt, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:247
+#: ../../source/about/development.rst:262
 msgid ""
 "This will use the trends.earth-CLI package to build and run a docker "
 "container that will attempt to run the \"land_cover\" script. If there "
@@ -381,21 +379,21 @@ msgid ""
 "without any errors."
 msgstr ""
 
-#: ../../source/about/development.rst:253
+#: ../../source/about/development.rst:268
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
 msgstr ""
 
-#: ../../source/about/development.rst:261
+#: ../../source/about/development.rst:276
 msgid ""
 "This error can be caused if the clock on the docker container gets out of"
 " sync with the system clock. Restarting docker should fix this error."
 msgstr ""
 
-#: ../../source/about/development.rst:265
+#: ../../source/about/development.rst:280
 msgid "Deploying a GEE script to api.trends.earth"
 msgstr ""
 
-#: ../../source/about/development.rst:267
+#: ../../source/about/development.rst:282
 msgid ""
 "When you have finished testing a GEE script and would like it to be "
 "accessible using the QGIS plugin (and by other users of Trends.Earth), "
@@ -403,7 +401,7 @@ msgid ""
 "process is logging in to the api.trends.earth server. To login, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:274
+#: ../../source/about/development.rst:289
 msgid ""
 "You will be asked for a username and password. These are the same as the "
 "username and password that you use to login to the Trends.Earth server "
@@ -412,7 +410,7 @@ msgid ""
 "(for example, the \"land_cover\" script) to the server, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:282
+#: ../../source/about/development.rst:297
 msgid ""
 "If this script already exists on the server, you will be asked if you "
 "want to overwrite the existing script. Be very careful uploading scripts "
@@ -422,29 +420,29 @@ msgid ""
 "numbers)."
 msgstr ""
 
-#: ../../source/about/development.rst:288
+#: ../../source/about/development.rst:303
 msgid ""
 "If you are making a new release of the plugin, and want to upload ALL of "
 "the GEE scripts at once (this is necessary whenenever the plugin version "
 "number changes), run::"
 msgstr ""
 
-#: ../../source/about/development.rst:294
+#: ../../source/about/development.rst:309
 msgid ""
 "Again - never run the above on a publicly released version of the plugin "
 "unless you are intending to overwrite all the publicly available scripts "
 "used by the plugin."
 msgstr ""
 
-#: ../../source/about/development.rst:299
+#: ../../source/about/development.rst:314
 msgid "Contributing to the documentation"
 msgstr ""
 
-#: ../../source/about/development.rst:302
+#: ../../source/about/development.rst:317
 msgid "Overview"
 msgstr ""
 
-#: ../../source/about/development.rst:304
+#: ../../source/about/development.rst:319
 msgid ""
 "The documentation for Trends.Earth is produced using `Sphinx <http://www"
 ".sphinx-doc.org/en/master/>`_, and is written in `reStructuredText "
@@ -453,41 +451,45 @@ msgid ""
 "information on how they are used."
 msgstr ""
 
-#: ../../source/about/development.rst:310
+#: ../../source/about/development.rst:325
 msgid ""
 "The documentation for Trends.Earth is stored in the \"docs\" folder under"
 " the main trends.earth directory. Within that folder there are a number "
 "of key files and folders to be aware of:"
 msgstr ""
 
-#: ../../source/about/development.rst:314
+#: ../../source/about/development.rst:329
 msgid ""
 "build: contains the build documenation for trends.earth (in PDF and HTML "
 "format). Note it will only appear on your machine after running the "
 "``docs-build`` invoke task."
 msgstr ""
 
-#: ../../source/about/development.rst:317
+#: ../../source/about/development.rst:332
 msgid ""
 "i18n: contains translations of the documenation into other languages. The"
 " files in here are normally processed automatically using invoke tasks, "
 "so you shouldn't ever have reason to modify anything in this folder."
 msgstr ""
 
-#: ../../source/about/development.rst:320
+#: ../../source/about/development.rst:335
 msgid ""
 "resources: contains any resourcess (primarily images or PDFs) that are "
-"referred to in the documentation."
+"referred to in the documentation. Currently there is only one folder "
+"(\"EN\", for English) as all of the images in the documentation are from "
+"the English version of the plugin - if appropriate additional folders can"
+" be added under \"resources\" with two-letter language codes to include "
+"images specific to a particular language."
 msgstr ""
 
-#: ../../source/about/development.rst:322
+#: ../../source/about/development.rst:341
 msgid ""
 "source: contains the reStructuredText source files that define the "
 "documentation (these are the actual English text of the documentation, "
 "and are the files you are most likely to need to modify)."
 msgstr ""
 
-#: ../../source/about/development.rst:333
+#: ../../source/about/development.rst:351
 msgid ""
 "In order to work with the documentation, you need to have invoke, Sphinx,"
 " sphinx-intl, and sphinx-rtd-theme (the theme for the Trends.Earth "
@@ -497,17 +499,17 @@ msgid ""
 "folder and typing::"
 msgstr ""
 
-#: ../../source/about/development.rst:342
+#: ../../source/about/development.rst:360
 msgid "LaTeX"
 msgstr ""
 
-#: ../../source/about/development.rst:344
+#: ../../source/about/development.rst:362
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for "
 "Trends.Earth."
 msgstr ""
 
-#: ../../source/about/development.rst:346
+#: ../../source/about/development.rst:364
 msgid ""
 "To install on Windows, `follow the process outlined here "
 "<https://www.tug.org/protext>`_ to install the proTeXt distribution of "
@@ -517,28 +519,28 @@ msgid ""
 "time to download and install."
 msgstr ""
 
-#: ../../source/about/development.rst:353
+#: ../../source/about/development.rst:371
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
 msgstr ""
 
-#: ../../source/about/development.rst:356
+#: ../../source/about/development.rst:374
 msgid ""
 "On Linux, installing LaTeX should be much easier - use your "
 "distribution's package manager to find and install whatever LaTeX "
 "distribution is included by default."
 msgstr ""
 
-#: ../../source/about/development.rst:361
+#: ../../source/about/development.rst:379
 msgid "Updating and building the documentation"
 msgstr ""
 
-#: ../../source/about/development.rst:363
+#: ../../source/about/development.rst:381
 msgid ""
 "Once you have installed the sphinx requirements, you are ready to begin "
 "modifying the documentation. The files to modify are located under the "
-"\"docs\\source\" folder. After making any changes to these files, you "
+"\"docs\\\\source\" folder. After making any changes to these files, you "
 "will need to build the documenation in order to view the results. There "
 "are two versions of the Trends.Earth documentation: an HTML version (used"
 " for the website) and a PDF version (for offline download). To build the "
@@ -552,28 +554,28 @@ msgid ""
 "fast option, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:379
+#: ../../source/about/development.rst:397
 msgid ""
 "The above command will take a few seconds to fun, and then if you look "
-"under \"docs\\build\\html\\en\", you will see the HTML version of the "
-"documentation. Load the \"index.html\" file in a web browser to see how "
-"it looks."
+"under \"docs\\\\build\\\\html\\\\en\", you will see the HTML version of "
+"the documentation. Load the \"index.html\" file in a web browser to see "
+"how it looks."
 msgstr ""
 
-#: ../../source/about/development.rst:383
+#: ../../source/about/development.rst:401
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
 msgstr ""
 
-#: ../../source/about/development.rst:388
+#: ../../source/about/development.rst:406
 msgid ""
 "After running the above command you will see (for English) the HTML "
-"documentation under \"docs\\build\\html\\en\", and the PDFs of the "
-"documentation under \"docs\\build\\html\\en\\pdfs\"."
+"documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
+"documentation under \"docs\\\\build\\\\html\\\\en\\\\pdfs\"."
 msgstr ""
 
-#: ../../source/about/development.rst:392
+#: ../../source/about/development.rst:410
 msgid ""
 "If you want to test a specific language (when testing translations, for "
 "example), you can specify a two letter language code to only build the "
@@ -581,13 +583,13 @@ msgid ""
 "only, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:399
+#: ../../source/about/development.rst:417
 msgid ""
 "Note that options can be combined, so you can use the fast option to "
 "build only the HTML version of the Spanish documentation by running::"
 msgstr ""
 
-#: ../../source/about/development.rst:404
+#: ../../source/about/development.rst:422
 msgid ""
 "When building the full documentation for the website, it is a good idea "
 "to first remove any old builds of the documentation, as they might "
@@ -595,7 +597,7 @@ msgid ""
 " this, use the ``-c`` (clean) option::"
 msgstr ""
 
-#: ../../source/about/development.rst:411
+#: ../../source/about/development.rst:429
 msgid ""
 "In general, docs-build MUST complete without any errors if you are "
 "planning to share the documentation or post it on the website. However, "
@@ -606,7 +608,7 @@ msgid ""
 " this, use the ``-i`` (ignore errors) option::"
 msgstr ""
 
-#: ../../source/about/development.rst:420
+#: ../../source/about/development.rst:438
 msgid ""
 "Whenever you make any changes to the text of the documentation, it is a "
 "good idea to push the latest strings to transifex so they can be "
@@ -614,30 +616,30 @@ msgid ""
 "run::"
 msgstr ""
 
-#: ../../source/about/development.rst:426
+#: ../../source/about/development.rst:444
 msgid ""
 "Note that to successfully run the above command you will need to have the"
 " key for the Trends.Earth transifex account."
 msgstr ""
 
-#: ../../source/about/development.rst:430
-msgid "Additional notes on building documentation for release"
+#: ../../source/about/development.rst:448
+msgid "Building documentation for release"
 msgstr ""
 
-#: ../../source/about/development.rst:432
+#: ../../source/about/development.rst:450
 msgid ""
 "Before releasing new documentation, always pull the latest translations "
 "from transifex so that all translations are up to date. To do this, run::"
 msgstr ""
 
-#: ../../source/about/development.rst:437
+#: ../../source/about/development.rst:455
 msgid ""
-"To build a version of hte documentation for public release (either to the"
+"To build a version of the documentation for public release (either to the"
 " website, or in PDF) you must build the entire documentation using "
 "``docs-build`` with no additional parameters::"
 msgstr ""
 
-#: ../../source/about/development.rst:443
+#: ../../source/about/development.rst:461
 msgid ""
 "This process must complete successfully with no errors. If any errors "
 "occur during the process, review the error message, and make any "
@@ -646,236 +648,67 @@ msgid ""
 " the website."
 msgstr ""
 
-#: ../../source/about/development.rst:449
-msgid "Adding new documentation files"
+#: ../../source/about/development.rst:467
+msgid "Adding new documentation text"
 msgstr ""
 
-#: ../../source/about/development.rst:451
+#: ../../source/about/development.rst:469
 msgid ""
 "Any new .rst files that are added to the documentation need to be added "
-"to several configuration files to ensure they are properly translated, "
-"and (for tutorials) to ensure that they are generated in PDF so they can "
-"be downloaded for offline use."
+"to several configuration files to ensure they appear in the navigation "
+"menu, that they are properly translated, and (for tutorials) to ensure "
+"that they are generated in PDF so they can be downloaded for offline use."
 msgstr ""
 
-#: ../../source/about/development.rst:456
-#: ../../source/about/development.rst:461
-#: ../../source/about/development.rst:466
+#: ../../source/about/development.rst:474
+msgid ""
+"docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
+"here to ensure that they are linked to from the navigation menu."
+msgstr ""
+
+#: ../../source/about/development.rst:476
+msgid ""
+".tx\\\\config: list new .rst files here (in the same format as the other "
+"files already included) in order to make the translation software aware "
+"of them so that they can be translated"
+msgstr ""
+
+#: ../../source/about/development.rst:479
+msgid ""
+"docs\\\\source\\\\conf.py: if you want to generate a PDF file of page of "
+"the website, then you must list that page here in the ``latex_documents``"
+" list. Usually we do this only for tutorial pages that we want to make "
+"available to workshop partitipants in individual PDFs. Every page on the "
+"site will be included in the PDF version of the website as a whole, "
+"regardless of whether it is in the ``latex_documents`` list."
+msgstr ""
+
+#: ../../source/about/development.rst:487
+msgid "Adding new images or other resources"
+msgstr ""
+
+#: ../../source/about/development.rst:489
 msgid "Todo"
 msgstr ""
 
-#: ../../source/about/development.rst:456
-#: ../../source/about/development.rst:461
-#: ../../source/about/development.rst:466
-msgid "add this"
-msgstr ""
-
-#: ../../source/about/development.rst:458
+#: ../../source/about/development.rst:489
 msgid ""
-"Files that need to be made available as separate PDFs (typically the "
-"tutorial sections of the documentation) also need to be listed in the"
+"Add this. Remember to mention that docs\\\\source\\\\static should never "
+"be used for resources - they should go under docs\\\\resources\\\\en."
 msgstr ""
 
-#: ../../source/about/development.rst:464
+#: ../../source/about/development.rst:493
 msgid "Contributing as a translator"
 msgstr ""
 
-#~ msgid ""
-#~ "The |trends.earth| QGIS plugin is "
-#~ "supported by a number of different "
-#~ "Python scripts that allow calculation of"
-#~ " the various indicators on Google "
-#~ "Earth Engine (GEE). These scripts sit"
-#~ " in the \"gee\" subfolder of that "
-#~ "github repository."
-#~ msgstr ""
-#~ "O |trends.earth| O plug-in do QGIS"
-#~ " é suportado por vários scripts "
-#~ "Python diferentes que permitem o cálculo"
-#~ " dos vários indicadores no Google "
-#~ "Earth Engine (GEE). Esses scripts estão"
-#~ " na subpasta \"gee\" desse repositório "
-#~ "do github."
-
-#~ msgid "Installing a local development version of the plugin"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The Google Earth Engine (GEE) processing"
-#~ " scripts used by Trends.Earth are all"
-#~ " stored in the `gee` folder under "
-#~ "the main trends.earth folder. For these"
-#~ " script to be accessible to users "
-#~ "of the trends.earth QGIS plugin, they"
-#~ " have to be deployed to the "
-#~ "api.trends.earth service Conservation International"
-#~ " maintains in order to allow users"
-#~ " of the plugin to use Earth "
-#~ "Engine without the need to know "
-#~ "how to program, or to have "
-#~ "individual user accounts on GEE."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "There is a Python package called "
-#~ "`trends.earth-CLI` that is required in"
-#~ " order to work with the "
-#~ "api.trends.earth server from Python. This "
-#~ "package is located on github in "
-#~ "the `trends.earth-CLI "
-#~ "<https://github.com/ConservationInternational/trends.earth-"
-#~ "CLI>`_ repository."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "While converting a GEE script from "
-#~ "JavaScript to Python, or when making "
-#~ "modifications to the code within the "
-#~ "script, it can be useful to test"
-#~ " the script locally, without deploying "
-#~ "it to the api.trends.earth server. To"
-#~ " do this, use the `run` invoke "
-#~ "task. For example, to test the "
-#~ "\"land_cover\" script, go to the root"
-#~ " directory of the Trends.Earth code, "
-#~ "and run::"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This will use the trends.earth-CLI "
-#~ "package to build and run a docker"
-#~ " container that will attempt to run"
-#~ " the \"land_cover\" script. If there "
-#~ "are any syntax errors in the "
-#~ "script, these will show up when "
-#~ "the container is run. Before submitting"
-#~ " a new script to api.trends.earth, "
-#~ "always make sure that `invoke tecli-"
-#~ "run` is able to run the script "
-#~ "without any errors."
-#~ msgstr ""
-
-#~ msgid "When using `invoke tecli-run` you may get an error saying:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The documentation for Trends.Earth is "
-#~ "stored in the `docs` folder under "
-#~ "the main trends.earth directory. Within "
-#~ "that folder there are a number of"
-#~ " key files and folders to be "
-#~ "aware of:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "`build`: contains the build documenation "
-#~ "for trends.earth (in PDF and HTML "
-#~ "format). Note it will only appear "
-#~ "on your machine after running the "
-#~ "`docs-build` invoke task."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "`i18n`: contains translations of the "
-#~ "documenation into other languages. The "
-#~ "files in here are normally processed "
-#~ "automatically using invoke tasks, so you"
-#~ " shouldn't ever have reason to modify"
-#~ " anything in this folder."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "`resources`: contains any resourcess "
-#~ "(primarily images or PDFs) that are "
-#~ "referred to in the documentation."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "`source`: contains the reStructuredText source"
-#~ " files that define the documentation "
-#~ "(these are the actual English text "
-#~ "of the documentation, and are the "
-#~ "files you are most likely to need"
-#~ " to modify)."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "In order to work with the "
-#~ "documentation, you need to have invoke,"
-#~ " Sphinx, sphinx-intl, and sphinx-"
-#~ "rtd-theme (the theme for the "
-#~ "Trends.Earth website) installed on your "
-#~ "machine. These packages are all listed"
-#~ " in the \"dev\" requirements file for"
-#~ " Trends.Earth, so they can be "
-#~ "installed by navigating to the root "
-#~ "of the trends.earth code folder and "
-#~ "typing::"
-#~ msgstr ""
-
-#~ msgid "Building the documentation"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Once you have installed the sphinx "
-#~ "requirements, you are ready to begin "
-#~ "modifying the documentation. The files "
-#~ "to modify are located under the "
-#~ "`docs\\source` folder. After making any "
-#~ "changes to these files, you will "
-#~ "need to build the documenation in "
-#~ "order to view the results. There "
-#~ "are two versions of the Trends.Earth "
-#~ "documentation: an HTML version (used for"
-#~ " the website) and a PDF version "
-#~ "(for offline download). To build the "
-#~ "documentation for Trends.Earth, use the "
-#~ "`docs-build` invoke task. By default, "
-#~ "this task will build the full "
-#~ "documentation for Trends.Earth, in HTML "
-#~ "and PDF, for all supported languages."
-#~ " This can take some time to run"
-#~ " (up to a few hours). If you"
-#~ " are just testing the results of "
-#~ "some minor changes to the documentation,"
-#~ " it is usually best to use the"
-#~ " `-f` option (for \"fast\"). This "
-#~ "option will build only the English "
-#~ "HTML documentation, which should take "
-#~ "only a few seconds. To build using"
-#~ " the fast option, run::"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "When building the full documentation for"
-#~ " the website, it is a good idea"
-#~ " to first remove any old builds "
-#~ "of the documentation, as they might "
-#~ "contain files that are no longer "
-#~ "used in the updated documentation. To"
-#~ " do this, use the `-c` (clean) "
-#~ "option::"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "In general, docs-build MUST complete "
-#~ "without any errors if you are "
-#~ "planning to share the documentation or"
-#~ " post it on the website. However, "
-#~ "when testing things locally, you might"
-#~ " want to ignore documentation errors "
-#~ "that pop up only for some of "
-#~ "the languages (due to syntax errors "
-#~ "arising from translation errors, etc.), "
-#~ "and continue building the remaining "
-#~ "documentation regardless of whether there "
-#~ "are any errors. To do this, use"
-#~ " the `-i` (ignore errors) option::"
-#~ msgstr ""
-
-#~ msgid "<TODO>"
-#~ msgstr ""
-
-#~ msgid "Pretranslate::"
-#~ msgstr ""
+#: ../../source/about/development.rst:495
+msgid ""
+"The translations for both the QGIS plugin and also for this site are "
+"managed by `transifex <http://www.transifex.com>`_. If you'd like to "
+"contribute to translating the plugin and documentation (and we'd love to "
+"have your help!) you can request to join `our team through transifex "
+"<https://www.transifex.com/conservation-international/trendsearth>`_, or "
+"by emailing us at `trends.earth@conservation.org "
+"<mailto:trends.earth@conservation.org>`_."
+msgstr ""
 

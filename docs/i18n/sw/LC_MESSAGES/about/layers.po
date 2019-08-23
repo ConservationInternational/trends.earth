@@ -1,25 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
-# Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2019
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.66\n"
+"Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-23 16:23-0400\n"
-"PO-Revision-Date: 2019-07-23 19:36+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2019\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sw\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.7.0\n"
 
 #: ../../source/about/layers.rst:2
 msgid "Dataset coding"
@@ -27,25 +24,25 @@ msgstr ""
 
 #: ../../source/about/layers.rst:4
 msgid ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
-"widely supported format, so theese datasets can be used within QGIS as well "
-"as within any other GIS software."
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is"
+" a widely supported format, so theese datasets can be used within QGIS as"
+" well as within any other GIS software."
 msgstr ""
 
 #: ../../source/about/layers.rst:8
 msgid ""
-"If you wish to use |trends.earth| data outside of the tool itself, you will "
-"need to know how the data is coded. The tables below provide guidance on "
-"what the exact layers are that are produced by each analysis in "
-"|trends.earth|."
+"If you wish to use |trends.earth| data outside of the tool itself, you "
+"will need to know how the data is coded. The tables below provide "
+"guidance on what the exact layers are that are produced by each analysis "
+"in |trends.earth|."
 msgstr ""
 
 #: ../../source/about/layers.rst:12
 msgid ""
-"To see which of the below layers is contained within a |trends.earth| output"
-" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
-" choose a file with that toool, it will show you a list of the layers within"
-" that file, as well as the band number for each layer."
+"To see which of the below layers is contained within a |trends.earth| "
+"output file, use the `load data <../documentation/load_data.html>`_ tool."
+" When you choose a file with that toool, it will show you a list of the "
+"layers within that file, as well as the band number for each layer."
 msgstr ""
 
 #: ../../source/about/layers.rst:18
@@ -140,7 +137,7 @@ msgstr ""
 
 #: ../../source/about/layers.rst:34
 msgid "Productivity"
-msgstr "Uzalishaji"
+msgstr ""
 
 #: ../../source/about/layers.rst:37
 msgid "Productivity trajectory (trend)"
@@ -221,8 +218,9 @@ msgstr ""
 
 #: ../../source/about/layers.rst:92
 msgid ""
-"Ratio of mean NDVI and maximum productivity. See background on `performance "
-"<../background/understanding_indicators15.html#productivity-performance>`_."
+"Ratio of mean NDVI and maximum productivity. See background on "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 msgstr ""
 
 #: ../../source/about/layers.rst:97
@@ -243,9 +241,9 @@ msgstr ""
 #: ../../source/about/layers.rst:116
 msgid ""
 "Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the baseline "
-"period. Positive values indicate improvement, negative values indicate "
-"decline."
+"calculated as the rank in the target period minus the rank in the "
+"baseline period. Positive values indicate improvement, negative values "
+"indicate decline."
 msgstr ""
 
 #: ../../source/about/layers.rst:123
@@ -255,7 +253,8 @@ msgstr ""
 #: ../../source/about/layers.rst:130
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-state>`_."
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 
 #: ../../source/about/layers.rst:135
@@ -265,8 +264,9 @@ msgstr ""
 #: ../../source/about/layers.rst:142
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity state "
-"<../background/understanding_indicators15.html#productivity-state>`_."
+"productivity state, scaled by 10,000. See background on `productivity "
+"state <../background/understanding_indicators15.html#productivity-"
+"state>`_."
 msgstr ""
 
 #: ../../source/about/layers.rst:148
@@ -293,7 +293,7 @@ msgstr ""
 
 #: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
 msgid "Stable"
-msgstr "Imara"
+msgstr ""
 
 #: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
 #: ../../source/about/layers.rst:219 ../../source/about/layers.rst:325
@@ -319,7 +319,7 @@ msgstr ""
 
 #: ../../source/about/layers.rst:186
 msgid "Land cover"
-msgstr "Bima ya ardhi"
+msgstr ""
 
 #: ../../source/about/layers.rst:189
 msgid "Land cover (degradation)"
@@ -339,11 +339,11 @@ msgstr ""
 
 #: ../../source/about/layers.rst:215
 msgid "Cropland"
-msgstr "Cropland"
+msgstr ""
 
 #: ../../source/about/layers.rst:217
 msgid "Wetland"
-msgstr "Mazingira"
+msgstr ""
 
 #: ../../source/about/layers.rst:219
 msgid "Artificial"
@@ -365,7 +365,7 @@ msgstr ""
 
 #: ../../source/about/layers.rst:223
 msgid "Water body"
-msgstr "Mwili wa maji"
+msgstr ""
 
 #: ../../source/about/layers.rst:227
 msgid "Land cover (ESA classes)"
@@ -409,8 +409,8 @@ msgstr ""
 
 #: ../../source/about/layers.rst:242
 msgid ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
-"(<50%)"
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous "
+"cover) (<50%)"
 msgstr ""
 
 #: ../../source/about/layers.rst:244
@@ -419,8 +419,8 @@ msgstr ""
 
 #: ../../source/about/layers.rst:244
 msgid ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland "
-"(<50%)"
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / "
+"cropland (<50%)"
 msgstr ""
 
 #: ../../source/about/layers.rst:246
@@ -1021,7 +1021,7 @@ msgstr ""
 
 #: ../../source/about/layers.rst:417 ../../source/about/layers.rst:434
 msgid "Soil organic carbon"
-msgstr "Mkaa kaboni ya udongo"
+msgstr ""
 
 #: ../../source/about/layers.rst:421
 msgid "Soil organic carbon (degradation)"
@@ -1030,13 +1030,12 @@ msgstr ""
 #: ../../source/about/layers.rst:428
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative values "
-"indicate decrease."
+"baseline to target year. Positive values indicate increase, negative "
+"values indicate decrease."
 msgstr ""
 
 #: ../../source/about/layers.rst:441
-msgid ""
-"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
 
 #: ../../source/about/layers.rst:445
@@ -1118,3 +1117,4 @@ msgstr ""
 #: ../../source/about/layers.rst:502
 msgid "Total population within grid cell"
 msgstr ""
+

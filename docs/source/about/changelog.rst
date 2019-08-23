@@ -11,6 +11,7 @@ This page lists the version history of |trends.earth|.
       development of Trends.Earth,
     - Clean up repository by removing compiled translations files, and adding 
       these file types to .gitignore.
+    - Change transifex project name to be "trendsearth".
 
 `0.66 (July 20, 2019) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_
 -----------------------------------------------------------------------------------------------------------------------------

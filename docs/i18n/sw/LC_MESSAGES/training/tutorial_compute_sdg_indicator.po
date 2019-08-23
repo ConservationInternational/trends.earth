@@ -1,120 +1,92 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
-# Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.64\n"
+"Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-03 09:23-0400\n"
-"PO-Revision-Date: 2018-04-04 19:02+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sw\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.7.0\n"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:4
 msgid "Compute SDG indicator"
-msgstr "Piga kiashiria cha SDG"
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:6
 msgid ""
-"**Objective**: Learn to integrate the land cover, primary productivity and "
-"soil organic carbon sub-indicators to compute SDG 15.3.1 in raster format "
-"and tabular outputs with areas estimated."
+"**Objective**: Learn to integrate the land cover, primary productivity "
+"and soil organic carbon sub-indicators to compute SDG 15.3.1 in raster "
+"format and tabular outputs with areas estimated."
 msgstr ""
-"** Lengo **: Jifunze kuunganisha kifuniko cha ardhi, uzalishaji wa msingi na"
-" viashiria vya chini ya kaboni za kaboni ili kuhesabu SDG 15.3.1 katika "
-"muundo wa raster na matokeo ya tabular na maeneo yaliyotarajiwa."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:10
 msgid "**Internet access**: Not required"
-msgstr "** Upatikanaji wa Intaneti **: Haihitajiki"
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf>`_"
 msgstr ""
-"`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
-"Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf>` _"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:16
 msgid ""
 "You will need to have previously computed the land cover, soil organic "
-"carbon and land productivity indicators prior to running this tool. If you "
-"have not, please refer to the following specific tutorials to compute them: "
-":ref:`1-step_subindicators`, :ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, "
-"and :ref:`tut_custom_soc`."
+"carbon and land productivity indicators prior to running this tool. If "
+"you have not, please refer to the following specific tutorials to compute"
+" them: :ref:`1-step_subindicators`, :ref:`tut_custom_lc`, "
+":ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`."
 msgstr ""
-"Utahitaji kuwa na hesabu ya awali ya ardhi, bomba la kaboni na uzalishaji wa"
-" ardhi kabla ya kuendesha chombo hiki. Ikiwa huna, tafadhali rejea "
-"mafundisho maalum yafuatayo kuwahesabu:: ref: '1-step_subindicators`,: ref: "
-"`tut_custom_lc`,: ref:` tut_custom_lpd`, na: ref: `tut_custom_soc`."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:18
 msgid ""
-"Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
-"icon (|iconCalculator|)."
+"Search for the Trends.Earth toolbar within QGIS, and click on the "
+"Calculate icon (|iconCalculator|)."
 msgstr ""
-"Tafuta Mwelekeo wa toolbar wa ndani ndani ya QGIS, na bofya kwenye icon ya "
-"Kuhesabu (| | iconCalculator |)."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:23
 msgid ""
-"The **Calculate Indicators** menu will open. In that window, click on Land "
-"degradation indicator (SDG indicator 15.3.1)"
+"The **Calculate Indicators** menu will open. In that window, click on "
+"Land degradation indicator (SDG indicator 15.3.1)"
 msgstr ""
-"Mfumo wa Mahesabu ** ** utafunguliwa. Katika dirisha hilo, bofya kiashiria "
-"cha uharibifu wa Ardhi (kiashiria cha SDG 15.3.1)"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:28
 msgid ""
 "Select **Calculate final SDG 15.3.1 spatial layer and summary table for "
 "total boundary** button found under Step 2 - Option 1."
 msgstr ""
-"Chagua ** Ondoa SDG ya mwisho 15.3.1 safu ya nafasi na meza ya muhtasari kwa"
-" kifungo cha jumla ** kifungo kilichopatikana chini ya Hatua ya 2 - Chaguo "
-"1."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:33
 msgid ""
 "In the **Input** tab you will select each of the input layers needed for "
-"computing the final SDG 15.3.1. You ave the option of using **Trends.Earth "
-"land productivity** or **UNCCD default data**. In this case select UNCCD "
-"default data."
+"computing the final SDG 15.3.1. You ave the option of using "
+"**Trends.Earth land productivity** or **UNCCD default data**. In this "
+"case select UNCCD default data."
 msgstr ""
-"Katika kitambulisho cha ** cha kuingiza ** utachagua kila tabaka za kuingiza"
-" zinazohitajika kwa kompyuta ya SDG ya mwisho 15.3.1. Una fursa ya kutumia "
-"** Mwelekeo wa uzalishaji wa ardhi ** au ** data ya UNCCD ya msingi **. "
-"Katika kesi hii chagua data ya UNCCD."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:36
+#, python-format
 msgid ""
-"Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
-"the Trends.Earth productivity indicators developed following the `UNCCD Good"
-" Practice Guidance (GPG) <http://www2.unccd.int/sites/default/files"
-"/relevant-"
+"Refer to the :ref:`indicator-15-3-1` section of this manual to learn "
+"about the Trends.Earth productivity indicators developed following the "
+"`UNCCD Good Practice Guidance (GPG) "
+"<http://www2.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 msgstr ""
-"Rejea: ref: `sehemu ya kiashiria-15-3-1` ya mwongozo huu ili ujifunze kuhusu"
-" Mwelekeo.Athari za uzalishaji wa kiuchumi zilizotengenezwa baada ya "
-"'Uongozi wa Mazoezi Mzuri wa UNCCD <http://www2.unccd.int/ maeneo / default "
-"/ files / viungo husika / 2017-10 / Good% 20Practice%20Guidance_SDG% "
-"20Indicator% 2015.3.1_Version% 201.0.pdf> `_."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:38
 msgid ""
@@ -122,108 +94,79 @@ msgid ""
 "recognize them and they will show up pre-filled in each corresponding "
 "section."
 msgstr ""
-"Ikiwa una viashiria vidogo vilivyowekwa kwenye ramani ya QGIS, chombo hiki "
-"kitatambua na wataonyesha kabla ya kujazwa katika kila sehemu husika."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:41
 msgid ""
-"If you have more than one layer loaded into the map per sub-indicator (for "
-"example, land cover change computed with default and also with custom data) "
-"make sure to check that the one being used to compute the final SDG is the "
-"one you want."
+"If you have more than one layer loaded into the map per sub-indicator "
+"(for example, land cover change computed with default and also with "
+"custom data) make sure to check that the one being used to compute the "
+"final SDG is the one you want."
 msgstr ""
-"Ikiwa una safu zaidi ya moja iliyobekwa kwenye ramani kwa kila kiashiria "
-"(kwa mfano, mabadiliko ya kifuniko cha ardhi yamehesabiwa kwa default na pia"
-" kwa data ya desturi) hakikisha uangalie kuwa moja ya kutumiwa kuhesabu SDG "
-"ya mwisho ni ile unayotaka ."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:43
 msgid ""
 "If the sub-indicators are not loaded in your QGIS map, then click **Load "
-"existing** next to each of the sub-indicators sections, and nagivate to the "
-"folder where you stored them in your computer."
+"existing** next to each of the sub-indicators sections, and nagivate to "
+"the folder where you stored them in your computer."
 msgstr ""
-"Ikiwa viashiria vidogo havipakia kwenye ramani yako ya QGIS, kisha bofya ** "
-"Mzigo uliopo ** karibu na kila sehemu ndogo ya viashiria, na upeleke kwenye "
-"folda ambapo ulihifadhi kwenye kompyuta yako."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:45
 msgid "When done selecting inputs, click **Next**."
-msgstr "Unapofanywa kuchagua pembejeo, bofya ** Ifuatayo **."
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:50
 msgid ""
-"In the **Output** tab you will need to define the name and location for the "
-"final **SDG 15.3.1 indicator** and the **summary table**. Click **Browse** "
-"next to each of them to select the output location and to define names."
+"In the **Output** tab you will need to define the name and location for "
+"the final **SDG 15.3.1 indicator** and the **summary table**. Click "
+"**Browse** next to each of them to select the output location and to "
+"define names."
 msgstr ""
-"Katika ** Kitabu cha Pato ** utahitaji kufafanua jina na eneo kwa ajili ya "
-"mwisho ** SDG 15.3.1 kiashiria ** na ** meza ya muhtasari **. Bonyeza ** "
-"Vinjari ** karibu na kila mmoja wao kuchagua eneo la pato na kufafanua "
-"majina."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:55
 msgid "When done, click **Next**."
-msgstr "Ukitengenezwa, bofya ** Next **."
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:60
-msgid ""
-"In the **Area** tab define the area of analysis. There are two options:"
+msgid "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
-"Katika eneo ** Eneo la ** ** hufafanua eneo la uchambuzi. Kuna chaguzi "
-"mbili:"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:62
 msgid ""
-"Use provided country and state boundaries: If you want to use this option "
-"make sure the **Administrative area** option is highlighted, and then select"
-" the First Level (country) or Second Level (state or province depending on "
-"the country)."
+"Use provided country and state boundaries: If you want to use this option"
+" make sure the **Administrative area** option is highlighted, and then "
+"select the First Level (country) or Second Level (state or province "
+"depending on the country)."
 msgstr ""
-"Tumia mipaka ya nchi na mipaka ya nchi: Ikiwa unataka kutumia chaguo hili "
-"hakikisha ** chaguo la eneo la Utawala ** linaelezwa, kisha uchagua Ngazi ya"
-" Kwanza (nchi) au Ngazi ya Pili (hali au jimbo kulingana na nchi)."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:65
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
 msgstr ""
-"Mipaka ya `Natural Earth Administrative Boundaries`_ iliyotolewa katika "
-"Mwelekeo.Earth iko katika `public domain`_. Mipaka na majina yaliyotumiwa, "
-"na majarida yaliyotumiwa, katika Mwelekeo.Kuanzia haimaanishi kupitishwa "
-"rasmi au kukubalika na Conservation International Foundation, au kwa "
-"mashirika yake ya washirika na wafadhili."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:71
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
-"Ikiwa unatumia Mwelekeo.Kuanzia kwa madhumuni rasmi, inashauriwa kuwa "
-"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
-"yao."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:79
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, make "
-"sure the **Area from file** option is highlighted. Then click **Browse** and"
-" navigate to the folder in your computer where you have the file stored."
+"Use your own area file: If you want to use your own area of analysis, "
+"make sure the **Area from file** option is highlighted. Then click "
+"**Browse** and navigate to the folder in your computer where you have the"
+" file stored."
 msgstr ""
-"Tumia faili yako ya eneo: Ikiwa unataka kutumia eneo lako la uchambuzi, "
-"hakikisha ** Eneo kutoka kwa faili ** chaguo linaonyeshwa. Kisha bonyeza ** "
-"Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
-"iliyohifadhiwa."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:81
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
-msgstr "Ukichagua eneo ambalo unataka kuhesabu viashiria, bonyeza ** Next **."
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:86
 msgid ""
@@ -231,56 +174,43 @@ msgid ""
 "**Notes** to identify the analysis you are running. What information to "
 "indicate is optional, but we suggest noting:"
 msgstr ""
-"Katika kitambulisho ** Chaguzi ** unaweza kufafanua ** Jina la Task ** na "
-"kufanya baadhi ya ** Vidokezo ** kutambua uchambuzi unaoendesha. Maelezo "
-"gani ambayo yanaonyesha ni ya hiari, lakini tunapendekeza kutaja:"
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:88
 msgid "Area of analysis"
-msgstr "Eneo la uchambuzi"
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:89
 msgid "Dates"
-msgstr "Tarehe"
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:90
 msgid "Indicators run"
-msgstr "Viashiria vinaendesha"
+msgstr ""
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:95
 msgid ""
 "When done, click **Calculate**. A light blue bar will temporarily show, "
 "indicating that the task was successfully submitted."
 msgstr ""
-"Baada ya kufanya, bonyeza ** Hesabu **. Bar bluu nyembamba itaonyesha muda "
-"mfupi, ikionyesha kuwa kazi imewasilishwa kwa ufanisi."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:97
 msgid ""
 "This analysis will be run in your local computer, so the processing time "
 "will depend on the size of the area, resolution of the data, and the "
-"processing capabilities of your computer. Do not close your computer or put "
-"it to sleep while running, because the analysis will fail."
+"processing capabilities of your computer. Do not close your computer or "
+"put it to sleep while running, because the analysis will fail."
 msgstr ""
-"Uchunguzi huu utatumika kwenye kompyuta yako ya ndani, kwa hiyo wakati wa "
-"usindikaji utategemea ukubwa wa eneo, ufumbuzi wa data, na uwezo wa "
-"usindikaji wa kompyuta yako. Usifunge kompyuta yako au uiweke usingizi "
-"wakati unapoendesha, kwa sababu uchambuzi utashindwa."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:102
 msgid ""
-"When the analysis is completed a **Success** message will notify you and the"
-" indicator will be loaded to the map."
+"When the analysis is completed a **Success** message will notify you and "
+"the indicator will be loaded to the map."
 msgstr ""
-"Uchambuzi ukamilika ** Ujumbe wa Mafanikio ** utakuarifu na kiashiria "
-"kitarejeshwa kwenye ramani."
 
 #: ../../source/training/tutorial_compute_sdg_indicator.rst:111
 msgid ""
-"Refer to the :ref:`tut_interpret_table` section of this manual to learn how "
-"to open and interpret the information in the summary table created by this "
-"analysis."
+"Refer to the :ref:`tut_interpret_table` section of this manual to learn "
+"how to open and interpret the information in the summary table created by"
+" this analysis."
 msgstr ""
-"Rejea: ref: `tut_interpret_table` sehemu ya mwongozo huu ili ujifunze jinsi "
-"ya kufungua na kutafsiri maelezo katika meza ya muhtasari iliyoundwa na "
-"uchambuzi huu."
+

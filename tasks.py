@@ -12,6 +12,8 @@ import stat
 import shutil
 import subprocess
 from tempfile import mkstemp
+import zipfile
+import json
 
 import boto3
 
@@ -546,9 +548,62 @@ def changelog_build(c):
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
+###############################################################################
+# Package plugin zipfile
+###############################################################################
+
+@task(help={'clean': 'Clean out dependencies before packaging'})
+def zipfile_build(c, clean=False):
+    """Create plugin package"""
+    plugin_setup(c)
+    compile_files(c)
+    tests = c.get('tests', False)
+    package_dir = c.plugin.package_dir
+    os.makedirs(package_dir, exist_ok=True)
+    package_file =  os.path.join(package_dir, '{}.zip'.format(c.plugin.name))
+    print('Building zipfile...')
+    with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
+        if not tests:
+            c.plugin.excludes.extend(c.plugin.tests)
+        _make_zip(zf, c)
+
+def _make_zip(zipFile, c):
+    src_dir = c.plugin.source_dir
+    for root, dirs, files in os.walk(src_dir):
+        for f in _filter_excludes(root, files, c):
+            relpath = os.path.relpath(root)
+            zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
+        _filter_excludes(root, dirs, c)
+
+@task(help={'clean': 'Clean out dependencies before packaging'})
+def zipfile_deploy(c, clean=False):
+    zipfile_build(c)
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+            keys = json.load(fin)
+        client = boto3.client('s3',
+                              aws_access_key_id=keys['access_key_id'],
+                              aws_secret_access_key=keys['secret_access_key'])
+    except IOError:
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        client = boto3.client('s3')
+    print('Uploading package to S3')
+    package_file =  os.path.join(c.plugin.package_dir, '{}.zip'.format(c.plugin.name))
+    data = open(package_file, 'rb')
+    client.put_object(Key='sharing/LDMP.zip',
+                      Body=data, 
+                      Bucket=c.sphinx.deploy_s3_bucket)
+    data.close()
+    print('Package uploaded')
+
+###############################################################################
+# Options
+###############################################################################
+
 ns = Collection(set_version, plugin_setup, plugin_install,
-        docs_build, translate_pull, translate_push,
-        tecli_login, tecli_publish, tecli_run)
+                docs_build, translate_pull, translate_push,
+                tecli_login, tecli_publish, tecli_run,
+                zipfile_build, zipfile_deploy)
 
 ns.configure({
     'plugin': {

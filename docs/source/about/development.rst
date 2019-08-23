@@ -47,8 +47,8 @@ QGIS3, the "qgis2" branch is where most development work is happening. The
 become the primary place for development once that version is released.
 
 The first time you download the trends.earth code, you will also need to clone 
-the "schemas" submodule that is located within it, under "LDMP\schemas". If you 
-are using TortoiseGit on Windows, you can right-click anywhere within the 
+the "schemas" submodule that is located within it, under "LDMP\\schemas". If 
+you are using TortoiseGit on Windows, you can right-click anywhere within the 
 trends.earth folder and choose "TortoiseGit" and then "Submodule Update...". 
 Clicking ok in the window that comes up will checkout the schemas submodule. If 
 you prefer, you can also do this from the command line by running the below two 
@@ -57,7 +57,7 @@ commands in shell::
    git submodule init
    git submodule update
 
-Once you are done you should see files within the "LDMP\schemas" folder within 
+Once you are done you should see files within the "LDMP\\schemas" folder within 
 the trends.earth folder.
 
 Installing dependencies
@@ -377,9 +377,9 @@ Updating and building the documentation
 
 Once you have installed the sphinx requirements, you are ready to begin 
 modifying the documentation. The files to modify are located under the 
-"docs\source" folder. After making any changes to these files, you will need to 
-build the documenation in order to view the results. There are two versions of 
-the Trends.Earth documentation: an HTML version (used for the website) and a 
+"docs\\source" folder. After making any changes to these files, you will need 
+to build the documenation in order to view the results. There are two versions 
+of the Trends.Earth documentation: an HTML version (used for the website) and a 
 PDF version (for offline download). To build the documentation for 
 Trends.Earth, use the "docs-build" invoke task. By default, this task will 
 build the full documentation for Trends.Earth, in HTML and PDF, for all 
@@ -392,8 +392,8 @@ few seconds. To build using the fast option, run::
    invoke docs-build -f
 
 The above command will take a few seconds to fun, and then if you look under 
-"docs\build\html\en", you will see the HTML version of the documentation. Load 
-the "index.html" file in a web browser to see how it looks.
+"docs\\build\\html\\en", you will see the HTML version of the documentation. 
+Load the "index.html" file in a web browser to see how it looks.
 
 To build the full documentation, for all languages, in PDF and in HTML 
 (remember this could take a few hours to complete), run::
@@ -401,8 +401,8 @@ To build the full documentation, for all languages, in PDF and in HTML
    invoke docs-build
 
 After running the above command you will see (for English) the HTML 
-documentation under "docs\build\html\en", and the PDFs of the documentation 
-under "docs\build\html\en\pdfs".
+documentation under "docs\\build\\html\\en", and the PDFs of the documentation 
+under "docs\\build\\html\\en\\pdfs".
 
 If you want to test a specific language (when testing translations, for 
 example), you can specify a two letter language code to only build the docs for 
@@ -468,8 +468,8 @@ several configuration files to ensure they are properly translated, and (for
 tutorials) to ensure that they are generated in PDF so they can be downloaded 
 for offline use.
 
-.. todo:: Add this. Remember to mention that docs\source\static should never be 
-   used for resources - they should go under docs\resources\en.
+.. todo:: Add this. Remember to mention that docs\\source\\static should never 
+   be used for resources - they should go under docs\\resources\\en.
 
 Files that need to be made available as separate PDFs (typically the tutorial 
 sections of the documentation) also need to be listed in the 

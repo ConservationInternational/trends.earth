@@ -1,243 +1,191 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.55\n"
+"Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-09 16:53-0400\n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sw\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../../source/training/tutorial_load_basemap.rst:2
-msgid "Load results and basemap"
-msgstr "Weka matokeo na karatasi"
+"Generated-By: Babel 2.7.0\n"
 
 #: ../../source/training/tutorial_load_basemap.rst:4
-msgid ""
-"**Objective**: Learn how to load into QGIS results from previous analysis "
-"run on Trends.Earth, and how to load a base map to make help with the "
-"interpretation of spatial patterns displayed by the indicators."
+msgid "Load results and basemap"
 msgstr ""
-"** Lengo **: Jifunze jinsi ya kupakia matokeo ya QGIS kutokana na uchambuzi "
-"uliopita unatembea kwenye Mwelekeo.Kuanzia, na jinsi ya kupakia ramani ya "
-"msingi ili ufanye msaada na tafsiri ya mifumo ya anga iliyoonyeshwa na "
-"viashiria."
 
 #: ../../source/training/tutorial_load_basemap.rst:6
-msgid "**Estimated time of completion**: 15 minutes"
-msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 15"
+msgid ""
+"**Objective**: Learn how to load into QGIS results from previous analysis"
+" run on Trends.Earth, and how to load a base map to make help with the "
+"interpretation of spatial patterns displayed by the indicators."
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:8
-msgid ""
-"**Internet access**: Required only the first time you load a base map, since"
-" the information needs to be downloaded. Once the data is stored in your "
-"computer base maps can be loaded without Internet access."
+msgid "**Estimated time of completion**: 15 minutes"
 msgstr ""
-"** Ufikiaji wa mtandao **: Inahitajika mara ya kwanza tu kupakia ramani ya "
-"msingi, kwani habari inahitaji kupakuliwa. Mara baada ya data kuhifadhiwa "
-"kwenye ramani zako za msingi za kompyuta zinaweza kubeba bila upatikanaji wa"
-" mtandao."
 
 #: ../../source/training/tutorial_load_basemap.rst:10
+msgid ""
+"**Internet access**: Required only the first time you load a base map, "
+"since the information needs to be downloaded. Once the data is stored in "
+"your computer base maps can be loaded without Internet access."
+msgstr ""
+
+#: ../../source/training/tutorial_load_basemap.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
 msgstr ""
-"`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
-"Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>` _"
 
-#: ../../source/training/tutorial_load_basemap.rst:13
+#: ../../source/training/tutorial_load_basemap.rst:15
 msgid ""
-"To load results from previous Trends.Earth analysis into QGIS click on the "
-"(|iconfolder|) icon in the Trends.Earth toolbar."
+"To load results from previous Trends.Earth analysis into QGIS click on "
+"the (|iconfolder|) icon in the Trends.Earth toolbar."
 msgstr ""
-"Kupakia matokeo kutoka kwa Mwelekeo uliopita.Kuchunguza kwa kasi katika QGIS"
-" bonyeza icon (| | iconfolder |) katika Trends.Earth toolbar."
 
-#: ../../source/training/tutorial_load_basemap.rst:18
+#: ../../source/training/tutorial_load_basemap.rst:20
 msgid ""
-"The **Load data** menu will open. Select **Load and existing TRENDS.EARTH "
-"output file** from the **Load a dataset produced by TRENDS.EARTH** section."
+"The **Load data** menu will open. Select **Load and existing TRENDS.EARTH"
+" output file** from the **Load a dataset produced by TRENDS.EARTH** "
+"section."
 msgstr ""
-"Mfumo wa ** wa Mzigo ** utafunguliwa. Chagua ** Mzigo na zilizopo "
-"TRENDS.EARTH faili ya pato ** kutoka ** Weka dasasiti iliyozalishwa na "
-"sehemu ya TRENDS.EARTH **."
 
-#: ../../source/training/tutorial_load_basemap.rst:23
-msgid ""
-"Click the **Browse** button on the **Open a Trends.Earth file** window."
+#: ../../source/training/tutorial_load_basemap.rst:25
+msgid "Click the **Browse** button on the **Open a Trends.Earth file** window."
 msgstr ""
-"Bonyeza ** Bonyeza kifungo ** kwenye ** Fungua Mwelekeo wa Faili ya kwanza "
-"** dirisha."
 
-#: ../../source/training/tutorial_load_basemap.rst:28
+#: ../../source/training/tutorial_load_basemap.rst:30
 msgid ""
-"On the **Select a Trends.Earth output file** window navigate to the folder "
-"where you stored the data and select the file to load, and click **Open**."
+"On the **Select a Trends.Earth output file** window navigate to the "
+"folder where you stored the data and select the file to load, and click "
+"**Open**."
 msgstr ""
-"Juu ya ** Chagua Mwenendo.Kufikia faili ya pato ** dirisha kwenda kwenye "
-"folda ambapo ulihifadhi data na uchague faili kupakia, na bonyeza ** Fungua "
-"**."
-
-#: ../../source/training/tutorial_load_basemap.rst:33
-msgid ""
-"You will be back at the **Open a Trends.Earth file** window, but this time "
-"you will see many layers listed under the **Select a layer(s)** section. "
-"Each of those options is a band in the raster file you downloaded from "
-"Trends.Earth. The number of bands and specific information in each of them "
-"will vary, but in any case, this tool will show you information to allow you"
-" to decide which layers to display."
-msgstr ""
-"Utarudi saa ** Fungua Mwelekeo wa Faili ya faili ** dirisha, lakini wakati "
-"huu utaona safu nyingi zilizoorodheshwa chini ya ** Chagua safu (s) ** "
-"sehemu. Kila moja ya chaguzi hizo ni bendi kwenye faili la raster "
-"ulilopakuliwa kutoka kwa Trends.Earth. Idadi ya bendi na taarifa maalum "
-"katika kila mmoja wao zitatofautiana, lakini kwa hali yoyote, chombo hiki "
-"kitakuonyesha habari ili kukuwezesha kuamua ni vipi ambavyo utaonyesha."
 
 #: ../../source/training/tutorial_load_basemap.rst:35
+msgid ""
+"You will be back at the **Open a Trends.Earth file** window, but this "
+"time you will see many layers listed under the **Select a layer(s)** "
+"section. Each of those options is a band in the raster file you "
+"downloaded from Trends.Earth. The number of bands and specific "
+"information in each of them will vary, but in any case, this tool will "
+"show you information to allow you to decide which layers to display."
+msgstr ""
+
+#: ../../source/training/tutorial_load_basemap.rst:37
 msgid ""
 "In this case, since this layer is the result of the 1-step analysis "
 "(:ref:`tut_compute_sdg`), the file contains information for land "
 "productivity, land cover and soil organic carbon."
 msgstr ""
-"Katika kesi hii, tangu safu hii ni matokeo ya uchambuzi wa hatua 1 (: ref: "
-"`tut_compute_sdg`), faili ina habari za uzalishaji wa ardhi, kifuniko cha "
-"ardhi na kaboni ya kaboni ya udongo."
 
-#: ../../source/training/tutorial_load_basemap.rst:37
+#: ../../source/training/tutorial_load_basemap.rst:39
 msgid ""
 "If you only want to see the final layer for each of the sub-indicators, "
 "simply leave the default selection and click **OK**."
 msgstr ""
-"Ikiwa unataka tu kuona safu ya mwisho kwa kila moja ya viashiria, tuacha "
-"chagua chaguo-msingi na bonyeza ** OK **."
 
-#: ../../source/training/tutorial_load_basemap.rst:42
+#: ../../source/training/tutorial_load_basemap.rst:44
 msgid "The selected layers will be displayed on the QGIS map."
-msgstr "Vipande vilivyochaguliwa vitaonyeshwa kwenye ramani ya QGIS."
-
-#: ../../source/training/tutorial_load_basemap.rst:48
-msgid "**Adding a basemap**"
-msgstr "** Kuongeza kiwanja **"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:50
-msgid ""
-"Basemaps are very useful as a reference for identifying specific locations "
-"in maps. When downloaded, Trends.Earth results are displayed on an empty "
-"QGIS project, which could limit the user ability for identifying know places"
-" in the landscape. To facilitate this process, you can use the **Add "
-"Basemap** tool which will load country and state boundaries, roads, rivers, "
-"cities, coastlines and water bodies with labels to the QGIS project."
+msgid "**Adding a basemap**"
 msgstr ""
-"Basemaps ni muhimu sana kama kumbukumbu ya kutambua maeneo maalum kwenye "
-"ramani. Unapopakuliwa, Mwelekeo. Matokeo mazuri yanaonyeshwa kwenye mradi wa"
-" tupu wa QGIS, ambayo inaweza kupunguza uwezo wa mtumiaji wa kutambua maeneo"
-" ya kujua katika mazingira. Ili kuwezesha mchakato huu, unaweza kutumia ** "
-"Chombo cha Basemap ** ambacho kinaweza kupakia mipaka ya nchi na nchi, "
-"barabara, mito, miji, pwani na miili ya maji yenye maandiko kwenye mradi wa "
-"QGIS."
 
 #: ../../source/training/tutorial_load_basemap.rst:52
 msgid ""
-"To load the tool click on the visualizations tool icon on the Trends.Earth "
-"toolbar."
+"Basemaps are very useful as a reference for identifying specific "
+"locations in maps. When downloaded, Trends.Earth results are displayed on"
+" an empty QGIS project, which could limit the user ability for "
+"identifying know places in the landscape. To facilitate this process, you"
+" can use the **Add Basemap** tool which will load country and state "
+"boundaries, roads, rivers, cities, coastlines and water bodies with "
+"labels to the QGIS project."
 msgstr ""
-"Ili kupakia chombo chombo kwenye skrini ya chombo cha visualizations kwenye "
-"Mchapishaji wa wavuti wa Mwelekeo."
 
-#: ../../source/training/tutorial_load_basemap.rst:57
+#: ../../source/training/tutorial_load_basemap.rst:54
+msgid ""
+"To load the tool click on the visualizations tool icon on the "
+"Trends.Earth toolbar."
+msgstr ""
+
+#: ../../source/training/tutorial_load_basemap.rst:59
 msgid "Click on **Add basemap**."
-msgstr "Bonyeza kwenye ** Ongeza kipengee **."
-
-#: ../../source/training/tutorial_load_basemap.rst:62
-msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
-"Juu ya ** Ongeza kikao ** dirisha unaweza kufanya moja ya mambo mawili:"
 
 #: ../../source/training/tutorial_load_basemap.rst:64
-msgid ""
-"**Use a mask option selected** will create a mask blocking all the "
-"information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This option "
-"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
-"since the data download is not clipped to administrative boundaries (a "
-"bounding box is used instead). You can use first and second level "
-"administrative boundaries."
+msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
-"** Tumia chaguo la mask iliyochaguliwa ** itafanya mask kuzuia habari zote "
-"nje ya eneo lililochaguliwa. Katika mfano huu, habari zote nje ya Uganda "
-"hazitaonyeshwa kwenye ramani. Chaguo hili ni muhimu wakati wa kuonyesha "
-"viashiria vidogo vilivyopakuliwa kutoka kwenye Mwelekeo.Katika, kwa kuwa "
-"data ya kupakuliwa haipatikani kwenye mipaka ya utawala (sanduku linalowekwa"
-" linatumiwa badala). Unaweza kutumia mipaka ya utawala wa kwanza na ya pili."
 
 #: ../../source/training/tutorial_load_basemap.rst:66
 msgid ""
-"**Use a mask option not selected** will load all the reference information, "
-"but no mask will be applied."
+"**Use a mask option selected** will create a mask blocking all the "
+"information outside of the selected area. In this example, all the "
+"information outside of Uganda will not be displayed on the map. This "
+"option is useful when displaying the sub-indicators downloaded from "
+"Trends.Earth, since the data download is not clipped to administrative "
+"boundaries (a bounding box is used instead). You can use first and second"
+" level administrative boundaries."
 msgstr ""
-"** Tumia chaguo la mask usilochaguliwa ** litaweka taarifa zote za "
-"kumbukumbu, lakini hakuna mask itatumika."
 
-#: ../../source/training/tutorial_load_basemap.rst:71
+#: ../../source/training/tutorial_load_basemap.rst:68
+msgid ""
+"**Use a mask option not selected** will load all the reference "
+"information, but no mask will be applied."
+msgstr ""
+
+#: ../../source/training/tutorial_load_basemap.rst:73
 msgid ""
 "The first time you run this tool after installing Trends.Earth, the "
 "information will be downloaded from the Internet, so make sure you are "
 "connected. The progress bar will indicated the percentage of the task "
 "completed. The data will remain stored in your computer for future use."
 msgstr ""
-"Mara ya kwanza wewe kukimbia chombo hiki baada ya kufunga Trends.Earth, "
-"habari itakuwa kupakuliwa kutoka mtandao, hivyo hakikisha wewe ni "
-"kushikamana. Bar ya maendeleo itaonyesha asilimia ya kazi iliyokamilishwa. "
-"Data itabaki kuhifadhiwa kwenye kompyuta yako kwa matumizi ya baadaye."
-
-#: ../../source/training/tutorial_load_basemap.rst:76
-msgid ""
-"Once the basemap is loaded, you will notice the information added to the map"
-" and to the Layer panel. The basemap has information for:"
-msgstr ""
-"Mara baada ya kupakia, utaona maelezo yaliyoongezwa kwenye ramani na kwenye "
-"jopo la Layer. Basemap ina habari kwa:"
 
 #: ../../source/training/tutorial_load_basemap.rst:78
-msgid "Lake"
-msgstr "Ziwa"
-
-#: ../../source/training/tutorial_load_basemap.rst:79
-msgid "River"
-msgstr "Mto"
+msgid ""
+"Once the basemap is loaded, you will notice the information added to the "
+"map and to the Layer panel. The basemap has information for:"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:80
-msgid "Coastline"
-msgstr "Pwani"
+msgid "Lake"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:81
-msgid "City"
-msgstr "Jiji"
+msgid "River"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:82
-msgid "Disputed border"
-msgstr "Mpaka wa mgongano"
+msgid "Coastline"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:83
-msgid "Subnational border"
-msgstr "Mpaka wa nchi"
+msgid "City"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:84
-msgid "National border"
-msgstr "Mpaka wa Taifa"
+msgid "Disputed border"
+msgstr ""
 
 #: ../../source/training/tutorial_load_basemap.rst:85
+msgid "Subnational border"
+msgstr ""
+
+#: ../../source/training/tutorial_load_basemap.rst:86
+msgid "National border"
+msgstr ""
+
+#: ../../source/training/tutorial_load_basemap.rst:87
 msgid "Ocean"
-msgstr "Bahari"
+msgstr ""
+

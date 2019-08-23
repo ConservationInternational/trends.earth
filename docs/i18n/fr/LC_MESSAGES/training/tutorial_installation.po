@@ -1,160 +1,125 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.57\n"
+"Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 15:51-0400\n"
+"POT-Creation-Date: 2019-08-23 07:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
-"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Babel 2.7.0\n"
 
 #: ../../source/training/tutorial_installation.rst:2
 msgid "Installation and Registration"
-msgstr "Installation et enregistrement"
+msgstr ""
 
 #: ../../source/training/tutorial_installation.rst:4
 msgid ""
 "**Objective**: Learn how to install, register and login to use the "
-"Trends.Earth plugin in QGIS. These step needs to be completed only the first"
-" time you use the tool. Your user will be then saved for future sessions."
+"Trends.Earth plugin in QGIS. These step needs to be completed only the "
+"first time you use the tool. Your user will be then saved for future "
+"sessions."
 msgstr ""
-"**Objectif**: Apprenez à installer, enregistrer et vous connecter pour "
-"utiliser le plugin Trends.Earth dans QGIS. Ces étapes doivent être "
-"complétées seulement la première fois que vous utilisez l'outil. Votre "
-"utilisateur sera ensuite enregistré pour les sessions futures."
 
 #: ../../source/training/tutorial_installation.rst:6
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "**Temps estimé d'achèvement**: 20 minutes"
+msgstr ""
 
 #: ../../source/training/tutorial_installation.rst:8
 msgid "**Internet access**: Required"
-msgstr "**Accès Internet**: Obligatoire"
+msgstr ""
 
 #: ../../source/training/tutorial_installation.rst:10
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_"
 msgstr ""
-"`Télécharger cette page en format PDF pour une utilisation hors connexion "
-"<../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_"
 
 #: ../../source/training/tutorial_installation.rst:13
 msgid ""
-"Once QGIS is installed open it by searching in the for the QGIS icon on your"
-" computer's desktop or program menu."
+"Once QGIS is installed open it by searching in the for the QGIS icon on "
+"your computer's desktop or program menu."
 msgstr ""
-"Une fois QGIS installé, ouvrez-le en cherchant dans l'icône QGIS du bureau "
-"ou du menu du programme de votre ordinateur."
 
 #: ../../source/training/tutorial_installation.rst:15
 msgid ""
-"Once QGIS loads, search in the menu bar for **Plugins**. Click and a drop "
-"down menu will open."
+"Once QGIS loads, search in the menu bar for **Plugins**. Click and a drop"
+" down menu will open."
 msgstr ""
-"Une fois QGIS chargé, recherchez dans la barre de menu **Plugins**. Cliquez "
-"et un menu déroulant s'ouvrira."
 
 #: ../../source/training/tutorial_installation.rst:17
 msgid "Click on **Manage and Install plugins**. The Plugins window will open."
 msgstr ""
-"Cliquez sur **Gérer et installer les plugins**. La fenêtre Plugins s'ouvre."
 
 #: ../../source/training/tutorial_installation.rst:22
 msgid "In the search window type **Trends.Earth**."
-msgstr "Dans la fenêtre de recherche, tapez **Trends.Earth**."
+msgstr ""
 
 #: ../../source/training/tutorial_installation.rst:24
 msgid ""
-"Click on the Trends.Earth plugin icon in the middle window and information "
-"on the toolbox will be displayed in the panel to the right."
+"Click on the Trends.Earth plugin icon in the middle window and "
+"information on the toolbox will be displayed in the panel to the right."
 msgstr ""
-"Cliquez sur l'icône du plugin Trends.Earth dans la fenêtre du milieu et les "
-"informations sur la boîte à outils s'afficheront dans le panneau de droite."
 
 #: ../../source/training/tutorial_installation.rst:29
 msgid ""
-"To install the plugin click **Install plugin** button located in the bottom "
-"right section of the window. A small window will pop-up showing the progress"
-" bar for the download and installation of the Trends.Earth plugin. This "
-"process could take a few minutes depending on the speed of the Internet "
-"connection and the computer you are using."
+"To install the plugin click **Install plugin** button located in the "
+"bottom right section of the window. A small window will pop-up showing "
+"the progress bar for the download and installation of the Trends.Earth "
+"plugin. This process could take a few minutes depending on the speed of "
+"the Internet connection and the computer you are using."
 msgstr ""
-"Pour installer le plugin, cliquez sur le bouton **Install plugin** situé "
-"dans la partie inférieure droite de la fenêtre. Une petite fenêtre "
-"apparaîtra montrant la barre de progression pour le téléchargement et "
-"l'installation du plugin Trends.Earth. Ce processus peut prendre quelques "
-"minutes en fonction de la vitesse de la connexion Internet et de "
-"l'ordinateur que vous utilisez."
 
 #: ../../source/training/tutorial_installation.rst:34
 msgid ""
-"Once the window with the progress bar disappears click **Close** to close "
-"the Plugin Window. Trends.Earth will be installed in your computer. It will "
-"show in your QGIS tool bar as the series of icons highlighted below."
+"Once the window with the progress bar disappears click **Close** to close"
+" the Plugin Window. Trends.Earth will be installed in your computer. It "
+"will show in your QGIS tool bar as the series of icons highlighted below."
 msgstr ""
-"Une fois que la fenêtre avec la barre de progression disparaît, cliquez sur "
-"**Fermer** pour fermer la fenêtre Plugin. Trends.Earth sera installé sur "
-"votre ordinateur. Il affichera dans votre barre d'outils QGIS la série "
-"d'icônes mise en évidence ci-dessous."
 
 #: ../../source/training/tutorial_installation.rst:39
 msgid "To create your account click on the wrench icon (|iconWrench|)."
 msgstr ""
-"Pour créer votre compte, cliquez sur l'icône de la clé anglaise "
-"(|iconWrench|)."
 
 #: ../../source/training/tutorial_installation.rst:44
 msgid "To Register, click the **Step 1: Register** button."
-msgstr "Pour vous inscrire, cliquez sur le bouton **Étape 1: Enregistrer**."
+msgstr ""
 
 #: ../../source/training/tutorial_installation.rst:49
 msgid "Enter your email, name, organization and country of residence."
 msgstr ""
-"Entrez votre email, votre nom, votre organisation et votre pays de "
-"résidence."
 
 #: ../../source/training/tutorial_installation.rst:54
 msgid ""
 "Select **Ok** and you will see a message indicating your user has been "
 "registered."
 msgstr ""
-"Sélectionnez **Ok** et vous verrez un message indiquant que votre "
-"utilisateur a été enregistré."
 
 #: ../../source/training/tutorial_installation.rst:59
 msgid ""
-"12. After registering, you will receive an email from api@trends.earth with "
-"your password. If you don't see the email in your inbox after 15-20 seconds,"
-" please check your spam folder in case the email was sent there. Once you "
-"receive this email , click on **Step 2: Enter login**. This will bring up a "
-"dialog asking for your email and password. Enter your email address and the "
-"password you received from api@trends.earth and click **Ok**."
+"12. After registering, you will receive an email from api@trends.earth "
+"with your password. If you don't see the email in your inbox after 15-20 "
+"seconds, please check your spam folder in case the email was sent there. "
+"Once you receive this email , click on **Step 2: Enter login**. This will"
+" bring up a dialog asking for your email and password. Enter your email "
+"address and the password you received from api@trends.earth and click "
+"**Ok**."
 msgstr ""
-"12. Après votre inscription, vous recevrez un email de api@trends.earth avec"
-" votre mot de passe. Si vous ne voyez pas l'e-mail dans votre boîte de "
-"réception après 15-20 secondes, veuillez vérifier votre dossier de spam au "
-"cas où l'e-mail y aurait été envoyé. Une fois que vous avez reçu cet e-mail,"
-" cliquez sur **Étape 2: Entrez votre identifiant**. Cela fera apparaître une"
-" boîte de dialogue demandant votre email et votre mot de passe. Entrez votre"
-" adresse e-mail et le mot de passe que vous avez reçu de api@trends.earth et"
-" cliquez sur **OK**."
 
 #: ../../source/training/tutorial_installation.rst:65
-msgid ""
-"You will see a message indicating you have successfully been logged in:"
-msgstr "Vous verrez un message indiquant que vous avez été connecté:"
+msgid "You will see a message indicating you have successfully been logged in:"
+msgstr ""
 
 #: ../../source/training/tutorial_installation.rst:70
 msgid "You are now ready to start using Trends.Earth!"
-msgstr "Vous êtes maintenant prêt à utiliser Trends.Earth!"
+msgstr ""
+

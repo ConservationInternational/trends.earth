@@ -186,6 +186,16 @@ to succesfully perform a clean install of the plugin using the ``-c`` flag.
    QGIS3 - the plugin was designed for QGIS2 and is still being tested on 
    QGIS3.
 
+Building a plugin zipfile
+-------------------------
+
+.. todo:: add documentation for ``invoke zipfile-build``
+
+Deploying the development version zipfile
+-----------------------------------------
+
+.. todo:: add documentation for ``invoke zipfile-deploy``
+
 Modifying the Earth Engine processing code
 __________________________________________
 
@@ -326,18 +336,21 @@ The documentation for Trends.Earth is stored in the "docs" folder under the
 main trends.earth directory. Within that folder there are a number of key files
 and folders to be aware of:
 
-   + build: contains the build documenation for trends.earth (in PDF and HTML 
+   - build: contains the build documentation for trends.earth (in PDF and HTML 
      format). Note it will only appear on your machine after running the 
      ``docs-build`` invoke task.
-   + i18n: contains translations of the documenation into other languages. The 
+   - i18n: contains translations of the documentation into other languages. The 
      files in here are normally processed automatically using invoke tasks, so 
      you shouldn't ever have reason to modify anything in this folder.
-   + resources: contains any resourcess (primarily images or PDFs) that are 
-     referred to in the documentation.
-   + source: contains the reStructuredText source files that define the 
+   - resources: contains any resourcess (primarily images or PDFs) that are 
+     referred to in the documentation. Currently there is only one folder 
+     ("EN", for English) as all of the images in the documentation are from the 
+     English version of the plugin - if appropriate additional folders can be 
+     added under "resources" with two-letter language codes to include images 
+     specific to a particular language.
+   - source: contains the reStructuredText source files that define the 
      documentation (these are the actual English text of the documentation, and 
      are the files you are most likely to need to modify).
-
 
 Installing dependencies
 -----------------------
@@ -378,7 +391,7 @@ Updating and building the documentation
 Once you have installed the sphinx requirements, you are ready to begin 
 modifying the documentation. The files to modify are located under the 
 "docs\\source" folder. After making any changes to these files, you will need 
-to build the documenation in order to view the results. There are two versions 
+to build the documentation in order to view the results. There are two versions 
 of the Trends.Earth documentation: an HTML version (used for the website) and a 
 PDF version (for offline download). To build the documentation for 
 Trends.Earth, use the "docs-build" invoke task. By default, this task will 
@@ -460,23 +473,39 @@ during the process, review the error message, and make any modifications needed
 to allow the build to complete successfully. Once the build completes with no 
 errors, the files are ready to be deployed on the website.
 
-Adding new documentation files
-------------------------------
+Adding new documentation text
+-----------------------------
 
 Any new .rst files that are added to the documentation need to be added to 
-several configuration files to ensure they are properly translated, and (for 
-tutorials) to ensure that they are generated in PDF so they can be downloaded 
-for offline use.
+several configuration files to ensure they appear in the navigation menu, that 
+they are properly translated, and (for tutorials) to ensure that they are 
+generated in PDF so they can be downloaded for offline use.
+
+   - docs\\source\\index.rst: add new .rst files in the appropriate place here 
+     to ensure that they are linked to from the navigation menu.
+   - .tx\\config: list new .rst files here (in the same format as the other 
+     files already included) in order to make the translation software aware of 
+     them so that they can be translated
+   - docs\\source\\conf.py: if you want to generate a PDF file of page of the 
+     website, then you must list that page here in the ``latex_documents`` 
+     list. Usually we do this only for tutorial pages that we want to make 
+     available to workshop partitipants in individual PDFs. Every page on the 
+     site will be included in the PDF version of the website as a whole, 
+     regardless of whether it is in the ``latex_documents`` list. 
+
+Adding new images or other resources
+------------------------------------
 
 .. todo:: Add this. Remember to mention that docs\\source\\static should never 
    be used for resources - they should go under docs\\resources\\en.
 
-Files that need to be made available as separate PDFs (typically the tutorial 
-sections of the documentation) also need to be listed in the 
-
-.. todo:: Add this
-
 Contributing as a translator
 ----------------------------
 
-.. todo:: Add this
+The translations for both the QGIS plugin and also for this site are managed by 
+`transifex <http://www.transifex.com>`_. If you'd like to contribute to 
+translating the plugin and documentation (and we'd love to have your help!) you 
+can request to join `our team through transifex 
+<https://www.transifex.com/conservation-international/trendsearth>`_, or by 
+emailing us at `trends.earth@conservation.org 
+<mailto:trends.earth@conservation.org>`_.

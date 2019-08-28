@@ -61,7 +61,7 @@ for further information, or `contact the Trends.Earth team
 <mailto:trends.earth@conservation.org>`_.
 
 `Join the Trends.Earth discussion group 
-<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to the 
+<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ to connect to the 
 community of |trends.earth| users. This is a great place to discuss any 
 questions you might have about |trends.earth|, or about monitoring land change.
 

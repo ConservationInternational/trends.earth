@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2019-08-28 12:59-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -45,10 +45,6 @@ msgstr ""
 "para el ODS 15.3 (proporción del área de tierra degradada) es una "
 "combinación de tres subindicadores: cambio en la productividad de la tierra,"
 " cambio en la cobertura del suelo y cambio en el carbono orgánico del suelo."
-
-#: ../../source/documentation/calculate.rst:15
-msgid "Contents"
-msgstr ""
 
 #: ../../source/documentation/calculate.rst:17
 msgid ""

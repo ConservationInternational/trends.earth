@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2019-08-28 12:59-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -22,26 +22,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: ../../source/index.rst:86 ../../source/index.rst:86
-msgid "About"
-msgstr "À propos"
-
-#: ../../source/index.rst:104 ../../source/index.rst:104
-msgid "Background information"
-msgstr "Contexte"
-
-#: ../../source/index.rst:120 ../../source/index.rst:120
-msgid "Documentation"
-msgstr "Documentation"
-
-#: ../../source/index.rst:139 ../../source/index.rst:139
-msgid "Step-by-step Guides"
-msgstr "Guides étape par étape"
-
-#: ../../source/index.rst:161 ../../source/index.rst:161
-msgid "Videos"
-msgstr "Vidéos"
 
 #: ../../source/index.rst:2
 msgid "Trends.Earth"
@@ -150,16 +130,11 @@ msgstr ""
 #: ../../source/index.rst:63
 msgid ""
 "`Join the Trends.Earth discussion group "
-"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
-"the community of |trends.earth| users. This is a great place to discuss any "
-"questions you might have about |trends.earth|, or about monitoring land "
-"change."
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ to "
+"connect to the community of |trends.earth| users. This is a great place to "
+"discuss any questions you might have about |trends.earth|, or about "
+"monitoring land change."
 msgstr ""
-"`Rejoignez le groupe de discussion Trends.Earth "
-"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ se connecter à "
-"la communauté de |trends.earth| utilisateurs. C&#39;est un endroit idéal "
-"pour discuter de vos questions sur |trends.earth|, ou sur la surveillance du"
-" changement de terrain."
 
 #: ../../source/index.rst:68
 msgid ""
@@ -196,3 +171,23 @@ msgid ""
 msgstr ""
 "`Télécharger cette documentation en format PDF pour une utilisation hors "
 "ligne <pdfs/Trends.Earth.pdf>`_"
+
+#: ../../source/index.rst:86
+msgid "About"
+msgstr "À propos"
+
+#: ../../source/index.rst:104
+msgid "Background information"
+msgstr "Contexte"
+
+#: ../../source/index.rst:120
+msgid "Documentation"
+msgstr "Documentation"
+
+#: ../../source/index.rst:139
+msgid "Step-by-step Guides"
+msgstr "Guides étape par étape"
+
+#: ../../source/index.rst:161
+msgid "Videos"
+msgstr "Vidéos"

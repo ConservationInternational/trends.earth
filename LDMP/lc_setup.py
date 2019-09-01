@@ -18,7 +18,7 @@ import os
 import json
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import QRegExpValidator, QFont
+from qgis.PyQt.QtGui import QRegExpValidator, QFont, QPainter
 from qgis.PyQt.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, \
     QRegExp, QJsonValue, QSortFilterProxyModel
 
@@ -44,7 +44,7 @@ class VerticalLabel(QtWidgets.QLabel):
         super(VerticalLabel, self).__init__(parent)
 
     def paintEvent(self, paint_event):
-        painter = QtWidgets.QPainter(self)
+        painter = QPainter(self)
         painter.translate(self.sizeHint().width(), self.sizeHint().height())
         painter.rotate(270)
         painter.drawText(0, 0, self.text())

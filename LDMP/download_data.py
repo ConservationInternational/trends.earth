@@ -20,7 +20,8 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets, QtCore
-from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, QDate
+from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, QDate, \
+    QSortFilterProxyModel
 
 from LDMP import log
 
@@ -130,7 +131,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
-        proxy_model = QtWidgets.QSortFilterProxyModel()
+        proxy_model = QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.data_view.setModel(proxy_model)
 

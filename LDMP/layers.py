@@ -38,7 +38,7 @@ from LDMP import log
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
 def tr(t):
-    return QtGui.QApplication.translate('LDMPPlugin', t)
+    return QtWidgets.QApplication.translate('LDMPPlugin', t)
 
 
 # Store layer titles and label text in a dictionary here so that it can be

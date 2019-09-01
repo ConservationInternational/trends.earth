@@ -25,7 +25,7 @@ import openpyxl
 from openpyxl.drawing.image import Image
 
 from qgis.PyQt import QtWidgets, uic, QtXml
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, QDate
 
 from qgis.core import QgsGeometry
 from qgis.utils import iface

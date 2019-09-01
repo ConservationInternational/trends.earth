@@ -20,8 +20,7 @@ from qgis.PyQt import QtWidgets, uic, QtXml
 from qgis.PyQt.QtCore import QSettings, QEventLoop, QTimer
 
 from qgis.core import QgsProject, QgsVectorLayer, QgsFeature, \
-    QgsMapLayerRegistry, QgsComposition, QgsLayerDefinition
-from qgis.gui import QgsComposerView
+    QgsMapLayerStore, QgsLayerDefinition
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -78,7 +77,7 @@ class zoom_to_admin_poly(object):
     
     def zoom(self):
         layer = None
-        for lyr in list(QgsMapLayerRegistry.instance().mapLayers().values()):
+        for lyr in list(QgsMapLayerStore.mapLayers().values()):
             if self.lyr_source in os.path.normpath(lyr.source()):
                 layer = lyr
                 break

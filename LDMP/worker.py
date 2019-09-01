@@ -19,6 +19,7 @@ import sys
 import time
 
 from qgis.utils import iface
+from qgis.core import Qgis
 
 from qgis.PyQt import QtCore
 from qgis.PyQt.QtCore import QThread, Qt, QEventLoop
@@ -90,7 +91,7 @@ def start_worker(worker, iface, message, with_progress=True):
     cancel_button.clicked.connect(worker.kill)
     message_bar_item.layout().addWidget(progress_bar)
     message_bar_item.layout().addWidget(cancel_button)
-    iface.messageBar().pushWidget(message_bar_item, iface.messageBar().INFO)
+    iface.messageBar().pushWidget(message_bar_item, Qgis.Info)
 
     # start the worker in a new thread
     # let Qt take ownership of the QThread

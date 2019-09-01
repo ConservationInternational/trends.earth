@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.67\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2019-08-28 12:59-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -21,26 +21,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../../source/index.rst:86 ../../source/index.rst:86
-msgid "About"
-msgstr "Sobre"
-
-#: ../../source/index.rst:104 ../../source/index.rst:104
-msgid "Background information"
-msgstr "Informação de fundo"
-
-#: ../../source/index.rst:120 ../../source/index.rst:120
-msgid "Documentation"
-msgstr "Documentação"
-
-#: ../../source/index.rst:139 ../../source/index.rst:139
-msgid "Step-by-step Guides"
-msgstr "Guias passo a passo"
-
-#: ../../source/index.rst:161 ../../source/index.rst:161
-msgid "Videos"
-msgstr "Vídeos"
 
 #: ../../source/index.rst:2
 msgid "Trends.Earth"
@@ -147,16 +127,11 @@ msgstr ""
 #: ../../source/index.rst:63
 msgid ""
 "`Join the Trends.Earth discussion group "
-"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ to connect to "
-"the community of |trends.earth| users. This is a great place to discuss any "
-"questions you might have about |trends.earth|, or about monitoring land "
-"change."
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ to "
+"connect to the community of |trends.earth| users. This is a great place to "
+"discuss any questions you might have about |trends.earth|, or about "
+"monitoring land change."
 msgstr ""
-"`Junte-se ao grupo de discussão Trends.Earth "
-"<https://groups.google.com/forum/#!forum/trendsearth/join>`_ para se "
-"conectar à comunidade de |trends.earth| Comercial. Este é um ótimo lugar "
-"para discutir qualquer dúvida que você possa ter sobre |trends.earth|, ou "
-"sobre o monitoramento da mudança de terra."
 
 #: ../../source/index.rst:68
 msgid ""
@@ -193,3 +168,23 @@ msgid ""
 msgstr ""
 "`Faça o download desta documentação como um PDF para uso off-line <pdfs / "
 "Trends.Earth.pdf>`_"
+
+#: ../../source/index.rst:86
+msgid "About"
+msgstr "Sobre"
+
+#: ../../source/index.rst:104
+msgid "Background information"
+msgstr "Informação de fundo"
+
+#: ../../source/index.rst:120
+msgid "Documentation"
+msgstr "Documentação"
+
+#: ../../source/index.rst:139
+msgid "Step-by-step Guides"
+msgstr "Guias passo a passo"
+
+#: ../../source/index.rst:161
+msgid "Videos"
+msgstr "Vídeos"

@@ -73,8 +73,8 @@ def rmtree(top):
 def _replace(file_path, regex, subst):
     #Create temp file
     fh, abs_path = mkstemp()
-    with os.fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
+    with open(fh, 'w', encoding='Latin-1') as new_file:
+        with open(file_path, encoding='Latin-1') as old_file:
             for line in old_file:
                 new_file.write(regex.sub(subst, line))
     os.remove(file_path)
@@ -288,6 +288,7 @@ def compile_files(c, version):
     else:
         ui_files = glob.glob('{}/*.ui'.format(c.plugin.gui_dir))
         ui_count = 0
+        skip_count = 0
         for ui in ui_files:
             if os.path.exists(ui):
                 (base, ext) = os.path.splitext(ui)
@@ -301,10 +302,10 @@ def compile_files(c, version):
                     subprocess.check_call([pyuic_path, '-x', ui, '-o', output])
                     ui_count += 1
                 else:
-                    print("Skipping {0} (unchanged)".format(ui))
+                    skip_count += 1
             else:
-                print("{0} does not exist---skipped".format(ui))
-        print("Compiled {0} UI files".format(ui_count))
+                print("{} does not exist---skipped".format(ui))
+        print("Compiled {} UI files. Skipped {}.".format(ui_count, skip_count))
 
     # check to see if we have pyrcc
     pyrcc4 = check_path('pyrcc4')
@@ -323,6 +324,7 @@ def compile_files(c, version):
     else:
         res_files = c.plugin.resource_files
         res_count = 0
+        skip_count = 0
         for res in res_files:
             if os.path.exists(res):
                 (base, ext) = os.path.splitext(res)
@@ -332,10 +334,10 @@ def compile_files(c, version):
                     subprocess.check_call([pyrcc_path, '-o', output, res])
                     res_count += 1
                 else:
-                    print("Skipping {0} (unchanged)".format(res))
+                    skip_count += 1
             else:
-                print("{0} does not exist---skipped".format(res))
-        print("Compiled {0} resource files".format(res_count))
+                print("{} does not exist---skipped".format(res))
+        print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
 
 def file_changed(infile, outfile):
     try:

@@ -16,13 +16,11 @@ from future import standard_library
 standard_library.install_aliases()
 import os
 import json
-from urllib.parse import quote_plus
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate, Qt, QTextCodec
+from qgis.PyQt.QtCore import QDate
 
 from qgis.utils import iface
-from qgis.core import QgsJSONUtils, QgsVectorLayer, QgsGeometry
 mb = iface.messageBar()
 
 from LDMP import log

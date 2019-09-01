@@ -29,7 +29,7 @@ from LDMP.visualization import DlgVisualization
 from LDMP.data_io import DlgDataIO
 from LDMP.about import DlgAbout
 
-from qgis.core import QgsMessageLog
+from qgis.core import QgsMessageLog, Qgis
 from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
@@ -40,12 +40,12 @@ def showHelp(file='index', section=None):
     locale = QSettings().value('locale/userLocale')[0:2]
     help_base_path = os.path.join(os.path.dirname(__file__), 'help', 'build', 'html')
     locale_path = os.path.join(help_base_path, locale)
-    QgsMessageLog.logMessage(u'Checking for plugin help in {}'.format(locale_path), tag="trends.earth", level=QgsMessageLog.INFO)
+    QgsMessageLog.logMessage(u'Checking for plugin help in {}'.format(locale_path), tag="trends.earth", level=Qgis.Info)
     if os.path.exists(locale_path):
         help_path = os.path.join(locale_path, file)
     else:
         help_path = os.path.join(help_base_path, 'en', file)
-    QgsMessageLog.logMessage(u'Showing plugin help from {}'.format(help_path), tag="trends.earth", level=QgsMessageLog.INFO)
+    QgsMessageLog.logMessage(u'Showing plugin help from {}'.format(help_path), tag="trends.earth", level=Qgis.Info)
     if section:
         showPluginHelp(filename=help_path, section=section)
     else:
@@ -75,7 +75,7 @@ class LDMPPlugin(object):
             'i18n',
             u'LDMP_{}.qm'.format(locale))
         QgsMessageLog.logMessage(u'Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
-                                 tag="trends.earth", level=QgsMessageLog.INFO)
+                                 tag="trends.earth", level=Qgis.Info)
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -83,7 +83,7 @@ class LDMPPlugin(object):
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
                 QgsMessageLog.logMessage("Translator installed.", tag="trends.earth",
-                                         level=QgsMessageLog.INFO)
+                                         level=Qgis.Info)
 
         # Declare instance attributes
         self.actions = []

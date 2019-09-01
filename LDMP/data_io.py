@@ -23,12 +23,13 @@ import json
 from marshmallow import ValidationError
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, QVariant
+from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, \
+    QVariant, QStringListModel
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
     QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
     Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsField, \
-    QgsFields, QgsMapLayerRegistry, QgsFeature
+    QgsFields, QgsFeature
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -435,7 +436,7 @@ class DlgDataIOLoadTEBase(QtWidgets.QDialog):
 
         self.setupUi(self)
 
-        self.layers_model = QtWidgets.QStringListModel()
+        self.layers_model = QStringListModel()
         self.layers_view.setModel(self.layers_model)
         self.layers_model.setStringList([])
 
@@ -489,6 +490,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
                                               self.tr('Select a Trends.Earth output file'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Trends.Earth metadata file (*.json)'))
+        log(u"Chose path: {}.".format(f))
         if f:
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
@@ -497,6 +499,8 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot read {}. Choose a different file.".format(f)))
                 return
+        else:
+            return
 
         res = self.update_layer_list(f)
         if res:

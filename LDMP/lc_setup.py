@@ -18,7 +18,9 @@ import os
 import json
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, QRegExp, QPyNullVariant
+from qgis.PyQt.QtGui import QRegExpValidator, QFont
+from qgis.PyQt.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, \
+    QRegExp, QJsonValue, QSortFilterProxyModel
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -31,7 +33,8 @@ from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, QPyNullVariant):
+    #TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
+    if isinstance(obj, QJsonValue.Null):
         return None
     raise TypeError("Type {} not serializable".format(type(obj)))
 
@@ -264,7 +267,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         classes.extend([c for c in self.default_classes if c['Initial_Code'] not in input_codes])
 
         table_model = LCAggTableModel(classes, parent=self)
-        proxy_model = QtWidgets.QSortFilterProxyModel()
+        proxy_model = QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.remap_view.setModel(proxy_model)
 
@@ -342,7 +345,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
-                line_edit.setValidator(QtWidgets.QRegExpValidator(QRegExp("[-0+]")))
+                line_edit.setValidator(QRegExpValidator(QRegExp("[-0+]")))
                 line_edit.setAlignment(Qt.AlignHCenter)
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
         self.trans_matrix_set()
@@ -355,7 +358,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_lc_target_year.sizePolicy().hasHeightForWidth())
         label_lc_baseline_year.setSizePolicy(sizePolicy)
-        font = QtWidgets.QFont()
+        font = QFont()
         font.setBold(True)
         font.setWeight(75)
         label_lc_baseline_year.setFont(font)

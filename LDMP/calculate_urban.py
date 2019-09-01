@@ -27,7 +27,7 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
@@ -151,7 +151,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         aoi_area = self.aoi.get_area() / (1000 * 1000)
         log(u'AOI area is: {:n}'.format(aoi_area))
         if aoi_area > 1e4:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                     self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.".format(aoi_area)), None)
             return False
 
@@ -190,12 +190,12 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         resp = run_script(get_script_slug('urban-area'), payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -214,7 +214,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         self.combo_layer_urban_series.populate()
 
     def select_output_file_layer(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
+        f = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the output file'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Filename (*.json)'))
@@ -223,11 +223,11 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                 self.output_file_layer.setText(f)
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def select_output_file_table(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
+        f = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the summary table'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Summary table file (*.xlsx)'))
@@ -236,19 +236,19 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                 self.output_file_table.setText(f)
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
         if not self.output_file_layer.text():
-            QtGui.QMessageBox.information(None, self.tr("Error"),
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output file for the indicator layer."), None)
             return
 
         if not self.output_file_table.text():
-            QtGui.QMessageBox.information(None, self.tr("Error"),
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output file for the summary table."), None)
             return
 
@@ -262,14 +262,14 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         ######################################################################
         # Check that all needed input layers are selected
         if len(self.combo_layer_urban_series.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add an urban series layer to your map before you can use the urban change summary tool."), None)
             return
 
         #######################################################################
         # Check that the layers cover the full extent needed
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_urban_series.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the urban series layer."), None)
             return
 
@@ -349,7 +349,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                                       json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
                                       bbs[n])
             if not clip_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking urban change input layers."), None)
                 return
 
@@ -361,7 +361,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                                                output_indicator_tif,
                                                urban_band_nums, pop_band_nums, 9)
             if not urban_summary_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating urban change summary table."), None)
                 return
             else:
@@ -403,7 +403,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 def make_summary_table(areas, populations, out_file):
                           
     def tr(s):
-        return QtGui.QApplication.translate("LDMP", s)
+        return QtWidgets.QApplication.translate("LDMP", s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'UrbanSummaryTable.xlsx'))
 
@@ -426,10 +426,10 @@ def make_summary_table(areas, populations, out_file):
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                                      QtGui.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

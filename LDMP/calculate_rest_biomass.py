@@ -30,7 +30,7 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
@@ -78,7 +78,7 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
             raise
 
     def get_save_raster(self):
-        raster_file = QtGui.QFileDialog.getSaveFileName(self,
+        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))
@@ -87,7 +87,7 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 return raster_file
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
                 return False
 
@@ -106,12 +106,12 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
         resp = run_script(get_script_slug('restoration-biomass'), payload)
 
         if resp:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Submitted"),
-                           QtGui.QApplication.translate("LDMP", "Restoration biomass change submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Restoration biomass change submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtGui.QApplication.translate("LDMP", "Error"),
-                           QtGui.QApplication.translate("LDMP", "Unable to submit restoration biomass change task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit restoration biomass change task to Google Earth Engine."),
                            level=0, duration=5)
 
 class RestBiomassSummaryWorker(AbstractWorker):
@@ -213,7 +213,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         self.combo_layer_biomass_diff.populate()
 
     def select_output_file_table(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
+        f = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the summary table'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Summary table file (*.xlsx)'))
@@ -222,11 +222,11 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                 self.output_file_table.setText(f)
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
 
     def select_output_file_layer(self):
-        f = QtGui.QFileDialog.getSaveFileName(self,
+        f = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the output file'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Filename (*.json)'))
@@ -235,18 +235,18 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                 self.output_file_layer.setText(f)
             else:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
         if not self.output_file_layer.text():
-            QtGui.QMessageBox.information(None, self.tr("Error"),
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output file for the biomass difference layers."), None)
             return
 
         if not self.output_file_table.text():
-            QtGui.QMessageBox.information(None, self.tr("Error"),
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output file for the summary table."), None)
             return
 
@@ -260,13 +260,13 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         ######################################################################
         # Check that all needed input layers are selected
         if len(self.combo_layer_biomass_diff.layer_list) == 0:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a biomass layer to your map before you can use the summary tool."), None)
             return
         #######################################################################
         # Check that the layers cover the full extent needed
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_biomass_diff.get_layer().extent())) < .99:
-            QtGui.QMessageBox.critical(None, self.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the biomass layer."), None)
             return
 
@@ -296,7 +296,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                                       json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
                                       bbs[n])
             if not clip_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking input layers."), None)
                 return
 
@@ -307,7 +307,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                                               'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                               output_biomass_diff_tif)
             if not rest_summary_worker.success:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating biomass change summary table."), None)
                 return
             else:
@@ -421,10 +421,10 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtGui.QMessageBox.information(None, QtGui.QApplication.translate("LDMP", "Success"),
-                                      QtGui.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtGui.QMessageBox.critical(None, QtGui.QApplication.translate("LDMP", "Error"),
-                                   QtGui.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)

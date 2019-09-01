@@ -19,7 +19,8 @@ import tempfile
 
 from osgeo import gdal, ogr, osr
 
-from qgis.PyQt import QtWidgets, QtGui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
 from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
 
 from qgis.core import QgsPoint, QgsGeometry, QgsJsonUtils, QgsVectorLayer, \
@@ -44,7 +45,7 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 def tr(t):
-    return QtGui.QApplication.translate('LDMPPlugin', t)
+    return QtWidgets.QApplication.translate('LDMPPlugin', t)
 
 
 # Make a function to get a script slug from a script name, including the script 
@@ -358,7 +359,7 @@ class AOI(object):
                 geom.transform(to_robinson)
             except:
                 log('Error buffering layer while transforming to Robinson')
-                QtGui.QMessageBox.critical(None, tr("Error"),
+                QtWidgets.QMessageBox.critical(None, tr("Error"),
                                            tr("Error transforming coordinates. Check that the input geometry is valid."), None)
                 return False
             # Need to convert from km to meters
@@ -398,7 +399,7 @@ class AOI(object):
         log('Fractional area of overlap: {}'.format(frac))
         return frac
 
-class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
+class DlgCalculate(QtWidgets.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):
         super(DlgCalculate, self).__init__(parent)
 
@@ -431,7 +432,7 @@ class DlgCalculate(QtGui.QDialog, Ui_DlgCalculate):
         result = self.dlg_calculate_urban.exec_()
 
 
-class DlgCalculateLD(QtGui.QDialog, Ui_DlgCalculateLD):
+class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
     def __init__(self, parent=None):
         super(DlgCalculateLD, self).__init__(parent)
 
@@ -504,7 +505,7 @@ class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
         result = self.dlg_calculate_tc_summary.exec_()
 
 
-class DlgCalculateRestBiomass(QtGui.QDialog, Ui_DlgCalculateRestBiomass):
+class DlgCalculateRestBiomass(QtWidgets.QDialog, Ui_DlgCalculateRestBiomass):
     def __init__(self, parent=None):
         super(DlgCalculateRestBiomass, self).__init__(parent)
 
@@ -528,7 +529,7 @@ class DlgCalculateRestBiomass(QtGui.QDialog, Ui_DlgCalculateRestBiomass):
         result = self.dlg_calculate_rest_biomass_summary.exec_()
 
 
-class DlgCalculateUrban(QtGui.QDialog, Ui_DlgCalculateUrban):
+class DlgCalculateUrban(QtWidgets.QDialog, Ui_DlgCalculateUrban):
     def __init__(self, parent=None):
         super(DlgCalculateUrban, self).__init__(parent)
 
@@ -552,7 +553,7 @@ class DlgCalculateUrban(QtGui.QDialog, Ui_DlgCalculateUrban):
         result = self.dlg_calculate_urban_summary.exec_()
 
 
-class CalculationOptionsWidget(QtGui.QWidget, Ui_WidgetCalculationOptions):
+class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
     def __init__(self, parent=None):
         super(CalculationOptionsWidget, self).__init__(parent)
 
@@ -626,13 +627,13 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.radioButton_secondLevel_region.toggled.connect(self.radioButton_secondLevel_region_toggle)
         self.radioButton_secondLevel_region_toggle()
 
-        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
+        icon = QIcon(QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
         self.area_frompoint_choose_point.setIcon(icon)
         self.area_frompoint_choose_point.clicked.connect(self.point_chooser)
         #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.area_frompoint_point_x.setValidator(QtGui.QDoubleValidator())
+        self.area_frompoint_point_x.setValidator(QDoubleValidator())
         #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.area_frompoint_point_y.setValidator(QtGui.QDoubleValidator())
+        self.area_frompoint_point_y.setValidator(QDoubleValidator())
         self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
         self.area_frompoint_toggle()
 
@@ -867,7 +868,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if self.area_tab.area_fromadmin.isChecked():
             if self.area_tab.radioButton_secondLevel_city.isChecked():
                 if not self.area_tab.groupBox_buffer.isChecked():
-                    QtGui.QMessageBox.critical(None, tr("Error"),
+                    QtWidgets.QMessageBox.critical(None, tr("Error"),
                             tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
                     return False
                 geojson = self.get_city_geojson()
@@ -876,14 +877,14 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                              datatype='point')
             else:
                 if not self.area_tab.area_admin_0.currentText():
-                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                self.tr("Choose a first level administrative boundary."), None)
                     return False
                 self.button_calculate.setEnabled(False)
                 geojson = self.get_admin_poly_geojson()
                 self.button_calculate.setEnabled(True)
                 if not geojson:
-                    QtGui.QMessageBox.critical(None, self.tr("Error"),
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                self.tr("Unable to load administrative boundaries."), None)
                     return False
                 self.aoi.update_from_geojson(geojson=geojson, 
@@ -928,7 +929,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if not self.area_tab.area_fromadmin.isChecked():
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > 1e7:
-                QtGui.QMessageBox.critical(None, self.tr("Error"),
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
                 return False
 

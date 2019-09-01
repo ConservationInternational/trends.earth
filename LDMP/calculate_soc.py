@@ -27,6 +27,7 @@ from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtGui import QDoubleValidator
 from qgis.PyQt.QtCore import QSettings
 
 from LDMP import log
@@ -295,7 +296,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         self.fl_chooseRegime_comboBox.setEnabled(False)
         self.fl_custom_lineEdit.setEnabled(False)
         # Setup validator for lineedit entries
-        validator = QtWidgets.QDoubleValidator()
+        validator = QDoubleValidator()
         validator.setBottom(0)
         validator.setDecimals(3)
         self.fl_custom_lineEdit.setValidator(validator)

@@ -22,7 +22,8 @@ import base64
 
 import datetime
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal
+from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal, \
+    QSortFilterProxyModel
 
 from osgeo import gdal
 
@@ -238,7 +239,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
     def update_jobs_table(self):
         if self.jobs:
             table_model = JobsTableModel(self.jobs, self)
-            proxy_model = QtWidgets.QSortFilterProxyModel()
+            proxy_model = QSortFilterProxyModel()
             proxy_model.setSourceModel(table_model)
             self.jobs_view.setModel(proxy_model)
 

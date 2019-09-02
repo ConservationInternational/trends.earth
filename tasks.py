@@ -228,7 +228,7 @@ def plugin_setup(c, clean=False):
         else:
             subprocess.check_call(['pip', 'install', '--upgrade', '-t', ext_libs, req])
 
-@task(help={'clean': "don't run rmtree",
+@task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3'})
 def plugin_install(c, clean=False, version=2, profile='default'):
@@ -256,7 +256,7 @@ def plugin_install(c, clean=False, version=2, profile='default'):
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
     if not hasattr(os, 'symlink') or (os.name == 'nt'):
-        if not clean:
+        if clean:
             if os.path.exists(dst_this_plugin):
                 rmtree(dst_this_plugin)
         for root, dirs, files in os.walk(src):

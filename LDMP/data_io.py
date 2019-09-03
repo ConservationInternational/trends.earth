@@ -76,7 +76,7 @@ class RemapVectorWorker(AbstractWorker):
         crs_src = QgsCoordinateReferenceSystem()
         crs_src.createFromProj4(crs_src_string)
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
-        t = QgsCoordinateTransform(crs_src, crs_dst)
+        t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
         l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj4()),
                                "land cover (transformed)",  
@@ -785,7 +785,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_srs = osr.SpatialReference()
         in_srs.ImportFromWkt(ds_in.GetProjectionRef())
 
-        tx = osr.CoordinateTransformation(in_srs, wgs84_srs)
+        tx = osr.CoordinateTransformation(in_srs, wgs84_srs, QgsProject.instance())
 
         geo_t = ds_in.GetGeoTransform()
         x_size = ds_in.RasterXSize

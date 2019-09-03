@@ -21,12 +21,13 @@ from osgeo import gdal, ogr, osr
 
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
-from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, QCoreApplication
+from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, \
+    QCoreApplication
 
-from qgis.core import QgsPoint, QgsGeometry, QgsJsonUtils, QgsVectorLayer, \
-        QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-        Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer, \
-        QgsVectorFileWriter
+from qgis.core import QgsFeature, QgsPoint, QgsGeometry, QgsJsonUtils, \
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer, \
+    QgsVectorFileWriter, QgsFields
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -73,7 +74,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         crs_src_string = crs_src_string + ' +lon_wrap=180'
     crs_src = QgsCoordinateReferenceSystem()
     crs_src.createFromProj4(crs_src_string)
-    t = QgsCoordinateTransform(crs_src, crs_dst)
+    t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
     l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
                          crs=crs_dst.toProj4()), "calculation boundary (transformed)",  
@@ -155,16 +156,23 @@ class AOI(object):
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
-        fields = QgsJsonUtils.stringToFields(json.dumps(geojson), QTextCodec.codecForName('UTF8'))
-        features = QgsJsonUtils.stringToFeatureList(json.dumps(geojson), fields, QTextCodec.codecForName('UTF8'))
-        l.dataProvider().addFeatures(features)
+        ds = ogr.Open(json.dumps(geojson))
+        layer_in = ds.GetLayer()
+        feats_out = []
+        for i in range(0, layer_in.GetFeatureCount()):
+            feat_in = layer_in.GetFeature(i)
+            feat = QgsFeature(l.fields())
+            geom = QgsGeometry()
+            geom.fromWkb(feat_in.geometry().ExportToWkb())
+            feat.setGeometry(geom)
+            feats_out.append(feat)
+        l.dataProvider().addFeatures(feats_out)
         l.commitChanges()
         if not l.isValid():
             QtWidgets.QMessageBox.critical(None, tr("Error"),
                                        tr("Failed to add geojson to temporary layer."))
             log("Failed to add geojson to temporary layer.")
             return
-
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
 
     def meridian_split(self, out_type='extent', out_format='geojson', warn=True):
@@ -349,8 +357,8 @@ class AOI(object):
         
         wgs84_crs = QgsCoordinateReferenceSystem('epsg:4326')
         robinson_crs = QgsCoordinateReferenceSystem('epsg:54030')
-        to_wgs84  = QgsCoordinateTransform(robinson_crs, wgs84_crs)
-        to_robinson = QgsCoordinateTransform(wgs84_crs, robinson_crs)
+        to_wgs84  = QgsCoordinateTransform(robinson_crs, wgs84_crs, QgsProject.instance())
+        to_robinson = QgsCoordinateTransform(wgs84_crs, robinson_crs, QgsProject.instance())
 
         feats = []
         for f in self.l.getFeatures():
@@ -904,7 +912,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 return False
             point = QgsPoint(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
-            point = QgsCoordinateTransform(crs_src, crs_dst).transform(point)
+            point = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance()).transform(point)
             geojson = json.loads(QgsGeometry.fromPoint(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),

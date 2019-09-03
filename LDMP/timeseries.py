@@ -24,7 +24,6 @@ from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
 from LDMP.api import run_script
 
-from qgis.core import QgsGeometry, QgsPoint, QgsJsonUtils, QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
 

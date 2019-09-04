@@ -46,8 +46,8 @@ class UrbanSummaryWorker(AbstractWorker):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
-        self.urban_band_nums = urban_band_nums
-        self.pop_band_nums = pop_band_nums
+        self.urban_band_nums = [int(x) for x in urban_band_nums]
+        self.pop_band_nums = [int(x) for x in pop_band_nums]
         self.n_classes = n_classes
 
     def work(self):
@@ -152,7 +152,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         log(u'AOI area is: {:n}'.format(aoi_area))
         if aoi_area > 1e4:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.".format(aoi_area)), None)
+                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.".format(aoi_area)))
             return False
 
         self.calculate_on_GEE()
@@ -214,7 +214,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         self.combo_layer_urban_series.populate()
 
     def select_output_file_layer(self):
-        f = QtWidgets.QFileDialog.getSaveFileName(self,
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the output file'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Filename (*.json)'))
@@ -224,10 +224,10 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                 self.output_file_layer.setText(f)
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
 
     def select_output_file_table(self):
-        f = QtWidgets.QFileDialog.getSaveFileName(self,
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the summary table'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Summary table file (*.xlsx)'))
@@ -237,19 +237,19 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                 self.output_file_table.setText(f)
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
 
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
         if not self.output_file_layer.text():
             QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the indicator layer."), None)
+                                          self.tr("Choose an output file for the indicator layer."))
             return
 
         if not self.output_file_table.text():
             QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the summary table."), None)
+                                          self.tr("Choose an output file for the summary table."))
             return
 
         # Note that the super class has several tests in it - if they fail it
@@ -263,14 +263,14 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         # Check that all needed input layers are selected
         if len(self.combo_layer_urban_series.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add an urban series layer to your map before you can use the urban change summary tool."), None)
+                                       self.tr("You must add an urban series layer to your map before you can use the urban change summary tool."))
             return
 
         #######################################################################
         # Check that the layers cover the full extent needed
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_urban_series.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the urban series layer."), None)
+                                       self.tr("Area of interest is not entirely within the urban series layer."))
             return
 
         self.close()
@@ -346,11 +346,11 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             log(u'Saving urban clipped files to {}'.format(output_indicator_tif))
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
                                       indic_vrt, output_indicator_tif,
-                                      json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
+                                      json.loads(QgsGeometry.fromWkt(wkts[n]).asJson()),
                                       bbs[n])
             if not clip_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error masking urban change input layers."), None)
+                                           self.tr("Error masking urban change input layers."))
                 return
 
             ######################################################################
@@ -362,7 +362,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                                                urban_band_nums, pop_band_nums, 9)
             if not urban_summary_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating urban change summary table."), None)
+                                           self.tr("Error calculating urban change summary table."))
                 return
             else:
                 if n == 0:
@@ -432,4 +432,4 @@ def make_summary_table(areas, populations, out_file):
     except IOError:
         log(u'Error saving {}'.format(out_file))
         QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

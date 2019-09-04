@@ -24,7 +24,7 @@ from marshmallow import ValidationError
 
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, \
-    QVariant, QStringListModel
+    QVariant, QStringListModel, QItemSelectionModel
 
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
     QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
@@ -486,7 +486,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
         self.btn_view_metadata.setEnabled(False)
 
     def browse_file(self):
-        f = QtWidgets.QFileDialog.getOpenFileName(self,
+        f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                               self.tr('Select a Trends.Earth output file'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Trends.Earth metadata file (*.json)'))
@@ -517,7 +517,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
                 self.layers_view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
                 for n in range(len(self.layer_list)):
                     if self.layer_list[n][3]['add_to_map']:
-                        self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QtWidgets.QItemSelectionModel.Select)
+                        self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QItemSelectionModel.Select)
             else:
                 self.layers_model.setStringList([])
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -622,7 +622,7 @@ class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelect
             initial_file = self.lineEdit_raster_file.text()
         else:
             initial_file = QSettings().value("LDMP/input_dir", None)
-        raster_file = QtWidgets.QFileDialog.getOpenFileName(self,
+        raster_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a raster input file'),
                                                         initial_file,
                                                         self.tr('Raster file (*.tif *.dat *.img)'))
@@ -652,7 +652,7 @@ class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelect
             initial_file = self.lineEdit_vector_file.text()
         else:
             initial_file = QSettings().value("LDMP/input_dir", None)
-        vector_file = QtWidgets.QFileDialog.getOpenFileName(self,
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a vector input file'),
                                                         initial_file,
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
@@ -693,7 +693,7 @@ class ImportSelectRasterOutput(QtWidgets.QWidget, Ui_WidgetDataIOImportSelectRas
             initial_file = self.lineEdit_output_file.text()
         else:
             initial_file = QSettings().value("LDMP/output_dir", None)
-        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
+        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         initial_file,
                                                         self.tr('Raster file (*.tif)'))
@@ -819,7 +819,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                                           out_res)
         if not remap_vector_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Vector remapping failed."), None)
+                                       self.tr("Vector remapping failed."))
             return False
         else:
             return True
@@ -836,7 +836,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                                            out_file, remap_list)
         if not remap_raster_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Raster remapping failed."), None)
+                                       self.tr("Raster remapping failed."))
             return False
         else:
             return True
@@ -849,7 +849,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                                        in_file, out_file, out_res, attribute)
         if not rasterize_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Rasterizing failed."), None)
+                                       self.tr("Rasterizing failed."))
             return False
         else:
             return True
@@ -873,7 +873,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                                            out_file, out_res, resample_mode)
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Raster import failed."), None)
+                                       self.tr("Raster import failed."))
             return False
         else:
             return True
@@ -974,7 +974,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
                     (self.last_raster != f or self.last_band_number != band_number):
                 values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
                 if not values:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes", None))
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"))
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
@@ -987,7 +987,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
                     (self.last_vector != f or self.last_idx != idx):
                 values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
                 if not values:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes", None))
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"))
                     return
                 self.last_vector = f
                 self.last_idx = idx
@@ -1260,7 +1260,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def load_file(self):
         while True:
-            f = QtWidgets.QFileDialog.getOpenFileName(self,
+            f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                                   self.tr('Select a Trends.Earth output file'),
                                                   QSettings().value("LDMP/output_dir", None),
                                                   self.tr('Trends.Earth metadata file (*.json)'))

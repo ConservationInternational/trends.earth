@@ -24,7 +24,7 @@ from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
 from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, \
     QCoreApplication
 
-from qgis.core import QgsFeature, QgsPoint, QgsGeometry, QgsJsonUtils, \
+from qgis.core import QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils, \
     QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
     Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer, \
     QgsVectorFileWriter, QgsFields
@@ -85,8 +85,8 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         if wrap:
             n = 0
             p = geom.vertexAt(n)
-            # Note vertexAt returns QgsPoint(0, 0) on error
-            while p != QgsPoint(0, 0):
+            # Note vertexAt returns QgsPointXY(0, 0) on error
+            while p != QgsPointXY(0, 0):
                 if p.x() < 0:
                     geom.moveVertex(p.x() + 360, p.y(), n)
                 n += 1
@@ -399,8 +399,8 @@ class AOI(object):
 
         Used to calculate "within" with a tolerance
         """
-        aoi_geom = ogr.CreateGeometryFromWkt(self.bounding_box_geom().exportToWkt())
-        in_geom = ogr.CreateGeometryFromWkt(geom.exportToWkt())
+        aoi_geom = ogr.CreateGeometryFromWkt(self.bounding_box_geom().asWkt())
+        in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
 
         area_inter = aoi_geom.Intersection(in_geom).GetArea()
         frac = area_inter / aoi_geom.GetArea()
@@ -486,7 +486,7 @@ class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
 
     def btn_summary_multi_polygons_clicked(self):
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                      self.tr("Multiple polygon summary table calculation coming soon!"), None)
+                                      self.tr("Multiple polygon summary table calculation coming soon!"))
 
 
 class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
@@ -743,7 +743,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def open_vector_browse(self):
         self.area_fromfile_file.clear()
 
-        vector_file = QtWidgets.QFileDialog.getOpenFileName(self,
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a file defining the area of interest'),
                                                         QSettings().value("LDMP/input_dir", None),
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
@@ -910,10 +910,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."), None)
                 return False
-            point = QgsPoint(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance()).transform(point)
-            geojson = json.loads(QgsGeometry.fromPoint(point).asJson())
+            geojson = json.loads(QgsGeometry.fromPointXY(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
                                          datatype='point')
@@ -961,7 +961,11 @@ class ClipWorker(AbstractWorker):
         json_file = tempfile.NamedTemporaryFile(suffix='.json').name
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
+        f.close()
 
+        log('json: {}'.format(json_file))
+        log('bounds: {}'.format(self.output_bounds))
+        gdal.UseExceptions()
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=json_file, srcNodata=-32768, 
                         outputBounds=self.output_bounds,
@@ -971,6 +975,7 @@ class ClipWorker(AbstractWorker):
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
+        log('res: {}'.format(res))
 
         if res:
             return True

@@ -89,16 +89,16 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
 
     def register(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."))
             return
         elif not self.name.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."))
             return
         elif not self.organization.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."))
             return
         elif not self.country.currentText():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
             return
 
         resp = register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
@@ -136,11 +136,11 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
     def login(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email address."), None)
+                                       self.tr("Enter your email address."))
             return
         elif not self.password.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your password."), None)
+                                       self.tr("Enter your password."))
             return
 
         resp = login(self.email.text(), self.password.text())
@@ -223,7 +223,7 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
     def reset_password(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email address to reset your password."), None)
+                                       self.tr("Enter your email address to reset your password."))
             return
 
         reply = QtWidgets.QMessageBox.question(None, self.tr("Reset password?"),
@@ -269,16 +269,16 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
     def update_profile(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."))
             return
         elif not self.name.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."))
             return
         elif not self.organization.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."))
             return
         elif not self.country.currentText():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."), None)
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
             return
 
         resp = update_user(self.email.text(), self.name.text(),
@@ -286,6 +286,6 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
         if resp:
             QtWidgets.QMessageBox.information(None, self.tr("Saved"),
-                                          self.tr(u"Updated information for {}.").format(self.email.text()), None)
+                                          self.tr(u"Updated information for {}.").format(self.email.text()))
             self.close()
             self.ok = True

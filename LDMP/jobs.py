@@ -19,6 +19,7 @@ import json
 import re
 import copy
 import base64
+import binascii
 
 import datetime
 from qgis.PyQt import QtWidgets
@@ -290,7 +291,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job_info = u'{} ({})'.format(job['script_name'], job['task_name'])
                     else:
                         job_info = job['script_name']
-                    f = QtWidgets.QFileDialog.getSaveFileName(self,
+                    f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                           self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
                                                           self.settings.value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
@@ -383,10 +384,10 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             # If file already exists, check its hash and skip redownloading if 
             # it matches
             if os.access(tiles[n], os.R_OK):
-                if check_hash_against_etag(urls[n]['url'], tiles[n], base64.b64decode(urls[n]['md5Hash']).encode('hex')):
+                if check_hash_against_etag(urls[n]['url'], tiles[n], binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode()):
                     continue
             resp = download_result(urls[n]['url'], tiles[n], job, 
-                                   base64.b64decode(urls[n]['md5Hash']).encode('hex'))
+                                   binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode())
             if not resp:
                 return
         # Make a VRT mosaicing the tiles so they can be treated as one file 
@@ -397,7 +398,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
         url = results['urls'][0]
         out_file = f + '.tif'
         resp = download_result(url['url'], out_file, job, 
-                               base64.b64decode(url['md5Hash']).encode('hex'))
+                               binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
         if not resp:
             return
 

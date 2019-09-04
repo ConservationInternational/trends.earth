@@ -78,7 +78,7 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
             raise
 
     def get_save_raster(self):
-        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
+        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))
@@ -213,7 +213,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         self.combo_layer_biomass_diff.populate()
 
     def select_output_file_table(self):
-        f = QtWidgets.QFileDialog.getSaveFileName(self,
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the summary table'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Summary table file (*.xlsx)'))
@@ -223,10 +223,10 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                 self.output_file_table.setText(f)
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
 
     def select_output_file_layer(self):
-        f = QtWidgets.QFileDialog.getSaveFileName(self,
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                               self.tr('Choose a filename for the output file'),
                                               QSettings().value("LDMP/output_dir", None),
                                               self.tr('Filename (*.json)'))
@@ -236,18 +236,18 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                 self.output_file_layer.setText(f)
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
         if not self.output_file_layer.text():
             QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the biomass difference layers."), None)
+                                          self.tr("Choose an output file for the biomass difference layers."))
             return
 
         if not self.output_file_table.text():
             QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the summary table."), None)
+                                          self.tr("Choose an output file for the summary table."))
             return
 
         # Note that the super class has several tests in it - if they fail it
@@ -261,13 +261,13 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         # Check that all needed input layers are selected
         if len(self.combo_layer_biomass_diff.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a biomass layer to your map before you can use the summary tool."), None)
+                                       self.tr("You must add a biomass layer to your map before you can use the summary tool."))
             return
         #######################################################################
         # Check that the layers cover the full extent needed
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_biomass_diff.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the biomass layer."), None)
+                                       self.tr("Area of interest is not entirely within the biomass layer."))
             return
 
         self.close()
@@ -293,11 +293,11 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
             log(u'Saving clipped biomass file to {}'.format(output_biomass_diff_tif))
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
                                       in_file, output_biomass_diff_tif, 
-                                      json.loads(QgsGeometry.fromWkt(wkts[n]).exportToGeoJSON()),
+                                      json.loads(QgsGeometry.fromWkt(wkts[n]).asJson()),
                                       bbs[n])
             if not clip_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error masking input layers."), None)
+                                           self.tr("Error masking input layers."))
                 return
 
             ######################################################################
@@ -308,7 +308,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
                                               output_biomass_diff_tif)
             if not rest_summary_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating biomass change summary table."), None)
+                                           self.tr("Error calculating biomass change summary table."))
                 return
             else:
                 if n == 0:
@@ -427,4 +427,4 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     except IOError:
         log(u'Error saving {}'.format(out_file))
         QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)), None)
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

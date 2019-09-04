@@ -22,7 +22,7 @@ from math import floor, log10
 from marshmallow import ValidationError
 
 from qgis.core import QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsRasterLayer
+    QgsSingleBandPseudoColorRenderer, QgsRasterLayer, QgsProject
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -31,6 +31,7 @@ from osgeo import gdal
 import numpy as np
 
 from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP import log
@@ -315,21 +316,21 @@ def add_layer(f, band_number, band_info, activated='default'):
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QtWidgets.QColor(item['color']),
+                                                      QColor(item['color']),
                                                       tr_style_text(item['label'])))
     elif style['ramp']['type'] == 'categorical with dynamic ramp':
         r = []
         for item in style['ramp']['items']:
             r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QtWidgets.QColor(item['color']),
+                                                      QColor(item['color']),
                                                       tr_style_text(item['label'])))
         # Now add in the continuous ramp with min/max values and labels 
         # determined from the band info min/max
         r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_min'],
-                                                  QtWidgets.QColor(style['ramp']['ramp min']['color']),
+                                                  QColor(style['ramp']['ramp min']['color']),
                                                   tr_style_text(style['ramp']['ramp min']['label'], band_info)))
         r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_max'],
-                                                  QtWidgets.QColor(style['ramp']['ramp max']['color']),
+                                                  QColor(style['ramp']['ramp max']['color']),
                                                   tr_style_text(style['ramp']['ramp max']['label'], band_info)))
 
     elif style['ramp']['type'] == 'zero-centered stretch':
@@ -339,16 +340,16 @@ def add_layer(f, band_number, band_info, activated='default'):
         log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(-cutoff,
-                                                  QtWidgets.QColor(style['ramp']['min']['color']),
+                                                  QColor(style['ramp']['min']['color']),
                                                   '{}'.format(-cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtWidgets.QColor(style['ramp']['zero']['color']),
+                                                  QColor(style['ramp']['zero']['color']),
                                                   '0'))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtWidgets.QColor(style['ramp']['max']['color']),
+                                                  QColor(style['ramp']['max']['color']),
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtWidgets.QColor(style['ramp']['no data']['color']),
+                                                  QColor(style['ramp']['no data']['color']),
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     elif style['ramp']['type'] == 'min zero stretch':
@@ -358,17 +359,17 @@ def add_layer(f, band_number, band_info, activated='default'):
         log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
         r = []
         r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QtWidgets.QColor(style['ramp']['zero']['color']),
+                                                  QColor(style['ramp']['zero']['color']),
                                                   '0'))
         if 'mid' in style['ramp']:
             r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
-                                                      QtWidgets.QColor(style['ramp']['mid']['color']),
+                                                      QColor(style['ramp']['mid']['color']),
                                                       str(cutoff/2)))
         r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QtWidgets.QColor(style['ramp']['max']['color']),
+                                                  QColor(style['ramp']['max']['color']),
                                                   '{}'.format(cutoff)))
         r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QtWidgets.QColor(style['ramp']['no data']['color']),
+                                                  QColor(style['ramp']['no data']['color']),
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     else:
@@ -399,15 +400,15 @@ def add_layer(f, band_number, band_info, activated='default'):
     l.setRenderer(pseudoRenderer)
     l.triggerRepaint()
     if activated == 'default':
-        if band_info.has_key('activated') and not band_info['activated']:
-            iface.legendInterface().setLayerVisible(l, False)
+        if 'activated' in band_info and not band_info['activated']:
+            QgsProject.instance().layerTreeRoot().findLayer(l.id()).setItemVisibilityChecked(False)
     elif activated:
         # The layer is visible by default, so if activated is true, don't need 
         # to change anything in order to make it visible
         pass
     elif not activated:
-        iface.legendInterface().setLayerVisible(l, False)
-    iface.legendInterface().refreshLayerSymbology(l)
+        QgsProject.instance().layerTreeRoot().findLayer(l.id()).setItemVisibilityChecked(False)
+    iface.layerTreeView().refreshLayerSymbology(l.id())
 
     return True
 

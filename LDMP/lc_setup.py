@@ -167,7 +167,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         self.close()
 
     def btn_load_pressed(self):
-        f = QtWidgets.QFileDialog.getOpenFileName(self,
+        f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                               self.tr('Select a land cover definition file'),
                                               QSettings().value("LDMP/lc_def_dir", None),
                                               self.tr('Land cover definition (*.json)'))
@@ -185,7 +185,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             self.setup_class_table(classes)
 
     def btn_save_pressed(self):
-        f = QtWidgets.QFileDialog.getSaveFileName(self,
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                               QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
                                                                            'Choose where to save this land cover definition'),
                                               QSettings().value("LDMP/lc_def_dir", None),
@@ -380,7 +380,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         self.legend_stable.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
 
     def trans_matrix_loadfile(self):
-        f = QtWidgets.QFileDialog.getOpenFileName(self,
+        f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                               self.tr('Select a transition matrix definition file'),
                                               QSettings().value("LDMP/lc_def_dir", None),
                                               self.tr('Transition matrix definition (*.json)'))
@@ -410,7 +410,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
             return True
 
     def trans_matrix_savefile(self):
-        f = QtWidgets.QFileDialog.getSaveFileName(self,
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                               QtWidgets.QApplication.translate('DlgCalculateLC',
                                                                            'Choose where to save this transition matrix definition'),
                                               QSettings().value("LDMP/lc_def_dir", None),

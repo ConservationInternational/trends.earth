@@ -20,7 +20,7 @@ from qgis.PyQt import QtWidgets, uic, QtXml
 from qgis.PyQt.QtCore import QSettings, QEventLoop, QTimer
 
 from qgis.core import QgsProject, QgsVectorLayer, QgsFeature, \
-    QgsMapLayerStore, QgsLayerDefinition
+    QgsLayerDefinition, QgsReadWriteContext
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -77,7 +77,7 @@ class zoom_to_admin_poly(object):
     
     def zoom(self):
         layer = None
-        for lyr in list(QgsMapLayerStore.mapLayers().values()):
+        for lyr in QgsProject.instance().layerStore().mapLayers().values():
             if self.lyr_source in os.path.normpath(lyr.source()):
                 layer = lyr
                 break
@@ -148,7 +148,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
         ret = extract_zipfile('trends.earth_basemap_data.zip', verify=False)
 
         if ret:
-            f = file(os.path.join(os.path.dirname(__file__), 'data', 'basemap.qlr'), 'rt')
+            f = open(os.path.join(os.path.dirname(__file__), 'data', 'basemap.qlr'), 'rt')
             lyr_def_content = f.read()
             f.close()
 
@@ -199,11 +199,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
 
             # Always add the basemap at the top of the TOC
             root = QgsProject.instance().layerTreeRoot().insertGroup(0, 'Basemap')
-            try:
-                QgsLayerDefinition.loadLayerDefinition(document, root, "Success")
-            except TypeError:
-                # Fix for earlier versions of QGIS
-                QgsLayerDefinition.loadLayerDefinition(document, root)
+            QgsLayerDefinition.loadLayerDefinition(document, QgsProject.instance(), root, QgsReadWriteContext())
 
             if zoomer:
                 zoomer.zoom()

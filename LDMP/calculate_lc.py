@@ -180,7 +180,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                            level=0, duration=5)
 
     def get_save_raster(self):
-        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
+        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))

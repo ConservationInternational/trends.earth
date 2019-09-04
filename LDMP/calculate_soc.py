@@ -358,7 +358,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
             self.calculate_on_GEE()
 
     def get_save_raster(self):
-        raster_file = QtWidgets.QFileDialog.getSaveFileName(self,
+        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
                                                         QSettings().value("LDMP/output_dir", None),
                                                         self.tr('Raster file (*.tif)'))
@@ -374,17 +374,17 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
     def calculate_locally(self):
         if not self.groupBox_custom_SOC.isChecked():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset."), None)
+                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset."))
             return
         if not self.lc_setup_tab.use_custom.isChecked():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."), None)
+                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."))
             return
 
 
         if len(self.comboBox_custom_soc.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a soil organic carbon layer to your map before you can run the calculation."), None)
+                                       self.tr("You must add a soil organic carbon layer to your map before you can run the calculation."))
             return
 
         year_baseline = self.lc_setup_tab.get_initial_year()
@@ -395,12 +395,12 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the initial land cover layer."))
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the final land cover layer."))
             return
 
         out_f = self.get_save_raster()
@@ -455,7 +455,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         if not soc_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating change in soil organic carbon."), None)
+                                       self.tr("Error calculating change in soil organic carbon."))
             return
 
         band_infos = [BandInfo("Soil organic carbon (degradation)", add_to_map=True, metadata={'year_start': lc_years[0], 'year_end': lc_years[-1]})]

@@ -571,7 +571,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
             log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
             geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                      indic_vrt, masked_vrt, geojson, bbs[n]
+                                      indic_vrt, masked_vrt, geojson, bbs[n])
             if not clip_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking carbon change input layers."))

@@ -80,7 +80,7 @@ class UrbanSummaryWorker(AbstractWorker):
         populations = np.zeros((self.n_classes, len(self.pop_band_nums)))
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if self.killed:
                 log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                 break
@@ -89,7 +89,7 @@ class UrbanSummaryWorker(AbstractWorker):
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -106,12 +106,12 @@ class UrbanSummaryWorker(AbstractWorker):
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
                 # Loop over the bands (years)
-                for i in xrange(len(self.urban_band_nums)):
+                for i in range(len(self.urban_band_nums)):
                     urban_array = urban_bands[i].ReadAsArray(x, y, cols, rows)
                     pop_array = pop_bands[i].ReadAsArray(x, y, cols, rows)
                     pop_array[pop_array == -32768] = 0
                     # Now loop over the classes
-                    for c in xrange(1, self.n_classes + 1):
+                    for c in range(1, self.n_classes + 1):
                         areas[c - 1, i] += np.sum((urban_array == c) * cell_areas_array)
                         pop_masked = pop_array.copy() * (urban_array == c)
                         # Convert population densities to persons per hectare 

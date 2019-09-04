@@ -124,6 +124,15 @@ def get_ogr_geom_extent(geom):
 hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
 hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
 
+
+def json_geom_to_geojson(txt):
+    d = {'type': 'FeatureCollection',
+         'features': [{'type': 'Feature',
+                       'geometry': json.loads(txt)}]
+         }
+    return d
+
+
 class AOI(object):
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
@@ -958,13 +967,11 @@ class ClipWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = tempfile.NamedTemporaryFile(suffix='.json').name
+        json_file = tempfile.NamedTemporaryFile(suffix='.geojson').name
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
         f.close()
 
-        log('json: {}'.format(json_file))
-        log('bounds: {}'.format(self.output_bounds))
         gdal.UseExceptions()
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
                         cutlineDSName=json_file, srcNodata=-32768, 
@@ -975,8 +982,6 @@ class ClipWorker(AbstractWorker):
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
-        log('res: {}'.format(res))
-
         if res:
             return True
         else:

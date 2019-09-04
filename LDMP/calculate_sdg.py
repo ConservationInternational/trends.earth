@@ -33,7 +33,8 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
+    json_geom_to_geojson
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
@@ -868,9 +869,10 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
+            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
+            log('geojson: {}'.format(geojson))
             deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                             indic_vrt, masked_vrt, 
-                                             json.loads(QgsGeometry.fromWkt(wkts[n]).asJson()),
+                                             indic_vrt, masked_vrt, geojson, 
                                              bbs[n])
             if not deg_lc_clip_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),

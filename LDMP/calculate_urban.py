@@ -32,7 +32,8 @@ from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
+    json_geom_to_geojson
 from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
 from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
 from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
@@ -344,10 +345,10 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             output_indicator_tifs.append(output_indicator_tif)
 
             log(u'Saving urban clipped files to {}'.format(output_indicator_tif))
+            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
                                       indic_vrt, output_indicator_tif,
-                                      json.loads(QgsGeometry.fromWkt(wkts[n]).asJson()),
-                                      bbs[n])
+                                      geojson, bbs[n])
             if not clip_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking urban change input layers."))

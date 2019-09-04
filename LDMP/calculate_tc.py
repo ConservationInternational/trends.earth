@@ -34,7 +34,8 @@ from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker
+from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
+    json_geom_to_geojson
 from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
@@ -568,10 +569,9 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
 
             masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
+            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                      indic_vrt, masked_vrt, 
-                                      json.loads(QgsGeometry.fromWkt(wkts[n]).asJson()),
-                                      bbs[n])
+                                      indic_vrt, masked_vrt, geojson, bbs[n]
             if not clip_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error masking carbon change input layers."))

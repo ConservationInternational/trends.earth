@@ -406,7 +406,7 @@ def make_summary_table(areas, populations, out_file):
     def tr(s):
         return QtWidgets.QApplication.translate("LDMP", s)
 
-    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'UrbanSummaryTable.xlsx'))
+    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_urban.xlsx'))
 
     ##########################################################################
     # SDG table

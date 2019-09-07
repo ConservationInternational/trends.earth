@@ -39,7 +39,7 @@ from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
-from LDMP.gui.DlgCalculateSummaryTableAdmin import Ui_DlgCalculateSummaryTableAdmin
+from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
 
@@ -599,9 +599,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                          sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc))
 
 
-class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTableAdmin):
+class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSummaryTableAdmin):
     def __init__(self, parent=None):
-        super(DlgCalculateSummaryTableAdmin, self).__init__(parent)
+        super(DlgCalculateLDNSummaryTableAdmin, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -630,7 +630,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
             self.combo_layer_state_label.setEnabled(True)
 
     def showEvent(self, event):
-        super(DlgCalculateSummaryTableAdmin, self).showEvent(event)
+        super(DlgCalculateLDNSummaryTableAdmin, self).showEvent(event)
 
         self.combo_layer_lpd.populate()
         self.combo_layer_traj.populate()
@@ -681,7 +681,7 @@ class DlgCalculateSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSummaryTabl
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateSummaryTableAdmin, self).btn_calculate()
+        ret = super(DlgCalculateLDNSummaryTableAdmin, self).btn_calculate()
         if not ret:
             return
 

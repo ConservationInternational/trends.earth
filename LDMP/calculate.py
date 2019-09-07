@@ -459,12 +459,12 @@ class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
         from LDMP.calculate_prod import DlgCalculateProd
         from LDMP.calculate_lc import DlgCalculateLC
         from LDMP.calculate_soc import DlgCalculateSOC
-        from LDMP.calculate_sdg import DlgCalculateOneStep, DlgCalculateSummaryTableAdmin
+        from LDMP.calculate_ldn import DlgCalculateOneStep, DlgCalculateLDNSummaryTableAdmin
         self.dlg_calculate_prod = DlgCalculateProd()
         self.dlg_calculate_lc = DlgCalculateLC()
         self.dlg_calculate_soc = DlgCalculateSOC()
-        self.dlg_calculate_sdg_onestep = DlgCalculateOneStep()
-        self.dlg_calculate_sdg_advanced = DlgCalculateSummaryTableAdmin()
+        self.dlg_calculate_ldn_onestep = DlgCalculateOneStep()
+        self.dlg_calculate_ldn_advanced = DlgCalculateLDNSummaryTableAdmin()
 
         self.btn_prod.clicked.connect(self.btn_prod_clicked)
         self.btn_lc.clicked.connect(self.btn_lc_clicked)
@@ -487,11 +487,11 @@ class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
 
     def btn_sdg_onestep_clicked(self):
         self.close()
-        result = self.dlg_calculate_sdg_onestep.exec_()
+        result = self.dlg_calculate_ldn_onestep.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_sdg_advanced.exec_()
+        result = self.dlg_calculate_ldn_advanced.exec_()
 
     def btn_summary_multi_polygons_clicked(self):
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),

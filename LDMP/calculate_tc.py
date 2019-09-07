@@ -638,7 +638,7 @@ def make_summary_table(forest_change, carbon_change, area_missing, area_water,
     def tr(s):
         return QtWidgets.QApplication.translate("LDMP", s)
 
-    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'CarbonSummaryTable.xlsx'))
+    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
 
     ##########################################################################
     # SDG table

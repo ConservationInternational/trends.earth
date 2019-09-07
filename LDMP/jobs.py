@@ -24,7 +24,7 @@ import binascii
 import datetime
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal, \
-    QSortFilterProxyModel
+    QSortFilterProxyModel, QSize
 
 from osgeo import gdal
 
@@ -88,10 +88,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         self.connection_in_progress = False
 
-        # Set a variable used to record the necessary window width to view all
-        # columns
-        self._full_width = None
-
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.layout().addWidget(self.bar, 0, 0, Qt.AlignTop)
@@ -104,12 +100,13 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
 
-    def showEvent(self, event):
-        super(DlgJobs, self).showEvent(event)
         jobs_cache = self.settings.value("LDMP/jobs_cache", None)
         if jobs_cache:
             self.jobs = jobs_cache
             self.update_jobs_table()
+
+    def showEvent(self, event):
+        super(DlgJobs, self).showEvent(event)
 
         #######################################################################
         #######################################################################
@@ -168,16 +165,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             self.selection_changed()
             self.refresh.setEnabled(True)
 
-    def resizeWindowToColumns(self):
-        if not self._full_width:
-            margins = self.layout().contentsMargins()
-            self._full_width = margins.left() + margins.right() + \
-                self.jobs_view.frameWidth() * 2 + \
-                self.jobs_view.verticalHeader().width() + \
-                self.jobs_view.horizontalHeader().length() + \
-                self.jobs_view.style().pixelMetric(QtWidgets.QStyle.PM_ScrollBarExtent)
-        self.resize(self._full_width, self.height())
-
     def selection_changed(self):
         if self.connection_in_progress:
             return
@@ -185,10 +172,10 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             self.download.setEnabled(False)
         else:
             rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
-            if rows:
+            if rows and self.jobs:
                 for row in rows:
-                    # Don't set button to enabled if any of the tasks aren't yet
-                    # finished
+                    # Don't set button to enabled if any of the tasks aren't 
+                    # yet finished, or if any are invalid
                     if self.jobs[row]['status'] != 'FINISHED':
                         self.download.setEnabled(False)
                         return
@@ -199,8 +186,9 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         email = get_user_email()
         if email:
             start_date = datetime.datetime.now() + datetime.timedelta(-14)
-            self.jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
-            if self.jobs:
+            jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
+            if jobs:
+                self.jobs = jobs
                 # Add script names and descriptions to jobs list
                 for job in self.jobs:
                     # self.jobs will have prettified data for usage in table,
@@ -243,19 +231,25 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             proxy_model = QSortFilterProxyModel()
             proxy_model.setSourceModel(table_model)
             self.jobs_view.setModel(proxy_model)
-
-            # Add "Notes" buttons in cell
+            # Add "Details" buttons in cell
             for row in range(0, len(self.jobs)):
                 btn = QtWidgets.QPushButton(self.tr("Details"))
                 btn.clicked.connect(self.btn_details)
+                btn.setMinimumSize(QSize(75, 0))
+                btn.setMaximumSize(QSize(150, 16777215))
                 self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
-            self.jobs_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            #self.jobs_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-            self.jobs_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+            #self.jobs_view.widget(proxy_model.index(row, 2)).setTextAlignment(Qt.AlignCenter)
+
+            # self.jobs_view.setMinimumSize(QSize(0, 100))
+            # self.jobs_view.setColumnWidth(1, 400)
+            # self.jobs_view.setColumnWidth(2, 200)
+            # self.jobs_view.setColumnWidth(3, 200)
+            # self.jobs_view.setColumnWidth(4, 200)
+            # self.jobs_view.setColumnWidth(5, 200)
+
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
-            #self.resizeWindowToColumns()
 
     def btn_details(self):
         button = self.sender()

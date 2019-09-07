@@ -231,7 +231,7 @@ def plugin_setup(c, clean=False):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3'})
-def plugin_install(c, clean=False, version=2, profile='default'):
+def plugin_install(c, clean=False, version=3, profile='default'):
     '''install plugin to qgis'''
     compile_files(c, version)
     plugin_name = c.plugin.name
@@ -572,7 +572,7 @@ def changelog_build(c):
 
 @task(help={'clean': 'Clean out dependencies before packaging',
             'version': 'what version of QGIS to prepare ZIP file for'})
-def zipfile_build(c, clean=False, version=2):
+def zipfile_build(c, clean=False, version=3):
     """Create plugin package"""
     plugin_setup(c)
     compile_files(c, version)

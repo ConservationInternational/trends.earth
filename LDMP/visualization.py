@@ -226,12 +226,6 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, Ui_DlgVisualizationCreateMap)
         self.buttonBox.accepted.connect(self.ok_clicked)
         self.buttonBox.rejected.connect(self.cancel_clicked)
 
-    def showEvent(self, event):
-        super(DlgVisualizationCreateMap, self).showEvent(event)
-
-        QtWidgets.QMessageBox.warning(None, QtWidgets.QApplication.translate("LDMP", "Warning"),
-                                  QtWidgets.QApplication.translate("LDMP", "The create map tool is still experimental - the functionality of this tool is likely to change in the future."), None)
-
     def cancel_clicked(self):
         self.close()
 
@@ -246,9 +240,8 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, Ui_DlgVisualizationCreateMap)
         template = os.path.join(os.path.dirname(__file__), 'data',
                                 'map_template_{}.qpt'.format(orientation))
 
-        f = file(template, 'rt')
-        new_composer_content = f.read()
-        f.close()
+        with open(template, 'rt') as f:
+            new_composer_content = f.read()
         document = QtXml.QDomDocument()
         document.setContent(new_composer_content)
 

@@ -24,7 +24,8 @@ import binascii
 import datetime
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal, \
-    QSortFilterProxyModel, QSize
+    QSortFilterProxyModel, QSize, QObject, QEvent
+from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
 
@@ -104,6 +105,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         if jobs_cache:
             self.jobs = jobs_cache
             self.update_jobs_table()
+
+        self.jobs_view.viewport().installEventFilter(tool_tipper(self.jobs_view))
 
     def showEvent(self, event):
         super(DlgJobs, self).showEvent(event)
@@ -347,14 +350,48 @@ class JobsTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role != Qt.DisplayRole:
+        elif role == Qt.TextAlignmentRole:
+            return Qt.AlignCenter
+        elif role == Qt.DisplayRole or role == Qt.ToolTipRole:
+            return self.jobs[index.row()].get(self.colnames_json[index.column()], '')
+        else:
             return None
-        return self.jobs[index.row()].get(self.colnames_json[index.column()], '')
 
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         if role == Qt.DisplayRole and orientation == Qt.Horizontal:
             return self.colnames_pretty[section]
         return QAbstractTableModel.headerData(self, section, orientation, role)
+
+
+class tool_tipper(QObject):
+    def __init__(self, parent=None):
+        super(QObject, self).__init__(parent)
+
+    def eventFilter(self, obj, event):
+        if (event.type() == QEvent.ToolTip):
+            view = obj.parent()
+            if not view:
+                return False
+
+            pos = event.pos()
+            index = view.indexAt(pos)
+            if not index.isValid():
+                return False
+
+            itemText = view.model().data(index)
+            itemTooltip = view.model().data(index, Qt.ToolTipRole)
+
+            fm = QFontMetrics(view.font())
+            itemTextWidth = fm.width(itemText)
+            rect = view.visualRect(index)
+            rectWidth = rect.width()
+
+            if (itemTextWidth > rectWidth) and itemTooltip:
+                QtWidgets.QToolTip.showText(event.globalPos(), itemTooltip, view, rect)
+            else:
+                QtWidgets.QToolTip.hideText()
+            return True
+        return False
 
 
 def download_result(url, out_file, job, expected_etag):

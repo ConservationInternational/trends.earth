@@ -73,10 +73,16 @@ def rmtree(top):
 def _replace(file_path, regex, subst):
     #Create temp file
     fh, abs_path = mkstemp()
-    with open(fh, 'w', encoding='Latin-1') as new_file:
-        with open(file_path, encoding='Latin-1') as old_file:
-            for line in old_file:
-                new_file.write(regex.sub(subst, line))
+    if sys.version_info[0] < 3:
+        with os.fdopen(fh,'w') as new_file:
+            with open(file_path) as old_file:
+                for line in old_file:
+                    new_file.write(regex.sub(subst, line))
+    else:
+        with open(fh, 'w', encoding='Latin-1') as new_file:
+            with open(file_path, encoding='Latin-1') as old_file:
+                for line in old_file:
+                    new_file.write(regex.sub(subst, line))
     os.remove(file_path)
     shutil.move(abs_path, file_path)
 
@@ -148,12 +154,24 @@ def set_version(c, v):
     setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
     _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
 
+
+def check_tecli_python_version():
+    if sys.version_info[0] < 3:
+        print("ERROR: tecli tasks require Python version > 2 (you are running Python version {}.{})".format(sys.version_info[0], sys.version_info[1]))
+        return False
+    else:
+        return True
+
 @task
 def tecli_login(c):
+    if not check_tecli_python_version():
+        return
     subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'login'])
 
 @task(help={'script': 'Script name'})
 def tecli_publish(c, script=None):
+    if not check_tecli_python_version():
+        return
     if not script:
         ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version()))
         if not ret:
@@ -175,6 +193,8 @@ def tecli_publish(c, script=None):
 
 @task(help={'script': 'Script name'})
 def tecli_run(c, script):
+    if not check_tecli_python_version():
+        return
     dirs = next(os.walk(c.gee.script_dir))[1]
     n = 0
     script_dir = None
@@ -233,7 +253,7 @@ def plugin_setup(c, clean=False):
             'profile': 'what profile to install to (only applies to QGIS3'})
 def plugin_install(c, clean=False, version=3, profile='default'):
     '''install plugin to qgis'''
-    compile_files(c, version)
+    compile_files(c, version, clean)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -269,9 +289,8 @@ def plugin_install(c, clean=False, version=3, profile='default'):
     elif not dst_this_plugin.exists():
         src.symlink(dst_this_plugin)
 
-def compile_files(c, version):
-    # Compile all ui and resource files
-
+# Compile all ui and resource files
+def compile_files(c, version, clean):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -293,7 +312,7 @@ def compile_files(c, version):
             if os.path.exists(ui):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
-                if file_changed(ui, output):
+                if clean or file_changed(ui, output):
                     # Fix the links to c header files that Qt Designer adds to 
                     # UI files when QGIS custom widgets are used
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
@@ -308,7 +327,6 @@ def compile_files(c, version):
         print("Compiled {} UI files. Skipped {}.".format(ui_count, skip_count))
 
     # check to see if we have pyrcc
-    pyrcc4 = check_path('pyrcc4')
     if version == 2:
         pyrcc = 'pyrcc4'
     elif version ==3:
@@ -329,7 +347,7 @@ def compile_files(c, version):
             if os.path.exists(res):
                 (base, ext) = os.path.splitext(res)
                 output = "{0}.py".format(base)
-                if file_changed(res, output):
+                if clean or file_changed(res, output):
                     print("Compiling {0} to {1}".format(res, output))
                     subprocess.check_call([pyrcc_path, '-o', output, res])
                     res_count += 1
@@ -574,11 +592,15 @@ def changelog_build(c):
             'version': 'what version of QGIS to prepare ZIP file for'})
 def zipfile_build(c, clean=False, version=3):
     """Create plugin package"""
-    plugin_setup(c)
-    compile_files(c, version)
+    plugin_setup(c, clean)
+    compile_files(c, version, clean)
     tests = c.get('tests', False)
     package_dir = c.plugin.package_dir
-    os.makedirs(package_dir, exist_ok=True)
+    if sys.version_info[0] < 3:
+        if not os.path.exists(package_dir):
+            os.makedirs(package_dir)
+    else:
+        os.makedirs(package_dir, exist_ok=True)
     package_file =  os.path.join(package_dir, '{}.zip'.format(c.plugin.name))
     print('Building zipfile...')
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:

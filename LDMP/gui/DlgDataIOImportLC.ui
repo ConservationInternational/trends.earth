@@ -112,7 +112,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</string>
+         <string>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

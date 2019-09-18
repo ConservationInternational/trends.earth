@@ -73,10 +73,17 @@ def rmtree(top):
 def _replace(file_path, regex, subst):
     #Create temp file
     fh, abs_path = mkstemp()
-    with open(fh, 'w', encoding='Latin-1') as new_file:
-        with open(file_path, encoding='Latin-1') as old_file:
-            for line in old_file:
-                new_file.write(regex.sub(subst, line))
+
+    if sys.version_info[0] < 3:
+        with os.fdopen(fh,'w') as new_file:
+            with open(file_path) as old_file:
+                for line in old_file:
+                    new_file.write(regex.sub(subst, line))
+    else:
+        with open(fh, 'w', encoding='Latin-1') as new_file:
+            with open(file_path, encoding='Latin-1') as old_file:
+                for line in old_file:
+                    new_file.write(regex.sub(subst, line))
     os.remove(file_path)
     shutil.move(abs_path, file_path)
 

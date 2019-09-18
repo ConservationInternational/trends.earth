@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>276</width>
+    <width>343</width>
     <height>285</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -113,6 +113,12 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QGroupBox" name="groupBox_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>Output file for indicator layer</string>
          </property>
@@ -127,7 +133,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>200</width>
               <height>35</height>
              </size>
             </property>
@@ -177,7 +183,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>200</width>
               <height>35</height>
              </size>
             </property>

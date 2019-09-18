@@ -18,7 +18,8 @@ import os
 import json
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import QRegExpValidator, QFont, QPainter
+from qgis.PyQt.QtGui import QRegExpValidator, QFont, QPainter, QLinearGradient, \
+    QColor
 from qgis.PyQt.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, \
     QRegExp, QJsonValue, QSortFilterProxyModel
 
@@ -306,12 +307,17 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             class_color = "#0053C4"
         else:
             class_color = "#d7d6d5"
+
+        #TODO: Fix this so color coding is working
         # Note double brackets to escape for string.format
-        self.sender().setStyleSheet('''QComboBox {{background: qlineargradient(x1:1, y1:.5, x2:.6, y2:.5,
-                                                                               stop:0 {class_color},
-                                                                               stop:0.6 {class_color},
-                                                                               stop:0.8 #d7d6d5,
-                                                                               stop:1 #d7d6d5);}}'''.format(class_color=class_color))
+        # gradient = QLinearGradient(1, .5, .6, .5)
+        # gradient.setColorAt(.6, QColor(class_color))
+        # gradient.setColorAt(.6, QColor('#d7d6d5'))
+        # self.sender().setItemData(index, gradient, Qt.BackgroundRole)
+
+        # self.sender().setStyleSheet('''QComboBox {{background: qlineargradient(x1:1, y1:.5, x2:.6, y2:.5,
+        #                                                                        stop:0.6 {class_color},
+        #                                                                        stop:0.8 #d7d6d5);}}'''.format(class_color=class_color))
 
     def reset_class_table(self):
         self.setup_class_table(self.default_classes)

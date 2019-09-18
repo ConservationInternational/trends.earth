@@ -980,7 +980,7 @@ class ClipWorker(AbstractWorker):
                         dstSRS="epsg:4326",
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
-                        creationOptions=['COMPRESS=LZW'],
+                        creationOptions=['COMPRESS=LZW', 'BIGTIFF=YES'],
                         callback=self.progress_callback)
         if res:
             return True

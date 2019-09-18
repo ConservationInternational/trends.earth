@@ -297,7 +297,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # productivity bands
         driver = gdal.GetDriverByName("GTiff")
         dst_ds_deg = driver.Create(self.prod_out_file, xsize, ysize, n_out_bands, 
-                                   gdal.GDT_Int16, ['COMPRESS=LZW'])
+                                   gdal.GDT_Int16, ['COMPRESS=LZW', 'BIGTIFF=YES'])
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()

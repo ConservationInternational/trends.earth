@@ -157,6 +157,11 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         #######################################################################
         #######################################################################
 
+        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
+        if jobs_cache:
+            self.jobs = jobs_cache
+            self.update_jobs_table()
+
     def connection_event_changed(self, flag):
         if flag:
             self.connection_in_progress = True

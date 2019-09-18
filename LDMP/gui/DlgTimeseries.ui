@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>562</height>
+    <width>337</width>
+    <height>404</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Plot time series</string>
@@ -65,7 +71,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>200</width>
               <height>30</height>
              </size>
             </property>
@@ -154,13 +160,6 @@
               <height>35</height>
              </size>
             </property>
-            <property name="date">
-             <date>
-              <year>2000</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
-            </property>
             <property name="maximumDate">
              <date>
               <year>2030</year>
@@ -177,6 +176,13 @@
             </property>
             <property name="displayFormat">
              <string>yyyy</string>
+            </property>
+            <property name="date">
+             <date>
+              <year>2000</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
             </property>
            </widget>
           </item>
@@ -226,13 +232,6 @@
               <height>35</height>
              </size>
             </property>
-            <property name="date">
-             <date>
-              <year>2015</year>
-              <month>12</month>
-              <day>31</day>
-             </date>
-            </property>
             <property name="maximumDateTime">
              <datetime>
               <hour>23</hour>
@@ -252,6 +251,13 @@
             </property>
             <property name="displayFormat">
              <string>yyyy</string>
+            </property>
+            <property name="date">
+             <date>
+              <year>2015</year>
+              <month>12</month>
+              <day>31</day>
+             </date>
             </property>
            </widget>
           </item>

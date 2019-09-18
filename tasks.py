@@ -243,7 +243,7 @@ def plugin_setup(c, clean=False):
             'profile': 'what profile to install to (only applies to QGIS3'})
 def plugin_install(c, clean=False, version=2, profile='default'):
     '''install plugin to qgis'''
-    compile_files(c, version)
+    compile_files(c, version, clean)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -280,7 +280,7 @@ def plugin_install(c, clean=False, version=2, profile='default'):
         src.symlink(dst_this_plugin)
 
 # Compile all ui and resource files
-def compile_files(c, version):
+def compile_files(c, version, clean):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -302,7 +302,7 @@ def compile_files(c, version):
             if os.path.exists(ui):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
-                if file_changed(ui, output):
+                if clean or file_changed(ui, output):
                     # Fix the links to c header files that Qt Designer adds to 
                     # UI files when QGIS custom widgets are used
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
@@ -337,7 +337,7 @@ def compile_files(c, version):
             if os.path.exists(res):
                 (base, ext) = os.path.splitext(res)
                 output = "{0}.py".format(base)
-                if file_changed(res, output):
+                if clean or file_changed(res, output):
                     print("Compiling {0} to {1}".format(res, output))
                     subprocess.check_call([pyrcc_path, '-o', output, res])
                     res_count += 1
@@ -582,8 +582,8 @@ def changelog_build(c):
             'version': 'what version of QGIS to prepare ZIP file for'})
 def zipfile_build(c, clean=False, version=2):
     """Create plugin package"""
-    plugin_setup(c)
-    compile_files(c, version)
+    plugin_setup(c, clean)
+    compile_files(c, version, clean)
     tests = c.get('tests', False)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:

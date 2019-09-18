@@ -102,6 +102,7 @@ class DlgJobs(QtGui.QDialog, Ui_DlgJobs):
 
     def showEvent(self, event):
         super(DlgJobs, self).showEvent(event)
+
         jobs_cache = self.settings.value("LDMP/jobs_cache", None)
         if jobs_cache:
             self.jobs = jobs_cache

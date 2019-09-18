@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>605</width>
-    <height>381</height>
+    <width>615</width>
+    <height>383</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -109,15 +109,15 @@
               <height>35</height>
              </size>
             </property>
+            <property name="displayFormat">
+             <string notr="true">yyyy</string>
+            </property>
             <property name="date">
              <date>
               <year>2015</year>
               <month>1</month>
               <day>1</day>
              </date>
-            </property>
-            <property name="displayFormat">
-             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>
@@ -141,15 +141,15 @@
               <height>35</height>
              </size>
             </property>
+            <property name="displayFormat">
+             <string notr="true">yyyy</string>
+            </property>
             <property name="date">
              <date>
               <year>2001</year>
               <month>1</month>
               <day>1</day>
              </date>
-            </property>
-            <property name="displayFormat">
-             <string notr="true">yyyy</string>
             </property>
            </widget>
           </item>

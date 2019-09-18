@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>400</height>
+    <width>618</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -95,10 +95,19 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</string>
+     <item row="1" column="0">
+    <widget class="QTableView" name="jobs_view">
+     <property name="minimumSize">
+      <size>
+       <width>600</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

@@ -73,10 +73,16 @@ def rmtree(top):
 def _replace(file_path, regex, subst):
     #Create temp file
     fh, abs_path = mkstemp()
-    with open(fh, 'w', encoding='Latin-1') as new_file:
-        with open(file_path, encoding='Latin-1') as old_file:
-            for line in old_file:
-                new_file.write(regex.sub(subst, line))
+    if sys.version_info[0] < 3:
+        with os.fdopen(fh,'w') as new_file:
+            with open(file_path) as old_file:
+                for line in old_file:
+                    new_file.write(regex.sub(subst, line))
+    else:
+        with open(fh, 'w', encoding='Latin-1') as new_file:
+            with open(file_path, encoding='Latin-1') as old_file:
+                for line in old_file:
+                    new_file.write(regex.sub(subst, line))
     os.remove(file_path)
     shutil.move(abs_path, file_path)
 
@@ -216,7 +222,11 @@ def plugin_setup(c, clean=False):
     ext_libs = os.path.abspath(c.plugin.ext_libs)
     if clean:
         shutil.rmtree(ext_libs)
-    os.makedirs(ext_libs, exist_ok=True)
+    if sys.version_info[0] < 3:
+        if not os.path.exists(ext_libs):
+            os.makedirs(ext_libs)
+    else:
+        os.makedirs(ext_libs, exist_ok=True)
     runtime, test = read_requirements()
 
     os.environ['PYTHONPATH'] = ext_libs
@@ -307,7 +317,6 @@ def compile_files(c, version):
         print("Compiled {} UI files. Skipped {}.".format(ui_count, skip_count))
 
     # check to see if we have pyrcc
-    pyrcc4 = check_path('pyrcc4')
     if version == 2:
         pyrcc = 'pyrcc4'
     elif version ==3:
@@ -577,7 +586,11 @@ def zipfile_build(c, clean=False, version=2):
     compile_files(c, version)
     tests = c.get('tests', False)
     package_dir = c.plugin.package_dir
-    os.makedirs(package_dir, exist_ok=True)
+    if sys.version_info[0] < 3:
+        if not os.path.exists(package_dir):
+            os.makedirs(package_dir)
+    else:
+        os.makedirs(package_dir, exist_ok=True)
     package_file =  os.path.join(package_dir, '{}.zip'.format(c.plugin.name))
     print('Building zipfile...')
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:

@@ -154,12 +154,24 @@ def set_version(c, v):
     setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
     _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
 
+
+def check_tecli_python_version():
+    if sys.version_info[0] < 3:
+        print("ERROR: tecli tasks require Python version > 2 (you are running Python version {}.{})".format(sys.version_info[0], sys.version_info[1]))
+        return False
+    else:
+        return True
+
 @task
 def tecli_login(c):
+    if not check_tecli_python_version():
+        return
     subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'login'])
 
 @task(help={'script': 'Script name'})
 def tecli_publish(c, script=None):
+    if not check_tecli_python_version():
+        return
     if not script:
         ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version()))
         if not ret:
@@ -181,6 +193,8 @@ def tecli_publish(c, script=None):
 
 @task(help={'script': 'Script name'})
 def tecli_run(c, script):
+    if not check_tecli_python_version():
+        return
     dirs = next(os.walk(c.gee.script_dir))[1]
     n = 0
     script_dir = None

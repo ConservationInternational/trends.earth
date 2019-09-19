@@ -110,7 +110,7 @@ def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
 
     ## define function to do zonation of cities
     def f_city_zones(built_up, geojson):
-        dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(), kernel=ee.Kernel.circle(1000, "meters"))
+        dens = built_up.reduceNeighborhood(reducer=ee.Reducer.mean(), kernel=ee.Kernel.circle(564, "meters"))
         ##rural built up (-32768 no-data), suburban, urban
         city = ee.Image(10).where(dens.lte(pct_suburban).And(built_up.eq(1)), 3) \
                            .where(dens.gt(pct_suburban).And(built_up.eq(1)), 2) \

@@ -33,7 +33,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
+from LDMP.calculate import DlgCalculateBase, get_script_slug, MaskWorker, \
     json_geom_to_geojson
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
@@ -250,7 +250,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
 
 class DegradationSummaryWorkerSDG(AbstractWorker):
     def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
-                 lc_band_nums, soc_band_nums):
+                 lc_band_nums, soc_band_nums, mask_file):
         AbstractWorker.__init__(self)
 
         self.src_file = src_file
@@ -261,6 +261,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # the degradation layer for that dataset
         self.lc_band_nums = [int(x) for x in lc_band_nums]
         self.soc_band_nums = [int(x) for x in soc_band_nums]
+        self.mask_file = mask_file
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -272,6 +273,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         band_lc_bl = src_ds.GetRasterBand(self.lc_band_nums[1])
         band_lc_tg = src_ds.GetRasterBand(self.lc_band_nums[-1])
         band_soc_deg = src_ds.GetRasterBand(self.soc_band_nums[0])
+
+        mask_ds = gdal.Open(self.mask_file)
+        band_mask = mask_ds.GetRasterBand(1)
 
         if self.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(self.prod_band_nums[0])
@@ -297,7 +301,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # productivity bands
         driver = gdal.GetDriverByName("GTiff")
         dst_ds_deg = driver.Create(self.prod_out_file, xsize, ysize, n_out_bands, 
-                                   gdal.GDT_Int16, ['COMPRESS=LZW', 'BIGTIFF=YES'])
+                                   gdal.GDT_Int16, ['COMPRESS=LZW'])
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()
@@ -310,6 +314,10 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         lat = src_gt[3]
         # Width of cells in latitude
         pixel_height = src_gt[5]
+
+        # log('long_width: {}'.format(long_width))
+        # log('lat: {}'.format(lat))
+        # log('pixel_height: {}'.format(pixel_height))
 
         trans_xtab = None
         # The 8 below is for eight classes plus no data, and the minus one is 
@@ -336,6 +344,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     cols = x_block_size
                 else:
                     cols = xsize - x
+
+                mask_array = band_mask.ReadAsArray(x, y, cols, rows)
 
                 if self.prod_mode == 'Trends.Earth productivity':
                     traj_array = traj_band.ReadAsArray(x, y, cols, rows)
@@ -403,12 +413,15 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     prod5[traj_array == -32768] = -32768
                     prod5[perf_array == -32768] = -32768
                     prod5[state_array == -32768] = -32768
+                    prod5[mask_array == -32768] = -32768
 
                     # Ensure masked areas carry over to productivity indicator 
                     # layer
                     prod5[traj_array == -32767] = -32767
                     prod5[perf_array == -32767] = -32767
                     prod5[state_array == -32767] = -32767
+                    # Mask areas outside of AOI
+                    prod5[mask_array == -32767] = -32767
 
                     # Save combined productivity indicator for later visualization
                     dst_ds_deg.GetRasterBand(2).WriteArray(prod5, x, y)
@@ -420,6 +433,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     # fixed in LPD layer made by UNCCD for SIDS
                     prod5[prod5 == 0] = -32768
                     prod5[prod5 == 15] = -32768
+                    # Mask areas outside of AOI
+                    prod5[mask_array == -32767] = -32767
 
                 # Recode prod5 as stable, degraded, improved (prod3)
                 prod3 = prod5.copy()
@@ -462,10 +477,12 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 deg_sdg[prod3 == -32768] = -32768
                 deg_sdg[lc_array == -32768] = -32768
                 deg_sdg[soc_array == -32768] = -32768
+                deg_sdg[mask_array == -32768] = -32768
 
                 deg_sdg[prod3 == -32767] = -32767
                 deg_sdg[lc_array == -32767] = -32767
                 deg_sdg[soc_array == -32767] = -32767
+                deg_sdg[mask_array == -32767] = -32767
 
                 dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
 
@@ -474,6 +491,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 ###########################################################
 
                 # Caculate cell area for each horizontal line
+                # log('y: {}'.format(y))
+                # log('x: {}'.format(x))
+                # log('rows: {}'.format(rows))
                 cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
                 cell_areas.shape = (cell_areas.size, 1)
                 # Make an array of the same size as the input arrays containing 
@@ -510,7 +530,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # Calculate the xtab and soc totals row by row over the y rows 
                 # since each one needs to be weighted by the pixel area for 
                 # that row
-                for n in range(y_block_size):
+                for n in range(rows):
                     cell_area = cell_areas[n]
                     this_trans_xtab = xtab(prod5[n, :], a_trans_bl_tg[n, :])
                     # Don't use this_trans_xtab if it is empty (could happen if 
@@ -532,6 +552,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         # Convert soilgrids data from per ha to per meter since 
                         # cell_area is in meters
                         a_soc = a_soc.astype(np.float32) / (100 * 100)
+                        a_soc[mask_array == -32767] = -32767
+                        a_soc[mask_array == -32768] = -32768
                         soc_totals_table[i - 1] = calc_total_table(a_trans_bl_tg[n, :],
                                                                    a_soc[n, :], 
                                                                    soc_totals_table[i - 1], 
@@ -559,6 +581,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[a_soc_tg_nodata] = -32768 # No data
                 # Mask water areas
                 a_deg_soc[a_lc_tg == 7] = -32767
+                # Mask areas outside AOI
+                a_deg_soc[mask_array == -32767] = -32767
                 sdg_tbl_soc[0] = sdg_tbl_soc[0] + np.sum((a_deg_soc == 1) * cell_areas_array)
                 sdg_tbl_soc[1] = sdg_tbl_soc[1] + np.sum((a_deg_soc == 0) * cell_areas_array)
                 sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum((a_deg_soc == -1) * cell_areas_array)
@@ -569,10 +593,15 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 for i in range(1, len(self.lc_band_nums)):
                     band_lc = src_ds.GetRasterBand(self.lc_band_nums[i])
                     a_lc = band_lc.ReadAsArray(x, y, cols, rows)
+                    a_lc[mask_array == -32767] = -32767
+                    a_lc[mask_array == -32768] = -32768
                     lc_totals_table[i - 1] = np.add([np.sum((a_lc == c) * cell_areas_array) for c in [1, 2, 3, 4, 5, 6, 7, -32768]], lc_totals_table[i - 1])
 
                 a_deg_lc = band_lc_deg.ReadAsArray(x, y, cols, rows)
+                # Mask water areas
                 a_deg_lc[a_lc_tg == 7] = -32767
+                # Mask areas outside AOI
+                a_deg_lc[mask_array == -32767] = -32767
                 sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum((a_deg_lc == 1) * cell_areas_array)
                 sdg_tbl_lc[1] = sdg_tbl_lc[1] + np.sum((a_deg_lc == 0) * cell_areas_array)
                 sdg_tbl_lc[2] = sdg_tbl_lc[2] + np.sum((a_deg_lc == -1) * cell_areas_array)
@@ -832,6 +861,9 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         # Remember the first value is an indication of whether dataset is 
         # wrapped across 180th meridian
         wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
+        # Compute the pixel-aligned bounding box (slightly larger than aoi). 
+        # Use this instead of croptocutline in gdal.Warp in order to keep the 
+        # pixels aligned with the chosen productivity layer.
         if prod_mode == 'Trends.Earth productivity':
             bbs = self.aoi.get_aligned_output_bounds(traj_vrt)
         else:
@@ -840,10 +872,6 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         output_sdg_tifs = []
         output_sdg_json = self.output_file_layer.text()
         for n in range(len(wkts)):
-            # Compute the pixel-aligned bounding box (slightly larger than 
-            # aoi). Use this instead of croptocutline in gdal.Warp in order to 
-            # keep the pixels aligned with the chosen productivity layer.
-        
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
@@ -858,7 +886,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                               separate=True)
                 prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
             else:
-                in_files.append(lpd_vrt)
+                in_files.extend([lpd_vrt])
                 gdal.BuildVRT(indic_vrt,
                               in_files,
                               outputBounds=bbs[n],
@@ -867,16 +895,17 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                               separate=True)
                 prod_band_nums = [max(soc_band_nums) + 1]
 
-            masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log(u'Saving deg/lc clipped file to {}'.format(masked_vrt))
+            # Compute a mask layer that will be used in the tabulation code to 
+            # mask out areas outside of the AOI. Do this instead of using 
+            # gdal.Clip to save having to clip and rewrite all of the layers in 
+            # the VRT
+            mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+            log(u'Saving mask to {}'.format(mask_vrt))
             geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
-            log('geojson: {}'.format(geojson))
-            deg_lc_clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                             indic_vrt, masked_vrt, geojson, 
-                                             bbs[n])
-            if not deg_lc_clip_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error masking SDG 15.3.1 input layers."))
+            deg_lc_mask_worker = StartWorker(MaskWorker, 'generating mask (part {} of {})'.format(n + 1, len(wkts)), 
+                                             mask_vrt, geojson, indic_vrt)
+            if not deg_lc_mask_worker.success:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error creating mask."))
                 return
 
             ######################################################################
@@ -890,12 +919,13 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             output_sdg_tifs.append(output_sdg_tif)
             deg_worker = StartWorker(DegradationSummaryWorkerSDG,
                                     'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                     masked_vrt,
+                                     indic_vrt,
                                      prod_band_nums,
                                      prod_mode, 
                                      output_sdg_tif,
                                      lc_band_nums, 
-                                     soc_band_nums)
+                                     soc_band_nums,
+                                     mask_vrt)
             if not deg_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating SDG 15.3.1 summary table."))

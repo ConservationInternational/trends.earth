@@ -980,8 +980,67 @@ class ClipWorker(AbstractWorker):
                         dstSRS="epsg:4326",
                         outputType=gdal.GDT_Int16,
                         resampleAlg=gdal.GRA_NearestNeighbour,
-                        creationOptions=['COMPRESS=LZW', 'BIGTIFF=YES'],
+                        creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True
+
+
+class MaskWorker(AbstractWorker):
+    def __init__(self, out_file, geojson, model_file=None):
+        AbstractWorker.__init__(self)
+
+        self.out_file = out_file
+        self.geojson = geojson
+        self.model_file = model_file
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        json_file = tempfile.NamedTemporaryFile(suffix='.geojson').name
+        with open(json_file, 'w') as f:
+            json.dump(self.geojson, f, separators=(',', ': '))
+        f.close()
+
+        gdal.UseExceptions()
+
+        if self.model_file:
+            # Assumes an image with no rotation
+            gt = gdal.Info(self.model_file, format='json')['geoTransform']
+            x_size, y_size= gdal.Info(self.model_file, format='json')['size']
+            x_min = min(gt[0], gt[0] + x_size * gt[1])
+            x_max = max(gt[0], gt[0] + x_size * gt[1])
+            y_min = min(gt[3], gt[3] + y_size * gt[5])
+            y_max = max(gt[3], gt[3] + y_size * gt[5])
+            output_bounds = [x_min, y_min, x_max, y_max]
+            x_res = gt[1]
+            y_res = gt[5]
+        else:
+            output_bounds = None
+            x_res = None
+            y_res = None
+
+        log('bounds: {}'.format(output_bounds))
+        res = gdal.Rasterize(self.out_file, json_file, format='GTiff',
+                             outputBounds=output_bounds,
+                             initValues=-32767, # Areas that are masked out
+                             burnValues=1, # Areas that are NOT masked out
+                             xRes=x_res,
+                             yRes=y_res,
+                             outputSRS="epsg:4326",
+                             outputType=gdal.GDT_Int16,
+                             creationOptions=['COMPRESS=LZW'],
+                             callback=self.progress_callback)
         if res:
             return True
         else:

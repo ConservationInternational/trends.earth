@@ -610,6 +610,7 @@ def zipfile_build(c, clean=False, version=3):
         if not tests:
             c.plugin.excludes.extend(c.plugin.tests)
         _make_zip(zf, c)
+    return(package_file)
 
 def _make_zip(zipFile, c):
     src_dir = c.plugin.source_dir
@@ -621,7 +622,7 @@ def _make_zip(zipFile, c):
 
 @task(help={'clean': 'Clean out dependencies before packaging'})
 def zipfile_deploy(c, clean=False):
-    zipfile_build(c)
+    filename = zipfile_build(c)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -632,9 +633,8 @@ def zipfile_deploy(c, clean=False):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
     print('Uploading package to S3')
-    package_file =  os.path.join(c.plugin.package_dir, '{}.zip'.format(c.plugin.name))
-    data = open(package_file, 'rb')
-    client.put_object(Key='sharing/LDMP.zip',
+    data = open(filename, 'rb')
+    client.put_object(Key='sharing/{}'.format(os.path.basename(filename)),
                       Body=data, 
                       Bucket=c.sphinx.deploy_s3_bucket)
     data.close()

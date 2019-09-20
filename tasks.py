@@ -275,6 +275,8 @@ def plugin_install(c, clean=False, version=3, profile='default'):
     dst_this_plugin = os.path.join(dst_plugins, plugin_name)
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
+    print("Installing to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
+
     if not hasattr(os, 'symlink') or (os.name == 'nt'):
         if clean:
             if os.path.exists(dst_this_plugin):
@@ -601,7 +603,8 @@ def zipfile_build(c, clean=False, version=3):
             os.makedirs(package_dir)
     else:
         os.makedirs(package_dir, exist_ok=True)
-    package_file =  os.path.join(package_dir, '{}.zip'.format(c.plugin.name))
+    #package_file =  os.path.join(package_dir, '{}_{}.zip'.format(c.plugin.name, get_version()))
+    package_file =  os.path.join(package_dir, '{}_QGIS{}.zip'.format(c.plugin.name, version))
     print('Building zipfile...')
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:

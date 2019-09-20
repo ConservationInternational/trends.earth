@@ -82,8 +82,13 @@ of the plugin.
 
 #### Installing latest packaged development version
 
-Download [the latest `Trends.Earth` 
-zipfile](https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip).
+First download the latest Trends.Earth zipfile. There are two versions 
+available, one for QGIS2, and the other a beta version for QGIS3:
+
+* [Download the latest `Trends.Earth` zipfile for 
+  QGIS2.18+](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS2.zip).
+* [Download the latest `Trends.Earth` zipfile for 
+  QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS3.zip).
 
 Extract `LDMP.zip` to the python plugins folder for your installation of QGIS. 
 For example, if you are using Windows and your username is "azvol", then this 
@@ -109,30 +114,31 @@ git clone https://github.com/ConservationInternational/trends.earth
 ```
 
 Navigate to the root folder of the newly cloned repository, and install 
-`paver`, a tool that assists with installing the plugin:
+`invoke`, a tool that assists with installing the plugin:
 
 ```
-pip install paver
+pip install invoke
 ```
 
-Now run the setup task with `paver` to pull in the external dependencies needed 
+Now run the setup task with `invoke` to pull in the external dependencies needed 
 for the project:
 
 ```
-paver setup
+invoke plugin-setup
 ```
 
-Once `paver setup` has run, you can install the plugin using paver:
+Once `invoke plugin-setup` has run, you can install the plugin using invoke:
 
 ```
-paver install
+invoke plugin-install
 ```
 
-If you modify the code, you need to run `paver install` to update the installed 
-plugin in QGIS. You only need to rerun `paver setup` if you change or update 
-the plugin dependencies. After reinstalling the plugin you will need to restart 
-QGIS or reload the plugin. Install the "Plugin reloader" plugin if you plan on 
-making a log of changes (https://github.com/borysiasty/plugin_reloader).
+If you modify the code, you need to run `invoke plugin-install` to update the 
+installed plugin in QGIS. You only need to rerun `invoke plugin-setup` if you 
+change or update the plugin dependencies. After reinstalling the plugin you 
+will need to restart QGIS or reload the plugin. Install the "Plugin reloader" 
+plugin if you plan on making a log of changes 
+(https://github.com/borysiasty/plugin_reloader).
 
 ## License
 

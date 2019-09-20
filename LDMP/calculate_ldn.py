@@ -906,6 +906,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                                              mask_vrt, geojson, indic_vrt)
             if not deg_lc_mask_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error creating mask."))
+                log('deg_lc_mask_worker return value: {}'.format(deg_lc_mask_worker.success))
                 return
 
             ######################################################################

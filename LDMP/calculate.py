@@ -1030,7 +1030,6 @@ class MaskWorker(AbstractWorker):
             x_res = None
             y_res = None
 
-        log('bounds: {}'.format(output_bounds))
         res = gdal.Rasterize(self.out_file, json_file, format='GTiff',
                              outputBounds=output_bounds,
                              initValues=-32767, # Areas that are masked out

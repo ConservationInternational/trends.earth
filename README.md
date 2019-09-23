@@ -132,8 +132,8 @@ Next, extract the zipfile  to the python plugins folder for your installation
 of QGIS. The location of this folder varies depending on your operating system 
 and version of QGIS. For example, if you are using Windows and your username is 
 "username", then this might be (for QGIS2) 
-`C:\Users\username\.qgis2\python\plugins`. If you are using a Mac (and 
-QGIS2)and your username is "username", then this might be
+`C:\Users\username\.qgis2\python\plugins`. If you are using a Mac (and QGIS2) 
+and your username is "username", then this might be
 `/Users/username/.qgis2/python/plugins`.
 
 Once you are finished, you should (for QGIS2) have a folder named "LDMP" within 

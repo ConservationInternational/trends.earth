@@ -300,8 +300,15 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # Setup output file for SDG degradation indicator and combined 
         # productivity bands
         driver = gdal.GetDriverByName("GTiff")
+        # Manually delete any existing outfiles so GDAL doesn't throw an error
+        if os.path.exists(self.prod_out_file):
+            try:
+                os.remove(self.prod_out_file)
+            except:
+                log('Error removing file at {}'.format(self.prod_out_file))
+                return -1
         dst_ds_deg = driver.Create(self.prod_out_file, xsize, ysize, n_out_bands, 
-                                   gdal.GDT_Int16, ['COMPRESS=LZW'])
+                                   gdal.GDT_Int16, options=['COMPRESS=LZW'])
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
         dst_srs = osr.SpatialReference()
@@ -410,18 +417,10 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     # Handle NAs
                     
                     # Ensure NAs carry over to productivity indicator layer
-                    prod5[traj_array == -32768] = -32768
-                    prod5[perf_array == -32768] = -32768
-                    prod5[state_array == -32768] = -32768
-                    prod5[mask_array == -32768] = -32768
+                    prod5[(traj_array == -32768) | (perf_array == -32768) | (state_array == -32768)] = -32768
 
-                    # Ensure masked areas carry over to productivity indicator 
-                    # layer
-                    prod5[traj_array == -32767] = -32767
-                    prod5[perf_array == -32767] = -32767
-                    prod5[state_array == -32767] = -32767
-                    # Mask areas outside of AOI
-                    prod5[mask_array == -32767] = -32767
+                    # Ensure masked areas carry over to productivity indicator
+                    prod5[(traj_array == -32767) | (perf_array == -32767) | (state_array == -32767) | (mask_array == -32767)] = -32767
 
                     # Save combined productivity indicator for later visualization
                     dst_ds_deg.GetRasterBand(2).WriteArray(prod5, x, y)
@@ -431,8 +430,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     # TODO: Below is temporary until missing data values are 
                     # fixed in LPD layer on GEE and missing data values are 
                     # fixed in LPD layer made by UNCCD for SIDS
-                    prod5[prod5 == 0] = -32768
-                    prod5[prod5 == 15] = -32768
+                    prod5[(prod5 == 0) | (prod5 == 15)] = -32768
                     # Mask areas outside of AOI
                     prod5[mask_array == -32767] = -32767
 
@@ -447,7 +445,13 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 #############
                 # Land cover
                 lc_array = band_lc_deg.ReadAsArray(x, y, cols, rows)
+                lc_array[mask_array == -32767] = -32767
                 deg_sdg[lc_array == -1] = -1
+
+                a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
+                a_lc_bl[mask_array == -32767] = -32767
+                a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
+                a_lc_tg[mask_array == -32767] = -32767
 
                 ##############
                 # Soil carbon
@@ -455,6 +459,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
                 soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
+                soc_array[mask_array == -32767] = -32767
                 deg_sdg[(soc_array <= -10) & (soc_array >= -100)] = -1
 
                 #############
@@ -474,15 +479,10 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # indicators.
                 
                 # No data
-                deg_sdg[prod3 == -32768] = -32768
-                deg_sdg[lc_array == -32768] = -32768
-                deg_sdg[soc_array == -32768] = -32768
-                deg_sdg[mask_array == -32768] = -32768
+                deg_sdg[(prod3 == -32768) | (lc_array == -32768) | (soc_array == -32768)] = -32768
 
-                deg_sdg[prod3 == -32767] = -32767
-                deg_sdg[lc_array == -32767] = -32767
-                deg_sdg[soc_array == -32767] = -32767
-                deg_sdg[mask_array == -32767] = -32767
+                # Masked
+                deg_sdg[(prod3 == -32767) | (lc_array == -32767) | (soc_array == -32767)] = -32767
 
                 dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
 
@@ -501,9 +501,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
-                a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
-                a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
-
                 ###########################################################
                 # Tabulate SDG 15.3.1 indicator
                 
@@ -518,7 +515,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # Calculate transition crosstabs for productivity indicator, 
                 # and SOC totals
                 a_trans_bl_tg = a_lc_bl*10 + a_lc_tg
-                a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] <- -32768
+                a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] = -32768
+                a_trans_bl_tg[mask_array == -32767] = -32767
 
                 # Mask water areas
                 prod3[a_lc_tg == 7] = -32767
@@ -551,23 +549,18 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         a_soc = band_soc.ReadAsArray(x, y, cols, rows)
                         # Convert soilgrids data from per ha to per meter since 
                         # cell_area is in meters
-                        a_soc = a_soc.astype(np.float32) / (100 * 100)
+                        if i == 1:
+                            # This is the baseline SOC
+                            a_soc_bl = a_soc.copy()
+                        elif i == (len(self.soc_band_nums) - 1):
+                            a_soc_tg = a_soc.copy()
+                            # This is the target (tg) SOC
+                        a_soc = a_soc.astype(np.float32) / (100 * 100) # From per ha to per m
                         a_soc[mask_array == -32767] = -32767
-                        a_soc[mask_array == -32768] = -32768
                         soc_totals_table[i - 1] = calc_total_table(a_trans_bl_tg[n, :],
                                                                    a_soc[n, :], 
                                                                    soc_totals_table[i - 1], 
                                                                    cell_area)
-                band_soc_bl = src_ds.GetRasterBand(self.soc_band_nums[1])
-                a_soc_bl = band_soc_bl.ReadAsArray(x, y, cols, rows)
-                a_soc_bl = a_soc_bl.astype(np.float32) / (100 * 100)
-                band_soc_tg = src_ds.GetRasterBand(self.soc_band_nums[-1])
-                a_soc_tg = band_soc_tg.ReadAsArray(x, y, cols, rows)
-                # Save masked and nodata values before they are obliterated by 
-                # the units change below (the 100 * 100)
-                a_soc_tg_masked = a_soc_tg == -32767
-                a_soc_tg_nodata = a_soc_tg == -32768
-                a_soc_tg = a_soc_tg.astype(np.float32) / (100 * 100)
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -576,13 +569,11 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
                 a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
                 a_deg_soc[a_soc_frac_chg >= 1.1] = 1
-                # Carry over areas that were originally masked or no data
-                a_deg_soc[a_soc_tg_masked] = -32767 # Masked areas
-                a_deg_soc[a_soc_tg_nodata] = -32768 # No data
-                # Mask water areas
-                a_deg_soc[a_lc_tg == 7] = -32767
-                # Mask areas outside AOI
-                a_deg_soc[mask_array == -32767] = -32767
+                # Mark areas that were no data in SOC
+                a_deg_soc[a_soc_tg == -32768] = -32768 # No data
+                # Carry over areas that were 1) originally masked, or 2) are 
+                # outside the AOI, or 3) are water
+                a_deg_soc[(a_soc_tg == -32767) | (mask_array == -32767) | (a_lc_tg == 7)] = -32767
                 sdg_tbl_soc[0] = sdg_tbl_soc[0] + np.sum((a_deg_soc == 1) * cell_areas_array)
                 sdg_tbl_soc[1] = sdg_tbl_soc[1] + np.sum((a_deg_soc == 0) * cell_areas_array)
                 sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum((a_deg_soc == -1) * cell_areas_array)
@@ -594,18 +585,14 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     band_lc = src_ds.GetRasterBand(self.lc_band_nums[i])
                     a_lc = band_lc.ReadAsArray(x, y, cols, rows)
                     a_lc[mask_array == -32767] = -32767
-                    a_lc[mask_array == -32768] = -32768
                     lc_totals_table[i - 1] = np.add([np.sum((a_lc == c) * cell_areas_array) for c in [1, 2, 3, 4, 5, 6, 7, -32768]], lc_totals_table[i - 1])
 
-                a_deg_lc = band_lc_deg.ReadAsArray(x, y, cols, rows)
-                # Mask water areas
-                a_deg_lc[a_lc_tg == 7] = -32767
-                # Mask areas outside AOI
-                a_deg_lc[mask_array == -32767] = -32767
-                sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum((a_deg_lc == 1) * cell_areas_array)
-                sdg_tbl_lc[1] = sdg_tbl_lc[1] + np.sum((a_deg_lc == 0) * cell_areas_array)
-                sdg_tbl_lc[2] = sdg_tbl_lc[2] + np.sum((a_deg_lc == -1) * cell_areas_array)
-                sdg_tbl_lc[3] = sdg_tbl_lc[3] + np.sum((a_deg_lc == -32768) * cell_areas_array)
+                # Calculate LC table
+                lc_array[a_lc_tg == 7] = -32767 # Mask water areas
+                sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum((lc_array == 1) * cell_areas_array)
+                sdg_tbl_lc[1] = sdg_tbl_lc[1] + np.sum((lc_array == 0) * cell_areas_array)
+                sdg_tbl_lc[2] = sdg_tbl_lc[2] + np.sum((lc_array == -1) * cell_areas_array)
+                sdg_tbl_lc[3] = sdg_tbl_lc[3] + np.sum((lc_array == -32768) * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -927,7 +914,11 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                                      lc_band_nums, 
                                      soc_band_nums,
                                      mask_vrt)
-            if not deg_worker.success:
+            if deg_worker.get_return() == -1:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.".format(output_sdg_tif)))
+                return
+            elif not deg_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating SDG 15.3.1 summary table."))
                 return

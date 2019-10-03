@@ -1,8 +1,10 @@
-FROM boundlessgeo/qgis-testing-environment:master_2
+FROM qgis/qgis:latest
+
+RUN apt-get install unzip
 
 WORKDIR /srv
-RUN pip install pip==9.0.1
-ADD ./requirements.txt /srv/requirements.txt
-RUN pip install -r requirements.txt
 ADD ./requirements-dev.txt /srv/requirements-dev.txt
-RUN pip install -r requirements-dev.txt
+RUN pip3 install numba
+RUN pip3 install invoke
+RUN pip3 install boto3
+RUN ln -s /usr/bin/pip3 /usr/bin/pip

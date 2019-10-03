@@ -43,8 +43,8 @@ have the latest version of the code.
 There are a number of different branches of the trends.earth repository that 
 are under active development. As the plugin does not yet officially support 
 QGIS3, the "qgis2" branch is where most development work is happening. The 
-"master" branch has some initial changes to support QGIS3, and will eventually 
-become the primary place for development once that version is released.
+"master" branch is being modified to support QGIS3, and will eventually become 
+the primary place for development once version 1.0 of the plugin is released.
 
 The first time you download the trends.earth code, you will also need to clone 
 the "schemas" submodule that is located within it, under "LDMP\\schemas". If 
@@ -181,10 +181,10 @@ perform a clean install of the plugin using the ``-c`` flag.
 
 .. note::
    By default plugin-install assumes you want to install the plugin to be used 
-   in QGIS2. To install the plugin for use in QGIS3, add the flag ``-v 3`` to 
-   the ``plugin-install`` command. Remember the plugin may or may not work on 
-   QGIS3 - the plugin was designed for QGIS2 and is still being tested on 
-   QGIS3.
+   in QGIS3. To install the plugin for use in QGIS3, add the flag ``-v 2`` to 
+   the ``plugin-install`` command. Remember the plugin may or may not be 
+   entirely functional on QGIS3 - the plugin was originally designed for QGIS2 
+   and is still being tested on QGIS3.
 
 Building a plugin ZIP file
 --------------------------

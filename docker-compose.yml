@@ -1,11 +1,10 @@
-version: '2'
+version: '3'
 
 services:
-    qgis-testing-environment:
+    qgis:
         volumes:
             - ./:/tests_directory
         environment:
             DISPLAY: ':99'
-            QT_X11_NO_MITSHM: '1'
         build:
             context: .

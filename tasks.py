@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from invoke import Collection, task
-
 import os
 import sys
 import platform
@@ -16,6 +14,8 @@ import zipfile
 import json
 
 import boto3
+from invoke import Collection, task
+
 
 # Below is from:
 # https://stackoverflow.com/questions/3041986/apt-command-line-interface-like-yes-no-input
@@ -234,26 +234,27 @@ def read_requirements():
 def plugin_setup(c, clean=False):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs)
-    if clean:
+    if clean and os.path.exists(ext_libs):
         shutil.rmtree(ext_libs)
     os.makedirs(ext_libs, exist_ok=True)
     runtime, test = read_requirements()
 
     os.environ['PYTHONPATH'] = ext_libs
     for req in runtime + test:
-        # Don't install numpy with pyqtgraph - QGIS already has numpy. So use 
-        # the --no-deps flag (-N for short) with that package only.
-        if ('pyqtgraph' in req):
+        # Don't install numpy with pyqtgraph as QGIS already has numpy. 
+        # So use the --no-deps flag (-N for short) with that package only.
+        if 'pyqtgraph' in req:
             subprocess.check_call(['pip', 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
         else:
             subprocess.check_call(['pip', 'install', '--upgrade', '-t', ext_libs, req])
 
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
-            'profile': 'what profile to install to (only applies to QGIS3'})
-def plugin_install(c, clean=False, version=3, profile='default'):
+            'profile': 'what profile to install to (only applies to QGIS3',
+            'python': 'Python to use for setup and compiling'})
+def plugin_install(c, clean=False, version=3, profile='default', python='python'):
     '''install plugin to qgis'''
-    compile_files(c, version, clean)
+    compile_files(c, version, clean, python)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -286,13 +287,16 @@ def plugin_install(c, clean=False, version=3, profile='default'):
             if not os.path.exists(os.path.join(dst_plugins, relpath)):
                 os.makedirs(os.path.join(dst_plugins, relpath))
             for f in _filter_excludes(root, files, c):
-                shutil.copy(os.path.join(root, f), os.path.join(dst_plugins, relpath, f))
+                try:
+                    shutil.copy(os.path.join(root, f), os.path.join(dst_plugins, relpath, f))
+                except PermissionError:
+                    print('Permission error: unable to copy {} to {}. Skipping that file.'.format(f, os.path.join(dst_plugins, relpath, f)))
             _filter_excludes(root, dirs, c)
     elif not dst_this_plugin.exists():
         src.symlink(dst_this_plugin)
 
 # Compile all ui and resource files
-def compile_files(c, version, clean):
+def compile_files(c, version, clean, python):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -359,6 +363,18 @@ def compile_files(c, version, clean):
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
 
+    print("Compiling exported numba functions...")
+    numba_files = c.plugin.numba_aot_files
+    n = 0
+    for numba_file in numba_files:
+        (base, ext) = os.path.splitext(numba_file)
+        output = "{0}.cp37-win_amd64.pyd".format(base)
+        if clean or file_changed(numba_file, output):
+            subprocess.check_call([python, numba_file])
+            n += 1
+    print("Compiled {} numba files. Skipped {}.".format(n, len(numba_files) - n))
+
+
 def file_changed(infile, outfile):
     try:
         infile_s = os.stat(infile)
@@ -368,7 +384,7 @@ def file_changed(infile, outfile):
         return True
 
 def _filter_excludes(root, items, c):
-    excludes = set(c.plugin.excludes)
+    excludes = set(c.plugin.excludes + c.plugin.numba_aot_files)
     skips = c.plugin.skip_exclude
 
     exclude = lambda p: any([fnmatch.fnmatch(p, e) for e in excludes])
@@ -591,12 +607,14 @@ def changelog_build(c):
 ###############################################################################
 
 @task(help={'clean': 'Clean out dependencies before packaging',
-            'version': 'what version of QGIS to prepare ZIP file for'})
-def zipfile_build(c, clean=False, version=3):
+            'version': 'what version of QGIS to prepare ZIP file for',
+            'tests': 'Package tests with plugin',
+            'filename': 'Name for output file',
+            'python': 'Python to use for setup and compiling'})
+def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python'):
     """Create plugin package"""
     plugin_setup(c, clean)
-    compile_files(c, version, clean)
-    tests = c.get('tests', False)
+    compile_files(c, version, clean, python)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
         if not os.path.exists(package_dir):
@@ -604,13 +622,14 @@ def zipfile_build(c, clean=False, version=3):
     else:
         os.makedirs(package_dir, exist_ok=True)
     #package_file =  os.path.join(package_dir, '{}_{}.zip'.format(c.plugin.name, get_version()))
-    package_file =  os.path.join(package_dir, '{}_QGIS{}.zip'.format(c.plugin.name, version))
+    if not filename:
+        filename =  os.path.join(package_dir, '{}_QGIS{}.zip'.format(c.plugin.name, version))
     print('Building zipfile...')
-    with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
+    with zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:
             c.plugin.excludes.extend(c.plugin.tests)
         _make_zip(zf, c)
-    return(package_file)
+    return(filename)
 
 def _make_zip(zipFile, c):
     src_dir = c.plugin.source_dir
@@ -659,10 +678,11 @@ ns.configure({
         #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
         'translations': ['fr', 'es', 'sw', 'pt'],
         'resource_files': ['LDMP/resources.qrc'],
+        'numba_aot_files': ['LDMP/calculate_numba.py',
+                            'LDMP/summary_numba.py'],
         'package_dir': 'build',
-        'tests': ['test'],
+        'tests': ['LDMP/test'],
         'excludes': [
-            'LDMP/test',
             'LDMP/data_prep_scripts',
             'docs',
             'gee',

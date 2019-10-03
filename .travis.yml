@@ -8,35 +8,30 @@ env:
   global:
   - PLUGIN_NAME=LDMP
   matrix:
-  - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
+  - QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
 - openssl aes-256-cbc -K $encrypted_e3ee5199e171_key -iv $encrypted_e3ee5199e171_iv
   -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
 - tar xzvf travis_secrets.tar.gz
-- mv trends.earth_test_user_credentials.json LDMP/test/trends.earth_test_user_credentials.json
-- mv trends.earth_admin_user_credentials.json LDMP/test/trends.earth_admin_user_credentials.json
 - docker-compose up -d
-- docker-compose ps
 - sleep 10
-# Fix pip 10.0 issue (AttributeError: 'module' object has no attribute 
-# 'main')
-- docker-compose exec qgis-testing-environment sh -c "pip install pip==9.0.1"
 - docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
-- docker-compose exec qgis-testing-environment sh -c "pip install paver"
-- docker-compose exec qgis-testing-environment sh -c "pip install boto3"
 - docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && git submodule update --init --recursive"
+- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && invoke zipfile-build -c -t -f /LDMP.zip -p python3"
+- docker-compose exec qgis-testing-environment sh -c "unzip /LDMP.zip -d /"
+- docker-compose exec qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
+- docker-compose exec qgis-testing-environment sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
+- mv trends.earth_test_user_credentials.json /LDMP/test/trends.earth_test_user_credentials.json
+- mv trends.earth_admin_user_credentials.json /LDMP/test/trends.earth_admin_user_credentials.json
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
-- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver
-  setup && paver package --tests"
 - docker version
 - docker-compose version
-- docker-compose exec qgis-testing-environment sh -c "GSHOSTNAME=boundless-test qgis_testrunner.sh
-  LDMP.test.dialog_settings_tests"
-after_success:
-- |
-  if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
-      docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver deploy"
-  fi
+- docker-compose exec qgis-testing-environment sh -c "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
+# after_success:
+# - |
+#   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+#       docker-compose exec qgis-testing-environment sh -c "cd /LDMP && invoke zipfile-deploy"
+#   fi

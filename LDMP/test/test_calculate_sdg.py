@@ -12,15 +12,16 @@
  ***************************************************************************/
 """
 
-import unittest
+from qgis.testing import unittest
+
 import sys
 
 from qgis.core import *
-from PyQt4.QtCore import *
-from PyQt4.QtTest import QTest
-from PyQt4.QtGui import QApplication
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtTest import QTest
+from qgis.PyQt.QtGui import QApplication
 
-from LDMP.calculate_sdg import DlgCalculateOneStep
+from LDMP.calculate_ldn import DlgCalculateOneStep
 
 from LDMP.test import regular_keys, admin_keys
 
@@ -30,7 +31,7 @@ def setup_lpd_layers(self):
     add_layer(soc)
     add_layer(lpd)
     
-class DialogCalculateneStep(unittest.TestCase):
+class DialogCalculateOneStep(unittest.TestCase):
     def testAdminBoundsLoad(self):
         d = DlgCalculateOneStep()
         d.area_tab.

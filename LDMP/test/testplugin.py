@@ -1,4 +1,5 @@
-import unittest
+from qgis.testing import unittest
+
 import sys
 from queue import Queue
 from time import sleep
@@ -25,7 +26,9 @@ class  GEETaskList(object):
             # end, so another task will come up for consideration next time)
             self.put(task)
             return None
+
     def update_status(self):
+        pass
 
 gee_task_queue = GEETaskList()
 
@@ -37,7 +40,7 @@ def unitTests():
 def run_all():
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(SettingsSuite())
     while True:
-        if not gee_task_queue.empty()
+        if not gee_task_queue.empty():
             # update status of all items in the queue
             # process the next available task if it is ready
             gee_task_queue.update_status()

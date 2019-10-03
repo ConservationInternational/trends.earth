@@ -12,11 +12,12 @@
  ***************************************************************************/
 """
 
-import unittest
+from qgis.testing import unittest
+
 import sys
 
 from qgis.core import *
-from PyQt4.QtCore import *
+from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtTest import QTest
 from qgis.PyQt.QtWidgets import QApplication
 

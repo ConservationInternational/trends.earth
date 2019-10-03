@@ -2,7 +2,6 @@
 REM Run docker tests on your local machine
 
 set PLUGIN_NAME="LDMP"
-set QGIS_VERSION_TAG=master
 set CONTAINER=trendsearth_qgis_1
  
 set DOCKER_RUN_COMMAND=docker exec -it %CONTAINER% sh -c

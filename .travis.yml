@@ -13,8 +13,8 @@ before_install:
 - docker exec -it trendsearth_qgis_1 sh -c "unzip /LDMP.zip -d /"
 - docker exec -it trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
 - docker exec -it trendsearth_qgis_1 sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
-- mv trends.earth_test_user_credentials.json /LDMP/test/trends.earth_test_user_credentials.json
-- mv trends.earth_admin_user_credentials.json /LDMP/test/trends.earth_admin_user_credentials.json
+- mv /tests_directory/trends.earth_test_user_credentials.json /LDMP/test/trends.earth_test_user_credentials.json
+- mv /tests_directory/trends.earth_admin_user_credentials.json /LDMP/test/trends.earth_admin_user_credentials.json
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)

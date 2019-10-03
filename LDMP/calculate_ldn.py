@@ -43,6 +43,9 @@ from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryT
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
 
+from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg
+
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
     def __init__(self, parent=None):
@@ -329,7 +332,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         trans_xtab = None
         # The 8 below is for eight classes plus no data, and the minus one is 
         # because one of the bands is a degradation layer
-        soc_totals_table = [None] * (len(self.soc_band_nums) - 1)
+        soc_trans_table = [np.array([])] * (len(self.soc_band_nums) - 1)
+        soc_totals_table = [np.array([])] * (len(self.soc_band_nums) - 1)
         lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
         sdg_tbl_overall = np.zeros((4, 1))
         sdg_tbl_prod = np.zeros((4, 1))
@@ -354,73 +358,25 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
                 mask_array = band_mask.ReadAsArray(x, y, cols, rows)
 
+                # Calculate cell area for each horizontal line
+                # log('y: {}'.format(y))
+                # log('x: {}'.format(x))
+                # log('rows: {}'.format(rows))
+                cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
+                log('Cell area dtype: {}'.format(cell_areas.dtype))
+                cell_areas.shape = (cell_areas.size, 1)
+                # Make an array of the same size as the input arrays containing 
+                # the area of each cell (which is identical for all cells ina 
+                # given row - cell areas only vary among rows)
+                cell_areas_array = np.repeat(cell_areas, cols, axis=1)
+
                 if self.prod_mode == 'Trends.Earth productivity':
-                    traj_array = traj_band.ReadAsArray(x, y, cols, rows)
-                    state_array = state_band.ReadAsArray(x, y, cols, rows)
+                    traj_recode = ldn_recode_traj(traj_band.ReadAsArray(x, y, cols, rows))
+
+                    state_recode = ldn_recode_state(state_band.ReadAsArray(x, y, cols, rows))
+
                     perf_array = perf_band.ReadAsArray(x, y, cols, rows)
-
-                    ##############
-                    # Productivity
-                    
-                    # Recode trajectory into deg, stable, imp. Capture trends 
-                    # that are at least 95% significant.
-                    #
-                    # Remember that traj is coded as:
-                    # -3: 99% signif decline
-                    # -2: 95% signif decline
-                    # -1: 90% signif decline
-                    #  0: stable
-                    #  1: 90% signif increase
-                    #  2: 95% signif increase
-                    #  3: 99% signif increase
-                    traj_recode = traj_array.copy()
-                    traj_recode[(traj_array >= -3) & (traj_array < -1)] = -1
-                    # -1 and 1 are not signif at 95%, so stable
-                    traj_recode[(traj_array >= -1) & (traj_array <= 1)] = 0
-                    traj_recode[(traj_array > 1) & (traj_array <= 3)] = 1
-
-                    # Recode state into deg, stable, imp. Note the >= -10 is so 
-                    # no data isn't coded as degradation. More than two changes 
-                    # in class is defined as degradation in state.
-                    state_recode = state_array.copy()
-                    state_recode[(state_array >= -10) & (state_array <= -2)] = -1
-                    state_recode[(state_array > -2) & (state_array < 2)] = 0
-                    state_recode[state_array >= 2] = 1
-
-                    # Coding of LPD (prod5)
-                    # 1: declining
-                    # 2: early signs of decline
-                    # 3: stable but stressed
-                    # 4: stable
-                    # 5: improving
-                    # -32768: no data
-                    prod5 = traj_recode.copy()
-
-                    ### LPD: Declining = 1
-                    prod5[traj_recode == -1] = 1
-                    ### LPD: Stable = 4
-                    prod5[traj_recode == 0] = 4
-                    ### LPD: Improving = 5
-                    prod5[traj_recode == 1] = 5
-
-                    ##
-                    # Handle state and performance.
-                    
-                    ### LPD: Stable due to agreement in perf and state but positive trajectory
-                    prod5[(traj_recode == 1) & (state_recode == -1) & (perf_array == -1)] = 4
-                    ### LPD: Stable but stressed
-                    prod5[(traj_recode == 0) & (state_recode == 0) & (perf_array == -1)] = 3
-                    ### LPD: Early signs of decline
-                    prod5[(traj_recode == 0) & (state_recode == -1) & (perf_array == 0)] = 2
-
-                    ##
-                    # Handle NAs
-                    
-                    # Ensure NAs carry over to productivity indicator layer
-                    prod5[(traj_array == -32768) | (perf_array == -32768) | (state_array == -32768)] = -32768
-
-                    # Ensure masked areas carry over to productivity indicator
-                    prod5[(traj_array == -32767) | (perf_array == -32767) | (state_array == -32767) | (mask_array == -32767)] = -32767
+                    prod5 = ldn_make_prod5(traj_recode, state_recode, perf_array, mask_array)
 
                     # Save combined productivity indicator for later visualization
                     dst_ds_deg.GetRasterBand(2).WriteArray(prod5, x, y)
@@ -440,18 +396,20 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 prod3[prod5 == 4] = 0
                 prod3[prod5 == 5] = 1
 
+
                 deg_sdg = prod3.copy()
 
                 #############
                 # Land cover
                 lc_array = band_lc_deg.ReadAsArray(x, y, cols, rows)
-                lc_array[mask_array == -32767] = -32767
+
                 deg_sdg[lc_array == -1] = -1
 
                 a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
                 a_lc_bl[mask_array == -32767] = -32767
                 a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
                 a_lc_tg[mask_array == -32767] = -32767
+                water = a_lc_tg == -32767
 
                 ##############
                 # Soil carbon
@@ -459,7 +417,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
                 soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
-                soc_array[mask_array == -32767] = -32767
                 deg_sdg[(soc_array <= -10) & (soc_array >= -100)] = -1
 
                 #############
@@ -482,34 +439,19 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 deg_sdg[(prod3 == -32768) | (lc_array == -32768) | (soc_array == -32768)] = -32768
 
                 # Masked
-                deg_sdg[(prod3 == -32767) | (lc_array == -32767) | (soc_array == -32767)] = -32767
+                deg_sdg[mask_array == -32767] = -32767
 
                 dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
 
                 ###########################################################
-                # Start areal calculations
-                ###########################################################
-
-                # Caculate cell area for each horizontal line
-                # log('y: {}'.format(y))
-                # log('x: {}'.format(x))
-                # log('rows: {}'.format(rows))
-                cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
-                cell_areas.shape = (cell_areas.size, 1)
-                # Make an array of the same size as the input arrays containing 
-                # the area of each cell (which is identical for all cells ina 
-                # given row - cell areas only vary among rows)
-                cell_areas_array = np.repeat(cell_areas, cols, axis=1)
-
-                ###########################################################
                 # Tabulate SDG 15.3.1 indicator
                 
-                # Mask water areas
-                deg_sdg[a_lc_tg == 7] = -32767
-                sdg_tbl_overall[0] = sdg_tbl_overall[0] + np.sum((deg_sdg == 1) * cell_areas_array)
-                sdg_tbl_overall[1] = sdg_tbl_overall[1] + np.sum((deg_sdg == 0) * cell_areas_array)
-                sdg_tbl_overall[2] = sdg_tbl_overall[2] + np.sum((deg_sdg == -1) * cell_areas_array)
-                sdg_tbl_overall[3] = sdg_tbl_overall[3] + np.sum((deg_sdg == -32768) * cell_areas_array)
+                log('ldn_total_deg: {}'.format(ldn_total_deg(deg_sdg, water, cell_areas_array)))
+                sdg_tbl_overall += ldn_total_deg(deg_sdg, water, cell_areas_array)
+                sdg_tbl_prod += ldn_total_deg(prod3, water, cell_areas_array)
+                sdg_tbl_lc += ldn_total_deg(lc_array,
+                                            (mask_array == -32767) | water,
+                                             cell_areas_array)
 
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator, 
@@ -517,13 +459,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_trans_bl_tg = a_lc_bl*10 + a_lc_tg
                 a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] = -32768
                 a_trans_bl_tg[mask_array == -32767] = -32767
-
-                # Mask water areas
-                prod3[a_lc_tg == 7] = -32767
-                sdg_tbl_prod[0] = sdg_tbl_prod[0] + np.sum((prod3 == 1) * cell_areas_array)
-                sdg_tbl_prod[1] = sdg_tbl_prod[1] + np.sum((prod3 == 0) * cell_areas_array)
-                sdg_tbl_prod[2] = sdg_tbl_prod[2] + np.sum((prod3 == -1) * cell_areas_array)
-                sdg_tbl_prod[3] = sdg_tbl_prod[3] + np.sum((prod3 == -32768) * cell_areas_array)
 
                 # Calculate the xtab and soc totals row by row over the y rows 
                 # since each one needs to be weighted by the pixel area for 
@@ -555,12 +490,27 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         elif i == (len(self.soc_band_nums) - 1):
                             a_soc_tg = a_soc.copy()
                             # This is the target (tg) SOC
-                        a_soc = a_soc.astype(np.float32) / (100 * 100) # From per ha to per m
+                        a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
                         a_soc[mask_array == -32767] = -32767
-                        soc_totals_table[i - 1] = calc_total_table(a_trans_bl_tg[n, :],
-                                                                   a_soc[n, :], 
-                                                                   soc_totals_table[i - 1], 
-                                                                   cell_area)
+
+                        this_trans = np.unique(a_trans_bl_tg[n, :])
+                        log('a_soc.size: {}'.format(a_soc.size))
+                        log('a_trans_bl.size: {}'.format(a_trans_bl.size))
+                        log('this_trans.size: {}'.format(this_trans.size))
+                        this_totals = ldn_total_by_trans(a_soc[n, :],
+                                                         a_trans_bl_tg[n, :],
+                                                         this_trans,
+                                                         cell_area)
+
+                        # Update trans and totals
+                        new_trans = np.unique(np.concatenate(this_trans, soc_trans_table[i - 1]))
+                        # Combine past totals with these totals
+                        totals = np.zeros(new_trans.shape)
+                        for n in range(len(new_trans)):
+                            totals[n] = this_totals[np.asarray(this_trans == new_trans[n]).nonzero()] + \
+                                        soc_totals_table[i - 1][np.asarray(soc_trans_table[i - 1] == new_trans[n]).nonzero()]
+                        soc_trans_table[i - 1] = new_trans
+                        soc_totals_table[i - 1] = totals
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -573,11 +523,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[a_soc_tg == -32768] = -32768 # No data
                 # Carry over areas that were 1) originally masked, or 2) are 
                 # outside the AOI, or 3) are water
-                a_deg_soc[(a_soc_tg == -32767) | (mask_array == -32767) | (a_lc_tg == 7)] = -32767
-                sdg_tbl_soc[0] = sdg_tbl_soc[0] + np.sum((a_deg_soc == 1) * cell_areas_array)
-                sdg_tbl_soc[1] = sdg_tbl_soc[1] + np.sum((a_deg_soc == 0) * cell_areas_array)
-                sdg_tbl_soc[2] = sdg_tbl_soc[2] + np.sum((a_deg_soc == -1) * cell_areas_array)
-                sdg_tbl_soc[3] = sdg_tbl_soc[3] + np.sum((a_deg_soc == -32768) * cell_areas_array)
+                sdg_tbl_soc += ldn_total_deg(a_deg_soc,
+                                             (a_soc_tg == -32767) | (mask_array == -32767) | water,
+                                             cell_areas_array)
 
                 # Start at one because remember the first lc band is the 
                 # degradation layer
@@ -586,13 +534,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     a_lc = band_lc.ReadAsArray(x, y, cols, rows)
                     a_lc[mask_array == -32767] = -32767
                     lc_totals_table[i - 1] = np.add([np.sum((a_lc == c) * cell_areas_array) for c in [1, 2, 3, 4, 5, 6, 7, -32768]], lc_totals_table[i - 1])
-
-                # Calculate LC table
-                lc_array[a_lc_tg == 7] = -32767 # Mask water areas
-                sdg_tbl_lc[0] = sdg_tbl_lc[0] + np.sum((lc_array == 1) * cell_areas_array)
-                sdg_tbl_lc[1] = sdg_tbl_lc[1] + np.sum((lc_array == 0) * cell_areas_array)
-                sdg_tbl_lc[2] = sdg_tbl_lc[2] + np.sum((lc_array == -1) * cell_areas_array)
-                sdg_tbl_lc[3] = sdg_tbl_lc[3] + np.sum((lc_array == -32768) * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -611,8 +552,13 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             sdg_tbl_lc = sdg_tbl_lc * 1e-6
             lc_totals_table = lc_totals_table * 1e-6
 
-            return list((soc_totals_table, lc_totals_table, trans_xtab, 
-                         sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc))
+            return list(((soc_trans_table, soc_totals_table),
+                         lc_totals_table,
+                         trans_xtab, 
+                         sdg_tbl_overall,
+                         sdg_tbl_prod,
+                         sdg_tbl_soc,
+                         sdg_tbl_lc))
 
 
 class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSummaryTableAdmin):

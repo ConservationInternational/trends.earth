@@ -14,6 +14,7 @@
 
 from builtins import zip
 from builtins import range
+
 import numpy as np
 
 def xtab(*cols):
@@ -41,7 +42,7 @@ def xtab(*cols):
 
 
 def merge_xtabs(tab1, tab2):
-    """Mergies two crosstabs - allows for block-by-block crosstabs"""
+    """Merges two crosstabs - allows for block-by-block crosstabs"""
     headers = tuple(np.array(np.unique(np.concatenate(header))) for header in zip(tab1[0], tab2[0]))
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
     # Make this array flat since it will be used later with ravelled indexing
@@ -58,28 +59,6 @@ def merge_xtabs(tab1, tab2):
     add_xt_block(tab2)
 
     return list((headers, xt.reshape(shape_xt)))
-
-
-def calc_total_table(a_trans, a_soc, total_table, cell_area):
-    """Calculates an total table for an array"""
-    if total_table:
-        # Add in totals for past total_table if one is provided
-        transitions = np.unique(np.concatenate([a_trans.ravel(), total_table[0]]))
-        ind = np.concatenate(tuple(np.where(transitions == item)[0] for item in total_table[0]))
-        totals = np.zeros(transitions.shape)
-        np.add.at(totals, ind, total_table[1])
-    else:
-        transitions = np.unique(a_trans)
-        totals = np.zeros(transitions.shape)
-
-    for transition in transitions:
-        ind = np.where(transitions == transition)
-        # Only sum values for this transition, and where soc has a valid value
-        # (negative values are missing data flags)
-        vals = a_soc[(a_trans == transition) & (a_soc > 0)]
-        totals[ind] += np.sum(vals * cell_area)
-
-    return list((transitions, totals))
 
 
 def calc_area_table(a, area_table, cell_area):
@@ -134,7 +113,7 @@ def get_xtab_area(table, deg_class=None, lc_class=None):
     elif lc_class == None and deg_class == None:
         return float(np.sum(table[1].ravel()))
     else:
-        return 0
+        return 0.0
 
 
 #  Calculate the area of a slice of the globe from the equator to the parallel

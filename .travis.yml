@@ -1,26 +1,18 @@
 sudo: required
-addons:
-  hosts:
-  - boundless-test
 services:
 - docker
-env:
-  global:
-  - PLUGIN_NAME=LDMP
-  matrix:
-  - QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
 before_install:
 - openssl aes-256-cbc -K $encrypted_e3ee5199e171_key -iv $encrypted_e3ee5199e171_iv
   -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
 - tar xzvf travis_secrets.tar.gz
 - docker-compose up -d
 - sleep 10
-- docker-compose exec qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
-- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && git submodule update --init --recursive"
-- docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && invoke zipfile-build -c -t -f /LDMP.zip -p python3"
-- docker-compose exec qgis-testing-environment sh -c "unzip /LDMP.zip -d /"
-- docker-compose exec qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
-- docker-compose exec qgis-testing-environment sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
+- docker-compose exec trendsearth_qgis_1 sh -c "qgis_setup.sh LDMP"
+- docker-compose exec trendsearth_qgis_1 sh -c "cd /tests_directory && git submodule update --init --recursive"
+- docker-compose exec trendsearth_qgis_1 sh -c "cd /tests_directory && invoke zipfile-build -c -t -f /LDMP.zip -p python3"
+- docker-compose exec trendsearth_qgis_1 sh -c "unzip /LDMP.zip -d /"
+- docker-compose exec trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
+- docker-compose exec trendsearth_qgis_1 sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
 - mv trends.earth_test_user_credentials.json /LDMP/test/trends.earth_test_user_credentials.json
 - mv trends.earth_admin_user_credentials.json /LDMP/test/trends.earth_admin_user_credentials.json
 script:
@@ -29,9 +21,10 @@ script:
 - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
 - docker version
 - docker-compose version
-- docker-compose exec qgis-testing-environment sh -c "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
+- docker-compose exec trendsearth_qgis_1 sh -c "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
 # after_success:
 # - |
 #   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
-#       docker-compose exec qgis-testing-environment sh -c "cd /LDMP && invoke zipfile-deploy"
+#       docker-compose exec trendsearth_qgis_1 sh -c "cd /LDMP && invoke 
+#       zipfile-deploy"
 #   fi

@@ -251,10 +251,11 @@ def plugin_setup(c, clean=False):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
-            'python': 'Python to use for setup and compiling'})
+            'python': 'Python to use for setup and compiling',
+            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
 def plugin_install(c, clean=False, version=3, profile='default', python='python'):
     '''install plugin to qgis'''
-    compile_files(c, version, clean, python)
+    compile_files(c, version, clean, python, numba_recompile)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -296,7 +297,7 @@ def plugin_install(c, clean=False, version=3, profile='default', python='python'
         src.symlink(dst_this_plugin)
 
 # Compile all ui and resource files
-def compile_files(c, version, clean, python):
+def compile_files(c, version, clean, python, numba_recompile):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -369,7 +370,7 @@ def compile_files(c, version, clean, python):
     for numba_file in numba_files:
         (base, ext) = os.path.splitext(numba_file)
         output = "{0}.cp37-win_amd64.pyd".format(base)
-        if clean or file_changed(numba_file, output):
+        if numba_recompile or clean or file_changed(numba_file, output):
             subprocess.check_call([python, numba_file])
             n += 1
     print("Compiled {} numba files. Skipped {}.".format(n, len(numba_files) - n))
@@ -610,11 +611,12 @@ def changelog_build(c):
             'version': 'what version of QGIS to prepare ZIP file for',
             'tests': 'Package tests with plugin',
             'filename': 'Name for output file',
-            'python': 'Python to use for setup and compiling'})
-def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python'):
+            'python': 'Python to use for setup and compiling',
+            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
+def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', numba_recompile=False):
     """Create plugin package"""
     plugin_setup(c, clean)
-    compile_files(c, version, clean, python)
+    compile_files(c, version, clean, python, numba_recompile)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
         if not os.path.exists(package_dir):

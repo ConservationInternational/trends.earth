@@ -18,11 +18,9 @@ before_install:
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-- echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
-- docker version
 - docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
 after_success:
 - |
   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
-      docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke zipfile-deploy"
+      docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke -p python3 zipfile-deploy"
   fi

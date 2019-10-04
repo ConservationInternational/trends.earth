@@ -641,9 +641,10 @@ def _make_zip(zipFile, c):
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
 
-@task(help={'clean': 'Clean out dependencies before packaging'})
-def zipfile_deploy(c, clean=False):
-    filename = zipfile_build(c)
+@task(help={'clean': 'Clean out dependencies before packaging',
+            'python': 'Python to use for setup and compiling'})
+def zipfile_deploy(c, clean=False, python='python'):
+    filename = zipfile_build(c, python=python)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)

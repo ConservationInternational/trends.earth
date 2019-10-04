@@ -697,6 +697,11 @@ def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
                     client.download_file(Key='binaries/{}'.format(os.path.basename(filename)),
                                          Bucket=c.sphinx.deploy_s3_bucket,
                                          Filename=local_path)
+        else:
+            print('Local version of {} is missing - copying to local.'.format(filename))
+            client.download_file(Key='binaries/{}'.format(os.path.basename(filename)),
+                                 Bucket=c.sphinx.deploy_s3_bucket,
+                                 Filename=local_path)
 
     # Now copy back to S3 any binaries that aren't yet there
     binaries = [glob.glob(pattern) for pattern in c.plugin.numba_binary_patterns]

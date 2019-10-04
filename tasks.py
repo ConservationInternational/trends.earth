@@ -255,7 +255,7 @@ def plugin_setup(c, clean=False):
             'profile': 'what profile to install to (only applies to QGIS3',
             'python': 'Python to use for setup and compiling',
             'numba_recompile': 'Whether to recompile numba files even if they are existing'})
-def plugin_install(c, clean=False, version=3, profile='default', python='python'):
+def plugin_install(c, clean=False, version=3, profile='default', python='python', numba_recompile=False):
     '''install plugin to qgis'''
     compile_files(c, version, clean, python, numba_recompile)
     plugin_name = c.plugin.name

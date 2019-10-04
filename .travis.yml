@@ -7,7 +7,7 @@ before_install:
 - docker exec -it trendsearth_qgis_1 sh -c "qgis_setup.sh LDMP"
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && git submodule update --init --recursive"
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke zipfile-build -c -t -f /LDMP.zip -p python3"
-- docker exec -it trendsearth_qgis_1 sh -c "unzip /LDMP.zip -d /"
+- docker exec -it trendsearth_qgis_1 sh -c "unzip -qq /LDMP.zip -d /"
 - docker exec -it trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
 - docker exec -it trendsearth_qgis_1 sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
 - openssl aes-256-cbc -K $encrypted_e3ee5199e171_key -iv $encrypted_e3ee5199e171_iv

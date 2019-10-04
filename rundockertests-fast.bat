@@ -9,8 +9,11 @@ set DOCKER_RUN_COMMAND=docker exec -it %CONTAINER% sh -c
 REM docker-compose down -v
 docker-compose up -d
 
-REM Setup docker instance
+docker build -t qgis-testing-environment .
+docker run -d -v  %CONTAINER%:/tests_directory -e DISPLAY=:99 qgis-testing-environment
 %DOCKER_RUN_COMMAND% "qgis_setup.sh %PLUGIN_NAME%"
+%DOCKER_RUN_COMMAND% "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
+%DOCKER_RUN_COMMAND% "ln -s /tests_directory/LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
 docker cp trends.earth_test_user_credentials.json %CONTAINER%:/tests_directory/LDMP/test/trends.earth_test_user_credentials.json
 docker cp trends.earth_admin_user_credentials.json %CONTAINER%:/tests_directory/LDMP/test/trends.earth_admin_user_credentials.json
 

@@ -30,6 +30,9 @@ class  GEETaskList(object):
     def update_status(self):
         pass
 
+    def empty(self):
+        return True
+
 gee_task_queue = GEETaskList()
 
 def unitTests():
@@ -51,4 +54,4 @@ def run_all():
         else:
             break
         print('Waiting for completion of GEE tasks')
-        sleep(20)
+        sleep(10)

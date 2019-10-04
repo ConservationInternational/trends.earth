@@ -14,6 +14,7 @@ install:
 - tar xzvf travis_secrets.tar.gz
 - docker cp trends.earth_test_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_test_user_credentials.json
 - docker cp trends.earth_admin_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_admin_user_credentials.json
+- docker exec -it trendsearth_qgis_1 sh -c "export AWS_SHARED_CREDENTIALS_FILE=aws_credentials.json"
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)

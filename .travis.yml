@@ -21,9 +21,9 @@ script:
 - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
 - docker version
 - docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
-# after_success:
-# - |
-#   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
-#       docker-compose exec trendsearth_qgis_1 sh -c "cd /LDMP && invoke 
-#       zipfile-deploy"
-#   fi
+after_success:
+- |
+  if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+      docker-compose exec trendsearth_qgis_1 sh -c "cd /LDMP && invoke 
+      zipfile-deploy"
+  fi

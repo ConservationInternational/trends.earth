@@ -1,7 +1,6 @@
-sudo: required
 services:
 - docker
-before_install:
+install:
 - docker-compose up -d
 - sleep 10
 - docker exec -it trendsearth_qgis_1 sh -c "qgis_setup.sh LDMP"

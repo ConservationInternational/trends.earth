@@ -24,6 +24,5 @@ script:
 after_success:
 - |
   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
-      docker-compose exec trendsearth_qgis_1 sh -c "cd /LDMP && invoke 
-      zipfile-deploy"
+      docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP && invoke zipfile-deploy"
   fi

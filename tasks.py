@@ -12,6 +12,8 @@ import subprocess
 from tempfile import mkstemp
 import zipfile
 import json
+from datetime import datetime
+import hashlib
 
 import boto3
 from invoke import Collection, task
@@ -364,17 +366,7 @@ def compile_files(c, version, clean, python, numba_recompile):
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
 
-    print("Compiling exported numba functions...")
-    numba_files = c.plugin.numba_aot_files
-    n = 0
-    for numba_file in numba_files:
-        (base, ext) = os.path.splitext(numba_file)
-        output = "{0}.cp37-win_amd64.pyd".format(base)
-        if numba_recompile or clean or file_changed(numba_file, output):
-            subprocess.check_call([python, numba_file])
-            n += 1
-    print("Compiled {} numba files. Skipped {}.".format(n, len(numba_files) - n))
-
+    binaries_compile(c, clean, python, numba_recompile)
 
 def file_changed(infile, outfile):
     try:
@@ -617,6 +609,7 @@ def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python=
     """Create plugin package"""
     plugin_setup(c, clean)
     compile_files(c, version, clean, python, numba_recompile)
+    binaries_deploy(c, clean, python, numba_recompile)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
         if not os.path.exists(package_dir):
@@ -662,6 +655,87 @@ def zipfile_deploy(c, clean=False, python='python'):
     data.close()
     print('Package uploaded')
 
+
+@task(help={'clean': 'Clean out dependencies before packaging',
+            'python': 'Python to use for setup and compiling',
+            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
+def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+            keys = json.load(fin)
+        client = boto3.client('s3',
+                              aws_access_key_id=keys['access_key_id'],
+                              aws_secret_access_key=keys['secret_access_key'])
+    except IOError:
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        client = boto3.client('s3')
+
+    objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='binaries/')['Contents']
+    for obj in objects:
+        filename = os.path.basename(obj['Key'])
+        if filename == '':
+            # Catch the case of the key pointing to the root of the bucket and 
+            # skip it
+            continue
+        local_path = os.path.join('LDMP', filename)
+
+        # First ensure all the files that are on S3 are up to date relative to 
+        # the local files, copying files in either direction as necessary
+        if os.path.exists(local_path):
+            if not _check_hash(obj['ETag'].strip('"'), local_path):
+                lm_s3 = obj['LastModified']
+                lm_local = datetime.fromtimestamp(os.path.getmtime(local_path), lm_s3.tzinfo)
+                if lm_local > lm_s3:
+                    print('Local version of {} is newer than on S3 - copying to S3.'.format(filename))
+                    data = open(local_path, 'rb')
+                    client.put_object(Key='binaries/{}'.format(os.path.basename(filename)),
+                                      Body=data, 
+                                      Bucket=c.sphinx.deploy_s3_bucket)
+                    data.close()
+                else:
+                    print('S3 version of {} is newer than local - copying to local.'.format(filename))
+                    client.download_file(Key='binaries/{}'.format(os.path.basename(filename)),
+                                         Bucket=c.sphinx.deploy_s3_bucket,
+                                         Filename=local_path)
+
+    # Now copy back to S3 any binaries that aren't yet there
+    binaries = [glob.glob(pattern) for pattern in c.plugin.numba_binary_patterns]
+    binaries = [item for sublist in binaries for item in sublist]
+    s3_objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='binaries/')['Contents']
+    s3_object_names = [os.path.basename(obj['Key']) for obj in s3_objects]
+    for binary in binaries:
+        if not os.path.basename(binary) in s3_object_names:
+            print('S3 is missing {} - copying to S3.'.format(binary))
+            data = open(binary, 'rb')
+            client.put_object(Key='binaries/{}'.format(os.path.basename(binary)),
+                              Body=data, 
+                              Bucket=c.sphinx.deploy_s3_bucket)
+            data.close()
+
+def _check_hash(expected, filename):
+    md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
+    if md5hash == expected:
+        return True
+    else:
+        return False
+
+
+@task(help={'clean': 'Clean out dependencies before packaging',
+            'python': 'Python to use for setup and compiling',
+            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
+def binaries_compile(c, clean=False, python='python', numba_recompile=False):
+    print("Compiling exported numba functions...")
+    numba_files = c.plugin.numba_aot_files
+    n = 0
+    for numba_file in numba_files:
+        (base, ext) = os.path.splitext(numba_file)
+        output = "{0}.cp37-win_amd64.pyd".format(base)
+        if numba_recompile or clean or file_changed(numba_file, output):
+            subprocess.check_call([python, numba_file])
+            n += 1
+    print("Compiled {} numba files. Skipped {}.".format(n, len(numba_files) - n))
+
+
 ###############################################################################
 # Options
 ###############################################################################
@@ -669,7 +743,8 @@ def zipfile_deploy(c, clean=False, python='python'):
 ns = Collection(set_version, plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_publish, tecli_run,
-                zipfile_build, zipfile_deploy)
+                zipfile_build, zipfile_deploy,
+                binaries_compile, binaries_deploy)
 
 ns.configure({
     'plugin': {
@@ -683,6 +758,8 @@ ns.configure({
         'resource_files': ['LDMP/resources.qrc'],
         'numba_aot_files': ['LDMP/calculate_numba.py',
                             'LDMP/summary_numba.py'],
+        'numba_binary_patterns': ['LDMP/*.so',
+                                  'LDMP/*.pyd'],
         'package_dir': 'build',
         'tests': ['LDMP/test'],
         'excludes': [

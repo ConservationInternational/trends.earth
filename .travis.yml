@@ -22,5 +22,5 @@ script:
 after_success:
 - |
   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
-      docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke -p python3 zipfile-deploy"
+      docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke zipfile-deploy -p python3"
   fi

@@ -3,18 +3,18 @@ services:
 install:
 - docker-compose up -d
 - sleep 10
+- openssl aes-256-cbc -K $encrypted_e3ee5199e171_key -iv $encrypted_e3ee5199e171_iv
+  -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
+- tar xzvf travis_secrets.tar.gz
+- docker exec -it trendsearth_qgis_1 sh -c "export AWS_SHARED_CREDENTIALS_FILE=aws_credentials.json"
 - docker exec -it trendsearth_qgis_1 sh -c "qgis_setup.sh LDMP"
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && git submodule update --init --recursive"
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke zipfile-build -c -t -f /LDMP.zip -p python3"
 - docker exec -it trendsearth_qgis_1 sh -c "unzip -qq /LDMP.zip -d /"
-- docker exec -it trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
-- docker exec -it trendsearth_qgis_1 sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
-- openssl aes-256-cbc -K $encrypted_e3ee5199e171_key -iv $encrypted_e3ee5199e171_iv
-  -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
-- tar xzvf travis_secrets.tar.gz
 - docker cp trends.earth_test_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_test_user_credentials.json
 - docker cp trends.earth_admin_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_admin_user_credentials.json
-- docker exec -it trendsearth_qgis_1 sh -c "export AWS_SHARED_CREDENTIALS_FILE=aws_credentials.json"
+- docker exec -it trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
+- docker exec -it trendsearth_qgis_1 sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)

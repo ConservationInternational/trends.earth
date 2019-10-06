@@ -23,25 +23,31 @@ from qgis.PyQt.QtGui import QApplication
 
 from LDMP.calculate_ldn import DlgCalculateOneStep
 
-from LDMP.test import regular_keys, admin_keys
+from LDMP.test import regular_keys, admin_keys, add_default_bands_to_map
 
 
-def setup_lpd_layers(self):
-    add_layer(lc)
-    add_layer(soc)
-    add_layer(lpd)
-    
-class DialogCalculateOneStep(unittest.TestCase):
-    def testAdminBoundsLoad(self):
-        d = DlgCalculateOneStep()
-        d.area_tab.
-        country = self.area_tab.area_admin_0.model().data(index)
-        index = self.area_tab.area_admin_0.model().index(row, 0)
+LDN_TESTDATA = 'data/Nepal_Narayani_15_3_1_TE_One_Step.tif'
 
-class DialogCalculateSummaryTableAdmin(unittest.TestCase):
-    def testAdminBoundsLoad(self):
 
-def SettingsSuite():
+class DegradationSummaryWorkerSDG(unittest.TestCase):
+    def setUp(self):
+        add_default_bands_to_map(LDN_TESTDATA)
+
+    def testWorker(self):
+        # deg_worker = StartWorker(DegradationSummaryWorkerSDG,
+        #                         'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
+        #                          indic_vrt,
+        #                          prod_band_nums,
+        #                          prod_mode, 
+        #                          output_sdg_tif,
+        #                          lc_band_nums, 
+        #                          soc_band_nums,
+        #                          mask_vrt)
+        #
+        self.assertEquals(0, 0)
+
+
+def CalculateLDNSuite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(DialogCalculateBaseTests, 'test'))
+    suite.addTests(unittest.makeSuite(DegradationSummaryWorkerSDG, 'test'))
     return suite

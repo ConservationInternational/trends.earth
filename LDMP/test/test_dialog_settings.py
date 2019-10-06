@@ -27,7 +27,7 @@ from LDMP.test import regular_keys, admin_keys
 
 
 class DialogSettingsLoginTests(unittest.TestCase):
-    def testLogin(self):
+    def testLoginValid(self):
         # Test valid login
         d = DlgSettingsLogin()
         d.email.setText(regular_keys['email'])
@@ -38,6 +38,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertTrue(d.ok)
 
+    def testLoginNoEmail(self):
         # Test login without email
         d = DlgSettingsLogin()
         d.email.setText('')
@@ -46,6 +47,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertFalse(d.ok)
 
+    def testLoginNoPassword(self):
         # Test login without password
         d = DlgSettingsLogin()
         d.email.setText(regular_keys['email'])
@@ -54,6 +56,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertFalse(d.ok)
 
+    def testLoginNoPasswordNoEmail(self):
         # Test login without email and without password
         d = DlgSettingsLogin()
         d.email.setText('')

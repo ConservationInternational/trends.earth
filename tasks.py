@@ -670,7 +670,7 @@ def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
 
-    objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='binaries/')['Contents']
+    objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='plugin_binaries/')['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
         if filename == '':
@@ -688,31 +688,31 @@ def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
                 if lm_local > lm_s3:
                     print('Local version of {} is newer than on S3 - copying to S3.'.format(filename))
                     data = open(local_path, 'rb')
-                    client.put_object(Key='binaries/{}'.format(os.path.basename(filename)),
+                    client.put_object(Key='plugin_binaries/{}'.format(os.path.basename(filename)),
                                       Body=data, 
                                       Bucket=c.sphinx.deploy_s3_bucket)
                     data.close()
                 else:
                     print('S3 version of {} is newer than local - copying to local.'.format(filename))
-                    client.download_file(Key='binaries/{}'.format(os.path.basename(filename)),
+                    client.download_file(Key='plugin_binaries/{}'.format(os.path.basename(filename)),
                                          Bucket=c.sphinx.deploy_s3_bucket,
                                          Filename=local_path)
         else:
             print('Local version of {} is missing - copying to local.'.format(filename))
-            client.download_file(Key='binaries/{}'.format(os.path.basename(filename)),
+            client.download_file(Key='plugin_binaries/{}'.format(os.path.basename(filename)),
                                  Bucket=c.sphinx.deploy_s3_bucket,
                                  Filename=local_path)
 
     # Now copy back to S3 any binaries that aren't yet there
     binaries = [glob.glob(pattern) for pattern in c.plugin.numba_binary_patterns]
     binaries = [item for sublist in binaries for item in sublist]
-    s3_objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='binaries/')['Contents']
+    s3_objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='plugin_binaries/')['Contents']
     s3_object_names = [os.path.basename(obj['Key']) for obj in s3_objects]
     for binary in binaries:
         if not os.path.basename(binary) in s3_object_names:
             print('S3 is missing {} - copying to S3.'.format(binary))
             data = open(binary, 'rb')
-            client.put_object(Key='binaries/{}'.format(os.path.basename(binary)),
+            client.put_object(Key='plugin_binaries/{}'.format(os.path.basename(binary)),
                               Body=data, 
                               Bucket=c.sphinx.deploy_s3_bucket)
             data.close()

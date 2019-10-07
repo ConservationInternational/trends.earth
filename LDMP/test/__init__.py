@@ -41,10 +41,10 @@ timer.start(1000)
 
 # Used to load default bands from test datasets onto the map
 def add_default_bands_to_map(f):
-    json_file = os.path.splitext(data_file)[0] + '.json'
+    json_file = os.path.splitext(f)[0] + '.json'
     m = get_file_metadata(json_file)
     for band_number in range(1, len(m['bands']) + 1):
         # The minus 1 is because band numbers start at 1, not zero
         band_info = m['bands'][band_number - 1]
         if band_info['add_to_map']:
-            add_layer(out_file, band_number, band_info)
+            add_layer(f, band_number, band_info)

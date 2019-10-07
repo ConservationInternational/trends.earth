@@ -6,44 +6,46 @@ from time import sleep
 
 from LDMP.test.test_dialog_settings import SettingsSuite
 from LDMP.test.test_calculate_ldn import CalculateLDNSuite
-from LDMP.test.test_summary_numba import SummaryNumbaSuite
 
+# Class to store GEE tasks that have been submitted for processing and that 
+# have further tests to apply once the results have been returned. Queue stores 
+# tuples of (GEE Task ID, settings object)
+class  GEETaskList(object):
+    def __init__(self):
+        tasks = {}
 
-# # Class to store GEE tasks that have been submitted for processing and that 
-# # have further tests to apply once the results have been returned. Queue stores 
-# # tuples of (GEE Task ID, settings object)
-# class GEETaskList(object):
-#     def __init__(self):
-#         tasks = {}
-#
-#     def put(self, task_id, status):
-#         if tasks.has_key(task_id):
-#             raise(Exception, 'Task ID {} is already in task list'.format(task_id))
-#         tasks[task_id] = status
-#
-#     def get(self):
-#         if task.is_finished():
-#             return task
-#         else:
-#             # if the task isn't finished, add it back onto the queue (at the 
-#             # end, so another task will come up for consideration next time)
-#             self.put(task)
-#             return None
-#
-#     def update_status(self):
-#         pass
-#
-#     def empty(self):
-#         return True
-#
-# gee_task_queue = GEETaskList()
+    def put(self, task_id, status):
+        if tasks.has_key(task_id):
+            raise(Exception, 'Task ID {} is already in task list'.format(task_id))
+        tasks[task_id] = status
 
+    def get(self):
+        if task.is_finished():
+            return task
+        else:
+            # if the task isn't finished, add it back onto the queue (at the 
+            # end, so another task will come up for consideration next time)
+            self.put(task)
+            return None
+
+    def update_status(self):
+        pass
+
+    def empty(self):
+        return True
+
+gee_task_queue = GEETaskList()
+
+def unitTests():
+    _tests = []
+    _tests.extend(SettingsSuite())
+    _tests.extend(CalculateLDNSuite())
+    return _tests
 
 def run_all():
     _suite = unittest.TestSuite()
     _suite.addTest(SettingsSuite())
     _suite.addTest(CalculateLDNSuite())
-    _suite.addTest(SummaryNumbaSuite())
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(_suite)
     # while True:
     #     if not gee_task_queue.empty():
@@ -58,7 +60,3 @@ def run_all():
     #         break
     #     print('Waiting for completion of GEE tasks')
     #     sleep(10)
-
-
-if __name__ == '__main__':
-    run_all()

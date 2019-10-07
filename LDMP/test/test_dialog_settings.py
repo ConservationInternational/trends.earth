@@ -14,8 +14,6 @@
 
 from qgis.testing import unittest
 
-import sys
-
 from qgis.core import *
 from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtTest import QTest
@@ -28,6 +26,7 @@ from LDMP.test import regular_keys, admin_keys
 
 class DialogSettingsLoginTests(unittest.TestCase):
     def testLoginValid(self):
+        #TODO: pass if there is no internet
         # Test valid login
         d = DlgSettingsLogin()
         d.email.setText(regular_keys['email'])

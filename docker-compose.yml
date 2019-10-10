@@ -8,3 +8,4 @@ services:
             DISPLAY: ':99'
         build:
             context: .
+        container_name: trendsearth_qgis_1

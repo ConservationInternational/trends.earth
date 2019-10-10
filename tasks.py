@@ -659,7 +659,7 @@ def zipfile_deploy(c, clean=False, python='python'):
     print('Package uploaded')
 
 
-def _s3_sync(c, bucket, folder, patterns=['*']):
+def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -670,14 +670,14 @@ def _s3_sync(c, bucket, folder, patterns=['*']):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
     
-    objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(folder))['Contents']
+    objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
         if filename == '':
             # Catch the case of the key pointing to the root of the bucket and 
             # skip it
             continue
-        local_path = os.path.join('LDMP', filename)
+        local_path = os.path.join(local_folder, filename)
 
         # First ensure all the files that are on S3 are up to date relative to 
         # the local files, copying files in either direction as necessary
@@ -688,31 +688,31 @@ def _s3_sync(c, bucket, folder, patterns=['*']):
                 if lm_local > lm_s3:
                     print('Local version of {} is newer than on S3 - copying to S3.'.format(filename))
                     data = open(local_path, 'rb')
-                    client.put_object(Key='{}/{}'.format(folder, os.path.basename(filename)),
+                    client.put_object(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                       Body=data, 
                                       Bucket=bucket)
                     data.close()
                 else:
                     print('S3 version of {} is newer than local - copying to local.'.format(filename))
-                    client.download_file(Key='{}/{}'.format(folder, os.path.basename(filename)),
+                    client.download_file(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                          Bucket=bucket,
                                          Filename=local_path)
         else:
             print('Local version of {} is missing - copying to local.'.format(filename))
-            client.download_file(Key='{}/{}'.format(folder, os.path.basename(filename)),
+            client.download_file(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                  Bucket=bucket,
                                  Filename=local_path)
 
     # Now copy back to S3 any files that aren't yet there
     files = [glob.glob(pattern) for pattern in patterns]
     files = [item for sublist in files for item in sublist]
-    s3_objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(folder))['Contents']
+    s3_objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
     s3_object_names = [os.path.basename(obj['Key']) for obj in s3_objects]
     for f in files:
         if not os.path.basename(f) in s3_object_names:
             print('S3 is missing {} - copying to S3.'.format(f))
             data = open(f, 'rb')
-            client.put_object(Key='{}/{}'.format(folder, os.path.basename(f)),
+            client.put_object(Key='{}/{}'.format(s3_prefix, os.path.basename(f)),
                               Body=data, 
                               Bucket=bucket)
             data.close()
@@ -738,7 +738,7 @@ def binaries_sync(c):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
 
-    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba_binary_patterns)
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', 'LDMP', c.plugin.numba_binary_patterns)
 
 
 @task
@@ -753,7 +753,7 @@ def testdata_sync(c):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
 
-    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', c.plugin.testdata_patterns)
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP\\test\\fixtures', c.plugin.testdata_patterns)
 
 
 @task(help={'clean': 'Clean out dependencies before packaging',

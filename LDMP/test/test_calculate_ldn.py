@@ -54,9 +54,9 @@ class ldn_total_by_transTests(unittest.TestCase):
                                    12.44)
         self.assertEquals(np.sum(total), 0.0)
 
-    # def test_zero_array_is(self):
-    #     total = ldn_total_deg_f(np.zeros((10, 10), dtype=np.int16), np.zeros((10, 10), dtype=bool), np.zeros((10, 10)))
-    #     self.assertIs(total, np.array((0., 0., 0., 0.)))
+    def test_zero_array_is(self):
+        total = ldn_total_deg_f(np.zeros((10, 10), dtype=np.int16), np.zeros((10, 10), dtype=bool), np.zeros((10, 10)))
+        self.assertIs(total, np.array((0., 0., 0., 0.)))
 
 
 class ldn_total_deg_fTests(unittest.TestCase):
@@ -95,9 +95,9 @@ class DlgCalculateLDNSummaryTableAdminIntegrationTests(unittest.TestCase):
 
 def CalculateLDNSuite():
     suite = unittest.TestSuite()
-    #suite.addTests(unittest.makeSuite(recode_stateTests, 'test'))
+    suite.addTests(unittest.makeSuite(recode_stateTests, 'test'))
     suite.addTests(unittest.makeSuite(ldn_total_deg_fTests, 'test'))
-    #suite.addTests(unittest.makeSuite(ldn_total_by_transTests, 'test'))
+    suite.addTests(unittest.makeSuite(ldn_total_by_transTests, 'test'))
     suite.addTests(unittest.makeSuite(DlgCalculateLDNSummaryTableAdminIntegrationTests, 'test'))
     return suite
 

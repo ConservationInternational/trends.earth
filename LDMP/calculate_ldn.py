@@ -44,7 +44,7 @@ from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
-    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -251,6 +251,18 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                            level=0, duration=5)
 
 
+def get_total(totals, keys, key):
+    """
+    Ensures that if a particular transition isn't present in the keys list, a 
+    total of zero is returned for that transition
+    """
+    ind = np.asarray(keys == key).nonzero()
+    if np.any(ind):
+        return totals[ind]
+    else:
+        return 0
+
+
 class DegradationSummaryWorkerSDG(AbstractWorker):
     def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
                  lc_band_nums, soc_band_nums, mask_file):
@@ -332,13 +344,12 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         trans_xtab = None
         # The 8 below is for eight classes plus no data, and the minus one is 
         # because one of the bands is a degradation layer
-        soc_trans_table = [np.array([])] * (len(self.soc_band_nums) - 1)
-        soc_totals_table = [np.array([])] * (len(self.soc_band_nums) - 1)
+        soc_totals_table = [[np.array([]), np.array([])]] * (len(self.soc_band_nums) - 1)
         lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
-        sdg_tbl_overall = np.zeros((4, 1))
-        sdg_tbl_prod = np.zeros((4, 1))
-        sdg_tbl_soc = np.zeros((4, 1))
-        sdg_tbl_lc = np.zeros((4, 1))
+        sdg_tbl_overall = np.zeros((1, 4))
+        sdg_tbl_prod = np.zeros((1, 4))
+        sdg_tbl_soc = np.zeros((1, 4))
+        sdg_tbl_lc = np.zeros((1, 4))
 
         blocks = 0
         for y in range(0, ysize, y_block_size):
@@ -363,7 +374,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # log('x: {}'.format(x))
                 # log('rows: {}'.format(rows))
                 cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
-                log('Cell area dtype: {}'.format(cell_areas.dtype))
                 cell_areas.shape = (cell_areas.size, 1)
                 # Make an array of the same size as the input arrays containing 
                 # the area of each cell (which is identical for all cells ina 
@@ -410,6 +420,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
                 a_lc_tg[mask_array == -32767] = -32767
                 water = a_lc_tg == -32767
+                water = water.astype(bool, copy=False)
 
                 ##############
                 # Soil carbon
@@ -445,13 +456,18 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
                 ###########################################################
                 # Tabulate SDG 15.3.1 indicator
+                # log('deg_sdg.dtype: {}'.format(str(deg_sdg.dtype)))
+                # log('water.dtype: {}'.format(str(water.dtype)))
+                # log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
                 
-                log('ldn_total_deg: {}'.format(ldn_total_deg(deg_sdg, water, cell_areas_array)))
-                sdg_tbl_overall += ldn_total_deg(deg_sdg, water, cell_areas_array)
-                sdg_tbl_prod += ldn_total_deg(prod3, water, cell_areas_array)
-                sdg_tbl_lc += ldn_total_deg(lc_array,
-                                            (mask_array == -32767) | water,
-                                             cell_areas_array)
+                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg_f(deg_sdg, water, cell_areas_array)
+                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg_f(prod3, water, cell_areas_array)
+                new_lc_total = ldn_total_deg_f(lc_array.astype(np.int16),
+                                             np.array((mask_array == -32767) | water).astype(bool),
+                                             cell_areas_array.astype(np.float64))
+                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg_f(lc_array,
+                                                         np.array((mask_array == -32767) | water).astype(bool),
+                                                         cell_areas_array)
 
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator, 
@@ -460,62 +476,59 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] = -32768
                 a_trans_bl_tg[mask_array == -32767] = -32767
 
-                # Calculate the xtab and soc totals row by row over the y rows 
-                # since each one needs to be weighted by the pixel area for 
-                # that row
-                for n in range(rows):
-                    cell_area = cell_areas[n]
-                    this_trans_xtab = xtab(prod5[n, :], a_trans_bl_tg[n, :])
-                    # Don't use this_trans_xtab if it is empty (could happen if 
-                    # take a crosstab where all of the values are nan's)
-                    if this_trans_xtab[0][0].size != 0:
-                        this_trans_xtab[1] = this_trans_xtab[1] * cell_area
-                        if trans_xtab == None:
-                            trans_xtab = this_trans_xtab
-                        else:
-                            trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
+                # Calculate SOC totals). Note final units of soc_totals tables 
+                # are tons C (summed over the total area of each class). Start 
+                # at one because the first soc band is the degradation layer.
+                for i in range(1, len(self.soc_band_nums)):
+                    band_soc = src_ds.GetRasterBand(self.soc_band_nums[i])
+                    a_soc = band_soc.ReadAsArray(x, y, cols, rows)
+                    # Convert soilgrids data from per ha to per meter since 
+                    # cell_area is in meters
+                    if i == 1:
+                        # This is the baseline SOC - save it for later
+                        a_soc_bl = a_soc.copy()
+                    elif i == (len(self.soc_band_nums) - 1):
+                        # This is the target (tg) SOC - save it for later
+                        a_soc_tg = a_soc.copy()
+                    a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
+                    a_soc[mask_array == -32767] = -32767
 
-                    # Calculate SOC totals). Note final units of soc_totals 
-                    # tables are tons C (summed over the total area of each 
-                    # class). Start at one because the first soc band is the 
-                    # degradation layer.
-                    for i in range(1, len(self.soc_band_nums)):
-                        band_soc = src_ds.GetRasterBand(self.soc_band_nums[i])
-                        a_soc = band_soc.ReadAsArray(x, y, cols, rows)
-                        # Convert soilgrids data from per ha to per meter since 
-                        # cell_area is in meters
-                        if i == 1:
-                            # This is the baseline SOC
-                            a_soc_bl = a_soc.copy()
-                        elif i == (len(self.soc_band_nums) - 1):
-                            a_soc_tg = a_soc.copy()
-                            # This is the target (tg) SOC
-                        a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
-                        a_soc[mask_array == -32767] = -32767
+                    # Calculate the xtab and soc totals row by row over the y 
+                    # rows since each one needs to be weighted by the pixel 
+                    # area for that row
+                    for n in range(rows):
+                        cell_area = cell_areas[n]
+                        this_trans_xtab = xtab(prod5[n, :], a_trans_bl_tg[n, :])
+                        # Don't use this_trans_xtab if it is empty (could happen if 
+                        # take a crosstab where all of the values are nan's)
+                        if this_trans_xtab[0][0].size != 0:
+                            this_trans_xtab[1] = this_trans_xtab[1] * cell_area
+                            if trans_xtab == None:
+                                trans_xtab = this_trans_xtab
+                            else:
+                                trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
 
                         this_trans = np.unique(a_trans_bl_tg[n, :])
-                        log('a_soc.size: {}'.format(a_soc.size))
-                        log('a_trans_bl.size: {}'.format(a_trans_bl.size))
-                        log('this_trans.size: {}'.format(this_trans.size))
+                        this_trans = this_trans.ravel()
                         this_totals = ldn_total_by_trans(a_soc[n, :],
                                                          a_trans_bl_tg[n, :],
                                                          this_trans,
                                                          cell_area)
 
-                        # Update trans and totals
-                        new_trans = np.unique(np.concatenate(this_trans, soc_trans_table[i - 1]))
+                        new_trans = np.unique(np.concatenate((this_trans, soc_totals_table[i - 1][0])))
                         # Combine past totals with these totals
                         totals = np.zeros(new_trans.shape)
-                        for n in range(len(new_trans)):
-                            totals[n] = this_totals[np.asarray(this_trans == new_trans[n]).nonzero()] + \
-                                        soc_totals_table[i - 1][np.asarray(soc_trans_table[i - 1] == new_trans[n]).nonzero()]
-                        soc_trans_table[i - 1] = new_trans
-                        soc_totals_table[i - 1] = totals
+                        for j in range(len(new_trans)):
+                            new_total = get_total(this_totals, this_trans, new_trans[j])
+                            old_total = get_total(soc_totals_table[i - 1][1], soc_totals_table[i - 1][0], new_trans[j])
+                            totals[j] = new_total + old_total
+                        soc_totals_table[i - 1][0] = new_trans
+                        soc_totals_table[i - 1][1] = totals
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
                 # than 10% (and improving increase greater than 10%)
-                a_deg_soc = a_soc_frac_chg.copy()
+                a_deg_soc = a_soc_frac_chg.astype(np.int16)
                 a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
                 a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
                 a_deg_soc[a_soc_frac_chg >= 1.1] = 1
@@ -523,9 +536,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[a_soc_tg == -32768] = -32768 # No data
                 # Carry over areas that were 1) originally masked, or 2) are 
                 # outside the AOI, or 3) are water
-                sdg_tbl_soc += ldn_total_deg(a_deg_soc,
-                                             (a_soc_tg == -32767) | (mask_array == -32767) | water,
-                                             cell_areas_array)
+                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg_f(a_deg_soc,
+                                                          (a_soc_tg == -32767) | (mask_array == -32767) | water,
+                                                          cell_areas_array)
 
                 # Start at one because remember the first lc band is the 
                 # degradation layer
@@ -552,7 +565,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             sdg_tbl_lc = sdg_tbl_lc * 1e-6
             lc_totals_table = lc_totals_table * 1e-6
 
-            return list(((soc_trans_table, soc_totals_table),
+            return list((soc_totals_table,
                          lc_totals_table,
                          trans_xtab, 
                          sdg_tbl_overall,
@@ -810,18 +823,16 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             if prod_mode == 'Trends.Earth productivity':
-                in_files.extend([traj_vrt, perf_vrt, state_vrt])
                 gdal.BuildVRT(indic_vrt,
-                              in_files,
+                              in_files + [traj_vrt, perf_vrt, state_vrt],
                               outputBounds=bbs[n],
                               resolution='highest',
                               resampleAlg=gdal.GRA_NearestNeighbour,
                               separate=True)
                 prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
             else:
-                in_files.extend([lpd_vrt])
                 gdal.BuildVRT(indic_vrt,
-                              in_files,
+                              in_files + [lpd_vrt],
                               outputBounds=bbs[n],
                               resolution='highest',
                               resampleAlg=gdal.GRA_NearestNeighbour,
@@ -886,11 +897,8 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                             this_sdg_tbl_soc, \
                             this_sdg_tbl_lc = deg_worker.get_return()
 
-                    log('soc_totals: {}'.format(soc_totals))
-                    log('this_soc_totals: {}'.format(this_soc_totals))
                     for n in range(len(soc_totals)):
                         soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
-                    log('soc_totals after addition: {}'.format(this_soc_totals))
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
                         trans_prod_xtab = merge_xtabs(trans_prod_xtab, this_trans_prod_xtab)
@@ -922,6 +930,8 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
         if prod_mode == 'Trends.Earth productivity':
             add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
+
+        return True
 
 
 def get_lc_area(table, code):

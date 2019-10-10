@@ -1,6 +1,6 @@
 FROM qgis/qgis:latest
 
-RUN apt-get install unzip
+RUN apt-get install unzip ntp ntpdate -y
 
 WORKDIR /srv
 ADD ./requirements-dev.txt /srv/requirements-dev.txt

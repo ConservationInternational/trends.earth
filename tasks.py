@@ -65,7 +65,10 @@ def rmtree(top):
         for name in files:
             filename = os.path.join(root, name)
             os.chmod(filename, stat.S_IWUSR)
-            os.remove(filename)
+            try:
+                os.remove(filename)
+            except PermissionError:
+                print('Permission error: unable to copy {} to {}. Skipping that file.'.format(f, os.path.join(dst_plugins, relpath, f)))
         for name in dirs:
             os.rmdir(os.path.join(root, name))
     os.rmdir(top)
@@ -609,7 +612,7 @@ def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python=
     """Create plugin package"""
     plugin_setup(c, clean)
     compile_files(c, version, clean, python, numba_recompile)
-    binaries_deploy(c, clean, python, numba_recompile)
+    binaries_sync(c)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
         if not os.path.exists(package_dir):
@@ -656,10 +659,7 @@ def zipfile_deploy(c, clean=False, python='python'):
     print('Package uploaded')
 
 
-@task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling',
-            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
-def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
+def _s3_sync(c, bucket, folder, patterns=['*']):
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -669,8 +669,8 @@ def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
     except IOError:
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
-
-    objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='plugin_binaries/')['Contents']
+    
+    objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(folder))['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
         if filename == '':
@@ -688,34 +688,35 @@ def binaries_deploy(c, clean=False, python='python', numba_recompile=False):
                 if lm_local > lm_s3:
                     print('Local version of {} is newer than on S3 - copying to S3.'.format(filename))
                     data = open(local_path, 'rb')
-                    client.put_object(Key='plugin_binaries/{}'.format(os.path.basename(filename)),
+                    client.put_object(Key='{}/{}'.format(folder, os.path.basename(filename)),
                                       Body=data, 
-                                      Bucket=c.sphinx.deploy_s3_bucket)
+                                      Bucket=bucket)
                     data.close()
                 else:
                     print('S3 version of {} is newer than local - copying to local.'.format(filename))
-                    client.download_file(Key='plugin_binaries/{}'.format(os.path.basename(filename)),
-                                         Bucket=c.sphinx.deploy_s3_bucket,
+                    client.download_file(Key='{}/{}'.format(folder, os.path.basename(filename)),
+                                         Bucket=bucket,
                                          Filename=local_path)
         else:
             print('Local version of {} is missing - copying to local.'.format(filename))
-            client.download_file(Key='plugin_binaries/{}'.format(os.path.basename(filename)),
-                                 Bucket=c.sphinx.deploy_s3_bucket,
+            client.download_file(Key='{}/{}'.format(folder, os.path.basename(filename)),
+                                 Bucket=bucket,
                                  Filename=local_path)
 
-    # Now copy back to S3 any binaries that aren't yet there
-    binaries = [glob.glob(pattern) for pattern in c.plugin.numba_binary_patterns]
-    binaries = [item for sublist in binaries for item in sublist]
-    s3_objects = client.list_objects(Bucket=c.sphinx.deploy_s3_bucket, Prefix='plugin_binaries/')['Contents']
+    # Now copy back to S3 any files that aren't yet there
+    files = [glob.glob(pattern) for pattern in patterns]
+    files = [item for sublist in files for item in sublist]
+    s3_objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(folder))['Contents']
     s3_object_names = [os.path.basename(obj['Key']) for obj in s3_objects]
-    for binary in binaries:
-        if not os.path.basename(binary) in s3_object_names:
-            print('S3 is missing {} - copying to S3.'.format(binary))
-            data = open(binary, 'rb')
-            client.put_object(Key='plugin_binaries/{}'.format(os.path.basename(binary)),
+    for f in files:
+        if not os.path.basename(f) in s3_object_names:
+            print('S3 is missing {} - copying to S3.'.format(f))
+            data = open(f, 'rb')
+            client.put_object(Key='{}/{}'.format(folder, os.path.basename(f)),
                               Body=data, 
-                              Bucket=c.sphinx.deploy_s3_bucket)
+                              Bucket=bucket)
             data.close()
+
 
 def _check_hash(expected, filename):
     md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
@@ -723,6 +724,36 @@ def _check_hash(expected, filename):
         return True
     else:
         return False
+
+
+@task
+def binaries_sync(c):
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+            keys = json.load(fin)
+        client = boto3.client('s3',
+                              aws_access_key_id=keys['access_key_id'],
+                              aws_secret_access_key=keys['secret_access_key'])
+    except IOError:
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        client = boto3.client('s3')
+
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba_binary_patterns)
+
+
+@task
+def testdata_sync(c):
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
+            keys = json.load(fin)
+        client = boto3.client('s3',
+                              aws_access_key_id=keys['access_key_id'],
+                              aws_secret_access_key=keys['secret_access_key'])
+    except IOError:
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        client = boto3.client('s3')
+
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', c.plugin.testdata_patterns)
 
 
 @task(help={'clean': 'Clean out dependencies before packaging',
@@ -749,7 +780,8 @@ ns = Collection(set_version, plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_publish, tecli_run,
                 zipfile_build, zipfile_deploy,
-                binaries_compile, binaries_deploy)
+                binaries_compile, binaries_sync,
+                testdata_sync)
 
 ns.configure({
     'plugin': {
@@ -765,6 +797,7 @@ ns.configure({
                             'LDMP/summary_numba.py'],
         'numba_binary_patterns': ['LDMP/*.so',
                                   'LDMP/*.pyd'],
+        'testdata_patterns': ['LDMP/test/fixtures/*'],
         'package_dir': 'build',
         'tests': ['LDMP/test'],
         'excludes': [

@@ -9,9 +9,14 @@ set DOCKER_RUN_COMMAND=docker exec -it %CONTAINER% sh -c
 REM docker-compose down -v
 docker-compose up -d
 
+REM re-sync time to avoid RequestTimeTooSkewed error from boto3 during s3 sync
+%DOCKER_RUN_COMMAND% "service ntp stop"
+%DOCKER_RUN_COMMAND% "ntpdate -s 0.amazon.pool.ntp.org"
+%DOCKER_RUN_COMMAND% "service ntp start"
 REM Setup docker instance
 %DOCKER_RUN_COMMAND% "qgis_setup.sh %PLUGIN_NAME%"
 %DOCKER_RUN_COMMAND% "cd /tests_directory && git submodule update --init --recursive"
+%DOCKER_RUN_COMMAND% "cd /tests_directory && invoke testdata-sync"
 %DOCKER_RUN_COMMAND% "cd /tests_directory && invoke zipfile-build -n -t -f /LDMP.zip -p python3"
 %DOCKER_RUN_COMMAND% "unzip -qq -o /LDMP.zip -d /"
 %DOCKER_RUN_COMMAND% "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"

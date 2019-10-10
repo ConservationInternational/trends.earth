@@ -80,32 +80,36 @@ def make_prod5(traj, state, perf, mask):
     return(np.reshape(x, shp))
 
 
-@cc.export('ldn_total_by_trans', 'f8[:](f8[:,:], i2[:,:], i2[:], f8)')
+@cc.export('ldn_total_by_trans', 'f8[:](f8[:], i2[:], i2[:], f8)')
 def ldn_total_by_trans(a_data, a_trans, transitions, cell_area):
     """Calculates a total table for an array"""
-    a_data = a_data.ravel()
-    a_trans = a_trans.ravel()
+    # Values less than zero are missing data flags
+    a_data[a_data < 0] = 0
     totals = np.zeros(transitions.shape)
     for transition in transitions:
         # Only sum values for this transition, and where soc has a valid value
         # (negative values are missing data flags)
-        vals = a_data[(a_trans == transition) & (a_data > 0)]
-        ind = np.asarray(transitions == transition).nonzero()
-        totals[ind] += np.sum(vals * cell_area)
+        vals = a_data[a_trans == transition]
+        ind = np.asarray(transitions == transition)
+        totals[ind] = totals[ind] + np.sum(vals * cell_area)
     return totals
 
+# @cc.export('_calc_sum_f8', 'f8(f8[:,:])')
+# def _calc_sum_f8(x):
+#     s = np.sum(x)
+#     return s
 
-@cc.export('ldn_total_deg', 'f8[:](f8[:,:], b1[:,:], f8[:,:])')
+@cc.export('ldn_total_deg_f', 'f8[4](i2[:,:], b1[:,:], f8[:,:])')
 def ldn_total_deg(x, water, cell_areas):
     """Calculates a total table for an array"""
     x = x.ravel()
-    water = water.ravel()
     cell_areas = cell_areas.ravel()
-    x[water] = -32767
-    out = np.array([np.sum((x == 1) * cell_areas),
-                    np.sum((x == 0) * cell_areas),
-                    np.sum((x == -1) * cell_areas),
-                    np.sum((x == -32768) * cell_areas)])
+    x[water.ravel()] = -32767
+    out = np.zeros((4))
+    out[0] = np.sum(cell_areas[x == 1])
+    out[1] = np.sum(cell_areas[x == 0])
+    out[2] = np.sum(cell_areas[x == -1])
+    out[3] = np.sum(cell_areas[x == -32768])
     return out
 
 

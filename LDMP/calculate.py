@@ -27,7 +27,7 @@ from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, \
 from qgis.core import QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils, \
     QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
     Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer, \
-    QgsVectorFileWriter, QgsFields
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -148,9 +148,9 @@ class AOI(object):
                     tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
-        if l.wkbType() == Qgis.Polygon:
+        if l.wkbType() == QgsWkbTypes.Polygon or l.wkbType() == QgsWkbTypes.MultiPolygon:
             self.datatype = "polygon"
-        elif l.wkbType() == Qgis.Point:
+        elif l.wkbType() == QgsWkbTypes.Point:
             self.datatype = "point"
         else:
             QtWidgets.QMessageBox.critical(None, tr("Error"),

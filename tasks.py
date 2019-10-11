@@ -694,11 +694,13 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
                     data.close()
                 else:
                     print('S3 version of {} is newer than local - copying to local.'.format(filename))
+                    os.makedirs(os.path.dirname(local_path), exist_ok=True)
                     client.download_file(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                          Bucket=bucket,
                                          Filename=local_path)
         else:
             print('Local version of {} is missing - copying to local.'.format(filename))
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
             client.download_file(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                  Bucket=bucket,
                                  Filename=local_path)

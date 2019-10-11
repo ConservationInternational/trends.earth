@@ -678,6 +678,8 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
             # skip it
             continue
         local_path = os.path.join(local_folder, filename)
+        print(os.path.dirname(local_path))
+        print(os.path.abspath(os.path.dirname(local_path)))
 
         # First ensure all the files that are on S3 are up to date relative to 
         # the local files, copying files in either direction as necessary
@@ -694,13 +696,13 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
                     data.close()
                 else:
                     print('S3 version of {} is newer than local - copying to local.'.format(filename))
-                    os.makedirs(os.path.dirname(local_path), exist_ok=True)
+                    os.makedirs(os.path.abspath(os.path.dirname(local_path)), exist_ok=True)
                     client.download_file(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                          Bucket=bucket,
                                          Filename=local_path)
         else:
             print('Local version of {} is missing - copying to local.'.format(filename))
-            os.makedirs(os.path.dirname(local_path), exist_ok=True)
+            os.makedirs(os.path.abspath(os.path.dirname(local_path)), exist_ok=True)
             client.download_file(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
                                  Bucket=bucket,
                                  Filename=local_path)

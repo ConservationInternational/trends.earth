@@ -760,7 +760,7 @@ def testdata_sync(c):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
 
-    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP\\test\\fixtures', c.plugin.testdata_patterns)
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/fixtures', c.plugin.testdata_patterns)
 
 
 @task(help={'clean': 'Clean out dependencies before packaging',

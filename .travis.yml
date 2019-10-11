@@ -11,7 +11,11 @@ install:
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && git submodule update --init --recursive"
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke testdata-sync"
 - docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory && invoke zipfile-build -c -t -f /LDMP.zip -p python3"
+- docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory/LDMP/test && ls"
+- docker exec -it trendsearth_qgis_1 sh -c "cd /tests_directory/LDMP/test/fixtures && ls"
 - docker exec -it trendsearth_qgis_1 sh -c "unzip -qq /LDMP.zip -d /"
+- docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP/test && ls"
+- docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP/test/fixtures && ls"
 - docker cp trends.earth_test_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_test_user_credentials.json
 - docker cp trends.earth_admin_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_admin_user_credentials.json
 - docker exec -it trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"

@@ -31,6 +31,7 @@ LDMP/data_prep_scripts/*
 docs/build/*
 docs/source/.doctrees/*
 docs/source/static/*
+LDMP/test/fixtures/*
 invoke.yaml
 trends.earth_admin_user_credentials.json
 trends.earth_test_user_credentials.json

@@ -19,6 +19,8 @@ import tempfile
 
 import numpy as np
 
+import cProfile
+
 from osgeo import ogr, osr, gdal
 
 import openpyxl
@@ -42,6 +44,7 @@ from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
+from LDMP.summary_numba import merge_xtabs
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
     ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
@@ -351,6 +354,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         sdg_tbl_soc = np.zeros((1, 4))
         sdg_tbl_lc = np.zeros((1, 4))
 
+        pr = cProfile.Profile()
+        pr.enable()
+
         blocks = 0
         for y in range(0, ysize, y_block_size):
             if self.killed:
@@ -506,7 +512,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                             if trans_xtab == None:
                                 trans_xtab = this_trans_xtab
                             else:
-                                trans_xtab = merge_xtabs(trans_xtab, this_trans_xtab)
+                                trans_xtab = merge_xtabs(trans_xtab[0], trans_xtab[1], trans_xtab[2],
+                                                         this_trans_xtab[0], this_trans_xtab[1], this_trans_xtab[2])
 
                         this_trans = np.unique(a_trans_bl_tg[n, :])
                         this_trans = this_trans.ravel()
@@ -551,6 +558,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 blocks += 1
             lat += pixel_height * rows
         self.progress.emit(100)
+
+        pr.disable()
+        pr.dump_stats('calculate_ldn_stats')
 
         if self.killed:
             del dst_ds_deg
@@ -901,7 +911,8 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                         soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
-                        trans_prod_xtab = merge_xtabs(trans_prod_xtab, this_trans_prod_xtab)
+                        trans_prod_xtab = merge_xtabs(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
+                                                      this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
                     sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
                     sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc

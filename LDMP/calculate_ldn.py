@@ -17,6 +17,8 @@ import os
 import json
 import tempfile
 
+import logging
+
 import numpy as np
 
 import cProfile
@@ -504,16 +506,18 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     # area for that row
                     for n in range(rows):
                         cell_area = cell_areas[n]
-                        this_trans_xtab = xtab(prod5[n, :], a_trans_bl_tg[n, :])
-                        # Don't use this_trans_xtab if it is empty (could happen if 
-                        # take a crosstab where all of the values are nan's)
-                        if this_trans_xtab[0][0].size != 0:
-                            this_trans_xtab[1] = this_trans_xtab[1] * cell_area
+                        this_rh, this_ch, this_xt = xtab(prod5[n, :], a_trans_bl_tg[n, :])
+                        # Don't use this_trans_xtab if it is empty (could 
+                        # happen if take a crosstab where all of the values are 
+                        # nan's)
+                        if this_rh.size != 0:
+                            this_xt = this_xt * cell_area
                             if trans_xtab == None:
-                                trans_xtab = this_trans_xtab
+                                rh = this_rh
+                                ch = this_ch
+                                xt = this_xt
                             else:
-                                trans_xtab = merge_xtabs(trans_xtab[0], trans_xtab[1], trans_xtab[2],
-                                                         this_trans_xtab[0], this_trans_xtab[1], this_trans_xtab[2])
+                                rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
 
                         this_trans = np.unique(a_trans_bl_tg[n, :])
                         this_trans = this_trans.ravel()
@@ -568,7 +572,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             return None
         else:
             # Convert all area tables from meters into square kilometers
-            trans_xtab[1] = trans_xtab[1] * 1e-6
+            xt = xt * 1e-6
             sdg_tbl_overall = sdg_tbl_overall * 1e-6
             sdg_tbl_prod = sdg_tbl_prod * 1e-6
             sdg_tbl_soc = sdg_tbl_soc * 1e-6
@@ -577,7 +581,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
             return list((soc_totals_table,
                          lc_totals_table,
-                         trans_xtab, 
+                         ((rh, ch), xt),
                          sdg_tbl_overall,
                          sdg_tbl_prod,
                          sdg_tbl_soc,

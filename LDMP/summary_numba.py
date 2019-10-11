@@ -5,7 +5,7 @@ from numba.pycc import CC
 cc = CC('summary_numba')
 
 
-@cc.export('merge_xtabs', '(i4[:], i4[:], i4[:,:], i4[:], i4[:], i4[:,:])')
+@cc.export('merge_xtabs', '(i4[:], i4[:], f8[:,:], i4[:], i4[:], f8[:,:])')
 def merge_xtabs(tab1_rh, tab1_ch, tab1, tab2_rh, tab2_ch, tab2):
     """Merges two crosstabs - allows for block-by-block crosstabs"""
     tab_rh = np.unique(np.concatenate((tab1_rh, tab2_rh)))
@@ -13,22 +13,22 @@ def merge_xtabs(tab1_rh, tab1_ch, tab1, tab2_rh, tab2_ch, tab2):
     shape_xt = (tab_rh.size, tab_ch.size)
 
     # Make this array flat since it will be used later with ravelled indexing
-    xt = np.zeros(shape_xt, dtype=np.int32)
+    xt = np.zeros(shape_xt, dtype=np.float64)
 
-    for ri in range(0, tab_rh.size):
-        for ci in range(0, tab_ch.size):
+    for ri in range(0, shape_xt[0]):
+        for ci in range(0, shape_xt[1]):
             rh_val = tab_rh[ri]
             ch_val = tab_ch[ci]
-            tab1_rh_loc = (tab1_rh == rh_val).nonzero()
-            tab1_ch_loc = (tab1_ch == ch_val).nonzero()
+            tab1_rh_loc = (tab1_rh == rh_val).nonzero()[0][0]
+            tab1_ch_loc = (tab1_ch == ch_val).nonzero()[0][0]
             if np.any(tab1_rh_loc) and np.any(tab1_ch_loc):
-                xt[ri, ci] = xt[ri, ci] + tab1[tab1_rh_loc[0], tab1_ch_loc[0]]
-            tab2_rh_loc = (tab2_rh == rh_val).nonzero()
-            tab2_ch_loc = (tab2_ch == ch_val).nonzero()
+                xt[ri, ci] = xt[ri, ci] + tab1[tab1_rh_loc, tab1_ch_loc]
+            tab2_rh_loc = (tab2_rh == rh_val).nonzero()[0][0]
+            tab2_ch_loc = (tab2_ch == ch_val).nonzero()[0][0]
             if np.any(tab2_rh_loc) and np.any(tab2_ch_loc):
-                xt[ri, ci] = xt[ri, ci] + tab2[tab2_rh_loc[0], tab2_ch_loc[0]]
+                xt[ri, ci] = xt[ri, ci] + tab2[tab2_rh_loc, tab2_ch_loc]
 
-    return list(tab_rh, tab_ch, xt)
+    return tab_rh, tab_ch, xt
 
 # @cc.export('merge_xtabs', '(i4[:,:], i4[:,:])')
 # def merge_xtabs(tab1, tab2):

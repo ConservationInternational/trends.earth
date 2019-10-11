@@ -35,10 +35,13 @@ def xtab(*cols):
 
     headers, idx = list(zip(*(np.unique(col[nafilter], return_inverse=True) for col in cols)))
     shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
-    xt = np.zeros(shape_xt)
+    xt = np.zeros(shape_xt, dtype=np.float64)
     np.add.at(xt, idx, 1)
 
-    return list(headers[0], headers[1], xt))
+    rh = np.asarray(headers[0], dtype=np.int32)
+    ch = np.asarray(headers[1], dtype=np.int32)
+
+    return rh, ch, xt
 
 
 def calc_area_table(a, area_table, cell_area):

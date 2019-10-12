@@ -49,7 +49,8 @@ from LDMP.summary import *
 from LDMP.summary_numba import merge_xtabs
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
-    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_by_trans_merge, \
+    ldn_total_deg_f
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -256,18 +257,6 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                            level=0, duration=5)
 
 
-def get_total(totals, keys, key):
-    """
-    Ensures that if a particular transition isn't present in the keys list, a 
-    total of zero is returned for that transition
-    """
-    ind = np.asarray(keys == key).nonzero()
-    if np.any(ind):
-        return totals[ind]
-    else:
-        return 0
-
-
 class DegradationSummaryWorkerSDG(AbstractWorker):
     def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
                  lc_band_nums, soc_band_nums, mask_file):
@@ -347,9 +336,11 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # log('pixel_height: {}'.format(pixel_height))
 
         trans_xtab = None
+        # The first array in each row stores transitions, the second stores SOC 
+        # totals for each transition
+        soc_totals_table = [[np.array([], dtype=np.int16), np.array([])]] * (len(self.soc_band_nums) - 1)
         # The 8 below is for eight classes plus no data, and the minus one is 
         # because one of the bands is a degradation layer
-        soc_totals_table = [[np.array([]), np.array([])]] * (len(self.soc_band_nums) - 1)
         lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
         sdg_tbl_overall = np.zeros((1, 4))
         sdg_tbl_prod = np.zeros((1, 4))
@@ -526,13 +517,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                                                          this_trans,
                                                          cell_area)
 
-                        new_trans = np.unique(np.concatenate((this_trans, soc_totals_table[i - 1][0])))
-                        # Combine past totals with these totals
-                        totals = np.zeros(new_trans.shape)
-                        for j in range(len(new_trans)):
-                            new_total = get_total(this_totals, this_trans, new_trans[j])
-                            old_total = get_total(soc_totals_table[i - 1][1], soc_totals_table[i - 1][0], new_trans[j])
-                            totals[j] = new_total + old_total
+                        new_trans, totals = ldn_total_by_trans_merge(this_totals, this_trans,
+                                                                     soc_totals_table[i - 1][1], soc_totals_table[i - 1][0])
                         soc_totals_table[i - 1][0] = new_trans
                         soc_totals_table[i - 1][1] = totals
 

@@ -17,32 +17,6 @@ from builtins import range
 
 import numpy as np
 
-def xtab(*cols):
-    # Based on https://gist.github.com/alexland/d6d64d3f634895b9dc8e, but
-    # modified to ignore np.nan
-    if not all(len(col) == len(cols[0]) for col in cols[1:]):
-        raise ValueError("all arguments must be same size")
-
-    if len(cols) == 0:
-        raise TypeError("xtab() requires at least one argument")
-
-    def fnx1(q): return len(q.squeeze().shape)
-    if not all([fnx1(col) == 1 for col in cols]):
-        raise ValueError("all input arrays must be 1D")
-
-    # Filter na values out of all columns
-    nafilter = ~np.any(np.isnan(cols), 0)
-
-    headers, idx = list(zip(*(np.unique(col[nafilter], return_inverse=True) for col in cols)))
-    shape_xt = [uniq_vals_col.size for uniq_vals_col in headers]
-    xt = np.zeros(shape_xt, dtype=np.float64)
-    np.add.at(xt, idx, 1)
-
-    rh = np.asarray(headers[0], dtype=np.int32)
-    ch = np.asarray(headers[1], dtype=np.int32)
-
-    return rh, ch, xt
-
 
 def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""

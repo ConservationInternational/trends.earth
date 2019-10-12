@@ -17,11 +17,9 @@ import os
 import json
 import tempfile
 
-import logging
-
 import numpy as np
 
-import cProfile
+#import cProfile
 
 from osgeo import ogr, osr, gdal
 
@@ -46,7 +44,7 @@ from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
-from LDMP.summary_numba import merge_xtabs
+from LDMP.summary_numba import merge_xtabs, xtab_i16
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
     ldn_recode_traj, ldn_total_by_trans, ldn_total_by_trans_merge, \
@@ -347,8 +345,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         sdg_tbl_soc = np.zeros((1, 4))
         sdg_tbl_lc = np.zeros((1, 4))
 
-        pr = cProfile.Profile()
-        pr.enable()
+        # pr = cProfile.Profile()
+        # pr.enable()
 
         blocks = 0
         for y in range(0, ysize, y_block_size):
@@ -492,23 +490,23 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
                     a_soc[mask_array == -32767] = -32767
 
-                    # Calculate the xtab and soc totals row by row over the y 
-                    # rows since each one needs to be weighted by the pixel 
-                    # area for that row
+                    this_rh, this_ch, this_xt = xtab_i16(prod5, a_trans_bl_tg, cell_areas_array)
+                    # Don't use this_trans_xtab if it is empty (could 
+                    # happen if take a crosstab where all of the values are 
+                    # nan's)
+                    if this_rh.size != 0:
+                        if trans_xtab == None:
+                            rh = this_rh
+                            ch = this_ch
+                            xt = this_xt
+                        else:
+                            rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
+
+                    # Calculate soc totals row by row over the y rows since 
+                    # each one needs to be weighted by the pixel area for that 
+                    # row
                     for n in range(rows):
                         cell_area = cell_areas[n]
-                        this_rh, this_ch, this_xt = xtab(prod5[n, :], a_trans_bl_tg[n, :])
-                        # Don't use this_trans_xtab if it is empty (could 
-                        # happen if take a crosstab where all of the values are 
-                        # nan's)
-                        if this_rh.size != 0:
-                            this_xt = this_xt * cell_area
-                            if trans_xtab == None:
-                                rh = this_rh
-                                ch = this_ch
-                                xt = this_xt
-                            else:
-                                rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
 
                         this_trans = np.unique(a_trans_bl_tg[n, :])
                         this_trans = this_trans.ravel()
@@ -549,8 +547,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             lat += pixel_height * rows
         self.progress.emit(100)
 
-        pr.disable()
-        pr.dump_stats('calculate_ldn_stats')
+        # pr.disable()
+        # pr.dump_stats('calculate_ldn_stats')
 
         if self.killed:
             del dst_ds_deg

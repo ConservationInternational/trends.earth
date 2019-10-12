@@ -4,6 +4,20 @@ from numba.pycc import CC
 
 cc = CC('summary_numba')
 
+@cc.export('xtab_i16', '(i2[:,:], i2[:,:], f8[:,:])')
+def xtab(x1, x2, areas):
+    # x1 values are across rows
+    rh = np.unique(x1.ravel())
+    # x2 values are across cols
+    ch = np.unique(x2.ravel())
+    xt = np.zeros((rh.size, ch.size), dtype=np.float64)
+    for r in range(xt.shape[0]):
+        for c in range(xt.shape[1]):
+            r_ind = np.where(rh == x1[r, c])[0][0]
+            c_ind = np.where(ch == x2[r, c])[0][0]
+            xt[r_ind, c_ind] += areas[r, c]
+    return rh, ch, xt
+
 
 @cc.export('merge_xtabs', '(i4[:], i4[:], f8[:,:], i4[:], i4[:], f8[:,:])')
 def merge_xtabs(tab1_rh, tab1_ch, tab1, tab2_rh, tab2_ch, tab2):

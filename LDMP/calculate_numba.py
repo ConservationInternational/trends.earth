@@ -94,6 +94,19 @@ def ldn_total_by_trans(a_data, a_trans, transitions, cell_area):
         totals[ind] = totals[ind] + np.sum(vals * cell_area)
     return totals
 
+@cc.export('ldn_total_by_trans_merge', '(f8[:], i2[:], f8[:], i2[:])')
+def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
+    """Calculates a total table for an array"""
+    # Combine past totals with these totals
+    trans = np.unique(np.concatenate((trans1, trans2)))
+    totals = np.zeros(trans.size, dtype=np.float64)
+    for j in range(trans.size):
+        trans1_loc = np.where(trans1 == trans[j])
+        trans2_loc = np.where(trans2 == trans[j])
+        total = total1[trans1_loc] + total2[trans2_loc]
+        totals[j] = total[0]
+    return trans, totals
+
 # @cc.export('_calc_sum_f8', 'f8(f8[:,:])')
 # def _calc_sum_f8(x):
 #     s = np.sum(x)

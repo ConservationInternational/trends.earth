@@ -68,10 +68,16 @@ def rmtree(top):
             try:
                 os.remove(filename)
             except PermissionError:
-                print('Permission error: unable to copy {} to {}. Skipping that file.'.format(f, os.path.join(dst_plugins, relpath, f)))
+                print('Permission error: unable to remove {}. Skipping that file.'.format(filename))
         for name in dirs:
-            os.rmdir(os.path.join(root, name))
-    os.rmdir(top)
+            try:
+                os.rmdir(os.path.join(root, name))
+            except OSError:
+                print('Unable to remove directory {}. Skipping removing that folder.'.format(os.path.join(root, name)))
+    try:
+        os.rmdir(top)
+    except OSError:
+        print('Unable to remove directory {}. Skipping removing that folder.'.format(top))
 
 
 # Function to find and replace in a file

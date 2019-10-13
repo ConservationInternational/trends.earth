@@ -47,10 +47,8 @@ class recode_stateTests(unittest.TestCase):
 
 class ldn_total_by_transTests(unittest.TestCase):
     def test_zero_array(self):
-        transitions = np.array((11, 12, 33, 44), dtype=np.int16, ndmin=2)
         total = ldn_total_by_trans(np.zeros((10, 10), dtype=np.float64),
                                    np.zeros((10, 10), dtype=np.int16),
-                                   transitions,
                                    np.zeros((10, 10), dtype=np.float64))
         self.assertEquals(np.sum(total), 0.0)
 

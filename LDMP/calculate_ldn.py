@@ -397,40 +397,32 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 prod3[prod5 == 4] = 0
                 prod3[prod5 == 5] = 1
 
-
+                ################
+                # Calculate SDG
                 deg_sdg = prod3.copy()
 
-                #############
-                # Land cover
                 lc_array = band_lc_deg.ReadAsArray(x, y, cols, rows)
-
                 deg_sdg[lc_array == -1] = -1
 
                 a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
                 a_lc_bl[mask_array == -32767] = -32767
                 a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
                 a_lc_tg[mask_array == -32767] = -32767
-                water = a_lc_tg == -32767
+                water = a_lc_tg == 7
                 water = water.astype(bool, copy=False)
 
-                ##############
-                # Soil carbon
                 
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
                 soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
                 deg_sdg[(soc_array <= -10) & (soc_array >= -100)] = -1
 
-                #############
-                # Improvement
                 
                 # Allow improvements by lc or soc, only where one of the other 
                 # two indicators doesn't indicate a decline
                 deg_sdg[(deg_sdg == 0) & (lc_array == 1)] = 1
                 deg_sdg[(deg_sdg == 0) & (soc_array >= 10) & (soc_array <= 100)] = 1
 
-                ##############
-                # Missing data
                 
                 # Ensure all NAs are carried over - note this was already done 
                 # for the productivity layer above but need to do it again in 

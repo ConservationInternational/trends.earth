@@ -446,3 +446,18 @@ def get_band_title(band_info):
         return tr_style_text(style['title']).format(**band_info['metadata'])
     else:
         return band_info['name']
+
+def delete_layer_by_filename(f):
+    f = os.path.abspath(f)
+    project = QgsProject.instance()
+    for lyr_id in project.mapLayers():
+        lyr = project.mapLayer(lyr_id)
+        if lyr.source() == f:
+            project.removeMapLayer(lyr_id)
+            try:
+                os.remove(f)
+            except:
+                log('Error removing file at {}'.format(f))
+                return -1
+            return True
+    return False

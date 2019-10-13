@@ -60,35 +60,61 @@ class ldn_total_deg_fTests(unittest.TestCase):
         self.assertEquals(np.sum(total), 0.0)
 
 
-class DlgCalculateLDNSummaryTableAdminIntegrationTests(unittest.TestCase):
+class DlgCalculateLDNSummaryTableAdminWorkerTests(unittest.TestCase):
     def setUp(self):
         add_default_bands_to_map(LDN_TESTDATA)
 
     def testWorker(self):
         d = DlgCalculateLDNSummaryTableAdmin()
-        # Need to show the summary table in order to run the setup code in that
-        # method
+        # Need to show the summary table to run the setup code in that method
         d.show()
-
-        self.out_tif_metadata = tempfile.NamedTemporaryFile(suffix='.json').name
-        self.out_tif = os.path.splitext(self.out_tif_metadata)[0] + 'tif'
-        self.out_table = tempfile.NamedTemporaryFile(suffix='.xlsx').name
-        d.output_file_layer.setText(self.out_tif_metadata)
-        d.output_file_table.setText(self.out_table)
-
+        out_tif_metadata = tempfile.NamedTemporaryFile(suffix='.json').name
+        out_tif = os.path.splitext(out_tif_metadata)[0] + 'tif'
+        out_table = tempfile.NamedTemporaryFile(suffix='.xlsx').name
+        d.output_file_layer.setText(out_tif_metadata)
+        d.output_file_table.setText(out_table)
         d.area_tab.area_admin_0.setCurrentIndex(d.area_tab.area_admin_0.findText('Nepal'))
         d.area_tab.secondLevel_area_admin_1.setCurrentIndex(d.area_tab.secondLevel_area_admin_1.findText('Narayani'))
 
         ret = d.btn_calculate()
         self.assertTrue(ret)
+        
 
+class DlgCalculateLDNSummaryTableAdminOutputTests(unittest.TestCase):
+    # def setUp(self):
+    #     add_default_bands_to_map(LDN_TESTDATA)
+    #
+    #     d = DlgCalculateLDNSummaryTableAdmin()
+    #     # Need to show the summary table to run the setup code in that method
+    #     d.show()
+    #     out_tif_metadata = tempfile.NamedTemporaryFile(suffix='.json').name
+    #     out_tif = os.path.splitext(out_tif_metadata)[0] + 'tif'
+    #     out_table = tempfile.NamedTemporaryFile(suffix='.xlsx').name
+    #     d.output_file_layer.setText(out_tif_metadata)
+    #     d.output_file_table.setText(out_table)
+    #     d.area_tab.area_admin_0.setCurrentIndex(d.area_tab.area_admin_0.findText('Nepal'))
+    #     d.area_tab.secondLevel_area_admin_1.setCurrentIndex(d.area_tab.secondLevel_area_admin_1.findText('Narayani'))
+    #
+    #     ret = d.btn_calculate()
+        
+    def test_table(self):
+        self.assertTrue(True)
+        
+    def test_tif(self):
+        self.assertTrue(True)
+
+
+def CalculateLDNSuite():
+    suite = unittest.TestSuite()
+        
 
 def CalculateLDNSuite():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(recode_stateTests, 'test'))
     suite.addTests(unittest.makeSuite(ldn_total_deg_fTests, 'test'))
     suite.addTests(unittest.makeSuite(ldn_total_by_transTests, 'test'))
-    suite.addTests(unittest.makeSuite(DlgCalculateLDNSummaryTableAdminIntegrationTests, 'test'))
+    suite.addTests(unittest.makeSuite(DlgCalculateLDNSummaryTableAdminWorkerTests, 'test'))
+    suite.addTests(unittest.makeSuite(DlgCalculateLDNSummaryTableAdminOutputTests, 'test'))
     return suite
 
 

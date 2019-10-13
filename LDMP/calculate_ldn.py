@@ -20,6 +20,7 @@ import tempfile
 import numpy as np
 
 #import cProfile
+import logging
 
 from osgeo import ogr, osr, gdal
 
@@ -90,7 +91,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
         # TODO: Temporarily hide these boxes until custom LC support for SOC is 
-        # implemented
+        # implemented on GEE
         self.lc_setup_tab.use_esa.setChecked(True)
         self.lc_setup_tab.use_custom.hide()
         self.lc_setup_tab.groupBox_custom_bl.hide()
@@ -502,23 +503,17 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         else:
                             rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
 
-                    # Calculate soc totals row by row over the y rows since 
-                    # each one needs to be weighted by the pixel area for that 
-                    # row
-                    for n in range(rows):
-                        cell_area = cell_areas[n]
+                    this_trans = np.unique(a_trans_bl_tg)
+                    this_trans = this_trans.ravel()
+                    this_totals = ldn_total_by_trans(a_soc,
+                                                     a_trans_bl_tg,
+                                                     this_trans,
+                                                     cell_areas_array)
 
-                        this_trans = np.unique(a_trans_bl_tg[n, :])
-                        this_trans = this_trans.ravel()
-                        this_totals = ldn_total_by_trans(a_soc[n, :],
-                                                         a_trans_bl_tg[n, :],
-                                                         this_trans,
-                                                         cell_area)
-
-                        new_trans, totals = ldn_total_by_trans_merge(this_totals, this_trans,
-                                                                     soc_totals_table[i - 1][1], soc_totals_table[i - 1][0])
-                        soc_totals_table[i - 1][0] = new_trans
-                        soc_totals_table[i - 1][1] = totals
+                    new_trans, totals = ldn_total_by_trans_merge(this_totals, this_trans,
+                                                                 soc_totals_table[i - 1][1], soc_totals_table[i - 1][0])
+                    soc_totals_table[i - 1][0] = new_trans
+                    soc_totals_table[i - 1][1] = totals
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -1028,12 +1023,12 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     ##########################################################################
     # SDG table
     ws_sdg = wb.get_sheet_by_name('SDG 15.3.1')
-    write_table_to_sheet(ws_sdg, sdg_tbl_overall, 6, 6)
+    write_table_to_sheet(ws_sdg, np.transpose(sdg_tbl_overall), 6, 6)
 
     ##########################################################################
     # Productivity tables
     ws_prod = wb.get_sheet_by_name('Productivity')
-    write_table_to_sheet(ws_prod, sdg_tbl_prod, 6, 6)
+    write_table_to_sheet(ws_prod, np.transpose(sdg_tbl_prod), 6, 6)
 
     write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 5), 16, 3)
     write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 4), 28, 3)
@@ -1045,7 +1040,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     ##########################################################################
     # Soil organic carbon tables
     ws_soc = wb.get_sheet_by_name('Soil organic carbon')
-    write_table_to_sheet(ws_soc, sdg_tbl_soc, 6, 6)
+    write_table_to_sheet(ws_soc, np.transpose(sdg_tbl_soc), 6, 6)
 
     # First write baseline
     write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[0]), 16, 3)
@@ -1065,7 +1060,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     ##########################################################################
     # Land cover tables
     ws_lc = wb.get_sheet_by_name('Land cover')
-    write_table_to_sheet(ws_lc, sdg_tbl_lc, 6, 6)
+    write_table_to_sheet(ws_lc, np.transpose(sdg_tbl_lc), 6, 6)
 
     write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 26, 3)
 

@@ -80,18 +80,21 @@ def make_prod5(traj, state, perf, mask):
     return(np.reshape(x, shp))
 
 
-@cc.export('ldn_total_by_trans', 'f8[:](f8[:], i2[:], i2[:], f8)')
-def ldn_total_by_trans(a_data, a_trans, transitions, cell_area):
+@cc.export('ldn_total_by_trans', 'f8[:](f8[:,:], i2[:,:], i2[:], f8[:,:])')
+def ldn_total_by_trans(a_data, a_trans, transitions, cell_areas):
     """Calculates a total table for an array"""
+    a_data = a_data.ravel()
+    a_trans = a_trans.ravel()
+    cell_areas = cell_areas.ravel()
     # Values less than zero are missing data flags
     a_data[a_data < 0] = 0
     totals = np.zeros(transitions.shape)
     for transition in transitions:
         # Only sum values for this transition, and where soc has a valid value
         # (negative values are missing data flags)
-        vals = a_data[a_trans == transition]
+        vals = a_data[a_trans == transition] * cell_areas[a_trans == transition]
         ind = np.asarray(transitions == transition)
-        totals[ind] = totals[ind] + np.sum(vals * cell_area)
+        totals[ind] = totals[ind] + np.sum(vals)
     return totals
 
 @cc.export('ldn_total_by_trans_merge', '(f8[:], i2[:], f8[:], i2[:])')

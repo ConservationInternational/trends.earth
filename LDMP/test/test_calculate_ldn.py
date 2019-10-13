@@ -51,7 +51,7 @@ class ldn_total_by_transTests(unittest.TestCase):
         total = ldn_total_by_trans(np.zeros((10, 10), dtype=np.float64),
                                    np.zeros((10, 10), dtype=np.int16),
                                    transitions,
-                                   12.44)
+                                   np.zeros((10, 10), dtype=np.float64))
         self.assertEquals(np.sum(total), 0.0)
 
 

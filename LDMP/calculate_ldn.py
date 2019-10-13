@@ -453,12 +453,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 
                 sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg_f(deg_sdg, water, cell_areas_array)
                 sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg_f(prod3, water, cell_areas_array)
-                new_lc_total = ldn_total_deg_f(lc_array.astype(np.int16),
-                                             np.array((mask_array == -32767) | water).astype(bool),
-                                             cell_areas_array.astype(np.float64))
                 sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg_f(lc_array,
-                                                         np.array((mask_array == -32767) | water).astype(bool),
-                                                         cell_areas_array)
+                                                          np.array((mask_array == -32767) | water).astype(bool),
+                                                          cell_areas_array)
 
                 ###########################################################
                 # Calculate SOC totals by transition, on annual basis

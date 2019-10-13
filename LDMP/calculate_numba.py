@@ -111,10 +111,6 @@ def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
         totals[j] = total[0]
     return trans, totals
 
-# @cc.export('_calc_sum_f8', 'f8(f8[:,:])')
-# def _calc_sum_f8(x):
-#     s = np.sum(x)
-#     return s
 
 @cc.export('ldn_total_deg_f', 'f8[4](i2[:,:], b1[:,:], f8[:,:])')
 def ldn_total_deg(x, water, cell_areas):

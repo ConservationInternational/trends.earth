@@ -20,7 +20,6 @@ import tempfile
 import numpy as np
 
 #import cProfile
-import logging
 
 from osgeo import ogr, osr, gdal
 
@@ -39,7 +38,8 @@ from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, MaskWorker, \
     json_geom_to_geojson
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
+from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos, \
+    delete_layer_by_filename
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
@@ -308,13 +308,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # Setup output file for SDG degradation indicator and combined 
         # productivity bands
         driver = gdal.GetDriverByName("GTiff")
-        # Manually delete any existing outfiles so GDAL doesn't throw an error
-        if os.path.exists(self.prod_out_file):
-            try:
-                os.remove(self.prod_out_file)
-            except:
-                log('Error removing file at {}'.format(self.prod_out_file))
-                return -1
         dst_ds_deg = driver.Create(self.prod_out_file, xsize, ysize, n_out_bands, 
                                    gdal.GDT_Int16, options=['COMPRESS=LZW'])
         src_gt = src_ds.GetGeoTransform()
@@ -852,6 +845,12 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                 output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
 
             output_sdg_tifs.append(output_sdg_tif)
+
+            # Manually remove any existing outfiles, including checking to see 
+            # that they are not loaded in the QGIS project, to ensure that GDAL 
+            # doesn't throw an error when it tries to overwrite it
+            if os.path.exists(f):
+                delete_layer_by_filename(output_sdg_tif)
             deg_worker = StartWorker(DegradationSummaryWorkerSDG,
                                     'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                      indic_vrt,

@@ -158,6 +158,7 @@ class StartWorker(object):
     def __init__(self, worker_class, process_name, *args):
         self.exception = None
         self.success = None
+        self.return_val = None
 
         self.worker = worker_class(*args)
 

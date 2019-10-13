@@ -45,7 +45,7 @@ from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
-from LDMP.summary_numba import merge_xtabs, xtab_i16
+from LDMP.summary_numba import merge_xtabs_i16, xtab_i16
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
     ldn_recode_traj, ldn_total_by_trans, ldn_total_by_trans_merge, \
@@ -334,7 +334,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         # log('lat: {}'.format(lat))
         # log('pixel_height: {}'.format(pixel_height))
 
-        trans_xtab = None
+        xt = None
         # The first array in each row stores transitions, the second stores SOC 
         # totals for each transition
         soc_totals_table = [[np.array([], dtype=np.int16), np.array([])]] * (len(self.soc_band_nums) - 1)
@@ -468,8 +468,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                                                          cell_areas_array)
 
                 ###########################################################
-                # Calculate transition crosstabs for productivity indicator, 
-                # and SOC totals
+                # Calculate SOC totals by transition, on annual basis
                 a_trans_bl_tg = a_lc_bl*10 + a_lc_tg
                 a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] = -32768
                 a_trans_bl_tg[mask_array == -32767] = -32767
@@ -491,24 +490,22 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
                     a_soc[mask_array == -32767] = -32767
 
-                    this_rh, this_ch, this_xt = xtab_i16(prod5, a_trans_bl_tg, cell_areas_array)
-                    # Don't use this_trans_xtab if it is empty (could 
-                    # happen if take a crosstab where all of the values are 
-                    # nan's)
-                    if this_rh.size != 0:
-                        if trans_xtab == None:
-                            rh = this_rh
-                            ch = this_ch
-                            xt = this_xt
-                        else:
-                            rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
+                ###########################################################
+                # Calculate transition crosstabs for productivity indicator
+                this_rh, this_ch, this_xt = xtab_i16(prod5, a_trans_bl_tg, cell_areas_array)
+                # Don't use this transition xtab if it is empty (could 
+                # happen if take a xtab where all of the values are nan's)
+                if this_rh.size != 0:
+                    if xt is None:
+                        rh = this_rh
+                        ch = this_ch
+                        xt = this_xt
+                    else:
+                        rh, ch, xt = merge_xtabs_i16(this_rh, this_ch, this_xt, rh, ch, xt)
 
-                    this_trans = np.unique(a_trans_bl_tg)
-                    this_trans = this_trans.ravel()
-                    this_totals = ldn_total_by_trans(a_soc,
-                                                     a_trans_bl_tg,
-                                                     this_trans,
-                                                     cell_areas_array)
+                    this_trans, this_totals = ldn_total_by_trans(a_soc,
+                                                                 a_trans_bl_tg,
+                                                                 cell_areas_array)
 
                     new_trans, totals = ldn_total_by_trans_merge(this_totals, this_trans,
                                                                  soc_totals_table[i - 1][1], soc_totals_table[i - 1][0])
@@ -544,19 +541,19 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
         # pr.disable()
         # pr.dump_stats('calculate_ldn_stats')
-
+        
         if self.killed:
             del dst_ds_deg
             os.remove(self.prod_out_file)
             return None
         else:
             # Convert all area tables from meters into square kilometers
+            lc_totals_table = lc_totals_table * 1e-6
             xt = xt * 1e-6
             sdg_tbl_overall = sdg_tbl_overall * 1e-6
             sdg_tbl_prod = sdg_tbl_prod * 1e-6
             sdg_tbl_soc = sdg_tbl_soc * 1e-6
             sdg_tbl_lc = sdg_tbl_lc * 1e-6
-            lc_totals_table = lc_totals_table * 1e-6
 
             return list((soc_totals_table,
                          lc_totals_table,
@@ -894,8 +891,8 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                         soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
-                        trans_prod_xtab = merge_xtabs(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
-                                                      this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
+                        trans_prod_xtab = merge_xtabs_i16(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
+                                                          this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
                     sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
                     sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc

@@ -367,7 +367,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             else:
                 rows = ysize - y
             for x in range(0, xsize, x_block_size):
-                self.progress.emit(100 * (float(y)*float(x)/x_block_size) / ysize)
+                self.progress.emit(100 * (float(y) + (float(x)/xsize)*y_block_size) / ysize)
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:

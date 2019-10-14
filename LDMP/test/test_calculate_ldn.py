@@ -20,7 +20,8 @@ import numpy as np
 
 from qgis.testing import unittest
 
-from LDMP.calculate_ldn import DlgCalculateLDNSummaryTableAdmin
+from LDMP.calculate_ldn import DlgCalculateLDNSummaryTableAdmin, \
+    ldn_total_by_trans_merge
 
 from LDMP.test import regular_keys, admin_keys, add_default_bands_to_map
 
@@ -46,11 +47,47 @@ class recode_stateTests(unittest.TestCase):
 
 
 class ldn_total_by_transTests(unittest.TestCase):
-    def test_zero_array(self):
-        total = ldn_total_by_trans(np.zeros((10, 10), dtype=np.float64),
-                                   np.zeros((10, 10), dtype=np.int16),
-                                   np.zeros((10, 10), dtype=np.float64))
-        self.assertEquals(np.sum(total), 0.0)
+    def test_trans(self):
+        trans, totals = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5]], dtype=np.float64),
+                                           np.asarray([[101, 102, 103, 104, 105]], dtype=np.int16),
+                                           np.asarray([[11, 12, 13, 14, 15]], dtype=np.float64))
+        self.assertTrue(all(trans == np.asarray((101, 102, 103, 104, 105), dtype=np.int16)))
+
+    def test_trans_repeated_trans(self):
+        trans, totals = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5, 1]], dtype=np.float64),
+                                           np.asarray([[101, 102, 103, 104, 105, 101]], dtype=np.int16),
+                                           np.asarray([[11, 12, 13, 14, 15, 11]], dtype=np.float64))
+        self.assertTrue(all(trans == np.asarray((101, 102, 103, 104, 105), dtype=np.int16)))
+        self.assertTrue(all(totals == np.asarray((22, 24, 39, 56, 75), dtype=np.float64)))
+
+    def test_totals(self):
+        trans, totals = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5]], dtype=np.float64),
+                                           np.asarray([[101, 102, 103, 104, 105]], dtype=np.int16),
+                                           np.asarray([[11, 12, 13, 14, 15]], dtype=np.float64))
+        self.assertTrue(all(totals == np.asarray((11, 24, 39, 56, 75), dtype=np.float64)))
+
+class ldn_total_by_trans_mergeTests(unittest.TestCase):
+    def test_merge_trans_same(self):
+        trans1, totals1 = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5]], dtype=np.float64),
+                                             np.asarray([[101, 102, 103, 104, 105]], dtype=np.int16),
+                                             np.asarray([[11, 12, 13, 14, 15]], dtype=np.float64))
+        trans2, totals2 = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5]], dtype=np.float64),
+                                             np.asarray([[101, 102, 103, 104, 105]], dtype=np.int16),
+                                             2*np.asarray([[11, 12, 13, 14, 15]], dtype=np.float64))
+        trans, totals = ldn_total_by_trans_merge(totals1, trans1, totals2, trans2)
+        self.assertTrue(all(trans == np.asarray((101, 102, 103, 104, 105), dtype=np.int16)))
+        self.assertTrue(all(totals == np.asarray((33, 72, 117, 168, 225), dtype=np.float64)))
+
+    def test_merge_trans_different(self):
+        trans1, totals1 = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5]], dtype=np.float64),
+                                             np.asarray([[101, 102, 103, 104, 105]], dtype=np.int16),
+                                             np.asarray([[11, 12, 13, 14, 15]], dtype=np.float64))
+        trans2, totals2 = ldn_total_by_trans(np.asarray([[1, 2, 3, 4, 5]], dtype=np.float64),
+                                             2*np.asarray([[101, 102, 103, 104, 105]], dtype=np.int16),
+                                             2*np.asarray([[11, 12, 13, 14, 15]], dtype=np.float64))
+        trans, totals = ldn_total_by_trans_merge(totals1, trans1, totals2, trans2)
+        self.assertTrue(all(trans == np.asarray((101, 102, 103, 104, 105, 202, 204, 206, 208, 210), dtype=np.int16)))
+        self.assertTrue(all(totals == np.asarray((11, 24, 39, 56, 75, 22, 48, 78, 112, 150), dtype=np.float64)))
 
 
 class ldn_total_deg_fTests(unittest.TestCase):
@@ -113,6 +150,7 @@ def CalculateLDNSuite():
     suite.addTests(unittest.makeSuite(recode_stateTests, 'test'))
     suite.addTests(unittest.makeSuite(ldn_total_deg_fTests, 'test'))
     suite.addTests(unittest.makeSuite(ldn_total_by_transTests, 'test'))
+    suite.addTests(unittest.makeSuite(ldn_total_by_trans_mergeTests, 'test'))
     suite.addTests(unittest.makeSuite(DlgCalculateLDNSummaryTableAdminWorkerTests, 'test'))
     suite.addTests(unittest.makeSuite(DlgCalculateLDNSummaryTableAdminOutputTests, 'test'))
     return suite

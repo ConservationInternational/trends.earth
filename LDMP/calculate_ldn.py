@@ -48,8 +48,7 @@ from LDMP.summary import *
 from LDMP.summary_numba import merge_xtabs_i16, xtab_i16
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
-    ldn_recode_traj, ldn_total_by_trans, ldn_total_by_trans_merge, \
-    ldn_total_deg_f
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -256,6 +255,22 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                            level=0, duration=5)
 
 
+#TODO: Get this working in the jitted version in Numba
+def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
+    """Calculates a total table for an array"""
+    # Combine past totals with these totals
+    trans = np.unique(np.concatenate((trans1, trans2)))
+    totals = np.zeros(trans.size, dtype=np.float64)
+    for i in range(trans.size):
+        trans1_loc = np.where(trans1 == trans[i])[0]
+        trans2_loc = np.where(trans2 == trans[i])[0]
+        if trans1_loc.size > 0:
+            totals[i] = totals[i] + total1[trans1_loc[0]]
+        if trans2_loc.size > 0:
+            totals[i] = totals[i] + total2[trans2_loc[0]]
+    return trans, totals
+
+
 class DegradationSummaryWorkerSDG(AbstractWorker):
     def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
                  lc_band_nums, soc_band_nums, mask_file):
@@ -330,7 +345,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         xt = None
         # The first array in each row stores transitions, the second stores SOC 
         # totals for each transition
-        soc_totals_table = [[np.array([], dtype=np.int16), np.array([])]] * (len(self.soc_band_nums) - 1)
+        soc_totals_table = [[np.array([], dtype=np.int16), np.array([], dtype=np.float64)] for i in range(len(self.soc_band_nums) - 1)]
         # The 8 below is for eight classes plus no data, and the minus one is 
         # because one of the bands is a degradation layer
         lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
@@ -347,12 +362,12 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             if self.killed:
                 log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                 break
-            self.progress.emit(100 * float(y) / ysize)
             if y + y_block_size < ysize:
                 rows = y_block_size
             else:
                 rows = ysize - y
             for x in range(0, xsize, x_block_size):
+                self.progress.emit(100 * (float(y)*float(x)/x_block_size) / ysize)
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:
@@ -463,14 +478,23 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     a_soc = band_soc.ReadAsArray(x, y, cols, rows)
                     # Convert soilgrids data from per ha to per meter since 
                     # cell_area is in meters
+                    a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
+                    a_soc[mask_array == -32767] = -32767
+
+                    this_trans, this_totals = ldn_total_by_trans(a_soc,
+                                                                 a_trans_bl_tg,
+                                                                 cell_areas_array)
+
+                    new_trans, totals = ldn_total_by_trans_merge(this_totals, this_trans,
+                                                                 soc_totals_table[i - 1][1], soc_totals_table[i - 1][0])
+                    soc_totals_table[i - 1][0] = new_trans
+                    soc_totals_table[i - 1][1] = totals
                     if i == 1:
                         # This is the baseline SOC - save it for later
                         a_soc_bl = a_soc.copy()
                     elif i == (len(self.soc_band_nums) - 1):
                         # This is the target (tg) SOC - save it for later
                         a_soc_tg = a_soc.copy()
-                    a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
-                    a_soc[mask_array == -32767] = -32767
 
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator
@@ -485,15 +509,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     else:
                         rh, ch, xt = merge_xtabs_i16(this_rh, this_ch, this_xt, rh, ch, xt)
 
-                    this_trans, this_totals = ldn_total_by_trans(a_soc,
-                                                                 a_trans_bl_tg,
-                                                                 cell_areas_array)
-
-                    new_trans, totals = ldn_total_by_trans_merge(this_totals, this_trans,
-                                                                 soc_totals_table[i - 1][1], soc_totals_table[i - 1][0])
-                    soc_totals_table[i - 1][0] = new_trans
-                    soc_totals_table[i - 1][1] = totals
-
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
                 # than 10% (and improving increase greater than 10%)
@@ -506,8 +521,8 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # Carry over areas that were 1) originally masked, or 2) are 
                 # outside the AOI, or 3) are water
                 sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg_f(a_deg_soc,
-                                                          (a_soc_tg == -32767) | (mask_array == -32767) | water,
-                                                          cell_areas_array)
+                                                            water,
+                                                            cell_areas_array)
 
                 # Start at one because remember the first lc band is the 
                 # degradation layer
@@ -530,20 +545,13 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
             return None
         else:
             # Convert all area tables from meters into square kilometers
-            lc_totals_table = lc_totals_table * 1e-6
-            xt = xt * 1e-6
-            sdg_tbl_overall = sdg_tbl_overall * 1e-6
-            sdg_tbl_prod = sdg_tbl_prod * 1e-6
-            sdg_tbl_soc = sdg_tbl_soc * 1e-6
-            sdg_tbl_lc = sdg_tbl_lc * 1e-6
-
             return list((soc_totals_table,
-                         lc_totals_table,
-                         ((rh, ch), xt),
-                         sdg_tbl_overall,
-                         sdg_tbl_prod,
-                         sdg_tbl_soc,
-                         sdg_tbl_lc))
+                         lc_totals_table * 1e-6,
+                         ((rh, ch), xt * 1e-6),
+                         sdg_tbl_overall * 1e-6,
+                         sdg_tbl_prod * 1e-6,
+                         sdg_tbl_soc * 1e-6,
+                         sdg_tbl_lc * 1e-6))
 
 
 class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSummaryTableAdmin):
@@ -839,7 +847,12 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             # that they are not loaded in the QGIS project, to ensure that GDAL 
             # doesn't throw an error when it tries to overwrite it
             if os.path.exists(f):
-                delete_layer_by_filename(output_sdg_tif)
+                log('File {} exists. Will attempt to remove from QGIS and delete file.'.format(output_sdg_tif))
+                ret = delete_layer_by_filename(output_sdg_tif)
+                if not ret:
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                                  self.tr("Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.".format(output_sdg_tif)))
+                    return
             deg_worker = StartWorker(DegradationSummaryWorkerSDG,
                                     'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                      indic_vrt,
@@ -849,11 +862,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                                      lc_band_nums, 
                                      soc_band_nums,
                                      mask_vrt)
-            if deg_worker.get_return() == -1:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.".format(output_sdg_tif)))
-                return
-            elif not deg_worker.success:
+            if not deg_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating SDG 15.3.1 summary table."))
                 return
@@ -960,7 +969,7 @@ def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals,
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
-def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=list(range(1, 6 + 1))):
+def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=list(range(1, 6 + 1)), uselog=False):
     out = np.zeros((len(classes), 1))
     for row in range(len(classes)):
         area = 0
@@ -1063,7 +1072,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 54, 3)
 
     for i in range(len(soc_years)):
-        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i])), 64 + i, 2)
+        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 64 + i, 2)
 
     try:
         ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))

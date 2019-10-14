@@ -189,7 +189,10 @@ def round_to_n(x, sf=3):
     elif x == 0:
         return 0
     else:
-        return round(x, -int(floor(log10(x))) + (sf - 1))
+        if x.size == 1:
+            return np.round(x, -int(floor(log10(x))) + (sf - 1))
+        else:
+            return np.around(x, -int(floor(log10(x))) + (sf - 1))
 
 
 def get_sample(f, band_number, n=1e6):
@@ -452,12 +455,15 @@ def delete_layer_by_filename(f):
     project = QgsProject.instance()
     for lyr_id in project.mapLayers():
         lyr = project.mapLayer(lyr_id)
-        if lyr.source() == f:
+        source = os.path.abspath(lyr.source())
+        if source == f:
+            log('Removing map layer prior to deletion of {}'.format(f))
             project.removeMapLayer(lyr_id)
             try:
+                log('Removing file {}'.format(f))
                 os.remove(f)
             except:
                 log('Error removing file at {}'.format(f))
-                return -1
-            return True
-    return False
+                return False
+            break
+    return True

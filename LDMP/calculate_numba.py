@@ -81,35 +81,36 @@ def make_prod5(traj, state, perf, mask):
 
 
 @cc.export('ldn_total_by_trans', '(f8[:,:], i2[:,:], f8[:,:])')
-def ldn_total_by_trans(a_data, a_trans, cell_areas):
+def ldn_total_by_trans(d, trans_a, cell_areas):
     """Calculates a total table for an array"""
-    a_data = a_data.ravel()
-    a_trans = a_trans.ravel()
-    trans = np.unique(a_trans)
+    d = d.ravel()
+    trans_a = trans_a.ravel()
+    trans = np.unique(trans_a)
     cell_areas = cell_areas.ravel()
     # Values less than zero are missing data flags
-    a_data[a_data < 0] = 0
-    totals = np.zeros(trans.shape, dtype=np.float64)
-    for this_trans in trans:
+    d[d < 0] = 0
+    totals = np.zeros(trans.size, dtype=np.float64)
+    for i in range(trans.size):
         # Only sum values for this_trans, and where soc has a valid value
         # (negative values are missing data flags)
-        vals = a_data[a_trans == this_trans] * cell_areas[a_trans == this_trans]
-        ind = np.asarray(trans == this_trans)
-        totals[ind] = totals[ind] + np.sum(vals)
+        vals = d[trans_a == trans[i]] * cell_areas[trans_a == trans[i]]
+        totals[i] += np.sum(vals)
     return trans, totals
 
-@cc.export('ldn_total_by_trans_merge', '(f8[:], i2[:], f8[:], i2[:])')
-def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
-    """Calculates a total table for an array"""
-    # Combine past totals with these totals
-    trans = np.unique(np.concatenate((trans1, trans2)))
-    totals = np.zeros(trans.size, dtype=np.float64)
-    for j in range(trans.size):
-        trans1_loc = np.where(trans1 == trans[j])
-        trans2_loc = np.where(trans2 == trans[j])
-        total = total1[trans1_loc] + total2[trans2_loc]
-        totals[j] = total[0]
-    return trans, totals
+# @cc.export('ldn_total_by_trans_merge', '(f8[:], i2[:], f8[:], i2[:])')
+# def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
+#     """Calculates a total table for an array"""
+#     # Combine past totals with these totals
+#     trans = np.unique(np.concatenate((trans1, trans2)))
+#     totals = np.zeros(trans.size, dtype=np.float64)
+#     for i in range(trans.size):
+#         trans1_loc = np.where(trans1 == trans[i])[0]
+#         trans2_loc = np.where(trans2 == trans[i])[0]
+#         if trans1_loc.size > 0:
+#             totals[i] = totals[i] + total1[trans1_loc[0]]
+#         if trans2_loc.size > 0:
+#             totals[i] = totals[i] + total2[trans2_loc[0]]
+#     return trans, totals
 
 
 @cc.export('ldn_total_deg_f', 'f8[4](i2[:,:], b1[:,:], f8[:,:])')

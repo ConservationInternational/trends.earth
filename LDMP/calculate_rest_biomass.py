@@ -154,15 +154,15 @@ class RestBiomassSummaryWorker(AbstractWorker):
 
         blocks = 0
         for y in xrange(0, ysize, y_block_size):
-            if self.killed:
-                log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
-                break
-            self.progress.emit(100 * float(y) / ysize)
             if y + y_block_size < ysize:
                 rows = y_block_size
             else:
                 rows = ysize - y
             for x in xrange(0, xsize, x_block_size):
+                if self.killed:
+                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
+                    break
+                self.progress.emit(100 * (float(y) + (float(x)/xsize)*y_block_size) / ysize)
                 if x + x_block_size < xsize:
                     cols = x_block_size
                 else:

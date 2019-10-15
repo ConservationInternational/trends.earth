@@ -69,7 +69,9 @@ of the plugin.
 ### Development version from zipfile
 
 First download the latest Trends.Earth zipfile. There are two versions 
-available, one for QGIS2, and the other a beta version for QGIS3:
+available, one for QGIS2, and the other a beta version for QGIS3. At the moment 
+most development is occurring on the QGIS3 version, but the QGIS2 version will 
+continue to be supported until March 2020.
 
 * [Download the latest `Trends.Earth` zipfile for 
   QGIS2.18+](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS2.zip).

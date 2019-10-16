@@ -48,3 +48,32 @@ def add_default_bands_to_map(f):
         band_info = m['bands'][band_number - 1]
         if band_info['add_to_map']:
             add_layer(f, band_number, band_info)
+
+# Class to store GEE tasks that have been submitted for processing and that 
+# have further tests to apply once the results have been returned. Queue stores 
+# tuples of (GEE Task ID, settings object)
+class  GEETaskList(object):
+    def __init__(self):
+        tasks = {}
+
+    def put(self, task_id, status):
+        if tasks.has_key(task_id):
+            raise(Exception, 'Task ID {} is already in task list'.format(task_id))
+        tasks[task_id] = status
+
+    def get(self):
+        if task.is_finished():
+            return task
+        else:
+            # if the task isn't finished, add it back onto the queue (at the 
+            # end, so another task will come up for consideration next time)
+            self.put(task)
+            return None
+
+    def update_status(self):
+        pass
+
+    def empty(self):
+        return True
+
+gee_queue = GEETaskList()

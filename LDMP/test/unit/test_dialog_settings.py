@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+import sys
+
 from qgis.testing import unittest
 
 from qgis.core import *
@@ -21,7 +23,7 @@ from qgis.PyQt.QtWidgets import QApplication
 
 from LDMP.settings import DlgSettingsLogin
 
-from LDMP.test import regular_keys, admin_keys
+from LDMP.test import regular_keys
 
 
 class DialogSettingsLoginTests(unittest.TestCase):
@@ -64,7 +66,14 @@ class DialogSettingsLoginTests(unittest.TestCase):
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertFalse(d.ok)
 
-def SettingsSuite():
+
+def SettingsUnitSuite():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, 'test'))
     return suite
+
+
+def run_all():
+    _suite = unittest.TestSuite()
+    _suite.addTest(SettingsUnitSuite())
+    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(_suite)

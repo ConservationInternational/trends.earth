@@ -4,49 +4,29 @@ import sys
 from queue import Queue
 from time import sleep
 
-from LDMP.test.test_dialog_settings import SettingsSuite
-from LDMP.test.test_calculate_ldn import CalculateLDNSuite
+from LDMP.test.unit.test_dialog_settings import SettingsUnitSuite
+from LDMP.test.unit.test_calculate_ldn import CalculateLDNUnitSuite
+from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
+from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
 
-# Class to store GEE tasks that have been submitted for processing and that 
-# have further tests to apply once the results have been returned. Queue stores 
-# tuples of (GEE Task ID, settings object)
-class  GEETaskList(object):
-    def __init__(self):
-        tasks = {}
-
-    def put(self, task_id, status):
-        if tasks.has_key(task_id):
-            raise(Exception, 'Task ID {} is already in task list'.format(task_id))
-        tasks[task_id] = status
-
-    def get(self):
-        if task.is_finished():
-            return task
-        else:
-            # if the task isn't finished, add it back onto the queue (at the 
-            # end, so another task will come up for consideration next time)
-            self.put(task)
-            return None
-
-    def update_status(self):
-        pass
-
-    def empty(self):
-        return True
-
-gee_task_queue = GEETaskList()
 
 def unitTests():
-    _tests = []
-    _tests.extend(SettingsSuite())
-    _tests.extend(CalculateLDNSuite())
-    return _tests
+    suite = unittest.TestSuite()
+    suite.addTest(SettingsUnitSuite())
+    suite.addTest(CalculateLDNUnitSuite())
+    return suite
+
+
+def integrationTests():
+    suite = unittest.TestSuite()
+    suite.addTest(CalculateLDNIntegrationSuite())
+    suite.addTest(CalculateUrbanIntegrationSuite())
+    return suite
+
 
 def run_all():
-    _suite = unittest.TestSuite()
-    _suite.addTest(SettingsSuite())
-    _suite.addTest(CalculateLDNSuite())
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(_suite)
+    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(unitTests())
+    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(integrationTests())
     # while True:
     #     if not gee_task_queue.empty():
     #         # update status of all items in the queue

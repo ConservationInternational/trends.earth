@@ -305,7 +305,7 @@ def plugin_install(c, clean=False, version=3, profile='default', python='python'
                     print('Permission error: unable to copy {} to {}. Skipping that file.'.format(f, os.path.join(dst_plugins, relpath, f)))
             _filter_excludes(root, dirs, c)
     elif not os.path.exists(dst_this_plugin):
-        src.symlink(dst_this_plugin)
+        os.symlink(src, dst_this_plugin)
 
 # Compile all ui and resource files
 def compile_files(c, version, clean, python, numba_recompile):

@@ -241,13 +241,18 @@ def read_requirements():
     not_comments = lambda s,e: [ l for l in lines[s:e] if l[0] != '#']
     return not_comments(0, idx), not_comments(idx+1, None)
 
-@task(help={'clean': 'Clean out dependencies first'})
-def plugin_setup(c, clean=False):
+@task(help={'clean': 'Clean out dependencies first',
+            'pip': 'Path to pip (usually "pip" or "pip3"'})
+def plugin_setup(c, clean=False, pip='pip'):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs)
     if clean and os.path.exists(ext_libs):
         shutil.rmtree(ext_libs)
-    os.makedirs(ext_libs, exist_ok=True)
+    if sys.version_info[0] < 3:
+        if not os.path.exists(ext_libs):
+            os.makedirs(ext_libs)
+    else:
+        os.makedirs(ext_libs, exist_ok=True)
     runtime, test = read_requirements()
 
     os.environ['PYTHONPATH'] = ext_libs
@@ -255,9 +260,9 @@ def plugin_setup(c, clean=False):
         # Don't install numpy with pyqtgraph as QGIS already has numpy. 
         # So use the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
-            subprocess.check_call(['pip', 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
+            subprocess.check_call([pip, 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
         else:
-            subprocess.check_call(['pip', 'install', '--upgrade', '-t', ext_libs, req])
+            subprocess.check_call([pip, 'install', '--upgrade', '-t', ext_libs, req])
 
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
@@ -613,10 +618,11 @@ def changelog_build(c):
             'tests': 'Package tests with plugin',
             'filename': 'Name for output file',
             'python': 'Python to use for setup and compiling',
-            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
-def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', numba_recompile=False):
+            'numba_recompile': 'Whether to recompile numba files even if they are existing',
+            'pip': 'Path to pip (usually "pip" or "pip3"'})
+def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', numba_recompile=False, pip='pip'):
     """Create plugin package"""
-    plugin_setup(c, clean)
+    plugin_setup(c, clean,  pip)
     compile_files(c, version, clean, python, numba_recompile)
     binaries_sync(c)
     package_dir = c.plugin.package_dir
@@ -644,9 +650,10 @@ def _make_zip(zipFile, c):
         _filter_excludes(root, dirs, c)
 
 @task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling'})
-def zipfile_deploy(c, clean=False, python='python'):
-    filename = zipfile_build(c, python=python)
+            'python': 'Python to use for setup and compiling',
+            'pip': 'Path to pip (usually "pip" or "pip3"'})
+def zipfile_deploy(c, clean=False, python='python', pip='pip'):
+    filename = zipfile_build(c, python=python, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -667,7 +674,11 @@ def zipfile_deploy(c, clean=False, python='python'):
 
 # Function 
 def _recursive_dir_create(d):
-    os.makedirs(os.path.join(os.path.abspath(os.path.dirname(d)), ''), exist_ok=True)
+    if sys.version_info[0] < 3:
+        if not os.path.exists(d):
+            os.makedirs(os.path.join(os.path.abspath(os.path.dirname(d)), ''))
+    else:
+        os.makedirs(os.path.join(os.path.abspath(os.path.dirname(d)), ''), exist_ok=True)
 
 
 def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
@@ -766,7 +777,7 @@ def testdata_sync(c):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
 
-    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/fixtures', c.plugin.testdata_patterns)
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/integration/fixtures', c.plugin.testdata_patterns)
 
 
 @task(help={'clean': 'Clean out dependencies before packaging',
@@ -778,10 +789,9 @@ def binaries_compile(c, clean=False, python='python', numba_recompile=False):
     n = 0
     for numba_file in numba_files:
         (base, ext) = os.path.splitext(numba_file)
-        output = "{0}.cp37-win_amd64.pyd".format(base)
-        if numba_recompile or clean or file_changed(numba_file, output):
-            subprocess.check_call([python, numba_file])
-            n += 1
+        #if numba_recompile or clean or file_changed(numba_file, output):
+        subprocess.check_call([python, numba_file])
+        n += 1
     print("Compiled {} numba files. Skipped {}.".format(n, len(numba_files) - n))
 
 
@@ -810,7 +820,7 @@ ns.configure({
                             'LDMP/summary_numba.py'],
         'numba_binary_patterns': ['LDMP/*.so',
                                   'LDMP/*.pyd'],
-        'testdata_patterns': ['LDMP/test/fixtures/*'],
+        'testdata_patterns': ['LDMP/test/integration/fixtures/*'],
         'package_dir': 'build',
         'tests': ['LDMP/test'],
         'excludes': [

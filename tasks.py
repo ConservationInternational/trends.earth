@@ -267,11 +267,10 @@ def plugin_setup(c, clean=False, pip='pip'):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
-            'python': 'Python to use for setup and compiling',
-            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
-def plugin_install(c, clean=False, version=3, profile='default', python='python', numba_recompile=False):
+            'python': 'Python to use for setup and compiling'})
+def plugin_install(c, clean=False, version=3, profile='default', python='python'):
     '''install plugin to qgis'''
-    compile_files(c, version, clean, python, numba_recompile)
+    compile_files(c, version, clean, python)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -313,7 +312,7 @@ def plugin_install(c, clean=False, version=3, profile='default', python='python'
         os.symlink(src, dst_this_plugin)
 
 # Compile all ui and resource files
-def compile_files(c, version, clean, python, numba_recompile):
+def compile_files(c, version, clean, python):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -380,7 +379,7 @@ def compile_files(c, version, clean, python, numba_recompile):
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
 
-    binaries_compile(c, clean, python, numba_recompile)
+    binaries_compile(c, clean, python)
 
 def file_changed(infile, outfile):
     try:
@@ -618,12 +617,12 @@ def changelog_build(c):
             'tests': 'Package tests with plugin',
             'filename': 'Name for output file',
             'python': 'Python to use for setup and compiling',
-            'numba_recompile': 'Whether to recompile numba files even if they are existing',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', numba_recompile=False, pip='pip'):
+def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', pip='pip'):
     """Create plugin package"""
     plugin_setup(c, clean,  pip)
-    compile_files(c, version, clean, python, numba_recompile)
+    compile_files(c, version, clean, python)
+
     binaries_sync(c)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
@@ -781,18 +780,16 @@ def testdata_sync(c):
 
 
 @task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling',
-            'numba_recompile': 'Whether to recompile numba files even if they are existing'})
-def binaries_compile(c, clean=False, python='python', numba_recompile=False):
+            'python': 'Python to use for setup and compiling'})
+def binaries_compile(c, clean=False, python='python'):
     print("Compiling exported numba functions...")
     numba_files = c.plugin.numba_aot_files
     n = 0
     for numba_file in numba_files:
         (base, ext) = os.path.splitext(numba_file)
-        #if numba_recompile or clean or file_changed(numba_file, output):
         subprocess.check_call([python, numba_file])
         n += 1
-    print("Compiled {} numba files. Skipped {}.".format(n, len(numba_files) - n))
+    print("Compiled {} numba files.".format(n))
 
 
 ###############################################################################

@@ -41,10 +41,10 @@ this repository to a convenient place on your machine in order to ensure you
 have the latest version of the code.
 
 There are a number of different branches of the trends.earth repository that 
-are under active development. As the plugin does not yet officially support 
-QGIS3, the "qgis2" branch is where most development work is happening. The 
-"master" branch is being modified to support QGIS3, and will eventually become 
-the primary place for development once version 1.0 of the plugin is released.
+are under active development. While the plugin does not yet officially support 
+QGIS3, however the majority of development is occurring on the "master" branch, 
+which is aimed at QGIS3. The "qgis2" branch is the older version of the plugin, 
+and supports QGIS2 version 2.18+.
 
 The first time you download the trends.earth code, you will also need to clone 
 the "schemas" submodule that is located within it, under "LDMP\\schemas". If 
@@ -95,23 +95,30 @@ code folder and typing::
    "Anaconda prompt", by `following the instructions on this Anaconda page
    <https://docs.anaconda.com/anaconda/user-guide/getting-started/#write-a-python-program-using-anaconda-prompt-or-terminal>`_.
 
-PyQt4
-~~~~~
+PyQt
+~~~~
 
-PyQt4 is the graphics toolkit used by QGIS2. To compile the user interface for 
-Trends.Earth you need to install PyQt4. The best source for this package is 
-from the set of packages maintained by Christoph Gohlke at UC Irvine. To 
-download PyQt4, select `the appropriate package from this page 
-<https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4>`_. Choose the appropriate 
-file for the version of Python you are using. For example, if you are using 
-Python 2.7, choose the version with "cp27" in the filename. If you are using 
-Python 3.7, choose the version with "cp37" in the filename. Choose "amd64" for 
-64-bit python, and "win32" for 32-bit python.
+PyQt5 is the graphics toolkit used by QGIS3. To compile the user interface for 
+Trends.Earth for QGIS3 you need to install PyQt5. This package can be installed 
+from pip using::
 
-After downloading from the above link, use ``pip`` to install it. For example, 
-for the 64-bit wheel for Python 3.7, you would run::
+    pip install PyQt5
 
-   pip install PyQt4-4.11.4-cp37-cp37m-win_amd64.whl
+.. note::
+    PyQt4 is the graphics toolkit used by QGIS2. The best source for this 
+    package on Windows is from the set of packages maintained by Christoph 
+    Gohlke at UC Irvine. To download PyQt4, select `the appropriate package 
+    from this page <https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4>`_. 
+    Choose the appropriate file for the version of Python you are using. For 
+    example, if you are using Python 2.7, choose the version with "cp27" in the 
+    filename. If you are using Python 3.7, choose the version with "cp37" in 
+    the filename. Choose "amd64" for 64-bit python, and "win32" for 32-bit 
+    python.
+
+    After downloading from the above link, use ``pip`` to install it. For example, 
+    for the 64-bit wheel for Python 3.7, you would run::
+
+       pip install PyQt4-4.11.4-cp37-cp37m-win_amd64.whl
 
 Changing the version of the plugin
 ----------------------------------

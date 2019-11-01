@@ -15,6 +15,7 @@ aws_credentials.json
 *.o
 *.dll
 *.so
+*.pyd
 *.gz
 *.geojson
 .Rproj.user
@@ -32,6 +33,8 @@ docs/build/*
 docs/source/.doctrees/*
 docs/source/static/*
 LDMP/test/fixtures/*
+LDMP/test/integration/fixtures/*
+LDMP/test/unit/fixtures/*
 invoke.yaml
 trends.earth_admin_user_credentials.json
 trends.earth_test_user_credentials.json

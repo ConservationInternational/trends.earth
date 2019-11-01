@@ -80,7 +80,7 @@ def make_prod5(traj, state, perf, mask):
     return(np.reshape(x, shp))
 
 
-@cc.export('ldn_total_by_trans', '(f8[:,:], i2[:,:], f8[:,:])')
+@cc.export('ldn_total_by_trans', '(f4[:,:], i2[:,:], f4[:,:])')
 def ldn_total_by_trans(d, trans_a, cell_areas):
     """Calculates a total table for an array"""
     d = d.ravel()
@@ -89,7 +89,7 @@ def ldn_total_by_trans(d, trans_a, cell_areas):
     cell_areas = cell_areas.ravel()
     # Values less than zero are missing data flags
     d[d < 0] = 0
-    totals = np.zeros(trans.size, dtype=np.float64)
+    totals = np.zeros(trans.size, dtype=np.float32)
     for i in range(trans.size):
         # Only sum values for this_trans, and where soc has a valid value
         # (negative values are missing data flags)
@@ -97,12 +97,12 @@ def ldn_total_by_trans(d, trans_a, cell_areas):
         totals[i] += np.sum(vals)
     return trans, totals
 
-# @cc.export('ldn_total_by_trans_merge', '(f8[:], i2[:], f8[:], i2[:])')
+# @cc.export('ldn_total_by_trans_merge', '(f4[:], i2[:], f4[:], i2[:])')
 # def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
 #     """Calculates a total table for an array"""
 #     # Combine past totals with these totals
 #     trans = np.unique(np.concatenate((trans1, trans2)))
-#     totals = np.zeros(trans.size, dtype=np.float64)
+#     totals = np.zeros(trans.size, dtype=np.float32)
 #     for i in range(trans.size):
 #         trans1_loc = np.where(trans1 == trans[i])[0]
 #         trans2_loc = np.where(trans2 == trans[i])[0]
@@ -113,13 +113,13 @@ def ldn_total_by_trans(d, trans_a, cell_areas):
 #     return trans, totals
 
 
-@cc.export('ldn_total_deg_f', 'f8[4](i2[:,:], b1[:,:], f8[:,:])')
+@cc.export('ldn_total_deg_f', 'f4[4](i2[:,:], b1[:,:], f4[:,:])')
 def ldn_total_deg(x, water, cell_areas):
     """Calculates a total table for an array"""
     x = x.ravel()
     cell_areas = cell_areas.ravel()
     x[water.ravel()] = -32767
-    out = np.zeros((4))
+    out = np.zeros((4), dtype=np.float32)
     out[0] = np.sum(cell_areas[x == 1])
     out[1] = np.sum(cell_areas[x == 0])
     out[2] = np.sum(cell_areas[x == -1])

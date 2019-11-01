@@ -260,7 +260,7 @@ def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
     """Calculates a total table for an array"""
     # Combine past totals with these totals
     trans = np.unique(np.concatenate((trans1, trans2)))
-    totals = np.zeros(trans.size, dtype=np.float64)
+    totals = np.zeros(trans.size, dtype=np.float32)
     for i in range(trans.size):
         trans1_loc = np.where(trans1 == trans[i])[0]
         trans2_loc = np.where(trans2 == trans[i])[0]
@@ -345,7 +345,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         xt = None
         # The first array in each row stores transitions, the second stores SOC 
         # totals for each transition
-        soc_totals_table = [[np.array([], dtype=np.int16), np.array([], dtype=np.float64)] for i in range(len(self.soc_band_nums) - 1)]
+        soc_totals_table = [[np.array([], dtype=np.int16), np.array([], dtype=np.float32)] for i in range(len(self.soc_band_nums) - 1)]
         # The 8 below is for eight classes plus no data, and the minus one is 
         # because one of the bands is a degradation layer
         lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
@@ -478,7 +478,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                     a_soc = band_soc.ReadAsArray(x, y, cols, rows)
                     # Convert soilgrids data from per ha to per meter since 
                     # cell_area is in meters
-                    a_soc = a_soc.astype(np.float64) / (100 * 100) # From per ha to per m
+                    a_soc = a_soc.astype(np.float32) / (100 * 100) # From per ha to per m
                     a_soc[mask_array == -32767] = -32767
 
                     this_trans, this_totals = ldn_total_by_trans(a_soc,

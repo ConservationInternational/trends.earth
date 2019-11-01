@@ -216,7 +216,7 @@ def get_sample(f, band_number, n=1e6):
         rows = np.arange(0, ysize, grid_size)
         cols = np.arange(0, xsize, grid_size).astype('int64')
 
-        out = np.zeros((rows.shape[0], cols.shape[0]), np.float64)
+        out = np.zeros((rows.shape[0], cols.shape[0]), np.float32)
         log("Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})".format(ysize, xsize, out.shape, grid_size, out.shape[0] * out.shape[1]))
 
         for n in range(rows.shape[0]):

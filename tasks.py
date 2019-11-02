@@ -267,10 +267,11 @@ def plugin_setup(c, clean=False, pip='pip'):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
-            'python': 'Python to use for setup and compiling'})
-def plugin_install(c, clean=False, version=3, profile='default', python='python'):
+            'python': 'Python to use for setup and compiling',
+            'fast': 'Skip compiling numba files'})
+def plugin_install(c, clean=False, version=3, profile='default', python='python', fast=False):
     '''install plugin to qgis'''
-    compile_files(c, version, clean, python)
+    compile_files(c, version, clean, python, fast)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -292,9 +293,9 @@ def plugin_install(c, clean=False, version=3, profile='default', python='python'
     dst_this_plugin = os.path.join(dst_plugins, plugin_name)
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
-    print("Installing to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
 
     if not hasattr(os, 'symlink') or (os.name == 'nt'):
+        print("Copying plugin to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         if clean:
             if os.path.exists(dst_this_plugin):
                 rmtree(dst_this_plugin)
@@ -309,10 +310,13 @@ def plugin_install(c, clean=False, version=3, profile='default', python='python'
                     print('Permission error: unable to copy {} to {}. Skipping that file.'.format(f, os.path.join(dst_plugins, relpath, f)))
             _filter_excludes(root, dirs, c)
     elif not os.path.exists(dst_this_plugin):
+        print("Linking plugin development folder to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         os.symlink(src, dst_this_plugin)
+    else:
+        print("Not linking - plugin folder for QGIS version {} already exists at {}".format(version, dst_this_plugin))
 
 # Compile all ui and resource files
-def compile_files(c, version, clean, python):
+def compile_files(c, version, clean, python, fast=False):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -378,8 +382,9 @@ def compile_files(c, version, clean, python):
             else:
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
-
-    binaries_compile(c, clean, python)
+    
+    if not fast:
+        binaries_compile(c, clean, python)
 
 def file_changed(infile, outfile):
     try:

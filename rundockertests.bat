@@ -13,7 +13,7 @@ REM Setup docker instance
 %DOCKER_RUN_COMMAND% "qgis_setup.sh %PLUGIN_NAME%"
 %DOCKER_RUN_COMMAND% "cd /tests_directory && git submodule update --init --recursive"
 %DOCKER_RUN_COMMAND% "cd /tests_directory && invoke testdata-sync"
-%DOCKER_RUN_COMMAND% "cd /tests_directory && invoke zipfile-build -n -t -f /LDMP.zip -p python3"
+%DOCKER_RUN_COMMAND% "cd /tests_directory && invoke zipfile-build -t -f /LDMP.zip --python python3"
 %DOCKER_RUN_COMMAND% "unzip -qq -o /LDMP.zip -d /"
 %DOCKER_RUN_COMMAND% "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
 %DOCKER_RUN_COMMAND% "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"

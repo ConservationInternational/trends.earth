@@ -1052,7 +1052,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fieldNameIndex(field)
+            idx = l.fields().lookupField(field)
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
                 return
@@ -1124,7 +1124,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fieldNameIndex(field)
+            idx = l.fields().lookupField(field)
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a field that contains numbers.".format(field)))
                 return

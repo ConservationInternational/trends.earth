@@ -29,8 +29,9 @@ from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, \
 from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
     QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
     Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsField, \
-    QgsFields, QgsFeature
+    QgsFields, QgsFeature, QgsWkbTypes
 from qgis.utils import iface
+
 mb = iface.messageBar()
 
 import numpy as np
@@ -283,7 +284,7 @@ class RemapRasterWorker(AbstractWorker):
 
 
 def get_unique_values_vector(l, field, max_unique=100):
-    idx = l.fieldNameIndex(field)
+    idx = l.fields().lookupField(field)
     values = l.uniqueValues(idx)
     if len(values) > max_unique:
         return None
@@ -747,9 +748,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
             l = self.input_widget.get_vector_layer()
-            if l.wkbType() == Qgis.Polygon:
+            if l.wkbType() == QgsWkbTypes.Polygon or l.wkbType() == QgsWkbTypes.MultiPolygon:
                 self.vector_datatype = "polygon"
-            elif l.wkbType() == Qgis.Point:
+            elif l.wkbType() == QgsWkbTypes.Point:
                 self.vector_datatype = "point"
             else:
                 QtWidgets.QMessageBox.critical(None, tr("Error"),
@@ -982,7 +983,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         else:
             f = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
-            idx = l.fieldNameIndex(self.input_widget.comboBox_fieldname.currentText())
+            idx = l.fields().lookupField(self.input_widget.comboBox_fieldname.currentText())
             if not self.dlg_agg or \
                     (self.last_vector != f or self.last_idx != idx):
                 values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
@@ -1051,7 +1052,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fieldNameIndex(field)
+            idx = l.fields().lookupField(field)
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
                 return
@@ -1123,7 +1124,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
             field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fieldNameIndex(field)
+            idx = l.fields().lookupField(field)
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a field that contains numbers.".format(field)))
                 return

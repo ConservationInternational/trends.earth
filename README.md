@@ -130,13 +130,14 @@ To install from a zipfile, first download a zipfile of the
 named `LDMP.zip`, `LDMP_QGIS2.zip`, or `LDMP_QGIS3.zip` depending on what 
 version you are installing.
 
-Next, extract the zipfile  to the python plugins folder for your installation 
-of QGIS. The location of this folder varies depending on your operating system 
-and version of QGIS. For example, if you are using Windows and your username is 
-"username", then this might be (for QGIS2) 
-`C:\Users\username\.qgis2\python\plugins`. If you are using a Mac (and QGIS2) 
-and your username is "username", then this might be
-`/Users/username/.qgis2/python/plugins`.
+When using QGIS version 3.8.3-Zanzibar or higher, it is possible to install 
+plugins directly from Zip files. To do that, start QGIS, click on “Plugins” 
+(located in the main menu) then "Manage and Install Plugins”, and the plugins 
+window will pop up. On the left hand side there is a list from which to select 
+how to proceed, select “Install from ZIP” and navigate to the folder where the 
+Trends.Earth zipfile has been saved and select it and click on “Install Plugin"
+(Plugins > Manage and Install Plugins > Install from Zip>Select ZIP file > Install Plugin).
+Note that is not necessary to unzip the file. 
 
 Once you are finished, you should (for QGIS2) have a folder named "LDMP" within 
 your `.qgis2/python/plugins` folder.

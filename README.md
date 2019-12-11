@@ -130,7 +130,7 @@ To install from a zipfile, first download a zipfile of the
 named `LDMP.zip`, `LDMP_QGIS2.zip`, or `LDMP_QGIS3.zip` depending on what 
 version you are installing.
 
-When using QGIS version 3.8.3-Zanzibar or higher, it is possible to install 
+When using QGIS version 3.10 or higher, it is possible to install 
 plugins directly from Zip files. To do that, start QGIS, click on “Plugins” 
 (located in the main menu) then "Manage and Install Plugins”, and the plugins 
 window will pop up. On the left hand side there is a list from which to select 

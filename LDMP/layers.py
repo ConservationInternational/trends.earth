@@ -129,7 +129,7 @@ style_text_dict = {
     'lpd_imp': tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr(u'SDG 15.3.1 degradation indicator'),
+    'combined_sdg_title': tr(u'SDG 15.3.1 Indicator (Trends.Earth)'),
     'combined_sdg_deg_deg': tr(u'Degradation'),
     'combined_sdg_deg_stable': tr(u'Stable'),
     'combined_sdg_deg_imp': tr(u'Improvement'),
@@ -175,7 +175,6 @@ style_text_dict = {
     'biomass_title': tr(u'Biomass (tonnes CO2e per ha, {year})'),
     'biomass_difference_title': tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)')
 }
-
 
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                        'data', 'styles.json')) as script_file:

@@ -23,20 +23,20 @@ def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
     agb_1km = ee.Image("users/geflanddegradation/toolbox_datasets/forest_agb_1km_geocarbon")
 
     # c sequestration coefficients by intervention from winrock paper
-    agfor0020 = ee.Image("users/geflanddegradation/restoration_winrock/agfor0020")
-    agfor2060 = ee.Image("users/geflanddegradation/restoration_winrock/agfor2060")
-    natre0020 = ee.Image("users/geflanddegradation/restoration_winrock/nr0020")
-    natre2060 = ee.Image("users/geflanddegradation/restoration_winrock/nr2060")
-    pwobr0020 = ee.Image("users/geflanddegradation/restoration_winrock/pw0020_0br")
-    pweuc0020 = ee.Image("users/geflanddegradation/restoration_winrock/pw0020_ecu")
-    pwoak0020 = ee.Image("users/geflanddegradation/restoration_winrock/pw0020_oak")
-    pwoco0020 = ee.Image("users/geflanddegradation/restoration_winrock/pw0020_oco")
-    pwpin0020 = ee.Image("users/geflanddegradation/restoration_winrock/pw0020_pin")
-    pwtea0020 = ee.Image("users/geflanddegradation/restoration_winrock/pw0020_tea")
-    mshrr0020 = ee.Image("users/geflanddegradation/restoration_winrock/msr0020")
-    mshrr2060 = ee.Image("users/geflanddegradation/restoration_winrock/msr2060")
-    mtrer0020 = ee.Image("users/geflanddegradation/restoration_winrock/mtr0020")
-    mtrer2060 = ee.Image("users/geflanddegradation/restoration_winrock/mtr2060")
+    agfor0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b1").divide(100);
+    agfor2060 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b2").divide(100);
+    mshrr0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b3").divide(100);
+    mshrr2060 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b4").divide(100);
+    mtrer0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b5").divide(100);
+    mtrer2060 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b6").divide(100);
+    natre0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b7").divide(100);
+    natre2060 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b8").divide(100);
+    pwobr0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b9").divide(100);
+    pweuc0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b10").divide(100);
+    pwoak0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b11").divide(100);
+    pwoco0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b12").divide(100);
+    pwpin0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b13").divide(100);
+    pwtea0020 = ee.Image("users/geflanddegradation/toolbox_datasets/winrock_co2_seq_coeff_adm1").select("b14").divide(100);
 
     # combine the global 1km and the pantropical 30m datasets into one layer for analysis
     agb = agb_30m.float().unmask(0).where(ee.Image.pixelLonLat().select('latitude').abs().gte(29.999),agb_1km)

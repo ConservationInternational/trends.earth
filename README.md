@@ -73,8 +73,9 @@ development is occurring on the QGIS3 version. The QGIS2 version will
 continue to be supported until March 2020.
 
 * [Download the latest `Trends.Earth` zipfile for QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS3.zip).
+
 In case you want to use a previous version of `Trends.Earth` (e.g. versions that work with QGIS2),
-please refer to this [repository] (https://github.com/ConservationInternational/trends.earth/releases)
+please refer to this [repository](https://github.com/ConservationInternational/trends.earth/releases)
 where all  `Trends.Earth` releases are available.
 
 Now follow the instructions below on [installing the plugin from a

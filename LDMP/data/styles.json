@@ -99,16 +99,16 @@
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
-    "Soil organic carbon degradation": {
+    "Soil organic carbon (degradation)": {
         "title": "soc_deg_title",
         "ramp": {
                    "type": "categorical",
-                   "shader": "exact",
+                   "shader": "discrete",
                    "items": [
                        {"value": -32768, "color": "#000000", "label": "nodata"},
-                       {"value": -1, "color": "#AB2727", "label": "soc_deg_potential_deg"},
-                       {"value": 0, "color": "#ED7428", "label": "soc_deg_potential_stable"},
-                       {"value": 1, "color": "#FED652", "label": "soc_deg_potential_improvement"}
+                       {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
+                       {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_potential_stable"},
+                       {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }
     },
@@ -305,7 +305,7 @@
             ]
         }
     },
-    "Land cover degradation": {
+    "Land cover (degradation)": {
         "title": "lc_deg_title",
         "ramp": {
             "type": "categorical",

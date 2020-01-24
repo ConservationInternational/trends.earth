@@ -175,6 +175,14 @@ plugins folder on your machine. To do this, run::
 
   invoke plugin-install
 
+.. note::
+  As the trends.earth plugin uses the numba library to compile a number of key
+  functions, you will need a C++ compiler for the above command to work. On
+  Windows, see `this page <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ for details on how to
+  install the Microsoft Visual C++ compiler needed for you Python version. On
+  MacOS, you will most likely need to install Xcode. On Linux, install the
+  appropriate version of GCC.
+
 After running the above command, you will need to either 1) restart QGIS, or 2) 
 use the `plugin reloader <https://plugins.qgis.org/plugins/plugin_reloader/>`_ 
 to reload the Trends.Earth plugin in order to see the effects of the changes 

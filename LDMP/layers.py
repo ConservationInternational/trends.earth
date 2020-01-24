@@ -129,7 +129,7 @@ style_text_dict = {
     'lpd_imp': tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr(u'SDG 15.3.1 degradation indicator'),
+    'combined_sdg_title': tr(u'SDG 15.3.1 Indicator (Trends.Earth)'),
     'combined_sdg_deg_deg': tr(u'Degradation'),
     'combined_sdg_deg_stable': tr(u'Stable'),
     'combined_sdg_deg_imp': tr(u'Improvement'),
@@ -173,7 +173,39 @@ style_text_dict = {
 
     # Biomass
     'biomass_title': tr(u'Biomass (tonnes CO2e per ha, {year})'),
-    'biomass_difference_title': tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)')
+    'biomass_difference_title': tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)'),
+
+    # Global Zoning
+    'agro_eco_zones': tr('Agro Ecological Zones V3.0'),
+    'climatic_zones': tr ('Climatic Zones'),
+    
+    # Forest Cover
+    'forest_cover_hansen': tr('Hansen'),
+
+    # Evapotranspiration
+    'mod16a2': tr('MOD16A2'),
+
+    # Precipitation
+    'chirps': tr('CHIRPS'),
+    'gpcc_v7': tr('GPCC V7 (Global Precipitation Climatology Centre)'),
+    'gpcp_v231': tr('GPCP v2.3 1 month (Global Precipitation Climatology Project)'),
+    'persiann_cdr': tr('PERSIANN-CDR'),
+
+    # Soil Moisture
+    'era_1': tr('ERA I'),
+    'merra_2': tr('MERRA 2'),
+
+    # NDVI
+    'mod13q1_annual': tr('MODIS (MOD13Q1, annual)'),
+    'avhrr_gimms3_annual': tr('AVHRR (GIMMS3g.v1, annual)'),
+    'mod13q1_16day': tr('MODIS (MOD13Q1, 16 day)'),
+    
+    # Soil Type
+    'soil_grids_250_wrb': tr('Soil Grids 250'),
+    'usda_soil_type': tr('USDA Soil Type'),
+    
+    # Soil Organic C
+    'soil_grids_250_soc': tr('Soil Grids 250')
 }
 
 

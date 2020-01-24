@@ -102,13 +102,13 @@
     "Soil organic carbon (degradation)": {
         "title": "soc_deg_title",
         "ramp": {
-            "type": "categorical",
-            "shader": "discrete",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
-                {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_stable"},
-                {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
+                   "type": "categorical",
+                   "shader": "discrete",
+                   "items": [
+                       {"value": -32768, "color": "#000000", "label": "nodata"},
+                       {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
+                       {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_potential_stable"},
+                       {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }
     },
@@ -146,6 +146,53 @@
             ]
         }
     },
+    "ESA CCI": {
+        "title": "lc_esa_mode_title",
+            "ramp": {
+                "type": "categorical",
+                "shader": "exact",
+                "items": [
+                    {"value": -32768, "color": "#000000", "label": "-32768 - No data"},
+                    {"value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed"},
+                    {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
+                    {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
+                    {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
+                    {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
+                    {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
+                    {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
+                    {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
+                    {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
+                    {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
+                    {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
+                    {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
+                    {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
+                    {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
+                    {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
+                    {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
+                    {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
+                    {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
+                    {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
+                    {"value": 120, "color": "#A86019", "label": "120 - Shrubland"},
+                    {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
+                    {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
+                    {"value": 130, "color": "#FFAC42", "label": "130 - Grassland"},
+                    {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
+                    {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
+                    {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
+                    {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
+                    {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
+                    {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
+                    {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
+                    {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
+                    {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
+                    {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
+                    {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
+                    {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
+                    {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
+                    {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
+            ]
+        }
+    },
     "Land cover mode (ESA classes)": {
         "title": "lc_esa_mode_title",
         "ramp": {
@@ -154,42 +201,42 @@
             "items": [
                 {"value": -32768, "color": "#000000", "label": "-32768 - No data"},
                 {"value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed"},
-                {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
-                {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
-                {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
-                {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
-                {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
-                {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
-                {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
-                {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
-                {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
-                {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
-                {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
-                {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
-                {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
-                {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
-                {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
-                {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
-                {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
-                {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
+                {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
+                {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
+                {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
+                {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
+                {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
+                {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
+                {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
+                {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
+                {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
+                {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
+                {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
+                {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
+                {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
+                {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
+                {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
+                {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
+                {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
+                {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
                 {"value": 120, "color": "#A86019", "label": "120 - Shrubland"},
-                {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
-                {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
+                {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
+                {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
                 {"value": 130, "color": "#FFAC42", "label": "130 - Grassland"},
-                {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
-                {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
-                {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
-                {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
-                {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
-                {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
-                {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
-                {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
-                {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
-                {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
-                {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
-                {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
-                {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
-                {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
+                {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
+                {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
+                {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
+                {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
+                {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
+                {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
+                {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
+                {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
+                {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
+                {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
+                {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
+                {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
+                {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
+                {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
             ]
         }
     },
@@ -201,42 +248,42 @@
             "items": [
                 {"value": -32768, "color": "#000000", "label": "-32768 - No data"},
                 {"value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed"},
-                {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
-                {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
-                {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
-                {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
-                {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
-                {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
-                {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
-                {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
-                {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
-                {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
-                {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
-                {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
-                {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
-                {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
-                {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
-                {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
-                {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
-                {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
+                {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
+                {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
+                {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
+                {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
+                {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
+                {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
+                {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
+                {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
+                {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
+                {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
+                {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
+                {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
+                {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
+                {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
+                {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
+                {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
+                {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
+                {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
                 {"value": 120, "color": "#A86019", "label": "120 - Shrubland"},
-                {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
-                {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
+                {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
+                {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
                 {"value": 130, "color": "#FFAC42", "label": "130 - Grassland"},
-                {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
-                {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
-                {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
-                {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
-                {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
-                {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
-                {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
-                {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
-                {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
-                {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
-                {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
-                {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
-                {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
-                {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
+                {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
+                {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
+                {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
+                {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
+                {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
+                {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
+                {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
+                {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
+                {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
+                {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
+                {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
+                {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
+                {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
+                {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
             ]
         }
     },
@@ -271,7 +318,7 @@
             ]
         }
     },
-    "SDG 15.3.1 Indicator": {
+    "SDG 15.3.1 Indicator (Trends.Earth)": {
         "title": "combined_sdg_title",
         "ramp": {
             "type": "categorical",
@@ -296,6 +343,21 @@
                 {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
                 {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
                 {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
+            ]
+        }
+    },
+    "SDG 15.3.1 Indicator (LPD)": {
+           "title": "sdg_prod_combined_title",
+           "ramp": {
+               "type": "categorical",
+               "shader": "exact",
+               "items": [
+                   {"value": -32768, "color": "#000000", "label": "nodata"},
+                   {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
+                   {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
+                   {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
+                   {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
+                   {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
             ]
         }
     },
@@ -414,6 +476,214 @@
     },
     "Restoration biomass difference (tonnes CO2e per ha)": {
         "title": "biomass_difference_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Agro Ecological Zones V3.0": {
+        "title": "agro_eco_zones",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Climatic Zones": {
+        "title": "climatic_zones",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Hansen": {
+        "title": "forest_cover_hansen",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "MOD16A2": {
+        "title": "mod16a2",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "CHIRPS": {
+        "title": "chirps",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "GPCC V7 (Global Precipitation Climatology Centre)": {
+        "title": "gpcc_v7",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
+        "title": "gpcp_v231",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "PERSIANN-CDR": {
+        "title": "persiann_cdr",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "ERA I": {
+        "title": "era_1",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "MERRA 2": {
+        "title": "merra_2",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "AVHRR (GIMMS3g.v1, annual)": {
+        "title": "avhrr_gimms3_annual",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "MODIS (MOD13Q1, annual)": {
+        "title": "mod13q1_annual",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "MODIS (MOD13Q1, 16 day)": {
+        "title": "mod13q1_16day",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Soil Grids 250": {
+        "title": "soil_grids_250_wrb",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "USDA Soil Type": {
+        "title": "usda_soil_type",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Soil Grids 250": {
+        "title": "soil_grids_250_soc",
         "ramp": {
             "type": "zero-centered stretch",
             "shader": "interpolated",

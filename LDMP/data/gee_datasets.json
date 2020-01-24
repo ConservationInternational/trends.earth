@@ -1,6 +1,6 @@
 {
     "Trends.Earth Global Results": {
-        "Land cover degradation": {
+        "Land cover (degradation)": {
             "Data source": "",
             "Start year": "NA",
             "End year": "NA",
@@ -22,7 +22,7 @@
             "Comments": "",
             "Admin only": true
         },
-        "Soil organic carbon degradation": {
+        "Soil organic carbon (degradation)": {
             "Data source": "",
             "Start year": "NA",
             "End year": "NA",

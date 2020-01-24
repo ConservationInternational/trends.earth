@@ -147,7 +147,8 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         if resp:
             QtWidgets.QMessageBox.information(None,
                     self.tr("Success"),
-                    self.tr(u"Logged in to the Trends.Earth server as {}.").format(self.email.text()))
+                    self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
+                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.</p>""").format(self.email.text()))
             settings.setValue("LDMP/jobs_cache", None)
             self.done(QtWidgets.QDialog.Accepted)
             self.ok = True

@@ -42,14 +42,20 @@ class DlgVisualization(QtWidgets.QDialog, Ui_DlgVisualization):
 
         self.btn_basemap.clicked.connect(self.clicked_basemap)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
-
+        
     def clicked_create_map(self):
-        self.close()
-        self.dlg_create_map.exec_()
+        QtWidgets.QMessageBox.information(None, self.tr("Coming soon"),
+                                    self.tr("Create Print Map coming soon!"))
+
+    #def clicked_create_map(self):
+        #self.close()
+        #self.dlg_create_map.exec_()
 
     def clicked_basemap(self):
         self.close()
         self.dlg_basemap.exec_()
+        
+        
 
 
 # Function to set brush style for a map layer in an XML layer definition

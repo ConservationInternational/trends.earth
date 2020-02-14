@@ -48,6 +48,10 @@ class DlgCalculateUrbanSummaryTableWorkerTests(unittest.TestCase):
         self.d.area_tab.secondLevel_city.setCurrentIndex(self.d.area_tab.secondLevel_city.findText('Paramaribo (Paramaribo)'))
         self.d.area_tab.buffer_size_km.setValue(10)
 
+    def testBands(self):
+        # Ensure that the proper bands have loaded into the dialog box
+        self.assertEqual(self.d.combo_layer_urban_series.currentText(), 'Urban area change')
+
     def testWorker(self):
         ret = self.d.btn_calculate()
         self.assertTrue(ret)

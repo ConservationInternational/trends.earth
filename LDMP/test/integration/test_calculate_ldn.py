@@ -46,6 +46,7 @@ class DlgCalculateLDNSummaryTableAdminWorkerTests(unittest.TestCase):
         self.d.area_tab.area_admin_0.setCurrentIndex(self.d.area_tab.area_admin_0.findText('Nepal'))
         self.d.area_tab.secondLevel_area_admin_1.setCurrentIndex(self.d.area_tab.secondLevel_area_admin_1.findText('Narayani'))
 
+    def testBands(self):
         # Ensure that the bands have loaded into the dialog box
         self.assertEqual(self.d.combo_layer_traj.currentText(), 'Productivity trajectory degradation (2001 to 2015)')
         self.assertEqual(self.d.combo_layer_perf.currentText(), 'Productivity performance degradation (2001 to 2015)')

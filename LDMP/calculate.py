@@ -668,8 +668,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.buffer_size_km.valueChanged.connect(self.buffer_changed)
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
-        self.area_fromadmin.clicked.connect(self.area_fromadmin_toggle)
-        self.area_fromfile.clicked.connect(self.area_fromfile_toggle)
+        self.area_fromadmin.clicked.connect(self.area_type_toggle)
+        self.area_fromfile.clicked.connect(self.area_type_toggle)
 
         self.radioButton_secondLevel_region.clicked.connect(self.radioButton_secondLevel_toggle)
         self.radioButton_secondLevel_city.clicked.connect(self.radioButton_secondLevel_toggle)
@@ -681,7 +681,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_x.setValidator(QDoubleValidator())
         #TODO: Set range to only accept valid coordinates for current map coordinate system
         self.area_frompoint_point_y.setValidator(QDoubleValidator())
-        self.area_frompoint.clicked.connect(self.area_frompoint_toggle)
+        self.area_frompoint.clicked.connect(self.area_type_toggle)
 
         # Setup point chooser
         self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
@@ -704,9 +704,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_y.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_y", None))
         self.area_fromfile_file.setText(QSettings().value("LDMP/AreaWidget/area_fromfile_file", None))
 
-        self.area_frompoint_toggle(False)
-        self.area_fromfile_toggle(False)
-        self.area_fromadmin_toggle(False)
+        self.area_type_toggle(False)
 
         admin_0 = QSettings().value("LDMP/AreaWidget/area_admin_0", None)
         if admin_0:
@@ -766,7 +764,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.secondLevel_area_admin_1.addItems(['All regions'])
         self.secondLevel_area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
-    def area_frompoint_toggle(self, save=True):
+    def area_type_toggle(self, save=True):
         if self.area_frompoint.isChecked():
             if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'point')
             self.area_frompoint_point_x.setEnabled(True)
@@ -777,7 +775,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.area_frompoint_point_y.setEnabled(False)
             self.area_frompoint_choose_point.setEnabled(False)
 
-    def area_fromadmin_toggle(self, save=True):
         if self.area_fromadmin.isChecked():
             if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'admin')
             self.groupBox_first_level.setEnabled(True)
@@ -786,7 +783,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.groupBox_first_level.setEnabled(False)
             self.groupBox_second_level.setEnabled(False)
 
-    def area_fromfile_toggle(self, save=True):
         if self.area_fromfile.isChecked():
             if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'file')
             self.area_fromfile_file.setEnabled(True)

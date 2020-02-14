@@ -4,18 +4,12 @@ import sys
 from queue import Queue
 from time import sleep
 
-import gc
-
 from LDMP.calculate_prod import DlgCalculateProd
 
 from LDMP.test.unit.test_dialog_settings import SettingsUnitSuite
 from LDMP.test.unit.test_calculate_ldn import CalculateLDNUnitSuite
 from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
 from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
-
-gc.disable()
-save = DlgCalculateProd() # Prevent area_tab from getting garbage collected
-save.show()
 
 def unitTests():
     suite = unittest.TestSuite()

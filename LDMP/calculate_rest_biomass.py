@@ -355,6 +355,8 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         for n in range(1, len(band_infos)):
             add_layer(output_file, n + 1, schema.dump(band_infos[n]))
 
+        return True
+
 
 def copy_style(a, b):
     b.font = copy(a.font)

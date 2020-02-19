@@ -400,6 +400,8 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         add_layer(output_file, 3, schema.dump(output_indicator_bandinfos[2]))
         add_layer(output_file, 4, schema.dump(output_indicator_bandinfos[3]))
 
+        return True
+
 
 def make_summary_table(areas, populations, out_file):
                           

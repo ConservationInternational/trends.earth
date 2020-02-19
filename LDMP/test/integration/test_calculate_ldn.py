@@ -54,9 +54,6 @@ class DlgCalculateLDNSummaryTableAdminWorkerTests(unittest.TestCase):
         self.assertEqual(self.d.combo_layer_lc.currentText(), 'Land cover degradation (2001 to 2015)')
         self.assertEqual(self.d.combo_layer_soc.currentText(), 'Soil organic carbon degradation (2001 to 2015)')
 
-    def tearDown(self):
-        self.d = None
-
     def testWorker(self):
         ret = self.d.btn_calculate()
         self.assertTrue(ret)

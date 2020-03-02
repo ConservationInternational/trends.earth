@@ -724,12 +724,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if secondLevel_city:
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
 
-        buffer_checked = QSettings().value("LDMP/AreaWidget/buffer_checked", None)
+        buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
         if buffer_checked:
             self.groupBox_buffer.setChecked(buffer_checked)
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
         if buffer_size:
-            self.buffer_size_km.setValue(buffer_size)
+            self.buffer_size_km.setValue(int(buffer_size))
 
     def admin_0_changed(self):
         QSettings().setValue("LDMP/AreaWidget/area_admin_0", self.area_admin_0.currentText())

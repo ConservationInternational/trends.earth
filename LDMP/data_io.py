@@ -1305,6 +1305,9 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                       bandList=[self.get_bandnumber()])
         return f
 
+    def currentText(self):
+        return self.comboBox_layers.currentText()
+
 
 class WidgetDataIOSelectTELayerExisting(WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerExisting):
     def __init__(self, parent=None):

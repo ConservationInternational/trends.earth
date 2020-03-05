@@ -15,7 +15,6 @@
 import os
 import sys
 import tempfile
-
 import numpy as np
 
 from qgis.testing import unittest
@@ -36,19 +35,27 @@ class DlgCalculateLDNSummaryTableAdminWorkerTests(unittest.TestCase):
     def setUp(self):
         add_default_bands_to_map(LDN_TESTDATA)
 
-    def testWorker(self):
-        d = DlgCalculateLDNSummaryTableAdmin()
+        self.d = DlgCalculateLDNSummaryTableAdmin()
         # Need to show the summary table to run the setup code in that method
-        d.show()
+        self.d.show()
         out_tif_metadata = tempfile.NamedTemporaryFile(suffix='.json').name
-        out_tif = os.path.splitext(out_tif_metadata)[0] + 'tif'
+        out_tif = os.path.splitext(out_tif_metadata)[0] + '.tif'
         out_table = tempfile.NamedTemporaryFile(suffix='.xlsx').name
-        d.output_file_layer.setText(out_tif_metadata)
-        d.output_file_table.setText(out_table)
-        d.area_tab.area_admin_0.setCurrentIndex(d.area_tab.area_admin_0.findText('Nepal'))
-        d.area_tab.secondLevel_area_admin_1.setCurrentIndex(d.area_tab.secondLevel_area_admin_1.findText('Narayani'))
+        self.d.output_file_layer.setText(out_tif_metadata)
+        self.d.output_file_table.setText(out_table)
+        self.d.area_tab.area_admin_0.setCurrentIndex(self.d.area_tab.area_admin_0.findText('Nepal'))
+        self.d.area_tab.secondLevel_area_admin_1.setCurrentIndex(self.d.area_tab.secondLevel_area_admin_1.findText('Narayani'))
 
-        ret = d.btn_calculate()
+    def testBands(self):
+        # Ensure that the bands have loaded into the dialog box
+        self.assertEqual(self.d.combo_layer_traj.currentText(), 'Productivity trajectory degradation (2001 to 2015)')
+        self.assertEqual(self.d.combo_layer_perf.currentText(), 'Productivity performance degradation (2001 to 2015)')
+        self.assertEqual(self.d.combo_layer_state.currentText(), 'Productivity state degradation (2001-2012 to 2013-2015)')
+        self.assertEqual(self.d.combo_layer_lc.currentText(), 'Land cover degradation (2001 to 2015)')
+        self.assertEqual(self.d.combo_layer_soc.currentText(), 'Soil organic carbon degradation (2001 to 2015)')
+
+    def testWorker(self):
+        ret = self.d.btn_calculate()
         self.assertTrue(ret)
         
 

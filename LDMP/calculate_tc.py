@@ -630,6 +630,8 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                            area_non_forest, area_site, initial_forest_area, 
                            initial_carbon_total, year_start, year_end, 
                            self.output_file_table.text())
+        return True
+
 
 def make_summary_table(forest_change, carbon_change, area_missing, area_water, 
                        area_non_forest, area_site, initial_forest_area, 

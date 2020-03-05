@@ -48,8 +48,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/WidgetDataIOSelectTELayerImport.ui\
 ../gui/WidgetLCDefineDegradation.ui \
 ../gui/WidgetLCSetup.ui \
-../gui/WidgetSelectArea.ui \
-../gui/WidgetSelectPoint.ui
+../gui/WidgetSelectArea.ui
 
 SOURCES = ../about.py \
 ../api.py \

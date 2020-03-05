@@ -28,14 +28,14 @@ def run(params, logger):
     calc_traj = params.get('calc_traj')
     calc_state = params.get('calc_state')
     calc_perf = params.get('calc_perf')
-    prod_traj_year_initial = params.get('prod_traj_year_initial')
-    prod_traj_year_final = params.get('prod_traj_year_final')
-    prod_perf_year_initial = params.get('prod_perf_year_initial')
-    prod_perf_year_final = params.get('prod_perf_year_final')
-    prod_state_year_bl_start = params.get('prod_state_year_bl_start')
-    prod_state_year_bl_end = params.get('prod_state_year_bl_end')
-    prod_state_year_tg_start = params.get('prod_state_year_tg_start')
-    prod_state_year_tg_end = params.get('prod_state_year_tg_end')
+    prod_traj_year_initial = int(params.get('prod_traj_year_initial'))
+    prod_traj_year_final = int(params.get('prod_traj_year_final'))
+    prod_perf_year_initial = int(params.get('prod_perf_year_initial'))
+    prod_perf_year_final = int(params.get('prod_perf_year_final'))
+    prod_state_year_bl_start = int(params.get('prod_state_year_bl_start'))
+    prod_state_year_bl_end = int(params.get('prod_state_year_bl_end'))
+    prod_state_year_tg_start = int(params.get('prod_state_year_tg_start'))
+    prod_state_year_tg_end = int(params.get('prod_state_year_tg_end'))
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
     prod_traj_method = params.get('trajectory_method')
@@ -57,8 +57,8 @@ def run(params, logger):
         for geojson in geojsons:
             this_out = None
             if calc_traj:
-                traj = productivity_trajectory(prod_traj_year_initial, 
-                                               prod_traj_year_final, prod_traj_method,
+                traj = productivity_trajectory(int(prod_traj_year_initial), 
+                                               int(prod_traj_year_final), prod_traj_method,
                                                ndvi_gee_dataset, climate_gee_dataset, 
                                                logger)
                 if not this_out:

@@ -34,29 +34,27 @@ class DlgCalculateUrbanSummaryTableWorkerTests(unittest.TestCase):
     def setUp(self):
         add_default_bands_to_map(URBAN_TESTDATA)
 
-    def testWorker(self):
-        d = DlgCalculateUrbanSummaryTable()
+        self.d = DlgCalculateUrbanSummaryTable()
         # Need to show the summary table to run the setup code in that method
-        d.show()
+        self.d.show()
         out_tif_metadata = tempfile.NamedTemporaryFile(suffix='.json').name
-        out_tif = os.path.splitext(out_tif_metadata)[0] + 'tif'
+        out_tif = os.path.splitext(out_tif_metadata)[0] + '.tif'
         out_table = tempfile.NamedTemporaryFile(suffix='.xlsx').name
-        d.output_file_layer.setText(out_tif_metadata)
-        d.output_file_table.setText(out_table)
-        d.area_tab.area_admin_0.setCurrentIndex(d.area_tab.area_admin_0.findText('Suriname'))
-        d.area_tab.radioButton_secondLevel_city.setChecked(True)
-        d.area_tab.groupBox_buffer.setChecked(True)
-        d.area_tab.secondLevel_city.setCurrentIndex(d.area_tab.secondLevel_city.findText('Paramaribo (Paramaribo)'))
-        d.area_tab.buffer_size_km.setValue(10)
+        self.d.output_file_layer.setText(out_tif_metadata)
+        self.d.output_file_table.setText(out_table)
+        self.d.area_tab.area_admin_0.setCurrentIndex(self.d.area_tab.area_admin_0.findText('Suriname'))
+        self.d.area_tab.radioButton_secondLevel_city.setChecked(True)
+        self.d.area_tab.groupBox_buffer.setChecked(True)
+        self.d.area_tab.secondLevel_city.setCurrentIndex(self.d.area_tab.secondLevel_city.findText('Paramaribo (Paramaribo)'))
+        self.d.area_tab.buffer_size_km.setValue(10)
 
-        ret = d.btn_calculate()
+    def testBands(self):
+        # Ensure that the proper bands have loaded into the dialog box
+        self.assertEqual(self.d.combo_layer_urban_series.currentText(), 'Urban area change')
+
+    def testWorker(self):
+        ret = self.d.btn_calculate()
         self.assertTrue(ret)
-
-    def test_table(self):
-        self.assertTrue(True)
-        
-    def test_tif(self):
-        self.assertTrue(True)
 
 
 def CalculateUrbanIntegrationSuite():

@@ -275,7 +275,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
     def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
                  lc_band_nums, soc_band_nums, mask_file):
         AbstractWorker.__init__(self)
-
+        
         self.src_file = src_file
         self.prod_band_nums = [int(x) for x in prod_band_nums]
         self.prod_mode = prod_mode
@@ -384,7 +384,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # Make an array of the same size as the input arrays containing 
                 # the area of each cell (which is identical for all cells ina 
                 # given row - cell areas only vary among rows)
-                cell_areas_array = np.repeat(cell_areas, cols, axis=1)
+                cell_areas_array = np.repeat(cell_areas, cols, axis=1).astype(np.float32)
 
                 if self.prod_mode == 'Trends.Earth productivity':
                     traj_recode = ldn_recode_traj(traj_band.ReadAsArray(x, y, cols, rows))
@@ -426,7 +426,6 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 water = a_lc_tg == 7
                 water = water.astype(bool, copy=False)
 
-                
                 # Note SOC array is coded in percent change, so change of 
                 # greater than 10% is improvement or decline.
                 soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)

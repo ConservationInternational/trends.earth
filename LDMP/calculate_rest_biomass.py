@@ -153,12 +153,12 @@ class RestBiomassSummaryWorker(AbstractWorker):
         biomass_change = np.zeros(n_types)
 
         blocks = 0
-        for y in xrange(0, ysize, y_block_size):
+        for y in range(0, ysize, y_block_size):
             if y + y_block_size < ysize:
                 rows = y_block_size
             else:
                 rows = ysize - y
-            for x in xrange(0, xsize, x_block_size):
+            for x in range(0, xsize, x_block_size):
                 if self.killed:
                     log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                     break
@@ -354,6 +354,8 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         schema = BandInfoSchema()
         for n in range(1, len(band_infos)):
             add_layer(output_file, n + 1, schema.dump(band_infos[n]))
+
+        return True
 
 
 def copy_style(a, b):

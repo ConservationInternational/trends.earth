@@ -579,6 +579,26 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
         self.radioButton_run_in_cloud.toggled.connect(self.radioButton_run_in_cloud_changed)
         self.btn_local_data_folder_browse.clicked.connect(self.open_folder_browse)
 
+        self.task_name.textChanged.connect(self.task_name_changed)
+        self.task_notes.textChanged.connect(self.task_notes_changed)
+
+    def showEvent(self, event):
+        super(CalculationOptionsWidget, self).showEvent(event)
+
+        local_data_folder = QSettings().value("LDMP/CalculationOptionsWidget/lineEdit_local_data_folder", None)
+        if local_data_folder and os.access(local_data_folder, os.R_OK):
+            self.lineEdit_local_data_folder.setText(local_data_folder)
+        else:
+            self.lineEdit_local_data_folder.setText(None)
+        self.task_name.setText(QSettings().value("LDMP/CalculationOptionsWidget/task_name", None))
+        self.task_notes.setHtml(QSettings().value("LDMP/CalculationOptionsWidget/task_notes", None))
+
+    def task_name_changed(self, value=None):
+        QSettings().setValue("LDMP/CalculationOptionsWidget/task_name", value)
+
+    def task_notes_changed(self):
+        QSettings().setValue("LDMP/CalculationOptionsWidget/task_notes", self.task_notes.toHtml())
+
     def radioButton_run_in_cloud_changed(self):
         if self.radioButton_run_in_cloud.isChecked():
             self.lineEdit_local_data_folder.setEnabled(False)
@@ -630,19 +650,29 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if not self.cities:
             raise ValueError('Cities list not available')
 
+        # Populate
         self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
         self.populate_admin_1()
         self.populate_cities()
-
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
         self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
 
-        self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
-        self.area_fromadmin.toggled.connect(self.area_fromadmin_toggle)
-        self.area_fromfile.toggled.connect(self.area_fromfile_toggle)
+        # Handle saving to qsettings
+        self.area_admin_0.activated.connect(self.admin_0_changed)
+        self.secondLevel_area_admin_1.activated.connect(self.admin_1_changed)
+        self.secondLevel_city.activated.connect(self.admin_city_changed)
+        self.area_frompoint_point_x.textChanged.connect(self.point_x_changed)
+        self.area_frompoint_point_y.textChanged.connect(self.point_y_changed)
+        self.area_fromfile_file.textChanged.connect(self.file_changed)
+        self.groupBox_buffer.clicked.connect(self.buffer_changed)
+        self.buffer_size_km.valueChanged.connect(self.buffer_changed)
 
-        self.radioButton_secondLevel_region.toggled.connect(self.radioButton_secondLevel_region_toggle)
-        self.radioButton_secondLevel_region_toggle()
+        self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
+        self.area_fromadmin.clicked.connect(self.area_type_toggle)
+        self.area_fromfile.clicked.connect(self.area_type_toggle)
+
+        self.radioButton_secondLevel_region.clicked.connect(self.radioButton_secondLevel_toggle)
+        self.radioButton_secondLevel_city.clicked.connect(self.radioButton_secondLevel_toggle)
 
         icon = QIcon(QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
         self.area_frompoint_choose_point.setIcon(icon)
@@ -651,8 +681,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_x.setValidator(QDoubleValidator())
         #TODO: Set range to only accept valid coordinates for current map coordinate system
         self.area_frompoint_point_y.setValidator(QDoubleValidator())
-        self.area_frompoint.toggled.connect(self.area_frompoint_toggle)
-        self.area_frompoint_toggle()
+        self.area_frompoint.clicked.connect(self.area_type_toggle)
 
         # Setup point chooser
         self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
@@ -663,6 +692,66 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def showEvent(self, event):
         super(AreaWidget, self).showEvent(event)
+
+        area_from_option = QSettings().value("LDMP/AreaWidget/area_from_option", None)
+        if area_from_option == 'admin':
+            self.area_fromadmin.setChecked(True)
+        elif area_from_option == 'point':
+            self.area_frompoint.setChecked(True)
+        elif area_from_option == 'file':
+            self.area_fromfile.setChecked(True)
+        self.area_frompoint_point_x.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_x", None))
+        self.area_frompoint_point_y.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_y", None))
+        self.area_fromfile_file.setText(QSettings().value("LDMP/AreaWidget/area_fromfile_file", None))
+
+        self.area_type_toggle(False)
+
+        admin_0 = QSettings().value("LDMP/AreaWidget/area_admin_0", None)
+        if admin_0:
+            self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
+
+        area_from_option_secondLevel = QSettings().value("LDMP/AreaWidget/area_from_option_secondLevel", None)
+        if area_from_option_secondLevel == 'admin':
+            self.radioButton_secondLevel_region.setChecked(True)
+        elif area_from_option_secondLevel == 'city':
+            self.radioButton_secondLevel_city.setChecked(True)
+        self.radioButton_secondLevel_toggle(False)
+
+        secondLevel_area_admin_1 = QSettings().value("LDMP/AreaWidget/secondLevel_area_admin_1", None)
+        if secondLevel_area_admin_1:
+            self.secondLevel_area_admin_1.setCurrentIndex(self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
+        secondLevel_city = QSettings().value("LDMP/AreaWidget/secondLevel_city", None)
+        if secondLevel_city:
+            self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
+
+        buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
+        if buffer_checked:
+            self.groupBox_buffer.setChecked(buffer_checked)
+        buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
+        if buffer_size:
+            self.buffer_size_km.setValue(int(buffer_size))
+
+    def admin_0_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/area_admin_0", self.area_admin_0.currentText())
+
+    def admin_1_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/secondLevel_area_admin_1", self.secondLevel_area_admin_1.currentText())
+        
+    def admin_city_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/secondLevel_city", self.secondLevel_city.currentText())
+
+    def file_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/area_fromfile_file", self.area_fromfile_file.text())
+
+    def point_x_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/area_frompoint_point_x", self.area_frompoint_point_x.text())
+
+    def point_y_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/area_frompoint_point_y", self.area_frompoint_point_y.text())
+
+    def buffer_changed(self):
+        QSettings().setValue("LDMP/AreaWidget/buffer_checked", self.groupBox_buffer.isChecked())
+        QSettings().setValue("LDMP/AreaWidget/buffer_size", self.buffer_size_km.value())
 
     def populate_cities(self):
         self.secondLevel_city.clear()
@@ -675,8 +764,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.secondLevel_area_admin_1.addItems(['All regions'])
         self.secondLevel_area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
-    def area_frompoint_toggle(self):
+    def area_type_toggle(self, save=True):
         if self.area_frompoint.isChecked():
+            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'point')
             self.area_frompoint_point_x.setEnabled(True)
             self.area_frompoint_point_y.setEnabled(True)
             self.area_frompoint_choose_point.setEnabled(True)
@@ -685,47 +775,31 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.area_frompoint_point_y.setEnabled(False)
             self.area_frompoint_choose_point.setEnabled(False)
 
-    def area_fromadmin_toggle(self):
         if self.area_fromadmin.isChecked():
+            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'admin')
             self.groupBox_first_level.setEnabled(True)
             self.groupBox_second_level.setEnabled(True)
         else:
             self.groupBox_first_level.setEnabled(False)
             self.groupBox_second_level.setEnabled(False)
 
-    def area_fromfile_toggle(self):
         if self.area_fromfile.isChecked():
+            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'file')
             self.area_fromfile_file.setEnabled(True)
             self.area_fromfile_browse.setEnabled(True)
         else:
             self.area_fromfile_file.setEnabled(False)
             self.area_fromfile_browse.setEnabled(False)
 
-    def radioButton_secondLevel_region_toggle(self):
+    def radioButton_secondLevel_toggle(self, save=True):
         if self.radioButton_secondLevel_region.isChecked():
+            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option_secondLevel", 'admin')
             self.secondLevel_area_admin_1.setEnabled(True)
             self.secondLevel_city.setEnabled(False)
         else:
+            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option_secondLevel", 'city')
             self.secondLevel_area_admin_1.setEnabled(False)
             self.secondLevel_city.setEnabled(True)
-
-    def show_areafrom_point_toggle(self, enable):
-        if enable:
-            self.area_frompoint_enabled = True
-            self.area_frompoint.show()
-            self.area_frompoint_label_x.show()
-            self.area_frompoint_point_x.show()
-            self.area_frompoint_label_y.show()
-            self.area_frompoint_point_y.show()
-            self.area_frompoint_choose_point.show()
-        else:
-            self.area_frompoint_enabled = False
-            self.area_frompoint.hide()
-            self.area_frompoint_label_x.hide()
-            self.area_frompoint_point_x.hide()
-            self.area_frompoint_label_y.hide()
-            self.area_frompoint_point_y.hide()
-            self.area_frompoint_choose_point.hide()
 
     def point_chooser(self):
         log("Choosing point from canvas...")
@@ -769,11 +843,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             return False
                 
 
-# Widgets shared across dialogs
-area_widget = AreaWidget()
-options_widget = CalculationOptionsWidget()
-
-
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
@@ -793,23 +862,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.reset_tab_on_showEvent = True
 
         self.firstShowEvent.connect(self.firstShow)
-        
+
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
-
-        area_widget.setParent(self)
-        self.area_tab = area_widget
-        self.TabBox.addTab(self.area_tab, self.tr('Area'))
-
-        self.options_tab = options_widget
-        self.TabBox.addTab(self.options_tab, self.tr('Options'))
-
-        # By default show the local or cloud option
-        #self.options_tab.toggle_show_where_to_run(True)
-        self.options_tab.toggle_show_where_to_run(False)
-
-        # By default hide the custom crs box
-        self.area_tab.groupBox_custom_crs.hide()
 
         if self._firstShowEvent:
             self._firstShowEvent = False
@@ -818,10 +873,22 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
 
-        # By default, don't show area from point selector
-        self.area_tab.show_areafrom_point_toggle(False)
-
     def firstShow(self):
+        self.area_tab = AreaWidget()
+        self.area_tab.setParent(self)
+        self.TabBox.addTab(self.area_tab, self.tr('Area'))
+
+        self.options_tab = CalculationOptionsWidget()
+        self.options_tab.setParent(self)
+        self.TabBox.addTab(self.options_tab, self.tr('Options'))
+
+        # By default show the local or cloud option
+        #self.options_tab.toggle_show_where_to_run(True)
+        self.options_tab.toggle_show_where_to_run(False)
+
+        # By default hide the custom crs box
+        self.area_tab.groupBox_custom_crs.hide()
+        
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)
         self.button_next.clicked.connect(self.tab_forward)
@@ -913,7 +980,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
                                       wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
-        elif self.area_tab.area_frompoint_enabled and self.area_tab.area_frompoint.isChecked():
+        elif self.area_tab.area_frompoint.isChecked():
             # Area from point
             if not self.area_tab.area_frompoint_point_x.text() or not self.area_tab.area_frompoint_point_y.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),

@@ -202,8 +202,9 @@ def tecli_publish(c, script=None):
     if script and n == 0:
         print('Script "{}" not found.'.format(script))
 
-@task(help={'script': 'Script name'})
-def tecli_run(c, script):
+@task(help={'script': 'Script name',
+            'params': 'Parameters'})
+def tecli_run(c, script, params=None):
     if not check_tecli_python_version():
         return
     dirs = next(os.walk(c.gee.script_dir))[1]
@@ -214,8 +215,11 @@ def tecli_run(c, script):
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                  script == dir:
             print('Running {}...'.format(dir))
-            subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start'], cwd=script_dir)
-                                   
+            if params:
+                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--queryParams={}'.format(params)], cwd=script_dir)
+            else:
+                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start'], cwd=script_dir)
+
             n += 1
             break
     if script and n == 0:

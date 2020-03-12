@@ -137,8 +137,8 @@ choose the option "Install from ZIP". Browse to the folder in which the zipfile
 has been saved, select the zipfile and click on 'Install Plugin'.
 It is not necessary to unzip the file.
 
-Please, note that `trends.earth` is only supported for QGIS3.10 or greater
-versions.
+Please, note that the latest version of `trends.earth` is only supported for 
+QGIS3.10 or greater versions.
 
 Start QGIS, and click on "Plugins" then "Manage and install plugins". In the
 plugins window that appears, click on "Installed", and then make sure there is

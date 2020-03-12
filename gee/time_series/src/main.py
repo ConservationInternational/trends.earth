@@ -73,9 +73,7 @@ def run(params, logger):
     year_end = params.get('year_end')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    method = params.get('method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
-    climate_gee_dataset = params.get('climate_gee_dataset')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

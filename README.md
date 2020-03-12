@@ -68,9 +68,9 @@ of the plugin.
 
 ### Development version from zipfile
 
-First download the latest Trends.Earth zipfile. At the moment development is 
-occurring primarily on the version for QGIS version 3.10 or greater. The QGIS2 
-version will continue to be supported until March 2020.
+First download the latest Trends.Earth zipfile. At the moment
+development is occurring on the QGIS3 version. The QGIS2 version will
+continue to be supported until March 2020.
 
 * [Download the latest `Trends.Earth` zipfile for QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS3.zip).
 

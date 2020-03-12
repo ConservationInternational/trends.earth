@@ -57,13 +57,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # TODO:Temporary until fixed:
         self.TabBox.removeTab(1)
 
-    def showEvent(self, event):
-        super(DlgTimeseries, self).showEvent(event)
-        # Show area from point selector for this dialog
-        self.area_tab.show_areafrom_point_toggle(True)
-        self.area_tab.groupBox_custom_crs.hide()
-        self.area_tab.area_frompoint.setChecked(True)
-
     def traj_indic_changed(self):
         self.dataset_climate_update()
 

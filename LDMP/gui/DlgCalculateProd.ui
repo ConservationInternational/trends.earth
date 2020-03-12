@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
-    <height>400</height>
+    <width>510</width>
+    <height>641</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>515</width>
+    <width>0</width>
     <height>400</height>
    </size>
   </property>
@@ -30,7 +30,7 @@
     <widget class="QTabWidget" name="TabBox">
      <property name="minimumSize">
       <size>
-       <width>400</width>
+       <width>0</width>
        <height>0</height>
       </size>
      </property>
@@ -135,7 +135,7 @@
           <item>
            <widget class="QComboBox" name="dataset_ndvi">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -196,8 +196,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>485</width>
-            <height>634</height>
+            <width>492</width>
+            <height>638</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -216,7 +216,7 @@
               <item>
                <widget class="QGroupBox" name="groupBox_4">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>

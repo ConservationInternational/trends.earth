@@ -345,7 +345,7 @@ QGIS plugin. **If you are not an administrator, you will be able to login, but
 the below command will fail**. To upload a script (for example, the 
 "land_cover" script) to the server, run::
    
-   invoke tecli-publish land_cover
+   invoke tecli-publish -s land_cover
 
 If this script already exists on the server, you will be asked if you want to 
 overwrite the existing script. Be very careful uploading scripts with 

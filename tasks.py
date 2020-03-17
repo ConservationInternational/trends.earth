@@ -225,6 +225,44 @@ def tecli_run(c, script, params=None):
     if script and n == 0:
         print('Script "{}" not found.'.format(script))
 
+
+@task(help={'script': 'Script name'})
+def tecli_info(c, script=None):
+    if not check_tecli_python_version():
+        return
+    dirs = next(os.walk(c.gee.script_dir))[1]
+    n = 0
+    script_dir = None
+    for dir in dirs:
+        script_dir = os.path.join(c.gee.script_dir, dir) 
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
+                (script == None or script == dir):
+            print('Checking info on {}...'.format(dir))
+            subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'info'], cwd=script_dir)
+            n += 1
+    if script and n == 0:
+        print('Script "{}" not found.'.format(script))
+
+
+@task(help={'script': 'Script name'})
+def tecli_logs(c, script):
+    if not check_tecli_python_version():
+        return
+    dirs = next(os.walk(c.gee.script_dir))[1]
+    n = 0
+    script_dir = None
+    for dir in dirs:
+        script_dir = os.path.join(c.gee.script_dir, dir) 
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
+                 script == dir:
+            print('Checking logs for {}...'.format(dir))
+            subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'logs'], cwd=script_dir)
+            n += 1
+            break
+    if script and n == 0:
+        print('Script "{}" not found.'.format(script))
+
+
 ###############################################################################
 # Setup dependencies and install package
 ###############################################################################
@@ -469,8 +507,9 @@ def translate_pull(c, force=False):
 #     subprocess.check_call("sphinx-intl update-txconfig-resources --pot-dir {docroot}/i18n/pot --transifex-project-name {transifex_name}".format(docroot=c.sphinx.docroot, transifex_name=c.sphinx.transifex_name))
 #
 
-@task(help={'force': 'Push source files to transifex without checking modification times'})
-def translate_push(c, force=False):
+@task(help={'force': 'Push source files to transifex without checking modification times',
+            'version': 'what version of QGIS to install to'})
+def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
@@ -480,13 +519,20 @@ def translate_push(c, force=False):
     for translation in c.plugin.translations:
         subprocess.check_call("sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}".format(sourcedir=c.sphinx.sourcedir, docroot=c.sphinx.docroot, lang=translation))
 
-    print("Gathering strings for translation using pylupdate4...")
-    pylupdate4 = check_path('pylupdate4')
-    if not pylupdate4:
-        print("ERROR: pylupdate4 is not in your path---unable to gather strings for translation")
+    print("Gathering strings for translation using pylupdate...")
+    if version == 2:
+        pylupdate = 'pylupdate4'
+    elif version ==3:
+        pylupdate = 'pylupdate5'
+    else:
+        print("ERROR: unknown qgis version {}".format(version))
+        return
+    pylupdate = check_path(pylupdate)
+    if not pylupdate:
+        print("ERROR: pylupdate4/pylupdate5 is not in your path---unable to gather strings for translation")
         return
     else:
-        subprocess.check_call([pylupdate4, os.path.join(c.plugin.i18n_dir, 'i18n.pro')])
+        subprocess.check_call([pylupdate, os.path.join(c.plugin.i18n_dir, 'i18n.pro')])
 
     if force:
         subprocess.check_call('tx push --parallel -f -s')
@@ -807,7 +853,7 @@ def binaries_compile(c, clean=False, python='python'):
 
 ns = Collection(set_version, plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
-                tecli_login, tecli_publish, tecli_run,
+                tecli_login, tecli_publish, tecli_run, tecli_info, tecli_logs, 
                 zipfile_build, zipfile_deploy,
                 binaries_compile, binaries_sync,
                 testdata_sync)

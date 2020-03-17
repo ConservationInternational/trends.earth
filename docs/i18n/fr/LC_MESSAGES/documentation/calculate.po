@@ -12,9 +12,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-28 12:59-0400\n"
+"POT-Creation-Date: 2020-03-16 16:41-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -24,11 +24,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/documentation/calculate.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:2
 msgid "Calculate indicators"
 msgstr "Calculer les indicateurs"
 
-#: ../../source/documentation/calculate.rst:7
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:7
 msgid ""
 "Sustainable Development Goal 15.3 intends to combat desertification, restore"
 " degraded land and soil, including land affected by desertification, drought"
@@ -47,7 +47,11 @@ msgstr ""
 "productivité des terres, la modification de la couverture des terres et la "
 "modification du carbone organique des sols."
 
-#: ../../source/documentation/calculate.rst:17
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:15
+msgid "Contents"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:17
 msgid ""
 "To select the methods and datasets to calculate these indicators, indicators"
 " click on the calculator icon (|iconCalculator|). This will open up the "
@@ -57,7 +61,7 @@ msgstr ""
 " ces indicateurs, cliquez sur l'icône de la calculatrice (|iconCalculator|)."
 " Cela ouvrira la boîte de dialogue \"Calculer les indicateurs\"."
 
-#: ../../source/documentation/calculate.rst:24
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:24
 msgid ""
 "Select the Land degradation indicator (SDG indicator 15.3.1) to open the "
 "window for this analysis."
@@ -65,7 +69,7 @@ msgstr ""
 "Sélectionnez l&#39;indicateur de dégradation des terres (indicateur SDG "
 "15.3.1) pour ouvrir la fenêtre de cette analyse."
 
-#: ../../source/documentation/calculate.rst:29
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:29
 msgid ""
 "There are several options for calculating the SDG 15.3.1 Indicator. "
 "|trends.earth| supports calculating the indicator using the same process as "
@@ -81,7 +85,7 @@ msgstr ""
 "de ces données, voire le remplacement de jeux de données individuels par des"
 " séries de données au niveau national ou d'autres jeux de données mondiaux."
 
-#: ../../source/documentation/calculate.rst:35
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:35
 msgid ""
 "To calculate all three SDG 15.3.1 indicators in one step, using default "
 "settings for most of the indicators, click \"Calculate all three indicators "
@@ -91,7 +95,7 @@ msgstr ""
 "utilisant les paramètres par défaut pour la plupart des indicateurs, cliquer"
 " sur «Calculer les trois indicateurs en une seule étape»."
 
-#: ../../source/documentation/calculate.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:39
 msgid ""
 "To calculate one of the three SDG 15.3.1 indicators, using customized "
 "settings, or national-level data, click \"Productivity\", \"Land cover\", or"
@@ -101,7 +105,7 @@ msgstr ""
 "paramètres personnalisés ou des données au niveau national, cliquez sur "
 "«Productivité», «Couverture terrestre» ou «Carbone organique du sol»."
 
-#: ../../source/documentation/calculate.rst:43
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:43
 msgid ""
 "To calculate a summary table showing statistics on each of the three "
 "indicators, click \"Calculate final SDG 15.3.1 indicator and summary "
@@ -113,7 +117,7 @@ msgstr ""
 "15.3.1 et le tableau récapitulatif\". Notez que vous devez d'abord calculer "
 "les indicateurs en utilisant l'une des options ci-dessus."
 
-#: ../../source/documentation/calculate.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:48
 msgid ""
 "To calculate a summary table showing statistics on each of the three "
 "indicators for multiple sub-divisions, click \"Calculate area summaries of a"
@@ -126,7 +130,7 @@ msgstr ""
 " vous devez d'abord calculer les indicateurs en utilisant l'une des options "
 "ci-dessus."
 
-#: ../../source/documentation/calculate.rst:53
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:53
 msgid ""
 "There are three different indicators that are combined to create the SDG "
 "15.3.1 indicator"
@@ -134,7 +138,7 @@ msgstr ""
 "Trois indicateurs différents sont combinés pour créer l'indicateur de l'ODD "
 "15.3.1"
 
-#: ../../source/documentation/calculate.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:56
 msgid ""
 "Productivity: measures the trajectory, performance and state of primary "
 "productivity"
@@ -142,7 +146,7 @@ msgstr ""
 "Productivité: mesure la trajectoire, la performance et l'état de la "
 "productivité primaire"
 
-#: ../../source/documentation/calculate.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:59
 msgid ""
 "Land cover: calculates land cover change relative to a baseline period, "
 "enter a transition matrix indicating which transitions indicate degradation,"
@@ -153,7 +157,7 @@ msgstr ""
 "montrant les transitions indicatrices d’une dégradation, d’une stabilité ou "
 "d’une amélioration."
 
-#: ../../source/documentation/calculate.rst:63
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:63
 msgid ""
 "Soil carbon: compute changes in soil organic carbon as a consequence of "
 "changes in land cover."
@@ -161,7 +165,7 @@ msgstr ""
 "Carbone du sol: calcule les changements du carbone organique du sol suite "
 "aux changements de la couverture terrestre."
 
-#: ../../source/documentation/calculate.rst:67
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:67
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed "
 "explanation of how each of these sub-indicators is computed in "
@@ -171,7 +175,7 @@ msgstr ""
 "explication détaillée de la façon dont chacun de ces sous-indicateurs est "
 "calculé dans |trends.earth|"
 
-#: ../../source/documentation/calculate.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:71
 msgid ""
 "There are two ways to calculate the indicators: 1) using a simplified tool "
 "that will calculate all three indicators at once, but with limited options "
@@ -184,11 +188,11 @@ msgstr ""
 "pour chaque indicateur qui offrent un contrôle complet sur la façon dont ils"
 " sont calculés."
 
-#: ../../source/documentation/calculate.rst:77
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:77
 msgid "Calculate indicators with simplified tool"
 msgstr "Calculer les indicateurs avec un outil simplifié"
 
-#: ../../source/documentation/calculate.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:79
 msgid ""
 "This tool allows users to calculate all three sub-indicators in one step. "
 "Select the \"Calculate all three sub-indicators in one step\" button."
@@ -197,7 +201,7 @@ msgstr ""
 "une seule étape. Sélectionnez le bouton \"Calculer les trois sous-"
 "indicateurs en une étape\"."
 
-#: ../../source/documentation/calculate.rst:82
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:82
 msgid ""
 "Select the parameters for Setup. The Period is the Initial and Final year "
 "for the analysis and select one of the two Land Productivity datasets. "
@@ -207,14 +211,14 @@ msgstr ""
 "initiale et finale de l'analyse et sélectionner l'un des deux jeux  de "
 "données sur la Productivité des terres. Sélectionner Suivant."
 
-#: ../../source/documentation/calculate.rst:89
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:89
 msgid ""
 "Select the Land Cover dataset. The first option is the default ESA dataset."
 msgstr ""
 "Sélectionner le jeu de données Couverture terrestre. La première option est "
 "l'ensemble de données ESA par défaut."
 
-#: ../../source/documentation/calculate.rst:94
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:94
 msgid ""
 "Select Edit definition to change the aggregation from the ESA Land Cover "
 "dataset into 7 classes."
@@ -222,7 +226,7 @@ msgstr ""
 "Sélectionner Modifier la définition pour modifier l'agrégation de l'ensemble"
 " de données ESA sur la couverture terrestre en 7 classes."
 
-#: ../../source/documentation/calculate.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:100
 msgid ""
 "The second option allows users to upload a custom land cover dataset. This "
 "requires two datasets to compare change over time. Select Next."
@@ -231,7 +235,7 @@ msgstr ""
 "de couverture terrestre personnalisé. Cela nécessite deux jeux de données "
 "pour comparer les changements dans le temps. Sélectionner Suivant."
 
-#: ../../source/documentation/calculate.rst:106
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:106
 msgid ""
 "The user can now define the effects of land cover change and how it is "
 "classified as degrading or improving."
@@ -239,13 +243,13 @@ msgstr ""
 "L'utilisateur peut maintenant définir les effets du changement de couverture"
 " terrestre et comment il est classé comme en dégradation ou en amélioration."
 
-#: ../../source/documentation/calculate.rst:112
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:112
 msgid "Select an area to run the analysis or upload a shapefile boundary"
 msgstr ""
 "Sélectionner une zone pour exécuter l'analyse ou télécharger une limite de "
 "shapefile"
 
-#: ../../source/documentation/calculate.rst:115
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:115
 msgid ""
 "The provided boundaries are from `Natural Earth "
 "<http://www.naturalearthdata.com>`_, and are in the `public domain "
@@ -262,7 +266,7 @@ msgstr ""
 "International Foundation, ou de ses organisations partenaires et "
 "contributeurs."
 
-#: ../../source/documentation/calculate.rst:122
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:122
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -272,19 +276,19 @@ msgstr ""
 "choisir une frontière officielle fournie par le bureau désigné de votre "
 "pays."
 
-#: ../../source/documentation/calculate.rst:129
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:129
 msgid "Name the task and make notes for future reference"
 msgstr "Désigner la tâche et prendre des notes pour référence future"
 
-#: ../../source/documentation/calculate.rst:131
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:131
 msgid "Click on \"Calculate\" to submit your task to Google Earth Engine"
 msgstr "Cliquez sur \"Calculer\" pour soumettre votre tâche à Google Earth Engine"
 
-#: ../../source/documentation/calculate.rst:138
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:138
 msgid "Calculate productivity"
 msgstr "Calculer la productivité"
 
-#: ../../source/documentation/calculate.rst:141
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:141
 msgid ""
 "Refer to the :ref:`indicator-productivity` background information in this "
 "manual for a detailed explanation of how productivity is computed."
@@ -293,7 +297,7 @@ msgstr ""
 "pour une explication détaillée de la façon dont la productivité est "
 "calculée."
 
-#: ../../source/documentation/calculate.rst:144
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:144
 msgid ""
 "Productivity measures the trajectory, performance and state of primary "
 "productivity using either 8km AVHRR or 250m MODIS datasets. The user can "
@@ -306,11 +310,11 @@ msgstr ""
 "calculer, l'ensemble de données du NDVI, nommer les tâches et entrer des "
 "notes explicatives pour la zone de notification prévue."
 
-#: ../../source/documentation/calculate.rst:150
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:150
 msgid "Productivity Trajectory"
 msgstr "Trajectoire de la productivité"
 
-#: ../../source/documentation/calculate.rst:152
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:152
 msgid ""
 "Trajectory assesses the rate of change of productivity over time. To "
 "calculate trajectory:"
@@ -318,7 +322,7 @@ msgstr ""
 "La trajectoire évalue le taux de variation de la productivité au fil du "
 "temps. Pour calculer la trajectoire:"
 
-#: ../../source/documentation/calculate.rst:156
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:156
 msgid ""
 "Refer to the :ref:`indicator-productivity-trajectory` section in this manual"
 " for a detailed explanation of this indicator is computed."
@@ -326,16 +330,16 @@ msgstr ""
 "Reportez-vous à la section :ref:`indicator-productivity-trajectory`  de ce "
 "manuel pour une explication détaillée du calcul de cet indicateur."
 
-#: ../../source/documentation/calculate.rst:159
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:159
 msgid "Select an indicator to calculate"
 msgstr "Sélectionner un indicateur à calculer"
 
-#: ../../source/documentation/calculate.rst:161
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:161
 msgid "Select NDVI dataset to use and select Next"
 msgstr ""
 "Sélectionner le jeu de données NDVI à utiliser et sélectionner Suivant"
 
-#: ../../source/documentation/calculate.rst:164
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:164
 msgid ""
 "The valid date range is set by the NDVI dataset selected within the first "
 "tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016."
@@ -344,7 +348,7 @@ msgstr ""
 "sélectionné dans le premier onglet: les dates AVHRR comparent 1982-2015 et "
 "MODIS 2001-2016."
 
-#: ../../source/documentation/calculate.rst:170
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:170
 msgid ""
 "In the tab \"Advanced\", select the method to be used to compute the "
 "productivity trajectory analysis. The options are:"
@@ -352,7 +356,7 @@ msgstr ""
 "Dans l'onglet \"Avancé\", sélectionnez la méthode à utiliser pour calculer "
 "l'analyse de trajectoire de productivité. Les options sont:"
 
-#: ../../source/documentation/calculate.rst:174
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:174
 msgid ""
 "Refer to the :ref:`indicator-productivity-climate-correction` information in"
 " this manual for a more detailed explanation of each of these calculations."
@@ -361,7 +365,7 @@ msgstr ""
 "correction` dans ce manuel pour une explication plus détaillée de chacun de "
 "ces calculs."
 
-#: ../../source/documentation/calculate.rst:178
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:178
 msgid ""
 "**NDVI trend**: This dataset shows the trend in annually integrated NDVI "
 "time series (2001-2015) using MODIS (250m) dataset (MOD13Q1) or AVHRR (8km; "
@@ -378,7 +382,7 @@ msgstr ""
 " la somme de ces deux bandes (Rouse et al., 1974, Deering 1978, revu dans "
 "Tucker 1979)."
 
-#: ../../source/documentation/calculate.rst:186
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:186
 msgid ""
 "**RUE**: is defined as the ratio between net primary production (NPP), in "
 "this case annual integrals of NDVI, and rainfall. It has been increasingly "
@@ -391,7 +395,7 @@ msgstr ""
 "végétale dans les biomes arides et semi-arides, où les précipitations sont "
 "un facteur limitant majeur pour la croissance des plantes."
 
-#: ../../source/documentation/calculate.rst:192
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:192
 msgid ""
 "**RESTREND**: this method attempts to adjust the NDVI signals from the "
 "effect of particular climatic drivers, such as rainfall or soil moisture, "
@@ -412,7 +416,7 @@ msgstr ""
 "représenter spatialement les tendances globales de la productivité primaire,"
 " indépendamment du climat."
 
-#: ../../source/documentation/calculate.rst:200
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:200
 msgid ""
 "**WUE**: is defined as the ratio between net primary production (NPP), in "
 "this case annual integrals of NDVI, and evapotranspiration."
@@ -420,11 +424,11 @@ msgstr ""
 "**EUE**: définie comme le rapport entre la production primaire nette (PPN), "
 "en l'occurrence les intégrales annuelles du NDVI, et l'évapotranspiration."
 
-#: ../../source/documentation/calculate.rst:207
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:207
 msgid "Productivity Performance"
 msgstr "Performance de la productivité"
 
-#: ../../source/documentation/calculate.rst:208
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:208
 msgid ""
 "Performance is a comparison of how productivity in an area compares to "
 "productivity in similar areas at the same point in time. To calculate "
@@ -433,14 +437,14 @@ msgstr ""
 "La performance est compare la productivité dans une zone à la productivité "
 "dans des zones similaires au même moment. Pour calculer la performance:"
 
-#: ../../source/documentation/calculate.rst:212
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:212
 msgid ""
 "Select the start and end year of the period of analysis  for comparison."
 msgstr ""
 "Sélectionner l'année de début et de fin de la période d'analyse pour la "
 "comparaison."
 
-#: ../../source/documentation/calculate.rst:215
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:215
 msgid ""
 "Refer to the :ref:`indicator-productivity-performance` section in this "
 "manual for a detailed explanation of this indicator is computed."
@@ -448,11 +452,11 @@ msgstr ""
 "Reportez-vous à la section :ref:`indicator-productivity-performance`  de ce "
 "manuel pour une explication détaillée du calcul de cet indicateur."
 
-#: ../../source/documentation/calculate.rst:219
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:219
 msgid "Productivity State"
 msgstr "État de la productivité"
 
-#: ../../source/documentation/calculate.rst:220
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:220
 msgid ""
 "State performs a comparison of how current productivity in an area compares "
 "to past productivity. To calculate state:"
@@ -460,7 +464,7 @@ msgstr ""
 "L'état compare la productivité actuelle dans une région à la productivité "
 "passée. Pour calculer l'état:"
 
-#: ../../source/documentation/calculate.rst:223
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:223
 msgid ""
 "Define the baseline and comparison periods for the computation of the State "
 "sub-indicator."
@@ -468,7 +472,7 @@ msgstr ""
 "Définir les périodes de référence et de comparaison pour le calcul du sous-"
 "indicateur Etat."
 
-#: ../../source/documentation/calculate.rst:227
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:227
 msgid ""
 "Refer to the :ref:`indicator-productivity-state` section in this manual for "
 "a detailed explanation of this indicator is computed."
@@ -476,7 +480,7 @@ msgstr ""
 "Reportez-vous à la section :ref:`indicator-productivity-state` de ce manuel "
 "pour une explication détaillée du calcul de cet indicateur."
 
-#: ../../source/documentation/calculate.rst:230
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:230
 msgid ""
 "The next step is to define the study area on which to perform the analysis. "
 "The tool allows selecting the area of interest in one of two ways:"
@@ -485,7 +489,7 @@ msgstr ""
 "l'analyse. L'outil permet de sélectionner la zone d'intérêt de l'une des "
 "deux façons suivantes:"
 
-#: ../../source/documentation/calculate.rst:233
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:233
 msgid ""
 "Selects first (i.e. country) and/or second (i.e. province or state) "
 "administrative boundary from a drop-down menu."
@@ -494,7 +498,7 @@ msgstr ""
 " la seconde (c'est-à-dire la province ou l'état) à partir d'un menu "
 "déroulant."
 
-#: ../../source/documentation/calculate.rst:236
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:236
 msgid ""
 "The user can provide a shapefile, KML, or geojson defining an area of "
 "interest. Once this is done, Select Next."
@@ -502,7 +506,7 @@ msgstr ""
 "L'utilisateur peut fournir un shapefile, KML ou geojson définissant une zone"
 " d'intérêt. Une fois cela fait, sélectionner Suivant."
 
-#: ../../source/documentation/calculate.rst:242
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:242
 msgid ""
 "The next step is to write a Task name and some notes to indicate which "
 "options were selected for the analysis."
@@ -510,9 +514,9 @@ msgstr ""
 "L'étape suivante consiste à écrire un nom de tâche et des notes pour "
 "indiquer les options sélectionnées pour l'analyse."
 
-#: ../../source/documentation/calculate.rst:248
-#: ../../source/documentation/calculate.rst:342
-#: ../../source/documentation/calculate.rst:398
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:248
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:342
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:398
 msgid ""
 "When all the parameters have been defined, click \"Calculate\", and the task"
 " will be submitted to Google Earth Engine for computing. When the task is "
@@ -526,8 +530,8 @@ msgstr ""
 "plupart du pays, il faut seulement quelques minutes), vous recevrez un "
 "message électronique indiquant son achèvement."
 
-#: ../../source/documentation/calculate.rst:254
-#: ../../source/documentation/calculate.rst:349
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:254
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:349
 msgid ""
 "When the Google Earth Engine task has completed and you received the email, "
 "click \"Refresh List\" and the status will show FINISHED. Click on the task "
@@ -544,11 +548,11 @@ msgstr ""
 "\"Enregistrer\". La couche sera enregistrée sur votre ordinateur et chargée "
 "automatiquement dans votre projet QGIS actuel."
 
-#: ../../source/documentation/calculate.rst:266
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:266
 msgid "Calculate land cover"
 msgstr "Calculer la couverture terrestre"
 
-#: ../../source/documentation/calculate.rst:268
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:268
 msgid ""
 "Changes in land cover is one of the indicators used to track potential land "
 "degradation which need to be reported to the UNCCD and to track progress "
@@ -574,7 +578,7 @@ msgstr ""
 " de transition qui montre les transitions indicatrices d’une dégradation, "
 "d’une stabilité ou d’une amélioration."
 
-#: ../../source/documentation/calculate.rst:280
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:280
 msgid ""
 "Refer to the :ref:`indicator-land-cover` background information in this "
 "manual for a detailed explanation of how land cover change is computed."
@@ -583,11 +587,11 @@ msgstr ""
 "pour une explication détaillée du calcul du changement de la couverture "
 "terrestre."
 
-#: ../../source/documentation/calculate.rst:283
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:283
 msgid "To calculate the land cover change indicator:"
 msgstr "Pour calculer l'indicateur de changement de couverture terrestre:"
 
-#: ../../source/documentation/calculate.rst:285
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:285
 msgid ""
 "Click on the Calculate Indicators button from the toolbox bar, then select "
 "Land cover."
@@ -595,7 +599,7 @@ msgstr ""
 "Cliquer sur le bouton Calculer les indicateurs dans la barre d'outils, puis "
 "sélectionner Couverture terrestre."
 
-#: ../../source/documentation/calculate.rst:291
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:291
 msgid ""
 "Within the \"Land Cover Setup tab\" the user selects the baseline and target"
 " years"
@@ -603,7 +607,7 @@ msgstr ""
 "Dans l'onglet \"Configuration de la couverture terrestre\", l'utilisateur "
 "sélectionne les années de référence et les années cibles"
 
-#: ../../source/documentation/calculate.rst:296
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:296
 msgid ""
 "The land cover aggregation can be customized using the 'Edit definition' "
 "button. The user can define their own aggregation of land cover classes from"
@@ -614,7 +618,7 @@ msgstr ""
 "agrégation de classes de couverture terrestre parmi les 37 classes de "
 "couverture terrestre de l'ESA pour les 7 catégories de la CNULCD."
 
-#: ../../source/documentation/calculate.rst:300
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:300
 msgid ""
 "Select the dial button for the \"Custom\" option and select \"Create new "
 "definition\""
@@ -622,15 +626,15 @@ msgstr ""
 "Sélectionnez le bouton de numérotation pour l'option \"Personnalisé\" et "
 "sélectionnez \"Créer une nouvelle définition\""
 
-#: ../../source/documentation/calculate.rst:303
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:303
 msgid "Edit the aggregation suitable for the area of interest"
 msgstr "Modifier l'agrégation adaptée à la zone d'intérêt"
 
-#: ../../source/documentation/calculate.rst:305
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:305
 msgid "Select \"Save definition\" and select Next"
 msgstr "Sélectionnez \"Enregistrer la définition\" et sélectionnez Suivant"
 
-#: ../../source/documentation/calculate.rst:310
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:310
 msgid ""
 "Within the \"Define Degradation tab\" user define the meaning of each land "
 "cover transition in terms of degradation. The options are: stable (0), "
@@ -654,7 +658,7 @@ msgstr ""
 "connaissance de la zone d'étude, car cette matrice aura un effet important "
 "sur la dégradation des terres identifiée par ce sous-indicateur."
 
-#: ../../source/documentation/calculate.rst:320
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:320
 msgid ""
 "Users can keep the default values or create unique transition values of "
 "their own."
@@ -662,7 +666,7 @@ msgstr ""
 "Les utilisateurs peuvent conserver les valeurs par défaut ou créer leurs "
 "propres valeurs de transition."
 
-#: ../../source/documentation/calculate.rst:326
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:326
 msgid ""
 "The next step is to define the study area on which to perform the analysis. "
 "The toolbox allows this task to be completed in one of two ways:"
@@ -671,7 +675,7 @@ msgstr ""
 "l'analyse. La boîte à outils permet d'effectuer cette tâche de deux "
 "manières:"
 
-#: ../../source/documentation/calculate.rst:329
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:329
 msgid ""
 "The user selects first (i.e. country) and second (i.e. province or state) "
 "administrative boundary from a drop-down menu."
@@ -679,23 +683,23 @@ msgstr ""
 "L’utilisateur sélectionne une première limite administrative (pays) puis une"
 " deuxième (province ou État) sur un menu déroulant."
 
-#: ../../source/documentation/calculate.rst:332
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:332
 msgid "The user can upload a shapefile with an area of interest."
 msgstr "L'utilisateur peut télécharger un shapefile avec une zone d'intérêt."
 
-#: ../../source/documentation/calculate.rst:337
-#: ../../source/documentation/calculate.rst:396
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:337
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:396
 msgid ""
 "The next step is to add the task name and relevant notes for the analysis."
 msgstr ""
 "L'étape suivante consiste à ajouter le nom de la tâche et les notes "
 "pertinentes pour l'analyse."
 
-#: ../../source/documentation/calculate.rst:360
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:360
 msgid "Calculate soil carbon"
 msgstr "Calculer le carbone du sol"
 
-#: ../../source/documentation/calculate.rst:362
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:362
 msgid ""
 "Soil Organic Carbon is calculated as a proxy for carbon stocks. It is "
 "measured using soil data and changes in land cover."
@@ -704,7 +708,7 @@ msgstr ""
 "carbone. Il est mesuré à l'aide des données sur le sol et des changements de"
 " la couverture terrestre."
 
-#: ../../source/documentation/calculate.rst:366
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:366
 msgid ""
 "Refer to the :ref:`indicator-soc` background information in this manual for "
 "a detailed explanation of how soil organic carbon change is computed."
@@ -712,17 +716,17 @@ msgstr ""
 "Reportez-vous à l'information :ref:`indicator-soc` dans ce manuel pour une "
 "explication détaillée du calcul du changement du carbone organique du sol."
 
-#: ../../source/documentation/calculate.rst:369
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:369
 msgid "To calculate degradation in soil organic carbon:"
 msgstr "Pour calculer la dégradation du carbone organique du sol:"
 
-#: ../../source/documentation/calculate.rst:374
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:374
 msgid "Select Soil organic carbon button under Calculate Indicators"
 msgstr ""
 "Sélectionner le bouton Carbone organique du sol sous Calculer les "
 "indicateurs"
 
-#: ../../source/documentation/calculate.rst:379
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:379
 msgid ""
 "The Land Cover Setup tab allows the user to define the period for analysis "
 "with the baseline and target year. Users can select the Edit definition "
@@ -734,19 +738,19 @@ msgstr ""
 "modifier la méthode d'agrégation de la couverture terrestre ou télécharger "
 "un ensemble de données."
 
-#: ../../source/documentation/calculate.rst:386
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:386
 msgid "The \"Advanced\" tab allows users to specify the Climate regime."
 msgstr ""
 "L'onglet \"Avancé\" permet aux utilisateurs de spécifier le régime "
 "climatique."
 
-#: ../../source/documentation/calculate.rst:391
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:391
 msgid "Users can select an area or upload a polygon shapefile for analysis"
 msgstr ""
 "Les utilisateurs peuvent sélectionner une zone ou télécharger un shapefile "
 "polygone pour l'analyse"
 
-#: ../../source/documentation/calculate.rst:404
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:404
 msgid ""
 "When the Google Earth Engine task has completed and you received the email, "
 "click \"Refresh List\" and the status will show FINISHED. Click on the task "
@@ -764,11 +768,11 @@ msgstr ""
 "&quot;Enregistrer&quot;. La couche sera sauvegardée sur votre ordinateur et "
 "automatiquement chargée dans votre projet QGIS actuel."
 
-#: ../../source/documentation/calculate.rst:415
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:415
 msgid "Compute SDG Indicator 15.3.1"
 msgstr "Calculer l'indicateur de l'ODD 15.3.1"
 
-#: ../../source/documentation/calculate.rst:418
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:418
 msgid ""
 "Refer to the :ref:`indicator-15-3-1-combining-indicators` section of this "
 "manual for a detailed explanation of how the sub-indicators are combined to "
@@ -778,7 +782,7 @@ msgstr ""
 " de ce manuel pour une explication détaillée de la façon dont les sous-"
 "indicateurs sont combinés pour calculer l'indicateur final de l'ODD 15.3.1."
 
-#: ../../source/documentation/calculate.rst:422
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:422
 msgid ""
 "Once you have computed the three sub-indicators (productivity, land cover "
 "and soil organic carbon), and they are loaded into the QGIS project. Click "
@@ -793,7 +797,7 @@ msgstr ""
 "l'étape 2 \"Calculer l'indicateur final SDG 15.3.1 et le tableau "
 "récapitulatif\"."
 
-#: ../../source/documentation/calculate.rst:428
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:428
 msgid ""
 "The input window will open already populated with the correct sub-indicators"
 " (that if you have them loaded to the QGIS map)"
@@ -801,7 +805,7 @@ msgstr ""
 "La fenêtre de saisie s'ouvrira déjà avec les sous-indicateurs corrects (si "
 "vous les avez chargés sur la carte QGIS)"
 
-#: ../../source/documentation/calculate.rst:434
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:434
 msgid ""
 "Select the name and location where to save the output raster layer and the "
 "excel file with the areas computed."
@@ -809,15 +813,15 @@ msgstr ""
 "Sélectionnez le nom et l'emplacement où enregistrer la couche raster en "
 "sortie et le fichier Excel avec les zones calculées."
 
-#: ../../source/documentation/calculate.rst:440
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:440
 msgid "Define the area of analysis. In this example, the country boundary."
 msgstr "Définir la zone d'analyse. Dans cet exemple, la frontière du pays."
 
-#: ../../source/documentation/calculate.rst:445
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:445
 msgid "Give a name to the task and click \"Calculate\""
 msgstr "Donnez un nom à la tâche et cliquez sur \"Calculer\""
 
-#: ../../source/documentation/calculate.rst:450
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:450
 msgid ""
 "This calculation is run on your computer, so depending on the size of the "
 "area and the computing power of your computer, it could take a few minutes. "
@@ -832,7 +836,7 @@ msgstr ""
 "le dossier que vous avez sélectionné. Une fois terminé, un message "
 "apparaîtra."
 
-#: ../../source/documentation/calculate.rst:459
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:459
 msgid ""
 "Click OK and two layers will be loaded to your map: the **5 classes "
 "productivity** and the **SDG 15.3.1** indicators."
@@ -840,7 +844,7 @@ msgstr ""
 "Cliquez sur OK et deux couches seront chargées sur votre carte: les "
 "indicateurs **productivité pour 5 classes** et **ODD 15.3.1**."
 
-#: ../../source/documentation/calculate.rst:465
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\calculate.rst:465
 msgid ""
 "If you navigate to the folder you selected for storing the files, you can "
 "open the Excel files with the areas computed for each of the sub-indicators "

@@ -62,9 +62,9 @@ def get_script_slug(script_name):
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
-    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj4(), crs_dst.toProj4(), wrap, datatype))
+    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj(), crs_dst.toProj(), wrap, datatype))
 
-    crs_src_string = l.crs().toProj4()
+    crs_src_string = l.crs().toProj()
     if wrap:
         if not l.crs().isGeographic():
             QtWidgets.QMessageBox.critical(None, tr("Error"),
@@ -77,7 +77,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
     l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
-                         crs=crs_dst.toProj4()), "calculation boundary (transformed)",  
+                         crs=crs_dst.toProj()), "calculation boundary (transformed)",  
                          "memory")
     feats = []
     for f in l.getFeatures():
@@ -97,7 +97,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     l_w.dataProvider().addFeatures(feats)
     l_w.commitChanges()
     if not l_w.isValid():
-        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
+        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj(), wrap))
         return None
     else:
         return l_w
@@ -385,7 +385,7 @@ class AOI(object):
             f.setGeometry(geom_buffered)
             feats.append(f)
 
-        l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj4()),
+        l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
                                     "calculation boundary (transformed)",  
                                     "memory")
         l_buffered.dataProvider().addFeatures(feats)

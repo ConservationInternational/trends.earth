@@ -412,7 +412,7 @@ def make_summary_table(areas, populations, out_file):
 
     ##########################################################################
     # SDG table
-    ws_summary = wb.get_sheet_by_name('SDG 11.3.1 Summary Table')
+    ws_summary = wb['SDG 11.3.1 Summary Table']
     write_table_to_sheet(ws_summary, areas, 23, 2)
     write_table_to_sheet(ws_summary, populations, 37, 2)
 

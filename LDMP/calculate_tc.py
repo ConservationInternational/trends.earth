@@ -644,7 +644,7 @@ def make_summary_table(forest_change, carbon_change, area_missing, area_water,
 
     ##########################################################################
     # SDG table
-    ws_summary = wb.get_sheet_by_name('Total Carbon Summary Table')
+    ws_summary = wb['Total Carbon Summary Table']
     ws_summary.cell(6, 3).value = initial_forest_area
     ws_summary.cell(7, 3).value = area_non_forest
     ws_summary.cell(8, 3).value = area_water

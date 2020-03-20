@@ -1015,12 +1015,12 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     ##########################################################################
     # SDG table
-    ws_sdg = wb.get_sheet_by_name('SDG 15.3.1')
+    ws_sdg = wb['SDG 15.3.1']
     write_table_to_sheet(ws_sdg, np.transpose(sdg_tbl_overall), 6, 6)
 
     ##########################################################################
     # Productivity tables
-    ws_prod = wb.get_sheet_by_name('Productivity')
+    ws_prod = wb['Productivity']
     write_table_to_sheet(ws_prod, np.transpose(sdg_tbl_prod), 6, 6)
 
     write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 5), 16, 3)
@@ -1032,7 +1032,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     ##########################################################################
     # Soil organic carbon tables
-    ws_soc = wb.get_sheet_by_name('Soil organic carbon')
+    ws_soc = wb['Soil organic carbon']
     write_table_to_sheet(ws_soc, np.transpose(sdg_tbl_soc), 6, 6)
 
     # First write baseline
@@ -1052,14 +1052,14 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     ##########################################################################
     # Land cover tables
-    ws_lc = wb.get_sheet_by_name('Land cover')
+    ws_lc = wb['Land cover']
     write_table_to_sheet(ws_lc, np.transpose(sdg_tbl_lc), 6, 6)
 
     write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 26, 3)
 
     ##########################################################################
     # UNCCD tables
-    ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
+    ws_unccd = wb['UNCCD Reporting']
 
     for i in range(len(lc_years)):
         # Water bodies

@@ -73,13 +73,13 @@ class RemapVectorWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        crs_src_string = self.l.crs().toProj4()
+        crs_src_string = self.l.crs().toProj()
         crs_src = QgsCoordinateReferenceSystem()
         crs_src.createFromProj(crs_src_string)
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
         t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
-        l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj4()),
+        l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj()),
                                "land cover (transformed)",  
                                "memory")
         l_out.dataProvider().addAttributes([QgsField('code', QVariant.Int)])
@@ -109,7 +109,7 @@ class RemapVectorWorker(AbstractWorker):
                 self.progress.emit(100 * float(n)/self.l.featureCount())
                 feats = []
         if not l_out.isValid():
-            log(u'Error remapping and transforming vector layer from "{}" to "{}")'.format(crs_src_string, crs_dst.toProj4()))
+            log(u'Error remapping and transforming vector layer from "{}" to "{}")'.format(crs_src_string, crs_dst.toProj()))
             return None
 
         # Write l_out to a shapefile for usage by gdal rasterize

@@ -75,7 +75,7 @@ class RemapVectorWorker(AbstractWorker):
 
         crs_src_string = self.l.crs().toProj4()
         crs_src = QgsCoordinateReferenceSystem()
-        crs_src.createFromProj4(crs_src_string)
+        crs_src.createFromProj(crs_src_string)
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
         t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 

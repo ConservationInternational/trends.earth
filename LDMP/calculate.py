@@ -73,7 +73,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
             return None
         crs_src_string = crs_src_string + ' +lon_wrap=180'
     crs_src = QgsCoordinateReferenceSystem()
-    crs_src.createFromProj4(crs_src_string)
+    crs_src.createFromProj(crs_src_string)
     t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
     l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
@@ -324,7 +324,7 @@ class AOI(object):
         """
         # Setup settings for AOI provided to GEE:
         wgs84_crs = QgsCoordinateReferenceSystem()
-        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
+        wgs84_crs.createFromProj('+proj=longlat +datum=WGS84 +no_defs')
         return transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
 
     def bounding_box_geom(self):
@@ -1034,14 +1034,14 @@ class ClipWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = tempfile.NamedTemporaryFile(suffix='.geojson').name
-        with open(json_file, 'w') as f:
+        json_file = tempfile.NamedTemporaryFile(suffix='.geojson', mode='w', 
+                delete=False)
+        with json_file as f:
             json.dump(self.geojson, f, separators=(',', ': '))
-        f.close()
 
         gdal.UseExceptions()
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=json_file, srcNodata=-32768, 
+                        cutlineDSName=json_file.name, srcNodata=-32768, 
                         outputBounds=self.output_bounds,
                         dstNodata=-32767,
                         dstSRS="epsg:4326",
@@ -1049,6 +1049,8 @@ class ClipWorker(AbstractWorker):
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
+        json_file.close()
+
         if res:
             return True
         else:

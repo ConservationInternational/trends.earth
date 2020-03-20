@@ -465,7 +465,7 @@ few seconds. To build using the fast option, run::
 
    invoke docs-build -f
 
-The above command will take a few seconds to fun, and then if you look under 
+The above command will take a few seconds to run, and then if you look under 
 "docs\\build\\html\\en", you will see the HTML version of the documentation. 
 Load the "index.html" file in a web browser to see how it looks.
 

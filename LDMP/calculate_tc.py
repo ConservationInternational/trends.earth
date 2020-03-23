@@ -15,7 +15,6 @@
 from builtins import zip
 from builtins import range
 import os
-import tempfile
 import json
 
 import numpy as np
@@ -32,7 +31,7 @@ mb = iface.messageBar()
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate
 
-from LDMP import log
+from LDMP import log, GetTempFilename
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
     json_geom_to_geojson
@@ -50,7 +49,7 @@ def remap(a, remap_list):
     return a
 
 
-#TODO: Still need to code below for local calculation of Total CVarbon change
+# TODO: Still need to code below for local calculation of Total Carbon change
 class TCWorker(AbstractWorker):
     def __init__(self, in_vrt, out_f, lc_band_nums, lc_years):
         AbstractWorker.__init__(self)
@@ -268,7 +267,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         lc_years = [self.lc_setup_tab.get_initial_year(), self.lc_setup_tab.get_final_year()]
         lc_vrts = []
         for i in range(len(lc_files)):
-            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            f = GetTempFilename('.vrt')
             # Add once since band numbers don't start at zero
             gdal.BuildVRT(f,
                           lc_files[i],
@@ -282,7 +281,8 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         climate_zones = os.path.join(os.path.dirname(__file__), 'data', 'IPCC_Climate_Zones.tif')
         in_files = [climate_zones]
         in_files.extend(lc_vrts)
-        in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+
+        in_vrt = GetTempFilename('.vrt')
         log(u'Saving SOC input files to {}'.format(in_vrt))
         gdal.BuildVRT(in_vrt,
                       in_files,
@@ -293,16 +293,20 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         # Lc bands start on band 3 as band 1 is initial soc, and band 2 is 
         # climate zones
         lc_band_nums = np.arange(len(lc_files)) + 3
+        # Remove temporary files
+        for f in lc_vrts:
+            os.remove(f)
 
         log(u'Saving total carbon to {}'.format(out_f))
-        soc_worker = StartWorker(SOCWorker,
+        tc_worker = StartWorker(TCWorker,
                                  'calculating change in total carbon', 
                                  in_vrt,
                                  out_f,
                                  lc_band_nums,
                                  lc_years)
+        os.remove(in_vrt)
 
-        if not soc_worker.success:
+        if not tc_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating change in toal carbon."))
             return
@@ -557,7 +561,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
             # keep the pixels aligned with the chosen productivity layer.
         
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
-            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+            indic_vrt = GetTempFilename('.vrt')
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             gdal.BuildVRT(indic_vrt,
@@ -567,7 +571,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                           resampleAlg=gdal.GRA_NearestNeighbour,
                           separate=True)
 
-            masked_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+            masked_vrt = GetTempFilename('.tif')
             log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
             geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
             clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
@@ -585,6 +589,10 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                                             masked_vrt,
                                             year_start,
                                             year_end)
+            os.remove(indic_vrt)
+            os.remove(masked_vrt)
+            os.remove(tc_vrt)
+            os.remove(f_loss_vrt)
             if not tc_summary_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Error calculating carbon change summary table."))

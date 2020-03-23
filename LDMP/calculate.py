@@ -31,7 +31,7 @@ from qgis.core import QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils, \
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
-from LDMP import log
+from LDMP import log, GetTempFilename
 from LDMP.api import run_script
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
@@ -1034,14 +1034,13 @@ class ClipWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = tempfile.NamedTemporaryFile(suffix='.geojson', mode='w', 
-                delete=False)
-        with json_file as f:
+        json_file = GetTempFilename('.geojson')
+        with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
 
         gdal.UseExceptions()
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=json_file.name, srcNodata=-32768, 
+                        cutlineDSName=json_file, srcNodata=-32768, 
                         outputBounds=self.output_bounds,
                         dstNodata=-32767,
                         dstSRS="epsg:4326",
@@ -1049,7 +1048,7 @@ class ClipWorker(AbstractWorker):
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
-        json_file.close()
+        os.remove(json_file)
 
         if res:
             return True
@@ -1076,10 +1075,10 @@ class MaskWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = tempfile.NamedTemporaryFile(suffix='.geojson').name
+
+        json_file = GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
-        f.close()
 
         gdal.UseExceptions()
 
@@ -1109,6 +1108,8 @@ class MaskWorker(AbstractWorker):
                              outputType=gdal.GDT_Int16,
                              creationOptions=['COMPRESS=LZW'],
                              callback=self.progress_callback)
+        os.remove(json_file)
+
         if res:
             return True
         else:

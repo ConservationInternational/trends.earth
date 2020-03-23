@@ -40,7 +40,8 @@ def check_hash_against_etag(url, filename, expected=None):
         else:
             expected = h.get('ETag', '').strip('"')
 
-    md5hash = hashlib.md5(open(filename, 'rb').read()).hexdigest()
+    with open(filename, 'rb') as f:
+        md5hash = hashlib.md5(f.read()).hexdigest()
 
     if md5hash == expected:
         log(u"File hash verified for {}".format(filename))

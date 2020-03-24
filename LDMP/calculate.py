@@ -725,7 +725,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
 
         buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
-        if buffer_checked not None:
+        if buffer_checked is not None:
             self.groupBox_buffer.setChecked(buffer_checked)
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
         if buffer_size:

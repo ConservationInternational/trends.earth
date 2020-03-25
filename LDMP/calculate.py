@@ -363,25 +363,28 @@ class AOI(object):
 
     def buffer(self, d):
         log('Buffering layer by {} km.'.format(d))
-        
-        wgs84_crs = QgsCoordinateReferenceSystem('epsg:4326')
-        robinson_crs = QgsCoordinateReferenceSystem('epsg:54030')
-        to_wgs84  = QgsCoordinateTransform(robinson_crs, wgs84_crs, QgsProject.instance())
-        to_robinson = QgsCoordinateTransform(wgs84_crs, robinson_crs, QgsProject.instance())
 
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
+            # Setup an azimuthal equidistant projection centered on the polygon 
+            # centroid
+            centroid = geom.centroid().asPoint()
+            geom.centroid()
+            wgs84_crs = QgsCoordinateReferenceSystem('EPSG:4326')
+            aeqd_crs = QgsCoordinateReferenceSystem.fromProj('+proj=aeqd +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
+            to_aeqd = QgsCoordinateTransform(wgs84_crs, aeqd_crs, QgsProject.instance())
+
             try:
-                geom.transform(to_robinson)
+                ret = geom.transform(to_aeqd)
             except:
-                log('Error buffering layer while transforming to Robinson')
+                log('Error buffering layer while transforming to aeqd')
                 QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                           tr("Error transforming coordinates. Check that the input geometry is valid."), None)
+                                           tr("Error transforming coordinates. Check that the input geometry is valid."))
                 return False
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
-            geom_buffered.transform(to_wgs84)
+            geom_buffered.transform(to_aeqd, QgsCoordinateTransform.TransformDirection.ReverseTransform)
             f.setGeometry(geom_buffered)
             feats.append(f)
 
@@ -962,21 +965,21 @@ class DlgCalculateBase(QtWidgets.QDialog):
             else:
                 if not self.area_tab.area_admin_0.currentText():
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Choose a first level administrative boundary."), None)
+                                               self.tr("Choose a first level administrative boundary."))
                     return False
                 self.button_calculate.setEnabled(False)
                 geojson = self.get_admin_poly_geojson()
                 self.button_calculate.setEnabled(True)
                 if not geojson:
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Unable to load administrative boundaries."), None)
+                                               self.tr("Unable to load administrative boundaries."))
                     return False
                 self.aoi.update_from_geojson(geojson=geojson, 
                                              wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
         elif self.area_tab.area_fromfile.isChecked():
             if not self.area_tab.area_fromfile_file.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a file to define the area of interest."), None)
+                                           self.tr("Choose a file to define the area of interest."))
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
                                       wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
@@ -984,7 +987,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             # Area from point
             if not self.area_tab.area_frompoint_point_x.text() or not self.area_tab.area_frompoint_point_y.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a point to define the area of interest."), None)
+                                           self.tr("Choose a point to define the area of interest."))
                 return False
             point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
@@ -995,17 +998,19 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                          datatype='point')
         else:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose an area of interest."), None)
+                                       self.tr("Choose an area of interest."))
             return False
 
         if self.aoi and not self.aoi.isValid():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Unable to read area of interest."), None)
+                                       self.tr("Unable to read area of interest."))
             return False
 
         if self.area_tab.groupBox_buffer.isChecked():
             ret = self.aoi.buffer(self.area_tab.buffer_size_km.value())
             if not ret:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Error buffering polygon"))
                 return False
 
         # Limit processing area to be no greater than 10^7 sq km if using a 
@@ -1014,7 +1019,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > 1e7:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
+                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False
 
         return True

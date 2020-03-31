@@ -79,24 +79,16 @@ class ClipRaster(QgsProcessingAlgorithm):
         )
 
     def processAlgorithm(self, parameters, context, feedback):
-        log('Starting algorithm')
         self.feedback = feedback # Needed for callback function
-        log('1')
         in_file = self.parameterAsFile(parameters,'INPUT', context)
-        log('2')
         out_file = self.parameterAsFile(parameters,'OUTPUT', context)
-        log('3')
         output_bounds = np.fromstring(self.parameterAsString(parameters,'OUTPUT_BOUNDS', context), sep=',')
-        log('4')
-        log('GeoJSON: {}'.format(self.parameterAsString(parameters,'GEOJSON', context)))
         geojson = json.loads(self.parameterAsString(parameters,'GEOJSON', context))
 
-        log('Dumping GeoJSON')
         json_file = GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(geojson, f, separators=(',', ': '))
 
-        log('Running GDAL')
         gdal.UseExceptions()
         res = gdal.Warp(out_file, in_file, format='GTiff',
                         cutlineDSName=json_file, srcNodata=-32768, 
@@ -109,7 +101,6 @@ class ClipRaster(QgsProcessingAlgorithm):
                         callback=self.progress_callback)
         os.remove(json_file)
 
-        log('Returning')
         if not res or self.feedback.isCanceled():
             return {'SUCCESS': False}
         else:

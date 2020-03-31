@@ -32,6 +32,8 @@ experimental=False
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
 
+hasProcessingProvider=yes
+
 # Uncomment the following line and add your changelog:
 changelog=0.67 (not yet released)
     - Move documentation into docs folder at root of trends.earth repository.

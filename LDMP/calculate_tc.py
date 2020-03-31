@@ -24,8 +24,10 @@ from osgeo import gdal, osr
 import openpyxl
 from openpyxl.drawing.image import Image
 
+from qgis import processing
 from qgis.utils import iface
-from qgis.core import QgsGeometry
+from qgis.core import QgsGeometry, QgsProcessingAlgRunnerTask
+
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
@@ -33,8 +35,8 @@ from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log, GetTempFilename
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
-    json_geom_to_geojson
+from LDMP.calculate import (DlgCalculateBase, get_script_slug, 
+        json_geom_to_geojson)
 from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
@@ -298,7 +300,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             os.remove(f)
 
         log(u'Saving total carbon to {}'.format(out_f))
-        tc_worker = StartWorker(TCWorker,
+        tc_task = StartWorker(TCWorker,
                                  'calculating change in total carbon', 
                                  in_vrt,
                                  out_f,
@@ -306,7 +308,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                                  lc_years)
         os.remove(in_vrt)
 
-        if not tc_worker.success:
+        if not tc_task.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating change in toal carbon."))
             return
@@ -357,6 +359,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                            QtWidgets.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
                            level=0, duration=5)
 
+
 class TCSummaryWorker(AbstractWorker):
     def __init__(self, src_file, year_start, year_end):
         AbstractWorker.__init__(self)
@@ -397,8 +400,8 @@ class TCSummaryWorker(AbstractWorker):
         area_site = 0
         initial_forest_area = 0
         initial_carbon_total = 0
-        forest_loss = np.zeros((self.year_end - self.year_start, 1))
-        carbon_loss = np.zeros((self.year_end - self.year_start, 1))
+        forest_loss = np.zeros(self.year_end - self.year_start)
+        carbon_loss = np.zeros(self.year_end - self.year_start)
 
         blocks = 0
         for y in range(0, ysize, y_block_size):
@@ -571,78 +574,80 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
                           resampleAlg=gdal.GRA_NearestNeighbour,
                           separate=True)
 
-            masked_vrt = GetTempFilename('.tif')
-            log(u'Saving forest loss/carbon clipped file to {}'.format(masked_vrt))
-            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
-            clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                      indic_vrt, masked_vrt, geojson, bbs[n])
-            if not clip_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error masking carbon change input layers."))
-                return
+            clipped_vrt = GetTempFilename('.tif')
+            log(u'Saving forest loss/carbon clipped file to {}'.format(clipped_vrt))
+            #clip_task = QgsProcessingAlgRunnerTask(
+            clip_task = processing.run(
+                    'trendsearth:raster_clip',
+                    {
+                        'INPUT': indic_vrt,
+                        'GEOJSON': json.dumps(json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())),
+                        'OUTPUT_BOUNDS': str(bbs[n]).strip('[]'),
+                        'OUTPUT': clipped_vrt
+                    })
+            #clip_task.run()
+                    # 'masking layers (part {} of {})'.format(n + 1, len(wkts))
+                    #
+            if not clip_task['SUCCESS']:
+                return False
 
             ######################################################################
             #  Calculate carbon change table
             log('Calculating summary table...')
-            tc_summary_worker = StartWorker(TCSummaryWorker,
-                                            'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                            masked_vrt,
-                                            year_start,
-                                            year_end)
+            tc_summary = processing.run(
+                    'trendsearth:carbon_summary',
+                    {
+                        'INPUT': clipped_vrt,
+                        'YEAR_START': year_start,
+                        'YEAR_END': year_end
+                    })
+                    # 'calculating summary table (part {} of {})'.format(n + 1, 
+                    # len(wkts))
             os.remove(indic_vrt)
-            os.remove(masked_vrt)
+            os.remove(clipped_vrt)
             os.remove(tc_vrt)
             os.remove(f_loss_vrt)
-            if not tc_summary_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating carbon change summary table."))
-                return
+
+            log('FOREST_LOSS: {}'.format(tc_summary['FOREST_LOSS']))
+
+            if n == 0:
+                 forest_loss = np_array_from_str(tc_summary['FOREST_LOSS'])
+                 carbon_loss = np_array_from_str(tc_summary['CARBON_LOSS'])
+                 initial_carbon_total = tc_summary['CARBON_INITIAL']
+                 area_forest = tc_summary['AREA_FOREST']
+                 area_non_forest = tc_summary['AREA_NON_FOREST']
+                 area_water = tc_summary['AREA_WATER']
+                 area_missing = tc_summary['AREA_MISSING']
+                 area_site = tc_summary['AREA_SITE']
             else:
-                if n == 0:
-                     forest_loss, \
-                             carbon_loss, \
-                             area_missing, \
-                             area_water, \
-                             area_non_forest, \
-                             area_site, \
-                             initial_forest_area, \
-                             initial_carbon_total = tc_summary_worker.get_return()
-                else:
-                     this_forest_loss, \
-                             this_carbon_loss, \
-                             this_area_missing, \
-                             this_area_water, \
-                             this_area_non_forest, \
-                             this_area_site, \
-                             this_initial_forest_area, \
-                             this_initial_carbon_total = tc_summary_worker.get_return()
-                     forest_loss = forest_loss + this_forest_loss
-                     carbon_loss = carbon_loss + this_carbon_loss
-                     area_missing = area_missing + this_area_missing
-                     area_water = area_water + this_area_water
-                     area_non_forest = area_non_forest + this_area_non_forest
-                     area_site = area_site + this_area_site
-                     initial_forest_area = initial_forest_area + this_initial_forest_area
-                     initial_carbon_total = initial_carbon_total + this_initial_carbon_total
+
+                 forest_loss = forest_loss + np_array_from_str(tc_summary['FOREST_LOSS'])
+                 carbon_loss = carbon_loss + np_array_from_str(tc_summary['CARBON_LOSS'])
+                 area_forest = area_forest + tc_summary['AREA_FOREST']
+                 area_non_forest = area_non_forest + tc_summary['AREA_NON_FOREST']
+                 area_water = area_water +  tc_summary['AREA_WATER']
+                 area_missing = area_missing + tc_summary['AREA_MISSING']
+                 area_site = area_site + tc_summary['AREA_SITE']
+                 initial_carbon_total = initial_carbon_total + tc_summary['CARBON_INITIAL']
 
         log('area_missing: {}'.format(area_missing))
         log('area_water: {}'.format(area_water))
         log('area_non_forest: {}'.format(area_non_forest))
         log('area_site: {}'.format(area_site))
-        log('initial_forest_area: {}'.format(initial_forest_area))
+        log('area_forest: {}'.format(area_forest))
         log('initial_carbon_total: {}'.format(initial_carbon_total))
         log('forest loss: {}'.format(forest_loss))
         log('carbon loss: {}'.format(carbon_loss))
 
         make_summary_table(forest_loss, carbon_loss, area_missing, area_water, 
-                           area_non_forest, area_site, initial_forest_area, 
+                           area_non_forest, area_site, area_forest, 
                            initial_carbon_total, year_start, year_end, 
                            self.output_file_table.text())
         return True
 
 
 def make_summary_table(forest_loss, carbon_loss, area_missing, area_water, 
-                       area_non_forest, area_site, initial_forest_area, 
+                       area_non_forest, area_site, area_forest, 
                        initial_carbon_total, year_start, year_end, out_file):
                           
     def tr(s):
@@ -653,7 +658,7 @@ def make_summary_table(forest_loss, carbon_loss, area_missing, area_water,
     ##########################################################################
     # SDG table
     ws_summary = wb['Total Carbon Summary Table']
-    ws_summary.cell(8, 3).value = initial_forest_area
+    ws_summary.cell(8, 3).value = area_forest
     ws_summary.cell(9, 3).value = area_non_forest
     ws_summary.cell(10, 3).value = area_water
     ws_summary.cell(11, 3).value = area_missing
@@ -661,11 +666,10 @@ def make_summary_table(forest_loss, carbon_loss, area_missing, area_water,
     ws_summary.cell(16, 4).value = year_end
     #ws_summary.cell(10, 3).value = area_site
 
-    ws_summary.cell(8, 3).value = initial_forest_area
     ws_summary.cell(8, 5).value = initial_carbon_total
     write_col_to_sheet(ws_summary, np.arange(year_start + 1, year_end + 1), 1, 24) # Years
-    write_table_to_sheet(ws_summary, forest_loss, 24, 2)
-    write_table_to_sheet(ws_summary, carbon_loss, 24, 4)
+    write_col_to_sheet(ws_summary, forest_loss, 2, 24) # Years
+    write_col_to_sheet(ws_summary, carbon_loss, 4, 24) # Years
 
     try:
         ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))

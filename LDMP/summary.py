@@ -116,3 +116,11 @@ def write_table_to_sheet(sheet, d, first_row, first_col):
         for col in range(d.shape[1]):
             cell = sheet.cell(row=row + first_row, column=col + first_col)
             cell.value = d[row, col]
+
+
+# Used for reading arrays returned as text from algorithms implemented through 
+# QgsProcessing
+def np_array_from_str(s, dtype=float, count=-1, sep=' '):
+    s = s.strip('[')
+    s = s.strip(']')
+    return np.fromstring(s, dtype=dtype, count=count, sep=sep)

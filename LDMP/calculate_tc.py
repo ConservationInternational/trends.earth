@@ -26,12 +26,13 @@ from openpyxl.drawing.image import Image
 
 from qgis import processing
 from qgis.utils import iface
-from qgis.core import QgsGeometry, QgsProcessingAlgRunnerTask
+from qgis.core import (QgsApplication, QgsGeometry, QgsProcessingAlgRunnerTask, 
+        QgsTask)
 
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate
+from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 
 from LDMP import log, GetTempFilename
 from LDMP.api import run_script
@@ -468,6 +469,174 @@ class TCSummaryWorker(AbstractWorker):
                      area_non_forest, area_site, initial_forest_area, 
                      initial_carbon_total))
 
+
+def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water, 
+                       area_non_forest, area_site, area_forest, 
+                       initial_carbon_total, year_start, year_end, out_file):
+                          
+    def tr(s):
+        return QtWidgets.QApplication.translate("LDMP", s)
+
+    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
+
+    ##########################################################################
+    # SDG table
+    ws_summary = wb['Total Carbon Summary Table']
+    ws_summary.cell(8, 3).value = area_forest
+    ws_summary.cell(9, 3).value = area_non_forest
+    ws_summary.cell(10, 3).value = area_water
+    ws_summary.cell(11, 3).value = area_missing
+    ws_summary.cell(15, 4).value = year_start
+    ws_summary.cell(16, 4).value = year_end
+    #ws_summary.cell(10, 3).value = area_site
+
+    ws_summary.cell(8, 5).value = initial_carbon_total
+    write_col_to_sheet(ws_summary, np.arange(year_start + 1, year_end + 1), 1, 24) # Years
+    write_col_to_sheet(ws_summary, forest_loss, 2, 24) # Years
+    write_col_to_sheet(ws_summary, carbon_loss, 4, 24) # Years
+
+    try:
+        ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_summary.add_image(ws_summary_logo, 'E1')
+    except ImportError:
+        # add_image will fail on computers without PIL installed (this will be 
+        # an issue on some Macs, likely others). it is only used here to add 
+        # our logo, so no big deal.
+        pass
+
+    try:
+        wb.save(out_file)
+
+    except IOError:
+        log(u'Error saving {}'.format(out_file))
+        return False
+
+    log(u'Summary table saved to {}'.format(out_file))
+    return True
+
+class SummaryTask(QgsTask):
+    def __init__(self, aoi, year_start, year_end, f_loss_vrt, tc_vrt, 
+            output_file):
+        super().__init__('Total carbon summary table calculation', QgsTask.CanCancel)
+        
+        self.aoi = aoi
+        self.year_start = year_start
+        self.year_end = year_end
+        self.f_loss_vrt = f_loss_vrt
+        self.tc_vrt = tc_vrt
+        self.output_file = output_file
+
+    def run(self):
+        # Remember the first value is an indication of whether dataset is 
+        # wrapped across 180th meridian
+        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
+        bbs = self.aoi.get_aligned_output_bounds(self.f_loss_vrt)
+
+        for n in range(len(wkts)):
+            if self.isCanceled():
+                return False
+            ######################################################################
+            #  Clip layers
+            
+            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
+            indic_vrt = GetTempFilename('.vrt')
+            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+            # The plus one is because band numbers start at 1, not zero
+            gdal.BuildVRT(indic_vrt,
+                          [self.f_loss_vrt, self.tc_vrt],
+                          outputBounds=bbs[n],
+                          resolution='highest',
+                          resampleAlg=gdal.GRA_NearestNeighbour,
+                          separate=True)
+
+            clipped_vrt = GetTempFilename('.tif')
+            log(u'Saving forest loss/carbon clipped file to {}'.format(clipped_vrt))
+            #clip_task = QgsProcessingAlgRunnerTask(
+            clip_task = processing.run(
+                    'trendsearth:raster_clip',
+                    {
+                        'INPUT': indic_vrt,
+                        'GEOJSON': json.dumps(json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())),
+                        'OUTPUT_BOUNDS': str(bbs[n]).strip('[]'),
+                        'OUTPUT': clipped_vrt
+                    })
+            #clip_task.run()
+                    # 'masking layers (part {} of {})'.format(n + 1, len(wkts))
+                    #
+            if self.isCanceled():
+                return False
+            if not clip_task['SUCCESS']:
+                self.exception = Exception('Clipping failed')
+                return False
+
+            ######################################################################
+            #  Calculate carbon change table
+            log('Calculating summary table...')
+            summary_task = processing.run(
+                    'trendsearth:carbon_summary',
+                    {
+                        'INPUT': clipped_vrt,
+                        'YEAR_START': self.year_start,
+                        'YEAR_END': self.year_end
+                    })
+                    # 'calculating summary table (part {} of {})'.format(n + 1, 
+                    # len(wkts))
+            if self.isCanceled():
+                return
+            if not clip_task['SUCCESS']:
+                self.exception = Exception('Summarizing carbon change failed')
+                return False
+
+            os.remove(indic_vrt)
+            os.remove(clipped_vrt)
+            os.remove(self.tc_vrt)
+            os.remove(self.f_loss_vrt)
+
+            if n == 0:
+                 forest_loss = np_array_from_str(summary_task['FOREST_LOSS'])
+                 carbon_loss = np_array_from_str(summary_task['CARBON_LOSS'])
+                 initial_carbon_total = summary_task['CARBON_INITIAL']
+                 area_forest = summary_task['AREA_FOREST']
+                 area_non_forest = summary_task['AREA_NON_FOREST']
+                 area_water = summary_task['AREA_WATER']
+                 area_missing = summary_task['AREA_MISSING']
+                 area_site = summary_task['AREA_SITE']
+            else:
+
+                 forest_loss = forest_loss + np_array_from_str(summary_task['FOREST_LOSS'])
+                 carbon_loss = carbon_loss + np_array_from_str(summary_task['CARBON_LOSS'])
+                 area_forest = area_forest + summary_task['AREA_FOREST']
+                 area_non_forest = area_non_forest + summary_task['AREA_NON_FOREST']
+                 area_water = area_water +  summary_task['AREA_WATER']
+                 area_missing = area_missing + summary_task['AREA_MISSING']
+                 area_site = area_site + summary_task['AREA_SITE']
+                 initial_carbon_total = initial_carbon_total + summary_task['CARBON_INITIAL']
+
+        log('area_missing: {}'.format(area_missing))
+        log('area_water: {}'.format(area_water))
+        log('area_non_forest: {}'.format(area_non_forest))
+        log('area_site: {}'.format(area_site))
+        log('area_forest: {}'.format(area_forest))
+        log('initial_carbon_total: {}'.format(initial_carbon_total))
+        log('forest loss: {}'.format(forest_loss))
+        log('carbon loss: {}'.format(carbon_loss))
+
+        write_excel_summary(forest_loss, carbon_loss, area_missing, area_water, 
+                           area_non_forest, area_site, area_forest, 
+                           initial_carbon_total, self.year_start, 
+                           self.year_end, self.output_file)
+        return True
+
+    def finished(self, result):
+        if self.isCanceled():
+            return
+        elif result:
+            QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                          QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(self.outout_file)))
+        else:
+            QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
+
 class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
     def __init__(self, parent=None):
         super(DlgCalculateTCSummaryTable, self).__init__(parent)
@@ -544,7 +713,6 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
 
         self.close()
 
-        #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
         f_loss_vrt = self.combo_layer_f_loss.get_vrt()
         tc_vrt = self.combo_layer_tc.get_vrt()
@@ -553,140 +721,13 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         year_start = self.combo_layer_f_loss.get_band_info()['metadata']['year_start']
         year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
 
-        # Remember the first value is an indication of whether dataset is 
-        # wrapped across 180th meridian
-        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
-        bbs = self.aoi.get_aligned_output_bounds(f_loss_vrt)
+        summary_task = SummaryTask(self.aoi, year_start, year_end, 
+                f_loss_vrt, tc_vrt, self.output_file_table.text())
+        log("Adding task to task manager")
+        QgsApplication.taskManager().addTask(summary_task)
+        if summary_task.status() not in [QgsTask.Complete, QgsTask.Terminated]:
+            QCoreApplication.processEvents()
+        # while QgsApplication.taskManager().countActiveTasks() > 0:
+        #         QCoreApplication.processEvents()
 
-        for n in range(len(wkts)):
-            # Compute the pixel-aligned bounding box (slightly larger than 
-            # aoi). Use this instead of croptocutline in gdal.Warp in order to 
-            # keep the pixels aligned with the chosen productivity layer.
-        
-            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
-            indic_vrt = GetTempFilename('.vrt')
-            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
-            # The plus one is because band numbers start at 1, not zero
-            gdal.BuildVRT(indic_vrt,
-                          [f_loss_vrt, tc_vrt],
-                          outputBounds=bbs[n],
-                          resolution='highest',
-                          resampleAlg=gdal.GRA_NearestNeighbour,
-                          separate=True)
-
-            clipped_vrt = GetTempFilename('.tif')
-            log(u'Saving forest loss/carbon clipped file to {}'.format(clipped_vrt))
-            #clip_task = QgsProcessingAlgRunnerTask(
-            clip_task = processing.run(
-                    'trendsearth:raster_clip',
-                    {
-                        'INPUT': indic_vrt,
-                        'GEOJSON': json.dumps(json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())),
-                        'OUTPUT_BOUNDS': str(bbs[n]).strip('[]'),
-                        'OUTPUT': clipped_vrt
-                    })
-            #clip_task.run()
-                    # 'masking layers (part {} of {})'.format(n + 1, len(wkts))
-                    #
-            if not clip_task['SUCCESS']:
-                return False
-
-            ######################################################################
-            #  Calculate carbon change table
-            log('Calculating summary table...')
-            tc_summary = processing.run(
-                    'trendsearth:carbon_summary',
-                    {
-                        'INPUT': clipped_vrt,
-                        'YEAR_START': year_start,
-                        'YEAR_END': year_end
-                    })
-                    # 'calculating summary table (part {} of {})'.format(n + 1, 
-                    # len(wkts))
-            os.remove(indic_vrt)
-            os.remove(clipped_vrt)
-            os.remove(tc_vrt)
-            os.remove(f_loss_vrt)
-
-            log('FOREST_LOSS: {}'.format(tc_summary['FOREST_LOSS']))
-
-            if n == 0:
-                 forest_loss = np_array_from_str(tc_summary['FOREST_LOSS'])
-                 carbon_loss = np_array_from_str(tc_summary['CARBON_LOSS'])
-                 initial_carbon_total = tc_summary['CARBON_INITIAL']
-                 area_forest = tc_summary['AREA_FOREST']
-                 area_non_forest = tc_summary['AREA_NON_FOREST']
-                 area_water = tc_summary['AREA_WATER']
-                 area_missing = tc_summary['AREA_MISSING']
-                 area_site = tc_summary['AREA_SITE']
-            else:
-
-                 forest_loss = forest_loss + np_array_from_str(tc_summary['FOREST_LOSS'])
-                 carbon_loss = carbon_loss + np_array_from_str(tc_summary['CARBON_LOSS'])
-                 area_forest = area_forest + tc_summary['AREA_FOREST']
-                 area_non_forest = area_non_forest + tc_summary['AREA_NON_FOREST']
-                 area_water = area_water +  tc_summary['AREA_WATER']
-                 area_missing = area_missing + tc_summary['AREA_MISSING']
-                 area_site = area_site + tc_summary['AREA_SITE']
-                 initial_carbon_total = initial_carbon_total + tc_summary['CARBON_INITIAL']
-
-        log('area_missing: {}'.format(area_missing))
-        log('area_water: {}'.format(area_water))
-        log('area_non_forest: {}'.format(area_non_forest))
-        log('area_site: {}'.format(area_site))
-        log('area_forest: {}'.format(area_forest))
-        log('initial_carbon_total: {}'.format(initial_carbon_total))
-        log('forest loss: {}'.format(forest_loss))
-        log('carbon loss: {}'.format(carbon_loss))
-
-        make_summary_table(forest_loss, carbon_loss, area_missing, area_water, 
-                           area_non_forest, area_site, area_forest, 
-                           initial_carbon_total, year_start, year_end, 
-                           self.output_file_table.text())
         return True
-
-
-def make_summary_table(forest_loss, carbon_loss, area_missing, area_water, 
-                       area_non_forest, area_site, area_forest, 
-                       initial_carbon_total, year_start, year_end, out_file):
-                          
-    def tr(s):
-        return QtWidgets.QApplication.translate("LDMP", s)
-
-    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
-
-    ##########################################################################
-    # SDG table
-    ws_summary = wb['Total Carbon Summary Table']
-    ws_summary.cell(8, 3).value = area_forest
-    ws_summary.cell(9, 3).value = area_non_forest
-    ws_summary.cell(10, 3).value = area_water
-    ws_summary.cell(11, 3).value = area_missing
-    ws_summary.cell(15, 4).value = year_start
-    ws_summary.cell(16, 4).value = year_end
-    #ws_summary.cell(10, 3).value = area_site
-
-    ws_summary.cell(8, 5).value = initial_carbon_total
-    write_col_to_sheet(ws_summary, np.arange(year_start + 1, year_end + 1), 1, 24) # Years
-    write_col_to_sheet(ws_summary, forest_loss, 2, 24) # Years
-    write_col_to_sheet(ws_summary, carbon_loss, 4, 24) # Years
-
-    try:
-        ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_summary.add_image(ws_summary_logo, 'E1')
-    except ImportError:
-        # add_image will fail on computers without PIL installed (this will be 
-        # an issue on some Macs, likely others). it is only used here to add 
-        # our logo, so no big deal.
-        pass
-
-    try:
-        wb.save(out_file)
-        log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
-                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
-
-    except IOError:
-        log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

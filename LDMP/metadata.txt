@@ -35,7 +35,7 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=0.98 (not yet released)
+changelog=0.98
     - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.
     - Upgrade all dependencies of plugin to latest versions as of January 2020.
     - Fix data download tool to have default 1styles for all available 

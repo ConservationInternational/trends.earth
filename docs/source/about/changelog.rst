@@ -3,15 +3,28 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`0.67 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.67>`_
+`0.98 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
+    - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.
+    - Upgrade all dependencies of plugin to latest versions as of January 2020.
+    - Fix data download tool to have default 1styles for all available 
+      datasets.
+    - Begin moving to QgsProcessing and QgsTask frameworks - currently only the 
+      carbon tool is migrated, but all tools will be migrated prior to version 1.0./
+    - Cleanup formatting of carbon tool output spreadsheet to make meaning of 
+      each column clearer.
+    - Update all GEE scripts to use latest version of GEE API (0.1.213).
+    - Save more settings chosen in tool dialog boxes across QGIS sessions.
+    - Clean up buffering code, to use Lambert Equal Area projections centered 
+      on polygon centroids for buffering.
     - Move documentation into docs folder at root of trends.earth repository.
     - Add more details on how to documentation on how to contribute to 
       development of Trends.Earth,
     - Clean up repository by removing compiled translations files, and adding 
       these file types to .gitignore.
     - Change transifex project name to be "trendsearth".
+    - Various compatibility and minor bug fixes.
 
 `0.66 (July 20, 2019) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_
 -----------------------------------------------------------------------------------------------------------------------------

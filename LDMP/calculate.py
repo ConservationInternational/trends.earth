@@ -316,9 +316,7 @@ class AOI(object):
                                            tr("Error transforming coordinates. Check that the input geometry is valid."))
                 return None
             this_area = geom.area()
-            log('this_area: {}'.format(this_area))
             area += this_area
-        log('Calculated area with Lambert azimuthal equal-area projection as: {}'.format(area))
         return area
 
     def get_layer(self):
@@ -423,10 +421,15 @@ class AOI(object):
         aoi_geom = ogr.CreateGeometryFromWkt(self.bounding_box_geom().asWkt())
         in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
 
-        area_inter = aoi_geom.Intersection(in_geom).GetArea()
-        frac = area_inter / aoi_geom.GetArea()
-        log('Fractional area of overlap: {}'.format(frac))
+        geom_area = aoi_geom.GetArea()
+        if geom_area == 0:
+            # Handle case of a point with zero area
+            frac = aoi_geom.Within(in_geom)
+        else:
+            frac = aoi_geom.Intersection(in_geom).GetArea() / geom_area
+            log('Fractional area of overlap: {}'.format(frac))
         return frac
+
 
 class DlgCalculate(QtWidgets.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):
@@ -859,6 +862,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
 
+    @classmethod
+    def get_subclass_name(cls):
+        return cls.__name__
+
     def __init__(self, parent=None):
         super(DlgCalculateBase, self).__init__(parent)
 
@@ -884,6 +891,15 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
+        
+        # If this dialog has an output_basename widget then set it up with any 
+        # saved values in QSettings
+        if hasattr(self, 'output_basename'):
+            f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
+            if f:
+                self.output_basename.setText(f)
+                self.set_output_summary(f)
+
 
     def firstShow(self):
         self.area_tab = AreaWidget()
@@ -1031,8 +1047,52 @@ class DlgCalculateBase(QtWidgets.QDialog):
                         self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False
 
+        # If saving output (meaning there is an output_basename field), check 
+        # if this basename would lead to an overwrite:
+        if hasattr(self, 'output_basename'):
+            overwrites = []
+            for suffix in self.output_suffixes: 
+                if os.path.exists(self.output_basename.text() + suffix):
+                    overwrites.append(os.path.basename(self.output_basename.text() + suffix))
+
+            if len(overwrites) > 0:
+                resp = QtWidgets.QMessageBox.question(self,
+                        self.tr('Overwrite file?'),
+                        self.tr('Using the prefix "{}" would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?'.format(
+                            self.output_basename.text(),
+                            ", ".join(["{}"]*len(overwrites)).format(*overwrites))),
+                        QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+                if resp == QtWidgets.QMessageBox.No:
+                    return False
+
         return True
 
+    def select_output_basename(self):
+        local_name = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
+        if local_name:
+            initial_path = local_name
+        else:
+            initial_path = QSettings().value("LDMP/output_dir", None)
+
+
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                self.tr('Choose a prefix to be used when naming output files'),
+                initial_path,
+                self.tr('Base name (*)'))
+
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                QSettings().setValue("LDMP/output_basename_{}".format(self.get_subclass_name()), f)
+                self.output_basename.setText(f)
+                self.set_output_summary(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def set_output_summary(self, f):
+        out_files = [f + suffix for suffix in self.output_suffixes]
+        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
 
 class ClipWorker(AbstractWorker):
     def __init__(self, in_file, out_file, geojson, output_bounds=None):

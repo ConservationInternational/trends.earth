@@ -641,9 +641,11 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
     def __init__(self, parent=None):
         super(DlgCalculateTCSummaryTable, self).__init__(parent)
 
+        self.output_suffixes = ['.xlsx']
+
         self.setupUi(self)
 
-        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
+        self.browse_output_basename.clicked.connect(self.select_output_basename)
 
     def showEvent(self, event):
         super(DlgCalculateTCSummaryTable, self).showEvent(event)
@@ -651,32 +653,12 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         self.combo_layer_f_loss.populate()
         self.combo_layer_tc.populate()
 
-    def select_output_file_table(self):
-        filename = QSettings().value("LDMP/output_filename_{}".format(__name__), None)
-        folder = QSettings().value("LDMP/output_dir", None)
-        if filename:
-            initial_path = filename
-        else:
-            initial_path = folder
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                self.tr('Choose a filename for the summary table'),
-                initial_path,
-                self.tr('Summary table file (*.xlsx)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                QSettings().setValue("LDMP/output_filename_{}".format(__name__), f)
-                self.output_file_table.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
-        if not self.output_file_table.text():
+        if not self.output_basename.text():
             QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the summary table."))
+                                          self.tr("Choose an output base name."))
             return
 
         # Note that the super class has several tests in it - if they fail it
@@ -698,14 +680,14 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
             return
         #######################################################################
         # Check that the layers cover the full extent needed
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the forest loss layer."))
-                return
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the total carbon layer."))
-                return
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the forest loss layer."))
+            return
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the total carbon layer."))
+            return
 
         #######################################################################
         # Check that all of the productivity layers have the same resolution 
@@ -729,7 +711,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
 
         summary_task = SummaryTask(self.aoi, year_start, year_end, 
-                f_loss_vrt, tc_vrt, self.output_file_table.text())
+                f_loss_vrt, tc_vrt, self.output_basename.text() + '.xlsx')
         log("Adding task to task manager")
         QgsApplication.taskManager().addTask(summary_task)
         if summary_task.status() not in [QgsTask.Complete, QgsTask.Terminated]:

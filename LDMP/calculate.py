@@ -305,20 +305,20 @@ class AOI(object):
             geom = QgsGeometry.fromWkt(wkt)
             # Lambert azimuthal equal area centered on polygon centroid
             centroid = geom.centroid().asPoint()
-            laea_crs = QgsCoordinateReferenceSystem.fromProj('+proj=laea +lat_0={} +lon_0={} +ellps=WGS84 +datum=WGS84 +units=m no_defs'.format(centroid.y(), centroid.x()))
+            laea_crs = QgsCoordinateReferenceSystem.fromProj('+proj=laea +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
             to_laea = QgsCoordinateTransform(wgs84_crs, laea_crs, QgsProject.instance())
 
-            log('geom: {}'.format(geom.asWkt()))
             try:
                 ret = geom.transform(to_laea)
             except:
                 log('Error buffering layer while transforming to laea')
                 QtWidgets.QMessageBox.critical(None, tr("Error"),
                                            tr("Error transforming coordinates. Check that the input geometry is valid."))
-            geom.transform(to_laea)
+                return None
             this_area = geom.area()
+            log('this_area: {}'.format(this_area))
             area += this_area
-        log('Calculated area with Lambert azimuthal eaual-area projection as: {}'.format(area))
+        log('Calculated area with Lambert azimuthal equal-area projection as: {}'.format(area))
         return area
 
     def get_layer(self):
@@ -390,7 +390,7 @@ class AOI(object):
                 log('Error buffering layer while transforming to aeqd')
                 QtWidgets.QMessageBox.critical(None, tr("Error"),
                                            tr("Error transforming coordinates. Check that the input geometry is valid."))
-                return False
+                return None
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
             geom_buffered.transform(to_aeqd, QgsCoordinateTransform.TransformDirection.ReverseTransform)

@@ -652,13 +652,20 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         self.combo_layer_tc.populate()
 
     def select_output_file_table(self):
+        filename = QSettings().value("LDMP/output_filename_{}".format(__name__), None)
+        folder = QSettings().value("LDMP/output_dir", None)
+        if filename:
+            initial_path = filename
+        else:
+            initial_path = folder
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the summary table'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Summary table file (*.xlsx)'))
+                self.tr('Choose a filename for the summary table'),
+                initial_path,
+                self.tr('Summary table file (*.xlsx)'))
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
                 QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                QSettings().setValue("LDMP/output_filename_{}".format(__name__), f)
                 self.output_file_table.setText(f)
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),

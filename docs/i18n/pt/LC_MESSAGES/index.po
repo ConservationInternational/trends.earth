@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-28 12:59-0400\n"
+"POT-Creation-Date: 2020-03-16 16:41-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,35 +22,60 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/index.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:86
+msgid "About"
+msgstr "Sobre"
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:104
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:104
+msgid "Background information"
+msgstr "Informação de fundo"
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:120
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:120
+msgid "Documentation"
+msgstr "Documentação"
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:139
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:139
+msgid "Step-by-step Guides"
+msgstr "Guias passo a passo"
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:161
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:161
+msgid "Videos"
+msgstr "Vídeos"
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:2
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
-#: ../../source/index.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:15
 msgid "`English <../en/index.html>`_"
 msgstr "`English <../en/index.html>`_"
 
-#: ../../source/index.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:15
 msgid "`Español <../es/index.html>`_"
 msgstr "`Español <../es/index.html>`_"
 
-#: ../../source/index.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:15
 msgid "`Francais <../fr/index.html>`_"
 msgstr "`Francais <../fr/index.html>`_"
 
-#: ../../source/index.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:15
 msgid "`Swahili <../sw/index.html>`_"
 msgstr "`Swahili <../sw/index.html>`_"
 
-#: ../../source/index.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:15
 msgid "`Português <../pt/index.html>`_"
 msgstr "`Português <../pt/index.html>`_"
 
-#: ../../source/index.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:26
 msgid "**Monitor land change**"
 msgstr "**Monitore a mudança de terra**"
 
-#: ../../source/index.rst:28
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:28
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
 "platform from `Conservation International "
@@ -63,12 +88,12 @@ msgstr ""
 "terra usando observações da Terra em um inovador sistema baseado em desktop "
 "e em nuvem."
 
-#: ../../source/index.rst:33
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:33
 msgid "**Track achievement of the sustainable development goals**"
 msgstr ""
 "**Acompanhe o cumprimento dos objetivos de desenvolvimento sustentável**"
 
-#: ../../source/index.rst:35
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:35
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
@@ -84,7 +109,7 @@ msgstr ""
 " dados para se prepararem para seus compromissos de notificação à Convenção "
 "das Nações Unidas de Combate à Desertificação (UNCCD)."
 
-#: ../../source/index.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:42
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
 "change (including degradation and improvement), to produce maps and other "
@@ -96,7 +121,7 @@ msgstr ""
 " e outros gráficos que possam apoiar o monitoramento e relatórios, e "
 "rastrear o impacto do manejo sustentável da terra ou outros projetos."
 
-#: ../../source/index.rst:47
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:47
 msgid ""
 "Trends.Earth was produced by a partnership of Conservation International, "
 "Lund University, and the National Aeronautics and Space Administration "
@@ -106,11 +131,11 @@ msgstr ""
 "Universidade de Lund e da Administração Nacional de Aeronáutica e Espaço "
 "(NASA), com o apoio do Global Environment Facility (GEF)."
 
-#: ../../source/index.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:56
 msgid "**More information**"
 msgstr "**Mais Informações**"
 
-#: ../../source/index.rst:58
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:58
 msgid ""
 "See the `general fact sheet <_static/common/Trends.Earth_Fact_Sheet.pdf>`_ "
 "or `technical fact sheet "
@@ -124,7 +149,7 @@ msgstr ""
 " em contato com a equipe Trends.Earth <mailto:trends.earth@conservation.org>"
 " `_."
 
-#: ../../source/index.rst:63
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:63
 msgid ""
 "`Join the Trends.Earth discussion group "
 "<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ to "
@@ -132,8 +157,13 @@ msgid ""
 "discuss any questions you might have about |trends.earth|, or about "
 "monitoring land change."
 msgstr ""
+"`Junte-se ao grupo de discussão Trends.Earth "
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join> `_ para "
+"conectar-se à comunidade de | trends.earth | Comercial. Este é um ótimo "
+"lugar para discutir qualquer dúvida que você possa ter sobre | trends.earth "
+"| ou sobre o monitoramento de mudanças de terra."
 
-#: ../../source/index.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:68
 msgid ""
 "The documentation and training materials, including a number of "
 "demonstration videos, are available on this website:"
@@ -141,50 +171,30 @@ msgstr ""
 "Os materiais de documentação e treinamento, incluindo vários vídeos de "
 "demonstração, estão disponíveis neste site:"
 
-#: ../../source/index.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:71
 msgid ":ref:`about-docs`"
 msgstr ":ref:`about-docs`"
 
-#: ../../source/index.rst:72
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:72
 msgid ":ref:`background-docs`"
 msgstr ":ref:`background-docs`"
 
-#: ../../source/index.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:73
 msgid ":ref:`user-docs`"
 msgstr ":ref:`user-docs`"
 
-#: ../../source/index.rst:74
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:74
 msgid ":ref:`training`"
 msgstr ":ref:`training`"
 
-#: ../../source/index.rst:75
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:75
 msgid ":ref:`videos`"
 msgstr ":ref:`videos`"
 
-#: ../../source/index.rst:77
+#: D:\Code\LandDegradation\trends.earth\docs\source\index.rst:77
 msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr ""
 "`Faça o download desta documentação como um PDF para uso off-line <pdfs / "
 "Trends.Earth.pdf>`_"
-
-#: ../../source/index.rst:86
-msgid "About"
-msgstr "Sobre"
-
-#: ../../source/index.rst:104
-msgid "Background information"
-msgstr "Informação de fundo"
-
-#: ../../source/index.rst:120
-msgid "Documentation"
-msgstr "Documentação"
-
-#: ../../source/index.rst:139
-msgid "Step-by-step Guides"
-msgstr "Guias passo a passo"
-
-#: ../../source/index.rst:161
-msgid "Videos"
-msgstr "Vídeos"

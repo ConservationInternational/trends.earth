@@ -5,15 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-03-16 16:41-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,26 +22,26 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/background/understanding_indicators11.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:4
 msgid "SDG Indicator 11.3.1"
-msgstr "Indicador SDG 11.3.1"
+msgstr "Indicador ODS 11.3.1"
 
-#: ../../source/background/understanding_indicators11.rst:7
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:7
 msgid "Background"
-msgstr "fundo"
+msgstr "Embasamento"
 
-#: ../../source/background/understanding_indicators11.rst:8
-#: ../../source/background/understanding_indicators11.rst:21
-#: ../../source/background/understanding_indicators11.rst:168
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:168
 msgid ""
 "Source: UN-Habitat (2019) SDG Indicator 11.3.1 Training Module: Land Use "
 "Efficiency. United Nations Human Settlement Programme (UN-Habitat), Nairobi."
 msgstr ""
-"Fonte: UN-Habitat (2019) Indicador SDG 11.3.1 Módulo de Treinamento: "
-"Eficiência do Uso da Terra. Programa das Nações Unidas para o Assentamento "
-"Humano (UN-Habitat), Nairobi."
+"Fonte: UN-Habitat (2019) Indicador ODS 11.3.1 Módulo de Treinamento: "
+"Eficiência do Uso da Terra. Programa das Nações Unidas para os Assentamentos"
+" Humanos (UN-Habitat), Nairobi."
 
-#: ../../source/background/understanding_indicators11.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:10
 msgid ""
 "Human settlements, in all their diverse forms, appropriate land in varied "
 "ways. Just like living organisms, urban settlements (cities) evolve, "
@@ -63,7 +64,7 @@ msgstr ""
 "sociais predominantes, presença de políticas facilitadoras, entre outras "
 "coisas."
 
-#: ../../source/background/understanding_indicators11.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:12
 msgid ""
 "A country that maximizes the many benefits associated with urbanization is "
 "one that is able to understand, measure and predict the growth trends of its"
@@ -82,22 +83,21 @@ msgid ""
 msgstr ""
 "Um país que maximiza os muitos benefícios associados à urbanização é aquele "
 "que é capaz de entender, medir e prever as tendências de crescimento de suas"
-" áreas urbanas; e, por sua vez, colocar em prática as ações / intervenções "
+" áreas urbanas; e, por sua vez, colocar em prática as ações/intervenções "
 "necessárias para explorar os benefícios desse crescimento, minimizando os "
 "desafios igualmente diversos associados à urbanização não planejada. O "
-"planejamento pró-ativo - que é um pré-requisito importante para a "
+"planejamento urbano pró-ativo - que é um pré-requisito importante para a "
 "urbanização sustentável - requer que as autoridades municipais e outros "
-"atores relevantes prevejam a direção do crescimento de uma cidade e / ou "
-"modelem esse crescimento, fornecendo as instalações, serviços e políticas e "
-"aspectos legais necessários. estruturas antes do desenvolvimento. Isso "
-"resulta em crescimento planejado e eqüitativo, em que a maioria dos "
-"moradores da cidade tem acesso aos serviços básicos, oportunidades "
-"econômicas e sociais e onde a sustentabilidade ambiental prevalece. No "
-"centro de tudo isso está a necessidade de geração e disseminação de dados "
-"atualizados e precisos sobre tendências de crescimento em cidades e "
-"assentamentos urbanos."
+"atores relevantes prevejam a direção do crescimento de uma cidade e/ou "
+"modelem esse crescimento, fornecendo as instalações, serviços, políticas e "
+"aspectos legais necessários antecipadamente ao desenvolvimento. Isso resulta"
+" em crescimento planejado e eqüitativo, em que a maioria dos moradores da "
+"cidade tem acesso aos serviços básicos, oportunidades econômicas e sociais e"
+" onde a sustentabilidade ambiental prevalece. No centro de tudo isso está a "
+"necessidade de geração e disseminação de dados atualizados e precisos sobre "
+"tendências de crescimento em cidades e assentamentos urbanos."
 
-#: ../../source/background/understanding_indicators11.rst:14
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:14
 msgid ""
 "**Target 11.3 aims to enhance inclusive and sustainable urbanization and "
 "capacity for participatory, integrated and sustainable human settlement "
@@ -116,25 +116,25 @@ msgid ""
 "drainage); increased cost of infrastructure per capita; reduction in "
 "economies of agglomeration; and decreased urban productivity."
 msgstr ""
-"** A meta 11.3 visa melhorar a urbanização inclusiva e sustentável e a "
+"**A meta 11.3 visa melhorar a urbanização inclusiva e sustentável e a "
 "capacidade de planejamento e gestão de assentamentos humanos participativos,"
-" integrados e sustentáveis em todos os países até 2030 **. Para monitorar o "
+" integrados e sustentáveis em todos os países até 2030**. Para monitorar o "
 "progresso rumo à consecução da meta 11.3, a ONU estabeleceu o indicador "
-"11.3.1, que mede a eficiência com que as cidades utilizam a terra, que é "
-"medida como uma relação entre a taxa em que as cidades consomem terras de "
-"acordo com a taxa de crescimento de suas populações. ** Evidências empíricas"
-" mostram que cidades que são compactas usam terras de forma mais eficiente e"
-" estão em melhor posição para fornecer bens públicos e serviços básicos a um"
-" custo menor **. Essas cidades podem consumir menos energia, gerenciar "
-"melhor os resíduos e têm maior probabilidade de maximizar os benefícios "
-"associados à economia da aglomeração. Por outro lado, cidades em expansão "
-"(cidades não-compactas) experimentam maior demanda por mobilidade; aumento "
-"do consumo de energia; degradação ambiental; aumento do custo de prestação "
-"de serviços básicos per capita (por exemplo, água, saneamento, drenagem); "
-"aumento do custo da infraestrutura per capita; redução nas economias de "
-"aglomeração; e diminuição da produtividade urbana."
+"11.3.1, que mede a eficiência com que as cidades utilizam a terra, medida "
+"como uma relação entre a taxa em que as cidades consomem terras sobre a taxa"
+" de crescimento de suas populações. **Evidências empíricas mostram que "
+"cidades que são compactas usam terras de forma mais eficiente e estão em "
+"melhor posição para fornecer bens públicos e serviços básicos a um custo "
+"menor**. Essas cidades podem consumir menos energia, gerenciar melhor os "
+"resíduos e têm maior probabilidade de maximizar os benefícios associados à "
+"economia da aglomeração. Por outro lado, cidades em expansão (cidades não-"
+"compactas) experimentam maior demanda por mobilidade; aumento do consumo de "
+"energia; degradação ambiental; aumento do custo de prestação de serviços "
+"básicos per capita (por exemplo, água, saneamento, drenagem); aumento do "
+"custo da infraestrutura per capita; redução nas economias de aglomeração; e "
+"diminuição da produtividade urbana."
 
-#: ../../source/background/understanding_indicators11.rst:16
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:16
 msgid ""
 "By measuring the rate at which cities consume land against their rate of "
 "population growth, city authorities and decision makers can project demand "
@@ -157,11 +157,11 @@ msgstr ""
 " de políticas e diretrizes informadas, mas também está no centro da promoção"
 " da urbanização sustentável."
 
-#: ../../source/background/understanding_indicators11.rst:19
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:19
 msgid "Rationale for Monitoring"
 msgstr "Justificativa para o monitoramento"
 
-#: ../../source/background/understanding_indicators11.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:23
 msgid ""
 "Understanding how a city/urban area expands spatially against its rate of "
 "population change is critical to determining, among other things, the nature"
@@ -170,15 +170,15 @@ msgid ""
 "significant implications on the demand for and cost of providing services, "
 "as well as on environmental preservation and conservation."
 msgstr ""
-"Compreender como uma cidade / área urbana se expande espacialmente em "
-"relação a sua taxa de mudança populacional é fundamental para determinar, "
-"entre outras coisas, a natureza do crescimento dos assentamentos humanos "
-"(formal versus informal) e a velocidade de conversão de terras periféricas "
-"para funções urbanizadas. Esses dois elementos têm implicações "
-"significativas na demanda e no custo da prestação de serviços, bem como na "
-"preservação e conservação ambiental."
+"Compreender como uma cidade/área urbana se expande espacialmente em relação "
+"a sua taxa de mudança populacional é fundamental para determinar, entre "
+"outras coisas, a natureza do crescimento dos assentamentos humanos (formal "
+"versus informal) e a velocidade de conversão de terras periféricas para "
+"funções urbanas. Esses dois elementos têm implicações significativas na "
+"demanda e no custo da prestação de serviços, bem como na preservação e "
+"conservação ambiental."
 
-#: ../../source/background/understanding_indicators11.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:25
 msgid ""
 "To attain sustainable development, countries need to understand how fast "
 "their urban areas are growing, and in which direction. This will not only "
@@ -201,7 +201,7 @@ msgstr ""
 "populacional da migração e do aumento natural, preservando as áreas "
 "ambientalmente sensíveis do desenvolvimento."
 
-#: ../../source/background/understanding_indicators11.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:27
 msgid ""
 "The purpose of monitoring progress against the SDG indicator 11.3.1 is "
 "therefore to provide necessary and timely information to decision makers and"
@@ -213,15 +213,15 @@ msgstr ""
 "A finalidade de monitorar o progresso em relação ao indicador de ODS 11.3.1 "
 "é, portanto, fornecer informações necessárias e oportunas para os tomadores "
 "de decisão e partes interessadas, a fim de acelerar o progresso em direção a"
-" uma urbanização inclusiva e sustentável. ** Cumprir a meta 11.3 até 2030 "
+" uma urbanização inclusiva e sustentável. **Cumprir a meta 11.3 até 2030 "
 "exige, no mínimo, desacelerar a expansão urbana e, se possível, assegurar "
-"que a compactividade das cidades seja mantida ou aumentada com o tempo **."
+"que a compactação das cidades seja mantida ou aumentada com o tempo**."
 
-#: ../../source/background/understanding_indicators11.rst:30
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:30
 msgid "Indicator and data needs"
 msgstr "Indicador e necessidades de dados"
 
-#: ../../source/background/understanding_indicators11.rst:32
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:32
 msgid ""
 "Indicator 11.3.1 is defined as the **ratio of land consumption rate to "
 "population growth rate** (Figure 1). In order to compute this indicator, "
@@ -229,13 +229,13 @@ msgid ""
 "time are needed, and even more if we are interested in assessing the change "
 "in the indicator over time."
 msgstr ""
-"O indicador 11.3.1 é definido como a razão ** entre a taxa de consumo da "
-"terra e a taxa de crescimento da população ** (Figura 1). Para calcular este"
-" indicador, são necessárias informações sobre a extensão urbana e população "
+"O indicador 11.3.1 é definido como a razão **entre a taxa de consumo da "
+"terra e a taxa de crescimento da população** (Figura 1). Para calcular este "
+"indicador, são necessárias informações sobre a extensão urbana e população "
 "em pelo menos dois momentos no tempo, e ainda mais se estivermos "
 "interessados em avaliar a mudança no indicador ao longo do tempo."
 
-#: ../../source/background/understanding_indicators11.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:37
 msgid ""
 "`Figure 1: Sustainable development goal (SDG) indicator 11.3.1 is computed "
 "as the ratio of the annual land consumption rate (ALCR) to the annual "
@@ -248,7 +248,7 @@ msgstr ""
 " 2. Ln: logaritmo natural, Urb: área urbana, pop: população, t: tempo em "
 "anos."
 
-#: ../../source/background/understanding_indicators11.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:39
 msgid ""
 "Assessing changes in SDG 11.3.1. over time requires a significant amount of "
 "information, since it requires knowing urban extent and population count for"
@@ -265,24 +265,24 @@ msgid ""
 " computes SDG 11.3.1 both in the form of maps and tables for ease of "
 "interpretation and reporting."
 msgstr ""
-"Avaliando mudanças no SDG 11.3.1. ao longo do tempo requer uma quantidade "
-"significativa de informação, uma vez que requer conhecer a extensão urbana e"
-" a contagem populacional por vários anos. Os dados de observação da Terra "
-"nos permitem estimar a extensão da área construída dentro de uma cidade e, "
-"em seguida, usar algoritmos de análise espacial estimam a extensão dos "
-"diferentes elementos dentro do ambiente urbano (por exemplo, edifícios, "
-"espaços abertos, corpos de água etc.). Em | trends.earth | Adotamos o fluxo "
-"de trabalho abaixo (Figura 2) para facilitar o processo. Fazendo uso dos "
+"Avaliando mudanças no ODS 11.3.1. ao longo do tempo requer uma quantidade "
+"significativa de informação, uma vez que requer o acompanhamento da extensão"
+" urbana e a contagem populacional por vários anos. Os dados de observação da"
+" Terra nos permitem estimar a extensão da área construída dentro de uma "
+"cidade e, em seguida, usar algoritmos de análise espacial para estimar a "
+"extensão dos diferentes elementos dentro do ambiente urbano (por exemplo, "
+"edifícios, espaços abertos, corpos de água etc.). Em |trends.earth| adotamos"
+" a metodologia abaixo (Figura 2) para facilitar o processo. Fazendo uso dos "
 "supercomputadores do Google Earth Engine, do arquivo completo do Landsat "
 "entre 1997 e 2019 e do conjunto de dados do GMIS (Brown de Colstoun et al "
-"2017), | Trends.Earth | computou uma série de índices de superfície "
-"impermeáveis globalmente disponíveis em resolução de 30m para informar sobre"
-" a extensão urbana para os anos 2000, 2005, 2010 e 2015. Combinada com dados"
-" de entrada e população do usuário, a ferramenta calcula SDG 11.3.1 tanto na"
-" forma de mapas e tabelas para facilitar a interpretação e a geração de "
-"relatórios."
+"2017), |Trends.Earth| computou uma série de índices de superfície "
+"impermeáveis globalmente disponíveis em resolução de 30m para fornecer dados"
+" sobre a extensão urbana para os anos 2000, 2005, 2010 e 2015. Combinada com"
+" dados fornecidos pelo usuário e dados sobre população, a ferramenta calcula"
+" ODS 11.3.1 na forma de mapas e tabelas para facilitar a interpretação e a "
+"geração de relatórios."
 
-#: ../../source/background/understanding_indicators11.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:44
 msgid ""
 "`Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m "
 "impervious surface indices have been pre-computed and are available for the "
@@ -291,35 +291,35 @@ msgid ""
 "mapper>`_ `where the user defines built-up extent by simply assigning a "
 "series of thresholds.`"
 msgstr ""
-"`Figura 2: Fluxo de trabalho de Trends.Earth para computação SDG 11.3.1. Os "
-"índices globais de superfície impermeável de 30m foram pré-calculados e "
-"estão disponíveis para os usuários explorarem no `` Trends.Earth Urban "
-"Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-"
-"urban-mapper> `_`, onde o usuário define a extensão acumulada simplesmente "
-"atribuindo uma série de limites."
+"`Figura 2: Metodologia adotada pelo Trends.Earth para computação ODS 11.3.1."
+" Os índices globais de superfície impermeável de 30m foram pré-calculados e "
+"estão disponíveis para os usuários explorarem no `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ onde o usuário define a extensão acumulada simplesmente atribuindo"
+" uma série de limites.`"
 
-#: ../../source/background/understanding_indicators11.rst:47
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:47
 msgid "Land consumption"
-msgstr "Consumo de terra"
+msgstr "Uso da terra"
 
-#: ../../source/background/understanding_indicators11.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:49
 msgid ""
 "To estimate land consumption in |trends.earth|, a pre-computed time series "
 "of impervious surface indicators are available globally at 30 m resolution. "
 "In the section below, you will learn how the indicators were computed, and "
 "some recommendation how to use them to compute the indicator for SDG 11.3.1."
 msgstr ""
-"Para estimar o consumo de terrenos em | trends.earth |, uma série temporal "
-"pré-computada de indicadores de superfície impermeável está disponível "
+"Para estimar o uso de terrenos em |trends.earth|, uma série temporal pré-"
+"computada de indicadores de superfície impermeável está disponível "
 "globalmente a uma resolução de 30 m. Na seção abaixo, você aprenderá como os"
 " indicadores foram computados e algumas recomendações sobre como usá-los "
-"para calcular o indicador para o SDG 11.3.1."
+"para calcular o indicador para o ODS 11.3.1."
 
-#: ../../source/background/understanding_indicators11.rst:52
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:52
 msgid "ISI in Trends.Earth"
-msgstr "ISI em Trends.Earth"
+msgstr "Índice de Superfície Impermeável (ISI) em Trends.Earth"
 
-#: ../../source/background/understanding_indicators11.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:54
 msgid ""
 "Given the lack of availability of a time series of impervious surface "
 "dataset at fine spatial resolution to capture urban changes globally, we "
@@ -339,36 +339,36 @@ msgid ""
 msgstr ""
 "Dada a falta de disponibilidade de uma série temporal de conjuntos de dados "
 "de superfície impermeáveis em resolução espacial fina para capturar mudanças"
-" urbanas globalmente, calculamos um utilizando o melhor conjunto de dados de"
-" superfície impermeável disponível, a Superfície Impermeável Global do Homem"
-" para o ano de 2010 (GMIS, Brown de Colstoun et al 2017) para treinar uma "
-"série de modelos florestais aleatórios globais (Breiman 2001) no Google "
-"Earth Engine (Gorelick et al 2017) fazendo uso de 2,3 milhões de imagens "
-"Landsat (1,15 Peta-bytes de dados) entre os anos de 1997 e 2019. Para "
-"garantir que os modelos fossem treinados apenas com dados de alta qualidade,"
-" combinamos GMIS com dados de cobertura terrestre da ESA CCI para o ano de "
-"2010, conforme indicado na Figura 3. Esse conjunto de dados nos permitiu "
-"treinar modelos florestais aleatórios, que então foram aplicados a um "
-"conjunto de 24 pilhas de bandas derivadas de dados de refletância de "
+" urbanas globalmente, calculamos ISI utilizando o melhor conjunto de dados "
+"de superfície impermeável disponível, a Superfície Impermeável Feita pelo "
+"Homem em escala Global para o ano de 2010 (GMIS, Brown de Colstoun et al "
+"2017) para treinar uma série de modelos Random Forest a nivel global "
+"(Breiman 2001) no Google Earth Engine (Gorelick et al 2017) fazendo uso de "
+"2,3 milhões de imagens Landsat (1,15 Peta-bytes de dados) entre os anos de "
+"1997 e 2019. Para garantir que os modelos fossem treinados apenas com dados "
+"de alta qualidade, combinamos GMIS com dados de cobertura da terra da ESA "
+"CCI para o ano de 2010, conforme indicado na Figura 3. Esse conjunto de "
+"dados nos permitiu treinar modelos florestais aleatórios, que então foram "
+"aplicados a um conjunto de 24 bandas derivadas de dados de refletância de "
 "superfície Landsat para gerar indicadores de superfície impermeáveis para os"
 " anos 1998, 2000, 2005, 2010, 2015 e 2018. Uma série de 846 modelos foram "
-"executados, um por eco região definida pelo RESOLVE conjunto de dados "
+"executados, um por eco-região definida pelo  conjunto de dados RESOLVE "
 "(Dinerstein et al 2017)."
 
-#: ../../source/background/understanding_indicators11.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:59
 msgid ""
 "`Figure 3: A series of 846 random forest models were run. Each model was "
 "trained using the GMIS and ESA CCI datasets, and then applied to a stack of "
 "24 bands derived from Landsat imagery to predict impervious surface area for"
 " the years 1998, 2000, 2005, 2010, 2015, and 2018.`"
 msgstr ""
-"Figura 3: Uma série de 846 modelos florestais aleatórios foi executada. Cada"
-" modelo foi treinado usando os conjuntos de dados GMIS e ESA CCI e, em "
-"seguida, aplicado a uma pilha de 24 bandas derivadas de imagens Landsat para"
-" prever área de superfície impermeável para os anos de 1998, 2000, 2005, "
+"Figura 3: Uma série de 846 modelos Random Forest foi executada. Cada modelo "
+"foi treinado usando os conjuntos de dados GMIS e ESA CCI e, em seguida, "
+"aplicado a um arquivo contendo 24 bandas derivadas de imagens Landsat para "
+"prever área de superfície impermeável para os anos de 1998, 2000, 2005, "
 "2010, 2015 e 2018."
 
-#: ../../source/background/understanding_indicators11.rst:61
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:61
 msgid ""
 "Since image availability is limited, in some areas, we included for each "
 "year images from the previous and posterior years (e.g. stack for 2005 "
@@ -381,25 +381,25 @@ msgid ""
 "2010, 2015, and 2018, and were the input to the random forest models."
 msgstr ""
 "Como a disponibilidade de imagens é limitada, em algumas áreas, incluímos "
-"para cada ano imagens dos anos anteriores e posteriores (por exemplo, pilha "
+"para cada ano imagens do ano anterior e posterior (por exemplo, o arquivo "
 "para 2005 inclui imagens de 2004, 2005 e 2006). Cada uma das 24 bandas "
 "continha as 7 bandas de reflectância (mediana para o período de 3 anos), 15 "
 "índices de diferença normalizados representando todas as combinações "
 "possíveis das 7 bandas originais e 2 bandas específicas de NDVI "
 "representando o máximo e o desvio padrão de NDVI para cada pixel em "
-"particular durante o período de 3 anos. Seis dessas pilhas foram geradas "
-"para 1998, 2000, 2005, 2010, 2015 e 2018, e foram a entrada para os modelos "
-"florestais aleatórios."
+"particular durante o período de 3 anos. Seis desses arquivos foram gerados "
+"para 1998, 2000, 2005, 2010, 2015 e 2018, e foram usados com entrada para os"
+" modelos Random Forest."
 
-#: ../../source/background/understanding_indicators11.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:66
 msgid ""
 "`Figure 4: Description of the bands in the 24-band stack used in the random "
 "forest models.`"
 msgstr ""
 "`Figura 4: Descrição das bandas na pilha de 24 bandas usada nos modelos "
-"florestais aleatórios."
+"florestais aleatórios.`"
 
-#: ../../source/background/understanding_indicators11.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:68
 msgid ""
 "It is hard to assess the accuracy of such dataset, given the lack of "
 "reference or comparable datasets globally. We compared the results of the "
@@ -412,7 +412,7 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ for their area of interest."
 msgstr ""
-"É difícil avaliar a precisão desse conjunto de dados, dada a falta de "
+"É difícil avaliar a acurácia desse conjunto de dados, dada a falta de "
 "conjuntos de dados de referência ou comparáveis globalmente. Comparamos os "
 "resultados do conjunto de dados do ISI de 2010 com o conjunto de dados "
 "original do GMIS para um subconjunto de cidades globalmente para avaliar sua"
@@ -422,13 +422,13 @@ msgstr ""
 "aceitável. Nós pedimos que os usuários, no entanto, avaliem os resultados "
 "inspecionando visualmente o `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper> `_ para sua área de interesse."
+"mapper>`_ para sua área de interesse."
 
-#: ../../source/background/understanding_indicators11.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:71
 msgid "From ISI to built-up"
-msgstr "Do ISI ao construído"
+msgstr "Do ISI a área construída"
 
-#: ../../source/background/understanding_indicators11.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:73
 msgid ""
 "In order to estimate the area occupied by impervious surfaces in a city, we "
 "need to convert the continuous impervious surface index (ISI) into a binary "
@@ -442,9 +442,9 @@ msgstr ""
 " mapa binário que separa áreas construídas daquelas não construídas. Este "
 "processo é feito definindo uma série de valores de limiar no `Trends.Earth "
 "Urban Mapper <https://geflanddegradation.users.earthengine.app/view"
-"/trendsearth-urban-mapper> `_, que varia por região."
+"/trendsearth-urban-mapper>`_, que varia por região."
 
-#: ../../source/background/understanding_indicators11.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:78
 msgid ""
 "`Figure 5: In` `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -454,22 +454,22 @@ msgid ""
 msgstr ""
 "`Figure 5: In` `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper> `_` o usuário tem controle sobre como a conversão do Índice de "
-"Superfície Impervious contínuo (ISI, à direita) para o mapa da área "
+"mapper>`_` o usuário tem controle sobre como a conversão do Índice de "
+"Superfície Impermeável contínuo (ISI, à direita) para o mapa da área "
 "construída binária (construído à esquerda) ocorrerá para sua cidade de "
 "interesse."
 
-#: ../../source/background/understanding_indicators11.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:80
 msgid ""
 "In |trends.earth| the user needs to define 3 threshold values which will be "
 "used by the tool to estimate the built-up area for the area of interest. "
 "Those thresholds are:"
 msgstr ""
-"Em | trends.earth | o usuário precisa definir 3 valores limiares que serão "
+"Em |trends.earth| o usuário precisa definir 3 valores limiares que serão "
 "usados pela ferramenta para estimar a área construída para a área de "
 "interesse. Esses limites são:"
 
-#: ../../source/background/understanding_indicators11.rst:82
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:82
 msgid ""
 "**Impervious Surface Index (ISI, 0-100)**: This is an index which varies "
 "between 0 and 100, with higher values being indicative of a higher "
@@ -488,7 +488,7 @@ msgstr ""
 "alto fará com que a avaliação se concentre nos centros urbanos de alta "
 "densidade."
 
-#: ../../source/background/understanding_indicators11.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:83
 msgid ""
 "**Night Time Lights Index (NTL, 0-100)**: The impervious surface index can, "
 "in some cases, present high values for areas covered with dry bare soil or "
@@ -504,23 +504,23 @@ msgid ""
 " peripheries of the cities. Setting this value higher will make the "
 "assessment to focus on the high density city centers."
 msgstr ""
-"** Índice de Luzes Noturnas (NTL, 0-100) **: O índice de superfície "
-"impermeável pode, em alguns casos, apresentar valores altos para áreas "
-"cobertas de solo ou rochas secas nuas, uma vez que esses tipos de "
+"**Índice de Luzes Noturnas (NTL, 0-100)**: O índice de superfície "
+"impermeável (ISI) pode, em alguns casos, apresentar valores altos para áreas"
+" cobertas de solo e/ou rochas expostas, uma vez que esses tipos de "
 "superfícies têm propriedades espectrais semelhantes às de superfícies "
 "impermeáveis feitas pelo homem. Para filtrar essas áreas, usamos luzes "
-"noturnas, removendo áreas com altas luzes ISI e baixas noturnas presentes "
-"fora dos limites da cidade. A falta de uma série temporal de luzes noturnas "
-"consistentemente calibradas para o período de tempo considerado (2000-2015) "
-"significa que não podemos mascarar o ano com o ano correspondente, por isso "
-"usamos VIIRS Nighttime Day / Night Composites Version 1 para o ano de 2015 "
-"(NOA, 2019). Definir o valor do limite de NTL como inferior significará que "
-"o conjunto de dados da sua área construída final incluirá áreas com baixa "
-"densidade de luz, geralmente encontradas nas periferias das cidades. Definir"
-" este valor mais alto fará com que a avaliação se concentre nos centros "
-"urbanos de alta densidade."
+"noturnas, removendo áreas com alto valor de ISI e baixas luzes noturnas "
+"presentes fora dos limites da cidade. A falta de uma série temporal de luzes"
+" noturnas consistentemente calibradas para o período de tempo considerado "
+"(2000-2015) significa que não podemos mascarar um dado ano com o Índice de "
+"Luzes Noturnas correspondente ao mesmo ano, por isso usamos VIIRS Nighttime "
+"Day/Night Composites Version 1 para o ano de 2015 (NOA, 2019). Definir um "
+"valo limite baixo de NTL significará que o conjunto de dados da sua área "
+"construída final incluirá áreas com baixa densidade de luz, geralmente "
+"encontradas nas periferias das cidades. Definir este valor mais alto fará "
+"com que a avaliação se concentre nos centros urbanos de alta densidade."
 
-#: ../../source/background/understanding_indicators11.rst:84
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:84
 msgid ""
 "**Water Frequency Index (WFI, 0-100)**: Water presence is a very dynamic "
 "feature of coastal or riverine environment, in some cases water will "
@@ -535,21 +535,21 @@ msgid ""
 "bodies to areas with a high frequency of water occurrence (i.e. permanent "
 "rivers and lakes)."
 msgstr ""
-"** Índice de Freqüência da Água (WFI, 0-100) **: A presença de água é uma "
+"**Índice de Freqüência da Água (WFI, 0-100)**: A presença de água é uma "
 "característica muito dinâmica do ambiente costeiro ou fluvial, em alguns "
 "casos a água inundará áreas terrestres e em outros, humanos invadirão corpos"
-" d&#39;água para ocupar espaço. Para capturar algumas dessas dinâmicas, "
+" d'água para ocupar espaço. Para capturar algumas dessas dinâmicas, "
 "integramos na ferramenta um conjunto de dados de frequência de água (Pekel "
 "et al 2016). Ao ajustar o limiar de frequência da água, o usuário pode optar"
-" por destacar essas áreas dinâmicas da água da terra. Definir o valor limite"
-" da frequência da água como inferior significa que o conjunto de dados da "
-"sua área construída final será considerado como coberto por áreas de água "
-"com menores frequências de água ao longo da série temporal, como rios ou "
-"lagos intermitentes. Ajustar este valor mais alto restringirá os corpos "
-"d&#39;água a áreas com alta frequência de ocorrência de água (ou seja, rios "
-"e lagos permanentes)."
+" por destacar essas áreas dinâmicas da água da terra. Definir um valor "
+"limite baixo para a frequência da água significa que o conjunto de dados da "
+"sua área construída final será considerado como coberto por áreas com menor "
+"frequência de água ao longo da série temporal, como rios ou lagos "
+"intermitentes. Ajustar este valor mais alto restringirá os corpos d'água a "
+"áreas com alta frequência de ocorrência de água (ou seja, rios e lagos "
+"permanentes)."
 
-#: ../../source/background/understanding_indicators11.rst:89
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:89
 msgid ""
 "`Figure 6: In` `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -557,17 +557,17 @@ msgid ""
 " Impervious Surface Index (ISI, right) to the binary built up area map "
 "(built, left).`"
 msgstr ""
-"`Figure 6: In` `Trends.Earth Urban Mapper "
+"`Figura 6: No` `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper> `_` o usuário define uma série de limites para ir do Índice de "
+"mapper>`_` o usuário define uma série de limites para ir do Índice de "
 "Superfície Impermeável contínuo (ISI, à direita) para o mapa da área "
 "construída binária (construído à esquerda)."
 
-#: ../../source/background/understanding_indicators11.rst:92
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:92
 msgid "Consistency test"
 msgstr "Teste de consistência"
 
-#: ../../source/background/understanding_indicators11.rst:94
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:94
 msgid ""
 "When classifying remote sensing data into derived products, such as the "
 "impervious surface index computed by |trends.earth|, omission and commission"
@@ -577,16 +577,16 @@ msgid ""
 " this analysis, to add pre and post data points to filter possible errors in"
 " the classifications of the 2000 through 2015 series."
 msgstr ""
-"Ao classificar dados de sensoriamento remoto em produtos derivados, como o "
-"índice de superfície impermeável calculado por | trends.earth |, ocorrem "
-"erros de omissão e comissão. Uma das vantagens da análise de séries "
-"temporais é que as imagens de diferentes anos podem ser usadas para "
-"identificar inconsistências na análise. Por essa razão, as camadas ISI de "
-"1998 e 2018 foram computadas nesta análise, para adicionar pontos de dados "
-"pré e pós para filtrar possíveis erros nas classificações das séries de 2000"
-" a 2015."
+"Ao usar métodos de classificação em dados de sensoriamento remoto para gerar"
+" produtos derivados, como o índice de superfície impermeável (ISI) calculado"
+" por |trends.earth|, ocorrem erros de omissão e comissão. Uma das vantagens "
+"da análise de séries temporais é que as imagens de diferentes anos podem ser"
+" usadas para identificar inconsistências na análise. Por essa razão, as "
+"camadas ISI de 1998 e 2018 também foram computadas nesta análise, "
+"adicionando pontos de dados pré e pós para filtrar possíveis erros nas "
+"classificações das séries de 2000 a 2015."
 
-#: ../../source/background/understanding_indicators11.rst:96
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:96
 msgid ""
 "The thresholds defined in the previous section (ISI, NTL, and WFR) are "
 "applied to each of the individual layers of 1998, 2000, 2005, 2010, 2015, "
@@ -600,10 +600,10 @@ msgstr ""
 " uma série de mapas binários. Os seis mapas binários são posteriormente "
 "combinados em um conjunto de dados de séries temporais que contém "
 "informações sobre a natureza de cada pixel para cada ano como "
-"&quot;construído&quot; ou &quot;não construído&quot;. Uma regra principal é "
-"aplicada posteriormente a essa série:"
+"\"construído\"; ou \"não-construído\". Uma regra principal é aplicada "
+"posteriormente a essa série:"
 
-#: ../../source/background/understanding_indicators11.rst:98
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:98
 msgid ""
 "A pixel is considered built only if 50% or more of data points after the "
 "first built detection identify the same area as built. For such pixels, the "
@@ -628,11 +628,11 @@ msgstr ""
 "sentimos à vontade para fazer essa suposição. Inspeção visual dos resultados"
 " suportam a abordagem."
 
-#: ../../source/background/understanding_indicators11.rst:101
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:101
 msgid "Global testing"
-msgstr "Teste global"
+msgstr "Teste em nível global"
 
-#: ../../source/background/understanding_indicators11.rst:103
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:103
 msgid ""
 "|trends.earth| provides through the `Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -652,17 +652,17 @@ msgid ""
 " training data was available), hyper arid areas, and areas with low image "
 "availability."
 msgstr ""
-"| trends.earth | fornece através do `Urban Mapper "
+"|trends.earth| fornece através do `Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper> `_ e o plug-in QGIS acessam a série temporal global de 30m de "
-"índices de superfície impermeáveis. É importante, no entanto, entender que o"
-" conjunto de dados tem suas limitações, e a entrada e o controle do usuário "
+"mapper>`_ e do plugin QGIS acesso a série temporal global de 30m de índices "
+"de superfície impermeáveis. É importante, no entanto, entender que o "
+"conjunto de dados tem suas limitações, e a entrada e o controle do usuário "
 "são necessários para avaliar as mudanças no indicador SDG 11.3.1 com "
 "precisão. Para testar o desempenho do indicador, realizamos a análise em 224"
 " cidades em todo o mundo (200 capitais nacionais + 24 grandes cidades nos "
 "Estados Unidos da América, Figura 7). Usando o `Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper> `_ e comparando visualmente o produto a imagens de alta resolução "
+"mapper>`_ e comparando visualmente o produto a imagens de alta resolução "
 "espacial, conseguimos definir os limites apropriados para cada cidade (ISI, "
 "NTL e WFI) e também avaliar a qualidade do produto em uma escala de 0 a 5. "
 "os resultados mostram que, para 83% das cidades avaliadas, os dados do "
@@ -671,77 +671,77 @@ msgstr ""
 "dados de treinamento disponíveis), áreas hiperáridas e áreas com baixa "
 "disponibilidade de imagens."
 
-#: ../../source/background/understanding_indicators11.rst:105
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:105
 msgid ""
 "**No data**: Cities for which no training data was available to build the "
 "impervious surface data set. These cities represent 6.2% of the sample "
 "assessed."
 msgstr ""
-"** Nenhum dado **: Cidades para as quais não há dados de treinamento "
+"**Nenhum dado**: Cidades para as quais não há dados de treinamento "
 "disponíveis para construir o conjunto de dados de superfície impermeável. "
 "Essas cidades representam 6,2% da amostra avaliada."
 
-#: ../../source/background/understanding_indicators11.rst:106
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:106
 msgid ""
 "**Unusable**: Cities for which results are available, but due to low Landsat"
 " images availability prevented the production of a good quality product. "
 "These results  should not be used for computing SDG 11.3.1 indicator. These "
 "cities represent 0.9% of the sample assessed."
 msgstr ""
-"** Inutilizável **: Cidades para as quais os resultados estão disponíveis, "
-"mas devido à baixa disponibilidade de imagens Landsat impediu a produção de "
-"um produto de boa qualidade. Esses resultados não devem ser usados para "
-"calcular o indicador SDG 11.3.1. Essas cidades representam 0,9% da amostra "
+"**Inutilizável**: Cidades para as quais os resultados estão disponíveis, mas"
+" devido à baixa disponibilidade de imagens Landsat impediu a produção de um "
+"produto de boa qualidade. Esses resultados não devem ser usados para "
+"calcular o indicador ODS 11.3.1. Essas cidades representam 0,9% da amostra "
 "avaliada."
 
-#: ../../source/background/understanding_indicators11.rst:107
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:107
 msgid ""
 "**Problematic**: Cities with results of potential use for visually "
 "understating spatial patterns of built-up area expansion, but with "
 "significant errors. These results should not be used for computing SDG "
 "11.3.1 indicator. These cities represent 4.0% of the sample assessed."
 msgstr ""
-"** Problemática **: Cidades com resultados de uso potencial para entender "
+"**Problemática**: Cidades com resultados de uso potencial para entender "
 "melhor os padrões espaciais de expansão da área construída, mas com erros "
 "significativos. Esses resultados não devem ser usados para calcular o "
-"indicador SDG 11.3.1. Essas cidades representam 4,0% da amostra avaliada."
+"indicador ODS 11.3.1. Essas cidades representam 4,0% da amostra avaliada."
 
-#: ../../source/background/understanding_indicators11.rst:108
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:108
 msgid ""
 "**Some issues**: Cities with results showing some issues confusing bare soil"
 " surfaces with built up area, could be used for computing SDG 11.3.1 after "
 "detailed inspection of the data. These cities represent 6.2% of the sample "
 "assessed."
 msgstr ""
-"** Alguns problemas **: as cidades com resultados mostrando alguns problemas"
-" que confundem superfícies de solo descobertas com área construída podem ser"
-" usadas para o cálculo do SDG 11.3.1 após a inspeção detalhada dos dados. "
+"**Alguns problemas**: as cidades com resultados mostrando alguns problemas "
+"que confundem superfícies de solo descobertas com área construída podem ser "
+"usadas para o cálculo do ODS 11.3.1 após a inspeção detalhada dos dados. "
 "Essas cidades representam 6,2% da amostra avaliada."
 
-#: ../../source/background/understanding_indicators11.rst:109
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:109
 msgid ""
 "**Minor issues**: Cities with high quality data but with the presence of "
 "some small areas of confusion. This data could be used for computing SDG "
 "11.3.1. These cities represent 12.5% of the sample assessed."
 msgstr ""
-"** Pequenos problemas **: Cidades com dados de alta qualidade, mas com a "
+"**Pequenos problemas**: Cidades com dados de alta qualidade, mas com a "
 "presença de algumas pequenas áreas de confusão. Esses dados podem ser usados"
-" para calcular o SDG 11.3.1. Essas cidades representam 12,5% da amostra "
+" para calcular o ODS 11.3.1. Essas cidades representam 12,5% da amostra "
 "avaliada."
 
-#: ../../source/background/understanding_indicators11.rst:110
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:110
 msgid ""
 "**High quality**: Cities with high quality data showing perfect agreement "
 "between built-up area using Trends.Earth data and high resolution images "
 "available in Google Earth, high confidence for estimating SDG 11.3.1. These "
 "cities represent 70.1% of the sample assessed."
 msgstr ""
-"** Alta qualidade **: Cidades com dados de alta qualidade que mostram uma "
+"**Alta qualidade**: Cidades com dados de alta qualidade que mostram uma "
 "concordância perfeita entre a área construída usando dados do Trends.Earth e"
 " imagens de alta resolução disponíveis no Google Earth, alta confiança para "
-"estimar o SDG 11.3.1. Essas cidades representam 70,1% da amostra avaliada."
+"estimar o ODS 11.3.1. Essas cidades representam 70,1% da amostra avaliada."
 
-#: ../../source/background/understanding_indicators11.rst:115
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:115
 msgid ""
 "`Figure 7: After testing in 224 large cities around the globe, the results "
 "show that for 83% of the cities assessed Trends.Earth data can be used for "
@@ -751,23 +751,23 @@ msgid ""
 msgstr ""
 "`Figura 7: Após o teste em 224 grandes cidades ao redor do mundo, os "
 "resultados mostram que, para 83% das cidades avaliadas, os dados do "
-"Trends.Earth podem ser usados para estimar o indicador SDG 11.3.1. A maior "
+"Trends.Earth podem ser usados para estimar o indicador ODS 11.3.1. A maior "
 "limitação permanece nos pequenos estados insulares (para os quais não há "
 "dados de treinamento disponíveis), áreas hiperáridas e áreas com baixa "
-"disponibilidade de imagens."
+"disponibilidade de imagens.`"
 
-#: ../../source/background/understanding_indicators11.rst:124
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:124
 msgid ""
 "`Figure 8: Spatial distribution of threshold parameters selected for the "
 "sample of 224 cities tested. Top: Impervious surface area indicator, Middle:"
 " Nighttime lights indicator, and Bottom: Water frequency indicator.`"
 msgstr ""
-"Figura 8: Distribuição espacial dos parâmetros de limiar selecionados para a"
-" amostra de 224 cidades testadas. Parte superior: Indicador de área de "
-"superfície impermeável, meio: indicador de luzes nocturnas e fundo: "
-"indicador de frequência de água. »."
+"`Figura 8: Distribuição espacial dos parâmetros de limiar selecionados para "
+"a amostra de 224 cidades testadas. Parte superior: Indicador de área de "
+"superfície impermeável, meio: indicador de luzes nocturnas e inferior: "
+"indicador de frequência de água.`"
 
-#: ../../source/background/understanding_indicators11.rst:126
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:126
 msgid ""
 "From the analysis of 224 cities globally we were able to estimate the range "
 "of parameters most commonly used. The most frequent values used were: **ISI "
@@ -779,15 +779,15 @@ msgid ""
 "the set of parameters which better work for each site."
 msgstr ""
 "A partir da análise de 224 cidades globalmente, pudemos estimar o intervalo "
-"de parâmetros mais comumente usados. Os valores mais utilizados foram: ** "
-"ISI = 30, NTL = 10, WFR = 25 **. Esses eram os parâmetros padrão definidos "
-"no `Trends.Earth Urban Mapper "
+"de parâmetros mais comumente usados. Os valores mais utilizados foram: **ISI"
+" = 30, NTL = 10, WFR = 25**. Esses eram os parâmetros padrão definidos no "
+"`Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper> `_ e plugin QGIS, mas é importante lembrar que, para cada cidade, "
-"uma inspeção cuidadosa do dataset deve ser realizada, a fim de encontrar o "
+"mapper>`_ e plugin QGIS, mas é importante lembrar que, para cada cidade, uma"
+" inspeção cuidadosa do dataset deve ser realizada, a fim de encontrar o "
 "conjunto de parâmetros que melhor funcionem para cada site."
 
-#: ../../source/background/understanding_indicators11.rst:131
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:131
 msgid ""
 "`Figure 9: Frequency distribution of threshold parameters selected for the "
 "sample of 224 cities tested. Left: Impervious surface area indicator, "
@@ -796,13 +796,13 @@ msgstr ""
 "`Figura 9: Distribuição de frequência dos parâmetros limiares selecionados "
 "para a amostra de 224 cidades testadas. Esquerda: Indicador de área de "
 "superfície impermeável, meio: indicador de luzes nocturnas e direito: "
-"indicador de frequência de água. »."
+"indicador de frequência de água.`"
 
-#: ../../source/background/understanding_indicators11.rst:134
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:134
 msgid "Urban zones"
 msgstr "Zonas urbanas"
 
-#: ../../source/background/understanding_indicators11.rst:136
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:136
 msgid ""
 "The urban extent is the proposed area of study that comprises of the built-"
 "up area and urbanized open space of the city, along with areas added by "
@@ -813,12 +813,12 @@ msgid ""
 msgstr ""
 "A extensão urbana é a área proposta de estudo que compreende a área "
 "construída e o espaço aberto urbanizado da cidade, juntamente com áreas "
-"adicionadas pela análise de proximidade (UN-Habitat, 2019). O UN-Habitat "
+"adicionadas pela análise de proximidade (UN-Habitat, 2019). A ONU-Habitat "
 "sugere a classificação da área de interesse nas 6 classes seguintes, a fim "
 "de identificar a área que será usada na estimativa da taxa anual de consumo "
 "da terra (Figura 1):"
 
-#: ../../source/background/understanding_indicators11.rst:138
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:138
 msgid ""
 "Built-up areas will be classified based on the density within a 500 m of "
 "each pixel radius:"
@@ -826,19 +826,19 @@ msgstr ""
 "As áreas construídas serão classificadas com base na densidade dentro de um "
 "raio de 500 m de cada pixel:"
 
-#: ../../source/background/understanding_indicators11.rst:140
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:140
 msgid "Urban: > 50% built-up in the 500 m radius."
-msgstr "Urbano:&gt; 50% construído no raio de 500 m."
+msgstr "Urbano: >50% construído no raio de 500 m."
 
-#: ../../source/background/understanding_indicators11.rst:141
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:141
 msgid "Suburban: 25-50% built-up in the 500 m radius."
 msgstr "Suburbano: 25 a 50% de ocupação no raio de 500 m."
 
-#: ../../source/background/understanding_indicators11.rst:142
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:142
 msgid "Rural: < 25 % built-up in the 500 m radius."
-msgstr "Rural: &lt;25% construídos no raio de 500 m."
+msgstr "Rural: <25% construídos no raio de 500 m."
 
-#: ../../source/background/understanding_indicators11.rst:144
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:144
 msgid ""
 "The non-built up areas will be considered open space (OS), and will be "
 "classified as follows:"
@@ -846,45 +846,45 @@ msgstr ""
 "As áreas não construídas serão consideradas espaços abertos (OS), e serão "
 "classificadas da seguinte forma:"
 
-#: ../../source/background/understanding_indicators11.rst:146
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:146
 msgid "Fringe open space: open space < 100 m from urban and suburban."
 msgstr ""
-"Fringe espaço aberto: espaço aberto &lt;100 m de áreas urbanas e suburbanas."
+"Margem espaço aberto: espaço aberto < 100 m de áreas urbanas e suburbanas."
 
-#: ../../source/background/understanding_indicators11.rst:147
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:147
 msgid "Captured open space: open space fully surrounded by fringe open space."
 msgstr ""
 "Espaço aberto capturado: espaço aberto totalmente cercado por espaço aberto "
 "de franja."
 
-#: ../../source/background/understanding_indicators11.rst:148
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:148
 msgid "Rural open space: All other open space."
 msgstr "Espaço aberto rural: Todos os outros espaços abertos."
 
-#: ../../source/background/understanding_indicators11.rst:150
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:150
 msgid ""
 "In |trends.earth|, we have added to the scheme above by differentiating land"
 " from water open space, since the uses citizens can do of each space are "
 "very different."
 msgstr ""
-"Em | trends.earth |, adicionamos ao esquema acima, diferenciando a terra do "
+"Em |trends.earth|, adicionamos ao esquema acima, diferenciando a terra do "
 "espaço aberto da água, uma vez que os usos que os cidadãos podem fazer de "
 "cada espaço são muito diferentes."
 
-#: ../../source/background/understanding_indicators11.rst:152
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:152
 msgid "Fringe open space - water: Fringe open space covered by water"
-msgstr "Franja espaço aberto - água: Franja espaço aberto coberto por água"
+msgstr "Margem espaço aberto - água: Franja espaço aberto coberto por água"
 
-#: ../../source/background/understanding_indicators11.rst:153
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:153
 msgid "Captured open space - water: Captured open space covered by water"
 msgstr ""
 "Espaço aberto capturado - água: Espaço aberto capturado coberto por água"
 
-#: ../../source/background/understanding_indicators11.rst:154
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:154
 msgid "Rural open space - water: Rural open space covered by water"
 msgstr "Espaço rural aberto - água: Espaço aberto rural coberto por água"
 
-#: ../../source/background/understanding_indicators11.rst:156
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:156
 msgid ""
 "Urban extent is determined by the combined area of classes 1, 2, 4, 5, 7, "
 "and 8 (urban, suburban, and fringe and captured open space)."
@@ -892,15 +892,15 @@ msgstr ""
 "A extensão urbana é determinada pela área combinada das classes 1, 2, 4, 5, "
 "7 e 8 (urbano, suburbano e periférico e espaço aberto capturado)."
 
-#: ../../source/background/understanding_indicators11.rst:161
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:161
 msgid ""
 "`Figure 10: Result of the SDG 11.3.1 analysis displaying the different "
 "elements which comprise the urban space.`"
 msgstr ""
-"Figura 10: Resultado da análise do SDG 11.3.1 mostrando os diferentes "
+"Figura 10: Resultado da análise do ODS 11.3.1 mostrando os diferentes "
 "elementos que compõem o espaço urbano."
 
-#: ../../source/background/understanding_indicators11.rst:163
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:163
 msgid ""
 "With this information we can now estimate the rates of urban expansion over "
 "time for the periods 2000-2005, 2010, and 2010-2015 needed to estimate the "
@@ -910,11 +910,11 @@ msgstr ""
 "longo do tempo para os períodos 2000-2005, 2010 e 2010-2015 necessários para"
 " estimar a taxa anual de consumo da terra."
 
-#: ../../source/background/understanding_indicators11.rst:166
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:166
 msgid "Population growth"
 msgstr "Crescimento populacional"
 
-#: ../../source/background/understanding_indicators11.rst:170
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:170
 msgid ""
 "Once the urbanized areas have been defined, the next step is to establish "
 "how many people live within those areas for each analysis year. This "
@@ -928,7 +928,7 @@ msgstr ""
 "da população anualizada. A estimativa do número de pessoas que vivem dentro "
 "de cada área de serviço pode ser obtida por meio de duas abordagens amplas:"
 
-#: ../../source/background/understanding_indicators11.rst:172
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:172
 msgid ""
 "**Use of high-resolution data from national statistical offices (NSOs)**: In"
 " this option, census data is used to aggregate the number of people living "
@@ -940,9 +940,9 @@ msgid ""
 "data architecture. This option provides the most accurate and authoritative "
 "population data for the indicator computation and is highly encouraged."
 msgstr ""
-"** Uso de dados de alta resolução dos escritórios nacionais de estatística "
-"(NSOs) **: Nesta opção, os dados do censo são usados para agregar o número "
-"de pessoas que vivem em todos os domicílios dentro dos limites urbanos. As "
+"**Uso de dados de alta resolução dos escritórios nacionais de estatística "
+"(NSOs)**: Nesta opção, os dados do censo são usados para agregar o número de"
+" pessoas que vivem em todos os domicílios dentro dos limites urbanos. As "
 "projecções e extrapolações também podem ser facilmente realizadas com base "
 "nas características do agregado familiar para anos de relatório específicos."
 " O processo é muito mais fácil onde as unidades de recenseamento dinâmico "
@@ -951,7 +951,7 @@ msgstr ""
 "opção fornece os dados populacionais mais precisos e autoritários para o "
 "cálculo do indicador e é altamente incentivada."
 
-#: ../../source/background/understanding_indicators11.rst:174
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:174
 msgid ""
 "**Use of gridded population**: In this option, a population grid is made by "
 "distributing population to the entire administrative or census area unit. "
@@ -976,36 +976,37 @@ msgid ""
 "indicator computation where high resolution data from national statistical "
 "offices is not available or readily accessible."
 msgstr ""
-"** Uso da população em grade **: Nesta opção, é feita uma grade populacional"
-" distribuindo a população para toda a unidade administrativa ou da área do "
+"**Uso da população em grade**: Nesta opção, é feita uma grade populacional "
+"distribuindo a população para toda a unidade administrativa ou da área do "
 "censo. Atributos como a presença de áreas habitáveis (classes de uso da "
 "terra) podem ser usados para distribuir a população, de modo que as células "
 "da grade em trilhas de terra não desenvolvida ou em áreas industriais terão "
 "menos população do que áreas residenciais de alta densidade. Na grade "
 "resultante, cada célula da grade terá um valor único, que depende de fatores"
-" como a população total dentro da unidade administrativa / de recenseamento "
-"envolvente e o número e / ou quantidade das classes de uso da terra "
+" como a população total dentro da unidade administrativa/de recenseamento "
+"envolvente e o número e/ou quantidade das classes de uso da terra "
 "habitáveis. A Figura 5 ilustra a lógica geral das redes populacionais usando"
 " apenas uma classe de uso da terra - as áreas construídas. A grade da "
 "população deve sempre cobrir uma área maior do que os limites urbanos "
 "definidos. Uma vez criadas as redes populacionais, a estimativa da população"
 " que vive dentro dos limites urbanos pode então ser alcançada pela agregação"
 " de populações das células da grade fechadas. Na ausência de dados de alta "
-"resolução dos NSOs, esta opção produz melhores estimativas para a população,"
-" embora dados de entrada de alta qualidade e análise de vários níveis sejam "
-"essenciais para uma maior precisão dos dados. Conjuntos de dados globais "
-"representando populações em redes de 1km² e 250m estão disponíveis (por "
-"exemplo, GPWv4, GHS-POP, WorldPop); a maioria assume distribuição "
-"igualitária da população para as classes habitáveis (por exemplo, áreas "
-"construídas). Esta abordagem é proposta para o cálculo do indicador em que "
-"os dados de alta resolução dos serviços nacionais de estatística não estão "
-"disponíveis ou são de fácil acesso."
+"resolução dos escritórios nacionais de estatística, esta opção produz "
+"melhores estimativas para a população, embora dados de entrada de alta "
+"qualidade e análise de vários níveis sejam essenciais para uma maior "
+"precisão dos dados. Conjuntos de dados globais representando populações em "
+"redes de 1km² e 250m estão disponíveis (por exemplo, GPWv4, GHS-POP, "
+"WorldPop); a maioria assume distribuição igualitária da população para as "
+"classes habitáveis (por exemplo, áreas construídas). Esta abordagem é "
+"proposta para o cálculo do indicador em que os dados de alta resolução dos "
+"serviços nacionais de estatística não estão disponíveis ou são de fácil "
+"acesso."
 
-#: ../../source/background/understanding_indicators11.rst:177
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:177
 msgid "Population in Trends.Earth"
 msgstr "População em Trends.Earth"
 
-#: ../../source/background/understanding_indicators11.rst:179
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:179
 msgid ""
 "In |trends.earth| we recommend users to use option 1, since ate city scales "
 "the accuracy of high-resolution data provided by national statistical "
@@ -1018,29 +1019,29 @@ msgid ""
 "relevant high quality data by simply replacing the corresponding cells in "
 "the final tabular output."
 msgstr ""
-"Em | trends.earth | Recomendamos que os usuários usem a opção 1, pois a "
+"Em |trends.earth| recomendamos que os usuários usem a opção 1, pois a "
 "precisão dos dados de alta resolução fornecidos pelos escritórios nacionais "
 "de estatística sempre será maior do que a obtida pelos produtos de varredura"
 " globais que, na maioria dos casos, foram produzidos para análise em nível "
 "nacional. No entanto, reconhecendo que em algumas áreas os dados "
 "populacionais não estarão prontamente disponíveis para a maioria dos "
 "usuários, nós fornecemos dados da Grided Population of the World V4 (GPWv4, "
-"CIESIN, 2016) como referência. Mesmo se a opção de usar o GPWv4 em | "
-"trends.earth |, os dados da população podem ser facilmente substituídos por "
+"CIESIN, 2016) como referência. Mesmo se a opção de usar o GPWv4 em "
+"|trends.earth|, os dados da população podem ser facilmente substituídos por "
 "dados de alta qualidade localmente relevantes simplesmente substituindo as "
 "células correspondentes na saída tabular final."
 
-#: ../../source/background/understanding_indicators11.rst:182
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:182
 msgid "Trends in SDG 11.3.1"
-msgstr "Tendências no SDG 11.3.1"
+msgstr "Tendências no ODS 11.3.1"
 
-#: ../../source/background/understanding_indicators11.rst:184
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:184
 msgid ""
 "The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:"
 msgstr ""
-"Os resultados finais dos cálculos do SDG 11.3.1 em | trends.earth | será:"
+"Os resultados finais dos cálculos do ODS 11.3.1 em |trends.earth| será:"
 
-#: ../../source/background/understanding_indicators11.rst:186
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:186
 msgid ""
 "The maps as presented Figures 10 and 11, which will allow for a visual "
 "interpretation of the changes occurred in the urban space between 2000 and "
@@ -1050,7 +1051,7 @@ msgstr ""
 "visual das mudanças ocorridas no espaço urbano entre 2000 e 2015 em "
 "intervalos de 5 anos."
 
-#: ../../source/background/understanding_indicators11.rst:188
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:188
 msgid ""
 "A table which summarizes the area calculations for the different spaces "
 "within the city space (urban, suburban, and the different classes of open "
@@ -1061,33 +1062,32 @@ msgstr ""
 "Uma tabela que resume os cálculos da área para os diferentes espaços dentro "
 "do espaço da cidade (urbano, suburbano e as diferentes classes de espaço "
 "aberto), e também os números correspondentes da população. Nesta tabela, o "
-"SDG 11.3.1 também será computado automaticamente, e uma tendência do "
+"ODS 11.3.1 também será computado automaticamente, e uma tendência do "
 "indicador ao longo do tempo será fornecida."
 
-#: ../../source/background/understanding_indicators11.rst:193
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:193
 msgid ""
 "`Figure 11: One of the final outputs of the SDG 11.3.1 analysis in "
 "|trends.earth| is a tabular outputs displaying the area, population and the "
 "indicator for SDG 11.3.1 for the city analyzed.`"
 msgstr ""
-"`Figura 11: Um dos resultados finais da análise do SDG 11.3.1 em | "
-"trends.earth | é uma saída tabular mostrando a área, população e o indicador"
-" para SDG 11.3.1 para a cidade analisada."
+"`Figura 11: Um dos resultados finais da análise do SDG 11.3.1 em "
+"|trends.earth| é uma saída tabular mostrando a área, população e o indicador"
+" para SDG 11.3.1 para a cidade analisada.`"
 
-#: ../../source/background/understanding_indicators11.rst:196
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:196
 msgid ""
 "For a step-by-step guide on how to run the aalysis in |trends.earth|, please"
 " refer to the following tutorial: :ref:`indicator-11-3-1-tutorial`."
 msgstr ""
-"Para um guia passo-a-passo sobre como executar a análise em | trends.earth "
-"|, por favor consulte o seguinte tutorial:: ref: "
-"`indicator-11-3-1-tutorial`."
+"Para um guia passo-a-passo sobre como executar a análise em |trends.earth|, "
+"por favor consulte o seguinte tutorial:: ref: `indicator-11-3-1-tutorial`."
 
-#: ../../source/background/understanding_indicators11.rst:198
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:198
 msgid "**Citations:**"
-msgstr "** Citações: **"
+msgstr "**Citações:**"
 
-#: ../../source/background/understanding_indicators11.rst:200
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:200
 msgid ""
 "Breiman, L., 2001. Random forests. Mach. Learn. 45, 5–32. "
 "https://doi.org/10.1023/a:1010933404324"
@@ -1095,7 +1095,7 @@ msgstr ""
 "Breiman, L., 2001. Florestas aleatórias. Mach. Aprender. 45, 5-32. "
 "https://doi.org/10.1023/a:1010933404324"
 
-#: ../../source/background/understanding_indicators11.rst:202
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:202
 msgid ""
 "Brown de Colstoun, E. C., C. Huang, P. Wang, J. C. Tilton, B. Tan, J. "
 "Phillips, S. Niemczura, P.-Y. Ling, and R. E. Wolfe. 2017. Global Man-made "
@@ -1109,7 +1109,7 @@ msgstr ""
 "de Aplicações e Dados Socioeconômicos da NASA (SEDAC). "
 "https://doi.org/10.7927/H4P55KKF."
 
-#: ../../source/background/understanding_indicators11.rst:204
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:204
 msgid ""
 "CIESIN. 2016. Gridded Population of the World, Version 4 (GPWv4): Population"
 " Density Adjusted to Match 2015 Revision of UN WPP Country Totals. "
@@ -1124,7 +1124,7 @@ msgstr ""
 "sobre Ciências da Terra - Universidade de Columbia. "
 "https://doi.org/10.7927/H4HX19NJ."
 
-#: ../../source/background/understanding_indicators11.rst:206
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:206
 msgid ""
 "Dinerstein, E., Olson, et al, 2017. An Ecoregion-Based Approach to "
 "Protecting Half the Terrestrial Realm. BioScience 67, 534–545. "
@@ -1134,7 +1134,7 @@ msgstr ""
 " proteger metade do reino terrestre. BioScience 67, 534-545. "
 "https://doi.org/10.1093/biosci/bix014"
 
-#: ../../source/background/understanding_indicators11.rst:208
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:208
 msgid ""
 "Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., Moore, R.,"
 " 2017. Google Earth Engine: Planetary-scale geospatial analysis for "
@@ -1148,7 +1148,7 @@ msgstr ""
 "aplicações e experiências 202, 18–27. "
 "https://doi.org/10.1016/j.rse.2017.06.031"
 
-#: ../../source/background/understanding_indicators11.rst:210
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:210
 msgid ""
 "Jean-Francois Pekel, Andrew Cottam, Noel Gorelick, Alan S. Belward, High-"
 "resolution mapping of global surface water and its long-term changes. Nature"
@@ -1159,7 +1159,7 @@ msgstr ""
 " longo prazo. Nature 540, 418-422 (2016). "
 "https://doi.org/10.1038/nature20584."
 
-#: ../../source/background/understanding_indicators11.rst:212
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:212
 msgid ""
 "NOA. 2019. VIIRS Nighttime Day/Night Band Composites Version 1. Available "
 "through: https://developers.google.com/earth-"
@@ -1169,7 +1169,7 @@ msgstr ""
 "através de: https://developers.google.com/earth-"
 "engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMCFG"
 
-#: ../../source/background/understanding_indicators11.rst:214
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:214
 msgid ""
 "UN-Habitat (2019) Module 3: Land consumption. Accessed on 05/10/2019 from:  "
 "https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1-Training-"

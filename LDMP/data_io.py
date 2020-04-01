@@ -1211,6 +1211,8 @@ def get_TE_TOC_layers(layer_type=None):
 def get_layer_info_from_file(json_file, layer_type='any'):
     m = get_file_metadata(json_file)
     band_infos = get_band_infos(json_file)
+    if band_infos is None:
+        return None
     layers_filtered = []
     for n in range(len(band_infos)):
         band_info = band_infos[n]

@@ -296,20 +296,29 @@ class AOI(object):
         return [left, bottom, right, top]
 
     def get_area(self):
-        source = osr.SpatialReference()
-        source.ImportFromEPSG(4326)
-        # Use world robinson as an approximation to calculate polygon area
-        target = osr.SpatialReference()
-        target.ImportFromEPSG(54030)
-        transform = osr.CoordinateTransformation(source, target)
+        wgs84_crs = QgsCoordinateReferenceSystem('EPSG:4326')
+        
         # Returns area of aoi components in sq m
         wkts = self.meridian_split(out_format='wkt', warn=False)[1]
         area = 0.
         for wkt in wkts:
-            geom = ogr.CreateGeometryFromWkt(wkt)
-            geom.Transform(transform)
-            this_area = geom.GetArea()
+            geom = QgsGeometry.fromWkt(wkt)
+            # Lambert azimuthal equal area centered on polygon centroid
+            centroid = geom.centroid().asPoint()
+            laea_crs = QgsCoordinateReferenceSystem.fromProj('+proj=laea +lat_0={} +lon_0={} +ellps=WGS84 +datum=WGS84 +units=m no_defs'.format(centroid.y(), centroid.x()))
+            to_laea = QgsCoordinateTransform(wgs84_crs, laea_crs, QgsProject.instance())
+
+            log('geom: {}'.format(geom.asWkt()))
+            try:
+                ret = geom.transform(to_laea)
+            except:
+                log('Error buffering layer while transforming to laea')
+                QtWidgets.QMessageBox.critical(None, tr("Error"),
+                                           tr("Error transforming coordinates. Check that the input geometry is valid."))
+            geom.transform(to_laea)
+            this_area = geom.area()
             area += this_area
+        log('Calculated area with Lambert azimuthal eaual-area projection as: {}'.format(area))
         return area
 
     def get_layer(self):

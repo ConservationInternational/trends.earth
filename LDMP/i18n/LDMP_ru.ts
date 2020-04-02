@@ -303,7 +303,7 @@
         <translation>Невозможно загрузить интересующую область из {}. Может быть проблема с файлом или системой координат. Попробуйте вручную загрузить этот файл в QGIS, чтобы убедиться, что он отображается правильно. Если у вас по-прежнему возникают проблемы с этим файлом, отправьте нам сообщение по адресу trend.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="368"/>
+        <location filename="../calculate.py" line="366"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>Не удалось обработать область интереса - неизвестный тип геометрии: {}</translation>
     </message>
@@ -368,7 +368,7 @@
         <translation>Население ({год})</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="967"/>
+        <location filename="../calculate.py" line="983"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>Вы выбрали запуск расчетов для города. Вы должны выбрать буферное расстояние, чтобы определить область расчета при обработке города.</translation>
     </message>
@@ -449,7 +449,7 @@
         <translation>Trends.Earth не имеет стиля, назначенного для &amp;quot;{}&amp;quot; (группа {} в {}). Чтобы использовать этот слой, добавьте его вручную на карту.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="391"/>
+        <location filename="../calculate.py" line="389"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation>Ошибка преобразования координат. Проверьте правильность входной геометрии.</translation>
     </message>
@@ -542,32 +542,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="823"/>
         <source>Point chooser</source>
         <translation>Выбор точки</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="823"/>
         <source>Click the map to choose a point.</source>
         <translation>Нажмите на карту, чтобы выбрать точку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="844"/>
         <source>Select a file defining the area of interest</source>
         <translation>Выберите файл, определяющий интересующую область</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="844"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="854"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="854"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
@@ -575,17 +575,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="625"/>
+        <location filename="../calculate.py" line="628"/>
         <source>Select folder containing data</source>
         <translation>Выберите папку, содержащую данные</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="637"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="637"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Не могу читать {}. Выберите другую папку.</translation>
     </message>
@@ -684,59 +684,84 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1090"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="976"/>
+        <location filename="../calculate.py" line="992"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Выберите административную границу первого уровня.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="999"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Невозможно загрузить административные границы.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="990"/>
+        <location filename="../calculate.py" line="1006"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Выберите файл для определения интересующей области.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="907"/>
         <source>Area</source>
         <translation>Площадь</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="895"/>
+        <location filename="../calculate.py" line="911"/>
         <source>Options</source>
         <translation>Опции</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="998"/>
+        <location filename="../calculate.py" line="1014"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Выберите пункт для определения интересующей области.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1009"/>
+        <location filename="../calculate.py" line="1025"/>
         <source>Choose an area of interest.</source>
         <translation>Выберите интересующую область.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1014"/>
+        <location filename="../calculate.py" line="1030"/>
         <source>Unable to read area of interest.</source>
         <translation>Невозможно прочитать интересующую область.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1046"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>Ограничительная рамка для запрашиваемой площади (приблизительно {: .6n}) кв. Км слишком велика. Выберите меньшую область для обработки.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1021"/>
+        <location filename="../calculate.py" line="1037"/>
         <source>Error buffering polygon</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1059"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1059"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1078"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1078"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1090"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Невозможно написать {}. Выберите другой файл.</translation>
     </message>
 </context>
 <context>
@@ -973,12 +998,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="512"/>
         <source>Coming soon!</source>
         <translation>Скоро!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="512"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Сводная таблица с несколькими полигонами скоро появится!</translation>
     </message>
@@ -1685,8 +1710,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="20"/>
-        <source>Calculate Carbon Change Summary Table</source>
-        <translation>Рассчитать сводную таблицу изменений углерода</translation>
+        <source>Summarize Likely Change in Biomass Due to Restoration</source>
+        <translation type="unfinished">Рассчитать сводную таблицу изменений углерода</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="39"/>
@@ -2112,13 +2137,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="166"/>
-        <source>Output file for summary table</source>
-        <translation>Выходной файл для сводной таблицы</translation>
+        <source>Base name used as prefix when naming output files</source>
+        <translation type="unfinished">Выходной файл для сводной таблицы</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="187"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>Нажмите «Обзор», чтобы выбрать файл ...</translation>
+        <source>Click &quot;Browse&quot; to choose a base name...</source>
+        <translation type="unfinished">Нажмите «Обзор», чтобы выбрать файл ...</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="206"/>
@@ -2126,67 +2151,62 @@ p, li { white-space: pre-wrap; }
         <translation>Просматривать</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="247"/>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="273"/>
         <source>Previous</source>
         <translation>предыдущий</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="266"/>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="292"/>
         <source>Next</source>
         <translation>следующий</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="285"/>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="311"/>
         <source>Calculate</source>
         <translation>подсчитывать</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="661"/>
         <source>Choose a filename for the summary table</source>
-        <translation>Выберите имя файла для сводной таблицы</translation>
+        <translation type="obsolete">Выберите имя файла для сводной таблицы</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="661"/>
         <source>Summary table file (*.xlsx)</source>
-        <translation>Файл сводной таблицы (* .xlsx)</translation>
+        <translation type="obsolete">Файл сводной таблицы (* .xlsx)</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="717"/>
+        <location filename="../calculate_tc.py" line="699"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="671"/>
         <source>Cannot write to {}. Choose a different file.</source>
-        <translation>Невозможно написать {}. Выберите другой файл.</translation>
+        <translation type="obsolete">Невозможно написать {}. Выберите другой файл.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="678"/>
-        <source>Choose an output file for the summary table.</source>
-        <translation>Выберите выходной файл для сводной таблицы.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="692"/>
-        <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
-        <translation>Вы должны добавить слой потери леса на свою карту, прежде чем сможете использовать инструмент сводки изменений углерода.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="696"/>
         <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
         <translation>Вы должны добавить общий углеродный слой на карту, прежде чем использовать инструмент сводки углеродных изменений.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="702"/>
+        <location filename="../calculate_tc.py" line="674"/>
+        <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
+        <translation>Вы должны добавить слой потери леса на свою карту, прежде чем сможете использовать инструмент сводки изменений углерода.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="684"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>Область интереса не полностью в пределах слоя потери леса.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="706"/>
+        <location filename="../calculate_tc.py" line="688"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>Область интереса не полностью в общем углеродном слое.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="717"/>
+        <location filename="../calculate_tc.py" line="699"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>Разрешения потери леса и общего количества углерода не совпадают.</translation>
     </message>
@@ -2199,6 +2219,25 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_tc.py" line="589"/>
         <source>Error calculating carbon change summary table.</source>
         <translation type="obsolete">Ошибка расчета сводной таблицы изменений углерода.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="216"/>
+        <source>Files produced as output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="228"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="660"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

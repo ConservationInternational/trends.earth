@@ -3,7 +3,7 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`0.98 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
+`0.98 <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.

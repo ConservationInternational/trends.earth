@@ -6,15 +6,16 @@
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.98\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-03-31 21:55-0400\n"
 "PO-Revision-Date: 2018-03-14 19:33+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,52 +23,51 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/documentation/load_data.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:2
 msgid "Load data tool"
-msgstr "Carregar ferramenta de dados"
+msgstr "Adicionar dados"
 
-#: ../../source/documentation/load_data.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:6
 msgid ""
 "The \"Load data\" function allows the user to load data into QGIS and "
 "|trends.earth| for analysis."
 msgstr ""
-"A função \"Carregar dados\" permite que o usuário carregue dados no QGIS e "
+"A função \"Load data\" permite que o usuário adicione dados no QGIS e "
 "|trends.earth| para análise."
 
-#: ../../source/documentation/load_data.rst:9
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:9
 msgid ""
 "There are two options, to load results of |trends.earth| analysis or to load"
 " custom datasets which will be used to compute the indicators."
 msgstr ""
-"Existem duas opções para carregar resultados de |trends.earth| análise ou "
-"para carregar conjuntos de dados personalizados que serão utilizados para "
-"calcular os indicadores."
+"Existem duas opções: adicionar resultados produzidos por |trends.earth| ou "
+"carregar conjuntos de dados locais que serão utilizados para calcular os "
+"indicadores."
 
-#: ../../source/documentation/load_data.rst:16
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:16
 msgid "Load a dataset produced by Trends.Earth"
-msgstr "Carregar um conjunto de dados produzido pelo Trends.Earth"
+msgstr "Adicionar um conjunto de dados produzido pelo Trends.Earth"
 
-#: ../../source/documentation/load_data.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:18
 msgid ""
 "This option lets you load already downloaded results from |trends.earth|."
 msgstr ""
 "Essa opção permite carregar os resultados já baixados de |trends.earth|."
 
-#: ../../source/documentation/load_data.rst:21
-#: ../../source/documentation/load_data.rst:111
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:111
 msgid "Productivity"
 msgstr "Produtividade"
 
-#: ../../source/documentation/load_data.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:23
 msgid ""
 "Use this function to load into the QGIS map pre-computed productivity "
 "indicators which had been processed to identify land degradation."
 msgstr ""
-"Use esta função para carregar nos indicadores de produtividade pré-"
-"computados do mapa QGIS que foram processados ​​para identificar a "
-"degradação da terra."
+"Use esta função para carregar no QGIS os indicadores de produtividade pré-"
+"computados que foram processados ​​para identificar a degradação da terra."
 
-#: ../../source/documentation/load_data.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:26
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is an 8 band raster, with each band representing the "
@@ -86,22 +86,22 @@ msgstr ""
 "estado. Se você quiser carregar as outras camadas, basta selecioná-las e "
 "clicar em OK."
 
-#: ../../source/documentation/load_data.rst:34
-#: ../../source/documentation/load_data.rst:56
-#: ../../source/documentation/load_data.rst:81
-#: ../../source/documentation/load_data.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:100
 msgid ""
 "The layers will be loaded in the QGIS map with its corresponding symbology."
 msgstr ""
 "As camadas serão carregadas no mapa do QGIS com sua simbologia "
 "correspondente."
 
-#: ../../source/documentation/load_data.rst:40
-#: ../../source/documentation/load_data.rst:129
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:129
 msgid "Land cover"
 msgstr "Cobertura da terra"
 
-#: ../../source/documentation/load_data.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:42
 msgid ""
 "This option lets you load pre-computed land cover indicators which had been "
 "processed to identify land degradation."
@@ -109,7 +109,7 @@ msgstr ""
 "Esta opção permite carregar indicadores de cobertura de terra pré-calculados"
 " que foram processados ​​para identificar a degradação do solo."
 
-#: ../../source/documentation/load_data.rst:45
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:45
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is a multi band raster. The number of bands will depend "
@@ -123,7 +123,7 @@ msgstr ""
 "solo do CCI da ESA foi utilizada, por exemplo, os mapas anuais de cobertura "
 "do solo serão descarregados."
 
-#: ../../source/documentation/load_data.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:49
 msgid ""
 "The bands in the stack represent: initial and final land cover (annual if "
 "available) both in the original classification scheme and using the UNCCD 7 "
@@ -138,12 +138,12 @@ msgstr ""
 "carregar as outras camadas não selecionadas por padrão, basta selecioná-las "
 "e clicar em OK."
 
-#: ../../source/documentation/load_data.rst:63
-#: ../../source/documentation/load_data.rst:145
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:63
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:145
 msgid "Soil organic carbon"
 msgstr "Carbono orgânico do solo"
 
-#: ../../source/documentation/load_data.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:65
 msgid ""
 "This option lets you load pre-computed soil organic carbon indicators which "
 "had been processed to identify land degradation."
@@ -151,7 +151,7 @@ msgstr ""
 "Esta opção permite carregar indicadores pré-calculados de carbono orgânico "
 "do solo que foram processados ​​para identificar a degradação da terra."
 
-#: ../../source/documentation/load_data.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:68
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is a multi band raster. The number of bands will depend "
@@ -165,7 +165,7 @@ msgstr ""
 "solo do CCI da ESA foi utilizada, por exemplo, os mapas anuais de carbono "
 "orgânico do solo serão baixados."
 
-#: ../../source/documentation/load_data.rst:72
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:72
 msgid ""
 "The bands in the stack represent: initial and final soil organic carbon "
 "stocks (annual soc if annual land data is available), initial and final land"
@@ -186,11 +186,11 @@ msgstr ""
 "outras camadas não selecionadas por padrão, basta selecioná-las e clicar em "
 "OK."
 
-#: ../../source/documentation/load_data.rst:88
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:88
 msgid "SDG 15.3.1 indicator"
 msgstr "Indicador SDG 15.3.1"
 
-#: ../../source/documentation/load_data.rst:90
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:90
 msgid ""
 "This option lets you load pre-computed productivity subindicator (the "
 "integration of trajectory, performance and state) as well as the final SDG "
@@ -201,7 +201,7 @@ msgstr ""
 "final 15.3.1 (a integração de produtividade, cobertura do solo e carbono "
 "orgânico do solo)"
 
-#: ../../source/documentation/load_data.rst:94
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:94
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is an 2 band raster, the first one containing "
@@ -212,11 +212,11 @@ msgstr ""
 "arquivo baixado é um raster de 2 bandas, o primeiro contendo informações "
 "sobre o SDG e o segundo no subindicador de produtividade de 5 classes."
 
-#: ../../source/documentation/load_data.rst:107
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:107
 msgid "Load a custom input dataset"
 msgstr "Carregar um conjunto de dados de entrada personalizado"
 
-#: ../../source/documentation/load_data.rst:113
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:113
 msgid ""
 "Use this option to load productivity datasets which have already been "
 "generated outside of |trends.earth|."
@@ -224,13 +224,13 @@ msgstr ""
 "Use essa opção para carregar conjuntos de dados de produtividade que já "
 "foram gerados fora de |trends.earth|."
 
-#: ../../source/documentation/load_data.rst:115
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:115
 msgid "Productivity classes in the input data must be coded as follows:"
 msgstr ""
 "As classes de produtividade nos dados de entrada devem ser codificadas da "
 "seguinte forma:"
 
-#: ../../source/documentation/load_data.rst:117
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:117
 msgid ""
 "1: Declining 2: Early signs of decline 3: Stable but stressed 4: Stable 5: "
 "Increasing 0 or -32768: No data"
@@ -238,7 +238,7 @@ msgstr ""
 "1: Declínio 2: Primeiros sinais de declínio 3: Estável, mas estressado 4: "
 "Estável 5: Aumentando 0 ou -32768: Sem dados"
 
-#: ../../source/documentation/load_data.rst:131
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:131
 msgid ""
 "Use this option to load land cover datasets which will then be used for land"
 " cover change analysis and/or soil organic carbon change analysis."
@@ -247,7 +247,7 @@ msgstr ""
 "serão usados ​​para análise de mudança de cobertura da terra e / ou análise "
 "de mudança de carbono orgânico do solo."
 
-#: ../../source/documentation/load_data.rst:137
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:137
 msgid ""
 "If you'll be using the `CORINE land cover data "
 "<https://www.eea.europa.eu/publications/COR0-landcover>`_, you can use `this"
@@ -263,7 +263,7 @@ msgstr ""
 " para pré-carregar uma agregação sugerida das classes de cobertura da terra "
 "em Corine para convertê-las nas 7 classes de cobertura terrestre UNCCD."
 
-#: ../../source/documentation/load_data.rst:147
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:147
 msgid "Processing of custom soil organic carbon data will be available soon."
 msgstr ""
 "O processamento de dados de carbono orgânico do solo personalizados estará "

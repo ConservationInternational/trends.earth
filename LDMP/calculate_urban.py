@@ -206,53 +206,14 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
         self.setupUi(self)
 
-        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
-        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
+        self.add_output_tab(['.xlsx', '.json', '.tif'])
 
     def showEvent(self, event):
         super(DlgCalculateUrbanSummaryTable, self).showEvent(event)
 
         self.combo_layer_urban_series.populate()
 
-    def select_output_file_layer(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the output file'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Filename (*.json)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file_layer.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
-    def select_output_file_table(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the summary table'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Summary table file (*.xlsx)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file_table.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
     def btn_calculate(self):
-        ######################################################################
-        # Check that all needed output files are selected
-        if not self.output_file_layer.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the indicator layer."))
-            return
-
-        if not self.output_file_table.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the summary table."))
-            return
-
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -321,7 +282,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         ######################################################################
         # Process the wkts using a summary worker
         output_indicator_tifs = []
-        output_indicator_json = self.output_file_layer.text()
+        output_indicator_json = self.output_tab.output_basename.text() + '.json'
         for n in range(len(wkts)):
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
@@ -375,7 +336,8 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                      areas = areas + these_areas
                      populations = populations + these_populations
 
-        make_summary_table(areas, populations, self.output_file_table.text())
+        make_summary_table(areas, populations, 
+                self.output_tab.output_basename.text() + '.xlsx')
 
         # Add the indicator layers to the map
         output_indicator_bandinfos = [BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),

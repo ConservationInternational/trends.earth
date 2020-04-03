@@ -559,11 +559,10 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         self.setupUi(self)
 
+        self.add_output_tab(['.json', '.tif', '.xlsx'])
+
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
-
-        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
-        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
 
     def mode_lpd_jrc_toggled(self):
         if self.mode_lpd_jrc.isChecked():
@@ -593,45 +592,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
 
-    def select_output_file_layer(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the output file'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Filename (*.json)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file_layer.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
-    def select_output_file_table(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the summary table'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Summary table file (*.xlsx)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file_table.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
     def btn_calculate(self):
-        ######################################################################
-        # Check that all needed output files are selected
-        if not self.output_file_layer.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the indicator layer."))
-            return
-
-        if not self.output_file_table.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the summary table."))
-            return
-
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -795,7 +756,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
 
         output_sdg_tifs = []
-        output_sdg_json = self.output_file_layer.text()
+        output_sdg_json = self.output_tab.output_basename.text() + '.json'
         for n in range(len(wkts)):
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -897,7 +858,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
                            sdg_tbl_lc, lc_years, soc_years,
-                           self.output_file_table.text())
+                           self.output_tab.output_basename.text() + '.xlsx')
 
 
         # Add the SDG layers to the map

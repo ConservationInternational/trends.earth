@@ -652,13 +652,6 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         self.combo_layer_tc.populate()
 
     def btn_calculate(self):
-        ######################################################################
-        # Check that all needed output files are selected
-        if not self.output_tab.output_basename.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output base name."))
-            return
-
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.

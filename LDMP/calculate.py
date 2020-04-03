@@ -1115,9 +1115,13 @@ class DlgCalculateBase(QtWidgets.QDialog):
                         self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False
 
-        # If saving output check if the chosen basename would lead to an
-        # overwrite(s):
         if self._has_output:
+            if not self.output_tab.output_basename.text():
+                QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                              self.tr("Choose an output base name."))
+                return False
+
+            # Check if the chosen basename would lead to an  overwrite(s):
             ret = self.output_tab.check_overwrites()
             if not ret:
                 return False

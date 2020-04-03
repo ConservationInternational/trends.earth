@@ -14,6 +14,7 @@
 
 from builtins import object
 import os
+from pathlib import Path
 import json
 import tempfile
 
@@ -601,7 +602,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
     def showEvent(self, event):
         super(CalculationOptionsWidget, self).showEvent(event)
 
-        local_data_folder = QSettings().value("LDMP/CalculationOptionsWidget/lineEdit_local_data_folder", None)
+        local_data_folder = QSettings().value("LDMP/localdata_dir", None)
         if local_data_folder and os.access(local_data_folder, os.R_OK):
             self.lineEdit_local_data_folder.setText(local_data_folder)
         else:
@@ -898,15 +899,20 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_y.setText("{:.8f}".format(self.point.y()))
 
     def open_vector_browse(self):
-        self.area_fromfile_file.clear()
+        initial_path = QSettings().value("LDMP/input_shapefile", None)
+        if not initial_path:
+            initial_path = QSettings().value("LDMP/input_shapefile_dir", None)
+        if not initial_path:
+            initial_path = str(Path.home())
 
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a file defining the area of interest'),
-                                                        QSettings().value("LDMP/input_dir", None),
+                                                        initial_path,
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         if vector_file:
             if os.access(vector_file, os.R_OK):
-                QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+                QSettings().setValue("LDMP/input_shapefile", vector_file)
+                QSettings().setValue("LDMP/input_shapefile_dir", os.path.dirname(vector_file))
                 self.area_fromfile_file.setText(vector_file)
                 return True
             else:

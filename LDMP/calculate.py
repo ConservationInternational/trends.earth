@@ -40,6 +40,7 @@ from LDMP.gui.DlgCalculateRestBiomass import Ui_DlgCalculateRestBiomass
 from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
+from LDMP.gui.WidgetCalculationOutput import Ui_WidgetCalculationOutput
 from LDMP.download import read_json, get_admin_bounds, get_cities
 from LDMP.worker import AbstractWorker
 
@@ -647,7 +648,65 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
         else:
             self.where_to_run_enabled = False
             self.groupBox_where_to_run.hide()
-                
+
+class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
+    def __init__(self, suffixes, subclass_name, parent=None):
+        super(CalculationOutputWidget, self).__init__(parent)
+
+        self.output_suffixes = suffixes
+        self.subclass_name = subclass_name
+
+        self.setupUi(self)
+
+        self.browse_output_basename.clicked.connect(self.select_output_basename)
+
+    def select_output_basename(self):
+        local_name = QSettings().value("LDMP/output_basename_{}".format(self.subclass_name), None)
+        if local_name:
+            initial_path = local_name
+        else:
+            initial_path = QSettings().value("LDMP/output_dir", None)
+
+
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                self.tr('Choose a prefix to be used when naming output files'),
+                initial_path,
+                self.tr('Base name (*)'))
+
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                QSettings().setValue("LDMP/output_basename_{}".format(self.subclass_name), f)
+                self.output_basename.setText(f)
+                self.set_output_summary(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def set_output_summary(self, f):
+        out_files = [f + suffix for suffix in self.output_suffixes]
+        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
+
+    def check_overwrites(self):
+        overwrites = []
+        for suffix in self.output_suffixes: 
+            if os.path.exists(self.output_basename.text() + suffix):
+                overwrites.append(os.path.basename(self.output_basename.text() + suffix))
+
+        if len(overwrites) > 0:
+            resp = QtWidgets.QMessageBox.question(self,
+                    self.tr('Overwrite file?'),
+                    self.tr('Using the prefix "{}" would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?'.format(
+                        self.output_basename.text(),
+                        ", ".join(["{}"]*len(overwrites)).format(*overwrites))),
+                    QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+            if resp == QtWidgets.QMessageBox.No:
+                QtWidgets.QMessageBox.information(None, self.tr("Information"),
+                                           self.tr(u"Choose a different output prefix and try again."))
+                return False
+
+        return True
+
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def __init__(self, parent=None):
@@ -877,10 +936,15 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
 
+        self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
 
         self.firstShowEvent.connect(self.firstShow)
+
+    def add_output_tab(self, suffixes=['.json', '.tif']):
+        self._has_output = True
+        self.output_suffixes = suffixes
 
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
@@ -894,17 +958,21 @@ class DlgCalculateBase(QtWidgets.QDialog):
         
         # If this dialog has an output_basename widget then set it up with any 
         # saved values in QSettings
-        if hasattr(self, 'output_basename'):
+        if self._has_output:
             f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
             if f:
-                self.output_basename.setText(f)
-                self.set_output_summary(f)
-
+                self.output_tab.output_basename.setText(f)
+                self.output_tab.set_output_summary(f)
 
     def firstShow(self):
         self.area_tab = AreaWidget()
         self.area_tab.setParent(self)
         self.TabBox.addTab(self.area_tab, self.tr('Area'))
+
+        if self._has_output:
+            self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            self.output_tab.setParent(self)
+            self.TabBox.addTab(self.output_tab, self.tr('Output'))
 
         self.options_tab = CalculationOptionsWidget()
         self.options_tab.setParent(self)
@@ -1047,52 +1115,15 @@ class DlgCalculateBase(QtWidgets.QDialog):
                         self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False
 
-        # If saving output (meaning there is an output_basename field), check 
-        # if this basename would lead to an overwrite:
-        if hasattr(self, 'output_basename'):
-            overwrites = []
-            for suffix in self.output_suffixes: 
-                if os.path.exists(self.output_basename.text() + suffix):
-                    overwrites.append(os.path.basename(self.output_basename.text() + suffix))
-
-            if len(overwrites) > 0:
-                resp = QtWidgets.QMessageBox.question(self,
-                        self.tr('Overwrite file?'),
-                        self.tr('Using the prefix "{}" would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?'.format(
-                            self.output_basename.text(),
-                            ", ".join(["{}"]*len(overwrites)).format(*overwrites))),
-                        QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
-                if resp == QtWidgets.QMessageBox.No:
-                    return False
+        # If saving output check if the chosen basename would lead to an
+        # overwrite(s):
+        if self._has_output:
+            ret = self.output_tab.check_overwrites()
+            if not ret:
+                return False
 
         return True
 
-    def select_output_basename(self):
-        local_name = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
-        if local_name:
-            initial_path = local_name
-        else:
-            initial_path = QSettings().value("LDMP/output_dir", None)
-
-
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                self.tr('Choose a prefix to be used when naming output files'),
-                initial_path,
-                self.tr('Base name (*)'))
-
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                QSettings().setValue("LDMP/output_basename_{}".format(self.get_subclass_name()), f)
-                self.output_basename.setText(f)
-                self.set_output_summary(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
-    def set_output_summary(self, f):
-        out_files = [f + suffix for suffix in self.output_suffixes]
-        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
 
 class ClipWorker(AbstractWorker):
     def __init__(self, in_file, out_file, geojson, output_bounds=None):

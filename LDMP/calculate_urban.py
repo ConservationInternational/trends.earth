@@ -148,7 +148,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         if not ret:
             return
 
-        # Limit area for the urban tool to 10,000 sq km
+        # Limit area that can be processed
         aoi_area = self.aoi.get_area() / (1000 * 1000)
         log(u'AOI area is: {:n}'.format(aoi_area))
         if aoi_area > 25000:

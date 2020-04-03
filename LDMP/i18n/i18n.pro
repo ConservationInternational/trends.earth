@@ -42,6 +42,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgVisualizationCreateMap.ui \
 ../gui/WidgetCalcMultSDGSummary.ui \
 ../gui/WidgetCalculationOptions.ui \
+../gui/WidgetCalculationOutput.ui \
 ../gui/WidgetDataIOImportSelectFileInput.ui \
 ../gui/WidgetDataIOImportSelectRasterOutput.ui \
 ../gui/WidgetDataIOSelectTELayerExisting.ui \

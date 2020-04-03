@@ -641,11 +641,9 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
     def __init__(self, parent=None):
         super(DlgCalculateTCSummaryTable, self).__init__(parent)
 
-        self.output_suffixes = ['.xlsx']
-
         self.setupUi(self)
 
-        self.browse_output_basename.clicked.connect(self.select_output_basename)
+        self.add_output_tab(['.xlsx'])
 
     def showEvent(self, event):
         super(DlgCalculateTCSummaryTable, self).showEvent(event)
@@ -656,7 +654,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
     def btn_calculate(self):
         ######################################################################
         # Check that all needed output files are selected
-        if not self.output_basename.text():
+        if not self.output_tab.output_basename.text():
             QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                           self.tr("Choose an output base name."))
             return
@@ -711,7 +709,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
 
         summary_task = SummaryTask(self.aoi, year_start, year_end, 
-                f_loss_vrt, tc_vrt, self.output_basename.text() + '.xlsx')
+                f_loss_vrt, tc_vrt, self.output_tab.output_basename.text() + '.xlsx')
         log("Adding task to task manager")
         QgsApplication.taskManager().addTask(summary_task)
         if summary_task.status() not in [QgsTask.Complete, QgsTask.Terminated]:

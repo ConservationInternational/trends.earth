@@ -519,6 +519,11 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
+    # Below is necessary just to avoid warning messages regarding missing image 
+    # files when Sphinx is used later on
+    print("Localizing resources...")
+    _localize_resources(c, 'en')
+
     print("Gathering strings...")
     gettext(c)
     print("Generating the pot files for the LDMP toolbox help files...")
@@ -581,6 +586,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(lang=language,
                 sourcedir=c.sphinx.sourcedir)
 
+        print("\nLocalizing resources for {lang} documentation...".format(lang=language))
         _localize_resources(c, language)
 
         subprocess.check_call("sphinx-intl --config {sourcedir}/conf.py build --language={lang}".format(sourcedir=c.sphinx.sourcedir,

@@ -34,7 +34,6 @@ mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
 
-from LDMP import __version__
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries

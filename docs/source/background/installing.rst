@@ -4,12 +4,6 @@ Installing the toolbox
 There are different ways to install |trends.earth|, depending on whether you want 
 to install the stable version (recommended) or the development version.
 
-.. warning::
-   QGIS 3 is not currently supported by |trends.earth|, so the plugin will not 
-   appear in the plugin window if you are using QGIS 3.0. To use |trends.earth| 
-   you must install QGIS version 2.18. See :ref:`before-installing` for more 
-   information.
-
 Installing the stable version (recommended)
 -------------------------------------------
 The preferred way to install the |trends.earth| is through QGIS. To install from 

@@ -12,7 +12,7 @@ import subprocess
 from tempfile import mkstemp
 import zipfile
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import hashlib
 
 import boto3
@@ -53,10 +53,13 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-def get_version():
+def get_version(number=True):
     with open('version.txt', 'r') as f:
-        v = f.read()
-    return v.strip('\n')
+        if number:
+            v = f.readline().strip('\n')
+        else:
+            v = f.read()
+    return v
 
 # Handle long filenames or readonly files on windows, see: 
 # http://bit.ly/2g58Yxu
@@ -109,11 +112,14 @@ def set_version(c, v):
         print('Must specify a valid version (example: 0.36)')
         return
     
+    SHA = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[1:8]
+    release_date = datetime.now(timezone.utc).strftime('%Y/%m/%d %H:%M:%SZ')
+
     # Set in version.txt
     print('Setting version to {} in version.txt'.format(v))
     with open('version.txt', 'w') as f:
-        f.write(v)
-     
+        f.write('{}\n(revision {}, {})'.format(v, SHA, release_date))
+
     # Set in Sphinx docs in make.conf
     print('Setting version to {} in sphinx conf.py'.format(v))
     sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE)
@@ -126,8 +132,14 @@ def set_version(c, v):
     
     # Set in __init__.py
     print('Setting version to {} in __init__.py'.format(v))
-    init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
-    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_regex, '\g<1>' + v)
+    init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
+    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_version_regex, '\g<1>' + v)
+
+    init_revision_regex = re.compile('^(__revision__[ ]*=[ ]*["\'])[0-9a-zA-Z]{8}')
+    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_revision_regex, '\g<1>' + SHA)
+
+    init_release_date_regex = re.compile('^(__release_date__[ ]*=[ ]*["\'])[0-9/: ]*Z')
+    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_release_date_regex, '\g<1>' + release_date)
 
     # For the GEE config files the version can't have a dot, so convert to 
     # underscore
@@ -152,8 +164,8 @@ def set_version(c, v):
                 _replace(filepath, gee_id_regex, '')
             elif file == '__init__.py':
                 print('Setting version to {} in {}'.format(v, filepath))
-                init_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
-                _replace(filepath, init_regex, '\g<1>' + v)
+                init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
+                _replace(filepath, init_version_regex, '\g<1>' + v)
     
     # Set in scripts.json
     print('Setting version to {} in scripts.json'.format(v))

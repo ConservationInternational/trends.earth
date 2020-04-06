@@ -15,7 +15,7 @@
 import os
 import sys
 
-from LDMP import __version__
+from LDMP import __version__, __revision__, __release_date__
 
 from qgis.PyQt import QtWidgets, uic
 
@@ -39,4 +39,5 @@ class DlgAbout(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
 
         # Add version number to about dialog
-        self.textBrowser.setHtml(self.textBrowser.toHtml().replace('VERSION_NUMBER', __version__))
+        version = '{}<br>(revision {}, {})'.format(__version__, __revision__, __release_date__)
+        self.textBrowser.setHtml(self.textBrowser.toHtml().replace('VERSION_NUMBER', version))

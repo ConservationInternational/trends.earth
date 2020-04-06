@@ -4,21 +4,21 @@ Before installing the toolbox
 ==============================
 
 Before installing the toolbox, QGIS version |qgisMinVersion| or higher
-needs to be installed on the computer.
+needs to be installed on your computer.
 
-.. warning::
-   QGIS 3 is not currently supported by |trends.earth|, so the plugin will not 
-   appear in the plugin window if you are using QGIS 3. To use |trends.earth| 
-   you must install QGIS version 2.18. The Trends.Earth team is aware of this 
-   issue and is actively working on a new version of the plugin that will
-   support QGIS 3.
+Download QGIS
+-------------
 
-To install the plugin, first install QGIS 2.18 following the below steps:
+To install the plugin, first install QGIS 3.10.3+ following the below steps:
+
 
 1. Choose either 32 or 64 bit version
 
-   You have the option of installing a 32-bit or 64-bit version of QGIS. To know 
-   which version to install, check which type of operating system you have:
+   You have the option of installing a 32-bit or 64-bit version of QGIS. To 
+   know which version to install, check which type of operating system you have 
+   following the below instructions. If you are unsure which you need, try 
+   downloading the 64 bit version first. If that version doesn't work properly, 
+   un-install it and then install the 32 bit version.
 
    * Windows 8 or Windows 10
 
@@ -35,32 +35,36 @@ To install the plugin, first install QGIS 2.18 following the below steps:
 
    * Mac: Click the Apple icon in the top left and select "About this Mac".
 
-2. Download installer for QGIS 2.18
+2. After determining whether you need the 32 or 64 bit version, download the 
+   appropriate installer:
 
-   * Windows: Choose either the 32 or 64 bit version, and download from the 
-     appropriate link below.
+   * Windows: `Download Windows installer from here 
+     <https://qgis.org/en/site/forusers/download.html#windows>`_.
 
-     + `64 bit Windows
-       <http://download.osgeo.org/qgis/win32/QGIS-OSGeo4W-2.18.28-3-Setup-x86_64.exe>`_
+   * MacOS: `Download MacOS installer from here 
+     <https://qgis.org/en/site/forusers/download.html#mac>`_.
 
-     + `32 bit Windows
-       <http://download.osgeo.org/qgis/win32/QGIS-OSGeo4W-2.18.28-3-Setup-x86.exe>`_
-
-   * Mac: Download from `here 
-     <http://www.kyngchaos.com/files/software/qgis/QGIS-2.18.0-1.dmg>`_.
-
-   * Linux: `See instructions from the QGIS team on how to install on Linux
-     <https://www.qgis.org/en/site/forusers/alldownloads.html#linux>`_.
+   * Linux: `Download Linux installer from here, or from the repository for 
+     your Linux distribution 
+     <https://qgis.org/en/site/forusers/download.html#linux>`_.
 
 Install QGIS
 ------------
 
 Once the installer is downloaded from the website, it needs to be run (double 
-click on it). Select the options using the Default settings.
+click on it). Select the Default settings for all options.
 
 
-.. image:: /static/documentation/before_installing/qgis_webpage.png
-   :align: center
+Installing older versions of QGIS
+---------------------------------
 
-.. toctree::
-   :maxdepth: 2
+Older versions of QGIS can be accessed at the below links. We recommend the 
+latest version of QGIS (see instructions above) but the below links might be 
+useful if you have a specific need for accessing an older version of the 
+Trends.Earth plugin (for example the QGIS2 version of the plugin).
+
+* Windows: `Download older versions of QGIS for Windows here
+  <https://qgis.org/downloads/>`_.
+
+* MacOS: `Download older versions of QGIS for MacOS here 
+  <https://qgis.org/downloads/MacOS>`_.

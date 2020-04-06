@@ -58,6 +58,8 @@ class DataTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
+        elif role == Qt.TextAlignmentRole and index.column() in [2, 3, 4, 5]:
+            return Qt.AlignCenter
         elif role != Qt.DisplayRole:
             return None
         return self.datasets[index.row()].get(self.colnames_json[index.column()], '')
@@ -141,7 +143,14 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             btn.clicked.connect(self.btn_details)
             self.data_view.setIndexWidget(proxy_model.index(row, 7), btn)
 
-        self.data_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        self.data_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        self.data_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.Stretch)
+        self.data_view.horizontalHeader().setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
 
         self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 

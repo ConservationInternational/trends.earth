@@ -235,7 +235,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
-                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',
+                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
                    'climate_gee_dataset': None,
                    'fl': .80,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
@@ -559,11 +559,10 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         self.setupUi(self)
 
+        self.add_output_tab(['.json', '.tif', '.xlsx'])
+
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
-
-        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
-        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
 
     def mode_lpd_jrc_toggled(self):
         if self.mode_lpd_jrc.isChecked():
@@ -593,45 +592,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
 
-    def select_output_file_layer(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the output file'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Filename (*.json)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file_layer.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
-    def select_output_file_table(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              self.tr('Choose a filename for the summary table'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Summary table file (*.xlsx)'))
-        if f:
-            if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.output_file_table.setText(f)
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
     def btn_calculate(self):
-        ######################################################################
-        # Check that all needed output files are selected
-        if not self.output_file_layer.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the indicator layer."))
-            return
-
-        if not self.output_file_table.text():
-            QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                          self.tr("Choose an output file for the summary table."))
-            return
-
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -795,7 +756,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
 
         output_sdg_tifs = []
-        output_sdg_json = self.output_file_layer.text()
+        output_sdg_json = self.output_tab.output_basename.text() + '.json'
         for n in range(len(wkts)):
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -897,7 +858,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
                            sdg_tbl_lc, lc_years, soc_years,
-                           self.output_file_table.text())
+                           self.output_tab.output_basename.text() + '.xlsx')
 
 
         # Add the SDG layers to the map
@@ -1015,12 +976,12 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     ##########################################################################
     # SDG table
-    ws_sdg = wb.get_sheet_by_name('SDG 15.3.1')
+    ws_sdg = wb['SDG 15.3.1']
     write_table_to_sheet(ws_sdg, np.transpose(sdg_tbl_overall), 6, 6)
 
     ##########################################################################
     # Productivity tables
-    ws_prod = wb.get_sheet_by_name('Productivity')
+    ws_prod = wb['Productivity']
     write_table_to_sheet(ws_prod, np.transpose(sdg_tbl_prod), 6, 6)
 
     write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 5), 16, 3)
@@ -1032,7 +993,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     ##########################################################################
     # Soil organic carbon tables
-    ws_soc = wb.get_sheet_by_name('Soil organic carbon')
+    ws_soc = wb['Soil organic carbon']
     write_table_to_sheet(ws_soc, np.transpose(sdg_tbl_soc), 6, 6)
 
     # First write baseline
@@ -1052,14 +1013,14 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     ##########################################################################
     # Land cover tables
-    ws_lc = wb.get_sheet_by_name('Land cover')
+    ws_lc = wb['Land cover']
     write_table_to_sheet(ws_lc, np.transpose(sdg_tbl_lc), 6, 6)
 
     write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 26, 3)
 
     ##########################################################################
     # UNCCD tables
-    ws_unccd = wb.get_sheet_by_name('UNCCD Reporting')
+    ws_unccd = wb['UNCCD Reporting']
 
     for i in range(len(lc_years)):
         # Water bodies

@@ -5,15 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-03-16 16:41-0400\n"
 "PO-Revision-Date: 2019-01-28 02:04+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,15 +22,15 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/about/publications.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:2
 msgid "Publications"
 msgstr "Publicações"
 
-#: ../../source/about/publications.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:4
 msgid "The below publications either use or relate to |trends.earth|."
-msgstr "As publicações abaixo usam ou se relacionam com | trends.earth |."
+msgstr "As publicações abaixo usam ou referem ao |trends.earth|."
 
-#: ../../source/about/publications.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:6
 msgid ""
 "Gonzalez-Roglich, M., Zvoleff, A., Noon, M., Liniger, H., Fleiner, R., "
 "Harari, N., Garcia, C., 2019. Synergizing global tools to monitor progress "
@@ -45,7 +46,7 @@ msgstr ""
 "database. Environ. Sci. Policy 93, 34–42. "
 "https://doi.org/10.1016/j.envsci.2018.12.019"
 
-#: ../../source/about/publications.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:10
 msgid ""
 "Arnold S., Jun C., Olav E. 2019. Global and Complementary (Non-"
 "authoritative) Geospatial Data for SDGs: Role and Utilisation. Report "
@@ -63,7 +64,7 @@ msgstr ""
 " (IAEG-SDGs). "
 "http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf"
 
-#: ../../source/about/publications.rst:16
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:16
 msgid ""
 "Dong, J., Metternicht, G., Hostert, P., Fensholt, R., Chowdhury, R.R., 2019."
 " Remote sensing and geospatial technologies in support of a normative land "
@@ -75,7 +76,7 @@ msgstr ""
 "system science: status and prospects. Curr. Opin. Environ. Sustain. 38, "
 "44–52. https://doi.org/10.1016/j.cosust.2019.05.003"
 
-#: ../../source/about/publications.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:20
 msgid ""
 "Easdale, M.H., Fariña, C., Hara, S., Pérez León, N., Umaña, F., Tittonell, "
 "P., Bruzzone, O., 2019. Trend-cycles of vegetation dynamics as a tool for "
@@ -87,7 +88,7 @@ msgstr ""
 "land degradation assessment and monitoring. Ecol. Indic. 107, 105545. "
 "https://doi.org/10.1016/j.ecolind.2019.105545"
 
-#: ../../source/about/publications.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:23
 msgid ""
 "Liniger, H., Harari, N., van Lynden, G., Fleiner, R., de Leeuw, J., Bai, Z.,"
 " Critchley, W., 2019. Achieving land degradation neutrality: The role of SLM"
@@ -99,7 +100,7 @@ msgstr ""
 " knowledge in evidence-based decision-making. Environ. Sci. Policy 94, "
 "123–134. https://doi.org/10.1016/j.envsci.2019.01.001"
 
-#: ../../source/about/publications.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:27
 msgid ""
 "Meyer, D. & Riechert, M. Open source QGIS toolkit for the Advanced Research "
 "WRF modelling system. Environmental Modelling & Software 112, 166–178 "
@@ -109,7 +110,7 @@ msgstr ""
 "WRF modelling system. Environmental Modelling & Software 112, 166–178 "
 "(2019). https://www.sciencedirect.com/science/article/pii/S1364815218304523"
 
-#: ../../source/about/publications.rst:30
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:30
 msgid ""
 "Sims, N. C. et al. Developing good practice guidance for estimating land "
 "degradation in the context of the United Nations Sustainable Development "
@@ -121,7 +122,7 @@ msgstr ""
 "Goals. Environmental Science & Policy 92, 349–355 (2019). "
 "https://www.sciencedirect.com/science/article/pii/S1462901118305768"
 
-#: ../../source/about/publications.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\publications.rst:34
 msgid ""
 "Timm Hoffman, M., Skowno, A., Bell, W. & Mashele, S. Long-term changes in "
 "land use, land cover and vegetation in the Karoo drylands of South Africa: "

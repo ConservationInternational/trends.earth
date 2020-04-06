@@ -14,6 +14,7 @@
 
 from builtins import object
 import os
+from pathlib import Path
 import json
 import tempfile
 
@@ -31,7 +32,7 @@ from qgis.core import QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils, \
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
-from LDMP import log
+from LDMP import log, GetTempFilename
 from LDMP.api import run_script
 from LDMP.gui.DlgCalculate import Ui_DlgCalculate
 from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
@@ -40,6 +41,7 @@ from LDMP.gui.DlgCalculateRestBiomass import Ui_DlgCalculateRestBiomass
 from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
+from LDMP.gui.WidgetCalculationOutput import Ui_WidgetCalculationOutput
 from LDMP.download import read_json, get_admin_bounds, get_cities
 from LDMP.worker import AbstractWorker
 
@@ -62,9 +64,9 @@ def get_script_slug(script_name):
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
-    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj4(), crs_dst.toProj4(), wrap, datatype))
+    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj(), crs_dst.toProj(), wrap, datatype))
 
-    crs_src_string = l.crs().toProj4()
+    crs_src_string = l.crs().toProj()
     if wrap:
         if not l.crs().isGeographic():
             QtWidgets.QMessageBox.critical(None, tr("Error"),
@@ -73,11 +75,11 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
             return None
         crs_src_string = crs_src_string + ' +lon_wrap=180'
     crs_src = QgsCoordinateReferenceSystem()
-    crs_src.createFromProj4(crs_src_string)
+    crs_src.createFromProj(crs_src_string)
     t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
     l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
-                         crs=crs_dst.toProj4()), "calculation boundary (transformed)",  
+                         crs=crs_dst.toProj()), "calculation boundary (transformed)",  
                          "memory")
     feats = []
     for f in l.getFeatures():
@@ -97,7 +99,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     l_w.dataProvider().addFeatures(feats)
     l_w.commitChanges()
     if not l_w.isValid():
-        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj4(), wrap))
+        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj(), wrap))
         return None
     else:
         return l_w
@@ -296,19 +298,26 @@ class AOI(object):
         return [left, bottom, right, top]
 
     def get_area(self):
-        source = osr.SpatialReference()
-        source.ImportFromEPSG(4326)
-        # Use world robinson as an approximation to calculate polygon area
-        target = osr.SpatialReference()
-        target.ImportFromEPSG(54030)
-        transform = osr.CoordinateTransformation(source, target)
+        wgs84_crs = QgsCoordinateReferenceSystem('EPSG:4326')
+        
         # Returns area of aoi components in sq m
         wkts = self.meridian_split(out_format='wkt', warn=False)[1]
         area = 0.
         for wkt in wkts:
-            geom = ogr.CreateGeometryFromWkt(wkt)
-            geom.Transform(transform)
-            this_area = geom.GetArea()
+            geom = QgsGeometry.fromWkt(wkt)
+            # Lambert azimuthal equal area centered on polygon centroid
+            centroid = geom.centroid().asPoint()
+            laea_crs = QgsCoordinateReferenceSystem.fromProj('+proj=laea +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
+            to_laea = QgsCoordinateTransform(wgs84_crs, laea_crs, QgsProject.instance())
+
+            try:
+                ret = geom.transform(to_laea)
+            except:
+                log('Error buffering layer while transforming to laea')
+                QtWidgets.QMessageBox.critical(None, tr("Error"),
+                                           tr("Error transforming coordinates. Check that the input geometry is valid."))
+                return None
+            this_area = geom.area()
             area += this_area
         return area
 
@@ -324,7 +333,7 @@ class AOI(object):
         """
         # Setup settings for AOI provided to GEE:
         wgs84_crs = QgsCoordinateReferenceSystem()
-        wgs84_crs.createFromProj4('+proj=longlat +datum=WGS84 +no_defs')
+        wgs84_crs.createFromProj('+proj=longlat +datum=WGS84 +no_defs')
         return transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
 
     def bounding_box_geom(self):
@@ -363,29 +372,32 @@ class AOI(object):
 
     def buffer(self, d):
         log('Buffering layer by {} km.'.format(d))
-        
-        wgs84_crs = QgsCoordinateReferenceSystem('epsg:4326')
-        robinson_crs = QgsCoordinateReferenceSystem('epsg:54030')
-        to_wgs84  = QgsCoordinateTransform(robinson_crs, wgs84_crs, QgsProject.instance())
-        to_robinson = QgsCoordinateTransform(wgs84_crs, robinson_crs, QgsProject.instance())
 
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
+            # Setup an azimuthal equidistant projection centered on the polygon 
+            # centroid
+            centroid = geom.centroid().asPoint()
+            geom.centroid()
+            wgs84_crs = QgsCoordinateReferenceSystem('EPSG:4326')
+            aeqd_crs = QgsCoordinateReferenceSystem.fromProj('+proj=aeqd +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
+            to_aeqd = QgsCoordinateTransform(wgs84_crs, aeqd_crs, QgsProject.instance())
+
             try:
-                geom.transform(to_robinson)
+                ret = geom.transform(to_aeqd)
             except:
-                log('Error buffering layer while transforming to Robinson')
+                log('Error buffering layer while transforming to aeqd')
                 QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                           tr("Error transforming coordinates. Check that the input geometry is valid."), None)
-                return False
+                                           tr("Error transforming coordinates. Check that the input geometry is valid."))
+                return None
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
-            geom_buffered.transform(to_wgs84)
+            geom_buffered.transform(to_aeqd, QgsCoordinateTransform.TransformDirection.ReverseTransform)
             f.setGeometry(geom_buffered)
             feats.append(f)
 
-        l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj4()),
+        l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
                                     "calculation boundary (transformed)",  
                                     "memory")
         l_buffered.dataProvider().addFeatures(feats)
@@ -411,10 +423,15 @@ class AOI(object):
         aoi_geom = ogr.CreateGeometryFromWkt(self.bounding_box_geom().asWkt())
         in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
 
-        area_inter = aoi_geom.Intersection(in_geom).GetArea()
-        frac = area_inter / aoi_geom.GetArea()
-        log('Fractional area of overlap: {}'.format(frac))
+        geom_area = aoi_geom.GetArea()
+        if geom_area == 0:
+            # Handle case of a point with zero area
+            frac = aoi_geom.Within(in_geom)
+        else:
+            frac = aoi_geom.Intersection(in_geom).GetArea() / geom_area
+            log('Fractional area of overlap: {}'.format(frac))
         return frac
+
 
 class DlgCalculate(QtWidgets.QDialog, Ui_DlgCalculate):
     def __init__(self, parent=None):
@@ -585,7 +602,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
     def showEvent(self, event):
         super(CalculationOptionsWidget, self).showEvent(event)
 
-        local_data_folder = QSettings().value("LDMP/CalculationOptionsWidget/lineEdit_local_data_folder", None)
+        local_data_folder = QSettings().value("LDMP/localdata_dir", None)
         if local_data_folder and os.access(local_data_folder, os.R_OK):
             self.lineEdit_local_data_folder.setText(local_data_folder)
         else:
@@ -632,7 +649,65 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
         else:
             self.where_to_run_enabled = False
             self.groupBox_where_to_run.hide()
-                
+
+class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
+    def __init__(self, suffixes, subclass_name, parent=None):
+        super(CalculationOutputWidget, self).__init__(parent)
+
+        self.output_suffixes = suffixes
+        self.subclass_name = subclass_name
+
+        self.setupUi(self)
+
+        self.browse_output_basename.clicked.connect(self.select_output_basename)
+
+    def select_output_basename(self):
+        local_name = QSettings().value("LDMP/output_basename_{}".format(self.subclass_name), None)
+        if local_name:
+            initial_path = local_name
+        else:
+            initial_path = QSettings().value("LDMP/output_dir", None)
+
+
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                self.tr('Choose a prefix to be used when naming output files'),
+                initial_path,
+                self.tr('Base name (*)'))
+
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                QSettings().setValue("LDMP/output_basename_{}".format(self.subclass_name), f)
+                self.output_basename.setText(f)
+                self.set_output_summary(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def set_output_summary(self, f):
+        out_files = [f + suffix for suffix in self.output_suffixes]
+        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
+
+    def check_overwrites(self):
+        overwrites = []
+        for suffix in self.output_suffixes: 
+            if os.path.exists(self.output_basename.text() + suffix):
+                overwrites.append(os.path.basename(self.output_basename.text() + suffix))
+
+        if len(overwrites) > 0:
+            resp = QtWidgets.QMessageBox.question(self,
+                    self.tr('Overwrite file?'),
+                    self.tr('Using the prefix "{}" would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?'.format(
+                        self.output_basename.text(),
+                        ", ".join(["{}"]*len(overwrites)).format(*overwrites))),
+                    QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+            if resp == QtWidgets.QMessageBox.No:
+                QtWidgets.QMessageBox.information(None, self.tr("Information"),
+                                           self.tr(u"Choose a different output prefix and try again."))
+                return False
+
+        return True
+
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def __init__(self, parent=None):
@@ -725,7 +800,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
 
         buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
-        if buffer_checked:
+        if buffer_checked is not None:
             self.groupBox_buffer.setChecked(buffer_checked)
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
         if buffer_size:
@@ -824,15 +899,20 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_y.setText("{:.8f}".format(self.point.y()))
 
     def open_vector_browse(self):
-        self.area_fromfile_file.clear()
+        initial_path = QSettings().value("LDMP/input_shapefile", None)
+        if not initial_path:
+            initial_path = QSettings().value("LDMP/input_shapefile_dir", None)
+        if not initial_path:
+            initial_path = str(Path.home())
 
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
                                                         self.tr('Select a file defining the area of interest'),
-                                                        QSettings().value("LDMP/input_dir", None),
+                                                        initial_path,
                                                         self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
         if vector_file:
             if os.access(vector_file, os.R_OK):
-                QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
+                QSettings().setValue("LDMP/input_shapefile", vector_file)
+                QSettings().setValue("LDMP/input_shapefile_dir", os.path.dirname(vector_file))
                 self.area_fromfile_file.setText(vector_file)
                 return True
             else:
@@ -847,6 +927,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
 
+    @classmethod
+    def get_subclass_name(cls):
+        return cls.__name__
+
     def __init__(self, parent=None):
         super(DlgCalculateBase, self).__init__(parent)
 
@@ -858,10 +942,15 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                'data', 'gee_datasets.json')) as datasets_file:
             self.datasets = json.load(datasets_file)
 
+        self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
 
         self.firstShowEvent.connect(self.firstShow)
+
+    def add_output_tab(self, suffixes=['.json', '.tif']):
+        self._has_output = True
+        self.output_suffixes = suffixes
 
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
@@ -872,11 +961,24 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
+        
+        # If this dialog has an output_basename widget then set it up with any 
+        # saved values in QSettings
+        if self._has_output:
+            f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
+            if f:
+                self.output_tab.output_basename.setText(f)
+                self.output_tab.set_output_summary(f)
 
     def firstShow(self):
         self.area_tab = AreaWidget()
         self.area_tab.setParent(self)
         self.TabBox.addTab(self.area_tab, self.tr('Area'))
+
+        if self._has_output:
+            self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            self.output_tab.setParent(self)
+            self.TabBox.addTab(self.output_tab, self.tr('Output'))
 
         self.options_tab = CalculationOptionsWidget()
         self.options_tab.setParent(self)
@@ -962,21 +1064,21 @@ class DlgCalculateBase(QtWidgets.QDialog):
             else:
                 if not self.area_tab.area_admin_0.currentText():
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Choose a first level administrative boundary."), None)
+                                               self.tr("Choose a first level administrative boundary."))
                     return False
                 self.button_calculate.setEnabled(False)
                 geojson = self.get_admin_poly_geojson()
                 self.button_calculate.setEnabled(True)
                 if not geojson:
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Unable to load administrative boundaries."), None)
+                                               self.tr("Unable to load administrative boundaries."))
                     return False
                 self.aoi.update_from_geojson(geojson=geojson, 
                                              wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
         elif self.area_tab.area_fromfile.isChecked():
             if not self.area_tab.area_fromfile_file.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a file to define the area of interest."), None)
+                                           self.tr("Choose a file to define the area of interest."))
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
                                       wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
@@ -984,7 +1086,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             # Area from point
             if not self.area_tab.area_frompoint_point_x.text() or not self.area_tab.area_frompoint_point_y.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a point to define the area of interest."), None)
+                                           self.tr("Choose a point to define the area of interest."))
                 return False
             point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
@@ -995,17 +1097,19 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                          datatype='point')
         else:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose an area of interest."), None)
+                                       self.tr("Choose an area of interest."))
             return False
 
         if self.aoi and not self.aoi.isValid():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Unable to read area of interest."), None)
+                                       self.tr("Unable to read area of interest."))
             return False
 
         if self.area_tab.groupBox_buffer.isChecked():
             ret = self.aoi.buffer(self.area_tab.buffer_size_km.value())
             if not ret:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                        self.tr("Error buffering polygon"))
                 return False
 
         # Limit processing area to be no greater than 10^7 sq km if using a 
@@ -1014,7 +1118,18 @@ class DlgCalculateBase(QtWidgets.QDialog):
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > 1e7:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)), None)
+                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
+                return False
+
+        if self._has_output:
+            if not self.output_tab.output_basename.text():
+                QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                              self.tr("Choose an output base name."))
+                return False
+
+            # Check if the chosen basename would lead to an  overwrite(s):
+            ret = self.output_tab.check_overwrites()
+            if not ret:
                 return False
 
         return True
@@ -1034,10 +1149,9 @@ class ClipWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = tempfile.NamedTemporaryFile(suffix='.geojson').name
+        json_file = GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
-        f.close()
 
         gdal.UseExceptions()
         res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
@@ -1049,6 +1163,8 @@ class ClipWorker(AbstractWorker):
                         resampleAlg=gdal.GRA_NearestNeighbour,
                         creationOptions=['COMPRESS=LZW'],
                         callback=self.progress_callback)
+        os.remove(json_file)
+
         if res:
             return True
         else:
@@ -1074,10 +1190,10 @@ class MaskWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = tempfile.NamedTemporaryFile(suffix='.geojson').name
+
+        json_file = GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
-        f.close()
 
         gdal.UseExceptions()
 
@@ -1107,6 +1223,8 @@ class MaskWorker(AbstractWorker):
                              outputType=gdal.GDT_Int16,
                              creationOptions=['COMPRESS=LZW'],
                              callback=self.progress_callback)
+        os.remove(json_file)
+
         if res:
             return True
         else:

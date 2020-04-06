@@ -9,8 +9,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateRestBiomassData.ui \
 ../gui/DlgCalculateRestBiomassSummaryTable.ui \
 ../gui/DlgCalculateSOC.ui \
-../gui/DlgCalculateSummaryTableAdmin.ui \
-../gui/DlgCalculateSummaryTablePolygons.ui \
+../gui/DlgCalculateLDNSummaryTableAdmin.ui \
+../gui/DlgCalculateLDNSummaryTablePolygons.ui \
 ../gui/DlgCalculateTC.ui \
 ../gui/DlgCalculateTCData.ui \
 ../gui/DlgCalculateTCSummaryTable.ui \
@@ -42,6 +42,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgVisualizationCreateMap.ui \
 ../gui/WidgetCalcMultSDGSummary.ui \
 ../gui/WidgetCalculationOptions.ui \
+../gui/WidgetCalculationOutput.ui \
 ../gui/WidgetDataIOImportSelectFileInput.ui \
 ../gui/WidgetDataIOImportSelectRasterOutput.ui \
 ../gui/WidgetDataIOSelectTELayerExisting.ui \
@@ -56,7 +57,7 @@ SOURCES = ../about.py \
 ../calculate_lc.py \
 ../calculate_prod.py \
 ../calculate_rest_biomass.py \
-../calculate_sdg.py \
+../calculate_ldn.py \
 ../calculate_soc.py \
 ../calculate_tc.py \
 ../calculate_urban.py \

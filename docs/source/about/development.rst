@@ -303,6 +303,17 @@ distribution you are using.
 Testing an Earth Engine script locally
 --------------------------------------
 
+After installing the trends.earth-CLI package, you will need to setup a 
+.tecli.yml file with an access token to a GEE service account in order to test 
+scripts on GEE. To setup the GEE service account for tecli, first obtain the 
+key for your service account in JSON format (from the google cloud console), 
+then and encode it in base64. Provide that base64 encoded key to tecli with the 
+following command::
+
+    invoke tecli-config set EE_SERVICE_ACCOUNT_JSON key
+
+where "key" is the base64 encoded JSON format service account key.
+
 While converting a script specifying code to be run on GEE from JavaScript to 
 Python, or when making modifications to that code, it can be useful to test the 
 script locally, without deploying it to the api.trends.earth server. To do 
@@ -345,13 +356,20 @@ QGIS plugin. **If you are not an administrator, you will be able to login, but
 the below command will fail**. To upload a script (for example, the 
 "land_cover" script) to the server, run::
    
-   invoke tecli-publish land_cover
+   invoke tecli-publish -s land_cover
 
 If this script already exists on the server, you will be asked if you want to 
 overwrite the existing script. Be very careful uploading scripts with 
 even-numbered versions, as these are publicly available scripts, and any errors
 that you make will affect anyone using the plugin. Whenever you are testing be 
 sure to use development version numbers (odd version numbers).
+
+After publishing a script to the server, you can use the `tecli-info` task to 
+check the status of the script (to know whether it deployed successfully - 
+though note building the script may take a few minutes). To check the status, 
+of a deployed script, run::
+
+   invoke tecli-publish -s land_cover
 
 If you are making a new release of the plugin, and want to upload ALL of the 
 GEE scripts at once (this is necessary whenever the plugin version number 
@@ -447,7 +465,7 @@ few seconds. To build using the fast option, run::
 
    invoke docs-build -f
 
-The above command will take a few seconds to fun, and then if you look under 
+The above command will take a few seconds to run, and then if you look under 
 "docs\\build\\html\\en", you will see the HTML version of the documentation. 
 Load the "index.html" file in a web browser to see how it looks.
 

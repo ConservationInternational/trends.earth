@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
-# Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.98\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-03-31 21:55-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/documentation/gee_tasks.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:2
 msgid "View and download results"
 msgstr "Visualizar e baixar resultados"
 
-#: ../../source/documentation/gee_tasks.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:6
 msgid ""
 "Once you have submitted a calculation using |trends.earth|, it is sent to "
 "Google Earth Engine to run the calculations in the cloud. To view the Google"
@@ -34,14 +34,14 @@ msgid ""
 "select the cloud with the arrow facing down icon (|iconCloudDownload|). This"
 " will open up the `Download results from Earth Engine` dialog box."
 msgstr ""
-"Depois de enviar um cálculo usando | trends.earth |, ele é enviado ao Google"
-" Earth Engine para executar os cálculos na nuvem. Para ver as tarefas do "
-"Google Earth Engine (GEE) em execução e para fazer o download dos "
-"resultados, selecione a nuvem com o ícone da seta voltada para baixo (| "
-"iconCloudDownload |). Isso abrirá a caixa de diálogo \"Baixar resultados do "
-"Earth Engine\"."
+"Depois de enviar um cálculo usando |trends.earth|, o processamento é enviado"
+" ao Google Earth Engine para executar os cálculos na nuvem. Para ver as "
+"tarefas do Google Earth Engine (GEE) em execução e para fazer o download dos"
+" resultados, selecione a nuvem com o ícone da seta voltada para baixo "
+"(|iconCloudDownload|). Isso abrirá a caixa de diálogo \"Download results "
+"from Earth Engine\"."
 
-#: ../../source/documentation/gee_tasks.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:12
 msgid ""
 "Click `Refresh List` to show all the tasks you have submitted and their "
 "status."
@@ -49,7 +49,7 @@ msgstr ""
 "Clique em `Atualizar lista` para mostrar todas as tarefas que você enviou e "
 "seu status."
 
-#: ../../source/documentation/gee_tasks.rst:14
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:14
 msgid ""
 "Users can view their current and previous tasks here. the table shows the "
 "task name provided by the user, which analysis is running (job), the start "
@@ -57,14 +57,14 @@ msgid ""
 "not the task was successful. The Details page outlines the different options"
 " the user chose for each task."
 msgstr ""
-"Os usuários podem visualizar suas tarefas atuais e anteriores aqui. a tabela"
+"Os usuários podem visualizar suas tarefas atuais e anteriores aqui. A tabela"
 " mostra o nome da tarefa fornecido pelo usuário, qual análise está em "
 "execução (job), a hora de início e de término de quando a tarefa foi "
 "iniciada e concluída e se a tarefa foi bem-sucedida ou não. A página "
 "Detalhes descreve as diferentes opções que o usuário escolheu para cada "
 "tarefa."
 
-#: ../../source/documentation/gee_tasks.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:26
 msgid ""
 "To download results to the computer once a task has finished, click on the "
 "task you are interested in downloading results for, then click `Download "

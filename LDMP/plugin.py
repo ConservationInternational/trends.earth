@@ -28,8 +28,9 @@ from LDMP.timeseries import DlgTimeseries
 from LDMP.visualization import DlgVisualization
 from LDMP.data_io import DlgDataIO
 from LDMP.about import DlgAbout
+from LDMP.processing_provider.provider import Provider
 
-from qgis.core import QgsMessageLog, Qgis
+from qgis.core import QgsApplication, QgsMessageLog, Qgis
 from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
@@ -67,6 +68,8 @@ class LDMPPlugin(object):
         self.iface = iface
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
+
+        self.provider = None
 
         # initialize locale and translation
         locale = QSettings().value('locale/userLocale')[0:2]
@@ -116,6 +119,11 @@ class LDMPPlugin(object):
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('LDMP', message)
+
+    def initProcessing(self):
+        self.provider = Provider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
+        
 
     def add_action(
             self,
@@ -189,6 +197,8 @@ class LDMPPlugin(object):
         return action
 
     def initGui(self):
+        self.initProcessing()
+
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
             ':/plugins/LDMP/icons/wrench.svg',
@@ -257,6 +267,8 @@ class LDMPPlugin(object):
         self.raster_menu.removeAction(self.menu.menuAction())
         # remove the toolbar
         del self.toolbar
+
+        QgsApplication.processingRegistry().removeProvider(self.provider)
 
     def run_settings(self):
         self.dlg_settings.show()

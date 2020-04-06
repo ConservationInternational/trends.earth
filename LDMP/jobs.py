@@ -207,7 +207,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job['script_name'] = job['script']['name']
                         # Clean up the script name so the version tag doesn't 
                         # look so odd
-                        job['script_name'] = re.sub('([0-9]+)_([0-9]+)$', '(v\g<1>.\g<2>)', job['script_name'])
+                        job['script_name'] = re.sub(r'([0-9]+)_([0-9]+)$', r'(v\g<1>.\g<2>)', job['script_name'])
                         job['script_description'] = job['script']['description']
                     else:
                         # Handle case of scripts that have been removed or that are

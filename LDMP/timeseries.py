@@ -126,6 +126,14 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.close()
 
+        # Limit area that can be processed
+        aoi_area = self.aoi.get_area() / (1000 * 1000)
+        log(u'AOI area is: {:n}'.format(aoi_area))
+        if aoi_area > 1e7:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 10 million sq km at a time. Choose a smaller area to process.".format(aoi_area)))
+            return False
+
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
             log('climate_gee_dataset {}'.format(climate_gee_dataset))

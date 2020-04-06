@@ -4,16 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-03-16 16:41-0400\n"
 "PO-Revision-Date: 2019-07-23 19:36+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,1100 +22,1222 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/about/layers.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:2
 msgid "Dataset coding"
-msgstr ""
+msgstr "Codificação dos conjunto de dados"
 
-#: ../../source/about/layers.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:4
 msgid ""
 "The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
 "widely supported format, so theese datasets can be used within QGIS as well "
 "as within any other GIS software."
 msgstr ""
+"Os dados espaciais produzidos por |trends.earth| estão no formato GeoTiff. "
+"Este é um formato amplamente suportado; portanto, esses conjuntos de dados "
+"podem ser usados no QGIS e em qualquer outro software de SIG."
 
-#: ../../source/about/layers.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:8
 msgid ""
 "If you wish to use |trends.earth| data outside of the tool itself, you will "
 "need to know how the data is coded. The tables below provide guidance on "
 "what the exact layers are that are produced by each analysis in "
 "|trends.earth|."
 msgstr ""
+"Se você deseja usar os dados produzido com |trends.earth| fora da própria "
+"ferramenta, você precisará saber como os dados são codificados. As tabelas "
+"abaixo fornecem orientações sobre as camadas produzidas por cada análise em "
+"|trends.earth|."
 
-#: ../../source/about/layers.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:12
 msgid ""
 "To see which of the below layers is contained within a |trends.earth| output"
 " file, use the `load data <../documentation/load_data.html>`_ tool. When you"
 " choose a file with that toool, it will show you a list of the layers within"
 " that file, as well as the band number for each layer."
 msgstr ""
+"Para ver qual das camadas abaixo está contida em um arquivo de saída do "
+"|trends.earth|, use a ferramenta `load data "
+"<../documentation/load_data.html>`_. Quando você escolhe um arquivo com essa"
+" ferramenta, ele mostra uma lista das camadas dentro desse arquivo, bem como"
+" o número de bandas de cada camada."
 
-#: ../../source/about/layers.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:18
 msgid "SDG 15.3.1 Indicator"
-msgstr ""
+msgstr "Indicador ODS 15.3.1"
 
-#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
-#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
-#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
-#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
-#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
-#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
-#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
-#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
-#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
-#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:52
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:75
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:88
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:112
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:126
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:138
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:151
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:170
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:192
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:207
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:230
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:313
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:424
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:437
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:452
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:479
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:498
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
-#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
-#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
-#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
-#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
-#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
-#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
-#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
-#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
-#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
-#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:52
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:75
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:88
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:112
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:126
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:138
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:151
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:170
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:192
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:207
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:230
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:313
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:424
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:437
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:452
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:479
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:498
 msgid "Meaning"
-msgstr ""
+msgstr "Significado"
 
-#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
-#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
-#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
-#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
-#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
-#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
-#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
-#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
-#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
-#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:77
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:90
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:102
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:114
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:128
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:140
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:153
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:172
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:194
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:209
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:232
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:315
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:426
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:439
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:454
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:481
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:500
 msgid "-32768"
-msgstr ""
+msgstr "-32768"
 
-#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
-#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
-#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
-#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
-#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
-#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
-#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
-#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
-#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
-#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:77
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:90
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:102
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:114
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:128
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:140
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:153
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:172
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:194
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:209
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:232
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:315
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:426
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:439
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:454
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:481
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:500
 msgid "No data"
-msgstr "Sem dados"
+msgstr "NoData"
 
-#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:60
-#: ../../source/about/layers.rst:79 ../../source/about/layers.rst:196
-#: ../../source/about/layers.rst:483
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:60
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:196
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:483
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
-#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:79
-#: ../../source/about/layers.rst:196
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:196
 msgid "Degradation"
 msgstr "Degradação"
 
-#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:62
-#: ../../source/about/layers.rst:81 ../../source/about/layers.rst:92
-#: ../../source/about/layers.rst:198
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:62
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:92
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:198
 msgid "0"
-msgstr ""
+msgstr "0"
 
-#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:81
-#: ../../source/about/layers.rst:198
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:198
 msgid "No change"
-msgstr ""
+msgstr "Sem alteração"
 
-#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:64
-#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
-#: ../../source/about/layers.rst:200 ../../source/about/layers.rst:211
-#: ../../source/about/layers.rst:317 ../../source/about/layers.rst:456
-#: ../../source/about/layers.rst:485
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:29
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:155
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:174
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:200
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:211
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:317
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:456
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:485
 msgid "1"
-msgstr ""
+msgstr "1"
 
-#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:200
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:29
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:200
 msgid "Improvement"
 msgstr "Melhoria"
 
-#: ../../source/about/layers.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:34
 msgid "Productivity"
 msgstr "Produtividade"
 
-#: ../../source/about/layers.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:37
 msgid "Productivity trajectory (trend)"
-msgstr ""
+msgstr "Trajetória da Produtividade (tendência)"
 
-#: ../../source/about/layers.rst:44 ../../source/about/layers.rst:104
-#: ../../source/about/layers.rst:116 ../../source/about/layers.rst:130
-#: ../../source/about/layers.rst:142 ../../source/about/layers.rst:428
-#: ../../source/about/layers.rst:441 ../../source/about/layers.rst:502
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:104
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:116
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:130
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:142
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:428
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:441
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:502
 msgid "Any other value"
-msgstr ""
+msgstr "Qualquer outro valor"
 
-#: ../../source/about/layers.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:44
 msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
-msgstr ""
+msgstr "Tendência linear do NDVI anualmente integrado, escalado em 10.000"
 
-#: ../../source/about/layers.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:49
 msgid "Productivity trajectory (significance)"
-msgstr ""
+msgstr "Trajetória da Produtividade (significância)"
 
-#: ../../source/about/layers.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:56
 msgid "-3"
-msgstr ""
+msgstr "-3"
 
-#: ../../source/about/layers.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:56
 msgid "Significant decline (p > .99)"
-msgstr ""
+msgstr "Declínio significativo (p > .99)"
 
-#: ../../source/about/layers.rst:58
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:58
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
-#: ../../source/about/layers.rst:58
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:58
 msgid "Significant decline (p > .95)"
-msgstr ""
+msgstr "Declínio significativo (p > .95)"
 
-#: ../../source/about/layers.rst:60
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:60
 msgid "Significant decline (p > .90)"
-msgstr ""
+msgstr "Declínio significativo (p > .90)"
 
-#: ../../source/about/layers.rst:62
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:62
 msgid "No significant change"
-msgstr ""
+msgstr "Nenhuma mudança significativa"
 
-#: ../../source/about/layers.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:64
 msgid "Significant increase (p > .90)"
-msgstr ""
+msgstr "Aumento significativo (p > .90)"
 
-#: ../../source/about/layers.rst:66 ../../source/about/layers.rst:157
-#: ../../source/about/layers.rst:176 ../../source/about/layers.rst:213
-#: ../../source/about/layers.rst:319 ../../source/about/layers.rst:458
-#: ../../source/about/layers.rst:487
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:157
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:176
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:213
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:319
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:458
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:487
 msgid "2"
-msgstr ""
+msgstr "2"
 
-#: ../../source/about/layers.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:66
 msgid "Significant increase (p > .95)"
-msgstr ""
+msgstr "Aumento significativo (p > .95)"
 
-#: ../../source/about/layers.rst:68 ../../source/about/layers.rst:159
-#: ../../source/about/layers.rst:178 ../../source/about/layers.rst:215
-#: ../../source/about/layers.rst:321 ../../source/about/layers.rst:460
-#: ../../source/about/layers.rst:489
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:159
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:178
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:215
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:321
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:460
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:489
 msgid "3"
-msgstr ""
+msgstr "3"
 
-#: ../../source/about/layers.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:68
 msgid "Significant increase (p > .99)"
-msgstr ""
+msgstr "Aumento significativo (p > .99)"
 
-#: ../../source/about/layers.rst:72
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:72
 msgid "Productivity performance (degradation)"
-msgstr ""
+msgstr "Desempenho da Produtividade (degradação)"
 
-#: ../../source/about/layers.rst:85
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:85
 msgid "Productivity performance (ratio)"
-msgstr ""
+msgstr "Desempenho da Produtividade (proporção)"
 
-#: ../../source/about/layers.rst:92
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:92
 msgid ""
 "Ratio of mean NDVI and maximum productivity. See background on `performance "
 "<../background/understanding_indicators15.html#productivity-performance>`_."
 msgstr ""
+"Proporção de NDVI médio e produtividade máxima. Veja o histórico de "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
 
-#: ../../source/about/layers.rst:97
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:97
 msgid "Productivity performance (units)"
-msgstr ""
+msgstr "Desempenho da Produtividade (unidades)"
 
-#: ../../source/about/layers.rst:104
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:104
 msgid ""
 "ID number of unit used to calculate performance. See background on "
 "`performance <../background/understanding_indicators15.html#productivity-"
 "performance>`_."
 msgstr ""
+"Número de identificação da unidade usada para calcular o Desempenho. Veja o "
+"histórico de `performance <../background/understanding_indicators15.html"
+"#productivity-performance>`_."
 
-#: ../../source/about/layers.rst:109
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:109
 msgid "Productivity state (degradation)"
-msgstr ""
+msgstr "Estado da Produtividade (degradação)"
 
-#: ../../source/about/layers.rst:116
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:116
 msgid ""
 "Change in productivity state classes between baseline and target period, "
 "calculated as the rank in the target period minus the rank in the baseline "
 "period. Positive values indicate improvement, negative values indicate "
 "decline."
 msgstr ""
+"Alteração nas classes de Estado da Produtividade entre a linha de base e o "
+"período-alvo, calculada como a classificação para o período-alvo menos a "
+"classificação para o período de linha de base. Valores positivos indicam "
+"melhora, valores negativos indicam declínio."
 
-#: ../../source/about/layers.rst:123
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:123
 msgid "Productivity state classes"
-msgstr ""
+msgstr "Classes de Estado da Produtividade"
 
-#: ../../source/about/layers.rst:130
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:130
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
 "state <../background/understanding_indicators15.html#productivity-state>`_."
 msgstr ""
+"Classe de percentil para Estado de Produtividade. Veja informações sobre "
+"`estado da produtividade <../background/understanding_indicators15.html"
+"#productivity-state>`_."
 
-#: ../../source/about/layers.rst:135
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:135
 msgid "Productivity state NDVI mean"
-msgstr ""
+msgstr "Média do NDVI do Estado da Produtividade"
 
-#: ../../source/about/layers.rst:142
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:142
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
 "productivity state, scaled by 10,000. See background on `productivity state "
 "<../background/understanding_indicators15.html#productivity-state>`_."
 msgstr ""
+"Média anual do NDVI integrado para o período de linha de base escolhido para"
+" o estado da produtividade, escalado em 10.000. Veja informações sobre "
+"`estado da produtividade <../background/understanding_indicators15.html"
+"#productivity-state>`_."
 
-#: ../../source/about/layers.rst:148
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:148
 msgid "SDG 15.3.1 productivity indicator"
-msgstr ""
+msgstr "Indicador de Produtividade para ODS 15.3.1"
 
-#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:155
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:174
 msgid "Declining"
-msgstr ""
+msgstr "Declinando"
 
-#: ../../source/about/layers.rst:157
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:157
 msgid "Early signs of decline"
-msgstr ""
+msgstr "Primeiros sinais de declínio"
 
-#: ../../source/about/layers.rst:159
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:159
 msgid "Stable but stressed"
-msgstr ""
+msgstr "Estável, mas estressado"
 
-#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
-#: ../../source/about/layers.rst:217 ../../source/about/layers.rst:323
-#: ../../source/about/layers.rst:462 ../../source/about/layers.rst:491
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:161
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:180
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:217
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:323
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:462
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:491
 msgid "4"
-msgstr ""
+msgstr "4"
 
-#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:161
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:180
 msgid "Stable"
 msgstr "Estável"
 
-#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
-#: ../../source/about/layers.rst:219 ../../source/about/layers.rst:325
-#: ../../source/about/layers.rst:464
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:163
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:182
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:219
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:325
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:464
 msgid "5"
-msgstr ""
+msgstr "5"
 
-#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:163
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:182
 msgid "Increasing"
-msgstr ""
+msgstr "Aumentando"
 
-#: ../../source/about/layers.rst:167
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:167
 msgid "Land productivity dynamics"
-msgstr ""
+msgstr "Dinâmica da Produtividade da terra"
 
-#: ../../source/about/layers.rst:176
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:176
 msgid "Moderate decline"
-msgstr ""
+msgstr "Declínio moderado"
 
-#: ../../source/about/layers.rst:178
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:178
 msgid "Stressed"
-msgstr ""
+msgstr "Estressado"
 
-#: ../../source/about/layers.rst:186
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:186
 msgid "Land cover"
 msgstr "Cobertura da terra"
 
-#: ../../source/about/layers.rst:189
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:189
 msgid "Land cover (degradation)"
-msgstr ""
+msgstr "Cobertura da terra (degradação)"
 
-#: ../../source/about/layers.rst:204
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:204
 msgid "Land cover (7 class)"
-msgstr ""
+msgstr "Cobertura da terra (7 classes)"
 
-#: ../../source/about/layers.rst:211
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:211
 msgid "Tree-covered"
-msgstr ""
+msgstr "Arborizado"
 
-#: ../../source/about/layers.rst:213
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:213
 msgid "Grasslands"
-msgstr ""
+msgstr "Campos/Gramíneas"
 
-#: ../../source/about/layers.rst:215
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:215
 msgid "Cropland"
 msgstr "Lavoura"
 
-#: ../../source/about/layers.rst:217
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:217
 msgid "Wetland"
-msgstr "Wetland"
+msgstr "Áreas úmidas"
 
-#: ../../source/about/layers.rst:219
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:219
 msgid "Artificial"
-msgstr ""
+msgstr "Artificial"
 
-#: ../../source/about/layers.rst:221 ../../source/about/layers.rst:327
-#: ../../source/about/layers.rst:466
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:221
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:327
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:466
 msgid "6"
-msgstr ""
+msgstr "6"
 
-#: ../../source/about/layers.rst:221
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:221
 msgid "Other land"
-msgstr ""
+msgstr "Outra cobertura da terra"
 
-#: ../../source/about/layers.rst:223 ../../source/about/layers.rst:329
-#: ../../source/about/layers.rst:468
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:223
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:329
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:468
 msgid "7"
-msgstr ""
+msgstr "7"
 
-#: ../../source/about/layers.rst:223
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:223
 msgid "Water body"
-msgstr "Corpo d&#39;água"
+msgstr "Corpos d'água"
 
-#: ../../source/about/layers.rst:227
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:227
 msgid "Land cover (ESA classes)"
-msgstr ""
+msgstr "Cobertura da terra (classes ESA)"
 
-#: ../../source/about/layers.rst:234
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:234
 msgid "10"
-msgstr ""
+msgstr "10"
 
-#: ../../source/about/layers.rst:234
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:234
 msgid "Cropland, rainfed"
-msgstr ""
+msgstr "Áreas de cultivo que dependem de água da chuva"
 
-#: ../../source/about/layers.rst:236
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:236
 msgid "11"
-msgstr ""
+msgstr "11"
 
-#: ../../source/about/layers.rst:236
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:236
 msgid "Herbaceous cover"
-msgstr ""
+msgstr "Cobertura herbácea"
 
-#: ../../source/about/layers.rst:238 ../../source/about/layers.rst:331
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:238
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:331
 msgid "12"
-msgstr ""
+msgstr "12"
 
-#: ../../source/about/layers.rst:238
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:238
 msgid "Tree or shrub cover"
-msgstr ""
+msgstr "Cobertura com árvores ou arbusto"
 
-#: ../../source/about/layers.rst:240
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:240
 msgid "20"
-msgstr ""
+msgstr "20"
 
-#: ../../source/about/layers.rst:240
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:240
 msgid "Cropland, irrigated or post‐flooding"
-msgstr ""
+msgstr "Terras agrícolas irrigadas ou inundadas"
 
-#: ../../source/about/layers.rst:242
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:242
 msgid "30"
-msgstr ""
+msgstr "30"
 
-#: ../../source/about/layers.rst:242
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:242
 msgid ""
 "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
 "(<50%)"
 msgstr ""
+"Terra de cultivo em mosaico (>50%)/vegetação natural (árvore, arbusto, "
+"cobertura herbácea) (<50%)"
 
-#: ../../source/about/layers.rst:244
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:244
 msgid "40"
-msgstr ""
+msgstr "40."
 
-#: ../../source/about/layers.rst:244
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:244
 msgid ""
 "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland "
 "(<50%)"
 msgstr ""
+"Vegetação natural em mosaico (árvores, arbustos, cobertura herbácea) "
+"(>50%)/terras cultiváveis (<50%)"
 
-#: ../../source/about/layers.rst:246
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:246
 msgid "50"
-msgstr ""
+msgstr "50."
 
-#: ../../source/about/layers.rst:246
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:246
 msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
 msgstr ""
+"Cobertura arbórea de folhas largas, sempre-verde, dossel fechado a aberto "
+"(>15%)"
 
-#: ../../source/about/layers.rst:248
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:248
 msgid "60"
-msgstr ""
+msgstr "60"
 
-#: ../../source/about/layers.rst:248
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:248
 msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
 msgstr ""
+"Cobertura arbórea de folhas largas, decídua, dossel fechado a aberto (>15%)"
 
-#: ../../source/about/layers.rst:250 ../../source/about/layers.rst:391
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:250
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:391
 msgid "61"
-msgstr ""
+msgstr "61"
 
-#: ../../source/about/layers.rst:250
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:250
 msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
 msgstr ""
+"Cobertura arbórea de folhas largas, ombrófila, decídua, dossel fechado "
+"(>40%)"
 
-#: ../../source/about/layers.rst:252 ../../source/about/layers.rst:393
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:252
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:393
 msgid "62"
-msgstr ""
+msgstr "62"
 
-#: ../../source/about/layers.rst:252
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:252
 msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
-msgstr ""
+msgstr "Cobertura arbórea de folhas largas, decídua, dossel aberto (15‐40%)"
 
-#: ../../source/about/layers.rst:254
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:254
 msgid "70"
-msgstr ""
+msgstr "70"
 
-#: ../../source/about/layers.rst:254
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:254
 msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
 msgstr ""
+"Cobertura de árvore, sem folhas, sempre viva, dossel fechado a aberto (>15%)"
 
-#: ../../source/about/layers.rst:256 ../../source/about/layers.rst:403
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:256
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:403
 msgid "71"
-msgstr ""
+msgstr "71"
 
-#: ../../source/about/layers.rst:256
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:256
 msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
-msgstr ""
+msgstr "Cobertura arbórea, coníferas, sempre-verde, dossel fechado (>40%)"
 
-#: ../../source/about/layers.rst:258 ../../source/about/layers.rst:405
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:258
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:405
 msgid "72"
-msgstr ""
+msgstr "72"
 
-#: ../../source/about/layers.rst:258
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:258
 msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
-msgstr ""
+msgstr "Cobertura arbórea, coníferas, sempre-verde, dossel aberto (15‐40%)"
 
-#: ../../source/about/layers.rst:260
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:260
 msgid "80"
-msgstr ""
+msgstr "80"
 
-#: ../../source/about/layers.rst:260
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:260
 msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
-msgstr ""
+msgstr "Cobertura arbórea, coníferas, decídua, dossel fechado a aberto (>15%)"
 
-#: ../../source/about/layers.rst:262
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:262
 msgid "81"
-msgstr ""
+msgstr "81"
 
-#: ../../source/about/layers.rst:262
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:262
 msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
-msgstr ""
+msgstr "Cobertura arbórea, coníferas, decídua, dossel fechado (>40%)"
 
-#: ../../source/about/layers.rst:264
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:264
 msgid "82"
-msgstr ""
+msgstr "82"
 
-#: ../../source/about/layers.rst:264
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:264
 msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
-msgstr ""
+msgstr "Cobertura arbórea, coníferas, decídua, dossel aberto (15‐40%)"
 
-#: ../../source/about/layers.rst:266
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:266
 msgid "90"
-msgstr ""
+msgstr "90"
 
-#: ../../source/about/layers.rst:266
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:266
 msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
-msgstr ""
+msgstr "Cobertura arbórea, tipo folhas mistas (de folhas largas e coníferas)"
 
-#: ../../source/about/layers.rst:268
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:268
 msgid "100"
-msgstr ""
+msgstr "100"
 
-#: ../../source/about/layers.rst:268
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:268
 msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
-msgstr ""
+msgstr "Árvores e arbustos em mosaico (>50%) / cobertura herbácea (<50%)"
 
-#: ../../source/about/layers.rst:270
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:270
 msgid "110"
-msgstr ""
+msgstr "110"
 
-#: ../../source/about/layers.rst:270
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:270
 msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
-msgstr ""
+msgstr "Cobertura herbácea em mosaico (>50%) / árvores e arbustos (<50%)"
 
-#: ../../source/about/layers.rst:272
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:272
 msgid "120"
-msgstr ""
+msgstr "120"
 
-#: ../../source/about/layers.rst:272
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:272
 msgid "Shrubland"
-msgstr ""
+msgstr "Arbustivo"
 
-#: ../../source/about/layers.rst:274
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:274
 msgid "121"
-msgstr ""
+msgstr "121"
 
-#: ../../source/about/layers.rst:274
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:274
 msgid "Evergreen shrubland"
-msgstr ""
+msgstr "Arbusto sempre-verde"
 
-#: ../../source/about/layers.rst:276
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:276
 msgid "122"
-msgstr ""
+msgstr "122"
 
-#: ../../source/about/layers.rst:276
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:276
 msgid "Deciduous shrubland"
-msgstr ""
+msgstr "Arbustivo decíduo"
 
-#: ../../source/about/layers.rst:278
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:278
 msgid "130"
-msgstr ""
+msgstr "130"
 
-#: ../../source/about/layers.rst:278
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:278
 msgid "Grassland"
-msgstr ""
+msgstr "Campos/Gramíneas"
 
-#: ../../source/about/layers.rst:280
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:280
 msgid "140"
-msgstr ""
+msgstr "140"
 
-#: ../../source/about/layers.rst:280
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:280
 msgid "Lichens and mosses"
-msgstr ""
+msgstr "Líquens e musgos"
 
-#: ../../source/about/layers.rst:282
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:282
 msgid "150"
-msgstr ""
+msgstr "150"
 
-#: ../../source/about/layers.rst:282
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:282
 msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
-msgstr ""
+msgstr "Vegetação esparsa (árvore, arbusto, cobertura herbácea) (<15%)"
 
-#: ../../source/about/layers.rst:284
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:284
 msgid "151"
-msgstr ""
+msgstr "151"
 
-#: ../../source/about/layers.rst:284
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:284
 msgid "Sparse tree (<15%)"
-msgstr ""
+msgstr "Árvores esparsas (<15%)"
 
-#: ../../source/about/layers.rst:286
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:286
 msgid "152"
-msgstr ""
+msgstr "152"
 
-#: ../../source/about/layers.rst:286
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:286
 msgid "Sparse shrub (<15%)"
-msgstr ""
+msgstr "Arbustos esparsos (<15%)"
 
-#: ../../source/about/layers.rst:288
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:288
 msgid "153"
-msgstr ""
+msgstr "153"
 
-#: ../../source/about/layers.rst:288
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:288
 msgid "Sparse herbaceous cover (<15%)"
-msgstr ""
+msgstr "Cobertura herbácea esparsa (<15%)"
 
-#: ../../source/about/layers.rst:290
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:290
 msgid "160"
-msgstr ""
+msgstr "160"
 
-#: ../../source/about/layers.rst:290
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:290
 msgid "Tree cover, flooded, fresh or brakish water"
-msgstr ""
+msgstr "Cobertura de árvores, área inundada de água doce ou salobra"
 
-#: ../../source/about/layers.rst:292
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:292
 msgid "170"
-msgstr ""
+msgstr "170"
 
-#: ../../source/about/layers.rst:292
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:292
 msgid "Tree cover, flooded, saline water"
-msgstr ""
+msgstr "Cobertura de árvores, área inundada de água salgada"
 
-#: ../../source/about/layers.rst:294
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:294
 msgid "180"
-msgstr ""
+msgstr "180"
 
-#: ../../source/about/layers.rst:294
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:294
 msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
-msgstr ""
+msgstr "Cobertura arbustiva ou herbácea, inundada, água doce/salgada/salobra"
 
-#: ../../source/about/layers.rst:296
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:296
 msgid "190"
-msgstr ""
+msgstr "190"
 
-#: ../../source/about/layers.rst:296
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:296
 msgid "Urban areas"
-msgstr ""
+msgstr "Áreas urbanas"
 
-#: ../../source/about/layers.rst:298
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:298
 msgid "200"
-msgstr ""
+msgstr "200"
 
-#: ../../source/about/layers.rst:298
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:298
 msgid "Bare areas"
-msgstr ""
+msgstr "Áreas de solo exposto"
 
-#: ../../source/about/layers.rst:300
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:300
 msgid "201"
-msgstr ""
+msgstr "201"
 
-#: ../../source/about/layers.rst:300
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:300
 msgid "Consolidated bare areas"
-msgstr ""
+msgstr "Áreas de solo exposto consolidadas "
 
-#: ../../source/about/layers.rst:302
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:302
 msgid "202"
-msgstr ""
+msgstr "202"
 
-#: ../../source/about/layers.rst:302
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:302
 msgid "Unconsolidated bare areas"
-msgstr ""
+msgstr "Áreas de solo exposto não consolidadas"
 
-#: ../../source/about/layers.rst:304
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:304
 msgid "210"
-msgstr ""
+msgstr "210."
 
-#: ../../source/about/layers.rst:304
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:304
 msgid "Water bodies"
-msgstr ""
+msgstr "Corpos d'água"
 
-#: ../../source/about/layers.rst:306
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:306
 msgid "220"
-msgstr ""
+msgstr "220"
 
-#: ../../source/about/layers.rst:306
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:306
 msgid "Permanent snow and ice"
-msgstr ""
+msgstr "Neve e gelo permanentes"
 
-#: ../../source/about/layers.rst:310
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:310
 msgid "Land cover (transitions)"
-msgstr ""
+msgstr "Cobertura da terra (transições)"
 
-#: ../../source/about/layers.rst:317
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:317
 msgid "Tree-covered - Tree-covered (no change)"
-msgstr ""
+msgstr "Arborizado - Arborizado (sem alteração)"
 
-#: ../../source/about/layers.rst:319
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:319
 msgid "Grassland - Grassland (no change)"
-msgstr ""
+msgstr "Campos/Gramíneas - Campos/Gramíneas (sem alterações)"
 
-#: ../../source/about/layers.rst:321
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:321
 msgid "Cropland - Cropland (no change)"
-msgstr ""
+msgstr "Áreas de cultivo  - Áreas de cultivo (sem alterações)"
 
-#: ../../source/about/layers.rst:323
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:323
 msgid "Wetland - Wetland (no change)"
-msgstr ""
+msgstr "Área úmida - Área úmida (sem alterações)"
 
-#: ../../source/about/layers.rst:325
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:325
 msgid "Artificial - Artificial (no change)"
-msgstr ""
+msgstr "Artificial - Artificial (sem alteração)"
 
-#: ../../source/about/layers.rst:327
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:327
 msgid "Other land - Other land (no change)"
-msgstr ""
+msgstr "Outro uso da terra -Outro uso da terra (sem alteração)"
 
-#: ../../source/about/layers.rst:329
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:329
 msgid "Water body - Water body (no change)"
-msgstr ""
+msgstr "Corpo d'água - Corpo d'água (sem alteração)"
 
-#: ../../source/about/layers.rst:331
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:331
 msgid "Forest - Grassland"
-msgstr ""
+msgstr "Floresta - Gramíneas/Pastagem"
 
-#: ../../source/about/layers.rst:333
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:333
 msgid "13"
-msgstr ""
+msgstr "13"
 
-#: ../../source/about/layers.rst:333
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:333
 msgid "Forest - Cropland"
-msgstr ""
+msgstr "Floresta - Área de cultivo"
 
-#: ../../source/about/layers.rst:335
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:335
 msgid "14"
-msgstr ""
+msgstr "14"
 
-#: ../../source/about/layers.rst:335
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:335
 msgid "Forest - Wetland"
-msgstr ""
+msgstr "Floresta - Área úmida"
 
-#: ../../source/about/layers.rst:337
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:337
 msgid "15"
-msgstr ""
+msgstr "15"
 
-#: ../../source/about/layers.rst:337
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:337
 msgid "Forest - Artificial"
-msgstr ""
+msgstr "Floresta - Artificial"
 
-#: ../../source/about/layers.rst:339
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:339
 msgid "16"
-msgstr ""
+msgstr "16"
 
-#: ../../source/about/layers.rst:339
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:339
 msgid "Forest - Other land"
-msgstr ""
+msgstr "Floresta - Outro uso da terra"
 
-#: ../../source/about/layers.rst:341
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:341
 msgid "17"
-msgstr ""
+msgstr "17"
 
-#: ../../source/about/layers.rst:341
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:341
 msgid "Forest - Water body"
-msgstr ""
+msgstr "Floresta - Corpo d'água"
 
-#: ../../source/about/layers.rst:343
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:343
 msgid "21"
-msgstr ""
+msgstr "21"
 
-#: ../../source/about/layers.rst:343
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:343
 msgid "Grassland - Forest"
-msgstr ""
+msgstr "Gramíneas/Pastagem - floresta"
 
-#: ../../source/about/layers.rst:345
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:345
 msgid "23"
-msgstr ""
+msgstr "23"
 
-#: ../../source/about/layers.rst:345
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:345
 msgid "Grassland - Cropland"
-msgstr ""
+msgstr "Gramíneas/Pastagens - Área de cultivo"
 
-#: ../../source/about/layers.rst:347
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:347
 msgid "24"
-msgstr ""
+msgstr "24"
 
-#: ../../source/about/layers.rst:347
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:347
 msgid "Grassland - Wetland"
-msgstr ""
+msgstr "Gramíneas/Pastagem - Área úmida"
 
-#: ../../source/about/layers.rst:349
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:349
 msgid "25"
-msgstr ""
+msgstr "25"
 
-#: ../../source/about/layers.rst:349
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:349
 msgid "Grassland - Artificial"
-msgstr ""
+msgstr "Gramíneas/Pastagem - Artificial"
 
-#: ../../source/about/layers.rst:351
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:351
 msgid "26"
-msgstr ""
+msgstr "26"
 
-#: ../../source/about/layers.rst:351
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:351
 msgid "Grassland - Other land"
-msgstr ""
+msgstr "Gramíneas/Pastagem - Outro uso da terra"
 
-#: ../../source/about/layers.rst:353
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:353
 msgid "27"
-msgstr ""
+msgstr "27"
 
-#: ../../source/about/layers.rst:353
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:353
 msgid "Grassland - Water body"
-msgstr ""
+msgstr "Gramíneas/Pastagem - Corpo d'água"
 
-#: ../../source/about/layers.rst:355
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:355
 msgid "31"
-msgstr ""
+msgstr "31"
 
-#: ../../source/about/layers.rst:355
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:355
 msgid "Cropland - Forest"
-msgstr ""
+msgstr "Cropland - Floresta"
 
-#: ../../source/about/layers.rst:357
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:357
 msgid "32"
-msgstr ""
+msgstr "32."
 
-#: ../../source/about/layers.rst:357
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:357
 msgid "Cropland - Grassland"
-msgstr ""
+msgstr "Área de cultivo - Gramíneas/Pastagem"
 
-#: ../../source/about/layers.rst:359
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:359
 msgid "34"
-msgstr ""
+msgstr "34"
 
-#: ../../source/about/layers.rst:359
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:359
 msgid "Cropland - Wetland"
-msgstr ""
+msgstr "Área de cultivo - Área úmida"
 
-#: ../../source/about/layers.rst:361
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:361
 msgid "35"
-msgstr ""
+msgstr "35"
 
-#: ../../source/about/layers.rst:361
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:361
 msgid "Cropland - Artificial"
-msgstr ""
+msgstr "Área de cultivo - Artificial"
 
-#: ../../source/about/layers.rst:363
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:363
 msgid "36"
-msgstr ""
+msgstr "36."
 
-#: ../../source/about/layers.rst:363
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:363
 msgid "Cropland - Other land"
-msgstr ""
+msgstr "Área de cultivo - Outro uso da terra"
 
-#: ../../source/about/layers.rst:365
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:365
 msgid "37"
-msgstr ""
+msgstr "37."
 
-#: ../../source/about/layers.rst:365
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:365
 msgid "Cropland - Water body"
-msgstr ""
+msgstr "Área de cultivo - Corpo d'água"
 
-#: ../../source/about/layers.rst:367
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:367
 msgid "41"
-msgstr ""
+msgstr "41."
 
-#: ../../source/about/layers.rst:367
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:367
 msgid "Wetland - Forest"
-msgstr ""
+msgstr "Área úmida - Floresta"
 
-#: ../../source/about/layers.rst:369
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:369
 msgid "42"
-msgstr ""
+msgstr "42."
 
-#: ../../source/about/layers.rst:369
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:369
 msgid "Wetland - Grassland"
-msgstr ""
+msgstr "Área úmida - Gramíneas/Pastagem"
 
-#: ../../source/about/layers.rst:371
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:371
 msgid "43"
-msgstr ""
+msgstr "43"
 
-#: ../../source/about/layers.rst:371
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:371
 msgid "Wetland - Cropland"
-msgstr ""
+msgstr "Áre úmida - Área cultivada"
 
-#: ../../source/about/layers.rst:373
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:373
 msgid "45"
-msgstr ""
+msgstr "45"
 
-#: ../../source/about/layers.rst:373
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:373
 msgid "Wetland - Artificial"
-msgstr ""
+msgstr "Áre úmida - Artificial"
 
-#: ../../source/about/layers.rst:375
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:375
 msgid "46"
-msgstr ""
+msgstr "46."
 
-#: ../../source/about/layers.rst:375
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:375
 msgid "Wetland - Other land"
-msgstr ""
+msgstr "Áre úmida - Outro uso da terra"
 
-#: ../../source/about/layers.rst:377
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:377
 msgid "47"
-msgstr ""
+msgstr "47"
 
-#: ../../source/about/layers.rst:377
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:377
 msgid "Wetland - Water body"
-msgstr ""
+msgstr "Área úmida - Corpo d'água"
 
-#: ../../source/about/layers.rst:379
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:379
 msgid "51"
-msgstr ""
+msgstr "51"
 
-#: ../../source/about/layers.rst:379
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:379
 msgid "Artificial - Forest"
-msgstr ""
+msgstr "Artificial - Floresta"
 
-#: ../../source/about/layers.rst:381
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:381
 msgid "52"
-msgstr ""
+msgstr "52"
 
-#: ../../source/about/layers.rst:381
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:381
 msgid "Artificial - Grassland"
-msgstr ""
+msgstr "Artificial - Gramíneas/Pastagem"
 
-#: ../../source/about/layers.rst:383
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:383
 msgid "53"
-msgstr ""
+msgstr "53"
 
-#: ../../source/about/layers.rst:383
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:383
 msgid "Artificial - Cropland"
-msgstr ""
+msgstr "Artificial - Área de cultivo"
 
-#: ../../source/about/layers.rst:385
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:385
 msgid "54"
-msgstr ""
+msgstr "54"
 
-#: ../../source/about/layers.rst:385
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:385
 msgid "Artificial - Wetland"
-msgstr ""
+msgstr "Artificial - Área úmida"
 
-#: ../../source/about/layers.rst:387
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:387
 msgid "56"
-msgstr ""
+msgstr "56."
 
-#: ../../source/about/layers.rst:387
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:387
 msgid "Artificial - Other land"
-msgstr ""
+msgstr "Artificial - Outro uso da terra"
 
-#: ../../source/about/layers.rst:389
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:389
 msgid "57"
-msgstr ""
+msgstr "57"
 
-#: ../../source/about/layers.rst:389
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:389
 msgid "Artificial - Water body"
-msgstr ""
+msgstr "Artificial - Corpo d'água"
 
-#: ../../source/about/layers.rst:391
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:391
 msgid "Other land - Forest"
-msgstr ""
+msgstr "Outro uso da terra - Floresta"
 
-#: ../../source/about/layers.rst:393
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:393
 msgid "Other land - Grassland"
-msgstr ""
+msgstr "Outro uso da terra - Gramíneas/Pastagem"
 
-#: ../../source/about/layers.rst:395
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:395
 msgid "63"
-msgstr ""
+msgstr "63."
 
-#: ../../source/about/layers.rst:395
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:395
 msgid "Other land - Cropland"
-msgstr ""
+msgstr "Outro uso da terra - Área de cultivo"
 
-#: ../../source/about/layers.rst:397
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:397
 msgid "64"
-msgstr ""
+msgstr "64"
 
-#: ../../source/about/layers.rst:397
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:397
 msgid "Other land - Wetland"
-msgstr ""
+msgstr "Outro uso da terra - Área úmida"
 
-#: ../../source/about/layers.rst:399
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:399
 msgid "65"
-msgstr ""
+msgstr "65"
 
-#: ../../source/about/layers.rst:399
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:399
 msgid "Other land - Artificial"
-msgstr ""
+msgstr "Outro uso da terra - Artificial"
 
-#: ../../source/about/layers.rst:401
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:401
 msgid "67"
-msgstr ""
+msgstr "67"
 
-#: ../../source/about/layers.rst:401
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:401
 msgid "Other land - Water body"
-msgstr ""
+msgstr "Outro uso da terra - Corpo d'água"
 
-#: ../../source/about/layers.rst:403
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:403
 msgid "Water body - Forest"
-msgstr ""
+msgstr "Corpo d'água - Floresta"
 
-#: ../../source/about/layers.rst:405
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:405
 msgid "Water body - Grassland"
-msgstr ""
+msgstr "Corpo d'água - Gramíneas/Pastagem"
 
-#: ../../source/about/layers.rst:407
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:407
 msgid "73"
-msgstr ""
+msgstr "73"
 
-#: ../../source/about/layers.rst:407
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:407
 msgid "Water body - Cropland"
-msgstr ""
+msgstr "Corpo d'água - Área de cultivo"
 
-#: ../../source/about/layers.rst:409
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:409
 msgid "74"
-msgstr ""
+msgstr "74"
 
-#: ../../source/about/layers.rst:409
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:409
 msgid "Water body - Wetland"
-msgstr ""
+msgstr "Corpo d'água - Área úmida"
 
-#: ../../source/about/layers.rst:411
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:411
 msgid "75"
-msgstr ""
+msgstr "75"
 
-#: ../../source/about/layers.rst:411
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:411
 msgid "Water body - Artificial"
-msgstr ""
+msgstr "Corpo d'água - Artificial"
 
-#: ../../source/about/layers.rst:413
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:413
 msgid "76"
-msgstr ""
+msgstr "76"
 
-#: ../../source/about/layers.rst:413
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:413
 msgid "Water body - Other land"
-msgstr ""
+msgstr "Corpo d'água - Outro uso da terra"
 
-#: ../../source/about/layers.rst:417 ../../source/about/layers.rst:434
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:417
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:434
 msgid "Soil organic carbon"
 msgstr "Carbono orgânico do solo"
 
-#: ../../source/about/layers.rst:421
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:421
 msgid "Soil organic carbon (degradation)"
-msgstr ""
+msgstr "Carbono orgânico do solo (degradação)"
 
-#: ../../source/about/layers.rst:428
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:428
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
 "baseline to target year. Positive values indicate increase, negative values "
 "indicate decrease."
 msgstr ""
+"Alteração percentual no teor de carbono orgânico do solo (0 a 30 cm de "
+"profundidade) da linha de base ao ano-alvo. Valores positivos indicam "
+"aumento, valores negativos indicam diminuição."
 
-#: ../../source/about/layers.rst:441
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:441
 msgid ""
 "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
+"Conteúdo de carbono orgânico do solo (0 a 30 cm de profundidade) em "
+"toneladas métricas por hectare"
 
-#: ../../source/about/layers.rst:445
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:445
 msgid "SDG 11.3.1 (sustainable urbanization)"
-msgstr ""
+msgstr "ODS 11.3.1 (urbanização sustentável)"
 
-#: ../../source/about/layers.rst:449 ../../source/about/layers.rst:456
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:449
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:456
 msgid "Urban"
-msgstr ""
+msgstr "Urbano"
 
-#: ../../source/about/layers.rst:458
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:458
 msgid "Suburban"
-msgstr ""
+msgstr "Suburbano"
 
-#: ../../source/about/layers.rst:460
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:460
 msgid "Built-up rural"
-msgstr ""
+msgstr "Área rural construída"
 
-#: ../../source/about/layers.rst:462
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:462
 msgid "Open space (fringe)"
-msgstr ""
+msgstr "Espaço aberto (margem)"
 
-#: ../../source/about/layers.rst:464
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:464
 msgid "Open space (captured)"
-msgstr ""
+msgstr "Espaço aberto (capturado)"
 
-#: ../../source/about/layers.rst:466
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:466
 msgid "Open space (rural)"
-msgstr ""
+msgstr "Espaço aberto (rural)"
 
-#: ../../source/about/layers.rst:468
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:468
 msgid "Open space (fringe water)"
-msgstr ""
+msgstr "Espaço aberto (margem de água)"
 
-#: ../../source/about/layers.rst:470
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:470
 msgid "8"
-msgstr ""
+msgstr "8"
 
-#: ../../source/about/layers.rst:470
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:470
 msgid "Open space (captured water)"
-msgstr ""
+msgstr "Espaço aberto (água capturada)"
 
-#: ../../source/about/layers.rst:472
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:472
 msgid "9"
-msgstr ""
+msgstr "9"
 
-#: ../../source/about/layers.rst:472
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:472
 msgid "Open space (rural water)"
-msgstr ""
+msgstr "Espaço aberto (água em área rural)"
 
-#: ../../source/about/layers.rst:476
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:476
 msgid "Urban series"
-msgstr ""
+msgstr "Série urbana"
 
-#: ../../source/about/layers.rst:483
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:483
 msgid "Water"
-msgstr ""
+msgstr "Água"
 
-#: ../../source/about/layers.rst:485
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:485
 msgid "Built up by 2000"
-msgstr ""
+msgstr "Construído até 2000"
 
-#: ../../source/about/layers.rst:487
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:487
 msgid "Built up by 2005"
-msgstr ""
+msgstr "Construído até 2005"
 
-#: ../../source/about/layers.rst:489
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:489
 msgid "Built up by 2010"
-msgstr ""
+msgstr "Construído até 2010"
 
-#: ../../source/about/layers.rst:491
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:491
 msgid "Built up by 2015"
-msgstr ""
+msgstr "Construído até 2015"
 
-#: ../../source/about/layers.rst:495
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:495
 msgid "Population"
-msgstr ""
+msgstr "População"
 
-#: ../../source/about/layers.rst:502
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:502
 msgid "Total population within grid cell"
-msgstr ""
+msgstr "População total dentro da célula da grade"

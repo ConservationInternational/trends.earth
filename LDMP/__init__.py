@@ -12,12 +12,13 @@
  ***************************************************************************/
 """
 
-__version__ = "0.99"
+__version__ = "0.99.1"
 
 import sys
 import os
 import requests
 import site
+from tempfile import NamedTemporaryFile
 
 from qgis.PyQt import QtCore
 
@@ -50,3 +51,11 @@ def classFactory(iface):  # pylint: disable=invalid-name
 
     from LDMP.plugin import LDMPPlugin
     return LDMPPlugin(iface)
+
+# Function to get a temporary filename that handles closing the file created by 
+# NamedTemporaryFile - necessary when the file is for usage in another process 
+# (i.e. GDAL)
+def GetTempFilename(suffix):
+    f = NamedTemporaryFile(suffix=suffix, delete=False)
+    f.close()
+    return f.name

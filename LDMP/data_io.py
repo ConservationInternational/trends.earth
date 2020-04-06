@@ -38,7 +38,7 @@ import numpy as np
 
 from osgeo import ogr, gdal, osr
 
-from LDMP import log
+from LDMP import log, GetTempFilename
 from LDMP.layers import create_local_json_metadata, add_layer, \
     get_file_metadata, get_band_title, get_sample, get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
@@ -73,13 +73,13 @@ class RemapVectorWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        crs_src_string = self.l.crs().toProj4()
+        crs_src_string = self.l.crs().toProj()
         crs_src = QgsCoordinateReferenceSystem()
-        crs_src.createFromProj4(crs_src_string)
+        crs_src.createFromProj(crs_src_string)
         crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
         t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
 
-        l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj4()),
+        l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj()),
                                "land cover (transformed)",  
                                "memory")
         l_out.dataProvider().addAttributes([QgsField('code', QVariant.Int)])
@@ -109,11 +109,11 @@ class RemapVectorWorker(AbstractWorker):
                 self.progress.emit(100 * float(n)/self.l.featureCount())
                 feats = []
         if not l_out.isValid():
-            log(u'Error remapping and transforming vector layer from "{}" to "{}")'.format(crs_src_string, crs_dst.toProj4()))
+            log(u'Error remapping and transforming vector layer from "{}" to "{}")'.format(crs_src_string, crs_dst.toProj()))
             return None
 
         # Write l_out to a shapefile for usage by gdal rasterize
-        temp_shp = tempfile.NamedTemporaryFile(suffix='.shp').name
+        temp_shp = GetTempFilename('.shp')
         log(u'Writing temporary shapefile to {}'.format(temp_shp))
         err = QgsVectorFileWriter.writeAsVectorFormat(l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile")
         if err != QgsVectorFileWriter.NoError:
@@ -129,6 +129,7 @@ class RemapVectorWorker(AbstractWorker):
                              outputType=self.out_data_type,
                              creationOptions=['COMPRESS=LZW'],
                              callback=self.progress_callback)
+        os.remove(temp_shp)
         if res:
             return True
         else:
@@ -827,7 +828,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def remap_raster(self, in_file, out_file, remap_list):
         # First warp the raster to the correct CRS
-        temp_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
+        temp_tif = GetTempFilename('.tif')
         warp_ret = self.warp_raster(temp_tif)
         if not warp_ret:
             return False
@@ -835,6 +836,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         remap_raster_worker = StartWorker(RemapRasterWorker,
                                           'remapping values', temp_tif, 
                                            out_file, remap_list)
+        os.remove(temp_tif)
         if not remap_raster_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Raster remapping failed."))
@@ -859,7 +861,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # Select a single output band
         in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
-        temp_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        temp_vrt = GetTempFilename('.vrt')
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
                       
         log(u'Importing {} to {}'.format(in_file, out_file))
@@ -872,6 +874,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         raster_import_worker = StartWorker(RasterImportWorker,
                                            'importing raster', temp_vrt, 
                                            out_file, out_res, resample_mode)
+        os.remove(temp_vrt)
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Raster import failed."))
@@ -1208,6 +1211,8 @@ def get_TE_TOC_layers(layer_type=None):
 def get_layer_info_from_file(json_file, layer_type='any'):
     m = get_file_metadata(json_file)
     band_infos = get_band_infos(json_file)
+    if band_infos is None:
+        return None
     layers_filtered = []
     for n in range(len(band_infos)):
         band_info = band_infos[n]
@@ -1299,7 +1304,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         return self.layer_list[self.comboBox_layers.currentIndex()][3]
 
     def get_vrt(self):
-        f = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        f = GetTempFilename('.vrt')
         gdal.BuildVRT(f,
                       self.layer_list[self.comboBox_layers.currentIndex()][0],
                       bandList=[self.get_bandnumber()])

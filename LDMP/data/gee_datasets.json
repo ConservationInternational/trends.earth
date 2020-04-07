@@ -507,6 +507,48 @@
             "Source": "",
             "Comments": ""
         }
+    },
+    "Woods Hole Research Center": {
+        "Total Carbon": {
+            "Data source": "https://data.globalforestwatch.org/datasets/aboveground-live-woody-biomass-density?selectedAttribute=shape_Length",
+            "Start year": "NA",
+            "End year": "NA",
+            "Spatial resolution": "30 m",
+            "Temporal resolution": "one time",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Units": "Mg ha-1",
+            "Description": "This work generated a global-scale, wall-to-wall map of aboveground biomass (AGB) at approximately 30-meter resolution. This data product expands on the methodology presented in Baccini et al. (2012) to generate a global map of aboveground live woody biomass density (megagrams biomass ha-1) at 0.00025-degree (approximately 30-meter) resolution for the year 2000",
+            "Link to Dataset": "",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/forest_agb_30m_woodhole",
+            "License": "",
+            "License URL": "",
+            "Source": "https://data.globalforestwatch.org/datasets/aboveground-live-woody-biomass-density",
+            "Comments": ""
+        }
+    },
+    "GEOCARBON": {
+        "Forest Above Ground Biomass": {
+            "Data source": "https://www.wur.nl/en/Research-Results/Chair-groups/Environmental-Sciences/Laboratory-of-Geo-information-Science-and-Remote-Sensing/Research/Integrated-land-monitoring/Forest_Biomass.htm",
+            "Start year": "NA",
+            "End year": "NA",
+            "Spatial resolution": "1 km",
+            "Temporal resolution": "one time",
+            "Min Latitude": -23.4,
+            "Max Latitude": 23.4,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Units": "Mg ha-1",
+            "Description": "An integrated pan‐tropical biomass map using multiple reference datasets",
+            "Link to Dataset": "",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/forest_agb_1km_geocarbon",
+            "License": "",
+            "License URL": "",
+            "Source": "Avitabile V, Herold M, Heuvelink G, Lewis SL, Phillips OL, Asner GP et al. (2016). An integrated pan-tropical biomass maps using multiple reference datasets. Global Change Biology, 22: 1406–1420. doi:10.1111/gcb.13139",
+            "Comments": ""
+        }
     }
     "Woods Hole Research Center": {
         "Total Carbon": {

@@ -23,8 +23,8 @@ import binascii
 
 import datetime
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal, \
-    QSortFilterProxyModel, QSize, QObject, QEvent
+from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
+        QSortFilterProxyModel, QSize, QObject, QEvent)
 from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
@@ -34,7 +34,6 @@ mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
 
-from LDMP import __version__
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
@@ -247,14 +246,12 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                 btn.setMaximumSize(QSize(150, 16777215))
                 self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
-            #self.jobs_view.widget(proxy_model.index(row, 2)).setTextAlignment(Qt.AlignCenter)
-
-            # self.jobs_view.setMinimumSize(QSize(0, 100))
-            # self.jobs_view.setColumnWidth(1, 400)
-            # self.jobs_view.setColumnWidth(2, 200)
-            # self.jobs_view.setColumnWidth(3, 200)
-            # self.jobs_view.setColumnWidth(4, 200)
-            # self.jobs_view.setColumnWidth(5, 200)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
 
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 

@@ -18,27 +18,27 @@
         <translation>Declinante</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="463"/>
+        <location filename="../jobs.py" line="460"/>
         <source>Time</source>
         <translation>Hora</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="464"/>
+        <location filename="../jobs.py" line="461"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="464"/>
+        <location filename="../jobs.py" line="461"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="450"/>
+        <location filename="../jobs.py" line="447"/>
         <source>Downloaded</source>
         <translation>Descargado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="450"/>
+        <location filename="../jobs.py" line="447"/>
         <source>Downloaded results to {}</source>
         <translation>Resultados descargados a {}</translation>
     </message>
@@ -2916,7 +2916,7 @@ p, li { white-space: pre-wrap; }
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="140"/>
+        <location filename="../download_data.py" line="142"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>
@@ -3040,27 +3040,27 @@ p, li { white-space: pre-wrap; }
         <translation>Actualizar lista</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="216"/>
+        <location filename="../jobs.py" line="215"/>
         <source>Script not found</source>
         <translation>Script no encontrado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="244"/>
+        <location filename="../jobs.py" line="243"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="309"/>
+        <location filename="../jobs.py" line="306"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="296"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Base filename (*.json)</source>
         <translation>Nombre de archivo base (*.json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="309"/>
+        <location filename="../jobs.py" line="306"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>No se puede escribir en {}. Elija un nombre de archivo base diferente.</translation>
     </message>
@@ -3070,7 +3070,7 @@ p, li { white-space: pre-wrap; }
         <translation>Los trabajos caducan 30 días después de que se envían. Después de que un trabajo haya expirado, ya no aparecerá en esta lista. {14?}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="296"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>Elige un nombre de archivo Descarga de resultados de: {}</translation>
     </message>
@@ -3880,7 +3880,7 @@ p, li { white-space: pre-wrap; }
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="181"/>
+        <location filename="../download_data.py" line="190"/>
         <source>Success</source>
         <translation>Éxito</translation>
     </message>
@@ -3890,12 +3890,12 @@ p, li { white-space: pre-wrap; }
         <translation>Acerca de trends.earth</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="181"/>
+        <location filename="../download_data.py" line="190"/>
         <source>Download request submitted to Google Earth Engine.</source>
         <translation>Solicitud de descarga enviada a Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="185"/>
+        <location filename="../download_data.py" line="194"/>
         <source>Unable to submit download request to Google Earth Engine.</source>
         <translation>No se puede enviar la solicitud de descarga a Google Earth Engine.</translation>
     </message>
@@ -4003,32 +4003,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="337"/>
         <source>Task name</source>
         <translation>Nombre de la tarea</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="338"/>
         <source>Job</source>
         <translation>Trabajo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="339"/>
         <source>Start time</source>
         <translation>Hora de inicio</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="343"/>
+        <location filename="../jobs.py" line="340"/>
         <source>End time</source>
         <translation>Hora de finalización</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="344"/>
+        <location filename="../jobs.py" line="341"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="345"/>
+        <location filename="../jobs.py" line="342"/>
         <source>Details</source>
         <translation>Detalles</translation>
     </message>

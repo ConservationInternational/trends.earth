@@ -740,6 +740,8 @@ def _make_zip(zipFile, c):
             'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_deploy(c, clean=False, python='python', pip='pip'):
+    set_version(c)
+
     filename = zipfile_build(c, python=python, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:

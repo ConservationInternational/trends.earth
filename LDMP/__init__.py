@@ -13,8 +13,8 @@
 """
 
 __version__ = "0.99.1"
-__revision__ = "d0af9239"
-__release_date__ = "2020/04/08 21:28:07Z"
+__revision__ = "9a687d37"
+__release_date__ = "2020/04/08 21:29:02Z"
 
 import sys
 import os

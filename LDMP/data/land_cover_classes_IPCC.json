@@ -1,0 +1,34 @@
+{
+    "No data": {
+        "value": -32768,
+        "color": "#000000"
+    },
+    "Tree-covered": {
+        "value": 1,
+        "color": "#787F1B"
+    },
+    "Grassland": {
+        "value": 2,
+        "color": "#FFAC42"
+    },
+    "Cropland": {
+        "value": 3,
+        "color": "#FFFB6E"
+    },
+    "Wetland": {
+        "value": 4,
+        "color": "#00DB84"
+    },
+    "Artificial": {
+        "value": 5,
+        "color": "#E60017"
+    },
+    "Other land": {
+        "value": 6,
+        "color": "#FFF3D7"
+    },
+    "Water body": {
+        "value": 7,
+        "color": "#0053C4"
+    }
+}

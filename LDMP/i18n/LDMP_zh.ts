@@ -3,17 +3,17 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../layers.py" line="134"/>
+        <location filename="../layers.py" line="145"/>
         <source>Stable</source>
         <translation>稳定</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="129"/>
+        <location filename="../layers.py" line="140"/>
         <source>Increasing</source>
         <translation>增加</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="125"/>
+        <location filename="../layers.py" line="136"/>
         <source>Declining</source>
         <translation>下降</translation>
     </message>
@@ -43,7 +43,7 @@
         <translation>将结果下载到{}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="50"/>
+        <location filename="../layers.py" line="99"/>
         <source>No data</source>
         <translation>没有数据</translation>
     </message>
@@ -78,27 +78,27 @@
         <translation>水体</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="99"/>
+        <location filename="../layers.py" line="110"/>
         <source>Tree-covered loss</source>
         <translation>森林损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="100"/>
+        <location filename="../layers.py" line="111"/>
         <source>Grassland loss</source>
         <translation>草原损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="101"/>
+        <location filename="../layers.py" line="112"/>
         <source>Cropland loss</source>
         <translation>土地覆盖退化</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="102"/>
+        <location filename="../layers.py" line="113"/>
         <source>Wetland loss</source>
         <translation>湿地丧失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="103"/>
+        <location filename="../layers.py" line="114"/>
         <source>Artificial loss</source>
         <translation>人工区域损失</translation>
     </message>
@@ -108,22 +108,22 @@
         <translation>土地覆盖（{年}，ESA CCI类）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="105"/>
+        <location filename="../layers.py" line="116"/>
         <source>Water body loss</source>
         <translation>水体损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="133"/>
+        <location filename="../layers.py" line="144"/>
         <source>Degradation</source>
         <translation>降解</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="135"/>
+        <location filename="../layers.py" line="146"/>
         <source>Improvement</source>
         <translation>起色</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="412"/>
+        <location filename="../layers.py" line="423"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
@@ -149,8 +149,8 @@
     </message>
     <message>
         <location filename="../layers.py" line="70"/>
-        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</source>
-        <translation>生产力状态恶化（{year_bl_start}  -  {year_bl_end}至{year_tg_start}  -  {year_tg_end}）</translation>
+        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
+        <translation type="unfinished">生产力状态恶化（{year_bl_start}  -  {year_bl_end}至{year_tg_start}  -  {year_tg_end}）</translation>
     </message>
     <message>
         <location filename="../layers.py" line="86"/>
@@ -158,7 +158,7 @@
         <translation>土地覆盖（过渡，{}  -  {}至{}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="98"/>
+        <location filename="../layers.py" line="109"/>
         <source>No change</source>
         <translation>不用找了</translation>
     </message>
@@ -183,12 +183,12 @@
         <translation>土地覆盖模式（{year_start}  -  {year_end}，7类）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="108"/>
+        <location filename="../layers.py" line="119"/>
         <source>Soil organic carbon ({year}, tons / ha)</source>
         <translation>土壤有机碳（{年}，吨/公顷）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="110"/>
+        <location filename="../layers.py" line="121"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
         <translation>土壤有机碳降解（{year_start}至{year_end}）</translation>
     </message>
@@ -248,47 +248,47 @@
         <translation>6  - 其他土地</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="97"/>
+        <location filename="../layers.py" line="108"/>
         <source>Land cover (transitions, {year_baseline} to {year_target})</source>
         <translation>土地覆盖（过渡，{year_baseline}至{year_target}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="104"/>
+        <location filename="../layers.py" line="115"/>
         <source>Other land loss</source>
         <translation>其他土地损失</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="116"/>
+        <location filename="../layers.py" line="127"/>
         <source>Land productivity (Trends.Earth)</source>
         <translation>土地生产力（Trends.Earth）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="126"/>
+        <location filename="../layers.py" line="137"/>
         <source>Moderate decline</source>
         <translation>适度下降</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="127"/>
+        <location filename="../layers.py" line="138"/>
         <source>Stressed</source>
         <translation>强调</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="124"/>
+        <location filename="../layers.py" line="135"/>
         <source>Land productivity dynamics (LPD)</source>
         <translation>土地生产力动态（LPD）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="337"/>
+        <location filename="../layers.py" line="348"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="118"/>
+        <location filename="../layers.py" line="129"/>
         <source>Early signs of decline</source>
         <translation>早期衰退的迹象</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="119"/>
+        <location filename="../layers.py" line="130"/>
         <source>Stable but stressed</source>
         <translation>稳定但强调</translation>
     </message>
@@ -308,62 +308,62 @@
         <translation>无法处理感兴趣的区域 - 未知几何类型：{}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="138"/>
+        <location filename="../layers.py" line="149"/>
         <source>Forest loss ({year_start} to {year_end})</source>
         <translation>森林损失（{year_start}到{year_end}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="153"/>
+        <location filename="../layers.py" line="164"/>
         <source>Water</source>
         <translation>水</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="140"/>
+        <location filename="../layers.py" line="151"/>
         <source>Non-forest</source>
         <translation>非林</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="141"/>
+        <location filename="../layers.py" line="152"/>
         <source>Forest (no loss)</source>
         <translation>森林（没有损失）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="142"/>
+        <location filename="../layers.py" line="153"/>
         <source>Forest loss ({year_start})</source>
         <translation>森林损失（{year_start}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="143"/>
+        <location filename="../layers.py" line="154"/>
         <source>Forest loss ({year_end})</source>
         <translation>森林损失（{year_end}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="146"/>
+        <location filename="../layers.py" line="157"/>
         <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
         <translation>总碳（{year_start}，每公顷吨数×10）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="149"/>
+        <location filename="../layers.py" line="160"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation>根/芽比（x 100）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="152"/>
+        <location filename="../layers.py" line="163"/>
         <source>Urban area change</source>
         <translation>市区</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="155"/>
+        <location filename="../layers.py" line="166"/>
         <source>Built-up by 2005</source>
         <translation>城市收益（2010年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="156"/>
+        <location filename="../layers.py" line="167"/>
         <source>Built-up by 2010</source>
         <translation>城市收益（2015年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="172"/>
+        <location filename="../layers.py" line="183"/>
         <source>Population ({year})</source>
         <translation>人口（{年}）</translation>
     </message>
@@ -373,78 +373,78 @@
         <translation>您已选择为城市运行计算。处理城市时，必须选择缓冲距离来定义计算区域。</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="154"/>
+        <location filename="../layers.py" line="165"/>
         <source>Built-up by 2000</source>
         <translation>建于2000年</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="157"/>
+        <location filename="../layers.py" line="168"/>
         <source>Built-up by 2015</source>
         <translation>建于2015年</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="160"/>
+        <location filename="../layers.py" line="171"/>
         <source>Urban area {year}</source>
         <translation>市区{年}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="161"/>
+        <location filename="../layers.py" line="172"/>
         <source>Urban</source>
         <translation>城市的</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="162"/>
+        <location filename="../layers.py" line="173"/>
         <source>Suburban</source>
         <translation>郊区的</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="163"/>
+        <location filename="../layers.py" line="174"/>
         <source>Built-up rural</source>
         <translation>建成农村</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="164"/>
+        <location filename="../layers.py" line="175"/>
         <source>Open space (fringe)</source>
         <translation>开放空间（边缘）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="165"/>
+        <location filename="../layers.py" line="176"/>
         <source>Open space (captured)</source>
         <translation>开放空间（捕获）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="166"/>
+        <location filename="../layers.py" line="177"/>
         <source>Open space (rural)</source>
         <translation>开放空间（农村）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="167"/>
+        <location filename="../layers.py" line="178"/>
         <source>Open space (fringe, water)</source>
         <translation>开放空间（边缘，水）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="168"/>
+        <location filename="../layers.py" line="179"/>
         <source>Open space (captured, water)</source>
         <translation>开放空间（捕获，水）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="169"/>
+        <location filename="../layers.py" line="180"/>
         <source>Open space (rural, water)</source>
         <translation>开放空间（农村，水）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="175"/>
+        <location filename="../layers.py" line="186"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>生物质（每公顷CO2e，{年}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="176"/>
+        <location filename="../layers.py" line="187"/>
         <source>Change in biomass
 (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>生物量变化（每年公顷CO2e，{年}年后{type}）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="337"/>
+        <location filename="../layers.py" line="348"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth没有为“{}”分配样式（{}中的频段{}。要使用此图层，请手动将其添加到地图中。</translation>
     </message>
@@ -454,89 +454,114 @@
         <translation>转换坐标时出错。检查输入几何形状是否有效。</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="132"/>
+        <location filename="../layers.py" line="143"/>
         <source>SDG 15.3.1 Indicator (Trends.Earth)</source>
         <translation>SDG 15.3.1指标（趋势地球）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="179"/>
+        <location filename="../layers.py" line="190"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>农业生态区V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="180"/>
+        <location filename="../layers.py" line="191"/>
         <source>Climatic Zones</source>
         <translation>气候区</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="183"/>
+        <location filename="../layers.py" line="194"/>
         <source>Hansen</source>
         <translation>汉森</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="186"/>
+        <location filename="../layers.py" line="197"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="189"/>
+        <location filename="../layers.py" line="200"/>
         <source>CHIRPS</source>
         <translation>芯片</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="190"/>
+        <location filename="../layers.py" line="201"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7（全球降水气候中心）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="191"/>
+        <location filename="../layers.py" line="202"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1个月（全球降水气候学项目）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="192"/>
+        <location filename="../layers.py" line="203"/>
         <source>PERSIANN-CDR</source>
         <translation>波斯CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="195"/>
+        <location filename="../layers.py" line="206"/>
         <source>ERA I</source>
         <translation>我时代</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="196"/>
+        <location filename="../layers.py" line="207"/>
         <source>MERRA 2</source>
         <translation>梅拉2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="199"/>
+        <location filename="../layers.py" line="210"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS（MOD13Q1，每年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="200"/>
+        <location filename="../layers.py" line="211"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR（GIMMS3g.v1，每年）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="201"/>
+        <location filename="../layers.py" line="212"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS（MOD13Q1，16天）</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="208"/>
+        <location filename="../layers.py" line="219"/>
         <source>Soil Grids 250</source>
         <translation>土壤网格250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="205"/>
+        <location filename="../layers.py" line="216"/>
         <source>USDA Soil Type</source>
         <translation>USDA土壤类型</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="412"/>
+        <location filename="../layers.py" line="423"/>
         <source>Failed to load Trends.Earth style. Adding layer using QGIS defaults.</source>
         <translation>无法加载Trends.Earth样式。使用QGIS默认值添加图层。</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="100"/>
+        <source>Tree-covered</source>
+        <translation type="unfinished">树木覆盖的地区</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="103"/>
+        <source>Wetland</source>
+        <translation type="unfinished">湿地</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="104"/>
+        <source>Artificial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="105"/>
+        <source>Other land</source>
+        <translation type="unfinished">其他土地</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="106"/>
+        <source>Water body</source>
+        <translation type="unfinished">水体</translation>
     </message>
 </context>
 <context>
@@ -820,17 +845,17 @@ p, li { white-space: pre-wrap; }
         <translation>以前</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="410"/>
+        <location filename="../lc_setup.py" line="437"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="419"/>
+        <location filename="../lc_setup.py" line="446"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>转换矩阵定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="419"/>
+        <location filename="../lc_setup.py" line="446"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>选择保存此转换矩阵定义的位置</translation>
     </message>
@@ -890,7 +915,7 @@ p, li { white-space: pre-wrap; }
         <translation>在运行计算之前，您必须在地图上添加最终的土地覆盖图层。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="361"/>
+        <location filename="../lc_setup.py" line="388"/>
         <source>Land cover in initial year </source>
         <translation>第一年的土地覆盖</translation>
     </message>
@@ -913,64 +938,64 @@ p, li { white-space: pre-wrap; }
         <translation>重置为默认</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="90"/>
+        <location filename="../lc_setup.py" line="123"/>
         <source>Input class</source>
         <translation>输入封面类</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="91"/>
+        <location filename="../lc_setup.py" line="124"/>
         <source>Output class</source>
         <translation>输出封面类</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="189"/>
+        <location filename="../lc_setup.py" line="215"/>
         <source>Choose where to save this land cover definition</source>
         <translation>选择保存此土地覆盖范围定义的位置</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="189"/>
+        <location filename="../lc_setup.py" line="215"/>
         <source>Land cover definition (*.json)</source>
         <translation>土地覆盖定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="199"/>
+        <location filename="../lc_setup.py" line="225"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="199"/>
+        <location filename="../lc_setup.py" line="225"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="89"/>
+        <location filename="../lc_setup.py" line="122"/>
         <source>Input code</source>
         <translation>输入代码</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="296"/>
         <source>Grassland</source>
-        <translation>草原</translation>
+        <translation type="obsolete">草原</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="298"/>
         <source>Cropland</source>
-        <translation>农田</translation>
+        <translation type="obsolete">农田</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="300"/>
         <source>Wetland</source>
-        <translation>湿地</translation>
+        <translation type="obsolete">湿地</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="302"/>
         <source>Artificial</source>
-        <translation>人工区域</translation>
+        <translation type="obsolete">人工区域</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="306"/>
         <source>Water body</source>
-        <translation>水体</translation>
+        <translation type="obsolete">水体</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLCSetAggregation.ui" line="47"/>
@@ -988,44 +1013,44 @@ p, li { white-space: pre-wrap; }
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="171"/>
+        <location filename="../lc_setup.py" line="197"/>
         <source>Select a land cover definition file</source>
         <translation>选择一个土地覆盖物定义文件</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="179"/>
+        <location filename="../lc_setup.py" line="205"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="299"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="258"/>
+        <location filename="../lc_setup.py" line="296"/>
         <source>Some of the class codes ({}) in the definition file do not appear in the chosen data file.</source>
         <translation>定义文件中的一些类代码（{}）不会出现在选定的数据文件中。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="299"/>
         <source>Some of the class codes ({}) in the data file do not appear in the chosen definition file.</source>
         <translation>数据文件中的某些类代码（{}）不会出现在选定的定义文件中。</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="292"/>
         <source>No data</source>
-        <translation>没有数据</translation>
+        <translation type="obsolete">没有数据</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="304"/>
         <source>Other land</source>
-        <translation>其他土地</translation>
+        <translation type="obsolete">其他土地</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="294"/>
         <source>Tree-covered</source>
-        <translation>树木覆盖的地区</translation>
+        <translation type="obsolete">树木覆盖的地区</translation>
     </message>
 </context>
 <context>
@@ -1987,8 +2012,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="198"/>
-        <source>Percent forest cover considered forest</source>
-        <translation>森林覆盖百分比被认为是森林</translation>
+        <source>Percent tree cover considered forest</source>
+        <translation type="unfinished">森林覆盖百分比被认为是森林</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="225"/>
@@ -1997,8 +2022,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="244"/>
-        <source>Custom forest cover dataset</source>
-        <translation>自定义森林覆盖数据集</translation>
+        <source>Custom tree cover dataset</source>
+        <translation type="unfinished">自定义森林覆盖数据集</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="254"/>
@@ -3664,62 +3689,62 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="389"/>
+        <location filename="../lc_setup.py" line="416"/>
         <source>Select a transition matrix definition file</source>
         <translation>选择一个转换矩阵定义文件</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="389"/>
+        <location filename="../lc_setup.py" line="416"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>转换矩阵定义（* .json）</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="429"/>
+        <location filename="../lc_setup.py" line="456"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="397"/>
+        <location filename="../lc_setup.py" line="424"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="429"/>
+        <location filename="../lc_setup.py" line="456"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="332"/>
+        <location filename="../lc_setup.py" line="359"/>
         <source>Tree-covered</source>
         <translation>树木覆盖的地区</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="333"/>
+        <location filename="../lc_setup.py" line="360"/>
         <source>Grassland</source>
         <translation>草原</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="334"/>
+        <location filename="../lc_setup.py" line="361"/>
         <source>Cropland</source>
         <translation>农田</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="335"/>
+        <location filename="../lc_setup.py" line="362"/>
         <source>Wetland</source>
         <translation>湿地</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="336"/>
+        <location filename="../lc_setup.py" line="363"/>
         <source>Artificial</source>
         <translation>人造地区</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="337"/>
+        <location filename="../lc_setup.py" line="364"/>
         <source>Bare land</source>
         <translation>光秃秃的</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="338"/>
+        <location filename="../lc_setup.py" line="365"/>
         <source>Water body</source>
         <translation>水体</translation>
     </message>

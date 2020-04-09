@@ -7,4 +7,4 @@ transifex-client>=0.13.6
 pylint
 pip>=10.0.0
 PyQt5
-numba
+numba==0.48.0

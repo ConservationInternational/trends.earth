@@ -35,7 +35,12 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=0.98
+changelog=0.99 (not yet released)
+    - Fix processing using new MODIS data (assets were not properly updated in 
+      the last release)
+    - Fix color-coding of land covers in land cover class aggregation window
+    - Add more detailed version information to about dialog
+  0.98 April 2, 2020
     - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.
     - Upgrade all dependencies of plugin to latest versions as of January 2020.
     - Fix data download tool to have default 1styles for all available 

@@ -578,7 +578,7 @@ def gettext(c, language=None):
     'fast': "only build english html docs"})
 def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     if clean:
-        c.sphinx.builddir.rmtree()
+        rmtree(c.sphinx.builddir)
 
     if language:
         languages = [language]

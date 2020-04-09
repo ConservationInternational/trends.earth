@@ -67,7 +67,7 @@ style_text_dict = {
     'prod_perf_units_title': tr(u'Productivity performance ({year_start}, units)'),
 
     # Productivity state
-    'prod_state_change_title': tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
+    'prod_state_change_title': tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})'),
     'prod_state_change_potential_deg': tr(u'Degradation'),
     'prod_state_change_stable': tr(u'Stable'),
     'prod_state_change_potential_improvement': tr(u'Improvement'),

@@ -195,7 +195,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_hansen_threshold">
          <property name="title">
-          <string>Percent forest cover considered forest</string>
+          <string>Percent tree cover considered forest</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
@@ -241,7 +241,7 @@
        <item>
         <widget class="QRadioButton" name="use_custom">
          <property name="text">
-          <string>Custom forest cover dataset</string>
+          <string>Custom tree cover dataset</string>
          </property>
         </widget>
        </item>

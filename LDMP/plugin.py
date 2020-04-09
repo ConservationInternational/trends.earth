@@ -19,7 +19,7 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu
 from qgis.PyQt.QtGui import QIcon
 
-from LDMP import __version__
+from LDMP import __version__, __release_date__, __revision__
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
 from LDMP.calculate import DlgCalculate
@@ -77,7 +77,7 @@ class LDMPPlugin(object):
             self.plugin_dir,
             'i18n',
             u'LDMP_{}.qm'.format(locale))
-        QgsMessageLog.logMessage(u'Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
+        QgsMessageLog.logMessage(u'Starting trends.earth version {} (rev: {}, released {})) using locale "{}" in path {}.'.format(__version__, __revision__, __release_date__, locale, locale_path),
                                  tag="trends.earth", level=Qgis.Info)
 
         if os.path.exists(locale_path):

@@ -451,8 +451,6 @@ def add_layer(f, band_number, band_info, activated='default'):
 def tr_style_text(label, band_info=None):
     """If no translation is available, use the original label"""
     val = style_text_dict.get(label, None)
-    log('label is: {}'.format(label))
-    log('val is: {}'.format(tr(val)))
     if val:
         if band_info:
             return val.format(**band_info['metadata'])

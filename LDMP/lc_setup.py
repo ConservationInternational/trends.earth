@@ -35,7 +35,6 @@ from LDMP.layers import tr_style_text
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                        'data', 'land_cover_classes_IPCC.json')) as class_file:
     classes = json.load(class_file)
-log('classes: {}'.format(classes))
 final_classes = {}
 for key in classes.keys():
     classes[key]['label'] = key
@@ -325,14 +324,11 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             # Get the input code for this row and the final label it should map 
             # to by default
             input_code = table_model.index(row, 0).data()
-            log('input_code: {}'.format(input_code))
             final_label = [c['Final_Label'] for c in classes if c['Initial_Code'] == input_code][0]
-            log('final_label: {}'.format(final_label))
 
             # Figure out which label translation this Final_Label (in English) 
             # is equivalent to
             label_to_label_tr = {final_classes[key]['label']: key for key in final_classes.keys()}
-            log('label_to_label_tr: {}'.format(label_to_label_tr))
             final_label_tr = label_to_label_tr[final_label]
 
             # Now find the index in the combo box of this translated final 

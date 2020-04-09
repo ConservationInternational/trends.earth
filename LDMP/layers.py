@@ -94,6 +94,17 @@ style_text_dict = {
     'lc_class_bare': tr(u'6 - Other land'),
     'lc_class_water': tr(u'7 - Water body'),
 
+    # Below are so that layer names will translate for the dialog that shows 
+    # how to aggregate from ESA to IPCC classes
+    'No data': tr(u'No data'),
+    'Tree-covered': tr(u'Tree-covered'),
+    'Grassland': tr(u'Grassland'),
+    'Cropland': tr(u'Cropland'),
+    'Wetland': tr(u'Wetland'),
+    'Artificial': tr(u'Artificial'),
+    'Other land': tr(u'Other land'),
+    'Water body': tr(u'Water body'),
+
     'lc_tr_title': tr(u'Land cover (transitions, {year_baseline} to {year_target})'),
     'lc_tr_nochange': tr(u'No change'),
     'lc_tr_forest_loss': tr(u'Tree-covered loss'),

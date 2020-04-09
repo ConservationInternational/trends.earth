@@ -53,13 +53,13 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-def get_version(number_only=True):
-    with open('version.txt', 'r') as f:
-        if number_only:
-            v = f.readline().strip('\n')
-        else:
-            v = f.read()
-    return v
+def get_version(c, number_only=True):
+    with open(c.plugin.version_file, 'r') as f:
+        version_info = json.load(f)
+    if number_only:
+        return version_info['version']
+    else:
+        return version_info
 
 # Handle long filenames or readonly files on windows, see: 
 # http://bit.ly/2g58Yxu
@@ -107,11 +107,10 @@ def _replace(file_path, regex, subst):
 
 @task(help={'version': 'Version to set'})
 def set_version(c, v=None):
-
     # Validate the version matches the regex
     if not v:
         version_update = False
-        v = get_version()
+        v = get_version(c)
         print('No version specified, retaining version {}, but updating SHA and release date'.format(v))
     elif not re.match("[0-9]+([.][0-9]+)+", v):
         print('Must specify a valid version (example: 0.36)')
@@ -119,20 +118,13 @@ def set_version(c, v=None):
     else:
         version_update = True
     
-    SHA = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[0:8]
+    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[0:8]
     release_date = datetime.now(timezone.utc).strftime('%Y/%m/%d %H:%M:%SZ')
 
-    # Set in version.txt
-    print('Setting version to {} in version.txt'.format(v))
-    with open('version.txt', 'w') as f:
-        f.write('{}\n(revision {}, {})'.format(v, SHA, release_date))
-
-    init_revision_regex = re.compile('^(__revision__[ ]*=[ ]*["\'])[0-9a-zA-Z]{8}')
-    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_revision_regex, '\g<1>' + SHA)
-
-    init_release_date_regex = re.compile('^(__release_date__[ ]*=[ ]*["\'])[0-9/: ]*Z')
-    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_release_date_regex, '\g<1>' + release_date)
-
+    # Set in version.json
+    print('Setting version to {} in version.json'.format(v))
+    with open(c.plugin.version_file, 'w') as f:
+        json.dump({"version": v, "revision": revision, "release_date": release_date}, f,  indent=4)
 
     if version_update:
         # Set in Sphinx docs in make.conf
@@ -145,11 +137,6 @@ def set_version(c, v=None):
         sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
         _replace(os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
     
-        # Set in __init__.py
-        print('Setting version to {} in __init__.py'.format(v))
-        init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
-        _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_version_regex, '\g<1>' + v)
-
         # For the GEE config files the version can't have a dot, so convert to 
         # underscore
         v_gee = v.replace('.', '_')
@@ -211,7 +198,7 @@ def tecli_publish(c, script=None):
     if not check_tecli_python_version():
         return
     if not script:
-        ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version()))
+        ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version(c)))
         if not ret:
             return
 
@@ -896,6 +883,7 @@ ns = Collection(set_version, plugin_setup, plugin_install,
 ns.configure({
     'plugin': {
         'name': 'LDMP',
+        'version_file': 'LDMP/version.json',
         'ext_libs': 'LDMP/ext-libs',
         'gui_dir': 'LDMP/gui',
         'source_dir': 'LDMP',

@@ -67,7 +67,7 @@ style_text_dict = {
     'prod_perf_units_title': tr(u'Productivity performance ({year_start}, units)'),
 
     # Productivity state
-    'prod_state_change_title': tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})'),
+    'prod_state_change_title': tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})'),
     'prod_state_change_potential_deg': tr(u'Degradation'),
     'prod_state_change_stable': tr(u'Stable'),
     'prod_state_change_potential_improvement': tr(u'Improvement'),
@@ -93,6 +93,17 @@ style_text_dict = {
     'lc_class_artificial': tr(u'5 - Artificial'),
     'lc_class_bare': tr(u'6 - Other land'),
     'lc_class_water': tr(u'7 - Water body'),
+
+    # Below are so that layer names will translate for the dialog that shows 
+    # how to aggregate from ESA to IPCC classes
+    'No data': tr(u'No data'),
+    'Tree-covered': tr(u'Tree-covered'),
+    'Grassland': tr(u'Grassland'),
+    'Cropland': tr(u'Cropland'),
+    'Wetland': tr(u'Wetland'),
+    'Artificial': tr(u'Artificial'),
+    'Other land': tr(u'Other land'),
+    'Water body': tr(u'Water body'),
 
     'lc_tr_title': tr(u'Land cover (transitions, {year_baseline} to {year_target})'),
     'lc_tr_nochange': tr(u'No change'),
@@ -451,8 +462,6 @@ def add_layer(f, band_number, band_info, activated='default'):
 def tr_style_text(label, band_info=None):
     """If no translation is available, use the original label"""
     val = style_text_dict.get(label, None)
-    log('label is: {}'.format(label))
-    log('val is: {}'.format(tr(val)))
     if val:
         if band_info:
             return val.format(**band_info['metadata'])

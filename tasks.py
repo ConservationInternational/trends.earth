@@ -53,13 +53,13 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-def get_version(number=True):
-    with open('version.txt', 'r') as f:
-        if number:
-            v = f.readline().strip('\n')
-        else:
-            v = f.read()
-    return v
+def get_version(c, number_only=True):
+    with open(c.plugin.version_file, 'r') as f:
+        version_info = json.load(f)
+    if number_only:
+        return version_info['version']
+    else:
+        return version_info
 
 # Handle long filenames or readonly files on windows, see: 
 # http://bit.ly/2g58Yxu
@@ -106,76 +106,72 @@ def _replace(file_path, regex, subst):
 ###############################################################################
 
 @task(help={'version': 'Version to set'})
-def set_version(c, v):
+def set_version(c, v=None):
     # Validate the version matches the regex
-    if not v or not re.match("[0-9]+([.][0-9]+)+", v):
+    if not v:
+        version_update = False
+        v = get_version(c)
+        print('No version specified, retaining version {}, but updating SHA and release date'.format(v))
+    elif not re.match("[0-9]+([.][0-9]+)+", v):
         print('Must specify a valid version (example: 0.36)')
         return
+    else:
+        version_update = True
     
-    SHA = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[1:8]
+    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[0:8]
     release_date = datetime.now(timezone.utc).strftime('%Y/%m/%d %H:%M:%SZ')
 
-    # Set in version.txt
-    print('Setting version to {} in version.txt'.format(v))
-    with open('version.txt', 'w') as f:
-        f.write('{}\n(revision {}, {})'.format(v, SHA, release_date))
+    # Set in version.json
+    print('Setting version to {} in version.json'.format(v))
+    with open(c.plugin.version_file, 'w') as f:
+        json.dump({"version": v, "revision": revision, "release_date": release_date}, f,  indent=4)
 
-    # Set in Sphinx docs in make.conf
-    print('Setting version to {} in sphinx conf.py'.format(v))
-    sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE)
-    _replace(os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex, '\g<1>' + v)
+    if version_update:
+        # Set in Sphinx docs in make.conf
+        print('Setting version to {} in sphinx conf.py'.format(v))
+        sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE)
+        _replace(os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex, '\g<1>' + v)
 
-    # Set in metadata.txt
-    print('Setting version to {} in metadata.txt'.format(v))
-    sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
-    _replace(os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
+        # Set in metadata.txt
+        print('Setting version to {} in metadata.txt'.format(v))
+        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
+        _replace(os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
     
-    # Set in __init__.py
-    print('Setting version to {} in __init__.py'.format(v))
-    init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
-    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_version_regex, '\g<1>' + v)
+        # For the GEE config files the version can't have a dot, so convert to 
+        # underscore
+        v_gee = v.replace('.', '_')
+        if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
+            print('Must specify a valid version (example: 0.36)')
+            return
 
-    init_revision_regex = re.compile('^(__revision__[ ]*=[ ]*["\'])[0-9a-zA-Z]{8}')
-    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_revision_regex, '\g<1>' + SHA)
+        gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
+        gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
 
-    init_release_date_regex = re.compile('^(__release_date__[ ]*=[ ]*["\'])[0-9/: ]*Z')
-    _replace(os.path.join(c.plugin.source_dir, '__init__.py'), init_release_date_regex, '\g<1>' + release_date)
+        # Set version for GEE scripts
+        for subdir, dirs, files in os.walk(c.gee.script_dir):
+            for file in files:
+                filepath = os.path.join(subdir, file)
+                if file == 'configuration.json':
+                    # Validate the version matches the regex
+                    print('Setting version to {} in {}'.format(v, filepath))
+                    # Update the version string
+                    _replace(filepath, gee_script_name_regex, '\g<1> ' + v_gee + '"')
+                    # Clear the ID since a new one will be assigned due to the new name
+                    _replace(filepath, gee_id_regex, '')
+                elif file == '__init__.py':
+                    print('Setting version to {} in {}'.format(v, filepath))
+                    init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
+                    _replace(filepath, init_version_regex, '\g<1>' + v)
+        
+        # Set in scripts.json
+        print('Setting version to {} in scripts.json'.format(v))
+        scripts_regex = re.compile('("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE)
+        _replace(os.path.join(c.plugin.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
-    # For the GEE config files the version can't have a dot, so convert to 
-    # underscore
-    v_gee = v.replace('.', '_')
-    if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
-        print('Must specify a valid version (example: 0.36)')
-        return
-
-    gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
-    gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
-
-    # Set version for GEE scripts
-    for subdir, dirs, files in os.walk(c.gee.script_dir):
-        for file in files:
-            filepath = os.path.join(subdir, file)
-            if file == 'configuration.json':
-                # Validate the version matches the regex
-                print('Setting version to {} in {}'.format(v, filepath))
-                # Update the version string
-                _replace(filepath, gee_script_name_regex, '\g<1> ' + v_gee + '"')
-                # Clear the ID since a new one will be assigned due to the new name
-                _replace(filepath, gee_id_regex, '')
-            elif file == '__init__.py':
-                print('Setting version to {} in {}'.format(v, filepath))
-                init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
-                _replace(filepath, init_version_regex, '\g<1>' + v)
-    
-    # Set in scripts.json
-    print('Setting version to {} in scripts.json'.format(v))
-    scripts_regex = re.compile('("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE)
-    _replace(os.path.join(c.plugin.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
-
-    # Set in setup.py
-    print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
-    setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
-    _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
+        # Set in setup.py
+        print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
+        setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
+        _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
 
 
 def check_tecli_python_version():
@@ -202,7 +198,7 @@ def tecli_publish(c, script=None):
     if not check_tecli_python_version():
         return
     if not script:
-        ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version()))
+        ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version(c)))
         if not ret:
             return
 
@@ -582,7 +578,7 @@ def gettext(c, language=None):
     'fast': "only build english html docs"})
 def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     if clean:
-        c.sphinx.builddir.rmtree()
+        rmtree(c.sphinx.builddir)
 
     if language:
         languages = [language]
@@ -731,6 +727,8 @@ def _make_zip(zipFile, c):
             'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_deploy(c, clean=False, python='python', pip='pip'):
+    set_version(c)
+
     filename = zipfile_build(c, python=python, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
@@ -885,6 +883,7 @@ ns = Collection(set_version, plugin_setup, plugin_install,
 ns.configure({
     'plugin': {
         'name': 'LDMP',
+        'version_file': 'LDMP/version.json',
         'ext_libs': 'LDMP/ext-libs',
         'gui_dir': 'LDMP/gui',
         'source_dir': 'LDMP',

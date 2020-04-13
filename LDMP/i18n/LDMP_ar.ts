@@ -3,47 +3,47 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../layers.py" line="134"/>
+        <location filename="../layers.py" line="145"/>
         <source>Stable</source>
         <translation>مستقر</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="129"/>
+        <location filename="../layers.py" line="140"/>
         <source>Increasing</source>
         <translation>في ازدياد</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="125"/>
+        <location filename="../layers.py" line="136"/>
         <source>Declining</source>
         <translation>انخفاض</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="463"/>
+        <location filename="../jobs.py" line="460"/>
         <source>Time</source>
         <translation>زمن</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="464"/>
+        <location filename="../jobs.py" line="461"/>
         <source>Integrated NDVI</source>
         <translation>NDVI المتكاملة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="464"/>
+        <location filename="../jobs.py" line="461"/>
         <source>NDVI x 10000</source>
         <translation>NDVI × 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="450"/>
+        <location filename="../jobs.py" line="447"/>
         <source>Downloaded</source>
         <translation>تحميلها</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="450"/>
+        <location filename="../jobs.py" line="447"/>
         <source>Downloaded results to {}</source>
         <translation>النتائج التي تم تنزيلها إلى {}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="50"/>
+        <location filename="../layers.py" line="99"/>
         <source>No data</source>
         <translation>لايوجد بيانات</translation>
     </message>
@@ -78,27 +78,27 @@
         <translation>جسم مائي</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="99"/>
+        <location filename="../layers.py" line="110"/>
         <source>Tree-covered loss</source>
         <translation>فقدان الغابات</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="100"/>
+        <location filename="../layers.py" line="111"/>
         <source>Grassland loss</source>
         <translation>فقدان المراعي</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="101"/>
+        <location filename="../layers.py" line="112"/>
         <source>Cropland loss</source>
         <translation>تدهور غطاء الأرض</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="102"/>
+        <location filename="../layers.py" line="113"/>
         <source>Wetland loss</source>
         <translation>فقدان الأراضي الرطبة</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="103"/>
+        <location filename="../layers.py" line="114"/>
         <source>Artificial loss</source>
         <translation>فقدان المنطقة الصناعية</translation>
     </message>
@@ -108,22 +108,22 @@
         <translation>الغطاء الأرضي ({السنة} ، فصول ESA CCI)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="105"/>
+        <location filename="../layers.py" line="116"/>
         <source>Water body loss</source>
         <translation>فقدان الجسم المائي</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="133"/>
+        <location filename="../layers.py" line="144"/>
         <source>Degradation</source>
         <translation>انحلال</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="135"/>
+        <location filename="../layers.py" line="146"/>
         <source>Improvement</source>
         <translation>تحسين</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="412"/>
+        <location filename="../layers.py" line="423"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
@@ -149,8 +149,8 @@
     </message>
     <message>
         <location filename="../layers.py" line="70"/>
-        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} to {year_tg_start}-{year_tg_end})</source>
-        <translation>تدهور حالة الإنتاجية ({year_bl_start} - {year_bl_end} إلى {year_tg_start} - {year_tg_end})</translation>
+        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
+        <translation type="unfinished">تدهور حالة الإنتاجية ({year_bl_start} - {year_bl_end} إلى {year_tg_start} - {year_tg_end})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="86"/>
@@ -158,7 +158,7 @@
         <translation>الغطاء الأرضي (التحولات ، {} - {} إلى {})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="98"/>
+        <location filename="../layers.py" line="109"/>
         <source>No change</source>
         <translation>لا تغيير</translation>
     </message>
@@ -183,12 +183,12 @@
         <translation>وضع الغطاء الأرضي ({year_start} - {year_end} ، فئة 7)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="108"/>
+        <location filename="../layers.py" line="119"/>
         <source>Soil organic carbon ({year}, tons / ha)</source>
         <translation>الكربون العضوي في التربة ({السنة} ، طن / هكتار)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="110"/>
+        <location filename="../layers.py" line="121"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
         <translation>تدهور الكربون العضوي في التربة ({year_start} to {year_end})</translation>
     </message>
@@ -248,47 +248,47 @@
         <translation>6 - أرض أخرى</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="97"/>
+        <location filename="../layers.py" line="108"/>
         <source>Land cover (transitions, {year_baseline} to {year_target})</source>
         <translation>الغطاء الأرضي (التحولات ، {year_baseline} إلى {year_target})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="104"/>
+        <location filename="../layers.py" line="115"/>
         <source>Other land loss</source>
         <translation>فقدان الأراضي الأخرى</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="116"/>
+        <location filename="../layers.py" line="127"/>
         <source>Land productivity (Trends.Earth)</source>
         <translation>إنتاجية الأراضي (الاتجاهات)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="126"/>
+        <location filename="../layers.py" line="137"/>
         <source>Moderate decline</source>
         <translation>انخفاض معتدل</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="127"/>
+        <location filename="../layers.py" line="138"/>
         <source>Stressed</source>
         <translation>مضغوط</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="124"/>
+        <location filename="../layers.py" line="135"/>
         <source>Land productivity dynamics (LPD)</source>
         <translation>ديناميات إنتاجية الأراضي (LPD)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="337"/>
+        <location filename="../layers.py" line="348"/>
         <source>Information</source>
         <translation>معلومات</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="118"/>
+        <location filename="../layers.py" line="129"/>
         <source>Early signs of decline</source>
         <translation>العلامات المبكرة للانخفاض</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="119"/>
+        <location filename="../layers.py" line="130"/>
         <source>Stable but stressed</source>
         <translation>مستقر لكنه شدد</translation>
     </message>
@@ -308,62 +308,62 @@
         <translation>فشل في معالجة مجال الاهتمام - نوع هندسي غير معروف: {}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="138"/>
+        <location filename="../layers.py" line="149"/>
         <source>Forest loss ({year_start} to {year_end})</source>
         <translation>فقدان الغابات ({year_start} إلى {year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="153"/>
+        <location filename="../layers.py" line="164"/>
         <source>Water</source>
         <translation>ماء</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="140"/>
+        <location filename="../layers.py" line="151"/>
         <source>Non-forest</source>
         <translation>غير الغابات</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="141"/>
+        <location filename="../layers.py" line="152"/>
         <source>Forest (no loss)</source>
         <translation>غابة (بدون خسارة)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="142"/>
+        <location filename="../layers.py" line="153"/>
         <source>Forest loss ({year_start})</source>
         <translation>فقدان الغابات ({year_start})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="143"/>
+        <location filename="../layers.py" line="154"/>
         <source>Forest loss ({year_end})</source>
         <translation>فقدان الغابات ({year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="146"/>
+        <location filename="../layers.py" line="157"/>
         <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
         <translation>إجمالي الكربون ({year_start} ، بالأطنان لكل هكتار × 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="149"/>
+        <location filename="../layers.py" line="160"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation>نسبة الجذر / تبادل لاطلاق النار (× 100)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="152"/>
+        <location filename="../layers.py" line="163"/>
         <source>Urban area change</source>
         <translation>المنطقة الحضرية</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="155"/>
+        <location filename="../layers.py" line="166"/>
         <source>Built-up by 2005</source>
         <translation>الكسب الحضري (2010)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="156"/>
+        <location filename="../layers.py" line="167"/>
         <source>Built-up by 2010</source>
         <translation>الكسب الحضري (2015)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="172"/>
+        <location filename="../layers.py" line="183"/>
         <source>Population ({year})</source>
         <translation>السكان (السنة)</translation>
     </message>
@@ -373,78 +373,78 @@
         <translation>لقد اخترت تشغيل الحسابات للمدينة. يجب عليك تحديد مسافة عازلة لتحديد منطقة الحساب عندما تقوم بمعالجة مدينة.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="154"/>
+        <location filename="../layers.py" line="165"/>
         <source>Built-up by 2000</source>
         <translation>تراكمت بحلول عام 2000</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="157"/>
+        <location filename="../layers.py" line="168"/>
         <source>Built-up by 2015</source>
         <translation>تراكمت بحلول عام 2015</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="160"/>
+        <location filename="../layers.py" line="171"/>
         <source>Urban area {year}</source>
         <translation>المناطق الحضرية {year}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="161"/>
+        <location filename="../layers.py" line="172"/>
         <source>Urban</source>
         <translation>الحضاري</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="162"/>
+        <location filename="../layers.py" line="173"/>
         <source>Suburban</source>
         <translation>من الضواحى</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="163"/>
+        <location filename="../layers.py" line="174"/>
         <source>Built-up rural</source>
         <translation>الريف المبني</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="164"/>
+        <location filename="../layers.py" line="175"/>
         <source>Open space (fringe)</source>
         <translation>مساحة مفتوحة (هامش)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="165"/>
+        <location filename="../layers.py" line="176"/>
         <source>Open space (captured)</source>
         <translation>مساحة مفتوحة (تم التقاطها)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="166"/>
+        <location filename="../layers.py" line="177"/>
         <source>Open space (rural)</source>
         <translation>المساحات المفتوحة (الريفية)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="167"/>
+        <location filename="../layers.py" line="178"/>
         <source>Open space (fringe, water)</source>
         <translation>مساحة مفتوحة (هامش ، ماء)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="168"/>
+        <location filename="../layers.py" line="179"/>
         <source>Open space (captured, water)</source>
         <translation>مساحة مفتوحة (مأسورة ، ماء)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="169"/>
+        <location filename="../layers.py" line="180"/>
         <source>Open space (rural, water)</source>
         <translation>مساحة مفتوحة (ريفية ، ماء)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="175"/>
+        <location filename="../layers.py" line="186"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>الكتلة الحيوية (أطنان من ثاني أكسيد الكربون لكل هكتار ، {السنة})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="176"/>
+        <location filename="../layers.py" line="187"/>
         <source>Change in biomass
 (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>التغير في الكتلة الحيوية (أطنان ثاني أكسيد الكربون لكل هكتار ، {النوع} بعد {السنوات} سنوات)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="337"/>
+        <location filename="../layers.py" line="348"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>لا يحتوي Trends.Earth على نمط معين لـ &amp;quot;{}&amp;quot; (النطاق {} في {}). لاستخدام هذه الطبقة ، أضفها يدويًا إلى خريطتك.</translation>
     </message>
@@ -454,89 +454,114 @@
         <translation>خطأ في تحويل الإحداثيات. تحقق من صحة هندسة الإدخال.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="132"/>
+        <location filename="../layers.py" line="143"/>
         <source>SDG 15.3.1 Indicator (Trends.Earth)</source>
         <translation>مؤشر التنمية المستدامة 15.3.1 (Trends.Earth)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="179"/>
+        <location filename="../layers.py" line="190"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>المناطق البيئية الزراعية V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="180"/>
+        <location filename="../layers.py" line="191"/>
         <source>Climatic Zones</source>
         <translation>المناطق المناخية</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="183"/>
+        <location filename="../layers.py" line="194"/>
         <source>Hansen</source>
         <translation>هانسن</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="186"/>
+        <location filename="../layers.py" line="197"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="189"/>
+        <location filename="../layers.py" line="200"/>
         <source>CHIRPS</source>
         <translation>رقائق</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="190"/>
+        <location filename="../layers.py" line="201"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7 (المركز العالمي لمناخ هطول الأمطار)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="191"/>
+        <location filename="../layers.py" line="202"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 شهر واحد (مشروع مناخ المناخ العالمي)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="192"/>
+        <location filename="../layers.py" line="203"/>
         <source>PERSIANN-CDR</source>
         <translation>PERSIANN-CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="195"/>
+        <location filename="../layers.py" line="206"/>
         <source>ERA I</source>
         <translation>ERA I</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="196"/>
+        <location filename="../layers.py" line="207"/>
         <source>MERRA 2</source>
         <translation>ميرا 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="199"/>
+        <location filename="../layers.py" line="210"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS (MOD13Q1 ، سنوي)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="200"/>
+        <location filename="../layers.py" line="211"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR (GIMMS3g.v1 ، سنوي)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="201"/>
+        <location filename="../layers.py" line="212"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS (MOD13Q1 ، 16 يوم)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="208"/>
+        <location filename="../layers.py" line="219"/>
         <source>Soil Grids 250</source>
         <translation>شبكات التربة 250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="205"/>
+        <location filename="../layers.py" line="216"/>
         <source>USDA Soil Type</source>
         <translation>نوع التربة USDA</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="412"/>
+        <location filename="../layers.py" line="423"/>
         <source>Failed to load Trends.Earth style. Adding layer using QGIS defaults.</source>
         <translation>فشل تحميل Trends.Earth النمط. إضافة طبقة باستخدام افتراضيات QGIS.</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="100"/>
+        <source>Tree-covered</source>
+        <translation type="unfinished">المناطق المغطاة شجرة</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="103"/>
+        <source>Wetland</source>
+        <translation type="unfinished">الأراضي الرطبة</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="104"/>
+        <source>Artificial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="105"/>
+        <source>Other land</source>
+        <translation type="unfinished">أرض أخرى</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="106"/>
+        <source>Water body</source>
+        <translation type="unfinished">جسم مائي</translation>
     </message>
 </context>
 <context>
@@ -820,17 +845,17 @@ p, li { white-space: pre-wrap; }
         <translation>سابق</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="410"/>
+        <location filename="../lc_setup.py" line="437"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="419"/>
+        <location filename="../lc_setup.py" line="446"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>تعريف المصفوفة الانتقالية (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="419"/>
+        <location filename="../lc_setup.py" line="446"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>اختر مكان حفظ تعريف المصفوفة الانتقالية هذا</translation>
     </message>
@@ -890,7 +915,7 @@ p, li { white-space: pre-wrap; }
         <translation>يجب إضافة طبقة الغطاء الأرضي النهائية إلى خريطتك قبل أن تتمكن من تشغيل الحساب.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="361"/>
+        <location filename="../lc_setup.py" line="388"/>
         <source>Land cover in initial year </source>
         <translation>الغطاء الأرضي في السنة الأولى</translation>
     </message>
@@ -913,64 +938,64 @@ p, li { white-space: pre-wrap; }
         <translation>إعادة تعيين إلى الافتراضي</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="90"/>
+        <location filename="../lc_setup.py" line="123"/>
         <source>Input class</source>
         <translation>الطبقة غطاء الإدخال</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="91"/>
+        <location filename="../lc_setup.py" line="124"/>
         <source>Output class</source>
         <translation>الطبقة غطاء الانتاج</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="189"/>
+        <location filename="../lc_setup.py" line="215"/>
         <source>Choose where to save this land cover definition</source>
         <translation>اختر مكان حفظ تعريف الغطاء الأرضي هذا</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="189"/>
+        <location filename="../lc_setup.py" line="215"/>
         <source>Land cover definition (*.json)</source>
         <translation>تعريف الغطاء الأرضي (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="199"/>
+        <location filename="../lc_setup.py" line="225"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="199"/>
+        <location filename="../lc_setup.py" line="225"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="89"/>
+        <location filename="../lc_setup.py" line="122"/>
         <source>Input code</source>
         <translation>إدخال رمز</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="296"/>
         <source>Grassland</source>
-        <translation>مرج، مرعى، أرض معشوشبة</translation>
+        <translation type="obsolete">مرج، مرعى، أرض معشوشبة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="298"/>
         <source>Cropland</source>
-        <translation>الأراضي الزراعية</translation>
+        <translation type="obsolete">الأراضي الزراعية</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="300"/>
         <source>Wetland</source>
-        <translation>الأراضي الرطبة</translation>
+        <translation type="obsolete">الأراضي الرطبة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="302"/>
         <source>Artificial</source>
-        <translation>منطقة اصطناعية</translation>
+        <translation type="obsolete">منطقة اصطناعية</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="306"/>
         <source>Water body</source>
-        <translation>جسم مائي</translation>
+        <translation type="obsolete">جسم مائي</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLCSetAggregation.ui" line="47"/>
@@ -988,44 +1013,44 @@ p, li { white-space: pre-wrap; }
         <translation>حفظ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="171"/>
+        <location filename="../lc_setup.py" line="197"/>
         <source>Select a land cover definition file</source>
         <translation>حدد ملف تعريف الغطاء الأرضي</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="179"/>
+        <location filename="../lc_setup.py" line="205"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="299"/>
         <source>Warning</source>
         <translation>تحذير</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="258"/>
+        <location filename="../lc_setup.py" line="296"/>
         <source>Some of the class codes ({}) in the definition file do not appear in the chosen data file.</source>
         <translation>لا تظهر بعض رموز الفئة ({}) في ملف التعريف في ملف البيانات المختار.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="299"/>
         <source>Some of the class codes ({}) in the data file do not appear in the chosen definition file.</source>
         <translation>لا تظهر بعض رموز الفئة ({}) في ملف البيانات في ملف التعريف المختار.</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="292"/>
         <source>No data</source>
-        <translation>لايوجد بيانات</translation>
+        <translation type="obsolete">لايوجد بيانات</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="304"/>
         <source>Other land</source>
-        <translation>أرض أخرى</translation>
+        <translation type="obsolete">أرض أخرى</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="294"/>
         <source>Tree-covered</source>
-        <translation>المناطق المغطاة شجرة</translation>
+        <translation type="obsolete">المناطق المغطاة شجرة</translation>
     </message>
 </context>
 <context>
@@ -1987,8 +2012,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="198"/>
-        <source>Percent forest cover considered forest</source>
-        <translation>في المئة الغطاء الحرجي يعتبر الغابات</translation>
+        <source>Percent tree cover considered forest</source>
+        <translation type="unfinished">في المئة الغطاء الحرجي يعتبر الغابات</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="225"/>
@@ -1997,8 +2022,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="244"/>
-        <source>Custom forest cover dataset</source>
-        <translation>مجموعة بيانات الغطاء الحرجي المخصص</translation>
+        <source>Custom tree cover dataset</source>
+        <translation type="unfinished">مجموعة بيانات الغطاء الحرجي المخصص</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="254"/>
@@ -2867,7 +2892,7 @@ p, li { white-space: pre-wrap; }
         <translation>سابق</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="140"/>
+        <location filename="../download_data.py" line="142"/>
         <source>Details</source>
         <translation>تفاصيل</translation>
     </message>
@@ -2982,27 +3007,27 @@ p, li { white-space: pre-wrap; }
         <translation>تحديث القائمة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="216"/>
+        <location filename="../jobs.py" line="215"/>
         <source>Script not found</source>
         <translation>البرنامج النصي غير موجود</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="244"/>
+        <location filename="../jobs.py" line="243"/>
         <source>Details</source>
         <translation>تفاصيل</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="309"/>
+        <location filename="../jobs.py" line="306"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="296"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Base filename (*.json)</source>
         <translation>اسم الملف الأساسي (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="309"/>
+        <location filename="../jobs.py" line="306"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار اسم ملف أساسي مختلف.</translation>
     </message>
@@ -3012,7 +3037,7 @@ p, li { white-space: pre-wrap; }
         <translation>تنتهي الوظائف بعد 30 يومًا من تقديمها. بعد انتهاء المهمة ، لن تظهر في هذه القائمة. {14؟}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="296"/>
+        <location filename="../jobs.py" line="293"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>اختر اسم ملف. تنزيل نتائج: {}</translation>
     </message>
@@ -3664,62 +3689,62 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="389"/>
+        <location filename="../lc_setup.py" line="416"/>
         <source>Select a transition matrix definition file</source>
         <translation>حدد ملف تعريف المصفوفة الانتقالية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="389"/>
+        <location filename="../lc_setup.py" line="416"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>تعريف المصفوفة الانتقالية (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="429"/>
+        <location filename="../lc_setup.py" line="456"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="397"/>
+        <location filename="../lc_setup.py" line="424"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="429"/>
+        <location filename="../lc_setup.py" line="456"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="332"/>
+        <location filename="../lc_setup.py" line="359"/>
         <source>Tree-covered</source>
         <translation>المناطق المغطاة شجرة</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="333"/>
+        <location filename="../lc_setup.py" line="360"/>
         <source>Grassland</source>
         <translation>مرج، مرعى، أرض معشوشبة</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="334"/>
+        <location filename="../lc_setup.py" line="361"/>
         <source>Cropland</source>
         <translation>الأراضي الزراعية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="335"/>
+        <location filename="../lc_setup.py" line="362"/>
         <source>Wetland</source>
         <translation>الأراضي الرطبة</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="336"/>
+        <location filename="../lc_setup.py" line="363"/>
         <source>Artificial</source>
         <translation>المناطق الاصطناعية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="337"/>
+        <location filename="../lc_setup.py" line="364"/>
         <source>Bare land</source>
         <translation>الأرض العارية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="338"/>
+        <location filename="../lc_setup.py" line="365"/>
         <source>Water body</source>
         <translation>جسم مائي</translation>
     </message>
@@ -3822,7 +3847,7 @@ p, li { white-space: pre-wrap; }
         <translation>حول</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="181"/>
+        <location filename="../download_data.py" line="190"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
@@ -3832,12 +3857,12 @@ p, li { white-space: pre-wrap; }
         <translation>حول الاتجاهات</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="181"/>
+        <location filename="../download_data.py" line="190"/>
         <source>Download request submitted to Google Earth Engine.</source>
         <translation>تم تنزيل طلب التنزيل إلى Google Earth Engine.</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="185"/>
+        <location filename="../download_data.py" line="194"/>
         <source>Unable to submit download request to Google Earth Engine.</source>
         <translation>غير قادر على إرسال طلب التنزيل إلى Google Earth Engine.</translation>
     </message>
@@ -3945,32 +3970,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="337"/>
         <source>Task name</source>
         <translation>اسم المهمة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="338"/>
         <source>Job</source>
         <translation>وظيفة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="339"/>
         <source>Start time</source>
         <translation>وقت البدء</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="343"/>
+        <location filename="../jobs.py" line="340"/>
         <source>End time</source>
         <translation>وقت النهاية</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="344"/>
+        <location filename="../jobs.py" line="341"/>
         <source>Status</source>
         <translation>الحالة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="345"/>
+        <location filename="../jobs.py" line="342"/>
         <source>Details</source>
         <translation>تفاصيل</translation>
     </message>

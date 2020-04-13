@@ -20,14 +20,46 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets, QtCore
-from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, QDate, \
-    QSortFilterProxyModel
+from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, QDate, 
+        QObject, QEvent, QSortFilterProxyModel)
+from qgis.PyQt.QtGui import QFontMetrics
 
 from LDMP import log
 
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgDownload import Ui_DlgDownload
+
+
+class tool_tipper(QObject):
+    def __init__(self, parent=None):
+        super(QObject, self).__init__(parent)
+
+    def eventFilter(self, obj, event):
+        if (event.type() == QEvent.ToolTip):
+            view = obj.parent()
+            if not view:
+                return False
+
+            pos = event.pos()
+            index = view.indexAt(pos)
+            if not index.isValid():
+                return False
+
+            itemText = str(view.model().data(index))
+            itemTooltip = view.model().data(index, Qt.ToolTipRole)
+
+            fm = QFontMetrics(view.font())
+            itemTextWidth = fm.width(itemText)
+            rect = view.visualRect(index)
+            rectWidth = rect.width()
+
+            if (itemTextWidth > rectWidth) and itemTooltip:
+                QtWidgets.QToolTip.showText(event.globalPos(), itemTooltip, view, rect)
+            else:
+                QtWidgets.QToolTip.hideText()
+            return True
+        return False
 
 
 class DataTableModel(QAbstractTableModel):
@@ -40,11 +72,12 @@ class DataTableModel(QAbstractTableModel):
         # into the shell, but shown from a widget.
         colname_tuples = [('category', QtWidgets.QApplication.translate('LDMPPlugin', 'Category')),
                           ('title', QtWidgets.QApplication.translate('LDMPPlugin', 'Title')),
-                          ('Units/Description', QtWidgets.QApplication.translate('LDMPPlugin', 'Units')),
+                          ('Units', QtWidgets.QApplication.translate('LDMPPlugin', 'Units')),
                           ('Spatial Resolution', QtWidgets.QApplication.translate('LDMPPlugin', 'Resolution')),
                           ('Start year', QtWidgets.QApplication.translate('LDMPPlugin', 'Start year')),
                           ('End year', QtWidgets.QApplication.translate('LDMPPlugin', 'End year')),
-                          ('Extent', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent')),
+                          ('extent_lat', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent (lat)')),
+                          ('extent_lon', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent (lon)')),
                           ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
@@ -58,7 +91,7 @@ class DataTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == Qt.TextAlignmentRole and index.column() in [2, 3, 4, 5]:
+        elif role == Qt.TextAlignmentRole and index.column() in [2, 3, 4, 5, 6, 7]:
             return Qt.AlignCenter
         elif role != Qt.DisplayRole:
             return None
@@ -88,11 +121,22 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             for title in list(data_dict[cat].keys()):
                 item = data_dict[cat][title]
                 item.update({'category': cat, 'title': title})
+                min_x = item.get('Min Longitude', None)
+                max_x = item.get('Max Longitude', None)
+                min_y = item.get('Min Latitude', None)
+                max_y = item.get('Max Latitude', None)
+                if not None in (min_x, max_x, min_y, max_y):
+                    extent_lat = '{} - {}'.format(min_y, max_y)
+                    extent_lon = '{} - {}'.format(min_x, max_x)
+                    item.update({'extent_lat': extent_lat,
+                                 'extent_lon': extent_lon})
                 self.datasets.append(item)
 
         self.update_data_table()
 
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
+
+        self.data_view.viewport().installEventFilter(tool_tipper(self.data_view))
 
     def selection_changed(self):
         if self.data_view.selectedIndexes():
@@ -141,16 +185,17 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         for row in range(0, len(self.datasets)):
             btn = QtWidgets.QPushButton(self.tr("Details"))
             btn.clicked.connect(self.btn_details)
-            self.data_view.setIndexWidget(self.proxy_model.index(row, 7), btn)
+            self.data_view.setIndexWidget(self.proxy_model.index(row, 8), btn)
 
         self.data_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
         self.data_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-        self.data_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
         self.data_view.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
         self.data_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
         self.data_view.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
-        self.data_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.Stretch)
+        self.data_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
         self.data_view.horizontalHeader().setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setSectionResizeMode(8, QtWidgets.QHeaderView.ResizeToContents)
 
         self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 

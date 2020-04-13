@@ -18,27 +18,27 @@
         <translation>下降</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="460"/>
+        <location filename="../jobs.py" line="463"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="464"/>
         <source>Integrated NDVI</source>
         <translation>综合NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="464"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="450"/>
         <source>Downloaded</source>
         <translation>下载</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="450"/>
         <source>Downloaded results to {}</source>
         <translation>将结果下载到{}</translation>
     </message>
@@ -562,6 +562,16 @@
         <location filename="../layers.py" line="106"/>
         <source>Water body</source>
         <translation type="unfinished">水体</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="101"/>
+        <source>Grassland</source>
+        <translation type="unfinished">草原</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="102"/>
+        <source>Cropland</source>
+        <translation type="unfinished">农田</translation>
     </message>
 </context>
 <context>
@@ -2997,37 +3007,37 @@ p, li { white-space: pre-wrap; }
         <translation>从Earth Engine下载结果</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="91"/>
+        <location filename="../gui/DlgJobs.ui" line="94"/>
         <source>Download results</source>
         <translation>下载结果</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="110"/>
+        <location filename="../gui/DlgJobs.ui" line="113"/>
         <source>Refresh list</source>
         <translation>刷新列表</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="215"/>
+        <location filename="../jobs.py" line="213"/>
         <source>Script not found</source>
         <translation>未找到脚本</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="241"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="306"/>
+        <location filename="../jobs.py" line="308"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="293"/>
+        <location filename="../jobs.py" line="295"/>
         <source>Base filename (*.json)</source>
         <translation>基本文件名（* .json）</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="306"/>
+        <location filename="../jobs.py" line="308"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>无法写入{}。选择不同的基本文件名。</translation>
     </message>
@@ -3037,7 +3047,7 @@ p, li { white-space: pre-wrap; }
         <translation>他们提交后30天到期。工作到期后，将不再出现在此列表中。 {14？}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="293"/>
+        <location filename="../jobs.py" line="295"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>选择文件名。正在下载的结果：{}</translation>
     </message>
@@ -3757,12 +3767,12 @@ p, li { white-space: pre-wrap; }
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../api.py" line="41"/>
+        <location filename="../api.py" line="42"/>
         <source>Please register with Trends.Earth before using this function.</source>
         <translation>使用此功能之前，请先使用trends.earth注册。</translation>
     </message>
     <message>
-        <location filename="../api.py" line="176"/>
+        <location filename="../api.py" line="177"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation>无法登录到LDMP服务器。检查您的用户名和密码。</translation>
     </message>
@@ -3970,32 +3980,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="337"/>
+        <location filename="../jobs.py" line="339"/>
         <source>Task name</source>
         <translation>任务名称</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="338"/>
+        <location filename="../jobs.py" line="340"/>
         <source>Job</source>
         <translation>工作</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="341"/>
         <source>Start time</source>
         <translation>开始时间</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="342"/>
         <source>End time</source>
         <translation>时间结束</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="344"/>
         <source>Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="345"/>
         <source>Details</source>
         <translation>细节</translation>
     </message>
@@ -4033,6 +4043,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../download_data.py" line="47"/>
         <source>Extent</source>
         <translation>程度</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="343"/>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

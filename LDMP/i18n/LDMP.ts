@@ -18,27 +18,27 @@
         <translation>Declining</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="460"/>
+        <location filename="../jobs.py" line="463"/>
         <source>Time</source>
         <translation>Time</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="464"/>
         <source>Integrated NDVI</source>
         <translation>Integrated NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="464"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="450"/>
         <source>Downloaded</source>
         <translation>Downloaded</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="450"/>
         <source>Downloaded results to {}</source>
         <translation>Downloaded results to {}</translation>
     </message>
@@ -563,6 +563,16 @@
         <location filename="../layers.py" line="106"/>
         <source>Water body</source>
         <translation type="unfinished">Water body</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="101"/>
+        <source>Grassland</source>
+        <translation type="unfinished">Grassland</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="102"/>
+        <source>Cropland</source>
+        <translation type="unfinished">Cropland</translation>
     </message>
 </context>
 <context>
@@ -3055,37 +3065,37 @@ p, li { white-space: pre-wrap; }
         <translation>Download results from Earth Engine</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="91"/>
+        <location filename="../gui/DlgJobs.ui" line="94"/>
         <source>Download results</source>
         <translation>Download results</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="110"/>
+        <location filename="../gui/DlgJobs.ui" line="113"/>
         <source>Refresh list</source>
         <translation>Refresh list</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="215"/>
+        <location filename="../jobs.py" line="213"/>
         <source>Script not found</source>
         <translation>Script not found</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="241"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="306"/>
+        <location filename="../jobs.py" line="308"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="293"/>
+        <location filename="../jobs.py" line="295"/>
         <source>Base filename (*.json)</source>
         <translation>Base filename (*.json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="306"/>
+        <location filename="../jobs.py" line="308"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Cannot write to {}. Choose a different base filename.</translation>
     </message>
@@ -3095,7 +3105,7 @@ p, li { white-space: pre-wrap; }
         <translation>Jobs expire 30 days after they are submitted. After a job has expired, it will no longer appear in this list. {14 ?}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="293"/>
+        <location filename="../jobs.py" line="295"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>Choose a filename. Downloading results of: {}</translation>
     </message>
@@ -3818,12 +3828,12 @@ areas</translation>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../api.py" line="41"/>
+        <location filename="../api.py" line="42"/>
         <source>Please register with Trends.Earth before using this function.</source>
         <translation>Please register with trends.earth before using this function.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="176"/>
+        <location filename="../api.py" line="177"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation>Unable to login to LDMP server. Check your username and password.</translation>
     </message>
@@ -4031,32 +4041,32 @@ areas</translation>
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="337"/>
+        <location filename="../jobs.py" line="339"/>
         <source>Task name</source>
         <translation>Task name</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="338"/>
+        <location filename="../jobs.py" line="340"/>
         <source>Job</source>
         <translation>Job</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="341"/>
         <source>Start time</source>
         <translation>Start time</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="342"/>
         <source>End time</source>
         <translation>End time</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="344"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="345"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>
@@ -4094,6 +4104,11 @@ areas</translation>
         <location filename="../download_data.py" line="47"/>
         <source>Extent</source>
         <translation>Extent</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="343"/>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 14:35-0400\n"
+"POT-Creation-Date: 2020-04-06 19:24-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,15 +31,19 @@ msgid ""
 "Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
 " to be installed on your computer."
 msgstr ""
+"Kabla ya kufunga sanduku la zana, toleo la QGIS | qgisMinVersion | au ya juu"
+" inahitaji kusanikishwa kwenye kompyuta yako."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:10
 msgid "Download QGIS"
-msgstr ""
+msgstr "Pakua QGIS"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:12
 msgid ""
 "To install the plugin, first install QGIS 3.10.3+ following the below steps:"
 msgstr ""
+"Ili kusanikisha programu-jalizi, kwanza sasisha QGIS 3.10.3+ kufuata hatua "
+"hapa chini."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:15
 msgid "Choose either 32 or 64 bit version"
@@ -53,6 +57,11 @@ msgid ""
 "downloading the 64 bit version first. If that version doesn't work properly,"
 " un-install it and then install the 32 bit version."
 msgstr ""
+"Una chaguo la kusanikisha toleo la 32-bit au 64-bit la QGIS. Ili kujua ni "
+"toleo gani la kufunga, angalia ni aina gani ya mfumo wa uendeshaji unayo "
+"kufuata maagizo hapa chini. Ikiwa hauna hakika unayohitaji, jaribu kupakua "
+"toleo la 64 kidogo kwanza. Ikiwa toleo hilo halijafanya kazi vizuri, "
+"lisanikishe kisha usakinishe toleo la 32 kidogo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:23
 msgid "Windows 8 or Windows 10"
@@ -95,18 +104,24 @@ msgid ""
 "After determining whether you need the 32 or 64 bit version, download the "
 "appropriate installer:"
 msgstr ""
+"Baada ya kuamua ikiwa unahitaji toleo la 32 au la 64, pakua kisakinishi "
+"kinachofaa:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:41
 msgid ""
 "Windows: `Download Windows installer from here "
 "<https://qgis.org/en/site/forusers/download.html#windows>`_."
 msgstr ""
+"Windows: `Pakua kisakinishaji cha Windows kutoka hapa "
+"<https://qgis.org/en/site/forusers/download.html#windows> `_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:44
 msgid ""
 "MacOS: `Download MacOS installer from here "
 "<https://qgis.org/en/site/forusers/download.html#mac>`_."
 msgstr ""
+"MacOS: `Pakua kisakinishaji cha MacOS kutoka hapa "
+"<https://qgis.org/en/site/forusers/download.html#mac> `_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:47
 msgid ""
@@ -114,6 +129,8 @@ msgid ""
 "Linux distribution "
 "<https://qgis.org/en/site/forusers/download.html#linux>`_."
 msgstr ""
+"Linux: `Pakua kisakinishi cha Linux kutoka hapa, au kutoka kwa usambazaji "
+"wako wa Linux <https://qgis.org/en/site/forusers/download.html#linux> `_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:52
 msgid "Install QGIS"
@@ -124,10 +141,13 @@ msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the Default settings for all options."
 msgstr ""
+"Mara tu kisakinishi kilipakuliwa kutoka kwenye wavuti, inahitaji kuendeshwa "
+"(bonyeza mara mbili juu yake). Chagua mipangilio ya chaguo-msingi kwa "
+"chaguzi zote."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:59
 msgid "Installing older versions of QGIS"
-msgstr ""
+msgstr "Kufunga matoleo ya zamani ya QGIS"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:61
 msgid ""
@@ -136,15 +156,24 @@ msgid ""
 " useful if you have a specific need for accessing an older version of the "
 "Trends.Earth plugin (for example the QGIS2 version of the plugin)."
 msgstr ""
+"Toleo za zamani za QGIS zinaweza kupatikana kwenye viungo hapa chini. "
+"Tunapendekeza toleo la hivi karibuni la QGIS (angalia maagizo hapo juu) "
+"lakini viungo vilivyo chini vinaweza kuwa na msaada ikiwa una hitaji maalum "
+"la kupata toleo la zamani la programu ya Trends.Earth (kwa mfano toleo la "
+"QGIS2 la programu-jalizi)."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:66
 msgid ""
 "Windows: `Download older versions of QGIS for Windows here "
 "<https://qgis.org/downloads/>`_."
 msgstr ""
+"Windows: `Pakua toleo za zamani za QGIS za Windows hapa "
+"<https://qgis.org/downloads/> `_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:69
 msgid ""
 "MacOS: `Download older versions of QGIS for MacOS here "
 "<https://qgis.org/downloads/MacOS>`_."
 msgstr ""
+"MacOS: `Pakua toleo za zamani za QGIS za MacOS hapa "
+"<https://qgis.org/downloads/MacOS> `_."

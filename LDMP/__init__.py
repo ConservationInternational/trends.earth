@@ -12,14 +12,11 @@
  ***************************************************************************/
 """
 
-__version__ = "0.99.1"
-__revision__ = "54a0623"
-__release_date__ = "2020/04/06 20:47:31Z"
-
 import sys
 import os
 import requests
 import site
+import json
 from tempfile import NamedTemporaryFile
 
 from qgis.PyQt import QtCore
@@ -36,6 +33,11 @@ sys.path.extend(remainder)
 
 debug = QtCore.QSettings().value('LDMP/debug', True)
 
+with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'version.json')) as f:
+    version_info = json.load(f)
+__version__ = version_info['version']
+__revision__ = version_info['revision']
+__release_date__ = version_info['release_date']
 
 def log(message, level=0):
     if debug:

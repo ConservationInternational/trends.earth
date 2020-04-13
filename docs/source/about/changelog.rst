@@ -3,7 +3,15 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`0.98 <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
+`0.99 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.99>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix processing using new MODIS data (assets were not properly updated in 
+      the last release)
+    - Fix color-coding of land covers in land cover class aggregation window
+    - Add more detailed version information to about dialog
+
+`0.98 April 2, 2020 <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.

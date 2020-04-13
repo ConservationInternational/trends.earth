@@ -18,27 +18,27 @@
         <translation>انخفاض</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="460"/>
+        <location filename="../jobs.py" line="463"/>
         <source>Time</source>
         <translation>زمن</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="464"/>
         <source>Integrated NDVI</source>
         <translation>NDVI المتكاملة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="464"/>
         <source>NDVI x 10000</source>
         <translation>NDVI × 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="450"/>
         <source>Downloaded</source>
         <translation>تحميلها</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="450"/>
         <source>Downloaded results to {}</source>
         <translation>النتائج التي تم تنزيلها إلى {}</translation>
     </message>
@@ -562,6 +562,16 @@
         <location filename="../layers.py" line="106"/>
         <source>Water body</source>
         <translation type="unfinished">جسم مائي</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="101"/>
+        <source>Grassland</source>
+        <translation type="unfinished">مرج، مرعى، أرض معشوشبة</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="102"/>
+        <source>Cropland</source>
+        <translation type="unfinished">الأراضي الزراعية</translation>
     </message>
 </context>
 <context>
@@ -2997,37 +3007,37 @@ p, li { white-space: pre-wrap; }
         <translation>تنزيل النتائج من Earth Engine</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="91"/>
+        <location filename="../gui/DlgJobs.ui" line="94"/>
         <source>Download results</source>
         <translation>تحميل النتائج</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="110"/>
+        <location filename="../gui/DlgJobs.ui" line="113"/>
         <source>Refresh list</source>
         <translation>تحديث القائمة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="215"/>
+        <location filename="../jobs.py" line="213"/>
         <source>Script not found</source>
         <translation>البرنامج النصي غير موجود</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="241"/>
         <source>Details</source>
         <translation>تفاصيل</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="306"/>
+        <location filename="../jobs.py" line="308"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="293"/>
+        <location filename="../jobs.py" line="295"/>
         <source>Base filename (*.json)</source>
         <translation>اسم الملف الأساسي (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="306"/>
+        <location filename="../jobs.py" line="308"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار اسم ملف أساسي مختلف.</translation>
     </message>
@@ -3037,7 +3047,7 @@ p, li { white-space: pre-wrap; }
         <translation>تنتهي الوظائف بعد 30 يومًا من تقديمها. بعد انتهاء المهمة ، لن تظهر في هذه القائمة. {14؟}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="293"/>
+        <location filename="../jobs.py" line="295"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>اختر اسم ملف. تنزيل نتائج: {}</translation>
     </message>
@@ -3757,12 +3767,12 @@ p, li { white-space: pre-wrap; }
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../api.py" line="41"/>
+        <location filename="../api.py" line="42"/>
         <source>Please register with Trends.Earth before using this function.</source>
         <translation>يرجى التسجيل مع trend.earth قبل استخدام هذه الوظيفة.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="176"/>
+        <location filename="../api.py" line="177"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation>غير قادر على تسجيل الدخول إلى خادم LDMP. تحقق اسم المستخدم وكلمة المرور الخاصة بك.</translation>
     </message>
@@ -3970,32 +3980,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../jobs.py" line="337"/>
+        <location filename="../jobs.py" line="339"/>
         <source>Task name</source>
         <translation>اسم المهمة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="338"/>
+        <location filename="../jobs.py" line="340"/>
         <source>Job</source>
         <translation>وظيفة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="339"/>
+        <location filename="../jobs.py" line="341"/>
         <source>Start time</source>
         <translation>وقت البدء</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="340"/>
+        <location filename="../jobs.py" line="342"/>
         <source>End time</source>
         <translation>وقت النهاية</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="341"/>
+        <location filename="../jobs.py" line="344"/>
         <source>Status</source>
         <translation>الحالة</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="345"/>
         <source>Details</source>
         <translation>تفاصيل</translation>
     </message>
@@ -4033,6 +4043,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../download_data.py" line="47"/>
         <source>Extent</source>
         <translation>مدى</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="343"/>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

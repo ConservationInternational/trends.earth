@@ -275,8 +275,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
         job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
         jobs = [job for job in self.jobs if job['id'] in job_ids]
-        log('job ids: {}'.format(job_ids))
-        log('ids of chosen jobs : {}'.format([job['id'] for job in jobs]))
 
         filenames = []
         for job in jobs:

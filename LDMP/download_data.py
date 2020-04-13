@@ -133,15 +133,15 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
-        proxy_model = QSortFilterProxyModel()
-        proxy_model.setSourceModel(table_model)
-        self.data_view.setModel(proxy_model)
+        self.proxy_model = QSortFilterProxyModel()
+        self.proxy_model.setSourceModel(table_model)
+        self.data_view.setModel(self.proxy_model)
 
         # Add "Notes" buttons in cell
         for row in range(0, len(self.datasets)):
             btn = QtWidgets.QPushButton(self.tr("Details"))
             btn.clicked.connect(self.btn_details)
-            self.data_view.setIndexWidget(proxy_model.index(row, 7), btn)
+            self.data_view.setIndexWidget(self.proxy_model.index(row, 7), btn)
 
         self.data_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
         self.data_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
@@ -168,19 +168,23 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             return
 
         rows = list(set(index.row() for index in self.data_view.selectedIndexes()))
+        # Construct unique dataset names as the concatenation of the category 
+        # and the title
+        selected_names = [self.proxy_model.index(row, 0).data() + self.proxy_model.index(row, 1).data()for row in rows]
+        selected_datasets = [d for d in self.datasets if d['category'] + d['title'] in selected_names]
 
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        for row in rows:
+        for dataset in selected_datasets:
             payload = {'geojsons': json.dumps(geojsons),
                        'crs': self.aoi.get_crs_dst_wkt(),
                        'year_start': self.first_year.date().year(),
                        'year_end': self.last_year.date().year(),
                        'crosses_180th': crosses_180th,
-                       'asset': self.datasets[row]['GEE Dataset'],
-                       'name': self.datasets[row]['title'],
-                       'temporal_resolution': self.datasets[row]['Temporal resolution'],
+                       'asset': dataset['GEE Dataset'],
+                       'name': dataset['title'],
+                       'temporal_resolution': dataset['Temporal resolution'],
                        'task_name': self.options_tab.task_name.text(),
                        'task_notes': self.options_tab.task_notes.toPlainText()}
 

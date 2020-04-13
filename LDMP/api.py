@@ -33,6 +33,7 @@ from LDMP import log
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
+DEBUG = False
 
 
 def get_user_email(warn=True):
@@ -212,7 +213,9 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
         resp = worker.get_resp()
-        log(u'API response from "{}" request: {}'.format(method, clean_api_response(resp)))
+        log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
+        if DEBUG:
+            log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:
         resp = None
 

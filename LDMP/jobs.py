@@ -316,7 +316,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         for row, f in zip(rows, filenames):
             job = self.jobs[row]
-            log(u"Processing job {}".format(job))
+            log(u"Processing job {}.".format(job.get('id', None)))
             result_type = job['results'].get('type')
             if result_type == 'CloudResults':
                 download_cloud_results(job, f, self.tr)

@@ -3,127 +3,127 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="../layers.py" line="145"/>
+        <location filename="../layers.py" line="140"/>
         <source>Stable</source>
         <translation>Stable</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="140"/>
+        <location filename="../layers.py" line="135"/>
         <source>Increasing</source>
         <translation>En augmentation</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="136"/>
+        <location filename="../layers.py" line="131"/>
         <source>Declining</source>
         <translation>En déclin</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="460"/>
+        <location filename="../jobs.py" line="461"/>
         <source>Time</source>
         <translation>Temps</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="462"/>
         <source>Integrated NDVI</source>
         <translation>NDVI intégré</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="461"/>
+        <location filename="../jobs.py" line="462"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="448"/>
         <source>Downloaded</source>
         <translation>Téléchargé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="447"/>
+        <location filename="../jobs.py" line="448"/>
         <source>Downloaded results to {}</source>
         <translation>Résultats téléchargés à {}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="99"/>
+        <location filename="../layers.py" line="94"/>
         <source>No data</source>
         <translation>Aucune donnée</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="67"/>
+        <location filename="../layers.py" line="62"/>
         <source>Productivity performance ({year_start}, units)</source>
         <translation>Performances de productivité ({year_start}, units)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="90"/>
+        <location filename="../layers.py" line="85"/>
         <source>2 - Grassland</source>
         <translation>Persistance des terres cultivées</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="91"/>
+        <location filename="../layers.py" line="86"/>
         <source>3 - Cropland</source>
         <translation>Terres cultivées</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="92"/>
+        <location filename="../layers.py" line="87"/>
         <source>4 - Wetland</source>
         <translation>Persistance des zones humides</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="93"/>
+        <location filename="../layers.py" line="88"/>
         <source>5 - Artificial</source>
         <translation>Zone artificielle</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="95"/>
+        <location filename="../layers.py" line="90"/>
         <source>7 - Water body</source>
         <translation>Étendue d&apos;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="110"/>
+        <location filename="../layers.py" line="105"/>
         <source>Tree-covered loss</source>
         <translation>Perte de forêt</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="111"/>
+        <location filename="../layers.py" line="106"/>
         <source>Grassland loss</source>
         <translation>Perte de prairie</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="112"/>
+        <location filename="../layers.py" line="107"/>
         <source>Cropland loss</source>
         <translation>Dégradation du couvert végétal</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="113"/>
+        <location filename="../layers.py" line="108"/>
         <source>Wetland loss</source>
         <translation>Perte de zone humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="114"/>
+        <location filename="../layers.py" line="109"/>
         <source>Artificial loss</source>
         <translation>Perte de zone artificielle</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="84"/>
+        <location filename="../layers.py" line="79"/>
         <source>Land cover ({year}, ESA CCI classes)</source>
         <translation>Couverture terrestre ({year}, classes ESA CCI)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="116"/>
+        <location filename="../layers.py" line="111"/>
         <source>Water body loss</source>
         <translation>Perte d&apos;étendue d&apos;eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="144"/>
+        <location filename="../layers.py" line="139"/>
         <source>Degradation</source>
         <translation>Dégradation</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="146"/>
+        <location filename="../layers.py" line="141"/>
         <source>Improvement</source>
         <translation>Amélioration</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="423"/>
+        <location filename="../layers.py" line="419"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -133,62 +133,62 @@
         <translation>Impossible d&apos;ajouter geojson à la couche temporaire.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="89"/>
+        <location filename="../layers.py" line="84"/>
         <source>1 - Tree-covered</source>
         <translation>1 - Forêt</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="61"/>
+        <location filename="../layers.py" line="56"/>
         <source>Productivity performance degradation ({year_start} to {year_end})</source>
         <translation>Dégradation des performances de la productivité ({year_start} à {year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="65"/>
+        <location filename="../layers.py" line="60"/>
         <source>Productivity performance ({year_start} to {year_end}, ratio)</source>
         <translation>Performances de productivité ({year_start} à {year_end}, ratio)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="70"/>
+        <location filename="../layers.py" line="65"/>
         <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
         <translation type="unfinished">Dégradation de l&apos;état de la productivité ({year_bl_start}-{year_bl_end} à {year_tg_start}-{year_tg_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="86"/>
+        <location filename="../layers.py" line="81"/>
         <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
         <translation>Couverture terrestre (transitions, {}-{} à {})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="109"/>
+        <location filename="../layers.py" line="104"/>
         <source>No change</source>
         <translation>Pas de changement</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="53"/>
+        <location filename="../layers.py" line="48"/>
         <source>Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)</source>
         <translation>Trajectoire de productivité ({year_start} à {year_end}, NDVI x 10000 / an)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="75"/>
+        <location filename="../layers.py" line="70"/>
         <source>Productivity state classes ({year_start}-{year_end})</source>
         <translation>Classes d&apos;état de productivité ({year_start}-{year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="83"/>
+        <location filename="../layers.py" line="78"/>
         <source>Land cover ({year}, 7 class)</source>
         <translation>Couverture terrestre ({year}, classe 7)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="85"/>
+        <location filename="../layers.py" line="80"/>
         <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
         <translation>Mode de couverture terrestre ({year_start}-{year_end}, classe 7)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="119"/>
+        <location filename="../layers.py" line="114"/>
         <source>Soil organic carbon ({year}, tons / ha)</source>
         <translation>Carbone organique du sol ({year}, tonnes / ha)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="121"/>
+        <location filename="../layers.py" line="116"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
         <translation>Dégradation du carbone organique du sol ({year_start} à {year_end})</translation>
     </message>
@@ -208,87 +208,87 @@
         <translation>La zone choisie traverse le 180e méridien. Il est recommandé de définir le système de coordonnées du projet sur un système de coordonnées local (voir l&apos;onglet &quot;CRS&quot; de la fenêtre &quot;Propriétés du projet&quot; dans le menu &quot;Projet&quot;).</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="55"/>
+        <location filename="../layers.py" line="464"/>
         <source>Productivity trajectory degradation ({year_start} to {year_end})</source>
         <translation>Dégradation de la trajectoire de productivité ({year_start} à {year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="56"/>
+        <location filename="../layers.py" line="51"/>
         <source>Degradation (significant decrease, p &lt; .05)</source>
         <translation>Dégradation (diminution significative, p &lt;0,05)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="58"/>
+        <location filename="../layers.py" line="53"/>
         <source>Improvement (significant increase, p &lt; .05)</source>
         <translation>Amélioration (augmentation significative, p &lt;0,05)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="57"/>
+        <location filename="../layers.py" line="52"/>
         <source>Stable (no significant change)</source>
         <translation>Stable (pas de changement significatif)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="63"/>
+        <location filename="../layers.py" line="58"/>
         <source>Not degradation</source>
         <translation>Pas de dégradation</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="78"/>
+        <location filename="../layers.py" line="73"/>
         <source>Land cover degradation ({year_baseline} to {year_target})</source>
         <translation>Dégradation de la couverture terrestre ({year_baseline} à {year_target})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="88"/>
+        <location filename="../layers.py" line="83"/>
         <source>-32768 - No data</source>
         <translation>-32768 - Aucune donnée</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="94"/>
+        <location filename="../layers.py" line="89"/>
         <source>6 - Other land</source>
         <translation>6 - Autres terres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="108"/>
+        <location filename="../layers.py" line="103"/>
         <source>Land cover (transitions, {year_baseline} to {year_target})</source>
         <translation>Couverture terrestre (transitions, {year_baseline} à {year_target})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="115"/>
+        <location filename="../layers.py" line="110"/>
         <source>Other land loss</source>
         <translation>Perte d&apos;autres terres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="127"/>
+        <location filename="../layers.py" line="122"/>
         <source>Land productivity (Trends.Earth)</source>
         <translation>Productivité des terres (Trends.Earth)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="137"/>
+        <location filename="../layers.py" line="132"/>
         <source>Moderate decline</source>
         <translation>Déclin modéré</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="138"/>
+        <location filename="../layers.py" line="133"/>
         <source>Stressed</source>
         <translation>Sous stress</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="135"/>
+        <location filename="../layers.py" line="130"/>
         <source>Land productivity dynamics (LPD)</source>
         <translation>Dynamique de la productivité des terres (LPD)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="348"/>
+        <location filename="../layers.py" line="343"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="129"/>
+        <location filename="../layers.py" line="124"/>
         <source>Early signs of decline</source>
         <translation>Premiers signes de déclin</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="130"/>
+        <location filename="../layers.py" line="125"/>
         <source>Stable but stressed</source>
         <translation>Stable mais sous stress</translation>
     </message>
@@ -308,62 +308,62 @@
         <translation>Impossible de traiter la zone d&apos;intérêt - type de géométrie inconnu: {}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="149"/>
+        <location filename="../layers.py" line="144"/>
         <source>Forest loss ({year_start} to {year_end})</source>
         <translation>Perte de forêt ({year_start} to {year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="164"/>
+        <location filename="../layers.py" line="159"/>
         <source>Water</source>
         <translation>Eau</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="151"/>
+        <location filename="../layers.py" line="146"/>
         <source>Non-forest</source>
         <translation>Non forestier</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="152"/>
+        <location filename="../layers.py" line="147"/>
         <source>Forest (no loss)</source>
         <translation>Forêt (pas de perte)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="153"/>
+        <location filename="../layers.py" line="148"/>
         <source>Forest loss ({year_start})</source>
         <translation>Perte de forêt ({year_start})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="154"/>
+        <location filename="../layers.py" line="149"/>
         <source>Forest loss ({year_end})</source>
         <translation>Perte de forêt ({year_end})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="157"/>
+        <location filename="../layers.py" line="152"/>
         <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
         <translation>Carbone total ({year_start}, tonnes par ha x 10)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="160"/>
+        <location filename="../layers.py" line="155"/>
         <source>Root/shoot ratio (x 100)</source>
         <translation>Ratio racines / pousses (x 100)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="163"/>
+        <location filename="../layers.py" line="158"/>
         <source>Urban area change</source>
         <translation>Zone urbaine</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="166"/>
+        <location filename="../layers.py" line="161"/>
         <source>Built-up by 2005</source>
         <translation>Gain urbain (2010)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="167"/>
+        <location filename="../layers.py" line="162"/>
         <source>Built-up by 2010</source>
         <translation>Gain urbain (2015)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="183"/>
+        <location filename="../layers.py" line="178"/>
         <source>Population ({year})</source>
         <translation>Population ({année})</translation>
     </message>
@@ -373,78 +373,78 @@
         <translation>Vous avez choisi d&amp;#39;exécuter des calculs pour une ville. Vous devez sélectionner une distance tampon pour définir la zone de calcul lorsque vous traitez une ville.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="165"/>
+        <location filename="../layers.py" line="160"/>
         <source>Built-up by 2000</source>
         <translation>Construit en 2000</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="168"/>
+        <location filename="../layers.py" line="163"/>
         <source>Built-up by 2015</source>
         <translation>Construit en 2015</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="171"/>
+        <location filename="../layers.py" line="166"/>
         <source>Urban area {year}</source>
         <translation>Zone urbaine {année}</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="172"/>
+        <location filename="../layers.py" line="167"/>
         <source>Urban</source>
         <translation>Urbain</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="173"/>
+        <location filename="../layers.py" line="168"/>
         <source>Suburban</source>
         <translation>De banlieue</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="174"/>
+        <location filename="../layers.py" line="169"/>
         <source>Built-up rural</source>
         <translation>Construit rural</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="175"/>
+        <location filename="../layers.py" line="170"/>
         <source>Open space (fringe)</source>
         <translation>Espace ouvert (frange)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="176"/>
+        <location filename="../layers.py" line="171"/>
         <source>Open space (captured)</source>
         <translation>Espace ouvert (capturé)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="177"/>
+        <location filename="../layers.py" line="172"/>
         <source>Open space (rural)</source>
         <translation>Espace ouvert (rural)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="178"/>
+        <location filename="../layers.py" line="173"/>
         <source>Open space (fringe, water)</source>
         <translation>Espace ouvert (frange, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="179"/>
+        <location filename="../layers.py" line="174"/>
         <source>Open space (captured, water)</source>
         <translation>Espace ouvert (capturé, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="180"/>
+        <location filename="../layers.py" line="175"/>
         <source>Open space (rural, water)</source>
         <translation>Espace ouvert (rural, eau)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="186"/>
+        <location filename="../layers.py" line="181"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
         <translation>Biomasse (tonnes CO2e par ha, {année})</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="187"/>
+        <location filename="../layers.py" line="182"/>
         <source>Change in biomass
 (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation>Changement de la biomasse (tonnes CO2e par ha, {type} après {années} années)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="348"/>
+        <location filename="../layers.py" line="343"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
         <translation>Trends.Earth n&amp;#39;a pas de style attribué à &amp;quot;{}&amp;quot; (groupe {} dans {}). Pour utiliser cette couche, ajoutez-la manuellement à votre carte.</translation>
     </message>
@@ -454,114 +454,204 @@
         <translation>Erreur lors de la transformation des coordonnées. Vérifiez que la géométrie en entrée est valide.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="143"/>
+        <location filename="../layers.py" line="138"/>
         <source>SDG 15.3.1 Indicator (Trends.Earth)</source>
         <translation>Indicateur ODD 15.3.1 (Trends.Earth)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="190"/>
+        <location filename="../layers.py" line="185"/>
         <source>Agro Ecological Zones V3.0</source>
         <translation>Zones agroécologiques V3.0</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="191"/>
+        <location filename="../layers.py" line="186"/>
         <source>Climatic Zones</source>
         <translation>Zones climatiques</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="194"/>
+        <location filename="../layers.py" line="189"/>
         <source>Hansen</source>
         <translation>Hansen</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="197"/>
+        <location filename="../layers.py" line="192"/>
         <source>MOD16A2</source>
         <translation>MOD16A2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="200"/>
+        <location filename="../layers.py" line="195"/>
         <source>CHIRPS</source>
         <translation>CHIRPS</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="201"/>
+        <location filename="../layers.py" line="196"/>
         <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
         <translation>GPCC V7 (Global Precipitation Climatology Center)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="202"/>
+        <location filename="../layers.py" line="197"/>
         <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
         <translation>GPCP v2.3 1 mois (Global Precipitation Climatology Project)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="203"/>
+        <location filename="../layers.py" line="198"/>
         <source>PERSIANN-CDR</source>
         <translation>PERSIANN-CDR</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="206"/>
+        <location filename="../layers.py" line="201"/>
         <source>ERA I</source>
         <translation>ERA I</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="207"/>
+        <location filename="../layers.py" line="202"/>
         <source>MERRA 2</source>
         <translation>MERRA 2</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="210"/>
+        <location filename="../layers.py" line="205"/>
         <source>MODIS (MOD13Q1, annual)</source>
         <translation>MODIS (MOD13Q1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="211"/>
+        <location filename="../layers.py" line="206"/>
         <source>AVHRR (GIMMS3g.v1, annual)</source>
         <translation>AVHRR (GIMMS3g.v1, annuel)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="212"/>
+        <location filename="../layers.py" line="207"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
         <translation>MODIS (MOD13Q1, 16 jours)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="219"/>
+        <location filename="../layers.py" line="214"/>
         <source>Soil Grids 250</source>
         <translation>Grilles de sol 250</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="216"/>
+        <location filename="../layers.py" line="211"/>
         <source>USDA Soil Type</source>
         <translation>Type de sol USDA</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="423"/>
+        <location filename="../layers.py" line="419"/>
         <source>Failed to load Trends.Earth style. Adding layer using QGIS defaults.</source>
         <translation>Impossible de charger le style Trends.Earth. Ajout d&amp;#39;une couche à l&amp;#39;aide des valeurs par défaut de QGIS.</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="100"/>
+        <location filename="../layers.py" line="95"/>
         <source>Tree-covered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="103"/>
+        <location filename="../layers.py" line="98"/>
         <source>Wetland</source>
         <translation type="unfinished">Zone humide</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="104"/>
+        <location filename="../layers.py" line="99"/>
         <source>Artificial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="105"/>
+        <location filename="../layers.py" line="100"/>
         <source>Other land</source>
         <translation type="unfinished">Autres terres</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="106"/>
+        <location filename="../layers.py" line="101"/>
         <source>Water body</source>
         <translation type="unfinished">Étendue d&apos;eau</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="96"/>
+        <source>Grassland</source>
+        <translation type="unfinished">Prairie</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="97"/>
+        <source>Cropland</source>
+        <translation type="unfinished">Terres cultivées</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="213"/>
+        <source>&amp;trends.earth</source>
+        <translation type="unfinished">&amp;trends.earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="154"/>
+        <source>Settings</source>
+        <translation type="unfinished">Réglages</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="154"/>
+        <source>Trends.Earth Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="161"/>
+        <source>Calculate indicators</source>
+        <translation type="unfinished">Calculer les indicateurs de dégradation des sols</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="168"/>
+        <source>Plot data</source>
+        <translation type="unfinished">Tracer des données</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="168"/>
+        <source>Plot time series datasets</source>
+        <translation type="unfinished">Jeux de données de séries chronologiques</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="175"/>
+        <source>View Google Earth Engine tasks</source>
+        <translation type="unfinished">Afficher les tâches de Google Earth Engine</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="175"/>
+        <source>View cloud processing tasks</source>
+        <translation type="unfinished">Afficher les tâches de traitement dans le cloud</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="182"/>
+        <source>Visualization tool</source>
+        <translation type="unfinished">Outil de visualisation</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="182"/>
+        <source>Visualize and summarize data</source>
+        <translation type="unfinished">Visualisez et récapitulez les données</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="189"/>
+        <source>Load data</source>
+        <translation type="unfinished">Charger les données</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="189"/>
+        <source>Load local data</source>
+        <translation type="unfinished">Charger des données locales</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="196"/>
+        <source>Download raw data</source>
+        <translation type="unfinished">Télécharger des données brutes</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="196"/>
+        <source>Download raw datasets</source>
+        <translation type="unfinished">Télécharger des séries de données brutes</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="203"/>
+        <source>About</source>
+        <translation type="unfinished">À propos</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="203"/>
+        <source>About trends.earth</source>
+        <translation type="unfinished">À propos de trends.earth</translation>
     </message>
 </context>
 <context>
@@ -2901,7 +2991,7 @@ p, li {white-space: pré-wrap; }
         <translation>Précédent</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="142"/>
+        <location filename="../download_data.py" line="186"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
@@ -3015,22 +3105,22 @@ p, li {white-space: pré-wrap; }
         <translation>Télécharger les résultats de Earth Engine</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="91"/>
+        <location filename="../gui/DlgJobs.ui" line="94"/>
         <source>Download results</source>
         <translation>Télécharger les résultats</translation>
     </message>
     <message>
-        <location filename="../gui/DlgJobs.ui" line="110"/>
+        <location filename="../gui/DlgJobs.ui" line="113"/>
         <source>Refresh list</source>
         <translation>Rafraîchir la liste</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="215"/>
+        <location filename="../jobs.py" line="213"/>
         <source>Script not found</source>
         <translation>Script non trouvé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="243"/>
+        <location filename="../jobs.py" line="241"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
@@ -3777,12 +3867,12 @@ zones</translation>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../api.py" line="41"/>
+        <location filename="../api.py" line="42"/>
         <source>Please register with Trends.Earth before using this function.</source>
         <translation>Veuillez vous enregistrer auprès de trends.earth avant d&apos;utiliser cette fonction.</translation>
     </message>
     <message>
-        <location filename="../api.py" line="176"/>
+        <location filename="../api.py" line="177"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation>Impossible de se connecter au serveur LDMP. Vérifiez votre nom d&apos;utilisateur et votre mot de passe.</translation>
     </message>
@@ -3824,92 +3914,92 @@ zones</translation>
     <message>
         <location filename="../plugin.py" line="262"/>
         <source>&amp;trends.earth</source>
-        <translation>&amp;trends.earth</translation>
+        <translation type="obsolete">&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="203"/>
         <source>Settings</source>
-        <translation>Réglages</translation>
+        <translation type="obsolete">Réglages</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="203"/>
         <source>LDMT Settings</source>
-        <translation>Paramètres LDMT</translation>
+        <translation type="obsolete">Paramètres LDMT</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="210"/>
         <source>Calculate indicators</source>
-        <translation>Calculer les indicateurs de dégradation des sols</translation>
+        <translation type="obsolete">Calculer les indicateurs de dégradation des sols</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="217"/>
         <source>Plot data</source>
-        <translation>Tracer des données</translation>
+        <translation type="obsolete">Tracer des données</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="224"/>
         <source>View Google Earth Engine tasks</source>
-        <translation>Afficher les tâches de Google Earth Engine</translation>
+        <translation type="obsolete">Afficher les tâches de Google Earth Engine</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="224"/>
         <source>View cloud processing tasks</source>
-        <translation>Afficher les tâches de traitement dans le cloud</translation>
+        <translation type="obsolete">Afficher les tâches de traitement dans le cloud</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="231"/>
         <source>Visualization tool</source>
-        <translation>Outil de visualisation</translation>
+        <translation type="obsolete">Outil de visualisation</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="252"/>
         <source>About</source>
-        <translation>À propos</translation>
+        <translation type="obsolete">À propos</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="190"/>
+        <location filename="../download_data.py" line="239"/>
         <source>Success</source>
         <translation>Succès</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="252"/>
         <source>About trends.earth</source>
-        <translation>À propos de trends.earth</translation>
+        <translation type="obsolete">À propos de trends.earth</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="190"/>
+        <location filename="../download_data.py" line="239"/>
         <source>Download request submitted to Google Earth Engine.</source>
         <translation>Demande de téléchargement envoyée à Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../download_data.py" line="194"/>
+        <location filename="../download_data.py" line="243"/>
         <source>Unable to submit download request to Google Earth Engine.</source>
         <translation>Impossible de soumettre la demande de téléchargement à Google Earth Engine.</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="217"/>
         <source>Plot time series datasets</source>
-        <translation>Jeux de données de séries chronologiques</translation>
+        <translation type="obsolete">Jeux de données de séries chronologiques</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="245"/>
         <source>Download raw data</source>
-        <translation>Télécharger des données brutes</translation>
+        <translation type="obsolete">Télécharger des données brutes</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="245"/>
         <source>Download raw datasets</source>
-        <translation>Télécharger des séries de données brutes</translation>
+        <translation type="obsolete">Télécharger des séries de données brutes</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="238"/>
         <source>Load data</source>
-        <translation>Charger les données</translation>
+        <translation type="obsolete">Charger les données</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="238"/>
         <source>Load local data</source>
-        <translation>Charger des données locales</translation>
+        <translation type="obsolete">Charger des données locales</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="499"/>
@@ -3954,7 +4044,7 @@ zones</translation>
     <message>
         <location filename="../plugin.py" line="231"/>
         <source>Visualize and summarize data</source>
-        <translation>Visualisez et récapitulez les données</translation>
+        <translation type="obsolete">Visualisez et récapitulez les données</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="96"/>
@@ -3986,73 +4076,148 @@ zones</translation>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>Impossible de soumettre une tâche de zone urbaine à Google Earth Engine.</translation>
     </message>
-</context>
-<context>
-    <name>LDMPPlugin</name>
+    <message>
+        <location filename="../download_data.py" line="73"/>
+        <source>Category</source>
+        <translation type="unfinished">Catégorie</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="74"/>
+        <source>Title</source>
+        <translation type="unfinished">Titre</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="75"/>
+        <source>Units</source>
+        <translation type="unfinished">Unités</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="76"/>
+        <source>Resolution</source>
+        <translation type="unfinished">Résolution</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="77"/>
+        <source>Start year</source>
+        <translation type="unfinished">Année de début</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="78"/>
+        <source>End year</source>
+        <translation type="unfinished">Année de fin</translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="79"/>
+        <source>Extent (lat)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download_data.py" line="80"/>
+        <source>Extent (lon)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="343"/>
+        <source>Details</source>
+        <translation type="unfinished">Détails</translation>
+    </message>
     <message>
         <location filename="../jobs.py" line="337"/>
         <source>Task name</source>
-        <translation>Nom de la tâche</translation>
+        <translation type="unfinished">Nom de la tâche</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="338"/>
         <source>Job</source>
-        <translation>Emploi</translation>
+        <translation type="unfinished">Emploi</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="339"/>
         <source>Start time</source>
-        <translation>Heure de début</translation>
+        <translation type="unfinished">Heure de début</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="340"/>
         <source>End time</source>
-        <translation>Heure de fin</translation>
+        <translation type="unfinished">Heure de fin</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="341"/>
-        <source>Status</source>
-        <translation>Statut</translation>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../jobs.py" line="342"/>
+        <source>Status</source>
+        <translation type="unfinished">Statut</translation>
+    </message>
+</context>
+<context>
+    <name>LDMPPlugin</name>
+    <message>
+        <location filename="../jobs.py" line="339"/>
+        <source>Task name</source>
+        <translation type="obsolete">Nom de la tâche</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="340"/>
+        <source>Job</source>
+        <translation type="obsolete">Emploi</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="341"/>
+        <source>Start time</source>
+        <translation type="obsolete">Heure de début</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="342"/>
+        <source>End time</source>
+        <translation type="obsolete">Heure de fin</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="344"/>
+        <source>Status</source>
+        <translation type="obsolete">Statut</translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="345"/>
         <source>Details</source>
-        <translation>Détails</translation>
+        <translation type="obsolete">Détails</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="41"/>
         <source>Category</source>
-        <translation>Catégorie</translation>
+        <translation type="obsolete">Catégorie</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="42"/>
         <source>Title</source>
-        <translation>Titre</translation>
+        <translation type="obsolete">Titre</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="43"/>
         <source>Units</source>
-        <translation>Unités</translation>
+        <translation type="obsolete">Unités</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="44"/>
         <source>Resolution</source>
-        <translation>Résolution</translation>
+        <translation type="obsolete">Résolution</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="45"/>
         <source>Start year</source>
-        <translation>Année de début</translation>
+        <translation type="obsolete">Année de début</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="46"/>
         <source>End year</source>
-        <translation>Année de fin</translation>
+        <translation type="obsolete">Année de fin</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="47"/>
         <source>Extent</source>
-        <translation>Couverture</translation>
+        <translation type="obsolete">Couverture</translation>
     </message>
 </context>
 <context>

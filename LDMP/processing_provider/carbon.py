@@ -23,7 +23,7 @@ class TCSummary(QgsProcessingAlgorithm):
     """
 
     def tr(self, string):
-        return QCoreApplication.translate('Processing', string)
+        return QCoreApplication.translate('processing\\carbon', string)
 
     def createInstance(self):
         # Must return a new copy of your algorithm.

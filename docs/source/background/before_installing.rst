@@ -67,4 +67,4 @@ Trends.Earth plugin (for example the QGIS2 version of the plugin).
   <https://qgis.org/downloads/>`_.
 
 * MacOS: `Download older versions of QGIS for MacOS here 
-  <https://qgis.org/downloads/MacOS>`_.
+  <https://qgis.org/downloads/macOS>`_.

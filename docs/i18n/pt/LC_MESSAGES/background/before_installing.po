@@ -1,88 +1,92 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
 # Translators:
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 19:24-0400\n"
+"POT-Creation-Date: 2020-04-13 17:32-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
-"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
+"roglich@conservation.org>, 2020\n"
 "Language: pt\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-"
+"international/teams/80165/pt/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:4
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:4
 msgid "Before installing the toolbox"
 msgstr "Antes de instalar o plugin (complemento)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:6
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:6
 msgid ""
-"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
-" to be installed on your computer."
+"Before installing the toolbox, QGIS version |qgisMinVersion| or higher "
+"needs to be installed on your computer."
 msgstr ""
-"Antes de instalar a caixa de ferramentas, versão QGIS | qgisMinVersion | ou "
-"superior precisa estar instalado no seu computador."
+"Antes de instalar a caixa de ferramentas, versão QGIS | qgisMinVersion | "
+"ou superior precisa estar instalado no seu computador."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:10
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:10
 msgid "Download QGIS"
 msgstr "Baixar QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:12
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:12
 msgid ""
-"To install the plugin, first install QGIS 3.10.3+ following the below steps:"
+"To install the plugin, first install QGIS 3.10.3+ following the below "
+"steps:"
 msgstr ""
-"Para instalar o plug-in, instale primeiro o QGIS 3.10.3+, seguindo as etapas"
-" abaixo:"
+"Para instalar o plug-in, instale primeiro o QGIS 3.10.3+, seguindo as "
+"etapas abaixo:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:15
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:15
 msgid "Choose either 32 or 64 bit version"
 msgstr "Escolha a versão de 32 ou 64 bits"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:17
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:17
 msgid ""
 "You have the option of installing a 32-bit or 64-bit version of QGIS. To "
-"know which version to install, check which type of operating system you have"
-" following the below instructions. If you are unsure which you need, try "
-"downloading the 64 bit version first. If that version doesn't work properly,"
-" un-install it and then install the 32 bit version."
+"know which version to install, check which type of operating system you "
+"have following the below instructions. If you are unsure which you need, "
+"try downloading the 64 bit version first. If that version doesn't work "
+"properly, un-install it and then install the 32 bit version."
 msgstr ""
-"Você tem a opção de instalar uma versão de 32 ou 64 bits do QGIS. Para saber"
-" qual versão instalar, verifique qual tipo de sistema operacional você "
-"possui, seguindo as instruções abaixo. Se você não tiver certeza do que "
-"precisa, tente fazer o download da versão de 64 bits primeiro. Se essa "
-"versão não funcionar corretamente, desinstale-a e instale a versão de 32 "
-"bits."
+"Você tem a opção de instalar uma versão de 32 ou 64 bits do QGIS. Para "
+"saber qual versão instalar, verifique qual tipo de sistema operacional "
+"você possui, seguindo as instruções abaixo. Se você não tiver certeza do "
+"que precisa, tente fazer o download da versão de 64 bits primeiro. Se "
+"essa versão não funcionar corretamente, desinstale-a e instale a versão "
+"de 32 bits."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:23
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:23
 msgid "Windows 8 or Windows 10"
 msgstr "Windows 8 ou Windows 10"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:25
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:25
 msgid "From the \"Start\" screen, type \"This PC\"."
 msgstr "Na tela \"Iniciar\", digite \"Meu Computador\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:27
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:27
 msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
 msgstr ""
 "Clique com o botão direito em \"Meu Computador\" e clique em "
 "\"Propriedades\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:29
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:29
 msgid "Windows 7, or Vista"
 msgstr "Windows 7 ou Vista"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:31
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:31
 msgid ""
 "Open \"System\" by clicking the \"Start\" button , right-clicking "
 "\"Computer\", and then clicking \"Properties\"."
@@ -91,25 +95,25 @@ msgstr ""
 "direito do mouse em \"Meu Computador\" e, em seguida, clicando em "
 "\"Propriedades\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:34
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:34
 msgid "Under System, you can view the system type."
 msgstr "Em \"Sistema\", você pode visualizar o tipo do sistema."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:36
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:36
 msgid "Mac: Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr ""
-"Mac: clique no ícone da Apple no canto superior esquerdo e selecione \"Sobre"
-" este Mac\"."
+"Mac: clique no ícone da Apple no canto superior esquerdo e selecione "
+"\"Sobre este Mac\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:38
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:38
 msgid ""
-"After determining whether you need the 32 or 64 bit version, download the "
-"appropriate installer:"
+"After determining whether you need the 32 or 64 bit version, download the"
+" appropriate installer:"
 msgstr ""
 "Depois de determinar se você precisa da versão de 32 ou 64 bits, faça o "
 "download do instalador apropriado:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:41
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:41
 msgid ""
 "Windows: `Download Windows installer from here "
 "<https://qgis.org/en/site/forusers/download.html#windows>`_."
@@ -117,7 +121,7 @@ msgstr ""
 "Windows: `Baixe o instalador do Windows a partir daqui "
 "<https://qgis.org/en/site/forusers/download.html#windows> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:44
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:44
 msgid ""
 "MacOS: `Download MacOS installer from here "
 "<https://qgis.org/en/site/forusers/download.html#mac>`_."
@@ -125,46 +129,48 @@ msgstr ""
 "MacOS: `Baixe o instalador do MacOS aqui "
 "<https://qgis.org/en/site/forusers/download.html#mac> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:47
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:47
 msgid ""
-"Linux: `Download Linux installer from here, or from the repository for your "
-"Linux distribution "
+"Linux: `Download Linux installer from here, or from the repository for "
+"your Linux distribution "
 "<https://qgis.org/en/site/forusers/download.html#linux>`_."
 msgstr ""
-"Linux: `Faça o download do instalador do Linux aqui ou no repositório da sua"
-" distribuição Linux <https://qgis.org/en/site/forusers/download.html#linux> "
-"`_."
+"Linux: `Faça o download do instalador do Linux aqui ou no repositório da "
+"sua distribuição Linux "
+"<https://qgis.org/en/site/forusers/download.html#linux> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:52
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:52
 msgid "Install QGIS"
 msgstr "Instalar o QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:54
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:54
 msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the Default settings for all options."
 msgstr ""
-"Depois que o instalador é baixado do site, ele precisa ser executado (clique"
-" duas vezes nele). Selecione as configurações padrão para todas as opções."
+"Depois que o instalador é baixado do site, ele precisa ser executado "
+"(clique duas vezes nele). Selecione as configurações padrão para todas as"
+" opções."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:59
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:59
 msgid "Installing older versions of QGIS"
 msgstr "Instalando versões mais antigas do QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:61
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:61
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend the "
-"latest version of QGIS (see instructions above) but the below links might be"
-" useful if you have a specific need for accessing an older version of the "
-"Trends.Earth plugin (for example the QGIS2 version of the plugin)."
+"Older versions of QGIS can be accessed at the below links. We recommend "
+"the latest version of QGIS (see instructions above) but the below links "
+"might be useful if you have a specific need for accessing an older "
+"version of the Trends.Earth plugin (for example the QGIS2 version of the "
+"plugin)."
 msgstr ""
 "As versões mais antigas do QGIS podem ser acessadas nos links abaixo. "
-"Recomendamos a versão mais recente do QGIS (consulte as instruções acima), "
-"mas os links abaixo podem ser úteis se você tiver uma necessidade específica"
-" de acessar uma versão mais antiga do plug-in Trends.Earth (por exemplo, a "
-"versão QGIS2 do plug-in)."
+"Recomendamos a versão mais recente do QGIS (consulte as instruções "
+"acima), mas os links abaixo podem ser úteis se você tiver uma necessidade"
+" específica de acessar uma versão mais antiga do plug-in Trends.Earth "
+"(por exemplo, a versão QGIS2 do plug-in)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:66
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:66
 msgid ""
 "Windows: `Download older versions of QGIS for Windows here "
 "<https://qgis.org/downloads/>`_."
@@ -172,10 +178,12 @@ msgstr ""
 "Windows: `Baixe aqui versões anteriores do QGIS para Windows "
 "<https://qgis.org/downloads/> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:69
+#: D:/Code/LandDegradation/trends.earth/docs/source/background/before_installing.rst:69
+#, fuzzy
 msgid ""
 "MacOS: `Download older versions of QGIS for MacOS here "
-"<https://qgis.org/downloads/MacOS>`_."
+"<https://qgis.org/downloads/macOS>`_."
 msgstr ""
 "MacOS: `Baixe aqui versões anteriores do QGIS para MacOS "
 "<https://qgis.org/downloads/MacOS> `_."
+

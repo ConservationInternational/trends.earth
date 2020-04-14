@@ -21,8 +21,9 @@ from math import floor, log10
 
 from marshmallow import ValidationError
 
-from qgis.core import QgsColorRampShader, QgsRasterShader, \
-    QgsSingleBandPseudoColorRenderer, QgsRasterLayer, QgsProject
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.core import (QgsColorRampShader, QgsRasterShader, 
+        QgsSingleBandPseudoColorRenderer, QgsRasterLayer, QgsProject)
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -32,14 +33,14 @@ import numpy as np
 
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QColor
-from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal
 
 from LDMP import log
 
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
-def tr(t):
-    return QtWidgets.QApplication.translate('LDMPPlugin', t)
+
+def tr(message):
+    return QCoreApplication.translate("layers", message)
 
 
 # Store layer titles and label text in a dictionary here so that it can be
@@ -352,6 +353,7 @@ def add_layer(f, band_number, band_info, activated='default'):
         return False
 
     title = get_band_title(band_info)
+    log('Band title: {}'.format(title))
 
     l = iface.addRasterLayer(f, title)
     if not l.isValid():
@@ -461,7 +463,11 @@ def add_layer(f, band_number, band_info, activated='default'):
 
 def tr_style_text(label, band_info=None):
     """If no translation is available, use the original label"""
+    log('looking up {} in style text_dict'.format(label))
+    log('dict has key: {}'.format(label in style_text_dict))
     val = style_text_dict.get(label, None)
+    log('got val of {} from dictionary'.format(val))
+    log('Translation of title: {}'.format(tr(u'Productivity trajectory degradation ({year_start} to {year_end})')))
     if val:
         if band_info:
             return val.format(**band_info['metadata'])
@@ -487,8 +493,10 @@ def get_band_infos(data_file):
 def get_band_title(band_info):
     style = styles.get(band_info['name'], None)
     if style:
+        log('getting style')
         return tr_style_text(style['title']).format(**band_info['metadata'])
     else:
+        log('no style')
         return band_info['name']
 
 def delete_layer_by_filename(f):

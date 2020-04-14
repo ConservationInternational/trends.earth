@@ -24,7 +24,7 @@ import binascii
 import datetime
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
-        QSortFilterProxyModel, QSize, QObject, QEvent)
+        QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication)
 from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
@@ -43,6 +43,10 @@ from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+
+
+def tr(message):
+    return QCoreApplication.translate("jobs", message)
 
 
 def json_serial(obj):
@@ -334,13 +338,13 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', QtWidgets.QApplication.translate('LDMP', 'Task name')),
-                          ('script_name', QtWidgets.QApplication.translate('LDMP', 'Job')),
-                          ('start_date', QtWidgets.QApplication.translate('LDMP', 'Start time')),
-                          ('end_date', QtWidgets.QApplication.translate('LDMP', 'End time')),
-                          ('id', QtWidgets.QApplication.translate('LDMP', 'ID')),
-                          ('status', QtWidgets.QApplication.translate('LDMP', 'Status')),
-                          ('INVALID', QtWidgets.QApplication.translate('LDMP', 'Details'))]
+        colname_tuples = [('task_name', tr('Task name')),
+                          ('script_name', tr('Job')),
+                          ('start_date', tr('Start time')),
+                          ('end_date', tr('End time')),
+                          ('id', tr('ID')),
+                          ('status', tr('Status')),
+                          ('INVALID', tr('Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 

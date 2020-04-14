@@ -196,7 +196,7 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
             if resp:
                 QtWidgets.QMessageBox.information(None,
                         self.tr("Success"),
-                        QtWidgets.QApplication.translate('LDMPPlugin', u"User {} deleted.".format(email)))
+                        QtWidgets.QApplication.translate('LDMP', u"User {} deleted.".format(email)))
                 settings.setValue("LDMP/password", None)
                 settings.setValue("LDMP/email", None)
                 self.close()

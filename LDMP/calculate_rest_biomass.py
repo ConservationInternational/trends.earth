@@ -31,18 +31,22 @@ from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate
+from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
-    json_geom_to_geojson
+from LDMP.calculate import (DlgCalculateBase, get_script_slug, ClipWorker,
+    json_geom_to_geojson)
 from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
 from LDMP.gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
+
+
+def tr(message):
+    return QCoreApplication.translate("calculate_rest_biomass", message)
 
 
 class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassData):
@@ -93,12 +97,12 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
         resp = run_script(get_script_slug('restoration-biomass'), payload)
 
         if resp:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
-                           QtWidgets.QApplication.translate("LDMP", "Restoration biomass change submitted to Google Earth Engine."),
+            mb.pushMessage(self.tr("Submitted"),
+                           self.tr("Restoration biomass change submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
-                           QtWidgets.QApplication.translate("LDMP", "Unable to submit restoration biomass change task to Google Earth Engine."),
+            mb.pushMessage(self.tr("Error"),
+                           self.tr("Unable to submit restoration biomass change task to Google Earth Engine."),
                            level=0, duration=5)
 
 class RestBiomassSummaryWorker(AbstractWorker):
@@ -372,10 +376,10 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
-                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, tr("Success"),
+                                      tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, tr("Error"),
+                                   tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

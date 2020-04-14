@@ -70,15 +70,15 @@ class DataTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('category', QtWidgets.QApplication.translate('LDMPPlugin', 'Category')),
-                          ('title', QtWidgets.QApplication.translate('LDMPPlugin', 'Title')),
-                          ('Units', QtWidgets.QApplication.translate('LDMPPlugin', 'Units')),
-                          ('Spatial Resolution', QtWidgets.QApplication.translate('LDMPPlugin', 'Resolution')),
-                          ('Start year', QtWidgets.QApplication.translate('LDMPPlugin', 'Start year')),
-                          ('End year', QtWidgets.QApplication.translate('LDMPPlugin', 'End year')),
-                          ('extent_lat', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent (lat)')),
-                          ('extent_lon', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent (lon)')),
-                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
+        colname_tuples = [('category', QtWidgets.QApplication.translate('LDMP', 'Category')),
+                          ('title', QtWidgets.QApplication.translate('LDMP', 'Title')),
+                          ('Units', QtWidgets.QApplication.translate('LDMP', 'Units')),
+                          ('Spatial Resolution', QtWidgets.QApplication.translate('LDMP', 'Resolution')),
+                          ('Start year', QtWidgets.QApplication.translate('LDMP', 'Start year')),
+                          ('End year', QtWidgets.QApplication.translate('LDMP', 'End year')),
+                          ('extent_lat', QtWidgets.QApplication.translate('LDMP', 'Extent (lat)')),
+                          ('extent_lon', QtWidgets.QApplication.translate('LDMP', 'Extent (lon)')),
+                          ('INVALID', QtWidgets.QApplication.translate('LDMP', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 

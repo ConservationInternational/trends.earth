@@ -334,13 +334,13 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Task name')),
-                          ('script_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Job')),
-                          ('start_date', QtWidgets.QApplication.translate('LDMPPlugin', 'Start time')),
-                          ('end_date', QtWidgets.QApplication.translate('LDMPPlugin', 'End time')),
-                          ('id', QtWidgets.QApplication.translate('LDMPPlugin', 'ID')),
-                          ('status', QtWidgets.QApplication.translate('LDMPPlugin', 'Status')),
-                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
+        colname_tuples = [('task_name', QtWidgets.QApplication.translate('LDMP', 'Task name')),
+                          ('script_name', QtWidgets.QApplication.translate('LDMP', 'Job')),
+                          ('start_date', QtWidgets.QApplication.translate('LDMP', 'Start time')),
+                          ('end_date', QtWidgets.QApplication.translate('LDMP', 'End time')),
+                          ('id', QtWidgets.QApplication.translate('LDMP', 'ID')),
+                          ('status', QtWidgets.QApplication.translate('LDMP', 'Status')),
+                          ('INVALID', QtWidgets.QApplication.translate('LDMP', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 

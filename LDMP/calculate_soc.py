@@ -28,7 +28,7 @@ mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QDoubleValidator
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, QCoreApplication
 
 from LDMP import log
 from LDMP.api import run_script
@@ -496,10 +496,10 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         resp = run_script(get_script_slug('soil-organic-carbon'), payload)
 
         if resp:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
-                           QtWidgets.QApplication.translate("LDMP", "Soil organic carbon submitted to Google Earth Engine."),
+            mb.pushMessage(self.tr("Submitted"),
+                           self.tr("Soil organic carbon submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
-                           QtWidgets.QApplication.translate("LDMP", "Unable to submit soil organic carbon task to Google Earth Engine."),
+            mb.pushMessage(self.tr("Error"),
+                           self.tr("Unable to submit soil organic carbon task to Google Earth Engine."),
                            level=0, duration=5)

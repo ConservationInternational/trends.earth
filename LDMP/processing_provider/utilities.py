@@ -26,7 +26,7 @@ class ClipRaster(QgsProcessingAlgorithm):
     """
 
     def tr(self, string):
-        return QCoreApplication.translate('Processing', string)
+        return QCoreApplication.translate('processing\\utilities', string)
 
     def createInstance(self):
         return ClipRaster()
@@ -121,7 +121,7 @@ class GenerateMask(QgsProcessingAlgorithm):
     """
 
     def tr(self, string):
-        return QCoreApplication.translate('Processing', string)
+        return QCoreApplication.translate('processing\\utilities', string)
 
     def createInstance(self):
         return GenerateMask()

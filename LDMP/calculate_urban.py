@@ -28,7 +28,7 @@ from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate
+from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 
 from LDMP import log
 from LDMP.api import run_script
@@ -40,6 +40,10 @@ from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
+
+
+def tr(message):
+    return QCoreApplication.translate("calculate_urban", message)
 
 
 class UrbanSummaryWorker(AbstractWorker):
@@ -191,12 +195,12 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         resp = run_script(get_script_slug('urban-area'), payload)
 
         if resp:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
-                           QtWidgets.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
+            mb.pushMessage(self.tr("Submitted"),
+                           self.tr("Urban area change calculation submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
-                           QtWidgets.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
+            mb.pushMessage(self.tr("Error"),
+                           self.tr("Unable to submit urban area task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -368,7 +372,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 def make_summary_table(areas, populations, out_file):
                           
     def tr(s):
-        return QtWidgets.QApplication.translate("LDMP", s)
+        return tr(s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_urban.xlsx'))
 
@@ -391,10 +395,10 @@ def make_summary_table(areas, populations, out_file):
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
-                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, tr("Success"),
+                                      tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, tr("Error"),
+                                   tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

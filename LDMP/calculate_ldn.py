@@ -27,7 +27,7 @@ import openpyxl
 from openpyxl.drawing.image import Image
 
 from qgis.PyQt import QtWidgets, uic, QtXml
-from qgis.PyQt.QtCore import QSettings, QDate
+from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 
 from qgis.core import QgsGeometry
 from qgis.utils import iface
@@ -49,6 +49,10 @@ from LDMP.summary_numba import merge_xtabs_i16, xtab_i16
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
     ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
+
+
+def tr(message):
+    return QCoreApplication.translate("calculate_ldn", message)
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -183,8 +187,8 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
             return
 
         if (self.year_final.date().year() - self.year_initial.date().year()) < 10:
-            QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", "Initial and final year must be at least 10 years apart."))
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Initial and final year must be at least 10 years apart."))
             return
 
         self.close()
@@ -246,12 +250,12 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         resp = run_script(get_script_slug('sdg-sub-indicators'), payload)
 
         if resp:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
-                           QtWidgets.QApplication.translate("LDMP", "SDG sub-indicator task submitted to Google Earth Engine."),
+            mb.pushMessage(self.tr("Submitted"),
+                           self.tr("SDG sub-indicator task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
-                           QtWidgets.QApplication.translate("LDMP", "Unable to submit SDG sub-indicator task to Google Earth Engine."),
+            mb.pushMessage(self.tr("Error"),
+                           self.tr("Unable to submit SDG sub-indicator task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -970,7 +974,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
                        sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
                        soc_years, out_file):
     def tr(s):
-        return QtWidgets.QApplication.translate("LDMP", s)
+        return tr(s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_ldn_sdg.xlsx'))
 
@@ -1054,10 +1058,10 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     try:
         wb.save(out_file)
         log(u'Indicator table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
-                                      QtWidgets.QApplication.translate("LDMP", u'Indicator table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, tr("Success"),
+                                      tr(u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, tr("Error"),
+                                   tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

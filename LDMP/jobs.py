@@ -24,7 +24,7 @@ import binascii
 import datetime
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
-        QSortFilterProxyModel, QSize, QObject, QEvent)
+        QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication)
 from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
@@ -43,6 +43,10 @@ from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+
+
+def tr(message):
+    return QCoreApplication.translate("jobs", message)
 
 
 def json_serial(obj):
@@ -99,11 +103,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
-
-        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
-        if jobs_cache:
-            self.jobs = jobs_cache
-            self.update_jobs_table()
 
         self.jobs_view.viewport().installEventFilter(tool_tipper(self.jobs_view))
 
@@ -178,12 +177,15 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         elif not self.jobs_view.selectedIndexes():
             self.download.setEnabled(False)
         else:
-            rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
-            if rows and self.jobs:
-                for row in rows:
+            rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
+            job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
+            statuses = [job.get('status', None) for job in self.jobs if job.get('id', None) in job_ids]
+
+            if len(statuses) > 0:
+                for status in statuses:
                     # Don't set button to enabled if any of the tasks aren't 
                     # yet finished, or if any are invalid
-                    if 'status' in self.jobs[row] and self.jobs[row]['status'] != 'FINISHED':
+                    if status != 'FINISHED':
                         self.download.setEnabled(False)
                         return
                 self.download.setEnabled(True)
@@ -235,23 +237,22 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
     def update_jobs_table(self):
         if self.jobs:
             table_model = JobsTableModel(self.jobs, self)
-            proxy_model = QSortFilterProxyModel()
-            proxy_model.setSourceModel(table_model)
-            self.jobs_view.setModel(proxy_model)
+            self.proxy_model = QSortFilterProxyModel()
+            self.proxy_model.setSourceModel(table_model)
+            self.jobs_view.setModel(self.proxy_model)
             # Add "Details" buttons in cell
             for row in range(0, len(self.jobs)):
                 btn = QtWidgets.QPushButton(self.tr("Details"))
                 btn.clicked.connect(self.btn_details)
-                btn.setMinimumSize(QSize(75, 0))
-                btn.setMaximumSize(QSize(150, 16777215))
-                self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
+                self.jobs_view.setIndexWidget(self.proxy_model.index(row, 6), btn)
 
             self.jobs_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
             self.jobs_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
             self.jobs_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
             self.jobs_view.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.Fixed)
             self.jobs_view.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
+            self.jobs_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
 
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
@@ -274,14 +275,17 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         details_dlg.exec_()
 
     def btn_download(self):
-        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
+        # Use set below in case multiple cells within the same row are selected
+        rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
+        job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
+        jobs = [job for job in self.jobs if job['id'] in job_ids]
 
         filenames = []
-        for row in rows:
-            job = self.jobs[row]
-            # Check if we need a download filename - some tasks don't need to save
-            # data, but if any of the chosen \tasks do, then we need to choose a
-            # folder. Right now only TimeSeriesTable doesn't need a filename.
+        for job in jobs:
+            # Check if we need a download filename - some tasks don't need to 
+            # save data, but if any of the chosen tasks do, then we need to 
+            # choose a folder. Right now only TimeSeriesTable doesn't need a 
+            # filename.
             if job['results'].get('type') != 'TimeSeriesTable':
                 f = None
                 while not f:
@@ -316,7 +320,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         for row, f in zip(rows, filenames):
             job = self.jobs[row]
-            log(u"Processing job {}".format(job))
+            log(u"Processing job {}.".format(job.get('id', None)))
             result_type = job['results'].get('type')
             if result_type == 'CloudResults':
                 download_cloud_results(job, f, self.tr)
@@ -334,12 +338,13 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Task name')),
-                          ('script_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Job')),
-                          ('start_date', QtWidgets.QApplication.translate('LDMPPlugin', 'Start time')),
-                          ('end_date', QtWidgets.QApplication.translate('LDMPPlugin', 'End time')),
-                          ('status', QtWidgets.QApplication.translate('LDMPPlugin', 'Status')),
-                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
+        colname_tuples = [('task_name', tr('Task name')),
+                          ('script_name', tr('Job')),
+                          ('start_date', tr('Start time')),
+                          ('end_date', tr('End time')),
+                          ('id', tr('ID')),
+                          ('status', tr('Status')),
+                          ('INVALID', tr('Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
@@ -450,7 +455,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
 
 
 def download_timeseries(job, tr):
-    log("processing timeseries results...")
+    log("Processing timeseries results...")
     table = job['results'].get('table', None)
     if not table:
         return None

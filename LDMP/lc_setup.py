@@ -20,7 +20,8 @@ import json
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import (QColor, QRegExpValidator, QFont, QPainter)
 from qgis.PyQt.QtCore import (QSettings, QDate, Qt, QSize, QAbstractTableModel, 
-        QRegExp, QJsonValue, QSortFilterProxyModel, QAbstractListModel)
+        QRegExp, QJsonValue, QSortFilterProxyModel, QAbstractListModel, 
+        QCoreApplication)
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -31,6 +32,11 @@ from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.layers import tr_style_text
 
+
+def tr(message):
+    return QCoreApplication.translate("lc_setup", message)
+
+
 # Load the default classes and their assigned color codes
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                        'data', 'land_cover_classes_IPCC.json')) as class_file:
@@ -39,6 +45,7 @@ final_classes = {}
 for key in classes.keys():
     classes[key]['label'] = key
     final_classes[tr_style_text(key)] = classes[key]
+
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -119,9 +126,9 @@ class LCAggTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('Initial_Code', QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', 'Input code')),
-                          ('Initial_Label', QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', 'Input class')),
-                          ('Final_Label', QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', 'Output class'))]
+        colname_tuples = [('Initial_Code', tr('Input code')),
+                          ('Initial_Label', tr('Input class')),
+                          ('Final_Label', tr('Output class'))]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
@@ -150,8 +157,8 @@ class LCAggTableModel(QAbstractTableModel):
 def read_class_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(None,
-                QtWidgets.QApplication.translate("Error"),
-                QtWidgets.QApplication.translate(u"Cannot read {}.".format(f), None))
+                tr("Error"),
+                tr(u"Cannot read {}.".format(f)))
         return None
 
     with open(f) as class_file:
@@ -164,9 +171,8 @@ def read_class_file(f):
             or 'Final_Label' not in classes[0]):
 
         QtWidgets.QMessageBox.critical(None,
-                                   QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
-                                   QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
-                                                                u"{} does not appear to contain a valid class definition.".format(f)))
+                                       tr("Error"),
+                                       tr("{} does not appear to contain a valid class definition.".format(f)))
         return None
     else:
         log(u'Loaded class definition from {}'.format(f))
@@ -202,8 +208,9 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different file.".format(f), None))
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
         else:
             return
         classes = read_class_file(f)
@@ -213,17 +220,16 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
 
     def btn_save_pressed(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
-                                                                           'Choose where to save this land cover definition'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
-                                                                           'Land cover definition (*.json)'))
+                                                     self.tr('Choose where to save this land cover definition'),
+                                                     QSettings().value("LDMP/lc_def_dir", None),
+                                                     self.tr('Land cover definition (*.json)'))
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
                 return
 
             class_def = self.get_agg_as_dict_list()
@@ -293,11 +299,13 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             new_codes = [c for c in input_codes if c not in default_codes]
             missing_codes = [c for c in default_codes if c not in input_codes]
             if len(new_codes) > 0:
-                QtWidgets.QMessageBox.warning(None, self.tr("Warning"),
-                                          self.tr(u"Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]), None)))
+                QtWidgets.QMessageBox.warning(None,
+                                              self.tr("Warning"),
+                                              self.tr(u"Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]))))
             if len(missing_codes) > 0:
-                QtWidgets.QMessageBox.warning(None, self.tr("Warning"),
-                                          self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]), None)))
+                QtWidgets.QMessageBox.warning(None,
+                                              self.tr("Warning"),
+                                              self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]))))
 
             # Setup a new classes list with the new class codes for all classes 
             # included in default classes, and any other class codes that are 
@@ -385,7 +393,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
 
         # Setup the vertical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self)
-        label_lc_baseline_year.setText(QtWidgets.QApplication.translate("DlgCalculateLC", "Land cover in initial year ", None))
+        label_lc_baseline_year.setText(self.tr("Land cover in initial year "))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -421,8 +429,9 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different file.".format(f), None))
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
         else:
             return None
 
@@ -435,26 +444,24 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
 
         if not flag:
             QtWidgets.QMessageBox.critical(None,
-                                       QtWidgets.QApplication.translate('DlgCalculateLC', "Error"),
-                                       QtWidgets.QApplication.translate('DlgCalculateLC',
-                                                                    u"{} does not appear to contain a valid matrix definition.".format(f)))
+                                           self.tr("Error"),
+                                           self.tr("{} does not appear to contain a valid matrix definition.".format(f)))
             return None
         else:
             return True
 
     def trans_matrix_savefile(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                              QtWidgets.QApplication.translate('DlgCalculateLC',
-                                                                           'Choose where to save this transition matrix definition'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              QtWidgets.QApplication.translate('DlgCalculateLC',
-                                                                           'Transition matrix definition (*.json)'))
+                                                     self.tr('Choose where to save this transition matrix definition'),
+                                                     QSettings().value("LDMP/lc_def_dir", None),
+                                                     self.tr('Transition matrix definition (*.json)'))
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
                 return
 
             matrix = self.trans_matrix_get()

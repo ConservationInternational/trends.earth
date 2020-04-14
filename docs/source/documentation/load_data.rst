@@ -123,7 +123,7 @@ Productivity classes in the input data must be coded as follows:
 
 .. image:: /static/documentation/load_data/loaddata_landproductivity.png
    :align: center
-   
+
 
 Land cover
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -144,7 +144,11 @@ cover change analysis and/or soil organic carbon change analysis.
 Soil organic carbon
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Processing of custom soil organic carbon data will be available soon.
+Processing of custom soil organic carbon data can be handled using this 
+tool.
 
-.. image:: /static/documentation/load_data/custom_soc.png
-   :align: center
+.. note:: This tool assumes that the units of the raster layer to be imported 
+   are **Metrics Tons of organic carbon per hectare**. If your layer is in 
+   different units, please make the necessary conversions before using it in 
+   Trends.Earth.
+

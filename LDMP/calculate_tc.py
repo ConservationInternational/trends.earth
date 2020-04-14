@@ -46,10 +46,8 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-def remap(a, remap_list):
-    for value, replacement in zip(remap_list[0], remap_list[1]):
-        a[a == value] = replacement
-    return a
+def tr(message):
+    return QCoreApplication.translate("calculate_tc", message)
 
 
 # TODO: Still need to code below for local calculation of Total Carbon change
@@ -352,12 +350,12 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         resp = run_script(get_script_slug('total-carbon'), payload)
 
         if resp:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
-                           QtWidgets.QApplication.translate("LDMP", "Total carbon submitted to Google Earth Engine."),
+            mb.pushMessage(self.tr("Submitted"),
+                           self.tr("Total carbon submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
-                           QtWidgets.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
+            mb.pushMessage(self.tr("Error"),
+                           self.tr("Unable to submit total carbon task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -475,7 +473,7 @@ def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water,
                        initial_carbon_total, year_start, year_end, out_file):
                           
     def tr(s):
-        return QtWidgets.QApplication.translate("LDMP", s)
+        return tr(s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
 
@@ -631,11 +629,11 @@ class SummaryTask(QgsTask):
         if self.isCanceled():
             return
         elif result:
-            QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
-                                          QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(self.outout_file)))
+            QtWidgets.QMessageBox.information(None, tr("Success"),
+                                          tr(u'Summary table saved to {}'.format(self.outout_file)))
         else:
-            QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
+            QtWidgets.QMessageBox.critical(None, tr("Error"),
+                                       tr(u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
 
 class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
     def __init__(self, parent=None):

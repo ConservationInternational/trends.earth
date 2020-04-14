@@ -171,12 +171,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         resp = run_script(get_script_slug('land-cover'), payload)
 
         if resp:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
-                           QtWidgets.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
+            mb.pushMessage(self.tr("Submitted"),
+                           self.tr("Land cover task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
-                           QtWidgets.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
+            mb.pushMessage(self.tr("Error"),
+                           self.tr( "Unable to submit land cover task to Google Earth Engine."),
                            level=0, duration=5)
 
     def get_save_raster(self):

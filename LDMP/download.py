@@ -21,7 +21,7 @@ import requests
 import hashlib
 
 from qgis.PyQt import QtWidgets, uic, QtCore
-from qgis.PyQt.QtCore import QAbstractTableModel, Qt
+from qgis.PyQt.QtCore import QAbstractTableModel, Qt, QCoreApplication
 
 from qgis.utils import iface
 
@@ -29,6 +29,10 @@ from LDMP import log
 
 from LDMP.api import get_header
 from LDMP.worker import AbstractWorker, start_worker
+
+
+def tr(message):
+    return QCoreApplication.translate("download", message)
 
 
 def check_hash_against_etag(url, filename, expected=None):
@@ -187,33 +191,33 @@ class Download(object):
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
             start_worker(worker, iface,
-                         QtWidgets.QApplication.translate("LDMP", u'Downloading {}').format(self.outfile))
+                         tr(u'Downloading {}').format(self.outfile))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ChunkedEncodingError:
             log("Download failed due to ChunkedEncodingError - likely a connection loss")
             QtWidgets.QMessageBox.critical(None,
-                                       QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
+                                       tr("Error"),
+                                       tr("Download failed. Check your internet connection."))
             return False
         except requests.exceptions.ConnectionError:
             log("Download failed due to connection error")
             QtWidgets.QMessageBox.critical(None,
-                                       QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", "Unable to access internet. Check your internet connection."))
+                                       tr("Error"),
+                                       tr("Unable to access internet. Check your internet connection."))
             return False
         except requests.exceptions.Timeout:
             log('Download timed out.')
             QtWidgets.QMessageBox.critical(None,
-                                       QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", "Download timed out. Check your internet connection."))
+                                       tr("Error"),
+                                       tr("Download timed out. Check your internet connection."))
             return False
         except DownloadError:
             log("Download failed.")
             QtWidgets.QMessageBox.critical(None,
-                                       QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
+                                       tr("Error"),
+                                       tr("Download failed. Check your internet connection."))
             return False
         return True
 

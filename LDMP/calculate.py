@@ -48,7 +48,7 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 def tr(t):
-    return QtWidgets.QApplication.translate('LDMPPlugin', t)
+    return QtWidgets.QApplication.translate('LDMP', t)
 
 
 # Make a function to get a script slug from a script name, including the script 
@@ -799,12 +799,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if secondLevel_city:
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
 
-        buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
-        if buffer_checked is not None:
-            self.groupBox_buffer.setChecked(buffer_checked)
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
         if buffer_size:
             self.buffer_size_km.setValue(int(buffer_size))
+        buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
+        if buffer_checked is not None:
+            self.groupBox_buffer.setChecked(buffer_checked)
 
     def admin_0_changed(self):
         QSettings().setValue("LDMP/AreaWidget/area_admin_0", self.area_admin_0.currentText())

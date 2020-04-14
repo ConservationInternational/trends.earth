@@ -549,7 +549,7 @@
             "Source": "Avitabile V, Herold M, Heuvelink G, Lewis SL, Phillips OL, Asner GP et al. (2016). An integrated pan-tropical biomass maps using multiple reference datasets. Global Change Biology, 22: 1406–1420. doi:10.1111/gcb.13139",
             "Comments": ""
         }
-    }
+    },
     "Woods Hole Research Center": {
         "Total Carbon": {
             "Data source": "https://data.globalforestwatch.org/datasets/aboveground-live-woody-biomass-density?selectedAttribute=shape_Length",
@@ -570,7 +570,7 @@
             "Source": "https://data.globalforestwatch.org/datasets/aboveground-live-woody-biomass-density",
             "Comments": ""
         }
-    }
+    },
     "GEOCARBON": {
         "Forest Above Ground Biomass": {
             "Data source": "https://www.wur.nl/en/Research-Results/Chair-groups/Environmental-Sciences/Laboratory-of-Geo-information-Science-and-Remote-Sensing/Research/Integrated-land-monitoring/Forest_Biomass.htm",

@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,15 +22,15 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/documentation/settings.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:2
 msgid "Registration and settings"
 msgstr "Usajili na mipangilio"
 
-#: ../../source/documentation/settings.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:10
 msgid "Registration"
 msgstr "Usajili"
 
-#: ../../source/documentation/settings.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:12
 msgid ""
 "The toolbox is free to use, but you must register an email address prior to "
 "using any of the cloud-based functions."
@@ -38,7 +38,7 @@ msgstr ""
 "Bodi ya chombo ni bure kutumia, lakini lazima uandikishe anwani ya barua "
 "pepe kabla ya kutumia kazi yoyote ya wingu."
 
-#: ../../source/documentation/settings.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:15
 msgid ""
 "To register your email address and obtain a free account, select the wrench "
 "icon (|iconWrench|). This will open up the \"Settings\" dialog box:"
@@ -47,7 +47,7 @@ msgstr ""
 "chagua icon ya wrench (| iconWrench |). Hii itafungua sanduku la "
 "\"Mipangilio\" ya mazungumzo:"
 
-#: ../../source/documentation/settings.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:21
 msgid ""
 "To Register, click the \"Step 1: Register\" button. Enter your email, name, "
 "organization and country of residence and select \"Ok\":"
@@ -55,11 +55,11 @@ msgstr ""
 "Kujiandikisha, bofya kitufe cha \"Hatua ya 1: Kujiandikisha\". Ingiza barua "
 "pepe yako, jina, shirika na nchi ya kukaa na chagua \"Ok\":"
 
-#: ../../source/documentation/settings.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:27
 msgid "You will see a meesage indicating your user has been registered:"
 msgstr "Utaona uendeshaji unaoonyesha mtumiaji wako amesajiliwa:"
 
-#: ../../source/documentation/settings.rst:32
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:32
 msgid ""
 "After registering, you will receive an email from api@trends.earth with your"
 " password. Once you receive this email, click on \"Step 2: Enter login\". "
@@ -71,16 +71,16 @@ msgstr ""
 "kuingia\". Hii italeta mazungumzo kuomba barua pepe na nenosiri lako. Ingiza"
 " nenosiri ulilopokea kutoka kwa api@trends.earth na bofya \"Ok\":"
 
-#: ../../source/documentation/settings.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:40
 msgid ""
 "You will see a message indicating you have successfully been logged in:"
 msgstr "Utaona ujumbe unaoonyesha umeingia kwa ufanisi:"
 
-#: ../../source/documentation/settings.rst:46
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:46
 msgid "Updating your user"
 msgstr "Inasasisha mtumiaji wako"
 
-#: ../../source/documentation/settings.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:48
 msgid ""
 "If you already are registered for |Trends.Earth| but want to change your "
 "login information; update your name, organization, or country; or delete "
@@ -91,7 +91,7 @@ msgstr ""
 "mtumiaji wako, bofya kwenye \"Sasisha mtumiaji\" kutoka kwenye \"Mazingira\""
 " ya dialog."
 
-#: ../../source/documentation/settings.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:55
 msgid ""
 "If you want to change your username, click on \"Change user\". Note that "
 "this function is only useful if you already have another existing "
@@ -105,7 +105,7 @@ msgstr ""
 " angalia: ref: `usajili`. Ili kubadilisha mtumiaji wako, ingiza barua pepe "
 "na nenosiri unayotaka kubadilisha na bonyeza \"Ok\":"
 
-#: ../../source/documentation/settings.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:64
 msgid ""
 "If you want to update your profile, click on \"Update profile\". Update your"
 " information in the box that appears and click \"Save\":"
@@ -114,7 +114,7 @@ msgstr ""
 "mafupi\". Sasisha maelezo yako kwenye sanduku inayoonekana na bofya "
 "\"Hifadhi\":"
 
-#: ../../source/documentation/settings.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:70
 msgid ""
 "To delete your user, click \"Delete user\". A warning message will appear. "
 "Click \"Ok\" if you are sure you want to delete your user:"
@@ -122,11 +122,11 @@ msgstr ""
 "Ili kufuta mtumiaji wako, bofya \"Futa mtumiaji\". Ujumbe wa onyo "
 "utaonekana. Bonyeza \"Ok\" ikiwa una uhakika unataka kufuta mtumiaji wako:"
 
-#: ../../source/documentation/settings.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:78
 msgid "Forgot password"
 msgstr "Umesahau nywila"
 
-#: ../../source/documentation/settings.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:80
 msgid ""
 "If you forget your password, click on \"Reset password\" from the settings "
 "dialog box."
@@ -134,7 +134,7 @@ msgstr ""
 "Ikiwa umesahau nenosiri lako, bofya \"Weka upya nenosiri\" kutoka kwenye "
 "sanduku la dialog settings."
 
-#: ../../source/documentation/settings.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:83
 msgid ""
 "A password will be sent to your email. Please check your Junk folder if you "
 "cannot find it within your inbox. The email will come from api@trends.earth."
@@ -143,7 +143,7 @@ msgstr ""
 " ikiwa huwezi kuipata ndani ya kikasha chako. Barua pepe itatoka kwa "
 "api@trends.earth."
 
-#: ../../source/documentation/settings.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:86
 msgid ""
 "Once you receive your new password, return to the \"Settings\" screen and "
 "use \"Step 2: Enter login\" to enter your new pasword."

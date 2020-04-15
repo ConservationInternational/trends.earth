@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:02+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:4
 msgid "Compute SDG indicator"
 msgstr "Calcule o indicador de SDG"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:6
 msgid ""
 "**Objective**: Learn to integrate the land cover, primary productivity and "
 "soil organic carbon sub-indicators to compute SDG 15.3.1 in raster format "
@@ -36,15 +36,15 @@ msgstr ""
 "produtividade primária e carbono orgânico do solo para calcular o SDG 15.3.1"
 " em formato raster e resultados tabulares com áreas estimadas."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "**Tempo estimado de conclusão**: 20 minutos"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:10
 msgid "**Internet access**: Not required"
 msgstr "**Acesso à Internet**: não obrigatório"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf>`_"
@@ -52,7 +52,7 @@ msgstr ""
 "`Faça o download desta página como um PDF para uso off-line "
 "<../pdfs/Trends.Earth_Tutorial07_Computing_SDG_Indicator.pdf>`_"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:16
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:16
 msgid ""
 "You will need to have previously computed the land cover, soil organic "
 "carbon and land productivity indicators prior to running this tool. If you "
@@ -66,7 +66,7 @@ msgstr ""
 "específicos para calculá-los: :ref:`1-step_subindicators`, "
 ":ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:18
 msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
 "icon (|iconCalculator|)."
@@ -74,7 +74,7 @@ msgstr ""
 "Procure a barra de ferramentas Trends.Earth no QGIS e clique no ícone "
 "Calcular (|iconCalculator|)."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:23
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on Land "
 "degradation indicator (SDG indicator 15.3.1)"
@@ -82,7 +82,7 @@ msgstr ""
 "O menu ** Calculate Indicators ** será aberto. Nessa janela, clique no "
 "indicador de degradação do solo (indicador 15.3 do SDG)"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:28
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:28
 msgid ""
 "Select **Calculate final SDG 15.3.1 spatial layer and summary table for "
 "total boundary** button found under Step 2 - Option 1."
@@ -90,7 +90,7 @@ msgstr ""
 "Selecione ** Calcular a camada espacial final do SDG 15.3.1 e a tabela de "
 "resumo para o limite total ** no botão encontrado na Etapa 2 - Opção 1."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:33
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:33
 msgid ""
 "In the **Input** tab you will select each of the input layers needed for "
 "computing the final SDG 15.3.1. You ave the option of using **Trends.Earth "
@@ -102,7 +102,7 @@ msgstr ""
 "**Trends.Earth earth productivity** ou **UNCCD default data**. Neste caso, "
 "selecione os dados padrão do UNCCD."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:36
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:36
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
 "the Trends.Earth productivity indicators developed following the `UNCCD Good"
@@ -115,7 +115,7 @@ msgstr ""
 "Practice Guidance (GPG) <http://www2.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practiceuidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:38
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:38
 msgid ""
 "If you have the sub-indicators loaded into the QGIS map, the tool will "
 "recognize them and they will show up pre-filled in each corresponding "
@@ -124,7 +124,7 @@ msgstr ""
 "Se você tiver os subindicadores carregados no mapa do QGIS, a ferramenta os "
 "reconhecerá e eles aparecerão pré-preenchidos em cada seção correspondente."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:41
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:41
 msgid ""
 "If you have more than one layer loaded into the map per sub-indicator (for "
 "example, land cover change computed with default and also with custom data) "
@@ -136,7 +136,7 @@ msgstr ""
 " dados personalizados), certifique-se de verificar se aquela que está sendo "
 "usada para calcular o SDG final é a desejada. ."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:43
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:43
 msgid ""
 "If the sub-indicators are not loaded in your QGIS map, then click **Load "
 "existing** next to each of the sub-indicators sections, and nagivate to the "
@@ -146,11 +146,11 @@ msgstr ""
 "**Carregar existente** ao lado de cada uma das seções de subindicadores e "
 "faça a migração para a pasta onde os armazenou no seu computador."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:45
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:45
 msgid "When done selecting inputs, click **Next**."
 msgstr "Quando terminar de selecionar entradas, clique em **Next**."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:50
 msgid ""
 "In the **Output** tab you will need to define the name and location for the "
 "final **SDG 15.3.1 indicator** and the **summary table**. Click **Browse** "
@@ -161,16 +161,16 @@ msgstr ""
 "**Procurar** ao lado de cada um deles para selecionar o local de saída e "
 "definir nomes."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:55
 msgid "When done, click **Next**."
 msgstr "Quando terminar, clique em **Next**."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:60
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:60
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr "Na aba **Área**, defina a área de análise. Existem duas opções:"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:62
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:62
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -182,7 +182,7 @@ msgstr ""
 "seguida, selecione Primeiro Nível (país) ou Segundo Nível (estado ou "
 "província, dependendo do país)."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:65
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -196,7 +196,7 @@ msgstr ""
 "Conservation International Foundation ou de suas organizações parceiras e "
 "colaboradores."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:71
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -206,7 +206,7 @@ msgstr ""
 "usuários escolham um limite oficial fornecido pelo escritório designado de "
 "seu país."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:79
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -217,7 +217,7 @@ msgstr ""
 " clique em **Navegar** e navegue até a pasta em seu computador onde você "
 "armazenou o arquivo."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:81
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
@@ -225,7 +225,7 @@ msgstr ""
 "Quando você tiver selecionado a área para a qual deseja calcular os "
 "indicadores, clique em **Next**."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:86
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -235,19 +235,19 @@ msgstr ""
 "**Notas** para identificar a análise que está sendo executada. Quais "
 "informações para indicar são opcionais, mas sugerimos que você observe:"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:88
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:88
 msgid "Area of analysis"
 msgstr "Área de análise"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:89
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:89
 msgid "Dates"
 msgstr "datas"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:90
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:90
 msgid "Indicators run"
 msgstr "Indicadores executados"
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:95
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:95
 msgid ""
 "When done, click **Calculate**. A light blue bar will temporarily show, "
 "indicating that the task was successfully submitted."
@@ -255,7 +255,7 @@ msgstr ""
 "Quando terminar, clique em **Calcular**. Uma barra azul clara será exibida "
 "temporariamente, indicando que a tarefa foi enviada com sucesso."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:97
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:97
 msgid ""
 "This analysis will be run in your local computer, so the processing time "
 "will depend on the size of the area, resolution of the data, and the "
@@ -267,7 +267,7 @@ msgstr ""
 "recursos de processamento do seu computador. Não feche o computador nem "
 "coloque-o em repouso durante a execução, pois a análise falhará."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:102
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:102
 msgid ""
 "When the analysis is completed a **Success** message will notify you and the"
 " indicator will be loaded to the map."
@@ -275,7 +275,7 @@ msgstr ""
 "Quando a análise estiver concluída, uma mensagem de **Sucesso** será "
 "notificada e o indicador será carregado no mapa."
 
-#: ../../source/training/tutorial_compute_sdg_indicator.rst:111
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_sdg_indicator.rst:111
 msgid ""
 "Refer to the :ref:`tut_interpret_table` section of this manual to learn how "
 "to open and interpret the information in the summary table created by this "

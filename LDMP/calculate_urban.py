@@ -42,8 +42,9 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-def tr(message):
-    return QCoreApplication.translate("calculate_urban", message)
+class tr_calculate_urban(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_calculate_urban", message)
 
 
 class UrbanSummaryWorker(AbstractWorker):
@@ -370,10 +371,6 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
 
 def make_summary_table(areas, populations, out_file):
-                          
-    def tr(s):
-        return tr(s)
-
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_urban.xlsx'))
 
     ##########################################################################
@@ -395,10 +392,10 @@ def make_summary_table(areas, populations, out_file):
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr("Success"),
-                                      tr(u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
+                                      tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                   tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, tr_calculate_urban.tr("Error"),
+                                   tr_calculate_urban.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

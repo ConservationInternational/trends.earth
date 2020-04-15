@@ -21,7 +21,7 @@ mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets, QtCore
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, QDate, 
-        QObject, QEvent, QSortFilterProxyModel, QCoreApplication)
+        QObject, QEvent, QSortFilterProxyModel)
 from qgis.PyQt.QtGui import QFontMetrics
 
 from LDMP import log
@@ -29,10 +29,6 @@ from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgDownload import Ui_DlgDownload
-
-
-def tr(message):
-    return QCoreApplication.translate("download_data", message)
 
 
 class tool_tipper(QObject):
@@ -74,15 +70,15 @@ class DataTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('category', tr('Category')),
-                          ('title', tr('Title')),
-                          ('Units', tr('Units')),
-                          ('Spatial Resolution', tr('Resolution')),
-                          ('Start year', tr('Start year')),
-                          ('End year', tr('End year')),
-                          ('extent_lat', tr('Extent (lat)')),
-                          ('extent_lon', tr('Extent (lon)')),
-                          ('INVALID', tr('Details'))]
+        colname_tuples = [('category', self.tr('Category')),
+                          ('title', self.tr('Title')),
+                          ('Units', self.tr('Units')),
+                          ('Spatial Resolution', self.tr('Resolution')),
+                          ('Start year', self.tr('Start year')),
+                          ('End year', self.tr('End year')),
+                          ('extent_lat', self.tr('Extent (lat)')),
+                          ('extent_lon', self.tr('Extent (lon)')),
+                          ('INVALID', self.tr('Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 

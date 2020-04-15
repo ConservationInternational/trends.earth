@@ -22,13 +22,13 @@ from osgeo import gdal, ogr, osr
 
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
-from qgis.PyQt.QtCore import QTextCodec, QSettings, pyqtSignal, \
-    QCoreApplication
+from qgis.PyQt.QtCore import (QTextCodec, QSettings, pyqtSignal,
+    QCoreApplication)
 
-from qgis.core import QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils, \
-    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem, \
-    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer, \
-    QgsVectorFileWriter, QgsFields, QgsWkbTypes
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes)
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -47,8 +47,10 @@ from LDMP.worker import AbstractWorker
 
 mb = iface.messageBar()
 
-def tr(t):
-    return QtWidgets.QApplication.translate('LDMP', t)
+
+class tr_calculate(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_calculate", message)
 
 
 # Make a function to get a script slug from a script name, including the script 
@@ -69,8 +71,8 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     crs_src_string = l.crs().toProj()
     if wrap:
         if not l.crs().isGeographic():
-            QtWidgets.QMessageBox.critical(None, tr("Error"),
-                    tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
+            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                   tr_calculate.tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
             log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
             return None
         crs_src_string = crs_src_string + ' +lon_wrap=180'
@@ -146,8 +148,8 @@ class AOI(object):
         log(u'Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
-            QtWidgets.QMessageBox.critical(None, tr("Error"),
-                    tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
+            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                   tr_calculate.tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
         if l.wkbType() == QgsWkbTypes.Polygon or l.wkbType() == QgsWkbTypes.MultiPolygon:
@@ -155,8 +157,8 @@ class AOI(object):
         elif l.wkbType() == QgsWkbTypes.Point:
             self.datatype = "point"
         else:
-            QtWidgets.QMessageBox.critical(None, tr("Error"),
-                    tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
+            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                   tr_calculate.tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
             log("Failed to process area of interest - unknown geometry type.")
             return
 
@@ -180,8 +182,8 @@ class AOI(object):
         l.dataProvider().addFeatures(feats_out)
         l.commitChanges()
         if not l.isValid():
-            QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                       tr("Failed to add geojson to temporary layer."))
+            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                                      tr_calculate.tr("Failed to add geojson to temporary layer."))
             log("Failed to add geojson to temporary layer.")
             return
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
@@ -259,8 +261,8 @@ class AOI(object):
         else:
             log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
             if warn:
-                QtWidgets.QMessageBox.information(None, tr("Warning"),
-                        tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
+                QtWidgets.QMessageBox.information(None,tr_calculate.tr("Warning"),
+                       tr_calculate.tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
             return (True, [e_intersection_out, w_intersection_out])
 
     def get_aligned_output_bounds(self, f):
@@ -314,8 +316,8 @@ class AOI(object):
                 ret = geom.transform(to_laea)
             except:
                 log('Error buffering layer while transforming to laea')
-                QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                           tr("Error transforming coordinates. Check that the input geometry is valid."))
+                QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                                          tr_calculate.tr("Error transforming coordinates. Check that the input geometry is valid."))
                 return None
             this_area = geom.area()
             area += this_area
@@ -365,8 +367,8 @@ class AOI(object):
                 log('Layer has many points ({})'.format(n))
                 return self.meridian_split()
         else:
-            QtWidgets.QMessageBox.critical(None, tr("Error"),
-                    tr("Failed to process area of interest - unknown geometry type: {}".format(self.datatype)))
+            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                   tr_calculate.tr("Failed to process area of interest - unknown geometry type: {}".format(self.datatype)))
             log("Failed to process area of interest - unknown geometry type.")
 
 
@@ -388,8 +390,8 @@ class AOI(object):
                 ret = geom.transform(to_aeqd)
             except:
                 log('Error buffering layer while transforming to aeqd')
-                QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                           tr("Error transforming coordinates. Check that the input geometry is valid."))
+                QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                                          tr_calculate.tr("Error transforming coordinates. Check that the input geometry is valid."))
                 return None
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
@@ -1054,8 +1056,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if self.area_tab.area_fromadmin.isChecked():
             if self.area_tab.radioButton_secondLevel_city.isChecked():
                 if not self.area_tab.groupBox_buffer.isChecked():
-                    QtWidgets.QMessageBox.critical(None, tr("Error"),
-                            tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
+                    QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+                           tr_calculate.tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
                     return False
                 geojson = self.get_city_geojson()
                 self.aoi.update_from_geojson(geojson=geojson, 

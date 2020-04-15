@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -23,11 +23,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:4
 msgid "Run 1-step subindicators"
 msgstr "Exécuter des sous-indicateurs en une étape"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:6
 msgid ""
 "**Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land "
 "productivity, land cover and soil organic carbon) using Trends.Earth and the"
@@ -43,15 +43,15 @@ msgstr ""
 " nous utiliserons l'Ouganda comme exemple, mais vous pouvez choisir "
 "n'importe quelle zone d'étude."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:8
 msgid "**Estimated time of completion**: 35 minutes"
 msgstr "** Temps d&#39;exécution estimé **: 35 minutes"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:10
 msgid "**Internet access**: Required"
 msgstr "**Accès Internet**: Obligatoire"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:12
 msgid ""
 "`Download this page as a PDF for off-line use "
 "<../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
@@ -59,7 +59,7 @@ msgstr ""
 "`Télécharger cette page en format PDF pour une utilisation hors ligne "
 "<../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:15
 msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the Calculate "
 "icon (|iconCalculator|)."
@@ -67,7 +67,7 @@ msgstr ""
 "Recherchez la barre d'outils Trends.Earth dans QGIS, puis cliquez sur "
 "l'icône Calculer (|iconCalculator|)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:20
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on Land "
 "degradation indicator (SDG indicator 15.3.1)"
@@ -75,7 +75,7 @@ msgstr ""
 "Le menu ** Calculer indicateurs ** s&#39;ouvre. Dans cette fenêtre, cliquez "
 "sur Indicateur de dégradation des terres (indicateur SDG 15.3.1)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:25
 msgid ""
 "Select **Calculate all three sub-indicators in one step** button found under"
 " Step 1 - Option 1."
@@ -83,7 +83,7 @@ msgstr ""
 "Sélectionnez ** Calculez les trois sous-indicateurs en une seule étape ** "
 "bouton situé sous Étape 1 - Option 1."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:30
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:30
 msgid ""
 "In the **Setup** tab, select the years of analysis (2000-2015) and make sure"
 " that the **UNCCD default data** is selected, and click next."
@@ -92,7 +92,7 @@ msgstr ""
 "(2000-2015) et assurez-vous que les données par défaut **UNCCD** sont "
 "sélectionnées, puis cliquez sur Suivant."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:33
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:33
 msgid ""
 "Refer to the :ref:`indicator-15-3-1` section of this manual to learn about "
 "the Trends.Earth productivity indicators developed following the `UNCCD Good"
@@ -106,7 +106,7 @@ msgstr ""
 "<http://www2.unccd.int/sites/default/files/related-links/2017-10/Best% "
 "20Practice%20Guidance_SDG% 20Indicator% 2015.3.1_Version% 201.0.pdf>`_."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:38
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:38
 msgid ""
 "In the **Land Cover Setup** tab you have the option of using the default "
 "aggregation method proposed by the UNCCD default data or you can customize "
@@ -123,7 +123,7 @@ msgstr ""
 " fenêtre **Agréger l'installation des données de couverture terrestre** "
 "s'ouvrira."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:43
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:43
 msgid ""
 "In this window you will see the original ESA CCI land cover class in the "
 "column **Input class** and the final aggregation in the column **Output "
@@ -142,7 +142,7 @@ msgstr ""
 "le schéma d'agrégation par défaut ne représente pas les conditions de votre "
 "zone d'étude."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:45
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:45
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
@@ -153,16 +153,16 @@ msgstr ""
 "vous lancerez l'outil, en chargeant simplement le fichier de définition "
 "précédemment enregistré."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:47
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:47
 msgid "Click **Save** to continue"
 msgstr "Cliquez sur **Enregistrer** pour continuer"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:52
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:52
 msgid "You will be back at the **Land Cover Setup** tab, click **Next**."
 msgstr ""
 "Vous reviendrez à l'onglet **Land Cover Setup**, cliquez sur **Next**."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:57
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:57
 msgid ""
 "The **Define Effects of Land Cover Change** tab is where you define the "
 "meaning of each land cover transition in terms of degradation. Transitions "
@@ -177,7 +177,7 @@ msgstr ""
 "les transitions en beige (zéro) seront identifiées comme stables et les "
 "transitions en vert (signe plus) seront identifiées comme des améliorations."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:59
 msgid ""
 "For example, by default it is considered that a pixel that changed from "
 "**Grassland** to **Tree-covered** will be considered as improved. However, "
@@ -191,14 +191,14 @@ msgstr ""
 "processus de dégradation, cette transition devrait être changée pour cette "
 "zone d'étude particulière en dégradation (signe moins)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:61
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:61
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
 msgstr ""
 "Si vous n'avez apporté aucune modification à la matrice par défaut, cliquez "
 "simplement sur **Suivant**."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:63
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:63
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
@@ -208,13 +208,13 @@ msgstr ""
 "**Enregistrer la table dans le fichier...** pour enregistrer la définition "
 "pour une utilisation ultérieure. Puis cliquez sur **Suivant**."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:68
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 "Dans l'onglet **Zone**, définissez la zone d'analyse. Il y a deux options:"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:70
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -226,7 +226,7 @@ msgstr ""
 "sélectionnée, puis sélectionnez Premier niveau (pays) ou Deuxième niveau "
 "(état ou province selon le pays)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:73
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -240,7 +240,7 @@ msgstr ""
 " officielle ou l'acceptation par Conservation International Foundation, ou "
 "par ses organisations partenaires et contributeurs."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:79
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -250,7 +250,7 @@ msgstr ""
 "choisir une frontière officielle fournie par le bureau désigné de votre "
 "pays."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:87
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:87
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -261,7 +261,7 @@ msgstr ""
 "surbrillance. Cliquez ensuite sur **Parcourir** et naviguez jusqu'au dossier"
 " de votre ordinateur où vous avez stocké le fichier."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:89
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:89
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
@@ -269,7 +269,7 @@ msgstr ""
 "Lorsque vous avez sélectionné la zone pour laquelle vous souhaitez calculer "
 "les indicateurs, cliquez sur **Suivant**."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:94
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:94
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -279,19 +279,19 @@ msgstr ""
 "créer **Notes** pour identifier l'analyse que vous exécutez. Quelle "
 "information à indiquer est facultative, mais nous suggérons de noter:"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:96
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:96
 msgid "Area of analysis"
 msgstr "Domaine d'analyse"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:97
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:97
 msgid "Dates"
 msgstr "Rendez-vous"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:98
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:98
 msgid "Indicators run"
 msgstr "Les indicateurs fonctionnent"
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:100
 msgid ""
 "When done, click **Calculate** and the task will be submitted to Google "
 "Earth Engine for calculations. You will notice that the **Calculate SDG "
@@ -303,7 +303,7 @@ msgstr ""
 "**Calculer l'indicateur SDG 15.3.1 (une étape)** disparaîtra et vous serez "
 "redirigé vers QGIS."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:105
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:105
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and could"
@@ -315,7 +315,7 @@ msgstr ""
 " et pourrait prendre entre 5 et 15 minutes selon la taille de la zone "
 "d'étude (les zones plus grandes ont tendance à prendre plus de temps)."
 
-#: ../../source/training/tutorial_run_all_subindicators.rst:111
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_run_all_subindicators.rst:111
 msgid ""
 "Refer to the :ref:`task_download` tutorial for instructions on how to check "
 "the status of the tasks submitted and for downloading results from "

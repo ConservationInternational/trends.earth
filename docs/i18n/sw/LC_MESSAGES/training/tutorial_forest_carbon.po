@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-08-22 16:17+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_forest_carbon.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:4
 msgid "Forest and Carbon Change Tool"
 msgstr "Chombo cha Misitu na Carbon"
 
-#: ../../source/training/tutorial_forest_carbon.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:6
 msgid ""
 "**Objective**: Learn how to compute forest cover, forest loss, above and "
 "below ground biomass and emissions from deforestation in raster format and "
@@ -36,15 +36,15 @@ msgstr ""
 "misitu, juu na chini ya mimea ya ardhi na uzalishaji kutoka kwa msitu katika"
 " muundo wa raster na matokeo ya tabular na maeneo yaliyotarajiwa."
 
-#: ../../source/training/tutorial_forest_carbon.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
 
-#: ../../source/training/tutorial_forest_carbon.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:10
 msgid "**Internet access**: Required"
 msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
 
-#: ../../source/training/tutorial_forest_carbon.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
@@ -52,12 +52,12 @@ msgstr ""
 "`Pakua ukurasa huu kama PDF kwa ajili ya matumizi ya nje ya mtandao &lt;../ "
 "pdfs / Trends.Earth_Tutorial10_Forest_Carbon.pdf&gt;` _"
 
-#: ../../source/training/tutorial_forest_carbon.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:18
 msgid "Compute and download forest and biomass data"
 msgstr "Tumia na kupakua data ya misitu na majani"
 
-#: ../../source/training/tutorial_forest_carbon.rst:20
-#: ../../source/training/tutorial_forest_carbon.rst:128
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:128
 msgid ""
 "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
 " QGIS."
@@ -65,8 +65,8 @@ msgstr ""
 "Chagua icon ya kuhesabu (| iconCalculator |) kutoka kwa Trends.Earth Plugin "
 "katika QGIS."
 
-#: ../../source/training/tutorial_forest_carbon.rst:25
-#: ../../source/training/tutorial_forest_carbon.rst:133
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:133
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Calculate Calculate carbon change spatial layers** button."
@@ -74,7 +74,7 @@ msgstr ""
 "Mfumo wa Mahesabu ** ** utafunguliwa. Katika dirisha hilo, bofya kwenye ** "
 "Hesabu Calculate mabadiliko ya kaboni tabaka nafasi ** kifungo."
 
-#: ../../source/training/tutorial_forest_carbon.rst:30
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:30
 msgid ""
 "A window will appear with two steps: Step 1 is to **Calculate carbon change "
 "spatial layers**, and Step 2 is to **Calculate carbon change summary table "
@@ -87,7 +87,7 @@ msgstr ""
 "itashughulikiwa kwanza. Ikiwa mtumiaji amekamilisha mchakato huu, ruka kwa "
 "hatua ya 14 katika mwongozo."
 
-#: ../../source/training/tutorial_forest_carbon.rst:35
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:35
 msgid ""
 "After selecting Step 1, the user will fill out the desired parameters in the"
 " **Forest Definition** tab."
@@ -95,7 +95,7 @@ msgstr ""
 "Baada ya kuchagua Hatua ya 1, mtumiaji atajaza vigezo vinavyohitajika kwenye"
 " kichupo cha ** cha Misitu **."
 
-#: ../../source/training/tutorial_forest_carbon.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:40
 msgid ""
 "Next, select the desired aboveground biomass dataset and the method for "
 "calculating the root to shoot ratio."
@@ -103,16 +103,16 @@ msgstr ""
 "Kisha, chagua dataset ya taka ya juu ya juu na njia ya kuhesabu mizizi kwa "
 "uwiano wa risasi."
 
-#: ../../source/training/tutorial_forest_carbon.rst:45
-#: ../../source/training/tutorial_forest_carbon.rst:153
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:45
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:153
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 "Katika eneo ** Eneo la ** ** hufafanua eneo la uchambuzi. Kuna chaguzi "
 "mbili:"
 
-#: ../../source/training/tutorial_forest_carbon.rst:47
-#: ../../source/training/tutorial_forest_carbon.rst:155
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:47
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:155
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -123,7 +123,7 @@ msgstr ""
 "hakikisha ** chaguo la eneo la Utawala ** linaelezwa, kisha uchagua Ngazi ya"
 " Kwanza (nchi) au Ngazi ya Pili (hali au jimbo kulingana na nchi)."
 
-#: ../../source/training/tutorial_forest_carbon.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:50
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -137,7 +137,7 @@ msgstr ""
 "rasmi au kukubalika na Conservation International Foundation, au kwa "
 "mashirika yake ya washirika na wafadhili."
 
-#: ../../source/training/tutorial_forest_carbon.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:56
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -147,8 +147,8 @@ msgstr ""
 "watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
 "yao."
 
-#: ../../source/training/tutorial_forest_carbon.rst:64
-#: ../../source/training/tutorial_forest_carbon.rst:157
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:157
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -159,15 +159,15 @@ msgstr ""
 "Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
 "iliyohifadhiwa."
 
-#: ../../source/training/tutorial_forest_carbon.rst:66
-#: ../../source/training/tutorial_forest_carbon.rst:159
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:159
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
 msgstr "Ukichagua eneo ambalo unataka kuhesabu viashiria, bonyeza ** Next **."
 
-#: ../../source/training/tutorial_forest_carbon.rst:71
-#: ../../source/training/tutorial_forest_carbon.rst:164
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:164
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -177,22 +177,22 @@ msgstr ""
 "kufanya baadhi ya ** Vidokezo ** kutambua uchambuzi unaoendesha. Maelezo "
 "gani ambayo yanaonyesha ni ya hiari, lakini tunapendekeza kutaja:"
 
-#: ../../source/training/tutorial_forest_carbon.rst:73
-#: ../../source/training/tutorial_forest_carbon.rst:166
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:166
 msgid "Area of analysis"
 msgstr "Eneo la uchambuzi"
 
-#: ../../source/training/tutorial_forest_carbon.rst:74
-#: ../../source/training/tutorial_forest_carbon.rst:167
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:74
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:167
 msgid "Dates"
 msgstr "Tarehe"
 
-#: ../../source/training/tutorial_forest_carbon.rst:75
-#: ../../source/training/tutorial_forest_carbon.rst:168
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:75
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:168
 msgid "Indicators run"
 msgstr "Viashiria vinaendesha"
 
-#: ../../source/training/tutorial_forest_carbon.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:80
 msgid ""
 "When done, click **Calculate** and the task will be submitted to Google "
 "Earth Engine for calculations. You will notice that the **Calculate Change "
@@ -203,7 +203,7 @@ msgstr ""
 "Engine kwa hesabu. Utaona kwamba ** Kubadilisha Mabadiliko ya Jumla ya "
 "Carbon ** dirisha itatoweka na utarejeshwa kwa QGIS."
 
-#: ../../source/training/tutorial_forest_carbon.rst:82
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:82
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
 "successfully submitted. The analysis will be run in Google servers and could"
@@ -215,7 +215,7 @@ msgstr ""
 "inaweza kuchukua kati ya dakika 5 na 15 kulingana na ukubwa wa eneo la "
 "utafiti (maeneo makubwa huwa na muda mrefu)."
 
-#: ../../source/training/tutorial_forest_carbon.rst:88
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:88
 msgid ""
 "Refer to the :ref:`task_download` tutorial for detailed information on how "
 "to check the status of the tasks submitted and for downloading results from "
@@ -225,7 +225,7 @@ msgstr ""
 "kuangalia hali ya kazi zinazowasilishwa na kupakua matokeo kutoka kwa "
 "Trends.Earth."
 
-#: ../../source/training/tutorial_forest_carbon.rst:93
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:93
 msgid ""
 "10. To view the Google Earth Engine (GEE) tasks you have running, and to "
 "download your results, select the cloud with the arrow facing down icon "
@@ -238,7 +238,7 @@ msgstr ""
 "sanduku la dialog Engine Earth&#39;. Chagua ** Rudisha orodha ** ili "
 "kuonyesha kazi."
 
-#: ../../source/training/tutorial_forest_carbon.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:100
 msgid ""
 "The task will state: RUNNING under the Status column if it is still "
 "processing. When the task is complete, it will say FINISHED after selecting "
@@ -248,7 +248,7 @@ msgstr ""
 "kazi hiyo imekamilika, itasema ifafanuliwa baada ya kuchagua ** Fungua Upya "
 "Orodha ** tena."
 
-#: ../../source/training/tutorial_forest_carbon.rst:105
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:105
 msgid ""
 "Once the task is FINSHED running, highlight the completed task and select "
 "**Download Results**. Save the task."
@@ -256,7 +256,7 @@ msgstr ""
 "Mara kazi ni FINSHED kukimbia, onyesha kazi iliyokamilishwa na chagua ** "
 "Pakua Matokeo **. Hifadhi kazi."
 
-#: ../../source/training/tutorial_forest_carbon.rst:110
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:110
 msgid ""
 "You will see a message indicating the task is downloading. Once it is "
 "complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest "
@@ -266,7 +266,7 @@ msgstr ""
 " na &#39;Jumla ya kaboni (2000, tani kwa kila ha )` na &quot;Hasara ya "
 "Misitu (2000 hadi 2017)` matokeo katika dirisha la QGIS."
 
-#: ../../source/training/tutorial_forest_carbon.rst:121
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:121
 msgid ""
 "If you want, you can add some context information (e.g. country boundaries, "
 "roads, and main cities). Refer to the :ref:`tut_load_data` tutorial for "
@@ -276,23 +276,23 @@ msgstr ""
 "nchi, barabara, na miji kuu). Rejea: ref: tut_load_data` mafunzo kwa maelezo"
 " zaidi kuhusu upakiaji wa basemap."
 
-#: ../../source/training/tutorial_forest_carbon.rst:126
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:126
 msgid "Compute summary table"
 msgstr "Futa meza ya muhtasari"
 
-#: ../../source/training/tutorial_forest_carbon.rst:138
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:138
 msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
 msgstr ""
 "Chagua Hatua ya 2: ** Fanya meza ya muhtasari wa mabadiliko ya kaboni kwa "
 "mipaka **."
 
-#: ../../source/training/tutorial_forest_carbon.rst:143
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:143
 msgid "Within the **Input** tab, select an output folder and file name."
 msgstr ""
 "Ndani ya ** Kitambulisho cha Input **, chagua folda ya pato na jina la "
 "faili."
 
-#: ../../source/training/tutorial_forest_carbon.rst:148
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:148
 msgid ""
 "Within the **Output** tab, select **Browse** to list an output folder and "
 "file name."
@@ -300,7 +300,7 @@ msgstr ""
 "Ndani ya ** Kitabu cha Pato **, chagua ** Pitia ** ili uorodhe folda ya pato"
 " na jina la faili."
 
-#: ../../source/training/tutorial_forest_carbon.rst:173
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:173
 msgid ""
 "When done, click **Calculate** and the task will be submitted to your "
 "computer locally. You will notice that the **Calculate carbon change summary"
@@ -316,11 +316,11 @@ msgstr ""
 "kwenye kompyuta yako. Usichague ** x ** au ** kufuta ** mpaka kazi "
 "imekamilika!"
 
-#: ../../source/training/tutorial_forest_carbon.rst:178
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:178
 msgid "A window will appear when the summary is complete. Select **OK**."
 msgstr "Dirisha itaonekana wakati muhtasari ukamilika. Chagua ** OK **."
 
-#: ../../source/training/tutorial_forest_carbon.rst:183
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:183
 msgid ""
 "If an error window appears, select the **Yes** and the summary will proceed "
 "to open."
@@ -328,6 +328,6 @@ msgstr ""
 "Ikiwa dirisha la hitilafu linaonekana, chagua ** Ndio ** na muhtasari "
 "utaendelea kufungua."
 
-#: ../../source/training/tutorial_forest_carbon.rst:188
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:188
 msgid "The summary table will appear."
 msgstr "Jedwali la muhtasari litaonekana."

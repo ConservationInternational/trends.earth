@@ -45,8 +45,9 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-def tr(message):
-    return QCoreApplication.translate("calculate_rest_biomass", message)
+class tr_calculate_rest_biomass(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_calculate_rest_biomass", message)
 
 
 class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassData):
@@ -376,10 +377,10 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr("Success"),
-                                      tr(u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, tr_calculate_rest_biomass.tr("Success"),
+                                      tr_calculate_rest_biomass.tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                   tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, tr_calculate_rest_biomass.tr("Error"),
+                                   tr_calculate_rest_biomass.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

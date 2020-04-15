@@ -37,14 +37,15 @@ TIMEOUT = 20
 DEBUG = QSettings().value('LDMP/debug', True)
 
 
-def tr(message):
-    return QCoreApplication.translate("api", message)
+class tr_api(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_api", message)
 
 
 def get_user_email(warn=True):
     email = QSettings().value("LDMP/email", None)
     if warn and email is None:
-        QMessageBox.critical(None, tr("Error"), tr( "Please register with Trends.Earth before using this function."))
+        QMessageBox.critical(None, tr_api.tr("Error"), tr_api.tr( "Please register with Trends.Earth before using this function."))
         return None
     else:
         return email
@@ -102,21 +103,21 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, tr(u'Contacting {} server...'.format(self.server_name)))
+            start_worker(worker, iface, tr_api.tr(u'Contacting {} server...'.format(self.server_name)))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
             QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr(u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
+                                       tr_api.tr("Error"),
+                                       tr_api.tr(u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
             QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr(u"Unable to connect to {} server.".format(self.server_name)))
+                                       tr_api.tr("Error"),
+                                       tr_api.tr(u"Unable to connect to {} server.".format(self.server_name)))
             resp = None
 
     def save_resp(self, resp):
@@ -178,8 +179,8 @@ def login(email=None, password=None):
     if not email or not password:
         log('API unable to login - check username/password')
         QMessageBox.critical(None,
-                                   tr("Error"),
-                                   tr("Unable to login to Trends.Earth. Check your username and password."))
+                                   tr_api.tr("Error"),
+                                   tr_api.tr("Unable to login to Trends.Earth. Check your username and password."))
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})

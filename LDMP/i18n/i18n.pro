@@ -75,5 +75,5 @@ SOURCES = ../about.py \
 ../visualization.py \
 ../worker.py
 
-TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts LDMP_sw.ts LDMP_ar.ts LDMP_zh.ts \
-LDMP_pt.ts LDMP_ru.ts
+TRANSLATIONS = LDMP.ts LDMP.fr.ts LDMP.es.ts LDMP.sw.ts LDMP.ar.ts LDMP.zh.ts \
+LDMP.pt.ts LDMP.ru.ts

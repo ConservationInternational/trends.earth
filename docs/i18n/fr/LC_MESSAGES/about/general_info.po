@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2019-01-28 02:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -23,11 +23,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/about/general_info.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:2
 msgid "General information"
 msgstr "informations générales"
 
-#: ../../source/about/general_info.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:4
 msgid ""
 "|trends.earth| was produced as part of the project \"Enabling the use of "
 "global data sources to assess and monitor land degradation at multiple "
@@ -38,11 +38,11 @@ msgstr ""
 "dégradation des terres à différentes échelles\", financé par le Fonds pour "
 "l'environnement mondial."
 
-#: ../../source/about/general_info.rst:9
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:9
 msgid "Contacting the team"
 msgstr "Contacter l'équipe"
 
-#: ../../source/about/general_info.rst:11
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:11
 msgid ""
 "Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with"
 " any comments or suggestions. If you have specific bugs to report or "
@@ -58,11 +58,11 @@ msgstr ""
 "Github <https://github.com/ConservationInternational/trends.earth/issues>`_ "
 "pour | trends.earth |."
 
-#: ../../source/about/general_info.rst:19
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:19
 msgid "Authors"
 msgstr "Auteurs"
 
-#: ../../source/about/general_info.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:21
 msgid ""
 "The Land Degradation Monitoring Project is a partnership of Conservation "
 "International, Lund University, and the National Aeronautics and Space "
@@ -74,7 +74,7 @@ msgstr ""
 "nationale de l'aéronautique et de l'espace (NASA), et est financé par le "
 "Fonds pour l'environnement mondial (FEM)."
 
-#: ../../source/about/general_info.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:25
 msgid ""
 "Contributors to the documentation and to |trends.earth| include Yengoh "
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
@@ -84,7 +84,7 @@ msgstr ""
 " Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan Schnader, Anna "
 "Tengberg et Alex Zvoleff."
 
-#: ../../source/about/general_info.rst:33
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:33
 msgid ""
 "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
 "to compute indicators in the cloud."
@@ -93,11 +93,11 @@ msgstr ""
 "<https://earthengine.google.com>`_ pour calculer les indicateurs dans le "
 "cloud."
 
-#: ../../source/about/general_info.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:42
 msgid "Acknowledgements"
 msgstr "Remerciements"
 
-#: ../../source/about/general_info.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:44
 msgid ""
 "The feedback provided by early users of |trends.earth| and by the "
 "participants in the webinars and workshops held by the GEF Land Degradation "
@@ -108,7 +108,7 @@ msgstr ""
 "de surveillance de la dégradation des terres du FEM ont été déterminants "
 "pour le développement de l'outil."
 
-#: ../../source/about/general_info.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:48
 msgid ""
 "Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
 "on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
@@ -120,7 +120,7 @@ msgstr ""
 "|trends.earth|, sur la structure de l'outil et sur le processus de "
 "notification de la CNULCD, ainsi que sur le test de l'outil."
 
-#: ../../source/about/general_info.rst:53
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:53
 msgid ""
 "The project acknowledges the participants of the workshop held in Morogoro, "
 "Tanzania in October, 2017 for sharing their feedback and suggestions on the "
@@ -144,17 +144,17 @@ msgstr ""
 " Rozalia Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, "
 "Olipa Simon, Samba Sow, Felly Mugizi Tusiime et John Wasige."
 
-#: ../../source/about/general_info.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:65
 msgid "Citation"
 msgstr "Citation"
 
-#: ../../source/about/general_info.rst:67
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:67
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
 msgstr ""
 "Si vous souhaitez citer | trends.earth |, veuillez utiliser la citation "
 "suivante:"
 
-#: ../../source/about/general_info.rst:69
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:69
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2018."
@@ -162,11 +162,11 @@ msgstr ""
 "Trends.Earth. Conservation International. Disponible en ligne sur: "
 "`http://trends.earth <http://trends.earth> `_. 2018."
 
-#: ../../source/about/general_info.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:73
 msgid "License"
 msgstr "Licence"
 
-#: ../../source/about/general_info.rst:75
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:75
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
@@ -176,7 +176,7 @@ msgstr ""
 "Public License, version 2.0 ou ultérieure <https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html>`_."
 
-#: ../../source/about/general_info.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:79
 msgid ""
 "This site and the products of |trends.earth| are made available under the "
 "terms of the `Creative Commons Attribution 4.0 International License (CC BY "

@@ -45,8 +45,9 @@ from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
 
-def tr(message):
-    return QCoreApplication.translate("jobs", message)
+class tr_jobs(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_jobs", message)
 
 
 def json_serial(obj):
@@ -338,13 +339,13 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', tr('Task name')),
-                          ('script_name', tr('Job')),
-                          ('start_date', tr('Start time')),
-                          ('end_date', tr('End time')),
-                          ('id', tr('ID')),
-                          ('status', tr('Status')),
-                          ('INVALID', tr('Details'))]
+        colname_tuples = [('task_name', self.tr('Task name')),
+                          ('script_name', self.tr('Job')),
+                          ('start_date', self.tr('Start time')),
+                          ('end_date', self.tr('End time')),
+                          ('id', self.tr('ID')),
+                          ('status', self.tr('Status')),
+                          ('INVALID', self.tr('Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
@@ -449,8 +450,8 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             if band_info['add_to_map']:
                 add_layer(out_file, band_number, band_info)
 
-    mb.pushMessage(tr("Downloaded"),
-                   tr(u"Downloaded results to {}".format(out_file)),
+    mb.pushMessage(tr_jobs.tr("Downloaded"),
+                   tr_jobs.tr(u"Downloaded results to {}".format(out_file)),
                    level=0, duration=5)
 
 
@@ -462,8 +463,8 @@ def download_timeseries(job, tr):
     data = [x for x in table if x['name'] == 'mean'][0]
     dlg_plot = DlgPlotTimeries()
     labels = {'title': job['task_name'],
-              'bottom': tr('Time'),
-              'left': [tr('Integrated NDVI'), tr('NDVI x 10000')]}
+              'bottom': tr_jobs.tr('Time'),
+              'left': [tr_jobs.tr('Integrated NDVI'), tr_jobs.tr('NDVI x 10000')]}
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()

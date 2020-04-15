@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/documentation/gee_tasks.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:2
 msgid "View and download results"
 msgstr "Ver y descargar resultados"
 
-#: ../../source/documentation/gee_tasks.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:6
 msgid ""
 "Once you have submitted a calculation using |trends.earth|, it is sent to "
 "Google Earth Engine to run the calculations in the cloud. To view the Google"
@@ -40,7 +40,7 @@ msgstr ""
 " seleccione la nube con la flecha hacia abajo (|iconDownload|). Esto abrirá "
 "el cuadro de diálogo `Descargar resultados de Earth Engine`."
 
-#: ../../source/documentation/gee_tasks.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:12
 msgid ""
 "Click `Refresh List` to show all the tasks you have submitted and their "
 "status."
@@ -48,7 +48,7 @@ msgstr ""
 "Haga clic en `Actualizar lista` para mostrar todas las tareas que ha enviado"
 " y su estado."
 
-#: ../../source/documentation/gee_tasks.rst:14
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:14
 msgid ""
 "Users can view their current and previous tasks here. the table shows the "
 "task name provided by the user, which analysis is running (job), the start "
@@ -63,7 +63,7 @@ msgstr ""
 "página de Detalles describe las diferentes opciones que el usuario eligió "
 "para cada tarea."
 
-#: ../../source/documentation/gee_tasks.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:26
 msgid ""
 "To download results to the computer once a task has finished, click on the "
 "task you are interested in downloading results for, then click `Download "

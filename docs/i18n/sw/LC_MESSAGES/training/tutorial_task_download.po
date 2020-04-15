@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_task_download.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:4
 msgid "Task status & download"
 msgstr "Hali ya Task & download"
 
-#: ../../source/training/tutorial_task_download.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:6
 msgid ""
 "**Objective**: Learn how to check the status of submitted tasks, download "
 "them and compute pyramids for faster visualization of results in QGIS."
@@ -33,15 +33,15 @@ msgstr ""
 "** Lengo **: Jifunze jinsi ya kuangalia hali ya kazi iliyowasilishwa, "
 "uipakue na kuhesabu piramidi kwa taswira ya haraka ya matokeo katika QGIS."
 
-#: ../../source/training/tutorial_task_download.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
 
-#: ../../source/training/tutorial_task_download.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:10
 msgid "**Internet access**: Required"
 msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
 
-#: ../../source/training/tutorial_task_download.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
@@ -49,7 +49,7 @@ msgstr ""
 "`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
 "Trends.Earth_Tutorial03_Downloading_Results.pdf>` _"
 
-#: ../../source/training/tutorial_task_download.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:15
 msgid ""
 "The results of Trends.Earth analysis are rasters in TIF format for "
 "indicators and XLSX spreadsheets for the tabular outputs. You will need to "
@@ -65,7 +65,7 @@ msgstr ""
 " rahisi wa nyuma. Desktop ** ni eneo huchaguliwa kwa sababu ni rahisi "
 "kupata."
 
-#: ../../source/training/tutorial_task_download.rst:17
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:17
 msgid ""
 "To create a folder in your computer's desktop, navigate there by minimizing "
 "all the windows and programs you have open (Note: not closing, simply "
@@ -75,7 +75,7 @@ msgstr ""
 "madirisha yote na mipango uliyoifungua (Kumbuka: si kufunga, ukiondoa tu "
 "kutoka kwenye maonyesho)."
 
-#: ../../source/training/tutorial_task_download.rst:19
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:19
 msgid ""
 "Once in the Desktop, **right click** on an empty space and a menu will "
 "display."
@@ -83,7 +83,7 @@ msgstr ""
 "Mara moja kwenye Desktop, ** bonyeza haki ** kwenye nafasi tupu na orodha "
 "itaonyeshwa."
 
-#: ../../source/training/tutorial_task_download.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:21
 msgid ""
 "Move your mouse cursor to the **New** option at the bottom of the menu, and "
 "another menu will show to the right."
@@ -91,11 +91,11 @@ msgstr ""
 "Hoja mshale wako wa panya kwenye chaguo ** Mpya ** chini ya menyu, na orodha"
 " nyingine itaonyesha kwa haki."
 
-#: ../../source/training/tutorial_task_download.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:23
 msgid "Navigate with your mouse cursor to **Folder** and right-click."
 msgstr "Nenda kwa cursor yako ya mouse kwenye Folda ** na bonyeza-haki."
 
-#: ../../source/training/tutorial_task_download.rst:28
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:28
 msgid ""
 "A new folder named **New Folder** will appear on your desktop with the name "
 "highlighted in blue. Type the name you want to assign it. In this example, "
@@ -107,7 +107,7 @@ msgstr ""
 "tumeiita jina la \"Trends.Earth **. Kisha waandishi wa habari ** Ingiza ** "
 "kwenye kibodi yako ili uhifadhi jina."
 
-#: ../../source/training/tutorial_task_download.rst:33
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:33
 msgid ""
 "Navigate again to QGIS, and click on the cloud with the arrow facing down "
 "icon (|iconCloudDownload|) from the Trends.Earth toolbar."
@@ -115,7 +115,7 @@ msgstr ""
 "Nenda tena kwa QGIS, na bofya kwenye wingu na mshale unaoonekana chini ya "
 "icon (| iconCloudDownload |) kutoka kwenye Mtazamo wa Mtaa wa Mwelekeo."
 
-#: ../../source/training/tutorial_task_download.rst:38
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:38
 msgid ""
 "The **Download results from Earth Engine** will open. Click **Refresh List**"
 " to check the updated status of the tasks submitted in the previous section "
@@ -127,7 +127,7 @@ msgstr ""
 "yaliyowasilishwa katika sehemu ya awali ya mafunzo (: ref: "
 "`1-step_subindicators`). Moja ya ujumbe watatu utaonyesha pale:"
 
-#: ../../source/training/tutorial_task_download.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:40
 msgid ""
 "**RUNNING**: The task has been successfully submitted to Earth Engine and it"
 " is being processed. Wait a few minutes and click **Refresh list** again."
@@ -135,12 +135,12 @@ msgstr ""
 "** RUNNING **: Kazi imefanikiwa kwa Mafanikio ya Dunia na inasindika. "
 "Kusubiri dakika chache na bonyeza ** Fungua orodha tena."
 
-#: ../../source/training/tutorial_task_download.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:42
 msgid ""
 "**FINISHED**: The task has been completed and it is ready to be downloaded."
 msgstr "** FINISHED **: Kazi imekamilika na iko tayari kupakuliwa."
 
-#: ../../source/training/tutorial_task_download.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:44
 msgid ""
 "**FAILED**: There has been some error in the parameters selected and the "
 "task could not be completed. Please run the tool again to make sure all "
@@ -150,7 +150,7 @@ msgstr ""
 "kazi haikuweza kukamilika. Tafadhali tumia chombo tena ili uhakikishe vigezo"
 " vyote vilivyo sahihi."
 
-#: ../../source/training/tutorial_task_download.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:49
 msgid ""
 "When the task shows status **FINISHED** you can select it by clicking on it "
 "(it will be highlighted in blue), and them click on the **Download results**"
@@ -160,7 +160,7 @@ msgstr ""
 "juu yake (itaonyeshwa kwa rangi ya bluu), na bonyeza yao kwenye kifungo cha "
 "** cha kupakua **."
 
-#: ../../source/training/tutorial_task_download.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:54
 msgid ""
 "A window will open for you to define the location (the folder you just "
 "created on the Desktop) and the name of the output file. Make the name as "
@@ -172,7 +172,7 @@ msgstr ""
 " ili uweze kueleza habari gani ina wakati unayofuata unataka kutumia matokeo"
 " hayo."
 
-#: ../../source/training/tutorial_task_download.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:59
 msgid ""
 "The Download window will disappear and you will be brought back to the QGIS "
 "interface. You will see light blue progress bar indicating which percentage "
@@ -186,7 +186,7 @@ msgstr ""
 "kadhaa kulingana na ukubwa wa eneo ulichaguliwa na kasi ya uunganisho wa "
 "Intaneti inapatikana."
 
-#: ../../source/training/tutorial_task_download.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:64
 msgid ""
 "Once the download is completed, the results will be loaded in QGIS. In this "
 "example you'll see a layer for each of the SDG 15.3.1 computed: land "
@@ -196,11 +196,11 @@ msgstr ""
 "mfano huu utaona safu ya kila SDG 15.3.1 iliyohesabiwa: uzalishaji wa ardhi,"
 " kifuniko cha ardhi, na kaboni ya kaboni ya udongo."
 
-#: ../../source/training/tutorial_task_download.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:71
 msgid "**OPTIONAL: Computing Pyramids**"
 msgstr "** OPTIONAL: Computing Pyramids **"
 
-#: ../../source/training/tutorial_task_download.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:73
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
@@ -220,7 +220,7 @@ msgstr ""
 "wa eneo hilo, ili uhakikishe kuwa na muda wa kutosha wa mchakato. Kuhesabu "
 "piramidi una:"
 
-#: ../../source/training/tutorial_task_download.rst:75
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:75
 msgid ""
 "Navigate with your cursor to the layer you want to compute pyramids for and "
 "right click over it. A menu will open. Navigate to **Properties** and click "
@@ -229,7 +229,7 @@ msgstr ""
 "Nenda kwa salama yako kwenye safu unayotaka kuhesabu piramidi na bonyeza "
 "haki juu yake. Menyu itafunguliwa. Nenda hadi ** Mali ** na ubofye."
 
-#: ../../source/training/tutorial_task_download.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:78
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
 "(described in the previous tutorial :ref:`1-step_subindicators`), all the "
@@ -244,7 +244,7 @@ msgstr ""
 "ina maana kwamba piramidi zinahitajika kuhesabiwa mara moja tu kwa viashiria"
 " vidogo vitatu."
 
-#: ../../source/training/tutorial_task_download.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:83
 msgid ""
 "The Layer Properties menu will open. From the options on the left, navigate "
 "to **Pyramids** and click on it."
@@ -252,12 +252,12 @@ msgstr ""
 "Menyu ya Mali ya Layer itafunguliwa. Kutoka chaguo upande wa kushoto, nenda "
 "kwenye ** Pyramids ** na ubofye."
 
-#: ../../source/training/tutorial_task_download.rst:88
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:88
 msgid ""
 "Once on the **Pyramids** tab you will see a description about they are."
 msgstr "Mara moja kwenye tab ** Piramidi ** utaona maelezo kuhusu wao."
 
-#: ../../source/training/tutorial_task_download.rst:93
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:93
 msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
@@ -278,19 +278,19 @@ msgstr ""
 "iliyochaguliwa na moja haijachaguliwa, na kadhalika). Maazimio huchaguliwa "
 "kwa kubonyeza yao. Wakati kuchaguliwa, watageuka rangi ya bluu."
 
-#: ../../source/training/tutorial_task_download.rst:95
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:95
 msgid "Make sure that the settings at the bottom are set to:"
 msgstr "Hakikisha kuwa mipangilio ya chini imewekwa kwa:"
 
-#: ../../source/training/tutorial_task_download.rst:97
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:97
 msgid "**Overview format**: External"
 msgstr "** Fomu ya jumla **: Nje"
 
-#: ../../source/training/tutorial_task_download.rst:98
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:98
 msgid "**Resampling method**: Nearest Neighbour"
 msgstr "** Utaratibu wa upimaji **: Jirani ya karibu"
 
-#: ../../source/training/tutorial_task_download.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:100
 msgid ""
 "Then click on the **Build pyramids** button. The progress bar next to it "
 "will show which percentage of the task has been completed."
@@ -298,7 +298,7 @@ msgstr ""
 "Kisha bonyeza ** Fanya piramidi ** kifungo. Bar ya maendeleo karibu nayo "
 "itaonyesha ambayo asilimia ya kazi imekamilika."
 
-#: ../../source/training/tutorial_task_download.rst:105
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:105
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
 "resolutions will have changed from **red crosses** to **yellow pyramids**."
@@ -306,6 +306,6 @@ msgstr ""
 "Wakati piramidi zimejengwa utaona kwamba icons karibu na maazimio "
 "yatabadilika kutoka ** misalaba nyekundu ** hadi ** piramidi za njano **."
 
-#: ../../source/training/tutorial_task_download.rst:110
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:110
 msgid "Click **OK** to go back to the QGIS main interface."
 msgstr "Bonyeza ** OK ** kurudi kwenye interface kuu ya QGIS."

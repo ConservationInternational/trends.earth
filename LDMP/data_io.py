@@ -754,8 +754,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             elif l.wkbType() == QgsWkbTypes.Point:
                 self.vector_datatype = "point"
             else:
-                QtWidgets.QMessageBox.critical(None, tr("Error"),
-                        tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.wkbType())))
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot process {}. Unknown geometry type:{}".format(in_file, l.wkbType())))
                 log(u"Failed to process {} - unknown geometry type {}.".format(in_file, l.wkbType()))
                 return
 

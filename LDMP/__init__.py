@@ -19,10 +19,10 @@ import site
 import json
 from tempfile import NamedTemporaryFile
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion
-from qgis.PyQt.QtWidgets import QApplication
+from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
+        QLocale, QCoreApplication)
 
-from qgis.core import QgsMessageLog
+from qgis.core import QgsMessageLog, QgsApplication
 from qgis.utils import iface
 
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
@@ -67,21 +67,16 @@ def GetTempFilename(suffix):
     f.close()
     return f.name
 
-# initialize locale and translation
-locale = QSettings().value('locale/userLocale')[0:2]
-locale_path = os.path.join(plugin_dir, 'i18n', u'LDMP_{}.qm'.format(locale))
-log(u'Starting trends.earth version {} (rev: {}, released {})) using locale "{}" in path {}.'.format(__version__, __revision__, __release_date__, locale, locale_path))
+# initialize translation
+i18n_dir = os.path.join(plugin_dir, 'i18n')
+log(u'Starting trends.earth version {} (rev: {}, released {}).'.format(__version__, __revision__, __release_date__))
 
-if os.path.exists(locale_path):
-    translator = QTranslator()
-    ret = translator.load(locale_path)
-    if ret:
-        log('Loaded {}'.format(locale_path))
-    else:
-        log('Failed while trying to load {}'.format(locale_path))
-    if qVersion() > '4.3.3':
-        ret = QApplication.installTranslator(translator)
-        if ret:
-            log("Translator installed.")
-        else:
-            log('Failed while trying to install translator')
+translator = QTranslator()
+locale = QLocale(QgsApplication.locale())
+log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
+translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
+ret = QCoreApplication.installTranslator(translator)
+if ret:
+    log("Translator installed for {}.".format(locale.name()))
+else:
+    log("FAILED while trying to install translator for {}.".format(locale.name()))

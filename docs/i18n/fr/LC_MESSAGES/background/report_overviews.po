@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2019-01-28 02:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/background/report_overviews.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:2
 msgid "Other resources"
 msgstr "Autres ressources"
 
-#: ../../source/background/report_overviews.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:4
 msgid ""
 "Print documentation from the Trends.Earth project (including fact sheets, "
 "reports, and other materials) is listed below."
@@ -34,11 +34,11 @@ msgstr ""
 "d’information, les rapports et d’autres documents) est répertoriée ci-"
 "dessous."
 
-#: ../../source/background/report_overviews.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:8
 msgid "Reports"
 msgstr "Rapports"
 
-#: ../../source/background/report_overviews.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:10
 msgid ""
 "`Using Spectral Vegetation Indices to Measure Gross Primary Productivity as "
 "an Indicator of Land Degradation "
@@ -50,7 +50,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>"
 " `_"
 
-#: ../../source/background/report_overviews.rst:13
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:13
 msgid ""
 "`Evaluation of approaches for incorporating higher-resolution data for "
 "disaggregation or targeted analysis "
@@ -61,7 +61,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>"
 " `_"
 
-#: ../../source/background/report_overviews.rst:16
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:16
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
@@ -71,7 +71,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>"
 " `_"
 
-#: ../../source/background/report_overviews.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:18
 msgid ""
 "`Monitoring and assessing land degradation to support sustainable "
 "development "
@@ -82,7 +82,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>"
 " `_"
 
-#: ../../source/background/report_overviews.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:20
 msgid ""
 "`(French) Suivre et évaluer la dégradation des terres pour soutenir le "
 "développement durable "
@@ -93,11 +93,11 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>"
 " `_"
 
-#: ../../source/background/report_overviews.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:25
 msgid "Fact sheets"
 msgstr "Fiches"
 
-#: ../../source/background/report_overviews.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:27
 msgid ""
 "`Conceptual Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
@@ -105,7 +105,7 @@ msgstr ""
 "`Fiche d&#39;information conceptuelle pour Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf> `_"
 
-#: ../../source/background/report_overviews.rst:29
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:29
 msgid ""
 "`Technical Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"

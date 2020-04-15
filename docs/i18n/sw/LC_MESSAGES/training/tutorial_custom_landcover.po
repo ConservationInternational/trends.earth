@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_custom_landcover.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:4
 msgid "Use custom land cover data"
 msgstr "Tumia data ya bima ya ardhi ya desturi"
 
-#: ../../source/training/tutorial_custom_landcover.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:6
 msgid ""
 "**Objective**: Learn how to load custom land cover data and to compute the "
 "land cover change sub-indicator using Trends.Earth."
@@ -34,15 +34,15 @@ msgstr ""
 "** Lengo **: Jifunze jinsi ya kupakia data ya bima ya ardhi ya desturi na "
 "kuhesabu kiashiria cha chini cha kubadilisha bima kwa kutumia Mwelekeo."
 
-#: ../../source/training/tutorial_custom_landcover.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
 msgstr "** Muda uliotarajiwa wa kukamilisha **: dakika 40"
 
-#: ../../source/training/tutorial_custom_landcover.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:10
 msgid "**Internet access**: Not required"
 msgstr "** Upatikanaji wa Intaneti **: Haihitajiki"
 
-#: ../../source/training/tutorial_custom_landcover.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_"
@@ -50,7 +50,7 @@ msgstr ""
 "`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
 "Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>` _"
 
-#: ../../source/training/tutorial_custom_landcover.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:15
 msgid ""
 "The land cover dataset for this tutorial were provided by the `Regional "
 "Centre For Mapping Resource For Development "
@@ -65,7 +65,7 @@ msgstr ""
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip> "
 "`_."
 
-#: ../../source/training/tutorial_custom_landcover.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:21
 msgid ""
 "To load custom land cover data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
@@ -73,7 +73,7 @@ msgstr ""
 "Ili kupakia data ya bima ya ardhi ya desturi bonyeza kwenye | (icon | "
 "iconfolder |) icon katika Mwenendo wa Msaada wa Mwelekeo."
 
-#: ../../source/training/tutorial_custom_landcover.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:26
 msgid ""
 "The **Load data** menu will open. Select **Land cover** from the **Import a "
 "custom input dataset** section."
@@ -81,7 +81,7 @@ msgstr ""
 "Mfumo wa ** wa Mzigo ** utafunguliwa. Chagua ** Hifadhi ya Ardhi ** kutoka "
 "** Ingiza sehemu ya dataset ya pembejeo ya desturi **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:31
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:31
 msgid ""
 "In the **Load a Custom Land Cover dataset** use the radio button to select "
 "the format of the input file (raster or vector). For this tutorial select "
@@ -94,7 +94,7 @@ msgstr ""
 "kama unapendelea. Bonyeza kwenye ** Vinjari ** ili uende kwenye faili ya "
 "bima ya ardhi unayotaka kuagiza."
 
-#: ../../source/training/tutorial_custom_landcover.rst:36
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:36
 msgid ""
 "Use the **Select input file** window to navigate to the file to be imported,"
 " select it, and click **Open**."
@@ -102,7 +102,7 @@ msgstr ""
 "Tumia ** Chagua faili ya pembejeo ** dirisha ili uende kwenye faili ya "
 "kuingizwa, chagua, na bonyeza ** Fungua **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:41
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:41
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** window you have options for"
 " selecting the band number in which the productivity data is stored, in case"
@@ -116,7 +116,7 @@ msgstr ""
 "kurekebisha azimio la faili. Tunapendekeza kuwaacha wale kama desfaults "
 "isipokuwa kuwa na sababu halali za kubadilisha."
 
-#: ../../source/training/tutorial_custom_landcover.rst:43
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:43
 msgid ""
 "Define the year of reference for the data. In this case, since the land "
 "cover dataset for Uganda was developed for the **year 2000**, define it as "
@@ -126,7 +126,7 @@ msgstr ""
 "ya Uganda ilipangwa kwa ** mwaka 2000 **, fasili kama hiyo. Hakikisha "
 "unasema mwaka sahihi."
 
-#: ../../source/training/tutorial_custom_landcover.rst:45
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:45
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file**."
@@ -134,7 +134,7 @@ msgstr ""
 "Bofya ** Vinjari ** chini ya dirisha ili kuchagua ** Faili ya raster ya Pato"
 " **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:50
 msgid ""
 "Click on the **Edit definition** button, this will open the **Setup "
 "aggregation of land cover data menu**. Here you need to assign each of the "
@@ -146,11 +146,11 @@ msgstr ""
 " maadili ya awali ya pembejeo ya dataset yako kwenye moja ya 7 UNCCD "
 "ilipendekeza madarasa ya bima ya ardhi."
 
-#: ../../source/training/tutorial_custom_landcover.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:55
 msgid "For this example, the Uganda dataset has 18 land cover classes:"
 msgstr "Kwa mfano huu, dataset ya Uganda ina makundi 18 ya bima ya ardhi:"
 
-#: ../../source/training/tutorial_custom_landcover.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:68
 msgid ""
 "From the Metadata of the land cover dataset, we know that the best "
 "aggregation approach is the following:"
@@ -158,39 +158,39 @@ msgstr ""
 "Kutoka Metadata ya dataset ya kifuniko cha ardhi, tunajua kuwa njia bora "
 "zaidi ya kuunganisha ni yafuatayo:"
 
-#: ../../source/training/tutorial_custom_landcover.rst:61
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:61
 msgid "No data = 0"
 msgstr "Hakuna data = 0"
 
-#: ../../source/training/tutorial_custom_landcover.rst:62
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:62
 msgid "Tree covered = 1 through 7"
 msgstr "Mti kufunikwa = 1 hadi 7"
 
-#: ../../source/training/tutorial_custom_landcover.rst:63
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:63
 msgid "Grassland = 8 through 11"
 msgstr "Grassland = 8 hadi 11"
 
-#: ../../source/training/tutorial_custom_landcover.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:64
 msgid "Cropland = 12 through 14"
 msgstr "Cropland = 12 hadi 14"
 
-#: ../../source/training/tutorial_custom_landcover.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:65
 msgid "Wetland = 15"
 msgstr "Maeneo ya mvua = 15"
 
-#: ../../source/training/tutorial_custom_landcover.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:66
 msgid "Water body = 16"
 msgstr "Mwili wa maji = 16"
 
-#: ../../source/training/tutorial_custom_landcover.rst:67
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:67
 msgid "Artificial = 17"
 msgstr "Artificial = 17"
 
-#: ../../source/training/tutorial_custom_landcover.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:68
 msgid "Other land = 18"
 msgstr "Nchi nyingine = 18"
 
-#: ../../source/training/tutorial_custom_landcover.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:70
 msgid ""
 "Use the **Setup aggregation of land cover data menu** to assign to each "
 "number in the **Input class** its corresponding **Output class**."
@@ -198,7 +198,7 @@ msgstr ""
 "Tumia ** usanidi wa upangilio wa orodha ya data ya kifuniko cha ardhi ** "
 "kugawa kila nambari ** darasa la kuingiza ** sambamba ** darasa la Pato **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:72
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:72
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
@@ -208,11 +208,11 @@ msgstr ""
 "litawaokoa muda ujao wakati wa kukimbia chombo, kwa kupakia faili ya "
 "ufafanuzi uliyohifadhiwa hapo awali."
 
-#: ../../source/training/tutorial_custom_landcover.rst:74
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:74
 msgid "Click **Save** to continue"
 msgstr "Bonyeza ** Hifadhi ** ili uendelee"
 
-#: ../../source/training/tutorial_custom_landcover.rst:79
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:79
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** window, click **Browse** at"
 " the bottom of the window to select the **Output raster file**."
@@ -220,7 +220,7 @@ msgstr ""
 "Rudi kwenye ** Weka Dasasti ya Jalada ya Ardhi ya Desturi ** dirisha, bofya "
 "** Vinjari ** chini ya dirisha ili kuchagua ** Funguo la raster la Pato **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:84
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:84
 msgid ""
 "Navigate to the folder where you want to save the file. Assign it a name and"
 " click **Save**."
@@ -228,7 +228,7 @@ msgstr ""
 "Nenda kwenye folda ambapo unataka kuhifadhi faili. Patia jina na bonyeza ** "
 "Hifadhi **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:89
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:89
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** click **OK** for the tool "
 "to run."
@@ -236,13 +236,13 @@ msgstr ""
 "Rudi saa ** Weka Dasasti ya Jalada ya Ardhi ya Custom ** bonyeza ** OK ** "
 "kwa chombo cha kukimbia."
 
-#: ../../source/training/tutorial_custom_landcover.rst:94
-#: ../../source/training/tutorial_custom_landcover.rst:177
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:94
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:177
 msgid ""
 "A progress bar will appear showing the percentage of the task completed."
 msgstr "Bar ya maendeleo itatokea kuonyesha asilimia ya kazi iliyokamilishwa."
 
-#: ../../source/training/tutorial_custom_landcover.rst:99
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:99
 msgid ""
 "When the processing is completed, the imported land cover dataset will be "
 "loaded to QGIS."
@@ -250,7 +250,7 @@ msgstr ""
 "Wakati usindikaji ukamilika, dataset iliyofungwa nje ya ardhi itarejeshwa "
 "kwa QGIS."
 
-#: ../../source/training/tutorial_custom_landcover.rst:104
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:104
 msgid ""
 "You have one imported custom land cover data for one year (2000), but two "
 "are needed to perform the land cover change analysis. Repeat now steps 1 "
@@ -265,7 +265,7 @@ msgstr ""
 "kutoka Uganda tangu mwaka 2015. ** Hakikisha kubadilisha tarehe ya mwaka "
 "katika orodha ya kuagiza **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:106
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:106
 msgid ""
 "Once you have imported the land cover maps for years 2000 and 2015, you "
 "should have them both loaded to QGIS."
@@ -273,7 +273,7 @@ msgstr ""
 "Mara baada ya kuingiza ramani za ramani ya ardhi kwa miaka ya 2000 na 2015, "
 "unapaswa kuwa na wote wawili kubeba QGIS."
 
-#: ../../source/training/tutorial_custom_landcover.rst:111
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:111
 msgid ""
 "Now that both land cover datasets have been imported into Trends.Earth, the "
 "land cover change analysis tool needs to be run. Search for the Trends.Earth"
@@ -284,7 +284,7 @@ msgstr ""
 "kukimbia. Tafuta Mwelekeo wa toolbar wa ndani ndani ya QGIS, na bofya kwenye"
 " icon ya Kuhesabu (| | iconCalculator |)."
 
-#: ../../source/training/tutorial_custom_landcover.rst:116
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:116
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on **Land"
 " cover** button found under Step 1 - Option 2."
@@ -293,7 +293,7 @@ msgstr ""
 "kifungo cha ** Kitambulisho cha Ardhi ** kilichopatikana chini ya Hatua ya 1"
 " - Chaguo 2."
 
-#: ../../source/training/tutorial_custom_landcover.rst:121
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:121
 msgid ""
 "The **Calculate Land Cover Change** window will open. In the **Setup** tab, "
 "click on **Custom land cover dataset**. Use the drop down option next to "
@@ -306,7 +306,7 @@ msgstr ""
 "awali) ** na ** safu ya mwisho (mwaka wa lengo) ** kubadili tarehe ipasavyo."
 " Ukitengenezwa, bofya ** Next **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:126
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:126
 msgid ""
 "The **Define Degradation** tab is where you define the meaning of each land "
 "cover transition in terms of degradation. Transitions indicated in red "
@@ -320,7 +320,7 @@ msgstr ""
 "mwisho, mabadiliko ya beige (sifuri) yatatambuliwa kama imara, na mabadiliko"
 " ya kijani (pamoja na ishara) itajulikana kama maboresho."
 
-#: ../../source/training/tutorial_custom_landcover.rst:128
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:128
 msgid ""
 "For example, by default it is considered that a pixel that changed from "
 "**Grassland** to **Tree-covered** will be considered as improved. However, "
@@ -334,14 +334,14 @@ msgstr ""
 "mchakato wa uharibifu, mabadiliko hayo yanapaswa kubadilishwa kwa eneo hilo "
 "la utafiti kwa uharibifu (minus ishara)."
 
-#: ../../source/training/tutorial_custom_landcover.rst:130
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:130
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
 msgstr ""
 "Ikiwa haukufanya mabadiliko yoyote kwenye tumri ya default, bonyeza tu ** "
 "Ifuatayo **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:132
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:132
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
@@ -351,14 +351,14 @@ msgstr ""
 "faili ... ** ili uhifadhi ufafanuzi wa matumizi ya baadaye. Kisha bonyeza **"
 " Next **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:137
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:137
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 "Katika eneo ** Eneo la ** ** hufafanua eneo la uchambuzi. Kuna chaguzi "
 "mbili:"
 
-#: ../../source/training/tutorial_custom_landcover.rst:139
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:139
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -369,7 +369,7 @@ msgstr ""
 "hakikisha ** chaguo la eneo la Utawala ** linaelezwa, kisha uchagua Ngazi ya"
 " Kwanza (nchi) au Ngazi ya Pili (hali au jimbo kulingana na nchi)."
 
-#: ../../source/training/tutorial_custom_landcover.rst:142
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:142
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -383,7 +383,7 @@ msgstr ""
 "rasmi au kukubalika na Conservation International Foundation, au kwa "
 "mashirika yake ya washirika na wafadhili."
 
-#: ../../source/training/tutorial_custom_landcover.rst:148
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:148
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -393,7 +393,7 @@ msgstr ""
 "watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
 "yao."
 
-#: ../../source/training/tutorial_custom_landcover.rst:156
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:156
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -404,13 +404,13 @@ msgstr ""
 "Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
 "iliyohifadhiwa."
 
-#: ../../source/training/tutorial_custom_landcover.rst:158
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:158
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
 msgstr "Ukichagua eneo ambalo unataka kuhesabu viashiria, bonyeza ** Next **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:163
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:163
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -420,19 +420,19 @@ msgstr ""
 "kufanya baadhi ya ** Vidokezo ** kutambua uchambuzi unaoendesha. Maelezo "
 "gani ambayo yanaonyesha ni ya hiari, lakini tunapendekeza kutaja:"
 
-#: ../../source/training/tutorial_custom_landcover.rst:165
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:165
 msgid "Area of analysis"
 msgstr "Eneo la uchambuzi"
 
-#: ../../source/training/tutorial_custom_landcover.rst:166
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:166
 msgid "Dates"
 msgstr "Tarehe"
 
-#: ../../source/training/tutorial_custom_landcover.rst:167
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:167
 msgid "Indicators run"
 msgstr "Viashiria vinaendesha"
 
-#: ../../source/training/tutorial_custom_landcover.rst:172
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:172
 msgid ""
 "When you click **Calculate**, the **Choose a name for the output file** will"
 " open. Select where to save the file and its name, and click **Save**."
@@ -440,7 +440,7 @@ msgstr ""
 "Unapofya ** Hesabu **, ** Chagua jina kwa faili ya pato ** itafungua. Chagua"
 " wapi kuokoa faili na jina lake, na bofya ** Hifadhi **."
 
-#: ../../source/training/tutorial_custom_landcover.rst:182
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:182
 msgid ""
 "When the processing is completed, the imported land cover degradation sub-"
 "indicator dataset will be loaded to QGIS."
@@ -448,7 +448,7 @@ msgstr ""
 "Wakati usindikaji ukamilika, daraset ndogo ya dalili ndogo ya uharibifu wa "
 "ardhi itaagizwa kwa QGIS."
 
-#: ../../source/training/tutorial_custom_landcover.rst:188
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:188
 msgid ""
 "Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
 "the land cover sub-indicator to compute the final SDG 15.3.1 after "

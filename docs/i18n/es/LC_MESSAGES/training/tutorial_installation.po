@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:02+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_installation.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:2
 msgid "Installation and Registration"
 msgstr "Instalación y registro"
 
-#: ../../source/training/tutorial_installation.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:4
 msgid ""
 "**Objective**: Learn how to install, register and login to use the "
 "Trends.Earth plugin in QGIS. These step needs to be completed only the first"
@@ -36,15 +36,15 @@ msgstr ""
 " plugin Trends.Earth en QGIS. Estos pasos solo se deben completar la primera"
 " vez que use la herramienta. Su usuario será guardado para futuras sesiones."
 
-#: ../../source/training/tutorial_installation.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:6
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
-#: ../../source/training/tutorial_installation.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:8
 msgid "**Internet access**: Required"
 msgstr "**Acceso a Internet**: Necesario"
 
-#: ../../source/training/tutorial_installation.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:10
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_"
@@ -52,7 +52,7 @@ msgstr ""
 "`Descargue esta página como PDF para uso fuera de línea <../ pdfs / "
 "Trends.Earth_Tutorial01_Installation.pdf>`_"
 
-#: ../../source/training/tutorial_installation.rst:13
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:13
 msgid ""
 "Once QGIS is installed open it by searching in the for the QGIS icon on your"
 " computer's desktop or program menu."
@@ -60,7 +60,7 @@ msgstr ""
 "Una vez que se instala QGIS, ábralo buscando en el icono de QGIS en el "
 "escritorio de su computadora o en el menú del programa."
 
-#: ../../source/training/tutorial_installation.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:15
 msgid ""
 "Once QGIS loads, search in the menu bar for **Plugins**. Click and a drop "
 "down menu will open."
@@ -68,17 +68,17 @@ msgstr ""
 "Una vez que QGIS se carga, busca en la barra de menú **Complementos**. Haga "
 "clic y se abrirá un menú desplegable."
 
-#: ../../source/training/tutorial_installation.rst:17
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:17
 msgid "Click on **Manage and Install plugins**. The Plugins window will open."
 msgstr ""
 "Haga clic en **Administrar e instalar complementos**. La ventana de "
 "complementos se abrirá."
 
-#: ../../source/training/tutorial_installation.rst:22
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:22
 msgid "In the search window type **Trends.Earth**."
 msgstr "En la ventana de búsqueda, escriba **Trends.Earth**."
 
-#: ../../source/training/tutorial_installation.rst:24
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:24
 msgid ""
 "Click on the Trends.Earth plugin icon in the middle window and information "
 "on the toolbox will be displayed in the panel to the right."
@@ -86,7 +86,7 @@ msgstr ""
 "Haga clic en el ícono del plugin Trends.Earth en la ventana del medio y la "
 "información en la caja de herramientas se mostrará en el panel a la derecha."
 
-#: ../../source/training/tutorial_installation.rst:29
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:29
 msgid ""
 "To install the plugin click **Install plugin** button located in the bottom "
 "right section of the window. A small window will pop-up showing the progress"
@@ -100,7 +100,7 @@ msgstr ""
 " plugin Trends.Earth. Este proceso podría demorar unos minutos según la "
 "velocidad de la conexión a Internet y la computadora que esté utilizando."
 
-#: ../../source/training/tutorial_installation.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:34
 msgid ""
 "Once the window with the progress bar disappears click **Close** to close "
 "the Plugin Window. Trends.Earth will be installed in your computer. It will "
@@ -111,21 +111,21 @@ msgstr ""
 " en su computadora. Se mostrará en la barra de herramientas de QGIS como la "
 "serie de iconos resaltados a continuación."
 
-#: ../../source/training/tutorial_installation.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:39
 msgid "To create your account click on the wrench icon (|iconWrench|)."
 msgstr ""
 "Para crear su cuenta, haga clic en el ícono de llave inglesa (|iconWrench|)."
 
-#: ../../source/training/tutorial_installation.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:44
 msgid "To Register, click the **Step 1: Register** button."
 msgstr "Para registrarse, haga clic en el botón **Paso 1: Registrarse**."
 
-#: ../../source/training/tutorial_installation.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:49
 msgid "Enter your email, name, organization and country of residence."
 msgstr ""
 "Ingrese su correo electrónico, nombre, organización y país de residencia."
 
-#: ../../source/training/tutorial_installation.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:54
 msgid ""
 "Select **Ok** and you will see a message indicating your user has been "
 "registered."
@@ -133,7 +133,7 @@ msgstr ""
 "Seleccione **Ok** y verá un mensaje que indica que su usuario ha sido "
 "registrado."
 
-#: ../../source/training/tutorial_installation.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:59
 msgid ""
 "12. After registering, you will receive an email from api@trends.earth with "
 "your password. If you don't see the email in your inbox after 15-20 seconds,"
@@ -151,11 +151,11 @@ msgstr ""
 " electrónico y contraseña. Ingrese su dirección de correo electrónico y la "
 "contraseña que recibió de api@trends.earth y haga clic en **Ok**."
 
-#: ../../source/training/tutorial_installation.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:65
 msgid ""
 "You will see a message indicating you have successfully been logged in:"
 msgstr "Verás un mensaje que indica que has iniciado sesión correctamente:"
 
-#: ../../source/training/tutorial_installation.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:70
 msgid "You are now ready to start using Trends.Earth!"
 msgstr "¡Ahora estás listo para comenzar a usar Trends.Earth!"

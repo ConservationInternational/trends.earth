@@ -33,8 +33,9 @@ from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.layers import tr_style_text
 
 
-def tr(message):
-    return QCoreApplication.translate("lc_setup", message)
+class tr_lc_setup(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_lc_setup", message)
 
 
 # Load the default classes and their assigned color codes
@@ -126,9 +127,9 @@ class LCAggTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('Initial_Code', tr('Input code')),
-                          ('Initial_Label', tr('Input class')),
-                          ('Final_Label', tr('Output class'))]
+        colname_tuples = [('Initial_Code', tr_lc_setup.tr('Input code')),
+                          ('Initial_Label', tr_lc_setup.tr('Input class')),
+                          ('Final_Label', tr_lc_setup.tr('Output class'))]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
@@ -157,8 +158,8 @@ class LCAggTableModel(QAbstractTableModel):
 def read_class_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(None,
-                tr("Error"),
-                tr(u"Cannot read {}.".format(f)))
+                tr_lc_setup.tr("Error"),
+                tr_lc_setup.tr(u"Cannot read {}.".format(f)))
         return None
 
     with open(f) as class_file:
@@ -171,8 +172,8 @@ def read_class_file(f):
             or 'Final_Label' not in classes[0]):
 
         QtWidgets.QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr("{} does not appear to contain a valid class definition.".format(f)))
+                                       tr_lc_setup.tr("Error"),
+                                       tr_lc_setup.tr("{} does not appear to contain a valid class definition.".format(f)))
         return None
     else:
         log(u'Loaded class definition from {}'.format(f))

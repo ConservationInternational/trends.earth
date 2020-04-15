@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_custom_soc.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:4
 msgid "Use custom soil data"
 msgstr "Usa datos de suelo personalizados"
 
-#: ../../source/training/tutorial_custom_soc.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:6
 msgid ""
 "**Objective**: Learn how to load custom soil organic carbon data to compute "
 "the carbon change sub-indicator using Trends.Earth."
@@ -35,15 +35,15 @@ msgstr ""
 "del suelo para calcular el subindicador de cambio de carbono usando "
 "Trends.Earth."
 
-#: ../../source/training/tutorial_custom_soc.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
-#: ../../source/training/tutorial_custom_soc.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:10
 msgid "**Internet access**: Not required"
 msgstr "**Acceso a Internet**: no requerido"
 
-#: ../../source/training/tutorial_custom_soc.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
@@ -51,11 +51,11 @@ msgstr ""
 "`Descargue esta página en formato PDF para usar sin conexión "
 "<../pdfs/Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.pdf>`_"
 
-#: ../../source/training/tutorial_custom_soc.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:18
 msgid "Loading custom soil organic carbon data"
 msgstr "Carga de datos de carbono orgánico del suelo personalizado"
 
-#: ../../source/training/tutorial_custom_soc.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:20
 msgid ""
 "This tool assumes that the units of the raster layer to be imported are "
 "**Metrics Tons of organic carbon per hectare**. If your layer is in "
@@ -67,7 +67,7 @@ msgstr ""
 " en unidades diferentes, realice las conversiones necesarias antes de usarla"
 " en Trends.Earth."
 
-#: ../../source/training/tutorial_custom_soc.rst:22
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:22
 msgid ""
 "To load soil organic carbon data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
@@ -75,7 +75,7 @@ msgstr ""
 "Para cargar los datos de carbono orgánico del suelo, haga clic en el ícono "
 "(|iconfolder|) en la barra de herramientas Trends.Earth."
 
-#: ../../source/training/tutorial_custom_soc.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:27
 msgid ""
 "The **Load data** menu will open. Select **Soil organic carbon** from the "
 "**Import a custom input dataset** section."
@@ -84,7 +84,7 @@ msgstr ""
 "suelo** de la sección **Importar un conjunto de datos de entrada "
 "personalizado**."
 
-#: ../../source/training/tutorial_custom_soc.rst:32
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:32
 msgid ""
 "In the **Load a Custom Soil Organic Carbon (SOC) dataset** use the radio "
 "button to select the format of the input file (raster or vector). For this "
@@ -99,7 +99,7 @@ msgstr ""
 "**Examinar** para navegar al archivo de carbono orgánico del suelo que desea"
 " importar."
 
-#: ../../source/training/tutorial_custom_soc.rst:41
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:41
 msgid ""
 "Use the **Select input file** window to navigate to the file to be imported,"
 " select it, and click **Open**."
@@ -107,7 +107,7 @@ msgstr ""
 "Use la ventana **Seleccionar archivo de entrada** para navegar al archivo "
 "que desea importar, selecciónelo y haga clic en **Abrir**."
 
-#: ../../source/training/tutorial_custom_soc.rst:46
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:46
 msgid ""
 "Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** window you "
 "have options for selecting the band number in which the productivity data is"
@@ -122,7 +122,7 @@ msgstr ""
 "modificar la resolución del archivo. Recomendamos dejarlos como "
 "predeterminados a menos que tenga razones válidas para cambiarlos."
 
-#: ../../source/training/tutorial_custom_soc.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:48
 msgid ""
 "Define the year of reference for the data. In this case, we will assume the "
 "soil organic carbon data is from 2000, but if using local data, make sure "
@@ -132,7 +132,7 @@ msgstr ""
 " datos de carbono orgánico del suelo son de 2000, pero si usamos datos "
 "locales, asegúrese de asignar el año correcto."
 
-#: ../../source/training/tutorial_custom_soc.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:50
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file**."
@@ -140,7 +140,7 @@ msgstr ""
 "Haga clic en **Buscar** en la parte inferior de la ventana para seleccionar "
 "el **Archivo raster de salida**."
 
-#: ../../source/training/tutorial_custom_soc.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:55
 msgid ""
 "Navigate to the folder where you want to save the file. Assign it a name and"
 " click **Save**."
@@ -148,7 +148,7 @@ msgstr ""
 "Navega a la carpeta donde deseas guardar el archivo. Asignarle un nombre y "
 "hacer clic en **Guardar**."
 
-#: ../../source/training/tutorial_custom_soc.rst:60
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:60
 msgid ""
 "Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK**"
 " for the tool to run."
@@ -157,14 +157,14 @@ msgstr ""
 "personalizado (SOC)** haga clic en **Aceptar** para que la herramienta se "
 "ejecute."
 
-#: ../../source/training/tutorial_custom_soc.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:65
 msgid ""
 "A progress bar will appear showing the percentage of the task completed."
 msgstr ""
 "Aparecerá una barra de progreso que muestra el porcentaje de la tarea "
 "completada."
 
-#: ../../source/training/tutorial_custom_soc.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:70
 msgid ""
 "When the processing is completed, the imported soil organic carbon dataset "
 "will be loaded to QGIS."
@@ -172,11 +172,11 @@ msgstr ""
 "Cuando se complete el procesamiento, el dataset de carbono orgánico del "
 "suelo importado se cargará en QGIS."
 
-#: ../../source/training/tutorial_custom_soc.rst:76
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:76
 msgid "Calculating soil organic carbon with custom data"
 msgstr "Cálculo del carbono orgánico del suelo con datos personalizados"
 
-#: ../../source/training/tutorial_custom_soc.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:78
 msgid ""
 "Once you have imported a custom soil organic carbon dataset, it is possible "
 "to calculate soil organic carbon degradation from that data. To do so, first"
@@ -189,7 +189,7 @@ msgstr ""
 " los datos de carbono orgánico del suelo en QGIS (ver "
 ":ref:`load_custom_soc`)."
 
-#: ../../source/training/tutorial_custom_soc.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:83
 msgid ""
 "To calculate soil organic carbon degradation from custom data, first click "
 "on the (|iconCalculator|) icon on the Trends.Earth toolbar:"
@@ -198,7 +198,7 @@ msgstr ""
 "datos personalizados, primero haga clic en el ícono (|iconCalculator|) en la"
 " barra de herramientas Trends.Earth:"
 
-#: ../../source/training/tutorial_custom_soc.rst:89
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:89
 msgid ""
 "The \"Calculate indicators\" menu will open. Select \"Soil organic carbon\" "
 "from the \"Option 2: Use customized data\" section."
@@ -206,7 +206,7 @@ msgstr ""
 "Se abrirá el menú \"Calcular indicadores\". Seleccione \"Carbono orgánico "
 "del suelo\" en la sección \"Opción 2: Utilizar datos personalizados\"."
 
-#: ../../source/training/tutorial_custom_soc.rst:95
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:95
 msgid ""
 "The \"Calculate Soil Organic Carbon\" window will open. Click the radio "
 "button next to \"Custom land cover dataset\" and select either \"Import\" to"
@@ -226,7 +226,7 @@ msgstr ""
 "información sobre la carga de conjuntos de datos de cobertura terrestre. Una"
 " vez que haya seleccionado ambos conjuntos de datos, haga clic en siguiente:"
 
-#: ../../source/training/tutorial_custom_soc.rst:106
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:106
 msgid ""
 "On the next screen, click the check box next to \"Custom initial soil "
 "organic carbon dataset\", and then use the \"Import\" or \"Load existing\" "
@@ -239,13 +239,13 @@ msgstr ""
 "capa de carbono personalizada del suelo (:ref:`load_custom_soc`) o cargar "
 "uno existente que ya ha sido calculado:"
 
-#: ../../source/training/tutorial_custom_soc.rst:114
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:114
 msgid "Click \"Next\". Now, choose the area you wish to run calculations for:"
 msgstr ""
 "Haga clic en Siguiente\". Ahora, elija el área para la que desea ejecutar "
 "los cálculos:"
 
-#: ../../source/training/tutorial_custom_soc.rst:119
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:119
 msgid ""
 "Click \"Next\". on the last screen, enter a task name or any notes you might"
 " wish to save (this is optional) and then click \"Calculate\":"
@@ -254,7 +254,7 @@ msgstr ""
 "tarea o cualquier nota que desee guardar (esto es opcional) y luego haga "
 "clic en \"Calcular\":"
 
-#: ../../source/training/tutorial_custom_soc.rst:125
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:125
 msgid ""
 "A progress bar will appear on your screen. Do not quit QGIS or turn off your"
 " computer until the calculation is complete."
@@ -262,7 +262,7 @@ msgstr ""
 "Aparecerá una barra de progreso en su pantalla. No abandone QGIS ni apague "
 "su computadora hasta que el cálculo esté completo."
 
-#: ../../source/training/tutorial_custom_soc.rst:131
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:131
 msgid ""
 "Once the calculation is complete, three layers will load onto your map: 1) "
 "the final soil organic carbon layer, 2) the initial soil organic carbon "
@@ -273,14 +273,14 @@ msgstr ""
 "orgánico del suelo y 3) la capa de degradación del carbono orgánico del "
 "suelo:"
 
-#: ../../source/training/tutorial_custom_soc.rst:138
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:138
 msgid ""
 "For example, we can see areas of degradation in soil carbon around Kampala:"
 msgstr ""
 "Por ejemplo, podemos ver áreas de degradación en el carbono del suelo "
 "alrededor de Kampala:"
 
-#: ../../source/training/tutorial_custom_soc.rst:144
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:144
 msgid ""
 "Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
 "the imported soil organic carbon data to compute the final SDG 15.3.1 after "

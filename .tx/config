@@ -168,7 +168,7 @@ source_file = docs/i18n/pot/training/video_links.pot
 source_lang = en
 
 [trendsearth.gui]
-file_filter = LDMP/i18n/LDMP_<lang>.ts
+file_filter = LDMP/i18n/LDMP.<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en
 type = QT

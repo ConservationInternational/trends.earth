@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-06 23:09+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_custom_lpd.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:4
 msgid "Use custom productivity data"
 msgstr "Use datos personalizados de productividad"
 
-#: ../../source/training/tutorial_custom_lpd.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:6
 msgid ""
 "**Objective**: Learn how to load custom land productivity data computed "
 "outside of Trends.Earth."
@@ -34,15 +34,15 @@ msgstr ""
 "**Objetivo**: aprende cómo cargar datos personalizados de productividad de "
 "la tierra calculados fuera de Trends.Earth."
 
-#: ../../source/training/tutorial_custom_lpd.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
-#: ../../source/training/tutorial_custom_lpd.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:10
 msgid "**Internet access**: Not required"
 msgstr "**Acceso a Internet**: no requerido"
 
-#: ../../source/training/tutorial_custom_lpd.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_"
@@ -50,7 +50,7 @@ msgstr ""
 "`Descargue esta página en formato PDF para uso fuera de línea "
 "<../pdfs/Trends.Earth_Tutorial04_Using_Custom_Productivity.pdf>`_"
 
-#: ../../source/training/tutorial_custom_lpd.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:15
 msgid ""
 "Land productivity data should be formatted following UNCCD guidelines for "
 "reporting indicating areas of declining, early signs of decline, stable but "
@@ -61,7 +61,7 @@ msgstr ""
 " disminución, signos tempranos de deterioro, estable pero estresada, estable"
 " o aumento de la productividad primaria."
 
-#: ../../source/training/tutorial_custom_lpd.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:25
 msgid ""
 "For the productivity data to be used in Trends.Earth the file need to be "
 "coded in the following way:"
@@ -69,31 +69,31 @@ msgstr ""
 "Para los datos de productividad que se utilizarán en Trends.Earth, el "
 "archivo debe codificarse de la siguiente manera:"
 
-#: ../../source/training/tutorial_custom_lpd.rst:18
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:18
 msgid "Declining = 1"
 msgstr "Declinación = 1"
 
-#: ../../source/training/tutorial_custom_lpd.rst:19
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:19
 msgid "Early signs of decline = 2"
 msgstr "Primeros signos de disminución = 2"
 
-#: ../../source/training/tutorial_custom_lpd.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:20
 msgid "Stable but stressed = 3"
 msgstr "Estable pero estresado = 3"
 
-#: ../../source/training/tutorial_custom_lpd.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:21
 msgid "Stable = 4"
 msgstr "Estable = 4"
 
-#: ../../source/training/tutorial_custom_lpd.rst:22
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:22
 msgid "Increasing = 5"
 msgstr "Aumento = 5"
 
-#: ../../source/training/tutorial_custom_lpd.rst:23
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:23
 msgid "No data = 0 or -32768"
 msgstr "Sin datos = 0 o -32768"
 
-#: ../../source/training/tutorial_custom_lpd.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:25
 msgid ""
 "If your layer is not coded in such a way, please do the necessary "
 "adjustments prior to using Trends.Earth."
@@ -101,7 +101,7 @@ msgstr ""
 "Si su capa no está codificada de esa manera, realice los ajustes necesarios "
 "antes de usar Trends.Earth."
 
-#: ../../source/training/tutorial_custom_lpd.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:27
 msgid ""
 "To load productivity data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
@@ -109,7 +109,7 @@ msgstr ""
 "Para cargar datos de productividad, haga clic en el ícono (|iconfolder|) en "
 "la barra de herramientas Trends.Earth."
 
-#: ../../source/training/tutorial_custom_lpd.rst:32
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:32
 msgid ""
 "The **Load data** menu will open. Select **Productivity** from the **Import "
 "a custom input dataset** section."
@@ -117,7 +117,7 @@ msgstr ""
 "Se abrirá el menú **Cargar datos**. Seleccione **Productividad** de la "
 "sección **Importar un conjunto de datos de entrada personalizado**."
 
-#: ../../source/training/tutorial_custom_lpd.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:37
 msgid ""
 "In the **Load a Custom Land Productivity Dataset** use the radio button to "
 "select the format of the input file (raster or vector). For this tutorial "
@@ -130,7 +130,7 @@ msgstr ""
 "distribuidos por el CNULD están en formato raster. Haga clic en **Examinar**"
 " para navegar hasta el archivo de productividad que desea importar."
 
-#: ../../source/training/tutorial_custom_lpd.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:42
 msgid ""
 "Use the **Select input file** window to navigate to the file to be imported,"
 " select it, and click **Open**."
@@ -138,7 +138,7 @@ msgstr ""
 "Use la ventana **Seleccionar archivo de entrada** para navegar al archivo "
 "que desea importar, selecciónelo y haga clic en **Abrir**."
 
-#: ../../source/training/tutorial_custom_lpd.rst:47
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:47
 msgid ""
 "Back at the **Load a Custom Land Productivity Dataset** window you have "
 "options for selecting the band number in which the productivity data is "
@@ -153,7 +153,7 @@ msgstr ""
 "resolución del archivo. Recomendamos dejarlos como predeterminados a menos "
 "que tenga razones válidas para cambiarlos."
 
-#: ../../source/training/tutorial_custom_lpd.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:48
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file** and navigate to the folder where you want to save the file. Assign it"
@@ -163,7 +163,7 @@ msgstr ""
 "el **Archivo raster de salida** y vaya a la carpeta donde desea guardar el "
 "archivo. Asignarle un nombre y hacer clic en **Aceptar**."
 
-#: ../../source/training/tutorial_custom_lpd.rst:53
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:53
 msgid ""
 "Back at the **Load a Custom Land Productivity Dataset** window click **OK** "
 "on the lower right corner to process the data."
@@ -171,7 +171,7 @@ msgstr ""
 "De vuelta en la ventana **Cargar datos de Productividad propios**, haga clic"
 " en **Aceptar** en la esquina inferior derecha para procesar los datos."
 
-#: ../../source/training/tutorial_custom_lpd.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:55
 msgid ""
 "If the values of the input file do not exactly match the requirements "
 "describe above, you will see a warning message. In many cases the warning is"
@@ -186,7 +186,7 @@ msgstr ""
 "**extremadamente importante** explorar la capa de salida para asegurarse de "
 "que los resultados se mapean como se espera."
 
-#: ../../source/training/tutorial_custom_lpd.rst:60
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:60
 msgid ""
 "Once you click **OK** in the warning window, a progress bar will appear "
 "showing the percentage of the task completed."
@@ -194,7 +194,7 @@ msgstr ""
 "Una vez que haga clic en **Aceptar** en la ventana de advertencia, aparecerá"
 " una barra de progreso que muestra el porcentaje de la tarea completada."
 
-#: ../../source/training/tutorial_custom_lpd.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:65
 msgid ""
 "When the processing is completed, the imported land productivity dataset "
 "will be loaded to QGIS."
@@ -202,7 +202,7 @@ msgstr ""
 "Cuando se completa el procesamiento, el dataset de productividad de la "
 "tierra importada se cargará en QGIS."
 
-#: ../../source/training/tutorial_custom_lpd.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_lpd.rst:71
 msgid ""
 "Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
 "the imported LPD to compute the final SDG 15.3.1 after integration with land"

@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/background/understanding_indicators15.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:4
 msgid "SDG Indicator 15.3.1"
 msgstr "Kiashiria cha SDG 15.3.1"
 
-#: ../../source/background/understanding_indicators15.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
@@ -34,7 +34,7 @@ msgstr ""
 "Kama sehemu ya &quot;Agenda ya 2030 ya Maendeleo Endelevu&quot;, Malengo ya "
 "Maendeleo Endelevu (SDG) 15 ni kwa:"
 
-#: ../../source/background/understanding_indicators15.rst:9
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:9
 msgid ""
 "\"Protect, restore and promote sustainable use of terrestrial ecosystems, "
 "sustainably manage forests, combat desertification, and halt and reverse "
@@ -44,7 +44,7 @@ msgstr ""
 "kusimamia misitu, kupambana na vurugu, na kusimama na kuharibu uharibifu wa "
 "ardhi na kuacha hasara ya viumbe hai&quot;"
 
-#: ../../source/background/understanding_indicators15.rst:13
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
@@ -52,7 +52,7 @@ msgstr ""
 "Kila SDG ina malengo maalum ya kushughulikia vipengele tofauti, katika kesi "
 "hii, ya maisha kwenye ardhi. Lengo la 15.3 linalenga:"
 
-#: ../../source/background/understanding_indicators15.rst:16
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:16
 msgid ""
 "\"By 2030, combat desertification, restore degraded land and soil, including"
 " land affected by desertification, drought and floods, and strive to achieve"
@@ -63,7 +63,7 @@ msgstr ""
 "ardhi, ukame na mafuriko, na kujitahidi kufikia ulimwengu usio na uharibifu "
 "wa ardhi&quot;"
 
-#: ../../source/background/understanding_indicators15.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:20
 msgid ""
 "Indicators will be used then to assess the progress of each SDG target. In "
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
@@ -73,12 +73,12 @@ msgstr ""
 " kesi ya SDG 15.3 maendeleo juu ya uharibifu wa ardhi bila upande wa "
 "ulimwengu utahesabiwa kwa kutumia kiashiria 15.3.1:"
 
-#: ../../source/background/understanding_indicators15.rst:24
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
 msgstr ""
 "&quot;idadi ya ardhi ambayo imeharibiwa zaidi ya eneo la ardhi nzima&quot;"
 
-#: ../../source/background/understanding_indicators15.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:26
 msgid ""
 "As the custodian agency for SDG 15.3, the United Nations Convention to "
 "Combat Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)"
@@ -92,7 +92,7 @@ msgstr ""
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>"
 " `_. kutoa mapendekezo juu ya jinsi ya kuhesabu Kiashiria cha SDG 15.3.1."
 
-#: ../../source/background/understanding_indicators15.rst:31
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
@@ -100,7 +100,7 @@ msgstr ""
 "Hati hii hutoa utangulizi mfupi kwa Kiashiria cha SDG 15.3.1 na inaelezea "
 "jinsi kila kiashiria inavyohesabiwa kwa | trends.earth |."
 
-#: ../../source/background/understanding_indicators15.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:34
 msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
@@ -108,21 +108,21 @@ msgstr ""
 "Ili kutathmini eneo limeharibiwa, Kiashiria cha SDG 15.3.1 hutumia taarifa "
 "kutoka kwa viashiria vidogo viwili:"
 
-#: ../../source/background/understanding_indicators15.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:37
 msgid "Vegetation productivity"
 msgstr "Uzalishaji wa mboga"
 
-#: ../../source/background/understanding_indicators15.rst:38
-#: ../../source/background/understanding_indicators15.rst:265
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:38
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:265
 msgid "Land cover"
 msgstr "Bima ya ardhi"
 
-#: ../../source/background/understanding_indicators15.rst:39
-#: ../../source/background/understanding_indicators15.rst:298
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:298
 msgid "Soil organic carbon"
 msgstr "Mkaa kaboni ya udongo"
 
-#: ../../source/background/understanding_indicators15.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:44
 msgid ""
 "|trends.earth| allows the user to compute each of these subindicators in a "
 "spatially explicit way generating raster maps which are then integrated into"
@@ -135,15 +135,15 @@ msgstr ""
 "taarifa ya matokeo ya meza ambayo yanaweza kuboreshwa na kuharibiwa kwa eneo"
 " la uchambuzi."
 
-#: ../../source/background/understanding_indicators15.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:50
 msgid "Sub-indicators"
 msgstr "Viashiria vya chini"
 
-#: ../../source/background/understanding_indicators15.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:55
 msgid "Productivity"
 msgstr "Uzalishaji"
 
-#: ../../source/background/understanding_indicators15.rst:57
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:57
 msgid ""
 "Land productivity is the biological productive capacity of the land, the "
 "source of all the food, fiber and fuel that sustains humans (United Nations "
@@ -163,7 +163,7 @@ msgstr ""
 " kukadiria, kwa sababu hiyo, tunategemea maelezo ya mbali ya kupatikana ili "
 "kupata viashiria vya NPP."
 
-#: ../../source/background/understanding_indicators15.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:66
 msgid ""
 "One of the most commonly used surrogates of NPP is the Normalized Difference"
 " Vegetation Index (NDVI), computed using information from the red and near "
@@ -181,7 +181,7 @@ msgstr ""
 "matokeo). Sehemu hizi za kila mwaka za NDVI zinatumiwa kulinganisha kila "
 "moja ya viashiria vya uzalishaji vinavyoelezwa hapo chini."
 
-#: ../../source/background/understanding_indicators15.rst:74
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:74
 msgid ""
 "Land productivity is assessed in |trends.earth| using three measures of "
 "change derived from NDVI time series data: trajectory, performance and state"
@@ -190,11 +190,11 @@ msgstr ""
 "za mabadiliko inayotokana na data ya mfululizo wa NDVI wakati: trajectory, "
 "utendaji na hali"
 
-#: ../../source/background/understanding_indicators15.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:83
 msgid "Productivity Trajectory"
 msgstr "Uzalishaji wa Trajectory"
 
-#: ../../source/background/understanding_indicators15.rst:85
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:85
 msgid ""
 "Trajectory measures the rate of change in primary productivity over time. As"
 " indicated in the figure below, |trends.earth| computes a linear regression "
@@ -214,11 +214,11 @@ msgstr ""
 "Mwelekeo mzuri wa NDVI ungeonyesha uwezekano wa kuboresha hali ya ardhi, na "
 "mwelekeo mbaya wa uharibifu."
 
-#: ../../source/background/understanding_indicators15.rst:100
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:100
 msgid "Correcting for the effects of climate"
 msgstr "Kuelezea madhara ya hali ya hewa"
 
-#: ../../source/background/understanding_indicators15.rst:102
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:102
 msgid ""
 "Within a given ecosystem, primary productivity is affected by several "
 "factors, such as temperature, and the availability of light, nutrients and "
@@ -241,7 +241,7 @@ msgstr ""
 "wakati unaendeshwa na mifumo ya kikanda ya mabadiliko katika upatikanaji wa "
 "maji."
 
-#: ../../source/background/understanding_indicators15.rst:112
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:112
 msgid ""
 "|trends.earth| allows the user to perform different types of analysis to "
 "separate the climatic causes of the changes in primary productivity, from "
@@ -254,7 +254,7 @@ msgstr ""
 " ardhi chini ya ardhi. Mbinu ambazo zinasaidiwa sasa kwa ajili ya "
 "marekebisho ya hali ya hewa ni:"
 
-#: ../../source/background/understanding_indicators15.rst:117
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:117
 msgid ""
 "**Residual Trend Analysis (RESTREND):** RESTREND uses linear regression "
 "models to predict NDVI for a given rainfall amount. Trends in the difference"
@@ -274,7 +274,7 @@ msgstr ""
 "kuchunguza uharibifu wa ardhi kwa uchambuzi wa mwenendo wa data ya index ya "
 "mimea. Maeneo ya mbali. 2012, 125, 10-22.`"
 
-#: ../../source/background/understanding_indicators15.rst:126
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:126
 msgid ""
 "**Rain Use Efficiency (RUE):** RUE Is the ratio of annual NPP to annual "
 "precipitation. |trends.earth| uses the annual integrals of NDVI as a proxy "
@@ -304,7 +304,7 @@ msgstr ""
 "mvua? Utafiti wa kesi nchini Afrika Kusini. J. Arid Environ. 2007, 68, "
 "271-297.`"
 
-#: ../../source/background/understanding_indicators15.rst:139
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:139
 msgid ""
 "**Water Use Efficiency (WUE):** RUE assumes that there is a linear "
 "relationship between the amount of water that falls in the form of "
@@ -331,7 +331,7 @@ msgstr ""
 " ungeonyesha uwezekano wa kuboresha hali ya ardhi, na mwelekeo usiofaa wa "
 "uharibifu."
 
-#: ../../source/background/understanding_indicators15.rst:151
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:151
 msgid ""
 "The table below list the datasets available in |trends.earth| to perform "
 "NDVI trend analysis over time using the original NDVI data or with climatic "
@@ -341,11 +341,11 @@ msgstr ""
 "kufanya uchambuzi wa NDVI kwa muda kwa kutumia data ya awali ya NDVI au kwa "
 "marekebisho ya hali ya hewa:"
 
-#: ../../source/background/understanding_indicators15.rst:161
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:161
 msgid "Productivity State"
 msgstr "Hali ya Uzalishaji"
 
-#: ../../source/background/understanding_indicators15.rst:163
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:163
 msgid ""
 "The Productivity State indicator allows for the detection of recent changes "
 "in primary productivity as compared to a baseline period. The indicator is "
@@ -355,7 +355,7 @@ msgstr ""
 "karibuni katika uzalishaji wa msingi ikilinganishwa na kipindi cha msingi. "
 "Kiashiria kinahesabiwa kama ifuatavyo:"
 
-#: ../../source/background/understanding_indicators15.rst:167
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:167
 msgid ""
 "Define the baseline period (historical period to which to compare recent "
 "primary productivity)."
@@ -363,7 +363,7 @@ msgstr ""
 "Eleza kipindi cha msingi (kipindi cha kihistoria ambacho unalinganisha tija "
 "ya msingi ya hivi karibuni)."
 
-#: ../../source/background/understanding_indicators15.rst:170
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:170
 msgid ""
 "Define the comparison period (recent years used to compute comparison). It "
 "is recommended to use a 3-year to avoid annual fluctuations related to "
@@ -373,7 +373,7 @@ msgstr ""
 "kulinganisha kulinganisha). Inashauriwa kutumia miaka 3 ili kuepuka "
 "mabadiliko ya kila mwaka yanayohusiana na hali ya hewa."
 
-#: ../../source/background/understanding_indicators15.rst:174
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:174
 msgid ""
 "For each pixel, use the annual integrals of NDVI for the baseline period to "
 "compute a frequency distribution. In case the baseline period missed some "
@@ -387,7 +387,7 @@ msgstr ""
 "usambazaji. Hiyo kupanua kasi ya usambazaji wa mzunguko hutumiwa kufafanua "
 "maadili ya kukatwa ya madarasa 10 ya percentile."
 
-#: ../../source/background/understanding_indicators15.rst:180
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:180
 msgid ""
 "Compute the mean NDVI for the baseline period, and determine the percentile "
 "class it belongs to. Assign to the mean NDVI for the baseline period the "
@@ -399,7 +399,7 @@ msgstr ""
 "inayohusiana na darasa la percentile. Maadili inayowezekana yanaanzia 1 "
 "(darasa la chini kabisa) hadi 10 (darasa la juu)."
 
-#: ../../source/background/understanding_indicators15.rst:185
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:185
 msgid ""
 "Compute the mean NDVI for the comparison period, and determine the "
 "percentile class it belongs to. Assign to the mean NDVI for the comparison "
@@ -411,7 +411,7 @@ msgstr ""
 "namba inayoendana na darasa la percentile. Maadili inayowezekana yanaanzia 1"
 " (darasa la chini kabisa) hadi 10 (darasa la juu)."
 
-#: ../../source/background/understanding_indicators15.rst:190
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:190
 msgid ""
 "Determine the difference in class number between the comparison and the "
 "baseline period (comparison minus baseline)."
@@ -419,7 +419,7 @@ msgstr ""
 "Tambua tofauti katika nambari ya darasa kati ya kulinganisha na kipindi cha "
 "msingi (kulinganisha chini ya msingi)."
 
-#: ../../source/background/understanding_indicators15.rst:193
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:193
 msgid ""
 "If the difference in class between the baseline and the comparison period is"
 " ≤ 2, then that pixel could potentially be degraded. If the difference is ≥ "
@@ -431,7 +431,7 @@ msgstr ""
 "pixel hiyo itaonyesha kuboresha hivi karibuni kwa suala la uzalishaji wa "
 "msingi. Pixels na mabadiliko madogo yanachukuliwa kuwa imara."
 
-#: ../../source/background/understanding_indicators15.rst:201
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:201
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity State indicator:"
@@ -439,11 +439,11 @@ msgstr ""
 "Jedwali hapa chini orodha orodha ya data zilizopo katika | trends.earth | "
 "kuhesabu kiashiria cha Hali ya Uzalishaji:"
 
-#: ../../source/background/understanding_indicators15.rst:210
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:210
 msgid "Productivity Performance"
 msgstr "Ufanisi wa Utendaji"
 
-#: ../../source/background/understanding_indicators15.rst:212
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:212
 msgid ""
 "The Productivity Performance indicator measures local productivity relative "
 "to other similar vegetation types in similar land cover types or bioclimatic"
@@ -462,7 +462,7 @@ msgstr ""
 "kwa ufumbuzi wa 300m) ili kufafanua maeneo haya ya uchambuzi. Kiashiria "
 "kinahesabiwa kama ifuatavyo:"
 
-#: ../../source/background/understanding_indicators15.rst:220
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:220
 msgid ""
 "Define the analysis period, and use the time series of NDVI to compute mean "
 "the NDVI for each pixel."
@@ -470,7 +470,7 @@ msgstr ""
 "Kufafanua kipindi cha uchambuzi, na kutumia mfululizo wa muda wa NDVI "
 "kuhesabu maana ya NDVI kwa kila pixel."
 
-#: ../../source/background/understanding_indicators15.rst:223
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:223
 msgid ""
 "Define similar ecologically similar units as the unique intersection of land"
 " cover and soil type."
@@ -478,7 +478,7 @@ msgstr ""
 "Kufafanua vitengo vilivyofanana na mazingira kama mchanganyiko wa kipekee wa"
 " bima ya ardhi na aina ya udongo."
 
-#: ../../source/background/understanding_indicators15.rst:226
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:226
 msgid ""
 "For each unit, extract all the mean NDVI values computed in step 1, and "
 "create a frequency distribution. From this distribution determine the value "
@@ -494,7 +494,7 @@ msgstr ""
 "nje). Thamani inayowakilisha percentile ya 90 itachukuliwa kuwa tija ya juu "
 "kwa kitengo hicho."
 
-#: ../../source/background/understanding_indicators15.rst:233
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:233
 msgid ""
 "Compute the ratio of mean NDVI and maximum productivity (in each case "
 "compare the mean observed value to the maximum for its corresponding unit)."
@@ -503,7 +503,7 @@ msgstr ""
 "maana inayoonekana thamani hadi kiwango cha juu kwa kitengo chake "
 "kinachotambulishwa)."
 
-#: ../../source/background/understanding_indicators15.rst:236
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:236
 msgid ""
 "If observed mean NDVI is lower than 50% than the maximum productivity, that "
 "pixel is considered potentially degraded for this indicator."
@@ -512,7 +512,7 @@ msgstr ""
 "kiwango cha juu, pixel hiyo inachukuliwa kuwa inaweza kuharibiwa kwa "
 "kiashiria hiki."
 
-#: ../../source/background/understanding_indicators15.rst:242
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:242
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity Performance indicator:"
@@ -520,11 +520,11 @@ msgstr ""
 "Jedwali hapa chini orodha orodha ya data zilizopo katika | trends.earth | "
 "kuhesabu kiashiria cha Utendaji wa Utendaji:"
 
-#: ../../source/background/understanding_indicators15.rst:251
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:251
 msgid "Combining Productivity Indicators"
 msgstr "Kujumuisha Viashiria vya Uzalishaji"
 
-#: ../../source/background/understanding_indicators15.rst:253
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:253
 msgid ""
 "The three productivity sub-indicators are then combined as indicated in the "
 "tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, "
@@ -538,7 +538,7 @@ msgstr ""
 "linafaidika na taarifa iliyotolewa na Serikali ili kuwajulisha aina ya "
 "uharibifu unaofanyika katika eneo hilo."
 
-#: ../../source/background/understanding_indicators15.rst:267
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:267
 msgid ""
 "To assess changes in land cover users need land cover maps covering the "
 "study area for the baseline and target years. These maps need to be of "
@@ -554,7 +554,7 @@ msgstr ""
 "ramani ya ardhi ya ESA CCI kama dataset ya msingi, lakini ramani za mitaa "
 "pia zinaweza kutumika. Kiashiria kinahesabiwa kama ifuatavyo:"
 
-#: ../../source/background/understanding_indicators15.rst:273
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:273
 msgid ""
 "Reclassify both land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
@@ -564,7 +564,7 @@ msgstr ""
 "yanayotakiwa kutoa ripoti kwa UNCCD (misitu, majani, mashamba, wetland, eneo"
 " la bandia, ardhi ya maji na maji)."
 
-#: ../../source/background/understanding_indicators15.rst:277
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:277
 msgid ""
 "Perform a land cover transition analysis to identify which pixels remained "
 "in the same land cover class, and which ones changed."
@@ -573,7 +573,7 @@ msgstr ""
 "zimebakia katika darasa moja la kifuniko cha ardhi, na ambacho "
 "zimebadilishwa."
 
-#: ../../source/background/understanding_indicators15.rst:280
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:280
 msgid ""
 "Based on your local knowledge of the conditions in the study area and the "
 "land degradation processed occurring there, use the table below to identify "
@@ -585,7 +585,7 @@ msgstr ""
 "mabadiliko gani yanayolingana na uharibifu (- ishara), kuboresha (+ ishara),"
 " au hakuna mabadiliko katika hali ya ardhi (sufuri)."
 
-#: ../../source/background/understanding_indicators15.rst:288
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:288
 msgid ""
 "|trends.earth| will combine the information from the land cover maps and the"
 " table of degradation typologies by land cover transition to compute the "
@@ -595,7 +595,7 @@ msgstr ""
 "na meza ya uharibifu wa aina ya uharibifu wa ardhi ili kuhesabu kiashiria "
 "cha chini cha kifuniko cha ardhi."
 
-#: ../../source/background/understanding_indicators15.rst:300
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:300
 msgid ""
 "The third sub-indicator for monitoring land degradation as part of the SDG "
 "process quantifies changes in soil organic carbon (SOC) over the reporting "
@@ -617,7 +617,7 @@ msgstr ""
 " katika | trends.earth | ili kukadiria mabadiliko katika SOC na kutambua "
 "maeneo yaliyoharibiwa. Kiashiria kinahesabiwa kama ifuatavyo:"
 
-#: ../../source/background/understanding_indicators15.rst:310
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:310
 msgid ""
 "Determine the SOC reference values. |trends.earth| uses SoilGrids 250m "
 "carbon stocks for the first 30 cm of the soil profile as the reference "
@@ -633,7 +633,7 @@ msgstr ""
 "hiyo kugawa tarehe kwa mahesabu ya madhumuni inaweza kusababisha usahihi "
 "katika mahesabu ya mabadiliko ya hisa)."
 
-#: ../../source/background/understanding_indicators15.rst:317
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:317
 msgid ""
 "Reclassify the land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
@@ -646,7 +646,7 @@ msgstr ""
 "lakini angalau ramani za ramani za ardhi kwa miaka ya mwanzo na mwisho "
 "zinahitajika."
 
-#: ../../source/background/understanding_indicators15.rst:322
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:322
 msgid ""
 "To estimate the changes in C stocks for the reporting period C conversion "
 "coefficients for changes in land use, management and inputs are recommended "
@@ -669,7 +669,7 @@ msgstr ""
 " chini. Coefficients hizo zinawakilisha sawia katika hifadhi za C baada ya "
 "miaka 20 ya mabadiliko ya bima ya ardhi."
 
-#: ../../source/background/understanding_indicators15.rst:335
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:335
 msgid ""
 "Changes in SOC are better studied for land cover transitions involving "
 "agriculture, and for that reason there is a different set of coefficients "
@@ -683,7 +683,7 @@ msgstr ""
 "Mzunguko wa baridi (f = 0.69), Tropical Kavu (f = 0.58), Mzunguko wa "
 "Tropical (f = 0.48), na Montane ya Tropical (f = 0.64)."
 
-#: ../../source/background/understanding_indicators15.rst:341
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:341
 msgid ""
 "Compute relative different in SOC between the baseline and the target "
 "period, areas which experienced a loss in SOC of 10% of more during the "
@@ -695,11 +695,11 @@ msgstr ""
 "itakuwa kuchukuliwa kuwa yanaweza kupoteza, na maeneo yenye faida ya 10% au "
 "zaidi kama inaweza kuboreshwa."
 
-#: ../../source/background/understanding_indicators15.rst:351
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:351
 msgid "Combining indicators"
 msgstr "Kuchanganya viashiria"
 
-#: ../../source/background/understanding_indicators15.rst:353
+#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:353
 msgid ""
 "The integration of the three SDG 15.3.1 sub-indicators is done following the"
 " one-out all-out rule, this means that if an area was identified as "

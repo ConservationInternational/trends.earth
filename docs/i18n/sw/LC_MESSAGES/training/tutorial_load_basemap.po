@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:02+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_load_basemap.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:4
 msgid "Load results and basemap"
 msgstr "Weka matokeo na karatasi"
 
-#: ../../source/training/tutorial_load_basemap.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:6
 msgid ""
 "**Objective**: Learn how to load into QGIS results from previous analysis "
 "run on Trends.Earth, and how to load a base map to make help with the "
@@ -36,11 +36,11 @@ msgstr ""
 "msingi ili ufanye msaada na tafsiri ya mifumo ya anga iliyoonyeshwa na "
 "viashiria."
 
-#: ../../source/training/tutorial_load_basemap.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:8
 msgid "**Estimated time of completion**: 15 minutes"
 msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 15"
 
-#: ../../source/training/tutorial_load_basemap.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:10
 msgid ""
 "**Internet access**: Required only the first time you load a base map, since"
 " the information needs to be downloaded. Once the data is stored in your "
@@ -51,7 +51,7 @@ msgstr ""
 "kwenye ramani zako za msingi za kompyuta zinaweza kubeba bila upatikanaji wa"
 " mtandao."
 
-#: ../../source/training/tutorial_load_basemap.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
@@ -59,7 +59,7 @@ msgstr ""
 "`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
 "Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>` _"
 
-#: ../../source/training/tutorial_load_basemap.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:15
 msgid ""
 "To load results from previous Trends.Earth analysis into QGIS click on the "
 "(|iconfolder|) icon in the Trends.Earth toolbar."
@@ -67,7 +67,7 @@ msgstr ""
 "Kupakia matokeo kutoka kwa Mwelekeo uliopita.Kuchunguza kwa kasi katika QGIS"
 " bonyeza icon (| | iconfolder |) katika Trends.Earth toolbar."
 
-#: ../../source/training/tutorial_load_basemap.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:20
 msgid ""
 "The **Load data** menu will open. Select **Load and existing TRENDS.EARTH "
 "output file** from the **Load a dataset produced by TRENDS.EARTH** section."
@@ -76,14 +76,14 @@ msgstr ""
 "TRENDS.EARTH faili ya pato ** kutoka ** Weka dasasiti iliyozalishwa na "
 "sehemu ya TRENDS.EARTH **."
 
-#: ../../source/training/tutorial_load_basemap.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:25
 msgid ""
 "Click the **Browse** button on the **Open a Trends.Earth file** window."
 msgstr ""
 "Bonyeza ** Bonyeza kifungo ** kwenye ** Fungua Mwelekeo wa Faili ya kwanza "
 "** dirisha."
 
-#: ../../source/training/tutorial_load_basemap.rst:30
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:30
 msgid ""
 "On the **Select a Trends.Earth output file** window navigate to the folder "
 "where you stored the data and select the file to load, and click **Open**."
@@ -92,7 +92,7 @@ msgstr ""
 "folda ambapo ulihifadhi data na uchague faili kupakia, na bonyeza ** Fungua "
 "**."
 
-#: ../../source/training/tutorial_load_basemap.rst:35
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:35
 msgid ""
 "You will be back at the **Open a Trends.Earth file** window, but this time "
 "you will see many layers listed under the **Select a layer(s)** section. "
@@ -108,7 +108,7 @@ msgstr ""
 "katika kila mmoja wao zitatofautiana, lakini kwa hali yoyote, chombo hiki "
 "kitakuonyesha habari ili kukuwezesha kuamua ni vipi ambavyo utaonyesha."
 
-#: ../../source/training/tutorial_load_basemap.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:37
 msgid ""
 "In this case, since this layer is the result of the 1-step analysis "
 "(:ref:`tut_compute_sdg`), the file contains information for land "
@@ -118,7 +118,7 @@ msgstr ""
 "`tut_compute_sdg`), faili ina habari za uzalishaji wa ardhi, kifuniko cha "
 "ardhi na kaboni ya kaboni ya udongo."
 
-#: ../../source/training/tutorial_load_basemap.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:39
 msgid ""
 "If you only want to see the final layer for each of the sub-indicators, "
 "simply leave the default selection and click **OK**."
@@ -126,15 +126,15 @@ msgstr ""
 "Ikiwa unataka tu kuona safu ya mwisho kwa kila moja ya viashiria, tuacha "
 "chagua chaguo-msingi na bonyeza ** OK **."
 
-#: ../../source/training/tutorial_load_basemap.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:44
 msgid "The selected layers will be displayed on the QGIS map."
 msgstr "Vipande vilivyochaguliwa vitaonyeshwa kwenye ramani ya QGIS."
 
-#: ../../source/training/tutorial_load_basemap.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:50
 msgid "**Adding a basemap**"
 msgstr "** Kuongeza kiwanja **"
 
-#: ../../source/training/tutorial_load_basemap.rst:52
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:52
 msgid ""
 "Basemaps are very useful as a reference for identifying specific locations "
 "in maps. When downloaded, Trends.Earth results are displayed on an empty "
@@ -151,7 +151,7 @@ msgstr ""
 "barabara, mito, miji, pwani na miili ya maji yenye maandiko kwenye mradi wa "
 "QGIS."
 
-#: ../../source/training/tutorial_load_basemap.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:54
 msgid ""
 "To load the tool click on the visualizations tool icon on the Trends.Earth "
 "toolbar."
@@ -159,16 +159,16 @@ msgstr ""
 "Ili kupakia chombo chombo kwenye skrini ya chombo cha visualizations kwenye "
 "Mchapishaji wa wavuti wa Mwelekeo."
 
-#: ../../source/training/tutorial_load_basemap.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:59
 msgid "Click on **Add basemap**."
 msgstr "Bonyeza kwenye ** Ongeza kipengee **."
 
-#: ../../source/training/tutorial_load_basemap.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:64
 msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
 "Juu ya ** Ongeza kikao ** dirisha unaweza kufanya moja ya mambo mawili:"
 
-#: ../../source/training/tutorial_load_basemap.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:66
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
@@ -185,7 +185,7 @@ msgstr ""
 "data ya kupakuliwa haipatikani kwenye mipaka ya utawala (sanduku linalowekwa"
 " linatumiwa badala). Unaweza kutumia mipaka ya utawala wa kwanza na ya pili."
 
-#: ../../source/training/tutorial_load_basemap.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:68
 msgid ""
 "**Use a mask option not selected** will load all the reference information, "
 "but no mask will be applied."
@@ -193,7 +193,7 @@ msgstr ""
 "** Tumia chaguo la mask usilochaguliwa ** litaweka taarifa zote za "
 "kumbukumbu, lakini hakuna mask itatumika."
 
-#: ../../source/training/tutorial_load_basemap.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:73
 msgid ""
 "The first time you run this tool after installing Trends.Earth, the "
 "information will be downloaded from the Internet, so make sure you are "
@@ -205,7 +205,7 @@ msgstr ""
 "kushikamana. Bar ya maendeleo itaonyesha asilimia ya kazi iliyokamilishwa. "
 "Data itabaki kuhifadhiwa kwenye kompyuta yako kwa matumizi ya baadaye."
 
-#: ../../source/training/tutorial_load_basemap.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:78
 msgid ""
 "Once the basemap is loaded, you will notice the information added to the map"
 " and to the Layer panel. The basemap has information for:"
@@ -213,34 +213,34 @@ msgstr ""
 "Mara baada ya kupakia, utaona maelezo yaliyoongezwa kwenye ramani na kwenye "
 "jopo la Layer. Basemap ina habari kwa:"
 
-#: ../../source/training/tutorial_load_basemap.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:80
 msgid "Lake"
 msgstr "Ziwa"
 
-#: ../../source/training/tutorial_load_basemap.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:81
 msgid "River"
 msgstr "Mto"
 
-#: ../../source/training/tutorial_load_basemap.rst:82
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:82
 msgid "Coastline"
 msgstr "Pwani"
 
-#: ../../source/training/tutorial_load_basemap.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:83
 msgid "City"
 msgstr "Jiji"
 
-#: ../../source/training/tutorial_load_basemap.rst:84
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:84
 msgid "Disputed border"
 msgstr "Mpaka wa mgongano"
 
-#: ../../source/training/tutorial_load_basemap.rst:85
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:85
 msgid "Subnational border"
 msgstr "Mpaka wa nchi"
 
-#: ../../source/training/tutorial_load_basemap.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:86
 msgid "National border"
 msgstr "Mpaka wa Taifa"
 
-#: ../../source/training/tutorial_load_basemap.rst:87
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:87
 msgid "Ocean"
 msgstr "Bahari"

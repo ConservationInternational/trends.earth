@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:02+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_installation.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:2
 msgid "Installation and Registration"
 msgstr "Ufungaji na Usajili"
 
-#: ../../source/training/tutorial_installation.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:4
 msgid ""
 "**Objective**: Learn how to install, register and login to use the "
 "Trends.Earth plugin in QGIS. These step needs to be completed only the first"
@@ -36,15 +36,15 @@ msgstr ""
 "mara ya kwanza tu kutumia zana. Mtumiaji wako atahifadhiwa kwa vikao vya "
 "baadaye."
 
-#: ../../source/training/tutorial_installation.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:6
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
 
-#: ../../source/training/tutorial_installation.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:8
 msgid "**Internet access**: Required"
 msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
 
-#: ../../source/training/tutorial_installation.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:10
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial01_Installation.pdf>`_"
@@ -52,7 +52,7 @@ msgstr ""
 "`Pakua ukurasa huu kama PDF kwa matumizi ya nje ya mtandao <../ pdfs / "
 "Trends.Earth_Tutorial01_Installation.pdf>` _"
 
-#: ../../source/training/tutorial_installation.rst:13
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:13
 msgid ""
 "Once QGIS is installed open it by searching in the for the QGIS icon on your"
 " computer's desktop or program menu."
@@ -60,7 +60,7 @@ msgstr ""
 "Mara baada ya QGIS imefungua kufungua kwa kutafuta katika alama ya QGIS "
 "kwenye orodha ya kompyuta au programu ya kompyuta."
 
-#: ../../source/training/tutorial_installation.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:15
 msgid ""
 "Once QGIS loads, search in the menu bar for **Plugins**. Click and a drop "
 "down menu will open."
@@ -68,17 +68,17 @@ msgstr ""
 "Mara baada ya QGIS mizigo, tafuta kwenye bar ya menu kwa ** Plugins **. "
 "Bonyeza na orodha ya kushuka itafunguliwa."
 
-#: ../../source/training/tutorial_installation.rst:17
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:17
 msgid "Click on **Manage and Install plugins**. The Plugins window will open."
 msgstr ""
 "Bonyeza kwenye ** Kusimamia na Kufunga Plugins **. Dirisha la Plugins "
 "litafungua."
 
-#: ../../source/training/tutorial_installation.rst:22
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:22
 msgid "In the search window type **Trends.Earth**."
 msgstr "Katika aina ya dirisha la utafutaji ** Trends.Earth **."
 
-#: ../../source/training/tutorial_installation.rst:24
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:24
 msgid ""
 "Click on the Trends.Earth plugin icon in the middle window and information "
 "on the toolbox will be displayed in the panel to the right."
@@ -86,7 +86,7 @@ msgstr ""
 "Bonyeza kwenye Mwelekeo.Kuangalia icon ya katikati ya dirisha la kati na "
 "habari kwenye sanduku la zana utaonyeshwa kwenye jopo kwa kulia."
 
-#: ../../source/training/tutorial_installation.rst:29
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:29
 msgid ""
 "To install the plugin click **Install plugin** button located in the bottom "
 "right section of the window. A small window will pop-up showing the progress"
@@ -100,7 +100,7 @@ msgstr ""
 "unaweza kuchukua dakika chache kulingana na kasi ya uunganisho wa Intaneti "
 "na kompyuta unayotumia."
 
-#: ../../source/training/tutorial_installation.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:34
 msgid ""
 "Once the window with the progress bar disappears click **Close** to close "
 "the Plugin Window. Trends.Earth will be installed in your computer. It will "
@@ -111,27 +111,27 @@ msgstr ""
 "Itaonyesha kwenye bar ya chombo chako cha QGIS kama mfululizo wa icons "
 "zilizoonyeshwa hapa chini."
 
-#: ../../source/training/tutorial_installation.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:39
 msgid "To create your account click on the wrench icon (|iconWrench|)."
 msgstr ""
 "Ili kuunda akaunti yako bofya kwenye icon ya wrench (| icon isharaWrench |)."
 
-#: ../../source/training/tutorial_installation.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:44
 msgid "To Register, click the **Step 1: Register** button."
 msgstr "Kujiandikisha, bofya ** Hatua ya 1: Bandika ya kifungo **."
 
-#: ../../source/training/tutorial_installation.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:49
 msgid "Enter your email, name, organization and country of residence."
 msgstr "Ingiza anwani yako ya barua pepe, jina, shirika na nchi."
 
-#: ../../source/training/tutorial_installation.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:54
 msgid ""
 "Select **Ok** and you will see a message indicating your user has been "
 "registered."
 msgstr ""
 "Chagua ** Ok ** na utaona ujumbe unaoonyesha mtumiaji wako amesajiliwa."
 
-#: ../../source/training/tutorial_installation.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:59
 msgid ""
 "12. After registering, you will receive an email from api@trends.earth with "
 "your password. If you don't see the email in your inbox after 15-20 seconds,"
@@ -148,11 +148,11 @@ msgstr ""
 "nenosiri lako. Ingiza anwani yako ya barua pepe na nenosiri ulilopokea "
 "kutoka api@trends.earth na bonyeza ** Ok **."
 
-#: ../../source/training/tutorial_installation.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:65
 msgid ""
 "You will see a message indicating you have successfully been logged in:"
 msgstr "Utaona ujumbe unaoonyesha umeingia kwa ufanisi:"
 
-#: ../../source/training/tutorial_installation.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_installation.rst:70
 msgid "You are now ready to start using Trends.Earth!"
 msgstr "Sasa uko tayari kuanza kutumia Trends.Earth!"

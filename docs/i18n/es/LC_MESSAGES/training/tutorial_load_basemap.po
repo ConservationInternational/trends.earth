@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2018-04-04 19:02+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../source/training/tutorial_load_basemap.rst:4
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:4
 msgid "Load results and basemap"
 msgstr "Cargar resultados y mapa base"
 
-#: ../../source/training/tutorial_load_basemap.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:6
 msgid ""
 "**Objective**: Learn how to load into QGIS results from previous analysis "
 "run on Trends.Earth, and how to load a base map to make help with the "
@@ -35,11 +35,11 @@ msgstr ""
 "ejecutado en Trends.Earth, y cómo cargar un mapa base para ayudar con la "
 "interpretación de los patrones espaciales que muestran los indicadores."
 
-#: ../../source/training/tutorial_load_basemap.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:8
 msgid "**Estimated time of completion**: 15 minutes"
 msgstr "**Tiempo estimado de finalización**: 15 minutos"
 
-#: ../../source/training/tutorial_load_basemap.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:10
 msgid ""
 "**Internet access**: Required only the first time you load a base map, since"
 " the information needs to be downloaded. Once the data is stored in your "
@@ -50,7 +50,7 @@ msgstr ""
 "almacenan en su computadora, los mapas base se pueden cargar sin acceso a "
 "Internet."
 
-#: ../../source/training/tutorial_load_basemap.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
@@ -58,7 +58,7 @@ msgstr ""
 "`Descargue esta página en formato PDF para uso fuera de línea "
 "<../pdfs/Trends.Earth_Tutorial09_Loading_a_Basemap.pdf>`_"
 
-#: ../../source/training/tutorial_load_basemap.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:15
 msgid ""
 "To load results from previous Trends.Earth analysis into QGIS click on the "
 "(|iconfolder|) icon in the Trends.Earth toolbar."
@@ -67,7 +67,7 @@ msgstr ""
 "haga clic en el ícono (|iconfolder|) en la barra de herramientas "
 "Trends.Earth."
 
-#: ../../source/training/tutorial_load_basemap.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:20
 msgid ""
 "The **Load data** menu will open. Select **Load and existing TRENDS.EARTH "
 "output file** from the **Load a dataset produced by TRENDS.EARTH** section."
@@ -76,14 +76,14 @@ msgstr ""
 " |trends.earth| existente** de la sección **Cargar un conjunto de datos "
 "producido por |trends.earth|**."
 
-#: ../../source/training/tutorial_load_basemap.rst:25
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:25
 msgid ""
 "Click the **Browse** button on the **Open a Trends.Earth file** window."
 msgstr ""
 "Haga clic en el botón **Buscar** en la ventana **Abrir un archivo "
 "Tendencias.Earth**."
 
-#: ../../source/training/tutorial_load_basemap.rst:30
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:30
 msgid ""
 "On the **Select a Trends.Earth output file** window navigate to the folder "
 "where you stored the data and select the file to load, and click **Open**."
@@ -92,7 +92,7 @@ msgstr ""
 " la carpeta donde almacenó los datos y seleccione el archivo para cargar, y "
 "haga clic en **Abrir**."
 
-#: ../../source/training/tutorial_load_basemap.rst:35
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:35
 msgid ""
 "You will be back at the **Open a Trends.Earth file** window, but this time "
 "you will see many layers listed under the **Select a layer(s)** section. "
@@ -108,7 +108,7 @@ msgstr ""
 " ellos variará, pero en cualquier caso, esta herramienta le mostrará "
 "información que le permitirá decidir qué capas mostrar."
 
-#: ../../source/training/tutorial_load_basemap.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:37
 msgid ""
 "In this case, since this layer is the result of the 1-step analysis "
 "(:ref:`tut_compute_sdg`), the file contains information for land "
@@ -119,7 +119,7 @@ msgstr ""
 "productividad de la tierra, la cubierta terrestre y el carbono orgánico del "
 "suelo."
 
-#: ../../source/training/tutorial_load_basemap.rst:39
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:39
 msgid ""
 "If you only want to see the final layer for each of the sub-indicators, "
 "simply leave the default selection and click **OK**."
@@ -127,15 +127,15 @@ msgstr ""
 "Si solo desea ver la capa final para cada uno de los subindicadores, "
 "simplemente deje la selección predeterminada y haga clic en **Aceptar**."
 
-#: ../../source/training/tutorial_load_basemap.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:44
 msgid "The selected layers will be displayed on the QGIS map."
 msgstr "Las capas seleccionadas se mostrarán en el mapa QGIS."
 
-#: ../../source/training/tutorial_load_basemap.rst:50
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:50
 msgid "**Adding a basemap**"
 msgstr "**Agregar un mapa base**"
 
-#: ../../source/training/tutorial_load_basemap.rst:52
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:52
 msgid ""
 "Basemaps are very useful as a reference for identifying specific locations "
 "in maps. When downloaded, Trends.Earth results are displayed on an empty "
@@ -152,7 +152,7 @@ msgstr ""
 "base** que cargará las fronteras del país y del estado, carreteras, ríos, "
 "ciudades, costas y masas de agua con etiquetas para el proyecto QGIS."
 
-#: ../../source/training/tutorial_load_basemap.rst:54
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:54
 msgid ""
 "To load the tool click on the visualizations tool icon on the Trends.Earth "
 "toolbar."
@@ -160,16 +160,16 @@ msgstr ""
 "Para cargar la herramienta, haga clic en el icono de la herramienta de "
 "visualizaciones en la barra de herramientas Tendencias.Earth."
 
-#: ../../source/training/tutorial_load_basemap.rst:59
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:59
 msgid "Click on **Add basemap**."
 msgstr "Haga clic en **Agregar mapa base**."
 
-#: ../../source/training/tutorial_load_basemap.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:64
 msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
 "En la ventana **Agregar mapa base** puede hacer una de estas dos cosas:"
 
-#: ../../source/training/tutorial_load_basemap.rst:66
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:66
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
@@ -187,7 +187,7 @@ msgstr ""
 "usa un cuadro delimitador). Puede usar límites administrativos de primer y "
 "segundo nivel."
 
-#: ../../source/training/tutorial_load_basemap.rst:68
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:68
 msgid ""
 "**Use a mask option not selected** will load all the reference information, "
 "but no mask will be applied."
@@ -195,7 +195,7 @@ msgstr ""
 "**Usar una opción de máscara no seleccionada** cargará toda la información "
 "de referencia, pero no se aplicará máscara."
 
-#: ../../source/training/tutorial_load_basemap.rst:73
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:73
 msgid ""
 "The first time you run this tool after installing Trends.Earth, the "
 "information will be downloaded from the Internet, so make sure you are "
@@ -208,7 +208,7 @@ msgstr ""
 "completada. Los datos permanecerán almacenados en su computadora para uso "
 "futuro."
 
-#: ../../source/training/tutorial_load_basemap.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:78
 msgid ""
 "Once the basemap is loaded, you will notice the information added to the map"
 " and to the Layer panel. The basemap has information for:"
@@ -216,34 +216,34 @@ msgstr ""
 "Una vez que se haya cargado el mapa base, observará la información agregada "
 "al mapa y al panel Capa. El mapa base tiene información para:"
 
-#: ../../source/training/tutorial_load_basemap.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:80
 msgid "Lake"
 msgstr "lago"
 
-#: ../../source/training/tutorial_load_basemap.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:81
 msgid "River"
 msgstr "Río"
 
-#: ../../source/training/tutorial_load_basemap.rst:82
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:82
 msgid "Coastline"
 msgstr "Línea costera"
 
-#: ../../source/training/tutorial_load_basemap.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:83
 msgid "City"
 msgstr "Ciudad"
 
-#: ../../source/training/tutorial_load_basemap.rst:84
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:84
 msgid "Disputed border"
 msgstr "Límite disputado"
 
-#: ../../source/training/tutorial_load_basemap.rst:85
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:85
 msgid "Subnational border"
 msgstr "Frontera subnacional"
 
-#: ../../source/training/tutorial_load_basemap.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:86
 msgid "National border"
 msgstr "frontera nacional"
 
-#: ../../source/training/tutorial_load_basemap.rst:87
+#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:87
 msgid "Ocean"
 msgstr "Oceano"

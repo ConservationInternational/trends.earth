@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -23,15 +23,15 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/documentation/settings.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:2
 msgid "Registration and settings"
 msgstr "Enregistrement et paramètres"
 
-#: ../../source/documentation/settings.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:10
 msgid "Registration"
 msgstr "Enregistrement"
 
-#: ../../source/documentation/settings.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:12
 msgid ""
 "The toolbox is free to use, but you must register an email address prior to "
 "using any of the cloud-based functions."
@@ -39,7 +39,7 @@ msgstr ""
 "La boîte à outils est libre d'utilisation, mais vous devez enregistrer une "
 "adresse e-mail avant d'utiliser l'une des fonctions basées sur le cloud."
 
-#: ../../source/documentation/settings.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:15
 msgid ""
 "To register your email address and obtain a free account, select the wrench "
 "icon (|iconWrench|). This will open up the \"Settings\" dialog box:"
@@ -48,7 +48,7 @@ msgstr ""
 "sélectionnez l'icône de la clé (|iconWrench |). Cela ouvrira la boîte de "
 "dialogue \"Paramètres\":"
 
-#: ../../source/documentation/settings.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:21
 msgid ""
 "To Register, click the \"Step 1: Register\" button. Enter your email, name, "
 "organization and country of residence and select \"Ok\":"
@@ -57,12 +57,12 @@ msgstr ""
 "Entrez votre email, nom, organisation et pays de résidence et sélectionnez "
 "\"Ok\":"
 
-#: ../../source/documentation/settings.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:27
 msgid "You will see a meesage indicating your user has been registered:"
 msgstr ""
 "Vous verrez un message indiquant que votre utilisateur a été enregistré:"
 
-#: ../../source/documentation/settings.rst:32
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:32
 msgid ""
 "After registering, you will receive an email from api@trends.earth with your"
 " password. Once you receive this email, click on \"Step 2: Enter login\". "
@@ -75,16 +75,16 @@ msgstr ""
 "vous demandant votre email et votre mot de passe. Entrez le mot de passe que"
 " vous avez reçu de api@trends.earth et cliquez sur \"Ok\":"
 
-#: ../../source/documentation/settings.rst:40
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:40
 msgid ""
 "You will see a message indicating you have successfully been logged in:"
 msgstr "Vous verrez un message indiquant que vous avez été connecté:"
 
-#: ../../source/documentation/settings.rst:46
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:46
 msgid "Updating your user"
 msgstr "Mise à jour de votre utilisateur"
 
-#: ../../source/documentation/settings.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:48
 msgid ""
 "If you already are registered for |Trends.Earth| but want to change your "
 "login information; update your name, organization, or country; or delete "
@@ -95,7 +95,7 @@ msgstr ""
 " supprimez votre utilisateur, cliquez sur \"Mettre à jour l'utilisateur\" "
 "dans la boîte de dialogue \"Paramètres\"."
 
-#: ../../source/documentation/settings.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:55
 msgid ""
 "If you want to change your username, click on \"Change user\". Note that "
 "this function is only useful if you already have another existing "
@@ -110,7 +110,7 @@ msgstr ""
 "d'utilisateur, entrez l'email et le mot de passe que vous souhaitez changer "
 "et cliquez sur \"OK\":"
 
-#: ../../source/documentation/settings.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:64
 msgid ""
 "If you want to update your profile, click on \"Update profile\". Update your"
 " information in the box that appears and click \"Save\":"
@@ -119,7 +119,7 @@ msgstr ""
 " profil\". Mettez à jour vos informations dans la boîte qui apparaît et "
 "cliquez sur \"Enregistrer\":"
 
-#: ../../source/documentation/settings.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:70
 msgid ""
 "To delete your user, click \"Delete user\". A warning message will appear. "
 "Click \"Ok\" if you are sure you want to delete your user:"
@@ -128,11 +128,11 @@ msgstr ""
 "Un message d'avertissement apparaîtra. Cliquez sur \"OK\" si vous êtes sûr "
 "de vouloir supprimer votre utilisateur:"
 
-#: ../../source/documentation/settings.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:78
 msgid "Forgot password"
 msgstr "Mot de passe oublié"
 
-#: ../../source/documentation/settings.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:80
 msgid ""
 "If you forget your password, click on \"Reset password\" from the settings "
 "dialog box."
@@ -140,7 +140,7 @@ msgstr ""
 "Si vous oubliez votre mot de passe, cliquez sur \"Réinitialiser le mot de "
 "passe\" dans la boîte de dialogue des paramètres."
 
-#: ../../source/documentation/settings.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:83
 msgid ""
 "A password will be sent to your email. Please check your Junk folder if you "
 "cannot find it within your inbox. The email will come from api@trends.earth."
@@ -149,7 +149,7 @@ msgstr ""
 "de courrier indésirable si vous ne le trouvez pas dans votre boîte de "
 "réception. L'email viendra de api@trends.earth."
 
-#: ../../source/documentation/settings.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:86
 msgid ""
 "Once you receive your new password, return to the \"Settings\" screen and "
 "use \"Step 2: Enter login\" to enter your new pasword."

@@ -46,8 +46,9 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-def tr(message):
-    return QCoreApplication.translate("calculate_tc", message)
+class tr_calculate_tc(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_calculate_tc", message)
 
 
 # TODO: Still need to code below for local calculation of Total Carbon change
@@ -472,9 +473,6 @@ def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water,
                        area_non_forest, area_site, area_forest, 
                        initial_carbon_total, year_start, year_end, out_file):
                           
-    def tr(s):
-        return tr(s)
-
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
 
     ##########################################################################
@@ -629,11 +627,11 @@ class SummaryTask(QgsTask):
         if self.isCanceled():
             return
         elif result:
-            QtWidgets.QMessageBox.information(None, tr("Success"),
-                                          tr(u'Summary table saved to {}'.format(self.outout_file)))
+            QtWidgets.QMessageBox.information(None, tr_calculate_tc.tr("Success"),
+                                          tr_calculate_tc.tr(u'Summary table saved to {}'.format(self.outout_file)))
         else:
-            QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                       tr(u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
+            QtWidgets.QMessageBox.critical(None, tr_calculate_tc.tr("Error"),
+                                       tr_calculate_tc.tr(u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
 
 class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
     def __init__(self, parent=None):

@@ -30,9 +30,9 @@ from LDMP import log
 from LDMP.api import get_header
 from LDMP.worker import AbstractWorker, start_worker
 
-
-def tr(message):
-    return QCoreApplication.translate("download", message)
+class tr_download(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_download", message)
 
 
 def check_hash_against_etag(url, filename, expected=None):
@@ -191,33 +191,33 @@ class Download(object):
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
             start_worker(worker, iface,
-                         tr(u'Downloading {}').format(self.outfile))
+                         tr_download.tr(u'Downloading {}').format(self.outfile))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ChunkedEncodingError:
             log("Download failed due to ChunkedEncodingError - likely a connection loss")
             QtWidgets.QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr("Download failed. Check your internet connection."))
+                                       tr_download.tr("Error"),
+                                       tr_download.tr("Download failed. Check your internet connection."))
             return False
         except requests.exceptions.ConnectionError:
             log("Download failed due to connection error")
             QtWidgets.QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr("Unable to access internet. Check your internet connection."))
+                                       tr_download.tr("Error"),
+                                       tr_download.tr("Unable to access internet. Check your internet connection."))
             return False
         except requests.exceptions.Timeout:
             log('Download timed out.')
             QtWidgets.QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr("Download timed out. Check your internet connection."))
+                                       tr_download.tr("Error"),
+                                       tr_download.tr("Download timed out. Check your internet connection."))
             return False
         except DownloadError:
             log("Download failed.")
             QtWidgets.QMessageBox.critical(None,
-                                       tr("Error"),
-                                       tr("Download failed. Check your internet connection."))
+                                       tr_download.tr("Error"),
+                                       tr_download.tr("Download failed. Check your internet connection."))
             return False
         return True
 

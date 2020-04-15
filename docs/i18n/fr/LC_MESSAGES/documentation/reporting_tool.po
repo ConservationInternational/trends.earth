@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/documentation/reporting_tool.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:2
 msgid "Visualization tools"
 msgstr "Outils de visualisation"
 
-#: ../../source/documentation/reporting_tool.rst:8
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:8
 msgid ""
 "To view the \"Visualization Tools\", select the report icon "
 "(|iconVisualization|). This will open up the \"Visualization tools\" dialog "
@@ -35,7 +35,7 @@ msgstr ""
 "rapport (|iconVisualization|). Cela ouvrira la boîte de dialogue \"Outils de"
 " visualisation\":"
 
-#: ../../source/documentation/reporting_tool.rst:14
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:14
 msgid ""
 "Here there are two options: \"Add Basemap\" or \"Create Print Map\". The "
 "first allows users to add a Basemap for a first or second level "
@@ -48,7 +48,7 @@ msgstr ""
 "seconde option affiche la fenêtre Composer dans QGIS pour concevoir et "
 "exporter une carte statique."
 
-#: ../../source/documentation/reporting_tool.rst:19
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:19
 msgid ""
 "By selecting \"Add Basemap\", the user can select the first or second level "
 "administrative boundary. The first level is the country boundary. The second"
@@ -74,7 +74,7 @@ msgstr ""
 "contributeurs. Après avoir sélectionné la liste déroulante, pour le premier "
 "niveau et le deuxième niveau le cas échéant, sélectionnez \"Ok\"."
 
-#: ../../source/documentation/reporting_tool.rst:26
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:26
 msgid ""
 "After submitting the above message will appear within the QGIS Desktop "
 "window. This shows that the Basemap is loading. DO NOT select cancel or "
@@ -88,7 +88,7 @@ msgstr ""
 " tant que le fond de carte n'est pas chargé. Le temps de chargement dépend "
 "de votre connexion Internet et de votre processeur."
 
-#: ../../source/documentation/reporting_tool.rst:31
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:31
 msgid ""
 "If you have a map layer within your QGIS Desktop window, you will now see "
 "the Basemap with the administrative level selected clipped out to view the "
@@ -103,7 +103,7 @@ msgstr ""
 "(|iconVisualization|). Cela ouvrira la boîte de dialogue \"Outils de "
 "visualisation\":"
 
-#: ../../source/documentation/reporting_tool.rst:37
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:37
 msgid ""
 "Enter the title for the map and author(s). Select Portrait or Landscape. "
 "Portrait is ideal for boundaries that are longer in height than width, "
@@ -114,14 +114,14 @@ msgstr ""
 " largeur, le paysage est idéal pour les limites qui sont plus longues que la"
 " hauteur."
 
-#: ../../source/documentation/reporting_tool.rst:42
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:42
 msgid ""
 "A notification may appear. Select \"Ok\" after reading to close the window."
 msgstr ""
 "Une notification peut apparaître. Sélectionnez \"Ok\" après la lecture pour "
 "fermer la fenêtre."
 
-#: ../../source/documentation/reporting_tool.rst:47
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:47
 msgid ""
 "The Map Composer in QGIS will appear. This allows the user to design a map "
 "for export as image (.png or .jpg) or PDF. The user has the ability to "

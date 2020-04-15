@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.67\n"
+"Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 07:52-0400\n"
+"POT-Creation-Date: 2020-04-15 18:13-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../source/documentation/plot_data.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:2
 msgid "Plot data"
 msgstr "Tracer les données"
 
-#: ../../source/documentation/plot_data.rst:6
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:6
 msgid ""
 "To view plotted time series, select the graph icon (|iconGraph|). This will "
 "open up the `Plot data` dialog box:"
@@ -35,7 +35,7 @@ msgstr ""
 "graphique (|iconGraph|). Cela ouvrira la boîte de dialogue `Tracer les "
 "données`:"
 
-#: ../../source/documentation/plot_data.rst:9
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:9
 msgid ""
 "The toolbox also supports plotting time series showing how a particular "
 "indicator has changed over time. To use this feature, click on the Plot data"
@@ -48,7 +48,7 @@ msgstr ""
 " de la boîte à outils. Ensuite, indiquez un ensemble de données, un "
 "indicateur et une zone à tracer:"
 
-#: ../../source/documentation/plot_data.rst:20
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:20
 msgid ""
 "When all the parameters have been defined, click `Calculate`, and the task "
 "will be submitted to Google Earth Engine for computing. When the task is "
@@ -62,7 +62,7 @@ msgstr ""
 "plupart des pays, il ne dure que quelques minutes), vous recevrez un e-mail "
 "vous informant de la réussite de la tâche."
 
-#: ../../source/documentation/plot_data.rst:22
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:22
 msgid ""
 "Use the `View Google Earth Egngine tasks` tool described above to download "
 "and plot the results:"

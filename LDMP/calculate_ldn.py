@@ -51,8 +51,9 @@ from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
     ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
 
 
-def tr(message):
-    return QCoreApplication.translate("calculate_ldn", message)
+class tr_calculate_ldn(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_calculate_ldn", message)
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -973,8 +974,6 @@ def get_soc_total(soc_table, transition):
 def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 
                        sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
                        soc_years, out_file):
-    def tr(s):
-        return tr(s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_ldn_sdg.xlsx'))
 
@@ -1058,10 +1057,10 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     try:
         wb.save(out_file)
         log(u'Indicator table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr("Success"),
-                                      tr(u'Indicator table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
+                                      tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr("Error"),
-                                   tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, tr_calculate_ldn.tr("Error"),
+                                   tr_calculate_ldn.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

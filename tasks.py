@@ -513,7 +513,7 @@ def translate_pull(c, force=False):
         subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
     print("Releasing translations using lrelease...")
     for translation in c.plugin.translations:
-        subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation))])
+        subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'LDMP.{}.ts'.format(translation))])
 
 # @task
 # def translate_update_resources(c):
@@ -551,7 +551,7 @@ def translate_push(c, force=False, version=3):
         print("ERROR: pylupdate4/pylupdate5 is not in your path---unable to gather strings for translation")
         return
     else:
-        subprocess.check_call([pylupdate, os.path.join(c.plugin.i18n_dir, 'i18n.pro')])
+        subprocess.check_call([pylupdate, os.path.join(c.plugin.i18n_dir, 'i18n.pro'), '-noobsolete'])
 
     if force:
         subprocess.check_call('tx push --parallel -f -s')

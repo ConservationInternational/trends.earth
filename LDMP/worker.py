@@ -28,8 +28,9 @@ from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from LDMP import log
 
 
-def tr(message):
-    return QCoreApplication.translate("worker", message)
+class tr_worker(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_worker", message)
 
 
 class AbstractWorker(QtCore.QObject):
@@ -171,7 +172,7 @@ class StartWorker(object):
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
         start_worker(self.worker, iface,
-                     tr('Processing: {}'.format(process_name)))
+                     tr_worker.tr('Processing: {}'.format(process_name)))
         pause.exec_()
 
         if self.exception:

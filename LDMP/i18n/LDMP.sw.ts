@@ -1,111 +1,7 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sw" sourcelanguage="" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="sw" sourcelanguage="">
 <context>
     <name>@default</name>
-    <message>
-        <location filename="../data_io.py" line="757"/>
-        <source>Error</source>
-        <translation>Hitilafu</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="74"/>
-        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>Hitilafu - safu sio mfumo wa kuratibu wa kijiografia. Haiwezi kuunganisha safu kwenye meridian ya 180.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="151"/>
-        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation>Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="370"/>
-        <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation>Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="185"/>
-        <source>Failed to add geojson to temporary layer.</source>
-        <translation>Imeshindwa kuongeza geojson kwa safu ya muda mfupi.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="264"/>
-        <source>Warning</source>
-        <translation>Onyo</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="264"/>
-        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
-        <translation>Eneo lililochaguliwa linavuka meridian ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi kwenye mfumo wa kuratibu wa eneo (tazama kichupo cha &quot;CRS&quot; cha dirisha la &quot;Programu ya Programu&quot; kutoka kwenye &quot;Mradi&quot; wa menyu.)</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="393"/>
-        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
-        <translation>Kosa la kubadilisha kuratibu. Angalia kwamba jiometri ya kuingiza ni sawa.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1059"/>
-        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation>Umechagua kuendesha mahesabu kwa jiji. Lazima ukitenge umbali wa umbali ili ueleze eneo la hesabu unapokuwa usindikaji mji.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="399"/>
-        <source>Success</source>
-        <translation>Mafanikio</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="399"/>
-        <source>Summary table saved to {}</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="404"/>
-        <source>Error saving output table - check that {} is accessible and not already open.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1062"/>
-        <source>Indicator table saved to {}</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="757"/>
-        <source>Cannot process {}. Unknown geometry type:{}</source>
-        <translation>Haiwezi kusindika {}. Aina ya jiometri isiyojulikana: {}</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="452"/>
-        <source>Downloaded</source>
-        <translation>Imepakuliwa</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="452"/>
-        <source>Downloaded results to {}</source>
-        <translation>Ilipakuliwa matokeo kwa {}</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="465"/>
-        <source>Time</source>
-        <translation>Muda</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="466"/>
-        <source>Integrated NDVI</source>
-        <translation>Integrated NDVI</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="466"/>
-        <source>NDVI x 10000</source>
-        <translation>NDVI x 10000</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="469"/>
-        <source>Productivity trajectory degradation ({year_start} to {year_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../worker.py" line="174"/>
-        <source>Processing: {}</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>AreaWidget</name>
@@ -206,42 +102,42 @@
     <message>
         <location filename="../download_data.py" line="73"/>
         <source>Category</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="74"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="75"/>
         <source>Units</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="76"/>
         <source>Resolution</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="77"/>
         <source>Start year</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="78"/>
         <source>End year</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="79"/>
         <source>Extent (lat)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="80"/>
         <source>Extent (lon)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="81"/>
@@ -261,7 +157,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -295,7 +191,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -446,7 +342,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="174"/>
         <source>Land cover task submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="273"/>
@@ -456,7 +352,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="178"/>
         <source>Unable to submit land cover task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="183"/>
@@ -537,47 +433,47 @@ p, li { white-space: pre-wrap; }
         <translation>Hifadhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="202"/>
+        <location filename="../lc_setup.py" line="204"/>
         <source>Select a land cover definition file</source>
         <translation>Chagua faili ya ufafanuzi wa bima ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="221"/>
+        <location filename="../lc_setup.py" line="223"/>
         <source>Land cover definition (*.json)</source>
         <translation>Ufafanuzi wa bima ya ardhi (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="229"/>
+        <location filename="../lc_setup.py" line="231"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="210"/>
+        <location filename="../lc_setup.py" line="212"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="221"/>
+        <location filename="../lc_setup.py" line="223"/>
         <source>Choose where to save this land cover definition</source>
         <translation>Chagua wapi kuokoa ufafanuzi wa bima hii ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="229"/>
+        <location filename="../lc_setup.py" line="231"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="305"/>
+        <location filename="../lc_setup.py" line="307"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="301"/>
+        <location filename="../lc_setup.py" line="303"/>
         <source>Some of the class codes ({}) in the definition file do not appear in the chosen data file.</source>
         <translation>Baadhi ya nambari za darasa ({}) katika faili ya ufafanuzi hazionekani kwenye faili iliyochaguliwa data.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="305"/>
+        <location filename="../lc_setup.py" line="307"/>
         <source>Some of the class codes ({}) in the data file do not appear in the chosen definition file.</source>
         <translation>Baadhi ya nambari za darasa ({}) katika faili ya data hazionekani kwenye faili iliyochaguliwa ya ufafanuzi.</translation>
     </message>
@@ -916,7 +812,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="168"/>
         <source>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="178"/>
@@ -956,7 +852,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="191"/>
         <source>Initial and final year must be at least 10 years apart.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="254"/>
@@ -966,12 +862,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="254"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="258"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1054,7 +950,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="559"/>
         <source>Initial period</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="695"/>
@@ -1094,12 +990,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_prod.py" line="274"/>
         <source>Productivity task submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="278"/>
         <source>Unable to submit productivity task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1185,7 +1081,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_rest_biomass.py" line="101"/>
         <source>Restoration biomass change submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="105"/>
@@ -1195,7 +1091,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_rest_biomass.py" line="105"/>
         <source>Unable to submit restoration biomass change task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1203,7 +1099,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="20"/>
         <source>Summarize Likely Change in Biomass Due to Restoration</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="39"/>
@@ -1301,7 +1197,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="177"/>
         <source>Custom initial soil organic carbon dataset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="245"/>
@@ -1391,12 +1287,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_soc.py" line="499"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="503"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1404,7 +1300,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTC.ui" line="23"/>
         <source>Calculate Carbon Change Indicators</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTC.ui" line="41"/>
@@ -1462,7 +1358,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="198"/>
         <source>Percent tree cover considered forest</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="225"/>
@@ -1472,12 +1368,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="244"/>
         <source>Custom tree cover dataset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="254"/>
         <source>Initial layer (initial year)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="288"/>
@@ -1497,7 +1393,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="345"/>
         <source>Woods Hole Research Center (30 m resolution)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="361"/>
@@ -1622,12 +1518,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_tc.py" line="354"/>
         <source>Total carbon submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="358"/>
         <source>Unable to submit total carbon task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1668,32 +1564,32 @@ p, li { white-space: pre-wrap; }
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="689"/>
+        <location filename="../calculate_tc.py" line="686"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="664"/>
+        <location filename="../calculate_tc.py" line="661"/>
         <source>You must add a forest loss layer to your map before you can use the carbon change summary tool.</source>
         <translation>Lazima uongeze safu ya kupoteza misitu kwenye ramani yako kabla ya kutumia chombo cha muhtasari wa mabadiliko ya kaboni.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="668"/>
+        <location filename="../calculate_tc.py" line="665"/>
         <source>You must add a total carbon layer to your map before you can use the carbon change summary tool.</source>
         <translation>Lazima uongeze safu ya kaboni ya jumla kwenye ramani yako kabla ya kutumia chombo cha muhtasari wa mabadiliko ya kaboni.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="674"/>
+        <location filename="../calculate_tc.py" line="671"/>
         <source>Area of interest is not entirely within the forest loss layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya hasara ya misitu.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="678"/>
+        <location filename="../calculate_tc.py" line="675"/>
         <source>Area of interest is not entirely within the total carbon layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya kaboni ya jumla.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="689"/>
+        <location filename="../calculate_tc.py" line="686"/>
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>Maazimio ya kupoteza misitu na tabaka za kaboni jumla hazifanani.</translation>
     </message>
@@ -1747,19 +1643,19 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateUrbanData.ui" line="79"/>
         <source>&lt;b&gt;Impervious Surface Index (0-100)&lt;/b&gt;&lt;br&gt;
 (lower values will include low density areas)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="112"/>
         <source>&lt;b&gt;Night Time Lights Index (0-100)&lt;/b&gt;&lt;br&gt;
 (lower values will include low light areas)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="123"/>
         <source>&lt;b&gt;Water Frequency (0-100)&lt;/b&gt;&lt;br&gt;
 (lower values will include low frequency waters)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="168"/>
@@ -1850,12 +1746,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_urban.py" line="199"/>
         <source>Urban area change calculation submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="203"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1936,7 +1832,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
         <source>Import a custom input dataset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="99"/>
@@ -1957,7 +1853,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="879"/>
+        <location filename="../data_io.py" line="880"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -1972,24 +1868,29 @@ p, li { white-space: pre-wrap; }
         <translation>Chagua dataset ya pembejeo ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="823"/>
+        <location filename="../data_io.py" line="824"/>
         <source>Vector remapping failed.</source>
         <translation>Ukarabati wa Vector umeshindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="841"/>
+        <location filename="../data_io.py" line="842"/>
         <source>Raster remapping failed.</source>
         <translation>Kurejesha kwa kasi kunashindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="854"/>
+        <location filename="../data_io.py" line="855"/>
         <source>Rasterizing failed.</source>
         <translation>Rasterizing imeshindwa.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="879"/>
+        <location filename="../data_io.py" line="880"/>
         <source>Raster import failed.</source>
         <translation>Uingizaji wa kasi ulipoteza.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="757"/>
+        <source>Cannot process {}. Unknown geometry type:{}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2017,35 +1918,35 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="115"/>
         <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="994"/>
+        <location filename="../data_io.py" line="995"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="933"/>
+        <location filename="../data_io.py" line="934"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="936"/>
+        <location filename="../data_io.py" line="937"/>
         <source>No definition set</source>
         <translation>Hakuna ufafanuzi uliowekwa</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="936"/>
+        <location filename="../data_io.py" line="937"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Bofya &quot;Badilisha Definition&quot; ili kufafanua ufafanuzi wa bima ya ardhi kabla ya kusafirisha.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="939"/>
+        <location filename="../data_io.py" line="940"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="994"/>
+        <location filename="../data_io.py" line="995"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
     </message>
@@ -2067,7 +1968,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2076,35 +1977,35 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1137"/>
+        <location filename="../data_io.py" line="1138"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1116"/>
+        <location filename="../data_io.py" line="1117"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1132"/>
+        <location filename="../data_io.py" line="1133"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>Sehemu iliyochaguliwa ({}) sio nambari. Chagua shamba ambalo lina namba.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1137"/>
+        <location filename="../data_io.py" line="1138"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1141"/>
+        <location filename="../data_io.py" line="1142"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1141"/>
+        <location filename="../data_io.py" line="1142"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji. Trends.Earth itapakia faili wakati wowote, lakini kagua ramani mara moja imefakia ili kuhakikisha maadili yanafanya akili. Maadili pekee yanayoruhusiwa katika faili ya uingizaji wa uzalishaji ni -32768, 1, 2, 3, 4 na 5. Kuna {} thamani (s) katika faili ya uingizaji ambayo haijatambuliwa.</translation>
     </message>
@@ -2117,37 +2018,37 @@ p, li { white-space: pre-wrap; }
         <translation>Weka dasasiti ya udongo ya Organic Carbon (SOC) ya udongo</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1072"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1041"/>
+        <location filename="../data_io.py" line="1042"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1044"/>
+        <location filename="../data_io.py" line="1045"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1060"/>
+        <location filename="../data_io.py" line="1061"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation>Sehemu iliyochaguliwa ({}) sio nambari. Chagua uwanja wa nambari.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1066"/>
+        <location filename="../data_io.py" line="1067"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Faili inapaswa kuwa na maadili ya kaboni ya kaboni katika tani / hekta.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1069"/>
+        <location filename="../data_io.py" line="1070"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Thamani ya chini katika faili hii ni {}. Thamani ya data haipaswi kuwa -32768, na maadili mengine yote yanapaswa kuwa&gt; = 0.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1072"/>
+        <location filename="../data_io.py" line="1073"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation>Faili ya pembejeo ({}) haionekani kuwa sahihi ya faili ya pembejeo ya kaboni ya kaboni. Thamani ya juu katika faili hii ni {}. Thamani ya juu ya kuruhusiwa ni tani 1000 / hekta.</translation>
     </message>
@@ -2162,7 +2063,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
         <source>Select a layer(s)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="79"/>
@@ -2301,7 +2202,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../download_data.py" line="239"/>
         <source>Download request submitted to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../download_data.py" line="243"/>
@@ -2311,7 +2212,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../download_data.py" line="243"/>
         <source>Unable to submit download request to Google Earth Engine.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2359,7 +2260,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2368,7 +2269,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2389,7 +2290,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgJobs.ui" line="35"/>
         <source>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="94"/>
@@ -2402,32 +2303,32 @@ p, li { white-space: pre-wrap; }
         <translation>Rejea orodha</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="217"/>
+        <location filename="../jobs.py" line="218"/>
         <source>Script not found</source>
         <translation>Hati haipatikani</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="245"/>
+        <location filename="../jobs.py" line="246"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="297"/>
+        <location filename="../jobs.py" line="298"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>Chagua jina la faili. Inapakua matokeo ya: {}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="297"/>
+        <location filename="../jobs.py" line="298"/>
         <source>Base filename (*.json)</source>
         <translation>Jina la faili la msingi (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="310"/>
+        <location filename="../jobs.py" line="311"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="310"/>
+        <location filename="../jobs.py" line="311"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua jina la jina la msingi tofauti.</translation>
     </message>
@@ -2444,7 +2345,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2916,7 +2817,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="29"/>
         <source>Visualization tools</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualization.ui" line="41"/>
@@ -2931,7 +2832,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualization.ui" line="79"/>
         <source>Create Print Map</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../visualization.py" line="47"/>
@@ -2989,7 +2890,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization.py" line="214"/>
         <source>Error downloading basemap data.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3007,7 +2908,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="85"/>
         <source>Map name:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgVisualizationCreateMap.ui" line="129"/>
@@ -3089,37 +2990,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobsTableModel</name>
     <message>
-        <location filename="../jobs.py" line="341"/>
-        <source>Task name</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../jobs.py" line="342"/>
-        <source>Job</source>
-        <translation type="unfinished"/>
+        <source>Task name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../jobs.py" line="343"/>
-        <source>Start time</source>
-        <translation type="unfinished"/>
+        <source>Job</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../jobs.py" line="344"/>
-        <source>End time</source>
-        <translation type="unfinished"/>
+        <source>Start time</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../jobs.py" line="345"/>
-        <source>ID</source>
-        <translation type="unfinished"/>
+        <source>End time</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../jobs.py" line="346"/>
-        <source>Status</source>
-        <translation type="unfinished"/>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../jobs.py" line="347"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="348"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
@@ -3127,77 +3028,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="366"/>
+        <location filename="../lc_setup.py" line="368"/>
         <source>Tree-covered</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="367"/>
+        <location filename="../lc_setup.py" line="369"/>
         <source>Grassland</source>
         <translation>Grassland</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="368"/>
+        <location filename="../lc_setup.py" line="370"/>
         <source>Cropland</source>
         <translation>Cropland</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="369"/>
+        <location filename="../lc_setup.py" line="371"/>
         <source>Wetland</source>
         <translation>Mazingira</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="370"/>
+        <location filename="../lc_setup.py" line="372"/>
         <source>Artificial</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="371"/>
+        <location filename="../lc_setup.py" line="373"/>
         <source>Bare land</source>
         <translation>Nchi ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="372"/>
+        <location filename="../lc_setup.py" line="374"/>
         <source>Water body</source>
         <translation>Mwili wa maji</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="395"/>
+        <location filename="../lc_setup.py" line="397"/>
         <source>Land cover in initial year </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="423"/>
+        <location filename="../lc_setup.py" line="425"/>
         <source>Select a transition matrix definition file</source>
         <translation>Chagua faili ya ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="453"/>
+        <location filename="../lc_setup.py" line="455"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Ufafanuzi wa matrix ya mpito (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="461"/>
+        <location filename="../lc_setup.py" line="463"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="431"/>
+        <location filename="../lc_setup.py" line="433"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="445"/>
+        <location filename="../lc_setup.py" line="447"/>
         <source>{} does not appear to contain a valid matrix definition.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="453"/>
+        <location filename="../lc_setup.py" line="455"/>
         <source>Choose where to save this transition matrix definition</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="461"/>
+        <location filename="../lc_setup.py" line="463"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -3217,12 +3118,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="157"/>
         <source>Trends.Earth Settings</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="164"/>
         <source>Calculate indicators</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="171"/>
@@ -3232,37 +3133,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="171"/>
         <source>Plot time series datasets</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="178"/>
         <source>View Google Earth Engine tasks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="178"/>
         <source>View cloud processing tasks</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="185"/>
         <source>Visualization tool</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="185"/>
         <source>Visualize and summarize data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="192"/>
         <source>Load data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Weka data</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="192"/>
         <source>Load local data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="199"/>
@@ -3272,7 +3173,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="199"/>
         <source>Download raw datasets</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../plugin.py" line="206"/>
@@ -3282,7 +3183,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="206"/>
         <source>About trends.earth</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Kuhusu trends.earth</translation>
     </message>
 </context>
 <context>
@@ -3343,12 +3244,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetCalculationOutput.ui" line="26"/>
         <source>Base name used as prefix when naming output files</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOutput.ui" line="47"/>
         <source>Click &quot;Browse&quot; to choose a base name...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetCalculationOutput.ui" line="66"/>
@@ -3365,7 +3266,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -3473,27 +3374,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1269"/>
+        <location filename="../data_io.py" line="1270"/>
         <source>Select a Trends.Earth output file</source>
         <translation>Chagua Mwenendo wa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1269"/>
+        <location filename="../data_io.py" line="1270"/>
         <source>Trends.Earth metadata file (*.json)</source>
         <translation>Mwelekeo wa faili ya metadata ya kwanza (* .json)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1289"/>
+        <location filename="../data_io.py" line="1290"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1285"/>
+        <location filename="../data_io.py" line="1286"/>
         <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
         <translation>{} imeshindwa kupakia au haina vyenye yoyote ya aina hii ya safu. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1289"/>
+        <location filename="../data_io.py" line="1290"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -3602,7 +3503,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="104"/>
         <source>Initial year:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Mwaka wa awali:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="117"/>
@@ -3622,12 +3523,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="219"/>
         <source>Custom land cover dataset</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="229"/>
         <source>Initial layer (initial year)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/WidgetLCSetup.ui" line="263"/>
@@ -3743,592 +3644,768 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../api.py" line="48"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../api.py" line="106"/>
         <source>Contacting {} server...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../api.py" line="112"/>
         <source>Unable to login to {} server. Check your internet connection.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../api.py" line="118"/>
         <source>Unable to connect to {} server.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../api.py" line="181"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="1059"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="74"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="151"/>
+        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="370"/>
+        <source>Failed to process area of interest - unknown geometry type: {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="185"/>
+        <source>Failed to add geojson to temporary layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="264"/>
+        <source>Warning</source>
+        <translation>Onyo</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="264"/>
+        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="393"/>
+        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1059"/>
+        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate_ldn</name>
+    <message>
+        <location filename="../calculate_ldn.py" line="1060"/>
+        <source>Success</source>
+        <translation>Mafanikio</translation>
+    </message>
+    <message>
+        <location filename="../calculate_ldn.py" line="1060"/>
+        <source>Indicator table saved to {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_ldn.py" line="1065"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_ldn.py" line="1065"/>
+        <source>Error saving output table - check that {} is accessible and not already open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate_rest_biomass</name>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="380"/>
+        <source>Success</source>
+        <translation>Mafanikio</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="380"/>
+        <source>Summary table saved to {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="385"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_rest_biomass.py" line="385"/>
+        <source>Error saving output table - check that {} is accessible and not already open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate_tc</name>
+    <message>
+        <location filename="../calculate_tc.py" line="630"/>
+        <source>Success</source>
+        <translation>Mafanikio</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="630"/>
+        <source>Summary table saved to {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="633"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_tc.py" line="633"/>
+        <source>Error saving output table - check that {} is accessible and not already open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate_urban</name>
+    <message>
+        <location filename="../calculate_urban.py" line="395"/>
+        <source>Success</source>
+        <translation>Mafanikio</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="395"/>
+        <source>Summary table saved to {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="400"/>
+        <source>Error</source>
+        <translation>Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="400"/>
+        <source>Error saving output table - check that {} is accessible and not already open.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="194"/>
+        <location filename="../download.py" line="193"/>
         <source>Downloading {}</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="219"/>
+        <location filename="../download.py" line="218"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../download.py" line="219"/>
+        <location filename="../download.py" line="218"/>
         <source>Download failed. Check your internet connection.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="207"/>
+        <location filename="../download.py" line="206"/>
         <source>Unable to access internet. Check your internet connection.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="213"/>
+        <location filename="../download.py" line="212"/>
         <source>Download timed out. Check your internet connection.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_jobs</name>
+    <message>
+        <location filename="../jobs.py" line="453"/>
+        <source>Downloaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="453"/>
+        <source>Downloaded results to {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="466"/>
+        <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="467"/>
+        <source>Integrated NDVI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs.py" line="467"/>
+        <source>NDVI x 10000</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_layers</name>
     <message>
-        <location filename="../layers.py" line="99"/>
+        <location filename="../layers.py" line="101"/>
         <source>No data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="53"/>
-        <source>Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="55"/>
-        <source>Productivity trajectory degradation ({year_start} to {year_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="56"/>
-        <source>Degradation (significant decrease, p &lt; .05)</source>
-        <translation type="unfinished"/>
+        <source>Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="57"/>
-        <source>Stable (no significant change)</source>
-        <translation type="unfinished"/>
+        <source>Productivity trajectory degradation ({year_start} to {year_end})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="58"/>
+        <source>Degradation (significant decrease, p &lt; .05)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="59"/>
+        <source>Stable (no significant change)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="60"/>
         <source>Improvement (significant increase, p &lt; .05)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="61"/>
-        <source>Productivity performance degradation ({year_start} to {year_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="144"/>
-        <source>Degradation</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="63"/>
-        <source>Not degradation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="65"/>
-        <source>Productivity performance ({year_start} to {year_end}, ratio)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="67"/>
-        <source>Productivity performance ({year_start}, units)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="70"/>
-        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="145"/>
-        <source>Stable</source>
-        <translation type="unfinished"/>
+        <source>Productivity performance degradation ({year_start} to {year_end})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="146"/>
+        <source>Degradation</source>
+        <translation type="unfinished">Uharibifu</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="65"/>
+        <source>Not degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="67"/>
+        <source>Productivity performance ({year_start} to {year_end}, ratio)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="69"/>
+        <source>Productivity performance ({year_start}, units)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="72"/>
+        <source>Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="147"/>
+        <source>Stable</source>
+        <translation type="unfinished">Imara</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="148"/>
         <source>Improvement</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Uboreshaji</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="75"/>
+        <location filename="../layers.py" line="77"/>
         <source>Productivity state classes ({year_start}-{year_end})</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="78"/>
+        <location filename="../layers.py" line="80"/>
         <source>Land cover degradation ({year_baseline} to {year_target})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="83"/>
-        <source>Land cover ({year}, 7 class)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="84"/>
-        <source>Land cover ({year}, ESA CCI classes)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="85"/>
-        <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
-        <translation type="unfinished"/>
+        <source>Land cover ({year}, 7 class)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="86"/>
-        <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
-        <translation type="unfinished"/>
+        <source>Land cover ({year}, ESA CCI classes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="87"/>
+        <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="88"/>
-        <source>-32768 - No data</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="89"/>
-        <source>1 - Tree-covered</source>
-        <translation type="unfinished"/>
+        <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="90"/>
-        <source>2 - Grassland</source>
-        <translation type="unfinished"/>
+        <source>-32768 - No data</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="91"/>
-        <source>3 - Cropland</source>
-        <translation type="unfinished"/>
+        <source>1 - Tree-covered</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="92"/>
-        <source>4 - Wetland</source>
-        <translation type="unfinished"/>
+        <source>2 - Grassland</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="93"/>
-        <source>5 - Artificial</source>
-        <translation type="unfinished"/>
+        <source>3 - Cropland</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="94"/>
-        <source>6 - Other land</source>
-        <translation type="unfinished"/>
+        <source>4 - Wetland</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="95"/>
+        <source>5 - Artificial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="96"/>
+        <source>6 - Other land</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="97"/>
         <source>7 - Water body</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="100"/>
-        <source>Tree-covered</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="101"/>
-        <source>Grassland</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="102"/>
-        <source>Cropland</source>
-        <translation type="unfinished"/>
+        <source>Tree-covered</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="103"/>
-        <source>Wetland</source>
-        <translation type="unfinished"/>
+        <source>Grassland</source>
+        <translation type="unfinished">Grassland</translation>
     </message>
     <message>
         <location filename="../layers.py" line="104"/>
-        <source>Artificial</source>
-        <translation type="unfinished"/>
+        <source>Cropland</source>
+        <translation type="unfinished">Cropland</translation>
     </message>
     <message>
         <location filename="../layers.py" line="105"/>
-        <source>Other land</source>
-        <translation type="unfinished"/>
+        <source>Wetland</source>
+        <translation type="unfinished">Mazingira</translation>
     </message>
     <message>
         <location filename="../layers.py" line="106"/>
-        <source>Water body</source>
-        <translation type="unfinished"/>
+        <source>Artificial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="107"/>
+        <source>Other land</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="108"/>
-        <source>Land cover (transitions, {year_baseline} to {year_target})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="109"/>
-        <source>No change</source>
-        <translation type="unfinished"/>
+        <source>Water body</source>
+        <translation type="unfinished">Mwili wa maji</translation>
     </message>
     <message>
         <location filename="../layers.py" line="110"/>
-        <source>Tree-covered loss</source>
-        <translation type="unfinished"/>
+        <source>Land cover (transitions, {year_baseline} to {year_target})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="111"/>
-        <source>Grassland loss</source>
-        <translation type="unfinished"/>
+        <source>No change</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="112"/>
-        <source>Cropland loss</source>
-        <translation type="unfinished"/>
+        <source>Tree-covered loss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="113"/>
-        <source>Wetland loss</source>
-        <translation type="unfinished"/>
+        <source>Grassland loss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="114"/>
-        <source>Artificial loss</source>
-        <translation type="unfinished"/>
+        <source>Cropland loss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="115"/>
-        <source>Other land loss</source>
-        <translation type="unfinished"/>
+        <source>Wetland loss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="116"/>
-        <source>Water body loss</source>
-        <translation type="unfinished"/>
+        <source>Artificial loss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="119"/>
-        <source>Soil organic carbon ({year}, tons / ha)</source>
-        <translation type="unfinished"/>
+        <location filename="../layers.py" line="117"/>
+        <source>Other land loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="118"/>
+        <source>Water body loss</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="121"/>
+        <source>Soil organic carbon ({year}, tons / ha)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="123"/>
         <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="127"/>
-        <source>Land productivity (Trends.Earth)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="136"/>
-        <source>Declining</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="129"/>
-        <source>Early signs of decline</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="130"/>
-        <source>Stable but stressed</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="140"/>
-        <source>Increasing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="135"/>
-        <source>Land productivity dynamics (LPD)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="137"/>
-        <source>Moderate decline</source>
-        <translation type="unfinished"/>
+        <source>Land productivity (Trends.Earth)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="138"/>
+        <source>Declining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="131"/>
+        <source>Early signs of decline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="132"/>
+        <source>Stable but stressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="142"/>
+        <source>Increasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="137"/>
+        <source>Land productivity dynamics (LPD)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="139"/>
+        <source>Moderate decline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="140"/>
         <source>Stressed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="143"/>
+        <location filename="../layers.py" line="145"/>
         <source>SDG 15.3.1 Indicator (Trends.Earth)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="149"/>
-        <source>Forest loss ({year_start} to {year_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="164"/>
-        <source>Water</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="151"/>
-        <source>Non-forest</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="152"/>
-        <source>Forest (no loss)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="153"/>
-        <source>Forest loss ({year_start})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="154"/>
-        <source>Forest loss ({year_end})</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="157"/>
-        <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="160"/>
-        <source>Root/shoot ratio (x 100)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="163"/>
-        <source>Urban area change</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="165"/>
-        <source>Built-up by 2000</source>
-        <translation type="unfinished"/>
+        <source>Forest loss ({year_start} to {year_end})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="166"/>
-        <source>Built-up by 2005</source>
-        <translation type="unfinished"/>
+        <source>Water</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="153"/>
+        <source>Non-forest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="154"/>
+        <source>Forest (no loss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="155"/>
+        <source>Forest loss ({year_start})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="156"/>
+        <source>Forest loss ({year_end})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="159"/>
+        <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="162"/>
+        <source>Root/shoot ratio (x 100)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="165"/>
+        <source>Urban area change</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="167"/>
-        <source>Built-up by 2010</source>
-        <translation type="unfinished"/>
+        <source>Built-up by 2000</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="168"/>
+        <source>Built-up by 2005</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="169"/>
+        <source>Built-up by 2010</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="170"/>
         <source>Built-up by 2015</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="171"/>
-        <source>Urban area {year}</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="172"/>
-        <source>Urban</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="173"/>
-        <source>Suburban</source>
-        <translation type="unfinished"/>
+        <source>Urban area {year}</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="174"/>
-        <source>Built-up rural</source>
-        <translation type="unfinished"/>
+        <source>Urban</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="175"/>
-        <source>Open space (fringe)</source>
-        <translation type="unfinished"/>
+        <source>Suburban</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="176"/>
-        <source>Open space (captured)</source>
-        <translation type="unfinished"/>
+        <source>Built-up rural</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="177"/>
-        <source>Open space (rural)</source>
-        <translation type="unfinished"/>
+        <source>Open space (fringe)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="178"/>
-        <source>Open space (fringe, water)</source>
-        <translation type="unfinished"/>
+        <source>Open space (captured)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="179"/>
-        <source>Open space (captured, water)</source>
-        <translation type="unfinished"/>
+        <source>Open space (rural)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="180"/>
+        <source>Open space (fringe, water)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="181"/>
+        <source>Open space (captured, water)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="182"/>
         <source>Open space (rural, water)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="183"/>
+        <location filename="../layers.py" line="185"/>
         <source>Population ({year})</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="186"/>
+        <location filename="../layers.py" line="188"/>
         <source>Biomass (tonnes CO2e per ha, {year})</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="187"/>
+        <location filename="../layers.py" line="189"/>
         <source>Change in biomass
 (tonnes CO2e per ha, {type} after {years} years)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="190"/>
+        <location filename="../layers.py" line="192"/>
         <source>Agro Ecological Zones V3.0</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="191"/>
+        <location filename="../layers.py" line="193"/>
         <source>Climatic Zones</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="194"/>
+        <location filename="../layers.py" line="196"/>
         <source>Hansen</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="197"/>
+        <location filename="../layers.py" line="199"/>
         <source>MOD16A2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="200"/>
-        <source>CHIRPS</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="201"/>
-        <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="202"/>
-        <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
-        <translation type="unfinished"/>
+        <source>CHIRPS</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="203"/>
+        <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="204"/>
+        <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="205"/>
         <source>PERSIANN-CDR</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="206"/>
+        <location filename="../layers.py" line="208"/>
         <source>ERA I</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="207"/>
+        <location filename="../layers.py" line="209"/>
         <source>MERRA 2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="210"/>
-        <source>MODIS (MOD13Q1, annual)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../layers.py" line="211"/>
-        <source>AVHRR (GIMMS3g.v1, annual)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="212"/>
+        <source>MODIS (MOD13Q1, annual)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="213"/>
+        <source>AVHRR (GIMMS3g.v1, annual)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="214"/>
         <source>MODIS (MOD13Q1, 16 day)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="219"/>
+        <location filename="../layers.py" line="221"/>
         <source>Soil Grids 250</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="216"/>
+        <location filename="../layers.py" line="218"/>
         <source>USDA Soil Type</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="348"/>
+        <location filename="../layers.py" line="350"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Habari</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="348"/>
+        <location filename="../layers.py" line="350"/>
         <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="424"/>
+        <location filename="../layers.py" line="426"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Hitilafu</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="424"/>
+        <location filename="../layers.py" line="426"/>
         <source>Failed to load Trends.Earth style. Adding layer using QGIS defaults.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_lc_setup</name>
     <message>
-        <location filename="../lc_setup.py" line="128"/>
-        <source>Input code</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="129"/>
-        <source>Input class</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="130"/>
+        <source>Input code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="131"/>
+        <source>Input class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="132"/>
         <source>Output class</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="172"/>
+        <location filename="../lc_setup.py" line="174"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="158"/>
+        <location filename="../lc_setup.py" line="160"/>
         <source>Cannot read {}.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="172"/>
+        <location filename="../lc_setup.py" line="174"/>
         <source>{} does not appear to contain a valid class definition.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_worker</name>
+    <message>
+        <location filename="../worker.py" line="174"/>
+        <source>Processing: {}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

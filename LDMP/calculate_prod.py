@@ -243,7 +243,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         else:
             prod_mode = 'JRC LPD'
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         payload = {'prod_mode': prod_mode,
                    'calc_traj': self.groupBox_traj.isChecked(),
                    'calc_perf': self.groupBox_perf.isChecked(),

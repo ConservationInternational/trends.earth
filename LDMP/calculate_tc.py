@@ -336,7 +336,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
     def calculate_on_GEE(self, method, biomass_data):
         self.close()
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         payload = {'year_start': self.hansen_bl_year.date().year(),
                    'year_end': self.hansen_tg_year.date().year(),
                    'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),

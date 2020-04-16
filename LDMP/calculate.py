@@ -107,28 +107,6 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
         return l_w
 
 
-def get_ogr_geom_extent(geom):
-    (minX, maxX, minY, maxY) = geom.GetEnvelope()
-
-    # Create ring
-    ring = ogr.Geometry(ogr.wkbLinearRing)
-    ring.AddPoint(minX, minY)
-    ring.AddPoint(maxX, minY)
-    ring.AddPoint(maxX, maxY)
-    ring.AddPoint(minX, maxY)
-    ring.AddPoint(minX, minY)
-
-    # Create polygon
-    poly_envelope = ogr.Geometry(ogr.wkbPolygon)
-    poly_envelope.AddGeometry(ring)
-    poly_envelope.FlattenTo2D()
-
-    return poly_envelope
-
-hemi_w = ogr.CreateGeometryFromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
-hemi_e = ogr.CreateGeometryFromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
-
-
 def json_geom_to_geojson(txt):
     d = {'type': 'FeatureCollection',
          'features': [{'type': 'Feature',
@@ -148,8 +126,9 @@ class AOI(object):
         log(u'Setting up AOI from file at {}"'.format(f))
         l = QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
-            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                   tr_calculate.tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
+            QtWidgets.QMessageBox.critical(None,
+                    tr_calculate.tr("Error"),
+                    tr_calculate.tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
         if l.wkbType() == QgsWkbTypes.Polygon or l.wkbType() == QgsWkbTypes.MultiPolygon:
@@ -157,8 +136,9 @@ class AOI(object):
         elif l.wkbType() == QgsWkbTypes.Point:
             self.datatype = "point"
         else:
-            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                   tr_calculate.tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
+            QtWidgets.QMessageBox.critical(None,
+                    tr_calculate.tr("Error"),
+                    tr_calculate.tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
             log("Failed to process area of interest - unknown geometry type.")
             return
 
@@ -196,77 +176,66 @@ class AOI(object):
         crossing the 180th meridian
         """
 
+        if out_type not in ['extent', 'layer']:
+            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
+        if out_format not in ['geojson', 'wkt']:
+            raise ValueError(u'Unrecognized out_format "{}"'.format(out_format))
+
         # Calculate a single feature that is the union of all the features in 
         # this layer - that way there is a single feature to intersect with 
         # each hemisphere.
-        log('Merging features')
-        n = 0
+        geometries = []
+        n = 1
         for f in self.get_layer_wgs84().getFeatures():
             # Get an OGR geometry from the QGIS geometry
-            geom = ogr.CreateGeometryFromWkt(f.geometry().asWkt())
-
-            if geom is None or not geom.IsValid():
-                log(u'Invalid feature with attributes: {}.'.format(f.attributes()))
-                raise
-            else:
-                if n == 0:
-                    new_union = geom
-                else:
-                    new_union = union.Union(geom)
-                union = new_union
-                n += 1
+            geom = f.geometry()
+            if not geom.isGeosValid():
+                log(u'Invalid feature in row {}.'.format(n))
+                QtWidgets.QMessageBox.critical(None,
+                                               tr_calculate.tr("Error"),
+                                               tr_calculate.tr('Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the "Vector" menu on the toolbar for more information on which features are invalid (Under "Vector" - "Geometry Tools" - "Check Validity").'.format(n)))
+                return None
+            geometries.append(geom)
+            n += 1
+        union = QgsGeometry.unaryUnion(geometries)
 
         log(u'Calculating east and west intersection.')
-        e_intersection = hemi_e.Intersection(union)
-        w_intersection = hemi_w.Intersection(union)
+        hemi_e = QgsGeometry.fromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
+        hemi_w = QgsGeometry.fromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
+        intersections = [hemi.intersection(union) for hemi in [hemi_e, hemi_w]]
 
-        e_intersection_extent = get_ogr_geom_extent(e_intersection)
-        w_intersection_extent = get_ogr_geom_extent(w_intersection)
-        union_extent = get_ogr_geom_extent(union)
-
-        # Should the output be the extent of each piece? Or the actual geometry 
-        # itself (if out_type == 'layer')?
         if out_type == 'extent':
-            e_intersection_out = e_intersection_extent
-            w_intersection_out = w_intersection_extent
-            union_out = union_extent
+            pieces = [QgsGeometry.fromRect(i.boundingBox()) for i in intersections if not i.isEmpty()]
         elif out_type == 'layer':
-            e_intersection_out = e_intersection
-            w_intersection_out = w_intersection
-            union_out = union
-        else:
-            raise ValueError('Unrecognized out_type "{}"'.format(out_type))
+            pieces = [i for i in intersections if not i.isEmpty()]
+        pieces_union = QgsGeometry.unaryUnion(pieces)
 
-        log(u'Getting split in chosen format.')
         if out_format == 'geojson':
-            e_intersection_out = json.loads(e_intersection_out.ExportToJson())
-            w_intersection_out = json.loads(w_intersection_out.ExportToJson())
-            union_out = json.loads(union_out.ExportToJson())
+            pieces_txt = [json.loads(piece.asJson()) for piece in pieces]
+            pieces_union_txt = json.loads(pieces_union.asJson())
         elif out_format == 'wkt':
-            e_intersection_out = e_intersection_out.ExportToWkt()
-            w_intersection_out = w_intersection_out.ExportToWkt()
-            union_out = union_out.ExportToWkt()
-        else:
-            raise ValueError(u'Unrecognized out_format "{}"'.format(out_format))
+            pieces_txt = [json.loads(piece.asWkt()) for piece in pieces]
+            pieces_union_txt = pieces_union.asWkt()
 
-        if e_intersection_extent.IsEmpty() or w_intersection_extent.IsEmpty():
+        if (len(pieces) == 0) or (sum([piece.area() for piece in pieces]) > (pieces_union.area() / 2)):
             # If there is no area in one of the hemispheres, return the
-            # original layer, or extent of the original layer
-            return (False, [union_out])
-        elif (w_intersection_extent.GetArea() + e_intersection_extent.GetArea()) > (union_extent.GetArea() / 2):
-            # If the extent of the combined extents from both hemispheres is 
-            # not significantly smaller than that of the original layer, then 
-            # return the original layer
-            return (False, [union_out])
+            # original layer, or extent of the original layer. Also return the 
+            # original layer (or extent) if the area of the combined pieces
+            # from both hemispheres is not significantly smaller than that of 
+            # the original polygon.
+            log("AOI being processed in one piece (does not cross 180th meridian)")
+            return (False, [pieces_union_txt])
         else:
             log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
             if warn:
                 QtWidgets.QMessageBox.information(None,tr_calculate.tr("Warning"),
                        tr_calculate.tr('The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the "CRS" tab of the "Project Properties" window from the "Project" menu.)'))
-            return (True, [e_intersection_out, w_intersection_out])
+            return (True, pieces_txt)
 
     def get_aligned_output_bounds(self, f):
         wkts = self.meridian_split(out_format='wkt', warn=False)[1]
+        if not wkts:
+            return None
         out = []
         for wkt in wkts:
             # Compute the pixel-aligned bounding box (slightly larger than 
@@ -304,6 +273,8 @@ class AOI(object):
         
         # Returns area of aoi components in sq m
         wkts = self.meridian_split(out_format='wkt', warn=False)[1]
+        if not wkts:
+            return None
         area = 0.
         for wkt in wkts:
             geom = QgsGeometry.fromWkt(wkt)
@@ -1113,6 +1084,16 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Error buffering polygon"))
                 return False
+
+        # Check that a bounding box can be created successfully from this aoi
+        ret = self.aoi.bounding_box_gee_geojson()
+        if not ret:
+            QtWidgets.QMessageBox.critical(None,
+                                           self.tr("Error"),
+                                           self.tr("Unable to calculate bounding box."))
+            return False
+        else:
+            self.gee_bounding_box = ret
 
         # Limit processing area to be no greater than 10^7 sq km if using a 
         # custom shapefile

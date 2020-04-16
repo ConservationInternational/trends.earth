@@ -107,7 +107,7 @@
                    "items": [
                        {"value": -32768, "color": "#000000", "label": "nodata"},
                        {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
-                       {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_potential_stable"},
+                       {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_stable"},
                        {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
             ]
         }

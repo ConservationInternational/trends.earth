@@ -1118,7 +1118,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         # custom shapefile
         if not self.area_tab.area_fromadmin.isChecked():
             aoi_area = self.aoi.get_area() / (1000 * 1000)
-            if aoi_area > 1e7:
+            if aoi_area > 5e7:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False

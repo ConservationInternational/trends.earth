@@ -179,7 +179,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
     def calculate_on_GEE(self):
         self.close()
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         payload = {'un_adju': self.get_pop_def_is_un(),
                    'isi_thr': self.spinBox_isi_thr.value(),
                    'ntl_thr': self.spinBox_ntl_thr.value(),

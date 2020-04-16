@@ -222,7 +222,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         else:
             prod_mode = 'JRC LPD'
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         payload = {'prod_mode': prod_mode,
                    'prod_traj_year_initial': prod_traj_year_initial,
                    'prod_traj_year_final': prod_traj_year_final,

@@ -220,7 +220,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         self.close()
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         for dataset in selected_datasets:
             payload = {'geojsons': json.dumps(geojsons),
                        'crs': self.aoi.get_crs_dst_wkt(),

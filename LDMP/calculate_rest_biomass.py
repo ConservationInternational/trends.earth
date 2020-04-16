@@ -86,7 +86,7 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
     def calculate_on_GEE(self):
         self.close()
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         payload = {'length_yr': self.spinBox_years.value(),
                    'rest_type': self.get_rest_type(),
                    'geojsons': json.dumps(geojsons),

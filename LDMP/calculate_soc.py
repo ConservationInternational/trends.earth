@@ -481,7 +481,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
     def calculate_on_GEE(self):
         self.close()
 
-        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.gee_bounding_box
         payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'fl': self.get_fl(),

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="2.0" language="pt" sourcelanguage="">
 <context>
-    <name>@default</name>
-</context>
-<context>
     <name>AreaWidget</name>
     <message>
         <location filename="../calculate.py" line="885"/>

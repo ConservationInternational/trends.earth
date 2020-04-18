@@ -325,7 +325,8 @@ def plugin_setup(c, clean=False, pip='pip'):
             'profile': 'what profile to install to (only applies to QGIS3',
             'python': 'Python to use for setup and compiling',
             'fast': 'Skip compiling numba files'})
-def plugin_install(c, clean=False, version=3, profile='default', python='python', fast=False):
+def plugin_install(c, clean=False, version=3, profile='default', 
+        python='python', fast=False):
     '''install plugin to qgis'''
     compile_files(c, version, clean, python, fast)
     plugin_name = c.plugin.name
@@ -451,7 +452,7 @@ def file_changed(infile, outfile):
         return True
 
 def _filter_excludes(root, items, c):
-    excludes = set(c.plugin.excludes + c.plugin.numba_aot_files)
+    excludes = set(c.plugin.excludes)
     skips = c.plugin.skip_exclude
 
     exclude = lambda p: any([fnmatch.fnmatch(p, e) for e in excludes])
@@ -771,6 +772,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
+
         if filename == '':
             # Catch the case of the key pointing to the root of the bucket and 
             # skip it
@@ -809,6 +811,8 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     s3_objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
     s3_object_names = [os.path.basename(obj['Key']) for obj in s3_objects]
     for f in files:
+        if os.path.isdir(f):
+            continue
         if not os.path.basename(f) in s3_object_names:
             print('S3 is missing {} - copying to S3.'.format(f))
             data = open(f, 'rb')
@@ -837,8 +841,10 @@ def binaries_sync(c):
     except IOError:
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
-
-    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', 'LDMP', c.plugin.numba_binary_patterns)
+    extensions = c.plugin.numba.binary_extensions
+    extensions.append('.zip')
+    patterns = [os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions]
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba.binary_folder, patterns)
 
 
 @task
@@ -855,17 +861,42 @@ def testdata_sync(c):
 
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/integration/fixtures', c.plugin.testdata_patterns)
 
+def find_binaries(c, folder, version):
+    files = []
+    for pattern in c.plugin.numba.binary_extensions:
+        files.append([f for f in os.listdir(folder) if re.search(r'{}.*{}$'.format(version, pattern), f)])
+    # Return a flattened list
+    return [item for sublist in files for item in sublist]
 
 @task(help={'clean': 'Clean out dependencies before packaging',
             'python': 'Python to use for setup and compiling'})
 def binaries_compile(c, clean=False, python='python'):
     print("Compiling exported numba functions...")
-    numba_files = c.plugin.numba_aot_files
+    v = get_version(c).replace('.', '_')
     n = 0
-    for numba_file in numba_files:
-        (base, ext) = os.path.splitext(numba_file)
+    if not os.path.exists(c.plugin.numba.binary_folder):
+        os.makedir(c.plugin.numba.binary_folder)
+    for numba_file in c.plugin.numba.aot_files:
+        (base, ext) = os.path.splitext(os.path.basename(numba_file))
+        # make a temporary copy of the numba_file, with the version_string 
+        # appended to it
         subprocess.check_call([python, numba_file])
         n += 1
+
+    for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
+        files = find_binaries(c, folder, v)
+        for f in files:
+            shutil.move(os.path.join(folder, f), os.path.join(c.plugin.numba.binary_folder, os.path.basename(f)))
+    
+    files = find_binaries(c, c.plugin.numba.binary_folder, v)
+    with zipfile.ZipFile(os.path.join(c.plugin.numba.binary_folder, 'trends_earth_binaries_{}.zip'.format(v)), 'w', zipfile.ZIP_DEFLATED) as zf:
+        for f in files:
+            # Strip version string from files before placing them in zipfile
+            outname = os.path.join('trends_earth_binaries', re.sub('_[0-9]+_[0-9]+(_[0-9]+)?', '', os.path.basename(f)))
+            zf.write(os.path.join(c.plugin.numba.binary_folder, f), outname)
+        zf.writestr(os.path.join('trends_earth_binaries', '__init__.py'), '')
+        zf.writestr('__init__.py', '')
+
     print("Compiled {} numba files.".format(n))
 
 
@@ -891,15 +922,20 @@ ns.configure({
         #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
         'translations': ['fr', 'es', 'sw', 'pt'],
         'resource_files': ['LDMP/resources.qrc'],
-        'numba_aot_files': ['LDMP/calculate_numba.py',
-                            'LDMP/summary_numba.py'],
-        'numba_binary_patterns': ['LDMP/*.so',
-                                  'LDMP/*.pyd'],
+        'numba': {
+            'aot_files': ['LDMP/calculate_numba.py',
+                          'LDMP/summary_numba.py'],
+            'binary_extensions': ['.so',
+                                  '.pyd'],
+            'binary_folder':  'LDMP/binaries',
+            'binary_list': 'LDMP/data/binaries.txt'
+            },
         'testdata_patterns': ['LDMP/test/integration/fixtures/*'],
         'package_dir': 'build',
         'tests': ['LDMP/test'],
         'excludes': [
             'LDMP/data_prep_scripts',
+            'LDMP/binaries',
             'docs',
             'gee',
             'util',

@@ -33,6 +33,7 @@ LDMP/data_prep_scripts/*
 docs/build/*
 docs/source/.doctrees/*
 docs/source/static/*
+LDMP/binaries/*
 LDMP/test/fixtures/*
 LDMP/test/integration/fixtures/*
 LDMP/test/unit/fixtures/*

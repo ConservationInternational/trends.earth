@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="885"/>
+        <location filename="../calculate.py" line="864"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="885"/>
+        <location filename="../calculate.py" line="864"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="910"/>
+        <location filename="../calculate.py" line="889"/>
         <source>Select a file defining the area of interest</source>
         <translation>Chagua faili inayofafanua eneo la riba</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="910"/>
+        <location filename="../calculate.py" line="889"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="921"/>
+        <location filename="../calculate.py" line="900"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="921"/>
+        <location filename="../calculate.py" line="900"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="632"/>
+        <location filename="../calculate.py" line="611"/>
         <source>Select folder containing data</source>
         <translation>Chagua folda iliyo na data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="641"/>
+        <location filename="../calculate.py" line="620"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="641"/>
+        <location filename="../calculate.py" line="620"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="674"/>
+        <location filename="../calculate.py" line="653"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Chagua kiambishi awali kitumike wakati wa kutaja faili za pato</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="674"/>
+        <location filename="../calculate.py" line="653"/>
         <source>Base name (*)</source>
         <translation>Jina la msingi (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="686"/>
+        <location filename="../calculate.py" line="665"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="686"/>
+        <location filename="../calculate.py" line="665"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="700"/>
+        <location filename="../calculate.py" line="679"/>
         <source>Overwrite file?</source>
         <translation>Kuboresha faili?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="700"/>
+        <location filename="../calculate.py" line="679"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>Kutumia kiambishi awali &amp;quot;{}&amp;quot; kungesababisha kufuta tena faili zilizopo {}. Je! Unataka kufuta faili hizi?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="707"/>
+        <location filename="../calculate.py" line="686"/>
         <source>Information</source>
         <translation>Habari</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="707"/>
+        <location filename="../calculate.py" line="686"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Chagua kiambishi tofauti cha pato na ujaribu tena.</translation>
     </message>
@@ -234,69 +234,74 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="978"/>
+        <location filename="../calculate.py" line="957"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="962"/>
         <source>Output</source>
         <translation>Pato</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="987"/>
+        <location filename="../calculate.py" line="966"/>
         <source>Options</source>
         <translation>Chaguo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1128"/>
+        <location filename="../calculate.py" line="1117"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1047"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1075"/>
+        <location filename="../calculate.py" line="1054"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1082"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1090"/>
+        <location filename="../calculate.py" line="1069"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1101"/>
+        <location filename="../calculate.py" line="1080"/>
         <source>Choose an area of interest.</source>
         <translation>Chagua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1106"/>
+        <location filename="../calculate.py" line="1085"/>
         <source>Unable to read area of interest.</source>
         <translation>Haiwezi kusoma eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1113"/>
+        <location filename="../calculate.py" line="1092"/>
         <source>Error buffering polygon</source>
         <translation>Hitilafu wakati wa kunyoosha polygon</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1122"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>Sanduku linalowekwa kwa eneo lililoombwa (takriban {: .6n}) sq km ni kubwa mno. Chagua sehemu ndogo ya mchakato.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1128"/>
+        <location filename="../calculate.py" line="1117"/>
         <source>Choose an output base name.</source>
         <translation>Chagua jina la msingi wa pato.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1099"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -543,12 +548,12 @@ p, li { white-space: pre-wrap; }
         <translation>Tathmini mafupi ya eneo la raster kwenye vitengo vidogo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="516"/>
+        <location filename="../calculate.py" line="495"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="516"/>
+        <location filename="../calculate.py" line="495"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Hesabu ya hesabu ya meza ya polygoni nyingi ijayo hivi karibuni!</translation>
     </message>
@@ -621,102 +626,102 @@ p, li { white-space: pre-wrap; }
         <translation>Tumia</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="831"/>
+        <location filename="../calculate_ldn.py" line="828"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="618"/>
+        <location filename="../calculate_ldn.py" line="615"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha uzalishaji katika ramani yako kabla ya kutumia zana ya hesabu ya SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="622"/>
+        <location filename="../calculate_ldn.py" line="619"/>
         <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha tija kwenye ramani yako kabla ya kutumia zana ya hesabu ya SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="626"/>
+        <location filename="../calculate_ldn.py" line="623"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha utendaji kwenye ramani yako kabla ya kutumia zana ya hesabu ya SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="632"/>
+        <location filename="../calculate_ldn.py" line="629"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha uzalishaji wa ardhi kwenye ramani yako kabla ya kutumia zana ya hesabu ya SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="637"/>
+        <location filename="../calculate_ldn.py" line="634"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha ardhi kwenye ramani yako kabla ya kutumia zana ya hesabu ya SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="642"/>
+        <location filename="../calculate_ldn.py" line="639"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>Lazima uongeze safu ya kiashiria cha kaboni kikaboni kwenye ramani yako kabla ya kutumia zana ya hesabu ya SDG.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="650"/>
+        <location filename="../calculate_ldn.py" line="647"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>Eneo la kupendeza haliko kabisa ndani ya safu ya kiweko.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="654"/>
+        <location filename="../calculate_ldn.py" line="651"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>Sehemu ya kupendeza haiko kabisa ndani ya safu ya utendaji.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="658"/>
+        <location filename="../calculate_ldn.py" line="655"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>Eneo la kupendeza haliko kabisa ndani ya safu ya serikali.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="663"/>
+        <location filename="../calculate_ldn.py" line="660"/>
         <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
         <translation>Eneo la riba sio kabisa ndani ya safu ya nguvu ya uzalishaji wa ardhi.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="668"/>
+        <location filename="../calculate_ldn.py" line="665"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>Eneo la riba sio kabisa ndani ya safu ya bima ya ardhi.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="672"/>
+        <location filename="../calculate_ldn.py" line="669"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>Sehemu ya kupendeza haiko kabisa ndani ya safu ya kaboni hai hai.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="684"/>
+        <location filename="../calculate_ldn.py" line="681"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>Maazimio ya safu ya trajectory na safu ya serikali hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="688"/>
+        <location filename="../calculate_ldn.py" line="685"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>Maazimio ya safu ya kiweko na safu ya utendaji hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="693"/>
+        <location filename="../calculate_ldn.py" line="690"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>Mifumo ya kuratibu ya safu ya trajectory na safu ya serikali hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="697"/>
+        <location filename="../calculate_ldn.py" line="694"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>Mifumo ya kuratibu ya safu ya trajectory na safu ya utendaji hailingani.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="797"/>
+        <location filename="../calculate_ldn.py" line="794"/>
         <source>Error creating mask.</source>
         <translation>Kosa la kuunda mask.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="818"/>
+        <location filename="../calculate_ldn.py" line="815"/>
         <source>Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.</source>
         <translation>Hitilafu wakati wa kuandika matokeo kwa {}. Hakikisha faili hii imefungwa, na haijafunguliwa katika QGIS au programu nyingine yoyote.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="831"/>
+        <location filename="../calculate_ldn.py" line="828"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
         <translation>Kosa kuhesabu meza ya muhtasari ya SDG 15.3.1.</translation>
     </message>
@@ -832,37 +837,37 @@ p, li { white-space: pre-wrap; }
         <translation>Kabla</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="95"/>
+        <location filename="../calculate_ldn.py" line="92"/>
         <source>Land Cover Setup</source>
         <translation>Kuweka Jalada la Jalada</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="105"/>
+        <location filename="../calculate_ldn.py" line="102"/>
         <source>Define Effects of Land Cover Change</source>
         <translation>Fafanua Athari za Mabadiliko ya Jalada la Ardhi</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="258"/>
+        <location filename="../calculate_ldn.py" line="255"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="191"/>
+        <location filename="../calculate_ldn.py" line="188"/>
         <source>Initial and final year must be at least 10 years apart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="254"/>
+        <location filename="../calculate_ldn.py" line="251"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="254"/>
+        <location filename="../calculate_ldn.py" line="251"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="258"/>
+        <location filename="../calculate_ldn.py" line="255"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1212,82 +1217,82 @@ p, li { white-space: pre-wrap; }
         <translation>Ifuatayo</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="311"/>
+        <location filename="../calculate_soc.py" line="312"/>
         <source>Land Cover Setup</source>
         <translation>Kuweka Jalada la Jalada</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="361"/>
+        <location filename="../calculate_soc.py" line="362"/>
         <source>Choose a name for the output file</source>
         <translation>Chagua jina kwa faili ya pato</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="361"/>
+        <location filename="../calculate_soc.py" line="362"/>
         <source>Raster file (*.tif)</source>
         <translation>Faili ya Raster (* .tif)</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="503"/>
+        <location filename="../calculate_soc.py" line="505"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="370"/>
+        <location filename="../calculate_soc.py" line="371"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="376"/>
+        <location filename="../calculate_soc.py" line="377"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation>Kutokana na chaguo ulizochagua, hesabu hii inapaswa kutokea nje ya mtandao. UNAFANYA kuchagua dataset ya udongo wa kaboni ya udongo.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="380"/>
+        <location filename="../calculate_soc.py" line="381"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>Kutokana na chaguo ulizochagua, hesabu hii inapaswa kutokea nje ya mtandao. UNAFANYA kuchagua dataset ya desturi ya ardhi ya desturi.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="386"/>
+        <location filename="../calculate_soc.py" line="387"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>Lazima uongeze safu ya kaboni ya kaboni kwenye ramani yako kabla ya kukimbia hesabu.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="393"/>
+        <location filename="../calculate_soc.py" line="394"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="393"/>
+        <location filename="../calculate_soc.py" line="394"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>Mwaka wa msingi ({}) ni mkubwa kuliko au sawa na mwaka uliolengwa ({}) - uchambuzi huu unaweza kuzalisha matokeo ya ajabu.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="397"/>
+        <location filename="../calculate_soc.py" line="398"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya awali ya bima ya ardhi.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="402"/>
+        <location filename="../calculate_soc.py" line="403"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>Eneo la maslahi sio kabisa ndani ya safu ya mwisho ya kifuniko cha ardhi.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="457"/>
+        <location filename="../calculate_soc.py" line="459"/>
         <source>Error calculating change in soil organic carbon.</source>
         <translation>Hitilafu ya kuhesabu mabadiliko katika kaboni ya kaboni.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="499"/>
+        <location filename="../calculate_soc.py" line="501"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="499"/>
+        <location filename="../calculate_soc.py" line="501"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="503"/>
+        <location filename="../calculate_soc.py" line="505"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2425,29 +2430,157 @@ p, li { white-space: pre-wrap; }
         <translation>Hatua ya 1: Kujiandikisha</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="118"/>
+        <location filename="../gui/DlgSettings.ui" line="124"/>
         <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
         <translation>Baada ya kusajili, utapokea barua pepe na nenosiri lako kutoka kwa api@trends.earth. Mara tu unapokea barua pepe hiyo, bofya chini ili uingie nenosiri ili uingie kwenye Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="146"/>
+        <location filename="../gui/DlgSettings.ui" line="152"/>
         <source>Step 2: Enter login</source>
         <translation>Hatua ya 2: Ingiza kuingia</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="184"/>
+        <location filename="../gui/DlgSettings.ui" line="174"/>
         <source>Existing users</source>
         <translation>Watumiaji wanaoishi</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="208"/>
+        <location filename="../gui/DlgSettings.ui" line="198"/>
         <source>Update account</source>
         <translation>Sasisha akaunti</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="233"/>
+        <location filename="../gui/DlgSettings.ui" line="223"/>
         <source>Reset password</source>
         <translation>Weka upya nenosiri</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="245"/>
+        <source>Advanced users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="269"/>
+        <source>Edit advanced options</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgSettingsAdvanced</name>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="20"/>
+        <source>Update user</source>
+        <translation type="unfinished">Sasisha mtumiaji</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="26"/>
+        <source>Advanced options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="32"/>
+        <source>Debug mode (saves detailed logging information)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="48"/>
+        <source>Use binaries for faster processing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="80"/>
+        <source>Click &quot;Browse&quot; to choose a folder...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="108"/>
+        <source>Browse</source>
+        <translation type="unfinished">Vinjari</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="136"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="145"/>
+        <source>placeholder for label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="322"/>
+        <source>Warning</source>
+        <translation type="unfinished">Onyo</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="322"/>
+        <source>You must restart QGIS for these changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="343"/>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; currently active.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="345"/>
+        <source>Binaries &lt;b&gt;are not&lt;/b&gt; currently active.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="354"/>
+        <source>Choose a folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="354"/>
+        <source>Choose a folder before downloading binaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="421"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="360"/>
+        <source>Unable to write to {}. Choose a different folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="369"/>
+        <source>Unable to write to {}. Try a different folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="381"/>
+        <source>Error downloading binaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="391"/>
+        <source>Success</source>
+        <translation type="unfinished">Mafanikio</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="387"/>
+        <source>Downloaded binaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="391"/>
+        <source>All binaries up to date.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="412"/>
+        <source>Select folder containing Trends.Earth binaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="421"/>
+        <source>Cannot read {}. Choose a different folder.</source>
+        <translation type="unfinished">Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
 </context>
 <context>
@@ -2478,17 +2611,17 @@ p, li { white-space: pre-wrap; }
         <translation>Futa mtumiaji</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="191"/>
+        <location filename="../settings.py" line="200"/>
         <source>Delete user?</source>
         <translation>Futa mtumiaji?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="191"/>
+        <location filename="../settings.py" line="200"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation>Una uhakika unataka kufuta mtumiaji {}? Kazi zako zote zitapotea na hutaweza tena kusindika data mtandaoni kwa kutumia Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="197"/>
+        <location filename="../settings.py" line="206"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
@@ -2511,32 +2644,32 @@ p, li { white-space: pre-wrap; }
         <translation>Ingiza anwani yako ya barua pepe ...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="226"/>
+        <location filename="../settings.py" line="235"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="226"/>
+        <location filename="../settings.py" line="235"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Ingiza anwani yako ya barua pepe ili upya nenosiri lako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="230"/>
+        <location filename="../settings.py" line="239"/>
         <source>Reset password?</source>
         <translation>Rudisha nenosiri?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="230"/>
+        <location filename="../settings.py" line="239"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
         <translation>Una uhakika unataka kuweka upya nenosiri kwa {}? Nywila yako mpya itatumwa barua pepe kwako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="238"/>
+        <location filename="../settings.py" line="247"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="238"/>
+        <location filename="../settings.py" line="247"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>Nenosiri limewekwa upya kwa {}. Angalia barua pepe yako kwa nenosiri jipya, na kisha urejee kwenye Mwelekeo.</translation>
     </message>
@@ -2569,37 +2702,37 @@ p, li { white-space: pre-wrap; }
         <translation>Shirika:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="282"/>
+        <location filename="../settings.py" line="290"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="273"/>
+        <location filename="../settings.py" line="281"/>
         <source>Enter your email address.</source>
         <translation>Ingiza anwani yako ya barua pepe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="276"/>
+        <location filename="../settings.py" line="284"/>
         <source>Enter your name.</source>
         <translation>Ingiza jina lako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="279"/>
+        <location filename="../settings.py" line="287"/>
         <source>Enter your organization.</source>
         <translation>Ingiza shirika lako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="282"/>
+        <location filename="../settings.py" line="290"/>
         <source>Enter your country.</source>
         <translation>Ingiza nchi yako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="289"/>
+        <location filename="../settings.py" line="297"/>
         <source>Saved</source>
         <translation>Imehifadhiwa</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="289"/>
+        <location filename="../settings.py" line="297"/>
         <source>Updated information for {}.</source>
         <translation>Imesasishwa habari kwa {}.</translation>
     </message>
@@ -2622,27 +2755,27 @@ p, li { white-space: pre-wrap; }
         <translation>Nenosiri:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="142"/>
+        <location filename="../settings.py" line="151"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="138"/>
+        <location filename="../settings.py" line="147"/>
         <source>Enter your email address.</source>
         <translation>Ingiza anwani yako ya barua pepe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="142"/>
+        <location filename="../settings.py" line="151"/>
         <source>Enter your password.</source>
         <translation>Ingiza nenosiri lako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="148"/>
+        <location filename="../settings.py" line="157"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="148"/>
+        <location filename="../settings.py" line="157"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>Kuingia kwenye seva ya Trends.Earth kama {}. &lt;html&gt;&lt;p&gt; Karibu kwenye Trends.Earth! &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Jiunge na Vikundi vya Trends.Earth Goers&lt;/a&gt; &lt;/p&gt;&lt;p&gt; Hakikisha kuungana na vikundi vya google kwa watumiaji wa Trends.Ear ili kuendelea na sasisho na Q&amp;amp;A kuhusu zana, njia, na hifadhidata kuunga mkono ufuatiliaji wa Malengo ya Maendeleo Endelevu. &lt;/p&gt;</translation>
@@ -2676,37 +2809,37 @@ p, li { white-space: pre-wrap; }
         <translation>Shirika:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="101"/>
+        <location filename="../settings.py" line="110"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="92"/>
+        <location filename="../settings.py" line="101"/>
         <source>Enter your email address.</source>
         <translation>Ingiza anwani yako ya barua pepe.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="95"/>
+        <location filename="../settings.py" line="104"/>
         <source>Enter your name.</source>
         <translation>Ingiza jina lako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="98"/>
+        <location filename="../settings.py" line="107"/>
         <source>Enter your organization.</source>
         <translation>Ingiza shirika lako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="101"/>
+        <location filename="../settings.py" line="110"/>
         <source>Enter your country.</source>
         <translation>Ingiza nchi yako.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="107"/>
+        <location filename="../settings.py" line="116"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="107"/>
+        <location filename="../settings.py" line="116"/>
         <source>User registered. Your password has been emailed to {}.</source>
         <translation>Mtumiaji amesajiliwa. Nenosiri lako limepelekwa barua pepe kwa {}.</translation>
     </message>
@@ -3634,32 +3767,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="181"/>
+        <location filename="../api.py" line="180"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../api.py" line="48"/>
+        <location filename="../api.py" line="47"/>
         <source>Please register with Trends.Earth before using this function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="106"/>
+        <location filename="../api.py" line="105"/>
         <source>Contacting {} server...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="112"/>
+        <location filename="../api.py" line="111"/>
         <source>Unable to login to {} server. Check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="118"/>
+        <location filename="../api.py" line="117"/>
         <source>Unable to connect to {} server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="181"/>
+        <location filename="../api.py" line="180"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3667,70 +3800,75 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1059"/>
+        <location filename="../calculate.py" line="1038"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="74"/>
+        <location filename="../calculate.py" line="82"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="151"/>
+        <location filename="../calculate.py" line="137"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="370"/>
+        <location filename="../calculate.py" line="349"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="185"/>
+        <location filename="../calculate.py" line="173"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="264"/>
+        <location filename="../calculate.py" line="239"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="264"/>
+        <location filename="../calculate.py" line="239"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="393"/>
+        <location filename="../calculate.py" line="372"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1059"/>
+        <location filename="../calculate.py" line="1038"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="202"/>
+        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_calculate_ldn</name>
     <message>
-        <location filename="../calculate_ldn.py" line="1060"/>
+        <location filename="../calculate_ldn.py" line="1057"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1060"/>
+        <location filename="../calculate_ldn.py" line="1057"/>
         <source>Indicator table saved to {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1065"/>
+        <location filename="../calculate_ldn.py" line="1062"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1065"/>
+        <location filename="../calculate_ldn.py" line="1062"/>
         <source>Error saving output table - check that {} is accessible and not already open.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3807,28 +3945,58 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="193"/>
+        <location filename="../download.py" line="253"/>
         <source>Downloading {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="218"/>
+        <location filename="../download.py" line="278"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../download.py" line="218"/>
+        <location filename="../download.py" line="278"/>
         <source>Download failed. Check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="206"/>
+        <location filename="../download.py" line="266"/>
         <source>Unable to access internet. Check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="212"/>
+        <location filename="../download.py" line="272"/>
         <source>Download timed out. Check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="150"/>
+        <source>Unable to write to {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="110"/>
+        <source>Unable to write to {}. Do you need administrator permissions?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="128"/>
+        <source>Folder does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="128"/>
+        <source>Folder {} does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="158"/>
+        <source>Error accessing {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="164"/>
+        <source>File verification failed for {}.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

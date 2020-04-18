@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="885"/>
+        <location filename="../calculate.py" line="864"/>
         <source>Point chooser</source>
         <translation>点选择器</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="885"/>
+        <location filename="../calculate.py" line="864"/>
         <source>Click the map to choose a point.</source>
         <translation>点击地图选择一个点。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="910"/>
+        <location filename="../calculate.py" line="889"/>
         <source>Select a file defining the area of interest</source>
         <translation>选择一个定义感兴趣区域的文件</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="910"/>
+        <location filename="../calculate.py" line="889"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="921"/>
+        <location filename="../calculate.py" line="900"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="921"/>
+        <location filename="../calculate.py" line="900"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="632"/>
+        <location filename="../calculate.py" line="611"/>
         <source>Select folder containing data</source>
         <translation>选择包含数据的文件夹</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="641"/>
+        <location filename="../calculate.py" line="620"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="641"/>
+        <location filename="../calculate.py" line="620"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>无法阅读 {}。选择其他文件夹。</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="674"/>
+        <location filename="../calculate.py" line="653"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>选择命名输出文件时要使用的前缀</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="674"/>
+        <location filename="../calculate.py" line="653"/>
         <source>Base name (*)</source>
         <translation>基本名称（*）</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="686"/>
+        <location filename="../calculate.py" line="665"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="686"/>
+        <location filename="../calculate.py" line="665"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="700"/>
+        <location filename="../calculate.py" line="679"/>
         <source>Overwrite file?</source>
         <translation>覆盖文件？</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="700"/>
+        <location filename="../calculate.py" line="679"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>使用前缀“ {}”将导致覆盖现有文件{}。您要覆盖这些文件吗？</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="707"/>
+        <location filename="../calculate.py" line="686"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="707"/>
+        <location filename="../calculate.py" line="686"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>选择其他输出前缀，然后重试。</translation>
     </message>
@@ -234,69 +234,74 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="978"/>
+        <location filename="../calculate.py" line="957"/>
         <source>Area</source>
         <translation>区</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="962"/>
         <source>Output</source>
         <translation>产量</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="987"/>
+        <location filename="../calculate.py" line="966"/>
         <source>Options</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1128"/>
+        <location filename="../calculate.py" line="1117"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1047"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>选择一级管理边界。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1075"/>
+        <location filename="../calculate.py" line="1054"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>无法加载管理界限。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1082"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>选择一个文件来定义感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1090"/>
+        <location filename="../calculate.py" line="1069"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>选择一个点来定义感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1101"/>
+        <location filename="../calculate.py" line="1080"/>
         <source>Choose an area of interest.</source>
         <translation>选择一个感兴趣的领域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1106"/>
+        <location filename="../calculate.py" line="1085"/>
         <source>Unable to read area of interest.</source>
         <translation>无法读取感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1113"/>
+        <location filename="../calculate.py" line="1092"/>
         <source>Error buffering polygon</source>
         <translation>错误缓冲多边形</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1122"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>请求区域（大约{：.6n}）平方公里的边界框太大。选择较小的区域进行处理。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1128"/>
+        <location filename="../calculate.py" line="1117"/>
         <source>Choose an output base name.</source>
         <translation>选择输出基本名称。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1099"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -543,12 +548,12 @@ p, li { white-space: pre-wrap; }
         <translation>计算子单元上栅格的面积摘要</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="516"/>
+        <location filename="../calculate.py" line="495"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="516"/>
+        <location filename="../calculate.py" line="495"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>多边形汇总表计算即将推出！</translation>
     </message>
@@ -621,102 +626,102 @@ p, li { white-space: pre-wrap; }
         <translation>计算</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="831"/>
+        <location filename="../calculate_ldn.py" line="828"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="618"/>
+        <location filename="../calculate_ldn.py" line="615"/>
         <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>您必须先在地图上添加一个生产力轨迹指示器图层，然后才能使用SDG计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="622"/>
+        <location filename="../calculate_ldn.py" line="619"/>
         <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>您必须先在地图上添加一个生产力状态指示器图层，然后才能使用SDG计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="626"/>
+        <location filename="../calculate_ldn.py" line="623"/>
         <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>您必须先在地图上添加一个生产力绩效指标图层，然后才能使用SDG计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="632"/>
+        <location filename="../calculate_ldn.py" line="629"/>
         <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>您必须先在地图上添加土地生产力动态指标图层，然后才能使用SDG计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="637"/>
+        <location filename="../calculate_ldn.py" line="634"/>
         <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>您必须先在地图上添加一个土地覆盖指标图层，然后才能使用SDG计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="642"/>
+        <location filename="../calculate_ldn.py" line="639"/>
         <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
         <translation>您必须先在地图上添加土壤有机碳指示剂层，然后才能使用SDG计算工具。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="650"/>
+        <location filename="../calculate_ldn.py" line="647"/>
         <source>Area of interest is not entirely within the trajectory layer.</source>
         <translation>感兴趣的区域并不完全在轨迹层之内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="654"/>
+        <location filename="../calculate_ldn.py" line="651"/>
         <source>Area of interest is not entirely within the performance layer.</source>
         <translation>感兴趣的区域并不完全在性能层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="658"/>
+        <location filename="../calculate_ldn.py" line="655"/>
         <source>Area of interest is not entirely within the state layer.</source>
         <translation>感兴趣的区域并不完全在状态层之内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="663"/>
+        <location filename="../calculate_ldn.py" line="660"/>
         <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
         <translation>感兴趣的区域并不完全在土地生产力动态层之内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="668"/>
+        <location filename="../calculate_ldn.py" line="665"/>
         <source>Area of interest is not entirely within the land cover layer.</source>
         <translation>感兴趣的区域并不完全在土地覆盖层之内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="672"/>
+        <location filename="../calculate_ldn.py" line="669"/>
         <source>Area of interest is not entirely within the soil organic carbon layer.</source>
         <translation>感兴趣的区域并不完全在土壤有机碳层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="684"/>
+        <location filename="../calculate_ldn.py" line="681"/>
         <source>Resolutions of trajectory layer and state layer do not match.</source>
         <translation>轨迹层和状态层的分辨率不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="688"/>
+        <location filename="../calculate_ldn.py" line="685"/>
         <source>Resolutions of trajectory layer and performance layer do not match.</source>
         <translation>轨迹层和性能层的分辨率不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="693"/>
+        <location filename="../calculate_ldn.py" line="690"/>
         <source>Coordinate systems of trajectory layer and state layer do not match.</source>
         <translation>轨迹层和状态层的坐标系不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="697"/>
+        <location filename="../calculate_ldn.py" line="694"/>
         <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
         <translation>轨迹层和性能层的坐标系不匹配。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="797"/>
+        <location filename="../calculate_ldn.py" line="794"/>
         <source>Error creating mask.</source>
         <translation>创建遮罩时出错。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="818"/>
+        <location filename="../calculate_ldn.py" line="815"/>
         <source>Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.</source>
         <translation>将结果写入{}时出错。确保此文件已关闭，并且未在QGIS或任何其他软件中打开。</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="831"/>
+        <location filename="../calculate_ldn.py" line="828"/>
         <source>Error calculating SDG 15.3.1 summary table.</source>
         <translation>计算SDG 15.3.1摘要表时出错。</translation>
     </message>
@@ -832,37 +837,37 @@ p, li { white-space: pre-wrap; }
         <translation>以前</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="95"/>
+        <location filename="../calculate_ldn.py" line="92"/>
         <source>Land Cover Setup</source>
         <translation>土地覆盖设置</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="105"/>
+        <location filename="../calculate_ldn.py" line="102"/>
         <source>Define Effects of Land Cover Change</source>
         <translation>定义土地覆被变化的影响</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="258"/>
+        <location filename="../calculate_ldn.py" line="255"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="191"/>
+        <location filename="../calculate_ldn.py" line="188"/>
         <source>Initial and final year must be at least 10 years apart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="254"/>
+        <location filename="../calculate_ldn.py" line="251"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="254"/>
+        <location filename="../calculate_ldn.py" line="251"/>
         <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="258"/>
+        <location filename="../calculate_ldn.py" line="255"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1212,82 +1217,82 @@ p, li { white-space: pre-wrap; }
         <translation>下一个</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="311"/>
+        <location filename="../calculate_soc.py" line="312"/>
         <source>Land Cover Setup</source>
         <translation>土地覆盖设置</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="361"/>
+        <location filename="../calculate_soc.py" line="362"/>
         <source>Choose a name for the output file</source>
         <translation>为输出文件选择一个名称</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="361"/>
+        <location filename="../calculate_soc.py" line="362"/>
         <source>Raster file (*.tif)</source>
         <translation>光栅文件（* .tif）</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="503"/>
+        <location filename="../calculate_soc.py" line="505"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="370"/>
+        <location filename="../calculate_soc.py" line="371"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="376"/>
+        <location filename="../calculate_soc.py" line="377"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土壤有机碳数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="380"/>
+        <location filename="../calculate_soc.py" line="381"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土地覆盖数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="386"/>
+        <location filename="../calculate_soc.py" line="387"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加土壤有机碳层。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="393"/>
+        <location filename="../calculate_soc.py" line="394"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="393"/>
+        <location filename="../calculate_soc.py" line="394"/>
         <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>基准年（{}）大于或等于目标年份（{}） - 此分析可能会产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="397"/>
+        <location filename="../calculate_soc.py" line="398"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="402"/>
+        <location filename="../calculate_soc.py" line="403"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="457"/>
+        <location filename="../calculate_soc.py" line="459"/>
         <source>Error calculating change in soil organic carbon.</source>
         <translation>计算土壤有机碳变化时出错。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="499"/>
+        <location filename="../calculate_soc.py" line="501"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="499"/>
+        <location filename="../calculate_soc.py" line="501"/>
         <source>Soil organic carbon submitted to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="503"/>
+        <location filename="../calculate_soc.py" line="505"/>
         <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2425,29 +2430,157 @@ p, li { white-space: pre-wrap; }
         <translation>第1步：注册</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="118"/>
+        <location filename="../gui/DlgSettings.ui" line="124"/>
         <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
         <translation>注册后，您将收到一封电子邮件，其中包含api@trends.earth的密码。收到该电子邮件后，请点击下方输入该密码以登录到Trends.Earth。</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="146"/>
+        <location filename="../gui/DlgSettings.ui" line="152"/>
         <source>Step 2: Enter login</source>
         <translation>第2步：输入登录名</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="184"/>
+        <location filename="../gui/DlgSettings.ui" line="174"/>
         <source>Existing users</source>
         <translation>现有用户</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="208"/>
+        <location filename="../gui/DlgSettings.ui" line="198"/>
         <source>Update account</source>
         <translation>更新账户</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="233"/>
+        <location filename="../gui/DlgSettings.ui" line="223"/>
         <source>Reset password</source>
         <translation>重设密码</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="245"/>
+        <source>Advanced users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettings.ui" line="269"/>
+        <source>Edit advanced options</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgSettingsAdvanced</name>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="20"/>
+        <source>Update user</source>
+        <translation type="unfinished">更新用户</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="26"/>
+        <source>Advanced options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="32"/>
+        <source>Debug mode (saves detailed logging information)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="48"/>
+        <source>Use binaries for faster processing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="80"/>
+        <source>Click &quot;Browse&quot; to choose a folder...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="108"/>
+        <source>Browse</source>
+        <translation type="unfinished">浏览</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="136"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSettingsAdvanced.ui" line="145"/>
+        <source>placeholder for label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="322"/>
+        <source>Warning</source>
+        <translation type="unfinished">警告</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="322"/>
+        <source>You must restart QGIS for these changes to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="343"/>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; currently active.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="345"/>
+        <source>Binaries &lt;b&gt;are not&lt;/b&gt; currently active.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="354"/>
+        <source>Choose a folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="354"/>
+        <source>Choose a folder before downloading binaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="421"/>
+        <source>Error</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="360"/>
+        <source>Unable to write to {}. Choose a different folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="369"/>
+        <source>Unable to write to {}. Try a different folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="381"/>
+        <source>Error downloading binaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="391"/>
+        <source>Success</source>
+        <translation type="unfinished">成功</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="387"/>
+        <source>Downloaded binaries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="391"/>
+        <source>All binaries up to date.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="412"/>
+        <source>Select folder containing Trends.Earth binaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="421"/>
+        <source>Cannot read {}. Choose a different folder.</source>
+        <translation type="unfinished">无法阅读 {}。选择其他文件夹。</translation>
     </message>
 </context>
 <context>
@@ -2478,17 +2611,17 @@ p, li { white-space: pre-wrap; }
         <translation>删除用户</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="191"/>
+        <location filename="../settings.py" line="200"/>
         <source>Delete user?</source>
         <translation>删除用户？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="191"/>
+        <location filename="../settings.py" line="200"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation>您确定要删除该用户吗？您的所有任务都将丢失，您将无法再使用Trends.Earth在线处理数据。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="197"/>
+        <location filename="../settings.py" line="206"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
@@ -2511,32 +2644,32 @@ p, li { white-space: pre-wrap; }
         <translation>输入你的电子邮箱地址...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="226"/>
+        <location filename="../settings.py" line="235"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="226"/>
+        <location filename="../settings.py" line="235"/>
         <source>Enter your email address to reset your password.</source>
         <translation>输入您的电子邮件地址来重置您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="230"/>
+        <location filename="../settings.py" line="239"/>
         <source>Reset password?</source>
         <translation>重设密码？</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="230"/>
+        <location filename="../settings.py" line="239"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
         <translation>您确定要重置{}的密码吗？您的新密码将通过电子邮件发送给您。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="238"/>
+        <location filename="../settings.py" line="247"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="238"/>
+        <location filename="../settings.py" line="247"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>密码已重置为{}。检查您的电子邮件以获取新密码，然后返回到Trends.Earth进入它。</translation>
     </message>
@@ -2569,37 +2702,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="282"/>
+        <location filename="../settings.py" line="290"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="273"/>
+        <location filename="../settings.py" line="281"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="276"/>
+        <location filename="../settings.py" line="284"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="279"/>
+        <location filename="../settings.py" line="287"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="282"/>
+        <location filename="../settings.py" line="290"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="289"/>
+        <location filename="../settings.py" line="297"/>
         <source>Saved</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="289"/>
+        <location filename="../settings.py" line="297"/>
         <source>Updated information for {}.</source>
         <translation>{}的更新信息。</translation>
     </message>
@@ -2622,27 +2755,27 @@ p, li { white-space: pre-wrap; }
         <translation>密码：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="142"/>
+        <location filename="../settings.py" line="151"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="138"/>
+        <location filename="../settings.py" line="147"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="142"/>
+        <location filename="../settings.py" line="151"/>
         <source>Enter your password.</source>
         <translation>输入您的密码。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="148"/>
+        <location filename="../settings.py" line="157"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="148"/>
+        <location filename="../settings.py" line="157"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>以{}登录到Trends.Earth服务器。 &lt;html&gt;&lt;p&gt;欢迎来到趋势地球！ &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;加入Trends.Earth Users Google组&lt;/a&gt; &lt;/p&gt;&lt;p&gt;确保加入Google Trends.Earth的Google组，以了解有关工具，方法和数据集的更新和问答，以支持可持续发展目标的监控。 &lt;/p&gt;</translation>
@@ -2676,37 +2809,37 @@ p, li { white-space: pre-wrap; }
         <translation>组织：</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="101"/>
+        <location filename="../settings.py" line="110"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="92"/>
+        <location filename="../settings.py" line="101"/>
         <source>Enter your email address.</source>
         <translation>输入你的电子邮箱地址。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="95"/>
+        <location filename="../settings.py" line="104"/>
         <source>Enter your name.</source>
         <translation>输入你的名字。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="98"/>
+        <location filename="../settings.py" line="107"/>
         <source>Enter your organization.</source>
         <translation>输入您的组织。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="101"/>
+        <location filename="../settings.py" line="110"/>
         <source>Enter your country.</source>
         <translation>进入你的国家。</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="107"/>
+        <location filename="../settings.py" line="116"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="107"/>
+        <location filename="../settings.py" line="116"/>
         <source>User registered. Your password has been emailed to {}.</source>
         <translation>用户注册。您的密码已通过电子邮件发送给{}。</translation>
     </message>
@@ -3634,32 +3767,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="181"/>
+        <location filename="../api.py" line="180"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../api.py" line="48"/>
+        <location filename="../api.py" line="47"/>
         <source>Please register with Trends.Earth before using this function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="106"/>
+        <location filename="../api.py" line="105"/>
         <source>Contacting {} server...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="112"/>
+        <location filename="../api.py" line="111"/>
         <source>Unable to login to {} server. Check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="118"/>
+        <location filename="../api.py" line="117"/>
         <source>Unable to connect to {} server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="181"/>
+        <location filename="../api.py" line="180"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3667,70 +3800,75 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1059"/>
+        <location filename="../calculate.py" line="1038"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="74"/>
+        <location filename="../calculate.py" line="82"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="151"/>
+        <location filename="../calculate.py" line="137"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="370"/>
+        <location filename="../calculate.py" line="349"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="185"/>
+        <location filename="../calculate.py" line="173"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="264"/>
+        <location filename="../calculate.py" line="239"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="264"/>
+        <location filename="../calculate.py" line="239"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="393"/>
+        <location filename="../calculate.py" line="372"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1059"/>
+        <location filename="../calculate.py" line="1038"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="202"/>
+        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_calculate_ldn</name>
     <message>
-        <location filename="../calculate_ldn.py" line="1060"/>
+        <location filename="../calculate_ldn.py" line="1057"/>
         <source>Success</source>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1060"/>
+        <location filename="../calculate_ldn.py" line="1057"/>
         <source>Indicator table saved to {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1065"/>
+        <location filename="../calculate_ldn.py" line="1062"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1065"/>
+        <location filename="../calculate_ldn.py" line="1062"/>
         <source>Error saving output table - check that {} is accessible and not already open.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3807,28 +3945,58 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="193"/>
+        <location filename="../download.py" line="253"/>
         <source>Downloading {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="218"/>
+        <location filename="../download.py" line="278"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../download.py" line="218"/>
+        <location filename="../download.py" line="278"/>
         <source>Download failed. Check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="206"/>
+        <location filename="../download.py" line="266"/>
         <source>Unable to access internet. Check your internet connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../download.py" line="212"/>
+        <location filename="../download.py" line="272"/>
         <source>Download timed out. Check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="150"/>
+        <source>Unable to write to {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="110"/>
+        <source>Unable to write to {}. Do you need administrator permissions?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="128"/>
+        <source>Folder does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="128"/>
+        <source>Folder {} does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="158"/>
+        <source>Error accessing {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../download.py" line="164"/>
+        <source>File verification failed for {}.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

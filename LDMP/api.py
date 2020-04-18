@@ -34,7 +34,6 @@ from LDMP import log
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
-DEBUG = QSettings().value('LDMP/debug', False)
 
 
 class tr_api(object):
@@ -218,7 +217,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         worker.start()
         resp = worker.get_resp()
         log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
-        if DEBUG:
+        if QSettings().value('LDMP/debug', True):
             log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:
         resp = None

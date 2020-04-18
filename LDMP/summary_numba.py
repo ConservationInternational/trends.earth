@@ -1,10 +1,36 @@
+import os
+import json
+
 import numpy as np
 
-from numba.pycc import CC
 
-cc = CC('summary_numba')
+try:
+    from numba.pycc import CC
+    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'version.json')) as f:
+        version_info = json.load(f)
+    cc = CC('summary_numba_{}'.format(version_info['version'].replace('.', '_')))
+    have_numba = True
+except ImportError:
+    # Will use these as regular Python functions if numba is not present
+    have_numba = False
+    pass
 
-@cc.export('xtab_i16', '(i2[:,:], i2[:,:], f4[:,:])')
+
+# Function to conditionally decorate functions with cc.export if numba is 
+# present
+def cc_decorate(label, signature):
+    def decorator(func):
+        if not have_numba:
+            # Return the function unchanged, not decorated.
+            return func
+        else:
+            # Return the function decorated for numba
+            return cc.export(label, signature)
+    return decorator
+
+
+
+@cc_decorate('xtab', '(i2[:,:], i2[:,:], f4[:,:])')
 def xtab(x1, x2, areas):
     # x1 values are across rows
     rh = np.unique(x1.ravel())
@@ -20,7 +46,7 @@ def xtab(x1, x2, areas):
     return rh, ch, xt
 
 
-@cc.export('merge_xtabs_i16', '(i2[:], i2[:], f4[:,:], i2[:], i2[:], f4[:,:])')
+@cc_decorate('merge_xtabs', '(i2[:], i2[:], f4[:,:], i2[:], i2[:], f4[:,:])')
 def merge_xtabs(tab1_rh, tab1_ch, tab1, tab2_rh, tab2_ch, tab2):
     """Merges two crosstabs - allows for block-by-block crosstabs"""
     # Setup the headers for the combined crosstab

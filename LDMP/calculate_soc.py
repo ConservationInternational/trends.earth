@@ -165,6 +165,7 @@ class SOCWorker(AbstractWorker):
                     t0 = float(self.lc_years[n])
                     t1 = float(self.lc_years[n + 1])
 
+                    log(u'self.lc_band_nums: {}'.format(self.lc_band_nums))
                     lc_t0 = ds_in.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
                     lc_t1 = ds_in.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
 
@@ -445,6 +446,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         lc_band_nums = np.arange(len(lc_files)) + 3
 
         log(u'Saving soil organic carbon to {}'.format(out_f))
+        log(u'lc_band_nums: {}'.format(lc_band_nums))
         soc_worker = StartWorker(SOCWorker,
                                  'calculating change in soil organic carbon', 
                                  in_vrt,

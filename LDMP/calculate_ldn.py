@@ -33,22 +33,19 @@ from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log
+from LDMP import log, __version__
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, MaskWorker, \
-    json_geom_to_geojson
+from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
+    json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
+    ldn_total_deg, ldn_total_by_trans)
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos, \
-    delete_layer_by_filename
+from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
+    delete_layer_by_filename)
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
-from LDMP.summary_numba import merge_xtabs_i16, xtab_i16
-
-from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
-    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
 
 
 class tr_calculate_ldn(object):
@@ -462,9 +459,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # log('water.dtype: {}'.format(str(water.dtype)))
                 # log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
                 
-                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg_f(deg_sdg, water, cell_areas_array)
-                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg_f(prod3, water, cell_areas_array)
-                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg_f(lc_array,
+                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg(deg_sdg, water, cell_areas_array)
+                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg(prod3, water, cell_areas_array)
+                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg(lc_array,
                                                           np.array((mask_array == -32767) | water).astype(bool),
                                                           cell_areas_array)
 
@@ -502,7 +499,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator
-                this_rh, this_ch, this_xt = xtab_i16(prod5, a_trans_bl_tg, cell_areas_array)
+                this_rh, this_ch, this_xt = xtab(prod5, a_trans_bl_tg, cell_areas_array)
                 # Don't use this transition xtab if it is empty (could 
                 # happen if take a xtab where all of the values are nan's)
                 if this_rh.size != 0:
@@ -511,7 +508,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         ch = this_ch
                         xt = this_xt
                     else:
-                        rh, ch, xt = merge_xtabs_i16(this_rh, this_ch, this_xt, rh, ch, xt)
+                        rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -524,7 +521,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[a_soc_tg == -32768] = -32768 # No data
                 # Carry over areas that were 1) originally masked, or 2) are 
                 # outside the AOI, or 3) are water
-                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg_f(a_deg_soc,
+                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg(a_deg_soc,
                                                             water,
                                                             cell_areas_array)
 
@@ -853,7 +850,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                         soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
-                        trans_prod_xtab = merge_xtabs_i16(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
+                        trans_prod_xtab = merge_xtabs(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
                                                           this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
                     sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod

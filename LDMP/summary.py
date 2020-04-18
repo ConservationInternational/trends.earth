@@ -17,6 +17,15 @@ from builtins import range
 
 import numpy as np
 
+from LDMP import log
+
+try:
+    from trends_earth_binaries.summary_numba import *
+    log("Numba-compiled version of summary_numba imported.")
+except (ModuleNotFoundError, ImportError) as e:
+    from LDMP.summary_numba import *
+    log("Import of numba-compiled code failed, falling back to python version of summary_numba.")
+
 
 def calc_area_table(a, area_table, cell_area):
     """Calculates an area table for an array"""

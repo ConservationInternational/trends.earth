@@ -27,16 +27,6 @@ from qgis.utils import iface
 
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
 
-# Ensure that the ext-libs for the plugin are near the front of the path
-# (important on Linux)
-dirpath = os.path.join(plugin_dir, 'ext-libs')
-sys.path, remainder = sys.path[:1], sys.path[1:]
-site.addsitedir(dirpath)
-sys.path.extend(remainder)
-
-debug = QSettings().value('LDMP/debug', True)
-
-
 with open(os.path.join(plugin_dir, 'version.json')) as f:
     version_info = json.load(f)
 __version__ = version_info['version']
@@ -45,8 +35,7 @@ __release_date__ = version_info['release_date']
 
 
 def log(message, level=0):
-    if debug:
-        QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
+    QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
 
 
 def classFactory(iface):  # pylint: disable=invalid-name
@@ -80,3 +69,26 @@ if ret:
     log("Translator installed for {}.".format(locale.name()))
 else:
     log("FAILED while trying to install translator for {}.".format(locale.name()))
+
+# Ensure that the ext-libs, and binaries folder (if available) are near the 
+# front of the path (important on Linux)
+ext_libs_path = os.path.join(plugin_dir, 'ext-libs')
+binaries_folder = QSettings().value("LDMP/binaries_folder", None)
+sys.path, remainder = sys.path[:1], sys.path[1:]
+site.addsitedir(ext_libs_path)
+if binaries_folder:
+    log('Adding {} to path for binaries.'.format(binaries_folder))
+    site.addsitedir(os.path.join(binaries_folder,
+        'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))))
+sys.path.extend(remainder)
+
+
+BINARY_STATUS = True
+try:
+    from trends_earth_binaries import summary_numba
+except ImportError:
+    BINARY_STATUS = False
+try:
+    from trends_earth_binaries import calculate_numba
+except ImportError:
+    BINARY_STATUS = False

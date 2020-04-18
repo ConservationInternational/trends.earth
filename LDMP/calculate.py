@@ -48,6 +48,14 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 
+try:
+    from trends_earth_binaries.calculate_numba import *
+    log("Numba-compiled version of calculate_numba imported.")
+except (ModuleNotFoundError, ImportError) as e:
+    from LDMP.calculate_numba import *
+    log("Import of numba-compiled code failed, falling back to python version of calculate_numba.")
+
+
 class tr_calculate(object):
     def tr(message):
         return QCoreApplication.translate("tr_calculate", message)
@@ -199,7 +207,7 @@ class AOI(object):
             n += 1
         union = QgsGeometry.unaryUnion(geometries)
 
-        log(u'Calculating east and west intersection.')
+        log(u'Calculating east and west intersections to test if AOI crosses 180th meridian.')
         hemi_e = QgsGeometry.fromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
         hemi_w = QgsGeometry.fromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
         intersections = [hemi.intersection(union) for hemi in [hemi_e, hemi_w]]
@@ -214,7 +222,7 @@ class AOI(object):
             pieces_txt = [json.loads(piece.asJson()) for piece in pieces]
             pieces_union_txt = json.loads(pieces_union.asJson())
         elif out_format == 'wkt':
-            pieces_txt = [json.loads(piece.asWkt()) for piece in pieces]
+            pieces_txt = [piece.asWkt() for piece in pieces]
             pieces_union_txt = pieces_union.asWkt()
 
         if (len(pieces) == 0) or (sum([piece.area() for piece in pieces]) > (pieces_union.area() / 2)):

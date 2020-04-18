@@ -14,6 +14,8 @@
 
 import os
 import json
+import re
+from pathlib import Path
 
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt import QtWidgets
@@ -27,10 +29,12 @@ from LDMP.gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassw
 from LDMP.gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
 from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
+from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
 
-from LDMP.api import get_user_email, get_user, delete_user, login, register, \
-    update_user, recover_pwd
-from LDMP.download import get_admin_bounds
+from LDMP import log, BINARY_STATUS, __version__
+from LDMP.api import (get_user_email, get_user, delete_user, login, register,
+    update_user, recover_pwd)
+from LDMP.download import download_files, get_admin_bounds
 
 settings = QSettings()
 
@@ -44,13 +48,15 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
         self.dlg_settings_edit = DlgSettingsEdit()
+        self.dlg_settings_advanced = DlgSettingsAdvanced()
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
         self.pushButton_edit.clicked.connect(self.edit)
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
+        self.pushButton_advanced.clicked.connect(self.advanced)
 
-        self.buttonBox.rejected.connect(self.close)
+        self.buttonBox.accepted.connect(self.close)
 
     def register(self):
         result = self.dlg_settings_register.exec_()
@@ -73,6 +79,9 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         ret = dlg_settings_edit_forgot_password.exec_()
         if ret and dlg_settings_edit_forgot_password.ok:
             self.done(QtWidgets.QDialog.Accepted)
+
+    def advanced(self):
+        result = self.dlg_settings_advanced.exec_()
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
@@ -244,7 +253,6 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
 
 class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
     def __init__(self, user, parent=None):
-        """Constructor."""
         super(DlgSettingsEditUpdate, self).__init__(parent)
 
         self.setupUi(self)
@@ -290,3 +298,130 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
                                           self.tr(u"Updated information for {}.").format(self.email.text()))
             self.close()
             self.ok = True
+
+
+class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
+    def __init__(self, parent=None):
+        super(DlgSettingsAdvanced, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.buttonBox.accepted.connect(self.close)
+        self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
+        self.binaries_download_button.clicked.connect(self.binaries_download)
+        self.debug_checkbox.clicked.connect(self.debug_toggle)
+        self.binaries_checkbox.clicked.connect(self.binaries_toggle)
+
+        # Flag that can be used to indicate if binary state has changed (i.e. 
+        # if new binaries have been downloaded)
+        self.binary_state_changed = False
+
+    def close(self):
+        super(DlgSettingsAdvanced, self).close()
+        if self.binaries_checkbox.isChecked() != self.binaries_checkbox_initial or self.binary_state_changed:
+            QtWidgets.QMessageBox.warning(None,
+                                          self.tr("Warning"),
+                                          self.tr("You must restart QGIS for these changes to take effect."))
+
+    def showEvent(self, event):
+        super(DlgSettingsAdvanced, self).showEvent(event)
+
+        debug_checked = bool(QSettings().value("LDMP/debug", None))
+        if debug_checked is not None:
+            self.debug_checkbox.setChecked(debug_checked)
+
+        binaries_checked = bool(QSettings().value("LDMP/binaries_enabled", None))
+        if binaries_checked is not None:
+            self.binaries_checkbox.setChecked(binaries_checked)
+        self.binaries_toggle()
+        # Set a flag that will be used to indicate whether the status of using 
+        # binaries or not has changed (needed to allow displaying a message to 
+        # the user that they need to restart when this setting is changed)
+        self.binaries_checkbox_initial = self.binaries_checkbox.isChecked()
+
+        if BINARY_STATUS:
+            self.binaries_label.setText(self.tr('Binaries <b>are</b> currently active.'))
+        else:
+            self.binaries_label.setText(self.tr('Binaries <b>are not</b> currently active.'))
+
+        binaries_folder = QSettings().value("LDMP/binaries_folder", None)
+        if binaries_folder is not None:
+            self.binaries_folder.setText(binaries_folder)
+
+    def binaries_download(self):
+        out_folder = os.path.join(self.binaries_folder.text())
+        if out_folder == '':
+            QtWidgets.QMessageBox.information(None,
+                                       self.tr("Choose a folder"),
+                                       self.tr("Choose a folder before downloading binaries."))
+            return
+
+        if not os.access(out_folder, os.W_OK):
+            QtWidgets.QMessageBox.critical(None,
+                                       self.tr("Error"),
+                                       self.tr("Unable to write to {}. Choose a different folder.".format(out_folder)))
+            return
+
+        try:
+            if not os.path.exists(out_folder):
+                os.makedirs(out_folder)
+        except PermissionError:
+            QtWidgets.QMessageBox.critical(None,
+                                       self.tr("Error"),
+                                       self.tr("Unable to write to {}. Try a different folder.".format(filename)))
+            return None
+
+        zipfile_url = u'https://s3.amazonaws.com/trends.earth/plugin_binaries/trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
+        log('url: {}'.format(zipfile_url))
+        log('out_folder: {}'.format(out_folder))
+        downloads = download_files([zipfile_url], out_folder)
+        
+
+        if downloads is None:
+            QtWidgets.QMessageBox.critical(None,
+                                       self.tr("Error"),
+                                       self.tr("Error downloading binaries."))
+        else:
+            if len(downloads) > 0:
+                self.binary_state_changed = True
+                QtWidgets.QMessageBox.information(None,
+                                           self.tr("Success"),
+                                           self.tr("Downloaded binaries."))
+            else:
+                QtWidgets.QMessageBox.critical(None,
+                                           self.tr("Success"),
+                                           self.tr("All binaries up to date.".format(out_folder)))
+
+
+    def binaries_toggle(self):
+        state = self.binaries_checkbox.isChecked()
+        QSettings().setValue("LDMP/binaries_enabled", state)
+        self.binaries_folder.setEnabled(state)
+        self.binaries_browse_button.setEnabled(state)
+        self.binaries_download_button.setEnabled(state)
+        self.binaries_label.setEnabled(state)
+
+    def debug_toggle(self):
+        QSettings().setValue("LDMP/debug", self.debug_checkbox.isChecked())
+
+    def binary_folder_browse(self):
+        initial_path = QSettings().value("LDMP/binaries_folder", None)
+        if not initial_path:
+            initial_path = str(Path.home())
+
+        folder = QtWidgets.QFileDialog.getExistingDirectory(self,
+                                                            self.tr('Select folder containing Trends.Earth binaries'),
+                                                            initial_path)
+        if folder:
+            if os.access(folder, os.W_OK):
+                QSettings().setValue("LDMP/binaries_folder", folder)
+                self.binaries_folder.setText(folder)
+                return True
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot read {}. Choose a different folder.".format(vector_file)))
+                return False
+        else:
+            return False
+                
+

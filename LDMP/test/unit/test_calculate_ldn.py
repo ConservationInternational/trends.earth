@@ -23,8 +23,8 @@ from LDMP.calculate_ldn import ldn_total_by_trans_merge
 
 from LDMP.test import add_default_bands_to_map
 
-from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
-    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
+from LDMP.calculate import (ldn_make_prod5, ldn_recode_state,
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f)
 
 
 class recode_stateTests(unittest.TestCase):

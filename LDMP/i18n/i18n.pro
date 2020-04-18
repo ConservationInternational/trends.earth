@@ -31,6 +31,7 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgJobsDetails.ui \
 ../gui/DlgPlot.ui \
 ../gui/DlgSettings.ui \
+../gui/DlgSettingsAdvanced.ui \
 ../gui/DlgSettingsEdit.ui \
 ../gui/DlgSettingsEditForgotPassword.ui \
 ../gui/DlgSettingsEditUpdate.ui \

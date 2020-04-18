@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-16 08:06-0400\n"
 "PO-Revision-Date: 2019-07-23 19:36+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -34,26 +34,35 @@ msgid ""
 "`0.99 (not yet released) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.99>`_"
 msgstr ""
+"`0.99 (aún no publicado) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.99>`_"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:9
 msgid ""
 "Fix processing using new MODIS data (assets were not properly updated in the"
 " last release)"
 msgstr ""
+"Se corrigió el procesamiento utilizando nuevos datos MODIS (los archivos no "
+"se actualizaron correctamente en la última versión)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:11
 msgid "Fix color-coding of land covers in land cover class aggregation window"
 msgstr ""
+"Se corrigió la codificación por colores de las cubiertas terrestres en la "
+"ventana de agregación de clases de cubierta vegetal"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:12
 msgid "Add more detailed version information to about dialog"
 msgstr ""
+"Agregue información de versión más detallada al cuadro de diálogo Acerca de"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:15
 msgid ""
 "`0.98 April 2, 2020 "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
 msgstr ""
+"`0.98 2 de abril de 2020 "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:17
 msgid "First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API."

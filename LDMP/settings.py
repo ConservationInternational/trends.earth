@@ -32,7 +32,7 @@ from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
 
-from LDMP import log, BINARY_STATUS, __version__
+from LDMP import log, binaries_available, __version__
 from LDMP.api import (get_user_email, get_user, delete_user, login, register,
     update_user, recover_pwd)
 from LDMP.download import download_files, get_admin_bounds
@@ -331,23 +331,27 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
         if debug_checked is not None:
             self.debug_checkbox.setChecked(debug_checked)
 
-        binaries_checked = bool(QSettings().value("LDMP/binaries_enabled", None))
-        if binaries_checked is not None:
-            self.binaries_checkbox.setChecked(binaries_checked)
-        self.binaries_toggle()
+        # TODO: Have this actually check if they are enabled in summary_numba 
+        # and calculate_numba. Right now this doesn't really check if they are 
+        # enabled, just that they are available. Which should be the same 
+        # thing, but might not always be...
+        if binaries_available():
+            self.binaries_label.setText(self.tr('Binaries <b>are</b> enabled.'))
+        else:
+            self.binaries_label.setText(self.tr('Binaries <b>are not</b> enabled.'))
         # Set a flag that will be used to indicate whether the status of using 
         # binaries or not has changed (needed to allow displaying a message to 
         # the user that they need to restart when this setting is changed)
-        self.binaries_checkbox_initial = self.binaries_checkbox.isChecked()
-
-        if BINARY_STATUS:
-            self.binaries_label.setText(self.tr('Binaries <b>are</b> currently active.'))
-        else:
-            self.binaries_label.setText(self.tr('Binaries <b>are not</b> currently active.'))
 
         binaries_folder = QSettings().value("LDMP/binaries_folder", None)
         if binaries_folder is not None:
             self.binaries_folder.setText(binaries_folder)
+
+        binaries_checked = bool(QSettings().value("LDMP/binaries_enabled", None))
+        self.binaries_checkbox_initial = binaries_checked
+        if binaries_checked is not None:
+            self.binaries_checkbox.setChecked(binaries_checked)
+        self.binaries_toggle()
 
     def binaries_download(self):
         out_folder = os.path.join(self.binaries_folder.text())
@@ -421,6 +425,7 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
             if os.access(folder, os.W_OK):
                 QSettings().setValue("LDMP/binaries_folder", folder)
                 self.binaries_folder.setText(folder)
+                self.binary_state_changed = True
                 return True
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),

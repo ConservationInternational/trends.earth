@@ -15,16 +15,22 @@
 from builtins import zip
 from builtins import range
 
+from qgis.PyQt.QtCore import QSettings
+
 import numpy as np
 
 from LDMP import log
 
-try:
-    from trends_earth_binaries.summary_numba import *
-    log("Numba-compiled version of summary_numba imported.")
-except (ModuleNotFoundError, ImportError) as e:
+if bool(QSettings().value("LDMP/binaries_enabled", None)):
+    try:
+        from trends_earth_binaries.summary_numba import *
+        log("Using numba-compiled version of summary_numba.")
+    except (ModuleNotFoundError, ImportError) as e:
+        from LDMP.summary_numba import *
+        log("Failed import of numba-compiled code, falling back to python version of summary_numba.")
+else:
     from LDMP.summary_numba import *
-    log("Import of numba-compiled code failed, falling back to python version of summary_numba.")
+    log("Using python version of summary_numba.")
 
 
 def calc_area_table(a, area_table, cell_area):

@@ -11,11 +11,11 @@ try:
 except ImportError:
     # Will use these as regular Python functions if numba is not present
     have_numba = False
-    # Make a fake cc.export that doesn't do anything
+    # Make a cc.export that doesn't do anything
     class cc(object):
-        def export(func):
-            def wrapper(*args, **kwargs):
-                res = func(*args, **kwargs)
+        def export(*args, **kwargs):
+            def wrapper(func):
+                return func
             return wrapper
 
 @cc.export('xtab', '(i2[:,:], i2[:,:], f4[:,:])')

@@ -83,12 +83,22 @@ if binaries_folder:
 sys.path.extend(remainder)
 
 
-BINARY_STATUS = True
-try:
-    from trends_earth_binaries import summary_numba
-except ImportError:
-    BINARY_STATUS = False
-try:
-    from trends_earth_binaries import calculate_numba
-except ImportError:
-    BINARY_STATUS = False
+def binaries_available():
+    ret = True
+    try:
+        from trends_earth_binaries import summary_numba
+        if QSettings().value("LDMP/debug", False):
+            log("Numba-compiled version of summary_numba available.")
+    except (ModuleNotFoundError, ImportError) as e:
+        if QSettings().value("LDMP/debug", False):
+            log("Numba-compiled version of summary_numba not available.")
+        ret = False
+    try:
+        from trends_earth_binaries import calculate_numba
+        if QSettings().value("LDMP/debug", False):
+            log("Numba-compiled version of calculate_numba available.")
+    except (ModuleNotFoundError, ImportError) as e:
+        if QSettings().value("LDMP/debug", False):
+            log("Numba-compiled version of calculate_numba not available.")
+        ret = False
+    return ret

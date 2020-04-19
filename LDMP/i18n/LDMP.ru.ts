@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="864"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Point chooser</source>
         <translation>Выбор точки</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="864"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Click the map to choose a point.</source>
         <translation>Нажмите на карту, чтобы выбрать точку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="889"/>
+        <location filename="../calculate.py" line="892"/>
         <source>Select a file defining the area of interest</source>
         <translation>Выберите файл, определяющий интересующую область</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="889"/>
+        <location filename="../calculate.py" line="892"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="900"/>
+        <location filename="../calculate.py" line="903"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="900"/>
+        <location filename="../calculate.py" line="903"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="611"/>
+        <location filename="../calculate.py" line="615"/>
         <source>Select folder containing data</source>
         <translation>Выберите папку, содержащую данные</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="620"/>
+        <location filename="../calculate.py" line="624"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="620"/>
+        <location filename="../calculate.py" line="624"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Не могу читать {}. Выберите другую папку.</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="653"/>
+        <location filename="../calculate.py" line="657"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Выберите префикс, который будет использоваться при именовании выходных файлов</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="653"/>
+        <location filename="../calculate.py" line="657"/>
         <source>Base name (*)</source>
         <translation>Базовое имя (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="665"/>
+        <location filename="../calculate.py" line="669"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="665"/>
+        <location filename="../calculate.py" line="669"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="679"/>
+        <location filename="../calculate.py" line="683"/>
         <source>Overwrite file?</source>
         <translation>Перезаписать файл?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="679"/>
+        <location filename="../calculate.py" line="683"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>Использование префикса &amp;quot;{}&amp;quot; приведет к перезаписи существующих файлов {}. Хотите перезаписать эти файлы?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="686"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="686"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Выберите другой префикс вывода и попробуйте снова.</translation>
     </message>
@@ -234,73 +234,78 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="957"/>
+        <location filename="../calculate.py" line="961"/>
         <source>Area</source>
         <translation>Площадь</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="962"/>
+        <location filename="../calculate.py" line="966"/>
         <source>Output</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="966"/>
+        <location filename="../calculate.py" line="970"/>
         <source>Options</source>
         <translation>Опции</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1117"/>
+        <location filename="../calculate.py" line="1126"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1047"/>
+        <location filename="../calculate.py" line="1051"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Выберите административную границу первого уровня.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1054"/>
+        <location filename="../calculate.py" line="1058"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Невозможно загрузить административные границы.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1061"/>
+        <location filename="../calculate.py" line="1065"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Выберите файл для определения интересующей области.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1069"/>
+        <location filename="../calculate.py" line="1078"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Выберите пункт для определения интересующей области.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1080"/>
+        <location filename="../calculate.py" line="1089"/>
         <source>Choose an area of interest.</source>
         <translation>Выберите интересующую область.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1085"/>
+        <location filename="../calculate.py" line="1094"/>
         <source>Unable to read area of interest.</source>
         <translation>Невозможно прочитать интересующую область.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1092"/>
+        <location filename="../calculate.py" line="1101"/>
         <source>Error buffering polygon</source>
         <translation>Ошибка буферизации многоугольника</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1111"/>
+        <location filename="../calculate.py" line="1120"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>Ограничительная рамка для запрашиваемой площади (приблизительно {: .6n}) кв. Км слишком велика. Выберите меньшую область для обработки.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1117"/>
+        <location filename="../calculate.py" line="1126"/>
         <source>Choose an output base name.</source>
         <translation>Выберите выходное базовое имя.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1099"/>
+        <location filename="../calculate.py" line="1108"/>
         <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1069"/>
+        <source>Unable to read {}.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -548,12 +553,12 @@ p, li { white-space: pre-wrap; }
         <translation>Рассчитать суммарные площади растра по подразделениям</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="495"/>
+        <location filename="../calculate.py" line="499"/>
         <source>Coming soon!</source>
         <translation>Скоро!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="495"/>
+        <location filename="../calculate.py" line="499"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Сводная таблица с несколькими полигонами скоро появится!</translation>
     </message>
@@ -2508,79 +2513,79 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="322"/>
+        <location filename="../settings.py" line="323"/>
         <source>Warning</source>
         <translation type="unfinished">Предупреждение</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="322"/>
+        <location filename="../settings.py" line="323"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="343"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; currently active.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="345"/>
-        <source>Binaries &lt;b&gt;are not&lt;/b&gt; currently active.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="354"/>
+        <location filename="../settings.py" line="359"/>
         <source>Choose a folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="354"/>
+        <location filename="../settings.py" line="359"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="421"/>
+        <location filename="../settings.py" line="431"/>
         <source>Error</source>
         <translation type="unfinished">ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="360"/>
+        <location filename="../settings.py" line="365"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="369"/>
+        <location filename="../settings.py" line="374"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="381"/>
+        <location filename="../settings.py" line="390"/>
         <source>Error downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="391"/>
+        <location filename="../settings.py" line="400"/>
         <source>Success</source>
         <translation type="unfinished">успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="387"/>
+        <location filename="../settings.py" line="396"/>
         <source>Downloaded binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="391"/>
+        <location filename="../settings.py" line="400"/>
         <source>All binaries up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="412"/>
+        <location filename="../settings.py" line="421"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="421"/>
+        <location filename="../settings.py" line="431"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished">Не могу читать {}. Выберите другую папку.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="339"/>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="341"/>
+        <source>Binaries &lt;b&gt;are not&lt;/b&gt; enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2611,17 +2616,17 @@ p, li { white-space: pre-wrap; }
         <translation>Удалить пользователя</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="200"/>
+        <location filename="../settings.py" line="201"/>
         <source>Delete user?</source>
         <translation>Удалить пользователя?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="200"/>
+        <location filename="../settings.py" line="201"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation>Вы действительно хотите удалить пользователя {}? Все ваши задачи будут потеряны, и вы больше не сможете обрабатывать данные в Интернете с помощью Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="206"/>
+        <location filename="../settings.py" line="207"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
@@ -2644,32 +2649,32 @@ p, li { white-space: pre-wrap; }
         <translation>Введите ваш адрес электронной почты...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="235"/>
+        <location filename="../settings.py" line="236"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="235"/>
+        <location filename="../settings.py" line="236"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Введите свой адрес электронной почты для восстановления пароля.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="239"/>
+        <location filename="../settings.py" line="240"/>
         <source>Reset password?</source>
         <translation>Сброс пароля?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="239"/>
+        <location filename="../settings.py" line="240"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
         <translation>Вы действительно хотите сбросить пароль для {}? Ваш новый пароль будет отправлен вам по электронной почте.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="247"/>
+        <location filename="../settings.py" line="248"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="247"/>
+        <location filename="../settings.py" line="248"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>Пароль был сброшен для {}. Проверьте свой адрес электронной почты для нового пароля, а затем вернитесь в Trends.Earth, чтобы ввести его.</translation>
     </message>
@@ -2702,37 +2707,37 @@ p, li { white-space: pre-wrap; }
         <translation>Организация:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="290"/>
+        <location filename="../settings.py" line="291"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="281"/>
+        <location filename="../settings.py" line="282"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="284"/>
+        <location filename="../settings.py" line="285"/>
         <source>Enter your name.</source>
         <translation>Введите ваше имя.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="287"/>
+        <location filename="../settings.py" line="288"/>
         <source>Enter your organization.</source>
         <translation>Войдите в свою организацию.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="290"/>
+        <location filename="../settings.py" line="291"/>
         <source>Enter your country.</source>
         <translation>Войдите в свою страну.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="297"/>
+        <location filename="../settings.py" line="298"/>
         <source>Saved</source>
         <translation>Сохраненный</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="297"/>
+        <location filename="../settings.py" line="298"/>
         <source>Updated information for {}.</source>
         <translation>Обновлена ​​информация для {}.</translation>
     </message>
@@ -2755,27 +2760,27 @@ p, li { white-space: pre-wrap; }
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="151"/>
+        <location filename="../settings.py" line="152"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="147"/>
+        <location filename="../settings.py" line="148"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="151"/>
+        <location filename="../settings.py" line="152"/>
         <source>Enter your password.</source>
         <translation>Введите ваш пароль.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="157"/>
+        <location filename="../settings.py" line="158"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="157"/>
+        <location filename="../settings.py" line="158"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>Вы вошли на сервер Trends.Earth как {}. &lt;html&gt;&lt;p&gt; Добро пожаловать в Trends.Earth! &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Присоединяйтесь к Trends.Earth Пользователи группы Google&lt;/a&gt; &lt;/p&gt;&lt;p&gt; Обязательно присоединяйтесь к группам Google для пользователей Trends.Earth, чтобы быть в курсе обновлений и вопросов и ответов об инструментах, методах и наборах данных в поддержку мониторинга Целей в области устойчивого развития. &lt;/p&gt;</translation>
@@ -2809,37 +2814,37 @@ p, li { white-space: pre-wrap; }
         <translation>Организация:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="110"/>
+        <location filename="../settings.py" line="111"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="101"/>
+        <location filename="../settings.py" line="102"/>
         <source>Enter your email address.</source>
         <translation>Введите ваш адрес электронной почты.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="104"/>
+        <location filename="../settings.py" line="105"/>
         <source>Enter your name.</source>
         <translation>Введите ваше имя.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="107"/>
+        <location filename="../settings.py" line="108"/>
         <source>Enter your organization.</source>
         <translation>Войдите в свою организацию.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="110"/>
+        <location filename="../settings.py" line="111"/>
         <source>Enter your country.</source>
         <translation>Войдите в свою страну.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="116"/>
+        <location filename="../settings.py" line="117"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="116"/>
+        <location filename="../settings.py" line="117"/>
         <source>User registered. Your password has been emailed to {}.</source>
         <translation>Пользователь зарегистрирован. Ваш пароль был отправлен по электронной почте {}.</translation>
     </message>
@@ -3800,52 +3805,52 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1038"/>
+        <location filename="../calculate.py" line="1042"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="82"/>
+        <location filename="../calculate.py" line="86"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="137"/>
+        <location filename="../calculate.py" line="141"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="349"/>
+        <location filename="../calculate.py" line="353"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="173"/>
+        <location filename="../calculate.py" line="177"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="239"/>
+        <location filename="../calculate.py" line="243"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="239"/>
+        <location filename="../calculate.py" line="243"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="372"/>
+        <location filename="../calculate.py" line="376"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1038"/>
+        <location filename="../calculate.py" line="1042"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="202"/>
+        <location filename="../calculate.py" line="206"/>
         <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation type="unfinished"></translation>
     </message>

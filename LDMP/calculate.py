@@ -48,12 +48,16 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 
-try:
-    from trends_earth_binaries.calculate_numba import *
-    log("Numba-compiled version of calculate_numba imported.")
-except (ModuleNotFoundError, ImportError) as e:
+if bool(QSettings().value("LDMP/binaries_enabled", None)):
+    try:
+        from trends_earth_binaries.calculate_numba import *
+        log("Using numba-compiled version of calculate_numba.")
+    except (ModuleNotFoundError, ImportError) as e:
+        from LDMP.calculate_numba import *
+        log("Failed import of numba-compiled code, falling back to python version of calculate_numba.")
+else:
     from LDMP.calculate_numba import *
-    log("Import of numba-compiled code failed, falling back to python version of calculate_numba.")
+    log("Using python version of calculate_numba.")
 
 
 class tr_calculate(object):
@@ -759,7 +763,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_x.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_x", None))
         self.area_frompoint_point_y.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_y", None))
         self.area_fromfile_file.setText(QSettings().value("LDMP/AreaWidget/area_fromfile_file", None))
-
         self.area_type_toggle(False)
 
         admin_0 = QSettings().value("LDMP/AreaWidget/area_admin_0", None)
@@ -897,8 +900,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 self.area_fromfile_file.setText(vector_file)
                 return True
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
                 return False
         else:
             return False
@@ -1060,6 +1064,11 @@ class DlgCalculateBase(QtWidgets.QDialog):
             if not self.area_tab.area_fromfile_file.text():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."))
+                return False
+            if not os.access(self.area_tab.area_fromfile.text(), os.R_OK):
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr("Unable to read {}.".format(self.area_tab.area_fromfile.text())))
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
                                       wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())

@@ -6,9 +6,7 @@ import numpy as np
 
 try:
     from numba.pycc import CC
-    with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'version.json')) as f:
-        version_info = json.load(f)
-    cc = CC('calculate_numba_{}'.format(version_info['version'].replace('.', '_')))
+    cc = CC('calculate_numba')
     have_numba = True
 except ImportError:
     # Will use these as regular Python functions if numba is not present

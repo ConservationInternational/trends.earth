@@ -9,7 +9,7 @@ import glob
 import stat
 import shutil
 import subprocess
-from tempfile import mkstemp
+from tempfile import mkstemp, TemporaryDirectory
 import zipfile
 import json
 from datetime import datetime, timezone
@@ -861,10 +861,13 @@ def testdata_sync(c):
 
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/integration/fixtures', c.plugin.testdata_patterns)
 
-def find_binaries(c, folder, version):
+def find_binaries(c, folder, version=None):
     files = []
     for pattern in c.plugin.numba.binary_extensions:
-        files.append([f for f in os.listdir(folder) if re.search(r'{}.*{}$'.format(version, pattern), f)])
+        if version:
+            files.append([f for f in os.listdir(folder) if re.search(r'{}.*{}$'.format(version, pattern), f)])
+        else:
+            files.append([f for f in os.listdir(folder) if re.search(r'.*{}$'.format(pattern), f)])
     # Return a flattened list
     return [item for sublist in files for item in sublist]
 
@@ -872,30 +875,50 @@ def find_binaries(c, folder, version):
             'python': 'Python to use for setup and compiling'})
 def binaries_compile(c, clean=False, python='python'):
     print("Compiling exported numba functions...")
-    v = get_version(c).replace('.', '_')
     n = 0
     if not os.path.exists(c.plugin.numba.binary_folder):
-        os.makedir(c.plugin.numba.binary_folder)
+        os.makedirs(c.plugin.numba.binary_folder)
     for numba_file in c.plugin.numba.aot_files:
         (base, ext) = os.path.splitext(os.path.basename(numba_file))
-        # make a temporary copy of the numba_file, with the version_string 
-        # appended to it
         subprocess.check_call([python, numba_file])
         n += 1
 
+    v = get_version(c).replace('.', '_')
     for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
-        files = find_binaries(c, folder, v)
+        files = find_binaries(c, folder)
         for f in files:
-            shutil.move(os.path.join(folder, f), os.path.join(c.plugin.numba.binary_folder, os.path.basename(f)))
+            # Add version strings to the compiled files so they won't overwrite 
+            # files from other Trends.Earth versions when synced to S3
+            module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
+            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
+            out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
+            shutil.move(os.path.join(folder, f), out_path_with_v)
     
+    zipfile_basename = 'trends_earth_binaries_{}'.format(v)
     files = find_binaries(c, c.plugin.numba.binary_folder, v)
-    with zipfile.ZipFile(os.path.join(c.plugin.numba.binary_folder, 'trends_earth_binaries_{}.zip'.format(v)), 'w', zipfile.ZIP_DEFLATED) as zf:
+    with TemporaryDirectory() as tmpdir:
+        # Make module dir within the tmp dir, inside a folder containing the 
+        # version string - this is needed to allow clean unzipping of the 
+        # modules later on machines that might have multiple versions of the 
+        # binaries installed in the same folder
+        moduledir = os.path.join(tmpdir, zipfile_basename, 'trends_earth_binaries')
+        os.makedirs(moduledir)
+        with open(os.path.join(moduledir, '__init__.py'), 'w') as fp: 
+            pass
+        # Copy binaries to temp folder for later zipping
         for f in files:
             # Strip version string from files before placing them in zipfile
-            outname = os.path.join('trends_earth_binaries', re.sub('_[0-9]+_[0-9]+(_[0-9]+)?', '', os.path.basename(f)))
-            zf.write(os.path.join(c.plugin.numba.binary_folder, f), outname)
-        zf.writestr(os.path.join('trends_earth_binaries', '__init__.py'), '')
-        zf.writestr('__init__.py', '')
+            out_path_no_v = os.path.join(moduledir, re.sub('_[0-9]+_[0-9]+(_[0-9]+)?', '', os.path.basename(f)))
+            shutil.copy(os.path.join(c.plugin.numba.binary_folder, f), out_path_no_v)
+
+        # Save to zipfile
+        out_zip = os.path.join(c.plugin.numba.binary_folder, zipfile_basename + '.zip')
+        if os.path.exists(out_zip):
+            os.remove(out_zip)
+        with zipfile.ZipFile(out_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for root, dirs, files in os.walk(tmpdir):
+                for f in files:
+                    zf.write(os.path.join(root, f), os.path.relpath(os.path.join(root, f), tmpdir))
 
     print("Compiled {} numba files.".format(n))
 

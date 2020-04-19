@@ -11,24 +11,14 @@ try:
 except ImportError:
     # Will use these as regular Python functions if numba is not present
     have_numba = False
-    pass
+    # Make a fake cc.export that doesn't do anything
+    class cc(object):
+        def export(func):
+            def wrapper(*args, **kwargs):
+                res = func(*args, **kwargs)
+            return wrapper
 
-
-# Function to conditionally decorate functions with cc.export if numba is 
-# present
-def cc_decorate(label, signature):
-    def decorator(func):
-        if not have_numba:
-            # Return the function unchanged, not decorated.
-            return func
-        else:
-            # Return the function decorated for numba
-            return cc.export(label, signature)
-    return decorator
-
-
-
-@cc_decorate('xtab', '(i2[:,:], i2[:,:], f4[:,:])')
+@cc.export('xtab', '(i2[:,:], i2[:,:], f4[:,:])')
 def xtab(x1, x2, areas):
     # x1 values are across rows
     rh = np.unique(x1.ravel())
@@ -44,7 +34,7 @@ def xtab(x1, x2, areas):
     return rh, ch, xt
 
 
-@cc_decorate('merge_xtabs', '(i2[:], i2[:], f4[:,:], i2[:], i2[:], f4[:,:])')
+@cc.export('merge_xtabs', '(i2[:], i2[:], f4[:,:], i2[:], i2[:], f4[:,:])')
 def merge_xtabs(tab1_rh, tab1_ch, tab1, tab2_rh, tab2_ch, tab2):
     """Merges two crosstabs - allows for block-by-block crosstabs"""
     # Setup the headers for the combined crosstab

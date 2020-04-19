@@ -11,23 +11,15 @@ try:
 except ImportError:
     # Will use these as regular Python functions if numba is not present
     have_numba = False
-    pass
+    # Make a fake cc.export that doesn't do anything
+    class cc(object):
+        def export(func):
+            def wrapper(*args, **kwargs):
+                res = func(*args, **kwargs)
+            return wrapper
 
 
-# Function to conditionally decorate functions with cc.export if numba is 
-# present
-def cc_decorate(label, signature):
-    def decorator(func):
-        if not have_numba:
-            # Return the function unchanged, not decorated.
-            return func
-        else:
-            # Return the function decorated for numba
-            return cc.export(label, signature)
-    return decorator
-
-
-@cc_decorate('ldn_recode_traj', 'i2[:,:](i2[:,:])')
+@cc.export('ldn_recode_traj', 'i2[:,:](i2[:,:])')
 def ldn_recode_traj(x):
     # Recode trajectory into deg, stable, imp. Capture trends that are at least 
     # 95% significant.
@@ -49,7 +41,7 @@ def ldn_recode_traj(x):
     return(np.reshape(x, shp))
 
 
-@cc_decorate('ldn_recode_state', 'i2[:,:](i2[:,:])')
+@cc.export('ldn_recode_state', 'i2[:,:](i2[:,:])')
 def ldn_recode_state(x):
     # Recode state into deg, stable, imp. Note the >= -10 is so no data 
     # isn't coded as degradation. More than two changes in class is defined 
@@ -62,7 +54,7 @@ def ldn_recode_state(x):
     return(np.reshape(x, shp))
 
 
-@cc_decorate('ldn_make_prod5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:] ,i2[:,:])')
+@cc.export('ldn_make_prod5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:] ,i2[:,:])')
 def ldn_make_prod5(traj, state, perf, mask):
     # Coding of LPD (prod5)
     # 1: declining
@@ -103,7 +95,7 @@ def ldn_make_prod5(traj, state, perf, mask):
     return(np.reshape(x, shp))
 
 
-@cc_decorate('ldn_total_by_trans', '(f4[:,:], i2[:,:], f4[:,:])')
+@cc.export('ldn_total_by_trans', '(f4[:,:], i2[:,:], f4[:,:])')
 def ldn_total_by_trans(d, trans_a, cell_areas):
     """Calculates a total table for an array"""
     d = d.ravel()
@@ -120,7 +112,7 @@ def ldn_total_by_trans(d, trans_a, cell_areas):
         totals[i] += np.sum(vals)
     return trans, totals
 
-# @cc_decorate('ldn_total_by_trans_merge', '(f4[:], i2[:], f4[:], i2[:])')
+# @cc.export('ldn_total_by_trans_merge', '(f4[:], i2[:], f4[:], i2[:])')
 # def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
 #     """Calculates a total table for an array"""
 #     # Combine past totals with these totals
@@ -136,7 +128,7 @@ def ldn_total_by_trans(d, trans_a, cell_areas):
 #     return trans, totals
 
 
-@cc_decorate('ldn_total_deg', 'f4[4](i2[:,:], b1[:,:], f4[:,:])')
+@cc.export('ldn_total_deg', 'f4[4](i2[:,:], b1[:,:], f4[:,:])')
 def ldn_total_deg(x, water, cell_areas):
     """Calculates a total table for an array"""
     x = x.ravel()

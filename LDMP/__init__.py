@@ -79,7 +79,7 @@ site.addsitedir(ext_libs_path)
 if binaries_folder:
     log('Adding {} to path for binaries.'.format(binaries_folder))
     site.addsitedir(os.path.join(binaries_folder,
-        'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))))
+        'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
 sys.path.extend(remainder)
 
 

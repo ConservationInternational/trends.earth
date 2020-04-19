@@ -15,6 +15,7 @@
 import os
 import json
 import re
+import zipfile
 from pathlib import Path
 
 from qgis.PyQt.QtCore import QSettings
@@ -371,11 +372,15 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
                                        self.tr("Unable to write to {}. Try a different folder.".format(filename)))
             return None
 
-        zipfile_url = u'https://s3.amazonaws.com/trends.earth/plugin_binaries/trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
-        log('url: {}'.format(zipfile_url))
+        zip_filename = 'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
+        zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
+        log('url: {}'.format(zip_url))
         log('out_folder: {}'.format(out_folder))
-        downloads = download_files([zipfile_url], out_folder)
-        
+        downloads = download_files([zip_url], out_folder)
+
+        with zipfile.ZipFile(os.path.join(out_folder, zip_filename), 'r') as zf:
+            zf.extractall(out_folder)
+        os.remove(os.path.join(out_folder, zip_filename))
 
         if downloads is None:
             QtWidgets.QMessageBox.critical(None,

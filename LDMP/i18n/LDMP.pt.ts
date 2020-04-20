@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="866"/>
         <source>Point chooser</source>
         <translation>Seletor de ponto</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="866"/>
         <source>Click the map to choose a point.</source>
         <translation>Clique no mapa para escolher um ponto.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="892"/>
+        <location filename="../calculate.py" line="891"/>
         <source>Select a file defining the area of interest</source>
         <translation>Selecione um arquivo que defina a área de interesse</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="892"/>
+        <location filename="../calculate.py" line="891"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Arquivo vetorial (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="903"/>
+        <location filename="../calculate.py" line="902"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="903"/>
+        <location filename="../calculate.py" line="902"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Não foi possível ler {}. Escolha um arquivo diferente.</translation>
     </message>
@@ -234,77 +234,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="961"/>
+        <location filename="../calculate.py" line="960"/>
         <source>Area</source>
         <translation>Área</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="966"/>
+        <location filename="../calculate.py" line="965"/>
         <source>Output</source>
         <translation>Saída</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="970"/>
+        <location filename="../calculate.py" line="969"/>
         <source>Options</source>
         <translation>Opções</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1126"/>
+        <location filename="../calculate.py" line="1125"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1051"/>
+        <location filename="../calculate.py" line="1050"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Escolha um limite administrativo de primeiro nível.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1058"/>
+        <location filename="../calculate.py" line="1057"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Não é possível carregar limites administrativos.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1065"/>
+        <location filename="../calculate.py" line="1064"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Escolha um arquivo para definir a área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1078"/>
+        <location filename="../calculate.py" line="1077"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Escolha um ponto para definir a área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1089"/>
+        <location filename="../calculate.py" line="1088"/>
         <source>Choose an area of interest.</source>
         <translation>Escolha uma área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1094"/>
+        <location filename="../calculate.py" line="1093"/>
         <source>Unable to read area of interest.</source>
         <translation>Não é possível ler a área de interesse.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1101"/>
+        <location filename="../calculate.py" line="1100"/>
         <source>Error buffering polygon</source>
         <translation>Erro no buffer do polígono</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1120"/>
+        <location filename="../calculate.py" line="1119"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>A caixa delimitadora da área solicitada (aproximadamente {: .6n}) km2 é muito grande. Escolha uma área menor para processar.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1126"/>
+        <location filename="../calculate.py" line="1125"/>
         <source>Choose an output base name.</source>
         <translation>Escolha um nome de base de saída.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1108"/>
+        <location filename="../calculate.py" line="1107"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1069"/>
+        <location filename="../calculate.py" line="1068"/>
         <source>Unable to read {}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2533,7 +2533,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="431"/>
+        <location filename="../settings.py" line="433"/>
         <source>Error</source>
         <translation type="unfinished">Erro</translation>
     </message>
@@ -2568,22 +2568,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="421"/>
+        <location filename="../settings.py" line="423"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="431"/>
+        <location filename="../settings.py" line="433"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished">Não foi possível ler {}. Escolha uma pasta diferente.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="339"/>
+        <location filename="../settings.py" line="340"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="341"/>
+        <location filename="../settings.py" line="342"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; enabled.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3805,7 +3805,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1042"/>
+        <location filename="../calculate.py" line="1041"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
@@ -3845,7 +3845,7 @@ p, li { white-space: pre-wrap; }
         <translation>Erro ao transformar coordenadas. Verifique se a geometria de entrada é válida.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1042"/>
+        <location filename="../calculate.py" line="1041"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>Você escolheu executar cálculos para uma cidade. Você deve selecionar uma distância de buffer para definir a área de cálculo quando estiver processando uma cidade.</translation>
     </message>

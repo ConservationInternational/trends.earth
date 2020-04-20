@@ -21,7 +21,7 @@ import numpy as np
 
 from LDMP import log
 
-if bool(QSettings().value("LDMP/binaries_enabled", None)):
+if QSettings().value("LDMP/binaries_enabled", False) == 'True':
     try:
         from trends_earth_binaries.summary_numba import *
         log("Using numba-compiled version of summary_numba.")

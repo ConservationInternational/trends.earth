@@ -443,7 +443,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                       separate=True)
         # Lc bands start on band 3 as band 1 is initial soc, and band 2 is 
         # climate zones
-        lc_band_nums = np.arange(len(lc_files)) + 3
+        lc_band_nums = list(range(3, len(lc_files) + 3))
 
         log(u'Saving soil organic carbon to {}'.format(out_f))
         log(u'lc_band_nums: {}'.format(lc_band_nums))

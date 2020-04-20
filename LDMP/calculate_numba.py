@@ -7,16 +7,15 @@ import numpy as np
 try:
     from numba.pycc import CC
     cc = CC('calculate_numba')
-    have_numba = True
 except ImportError:
-    # Will use these as regular Python functions if numba is not present
-    have_numba = False
-    # Make a cc.export that doesn't do anything
-    class cc(object):
+    # Will use these as regular Python functions if numba is not present.
+    class CCSubstitute(object):
+        # Make a cc.export that doesn't do anything
         def export(*args, **kwargs):
             def wrapper(func):
                 return func
             return wrapper
+    cc = CCSubstitute()
 
 
 @cc.export('ldn_recode_traj', 'i2[:,:](i2[:,:])')

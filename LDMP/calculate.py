@@ -48,7 +48,7 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 
-if bool(QSettings().value("LDMP/binaries_enabled", None)):
+if QSettings().value("LDMP/binaries_enabled", False) == 'True':
     try:
         from trends_earth_binaries.calculate_numba import *
         log("Using numba-compiled version of calculate_numba.")
@@ -753,7 +753,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def showEvent(self, event):
         super(AreaWidget, self).showEvent(event)
 
+        buffer_checked = QSettings().value("LDMP/AreaWidget/buffer_checked", False) == 'True'
         area_from_option = QSettings().value("LDMP/AreaWidget/area_from_option", None)
+
         if area_from_option == 'admin':
             self.area_fromadmin.setChecked(True)
         elif area_from_option == 'point':
@@ -786,9 +788,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
         if buffer_size:
             self.buffer_size_km.setValue(int(buffer_size))
-        buffer_checked = bool(QSettings().value("LDMP/AreaWidget/buffer_checked", None))
-        if buffer_checked is not None:
-            self.groupBox_buffer.setChecked(buffer_checked)
+        self.groupBox_buffer.setChecked(buffer_checked)
 
     def admin_0_changed(self):
         QSettings().setValue("LDMP/AreaWidget/area_admin_0", self.area_admin_0.currentText())
@@ -809,7 +809,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         QSettings().setValue("LDMP/AreaWidget/area_frompoint_point_y", self.area_frompoint_point_y.text())
 
     def buffer_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/buffer_checked", self.groupBox_buffer.isChecked())
+        QSettings().setValue("LDMP/AreaWidget/buffer_checked", str(self.groupBox_buffer.isChecked()))
         QSettings().setValue("LDMP/AreaWidget/buffer_size", self.buffer_size_km.value())
 
     def populate_cities(self):

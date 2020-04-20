@@ -327,18 +327,17 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
     def showEvent(self, event):
         super(DlgSettingsAdvanced, self).showEvent(event)
 
-        debug_checked = bool(QSettings().value("LDMP/debug", None))
-        if debug_checked is not None:
-            self.debug_checkbox.setChecked(debug_checked)
+        self.debug_checkbox.setChecked(QSettings().value("LDMP/debug", False) == 'True')
 
+        binaries_checked = QSettings().value("LDMP/binaries_enabled", False) == 'True'
         # TODO: Have this actually check if they are enabled in summary_numba 
         # and calculate_numba. Right now this doesn't really check if they are 
         # enabled, just that they are available. Which should be the same 
         # thing, but might not always be...
-        if binaries_available():
-            self.binaries_label.setText(self.tr('Binaries <b>are</b> enabled.'))
+        if binaries_available() and binaries_checked:
+            self.binaries_label.setText(self.tr('Binaries <b>are</b> not loaded.'))
         else:
-            self.binaries_label.setText(self.tr('Binaries <b>are not</b> enabled.'))
+            self.binaries_label.setText(self.tr('Binaries <b>are not</b> loaded.'))
         # Set a flag that will be used to indicate whether the status of using 
         # binaries or not has changed (needed to allow displaying a message to 
         # the user that they need to restart when this setting is changed)
@@ -347,10 +346,8 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
         if binaries_folder is not None:
             self.binaries_folder.setText(binaries_folder)
 
-        binaries_checked = bool(QSettings().value("LDMP/binaries_enabled", None))
         self.binaries_checkbox_initial = binaries_checked
-        if binaries_checked is not None:
-            self.binaries_checkbox.setChecked(binaries_checked)
+        self.binaries_checkbox.setChecked(binaries_checked)
         self.binaries_toggle()
 
     def binaries_download(self):
@@ -378,8 +375,6 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
 
         zip_filename = 'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
         zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
-        log('url: {}'.format(zip_url))
-        log('out_folder: {}'.format(out_folder))
         downloads = download_files([zip_url], out_folder)
 
         with zipfile.ZipFile(os.path.join(out_folder, zip_filename), 'r') as zf:
@@ -404,14 +399,14 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
 
     def binaries_toggle(self):
         state = self.binaries_checkbox.isChecked()
-        QSettings().setValue("LDMP/binaries_enabled", state)
+        QSettings().setValue("LDMP/binaries_enabled", str(state))
         self.binaries_folder.setEnabled(state)
         self.binaries_browse_button.setEnabled(state)
         self.binaries_download_button.setEnabled(state)
         self.binaries_label.setEnabled(state)
 
     def debug_toggle(self):
-        QSettings().setValue("LDMP/debug", self.debug_checkbox.isChecked())
+        QSettings().setValue("LDMP/debug", str(self.debug_checkbox.isChecked()))
 
     def binary_folder_browse(self):
         initial_path = QSettings().value("LDMP/binaries_folder", None)

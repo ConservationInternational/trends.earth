@@ -87,8 +87,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         """Constructor."""
         super(DlgJobs, self).__init__(parent)
 
-        self.settings = QSettings()
-
         self.setupUi(self)
 
         self.connection_in_progress = False
@@ -156,8 +154,13 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         #######################################################################
         #######################################################################
 
-        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
-        if jobs_cache:
+        try:
+            jobs_cache = json.loads(QSettings().value("LDMP/jobs_cache", '{}'))
+        except TypeError:
+            # For backward compatibility need to handle case of jobs caches 
+            # that were stored inappropriately in past version of Trends.Earth
+            jobs_cache = {}
+        if jobs_cache is not {}:
             self.jobs = jobs_cache
             self.update_jobs_table()
 
@@ -226,12 +229,12 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                     job['params'] = job['params']
 
                 # Cache jobs for later reuse
-                self.settings.setValue("LDMP/jobs_cache", self.jobs)
+                QSettings().setValue("LDMP/jobs_cache", json.dumps(self.jobs, default=json_serial))
 
                 self.update_jobs_table()
-
                 self.connectionEvent.emit(False)
                 return True
+
         self.connectionEvent.emit(False)
         return False
 
@@ -297,7 +300,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job_info = job['script_name']
                     f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                           self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
-                                                          self.settings.value("LDMP/output_dir", None),
+                                                          QSettings().value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
 
                     # Strip the extension so that it is a basename
@@ -305,7 +308,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
                     if f:
                         if os.access(os.path.dirname(f), os.W_OK):
-                            self.settings.setValue("LDMP/output_dir", os.path.dirname(f))
+                            QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                             log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                         else:
                             QtWidgets.QMessageBox.critical(None, self.tr("Error"),

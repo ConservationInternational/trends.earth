@@ -89,6 +89,27 @@ and select Manage and install plugins. On the side menu, select Installed to
 view the plugins that you have installed in your computer. At the bottom of the 
 window, select Upgrade all to upgrade the toolbox to the latest version.
 
+**How do I uninstall the plugin?**
+
+If you would like to uninstall the plugin, normally you can do so with the QGIS 
+plugins manager. To access the tool, choose "Plugins" and then "Manage and 
+Install Plugins..." from the QGIS menu bar. From the plugin manager screen, 
+select "Installed" from the menu on the left-hand side. Then click on 
+"Trends.Earth" in the list of plugins, and on "Uninstall Plugin" to uninstall 
+it.
+
+If you encounter an error uninstalling the plugin, it is also possible to 
+remove it manually. To manually remove the plugin:
+
+#. Open QGIS
+#. Navigate to where the plugin is installed by selecting "Open Active Profile 
+   Folder" from the menu under "Settings" - "User Profiles" on the menu bar.
+#. Quit QGIS. You may not be able to uninstall the plugin if QGIS is not 
+   closed.
+#. In the file browser window that opened, double click on "python", and then 
+   double click on "plugins". Delete the LDMP folder within that directory.
+#. Restart QGIS.
+
 Datasets
 ________
 

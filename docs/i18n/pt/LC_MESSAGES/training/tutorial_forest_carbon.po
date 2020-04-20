@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2018-08-22 16:17+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,8 +49,8 @@ msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 msgstr ""
-"`Faça o download desta página como um PDF para uso offline &lt;../ pdfs / "
-"Trends.Earth_Tutorial10_Forest_Carbon.pdf&gt;` _"
+"`Faça o download desta página como um PDF para uso offline "
+"<../pdfs/Trends.Earth_Tutorial10_Forest_Carbon.pdf>`_"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:18
 msgid "Compute and download forest and biomass data"
@@ -62,7 +62,7 @@ msgid ""
 "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
 " QGIS."
 msgstr ""
-"Selecione o ícone Calcular (| iconCalculator |) no plug-in Trends.Earth no "
+"Selecione o ícone Calcular (|iconCalculator|) no plugin Trends.Earth no "
 "QGIS."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:25
@@ -71,8 +71,8 @@ msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Calculate Calculate carbon change spatial layers** button."
 msgstr ""
-"O menu ** Calculate Indicators ** será aberto. Nessa janela, clique no botão"
-" ** Calcular Calcular camadas de mudança de carbono **."
+"O menu **Calcular Indicatores** será aberto. Nessa janela, clique no botão "
+"**Calcular camadas de mudança de carbono**."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:30
 msgid ""
@@ -81,11 +81,11 @@ msgid ""
 "for boundary**. Step 1 will be addressed first. If the user has already "
 "completed this process, skip to step 14 in the guide."
 msgstr ""
-"Uma janela aparecerá com duas etapas: A etapa 1 é para ** Calcular camadas "
-"espaciais de mudança de carbono ** e a Etapa 2 é para ** Calcular a tabela "
-"de resumo de alteração de carbono para limite **. O primeiro passo será "
-"abordado primeiro. Se o usuário já concluiu esse processo, pule para a etapa"
-" 14 do guia."
+"Uma janela aparecerá com duas etapas: A etapa 1 é para **Calcular camadas "
+"espaciais de mudança de carbono** e a Etapa 2 é para **Calcular a tabela de "
+"resumo de alteração de carbono para limite**. O primeiro passo será abordado"
+" primeiro. Se o usuário já concluiu esse processo, pule para a etapa 14 do "
+"guia."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:35
 msgid ""
@@ -93,7 +93,7 @@ msgid ""
 " **Forest Definition** tab."
 msgstr ""
 "Depois de selecionar a Etapa 1, o usuário preencherá os parâmetros desejados"
-" na guia ** Forest Definition **."
+" na guia **Definição de Floresta**."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:40
 msgid ""
@@ -130,11 +130,11 @@ msgid ""
 "Conservation International Foundation, or by its partner organizations and "
 "contributors."
 msgstr ""
-"Os `Natural Earth Administrative Boundaries`_ fornecidos no Trends.Earth "
-"estão no `public domain`_. Os limites e nomes usados ​​e as designações "
-"usadas no Trends.Earth não implicam aprovação ou aceitação oficial da "
-"Conservation International Foundation ou de suas organizações parceiras e "
-"colaboradores."
+"Os limites `Natural Earth Administrative Boundaries`_ fornecidos no "
+"Trends.Earth estão no `public domain`_. Os limites e nomes usados ​​e as "
+"designações usadas no Trends.Earth não implicam aprovação ou aceitação "
+"oficial da Fundação Conservação Internacional ou de suas organizações "
+"parceiras e colaboradores."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:56
 msgid ""
@@ -154,9 +154,9 @@ msgid ""
 " navigate to the folder in your computer where you have the file stored."
 msgstr ""
 "Use seu próprio arquivo de área: se você quiser usar sua própria área de "
-"análise, verifique se a opção **Área do arquivo** está realçada. Em seguida,"
-" clique em **Navegar** e navegue até a pasta em seu computador onde você "
-"armazenou o arquivo."
+"análise, verifique se a opção **Arquivo com Área** está realçada. Em "
+"seguida, clique em **Navegar** e navegue até a pasta em seu computador onde "
+"você armazenou o arquivo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:66
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:159
@@ -165,7 +165,7 @@ msgid ""
 "indicators, click **Next**."
 msgstr ""
 "Quando você tiver selecionado a área para a qual deseja calcular os "
-"indicadores, clique em **Next**."
+"indicadores, clique em **Próximo**."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:71
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:164
@@ -200,9 +200,9 @@ msgid ""
 "in Total Carbon** window will disappear and you will be brought back to "
 "QGIS."
 msgstr ""
-"Quando terminar, clique em ** Calcular ** e a tarefa será enviada ao Google "
-"Earth Engine para cálculos. Você notará que a janela ** Calculate Change in "
-"Total Carbon ** desaparecerá e você será levado de volta ao QGIS."
+"Quando terminar, clique em **Calcular** e a tarefa será enviada ao Google "
+"Earth Engine para cálculos. Você notará que a janela **Calcular Mudança no "
+"Total de Carbono** desaparecerá e você será levado de volta ao QGIS."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:82
 msgid ""
@@ -233,11 +233,11 @@ msgid ""
 "(|iconCloudDownload|). This will open up the `Download results from Earth "
 "Engine` dialog box. Select **Refresh list** to show the task."
 msgstr ""
-"10. Para visualizar as tarefas do Google Earth Engine (GEE) em execução e "
-"para fazer o download dos resultados, selecione a nuvem com o ícone da seta "
-"voltada para baixo (| iconCloudDownload |). Isso abrirá a caixa de diálogo "
-"&quot;Baixar resultados do Google Earth Engine&quot;. Selecione ** Atualizar"
-" lista ** para mostrar a tarefa."
+"Para visualizar as tarefas do Google Earth Engine (GEE) em execução e para "
+"fazer o download dos resultados, selecione a nuvem com o ícone da seta "
+"voltada para baixo (|iconCloudDownload|). Isso abrirá a caixa de diálogo "
+"\"Baixar resultados do Google Earth Engine\". Selecione **Atualizar lista** "
+"para mostrar a tarefa."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:100
 msgid ""
@@ -246,16 +246,16 @@ msgid ""
 "**Refresh List** again."
 msgstr ""
 "A tarefa indicará: EXECUTANDO na coluna Status, se ainda estiver "
-"processando. Quando a tarefa estiver concluída, ele dirá FINISHED depois de "
-"selecionar ** Refresh List ** novamente."
+"processando. Quando a tarefa estiver concluída, ele dirá FINALIZADO depois "
+"de selecionar **Atualizar Lista** novamente."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:105
 msgid ""
 "Once the task is FINSHED running, highlight the completed task and select "
 "**Download Results**. Save the task."
 msgstr ""
-"Quando a tarefa estiver em FINSHED, destaque a tarefa concluída e selecione "
-"** Download Results **. Salve a tarefa."
+"Quando a tarefa estiver em FINALIZADO, destaque a tarefa concluída e "
+"selecione **Baixar Resultados**. Salve a tarefa."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:110
 msgid ""
@@ -264,9 +264,9 @@ msgid ""
 "loss (2000 to 2017)` outputs in the QGIS window."
 msgstr ""
 "Você verá uma mensagem indicando que a tarefa está sendo baixada. Quando "
-"estiver completo, haverá uma produção de &#39;Total de carbono (2000, "
-"toneladas por hectare)&#39; e &#39;Perda de floresta (2000 a 2017)&#39; na "
-"janela do QGIS."
+"estiver completado, haverá uma produção de `Total de carbono (2000, "
+"toneladas por hectare)`e `Perda de floresta (2000 a 2017)` na janela do "
+"QGIS."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:121
 msgid ""
@@ -281,26 +281,26 @@ msgstr ""
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:126
 msgid "Compute summary table"
-msgstr "Tabela de resumo de computação"
+msgstr "Calcular Tabela Resumo"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:138
 msgid "Select Step 2: **Calculate carbon change summary table for boundary**."
 msgstr ""
-"Selecione a Etapa 2: ** Calcular tabela de resumo de alteração de carbono "
-"para limite **."
+"Selecione a Etapa 2: **Calcular tabela de resumo de alteração de carbono "
+"para o limite**."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:143
 msgid "Within the **Input** tab, select an output folder and file name."
 msgstr ""
-"Na guia ** Entrada **, selecione uma pasta de saída e um nome de arquivo."
+"Na guia **Entrada**, selecione uma pasta de saída e um nome de arquivo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:148
 msgid ""
 "Within the **Output** tab, select **Browse** to list an output folder and "
 "file name."
 msgstr ""
-"Na guia ** Saída **, selecione ** Navegar ** para listar uma pasta de saída "
-"e um nome de arquivo."
+"Na guia **Saída**, selecione **Navegar** para listar uma pasta de saída e um"
+" nome de arquivo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:173
 msgid ""
@@ -311,24 +311,24 @@ msgid ""
 "locally on your computer. DO NOT select **x** or **Cancel** until the task "
 "is finished!"
 msgstr ""
-"Quando terminar, clique em ** Calcular ** e a tarefa será enviada ao seu "
-"computador localmente. Você notará que a janela ** Calcular tabela de resumo"
-" de alteração de carbono para limite ** desaparecerá e você será levado de "
+"Quando terminar, clique em **Calcular** e a tarefa será enviada ao seu "
+"computador localmente. Você notará que a janela **Calcular tabela de resumo "
+"de alteração de carbono para limite** desaparecerá e você será levado de "
 "volta ao QGIS. Uma barra azul clara aparecerá na janela do QGIS. Isso está "
-"sendo executado localmente no seu computador. NÃO selecione ** x ** ou ** "
-"Cancelar ** até que a tarefa esteja concluída!"
+"sendo executado localmente no seu computador. NÃO clique fechar **x** ou "
+"**Cancelar** até que a tarefa esteja concluída!"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:178
 msgid "A window will appear when the summary is complete. Select **OK**."
 msgstr ""
-"Uma janela aparecerá quando o resumo estiver concluído. Selecione ** OK **."
+"Uma janela aparecerá quando o resumo estiver concluído. Selecione **OK**."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:183
 msgid ""
 "If an error window appears, select the **Yes** and the summary will proceed "
 "to open."
 msgstr ""
-"Se aparecer uma janela de erro, selecione o ** Sim ** e o resumo continuará "
+"Se aparecer uma janela de erro, selecione o **Sim** e o resumo continuará "
 "abrindo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:188

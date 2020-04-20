@@ -6,15 +6,16 @@
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +38,7 @@ msgstr ""
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr "**Tempo estimado de conclusão**: 20 minutos"
+msgstr "**Tempo estimado para conclusão**: 20 minutos"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:10
 msgid "**Internet access**: Not required"
@@ -63,9 +64,9 @@ msgid ""
 "Trends.Earth."
 msgstr ""
 "Esta ferramenta assume que as unidades da camada de raster a serem "
-"importadas são **Metrics Toneladas de carbono orgânico por hectare**. Se sua"
-" camada estiver em unidades diferentes, faça as conversões necessárias antes"
-" de usá-la no Trends.Earth."
+"importadas são **Toneladas de carbono orgânico por hectare**. Se sua camada "
+"estiver em unidades diferentes, faça as conversões necessárias antes de usá-"
+"la no Trends.Earth."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:22
 msgid ""
@@ -91,11 +92,11 @@ msgid ""
 " format. Click on **Browse** to navigate to the soil organic carbon file you"
 " wish to import."
 msgstr ""
-"No **Carregar um conjunto de dados SOC (Organic Soil Organic Carbon)**, use "
-"o botão de rádio para selecionar o formato do arquivo de entrada (raster ou "
-"vetor). Para este tutorial, selecione raster, pois os dados distribuídos "
-"pelo UNCCD são em formato raster. Clique em **Browse** para navegar até o "
-"arquivo de carbono orgânico do solo que você deseja importar."
+"Na janela **Carregar um conjunto de dados SOC (Soil Organic Carbon)**, use o"
+" botão para selecionar o formato do arquivo de entrada (raster ou vetor). "
+"Para este tutorial, selecione raster, pois os dados distribuídos pelo UNCCD "
+"são em formato raster. Clique em **Navegar** para navegar até o arquivo de "
+"carbono orgânico do solo que você deseja importar."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:41
 msgid ""
@@ -113,10 +114,10 @@ msgid ""
 "option of modifying the resolution of the file. We recommend leaving those "
 "as defaults unless you have valid reasons for changing them."
 msgstr ""
-"De volta à janela **Carregar um dataset de carbono orgânico personalizado "
-"(SOC)**, você tem opções para selecionar o número da banda na qual os dados "
-"de produtividade são armazenados, caso seu arquivo de entrada seja uma "
-"varredura de múltiplas bandas. Você também tem a opção de modificar a "
+"De volta à janela **Carregar um conjunto de dados de carbono orgânico de "
+"solo (SOC)**, você tem opções para selecionar o número da banda na qual os "
+"dados de produtividade são armazenados, caso seu arquivo de entrada seja uma"
+" varredura de múltiplas bandas. Você também tem a opção de modificar a "
 "resolução do arquivo. Recomendamos deixar esses como padrões, a menos que "
 "você tenha motivos válidos para alterá-los."
 
@@ -213,8 +214,8 @@ msgid ""
 ":ref:`tut_custom_lc` tutorial for more information on loading land cover "
 "datasets. Once you have selected both datasets, click next:"
 msgstr ""
-"A janela \"Calculate Soil Organic Carbon\" será aberta. Clique no botão de "
-"opção ao lado de \"Conjunto de dados de cobertura territorial "
+"A janela \"Calcular Carbono Orgânico do Solo\" será aberta. Clique no botão "
+"de opção ao lado de \"Conjunto de dados de cobertura da terra "
 "personalizado\" e selecione \"Importar\" para importar um conjunto de dados "
 "de cobertura territorial personalizado ou \"Carregar existente\" para "
 "carregar um conjunto de dados de cobertura territorial já processado no "
@@ -239,16 +240,16 @@ msgstr ""
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:114
 msgid "Click \"Next\". Now, choose the area you wish to run calculations for:"
 msgstr ""
-"Clique em \"Next\". Agora, escolha a área para a qual você deseja executar "
-"os cálculos:"
+"Clique em \"Próximo\". Agora, escolha a área para a qual você deseja "
+"executar os cálculos:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:119
 msgid ""
 "Click \"Next\". on the last screen, enter a task name or any notes you might"
 " wish to save (this is optional) and then click \"Calculate\":"
 msgstr ""
-"Clique em \"Next\". na última tela, digite um nome de tarefa ou notas que "
-"você queira salvar (isto é opcional) e então clique em \"Calcular\":"
+"Clique em \"Próximo\". Na última tela, digite um nome de tarefa ou notas que"
+" você queira salvar (isto é opcional) e então clique em \"Calcular\":"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:125
 msgid ""

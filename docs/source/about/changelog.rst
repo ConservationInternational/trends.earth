@@ -3,15 +3,27 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`0.99 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.99>`_
+`1.0.0 <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
+    - Add ability to download and use pre-compiled binaries (compiled with 
+      Numba) to speed up some local calculations. Right now this only is available 
+      for the SDG15.3.1 summary table calculation, but eventually this will be 
+      expanded to other tools as well.
+    - Related to the above, there is now an "advanced" settings button in the 
+      settings window, that will allow users to download pre-compiled binaries, 
+      and to turn on or off detailed logging of messages while the tool is 
+      running. These log messages can be useful when trying to trouble-shoot 
+      problems if you encounter any.
     - Fix processing using new MODIS data (assets were not properly updated in 
       the last release)
     - Fix color-coding of land covers in land cover class aggregation window
-    - Add more detailed version information to about dialog
+    - Add more detailed version information to about dialog.
+    - Add additional detail to data download tool.
+    - Add job ID to downloads window to facilitate bug reporting.
+    - Minor bug fixes (sorting of jobs and downloads tables).
 
-`0.98 April 2, 2020 <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
+`0.98 (April 2, 2020) <https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.

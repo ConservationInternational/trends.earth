@@ -6,15 +6,16 @@
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-16 08:06-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +38,7 @@ msgstr ""
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr "**Tempo estimado de conclusão**: 40 minutos"
+msgstr "**Tempo estimado para conclusão**: 40 minutos"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:10
 msgid "**Internet access**: Not required"
@@ -60,11 +61,10 @@ msgid ""
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_."
 msgstr ""
 "O conjunto de dados de cobertura da terra para este tutorial foi fornecido "
-"pelo `Centro Regional para o Recurso de Mapeamento para o Desenvolvimento "
-"<http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i> "
-"`_ e pode ser baixado deste link "
-"<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip> "
-"`_."
+"pelo `Regional Centre For Mapping Resource For Development "
+"<http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>`_"
+" e pode ser baixado deste link "
+"<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:21
 msgid ""
@@ -90,11 +90,11 @@ msgid ""
 " Click on **Browse** to navigate to the land cover file you wish to import."
 msgstr ""
 "No conjunto de dados **Carregar uma Cobertura Terrestre Personalizada**, use"
-" o botão de rádio para selecionar o formato do arquivo de entrada (raster ou"
-" vetor). Para este tutorial, selecione raster, mas você poderá executá-lo "
-"com seus dados vetoriais de cobertura da terra, se preferir. Clique em "
-"**Browse** para navegar até o arquivo de cobertura territorial que você "
-"deseja importar."
+" o botão para selecionar o formato do arquivo de entrada (raster ou vetor). "
+"Para este tutorial, selecione raster, mas você poderá executá-lo com seus "
+"dados vetoriais de cobertura da terra, se preferir. Clique em **Navegar** "
+"para navegar até o arquivo de cobertura territorial que você deseja "
+"importar."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:36
 msgid ""
@@ -160,16 +160,16 @@ msgid ""
 "From the Metadata of the land cover dataset, we know that the best "
 "aggregation approach is the following:"
 msgstr ""
-"Dos Metadados do conjunto de dados de cobertura da terra, sabemos que a "
-"melhor abordagem de agregação é a seguinte:"
+"Com base nos Metadados do conjunto de dados de cobertura da terra, sabemos "
+"que a melhor abordagem de agregação é a seguinte:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:61
 msgid "No data = 0"
-msgstr "Nenhum dado = 0"
+msgstr "Nenhum dado (NoData) = 0"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:62
 msgid "Tree covered = 1 through 7"
-msgstr "Árvore coberta = 1 a 7"
+msgstr "Cobertura de Árvores = 1 a 7"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:63
 msgid "Grassland = 8 through 11"
@@ -181,7 +181,7 @@ msgstr "Lavoura = 12 a 14"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:65
 msgid "Wetland = 15"
-msgstr "Pantanal = 15"
+msgstr "Áreas Úmidas = 15"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:66
 msgid "Water body = 16"

@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="866"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="866"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="892"/>
         <source>Select a file defining the area of interest</source>
         <translation>Chagua faili inayofafanua eneo la riba</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="892"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="902"/>
+        <location filename="../calculate.py" line="903"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="902"/>
+        <location filename="../calculate.py" line="903"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -234,77 +234,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="960"/>
+        <location filename="../calculate.py" line="961"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="965"/>
+        <location filename="../calculate.py" line="966"/>
         <source>Output</source>
         <translation>Pato</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="969"/>
+        <location filename="../calculate.py" line="970"/>
         <source>Options</source>
         <translation>Chaguo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1125"/>
+        <location filename="../calculate.py" line="1126"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1050"/>
+        <location filename="../calculate.py" line="1051"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1057"/>
+        <location filename="../calculate.py" line="1058"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1064"/>
+        <location filename="../calculate.py" line="1065"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1077"/>
+        <location filename="../calculate.py" line="1078"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1088"/>
+        <location filename="../calculate.py" line="1089"/>
         <source>Choose an area of interest.</source>
         <translation>Chagua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1093"/>
+        <location filename="../calculate.py" line="1094"/>
         <source>Unable to read area of interest.</source>
         <translation>Haiwezi kusoma eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1100"/>
+        <location filename="../calculate.py" line="1101"/>
         <source>Error buffering polygon</source>
         <translation>Hitilafu wakati wa kunyoosha polygon</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1119"/>
+        <location filename="../calculate.py" line="1120"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>Sanduku linalowekwa kwa eneo lililoombwa (takriban {: .6n}) sq km ni kubwa mno. Chagua sehemu ndogo ya mchakato.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1125"/>
+        <location filename="../calculate.py" line="1126"/>
         <source>Choose an output base name.</source>
         <translation>Chagua jina la msingi wa pato.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1107"/>
+        <location filename="../calculate.py" line="1108"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1069"/>
         <source>Unable to read {}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2310,32 +2310,32 @@ p, li { white-space: pre-wrap; }
         <translation>Rejea orodha</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="218"/>
+        <location filename="../jobs.py" line="221"/>
         <source>Script not found</source>
         <translation>Hati haipatikani</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="246"/>
+        <location filename="../jobs.py" line="249"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="298"/>
+        <location filename="../jobs.py" line="301"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>Chagua jina la faili. Inapakua matokeo ya: {}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="298"/>
+        <location filename="../jobs.py" line="301"/>
         <source>Base filename (*.json)</source>
         <translation>Jina la faili la msingi (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="311"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="311"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua jina la jina la msingi tofauti.</translation>
     </message>
@@ -2523,68 +2523,68 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="359"/>
+        <location filename="../settings.py" line="356"/>
         <source>Choose a folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="359"/>
+        <location filename="../settings.py" line="356"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="433"/>
+        <location filename="../settings.py" line="426"/>
         <source>Error</source>
         <translation type="unfinished">Hitilafu</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="365"/>
+        <location filename="../settings.py" line="362"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="374"/>
+        <location filename="../settings.py" line="371"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="390"/>
+        <location filename="../settings.py" line="385"/>
         <source>Error downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="400"/>
+        <location filename="../settings.py" line="395"/>
         <source>Success</source>
         <translation type="unfinished">Mafanikio</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="396"/>
+        <location filename="../settings.py" line="391"/>
         <source>Downloaded binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="400"/>
+        <location filename="../settings.py" line="395"/>
         <source>All binaries up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="423"/>
+        <location filename="../settings.py" line="416"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="433"/>
+        <location filename="../settings.py" line="426"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished">Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="340"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; enabled.</source>
+        <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="342"/>
-        <source>Binaries &lt;b&gt;are not&lt;/b&gt; enabled.</source>
+        <location filename="../settings.py" line="338"/>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; not loaded.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3125,37 +3125,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobsTableModel</name>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="345"/>
         <source>Task name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="343"/>
+        <location filename="../jobs.py" line="346"/>
         <source>Job</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="344"/>
+        <location filename="../jobs.py" line="347"/>
         <source>Start time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="345"/>
+        <location filename="../jobs.py" line="348"/>
         <source>End time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="346"/>
+        <location filename="../jobs.py" line="349"/>
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="347"/>
+        <location filename="../jobs.py" line="350"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="348"/>
+        <location filename="../jobs.py" line="351"/>
         <source>Details</source>
         <translation>Maelezo</translation>
     </message>
@@ -3805,7 +3805,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1041"/>
+        <location filename="../calculate.py" line="1042"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -3845,7 +3845,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1041"/>
+        <location filename="../calculate.py" line="1042"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4008,27 +4008,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_jobs</name>
     <message>
-        <location filename="../jobs.py" line="453"/>
+        <location filename="../jobs.py" line="456"/>
         <source>Downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="453"/>
+        <location filename="../jobs.py" line="456"/>
         <source>Downloaded results to {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="466"/>
+        <location filename="../jobs.py" line="469"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="467"/>
+        <location filename="../jobs.py" line="470"/>
         <source>Integrated NDVI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="467"/>
+        <location filename="../jobs.py" line="470"/>
         <source>NDVI x 10000</source>
         <translation type="unfinished"></translation>
     </message>

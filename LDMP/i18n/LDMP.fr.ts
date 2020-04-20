@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="866"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Point chooser</source>
         <translation>Sélecteur de points</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="866"/>
+        <location filename="../calculate.py" line="867"/>
         <source>Click the map to choose a point.</source>
         <translation>Cliquer sur la carte pour choisir un point.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="892"/>
         <source>Select a file defining the area of interest</source>
         <translation>Sélectionner un fichier définissant la zone d&apos;intérêt</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="892"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Fichier vectoriel (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="902"/>
+        <location filename="../calculate.py" line="903"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="902"/>
+        <location filename="../calculate.py" line="903"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
@@ -234,77 +234,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="960"/>
+        <location filename="../calculate.py" line="961"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="965"/>
+        <location filename="../calculate.py" line="966"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="969"/>
+        <location filename="../calculate.py" line="970"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1125"/>
+        <location filename="../calculate.py" line="1126"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1050"/>
+        <location filename="../calculate.py" line="1051"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choisir une limite administrative de premier niveau.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1057"/>
+        <location filename="../calculate.py" line="1058"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Impossible de charger les limites administratives.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1064"/>
+        <location filename="../calculate.py" line="1065"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choisir un fichier pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1077"/>
+        <location filename="../calculate.py" line="1078"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choisir un point pour définir la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1088"/>
+        <location filename="../calculate.py" line="1089"/>
         <source>Choose an area of interest.</source>
         <translation>Choisir une zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1093"/>
+        <location filename="../calculate.py" line="1094"/>
         <source>Unable to read area of interest.</source>
         <translation>Impossible de lire la zone d&apos;intérêt.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1100"/>
+        <location filename="../calculate.py" line="1101"/>
         <source>Error buffering polygon</source>
         <translation>Erreur de mise en mémoire tampon du polygone</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1119"/>
+        <location filename="../calculate.py" line="1120"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>La zone de délimitation de la zone demandée (environ {: 0,6n}) est trop grande. Choisissez une zone plus petite à traiter.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1125"/>
+        <location filename="../calculate.py" line="1126"/>
         <source>Choose an output base name.</source>
         <translation>Choisissez un nom de base de sortie.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1107"/>
+        <location filename="../calculate.py" line="1108"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1069"/>
         <source>Unable to read {}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2310,32 +2310,32 @@ p, li { white-space: pre-wrap; }
         <translation>Rafraîchir la liste</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="218"/>
+        <location filename="../jobs.py" line="221"/>
         <source>Script not found</source>
         <translation>Script non trouvé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="246"/>
+        <location filename="../jobs.py" line="249"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="298"/>
+        <location filename="../jobs.py" line="301"/>
         <source>Choose a filename. Downloading results of: {}</source>
         <translation>Choisissez un nom de fichier Téléchargement des résultats de: {}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="298"/>
+        <location filename="../jobs.py" line="301"/>
         <source>Base filename (*.json)</source>
         <translation>Nom de fichier de base (* .json)</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="311"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="311"/>
+        <location filename="../jobs.py" line="314"/>
         <source>Cannot write to {}. Choose a different base filename.</source>
         <translation>Impossible d&apos;écrire sur {}. Choisissez un autre nom de fichier de base.</translation>
     </message>
@@ -2523,68 +2523,68 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="359"/>
+        <location filename="../settings.py" line="356"/>
         <source>Choose a folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="359"/>
+        <location filename="../settings.py" line="356"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="433"/>
+        <location filename="../settings.py" line="426"/>
         <source>Error</source>
         <translation type="unfinished">Erreur</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="365"/>
+        <location filename="../settings.py" line="362"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="374"/>
+        <location filename="../settings.py" line="371"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="390"/>
+        <location filename="../settings.py" line="385"/>
         <source>Error downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="400"/>
+        <location filename="../settings.py" line="395"/>
         <source>Success</source>
         <translation type="unfinished">Succès</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="396"/>
+        <location filename="../settings.py" line="391"/>
         <source>Downloaded binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="400"/>
+        <location filename="../settings.py" line="395"/>
         <source>All binaries up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="423"/>
+        <location filename="../settings.py" line="416"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="433"/>
+        <location filename="../settings.py" line="426"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished">Impossible à lire {}. Choisissez un autre dossier.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="340"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; enabled.</source>
+        <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="342"/>
-        <source>Binaries &lt;b&gt;are not&lt;/b&gt; enabled.</source>
+        <location filename="../settings.py" line="338"/>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; not loaded.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3125,37 +3125,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>JobsTableModel</name>
     <message>
-        <location filename="../jobs.py" line="342"/>
+        <location filename="../jobs.py" line="345"/>
         <source>Task name</source>
         <translation>Nom de la tâche</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="343"/>
+        <location filename="../jobs.py" line="346"/>
         <source>Job</source>
         <translation>Emploi</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="344"/>
+        <location filename="../jobs.py" line="347"/>
         <source>Start time</source>
         <translation>Heure de début</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="345"/>
+        <location filename="../jobs.py" line="348"/>
         <source>End time</source>
         <translation>Heure de fin</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="346"/>
+        <location filename="../jobs.py" line="349"/>
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="347"/>
+        <location filename="../jobs.py" line="350"/>
         <source>Status</source>
         <translation>Statut</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="348"/>
+        <location filename="../jobs.py" line="351"/>
         <source>Details</source>
         <translation>Détails</translation>
     </message>
@@ -3805,7 +3805,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1041"/>
+        <location filename="../calculate.py" line="1042"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
@@ -3845,7 +3845,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1041"/>
+        <location filename="../calculate.py" line="1042"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4008,27 +4008,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_jobs</name>
     <message>
-        <location filename="../jobs.py" line="453"/>
+        <location filename="../jobs.py" line="456"/>
         <source>Downloaded</source>
         <translation>Téléchargé</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="453"/>
+        <location filename="../jobs.py" line="456"/>
         <source>Downloaded results to {}</source>
         <translation>Résultats téléchargés à {}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="466"/>
+        <location filename="../jobs.py" line="469"/>
         <source>Time</source>
         <translation>Temps</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="467"/>
+        <location filename="../jobs.py" line="470"/>
         <source>Integrated NDVI</source>
         <translation>NDVI intégré</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="467"/>
+        <location filename="../jobs.py" line="470"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>

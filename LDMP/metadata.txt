@@ -1,16 +1,8 @@
-# This file contains metadata for your plugin. Since 
-# version 2.0 of QGIS this is the proper way to supply 
-# information about a plugin. The old method of 
-# embedding metadata in __init__.py will 
-# is no longer supported since version 2.0.
-
-# This file should be included when you package your plugin.
-
 [general]
 name=trends.earth
 qgisMinimumVersion=3.10.3
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=0.99.1
+version=1.0.0
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -35,12 +27,24 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=0.99 (not yet released)
+changelog=1.0.0 
+    - Add ability to download and use pre-compiled binaries (compiled with 
+      Numba) to speed up some local calculations. Right now this only is available 
+      for the SDG15.3.1 summary table calculation, but eventually this will be 
+      expanded to other tools as well.
+    - Related to the above, there is now an "advanced" settings button in the 
+      settings window, that will allow users to download pre-compiled binaries, 
+      and to turn on or off detailed logging of messages while the tool is 
+      running. These log messages can be useful when trying to trouble-shoot 
+      problems if you encounter any.
     - Fix processing using new MODIS data (assets were not properly updated in 
       the last release)
     - Fix color-coding of land covers in land cover class aggregation window
-    - Add more detailed version information to about dialog
-  0.98 April 2, 2020
+    - Add more detailed version information to about dialog.
+    - Add additional detail to data download tool.
+    - Add job ID to downloads window to facilitate bug reporting.
+    - Minor bug fixes (sorting of jobs and downloads tables).
+  0.98 (April 2, 2020)
     - First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API.
     - Upgrade all dependencies of plugin to latest versions as of January 2020.
     - Fix data download tool to have default 1styles for all available 

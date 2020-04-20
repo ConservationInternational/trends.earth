@@ -1,153 +1,239 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 0.99.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-20 15:42-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
-"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, "
+"2020\n"
 "Language: pt\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-"
+"international/teams/80165/pt/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:2
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:2
 msgid "Registration and settings"
 msgstr "Cadastro e configurações"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:10
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:10
 msgid "Registration"
 msgstr "Cadastro"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:12
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:12
 msgid ""
-"The toolbox is free to use, but you must register an email address prior to "
-"using any of the cloud-based functions."
+"The toolbox is free to use, but you must register an email address prior "
+"to using any of the cloud-based functions."
 msgstr ""
-"A ferramenta é livre para uso, mas você deve registrar um endereço de e-mail"
-" antes de usar qualquer uma das funções baseadas na nuvem."
+"A ferramenta é livre para uso, mas você deve registrar um endereço de "
+"e-mail antes de usar qualquer uma das funções baseadas na nuvem."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:15
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:15
 msgid ""
-"To register your email address and obtain a free account, select the wrench "
-"icon (|iconWrench|). This will open up the \"Settings\" dialog box:"
+"To register your email address and obtain a free account, select the "
+"wrench icon (|iconWrench|). This will open up the \"Settings\" dialog "
+"box:"
 msgstr ""
-"Para registrar seu endereço de e-mail e obter uma conta gratuita, selecione "
-"o ícone de chave inglesa (|iconWrench|). Isso abrirá a caixa de diálogo "
-"\"Configurações\":"
+"Para registrar seu endereço de e-mail e obter uma conta gratuita, "
+"selecione o ícone de chave inglesa (|iconWrench|). Isso abrirá a caixa de"
+" diálogo \"Configurações\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:21
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:21
 msgid ""
-"To Register, click the \"Step 1: Register\" button. Enter your email, name, "
-"organization and country of residence and select \"Ok\":"
+"To Register, click the \"Step 1: Register\" button. Enter your email, "
+"name, organization and country of residence and select \"Ok\":"
 msgstr ""
 "Para se resgistra, clique no botão \"Etapa 1: Registrar\". Digite seu "
 "e-mail, nome, organização e país de residência e selecione \"Ok\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:27
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:27
 msgid "You will see a meesage indicating your user has been registered:"
 msgstr "Você verá uma mensagem indicando que seu usuário foi registrado:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:32
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:32
 msgid ""
-"After registering, you will receive an email from api@trends.earth with your"
-" password. Once you receive this email, click on \"Step 2: Enter login\". "
-"This will bring up a dialog asking for your email and password. Enter the "
-"password you received from api@trends.earth and click \"Ok\":"
+"After registering, you will receive an email from api@trends.earth with "
+"your password. Once you receive this email, click on \"Step 2: Enter "
+"login\". This will bring up a dialog asking for your email and password. "
+"Enter the password you received from api@trends.earth and click \"Ok\":"
 msgstr ""
-"Após o cadastro, você receberá um email de api@trends.earth com sua senha. "
-"Depois de receber este e-mail, clique em \"Etapa 2: insira o login\". Isso "
-"abrirá uma caixa de diálogo solicitando seu email e senha. Digite a senha "
-"que você recebeu de api@trends.earth e clique em \"Ok\":"
+"Após o cadastro, você receberá um email de api@trends.earth com sua "
+"senha. Depois de receber este e-mail, clique em \"Etapa 2: insira o "
+"login\". Isso abrirá uma caixa de diálogo solicitando seu email e senha. "
+"Digite a senha que você recebeu de api@trends.earth e clique em \"Ok\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:40
-msgid ""
-"You will see a message indicating you have successfully been logged in:"
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:40
+msgid "You will see a message indicating you have successfully been logged in:"
 msgstr "Você verá uma mensagem indicando que você foi logado com sucesso:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:46
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:46
 msgid "Updating your user"
 msgstr "Atualizando seu cadastro"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:48
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:48
 msgid ""
 "If you already are registered for |Trends.Earth| but want to change your "
 "login information; update your name, organization, or country; or delete "
 "your user, click on \"Update user\" from the \"Settings\" dialog."
 msgstr ""
 "Se você já está registrado para |Trends.Earth| mas deseja alterar suas "
-"informações de login; atualizar seu nome, organização ou país; ou excluir "
-"seu usuário, clique em \"Atualizar usuário\" na caixa de diálogo "
+"informações de login; atualizar seu nome, organização ou país; ou excluir"
+" seu usuário, clique em \"Atualizar usuário\" na caixa de diálogo "
 "\"Configurações\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:55
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:55
 msgid ""
 "If you want to change your username, click on \"Change user\". Note that "
 "this function is only useful if you already have another existing "
-"|trends.earth| account you want to switch to. To register a new user, see "
-":ref:`registration`. To change your user, enter the email and password you "
-"wish to change to and click \"Ok\":"
+"|trends.earth| account you want to switch to. To register a new user, see"
+" :ref:`registration`. To change your user, enter the email and password "
+"you wish to change to and click \"Ok\":"
 msgstr ""
-"Se você quiser alterar seu nome de usuário, clique em \"Alterar usuário\". "
-"Observe que essa função só é útil se você já tiver outra |trends.earth| "
-"conta para a qual você deseja alternar. Para registrar um novo usuário, "
-"veja: ref: `registration`. Para alterar seu usuário, digite o e-mail e a "
-"senha que você deseja alterar e clique em \"Ok\":"
+"Se você quiser alterar seu nome de usuário, clique em \"Alterar "
+"usuário\". Observe que essa função só é útil se você já tiver outra "
+"|trends.earth| conta para a qual você deseja alternar. Para registrar um "
+"novo usuário, veja: ref: `registration`. Para alterar seu usuário, digite"
+" o e-mail e a senha que você deseja alterar e clique em \"Ok\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:64
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:64
 msgid ""
-"If you want to update your profile, click on \"Update profile\". Update your"
-" information in the box that appears and click \"Save\":"
+"If you want to update your profile, click on \"Update profile\". Update "
+"your information in the box that appears and click \"Save\":"
 msgstr ""
 "Se você quiser atualizar seu perfil, clique em \"Atualizar perfil\". "
 "Atualize suas informações na caixa que aparece e clique em \"Salvar\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:70
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:70
 msgid ""
-"To delete your user, click \"Delete user\". A warning message will appear. "
-"Click \"Ok\" if you are sure you want to delete your user:"
+"To delete your user, click \"Delete user\". A warning message will "
+"appear. Click \"Ok\" if you are sure you want to delete your user:"
 msgstr ""
 "Para excluir seu usuário, clique em \"Excluir usuário\". Uma mensagem de "
-"aviso será exibida. Clique em \"Ok\" se tiver certeza de que deseja excluir "
-"seu usuário:"
+"aviso será exibida. Clique em \"Ok\" se tiver certeza de que deseja "
+"excluir seu usuário:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:78
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:78
 msgid "Forgot password"
 msgstr "Esqueceu a senha"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:80
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:80
 msgid ""
-"If you forget your password, click on \"Reset password\" from the settings "
-"dialog box."
+"If you forget your password, click on \"Reset password\" from the "
+"settings dialog box."
 msgstr ""
 "Se você esquecer sua senha, clique em \"Redefinir senha\" na caixa de "
 "diálogo de configurações."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:83
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:83
 msgid ""
-"A password will be sent to your email. Please check your Junk folder if you "
-"cannot find it within your inbox. The email will come from api@trends.earth."
+"A password will be sent to your email. Please check your Junk folder if "
+"you cannot find it within your inbox. The email will come from "
+"api@trends.earth."
 msgstr ""
-"A senha será enviada para seu e-mail. Por favor, verifique sua pasta de lixo"
-" se você não pode encontrá-lo dentro de sua caixa de entrada. O email virá "
-"de api@trends.earth."
+"A senha será enviada para seu e-mail. Por favor, verifique sua pasta de "
+"lixo se você não pode encontrá-lo dentro de sua caixa de entrada. O email"
+" virá de api@trends.earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:86
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:86
 msgid ""
-"Once you receive your new password, return to the \"Settings\" screen and "
-"use \"Step 2: Enter login\" to enter your new pasword."
+"Once you receive your new password, return to the \"Settings\" screen and"
+" use \"Step 2: Enter login\" to enter your new pasword."
 msgstr ""
-"Depois de receber sua nova senha, volte para a tela \"Configurações\" e use "
-"\"Etapa 2: Digite o login\" para inserir sua nova senha."
+"Depois de receber sua nova senha, volte para a tela \"Configurações\" e "
+"use \"Etapa 2: Digite o login\" para inserir sua nova senha."
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:93
+#, fuzzy
+msgid "Advanced settings"
+msgstr "Cadastro e configurações"
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:95
+msgid "Click \"Edit advanced options\" to bring up the advanced settings page:"
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:102
+msgid ""
+"From the advanced settings page, you can change settings including "
+"enabling/disabling debug mode, and loading pre-compiled binaries to speed"
+" up calculations in Trends.Earth."
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:108
+msgid "Debug mode"
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:110
+msgid ""
+"Debug mode saves additional information on the processes that you run in "
+"Trends.Earth to the QGIS messages log (accessible by enabling the \"Log "
+"Messages Panel\" under \"View\" and then \"Panels\" on the QGIS menu "
+"bar)."
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:114
+msgid ""
+"To enable logging of debug messages, check the box. These messages may be"
+" useful when trying to problem-solve any issues you might encounter while"
+" using Trends.Earth."
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:119
+msgid "Use binaries for faster processing"
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:121
+msgid ""
+"Some of the functions in Trends.Earth are available in versions that have"
+" been compiled using the `Numba`_ library. Numba can translate Python "
+"code into machine code (binaries), resulting in functions that run much "
+"faster. For users of Trends.Earth, this means being able to process data "
+"more quickly than in the standard version of Trends.Earth."
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:127
+msgid ""
+"Because Numba is not supported within QGIS, and compiling files with "
+"Numba requires having additional software installed on your machine, we "
+"have made binaries available that you (optionally) download and use "
+"within Trends.Earth. This is intended to make it easier for our users to "
+"access the benefits of Numba without needing to install it themselves."
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:133
+msgid ""
+"To access the binaries, first choose a folder on your machine where you "
+"would like to have them saved, by clicking the \"Browse\" button on the "
+"advanced settings screen. Once you have chosen a folder, click "
+"\"Download\" to download the binaries to your machine. After downloading "
+"the binaries, restart QGIS in order to enable them. Check the advanced "
+"settings page after restarting. If they are working correctly, you will "
+"see a message saying \"Binaries **are** loaded\". If you have any trouble"
+" enabling the binaries, reach out to the `Trends.Earth discussion group "
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ for "
+"help."
+msgstr ""
+
+#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:143
+msgid ""
+"Not all of the functions in Trends.Earth can make use of the binaries, so"
+" don't expect everything to run faster after you have installed them. The"
+" summary tool for SDG 15.3.1, however, should run much faster after "
+"installing the binaries, particularly if you are working with very high "
+"resolution custom datasets. In the future we will be adding support for "
+"other functions as well."
+msgstr ""
+

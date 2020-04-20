@@ -88,3 +88,63 @@ Once you receive your new password, return to the "Settings" screen and use
 
 .. image:: /static/documentation/settings/forgot_password.png
    :align: center
+
+Advanced settings
+-----------------
+
+Click "Edit advanced options" to bring up the advanced settings page:
+
+
+.. image:: /static/documentation/settings/advanced.png
+   :align: center
+   
+
+From the advanced settings page, you can change settings including 
+enabling/disabling debug mode, and loading pre-compiled binaries to speed up 
+calculations in Trends.Earth.
+
+
+Debug mode
+__________
+
+Debug mode saves additional information on the processes that you run in 
+Trends.Earth to the QGIS messages log (accessible by enabling the "Log Messages 
+Panel" under "View" and then "Panels" on the QGIS menu bar).
+
+To enable logging of debug messages, check the box. These messages may be 
+useful when trying to problem-solve any issues you might encounter while using 
+Trends.Earth.
+
+Use binaries for faster processing
+__________________________________
+
+Some of the functions in Trends.Earth are available in versions that have been 
+compiled using the `Numba`_ library. Numba can translate Python code into 
+machine code (binaries), resulting in functions that run much faster. For users 
+of Trends.Earth, this means being able to process data more quickly than in the 
+standard version of Trends.Earth.
+
+Because Numba is not supported within QGIS, and compiling files with Numba 
+requires having additional software installed on your machine, we have made 
+binaries available that you (optionally) download and use within Trends.Earth. 
+This is intended to make it easier for our users to access the benefits of 
+Numba without needing to install it themselves.
+
+To access the binaries, first choose a folder on your machine where you would 
+like to have them saved, by clicking the "Browse" button on the advanced 
+settings screen. Once you have chosen a folder, click "Download" to download 
+the binaries to your machine. After downloading the binaries, restart QGIS in 
+order to enable them. Check the advanced settings page after restarting. If 
+they are working correctly, you will see a message saying "Binaries **are** 
+loaded". If you have any trouble enabling the binaries, reach out to the 
+`Trends.Earth discussion group 
+<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ for help.
+
+.. note:: Not all of the functions in Trends.Earth can make use of the 
+   binaries, so don't expect everything to run faster after you have installed 
+   them. The summary tool for SDG 15.3.1, however, should run much faster after 
+   installing the binaries, particularly if you are working with very high 
+   resolution custom datasets. In the future we will be adding support for 
+   other functions as well.
+
+.. _Numba: http://numba.pydata.org/

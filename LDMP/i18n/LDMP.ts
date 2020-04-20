@@ -2597,7 +2597,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="426"/>
+        <location filename="../settings.py" line="433"/>
         <source>Error</source>
         <translation type="unfinished">Error</translation>
     </message>
@@ -2612,32 +2612,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="385"/>
+        <location filename="../settings.py" line="392"/>
         <source>Error downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="395"/>
+        <location filename="../settings.py" line="402"/>
         <source>Success</source>
         <translation type="unfinished">Success</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="391"/>
+        <location filename="../settings.py" line="398"/>
         <source>Downloaded binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="395"/>
+        <location filename="../settings.py" line="402"/>
         <source>All binaries up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="416"/>
+        <location filename="../settings.py" line="423"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="426"/>
+        <location filename="../settings.py" line="433"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished">Cannot read {}. Choose a different folder.</translation>
     </message>
@@ -2648,7 +2648,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="338"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; not loaded.</source>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="384"/>
+        <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

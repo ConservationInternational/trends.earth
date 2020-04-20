@@ -335,7 +335,7 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
         # enabled, just that they are available. Which should be the same 
         # thing, but might not always be...
         if binaries_available() and binaries_checked:
-            self.binaries_label.setText(self.tr('Binaries <b>are</b> not loaded.'))
+            self.binaries_label.setText(self.tr('Binaries <b>are</b> loaded.'))
         else:
             self.binaries_label.setText(self.tr('Binaries <b>are not</b> loaded.'))
         # Set a flag that will be used to indicate whether the status of using 
@@ -377,9 +377,16 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
         zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
         downloads = download_files([zip_url], out_folder)
 
-        with zipfile.ZipFile(os.path.join(out_folder, zip_filename), 'r') as zf:
-            zf.extractall(out_folder)
-        os.remove(os.path.join(out_folder, zip_filename))
+        try:
+            with zipfile.ZipFile(os.path.join(out_folder, zip_filename), 'r') as zf:
+                zf.extractall(out_folder)
+        except PermissionError:
+            QtWidgets.QMessageBox.critical(None,
+                                       self.tr("Error"),
+                                       self.tr("Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(out_folder)))
+            return None
+        finally:
+            os.remove(os.path.join(out_folder, zip_filename))
 
         if downloads is None:
             QtWidgets.QMessageBox.critical(None,

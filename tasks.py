@@ -696,6 +696,8 @@ def changelog_build(c):
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', pip='pip'):
     """Create plugin package"""
+    set_version(c)
+
     plugin_setup(c, clean,  pip)
     compile_files(c, version, clean, python)
 
@@ -728,8 +730,6 @@ def _make_zip(zipFile, c):
             'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_deploy(c, clean=False, python='python', pip='pip'):
-    set_version(c)
-
     filename = zipfile_build(c, python=python, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:

@@ -37,6 +37,9 @@ changelog=1.0.0
       and to turn on or off detailed logging of messages while the tool is 
       running. These log messages can be useful when trying to trouble-shoot 
       problems if you encounter any.
+    - Improve checks for geometry validity for geometries in input files, and 
+      give an error message rather than throwing an exception when there are 
+      geometry errors.
     - Fix processing using new MODIS data (assets were not properly updated in 
       the last release)
     - Fix color-coding of land covers in land cover class aggregation window

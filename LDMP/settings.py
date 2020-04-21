@@ -32,12 +32,29 @@ from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
 
-from LDMP import log, binaries_available, __version__
+from LDMP import binaries_available, __version__
 from LDMP.api import (get_user_email, get_user, delete_user, login, register,
     update_user, recover_pwd)
 from LDMP.download import download_files, get_admin_bounds
 
 settings = QSettings()
+
+
+# Function to indicate if child is a folder within parent
+def is_subdir(child, parent):
+    parent = os.path.normpath(os.path.realpath(parent))
+    child = os.path.normpath(os.path.realpath(child))
+    if not os.path.isdir(parent) or not os.path.isdir(child):
+        return False
+    elif child == parent:
+        return True
+    head, tail = os.path.split(child)
+    if head == parent:
+        return True
+    elif tail == '':
+        return False
+    else:
+        return is_subdir(head, parent)
 
 
 class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
@@ -424,6 +441,12 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
                                                             self.tr('Select folder containing Trends.Earth binaries'),
                                                             initial_path)
         if folder:
+            plugin_folder = os.path.normpath(os.path.realpath(os.path.dirname(__file__)))
+            if is_subdir(folder, plugin_folder):
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.".format(plugin_folder)))
+                return False
             if os.access(folder, os.W_OK):
                 QSettings().setValue("LDMP/binaries_folder", folder)
                 self.binaries_folder.setText(folder)
@@ -431,7 +454,7 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
                 return True
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different folder.".format(vector_file)))
+                                           self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
                 return False
         else:
             return False

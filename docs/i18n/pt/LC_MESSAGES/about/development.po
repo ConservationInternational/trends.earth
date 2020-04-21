@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2017-12-15 10:08+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -650,8 +650,8 @@ msgstr ""
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:315
 msgid "where \"key\" is the base64 encoded JSON format service account key."
 msgstr ""
-"onde &quot;chave&quot; é a chave da conta de serviço no formato JSON "
-"codificado em base64."
+"onde \"chave\" é a chave da conta de serviço no formato JSON codificado em "
+"base64."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:317
 msgid ""
@@ -954,9 +954,9 @@ msgid ""
 "looks."
 msgstr ""
 "O comando acima levará alguns segundos para ser executado e, se você "
-"procurar em &quot;docs \\\\ build \\\\ html \\\\ en&quot;, verá a versão "
-"HTML da documentação. Carregue o arquivo &quot;index.html&quot; em um "
-"navegador da Web para ver como fica."
+"procurar em \"docs\\\\ build\\\\html\\\\en\", verá a versão HTML da "
+"documentação. Carregue o arquivo \"index.html\" em um navegador da Web para "
+"ver como fica."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:472
 msgid ""

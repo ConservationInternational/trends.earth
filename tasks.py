@@ -53,13 +53,9 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-def get_version(c, number_only=True):
-    with open(c.plugin.version_file, 'r') as f:
-        version_info = json.load(f)
-    if number_only:
-        return version_info['version']
-    else:
-        return version_info
+def get_version(c):
+    with open(c.plugin.version_file_raw, 'r') as f:
+        return f.readline().strip()
 
 # Handle long filenames or readonly files on windows, see: 
 # http://bit.ly/2g58Yxu
@@ -123,7 +119,7 @@ def set_version(c, v=None):
 
     # Set in version.json
     print('Setting version to {} in version.json'.format(v))
-    with open(c.plugin.version_file, 'w') as f:
+    with open(c.plugin.version_file_details, 'w') as f:
         json.dump({"version": v, "revision": revision, "release_date": release_date}, f,  indent=4)
 
     if version_update:
@@ -937,7 +933,8 @@ ns = Collection(set_version, plugin_setup, plugin_install,
 ns.configure({
     'plugin': {
         'name': 'LDMP',
-        'version_file': 'LDMP/version.json',
+        'version_file_raw': 'version.txt',
+        'version_file_details': 'LDMP/version.json',
         'ext_libs': 'LDMP/ext-libs',
         'gui_dir': 'LDMP/gui',
         'source_dir': 'LDMP',

@@ -1,240 +1,271 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 15:42-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
-"Language: sw\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-"
-"international/teams/80165/sw/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:2
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:2
 msgid "Registration and settings"
 msgstr "Usajili na mipangilio"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:10
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:10
 msgid "Registration"
 msgstr "Usajili"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:12
 msgid ""
-"The toolbox is free to use, but you must register an email address prior "
-"to using any of the cloud-based functions."
+"The toolbox is free to use, but you must register an email address prior to "
+"using any of the cloud-based functions."
 msgstr ""
 "Bodi ya chombo ni bure kutumia, lakini lazima uandikishe anwani ya barua "
 "pepe kabla ya kutumia kazi yoyote ya wingu."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:15
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:15
 msgid ""
-"To register your email address and obtain a free account, select the "
-"wrench icon (|iconWrench|). This will open up the \"Settings\" dialog "
-"box:"
+"To register your email address and obtain a free account, select the wrench "
+"icon (|iconWrench|). This will open up the \"Settings\" dialog box:"
 msgstr ""
 "Ili kujiandikisha anwani yako ya barua pepe na kupata akaunti ya bure, "
 "chagua icon ya wrench (| iconWrench |). Hii itafungua sanduku la "
 "\"Mipangilio\" ya mazungumzo:"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:21
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:21
 msgid ""
-"To Register, click the \"Step 1: Register\" button. Enter your email, "
-"name, organization and country of residence and select \"Ok\":"
+"To Register, click the \"Step 1: Register\" button. Enter your email, name, "
+"organization and country of residence and select \"Ok\":"
 msgstr ""
-"Kujiandikisha, bofya kitufe cha \"Hatua ya 1: Kujiandikisha\". Ingiza "
-"barua pepe yako, jina, shirika na nchi ya kukaa na chagua \"Ok\":"
+"Kujiandikisha, bofya kitufe cha \"Hatua ya 1: Kujiandikisha\". Ingiza barua "
+"pepe yako, jina, shirika na nchi ya kukaa na chagua \"Ok\":"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:27
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:27
 msgid "You will see a meesage indicating your user has been registered:"
 msgstr "Utaona uendeshaji unaoonyesha mtumiaji wako amesajiliwa:"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:32
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:32
 msgid ""
-"After registering, you will receive an email from api@trends.earth with "
-"your password. Once you receive this email, click on \"Step 2: Enter "
-"login\". This will bring up a dialog asking for your email and password. "
-"Enter the password you received from api@trends.earth and click \"Ok\":"
+"After registering, you will receive an email from api@trends.earth with your"
+" password. Once you receive this email, click on \"Step 2: Enter login\". "
+"This will bring up a dialog asking for your email and password. Enter the "
+"password you received from api@trends.earth and click \"Ok\":"
 msgstr ""
 "Baada ya kusajili, utapokea barua pepe kutoka kwa api@trends.earth na "
-"nenosiri lako. Mara tu unapokea barua pepe hii, bofya \"Hatua ya 2: "
-"Ingiza kuingia\". Hii italeta mazungumzo kuomba barua pepe na nenosiri "
-"lako. Ingiza nenosiri ulilopokea kutoka kwa api@trends.earth na bofya "
-"\"Ok\":"
+"nenosiri lako. Mara tu unapokea barua pepe hii, bofya \"Hatua ya 2: Ingiza "
+"kuingia\". Hii italeta mazungumzo kuomba barua pepe na nenosiri lako. Ingiza"
+" nenosiri ulilopokea kutoka kwa api@trends.earth na bofya \"Ok\":"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:40
-msgid "You will see a message indicating you have successfully been logged in:"
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:40
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
 msgstr "Utaona ujumbe unaoonyesha umeingia kwa ufanisi:"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:46
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:46
 msgid "Updating your user"
 msgstr "Inasasisha mtumiaji wako"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:48
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:48
 msgid ""
 "If you already are registered for |Trends.Earth| but want to change your "
 "login information; update your name, organization, or country; or delete "
 "your user, click on \"Update user\" from the \"Settings\" dialog."
 msgstr ""
-"Ikiwa tayari umeandikishwa kwa | Trends.Earth | lakini unataka "
-"kubadilisha maelezo yako ya kuingia; sasisha jina lako, shirika, au nchi;"
-" au kufuta mtumiaji wako, bofya kwenye \"Sasisha mtumiaji\" kutoka kwenye"
-" \"Mazingira\" ya dialog."
+"Ikiwa tayari umeandikishwa kwa | Trends.Earth | lakini unataka kubadilisha "
+"maelezo yako ya kuingia; sasisha jina lako, shirika, au nchi; au kufuta "
+"mtumiaji wako, bofya kwenye \"Sasisha mtumiaji\" kutoka kwenye \"Mazingira\""
+" ya dialog."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:55
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:55
 msgid ""
 "If you want to change your username, click on \"Change user\". Note that "
 "this function is only useful if you already have another existing "
-"|trends.earth| account you want to switch to. To register a new user, see"
-" :ref:`registration`. To change your user, enter the email and password "
-"you wish to change to and click \"Ok\":"
+"|trends.earth| account you want to switch to. To register a new user, see "
+":ref:`registration`. To change your user, enter the email and password you "
+"wish to change to and click \"Ok\":"
 msgstr ""
 "Ikiwa unataka kubadilisha jina lako la mtumiaji, bofya \"Badilisha "
-"mtumiaji\". Kumbuka kuwa kazi hii ni muhimu tu ikiwa tayari una mwingine "
-"... trends.earth | akaunti unayotaka kubadili. Ili kujiandikisha mtumiaji"
-" mpya, angalia: ref: `usajili`. Ili kubadilisha mtumiaji wako, ingiza "
-"barua pepe na nenosiri unayotaka kubadilisha na bonyeza \"Ok\":"
+"mtumiaji\". Kumbuka kuwa kazi hii ni muhimu tu ikiwa tayari una mwingine ..."
+" trends.earth | akaunti unayotaka kubadili. Ili kujiandikisha mtumiaji mpya,"
+" angalia: ref: `usajili`. Ili kubadilisha mtumiaji wako, ingiza barua pepe "
+"na nenosiri unayotaka kubadilisha na bonyeza \"Ok\":"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:64
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:64
 msgid ""
-"If you want to update your profile, click on \"Update profile\". Update "
-"your information in the box that appears and click \"Save\":"
+"If you want to update your profile, click on \"Update profile\". Update your"
+" information in the box that appears and click \"Save\":"
 msgstr ""
-"Ikiwa unataka kusasisha maelezo yako mafupi, bofya kwenye \"Sasisha "
-"maelezo mafupi\". Sasisha maelezo yako kwenye sanduku inayoonekana na "
-"bofya \"Hifadhi\":"
+"Ikiwa unataka kusasisha maelezo yako mafupi, bofya kwenye \"Sasisha maelezo "
+"mafupi\". Sasisha maelezo yako kwenye sanduku inayoonekana na bofya "
+"\"Hifadhi\":"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:70
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:70
 msgid ""
-"To delete your user, click \"Delete user\". A warning message will "
-"appear. Click \"Ok\" if you are sure you want to delete your user:"
+"To delete your user, click \"Delete user\". A warning message will appear. "
+"Click \"Ok\" if you are sure you want to delete your user:"
 msgstr ""
 "Ili kufuta mtumiaji wako, bofya \"Futa mtumiaji\". Ujumbe wa onyo "
-"utaonekana. Bonyeza \"Ok\" ikiwa una uhakika unataka kufuta mtumiaji "
-"wako:"
+"utaonekana. Bonyeza \"Ok\" ikiwa una uhakika unataka kufuta mtumiaji wako:"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:78
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:78
 msgid "Forgot password"
 msgstr "Umesahau nywila"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:80
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:80
 msgid ""
-"If you forget your password, click on \"Reset password\" from the "
-"settings dialog box."
+"If you forget your password, click on \"Reset password\" from the settings "
+"dialog box."
 msgstr ""
 "Ikiwa umesahau nenosiri lako, bofya \"Weka upya nenosiri\" kutoka kwenye "
 "sanduku la dialog settings."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:83
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:83
 msgid ""
-"A password will be sent to your email. Please check your Junk folder if "
-"you cannot find it within your inbox. The email will come from "
-"api@trends.earth."
+"A password will be sent to your email. Please check your Junk folder if you "
+"cannot find it within your inbox. The email will come from api@trends.earth."
 msgstr ""
-"Nenosiri litatumwa kwa barua pepe yako. Tafadhali angalia folda yako ya "
-"Junk ikiwa huwezi kuipata ndani ya kikasha chako. Barua pepe itatoka kwa "
+"Nenosiri litatumwa kwa barua pepe yako. Tafadhali angalia folda yako ya Junk"
+" ikiwa huwezi kuipata ndani ya kikasha chako. Barua pepe itatoka kwa "
 "api@trends.earth."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:86
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:86
 msgid ""
-"Once you receive your new password, return to the \"Settings\" screen and"
-" use \"Step 2: Enter login\" to enter your new pasword."
+"Once you receive your new password, return to the \"Settings\" screen and "
+"use \"Step 2: Enter login\" to enter your new pasword."
 msgstr ""
-"Mara tu unapokea nenosiri lako jipya, rudi kwenye skrini ya "
-"\"Mipangilio\" na utumie \"Hatua ya 2: Ingiza kuingia\" ili uingize "
-"nenosiri lako jipya."
+"Mara tu unapokea nenosiri lako jipya, rudi kwenye skrini ya \"Mipangilio\" "
+"na utumie \"Hatua ya 2: Ingiza kuingia\" ili uingize nenosiri lako jipya."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:93
-#, fuzzy
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:93
 msgid "Advanced settings"
-msgstr "Usajili na mipangilio"
+msgstr "Mipangilio ya hali ya juu"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:95
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:95
 msgid "Click \"Edit advanced options\" to bring up the advanced settings page:"
 msgstr ""
+"Bonyeza &quot;Hariri chaguzi za hali ya juu&quot; kuleta ukurasa wa "
+"mipangilio ya hali ya juu:"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:102
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:102
 msgid ""
 "From the advanced settings page, you can change settings including "
-"enabling/disabling debug mode, and loading pre-compiled binaries to speed"
-" up calculations in Trends.Earth."
+"enabling/disabling debug mode, and loading pre-compiled binaries to speed up"
+" calculations in Trends.Earth."
 msgstr ""
+"Kutoka kwa ukurasa wa mipangilio ya hali ya juu, unaweza kubadilisha "
+"mipangilio ikiwa ni pamoja na kuwezesha / kulemaza modi ya kukarabati, na "
+"kupakia vifungashio vilivyojumuishwa mapema ili kuharakisha mahesabu katika "
+"Trends.Earth."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:108
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:108
 msgid "Debug mode"
-msgstr ""
+msgstr "Modi ya Debug"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:110
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:110
 msgid ""
 "Debug mode saves additional information on the processes that you run in "
 "Trends.Earth to the QGIS messages log (accessible by enabling the \"Log "
-"Messages Panel\" under \"View\" and then \"Panels\" on the QGIS menu "
-"bar)."
+"Messages Panel\" under \"View\" and then \"Panels\" on the QGIS menu bar)."
 msgstr ""
+"Njia ya Debug huhifadhi maelezo ya ziada juu ya michakato unayoendesha "
+"Trends.Earth kwa logi ya ujumbe ya QGIS (inayopatikana kwa kuwezesha "
+"&quot;Jopo la Ujumbe wa Ingia&quot; chini ya &quot;Angalia&quot; na kisha "
+"&quot;Jopo&quot; kwenye bar ya menyu ya QGIS)."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:114
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:114
 msgid ""
-"To enable logging of debug messages, check the box. These messages may be"
-" useful when trying to problem-solve any issues you might encounter while"
-" using Trends.Earth."
+"To enable logging of debug messages, check the box. These messages may be "
+"useful when trying to problem-solve any issues you might encounter while "
+"using Trends.Earth."
 msgstr ""
+"Ili kuwezesha ukataji wa ujumbe wa debug, angalia kisanduku. Ujumbe hizi "
+"zinaweza kuwa muhimu wakati wa kujaribu kutatua shida zozote ambazo unaweza "
+"kukutana nazo wakati wa kutumia Trends.Earth."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:119
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:119
 msgid "Use binaries for faster processing"
-msgstr ""
+msgstr "Tumia mabinari kwa usindikaji haraka"
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:121
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:121
 msgid ""
-"Some of the functions in Trends.Earth are available in versions that have"
-" been compiled using the `Numba`_ library. Numba can translate Python "
-"code into machine code (binaries), resulting in functions that run much "
-"faster. For users of Trends.Earth, this means being able to process data "
-"more quickly than in the standard version of Trends.Earth."
+"Some of the functions in Trends.Earth are available in versions that have "
+"been compiled using the `Numba`_ library. Numba can translate Python code "
+"into machine code (binaries), resulting in functions that run much faster. "
+"For users of Trends.Earth, this means being able to process data more "
+"quickly than in the standard version of Trends.Earth."
 msgstr ""
+"Baadhi ya kazi katika Trends.Earth zinapatikana katika toleo ambazo "
+"zimetengenezwa kwa kutumia maktaba ya `Numba`_. Numba anaweza kutafsiri "
+"kificho cha Python kuwa nambari ya mashine (vifungo), na kusababisha kazi "
+"zinazoendesha haraka sana. Kwa watumiaji wa Trends.Earth, hii inamaanisha "
+"kuwa na uwezo wa kuchakata data haraka kuliko toleo la kawaida la "
+"Trends.Earth."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:127
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:127
 msgid ""
-"Because Numba is not supported within QGIS, and compiling files with "
-"Numba requires having additional software installed on your machine, we "
-"have made binaries available that you (optionally) download and use "
-"within Trends.Earth. This is intended to make it easier for our users to "
-"access the benefits of Numba without needing to install it themselves."
+"Because Numba is not supported within QGIS, and compiling files with Numba "
+"requires having additional software installed on your machine, we have made "
+"binaries available that you (optionally) download and use within "
+"Trends.Earth. This is intended to make it easier for our users to access the"
+" benefits of Numba without needing to install it themselves."
 msgstr ""
+"Kwa sababu Numba haijaungwa mkono ndani ya QGIS, na kuandaa faili na Numba "
+"kunahitaji kuwa na programu ya ziada iliyosanikishwa kwenye mashine yako, "
+"tumefanya vifungo vya kisheria ambavyo wewe (kwa hiari) unapakua na utumie "
+"ndani ya Trends.Earth. Hii imekusudiwa kuifanya iwe rahisi kwa watumiaji "
+"wetu kupata faida za Numba bila kuhitaji kujisanikisha wenyewe."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:133
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:133
 msgid ""
 "To access the binaries, first choose a folder on your machine where you "
 "would like to have them saved, by clicking the \"Browse\" button on the "
-"advanced settings screen. Once you have chosen a folder, click "
-"\"Download\" to download the binaries to your machine. After downloading "
-"the binaries, restart QGIS in order to enable them. Check the advanced "
-"settings page after restarting. If they are working correctly, you will "
-"see a message saying \"Binaries **are** loaded\". If you have any trouble"
-" enabling the binaries, reach out to the `Trends.Earth discussion group "
+"advanced settings screen. Once you have chosen a folder, click \"Download\" "
+"to download the binaries to your machine. After downloading the binaries, "
+"restart QGIS in order to enable them. Check the advanced settings page after"
+" restarting. If they are working correctly, you will see a message saying "
+"\"Binaries **are** loaded\". If you have any trouble enabling the binaries, "
+"reach out to the `Trends.Earth discussion group "
 "<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ for "
 "help."
 msgstr ""
+"Kupata huduma, kwanza chagua folda kwenye mashine yako ambayo ungependa "
+"kuihifadhi, kwa kubonyeza kitufe cha &quot;Vinjari&quot; kwenye skrini ya "
+"mipangilio ya hali ya juu. Mara tu umechagua folda, bofya &quot;Pakua&quot; "
+"kupakua vitu vingi kwenye mashine yako. Baada ya kupakua vitabu, fungua tena"
+" QGIS ili kuiwezesha. Angalia ukurasa wa mipangilio ya hali ya juu baada ya "
+"kuanza tena. Ikiwa wanafanya kazi kwa usahihi, utaona ujumbe ukisema "
+"&quot;Binaries ** ni kubeba&quot;. Ikiwa una shida yoyote ya kuwezesha kazi,"
+" fikia kikundi cha majadiliano ya `Mila "
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join> `_ kwa "
+"msaada."
 
-#: D:/Code/LandDegradation/trends.earth/docs/source/documentation/settings.rst:143
+#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:143
 msgid ""
-"Not all of the functions in Trends.Earth can make use of the binaries, so"
-" don't expect everything to run faster after you have installed them. The"
-" summary tool for SDG 15.3.1, however, should run much faster after "
+"Not all of the functions in Trends.Earth can make use of the binaries, so "
+"don't expect everything to run faster after you have installed them. The "
+"summary tool for SDG 15.3.1, however, should run much faster after "
 "installing the binaries, particularly if you are working with very high "
 "resolution custom datasets. In the future we will be adding support for "
 "other functions as well."
 msgstr ""
-
+"Sio kazi zote katika Trends.Earth inaweza kufanya matumizi ya kazi, kwa "
+"hivyo usitegemee kila kitu kukimbia haraka baada ya kuzishughulikia. Chombo "
+"cha muhtasari wa SDG 15.3.1, hata hivyo, inapaswa kukimbia haraka sana baada"
+" ya kusanikisha vifungo, haswa ikiwa unafanya kazi na hifadhidata ya kiwango"
+" cha juu cha azimio. Katika siku zijazo tutakuwa tunaongeza msaada kwa kazi "
+"zingine pia."

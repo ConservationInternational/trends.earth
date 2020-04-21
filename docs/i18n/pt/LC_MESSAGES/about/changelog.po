@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 12:09-0400\n"
 "PO-Revision-Date: 2019-07-23 19:36+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +35,9 @@ msgid ""
 "`1.0.0 "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
 msgstr ""
+"`1.0.0 "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>"
+" `_"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:9
 msgid ""
@@ -43,6 +46,10 @@ msgid ""
 "the SDG15.3.1 summary table calculation, but eventually this will be "
 "expanded to other tools as well."
 msgstr ""
+"Adicione capacidade de baixar e usar binários pré-compilados (compilados com"
+" o Numba) para acelerar alguns cálculos locais. No momento, isso está "
+"disponível apenas para o cálculo da tabela de resumo do SDG15.3.1, mas "
+"eventualmente ele também será expandido para outras ferramentas."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:13
 msgid ""
@@ -52,38 +59,54 @@ msgid ""
 "running. These log messages can be useful when trying to trouble-shoot "
 "problems if you encounter any."
 msgstr ""
+"Relacionado ao acima, agora existe um botão de configurações "
+"&quot;avançadas&quot; na janela de configurações, que permitirá aos usuários"
+" baixar binários pré-compilados e ativar ou desativar o log detalhado de "
+"mensagens enquanto a ferramenta está em execução. Essas mensagens de log "
+"podem ser úteis ao tentar solucionar problemas, se você encontrar alguma."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:18
 msgid ""
 "Fix processing using new MODIS data (assets were not properly updated in the"
 " last release)"
 msgstr ""
+"Corrigir o processamento usando novos dados MODIS (os ativos não foram "
+"atualizados corretamente na última versão)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:20
 msgid "Fix color-coding of land covers in land cover class aggregation window"
 msgstr ""
+"Corrigir o código de cores das coberturas de terra na janela de agregação de"
+" classes de cobertura de terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:21
 msgid "Add more detailed version information to about dialog."
-msgstr ""
+msgstr "Adicione informações de versão mais detalhadas ao diálogo sobre."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:22
 msgid "Add additional detail to data download tool."
-msgstr ""
+msgstr "Adicione detalhes adicionais à ferramenta de download de dados."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:23
 msgid "Add job ID to downloads window to facilitate bug reporting."
 msgstr ""
+"Adicione o ID do trabalho à janela de downloads para facilitar o relatório "
+"de erros."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:24
 msgid "Minor bug fixes (sorting of jobs and downloads tables)."
 msgstr ""
+"Pequenas correções de bugs (classificação de trabalhos e tabelas de "
+"downloads)."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:27
 msgid ""
 "`0.98 (April 2, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
 msgstr ""
+"`0,98 (2 de abril de 2020) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>"
+" `_"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\changelog.rst:29
 msgid "First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-20 13:55-0400\n"
+"POT-Creation-Date: 2020-04-20 16:49-0400\n"
 "PO-Revision-Date: 2018-03-14 19:31+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -38,13 +38,13 @@ msgstr ""
 msgid "General Questions"
 msgstr "Maswali Ya jumla"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:10
-msgid "**Is there a user group I can share experiences with and learn from?**"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:11
+msgid "Is there a user group I can share experiences with and learn from?"
 msgstr ""
-"** Je! Kuna kundi la mtumiaji ninaweza kushiriki uzoefu na kujifunza kutoka?"
-" **"
+"Je! Kuna kikundi cha watumiaji ambao ninaweza kushiriki uzoefu na kujifunza "
+"kutoka?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:12
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:13
 msgid ""
 "Yes, we recently created a `Google group for Trends.Earth users "
 "<https://groups.google.com/forum/#!forum/trends_earth_users>`_ so please "
@@ -69,11 +69,11 @@ msgstr ""
 " wao wa kipekee. Kikundi pia kitatumika kwa matangazo juu ya sasisho za zana"
 " na juhudi za kujenga uwezo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:23
-msgid "**How do I find more information on the project?**"
-msgstr "** Ninapataje habari zaidi juu ya mradi? **"
-
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:25
+msgid "How do I find more information on the project?"
+msgstr "Je! Ninapataje habari zaidi juu ya mradi huo?"
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:27
 msgid ""
 "More information on the toolbox can be found at `trends.earth "
 "<http://trends.earth>`_ and reports are available on the `Vital Signs "
@@ -90,11 +90,11 @@ msgstr ""
 "distribution-list> `_ ili uendelee kuwasiliana na yeyote maendeleo na orodha"
 " ya miradi ya kusafirisha."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:32
-msgid "**How can I provide feedback on the tool?**"
-msgstr "** Ninawezaje kutoa maoni juu ya chombo? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:35
+msgid "How can I provide feedback on the tool?"
+msgstr "Ninawezaje kutoa maoni juu ya chombo?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:34
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:37
 msgid ""
 "There are three ways to give feedback, emailing the project team, visiting "
 "the project site and messaging through the anonymous form or rate the "
@@ -115,16 +115,15 @@ msgstr ""
 "Bonyeza kwenye trends.earth na ukadilishe sanduku la zana kwa kuchagua idadi"
 " ya nyota ambazo ungependa kutoa programu, nyota 5 zimejaa kuridhika."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:44
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:47
 msgid "Installation of Trends.Earth"
 msgstr "Uwekaji wa Mwelekeo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:47
-msgid "**What version of Quantum GIS (QGIS) do I need for the toolbox?**"
-msgstr ""
-"** Nini toleo la Quantum GIS (QGIS) ninahitaji kwa sanduku la zana? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:51
+msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
+msgstr "Je! Ninahitaji toleo gani la Quantum GIS (QGIS) kwa sanduku la zana?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:49
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:53
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of February 2018,"
 " version 3.0 was released. Please use version 2.18 for the trends.earth "
@@ -136,11 +135,11 @@ msgstr ""
 " trends.earth. Toleo linalolingana na toleo la hivi karibuni litatolewa "
 "katika utaratibu ujao wa mradi huo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:54
-msgid "**Do I need to download a 32-bit or 64 bit version of QGIS?**"
-msgstr "** Je, ninahitaji kupakua toleo 32-bit au 64 bit ya QGIS? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:59
+msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
+msgstr "Je! Ninahitaji kupakua toleo la 32-bit au 64 kidogo la QGIS?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:56
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:61
 msgid ""
 "We recommend downloading 64-bit version (2.18), but you may need to download"
 " the 32-bit version for 32-bit operating systems. To find out if your "
@@ -156,11 +155,11 @@ msgstr ""
 "linalosema aina ya mfumo k.m. Aina ya mfumo: Mfumo wa uendeshaji 64-bit, "
 "processor ya msingi ya x64."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:63
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:68
 msgid "Windows 7 or Windows Vista:"
 msgstr "Windows 7 au Windows Vista:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:65
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:70
 msgid ""
 "Open System by clicking the Start button , right-clicking Computer, and then"
 " clicking Properties."
@@ -168,31 +167,31 @@ msgstr ""
 "Fungua Mfumo kwa kubonyeza kifungo cha Mwanzo, kubofya kwa kulia Kompyuta, "
 "na kisha kubofya Mali."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:67
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:72
 msgid "Under System, you can view the system type."
 msgstr "Chini ya Mfumo, unaweza kuona aina ya mfumo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:69
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:74
 msgid "Windows 8 or Windows 10:"
 msgstr "Windows 8 au Windows 10:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:71
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:76
 msgid "From the Start screen, type This PC."
 msgstr "Kutoka skrini ya Mwanzo, funga PC hii."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:72
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:77
 msgid "Right Click (or tap and hold) This PC, and click Properties."
 msgstr "Bonyeza Bonyeza (au bomba na ushikilie) PC hii, na bonyeza Mali."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:74
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:79
 msgid "Mac:"
 msgstr "Mac:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:76
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:81
 msgid "Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr "Bonyeza icon ya Apple upande wa kushoto na chagua \"Kuhusu Mac hii\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:77
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:82
 msgid ""
 "For more advanced details click \"More Info...\" in the About This Mac "
 "window."
@@ -200,11 +199,11 @@ msgstr ""
 "Kwa maelezo zaidi ya juu bonyeza \"Maelezo Zaidi ...\" kwenye dirisha la "
 "Kuhusu Hii la Mac."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:79
-msgid "**How do I install the plugin?**"
-msgstr "** Je, ninawekaje Plugin? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:85
+msgid "How do I install the plugin?"
+msgstr "Je! Ninawezaje kufunga programu-jalizi?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:81
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:87
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins available "
@@ -216,11 +215,11 @@ msgstr ""
 "inapatikana katika QGIS. Utafute trends.earth na chagua Sakinisha Plugin "
 "chini ya dirisha."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:85
-msgid "**How do I upgrade the plugin?**"
-msgstr "** Ninawezaje kuboresha Plugin? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:92
+msgid "How do I upgrade the plugin?"
+msgstr "Je! Ninawezaje kuboresha programu-jalizi?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:87
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:94
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu "
 "bar, and select Manage and install plugins. On the side menu, select "
@@ -234,11 +233,11 @@ msgstr ""
 "chagua Uboreshaji wote ili kuboresha kisanduku cha zana kwenye toleo la hivi"
 " karibuni."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:92
-msgid "**How do I uninstall the plugin?**"
-msgstr ""
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:100
+msgid "How do I uninstall the plugin?"
+msgstr "Je! Ninawezaje kufuta programu-jalizi?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:94
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:102
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with the "
 "QGIS plugins manager. To access the tool, choose \"Plugins\" and then "
@@ -247,49 +246,66 @@ msgid ""
 "Then click on \"Trends.Earth\" in the list of plugins, and on \"Uninstall "
 "Plugin\" to uninstall it."
 msgstr ""
+"Ikiwa ungependa kufuta programu-jalizi, kawaida unaweza kufanya hivyo na "
+"msimamizi wa programu jalizi za QGIS. Ili kufikia zana, chagua &quot"
+";programu-jalizi&quot; na kisha &quot;Dhibiti na Usanidi programu-jalizi "
+"...&quot; kutoka kwa menyu ya menyu ya QGIS. Kutoka kwa skrini ya meneja wa "
+"programu-jalizi, chagua &quot;Imesanikishwa&quot; kutoka menyu iliyo upande "
+"wa kushoto. Kisha bonyeza &quot;Trends.Earth&quot; kwenye orodha ya "
+"programu-jalizi, na kwenye &quot;Futa Programu-jalizi&quot; ili kuifuta."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:101
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:109
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to "
 "remove it manually. To manually remove the plugin:"
 msgstr ""
+"Ikiwa unakutana na kosa la kufuta programu-jalizi, inawezekana pia kuiondoa "
+"mwenyewe. Kuondoa manyoya:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:104
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:112
 msgid "Open QGIS"
-msgstr ""
+msgstr "Fungua QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:105
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:113
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active Profile"
 " Folder\" from the menu under \"Settings\" - \"User Profiles\" on the menu "
 "bar."
 msgstr ""
+"Nenda kwa mahali ambapo programu-jalizi imewekwa kwa kuchagua &quot;Fungua "
+"Folda ya Wasifu inayotumika&quot; kutoka menyu chini ya "
+"&quot;Mipangilio&quot; - &quot;Wasifu wa Watumiaji&quot; kwenye bar ya "
+"menyu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:107
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:115
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
 msgstr ""
+"Acha QGIS. Labda hauwezi kufuta programu-jalizi ikiwa QGIS haijafungwa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:109
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:117
 msgid ""
 "In the file browser window that opened, double click on \"python\", and then"
 " double click on \"plugins\". Delete the LDMP folder within that directory."
 msgstr ""
+"Kwenye dirisha la kivinjari cha faili kilichofunguliwa, bonyeza mara mbili "
+"kwenye &quot;python&quot;, kisha bonyeza mara mbili kwenye &quot;programu-"
+"jalizi&quot;. Futa folda ya LDMP ndani ya saraka hiyo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:111
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:119
 msgid "Restart QGIS."
-msgstr ""
+msgstr "Anzisha tena QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:114
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:122
 msgid "Datasets"
 msgstr "Datasets"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:116
-msgid "**When will you update datasets for the current year?**"
-msgstr "** Utasasisha vipi data wakati wa sasa? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:125
+msgid "When will you update datasets for the current year?"
+msgstr "Je! Ni lini utasasisha hifadhidata za mwaka wa sasa?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:118
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:127
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data providers"
@@ -300,11 +316,11 @@ msgstr ""
 "sasa vinaongezwa kwenye boti la zana mara tu watoa data ya awali wanawafanya"
 " wa umma. Ikiwa unatambua sasisho lolote tulilokosa, tafadhali tukujulishe."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:122
-msgid "**Is there an option to download the original data?**"
-msgstr "** Kuna chaguo la kupakua data ya awali? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:132
+msgid "Is there an option to download the original data?"
+msgstr "Je! Kuna chaguo kupakua data asili?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:124
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:134
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
@@ -312,11 +328,11 @@ msgstr ""
 "Watumiaji wanaweza kupakua data ya awali kwa kutumia chaguo la Chakula ndani"
 " ya sanduku la zana."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:127
-msgid "**Will the toolbox support higher resolution datasets?**"
-msgstr "** Je, sanduku la zana litaunga mkono dasasets ya juu ya azimio? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:138
+msgid "Will the toolbox support higher resolution datasets?"
+msgstr "Je! Sanduku la zana litaunga mkono hifadhidata za azimio kubwa?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:129
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:140
 msgid ""
 "The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary"
 " productivity analysis, and ESA LCC CCI (300m) for land cover change "
@@ -326,13 +342,13 @@ msgstr ""
 "wa uzalishaji wa msingi, na ESA LCC CCI (300m) kwa uchambuzi wa mabadiliko "
 "ya bima ya ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:132
-msgid "**Can the toolbox support analysis with national-level datasets?**"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:144
+msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr ""
-"** Je, uchambuzi wa msaada wa sanduku la zana unaweza kuwa na dasasets ya "
-"kiwango cha kitaifa? **"
+"Je! Sanduku la zana linaweza kusaidia uchambuzi na hifadhidata za kiwango "
+"cha kitaifa?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:134
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:146
 msgid ""
 "This is a common request from users, and one the team is working on. "
 "Trends.Earth will allow loading of national-level soil carbon and land cover"
@@ -346,15 +362,15 @@ msgstr ""
 "kutumia faida zilizopo za data ambazo zinaweza kuwa na kiwango cha juu "
 "katika ngazi ya kitaifa kuliko data za kimataifa ni defaults katika chombo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:141
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:153
 msgid "Methods"
 msgstr "Njia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:143
-msgid "**Who was the default time period for the analysis determined?**"
-msgstr "** Ni wakati gani wa wakati wa kutosha wa uchambuzi uliowekwa? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:156
+msgid "Who was the default time period for the analysis determined?"
+msgstr "Je! Ni nani alikuwa wakati wa muda wa uchambuzi uliodhamiriwa?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:145
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:158
 msgid ""
 "The default time period of analysis is from years 2001 to 2015. These were "
 "recommended by the `Good Practice Guidelines "
@@ -370,15 +386,15 @@ msgstr ""
 "2015.3.1_Version% 201.0.pdf> `_., Hati ambayo inatoa mapendekezo ya kina kwa"
 " kupima uharibifu wa ardhi na imechukuliwa na UNCCD."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:152
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:165
 msgid "Productivity"
 msgstr "Uzalishaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:154
-msgid "**How does the result provided by state differs from trajectory?**"
-msgstr "** Matokeo ya zinazotolewa na hali yanatofautianaje na trajectory? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:168
+msgid "How does the result provided by state differs from trajectory?"
+msgstr "Je! Matokeo yanayotolewa na serikali hutofautianaje na trajectory?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:156
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:170
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests to "
 "identify long term significant trends in primary productivity. This method "
@@ -394,22 +410,22 @@ msgstr ""
 "ya kuboresha au uharibifu. Kwa kulinganisha maana ya muda mrefu kwa kipindi "
 "cha hivi karibuni, hali inaweza kukamata mabadiliko hayo ya hivi karibuni."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:165
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:179
 msgid "Land cover"
 msgstr "Bima ya ardhi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:167
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:182
 msgid ""
-"**Currently, the land cover aggregation is done following the UNCCD "
+"Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country level"
 " characteristics. Could it be possible to allow the user to define the "
-"aggregation criteria?**"
+"aggregation criteria?"
 msgstr ""
-"** Hivi sasa, usaniko wa kifuniko cha ardhi unafanyika kufuatia miongozo ya "
-"UNCCD, lakini uainishaji huo hauzingati sifa za kiwango cha nchi. Je! "
-"Inawezekana kuruhusu mtumiaji kufafanua vigezo vya uchanganyiko? **"
+"Hivi sasa, mkusanyiko wa bima ya ardhi unafanywa kufuatia miongozo ya UNCCD,"
+" lakini uainishaji huo hauzingatii sifa za kiwango cha nchi. Inawezekana "
+"kumruhusu mtumiaji kufafanua vigezo vya ujumuishaji?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:172
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:184
 msgid ""
 "Users are able to make these changes using the advanced settings in the land"
 " cover GUI so that appropriate aggregations occur depending on the context "
@@ -419,13 +435,12 @@ msgstr ""
 "katika GUI ya bima ya ardhi ili kuunganisha sahihi iwezekane kulingana na "
 "mazingira ya nchi yako."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:176
-msgid "**How can we isolate woody plant encroachment within the toolbox?**"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:189
+msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr ""
-"** Tunawezaje kutenganisha usingizi wa mmea wa mbegu ndani ya sanduku la "
-"zana? **"
+"Je! Tunawezaje kutenga kitengo cha kupanda miti ndani ya sanduku la zana?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:178
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:191
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. For "
 "every transition, the user can mark the change as stable, improvement or "
@@ -439,19 +454,19 @@ msgstr ""
 " inaweza kuonyesha kuingilia kwa nguvu na mabadiliko haya yanaweza kuonekana"
 " kama kiashiria cha uharibifu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:185
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:198
 msgid "Carbon stocks"
 msgstr "Hifadhi za kaboni"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:187
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:201
 msgid ""
-"**Why use soil organic carbon (SOC) instead of above and below-ground carbon"
-" to measure carbon stocks?**"
+"Why use soil organic carbon (SOC) instead of above and below-ground carbon "
+"to  measure carbon stocks?"
 msgstr ""
-"** Kwa nini matumizi ya kaboni ya kaboni (SOC) badala ya juu na chini ya "
-"chini ya kaboni kupima hisa za kaboni? **"
+"Kwa nini utumie kaboni ya kikaboni (COC) badala ya hapo juu na chini ya "
+"kaboni kupima hisa za kaboni?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:190
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:203
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include above "
 "and below ground biomass. However, given the lack of consistently generated "
@@ -473,15 +488,15 @@ msgstr ""
 " iliyochapishwa na UNCCD inapendekeza wakati wa kutumia SOC kama "
 "mwendeshaji."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:198
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:212
 msgid ""
-"**Is it possible to measure identify processes of degradation linked to "
-"salinization using this tool?**"
+"Is it possible to measure identify processes of degradation linked to "
+"salinization using this tool?"
 msgstr ""
-"** Inawezekana kupima taratibu za kutambua uharibifu unaohusishwa na "
-"salinization kwa kutumia chombo hiki **"
+"Je! Inawezekana kupima michakato ya uharibifu uliowekwa na salinization kwa "
+"kutumia zana hii?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:201
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:214
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity, "
 "that decrease would be identified by the productivity indicators, but the "
@@ -491,18 +506,16 @@ msgstr ""
 "msingi, kupungua kwa hiyo kutafahamika na viashiria vya uzalishaji, lakini "
 "watumiaji watatakiwa kutumia ujuzi wao wa ndani kugawa sababu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:206
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:219
 msgid "Land degradation outputs"
 msgstr "Uharibifu wa ardhi uharibifu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:208
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:222
 msgid ""
-"**How were the layers combined to define the final land degradation layer?**"
-msgstr ""
-"** Je, vipande viliunganishwaje ili kufafanua safu ya mwisho ya uharibifu wa"
-" ardhi? **"
+"How were the layers combined to define the final land degradation layer?"
+msgstr "Tabaka zilijumuishwaje kufafanua safu ya uharibifu wa ardhi?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:210
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:224
 msgid ""
 "Performance, state, and trajectory (the three indicators of change in "
 "productivity_) are combined following a modified version of the good "
@@ -522,15 +535,15 @@ msgstr ""
 " kiashiria chochote cha tatu kwenye pixel fulani, basi pixel hiyo inaonekana"
 " kama \"iliyoharibika\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:218
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:233
 msgid ""
-"**Why do I see areas improving (in green) or degrading (in red) after the "
-"final analysis when I know they are not?**"
+"Why do I see areas the data says are improving or degrading when I know they"
+" are not?"
 msgstr ""
-"** Kwa nini ninaona maeneo yanayoboresha (katika kijani) au ya kupoteza "
-"(katika nyekundu) baada ya uchambuzi wa mwisho wakati ninajua sio? **"
+"Je! Kwa nini ninaona maeneo ambayo data inasema ni kuboresha au kudhalilisha"
+" wakati najua sio?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:221
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:235
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -559,16 +572,15 @@ msgstr ""
 "datasets za kimataifa ambazo hazitakuwa muhimu zaidi kwa mizani yote na "
 "geographies. Utendaji wa kutumia data za mitaa utaongezwa muda mfupi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:234
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:249
 msgid ""
-"**All of the sub-indicators are measuring vegetation using three different "
-"methods: how does this contribute to understanding and identifying land "
-"degradation?**"
+"All of the sub-indicators are measuring vegetation: how does this contribute"
+" to understanding and identifying land degradation?"
 msgstr ""
-"** Viashiria vyote vinapima mimea kwa kutumia mbinu tatu tofauti: hii "
-"inachangiaje kuelewa na kutambua uharibifu wa ardhi? **"
+"Viashiria vyote vidogo ni kupima mimea: hii inachangia vipi kuelewa na "
+"kutambua uharibifu wa ardhi?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:238
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:251
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good proxy "
 "for their overall functioning and health. The three subindicators used for "
@@ -600,47 +612,15 @@ msgstr ""
 "duniani na uchunguzi, kuna makubaliano ya kwamba hii inaonyesha wakati na "
 "kimataifa, hii ndiyo njia bora zaidi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:253
-msgid "Workshops"
-msgstr "Warsha"
-
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:255
-msgid ""
-"**Will the project offer future training opportunities so users can "
-"continues working with the tool?**"
-msgstr ""
-"** Je, mradi utawapa fursa za mafunzo ya baadaye ili watumiaji wanaweza "
-"kuendelea kufanya kazi na chombo? **"
-
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:258
-msgid ""
-"The project is working with the UNCCD to support their work training users "
-"on monitoring and reporting in support of countries’ national-level "
-"responsibilities under the convention. These trainings will be occurring in "
-"March-April 2018. In addition, the project will work with key stakeholders, "
-"such as RCMRD, to provide support through existing platforms. The project "
-"will also continue to make e-learning materials available to users, and is "
-"considering potential funding sources for further capacity-building "
-"activities in East Africa."
-msgstr ""
-"Mradi huo unafanya kazi na UNCCD ili kusaidia watumiaji wa mafunzo ya kazi "
-"juu ya ufuatiliaji na kutoa taarifa kwa msaada wa majukumu ya ngazi ya "
-"kitaifa chini ya mkataba. Mafunzo haya yatafanyika Machi-Aprili 2018. Kwa "
-"kuongeza, mradi utafanya kazi na wadau muhimu, kama vile RCMRD, kutoa msaada"
-" kupitia jukwaa zilizopo. Mradi huo utaendelea kufanya vifaa vya kujifunza "
-"e-mail ambavyo vinapatikana kwa watumiaji, na inazingatia vyanzo vya fedha "
-"ambazo zinaweza kupata shughuli za kujenga uwezo zaidi katika Afrika "
-"Mashariki."
-
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:268
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:266
 msgid "Future plans"
 msgstr "Mipango ya baadaye"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:270
-msgid "**When will there be an offline version of the toolbox?**"
-msgstr "** Ni lini kutakuwa na toleo la nje ya mtandao la boti la zana? **"
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:269
+msgid "When will there be an offline version of the toolbox?"
+msgstr "Je! Kutakuwa lini toleo la nje ya sanduku la zana?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:272
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:271
 msgid ""
 "The final toolbox will be available as both as an offline and online "
 "version. The online version allows users to access current datasets more "
@@ -664,8 +644,8 @@ msgstr ""
 " mradi wa majaribio."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:282
-msgid "**Will you create a trends.earth toolbox for ESRI users?**"
-msgstr "** Je, utaunda lebo ya zana ya trends.earth kwa watumiaji wa ESRI? **"
+msgid "Will you create a trends.earth toolbox for ESRI users?"
+msgstr "Je! Utaunda kisanduku cha trends.earth kwa watumiaji wa ESRI?"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:284
 msgid ""

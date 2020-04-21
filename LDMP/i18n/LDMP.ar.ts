@@ -2513,83 +2513,88 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="323"/>
+        <location filename="../settings.py" line="340"/>
         <source>Warning</source>
         <translation type="unfinished">تحذير</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="323"/>
+        <location filename="../settings.py" line="340"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="356"/>
+        <location filename="../settings.py" line="373"/>
         <source>Choose a folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="356"/>
+        <location filename="../settings.py" line="373"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="433"/>
+        <location filename="../settings.py" line="456"/>
         <source>Error</source>
         <translation type="unfinished">خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="362"/>
+        <location filename="../settings.py" line="379"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="371"/>
+        <location filename="../settings.py" line="388"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="392"/>
+        <location filename="../settings.py" line="409"/>
         <source>Error downloading binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="402"/>
+        <location filename="../settings.py" line="419"/>
         <source>Success</source>
         <translation type="unfinished">نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="398"/>
+        <location filename="../settings.py" line="415"/>
         <source>Downloaded binaries.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="402"/>
+        <location filename="../settings.py" line="419"/>
         <source>All binaries up to date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="423"/>
+        <location filename="../settings.py" line="440"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="433"/>
+        <location filename="../settings.py" line="456"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished">لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="340"/>
+        <location filename="../settings.py" line="357"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="338"/>
+        <location filename="../settings.py" line="355"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.py" line="384"/>
+        <location filename="../settings.py" line="401"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="446"/>
+        <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2621,17 +2626,17 @@ p, li { white-space: pre-wrap; }
         <translation>مسح المستخدم</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="201"/>
+        <location filename="../settings.py" line="218"/>
         <source>Delete user?</source>
         <translation>مسح المستخدم؟</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="201"/>
+        <location filename="../settings.py" line="218"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
         <translation>هل أنت متأكد من أنك تريد حذف المستخدم {}؟ سيتم فقد جميع مهامك ولن تتمكن بعد ذلك من معالجة البيانات عبر الإنترنت باستخدام Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="207"/>
+        <location filename="../settings.py" line="224"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
@@ -2654,32 +2659,32 @@ p, li { white-space: pre-wrap; }
         <translation>أدخل عنوان بريدك الالكتروني...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="236"/>
+        <location filename="../settings.py" line="253"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="236"/>
+        <location filename="../settings.py" line="253"/>
         <source>Enter your email address to reset your password.</source>
         <translation>أدخل عنوان بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="240"/>
+        <location filename="../settings.py" line="257"/>
         <source>Reset password?</source>
         <translation>إعادة تعيين كلمة المرور؟</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="240"/>
+        <location filename="../settings.py" line="257"/>
         <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
         <translation>هل تريد بالتأكيد إعادة تعيين كلمة المرور لـ {}؟ سيتم إرسال كلمة المرور الجديدة إليك عبر البريد الإلكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="248"/>
+        <location filename="../settings.py" line="265"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="248"/>
+        <location filename="../settings.py" line="265"/>
         <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
         <translation>تمت إعادة تعيين كلمة المرور لـ {}. تحقق من بريدك الإلكتروني بحثًا عن كلمة المرور الجديدة ، ثم ارجع إلى Trends.Earth لإدخالها.</translation>
     </message>
@@ -2712,37 +2717,37 @@ p, li { white-space: pre-wrap; }
         <translation>منظمة:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="291"/>
+        <location filename="../settings.py" line="308"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="282"/>
+        <location filename="../settings.py" line="299"/>
         <source>Enter your email address.</source>
         <translation>أدخل عنوان بريدك الالكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="285"/>
+        <location filename="../settings.py" line="302"/>
         <source>Enter your name.</source>
         <translation>أدخل أسمك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="288"/>
+        <location filename="../settings.py" line="305"/>
         <source>Enter your organization.</source>
         <translation>أدخل مؤسستك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="291"/>
+        <location filename="../settings.py" line="308"/>
         <source>Enter your country.</source>
         <translation>أدخل بلدك</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="298"/>
+        <location filename="../settings.py" line="315"/>
         <source>Saved</source>
         <translation>تم الحفظ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="298"/>
+        <location filename="../settings.py" line="315"/>
         <source>Updated information for {}.</source>
         <translation>معلومات محدثة لـ {}.</translation>
     </message>
@@ -2765,27 +2770,27 @@ p, li { white-space: pre-wrap; }
         <translation>كلمه السر:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="152"/>
+        <location filename="../settings.py" line="169"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="148"/>
+        <location filename="../settings.py" line="165"/>
         <source>Enter your email address.</source>
         <translation>أدخل عنوان بريدك الالكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="152"/>
+        <location filename="../settings.py" line="169"/>
         <source>Enter your password.</source>
         <translation>ادخل رقمك السري.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="158"/>
+        <location filename="../settings.py" line="175"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="158"/>
+        <location filename="../settings.py" line="175"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>تم تسجيل الدخول إلى خادم Trends.Earth كـ {}. &lt;html&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; مرحبًا بك في Trends.Earth! &lt;p/ style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;انضم إلى مجموعات Google لمستخدمي Trends.Earth&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تأكد من الانضمام إلى مجموعات google لمستخدمي Trends.Earth لمواكبة التحديثات والأسئلة والأجوبة حول الأداة والأساليب ومجموعات البيانات لدعم مراقبة أهداف التنمية المستدامة. &lt;/p&gt;</translation>
@@ -2819,37 +2824,37 @@ p, li { white-space: pre-wrap; }
         <translation>منظمة:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="111"/>
+        <location filename="../settings.py" line="128"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="102"/>
+        <location filename="../settings.py" line="119"/>
         <source>Enter your email address.</source>
         <translation>أدخل عنوان بريدك الالكتروني.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="105"/>
+        <location filename="../settings.py" line="122"/>
         <source>Enter your name.</source>
         <translation>أدخل أسمك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="108"/>
+        <location filename="../settings.py" line="125"/>
         <source>Enter your organization.</source>
         <translation>أدخل مؤسستك.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="111"/>
+        <location filename="../settings.py" line="128"/>
         <source>Enter your country.</source>
         <translation>أدخل بلدك</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="117"/>
+        <location filename="../settings.py" line="134"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="117"/>
+        <location filename="../settings.py" line="134"/>
         <source>User registered. Your password has been emailed to {}.</source>
         <translation>المستخدم المسجل. تم إرسال كلمة المرور الخاصة بك إلى {}.</translation>
     </message>

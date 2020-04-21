@@ -1065,10 +1065,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."))
                 return False
-            if not os.access(self.area_tab.area_fromfile.text(), os.R_OK):
+            if not os.access(self.area_tab.area_fromfile_file.text(), os.R_OK):
                 QtWidgets.QMessageBox.critical(None,
                                                self.tr("Error"),
-                                               self.tr("Unable to read {}.".format(self.area_tab.area_fromfile.text())))
+                                               self.tr("Unable to read {}.".format(self.area_tab.area_fromfile_file.text())))
                 return False
             self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
                                       wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())

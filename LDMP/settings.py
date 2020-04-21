@@ -32,7 +32,7 @@ from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
 
-from LDMP import log, binaries_available, __version__
+from LDMP import binaries_available, __version__
 from LDMP.api import (get_user_email, get_user, delete_user, login, register,
     update_user, recover_pwd)
 from LDMP.download import download_files, get_admin_bounds
@@ -42,25 +42,18 @@ settings = QSettings()
 
 # Function to indicate if child is a folder within parent
 def is_subdir(child, parent):
-    log('parent: {}'.format(parent))
-    log('child: {}'.format(child))
     parent = os.path.normpath(os.path.realpath(parent))
     child = os.path.normpath(os.path.realpath(child))
     if not os.path.isdir(parent) or not os.path.isdir(child):
-        log('not is dir')
         return False
     elif child == parent:
-        log('parent == child')
         return True
     head, tail = os.path.split(child)
     if head == parent:
-        log('head == child')
         return True
     elif tail == '':
-        log("tail == ''")
         return False
     else:
-        log("recursing")
         return is_subdir(head, parent)
 
 
@@ -449,8 +442,6 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
                                                             initial_path)
         if folder:
             plugin_folder = os.path.normpath(os.path.realpath(os.path.dirname(__file__)))
-            log('folder: {}'.format(folder))
-            log('plugin_folder: {}'.format(plugin_folder))
             if is_subdir(folder, plugin_folder):
                 QtWidgets.QMessageBox.critical(None,
                                                self.tr("Error"),

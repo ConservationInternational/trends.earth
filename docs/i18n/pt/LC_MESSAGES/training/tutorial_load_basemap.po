@@ -117,7 +117,7 @@ msgid ""
 msgstr ""
 "Neste caso, uma vez que esta camada é o resultado da análise em um passo "
 "(:ref:`tut_compute_sdg`), o arquivo contém informações para produtividade da"
-" terra, cobertura do solo e carbono orgânico do solo."
+" terra, cobertura da terra e carbono orgânico do solo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:39
 msgid ""
@@ -148,7 +148,7 @@ msgstr ""
 "específicos nos mapas. Quando baixados, os resultados do Trends.Earth são "
 "exibidos em um projeto QGIS vazio, o que pode limitar a capacidade do "
 "usuário de identificar locais de conhecimento na paisagem. Para facilitar "
-"esse processo, você pode usar a ferramenta **AdicionarBasemap **, que "
+"esse processo, você pode usar a ferramenta **Adicionar Mapa Base**, que "
 "carregará os limites de país e estado, estradas, rios, cidades, linhas "
 "costeiras e corpos de água com rótulos para o projeto QGIS."
 
@@ -166,7 +166,8 @@ msgstr "Clique em **Adicionar mapa base**."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:64
 msgid "On the **Add basemap** window you can do one of two things:"
-msgstr "Na janela **Adicionar basemap**, você pode fazer uma das duas coisas:"
+msgstr ""
+"Na janela **Adicionar Mapa Base**, você pode fazer uma das duas coisas:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:66
 msgid ""
@@ -178,21 +179,20 @@ msgid ""
 "bounding box is used instead). You can use first and second level "
 "administrative boundaries."
 msgstr ""
-"**Use uma opção de máscara selecionada** criará uma máscara bloqueando todas"
-" as informações fora da área selecionada. Neste exemplo, todas as "
-"informações fora do Uganda não serão exibidas no mapa. Essa opção é útil ao "
-"exibir os subindicadores baixados do Trends.Earth, já que o download de "
-"dados não é recortado para limites administrativos (uma caixa delimitadora é"
-" usada no lugar). Você pode usar limites administrativos de primeiro e "
-"segundo nível."
+"**Opção 'usar máscara' selecionada** criará uma máscara bloqueando todas as "
+"informações fora da área selecionada. Neste exemplo, todas as informações "
+"fora do Uganda não serão exibidas no mapa. Essa opção é útil ao exibir os "
+"subindicadores baixados do Trends.Earth, já que o download de dados não é "
+"recortado para limites administrativos (uma caixa delimitadora é usada no "
+"lugar). Você pode usar limites administrativos de primeiro e segundo nível."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:68
 msgid ""
 "**Use a mask option not selected** will load all the reference information, "
 "but no mask will be applied."
 msgstr ""
-"**Use uma opção de máscara não selecionada** irá carregar todas as "
-"informações de referência, mas nenhuma máscara será aplicada."
+"**Opção 'usar máscara' não selecionada** irá carregar todas as informações "
+"de referência, mas nenhuma máscara será aplicada."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:73
 msgid ""
@@ -245,4 +245,4 @@ msgstr "Fronteira nacional"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_load_basemap.rst:87
 msgid "Ocean"
-msgstr "oceano"
+msgstr "Oceano"

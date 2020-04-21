@@ -5,8 +5,8 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2018-03-14 19:33+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,6 +267,8 @@ msgid ""
 "Processing of custom soil organic carbon data can be handled using this "
 "tool."
 msgstr ""
+"O processamento de dados de carbono orgânico do solo personalizado pode ser "
+"tratado com esta ferramenta."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:150
 msgid ""

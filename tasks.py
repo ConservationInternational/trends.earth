@@ -324,6 +324,7 @@ def plugin_setup(c, clean=False, pip='pip'):
 def plugin_install(c, clean=False, version=3, profile='default', 
         python='python', fast=False):
     '''install plugin to qgis'''
+    set_version(c)
     compile_files(c, version, clean, python, fast)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)

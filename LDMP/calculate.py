@@ -930,6 +930,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
+        self._max_area = 5e7 # maximum size task the tool supports
 
         self.firstShowEvent.connect(self.firstShow)
 
@@ -1116,7 +1117,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         # custom shapefile
         if not self.area_tab.area_fromadmin.isChecked():
             aoi_area = self.aoi.get_area() / (1000 * 1000)
-            if aoi_area > 5e7:
+            if aoi_area > self._max_area:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False

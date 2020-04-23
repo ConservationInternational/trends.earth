@@ -216,7 +216,10 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
         resp = worker.get_resp()
-        log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
+        if resp is not None:
+            log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
+        else:
+            log(u'API response from "{}" request was None'.format(method))
         if QSettings().value('LDMP/debug', True):
             log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:

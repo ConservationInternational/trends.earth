@@ -409,7 +409,7 @@
             "Units": "Water root zone m3m-3 * 10000",
             "Description": "The Modern-Era Retrospective analysis for Research and Applications, Version 2 (MERRA-2) provides data beginning in 1980. It was introduced to replace the original MERRA dataset because of the advances made in the assimilation system that enable assimilation of modern hyperspectral radiance and microwave observations, along with GPS-Radio Occultation datasets. It also uses NASA's ozone profile observations that began in late 2004. Additional advances in both the GEOS model and the GSI assimilation system are included in MERRA-2. Spatial resolution remains about the same (about 50 km in the latitudinal direction) as in MERRA.",
             "Link to Dataset": "https://disc.sci.gsfc.nasa.gov/datasets?page=1&keywords=M2TMNXLND_5.12.4",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soilm_merra2_1980_2016",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/soilm_merra2_1980_2019",
             "Source code": "c06_soilm_merra2",
             "Status": "Stored as assets",
             "License": "Public Domain",

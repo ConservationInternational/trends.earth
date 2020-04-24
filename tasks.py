@@ -727,6 +727,10 @@ def _make_zip(zipFile, c):
             'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_deploy(c, clean=False, python='python', pip='pip'):
+    binaries_sync(c)
+    binaries_deploy(c)
+    print('Binaries uploaded')
+
     filename = zipfile_build(c, python=python, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
@@ -827,8 +831,10 @@ def _check_hash(expected, filename):
         return False
 
 
-@task
-def binaries_sync(c):
+@task(help={'extensions': 'Which file extensions to sync'})
+def binaries_sync(c, extensions=None):
+    if not extensions:
+        extensions = c.plugin.numba.binary_extensions
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -838,8 +844,6 @@ def binaries_sync(c):
     except IOError:
         print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
         client = boto3.client('s3')
-    extensions = c.plugin.numba.binary_extensions
-    extensions.append('.zip')
     patterns = [os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions]
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba.binary_folder, patterns)
 
@@ -868,29 +872,12 @@ def find_binaries(c, folder, version=None):
     # Return a flattened list
     return [item for sublist in files for item in sublist]
 
-@task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling'})
-def binaries_compile(c, clean=False, python='python'):
-    print("Compiling exported numba functions...")
-    n = 0
-    if not os.path.exists(c.plugin.numba.binary_folder):
-        os.makedirs(c.plugin.numba.binary_folder)
-    for numba_file in c.plugin.numba.aot_files:
-        (base, ext) = os.path.splitext(os.path.basename(numba_file))
-        subprocess.check_call([python, numba_file])
-        n += 1
+@task
+def binaries_deploy(c):
+    # Copy down any missing binaries
+    binaries_sync(c)
 
     v = get_version(c).replace('.', '_')
-    for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
-        files = find_binaries(c, folder)
-        for f in files:
-            # Add version strings to the compiled files so they won't overwrite 
-            # files from other Trends.Earth versions when synced to S3
-            module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
-            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
-            out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
-            shutil.move(os.path.join(folder, f), out_path_with_v)
-    
     zipfile_basename = 'trends_earth_binaries_{}'.format(v)
     files = find_binaries(c, c.plugin.numba.binary_folder, v)
     with TemporaryDirectory() as tmpdir:
@@ -917,6 +904,33 @@ def binaries_compile(c, clean=False, python='python'):
                 for f in files:
                     zf.write(os.path.join(root, f), os.path.relpath(os.path.join(root, f), tmpdir))
 
+    # Upload the newly generated zipfile
+    binaries_sync(c, ['.zip'])
+
+
+@task(help={'clean': 'Clean out dependencies before packaging',
+            'python': 'Python to use for setup and compiling'})
+def binaries_compile(c, clean=False, python='python'):
+    print("Compiling exported numba functions...")
+    n = 0
+    if not os.path.exists(c.plugin.numba.binary_folder):
+        os.makedirs(c.plugin.numba.binary_folder)
+    for numba_file in c.plugin.numba.aot_files:
+        (base, ext) = os.path.splitext(os.path.basename(numba_file))
+        subprocess.check_call([python, numba_file])
+        n += 1
+
+    v = get_version(c).replace('.', '_')
+    for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
+        files = find_binaries(c, folder)
+        for f in files:
+            # Add version strings to the compiled files so they won't overwrite 
+            # files from other Trends.Earth versions when synced to S3
+            module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
+            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
+            out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
+            shutil.move(os.path.join(folder, f), out_path_with_v)
+    
     print("Compiled {} numba files.".format(n))
 
 
@@ -928,7 +942,7 @@ ns = Collection(set_version, plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_config, tecli_publish, tecli_run, 
                 tecli_info, tecli_logs, zipfile_build, zipfile_deploy,
-                binaries_compile, binaries_sync,
+                binaries_compile, binaries_sync, binaries_deploy,
                 testdata_sync)
 
 ns.configure({

@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 16:49-0400\n"
 "PO-Revision-Date: 2018-03-14 19:31+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,16 +106,16 @@ msgid ""
 "trends.earth and rate the toolbox by selecting the number of stars you would"
 " like to give the plugin, 5 stars being highly satisfied."
 msgstr ""
-"Há três maneiras de fornecer feedback, enviar e-mail à equipe do projeto, "
+"Há três maneiras de fornecer feedback: enviar e-mail à equipe do projeto, "
 "visitar o site do projeto e enviar mensagens por meio do formulário anônimo "
-"ou classificar a caixa de ferramentas no menu de plugins do QGIS. A equipe "
+"ou avaliar a caixa de ferramentas no menu de plugins do QGIS. A equipe "
 "técnica do projeto pode responder a perguntas por meio de "
 "trends.earth@conservation.org. Os usuários podem deixar uma avaliação da "
 "ferramenta abrindo \"Plugins\" no QGIS e selecionando Gerenciar e instalar "
-"plugins (Complementos). Selecione \"Tudo\" na barra lateral e navegue até o "
-"plugin trends.earth. Clique em trends.earth e avalie a caixa de ferramentas "
-"selecionando o número de estrelas que você gostaria de dar ao plugin, sendo "
-"que 5 estrelas estão muito satisfeitas."
+"plugins (Complementos). Selecione \"Todos\" na barra lateral e navegue até o"
+" plugin trends.earth. Clique em trends.earth e avalie a caixa de ferramentas"
+" selecionando o número de estrelas que você gostaria de dar ao plugin, sendo"
+" que 5 estrelas estão muito satisfeitas."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:47
 msgid "Installation of Trends.Earth"
@@ -251,21 +251,20 @@ msgid ""
 "Then click on \"Trends.Earth\" in the list of plugins, and on \"Uninstall "
 "Plugin\" to uninstall it."
 msgstr ""
-"Se você deseja desinstalar o plug-in, normalmente você pode fazê-lo com o "
-"gerenciador de plug-ins do QGIS. Para acessar a ferramenta, escolha "
-"&quot;Plugins&quot; e depois &quot;Gerenciar e instalar plugins ...&quot; na"
-" barra de menus do QGIS. Na tela do gerenciador de plug-ins, selecione "
-"&quot;Instalado&quot; no menu à esquerda. Em seguida, clique em "
-"&quot;Trends.Earth&quot; na lista de plugins e em &quot;Desinstalar plug-"
-"in&quot; para desinstalá-lo."
+"Se você deseja desinstalar o plugin, normalmente você pode fazê-lo com o "
+"gerenciador de plugins do QGIS. Para acessar a ferramenta, escolha "
+"\"Plugins\" e depois \"Gerenciar e instalar plugins ...\" na barra de menus "
+"do QGIS. Na tela do gerenciador de plugins, selecione \"Instalado\" no menu "
+"à esquerda. Em seguida, clique em \"Trends.Earth\" na lista de plugins e em "
+"\"Desinstalar plug-in\" para desinstalá-lo."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:109
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to "
 "remove it manually. To manually remove the plugin:"
 msgstr ""
-"Se você encontrar um erro ao desinstalar o plug-in, também é possível "
-"removê-lo manualmente. Para remover manualmente o plug-in:"
+"Se você encontrar um erro ao desinstalar o plugin, também é possível removê-"
+"lo manualmente. Para remover manualmente o plugin:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:112
 msgid "Open QGIS"
@@ -277,16 +276,16 @@ msgid ""
 " Folder\" from the menu under \"Settings\" - \"User Profiles\" on the menu "
 "bar."
 msgstr ""
-"Navegue até onde o plug-in está instalado, selecionando &quot;Abrir pasta de"
-" perfil ativo&quot; no menu em &quot;Configurações&quot; - &quot;Perfis de "
-"usuário&quot; na barra de menus."
+"Navegue até onde o plugin está instalado, selecionando \"Abrir pasta de "
+"perfil ativo\" no menu em \"Configurações\" - \"Perfis de usuário\" na barra"
+" de menus."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:115
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
 msgstr ""
-"Saia do QGIS. Talvez você não consiga desinstalar o plug-in se o QGIS não "
+"Saia do QGIS. Talvez você não consiga desinstalar o plugin se o QGIS não "
 "estiver fechado."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:117
@@ -295,8 +294,8 @@ msgid ""
 " double click on \"plugins\". Delete the LDMP folder within that directory."
 msgstr ""
 "Na janela do navegador de arquivos que foi aberta, clique duas vezes em "
-"&quot;python&quot; e, em seguida, clique duas vezes em &quot;plugins&quot;. "
-"Exclua a pasta LDMP dentro desse diretório."
+"\"python\" e, em seguida, clique duas vezes em \"plugins\". Exclua a pasta "
+"LDMP dentro desse diretório."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:119
 msgid "Restart QGIS."
@@ -448,8 +447,7 @@ msgstr ""
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:189
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr ""
-"Como podemos isolar a invasão de plantas lenhosas dentro da caixa de "
-"ferramentas?"
+"Como podemos isolar a invasão de plantas lenhosas dentro da ferramentas?"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:191
 msgid ""
@@ -493,7 +491,7 @@ msgstr ""
 "consistentemente gerados e comparáveis ​​que avaliam os estoques de carbono "
 "em plantas lenhosas (incluindo arbustos), gramíneas, plantações e outros "
 "tipos de cobertura do solo acima e abaixo do solo, o `Guia de Boas Práticas "
-"(GPG) <https://www.unccd.int/sites/default/files/relevant-"
+"(GBP) <https://www.unccd.int/sites/default/files/relevant-"
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
 "  publicado pelo UNCCD recomenda, por enquanto, usar SOC como indicador."
 
@@ -632,7 +630,7 @@ msgstr "Planos futuros"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:269
 msgid "When will there be an offline version of the toolbox?"
-msgstr "Quando haverá uma versão offline da caixa de ferramentas?"
+msgstr "Quando haverá uma versão offline da ferramenta?"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:271
 msgid ""
@@ -659,8 +657,7 @@ msgstr ""
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:282
 msgid "Will you create a trends.earth toolbox for ESRI users?"
-msgstr ""
-"Você criará uma caixa de ferramentas trends.earth para usuários de ESRI?"
+msgstr "Vocês irão criar uma ferramenta trends.earth para usuários de ESRI?"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:284
 msgid ""

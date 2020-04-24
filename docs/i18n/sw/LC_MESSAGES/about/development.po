@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-24 13:19-0400\n"
 "PO-Revision-Date: 2017-12-15 10:08+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -152,7 +152,7 @@ msgstr ""
 "\\ schemas&quot; ndani ya folda ya trends.earth."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:64
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:417
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:453
 msgid "Installing dependencies"
 msgstr "Kufunga utegemezi"
 
@@ -184,7 +184,7 @@ msgstr ""
 "<https://www.anaconda.com/distribution/#download-section> `_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:80
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:420
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:456
 msgid "Python dependencies"
 msgstr "Utegemezi wa Python"
 
@@ -441,10 +441,56 @@ msgstr ""
 "QGIS3."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:205
+msgid "Syncing and deploying changes to the binaries"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:207
+msgid ""
+"To speed the computations in Trends.Earth, some of the tools allow making "
+"use of pre-compiled binaries that have been compiled using `numba "
+"<https://numba.pydata.org>`_. Numba is an open source compiler that can "
+"compile Python and NumPy code, making it faster than when it is run as "
+"ordinary Python. To avoid users of Trends.Earth needing to download Numba "
+"and all of its dependencies, the Trends.Earth team makes pre-compiled "
+"binaries available for download if users choose to install them."
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:215
+msgid ""
+"To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python"
+" version you are running on your machine, use::"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:220
+msgid ""
+"To make binaries publicly available, they are distributed through an Amazon "
+"Web services S3 bucket. To upload the binaries generated with the above "
+"command to the bucket, run::"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:226
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:236
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:275
+msgid ""
+"The above command will fail if you do not have keys allowing write access to"
+" the ``trends.earth`` bucket on S3."
+msgstr ""
+"Amri hapo juu itashindwa ikiwa hauna funguo huruhusu ufikiaji wa uandishi "
+"kwenye ndoo ya `` mwenendo.earth`` kwenye S3."
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:229
+msgid ""
+"The above command will sync each individual binary file to S3. However, "
+"users of the toolbox download the binaries as a single zipfile tied to the "
+"version of the plugin that they are using. To generate that zipfile so that "
+"it can be accessed by Trends.Earth users, run::"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:241
 msgid "Building a plugin ZIP file"
 msgstr "Kuunda faili ya programu-jalizi ya ZIP"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:207
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:243
 msgid ""
 "There are several invoke tasks to help with building a ZIP file to deploy "
 "the plugin to the QGIS repository, or to share the development version of "
@@ -462,7 +508,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth#installing-"
 "latest-packaged-development-version> `_, kukimbia ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:217
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:253
 msgid ""
 "This command will create a folder named ``build`` at the root of the "
 "trends.earth code folder, and in that folder it will create a file called "
@@ -482,11 +528,11 @@ msgstr ""
 "kuna haja ya kushiriki vipengee vya hivi karibuni na mtu kabla ya kupatikana"
 " katika toleo lililofunguliwa la programu-jalizi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:226
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:262
 msgid "Deploying the development version ZIP file"
 msgstr "Kupeleka faili ya toleo la maendeleo ZIP"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:228
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:264
 msgid ""
 "The Trends.Earth GitHub page gives a link a ZIP file that allows users who "
 "may not be developers to access the development version of Trends.Earth. To "
@@ -498,7 +544,7 @@ msgstr ""
 " Trends.Earth. Ili kuunda faili ya ZIP na kuifanya ipatikane kwenye ukurasa "
 "huo (faili ya ZIP imehifadhiwa kwenye S3), endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:235
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:271
 msgid ""
 "This command will package the plugin and copy it to "
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
@@ -508,19 +554,11 @@ msgstr ""
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
 "<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:239
-msgid ""
-"The above command will fail if you do not have keys allowing write access to"
-" the ``trends.earth`` bucket on S3."
-msgstr ""
-"Amri hapo juu itashindwa ikiwa hauna funguo huruhusu ufikiaji wa uandishi "
-"kwenye ndoo ya `` mwenendo.earth`` kwenye S3."
-
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:243
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:279
 msgid "Modifying the Earth Engine processing code"
 msgstr "Kubadilisha nambari ya usindikaji wa Injini ya Dunia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:246
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:282
 msgid ""
 "The Google Earth Engine (GEE) processing scripts used by Trends.Earth are "
 "all stored in the \"gee\" folder under the main trends.earth folder. For "
@@ -540,15 +578,15 @@ msgstr ""
 "kuwa na akaunti za mtu binafsi kwenye GEE. Hapa chini inaelezea jinsi ya "
 "kujaribu na kupeana hati za GEE kutumiwa na Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:255
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:291
 msgid "Setting up dependencies"
 msgstr "Kuweka utegemezi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:258
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:294
 msgid "trends.earth-CLI"
 msgstr "mwenendo.earth-CLI"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:260
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:296
 msgid ""
 "The \"trends.earth-CLI\" Python package is required in order to work with "
 "the api.trends.earth server. This package is located on GitHub in the "
@@ -560,7 +598,7 @@ msgstr ""
 "katika `trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI> `_"
 " kumbukumbu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:265
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:301
 msgid ""
 "The first step is to clone this repository onto your machine. We recommend "
 "that you clone the repository into the same folder where you the "
@@ -580,7 +618,7 @@ msgstr ""
 "mwenendo.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI> `_ "
 "kumbukumbu ndani ya folda hiyo hiyo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:274
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:310
 msgid ""
 "When you setup your system as recommended above, trends.earth-CLI will work "
 "with the invoke tasks used to manage trends.earth without any modifications."
@@ -601,7 +639,7 @@ msgstr ""
 "hapo chini (ikiwa ulipakua msimbo kwenye Windows kwenye folda inayoitwa "
 "&quot;C: /Users/azvol/Code/trends.earth-CLI/tecli&quot;):"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:288
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:324
 msgid ""
 "Again, you **do not** need to add this .yaml file if you setup your system "
 "as recommended above."
@@ -609,11 +647,11 @@ msgstr ""
 "Tena, hauitaji kuongezea faili hii ya .yaml ikiwa unasanikisha mfumo wako "
 "kama ulivyopendekezwa hapo juu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:292
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:328
 msgid "docker"
 msgstr "kizimbani"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:294
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:330
 msgid ""
 "The trends.earth-CLI package requires `docker <http://www.docker.com>`_ in "
 "order to function. `Follow these instructions to install docker on Windows "
@@ -631,11 +669,11 @@ msgstr ""
 "<https://docs.docker.com/install> `_ ambazo zinafaa kwa usambazaji wa Linux "
 "unayotumia."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:304
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:340
 msgid "Testing an Earth Engine script locally"
 msgstr "Kujaribu hati ya Injini ya Dunia ndani"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:306
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:342
 msgid ""
 "After installing the trends.earth-CLI package, you will need to setup a "
 ".tecli.yml file with an access token to a GEE service account in order to "
@@ -651,13 +689,13 @@ msgstr ""
 "kwa Google wingu la wingu), kisha uwaze kwa msingi. Toa ufunguo huo "
 "uliosimbwa wa tecli kwa amri ifuatayo ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:315
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:351
 msgid "where \"key\" is the base64 encoded JSON format service account key."
 msgstr ""
 "ambapo &quot;ufunguo&quot; ni ufunguo wa akaunti ya huduma ya fomati ya JSON"
 " ya msingi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:317
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:353
 msgid ""
 "While converting a script specifying code to be run on GEE from JavaScript "
 "to Python, or when making modifications to that code, it can be useful to "
@@ -672,7 +710,7 @@ msgstr ""
 "api.trends.earth. Ili kufanya hivyo, tumia kazi ya `` `run`` ya kuvamia. "
 "Mfano"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:326
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:362
 msgid ""
 "This will use the trends.earth-CLI package to build and run a docker "
 "container that will attempt to run the \"land_cover\" script. If there are "
@@ -686,11 +724,11 @@ msgstr ""
 " Kabla ya kuwasilisha hati mpya kwa api.trends.earth, kila wakati hakikisha "
 "kwamba `` gundua tecli-run`` ina uwezo wa kuendesha hati bila makosa yoyote."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:332
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:368
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
 msgstr "Unapotumia `` kuvamia tecli-run`` unaweza kupata kosa kusema:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:340
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:376
 msgid ""
 "This error can be caused if the clock on the docker container gets out of "
 "sync with the system clock. Restarting docker should fix this error."
@@ -699,11 +737,11 @@ msgstr ""
 "kusawazisha na saa ya mfumo. Kuanzisha kizimbani kinapaswa kurekebisha kosa "
 "hili."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:344
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:380
 msgid "Deploying a GEE script to api.trends.earth"
 msgstr "Kupeleka hati ya GEE kwa api.trends.earth"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:346
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:382
 msgid ""
 "When you have finished testing a GEE script and would like it to be "
 "accessible using the QGIS plugin (and by other users of Trends.Earth), you "
@@ -715,7 +753,7 @@ msgstr ""
 " seva ya api.trends.earth. Hatua ya kwanza katika mchakato ni kuingia kwenye"
 " seva ya api.trends.earth. Ili kuingia, endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:353
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:389
 msgid ""
 "You will be asked for a username and password. These are the same as the "
 "username and password that you use to login to the Trends.Earth server from "
@@ -729,7 +767,7 @@ msgstr ""
 "itashindwa **. Ili kupakia hati (kwa mfano, hati ya &quot;land_cover&quot;) "
 "kwenye seva, endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:361
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:397
 msgid ""
 "If this script already exists on the server, you will be asked if you want "
 "to overwrite the existing script. Be very careful uploading scripts with "
@@ -744,7 +782,7 @@ msgstr ""
 "wowote unapojaribu hakikisha kutumia nambari za toleo la maendeleo (nambari "
 "za toleo isiyo ya kawaida)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:367
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:403
 msgid ""
 "After publishing a script to the server, you can use the `tecli-info` task "
 "to check the status of the script (to know whether it deployed successfully "
@@ -756,7 +794,7 @@ msgstr ""
 " kuunda maandishi kunaweza kuchukua dakika chache). Ili kuangalia hali, ya "
 "hati iliyopitishwa, endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:374
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:410
 msgid ""
 "If you are making a new release of the plugin, and want to upload ALL of the"
 " GEE scripts at once (this is necessary whenever the plugin version number "
@@ -766,7 +804,7 @@ msgstr ""
 "zote za GEE mara moja (hii ni muhimu wakati wowote mabadiliko ya nambari ya "
 "programu-jalizi), kukimbia ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:380
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:416
 msgid ""
 "Again - never run the above on a publicly released version of the plugin "
 "unless you are intending to overwrite all the publicly available scripts "
@@ -776,15 +814,15 @@ msgstr ""
 "programu-jalizi isipokuwa unakusudia kufuta maandishi yote yanayopatikana "
 "hadharani na programu-jalizi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:385
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:421
 msgid "Contributing to the documentation"
 msgstr "Kuchangia kwa nyaraka"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:388
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:424
 msgid "Overview"
 msgstr "Maelezo ya jumla"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:390
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:426
 msgid ""
 "The documentation for Trends.Earth is produced using `Sphinx <http://www"
 ".sphinx-doc.org/en/master/>`_, and is written in `reStructuredText "
@@ -798,7 +836,7 @@ msgstr ""
 "yoyote ya zana hizi, angalia hati zao kwa habari zaidi juu ya jinsi "
 "zinatumiwa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:396
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:432
 msgid ""
 "The documentation for Trends.Earth is stored in the \"docs\" folder under "
 "the main trends.earth directory. Within that folder there are a number of "
@@ -808,7 +846,7 @@ msgstr ""
 " saraka kuu ya mwenendo.sarth. Ndani ya folda hiyo kuna idadi ya faili na "
 "folda za kufahamu:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:400
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:436
 msgid ""
 "build: contains the build documentation for trends.earth (in PDF and HTML "
 "format). Note it will only appear on your machine after running the ``docs-"
@@ -818,7 +856,7 @@ msgstr ""
 "HTML). Kumbuka itaonekana tu kwenye mashine yako baada ya kuendesha `` hati "
 "ya ujenzi wa `` `` `."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:403
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:439
 msgid ""
 "i18n: contains translations of the documentation into other languages. The "
 "files in here are normally processed automatically using invoke tasks, so "
@@ -828,7 +866,7 @@ msgstr ""
 "husindika kiatomati kwa kutumia kazi za kuvuta, kwa hivyo haupaswi kuwa na "
 "sababu ya kurekebisha chochote kwenye folda hii."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:406
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:442
 msgid ""
 "resources: contains any resources (primarily images or PDFs) that are "
 "referred to in the documentation. Currently there is only one folder "
@@ -844,7 +882,7 @@ msgstr ""
 "ya &quot;rasilimali&quot; zilizo na nambari mbili za lugha ya barua picha "
 "maalum kwa lugha fulani."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:412
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:448
 msgid ""
 "source: contains the reStructuredText source files that define the "
 "documentation (these are the actual English text of the documentation, and "
@@ -854,7 +892,7 @@ msgstr ""
 " (hizi ni maandishi halisi ya Kiingereza ya nyaraka, na ni faili ambazo "
 "unahitajika kuzibadilisha)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:422
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:458
 msgid ""
 "In order to work with the documentation, you need to have invoke, Sphinx, "
 "sphinx-intl, and sphinx-rtd-theme (the theme for the Trends.Earth website) "
@@ -869,16 +907,16 @@ msgstr ""
 "kuzunguka kwa agizo la amri hadi kwenye mzizi wa folda ya kanuni ya "
 "trends.earth na kuandika ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:431
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:467
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:433
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:469
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for Trends.Earth."
 msgstr "LaTeX hutumiwa kutengeneza matokeo ya hati za Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:435
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:471
 msgid ""
 "To install on Windows, `follow the process outlined here "
 "<https://www.tug.org/protext>`_ to install the proTeXt distribution of LaTeX"
@@ -894,7 +932,7 @@ msgstr ""
 "Kisakinishi cha LaTeX ni kubwa kabisa (GB kadhaa) kwa hivyo inaweza kuchukua"
 " muda kupakua na kusanikisha."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:442
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:478
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
@@ -902,7 +940,7 @@ msgstr ""
 "Kwenye MacOS, MacTeX ni chaguo nzuri, na inaweza kusanikishwa `kufuata "
 "maagizo hapa <http://www.tug.org/mactex/> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:445
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:481
 msgid ""
 "On Linux, installing LaTeX should be much easier - use your distribution's "
 "package manager to find and install whatever LaTeX distribution is included "
@@ -912,11 +950,11 @@ msgstr ""
 " wa kifurushi cha usambazaji wako kupata na kusanikisha usambazaji wowote wa"
 " LaTeX ni pamoja na default."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:450
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:486
 msgid "Updating and building the documentation"
 msgstr "Kusasisha na kujenga hati"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:452
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:488
 msgid ""
 "Once you have installed the sphinx requirements, you are ready to begin "
 "modifying the documentation. The files to modify are located under the "
@@ -945,7 +983,7 @@ msgstr ""
 "Chaguo hili litaunda nyaraka za HTML za Kiingereza tu, ambazo zinapaswa "
 "kuchukua sekunde chache. Ili kujenga kwa kutumia chaguo haraka, endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:468
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:504
 msgid ""
 "The above command will take a few seconds to run, and then if you look under"
 " \"docs\\\\build\\\\html\\\\en\", you will see the HTML version of the "
@@ -957,7 +995,7 @@ msgstr ""
 "HTML la nyaraka. Pakia faili ya &quot;index.html&quot; katika kivinjari cha "
 "wavuti kuona jinsi inavyoonekana."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:472
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:508
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
@@ -965,7 +1003,7 @@ msgstr ""
 "Ili kuunda hati kamili, kwa lugha zote, katika PDF na HTML (kumbuka hii "
 "inaweza kuchukua masaa machache kukamilisha), endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:477
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:513
 msgid ""
 "After running the above command you will see (for English) the HTML "
 "documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
@@ -975,7 +1013,7 @@ msgstr ""
 "chini ya &quot;hati \\ \\ kujenga \\\\ html \\\\ en&quot;, na PDF za hati "
 "chini ya &quot;hati \\ \\ kujenga \\\\ html \\ &quot;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:481
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:517
 msgid ""
 "If you want to test a specific language (when testing translations, for "
 "example), you can specify a two letter language code to only build the docs "
@@ -986,7 +1024,7 @@ msgstr ""
 " unaweza kutaja nambari ya lugha mbili ya barua ili kuunda hati za lugha "
 "hiyo tu. Kwa mfano, kuunda hati za Uhispania tu, endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:488
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:524
 msgid ""
 "Note that options can be combined, so you can use the fast option to build "
 "only the HTML version of the Spanish documentation by running::"
@@ -994,7 +1032,7 @@ msgstr ""
 "Kumbuka kuwa chaguzi zinaweza kuunganishwa, kwa hivyo unaweza kutumia chaguo"
 " haraka kujenga tu toleo la HTML la nyaraka za Uhispania kwa kuendesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:493
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:529
 msgid ""
 "When building the full documentation for the website, it is a good idea to "
 "first remove any old builds of the documentation, as they might contain "
@@ -1005,7 +1043,7 @@ msgstr ""
 "wowote wa nyaraka, kwani zinaweza kuwa na faili ambazo hazitumiwi tena "
 "katika hati mpya. Ili kufanya hivyo, tumia chaguo la `` -c`` (safi) ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:500
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:536
 msgid ""
 "In general, docs-build MUST complete without any errors if you are planning "
 "to share the documentation or post it on the website. However, when testing "
@@ -1023,7 +1061,7 @@ msgstr ""
 "bila kujali ikiwa kuna makosa yoyote . Ili kufanya hivyo, tumia chaguo la ``"
 " -i`` (kupuuza makosa) ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:509
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:545
 msgid ""
 "Whenever you make any changes to the text of the documentation, it is a good"
 " idea to push the latest strings to Transifex so they can be translated. To "
@@ -1034,7 +1072,7 @@ msgstr ""
 "kutafsiri. Ili kusasisha kamba kwenye Transifex na mabadiliko yoyote mapya, "
 "endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:515
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:551
 msgid ""
 "To successfully run the above command you will need to have the key for the "
 "Trends.Earth transifex account."
@@ -1042,11 +1080,11 @@ msgstr ""
 "Ili kuendesha vizuri amri ya hapo juu utahitaji kuwa na ufunguo wa akaunti "
 "ya Trends.Earth transifex."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:519
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:555
 msgid "Building documentation for release"
 msgstr "Nyaraka za ujenzi wa kutolewa"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:521
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:557
 msgid ""
 "Before releasing new documentation, always pull the latest translations from"
 " Transifex so that all translations are up to date. To do this, run::"
@@ -1055,7 +1093,7 @@ msgstr ""
 "karibuni kutoka Transifex ili tafsiri zote ziwe za kisasa. Ili kufanya "
 "hivyo, endesha ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:526
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:562
 msgid ""
 "To build a version of the documentation for public release (either to the "
 "website, or in PDF) you must build the entire documentation using ``docs-"
@@ -1065,7 +1103,7 @@ msgstr ""
 "PDF) lazima ujenge hati zote ukitumia `` hati-jenga`` bila vigezo vya ziada "
 "::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:532
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:568
 msgid ""
 "This process must complete successfully with no errors. If any errors occur "
 "during the process, review the error message, and make any modifications "
@@ -1077,7 +1115,7 @@ msgstr ""
 "yanayohitajika ili kuruhusu ujenzi kukamilisha. Mara tu ujenzi ukikamilika "
 "bila makosa, faili ziko tayari kupelekwa kwenye wavuti."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:537
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:573
 msgid ""
 "Both of the above commands also have ``-f`` (force) options that force "
 "pulling or pushing the latest translations from or to Transifex "
@@ -1093,11 +1131,11 @@ msgstr ""
 " kusababisha kazi iliyopotea iliyofanywa na watafsiri ikiwa tafsiri za hivi "
 "karibuni bado hazijakamilika kwa github."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:545
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:581
 msgid "Adding new documentation text"
 msgstr "Kuongeza maandishi mpya ya nyaraka"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:547
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:583
 msgid ""
 "Any new .rst files that are added to the documentation need to be added to "
 "several configuration files to ensure they appear in the navigation menu, "
@@ -1105,7 +1143,7 @@ msgid ""
 "are generated in PDF so they can be downloaded for offline use."
 msgstr "Faili zozote mpya. kupakuliwa kwa matumizi ya nje ya mkondo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:552
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:588
 msgid ""
 "docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
 "here to ensure that they are linked to from the navigation menu."
@@ -1113,7 +1151,7 @@ msgstr ""
 "hati \\\\ chanzo \\\\ index.rst: ongeza faili mpya .rst mahali sahihi hapa "
 "ili kuhakikisha kuwa zinaunganishwa kutoka kwa menyu ya urambazaji."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:554
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:590
 msgid ""
 ".tx\\\\config: list new .rst files here (in the same format as the other "
 "files already included) in order to make the translation software aware of "
@@ -1123,7 +1161,7 @@ msgstr ""
 "zingine tayari zimejumuishwa) ili kufanya programu ya utaftaji kuwajua ili "
 "waweze kutafsiri"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:557
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:593
 msgid ""
 "docs\\\\source\\\\conf.py: if you want to generate a PDF file of page of the"
 " website, then you must list that page here in the ``latex_documents`` list."
@@ -1137,11 +1175,11 @@ msgstr ""
 "kwenye wavuti utajumuishwa katika toleo la wavuti kwa ujumla, bila kujali "
 "iko katika orodha ya `` latex_documents``."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:565
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:601
 msgid "Adding new images or other resources"
 msgstr "Kuongeza picha mpya au rasilimali zingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:567
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:603
 msgid ""
 "Any new images or other resources (PDFs, etc.) that are needed by the "
 "documentation should be added under \"docs\\\\resources\\\\en\". If desired,"
@@ -1170,7 +1208,7 @@ msgstr ""
 "zote ambazo toleo la asili la picha halijatolewa, wakati toleo la ndani "
 "litatumika wakati linapatikana."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:580
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:616
 msgid ""
 "There is another folder, ``docs\\\\source\\\\static``, that is used to hold "
 "resources temporarily while running the scripts that build the Trends.Earth "
@@ -1187,11 +1225,11 @@ msgstr ""
 "kutumiwa kuongeza rasilimali mpya ** - rasilimali mpya zinapaswa kuendelea "
 "chini ya `` hati zote \\ rasilimali&gt; \\ rasilimali``."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:589
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:625
 msgid "Contributing as a translator"
 msgstr "Kuchangia kama mtafsiri"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:591
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:627
 msgid ""
 "The translations for both the QGIS plugin and also for this site are managed"
 " by `transifex <http://www.transifex.com>`_. If you'd like to contribute to "

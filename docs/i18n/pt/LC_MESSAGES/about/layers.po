@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2019-07-23 19:36+0000\n"
 "Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -155,7 +155,7 @@ msgstr "-32768"
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:481
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:500
 msgid "No data"
-msgstr "NoData"
+msgstr "Sem Dados (NoData)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:25
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:60
@@ -495,7 +495,7 @@ msgstr "12"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:238
 msgid "Tree or shrub cover"
-msgstr "Cobertura com árvores ou arbusto"
+msgstr "Cobertura arbórea ou arbustos"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:240
 msgid "20"
@@ -514,7 +514,7 @@ msgid ""
 "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
 "(<50%)"
 msgstr ""
-"Terra de cultivo em mosaico (>50%)/vegetação natural (árvore, arbusto, "
+"Área de cultivo em mosaico (>50%)/vegetação natural (árvore, arbusto, "
 "cobertura herbácea) (<50%)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:244
@@ -657,7 +657,7 @@ msgstr "121"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:274
 msgid "Evergreen shrubland"
-msgstr "Arbusto sempre-verde"
+msgstr "Arbustivo sempre-verde"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:276
 msgid "122"
@@ -705,7 +705,7 @@ msgstr "152"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:286
 msgid "Sparse shrub (<15%)"
-msgstr "Arbustos esparsos (<15%)"
+msgstr "Arbustivo esparso (<15%)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:288
 msgid "153"
@@ -721,7 +721,7 @@ msgstr "160"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:290
 msgid "Tree cover, flooded, fresh or brakish water"
-msgstr "Cobertura de árvores, área inundada de água doce ou salobra"
+msgstr "Cobertura arbórea, área inundada de água doce ou salobra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:292
 msgid "170"
@@ -729,7 +729,7 @@ msgstr "170"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:292
 msgid "Tree cover, flooded, saline water"
-msgstr "Cobertura de árvores, área inundada de água salgada"
+msgstr "Cobertura arbórea, área inundada de água salgada"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:294
 msgid "180"
@@ -813,7 +813,7 @@ msgstr "Artificial - Artificial (sem alteração)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:327
 msgid "Other land - Other land (no change)"
-msgstr "Outro uso da terra -Outro uso da terra (sem alteração)"
+msgstr "Outra cobertura da terra - Outra cobertura da terra (sem alteração)"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:329
 msgid "Water body - Water body (no change)"
@@ -853,7 +853,7 @@ msgstr "16"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:339
 msgid "Forest - Other land"
-msgstr "Floresta - Outro uso da terra"
+msgstr "Floresta - Outra cobertura da terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:341
 msgid "17"
@@ -901,7 +901,7 @@ msgstr "26"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:351
 msgid "Grassland - Other land"
-msgstr "Gramíneas/Pastagem - Outro uso da terra"
+msgstr "Gramíneas/Pastagem - Outra cobertura da terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:353
 msgid "27"
@@ -917,7 +917,7 @@ msgstr "31"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:355
 msgid "Cropland - Forest"
-msgstr "Cropland - Floresta"
+msgstr "Área de cultivo - Floresta"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:357
 msgid "32"
@@ -949,7 +949,7 @@ msgstr "36."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:363
 msgid "Cropland - Other land"
-msgstr "Área de cultivo - Outro uso da terra"
+msgstr "Área de cultivo - Outra cobertura da terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:365
 msgid "37"
@@ -989,7 +989,7 @@ msgstr "45"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:373
 msgid "Wetland - Artificial"
-msgstr "Áre úmida - Artificial"
+msgstr "Área úmida - Artificial"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:375
 msgid "46"
@@ -997,7 +997,7 @@ msgstr "46."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:375
 msgid "Wetland - Other land"
-msgstr "Áre úmida - Outro uso da terra"
+msgstr "Áre úmida - Outra cobertura da terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:377
 msgid "47"
@@ -1045,7 +1045,7 @@ msgstr "56."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:387
 msgid "Artificial - Other land"
-msgstr "Artificial - Outro uso da terra"
+msgstr "Artificial - Outra cobertura da terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:389
 msgid "57"
@@ -1057,11 +1057,11 @@ msgstr "Artificial - Corpo d'água"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:391
 msgid "Other land - Forest"
-msgstr "Outro uso da terra - Floresta"
+msgstr "Outra cobertura da terra - Floresta"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:393
 msgid "Other land - Grassland"
-msgstr "Outro uso da terra - Gramíneas/Pastagem"
+msgstr "Outra cobertura da terra - Gramíneas/Pastagem"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:395
 msgid "63"
@@ -1069,7 +1069,7 @@ msgstr "63."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:395
 msgid "Other land - Cropland"
-msgstr "Outro uso da terra - Área de cultivo"
+msgstr "Outra cobertura da terra - Área de cultivo"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:397
 msgid "64"
@@ -1077,7 +1077,7 @@ msgstr "64"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:397
 msgid "Other land - Wetland"
-msgstr "Outro uso da terra - Área úmida"
+msgstr "Outra cobertura da terra - Área úmida"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:399
 msgid "65"
@@ -1085,7 +1085,7 @@ msgstr "65"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:399
 msgid "Other land - Artificial"
-msgstr "Outro uso da terra - Artificial"
+msgstr "Outra cobertura da terra - Artificial"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:401
 msgid "67"
@@ -1093,7 +1093,7 @@ msgstr "67"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:401
 msgid "Other land - Water body"
-msgstr "Outro uso da terra - Corpo d'água"
+msgstr "Outra cobertura da terra - Corpo d'água"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:403
 msgid "Water body - Forest"
@@ -1133,7 +1133,7 @@ msgstr "76"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:413
 msgid "Water body - Other land"
-msgstr "Corpo d'água - Outro uso da terra"
+msgstr "Corpo d'água - Outra cobertura da terra"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:417
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:434

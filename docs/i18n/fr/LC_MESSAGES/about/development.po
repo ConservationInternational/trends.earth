@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-24 13:19-0400\n"
 "PO-Revision-Date: 2017-12-15 10:08+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -155,7 +155,7 @@ msgstr ""
 "dossier &quot;LDMP \\\\ schemas&quot; dans le dossier trends.earth."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:64
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:417
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:453
 msgid "Installing dependencies"
 msgstr "Installation de dépendances"
 
@@ -188,7 +188,7 @@ msgstr ""
 "<https://www.anaconda.com/distribution/#download-section> `_."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:80
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:420
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:456
 msgid "Python dependencies"
 msgstr "Dépendances Python"
 
@@ -453,10 +453,56 @@ msgstr ""
 " conçu pour QGIS2 et est toujours en cours de test sur QGIS3."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:205
+msgid "Syncing and deploying changes to the binaries"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:207
+msgid ""
+"To speed the computations in Trends.Earth, some of the tools allow making "
+"use of pre-compiled binaries that have been compiled using `numba "
+"<https://numba.pydata.org>`_. Numba is an open source compiler that can "
+"compile Python and NumPy code, making it faster than when it is run as "
+"ordinary Python. To avoid users of Trends.Earth needing to download Numba "
+"and all of its dependencies, the Trends.Earth team makes pre-compiled "
+"binaries available for download if users choose to install them."
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:215
+msgid ""
+"To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python"
+" version you are running on your machine, use::"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:220
+msgid ""
+"To make binaries publicly available, they are distributed through an Amazon "
+"Web services S3 bucket. To upload the binaries generated with the above "
+"command to the bucket, run::"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:226
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:236
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:275
+msgid ""
+"The above command will fail if you do not have keys allowing write access to"
+" the ``trends.earth`` bucket on S3."
+msgstr ""
+"La commande ci-dessus échouera si vous ne disposez pas de clés permettant "
+"l&#39;accès en écriture au compartiment `` trends.earth &#39;&#39; sur S3."
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:229
+msgid ""
+"The above command will sync each individual binary file to S3. However, "
+"users of the toolbox download the binaries as a single zipfile tied to the "
+"version of the plugin that they are using. To generate that zipfile so that "
+"it can be accessed by Trends.Earth users, run::"
+msgstr ""
+
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:241
 msgid "Building a plugin ZIP file"
 msgstr "Construire un fichier ZIP de plugin"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:207
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:243
 msgid ""
 "There are several invoke tasks to help with building a ZIP file to deploy "
 "the plugin to the QGIS repository, or to share the development version of "
@@ -474,7 +520,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth#installing-"
 "latest-packaged-development-version> `_, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:217
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:253
 msgid ""
 "This command will create a folder named ``build`` at the root of the "
 "trends.earth code folder, and in that folder it will create a file called "
@@ -494,11 +540,11 @@ msgstr ""
 "nécessaire de partager les dernières fonctionnalités avec quelqu&#39;un "
 "avant qu&#39;elles ne soient disponibles dans la version publique du plugin."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:226
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:262
 msgid "Deploying the development version ZIP file"
 msgstr "Déploiement du fichier ZIP de la version de développement"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:228
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:264
 msgid ""
 "The Trends.Earth GitHub page gives a link a ZIP file that allows users who "
 "may not be developers to access the development version of Trends.Earth. To "
@@ -510,7 +556,7 @@ msgstr ""
 " de développement de Trends.Earth. Pour créer un fichier ZIP et le rendre "
 "disponible sur cette page (le fichier ZIP est stocké sur S3), exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:235
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:271
 msgid ""
 "This command will package the plugin and copy it to "
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
@@ -520,19 +566,11 @@ msgstr ""
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
 "<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:239
-msgid ""
-"The above command will fail if you do not have keys allowing write access to"
-" the ``trends.earth`` bucket on S3."
-msgstr ""
-"La commande ci-dessus échouera si vous ne disposez pas de clés permettant "
-"l&#39;accès en écriture au compartiment `` trends.earth &#39;&#39; sur S3."
-
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:243
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:279
 msgid "Modifying the Earth Engine processing code"
 msgstr "Modification du code de traitement Earth Engine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:246
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:282
 msgid ""
 "The Google Earth Engine (GEE) processing scripts used by Trends.Earth are "
 "all stored in the \"gee\" folder under the main trends.earth folder. For "
@@ -553,15 +591,15 @@ msgstr ""
 "d&#39;utilisateurs individuels sur GEE. Ce qui suit décrit comment tester et"
 " déployer des scripts GEE à utiliser avec Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:255
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:291
 msgid "Setting up dependencies"
 msgstr "Configuration des dépendances"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:258
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:294
 msgid "trends.earth-CLI"
 msgstr "trends.earth-CLI"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:260
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:296
 msgid ""
 "The \"trends.earth-CLI\" Python package is required in order to work with "
 "the api.trends.earth server. This package is located on GitHub in the "
@@ -573,7 +611,7 @@ msgstr ""
 "`tendances.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI> `_ "
 "référentiel."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:265
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:301
 msgid ""
 "The first step is to clone this repository onto your machine. We recommend "
 "that you clone the repository into the same folder where you the "
@@ -593,7 +631,7 @@ msgstr ""
 ".earth-CLI <https://github.com/Vizzuality/trends.earth-CLI> `_ référentiel "
 "dans ce même dossier."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:274
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:310
 msgid ""
 "When you setup your system as recommended above, trends.earth-CLI will work "
 "with the invoke tasks used to manage trends.earth without any modifications."
@@ -614,7 +652,7 @@ msgstr ""
 "téléchargé le code sur Windows dans un dossier appelé &quot;C: "
 "/Users/azvol/Code/trends.earth-CLI/tecli&quot;):"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:288
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:324
 msgid ""
 "Again, you **do not** need to add this .yaml file if you setup your system "
 "as recommended above."
@@ -622,11 +660,11 @@ msgstr ""
 "Encore une fois, vous ** n&#39;avez ** pas besoin d&#39;ajouter ce fichier "
 ".yaml si vous configurez votre système comme recommandé ci-dessus."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:292
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:328
 msgid "docker"
 msgstr "docker"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:294
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:330
 msgid ""
 "The trends.earth-CLI package requires `docker <http://www.docker.com>`_ in "
 "order to function. `Follow these instructions to install docker on Windows "
@@ -644,11 +682,11 @@ msgstr ""
 "instructions sur cette page <https://docs.docker.com/install> `_ qui "
 "conviennent à la distribution Linux que vous utilisez."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:304
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:340
 msgid "Testing an Earth Engine script locally"
 msgstr "Test local d&#39;un script Earth Engine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:306
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:342
 msgid ""
 "After installing the trends.earth-CLI package, you will need to setup a "
 ".tecli.yml file with an access token to a GEE service account in order to "
@@ -664,13 +702,13 @@ msgstr ""
 "JSON (à partir de la console Google Cloud), puis codez-la en base64. "
 "Fournissez cette clé encodée en base64 à tecli avec la commande suivante:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:315
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:351
 msgid "where \"key\" is the base64 encoded JSON format service account key."
 msgstr ""
 "où &quot;clé&quot; est la clé de compte de service au format JSON codé en "
 "base64."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:317
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:353
 msgid ""
 "While converting a script specifying code to be run on GEE from JavaScript "
 "to Python, or when making modifications to that code, it can be useful to "
@@ -687,7 +725,7 @@ msgstr ""
 "accédez au répertoire racine du code Trends.Earth et, dans une invite de "
 "commandes, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:326
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:362
 msgid ""
 "This will use the trends.earth-CLI package to build and run a docker "
 "container that will attempt to run the \"land_cover\" script. If there are "
@@ -702,13 +740,13 @@ msgstr ""
 "soumettre un nouveau script à api.trends.earth, assurez-vous toujours que ``"
 " invoke tecli-run`` est capable d&#39;exécuter le script sans aucune erreur."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:332
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:368
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
 msgstr ""
 "Lorsque vous utilisez `` invoke tecli-run``, vous pouvez obtenir une erreur "
 "indiquant:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:340
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:376
 msgid ""
 "This error can be caused if the clock on the docker container gets out of "
 "sync with the system clock. Restarting docker should fix this error."
@@ -717,11 +755,11 @@ msgstr ""
 "n&#39;est plus synchronisée avec l&#39;horloge système. Le redémarrage de "
 "Docker devrait corriger cette erreur."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:344
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:380
 msgid "Deploying a GEE script to api.trends.earth"
 msgstr "Déploiement d&#39;un script GEE sur api.trends.earth"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:346
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:382
 msgid ""
 "When you have finished testing a GEE script and would like it to be "
 "accessible using the QGIS plugin (and by other users of Trends.Earth), you "
@@ -734,7 +772,7 @@ msgstr ""
 "api.trends.earth. La première étape du processus consiste à se connecter au "
 "serveur api.trends.earth. Pour vous connecter, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:353
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:389
 msgid ""
 "You will be asked for a username and password. These are the same as the "
 "username and password that you use to login to the Trends.Earth server from "
@@ -749,7 +787,7 @@ msgstr ""
 "commande ci-dessous échouera **. Pour télécharger un script (par exemple, le"
 " script &quot;land_cover&quot;) sur le serveur, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:361
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:397
 msgid ""
 "If this script already exists on the server, you will be asked if you want "
 "to overwrite the existing script. Be very careful uploading scripts with "
@@ -765,7 +803,7 @@ msgstr ""
 "vous d&#39;utiliser des numéros de version de développement (numéros de "
 "version impairs)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:367
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:403
 msgid ""
 "After publishing a script to the server, you can use the `tecli-info` task "
 "to check the status of the script (to know whether it deployed successfully "
@@ -778,7 +816,7 @@ msgstr ""
 "prendre quelques minutes). Pour vérifier l&#39;état d&#39;un script déployé,"
 " exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:374
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:410
 msgid ""
 "If you are making a new release of the plugin, and want to upload ALL of the"
 " GEE scripts at once (this is necessary whenever the plugin version number "
@@ -788,7 +826,7 @@ msgstr ""
 "télécharger TOUS les scripts GEE à la fois (cela est nécessaire chaque fois "
 "que le numéro de version du plugin change), exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:380
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:416
 msgid ""
 "Again - never run the above on a publicly released version of the plugin "
 "unless you are intending to overwrite all the publicly available scripts "
@@ -798,15 +836,15 @@ msgstr ""
 "publique du plugin, sauf si vous avez l&#39;intention d&#39;écraser tous les"
 " scripts accessibles au public utilisés par le plugin."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:385
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:421
 msgid "Contributing to the documentation"
 msgstr "Contribuer à la documentation"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:388
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:424
 msgid "Overview"
 msgstr "Aperçu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:390
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:426
 msgid ""
 "The documentation for Trends.Earth is produced using `Sphinx <http://www"
 ".sphinx-doc.org/en/master/>`_, and is written in `reStructuredText "
@@ -820,7 +858,7 @@ msgstr ""
 "vous n&#39;êtes pas familier avec l&#39;un de ces outils, consultez leur "
 "documentation pour plus d&#39;informations sur leur utilisation."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:396
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:432
 msgid ""
 "The documentation for Trends.Earth is stored in the \"docs\" folder under "
 "the main trends.earth directory. Within that folder there are a number of "
@@ -830,7 +868,7 @@ msgstr ""
 "&quot;docs&quot; du répertoire trends.earth principal. Dans ce dossier, il "
 "existe un certain nombre de fichiers et de dossiers clés à connaître:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:400
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:436
 msgid ""
 "build: contains the build documentation for trends.earth (in PDF and HTML "
 "format). Note it will only appear on your machine after running the ``docs-"
@@ -840,7 +878,7 @@ msgstr ""
 "et HTML). Notez qu&#39;il n&#39;apparaîtra sur votre machine qu&#39;après "
 "avoir exécuté la tâche d&#39;appel `` docs-build``."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:403
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:439
 msgid ""
 "i18n: contains translations of the documentation into other languages. The "
 "files in here are normally processed automatically using invoke tasks, so "
@@ -851,7 +889,7 @@ msgstr ""
 "l&#39;aide de tâches d&#39;appel, vous ne devriez donc jamais avoir de "
 "raison de modifier quoi que ce soit dans ce dossier."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:406
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:442
 msgid ""
 "resources: contains any resources (primarily images or PDFs) that are "
 "referred to in the documentation. Currently there is only one folder "
@@ -868,7 +906,7 @@ msgstr ""
 "sous &quot;ressources&quot; avec des codes de langue à deux lettres à "
 "inclure des images spécifiques à une langue particulière."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:412
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:448
 msgid ""
 "source: contains the reStructuredText source files that define the "
 "documentation (these are the actual English text of the documentation, and "
@@ -878,7 +916,7 @@ msgstr ""
 "documentation (ce sont le texte anglais réel de la documentation, et ce sont"
 " les fichiers que vous devrez probablement modifier)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:422
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:458
 msgid ""
 "In order to work with the documentation, you need to have invoke, Sphinx, "
 "sphinx-intl, and sphinx-rtd-theme (the theme for the Trends.Earth website) "
@@ -893,18 +931,18 @@ msgstr ""
 "être installés en naviguant dans une invite de commande à la racine du "
 "dossier de code trends.earth et en tapant ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:431
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:467
 msgid "LaTeX"
 msgstr "Latex"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:433
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:469
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for Trends.Earth."
 msgstr ""
 "LaTeX est utilisé pour produire des sorties PDF de la documentation de "
 "Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:435
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:471
 msgid ""
 "To install on Windows, `follow the process outlined here "
 "<https://www.tug.org/protext>`_ to install the proTeXt distribution of LaTeX"
@@ -921,7 +959,7 @@ msgstr ""
 "Go), le téléchargement et l&#39;installation peuvent donc prendre un certain"
 " temps."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:442
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:478
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
@@ -929,7 +967,7 @@ msgstr ""
 "Sur MacOS, MacTeX est une bonne option, et peut être installé `en suivant "
 "les instructions ici <http://www.tug.org/mactex/> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:445
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:481
 msgid ""
 "On Linux, installing LaTeX should be much easier - use your distribution's "
 "package manager to find and install whatever LaTeX distribution is included "
@@ -939,11 +977,11 @@ msgstr ""
 "utilisez le gestionnaire de packages de votre distribution pour rechercher "
 "et installer la distribution LaTeX incluse par défaut."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:450
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:486
 msgid "Updating and building the documentation"
 msgstr "Mise à jour et construction de la documentation"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:452
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:488
 msgid ""
 "Once you have installed the sphinx requirements, you are ready to begin "
 "modifying the documentation. The files to modify are located under the "
@@ -976,7 +1014,7 @@ msgstr ""
 "anglaise, ce qui ne devrait prendre que quelques secondes. Pour construire "
 "en utilisant l&#39;option rapide, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:468
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:504
 msgid ""
 "The above command will take a few seconds to run, and then if you look under"
 " \"docs\\\\build\\\\html\\\\en\", you will see the HTML version of the "
@@ -988,7 +1026,7 @@ msgstr ""
 "verrez la version HTML de la documentation. Chargez le fichier "
 "&quot;index.html&quot; dans un navigateur Web pour voir à quoi il ressemble."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:472
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:508
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
@@ -997,7 +1035,7 @@ msgstr ""
 "et en HTML (rappelez-vous que cela peut prendre quelques heures), exécutez "
 "::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:477
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:513
 msgid ""
 "After running the above command you will see (for English) the HTML "
 "documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
@@ -1008,7 +1046,7 @@ msgstr ""
 " les PDF de la documentation sous &quot;docs \\\\ build \\\\ html \\\\ en "
 "\\\\ pdfs &quot;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:481
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:517
 msgid ""
 "If you want to test a specific language (when testing translations, for "
 "example), you can specify a two letter language code to only build the docs "
@@ -1020,7 +1058,7 @@ msgstr ""
 "lettres pour créer uniquement les documents pour cette langue. Par exemple, "
 "pour créer la documentation espagnole uniquement, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:488
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:524
 msgid ""
 "Note that options can be combined, so you can use the fast option to build "
 "only the HTML version of the Spanish documentation by running::"
@@ -1029,7 +1067,7 @@ msgstr ""
 "l&#39;option rapide pour créer uniquement la version HTML de la "
 "documentation espagnole en exécutant ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:493
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:529
 msgid ""
 "When building the full documentation for the website, it is a good idea to "
 "first remove any old builds of the documentation, as they might contain "
@@ -1042,7 +1080,7 @@ msgstr ""
 "utilisés dans la documentation mise à jour. Pour ce faire, utilisez "
 "l&#39;option `` -c`` (propre) ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:500
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:536
 msgid ""
 "In general, docs-build MUST complete without any errors if you are planning "
 "to share the documentation or post it on the website. However, when testing "
@@ -1061,7 +1099,7 @@ msgstr ""
 "restante, qu&#39;il y ait ou non des erreurs. . Pour ce faire, utilisez "
 "l&#39;option `` -i`` (ignorer les erreurs) ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:509
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:545
 msgid ""
 "Whenever you make any changes to the text of the documentation, it is a good"
 " idea to push the latest strings to Transifex so they can be translated. To "
@@ -1072,7 +1110,7 @@ msgstr ""
 "vers Transifex afin qu&#39;elles puissent être traduites. Pour mettre à jour"
 " les chaînes sur Transifex avec de nouvelles modifications, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:515
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:551
 msgid ""
 "To successfully run the above command you will need to have the key for the "
 "Trends.Earth transifex account."
@@ -1080,11 +1118,11 @@ msgstr ""
 "Pour exécuter correctement la commande ci-dessus, vous devez disposer de la "
 "clé du compte Transifex Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:519
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:555
 msgid "Building documentation for release"
 msgstr "Documentation de construction pour publication"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:521
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:557
 msgid ""
 "Before releasing new documentation, always pull the latest translations from"
 " Transifex so that all translations are up to date. To do this, run::"
@@ -1093,7 +1131,7 @@ msgstr ""
 "traductions de Transifex afin que toutes les traductions soient à jour. Pour"
 " ce faire, exécutez ::"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:526
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:562
 msgid ""
 "To build a version of the documentation for public release (either to the "
 "website, or in PDF) you must build the entire documentation using ``docs-"
@@ -1103,7 +1141,7 @@ msgstr ""
 " le site Web, soit en PDF), vous devez créer la documentation entière en "
 "utilisant `` docs-build`` sans paramètres supplémentaires:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:532
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:568
 msgid ""
 "This process must complete successfully with no errors. If any errors occur "
 "during the process, review the error message, and make any modifications "
@@ -1116,7 +1154,7 @@ msgstr ""
 "terminer avec succès. Une fois la construction terminée sans erreur, les "
 "fichiers sont prêts à être déployés sur le site Web."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:537
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:573
 msgid ""
 "Both of the above commands also have ``-f`` (force) options that force "
 "pulling or pushing the latest translations from or to Transifex "
@@ -1132,11 +1170,11 @@ msgstr ""
 "traductions sur Transifex, entraînant une perte de travail des traducteurs "
 "si les dernières traductions n&#39;ont pas encore été validées dans github."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:545
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:581
 msgid "Adding new documentation text"
 msgstr "Ajout d&#39;un nouveau texte de documentation"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:547
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:583
 msgid ""
 "Any new .rst files that are added to the documentation need to be added to "
 "several configuration files to ensure they appear in the navigation menu, "
@@ -1150,7 +1188,7 @@ msgstr ""
 "qu&#39;ils sont générés en PDF afin qu&#39;ils puissent être téléchargé pour"
 " une utilisation hors ligne."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:552
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:588
 msgid ""
 "docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
 "here to ensure that they are linked to from the navigation menu."
@@ -1159,7 +1197,7 @@ msgstr ""
 "l&#39;endroit approprié ici pour vous assurer qu&#39;ils sont liés à partir "
 "du menu de navigation."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:554
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:590
 msgid ""
 ".tx\\\\config: list new .rst files here (in the same format as the other "
 "files already included) in order to make the translation software aware of "
@@ -1169,7 +1207,7 @@ msgstr ""
 "les autres fichiers déjà inclus) afin d&#39;en informer le logiciel de "
 "traduction afin qu&#39;ils puissent être traduits"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:557
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:593
 msgid ""
 "docs\\\\source\\\\conf.py: if you want to generate a PDF file of page of the"
 " website, then you must list that page here in the ``latex_documents`` list."
@@ -1186,11 +1224,11 @@ msgstr ""
 " incluse dans la version PDF du site Web dans son ensemble, qu&#39;elle soit"
 " dans la liste `` latex_documents &#39;&#39;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:565
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:601
 msgid "Adding new images or other resources"
 msgstr "Ajout de nouvelles images ou d&#39;autres ressources"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:567
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:603
 msgid ""
 "Any new images or other resources (PDFs, etc.) that are needed by the "
 "documentation should be added under \"docs\\\\resources\\\\en\". If desired,"
@@ -1221,7 +1259,7 @@ msgstr ""
 "tandis qu&#39;une version localisée sera utilisée lorsqu&#39;elle sera "
 "disponible."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:580
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:616
 msgid ""
 "There is another folder, ``docs\\\\source\\\\static``, that is used to hold "
 "resources temporarily while running the scripts that build the Trends.Earth "
@@ -1241,11 +1279,11 @@ msgstr ""
 "pour les images traduites, le dossier spécifique à la langue approprié sous "
 "`` docs \\\\ ressources &#39;&#39;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:589
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:625
 msgid "Contributing as a translator"
 msgstr "Contribuer en tant que traducteur"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:591
+#: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:627
 msgid ""
 "The translations for both the QGIS plugin and also for this site are managed"
 " by `transifex <http://www.transifex.com>`_. If you'd like to contribute to "

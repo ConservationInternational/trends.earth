@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -178,4 +178,4 @@ msgid ""
 "<https://qgis.org/downloads/macOS>`_."
 msgstr ""
 "MacOS: `Baixe aqui versões anteriores do QGIS para MacOS "
-"<https://qgis.org/downloads/macOS> `_."
+"<https://qgis.org/downloads/macOS>`_."

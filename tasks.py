@@ -319,13 +319,11 @@ def plugin_setup(c, clean=False, pip='pip'):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
-            'python': 'Python to use for setup and compiling',
             'fast': 'Skip compiling numba files'})
-def plugin_install(c, clean=False, version=3, profile='default', 
-        python='python', fast=False):
+def plugin_install(c, clean=False, version=3, profile='default', fast=False):
     '''install plugin to qgis'''
     set_version(c)
-    compile_files(c, version, clean, python, fast)
+    compile_files(c, version, clean, fast)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -370,7 +368,7 @@ def plugin_install(c, clean=False, version=3, profile='default',
         print("Not linking - plugin folder for QGIS version {} already exists at {}".format(version, dst_this_plugin))
 
 # Compile all ui and resource files
-def compile_files(c, version, clean, python, fast=False):
+def compile_files(c, version, clean, fast=False):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -437,8 +435,6 @@ def compile_files(c, version, clean, python, fast=False):
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
     
-    if not fast:
-        binaries_compile(c, clean, python)
 
 def file_changed(infile, outfile):
     try:
@@ -691,14 +687,13 @@ def changelog_build(c):
             'filename': 'Name for output file',
             'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', pip='pip'):
+def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pip'):
     """Create plugin package"""
     set_version(c)
 
     plugin_setup(c, clean,  pip)
-    compile_files(c, version, clean, python)
+    compile_files(c, version, clean)
 
-    binaries_sync(c)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
         if not os.path.exists(package_dir):
@@ -722,16 +717,15 @@ def _make_zip(zipFile, c):
             relpath = os.path.relpath(root)
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
-
+ 
 @task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_deploy(c, clean=False, python='python', pip='pip'):
+def zipfile_deploy(c, clean=False, pip='pip'):
     binaries_sync(c)
     binaries_deploy(c)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, python=python, pip=pip)
+    filename = zipfile_build(c, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)

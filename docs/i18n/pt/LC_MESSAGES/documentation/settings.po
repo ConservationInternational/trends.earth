@@ -5,8 +5,8 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
-# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 15:42-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -159,8 +159,8 @@ msgstr "Configurações avançadas"
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:95
 msgid "Click \"Edit advanced options\" to bring up the advanced settings page:"
 msgstr ""
-"Clique em &quot;Editar opções avançadas&quot; para abrir a página de "
-"configurações avançadas:"
+"Clique em \"Editar opções avançadas\" para abrir a página de configurações "
+"avançadas:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:102
 msgid ""
@@ -169,7 +169,7 @@ msgid ""
 " calculations in Trends.Earth."
 msgstr ""
 "Na página de configurações avançadas, você pode alterar as configurações, "
-"incluindo ativar / desativar o modo de depuração e carregar binários pré-"
+"incluindo ativar/desativar o modo de depuração e carregar binários pré-"
 "compilados para acelerar os cálculos no Trends.Earth."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:108
@@ -184,8 +184,8 @@ msgid ""
 msgstr ""
 "O modo de depuração salva informações adicionais sobre os processos "
 "executados no Trends.Earth no log de mensagens do QGIS (acessível ao ativar "
-"o &quot;Painel de mensagens de log&quot; em &quot;Exibir&quot; e depois em "
-"&quot;Painéis&quot; na barra de menus do QGIS)."
+"o \"Painel de mensagens de log\" em \"Exibir\" e depois em \"Painéis\" na "
+"barra de menus do QGIS)."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:114
 msgid ""
@@ -244,15 +244,15 @@ msgid ""
 "help."
 msgstr ""
 "Para acessar os binários, primeiro escolha uma pasta em sua máquina onde "
-"você deseja que eles sejam salvos, clicando no botão &quot;Procurar&quot; na"
-" tela de configurações avançadas. Depois de escolher uma pasta, clique em "
-"&quot;Download&quot; para baixar os binários na sua máquina. Após baixar os "
+"você deseja que eles sejam salvos, clicando no botão \"Procurar\" na tela de"
+" configurações avançadas. Depois de escolher uma pasta, clique em "
+"\"Download\" para baixar os binários na sua máquina. Após baixar os "
 "binários, reinicie o QGIS para habilitá-los. Verifique a página de "
 "configurações avançadas após reiniciar. Se eles estiverem funcionando "
-"corretamente, você verá uma mensagem dizendo &quot;Os binários ** estão ** "
-"carregados&quot;. Se você tiver algum problema para ativar os binários, "
-"entre em contato com o grupo de discussão `Trends.Earth "
-"<https://groups.google.com/forum/#!forum/trends_earth_users/join> `_ para "
+"corretamente, você verá uma mensagem dizendo \"Os binários **estão** "
+"carregados\". Se você tiver algum problema para ativar os binários, entre em"
+" contato com o grupo de discussão `Trends.Earth "
+"<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ para "
 "ajuda."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:143
@@ -266,7 +266,7 @@ msgid ""
 msgstr ""
 "Nem todas as funções do Trends.Earth podem usar os binários; portanto, não "
 "espere que tudo corra mais rápido depois de instalá-los. A ferramenta de "
-"resumo do SDG 15.3.1, no entanto, deve ser executada muito mais rapidamente "
+"resumo do ODS 15.3.1, no entanto, deve ser executada muito mais rapidamente "
 "após a instalação dos binários, principalmente se você estiver trabalhando "
 "com conjuntos de dados personalizados de altíssima resolução. No futuro, "
 "adicionaremos suporte para outras funções também."

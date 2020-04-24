@@ -5,8 +5,8 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2018
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2018-03-14 19:33+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgid ""
 "The \"Load data\" function allows the user to load data into QGIS and "
 "|trends.earth| for analysis."
 msgstr ""
-"A função \"Load data\" permite que o usuário adicione dados no QGIS e "
+"A função \"Carregar Dados\" permite que o usuário adicione dados no QGIS e "
 "|trends.earth| para análise."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:9
@@ -40,13 +40,13 @@ msgid ""
 "There are two options, to load results of |trends.earth| analysis or to load"
 " custom datasets which will be used to compute the indicators."
 msgstr ""
-"Existem duas opções: adicionar resultados produzidos por |trends.earth| ou "
+"Existem duas opções: carregar resultados produzidos por |trends.earth| ou "
 "carregar conjuntos de dados locais que serão utilizados para calcular os "
 "indicadores."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:16
 msgid "Load a dataset produced by Trends.Earth"
-msgstr "Adicionar um conjunto de dados produzido pelo Trends.Earth"
+msgstr "Carregar um conjunto de dados produzido pelo Trends.Earth"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:18
 msgid ""
@@ -119,8 +119,8 @@ msgstr ""
 "Navegue até a pasta onde você armazenou o arquivo baixado e selecione-o. O "
 "arquivo baixado é um raster com várias bandas. O número de bandas dependerá "
 "do período de análise selecionado e da fonte de dados usada. Se a cobertura "
-"do solo CCI da ESA foi utilizada, por exemplo, os mapas anuais de cobertura "
-"do solo serão baixados."
+"da terra CCI da ESA foi utilizada, por exemplo, os mapas anuais de cobertura"
+" do solo serão baixados."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:49
 msgid ""
@@ -255,9 +255,9 @@ msgid ""
 " to pre-load a suggested aggregation of the land cover classes in Corine to "
 "convert them to the 7 UNCCD land cover classes."
 msgstr ""
-"Se você estiver usando os dados de cobertura do solo do `CORINE land cover "
-"data <https://www.eea.europa.eu/publications/COR0-landcover>`_, você pode "
-"usar `este arquivo de definição  "
+"Se você estiver usando os dados de cobertura do solo do `CORINE "
+"<https://www.eea.europa.eu/publications/COR0-landcover>`_, você pode usar "
+"`este arquivo de definição  "
 "<https://s3.amazonaws.com/trends.earth/sharing/Corine_Land_Cover_to_UNCCD_TrendsEarth_Definition.json>`_"
 " para pré-carregar uma agregação sugerida das classes de cobertura da terra "
 "em Corine para convertê-las nas 7 classes de cobertura terrestre UNCCD."
@@ -268,7 +268,7 @@ msgid ""
 "tool."
 msgstr ""
 "O processamento de dados de carbono orgânico do solo personalizado pode ser "
-"tratado com esta ferramenta."
+"calculado com esta ferramenta."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:150
 msgid ""

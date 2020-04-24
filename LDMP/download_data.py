@@ -108,6 +108,10 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         """Constructor."""
         super(DlgDownload, self).__init__(parent)
 
+        # Allow the download tool to support data downloads of any size (in 
+        # terms of area)
+        self._max_area = 1e10
+
         self.settings = QSettings()
 
         self.setupUi(self)

@@ -32,9 +32,9 @@ msgid ""
 "below ground biomass and emissions from deforestation in raster format and "
 "tabular outputs with areas estimated."
 msgstr ""
-"** Objetivo **: Aprender como calcular cobertura florestal, perda de "
-"floresta, biomassa acima e abaixo do solo e emissões do desmatamento em "
-"formato raster e saídas tabulares com áreas estimadas."
+"**Objetivo**: Aprender como calcular cobertura florestal, perda de floresta,"
+" biomassa acima e abaixo do solo e emissões do desmatamento em formato "
+"raster e saídas tabulares com áreas estimadas."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"

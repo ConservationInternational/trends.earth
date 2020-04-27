@@ -31,9 +31,8 @@ msgid ""
 "**Objective**: Learn how to compute urban extent and population for 2000, "
 "2005, 2010, 2015 in raster format and tabular outputs with areas estimated."
 msgstr ""
-"** Objetivo **: Aprender a calcular a extensão urbana e a população para "
-"2000, 2005, 2010, 2015 em formato raster e saídas tabulares com áreas "
-"estimadas."
+"**Objetivo**: Aprender a calcular a extensão urbana e a população para 2000,"
+" 2005, 2010, 2015 em formato raster e saídas tabulares com áreas estimadas."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_compute_urban_indicator.rst:7
 msgid "**Estimated time of completion**: 40 minutes"

@@ -42,7 +42,7 @@ msgstr "**Tempo estimado para conclusão**: 20 minutos"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:10
 msgid "**Internet access**: Not required"
-msgstr "** Acesso à Internet **: não obrigatório"
+msgstr "**Acesso à Internet**: não obrigatório"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_soc.rst:12
 msgid ""

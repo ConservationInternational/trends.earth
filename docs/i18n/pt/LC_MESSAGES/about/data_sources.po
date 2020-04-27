@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 0.99.1\n"
+"Project-Id-Version: Trends.Earth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 20:24-0400\n"
+"POT-Creation-Date: 2020-04-20 12:04-0400\n"
 "PO-Revision-Date: 2018-03-15 06:44+0000\n"
 "Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -286,7 +286,7 @@ msgstr "Presente"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\data_sources.rst:88
 msgid "`CC by-SA 4.0`_"
-msgstr "CC by-SA 4.0`_"
+msgstr "`CC by-SA 4.0`_"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\data_sources.rst:95
 msgid "Agroecological Zones"
@@ -320,8 +320,8 @@ msgid ""
 "Conservation International Foundation, or by its partner organizations and "
 "contributors."
 msgstr ""
-"Os Limites Administrativos (`Natural Earth Administrative Boundaries`)_ "
-"fornecidos no Trends.Earth são de `Domínio público`_. Os limites e nomes "
+"Os limites administrativos `Natural Earth Administrative Boundaries`_ "
+"fornecidos por Trends.Earth são de `Domínio público`_. Os limites e nomes "
 "usados ​​e as designações usadas no Trends.Earth não implicam aprovação ou "
 "aceitação oficial da Fundação Conservação Internacional  ou de suas "
 "organizações parceiras e colaboradores."

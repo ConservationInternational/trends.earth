@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="869"/>
         <source>Point chooser</source>
         <translation>Selector de punto</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="869"/>
         <source>Click the map to choose a point.</source>
         <translation>Haga clic en el mapa para elegir un punto.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="892"/>
+        <location filename="../calculate.py" line="894"/>
         <source>Select a file defining the area of interest</source>
         <translation>Seleccione un archivo que defina el área de interés</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="892"/>
+        <location filename="../calculate.py" line="894"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Archivo vectorial (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="903"/>
+        <location filename="../calculate.py" line="905"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="903"/>
+        <location filename="../calculate.py" line="905"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No puedo leer {}. Elija un archivo diferente.</translation>
     </message>
@@ -238,77 +238,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="962"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Area</source>
         <translation>Zona</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="967"/>
+        <location filename="../calculate.py" line="969"/>
         <source>Output</source>
         <translation>Resultado</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="971"/>
+        <location filename="../calculate.py" line="973"/>
         <source>Options</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1127"/>
+        <location filename="../calculate.py" line="1129"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1052"/>
+        <location filename="../calculate.py" line="1054"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Elija un límite administrativo de primer nivel.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1059"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>No se pueden cargar los límites administrativos.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1066"/>
+        <location filename="../calculate.py" line="1068"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Elija un archivo para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1079"/>
+        <location filename="../calculate.py" line="1081"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Elija un punto para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1090"/>
+        <location filename="../calculate.py" line="1092"/>
         <source>Choose an area of interest.</source>
         <translation>Elija un área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1095"/>
+        <location filename="../calculate.py" line="1097"/>
         <source>Unable to read area of interest.</source>
         <translation>No se puede leer el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1102"/>
+        <location filename="../calculate.py" line="1104"/>
         <source>Error buffering polygon</source>
         <translation>Error al generar el buffer para el polígono</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1121"/>
+        <location filename="../calculate.py" line="1123"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>El cuadro delimitador para el área solicitada (aproximadamente {:.6n}) km2 es demasiado grande. Elija un área más pequeña para procesar.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1127"/>
+        <location filename="../calculate.py" line="1129"/>
         <source>Choose an output base name.</source>
         <translation>Elija un nombre base de salida.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1109"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1070"/>
+        <location filename="../calculate.py" line="1072"/>
         <source>Unable to read {}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3845,7 +3845,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1043"/>
+        <location filename="../calculate.py" line="1045"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -3885,7 +3885,7 @@ p, li { white-space: pre-wrap; }
         <translation>Error al transformar las coordenadas. Verifique que la geometría de entrada sea válida.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1043"/>
+        <location filename="../calculate.py" line="1045"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>Has elegido ejecutar cálculos para una ciudad. Debe seleccionar una distancia de búfer para definir el área de cálculo cuando está procesando una ciudad.</translation>
     </message>
@@ -3898,22 +3898,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate_ldn</name>
     <message>
-        <location filename="../calculate_ldn.py" line="1057"/>
+        <location filename="../calculate_ldn.py" line="1058"/>
         <source>Success</source>
         <translation>Éxito</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1057"/>
+        <location filename="../calculate_ldn.py" line="1058"/>
         <source>Indicator table saved to {}</source>
         <translation>Tabla de indicadores guardada en {}</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1062"/>
+        <location filename="../calculate_ldn.py" line="1063"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1062"/>
+        <location filename="../calculate_ldn.py" line="1063"/>
         <source>Error saving output table - check that {} is accessible and not already open.</source>
         <translation>Error al guardar la tabla de salida: compruebe que {} sea accesible y que aún no esté abierto.</translation>
     </message>

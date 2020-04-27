@@ -437,7 +437,7 @@ msgstr ""
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:205
 msgid "Syncing and deploying changes to the binaries"
-msgstr ""
+msgstr "Sincronizando e implementando alterações nos binários"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:207
 msgid ""
@@ -449,12 +449,22 @@ msgid ""
 "and all of its dependencies, the Trends.Earth team makes pre-compiled "
 "binaries available for download if users choose to install them."
 msgstr ""
+"Para acelerar os cálculos no Trends.Earth, algumas das ferramentas permitem "
+"o uso de binários pré-compilados que foram compilados usando o `numba "
+"<https://numba.pydata.org>`_. O Numba é um compilador de código aberto que "
+"pode compilar código Python e NumPy, tornando-o mais rápido do que quando é "
+"executado como Python comum. Para evitar que os usuários do Trends.Earth "
+"precisem baixar o Numba e todas as suas dependências, a equipe do "
+"Trends.Earth disponibiliza binários pré-compilados para download, se os "
+"usuários optarem por instalá-los."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:215
 msgid ""
 "To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python"
 " version you are running on your machine, use::"
 msgstr ""
+"Para gerar binários pré-compilados para o SO, bitness (32/64 bits) e a "
+"versão Python que você está executando em sua máquina, use:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:220
 msgid ""
@@ -462,6 +472,9 @@ msgid ""
 "Web services S3 bucket. To upload the binaries generated with the above "
 "command to the bucket, run::"
 msgstr ""
+"Para disponibilizar publicamente os binários, eles são distribuídos por meio"
+" de um bucket do Amazon Web Services S3. Para fazer upload dos binários "
+"gerados com o comando acima no bucket, execute:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:226
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:236
@@ -480,6 +493,11 @@ msgid ""
 "version of the plugin that they are using. To generate that zipfile so that "
 "it can be accessed by Trends.Earth users, run::"
 msgstr ""
+"O comando acima sincronizará cada arquivo binário individual com o S3. No "
+"entanto, os usuários da ferramenta baixam os binários como um único arquivo "
+"zip vinculado à versão do plug-in que eles estão usando. Para gerar esse "
+"arquivo zip para que ele possa ser acessado pelos usuários do Trends.Earth, "
+"execute:"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\about\development.rst:241
 msgid "Building a plugin ZIP file"
@@ -609,7 +627,7 @@ msgstr ""
 " Por exemplo, se você tem uma pasta \"Código\" em sua máquina, clone ambos "
 "repositórios `trends.earth "
 "<https://github.com/ConservationInternational/trends.earth>`_ (com os "
-"códigos para o plugin QGIS e scripts GEE associados) e ` trends.earth-CLI "
+"códigos para o plugin QGIS e scripts GEE associados) e `trends.earth-CLI "
 "<https://github.com/Vizzuality/trends.earth-CLI>`_ repositório na mesma "
 "pasta."
 

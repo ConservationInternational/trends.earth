@@ -222,7 +222,7 @@ msgid ""
 "to check the status of the tasks submitted and for downloading results from "
 "Trends.Earth."
 msgstr ""
-"Consulte o tutorial: ref: `task_download` para obter informações detalhadas "
+"Consulte o tutorial :ref:`task_download` para obter informações detalhadas "
 "sobre como verificar o status das tarefas enviadas e para fazer o download "
 "dos resultados em Trends.Earth."
 
@@ -276,7 +276,7 @@ msgid ""
 msgstr ""
 "Se desejar, você pode adicionar algumas informações de contexto (por "
 "exemplo, limites de países, estradas e cidades principais). Consulte o "
-"tutorial: ref: `tut_load_data` para obter informações detalhadas sobre como "
+"tutorial :ref:`tut_load_data` para obter informações detalhadas sobre como "
 "carregar um mapa base."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_forest_carbon.rst:126

@@ -549,5 +549,24 @@
             "Source": "Avitabile V, Herold M, Heuvelink G, Lewis SL, Phillips OL, Asner GP et al. (2016). An integrated pan-tropical biomass maps using multiple reference datasets. Global Change Biology, 22: 1406–1420. doi:10.1111/gcb.13139",
             "Comments": ""
         }
+    },
+    "Drivers": {
+        "Drivers of Deforestation": {
+            "Data source": "",
+            "Start year": "NA",
+            "End year": "NA",
+            "Spatial resolution": "1 km",
+            "Temporal resolution": "one time",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Description": "",
+            "Link to Dataset": "",
+            "GEE Dataset": "projects/ci_geospatial_assets/agric/deforestation_drivers",
+            "License": "",
+            "License URL": "",
+            "Source": ""
+        }
     }
 }

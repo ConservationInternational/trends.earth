@@ -733,7 +733,7 @@ def zipfile_deploy(c, clean=False, pip='pip'):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
     print('Uploading package to S3')
     data = open(filename, 'rb')
@@ -761,7 +761,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
     
     objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
@@ -836,7 +836,7 @@ def binaries_sync(c, extensions=None):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
     patterns = [os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions]
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba.binary_folder, patterns)
@@ -851,7 +851,7 @@ def testdata_sync(c):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
 
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/integration/fixtures', c.plugin.testdata_patterns)

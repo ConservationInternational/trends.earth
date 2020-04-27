@@ -2,8 +2,14 @@ Changelog
 ======================
 
 This page lists the version history of |trends.earth|.
+  
 
-`1.0.0 <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_
+`1.0.2 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - 
+
+`1.0.0 (April 27, 2020) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - Add ability to download and use pre-compiled binaries (compiled with 

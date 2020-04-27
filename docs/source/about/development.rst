@@ -211,7 +211,9 @@ version you are running on your machine, use::
 
 .. note::
   You will need a C++ compiler for the above command to work. On
-  Windows, see `this page <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ for details on how to
+  Windows, see `this github page 
+  <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ 
+  for details on how to
   install the Microsoft Visual C++ compiler needed for you Python version. On
   MacOS, you will most likely need to install Xcode. On Linux, install the
   appropriate version of GCC.

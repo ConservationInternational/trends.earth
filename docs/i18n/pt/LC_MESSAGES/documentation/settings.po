@@ -102,9 +102,9 @@ msgid ""
 msgstr ""
 "Se você quiser alterar seu nome de usuário, clique em \"Alterar usuário\". "
 "Observe que essa função só é útil se você já tiver outra |trends.earth| "
-"conta para a qual você deseja alternar. Para registrar um novo usuário, "
-"veja: ref: `registration`. Para alterar seu usuário, digite o e-mail e a "
-"senha que você deseja alterar e clique em \"Ok\":"
+"conta para a qual você deseja alternar. Para registrar um novo usuário, veja"
+" :ref:`registration`. Para alterar seu usuário, digite o e-mail e a senha "
+"que você deseja alterar e clique em \"Ok\":"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:64
 msgid ""

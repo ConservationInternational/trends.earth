@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="869"/>
         <source>Point chooser</source>
         <translation>نقطة منتقي</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="867"/>
+        <location filename="../calculate.py" line="869"/>
         <source>Click the map to choose a point.</source>
         <translation>انقر على الخريطة لاختيار نقطة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="892"/>
+        <location filename="../calculate.py" line="894"/>
         <source>Select a file defining the area of interest</source>
         <translation>حدد ملفًا يحدد مجال الاهتمام</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="892"/>
+        <location filename="../calculate.py" line="894"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="903"/>
+        <location filename="../calculate.py" line="905"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="903"/>
+        <location filename="../calculate.py" line="905"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
@@ -234,77 +234,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="962"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Area</source>
         <translation>منطقة</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="967"/>
+        <location filename="../calculate.py" line="969"/>
         <source>Output</source>
         <translation>انتاج |</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="971"/>
+        <location filename="../calculate.py" line="973"/>
         <source>Options</source>
         <translation>خيارات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1127"/>
+        <location filename="../calculate.py" line="1129"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1052"/>
+        <location filename="../calculate.py" line="1054"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>اختر حدود إدارية من المستوى الأول.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1059"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>غير قادر على تحميل الحدود الإدارية.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1066"/>
+        <location filename="../calculate.py" line="1068"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>اختر ملفًا لتعريف مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1079"/>
+        <location filename="../calculate.py" line="1081"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>اختر نقطة لتحديد مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1090"/>
+        <location filename="../calculate.py" line="1092"/>
         <source>Choose an area of interest.</source>
         <translation>اختيار مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1095"/>
+        <location filename="../calculate.py" line="1097"/>
         <source>Unable to read area of interest.</source>
         <translation>غير قادر على قراءة مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1102"/>
+        <location filename="../calculate.py" line="1104"/>
         <source>Error buffering polygon</source>
         <translation>خطأ في التخزين المؤقت للمضلع</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1121"/>
+        <location filename="../calculate.py" line="1123"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>المربع المحيط للمنطقة المطلوبة (حوالي {: .6n}) كيلومتر مربع كبير جدًا. اختر منطقة أصغر للمعالجة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1127"/>
+        <location filename="../calculate.py" line="1129"/>
         <source>Choose an output base name.</source>
         <translation>اختر اسم قاعدة الإخراج.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1109"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1070"/>
+        <location filename="../calculate.py" line="1072"/>
         <source>Unable to read {}.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3815,7 +3815,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1043"/>
+        <location filename="../calculate.py" line="1045"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
@@ -3855,7 +3855,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1043"/>
+        <location filename="../calculate.py" line="1045"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3868,22 +3868,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate_ldn</name>
     <message>
-        <location filename="../calculate_ldn.py" line="1057"/>
+        <location filename="../calculate_ldn.py" line="1058"/>
         <source>Success</source>
         <translation>نجاح</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1057"/>
+        <location filename="../calculate_ldn.py" line="1058"/>
         <source>Indicator table saved to {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1062"/>
+        <location filename="../calculate_ldn.py" line="1063"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1062"/>
+        <location filename="../calculate_ldn.py" line="1063"/>
         <source>Error saving output table - check that {} is accessible and not already open.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1080,7 +1080,7 @@ msgid ""
 " refer to the following tutorial: :ref:`indicator-11-3-1-tutorial`."
 msgstr ""
 "Para um guia passo-a-passo sobre como executar a análise em |trends.earth|, "
-"por favor consulte o seguinte tutorial:: ref: `indicator-11-3-1-tutorial`."
+"por favor consulte o seguinte tutorial: :ref:`indicator-11-3-1-tutorial`."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:198
 msgid "**Citations:**"

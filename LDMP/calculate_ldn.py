@@ -1023,16 +1023,17 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     ws_unccd = wb['UNCCD Reporting']
 
     for i in range(len(lc_years)):
+        log('lc_years len: {}'.format(len(lc_years)))
         # Water bodies
         cell = ws_unccd.cell(5 + i, 4)
         cell.value = lc_totals[i][6]
         # Other classes
-        write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 24 + i, 2)
+        write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 38 + i, 2)
 
-    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 54, 3)
+    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 82, 3)
 
     for i in range(len(soc_years)):
-        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 64 + i, 2)
+        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 92 + i, 2)
 
     try:
         ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))

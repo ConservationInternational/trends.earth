@@ -175,14 +175,6 @@ plugins folder on your machine. To do this, run::
 
   invoke plugin-install
 
-.. note::
-  As the trends.earth plugin uses the numba library to compile a number of key
-  functions, you will need a C++ compiler for the above command to work. On
-  Windows, see `this page <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ for details on how to
-  install the Microsoft Visual C++ compiler needed for you Python version. On
-  MacOS, you will most likely need to install Xcode. On Linux, install the
-  appropriate version of GCC.
-
 After running the above command, you will need to either 1) restart QGIS, or 2) 
 use the `plugin reloader <https://plugins.qgis.org/plugins/plugin_reloader/>`_ 
 to reload the Trends.Earth plugin in order to see the effects of the changes 
@@ -216,6 +208,13 @@ To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python
 version you are running on your machine, use::
 
     invoke binaries-compile
+
+.. note::
+  You will need a C++ compiler for the above command to work. On
+  Windows, see `this page <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ for details on how to
+  install the Microsoft Visual C++ compiler needed for you Python version. On
+  MacOS, you will most likely need to install Xcode. On Linux, install the
+  appropriate version of GCC.
 
 To make binaries publicly available, they are distributed through an Amazon Web 
 services S3 bucket. To upload the binaries generated with the above command to 
@@ -481,6 +480,22 @@ instructions here <http://www.tug.org/mactex/>`_.
 On Linux, installing LaTeX should be much easier - use your distribution's 
 package manager to find and install whatever LaTeX distribution is included by 
 default.
+
+Qt Linguist
+~~~~~~~~~~~
+
+Qt Linguist is also needed in order to pull strings from the code and GUI for 
+translation. The "lrelease" command must be available and on your path. Try 
+trying::
+
+    lrelease
+
+within a terminal window. If the file is not found, you'll need to install Qt 
+Linguist. `This page 
+<https://github.com/lelegard/qtlinguist-installers/releases>`_ is one source of 
+installers for Qt Linguist. Once you install Qt Linguist ensure you add the 
+folder containing lrelease to your path so that the Trends.Earth invoke script 
+can find it.
 
 Updating and building the documentation
 ---------------------------------------

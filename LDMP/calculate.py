@@ -770,6 +770,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         admin_0 = QSettings().value("LDMP/AreaWidget/area_admin_0", None)
         if admin_0:
             self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
+            self.populate_admin_1()
 
         area_from_option_secondLevel = QSettings().value("LDMP/AreaWidget/area_from_option_secondLevel", None)
         if area_from_option_secondLevel == 'admin':
@@ -783,6 +784,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.secondLevel_area_admin_1.setCurrentIndex(self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
         secondLevel_city = QSettings().value("LDMP/AreaWidget/secondLevel_city", None)
         if secondLevel_city:
+            self.populate_cities()
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
 
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)

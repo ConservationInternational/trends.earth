@@ -123,6 +123,11 @@ def set_version(c, v=None):
         json.dump({"version": v, "revision": revision, "release_date": release_date}, f,  indent=4)
 
     if version_update:
+        # Set in version.txt
+        print('Setting version to {} in {}'.format(v, c.plugin.version_file_raw))
+        with open(c.plugin.version_file_raw, 'w') as f:
+            f.write(v)
+
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE)

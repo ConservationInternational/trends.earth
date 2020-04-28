@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" sourcelanguage="" version="2.0">
 <context>
     <name>AreaWidget</name>
     <message>
@@ -154,7 +153,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
@@ -339,12 +338,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate.py" line="1111"/>
         <source>Unable to calculate bounding box.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to calculate bounding box.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="1072"/>
         <source>Unable to read {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to read {}.</translation>
     </message>
 </context>
 <context>
@@ -2017,7 +2016,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2320,7 +2319,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -2416,7 +2415,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2526,12 +2525,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettings.ui" line="245"/>
         <source>Advanced users</source>
-        <translation type="unfinished"></translation>
+        <translation>Advanced users</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="269"/>
         <source>Edit advanced options</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit advanced options</translation>
     </message>
 </context>
 <context>
@@ -2539,127 +2538,127 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="20"/>
         <source>Update user</source>
-        <translation type="unfinished">Update user</translation>
+        <translation>Update user</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="26"/>
         <source>Advanced options</source>
-        <translation type="unfinished"></translation>
+        <translation>Advanced options</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="32"/>
         <source>Debug mode (saves detailed logging information)</source>
-        <translation type="unfinished"></translation>
+        <translation>Debug mode (saves detailed logging information)</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="48"/>
         <source>Use binaries for faster processing</source>
-        <translation type="unfinished"></translation>
+        <translation>Use binaries for faster processing</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="80"/>
         <source>Click &quot;Browse&quot; to choose a folder...</source>
-        <translation type="unfinished"></translation>
+        <translation>Click &quot;Browse&quot; to choose a folder...</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="108"/>
         <source>Browse</source>
-        <translation type="unfinished">Browse</translation>
+        <translation>Browse</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="136"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Download</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettingsAdvanced.ui" line="145"/>
         <source>placeholder for label</source>
-        <translation type="unfinished"></translation>
+        <translation>placeholder for label</translation>
     </message>
     <message>
         <location filename="../settings.py" line="340"/>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation>Warning</translation>
     </message>
     <message>
         <location filename="../settings.py" line="340"/>
         <source>You must restart QGIS for these changes to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>You must restart QGIS for these changes to take effect.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="373"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a folder</translation>
     </message>
     <message>
         <location filename="../settings.py" line="373"/>
         <source>Choose a folder before downloading binaries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a folder before downloading binaries.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="456"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../settings.py" line="379"/>
         <source>Unable to write to {}. Choose a different folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to write to {}. Choose a different folder.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="388"/>
         <source>Unable to write to {}. Try a different folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to write to {}. Try a different folder.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="409"/>
         <source>Error downloading binaries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error downloading binaries.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="419"/>
         <source>Success</source>
-        <translation type="unfinished">Success</translation>
+        <translation>Success</translation>
     </message>
     <message>
         <location filename="../settings.py" line="415"/>
         <source>Downloaded binaries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Downloaded binaries.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="419"/>
         <source>All binaries up to date.</source>
-        <translation type="unfinished"></translation>
+        <translation>All binaries up to date.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="440"/>
         <source>Select folder containing Trends.Earth binaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Select folder containing Trends.Earth binaries</translation>
     </message>
     <message>
         <location filename="../settings.py" line="456"/>
         <source>Cannot read {}. Choose a different folder.</source>
-        <translation type="unfinished">Cannot read {}. Choose a different folder.</translation>
+        <translation>Cannot read {}. Choose a different folder.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="357"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="355"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="401"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="446"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</translation>
     </message>
 </context>
 <context>
@@ -3476,7 +3475,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -3927,7 +3926,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate.py" line="206"/>
         <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation type="unfinished"></translation>
+        <translation>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</translation>
     </message>
 </context>
 <context>
@@ -4052,32 +4051,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../download.py" line="150"/>
         <source>Unable to write to {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to write to {}.</translation>
     </message>
     <message>
         <location filename="../download.py" line="110"/>
         <source>Unable to write to {}. Do you need administrator permissions?</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to write to {}. Do you need administrator permissions?</translation>
     </message>
     <message>
         <location filename="../download.py" line="128"/>
         <source>Folder does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Folder does not exist</translation>
     </message>
     <message>
         <location filename="../download.py" line="128"/>
         <source>Folder {} does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Folder {} does not exist.</translation>
     </message>
     <message>
         <location filename="../download.py" line="158"/>
         <source>Error accessing {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error accessing {}.</translation>
     </message>
     <message>
         <location filename="../download.py" line="164"/>
         <source>File verification failed for {}.</source>
-        <translation type="unfinished"></translation>
+        <translation>File verification failed for {}.</translation>
     </message>
 </context>
 <context>

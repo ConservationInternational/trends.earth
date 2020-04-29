@@ -27,9 +27,8 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=
 changelog=1.0.2 (not yet released)
-    - 
+    -  
   1.0.0 (April 27, 2020)
     - Add ability to download and use pre-compiled binaries (compiled with 
       Numba) to speed up some local calculations. Right now this only is available 

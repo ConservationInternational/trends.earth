@@ -410,8 +410,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         self.deg_def_matrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
         self.deg_def_matrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
 
-        self.deg_def_matrix.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.Stretch)
-        self.deg_def_matrix.verticalHeader().setResizeMode(QtWidgets.QHeaderView.Stretch)
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            self.deg_def_matrix.horizontalHeader().setSectionResizeMode(row, QtWidgets.QHeaderView.Stretch)
+        for col in range(0, self.deg_def_matrix.columnCount()):
+            self.deg_def_matrix.verticalHeader().setSectionResizeMode(col, QtWidgets.QHeaderView.Stretch)
 
         self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)

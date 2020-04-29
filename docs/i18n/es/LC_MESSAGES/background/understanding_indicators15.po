@@ -6,16 +6,16 @@
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2019
 # Monica Noon <mnoon@conservation.org>, 2019
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2020-04-28 09:23-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,9 +90,9 @@ msgstr ""
 "Como la agencia custodio del ODS 15.3, la Convención de las Naciones Unidas "
 "de Lucha contra la Desertificación (CNULD) ha desarrollado una \"Guía de "
 "buenas prácticas (GPG) <http://www2.unccd.int/sites/default/files/relevant-"
-"links/2017 -10 / Bueno% 20Practice%20Guidance_SDG% 20Indicator% "
-"2015.3.1_Version% 201.0.pdf> `_. proporcionar recomendaciones sobre cómo "
-"calcular el Indicador 15.3.1 de los ODS."
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
+" proporcionar recomendaciones sobre cómo calcular el Indicador 15.3.1 de los"
+" ODS."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:31
 msgid ""
@@ -281,7 +281,7 @@ msgstr ""
 "el método y sus limitaciones: `Wessels, K.J .; van den Bergh, F .; Scholes, "
 "R.J. Límites a la detectabilidad de la degradación de la tierra mediante el "
 "análisis de tendencias de los datos del índice de vegetación. Remote Sens. "
-"Environ. 2012, 125, 10-22."
+"Environ. 2012, 125, 10-22.`"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:126
 msgid ""
@@ -312,7 +312,7 @@ msgstr ""
 " sus limitaciones: `Wessels, K.J .; Prince, S.D .; Malherbe, J .; Pequeño, J"
 " .; Frost, P.E .; VanZyl, D. ¿Puede la degradación de la tierra inducida por"
 " el hombre distinguirse de los efectos de la variabilidad de la lluvia? Un "
-"estudio de caso en Sudáfrica. J. Arid Environ. 2007, 68, 271-297."
+"estudio de caso en Sudáfrica. J. Arid Environ. 2007, 68, 271-297.`"
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:139
 msgid ""

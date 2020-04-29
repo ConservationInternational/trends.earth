@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2019
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2020-04-28 09:23-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1037,14 +1037,14 @@ msgid ""
 "the final tabular output."
 msgstr ""
 "En |trends.earth| recomendamos a los usuarios que utilicen la opción 1, ya "
-"que ate city escala la precisión de los datos de alta resolución "
-"proporcionados por las oficinas nacionales de estadística siempre será mayor"
-" que la obtenida por los productos ráster globales que, en la mayoría de los"
-" casos, se produjeron para el análisis a nivel nacional. Sin embargo, "
+"que a la escala de las ciudades la precisión de los datos de alta resolución"
+" proporcionados por las oficinas nacionales de estadística siempre será "
+"mayor que la obtenida por los productos ráster globales que, en la mayoría "
+"de los casos, se produjeron para el análisis a nivel nacional. Sin embargo, "
 "reconociendo que en algunas áreas los datos de población no estarán "
 "disponibles para la mayoría de los usuarios, proporcionamos datos de la "
 "Población del Mundo V4 (GPWv4, CIESIN, 2016) como referencia. Incluso si la "
-"opción de usar GPWv4 en | trends.earth |, los datos de población pueden "
+"opción de usar GPWv4 en |trends.earth|, los datos de población pueden "
 "reemplazarse fácilmente por datos de alta calidad relevantes localmente "
 "simplemente reemplazando las celdas correspondientes en la salida tabular "
 "final."
@@ -1098,8 +1098,8 @@ msgid ""
 "For a step-by-step guide on how to run the aalysis in |trends.earth|, please"
 " refer to the following tutorial: :ref:`indicator-11-3-1-tutorial`."
 msgstr ""
-"Para obtener una guía paso a paso sobre cómo ejecutar el análisis en | "
-"trends.earth |, consulte el siguiente tutorial: "
+"Para obtener una guía paso a paso sobre cómo ejecutar el análisis en "
+"|trends.earth|, consulte el siguiente tutorial: "
 ":ref:`indicator-11-3-1-tutorial`."
 
 #: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:198

@@ -43,7 +43,7 @@ Precipitation
 +======================+===========+=============+=========+==================+
 | `GPCP v2.3 1 month`_ | 1979-2016 | 2.5° x 2.5° | Global  | `Public Domain`_ |
 +----------------------+-----------+-------------+---------+------------------+
-| `GPCC V7`_           | 1901-2016 | 1° x 1°     | Global  | `Public Domain`_ |
+| `GPCC V6`_           | 1891-2019 | 1° x 1°     | Global  | `Public Domain`_ |
 +----------------------+-----------+-------------+---------+------------------+
 | `CHIRPS`_            | 1981-2016 | 5 km        | 50N-50S | `Public Domain`_ |
 +----------------------+-----------+-------------+---------+------------------+
@@ -51,7 +51,7 @@ Precipitation
 +----------------------+-----------+-------------+---------+------------------+
 
 .. _GPCP v2.3 1 month: https://www.esrl.noaa.gov/psd/data/gridded/data.gpcp.html
-.. _GPCC V7: https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html
+.. _GPCC V6: https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html
 .. _CHIRPS:  http://chg.geog.ucsb.edu/data/chirps
 .. _PERSIANN-CDR: http://chrsdata.eng.uci.edu
 

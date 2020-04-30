@@ -175,14 +175,6 @@ plugins folder on your machine. To do this, run::
 
   invoke plugin-install
 
-.. note::
-  As the trends.earth plugin uses the numba library to compile a number of key
-  functions, you will need a C++ compiler for the above command to work. On
-  Windows, see `this page <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ for details on how to
-  install the Microsoft Visual C++ compiler needed for you Python version. On
-  MacOS, you will most likely need to install Xcode. On Linux, install the
-  appropriate version of GCC.
-
 After running the above command, you will need to either 1) restart QGIS, or 2) 
 use the `plugin reloader <https://plugins.qgis.org/plugins/plugin_reloader/>`_ 
 to reload the Trends.Earth plugin in order to see the effects of the changes 
@@ -200,6 +192,51 @@ perform a clean install of the plugin using the ``-c`` flag.
    the ``plugin-install`` command. Remember the plugin may or may not be 
    entirely functional on QGIS3 - the plugin was originally designed for QGIS2 
    and is still being tested on QGIS3.
+
+Syncing and deploying changes to the binaries
+---------------------------------------------
+
+To speed the computations in Trends.Earth, some of the tools allow making use 
+of pre-compiled binaries that have been compiled using `numba 
+<https://numba.pydata.org>`_. Numba is an open source compiler that can compile 
+Python and NumPy code, making it faster than when it is run as ordinary Python. 
+To avoid users of Trends.Earth needing to download Numba and all of its 
+dependencies, the Trends.Earth team makes pre-compiled binaries available for 
+download if users choose to install them.
+
+To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python 
+version you are running on your machine, use::
+
+    invoke binaries-compile
+
+.. note::
+  You will need a C++ compiler for the above command to work. On
+  Windows, see `this github page 
+  <https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_ 
+  for details on how to
+  install the Microsoft Visual C++ compiler needed for you Python version. On
+  MacOS, you will most likely need to install Xcode. On Linux, install the
+  appropriate version of GCC.
+
+To make binaries publicly available, they are distributed through an Amazon Web 
+services S3 bucket. To upload the binaries generated with the above command to 
+the bucket, run::
+
+    invoke binaries-sync
+
+.. note:: The above command will fail if you do not have keys allowing write 
+   access to the ``trends.earth`` bucket on S3.
+
+The above command will sync each individual binary file to S3. However, users 
+of the toolbox download the binaries as a single zipfile tied to the version of 
+the plugin that they are using. To generate that zipfile so that it can be 
+accessed by Trends.Earth users, run::
+
+    invoke binaries-deploy
+
+.. note:: The above command will fail if you do not have keys allowing write 
+   access to the ``trends.earth`` bucket on S3.
+
 
 Building a plugin ZIP file
 --------------------------
@@ -445,6 +482,22 @@ instructions here <http://www.tug.org/mactex/>`_.
 On Linux, installing LaTeX should be much easier - use your distribution's 
 package manager to find and install whatever LaTeX distribution is included by 
 default.
+
+Qt Linguist
+~~~~~~~~~~~
+
+Qt Linguist is also needed in order to pull strings from the code and GUI for 
+translation. The "lrelease" command must be available and on your path. Try 
+trying::
+
+    lrelease
+
+within a terminal window. If the file is not found, you'll need to install Qt 
+Linguist. `This page 
+<https://github.com/lelegard/qtlinguist-installers/releases>`_ is one source of 
+installers for Qt Linguist. Once you install Qt Linguist ensure you add the 
+folder containing lrelease to your path so that the Trends.Earth invoke script 
+can find it.
 
 Updating and building the documentation
 ---------------------------------------

@@ -123,6 +123,11 @@ def set_version(c, v=None):
         json.dump({"version": v, "revision": revision, "release_date": release_date}, f,  indent=4)
 
     if version_update:
+        # Set in version.txt
+        print('Setting version to {} in {}'.format(v, c.plugin.version_file_raw))
+        with open(c.plugin.version_file_raw, 'w') as f:
+            f.write(v)
+
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile("(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE)
@@ -319,13 +324,11 @@ def plugin_setup(c, clean=False, pip='pip'):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
-            'python': 'Python to use for setup and compiling',
             'fast': 'Skip compiling numba files'})
-def plugin_install(c, clean=False, version=3, profile='default', 
-        python='python', fast=False):
+def plugin_install(c, clean=False, version=3, profile='default', fast=False):
     '''install plugin to qgis'''
     set_version(c)
-    compile_files(c, version, clean, python, fast)
+    compile_files(c, version, clean, fast)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -370,7 +373,7 @@ def plugin_install(c, clean=False, version=3, profile='default',
         print("Not linking - plugin folder for QGIS version {} already exists at {}".format(version, dst_this_plugin))
 
 # Compile all ui and resource files
-def compile_files(c, version, clean, python, fast=False):
+def compile_files(c, version, clean, fast=False):
     # check to see if we have pyuic
     if version == 2:
         pyuic = 'pyuic4'
@@ -437,8 +440,6 @@ def compile_files(c, version, clean, python, fast=False):
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
     
-    if not fast:
-        binaries_compile(c, clean, python)
 
 def file_changed(infile, outfile):
     try:
@@ -691,14 +692,13 @@ def changelog_build(c):
             'filename': 'Name for output file',
             'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_build(c, clean=False, version=3, tests=False, filename=None, python='python', pip='pip'):
+def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pip'):
     """Create plugin package"""
     set_version(c)
 
     plugin_setup(c, clean,  pip)
-    compile_files(c, version, clean, python)
+    compile_files(c, version, clean)
 
-    binaries_sync(c)
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
         if not os.path.exists(package_dir):
@@ -722,12 +722,15 @@ def _make_zip(zipFile, c):
             relpath = os.path.relpath(root)
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
-
+ 
 @task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_deploy(c, clean=False, python='python', pip='pip'):
-    filename = zipfile_build(c, python=python, pip=pip)
+def zipfile_deploy(c, clean=False, pip='pip'):
+    binaries_sync(c)
+    binaries_deploy(c)
+    print('Binaries uploaded')
+
+    filename = zipfile_build(c, pip=pip)
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -735,7 +738,7 @@ def zipfile_deploy(c, clean=False, python='python', pip='pip'):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
     print('Uploading package to S3')
     data = open(filename, 'rb')
@@ -763,7 +766,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
     
     objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
@@ -827,8 +830,10 @@ def _check_hash(expected, filename):
         return False
 
 
-@task
-def binaries_sync(c):
+@task(help={'extensions': 'Which file extensions to sync'})
+def binaries_sync(c, extensions=None):
+    if not extensions:
+        extensions = c.plugin.numba.binary_extensions
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
@@ -836,10 +841,8 @@ def binaries_sync(c):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
-    extensions = c.plugin.numba.binary_extensions
-    extensions.append('.zip')
     patterns = [os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions]
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba.binary_folder, patterns)
 
@@ -853,7 +856,7 @@ def testdata_sync(c):
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
-        print('Warning: AWS credentials file not found. Credentials must be in environment variable.')
+        print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
 
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMP/test/integration/fixtures', c.plugin.testdata_patterns)
@@ -868,29 +871,12 @@ def find_binaries(c, folder, version=None):
     # Return a flattened list
     return [item for sublist in files for item in sublist]
 
-@task(help={'clean': 'Clean out dependencies before packaging',
-            'python': 'Python to use for setup and compiling'})
-def binaries_compile(c, clean=False, python='python'):
-    print("Compiling exported numba functions...")
-    n = 0
-    if not os.path.exists(c.plugin.numba.binary_folder):
-        os.makedirs(c.plugin.numba.binary_folder)
-    for numba_file in c.plugin.numba.aot_files:
-        (base, ext) = os.path.splitext(os.path.basename(numba_file))
-        subprocess.check_call([python, numba_file])
-        n += 1
+@task
+def binaries_deploy(c):
+    # Copy down any missing binaries
+    binaries_sync(c)
 
     v = get_version(c).replace('.', '_')
-    for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
-        files = find_binaries(c, folder)
-        for f in files:
-            # Add version strings to the compiled files so they won't overwrite 
-            # files from other Trends.Earth versions when synced to S3
-            module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
-            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
-            out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
-            shutil.move(os.path.join(folder, f), out_path_with_v)
-    
     zipfile_basename = 'trends_earth_binaries_{}'.format(v)
     files = find_binaries(c, c.plugin.numba.binary_folder, v)
     with TemporaryDirectory() as tmpdir:
@@ -917,6 +903,33 @@ def binaries_compile(c, clean=False, python='python'):
                 for f in files:
                     zf.write(os.path.join(root, f), os.path.relpath(os.path.join(root, f), tmpdir))
 
+    # Upload the newly generated zipfile
+    binaries_sync(c, ['.zip'])
+
+
+@task(help={'clean': 'Clean out dependencies before packaging',
+            'python': 'Python to use for setup and compiling'})
+def binaries_compile(c, clean=False, python='python'):
+    print("Compiling exported numba functions...")
+    n = 0
+    if not os.path.exists(c.plugin.numba.binary_folder):
+        os.makedirs(c.plugin.numba.binary_folder)
+    for numba_file in c.plugin.numba.aot_files:
+        (base, ext) = os.path.splitext(os.path.basename(numba_file))
+        subprocess.check_call([python, numba_file])
+        n += 1
+
+    v = get_version(c).replace('.', '_')
+    for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
+        files = find_binaries(c, folder)
+        for f in files:
+            # Add version strings to the compiled files so they won't overwrite 
+            # files from other Trends.Earth versions when synced to S3
+            module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
+            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
+            out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
+            shutil.move(os.path.join(folder, f), out_path_with_v)
+    
     print("Compiled {} numba files.".format(n))
 
 
@@ -928,7 +941,7 @@ ns = Collection(set_version, plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_config, tecli_publish, tecli_run, 
                 tecli_info, tecli_logs, zipfile_build, zipfile_deploy,
-                binaries_compile, binaries_sync,
+                binaries_compile, binaries_sync, binaries_deploy,
                 testdata_sync)
 
 ns.configure({

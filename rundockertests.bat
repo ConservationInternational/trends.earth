@@ -13,7 +13,7 @@ REM Setup docker instance
 %DOCKER_RUN_COMMAND% "qgis_setup.sh %PLUGIN_NAME%"
 %DOCKER_RUN_COMMAND% "cd /tests_directory && git submodule update --init --recursive"
 %DOCKER_RUN_COMMAND% "cd /tests_directory && invoke testdata-sync"
-%DOCKER_RUN_COMMAND% "cd /tests_directory && invoke zipfile-build -t -f /LDMP.zip --python python3"
+%DOCKER_RUN_COMMAND% "cd /tests_directory && invoke zipfile-build -t -f /LDMP.zip"
 %DOCKER_RUN_COMMAND% "unzip -qq -o /LDMP.zip -d /"
 %DOCKER_RUN_COMMAND% "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
 %DOCKER_RUN_COMMAND% "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/%PLUGIN_NAME%"
@@ -21,4 +21,4 @@ docker cp trends.earth_test_user_credentials.json %CONTAINER%:/LDMP/test/trends.
 docker cp trends.earth_admin_user_credentials.json %CONTAINER%:/LDMP/test/trends.earth_admin_user_credentials.json
 
 REM Run the tests
-%DOCKER_RUN_COMMAND% "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
+%DOCKER_RUN_COMMAND% "cd /LDMP && /usr/bin/test_runner/qgis_testrunner.sh LDMP.test.testplugin"

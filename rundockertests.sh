@@ -2,9 +2,8 @@
 # Run docker tests on your local machine
 
 PLUGIN_NAME="LDMP"
-export QGIS_VERSION_TAG="master_2"
 
-DOCKER_RUN_COMMAND="docker exec -it trendsearth_qgis-testing-environment_1 sh -c"
+DOCKER_RUN_COMMAND="docker exec -it trendsearth_qgis_1 sh -c"
 
 docker-compose down -v
 docker-compose up -d

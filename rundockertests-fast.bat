@@ -16,4 +16,4 @@ docker cp trends.earth_test_user_credentials.json %CONTAINER%:/tests_directory/L
 docker cp trends.earth_admin_user_credentials.json %CONTAINER%:/tests_directory/LDMP/test/trends.earth_admin_user_credentials.json
 
 REM Run the tests
-%DOCKER_RUN_COMMAND% "cd /tests_directory && qgis_testrunner.sh LDMP.test.testplugin"
+%DOCKER_RUN_COMMAND% "cd /tests_directory && /usr/bin/test_runner/qgis_testrunner.sh LDMP.test.testplugin"

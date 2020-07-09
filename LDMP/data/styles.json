@@ -5,9 +5,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -19,9 +19,9 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -2, "color": "#AB2727", "label": "prod_traj_signif_dec_95"},
-                {"value": 1, "color": "#FFFFE0", "label": "prod_traj_signif_zero"},
-                {"value": 3, "color": "#45A146", "label": "prod_traj_signif_inc_95"}
+                {"value": -2, "color": "#9b2779", "label": "prod_traj_signif_dec_95"},
+                {"value": 1, "color": "#ffffe0", "label": "prod_traj_signif_zero"},
+                {"value": 3, "color": "#006500", "label": "prod_traj_signif_inc_95"}
             ]
         }
     },
@@ -32,9 +32,9 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -2, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
-                {"value": 1, "color": "#FFFFE0", "label": "prod_state_change_stable"},
-                {"value": 10, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
+                {"value": -2, "color": "#9b2779", "label": "prod_state_change_potential_deg"},
+                {"value": 1, "color": "#ffffe0", "label": "prod_state_change_stable"},
+                {"value": 10, "color": "#006500", "label": "prod_state_change_potential_improvement"}
             ]
         }
     },
@@ -58,8 +58,8 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#AB2727", "label": "prod_perf_deg_potential_deg"},
-                {"value": 0, "color": "#FFFFE0", "label": "prod_perf_deg_not_potential_deg"}
+                {"value": -1, "color": "#9b2779", "label": "prod_perf_deg_potential_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "prod_perf_deg_not_potential_deg"}
             ]
         }
     },
@@ -106,9 +106,9 @@
                    "shader": "discrete",
                    "items": [
                        {"value": -32768, "color": "#000000", "label": "nodata"},
-                       {"value": -10, "color": "#AB2727", "label": "prod_state_change_potential_deg"},
-                       {"value": 9, "color": "#FFFFE0", "label": "prod_state_change_stable"},
-                       {"value": 100, "color": "#45A146", "label": "prod_state_change_potential_improvement"}
+                       {"value": -10, "color": "#9b2779", "label": "prod_state_change_potential_deg"},
+                       {"value": 9, "color": "#ffffe0", "label": "prod_state_change_stable"},
+                       {"value": 100, "color": "#006500", "label": "prod_state_change_potential_improvement"}
             ]
         }
     },
@@ -294,7 +294,7 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 9, "color": "#FFFFE0", "label": "lc_tr_nochange"},
+                {"value": 9, "color": "#ffffe0", "label": "lc_tr_nochange"},
                 {"value": 19, "color": "#787F1B", "label": "lc_tr_forest_loss"},
                 {"value": 29, "color": "#FFAC42", "label": "lc_tr_grassland_loss"},
                 {"value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss"},
@@ -312,9 +312,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#AB2727", "label": "lc_deg_deg"},
-                {"value": 0, "color": "#FFFFE0", "label": "lc_deg_stable"},
-                {"value": 1, "color": "#45A146", "label": "lc_deg_imp"}
+                {"value": -1, "color": "#9b2779", "label": "lc_deg_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "lc_deg_stable"},
+                {"value": 1, "color": "#006500", "label": "lc_deg_imp"}
             ]
         }
     },
@@ -325,9 +325,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#AB2727", "label": "combined_sdg_deg_deg"},
-                {"value": 0, "color": "#FFFFE0", "label": "combined_sdg_deg_stable"},
-                {"value": 1, "color": "#45A146", "label": "combined_sdg_deg_imp"}
+                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
+                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
             ]
         }
     },
@@ -338,9 +338,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#AB2727", "label": "combined_sdg_deg_deg"},
-                {"value": 0, "color": "#FFFFE0", "label": "combined_sdg_deg_stable"},
-                {"value": 1, "color": "#45A146", "label": "combined_sdg_deg_imp"}
+                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
+                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
             ]
         }
     },
@@ -351,11 +351,11 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
+                {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
                 {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
                 {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
                 {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
-                {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
+                {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
             ]
         }
     },
@@ -366,11 +366,11 @@
                "shader": "exact",
                "items": [
                    {"value": -32768, "color": "#000000", "label": "nodata"},
-                   {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
+                   {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
                    {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
                    {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
                    {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
-                   {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
+                   {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
             ]
         }
     },
@@ -381,11 +381,11 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#AB2727", "label": "lpd_declining"},
+                {"value": 1, "color": "#9b2779", "label": "lpd_declining"},
                 {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
                 {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
                 {"value": 4, "color": "#B8D779", "label": "lpd_stab"},
-                {"value": 5, "color": "#45A146", "label": "lpd_imp"}
+                {"value": 5, "color": "#006500", "label": "lpd_imp"}
             ]
         }
     },
@@ -493,9 +493,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -506,9 +506,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -519,9 +519,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -532,9 +532,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -545,9 +545,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -558,9 +558,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -571,9 +571,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -584,9 +584,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -597,9 +597,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -610,9 +610,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -623,9 +623,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -636,9 +636,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -649,9 +649,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -662,9 +662,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -675,9 +675,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -688,9 +688,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }
@@ -701,9 +701,9 @@
             "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }

@@ -65,4 +65,9 @@ The below publications either use or relate to |trends.earth|.
 * von Maltitz, G.P., Gambiza, J., Kellner, K., Rambau, T., Lindeque, L., Kgope, B., 2019. 
   Experiences from the South African land degradation neutrality target setting process. 
   Environ. Sci. Policy 101, 54–62. 
+<<<<<<< HEAD
   https://doi.org/10.1016/j.envsci.2019.07.003
+=======
+  https://doi.org/10.1016/j.envsci.2019.07.003
+
+>>>>>>> 8bdebace77ea6bb96090b0cb035eaa3b75810ebc

@@ -51,7 +51,7 @@ Precipitation
 +----------------------+-----------+-------------+---------+------------------+
 
 .. _GPCP v2.3 1 month: https://www.esrl.noaa.gov/psd/data/gridded/data.gpcp.html
-.. _GPCC V7: https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html
+.. _GPCC V6: https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html
 .. _CHIRPS:  http://chg.geog.ucsb.edu/data/chirps
 .. _PERSIANN-CDR: http://chrsdata.eng.uci.edu
 

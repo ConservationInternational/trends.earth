@@ -122,7 +122,7 @@
             "Max Latitude": "90",
             "Min Longitude": "-180",
             "Max Longitude": "180",
-            "Description": "The Climatic Zone layer is defined based on the classification of IPCC (IPCC, 2006). The zones are defined by a set of rules based on: annual mean daily temperature, total annual precipitation, total annual potential evapo-transpiration (PET) and elevation. The classification presented as Figure 3A.5.1 Classification scheme for default climate regions” (IPCC, 2006) could not be accessed in electronic form and generated from an independently developed set of base data layers. Climatic information on temperature and precipitation was provided by the 5 arc min. dataset Version 1.4 from the WorldClim project (Hijmans et al., 2005). PET was computed according to the temperature-based formula investigated by Oudin et al. (2005) and used by Kay & Davis (2008). The computation of the extraterrestrial radiation was based on Duffie & Beckman (1991) and Allen et al. (1994). The formulas were supplemented by the information provided by the “Solar Radiation Basis” Web-page of the University of Oregon: http://solardat.uoregon.edu/SolarRadiationBasics.html.",
+            "Description": "The Climatic Zone layer is defined based on the classification of IPCC (IPCC, 2006). The zones are defined by a set of rules based on: annual mean daily temperature, total annual precipitation, total annual potential evapo-transpiration (PET) and elevation. The classification presented as Figure 3A.5.1 Classification scheme for default climate regions” (IPCC, 2006) could not be accessed in electronic form and generated from an independently developed set of base data layers. Climatic information on temperature and precipitation was provided by the 5 arc min. dataset Version 1.4 from the WorldClim project (Hijmans et al., 2005). PET was computed according to the temperature-based formula investigated by Oudin et al. (2005) and used by Kay & Davis (2008). The computation of the extraterrestrial radiation was based on Duffie & Beckman (1991) and Allen et al. (1994). The formulas were supplemented by the information provided by the “Solar Radiation Basis” Web-page of the University of 	Oregon: http://solardat.uoregon.edu/SolarRadiationBasics.html.",
             "Units": "",
             "Link to Dataset": "http://eusoils.jrc.ec.europa.eu/projects/RenewableEnergy/",
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/ipcc_climate_zones",
@@ -310,7 +310,7 @@
             "Source": "Funk, Chris, Pete Peterson, Martin Landsfeld, Diego Pedreros, James Verdin, Shraddhanand Shukla, Gregory Husak, James Rowland, Laura Harrison, Andrew Hoell & Joel Michaelsen.The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. Scientific Data 2, 150066. doi:10.1038/sdata.2015.66 2015.",
             "Comments": ""
         },
-        "GPCC V7 (Global Precipitation Climatology Centre)": {
+        "GPCC V6 (Global Precipitation Climatology Centre)": {
             "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html",
             "Start year": 1891,
             "End year": 2019,
@@ -323,7 +323,11 @@
             "Units": "mm/year",
             "Description": "The GPCC provides gridded gauge-analysis products derived from quality controlled station data. Two products are for climate: (a) the Full Data Reanalysis Product  (1901-2010) is recommended for global and regional water balance studies, calibration/validation of remote sensing based rainfall estimations and verification of numerical models, and (b) the VASClimO 50-Year Data Set which is for climate variability and trend studies. The products are not bias corrected for systematic gauge measuring errors. However, the GPCC provides estimates for that error as well as the number of gauges used on the grid.",
             "Link to Dataset": "http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=sfc/",
+<<<<<<< HEAD
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcc_1901_2019",
+=======
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcc_1891_2019",
+>>>>>>> 8bdebace77ea6bb96090b0cb035eaa3b75810ebc
             "Source code": "c08_gpcc",
             "Status": "Stored as assets",
             "License": "Public Domain",

@@ -323,11 +323,7 @@
             "Units": "mm/year",
             "Description": "The GPCC provides gridded gauge-analysis products derived from quality controlled station data. Two products are for climate: (a) the Full Data Reanalysis Product  (1901-2010) is recommended for global and regional water balance studies, calibration/validation of remote sensing based rainfall estimations and verification of numerical models, and (b) the VASClimO 50-Year Data Set which is for climate variability and trend studies. The products are not bias corrected for systematic gauge measuring errors. However, the GPCC provides estimates for that error as well as the number of gauges used on the grid.",
             "Link to Dataset": "http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=sfc/",
-<<<<<<< HEAD
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcc_1901_2019",
-=======
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_gpcc_1891_2019",
->>>>>>> 8bdebace77ea6bb96090b0cb035eaa3b75810ebc
             "Source code": "c08_gpcc",
             "Status": "Stored as assets",
             "License": "Public Domain",

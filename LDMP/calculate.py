@@ -143,15 +143,22 @@ class AOI(object):
                     tr_calculate.tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
-        if l.wkbType() == QgsWkbTypes.Polygon or l.wkbType() == QgsWkbTypes.MultiPolygon:
+        if l.wkbType() == QgsWkbTypes.Polygon \
+                or l.wkbType() == QgsWkbTypes.PolygonZ \
+                or l.wkbType() == QgsWkbTypes.MultiPolygon \
+                or l.wkbType() == QgsWkbTypes.MultiPolygonZ:
             self.datatype = "polygon"
-        elif l.wkbType() == QgsWkbTypes.Point:
+        elif l.wkbType() == QgsWkbTypes.Point \
+                or l.wkbType() == QgsWkbTypes.PointZ \
+                or l.wkbType() == QgsWkbTypes.MultiPoint \
+                or l.wkbType() == QgsWkbTypes.MultiPointZ:
             self.datatype = "point"
         else:
             QtWidgets.QMessageBox.critical(None,
                     tr_calculate.tr("Error"),
                     tr_calculate.tr("Failed to process area of interest - unknown geometry type: {}".format(l.wkbType())))
             log("Failed to process area of interest - unknown geometry type.")
+            self.datatype = "unknown"
             return
 
         self.l = transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
@@ -1093,7 +1100,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                        self.tr("Choose an area of interest."))
             return False
 
-        if self.aoi and not self.aoi.isValid():
+        if self.aoi and (self.aoi.datatype == "unknown" or not self.aoi.isValid()):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Unable to read area of interest."))
             return False

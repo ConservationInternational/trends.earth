@@ -40,10 +40,10 @@ changelog=1.0.2 (August 5, 2020)
     - Misc bugfixes to address Python errors that were coming up with some 
       QMessageBox messages.
   1.0.0 (April 27, 2020)
-, None)    - Add ability to download and use pre-compiled binaries (compiled with 
-      Numba) to speed up some local calculations. Right now this only is available 
-      for the SDG15.3.1 summary table calculation, but eventually this will be 
-      expanded to other tools as well.
+    - Add ability to download and use pre-compiled binaries (compiled with 
+      Numba) to speed up some local calculations. Right now this only is 
+      available for the SDG15.3.1 summary table calculation, but eventually 
+      this will be expanded to other tools as well.
     - Related to the above, there is now an "advanced" settings button in the 
       settings window, that will allow users to download pre-compiled binaries, 
       and to turn on or off detailed logging of messages while the tool is 

@@ -221,12 +221,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."), None)
+                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."))
             return
 
         if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."), None)
+                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."))
             return
 
         # Select the initial and final bands from initial and final datasets 
@@ -242,12 +242,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the initial land cover layer."))
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the final land cover layer."))
             return
 
         out_f = self.get_save_raster()
@@ -271,7 +271,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                        out_f, trans_matrix, persistence_remap)
         if not lc_change_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating land cover change."), None)
+                                       self.tr("Error calculating land cover change."))
             return
 
         band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),

@@ -30,7 +30,7 @@ from qgis.utils import iface
 
 from LDMP.worker import AbstractWorker, start_worker
 
-from LDMP import log
+from LDMP import log, debug_on
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
@@ -220,7 +220,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
         else:
             log(u'API response from "{}" request was None'.format(method))
-        if QSettings().value('LDMP/debug', True):
+        if debug_on():
             log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:
         resp = None

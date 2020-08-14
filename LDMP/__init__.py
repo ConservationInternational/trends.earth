@@ -103,3 +103,6 @@ def binaries_available():
             log("Numba-compiled version of calculate_numba not available.")
         ret = False
     return ret
+
+def debug_on():
+    QSettings().value("LDMP/debug", False) == 'True'

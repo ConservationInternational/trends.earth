@@ -385,15 +385,18 @@ class AOI(object):
                 return None
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
+            log('Feature area in sq km after buffering (and in aeqd) is: {}'.format(geom_buffered.area()/(1000 * 1000)))
             geom_buffered.transform(to_aeqd, QgsCoordinateTransform.TransformDirection.ReverseTransform)
             f.setGeometry(geom_buffered)
             feats.append(f)
+            log('Feature area after buffering (and in WGS84) is: {}'.format(geom_buffered.area()))
 
         l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
                                     "calculation boundary (transformed)",  
                                     "memory")
         l_buffered.dataProvider().addFeatures(feats)
         l_buffered.commitChanges()
+
 
         if not l_buffered.isValid():
             log('Error buffering layer')

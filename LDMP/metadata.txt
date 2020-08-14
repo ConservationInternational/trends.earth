@@ -28,6 +28,8 @@ hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
 changelog=1.0.2 (August 5, 2020)
+    - Fix urban area code to allow processing of AOIs with areas between 10,000 
+      sq km and 25,000 sq km.
     - Add latest MERRA2 data (through 2019).
     - Remove maximum area limitation from download tool.
     - Bump httplib2 to 0.18.0.

@@ -3,9 +3,11 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`1.0.2 (August 5, 2020) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_
+`1.0.2 (August 14, 2020) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
+    - Fix urban area code to allow processing of AOIs with areas between 10,000 
+      sq km and 25,000 sq km.
     - Add latest MERRA2 data (through 2019).
     - Remove maximum area limitation from download tool.
     - Bump httplib2 to 0.18.0.

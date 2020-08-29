@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="869"/>
+        <location filename="../calculate.py" line="876"/>
         <source>Point chooser</source>
         <translation>نقطة منتقي</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="869"/>
+        <location filename="../calculate.py" line="876"/>
         <source>Click the map to choose a point.</source>
         <translation>انقر على الخريطة لاختيار نقطة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="894"/>
+        <location filename="../calculate.py" line="901"/>
         <source>Select a file defining the area of interest</source>
         <translation>حدد ملفًا يحدد مجال الاهتمام</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="894"/>
+        <location filename="../calculate.py" line="901"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="905"/>
+        <location filename="../calculate.py" line="912"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="905"/>
+        <location filename="../calculate.py" line="912"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="615"/>
+        <location filename="../calculate.py" line="622"/>
         <source>Select folder containing data</source>
         <translation>حدد مجلد يحتوي على البيانات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="624"/>
+        <location filename="../calculate.py" line="631"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="624"/>
+        <location filename="../calculate.py" line="631"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="657"/>
+        <location filename="../calculate.py" line="664"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>اختر بادئة ليتم استخدامها عند تسمية ملفات الإخراج</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="657"/>
+        <location filename="../calculate.py" line="664"/>
         <source>Base name (*)</source>
         <translation>الاسم الأساسي (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="669"/>
+        <location filename="../calculate.py" line="676"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="669"/>
+        <location filename="../calculate.py" line="676"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="683"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Overwrite file?</source>
         <translation>ملف الكتابة الفوقية؟</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="683"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>يؤدي استخدام البادئة &amp;quot;{}&amp;quot; إلى استبدال الملف (الملفات) الموجودة {}. هل تريد استبدال هذه الملفات؟</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="697"/>
         <source>Information</source>
         <translation>معلومات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="697"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>اختر بادئة إخراج مختلفة وحاول مرة أخرى.</translation>
     </message>
@@ -236,77 +236,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="964"/>
+        <location filename="../calculate.py" line="971"/>
         <source>Area</source>
         <translation>منطقة</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="969"/>
+        <location filename="../calculate.py" line="976"/>
         <source>Output</source>
         <translation>انتاج |</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="973"/>
+        <location filename="../calculate.py" line="980"/>
         <source>Options</source>
         <translation>خيارات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1129"/>
+        <location filename="../calculate.py" line="1136"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1054"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>اختر حدود إدارية من المستوى الأول.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1061"/>
+        <location filename="../calculate.py" line="1068"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>غير قادر على تحميل الحدود الإدارية.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1075"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>اختر ملفًا لتعريف مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1081"/>
+        <location filename="../calculate.py" line="1088"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>اختر نقطة لتحديد مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1092"/>
+        <location filename="../calculate.py" line="1099"/>
         <source>Choose an area of interest.</source>
         <translation>اختيار مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1097"/>
+        <location filename="../calculate.py" line="1104"/>
         <source>Unable to read area of interest.</source>
         <translation>غير قادر على قراءة مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1104"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>Error buffering polygon</source>
         <translation>خطأ في التخزين المؤقت للمضلع</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1123"/>
+        <location filename="../calculate.py" line="1130"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>المربع المحيط للمنطقة المطلوبة (حوالي {: .6n}) كيلومتر مربع كبير جدًا. اختر منطقة أصغر للمعالجة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1129"/>
+        <location filename="../calculate.py" line="1136"/>
         <source>Choose an output base name.</source>
         <translation>اختر اسم قاعدة الإخراج.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1111"/>
+        <location filename="../calculate.py" line="1118"/>
         <source>Unable to calculate bounding box.</source>
         <translation>غير قادر على حساب المربع المحيط.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1072"/>
+        <location filename="../calculate.py" line="1079"/>
         <source>Unable to read {}.</source>
         <translation>غير قادر على قراءة {}.</translation>
     </message>
@@ -555,12 +555,12 @@ p, li { white-space: pre-wrap; }
         <translation>حساب ملخصات منطقة من خطوط المسح على الوحدات الفرعية</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="506"/>
         <source>Coming soon!</source>
         <translation>قريبا!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="506"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>مضلع متعددة جدول ملخص حساب قريبا!</translation>
     </message>
@@ -3219,37 +3219,37 @@ p, li { white-space: pre-wrap; }
         <translation>الغطاء الأرضي في السنة الأولية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="425"/>
+        <location filename="../lc_setup.py" line="427"/>
         <source>Select a transition matrix definition file</source>
         <translation>حدد ملف تعريف المصفوفة الانتقالية</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="455"/>
+        <location filename="../lc_setup.py" line="457"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>تعريف المصفوفة الانتقالية (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="463"/>
+        <location filename="../lc_setup.py" line="465"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="433"/>
+        <location filename="../lc_setup.py" line="435"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="447"/>
+        <location filename="../lc_setup.py" line="449"/>
         <source>{} does not appear to contain a valid matrix definition.</source>
         <translation>{} لا يبدو أنه يحتوي على تعريف مصفوفة صالح.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="455"/>
+        <location filename="../lc_setup.py" line="457"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>اختر مكان حفظ تعريف المصفوفة الانتقالية هذا</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="463"/>
+        <location filename="../lc_setup.py" line="465"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
@@ -3821,7 +3821,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1045"/>
+        <location filename="../calculate.py" line="1052"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
@@ -3836,37 +3836,37 @@ p, li { white-space: pre-wrap; }
         <translation>تعذر تحميل منطقة الاهتمام من {}. قد تكون هناك مشكلة في الملف أو نظام الإحداثيات. حاول تحميل هذا الملف يدويًا في QGIS للتحقق من عرضه بشكل صحيح. إذا كنت لا تزال تواجه مشاكل مع هذا الملف ، فأرسل إلينا رسالة على Trends.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="353"/>
+        <location filename="../calculate.py" line="360"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>فشل معالجة مجال الاهتمام - نوع هندسي غير معروف: {}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="177"/>
+        <location filename="../calculate.py" line="184"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>فشل في إضافة geojson إلى طبقة مؤقتة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="243"/>
+        <location filename="../calculate.py" line="250"/>
         <source>Warning</source>
         <translation>تحذير</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="243"/>
+        <location filename="../calculate.py" line="250"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation>المنطقة المختارة تعبر خط الطول 180. يوصى بتعيين نظام إحداثيات المشروع على نظام إحداثيات محلي (انظر علامة التبويب &amp;quot;CRS&amp;quot; في نافذة &amp;quot;خصائص المشروع&amp;quot; من قائمة &amp;quot;المشروع&amp;quot;.)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="376"/>
+        <location filename="../calculate.py" line="383"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation>خطأ في تحويل الإحداثيات. تحقق من صحة هندسة الإدخال.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1045"/>
+        <location filename="../calculate.py" line="1052"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>لقد اخترت تشغيل الحسابات لمدينة. يجب تحديد مسافة المخزن المؤقت لتحديد منطقة الحساب عند معالجة مدينة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="206"/>
+        <location filename="../calculate.py" line="213"/>
         <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation>هندسة غير صالحة في الصف {}. تحقق من صلاحية جميع الأشكال الهندسية للإدخال قبل المعالجة. حاول استخدام أداة التحقق من الصحة في قائمة &amp;quot;المتجه&amp;quot; على شريط الأدوات للحصول على مزيد من المعلومات حول الميزات غير الصالحة (ضمن &amp;quot;المتجه&amp;quot; - &amp;quot;أدوات الهندسة&amp;quot; - &amp;quot;التحقق من الصلاحية&amp;quot;).</translation>
     </message>

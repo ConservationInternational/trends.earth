@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.10.3
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=1.0.1
+version=1.0.2
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -27,13 +27,25 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=1.0.2 (not yet released)
-    -  
+changelog=1.0.2 (August 14, 2020)
+    - Fix urban area code to allow processing of AOIs with areas between 10,000 
+      sq km and 25,000 sq km.
+    - Add latest MERRA2 data (through 2019).
+    - Remove maximum area limitation from download tool.
+    - Bump httplib2 to 0.18.0.
+    - Update from GPCC V6 to GPCC V7
+    - Add 2019 Hansen et al. deforestation data
+    - Update to latest colormap for degradation data (addressing issues with 
+      reg/green colorblindness).
+    - Add support for more datatypes in input shapefiles (add PointZ, 
+      MultiPoint, MultiPointZ, PolygonZ, MultiPolygonZ).
+    - Misc bugfixes to address Python errors that were coming up with some 
+      QMessageBox messages.
   1.0.0 (April 27, 2020)
     - Add ability to download and use pre-compiled binaries (compiled with 
-      Numba) to speed up some local calculations. Right now this only is available 
-      for the SDG15.3.1 summary table calculation, but eventually this will be 
-      expanded to other tools as well.
+      Numba) to speed up some local calculations. Right now this only is 
+      available for the SDG15.3.1 summary table calculation, but eventually 
+      this will be expanded to other tools as well.
     - Related to the above, there is now an "advanced" settings button in the 
       settings window, that will allow users to download pre-compiled binaries, 
       and to turn on or off detailed logging of messages while the tool is 

@@ -185,8 +185,11 @@ def run(params, logger):
     area = 0
     for geojson in geojsons:
         aoi = ee.Geometry.MultiPolygon(get_coords(geojson))
-        area += aoi.area().divide(1000000).getInfo()
-    if area > 10000:
+        area += aoi.area().getInfo() / (1000*1000)
+    # QGIS code limits area of bounding box to 25,000 sq km, so we shouldn't 
+    # ever have bounding boxes exceeding that area, but add an additional check 
+    # here (with an error margin of 10,000 sq km...) just in case.
+    if area > 35000:
         logger.debug("Area ({:.6n} km sq) is too large - failing task".format(area))
         raise Exception
     else:

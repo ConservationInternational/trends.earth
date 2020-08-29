@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="869"/>
+        <location filename="../calculate.py" line="876"/>
         <source>Point chooser</source>
         <translation>Point chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="869"/>
+        <location filename="../calculate.py" line="876"/>
         <source>Click the map to choose a point.</source>
         <translation>Click the map to choose a point.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="894"/>
+        <location filename="../calculate.py" line="901"/>
         <source>Select a file defining the area of interest</source>
         <translation>Select a file defining the area of interest</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="894"/>
+        <location filename="../calculate.py" line="901"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Vector file (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="905"/>
+        <location filename="../calculate.py" line="912"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="905"/>
+        <location filename="../calculate.py" line="912"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Cannot read {}. Choose a different file.</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="615"/>
+        <location filename="../calculate.py" line="622"/>
         <source>Select folder containing data</source>
         <translation>Select folder containing data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="624"/>
+        <location filename="../calculate.py" line="631"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="624"/>
+        <location filename="../calculate.py" line="631"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Cannot read {}. Choose a different folder.</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="657"/>
+        <location filename="../calculate.py" line="664"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Choose a prefix to be used when naming output files</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="657"/>
+        <location filename="../calculate.py" line="664"/>
         <source>Base name (*)</source>
         <translation>Base name (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="669"/>
+        <location filename="../calculate.py" line="676"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="669"/>
+        <location filename="../calculate.py" line="676"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="683"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Overwrite file?</source>
         <translation>Overwrite file?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="683"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="697"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="697"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Choose a different output prefix and try again.</translation>
     </message>
@@ -272,77 +272,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="964"/>
+        <location filename="../calculate.py" line="971"/>
         <source>Area</source>
         <translation>Area</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="969"/>
+        <location filename="../calculate.py" line="976"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="973"/>
+        <location filename="../calculate.py" line="980"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1129"/>
+        <location filename="../calculate.py" line="1136"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1054"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choose a first level administrative boundary.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1061"/>
+        <location filename="../calculate.py" line="1068"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Unable to load administrative boundaries.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1075"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choose a file to define the area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1081"/>
+        <location filename="../calculate.py" line="1088"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choose a point to define the area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1092"/>
+        <location filename="../calculate.py" line="1099"/>
         <source>Choose an area of interest.</source>
         <translation>Choose an area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1097"/>
+        <location filename="../calculate.py" line="1104"/>
         <source>Unable to read area of interest.</source>
         <translation>Unable to read area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1104"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>Error buffering polygon</source>
         <translation>Error buffering polygon</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1123"/>
+        <location filename="../calculate.py" line="1130"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1129"/>
+        <location filename="../calculate.py" line="1136"/>
         <source>Choose an output base name.</source>
         <translation>Choose an output base name.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1111"/>
+        <location filename="../calculate.py" line="1118"/>
         <source>Unable to calculate bounding box.</source>
         <translation>Unable to calculate bounding box.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1072"/>
+        <location filename="../calculate.py" line="1079"/>
         <source>Unable to read {}.</source>
         <translation>Unable to read {}.</translation>
     </message>
@@ -591,12 +591,12 @@ p, li { white-space: pre-wrap; }
         <translation>Calculate area summaries of a raster on sub-units</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="506"/>
         <source>Coming soon!</source>
         <translation>Coming soon!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="506"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Multiple polygon summary table calculation coming soon!</translation>
     </message>
@@ -3278,37 +3278,37 @@ p, li { white-space: pre-wrap; }
         <translation>Land cover in initial year </translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="425"/>
+        <location filename="../lc_setup.py" line="427"/>
         <source>Select a transition matrix definition file</source>
         <translation>Select a transition matrix definition file</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="455"/>
+        <location filename="../lc_setup.py" line="457"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Transition matrix definition (*.json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="463"/>
+        <location filename="../lc_setup.py" line="465"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="433"/>
+        <location filename="../lc_setup.py" line="435"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Cannot read {}. Choose a different file.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="447"/>
+        <location filename="../lc_setup.py" line="449"/>
         <source>{} does not appear to contain a valid matrix definition.</source>
         <translation>{} does not appear to contain a valid matrix definition.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="455"/>
+        <location filename="../lc_setup.py" line="457"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Choose where to save this transition matrix definition</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="463"/>
+        <location filename="../lc_setup.py" line="465"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Cannot write to {}. Choose a different file.</translation>
     </message>
@@ -3880,7 +3880,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1045"/>
+        <location filename="../calculate.py" line="1052"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -3895,37 +3895,37 @@ p, li { white-space: pre-wrap; }
         <translation>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="353"/>
+        <location filename="../calculate.py" line="360"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>Failed to process area of interest - unknown geometry type: {}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="177"/>
+        <location filename="../calculate.py" line="184"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>Failed to add geojson to temporary layer.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="243"/>
+        <location filename="../calculate.py" line="250"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="243"/>
+        <location filename="../calculate.py" line="250"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="376"/>
+        <location filename="../calculate.py" line="383"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation>Error transforming coordinates. Check that the input geometry is valid.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1045"/>
+        <location filename="../calculate.py" line="1052"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="206"/>
+        <location filename="../calculate.py" line="213"/>
         <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</translation>
     </message>

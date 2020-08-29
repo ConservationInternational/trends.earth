@@ -218,7 +218,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                          self.groupBox_perf.isChecked() or
                          self.groupBox_state.isChecked()):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose one or more productivity sub-indicator to calculate."), None)
+                                       self.tr("Choose one or more productivity sub-indicator to calculate."))
             return
 
         # Note that the super class has several tests in it - if they fail it

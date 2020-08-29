@@ -2,20 +2,31 @@ Changelog
 ======================
 
 This page lists the version history of |trends.earth|.
-  
 
-`1.0.2 (not yet released) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_
+`1.0.2 (August 14, 2020) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
-    - 
+    - Fix urban area code to allow processing of AOIs with areas between 10,000 
+      sq km and 25,000 sq km.
+    - Add latest MERRA2 data (through 2019).
+    - Remove maximum area limitation from download tool.
+    - Bump httplib2 to 0.18.0.
+    - Update from GPCC V6 to GPCC V7
+    - Add 2019 Hansen et al. deforestation data
+    - Update to latest colormap for degradation data (addressing issues with 
+      reg/green colorblindness).
+    - Add support for more datatypes in input shapefiles (add PointZ, 
+      MultiPoint, MultiPointZ, PolygonZ, MultiPolygonZ).
+    - Misc bugfixes to address Python errors that were coming up with some 
+      QMessageBox messages.
 
 `1.0.0 (April 27, 2020) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - Add ability to download and use pre-compiled binaries (compiled with 
-      Numba) to speed up some local calculations. Right now this only is available 
-      for the SDG15.3.1 summary table calculation, but eventually this will be 
-      expanded to other tools as well.
+      Numba) to speed up some local calculations. Right now this only is 
+      available for the SDG15.3.1 summary table calculation, but eventually 
+      this will be expanded to other tools as well.
     - Related to the above, there is now an "advanced" settings button in the 
       settings window, that will allow users to download pre-compiled binaries, 
       and to turn on or off detailed logging of messages while the tool is 

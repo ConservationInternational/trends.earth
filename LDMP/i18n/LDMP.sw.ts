@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="869"/>
+        <location filename="../calculate.py" line="876"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="869"/>
+        <location filename="../calculate.py" line="876"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="894"/>
+        <location filename="../calculate.py" line="901"/>
         <source>Select a file defining the area of interest</source>
         <translation>Chagua faili inayofafanua eneo la riba</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="894"/>
+        <location filename="../calculate.py" line="901"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="905"/>
+        <location filename="../calculate.py" line="912"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="905"/>
+        <location filename="../calculate.py" line="912"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="615"/>
+        <location filename="../calculate.py" line="622"/>
         <source>Select folder containing data</source>
         <translation>Chagua folda iliyo na data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="624"/>
+        <location filename="../calculate.py" line="631"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="624"/>
+        <location filename="../calculate.py" line="631"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="657"/>
+        <location filename="../calculate.py" line="664"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Chagua kiambishi awali kitumike wakati wa kutaja faili za pato</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="657"/>
+        <location filename="../calculate.py" line="664"/>
         <source>Base name (*)</source>
         <translation>Jina la msingi (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="669"/>
+        <location filename="../calculate.py" line="676"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="669"/>
+        <location filename="../calculate.py" line="676"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="683"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Overwrite file?</source>
         <translation>Kuboresha faili?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="683"/>
+        <location filename="../calculate.py" line="690"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>Kutumia kiambishi awali &amp;quot;{}&amp;quot; kungesababisha kufuta tena faili zilizopo {}. Je! Unataka kufuta faili hizi?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="697"/>
         <source>Information</source>
         <translation>Habari</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="697"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Chagua kiambishi tofauti cha pato na ujaribu tena.</translation>
     </message>
@@ -236,77 +236,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="964"/>
+        <location filename="../calculate.py" line="971"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="969"/>
+        <location filename="../calculate.py" line="976"/>
         <source>Output</source>
         <translation>Pato</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="973"/>
+        <location filename="../calculate.py" line="980"/>
         <source>Options</source>
         <translation>Chaguo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1129"/>
+        <location filename="../calculate.py" line="1136"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1054"/>
+        <location filename="../calculate.py" line="1061"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1061"/>
+        <location filename="../calculate.py" line="1068"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1075"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1081"/>
+        <location filename="../calculate.py" line="1088"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1092"/>
+        <location filename="../calculate.py" line="1099"/>
         <source>Choose an area of interest.</source>
         <translation>Chagua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1097"/>
+        <location filename="../calculate.py" line="1104"/>
         <source>Unable to read area of interest.</source>
         <translation>Haiwezi kusoma eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1104"/>
+        <location filename="../calculate.py" line="1111"/>
         <source>Error buffering polygon</source>
         <translation>Hitilafu wakati wa kunyoosha polygon</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1123"/>
+        <location filename="../calculate.py" line="1130"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>Sanduku linalowekwa kwa eneo lililoombwa (takriban {: .6n}) sq km ni kubwa mno. Chagua sehemu ndogo ya mchakato.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1129"/>
+        <location filename="../calculate.py" line="1136"/>
         <source>Choose an output base name.</source>
         <translation>Chagua jina la msingi wa pato.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1111"/>
+        <location filename="../calculate.py" line="1118"/>
         <source>Unable to calculate bounding box.</source>
         <translation>Haiwezi kuhesabu sanduku la kufunga.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1072"/>
+        <location filename="../calculate.py" line="1079"/>
         <source>Unable to read {}.</source>
         <translation>Haiwezi kusoma {}.</translation>
     </message>
@@ -555,12 +555,12 @@ p, li { white-space: pre-wrap; }
         <translation>Tathmini mafupi ya eneo la raster kwenye vitengo vidogo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="506"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="506"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Hesabu ya hesabu ya meza ya polygoni nyingi ijayo hivi karibuni!</translation>
     </message>
@@ -3219,37 +3219,37 @@ p, li { white-space: pre-wrap; }
         <translation>Kifuniko cha ardhi katika mwaka wa kwanza</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="425"/>
+        <location filename="../lc_setup.py" line="427"/>
         <source>Select a transition matrix definition file</source>
         <translation>Chagua faili ya ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="455"/>
+        <location filename="../lc_setup.py" line="457"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Ufafanuzi wa matrix ya mpito (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="463"/>
+        <location filename="../lc_setup.py" line="465"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="433"/>
+        <location filename="../lc_setup.py" line="435"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="447"/>
+        <location filename="../lc_setup.py" line="449"/>
         <source>{} does not appear to contain a valid matrix definition.</source>
         <translation>{} haionekani kuwa na ufafanuzi halali wa matrix.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="455"/>
+        <location filename="../lc_setup.py" line="457"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Chagua wapi kuokoa ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="463"/>
+        <location filename="../lc_setup.py" line="465"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -3821,7 +3821,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1045"/>
+        <location filename="../calculate.py" line="1052"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
@@ -3836,37 +3836,37 @@ p, li { white-space: pre-wrap; }
         <translation>Haiwezi kupakia eneo la riba kutoka {}. Kunaweza kuwa na shida na faili au mfumo wa kuratibu. Jaribu kupakia faili hii kwa QGIS ili kuhakikisha kuwa inaonyeshwa vizuri. Ikiwa unaendelea kuwa na shida na faili hii, tutumie ujumbe kwa trends.earth@conservation.org.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="353"/>
+        <location filename="../calculate.py" line="360"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
         <translation>Imeshindwa kushughulikia eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="177"/>
+        <location filename="../calculate.py" line="184"/>
         <source>Failed to add geojson to temporary layer.</source>
         <translation>Imeshindwa kuongeza geojson kwa safu ya muda.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="243"/>
+        <location filename="../calculate.py" line="250"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="243"/>
+        <location filename="../calculate.py" line="250"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
         <translation>Sehemu iliyochaguliwa huvuka meridi ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi na mfumo wa kuratibu wa eneo hilo (angalia kichupo cha &amp;quot;CRS&amp;quot; cha dirisha la &amp;quot;Mali ya Mradi&amp;quot; kutoka kwa menyu ya &amp;quot;Mradi&amp;quot;.)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="376"/>
+        <location filename="../calculate.py" line="383"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
         <translation>Kosa la kubadilisha kuratibu. Angalia kuwa jiometri ya kuingiza ni sawa.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1045"/>
+        <location filename="../calculate.py" line="1052"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>Umechagua kufanya mahesabu ya mji. Lazima uchague umbali wa buffer kufafanua eneo la hesabu wakati unasindika mji.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="206"/>
+        <location filename="../calculate.py" line="213"/>
         <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation>Jiometri batili kwa safu {}. Angalia kuwa jiometri zote za pembejeo ni halali kabla ya kusindika. Jaribu kutumia chombo cha uhalali wa kuangalia kwenye menyu ya &amp;quot;Vector&amp;quot; kwenye mwambaa wa chombo kwa habari zaidi juu ya ambayo huduma ni batili (Chini ya &amp;quot;Vector&amp;quot; - &amp;quot;Vyombo vya jiometri&amp;quot; - &amp;quot;Angalia uhalisi&amp;quot;).</translation>
     </message>

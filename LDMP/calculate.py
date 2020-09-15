@@ -799,7 +799,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
         if buffer_size:
-            self.buffer_size_km.setValue(int(buffer_size))
+            self.buffer_size_km.setValue(float(buffer_size))
         self.groupBox_buffer.setChecked(buffer_checked)
 
     def admin_0_changed(self):

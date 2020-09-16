@@ -13,6 +13,7 @@ import json
 import requests
 import tempfile
 import hashlib
+import pathlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import ee
@@ -199,8 +200,12 @@ def landtrend_make_plot(d, year_start, year_end):
     #d.land_cover.iloc[6] = 6
     #d.land_cover.iloc[7] = 7
 
-    axs[0].plot(d.index, d.ndvi/10000, color='#0B6623', linewidth=3)
+    # Account for scaling on NDVI
+    d.ndvi = d.ndvi / 10000
+
+    axs[0].plot(d.index, d.ndvi, color='#0B6623', linewidth=3)
     axs[0].set_xlim(year_start, year_end)
+    axs[0].set_ylim(d.ndvi.min() * .95, d.ndvi.max() * 1.1)
     axs[0].set_ylabel('NDVI\n(annual)', fontsize=32)
     axs[0].tick_params(axis='y', left=False, right=True, labelleft=False, labelright=True, labelsize=28)
     axs[0].tick_params(axis='x', bottom=False, labelbottom=False)
@@ -228,12 +233,13 @@ def landtrend_make_plot(d, year_start, year_end):
     by_label = dict(zip(labels, handles))
     axs[2].legend(by_label.values(), by_label.keys(), ncol=4, frameon=False, fontsize=26, borderpad=0)
 
-    im = Image.open('trends_earth_logo_bl_print.png')
+    im = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
+                                 'trends_earth_logo_bl_print.png'))
     height = im.size[1]
     # We need a float array between 0-1, rather than
     # a uint8 array between 0-255
     im = np.array(im).astype(np.float) / 255
-    fig.figimage(im, 120, fig.bbox.ymax - height-30, zorder=-1)
+    fig.figimage(im, 120, fig.bbox.ymax - height - 40, zorder=-1)
     
     # Set the first axis background to transparent so the trends.earth logo (placed behind it) will show through
     axs[0].patch.set_facecolor('w')

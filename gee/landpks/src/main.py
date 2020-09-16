@@ -228,13 +228,16 @@ def landtrend_make_plot(d, year_start, year_end):
     by_label = dict(zip(labels, handles))
     axs[2].legend(by_label.values(), by_label.keys(), ncol=4, frameon=False, fontsize=26, borderpad=0)
 
-    #im = Image.open('trends_earth_logo_bl_print.png')
-    #height = im.size[1]
+    im = Image.open('trends_earth_logo_bl_print.png')
+    height = im.size[1]
     # We need a float array between 0-1, rather than
     # a uint8 array between 0-255
-    #im = np.array(im).astype(np.float) / 255
-    #fig.figimage(im, 0, fig.bbox.ymax - height-30, zorder=10)
-    # Look into imshow
+    im = np.array(im).astype(np.float) / 255
+    fig.figimage(im, 120, fig.bbox.ymax - height-30, zorder=-1)
+    
+    # Set the first axis background to transparent so the trends.earth logo (placed behind it) will show through
+    axs[0].patch.set_facecolor('w')
+    axs[0].patch.set_alpha(0)
     
     return plt
 

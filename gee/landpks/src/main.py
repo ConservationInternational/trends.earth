@@ -25,15 +25,18 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import matplotlib.colors as colors
+from matplotlib_scalebar.scalebar import ScaleBar
 
 import pandas as pd
-
 
 from landdegradation.schemas.schemas import Url, ImageryPNG, \
         ImageryPNGSchema
 
+# Bucket where results will be uploaded (should be publicly readable)
 BUCKET = 'ldmt'
-
+# Bounding box side in meters
+BOX_SIDE = 10000
 
 def upload_to_google_cloud(client, f):
     b = client.get_bucket(BUCKET)
@@ -47,7 +50,7 @@ def get_hash(filename):
        return hashlib.md5(f.read()).hexdigest()
 
 
-# Dictionary to remap from ESA CCI to 7 classes
+# Dictionary to remap from ESA CCI to 7 classes - used for landtrend_plot
 remap_dict = {'0': '0',
               '50': '1',
               '60': '1',
@@ -132,6 +135,7 @@ classes = pd.DataFrame(data={'Label': ["No data", "Forest", "Grassland", "Cropla
                              'Code' : [0, 1, 2, 3, 4, 5, 6, 7],
                              'Color' : ["#000000", "#787F1B", "#FFAC42", "#FFFB6E",
                                         "#00DB84", "#E60017", "#FFF3D7", "#0053C4"]})
+
 
 ###############################################################################
 # Code for landtrendplot
@@ -248,7 +252,7 @@ def landtrend_make_plot(d, year_start, year_end):
     return plt
 
 
-def landtrend(year_start, year_end, lang, geojson, gc_client):
+def landtrend(year_start, year_end, geojson, lang, gc_client):
     res = landtrend_get_data(year_start, year_end, geojson)
     plt = landtrend_make_plot(res, year_start, year_end)
 
@@ -271,23 +275,84 @@ def landtrend(year_start, year_end, lang, geojson, gc_client):
 
 
 ###############################################################################
-# Code for base image
+# Code for base image (Landsat 8 RGB plot)
 
-def base_image(lang, geojson, crs, EXECUTION_ID, logger, gc_client):
-    # TEMPORARY ##############################################################
-    #TODO: TEMPORARY - replace with real code when available
-    r = requests.get('http://trends.earth-shared.s3.us-east-1.amazonaws.com/trendsearth_02_satellite.PNG', allow_redirects=True)
+# Function to mask out clouds and cloud-shadows present in Landsat images
+def maskL8sr(image):
+    # Bits 3 and 5 are cloud shadow and cloud, respectively.
+    cloudShadowBitMask = (1 << 3)
+    cloudsBitMask = (1 << 5)
+    # Get the pixel QA band.
+    qa = image.select('pixel_qa')
+    # Both flags should be set to zero, indicating clear conditions.
+    mask = qa.bitwiseAnd(cloudShadowBitMask).eq(0)
+    mask = qa.bitwiseAnd(cloudsBitMask).eq(0)
+
+    return image.updateMask(mask)
+
+# Function to generate the Normalized Diference Vegetation Index, NDVI = (NIR + 
+# Red)/(NIR + Red) 
+def calculate_ndvi(image):
+    return image.normalizedDifference(['B5', 'B4']).rename('NDVI')
+
+START_MONTH_DAY = '-01-01'
+END_MONTH_DAY = '-12-31'
+OLI_SR_COLL = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
+
+def base_image(year, geojson, lang, gc_client):
+    region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
+
+    # Mask out clouds and cloud-shadows in the Landsat image
+    range_coll = OLI_SR_COLL.filterDate(str(year) + START_MONTH_DAY, str(year) + END_MONTH_DAY)
+    l8sr_y = (range_coll.map(maskL8sr).median().setDefaultProjection(range_coll.first().projection()))
+
+    # Reproject L8 image so it can be correctly passed to 'sampleRectangle()' 
+    # function
+    l8sr_mosaic = l8sr_y.reproject(**({'crs':'EPSG:3857','scale':60}))
+    l8sr_mosaic_bands = l8sr_mosaic.select(['B2', 'B3', 'B4']).sampleRectangle(region)
+
+    # Get 2-d pixel array for AOI - returns feature with 2-D pixel array as property per band.
+    # Get individual band arrays.
+    band_arr_b4 = l8sr_mosaic_bands.get('B4')
+    band_arr_b3 = l8sr_mosaic_bands.get('B3')
+    band_arr_b2 = l8sr_mosaic_bands.get('B2')
+
+    # Transfer the arrays from server to client and cast as np array.
+    np_arr_b4 = np.array(band_arr_b4.getInfo())
+    np_arr_b3 = np.array(band_arr_b3.getInfo())
+    np_arr_b2 = np.array(band_arr_b2.getInfo())
+
+    # Expand the dimensions of the images so they can be concatenated into 3-D.
+    np_arr_b4 = np.expand_dims(np_arr_b4, 2)
+    np_arr_b3 = np.expand_dims(np_arr_b3, 2)
+    np_arr_b2 = np.expand_dims(np_arr_b2, 2)
+
+    rgb_img = np.concatenate((np_arr_b4, np_arr_b3, np_arr_b2), 2)
+
+    # Scale the data to [0, 255] to show as an RGB image.
+    rgb_img_plot = (255*((rgb_img - 100)/1300)).astype('uint8')
+
+    fig, ax = plt.subplots()
+    ax.set(title = "Satellite Image")
+    ax.set_axis_off()
+    plt.plot(83.5, 83.5, 'ko')
+    img = ax.imshow(rgb_img_plot)
+    scalebar = ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
+    plt.gca().add_artist(scalebar)
+    newax = fig.add_axes([0.27, 0.67, 0.21, 0.2], anchor='NW')
+    newax.imshow(te_img)
+    newax.axis('off')
+
+    plt.tight_layout()
     f = tempfile.NamedTemporaryFile(suffix='.png').name
-    with open(f, 'wb') as f_write:
-        f_write.write(r.content)
+    plt.savefig(f, bbox_inches='tight')
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
-    # /TEMPORARY #############################################################
 
     out = ImageryPNG(name='base_image',
                      lang='EN',
                      title='This is a title',
-                     date=dt.date(2019, 12, 6),
+                     date=dt.date(year, 1, 1),
                      about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",
                      url=url)
     schema = ImageryPNGSchema()
@@ -297,16 +362,41 @@ def base_image(lang, geojson, crs, EXECUTION_ID, logger, gc_client):
 ###############################################################################
 # Greenness trend
 
-def greenness(lang, geojson, crs, EXECUTION_ID, logger, gc_client):
-    # TEMPORARY ##############################################################
-    #TODO: TEMPORARY - replace with real code when available
-    r = requests.get('http://trends.earth-shared.s3.us-east-1.amazonaws.com/trendsearth_03_mean.PNG', allow_redirects=True)
+def greenness(year, geojson, lang, gc_client):
+    region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
+    ndvi_mean = OLI_SR_COLL.filterDate(str(year) + START_MONTH_DAY, str(year) + END_MONTH_DAY) \
+            .map(maskL8sr) \
+            .map(calculate_ndvi) \
+            .mean() \
+            .addBands(ee.Image(year).float()) \
+            .rename(['ndvi','year']) \
+            .reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
+    ndvi_mean_dim = np.sqrt(len(ndvi_mean['ndvi']))
+    h_mean = ndvi_mean_dim.astype('uint8')
+    w_mean = ndvi_mean_dim.astype('uint8')
+    ndvi_mean_np = np.array(ndvi_mean['ndvi']).reshape([h_mean, w_mean]).astype('float64')
+
+    # create NDVI Mean plot
+    fig, ax = plt.subplots()
+    ax.set(title = "Average Greenness")
+    ax.set_axis_off()
+    plt.plot(83.5, 83.5, 'ko') 
+    img = ax.imshow(ndvi_mean_np, cmap = 'Greens', origin='lower')
+    scalebar =ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none')
+    # fig.colorbar(img, ax=ax)
+    plt.gca().add_artist(scalebar)
+    newax = fig.add_axes([0.26, 0.67, 0.21, 0.2], anchor='NW')
+    newax.imshow(te_img)
+    newax.axis('off')
+    newax2 = fig.add_axes([0.55, 0.15, 0.21, 0.2], anchor='SE')
+    newax2.imshow(ndvi_avg_img)
+    newax2.axis('off')
+
+    plt.tight_layout()
     f = tempfile.NamedTemporaryFile(suffix='.png').name
-    with open(f, 'wb') as f_write:
-        f_write.write(r.content)
+    plt.savefig(f, bbox_inches='tight')
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
-    # /TEMPORARY #############################################################
 
     out = ImageryPNG(name='greenness',
                      lang='EN',
@@ -321,19 +411,50 @@ def greenness(lang, geojson, crs, EXECUTION_ID, logger, gc_client):
 ###############################################################################
 # Greenness trend
 
-def greenness_trend(lang, geojson, crs, EXECUTION_ID, logger, gc_client):
-    # TEMPORARY ##############################################################
-    #TODO: TEMPORARY - replace with real code when available
-    r = requests.get('http://trends.earth-shared.s3.us-east-1.amazonaws.com/trendsearth_04_trends.PNG', allow_redirects=True)
+def greenness_trend(year_start, year_end, geojson, lang, gc_client):
+    region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
+    ndvi = []
+    for y in range(year_start, year_end + 1):
+        ndvi.append(OLI_SR_COLL \
+                        .filterDate(str(y) + START_MONTH_DAY, str(y) + END_MONTH_DAY) \
+                        .map(maskL8sr) \
+                        .map(calculate_ndvi) \
+                        .mean() \
+                        .addBands(ee.Image(y).float()) \
+                        .rename(['ndvi','year']))
+    ndvi_coll = ee.ImageCollection(ndvi)
+
+    # Compute linear trend function to predict ndvi based on year (ndvi trend)
+    lf_trend = ndvi_coll.select(['year', 'ndvi']).reduce(ee.Reducer.linearFit())
+    ndvi_trnd = (lf_trend.select('scale').divide(ndvi[0].select("ndvi"))).multiply(100)
+    ndvi_trnd = ndvi_trnd.reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
+    ndvi_trnd_dim = np.sqrt(len(ndvi_trnd['scale']))
+    h_trnd = ndvi_trnd_dim.astype('uint8')
+    w_trnd = ndvi_trnd_dim.astype('uint8')
+    ndvi_trnd_np = np.array(ndvi_trnd['scale']).reshape([h_trnd, w_trnd]).astype('float64')
+
+    fig, ax = plt.subplots()
+    ax.set(title = "Greenness Trend")
+    ax.set_axis_off()
+    plt.plot(83.5, 83.5, 'ko')
+    img = ax.imshow(ndvi_trnd_np, cmap = 'PiYG', origin='lower')
+    scalebar = ScaleBar(30,  fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
+    # fig.colorbar(img, ax=ax)
+    plt.gca().add_artist(scalebar)
+    newax = fig.add_axes([0.26, 0.67, 0.21, 0.2], anchor='NW')
+    newax.imshow(te_img)
+    newax.axis('off')
+    newax2 = fig.add_axes([0.55, 0.15, 0.21, 0.2], anchor='SE')
+    newax2.imshow(ndvi_trn_img)
+    newax2.axis('off')
+
+    plt.tight_layout()
     f = tempfile.NamedTemporaryFile(suffix='.png').name
-    with open(f, 'wb') as f_write:
-        f_write.write(r.content)
+    plt.savefig(f, bbox_inches='tight')
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
-    # /TEMPORARY #############################################################
 
     out = ImageryPNG(name='greenness_trend',
-                     lang='EN',
                      title='This is a title',
                      date=dt.date(2019, 1, 1),
                      about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",
@@ -368,14 +489,14 @@ def run(params, logger):
     with ThreadPoolExecutor(max_workers=4) as executor:
         logger.debug("Starting threads...")
         futures = []
-        futures.append(executor.submit(landtrend, year_start, year_end, lang,
-            geojson, gc_client))
-        futures.append(executor.submit(base_image, lang, geojson, crs, 
-            EXECUTION_ID, logger, gc_client))
-        futures.append(executor.submit(greenness, lang, geojson, crs, EXECUTION_ID, 
-            logger, gc_client))
-        futures.append(executor.submit(greenness_trend, lang, geojson, crs, 
-            EXECUTION_ID, logger, gc_client))
+        futures.append(executor.submit(landtrend, year_start, year_end, 
+            geojson, lang, gc_client))
+        futures.append(executor.submit(base_image, year_end, geojson, lang, 
+            gc_client))
+        futures.append(executor.submit(greenness, year_end, geojson, lang, 
+            gc_client))
+        futures.append(executor.submit(greenness_trend, year_end - 5, year_end, 
+            geojson, lang, gc_client))
         out = {}
         logger.debug("Gathering thread results...")
         for future in as_completed(futures):

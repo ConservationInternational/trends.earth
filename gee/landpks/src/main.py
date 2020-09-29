@@ -435,6 +435,9 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     ndvi_trnd_dim = np.sqrt(len(ndvi_trnd['scale']))
     h_trnd = ndvi_trnd_dim.astype('uint8')
     w_trnd = ndvi_trnd_dim.astype('uint8')
+    print('***************************************************************************')
+    print(h_trnd)
+    print(w_trnd)
     ndvi_trnd_np = np.array(ndvi_trnd['scale']).reshape([h_trnd, w_trnd]).astype('float64')
 
     fig, ax = plt.subplots()
@@ -477,7 +480,6 @@ def run(params, logger):
     year_end = int(params.get('year_end', None))
     lang = params.get('lang', None)
     geojson = json.loads(params.get('geojson', None))
-    crs = params.get('crs', None)
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))

@@ -36,7 +36,7 @@ from landdegradation.schemas.schemas import Url, ImageryPNG, \
 # Bucket where results will be uploaded (should be publicly readable)
 BUCKET = 'ldmt'
 # Bounding box side in meters
-BOX_SIDE = 10000
+BOX_SIDE = 5000
 
 def upload_to_google_cloud(client, f):
     b = client.get_bucket(BUCKET)
@@ -312,7 +312,7 @@ def base_image(year, geojson, lang, gc_client):
 
     # Reproject L8 image so it can be correctly passed to 'sampleRectangle()' 
     # function
-    l8sr_mosaic = l8sr_y.reproject(**({'crs':'EPSG:3857','scale':60}))
+    l8sr_mosaic = l8sr_y.reproject(**({'crs':'EPSG:3857','scale':30}))
     l8sr_mosaic_bands = l8sr_mosaic.select(['B2', 'B3', 'B4']).sampleRectangle(region)
 
     # Get 2-d pixel array for AOI - returns feature with 2-D pixel array as property per band.
@@ -332,14 +332,20 @@ def base_image(year, geojson, lang, gc_client):
     np_arr_b2 = np.expand_dims(np_arr_b2, 2)
 
     rgb_img = np.concatenate((np_arr_b4, np_arr_b3, np_arr_b2), 2)
-
+    
+    # get the image max value
+    img_max = np.max(rgb_img)
+    
     # Scale the data to [0, 255] to show as an RGB image.
-    rgb_img_plot = (255*((rgb_img - 100)/1300)).astype('uint8')
+    rgb_img_plot = (255*((rgb_img - 100)/img_max)).astype('uint8')
+    
+    # find the position to place the dot
+    dot_pos = len(rgb_img_plot[0])/2
 
     fig, ax = plt.subplots()
     ax.set(title = "Satellite Image")
     ax.set_axis_off()
-    plt.plot(83.5, 83.5, 'ko')
+    plt.plot(dot_pos, dot_pos, 'ko')
     img = ax.imshow(rgb_img_plot)
     scalebar = ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
     plt.gca().add_artist(scalebar)
@@ -364,7 +370,7 @@ def base_image(year, geojson, lang, gc_client):
 
 
 ###############################################################################
-# Greenness trend
+# Greenness average
 
 def greenness(year, geojson, lang, gc_client):
     region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
@@ -373,23 +379,30 @@ def greenness(year, geojson, lang, gc_client):
             .map(calculate_ndvi) \
             .mean() \
             .addBands(ee.Image(year).float()) \
-            .rename(['ndvi','year']) \
-            .reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
-    ndvi_mean_dim = np.sqrt(len(ndvi_mean['ndvi']))
-    h_mean = ndvi_mean_dim.astype('uint8')
-    w_mean = ndvi_mean_dim.astype('uint8')
-    ndvi_mean_np = np.array(ndvi_mean['ndvi']).reshape([h_mean, w_mean]).astype('float64')
-
+            .rename(['ndvi','year'])
+#             .reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
+    # Reproject ndvi_mean and ndvi_trnd images so they can be correctly passed to 'sampleRectangle()' function
+    ndvi_mean_reproject = ndvi_mean.reproject(**({'crs':'EPSG:3857','scale':30}))
+    ndvi_mean_band = ndvi_mean_reproject.select('ndvi').sampleRectangle(region)
+#     ndvi_mean_dim = np.sqrt(len(ndvi_mean['ndvi']))
+#     h_mean = ndvi_mean_dim.astype('uint8')
+#     w_mean = ndvi_mean_dim.astype('uint8')
+#     ndvi_mean_np = np.array(ndvi_mean['ndvi']).reshape([h_mean, w_mean]).astype('float64')
+    # Get individual band arrays.
+    ndvi_arr_mean = ndvi_mean_band.get('ndvi')
+    # Transfer the arrays from server to client and cast as np array.
+    ndvi_arr_mean = np.array(ndvi_arr_mean.getInfo())#.astype('float64')                                                                 # find the position to place the dot
+    dot_pos_mean = len(ndvi_arr_trnd)/2
     # create NDVI Mean plot
     fig, ax = plt.subplots()
     ax.set(title = "Average Greenness")
     ax.set_axis_off()
-    plt.plot(83.5, 83.5, 'ko') 
-    img = ax.imshow(ndvi_mean_np, cmap = 'Greens', origin='lower')
-    scalebar =ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none')
+    plt.plot(dot_pos_mean, dot_pos_mean, 'ko') 
+    img = ax.imshow(ndvi_arr_mean, cmap = 'Greens')
+    scalebar =ScaleBar(20, fixed_units ='km', location = 3, box_color = 'none')
     # fig.colorbar(img, ax=ax)
     plt.gca().add_artist(scalebar)
-    newax = fig.add_axes([0.26, 0.67, 0.21, 0.2], anchor='NW')
+    newax = fig.add_axes([0.27, 0.67, 0.21, 0.2], anchor='NW')
     newax.imshow(te_img)
     newax.axis('off')
     newax2 = fig.add_axes([0.55, 0.15, 0.21, 0.2], anchor='SE')
@@ -431,24 +444,32 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     # Compute linear trend function to predict ndvi based on year (ndvi trend)
     lf_trend = ndvi_coll.select(['year', 'ndvi']).reduce(ee.Reducer.linearFit())
     ndvi_trnd = (lf_trend.select('scale').divide(ndvi[0].select("ndvi"))).multiply(100)
-    ndvi_trnd = ndvi_trnd.reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
-    ndvi_trnd_dim = np.sqrt(len(ndvi_trnd['scale']))
-    h_trnd = ndvi_trnd_dim.astype('uint8')
-    w_trnd = ndvi_trnd_dim.astype('uint8')
-    print('***************************************************************************')
-    print(h_trnd)
-    print(w_trnd)
-    ndvi_trnd_np = np.array(ndvi_trnd['scale']).reshape([h_trnd, w_trnd]).astype('float64')
-
+    # Reproject ndvi_mean and ndvi_trnd images so they can be correctly passed to 'sampleRectangle()' function
+    ndvi_trnd_reproject= ndvi_trnd.reproject(**({'crs':'EPSG:3857','scale':30}))
+    ndvi_trnd_band = ndvi_trnd_reproject.select('scale').sampleRectangle(region)
+    # Get individual band arrays.
+    ndvi_arr_trnd = ndvi_trnd_band.get('scale')
+    # Transfer the arrays from server to client and cast as np array.
+    ndvi_arr_trnd = np.array(ndvi_arr_trnd.getInfo()).astype('float64')
+#     ndvi_trnd = ndvi_trnd.reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
+#     ndvi_trnd_dim = np.sqrt(len(ndvi_trnd['scale']))
+#     h_trnd = ndvi_trnd_dim.astype('uint8')
+#     w_trnd = ndvi_trnd_dim.astype('uint8')
+#     print('***************************************************************************')
+#     print(h_trnd)
+#     print(w_trnd)
+#     ndvi_trnd_np = np.array(ndvi_trnd['scale']).reshape([h_trnd, w_trnd]).astype('float64')
+    # find the position to place the dot
+    dot_pos_trnd = len(ndvi_arr_trnd)/2
     fig, ax = plt.subplots()
     ax.set(title = "Greenness Trend")
     ax.set_axis_off()
-    plt.plot(83.5, 83.5, 'ko')
-    img = ax.imshow(ndvi_trnd_np, cmap = 'PiYG', origin='lower')
+    plt.plot(dot_pos_trnd, dot_pos_trnd, 'ko')
+    img = ax.imshow(ndvi_arr_trnd, cmap = 'PiYG')
     scalebar = ScaleBar(30,  fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
     # fig.colorbar(img, ax=ax)
     plt.gca().add_artist(scalebar)
-    newax = fig.add_axes([0.26, 0.67, 0.21, 0.2], anchor='NW')
+    newax = fig.add_axes([0.27, 0.67, 0.21, 0.2], anchor='NW')
     newax.imshow(te_img)
     newax.axis('off')
     newax2 = fig.add_axes([0.55, 0.15, 0.21, 0.2], anchor='SE')

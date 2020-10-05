@@ -36,7 +36,7 @@ from landdegradation.schemas.schemas import Url, ImageryPNG, \
 # Bucket where results will be uploaded (should be publicly readable)
 BUCKET = 'ldmt'
 # Bounding box side in meters
-BOX_SIDE = 10000
+BOX_SIDE = 5000
 
 def upload_to_google_cloud(client, f):
     b = client.get_bucket(BUCKET)
@@ -136,12 +136,43 @@ classes = pd.DataFrame(data={'Label': ["No data", "Forest", "Grassland", "Cropla
                              'Color' : ["#000000", "#787F1B", "#FFAC42", "#FFFB6E",
                                         "#00DB84", "#E60017", "#FFF3D7", "#0053C4"]})
 
-te_img = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
+te_logo = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                  'trends_earth_logo_bl_print.png'))
-ndvi_avg_img = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
+greenness_legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                  'ndvi_avg_en.png'))
-ndvi_trn_img = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
+greenness_trend_legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                  'ndvi_trd_en.png'))
+
+def plot_image_to_file(d, title, cmap=None, legend=None):
+    # find the position to place the dot
+    dot_pos = len(d[0])/2
+    fig = plt.figure(constrained_layout=False, figsize=(15, 11.28), dpi=100)
+    ax = fig.add_subplot()
+    ax.set_title(title, {'fontsize' :28})
+    ax.set_axis_off()
+    plt.plot(dot_pos, dot_pos, 'ko')
+    img = ax.imshow(d)
+    scalebar = ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
+    plt.gca().add_artist(scalebar)
+
+    ax_img = fig.add_axes([0.16, 0.73, 0.21, 0.2], anchor='NW')
+    if cmap:
+        ax_img.imshow(te_logo, cmap=cmap)
+    else:
+        ax_img.imshow(te_logo)
+    ax_img.axis('off')
+
+    if legend:
+        ax_legend = fig.add_axes([0.63, 0.07, 0.21, 0.2], anchor='SE')
+        ax_legend.imshow(legend)
+        ax_legend.axis('off')
+
+    plt.tight_layout()
+    f = tempfile.NamedTemporaryFile(suffix='.png').name
+    plt.savefig(f, bbox_inches='tight')
+
+    return f
+
 
 ###############################################################################
 # Code for landtrendplot
@@ -243,10 +274,10 @@ def landtrend_make_plot(d, year_start, year_end):
     by_label = dict(zip(labels, handles))
     axs[2].legend(by_label.values(), by_label.keys(), ncol=4, frameon=False, fontsize=26, borderpad=0)
 
-    height = te_img.size[1]
+    height = te_logo.size[1]
     # We need a float array between 0-1, rather than
     # a uint8 array between 0-255
-    im_array = np.array(te_img).astype(np.float) / 255
+    im_array = np.array(te_logo).astype(np.float) / 255
     fig.figimage(im_array, 120, fig.bbox.ymax - height - 40, zorder=-1)
     
     # Set the first axis background to transparent so the trends.earth logo (placed behind it) will show through
@@ -303,6 +334,7 @@ START_MONTH_DAY = '-01-01'
 END_MONTH_DAY = '-12-31'
 OLI_SR_COLL = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
 
+
 def base_image(year, geojson, lang, gc_client):
     region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
 
@@ -312,7 +344,7 @@ def base_image(year, geojson, lang, gc_client):
 
     # Reproject L8 image so it can be correctly passed to 'sampleRectangle()' 
     # function
-    l8sr_mosaic = l8sr_y.reproject(**({'crs':'EPSG:3857','scale':60}))
+    l8sr_mosaic = l8sr_y.reproject(**({'crs':'EPSG:3857','scale':30}))
     l8sr_mosaic_bands = l8sr_mosaic.select(['B2', 'B3', 'B4']).sampleRectangle(region)
 
     # Get 2-d pixel array for AOI - returns feature with 2-D pixel array as property per band.
@@ -332,24 +364,15 @@ def base_image(year, geojson, lang, gc_client):
     np_arr_b2 = np.expand_dims(np_arr_b2, 2)
 
     rgb_img = np.concatenate((np_arr_b4, np_arr_b3, np_arr_b2), 2)
-
+    
+    # get the image max value
+    img_max = np.max(rgb_img)
+    
     # Scale the data to [0, 255] to show as an RGB image.
-    rgb_img_plot = (255*((rgb_img - 100)/1300)).astype('uint8')
+    rgb_img_plot = (255*((rgb_img - 100)/img_max)).astype('uint8')
 
-    fig, ax = plt.subplots()
-    ax.set(title = "Satellite Image")
-    ax.set_axis_off()
-    plt.plot(83.5, 83.5, 'ko')
-    img = ax.imshow(rgb_img_plot)
-    scalebar = ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
-    plt.gca().add_artist(scalebar)
-    newax = fig.add_axes([0.27, 0.67, 0.21, 0.2], anchor='NW')
-    newax.imshow(te_img)
-    newax.axis('off')
+    f = plot_image_to_file(rgb_img_plot, "Satellite Image")
 
-    plt.tight_layout()
-    f = tempfile.NamedTemporaryFile(suffix='.png').name
-    plt.savefig(f, bbox_inches='tight')
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
@@ -364,7 +387,7 @@ def base_image(year, geojson, lang, gc_client):
 
 
 ###############################################################################
-# Greenness trend
+# Greenness average
 
 def greenness(year, geojson, lang, gc_client):
     region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
@@ -373,32 +396,22 @@ def greenness(year, geojson, lang, gc_client):
             .map(calculate_ndvi) \
             .mean() \
             .addBands(ee.Image(year).float()) \
-            .rename(['ndvi','year']) \
-            .reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
-    ndvi_mean_dim = np.sqrt(len(ndvi_mean['ndvi']))
-    h_mean = ndvi_mean_dim.astype('uint8')
-    w_mean = ndvi_mean_dim.astype('uint8')
-    ndvi_mean_np = np.array(ndvi_mean['ndvi']).reshape([h_mean, w_mean]).astype('float64')
+            .rename(['ndvi','year'])
+#             .reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
+    # Reproject ndvi_mean and ndvi_trnd images so they can be correctly passed to 'sampleRectangle()' function
+    ndvi_mean_reproject = ndvi_mean.reproject(**({'crs':'EPSG:3857','scale':30}))
+    ndvi_mean_band = ndvi_mean_reproject.select('ndvi').sampleRectangle(region)
+#     ndvi_mean_dim = np.sqrt(len(ndvi_mean['ndvi']))
+#     h_mean = ndvi_mean_dim.astype('uint8')
+#     w_mean = ndvi_mean_dim.astype('uint8')
+#     ndvi_mean_np = np.array(ndvi_mean['ndvi']).reshape([h_mean, w_mean]).astype('float64')
+    # Get individual band arrays.
+    ndvi_arr_mean = ndvi_mean_band.get('ndvi')
+    # Transfer the arrays from server to client and cast as np array.
+    ndvi_arr_mean = np.array(ndvi_arr_mean.getInfo())#.astype('float64')                                                                 # find the position to place the dot
 
-    # create NDVI Mean plot
-    fig, ax = plt.subplots()
-    ax.set(title = "Average Greenness")
-    ax.set_axis_off()
-    plt.plot(83.5, 83.5, 'ko') 
-    img = ax.imshow(ndvi_mean_np, cmap = 'Greens', origin='lower')
-    scalebar =ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none')
-    # fig.colorbar(img, ax=ax)
-    plt.gca().add_artist(scalebar)
-    newax = fig.add_axes([0.26, 0.67, 0.21, 0.2], anchor='NW')
-    newax.imshow(te_img)
-    newax.axis('off')
-    newax2 = fig.add_axes([0.55, 0.15, 0.21, 0.2], anchor='SE')
-    newax2.imshow(ndvi_avg_img)
-    newax2.axis('off')
+    f = plot_image_to_file(ndvi_arr_mean, 'Average Greenness', 'Greens', greenness_legend)
 
-    plt.tight_layout()
-    f = tempfile.NamedTemporaryFile(suffix='.png').name
-    plt.savefig(f, bbox_inches='tight')
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
@@ -431,37 +444,29 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     # Compute linear trend function to predict ndvi based on year (ndvi trend)
     lf_trend = ndvi_coll.select(['year', 'ndvi']).reduce(ee.Reducer.linearFit())
     ndvi_trnd = (lf_trend.select('scale').divide(ndvi[0].select("ndvi"))).multiply(100)
-    ndvi_trnd = ndvi_trnd.reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
-    ndvi_trnd_dim = np.sqrt(len(ndvi_trnd['scale']))
-    h_trnd = ndvi_trnd_dim.astype('uint8')
-    w_trnd = ndvi_trnd_dim.astype('uint8')
-    print('***************************************************************************')
-    print(h_trnd)
-    print(w_trnd)
-    ndvi_trnd_np = np.array(ndvi_trnd['scale']).reshape([h_trnd, w_trnd]).astype('float64')
+    # Reproject ndvi_mean and ndvi_trnd images so they can be correctly passed to 'sampleRectangle()' function
+    ndvi_trnd_reproject= ndvi_trnd.reproject(**({'crs':'EPSG:3857','scale':30}))
+    ndvi_trnd_band = ndvi_trnd_reproject.select('scale').sampleRectangle(region)
+    # Get individual band arrays.
+    ndvi_arr_trnd = ndvi_trnd_band.get('scale')
+    # Transfer the arrays from server to client and cast as np array.
+    ndvi_arr_trnd = np.array(ndvi_arr_trnd.getInfo()).astype('float64')
+#     ndvi_trnd = ndvi_trnd.reduceRegion(ee.Reducer.toList(), region, 60).getInfo()
+#     ndvi_trnd_dim = np.sqrt(len(ndvi_trnd['scale']))
+#     h_trnd = ndvi_trnd_dim.astype('uint8')
+#     w_trnd = ndvi_trnd_dim.astype('uint8')
+#     print('***************************************************************************')
+#     print(h_trnd)
+#     print(w_trnd)
+#     ndvi_trnd_np = np.array(ndvi_trnd['scale']).reshape([h_trnd, w_trnd]).astype('float64')
 
-    fig, ax = plt.subplots()
-    ax.set(title = "Greenness Trend")
-    ax.set_axis_off()
-    plt.plot(83.5, 83.5, 'ko')
-    img = ax.imshow(ndvi_trnd_np, cmap = 'PiYG', origin='lower')
-    scalebar = ScaleBar(30,  fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
-    # fig.colorbar(img, ax=ax)
-    plt.gca().add_artist(scalebar)
-    newax = fig.add_axes([0.26, 0.67, 0.21, 0.2], anchor='NW')
-    newax.imshow(te_img)
-    newax.axis('off')
-    newax2 = fig.add_axes([0.55, 0.15, 0.21, 0.2], anchor='SE')
-    newax2.imshow(ndvi_trn_img)
-    newax2.axis('off')
+    f = plot_image_to_file(ndvi_arr_trnd, 'Greenness Trend', 'PiYG', greenness_trend_legend)
 
-    plt.tight_layout()
-    f = tempfile.NamedTemporaryFile(suffix='.png').name
-    plt.savefig(f, bbox_inches='tight')
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
     out = ImageryPNG(name='greenness_trend',
+                     lang='EN',
                      title='This is a title',
                      date=dt.date(2019, 1, 1),
                      about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",

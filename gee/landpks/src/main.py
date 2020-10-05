@@ -38,6 +38,17 @@ BUCKET = 'ldmt'
 # Bounding box side in meters
 BOX_SIDE = 5000
 
+## The service account email address authorized by your Google contact.
+## Set up a service account as described in the README.
+EE_ACCOUNT = 'gef-ldmp-server@gef-ld-toolbox.iam.gserviceaccount.com'
+
+## The private key associated with your service account in JSON format.
+EE_PRIVATE_KEY_FILE = 'D:/Gabriel/CI/TrendsEarth/Git/GeePython_Codes/te_key.json'
+
+EE_CREDENTIALS = ee.ServiceAccountCredentials(EE_ACCOUNT, EE_PRIVATE_KEY_FILE)
+# ee.Initialize(EE_CREDENTIALS)
+ee.Initialize(
+
 def upload_to_google_cloud(client, f):
     b = client.get_bucket(BUCKET)
     blob = b.blob(os.path.basename(f))
@@ -392,7 +403,7 @@ def greenness(year, geojson, lang, gc_client):
     ndvi_arr_mean = ndvi_mean_band.get('ndvi')
     # Transfer the arrays from server to client and cast as np array.
     ndvi_arr_mean = np.array(ndvi_arr_mean.getInfo())#.astype('float64')                                                                 # find the position to place the dot
-    dot_pos_mean = len(ndvi_arr_trnd)/2
+    dot_pos_mean = len(ndvi_arr_mean)/2
     # create NDVI Mean plot
     fig, ax = plt.subplots()
     ax.set(title = "Average Greenness")

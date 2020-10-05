@@ -33,6 +33,14 @@ import pandas as pd
 from landdegradation.schemas.schemas import Url, ImageryPNG, \
         ImageryPNGSchema
 
+
+# Turn off overly informative matplotlib debug messages
+import logging
+mpl_logger = logging.getLogger('matplotlib')
+mpl_logger.setLevel(logging.WARNING)
+pil_logger = logging.getLogger('PIL.PngImagePlugin')
+pil_logger.setLevel(logging.WARNING)
+
 # Bucket where results will be uploaded (should be publicly readable)
 BUCKET = 'ldmt'
 # Bounding box side in meters

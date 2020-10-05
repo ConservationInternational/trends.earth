@@ -19,6 +19,13 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import ee
 from google.cloud import storage
 
+# Turn off overly informative debug messages
+import logging
+mpl_logger = logging.getLogger('matplotlib')
+mpl_logger.setLevel(logging.WARNING)
+pil_logger = logging.getLogger('PIL.PngImagePlugin')
+pil_logger.setLevel(logging.WARNING)
+
 from PIL import Image
 
 import numpy as np
@@ -33,13 +40,6 @@ import pandas as pd
 from landdegradation.schemas.schemas import Url, ImageryPNG, \
         ImageryPNGSchema
 
-
-# Turn off overly informative matplotlib debug messages
-import logging
-mpl_logger = logging.getLogger('matplotlib')
-mpl_logger.setLevel(logging.WARNING)
-pil_logger = logging.getLogger('PIL.PngImagePlugin')
-pil_logger.setLevel(logging.WARNING)
 
 # Bucket where results will be uploaded (should be publicly readable)
 BUCKET = 'ldmt'

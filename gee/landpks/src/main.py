@@ -202,12 +202,19 @@ def landtrend_get_data(year_start, year_end, geojson):
     values_ndvi = ndvi.reduceRegion(ee.Reducer.toList(), region, 1)
     values_prec = prec.reduceRegion(ee.Reducer.toList(), region, 1)
 
-    res = {'land_cover': values_lcov.getInfo(),
-           'ndvi': values_ndvi.getInfo(),
-           'precipitation': values_prec.getInfo()}
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        res = []
+        for b, img in [('land_cover', values_lcov),
+                       ('ndvi', values_ndvi),
+                       ('precipitation', values_prec)]:
+            res.append(executor.submit((lambda b, img: {b: img.getInfo()}), b, img))
+        out = {}
+        for this_res in as_completed(res):
+            out.update(this_res.result())
+
     ts = []
-    for key in res.keys():   
-        d = list((int(k.replace('y', '')), int(v[0])) for k, v in res[key].items())
+    for key in out.keys():   
+        d = list((int(k.replace('y', '')), int(v[0])) for k, v in out[key].items())
         # Ensure the data is chronological
         d = sorted(d, key=lambda x: x[0]) 
         years = list(x[0] for x in d)
@@ -350,7 +357,6 @@ def base_image(year, geojson, lang, gc_client):
         .sampleRectangle(region)
 
     with ThreadPoolExecutor(max_workers=4) as executor:
-        # Get band data from GEE
         res = []
         for b in ['B4', 'B3', 'B2']:
             res.append(executor.submit(get_band, l8sr_mosaic_bands, b))

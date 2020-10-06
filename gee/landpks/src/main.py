@@ -477,6 +477,8 @@ def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
     year_start = int(params.get('year_start', None))
+    if year_start < 2001:
+        raise InvalidParameter("Invalid starting year {}".format(year_start))
     year_end = int(params.get('year_end', None))
     lang = params.get('lang', None)
     langs =['EN', 'ES', 'PT']

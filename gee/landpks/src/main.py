@@ -475,7 +475,8 @@ def run(params, logger):
     lang = params.get('lang', None)
     langs =['EN', 'ES', 'PT']
     if lang not in langs:
-        raise InvalidParameter('lang must be of one of {}'.format(langs))
+        logger.debug("Unknown language {}, returning EN".format(lang))
+        lang = 'EN'
     geojson = json.loads(params.get('geojson', None))
     if not geojson['type'].lower() == 'point':
         raise InvalidParameter('geojson must be of type "Point"')

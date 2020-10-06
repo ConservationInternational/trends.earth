@@ -188,6 +188,13 @@ def tecli_login(c):
         return
     subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'login'])
 
+@task
+def tecli_clear(c):
+    if not check_tecli_python_version():
+        return
+    subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'clear'])
+
+
 @task(help={'key': 'GEE key in JSON format (base64 encoded)'})
 def tecli_config(c, key):
     if not check_tecli_python_version():
@@ -939,10 +946,10 @@ def binaries_compile(c, clean=False, python='python'):
 
 ns = Collection(set_version, plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
-                tecli_login, tecli_config, tecli_publish, tecli_run, 
-                tecli_info, tecli_logs, zipfile_build, zipfile_deploy,
-                binaries_compile, binaries_sync, binaries_deploy,
-                testdata_sync)
+                tecli_login, tecli_clear, tecli_config, tecli_publish, 
+                tecli_run, tecli_info, tecli_logs, zipfile_build, 
+                zipfile_deploy, binaries_compile, binaries_sync, 
+                binaries_deploy, testdata_sync)
 
 ns.configure({
     'plugin': {

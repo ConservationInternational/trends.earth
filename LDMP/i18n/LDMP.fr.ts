@@ -2798,7 +2798,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settings.py" line="175"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
-                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
+                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>Connecté au serveur Trends.Earth en tant que {}. &lt;html&gt;&lt;p&gt; Bienvenue sur Trends.Earth! &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Rejoignez les groupes Google Trends.Earth Users&lt;/a&gt; &lt;/p&gt;&lt;p&gt; Assurez-vous de rejoindre les groupes Google pour les utilisateurs de Trends.Earth afin de suivre les mises à jour et les questions-réponses sur l&amp;#39;outil, les méthodes et les jeux de données à l&amp;#39;appui de la surveillance des objectifs de développement durables. &lt;/p&gt;</translation>
     </message>
 </context>

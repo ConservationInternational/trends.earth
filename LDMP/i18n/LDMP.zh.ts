@@ -2798,7 +2798,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settings.py" line="175"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
-                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
+                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>以{}登录到Trends.Earth服务器。 &lt;html&gt;&lt;p&gt;欢迎来到趋势地球！ &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;加入Trends.Earth Users Google组&lt;/a&gt; &lt;/p&gt;&lt;p&gt;确保加入Google Trends.Earth的Google组，以了解有关工具，方法和数据集的更新和问答，以支持可持续发展目标的监控。 &lt;/p&gt;</translation>
     </message>
 </context>

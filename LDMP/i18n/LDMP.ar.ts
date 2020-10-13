@@ -2798,7 +2798,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settings.py" line="175"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
-                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
+                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>تم تسجيل الدخول إلى خادم Trends.Earth كـ {}. &lt;html&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; مرحبًا بك في Trends.Earth! &lt;p/ style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;انضم إلى مجموعات Google لمستخدمي Trends.Earth&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تأكد من الانضمام إلى مجموعات google لمستخدمي Trends.Earth لمواكبة التحديثات والأسئلة والأجوبة حول الأداة والأساليب ومجموعات البيانات لدعم مراقبة أهداف التنمية المستدامة. &lt;/p&gt;</translation>
     </message>
 </context>

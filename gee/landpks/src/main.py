@@ -412,7 +412,7 @@ def greenness(year, geojson, lang, gc_client):
     
     # Define visualization parameter for ndvi trend and apply them
     p_ndvi_mean = {'bands':'ndvi', 'min': 0.3, 'max': 0.9, 'palette':['#ffffcc','#006600']}
-    map_mean = ndvi_y.visualize(**p_ndvi_mean)
+    map_mean = ndvi_mean.visualize(**p_ndvi_mean)
     map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image().int().paint(point.buffer(box_side/50), 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
     
     # Reproject ndvi mean image so it can retrieve data from every latitute 

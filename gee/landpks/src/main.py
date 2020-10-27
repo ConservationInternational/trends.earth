@@ -49,7 +49,7 @@ from landdegradation.schemas.schemas import Url, ImageryPNG,         ImageryPNGS
 # Bucket where results will be uploaded (should be publicly readable)
 BUCKET = 'ldmt'
 # Bounding box side in meters
-BOX_SIDE = 5000
+BOX_SIDE = 10000
 
 
 def upload_to_google_cloud(client, f):

@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[2]:
+
+
 # Copyright 2017 Conservation International
 
 from __future__ import absolute_import
@@ -34,11 +40,10 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import matplotlib.colors as colors
 from matplotlib_scalebar.scalebar import ScaleBar
-
+import urllib.request
 import pandas as pd
 
-from landdegradation.schemas.schemas import Url, ImageryPNG, \
-        ImageryPNGSchema
+from landdegradation.schemas.schemas import Url, ImageryPNG,         ImageryPNGSchema
 
 
 # Bucket where results will be uploaded (should be publicly readable)
@@ -148,27 +153,24 @@ classes = pd.DataFrame(data={'Label': ["No data", "Forest", "Grassland", "Cropla
 te_logo = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                  'trends_earth_logo_bl_print.png'))
 
-def plot_image_to_file(d, title, cmap=None, legend=None):
+def plot_image_to_file(d, title, legend=None):
     # find the position to place the dot
-    dot_pos = len(d[0])/2
+#     dot_pos = len(d[0])/2
     fig = plt.figure(constrained_layout=False, figsize=(15, 11.28), dpi=100)
     ax = fig.add_subplot()
     ax.set_title(title, {'fontsize' :28})
     ax.set_axis_off()
-    plt.plot(dot_pos, dot_pos, 'ko')
+#     plt.plot(dot_pos, dot_pos, 'ko')
     img = ax.imshow(d)
-    scalebar = ScaleBar(30, fixed_units ='km', location = 3, box_color = 'none') # 1 pixel = 0.2 meter
+    scalebar = ScaleBar(20, fixed_units ='km', location = 3, box_color = 'white') 
     plt.gca().add_artist(scalebar)
 
-    ax_img = fig.add_axes([0.16, 0.73, 0.21, 0.2], anchor='NW')
-    if cmap:
-        ax_img.imshow(te_logo, cmap=cmap)
-    else:
-        ax_img.imshow(te_logo)
+    ax_img = fig.add_axes([0.23, 0.67, 0.21, 0.2], anchor='NW')
+    ax_img.imshow(te_logo)
     ax_img.axis('off')
 
     if legend:
-        ax_legend = fig.add_axes([0.63, 0.07, 0.21, 0.2], anchor='SE')
+        ax_legend = fig.add_axes([0.57, 0.13, 0.22, 0.2], anchor='SE')
         ax_legend.imshow(legend)
         ax_legend.axis('off')
 
@@ -331,12 +333,12 @@ def maskL8sr(image):
 def calculate_ndvi(image):
     return image.normalizedDifference(['B5', 'B4']).rename('NDVI')
 
-def get_band(img, b):
-    # Get 2-d pixel array for AOI property per band, transfer the arrays from 
-    # server to client, cast as np array, and expand the dimensions of the 
-    # images so they can later be concatenated into 3-D.
-    band = np.expand_dims(np.array(img.get('B3').getInfo()), 2)
-    return {b: band}
+# def get_band(img, b):
+#     # Get 2-d pixel array for AOI property per band, transfer the arrays from 
+#     # server to client, cast as np array, and expand the dimensions of the 
+#     # images so they can later be concatenated into 3-D.
+#     band = np.expand_dims(np.array(img.get('B3').getInfo()), 2)
+#     return {b: band}
 
 OLI_SR_COLL = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
 def base_image(year, geojson, lang, gc_client):
@@ -347,30 +349,45 @@ def base_image(year, geojson, lang, gc_client):
     # Mask out clouds and cloud-shadows in the Landsat image
     range_coll = OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
     l8sr_y = (range_coll.map(maskL8sr).median().setDefaultProjection(range_coll.first().projection()))
+    
+    # Define visualization parameter for ndvi trend and apply them
+    p_l8sr = {'bands': ['B4', 'B3', 'B2'], 'min': 0, 'max': 3000, 'gamma': 1.5,}
+    map_l8sr = l8sr_y.visualize(**p_l8sr)
+    map_l8sr_mosaic = ee.ImageCollection.fromImages([map_l8sr, ee.Image().int().paint(point.buffer(box_side/50), 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
 
-    # Reproject L8 image so it can be correctly passed to 'sampleRectangle()' 
-    # function
-    l8sr_mosaic_bands = l8sr_y.reproject(scale=30, crs='EPSG:3857') \
-        .select(['B2', 'B3', 'B4']) \
-        .sampleRectangle(region)
+    # Reproject L8 image so it can retrieve data from every latitute 
+    # without deforming the aoi bounding box
+    l8sr_mosaic_bands = l8sr_y.reproject(scale=30, crs='EPSG:3857')
+#         .select(['B2', 'B3', 'B4']) \
+#         .sampleRectangle(region)
 
-    with ThreadPoolExecutor(max_workers=4) as executor:
-        res = []
-        for b in ['B4', 'B3', 'B2']:
-            res.append(executor.submit(get_band, l8sr_mosaic_bands, b))
-        # Gather results and concatenate them
-        out = {}
-        for this_res in as_completed(res):
-            out.update(this_res.result())
-        rgb_img = np.concatenate((out['B4'], out['B3'], out['B2']), 2)
+    # create thumbnail and retrieve it by url
+    l8sr_url = map_l8sr_mosaic.getThumbUrl({'region': box.getInfo(), 'dimensions': 256})
+    l8sr_name = 'l8sr.png'
+    urllib.request.urlretrieve(l8sr_url, l8sr_name)
+
+    # read image and pass it to a 2-d numpy array
+    l8sr_frame = Image.open(l8sr_name)
+    np_l8sr = np.array(l8sr_frame)
+
+
+#     with ThreadPoolExecutor(max_workers=4) as executor:
+#         res = []
+#         for b in ['B4', 'B3', 'B2']:
+#             res.append(executor.submit(get_band, l8sr_mosaic_bands, b))
+#         # Gather results and concatenate them
+#         out = {}
+#         for this_res in as_completed(res):
+#             out.update(this_res.result())
+#         rgb_img = np.concatenate((out['B4'], out['B3'], out['B2']), 2)
     
     # get the image max value
-    img_max = np.max(rgb_img)
+#     img_max = np.max(rgb_img)
     
-    # Scale the data to [0, 255] to show as an RGB image.
-    rgb_img_plot = (255*((rgb_img - 100)/img_max)).astype('uint8')
+#     # Scale the data to [0, 255] to show as an RGB image.
+#     rgb_img_plot = (255*((rgb_img - 100)/img_max)).astype('uint8')
 
-    f = plot_image_to_file(rgb_img_plot, "Satellite Image")
+    f = plot_image_to_file(np_l8sr, "Satellite Image"+year)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
@@ -391,21 +408,31 @@ def greenness(year, geojson, lang, gc_client):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
-    ndvi_mean = OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
-            .map(maskL8sr) \
-            .map(calculate_ndvi) \
-            .mean() \
-            .addBands(ee.Image(year).float()) \
-            .rename(['ndvi','year'])
-    # Reproject ndvi_mean and ndvi_trnd images so they can be correctly passed 
-    # to 'sampleRectangle()' function
+    ndvi_mean = OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))             .map(maskL8sr)             .map(calculate_ndvi)             .mean()             .addBands(ee.Image(year).float())             .rename(['ndvi','year'])
+    
+    # Define visualization parameter for ndvi trend and apply them
+    p_ndvi_mean = {'bands':'ndvi', 'min': 0.3, 'max': 0.9, 'palette':['#ffffcc','#006600']}
+    map_mean = ndvi_y.visualize(**p_ndvi_mean)
+    map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image().int().paint(point.buffer(box_side/50), 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
+    
+    # Reproject ndvi mean image so it can retrieve data from every latitute 
+    # without deforming the aoi bounding box
     ndvi_mean_reproject = ndvi_mean.reproject(scale=30, crs='EPSG:3857')
-    ndvi_mean_band = ndvi_mean_reproject.select('ndvi').sampleRectangle(region)
-    ndvi_arr_mean = np.array(ndvi_mean_band.get('ndvi').getInfo())
+    
+    # create thumbnail and retrieve it by url
+    mean_url = map_mean_mosaic.getThumbUrl({'region': box.getInfo(), 'dimensions': 256})
+    mean_name = 'ndvi_mean.png'
+    urllib.request.urlretrieve(mean_url, mean_name)
+                       
+    # read image and pass it to a 2-d numpy array
+    mean_frame = Image.open(mean_name)
+    np_mean = np.array(mean_frame)
+#     ndvi_mean_band = ndvi_mean_reproject.select('ndvi').sampleRectangle(region)
+#     ndvi_arr_mean = np.array(ndvi_mean_band.get('ndvi').getInfo())
 
     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                     'ndvi_avg_{}.png'.format(lang.lower())))
-    f = plot_image_to_file(ndvi_arr_mean, 'Average Greenness', 'Greens', legend)
+    f = plot_image_to_file(ndvi_arr_mean, 'Average Greenness', legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
@@ -428,28 +455,38 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     region = ee.Geometry(geojson).buffer(BOX_SIDE / 2).bounds()
     ndvi = []
     for y in range(year_start, year_end + 1):
-        ndvi.append(OLI_SR_COLL \
-                        .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
-                        .map(maskL8sr) \
-                        .map(calculate_ndvi) \
-                        .mean() \
-                        .addBands(ee.Image(y).float()) \
-                        .rename(['ndvi','year']))
+        ndvi.append(OLI_SR_COLL                         .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))                         .map(maskL8sr)                         .map(calculate_ndvi)                         .mean()                         .addBands(ee.Image(y).float())                         .rename(['ndvi','year']))
     ndvi_coll = ee.ImageCollection(ndvi)
 
     # Compute linear trend function to predict ndvi based on year (ndvi trend)
     lf_trend = ndvi_coll.select(['year', 'ndvi']).reduce(ee.Reducer.linearFit())
     ndvi_trnd = (lf_trend.select('scale').divide(ndvi[0].select("ndvi"))).multiply(100)
-    # Reproject ndvi_mean and ndvi_trnd images so they can be correctly passed to 'sampleRectangle()' function
-    ndvi_trnd_reproject= ndvi_trnd.reproject(scale=30, crs='EPSG:3857')
-    ndvi_trnd_band = ndvi_trnd_reproject.select('scale').sampleRectangle(region)
+                       
+    # Define visualization parameter for ndvi trend and apply them
+    p_ndvi_trnd = {'min': -10, 'max': 10, 'palette':['#9b2779','#ffffe0','#006500']}
+    map_trnd = ndvi_trnd.visualize(**p_ndvi_trnd)
+    map_trnd_mosaic = ee.ImageCollection.fromImages([map_trnd, ee.Image().int().paint(point.buffer(box_side/50), 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
+    
+    # Reproject ndvi mean image so it can retrieve data from every latitute 
+    # without deforming the aoi bounding box
+    map_trnd_mosaic = map_trnd_mosaic.reproject(**({'crs':'EPSG:3857','scale':30}))
+    
+    # create thumbnail and retrieve it by url 
+    trnd_url = map_trnd_mosaic.getThumbUrl({'region': box.getInfo(), 'dimensions': 256})
+    mean_name = 'ndvi_trnd.png'
+    urllib.request.urlretrieve(trnd_url, trnd_name)
+#     ndvi_trnd_reproject= ndvi_trnd.reproject(scale=30, crs='EPSG:3857')
+#     ndvi_trnd_band = ndvi_trnd_reproject.select('scale').sampleRectangle(region)
     # Get individual band arrays.
-    ndvi_arr_trnd = ndvi_trnd_band.get('scale')
-    # Transfer the arrays from server to client and cast as np array.
-    ndvi_arr_trnd = np.array(ndvi_arr_trnd.getInfo()).astype('float64')
-    legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
-                                 'ndvi_trd_{}.png'.format(lang.lower())))
-    f = plot_image_to_file(ndvi_arr_trnd, 'Greenness Trend', 'PiYG', legend)
+#     ndvi_arr_trnd = ndvi_trnd_band.get('scale')
+    
+    # read image and pass it to a 2-d numpy array
+    trnd_frame = Image.open(trnd_name)
+    ndvi_arr_trnd = np.array(trnd_frame)
+#     ndvi_arr_trnd = np.array(ndvi_arr_trnd.getInfo()).astype('float64')
+#     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
+#                                  'ndvi_trd_{}.png'.format(lang.lower())))
+    f = plot_image_to_file(ndvi_arr_trnd, 'Greenness Trend', legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
@@ -509,3 +546,10 @@ def run(params, logger):
         for future in as_completed(res):
             out.update(future.result())
         return(out)
+
+
+# In[ ]:
+
+
+
+

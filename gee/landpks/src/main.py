@@ -174,7 +174,7 @@ def plot_image_to_file(d, title, legend=None):
     ax_img.axis('off')
 
     if legend:
-        ax_legend = fig.add_axes([0.57, 0.13, 0.22, 0.2], anchor='SE')
+        ax_legend = fig.add_axes([0.57, 0.11, 0.22, 0.2], anchor='SE')
         ax_legend.imshow(legend)
         ax_legend.axis('off')
 
@@ -350,7 +350,7 @@ def base_image(year, geojson, lang, gc_client):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 50)
+    region = point.buffer(BOX_SIDE / 2).bounds()
 
     # Mask out clouds and cloud-shadows in the Landsat image
     range_coll = OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
@@ -360,7 +360,7 @@ def base_image(year, geojson, lang, gc_client):
     p_l8sr = {'bands': ['B4', 'B3', 'B2'], 'min': 0, 'max': 3000, 'gamma': 1.5,}
     map_l8sr = l8sr_y.visualize(**p_l8sr)
     map_l8sr_mosaic = ee.ImageCollection.fromImages([map_l8sr, ee.Image().int() \
-            .paint(region, 1) \
+            .paint(point.buffer(BOX_SIDE / 50), 1) \
             .visualize(**{'palette': ['black'], 'opacity': 1})]) \
             .mosaic()
 
@@ -377,8 +377,7 @@ def base_image(year, geojson, lang, gc_client):
     l8sr_frame = Image.open(l8sr_name)
     np_l8sr = np.array(l8sr_frame)
     
-
-    f = plot_image_to_file(np_l8sr, "Satellite Image" + str(year))
+    f = plot_image_to_file(np_l8sr, "Satellite Image (" + str(year) + ")")
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
@@ -399,13 +398,18 @@ def greenness(year, geojson, lang, gc_client):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 50)
-    ndvi_mean = OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))             .map(maskL8sr)             .map(calculate_ndvi)             .mean()             .addBands(ee.Image(year).float())             .rename(['ndvi','year'])
+    region = point.buffer(BOX_SIDE / 2).bounds()
+    ndvi_mean = OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
+            .map(maskL8sr) \
+            .map(calculate_ndvi) \
+            .mean() \
+            .addBands(ee.Image(year).float()) \
+            .rename(['ndvi','year'])
     
     # Define visualization parameter for ndvi trend and apply them
     p_ndvi_mean = {'bands':'ndvi', 'min': 0.3, 'max': 0.9, 'palette':['#ffffcc','#006600']}
     map_mean = ndvi_mean.visualize(**p_ndvi_mean)
-    map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image().int().paint(region, 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
+    map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image().int().paint(point.buffer(BOX_SIDE / 50), 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
     
     # Reproject ndvi mean image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box
@@ -443,10 +447,10 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     start_date = dt.datetime(year_start, 1, 1)
     end_date = dt.datetime(year_end, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 50)
+    region = point.buffer(BOX_SIDE / 2).bounds()
     ndvi = []
     for y in range(year_start, year_end + 1):
-        ndvi.append(OLI_SR_COLL                         .filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))                         .map(maskL8sr)                         .map(calculate_ndvi)                         .mean()                         .addBands(ee.Image(y).float())                         .rename(['ndvi','year']))
+        ndvi.append(OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))                         .map(maskL8sr)                         .map(calculate_ndvi)                         .mean()                         .addBands(ee.Image(y).float())                         .rename(['ndvi','year']))
     ndvi_coll = ee.ImageCollection(ndvi)
 
     # Compute linear trend function to predict ndvi based on year (ndvi trend)
@@ -456,7 +460,11 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     # Define visualization parameter for ndvi trend and apply them
     p_ndvi_trnd = {'min': -10, 'max': 10, 'palette':['#9b2779','#ffffe0','#006500']}
     map_trnd = ndvi_trnd.visualize(**p_ndvi_trnd)
-    map_trnd_mosaic = ee.ImageCollection.fromImages([map_trnd, ee.Image().int().paint(region, 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
+    map_trnd_mosaic = ee.ImageCollection.fromImages([map_trnd, ee.Image() \
+            .int() \
+            .paint(point.buffer(BOX_SIDE / 50), 1) \
+            .visualize(**{'palette': ['black'], 'opacity': 1})]) \
+            .mosaic()
     
     # Reproject ndvi mean image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box

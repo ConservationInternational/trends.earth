@@ -9,7 +9,7 @@
     },
     "greenness": {
         "about": "This map shows mean annual greenness for the period {YEAR_START} - {YEAR_END}. Darker green areas indicate more abundant and healthier vegetation throughout the year. Yellow colors indicate areas with bare soil or sparce vegetation.",
-        "title": "Greeness"
+        "title": "Greenness"
     },
     "greenness_trend": {
         "about": "This map shows the changes in annual greenness for the period {YEAR_START} - {YEAR_END}. Green areas have increased vegetation abundance or health during the period, yellow show stable areas and purple areas in which vegetation abundance or health has declined.",

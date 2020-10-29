@@ -313,7 +313,7 @@ def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
 
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
-    title = metadata['landtrend_plot']['title'] + ' trends ({} - {})'.format(year_start, year_end)
+    title = metadata['landtrend_plot']['title'] + ' ({} - {})'.format(year_start, year_end)
     out = ImageryPNG(name='landtrend_plot',
                      lang=lang,
                      title=title,
@@ -360,7 +360,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
     p_l8sr = {'bands': ['B4', 'B3', 'B2'], 'min': 0, 'max': 3000, 'gamma': 1.5,}
     map_l8sr = l8sr_y.visualize(**p_l8sr)
     map_l8sr_mosaic = ee.ImageCollection.fromImages([map_l8sr, ee.Image().int() \
-            .paint(point.buffer(BOX_SIDE / 50), 1) \
+            .paint(point.buffer(BOX_SIDE / 75), 1) \
             .visualize(**{'palette': ['black'], 'opacity': 1})]) \
             .mosaic()
 
@@ -412,7 +412,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
     map_mean = ndvi_mean.visualize(**p_ndvi_mean)
     map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image() \
             .int() \
-            .paint(point.buffer(BOX_SIDE / 50), 1) \
+            .paint(point.buffer(BOX_SIDE / 75), 1) \
             .visualize(**{'palette': ['black'], 'opacity': 1})]) \
             .mosaic()
     
@@ -475,7 +475,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     map_trnd = ndvi_trnd.visualize(**p_ndvi_trnd)
     map_trnd_mosaic = ee.ImageCollection.fromImages([map_trnd, ee.Image() \
             .int() \
-            .paint(point.buffer(BOX_SIDE / 50), 1) \
+            .paint(point.buffer(BOX_SIDE / 75), 1) \
             .visualize(**{'palette': ['black'], 'opacity': 1})]) \
             .mosaic()
     
@@ -520,6 +520,8 @@ def run(params, logger):
     if year_start < 2001:
         raise InvalidParameter("Invalid starting year {}".format(year_start))
     year_end = int(params.get('year_end', None))
+    if year_start > 2019:
+        raise InvalidParameter("Invalid ending year {}".format(year_end))
     lang = params.get('lang', None)
     langs =['EN', 'ES', 'PT']
     if lang not in langs:

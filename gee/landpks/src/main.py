@@ -169,12 +169,12 @@ def plot_image_to_file(d, title, legend=None):
     scalebar = ScaleBar(20, fixed_units ='km', location = 3, box_color = 'white') 
     plt.gca().add_artist(scalebar)
 
-    ax_img = fig.add_axes([0.23, 0.67, 0.21, 0.2], anchor='NW')
+    ax_img = fig.add_axes([0.15, 0.75, 0.21, 0.2], anchor='NW')
     ax_img.imshow(te_logo)
     ax_img.axis('off')
 
     if legend:
-        ax_legend = fig.add_axes([0.57, 0.11, 0.22, 0.2], anchor='SE')
+        ax_legend = fig.add_axes([0.63, 0.02, 0.22, 0.2], anchor='SE')
         ax_legend.imshow(legend)
         ax_legend.axis('off')
 
@@ -296,7 +296,7 @@ def landtrend_make_plot(d, year_start, year_end):
     return plt
 
 
-def landtrend(year_start, year_end, geojson, lang, gc_client):
+def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
     res = landtrend_get_data(year_start, year_end, geojson)
 
     PLOT_LOCK.acquire()
@@ -313,12 +313,12 @@ def landtrend(year_start, year_end, geojson, lang, gc_client):
 
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
-    #TODO: Need to return date as a period
+    title = metadata['landtrend_plot']['title'] + ' trends ({} - {})'.format(year_start, year_end)
     out = ImageryPNG(name='landtrend_plot',
                      lang=lang,
-                     title='This is a title',
+                     title=title,
                      date=[dt.date(year_start, 1, 1), dt.date(year_end, 12, 31)],
-                     about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",
+                     about=metadata['landtrend_plot']['about'],
                      url=url)
     schema = ImageryPNGSchema()
     return {'landtrend_plot' : schema.dump(out)}
@@ -346,7 +346,7 @@ def calculate_ndvi(image):
     return image.normalizedDifference(['B5', 'B4']).rename('NDVI')
 
 OLI_SR_COLL = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR')
-def base_image(year, geojson, lang, gc_client):
+def base_image(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
@@ -377,15 +377,16 @@ def base_image(year, geojson, lang, gc_client):
     l8sr_frame = Image.open(l8sr_name)
     np_l8sr = np.array(l8sr_frame)
     
-    f = plot_image_to_file(np_l8sr, "Satellite Image (" + str(year) + ")")
+    title = metadata['base_image']['title'] + ' ({})'.format(year)
+    f = plot_image_to_file(np_l8sr, title)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
     out = ImageryPNG(name='base_image',
                      lang=lang,
-                     title='This is a title',
+                     title=title,
                      date=[start_date, end_date],
-                     about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",
+                     about=metadata['base_image']['about'],
                      url=url)
     schema = ImageryPNGSchema()
     return {'base_image' : schema.dump(out)}
@@ -394,7 +395,7 @@ def base_image(year, geojson, lang, gc_client):
 ###############################################################################
 # Greenness average
 
-def greenness(year, geojson, lang, gc_client):
+def greenness(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
@@ -409,7 +410,11 @@ def greenness(year, geojson, lang, gc_client):
     # Define visualization parameter for ndvi trend and apply them
     p_ndvi_mean = {'bands':'ndvi', 'min': 0.3, 'max': 0.9, 'palette':['#ffffcc','#006600']}
     map_mean = ndvi_mean.visualize(**p_ndvi_mean)
-    map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image().int().paint(point.buffer(BOX_SIDE / 50), 1).visualize(**{'palette': ['black'], 'opacity': 1})]).mosaic()
+    map_mean_mosaic = ee.ImageCollection.fromImages([map_mean, ee.Image() \
+            .int() \
+            .paint(point.buffer(BOX_SIDE / 50), 1) \
+            .visualize(**{'palette': ['black'], 'opacity': 1})]) \
+            .mosaic()
     
     # Reproject ndvi mean image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box
@@ -426,15 +431,18 @@ def greenness(year, geojson, lang, gc_client):
 
     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                     'ndvi_avg_{}.png'.format(lang.lower())))
-    f = plot_image_to_file(np_mean, 'Average Greenness', legend)
+    title = metadata['greenness']['title'] + ' ({})'.format(start_date.year)
+    f = plot_image_to_file(np_mean, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
+    about = metadata['greenness']['about'].format(YEAR_START=start_date.strftime('%Y/%m/%d'),
+                                                  YEAR_END=end_date.strftime('%Y/%m/%d'))
     out = ImageryPNG(name='greenness',
                      lang=lang,
-                     title='This is a title',
+                     title=title,
                      date=[start_date, end_date],
-                     about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",
+                     about=about,
                      url=url)
     schema = ImageryPNGSchema()
     return {'greenness' : schema.dump(out)}
@@ -443,14 +451,19 @@ def greenness(year, geojson, lang, gc_client):
 ###############################################################################
 # Greenness trend
 
-def greenness_trend(year_start, year_end, geojson, lang, gc_client):
+def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year_start, 1, 1)
     end_date = dt.datetime(year_end, 12, 31)
     point = ee.Geometry(geojson)
     region = point.buffer(BOX_SIDE / 2).bounds()
     ndvi = []
     for y in range(year_start, year_end + 1):
-        ndvi.append(OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))                         .map(maskL8sr)                         .map(calculate_ndvi)                         .mean()                         .addBands(ee.Image(y).float())                         .rename(['ndvi','year']))
+        ndvi.append(OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
+                .map(maskL8sr) \
+                .map(calculate_ndvi) \
+                .mean() \
+                .addBands(ee.Image(y).float()) \
+                .rename(['ndvi','year']))
     ndvi_coll = ee.ImageCollection(ndvi)
 
     # Compute linear trend function to predict ndvi based on year (ndvi trend)
@@ -480,15 +493,18 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
 
     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                              'ndvi_trd_{}.png'.format(lang.lower())))
-    f = plot_image_to_file(ndvi_arr_trnd, 'Greenness Trend', legend)
+    title = metadata['greenness_trend']['title'] + ' ({})'.format(start_date.year)
+    f = plot_image_to_file(ndvi_arr_trnd, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
+    about = metadata['greenness_trend']['about'].format(YEAR_START=start_date.strftime('%Y/%m/%d'),
+                                                        YEAR_END=end_date.strftime('%Y/%m/%d'))
     out = ImageryPNG(name='greenness_trend',
                      lang=lang,
-                     title='This is a title',
+                     title=title,
                      date=[start_date, end_date],
-                     about="This is some about text, with a link in it to the <a href='http://trends.earth'>Trends.Earth</a> web page.",
+                     about=about,
                      url=url)
     schema = ImageryPNGSchema()
     return {'greenness_trend' : schema.dump(out)}
@@ -522,19 +538,24 @@ def run(params, logger):
     gc_client = storage.Client()
     logger.debug('Authenticated with AWS.')
 
+
+    with open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
+        'landpks_infotext_en.json')) as f:
+        metadata = json.load(f)
+
     logger.debug("Running main script.")
     threads = []
     with ThreadPoolExecutor(max_workers=4) as executor:
         logger.debug("Starting threads...")
         res = []
         res.append(executor.submit(landtrend, year_start, year_end, 
-            geojson, lang, gc_client))
+            geojson, lang, gc_client, metadata))
         res.append(executor.submit(base_image, year_end, geojson, lang, 
-            gc_client))
+            gc_client, metadata))
         res.append(executor.submit(greenness, year_end, geojson, lang, 
-            gc_client))
+            gc_client, metadata))
         res.append(executor.submit(greenness_trend, year_end - 5, year_end, 
-            geojson, lang, gc_client))
+            geojson, lang, gc_client, metadata))
         out = {}
 
     logger.debug("Gathering thread results...")

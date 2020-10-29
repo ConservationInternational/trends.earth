@@ -10,12 +10,12 @@ import json
 import datetime as dt
 import random
 import json
-import requests
 import tempfile
 import hashlib
 import pathlib
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import urllib.request
+from urllib import request
 
 import ee
 from google.cloud import storage
@@ -42,7 +42,7 @@ from landdegradation.schemas.schemas import Url, ImageryPNG, \
         ImageryPNGSchema
 
 
--class InvalidParameter(Exception):
+class InvalidParameter(Exception):
     pass
 
 
@@ -50,6 +50,11 @@ from landdegradation.schemas.schemas import Url, ImageryPNG, \
 BUCKET = 'ldmt'
 # Bounding box side in meters
 BOX_SIDE = 10000
+
+# A lock to ensure multiple matplotlib plots aren't generated at once - 
+# necessary due to matplotlib bug that leads to strange errors when plots are 
+# generated and saved to PNG in parallel
+PLOT_LOCK = threading.Lock()
 
 
 def upload_to_google_cloud(client, f):
@@ -154,6 +159,8 @@ te_logo = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(),
                                  'trends_earth_logo_bl_print.png'))
 
 def plot_image_to_file(d, title, legend=None):
+    PLOT_LOCK.acquire()
+
     fig = plt.figure(constrained_layout=False, figsize=(15, 11.28), dpi=100)
     ax = fig.add_subplot()
     ax.set_title(title, {'fontsize' :28})
@@ -174,6 +181,8 @@ def plot_image_to_file(d, title, legend=None):
     plt.tight_layout()
     f = tempfile.NamedTemporaryFile(suffix='.png').name
     plt.savefig(f, bbox_inches='tight')
+
+    PLOT_LOCK.release()
 
     return f
 
@@ -289,11 +298,17 @@ def landtrend_make_plot(d, year_start, year_end):
 
 def landtrend(year_start, year_end, geojson, lang, gc_client):
     res = landtrend_get_data(year_start, year_end, geojson)
+
+    PLOT_LOCK.acquire()
+
     plt = landtrend_make_plot(res, year_start, year_end)
 
     plt.tight_layout()
     f = tempfile.NamedTemporaryFile(suffix='.png').name
     plt.savefig(f, bbox_inches='tight')
+
+    PLOT_LOCK.release()
+
     h = get_hash(f)
 
     url = Url(upload_to_google_cloud(gc_client, f), h)
@@ -356,7 +371,7 @@ def base_image(year, geojson, lang, gc_client):
     # create thumbnail and retrieve it by url
     l8sr_url = map_l8sr_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
     l8sr_name = 'l8sr.png'
-    urllib.request.urlretrieve(l8sr_url, l8sr_name)
+    request.urlretrieve(l8sr_url, l8sr_name)
 
     # read image and pass it to a 2-d numpy array
     l8sr_frame = Image.open(l8sr_name)
@@ -399,7 +414,7 @@ def greenness(year, geojson, lang, gc_client):
     # create thumbnail and retrieve it by url
     mean_url = map_mean_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
     mean_name = 'ndvi_mean.png'
-    urllib.request.urlretrieve(mean_url, mean_name)
+    request.urlretrieve(mean_url, mean_name)
                        
     # read image and pass it to a 2-d numpy array
     mean_frame = Image.open(mean_name)
@@ -450,7 +465,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client):
     # create thumbnail and retrieve it by url 
     trnd_url = map_trnd_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
     trnd_name = 'ndvi_trnd.png'
-    urllib.request.urlretrieve(trnd_url, trnd_name)    
+    request.urlretrieve(trnd_url, trnd_name)    
     # read image and pass it to a 2-d numpy array
     trnd_frame = Image.open(trnd_name)
     ndvi_arr_trnd = np.array(trnd_frame)

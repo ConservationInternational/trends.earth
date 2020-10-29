@@ -2798,7 +2798,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settings.py" line="175"/>
         <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
-                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
+                    &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.&lt;/p&gt;</source>
         <translation>Kuingia kwenye seva ya Trends.Earth kama {}. &lt;html&gt;&lt;p&gt; Karibu kwenye Trends.Earth! &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Jiunge na Vikundi vya Trends.Earth Goers&lt;/a&gt; &lt;/p&gt;&lt;p&gt; Hakikisha kuungana na vikundi vya google kwa watumiaji wa Trends.Ear ili kuendelea na sasisho na Q&amp;amp;A kuhusu zana, njia, na hifadhidata kuunga mkono ufuatiliaji wa Malengo ya Maendeleo Endelevu. &lt;/p&gt;</translation>
     </message>
 </context>

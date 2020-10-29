@@ -166,7 +166,7 @@ def plot_image_to_file(d, title, legend=None):
     ax.set_title(title, {'fontsize' :28})
     ax.set_axis_off()
     img = ax.imshow(d)
-    scalebar = ScaleBar(20, fixed_units ='km', location = 3, box_color = 'white') 
+    scalebar = ScaleBar(35, location=3, box_color='white') 
     plt.gca().add_artist(scalebar)
 
     ax_img = fig.add_axes([0.15, 0.75, 0.21, 0.2], anchor='NW')

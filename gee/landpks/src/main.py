@@ -313,12 +313,12 @@ def landtrend(year_start, year_end, geojson, lang, gc_client, metadata):
 
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
-    title = metadata['landtrend_plot']['title'] + ' ({} - {})'.format(year_start, year_end)
+    title = metadata['landtrend_plot']['title']['lang'] + ' ({} - {})'.format(year_start, year_end)
     out = ImageryPNG(name='landtrend_plot',
                      lang=lang,
                      title=title,
                      date=[dt.date(year_start, 1, 1), dt.date(year_end, 12, 31)],
-                     about=metadata['landtrend_plot']['about'],
+                     about=metadata['landtrend_plot']['about']['lang'],
                      url=url)
     schema = ImageryPNGSchema()
     return {'landtrend_plot' : schema.dump(out)}
@@ -377,7 +377,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
     l8sr_frame = Image.open(l8sr_name)
     np_l8sr = np.array(l8sr_frame)
     
-    title = metadata['base_image']['title'] + ' ({})'.format(year)
+    title = metadata['base_image']['title']['lang'] + ' ({})'.format(year)
     f = plot_image_to_file(np_l8sr, title)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
@@ -386,7 +386,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
                      lang=lang,
                      title=title,
                      date=[start_date, end_date],
-                     about=metadata['base_image']['about'],
+                     about=metadata['base_image']['about']['lang'],
                      url=url)
     schema = ImageryPNGSchema()
     return {'base_image' : schema.dump(out)}
@@ -431,12 +431,12 @@ def greenness(year, geojson, lang, gc_client, metadata):
 
     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                                     'ndvi_avg_{}.png'.format(lang.lower())))
-    title = metadata['greenness']['title'] + ' ({})'.format(start_date.year)
+    title = metadata['greenness']['title']['lang'] + ' ({})'.format(start_date.year)
     f = plot_image_to_file(np_mean, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
-    about = metadata['greenness']['about'].format(YEAR_START=start_date.strftime('%Y/%m/%d'),
+    about = metadata['greenness']['about']['lang'].format(YEAR_START=start_date.strftime('%Y/%m/%d'),
                                                   YEAR_END=end_date.strftime('%Y/%m/%d'))
     out = ImageryPNG(name='greenness',
                      lang=lang,
@@ -493,12 +493,12 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
 
     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                              'ndvi_trd_{}.png'.format(lang.lower())))
-    title = metadata['greenness_trend']['title'] + ' ({})'.format(start_date.year)
+    title = metadata['greenness_trend']['title']['lang'] + ' ({})'.format(start_date.year)
     f = plot_image_to_file(ndvi_arr_trnd, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
-    about = metadata['greenness_trend']['about'].format(YEAR_START=start_date.strftime('%Y/%m/%d'),
+    about = metadata['greenness_trend']['about']['lang'].format(YEAR_START=start_date.strftime('%Y/%m/%d'),
                                                         YEAR_END=end_date.strftime('%Y/%m/%d'))
     out = ImageryPNG(name='greenness_trend',
                      lang=lang,
@@ -542,7 +542,7 @@ def run(params, logger):
 
 
     with open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
-        'landpks_infotext_en.json')) as f:
+        'landpks_infotext.json')) as f:
         metadata = json.load(f)
 
     logger.debug("Running main script.")

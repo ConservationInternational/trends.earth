@@ -1,0 +1,52 @@
+{
+    "landtrend_plot": {
+        "about": {
+            "EN": "Land cover (degradation)These plots show the mean annual greenness, total annual precipitation, and land cover type for the last 20 years in this site.",
+            "ES": "",
+            "PT": ""
+        },
+        "title":  {
+            "EN": "Land and Climate Trends",
+            "ES": "",
+            "PT": ""
+        }
+    },
+    "base_image": {
+        "about": {
+            "EN": "Satellite image for the year {YEAR_END} centered around the site location.",
+            "ES": "",
+            "PT": ""
+        }
+        
+        "title": {
+            "EN": "Satellite Image",
+            "ES": "",
+            "PT": ""
+        }
+        
+    },
+    "greenness": {
+        "about": {
+            "EN": "This map shows mean annual greenness for the period {YEAR_START} - {YEAR_END}. Darker green areas indicate more abundant and healthier vegetation throughout the year. Yellow colors indicate areas with bare soil or sparse vegetation.",
+            "ES": "",
+            "PT": ""
+        }
+        "title": {
+            "EN": "Greenness",
+            "ES": "",
+            "PT": ""
+        }
+    },
+    "greenness_trend": {
+        "about": {
+            "EN": "This map shows the changes in annual greenness for the period {YEAR_START} - {YEAR_END}. Green areas have increased vegetation abundance or health during the period, yellow show stable areas and purple areas in which vegetation abundance or health has declined.",
+            "ES": "",
+            "PT": ""
+        }
+        "title": {
+            "EN": "Greenness Trend",
+            "ES": "",
+            "PT": ""
+        }
+    }
+}

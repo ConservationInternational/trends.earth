@@ -185,9 +185,9 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
             return
 
         if (self.year_final.date().year() - self.year_initial.date().year()) < 10:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Initial and final year must be at least 10 years apart."))
-            return
+            QtWidgets.QMessageBox.warning(None, self.tr("Error"),
+                                       self.tr("Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis."))
+        #     return
 
         self.close()
 

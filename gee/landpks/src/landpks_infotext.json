@@ -2,51 +2,51 @@
     "landtrend_plot": {
         "about": {
             "EN": "This plot shows the mean annual greenness, total annual precipitation, and land cover type for the last 20 years in this site.",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Este gráfico muestra el verdor anual medio, la precipitación anual total y el tipo de cobertura del suelo durante los últimos 20 años en este sitio",
+            "PT": "Este gráfico mostra o verdor anual médio, a precipitação anual total e o tipo de cobertura da terra nos últimos 20 anos neste local"
         },
         "title":  {
             "EN": "Land and Climate Trends",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Tendencias de la tierra y el clima",
+            "PT": "Tendências Terrestres e Climáticas"
         }
     },
     "base_image": {
         "about": {
             "EN": "Satellite image for the year {YEAR_END} centered around the site location.",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Imagen de satélite del año {YEAR_END} centrada alrededor de la ubicación del sitio",
+            "PT": "Imagem de satélite para o ano {YEAR_END} centrada no local"
         }
         
         "title": {
             "EN": "Satellite Image",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Imagen de satélite",
+            "PT": "Imagem de satélite"
         }
         
     },
     "greenness": {
         "about": {
             "EN": "This map shows mean annual greenness for the period {YEAR_START} - {YEAR_END}. Darker green areas indicate more abundant and healthier vegetation throughout the year. Yellow colors indicate areas with bare soil or sparse vegetation.",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Este mapa muestra el verdor anual medio para el período {YEAR_START} - {YEAR_END}. Las áreas verdes más oscuras indican una vegetación más abundante y saludable durante todo el año. Los colores amarillos indican áreas con suelo desnudo o vegetación escasa.",
+            "PT": "Este mapa mostra o verdor médio anual para o período {YEAR_START} - {YEAR_END}. Áreas verdes mais escuras indicam vegetação mais abundante e saudável ao longo do ano. As cores amarelas indicam áreas com solo descoberto ou vegetação esparsa."
         }
         "title": {
             "EN": "Greenness",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Verdor",
+            "PT": "verdor"
         }
     },
     "greenness_trend": {
         "about": {
             "EN": "This map shows the changes in annual greenness for the period {YEAR_START} - {YEAR_END}. Green areas have increased vegetation abundance or health during the period, yellow show stable areas and purple areas in which vegetation abundance or health has declined.",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Este mapa muestra los cambios en el verdor anual para el período {YEAR_START} - {YEAR_END}. Las áreas verdes han aumentado la abundancia o la salud de la vegetación durante el período, las amarillas muestran áreas estables y las áreas moradas en las que la abundancia o la salud de la vegetación ha disminuido",
+            "PT": "Este mapa mostra as mudanças no verdor anual para o período {YEAR_START} - {YEAR_END}. As áreas verdes aumentaram a abundância ou saúde da vegetação durante o período, as amarelas mostram áreas estáveis ​​e áreas roxas nas quais a abundância ou saúde da vegetação diminuiu"
         }
         "title": {
             "EN": "Greenness Trend",
-            "ES": "Spanish translation here..",
-            "PT": "Portuguese translation here.."
+            "ES": "Tendencia de verdor",
+            "PT": "Tendência de verdor"
         }
     }
 }

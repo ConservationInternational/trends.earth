@@ -31,6 +31,9 @@ The below publications either use or relate to |trends.earth|.
 * Kust, G.S., Andreeva, O.V., Lobkovskiy, V.A., 2020. 
   Land Degradation Neutrality: the Modern Approach to Research on Arid Regions at the National Level. 
   Arid Ecosyst. 10, 87–92. 
+* Li, Z., Lun, F., Liu, M., Xiao, X., Wang, C., Wang, L., Xu, Y., Qi, W., Sun, D., 2021. Rapid diagnosis of 
+  agricultural soil health: A novel soil health index based on natural soil productivity and human management.
+  J. Environ. Manage. 277, 111402. https://doi.org/10.1016/j.jenvman.2020.111402
 * Liniger, H., Harari, N., van Lynden, G., Fleiner, R., de Leeuw, J., Bai, Z.,
   Critchley, W., 2019. Achieving land degradation neutrality: The role of SLM
   knowledge in evidence-based decision-making. Environ. Sci. Policy 94, 123–134.

@@ -87,7 +87,7 @@ Open a terminal window and clone the latest version of the repository from
 Github:
 
 ```
-git clone https://github.com/ConservationInternational/trends.earth
+git clone --recurse-submodules https://github.com/ConservationInternational/trends.earth
 ```
 
 Navigate to the root folder of the newly cloned repository, and install

@@ -345,7 +345,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
         if platform.system() == 'Darwin':
             folder = 'Library/Application Support/QGIS/QGIS3/profiles/'
         if platform.system() == 'Linux':
-            folder = 'local/share/QGIS/QGIS3/profiles/'
+            folder = '.local/share/QGIS/QGIS3/profiles/'
         if platform.system() == 'Windows':
             folder ='AppData\\Roaming\\QGIS\\QGIS3\\profiles\\'
         folder = os.path.join(folder, profile)

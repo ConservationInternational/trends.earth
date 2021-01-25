@@ -104,10 +104,16 @@ for the project:
 invoke plugin-setup
 ```
 
-Once `invoke plugin-setup` has run, you can install the plugin using invoke:
+Once `invoke plugin-setup` has run, you need to be sure all dependencies are setup with command:
 
 ```
-invoke plugin-install
+invoke  set-version -v <version number as in version.txt>
+```
+
+then you can install the plugin using invoke:
+
+```
+invoke plugin-install --profile=<profile name>
 ```
 
 If you modify the code, you need to run `invoke plugin-install` to update the

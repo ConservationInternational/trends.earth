@@ -101,7 +101,7 @@ def _replace(file_path, regex, subst):
 # Misc development tasks (change version, deploy GEE scripts)
 ###############################################################################
 
-@task(help={'version': 'Version to set'})
+@task(help={'v': 'Version to set'})
 def set_version(c, v=None):
     # Validate the version matches the regex
     if not v:
@@ -345,7 +345,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
         if platform.system() == 'Darwin':
             folder = 'Library/Application Support/QGIS/QGIS3/profiles/'
         if platform.system() == 'Linux':
-            folder = 'local/share/QGIS/QGIS3/profiles/'
+            folder = '.local/share/QGIS/QGIS3/profiles/'
         if platform.system() == 'Windows':
             folder ='AppData\\Roaming\\QGIS\\QGIS3\\profiles\\'
         folder = os.path.join(folder, profile)
@@ -697,7 +697,7 @@ def changelog_build(c):
             'version': 'what version of QGIS to prepare ZIP file for',
             'tests': 'Package tests with plugin',
             'filename': 'Name for output file',
-            'python': 'Python to use for setup and compiling',
+            #'python': 'Python to use for setup and compiling',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pip'):
     """Create plugin package"""

@@ -366,7 +366,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
 
     # Reproject L8 image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box
-    l8sr_mosaic_bands = l8sr_y.reproject(scale=30, crs='EPSG:3857')
+    map_l8sr_mosaic = map_l8sr_mosaic.reproject(scale=30, crs='EPSG:3857')
 
     # create thumbnail and retrieve it by url
     l8sr_url = map_l8sr_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
@@ -418,7 +418,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
     
     # Reproject ndvi mean image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box
-    ndvi_mean_reproject = ndvi_mean.reproject(scale=30, crs='EPSG:3857')
+    map_mean_mosaic = map_mean_mosaic.reproject(scale=30, crs='EPSG:3857')
     
     # create thumbnail and retrieve it by url
     mean_url = map_mean_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
@@ -481,7 +481,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     
     # Reproject ndvi mean image so it can retrieve data from every latitude 
     # without deforming the aoi bounding box
-    map_trnd_mosaic = map_trnd_mosaic.reproject(**({'crs':'EPSG:3857','scale':30}))
+    map_trnd_mosaic = map_trnd_mosaic.reproject(scale=30, crs='EPSG:3857')
     
     # create thumbnail and retrieve it by url 
     trnd_url = map_trnd_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})

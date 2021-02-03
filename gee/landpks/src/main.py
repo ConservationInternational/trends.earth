@@ -163,7 +163,7 @@ def plot_image_to_file(d, title, legend=None):
 
     fig = plt.figure(constrained_layout=False, figsize=(15, 11.28), dpi=100)
     ax = fig.add_subplot()
-    ax.set_title(title, {'fontsize' :28})
+    #ax.set_title(title, {'fontsize' :28})
     ax.set_axis_off()
     img = ax.imshow(d)
     scalebar = ScaleBar(35, location=3, box_color='white') 
@@ -366,7 +366,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
 
     # Reproject L8 image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box
-    l8sr_mosaic_bands = l8sr_y.reproject(scale=30, crs='EPSG:3857')
+    map_l8sr_mosaic = map_l8sr_mosaic.reproject(**({'crs':'EPSG:3857','scale':30}))
 
     # create thumbnail and retrieve it by url
     l8sr_url = map_l8sr_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
@@ -418,7 +418,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
     
     # Reproject ndvi mean image so it can retrieve data from every latitute 
     # without deforming the aoi bounding box
-    ndvi_mean_reproject = ndvi_mean.reproject(scale=30, crs='EPSG:3857')
+    map_mean_mosaic = map_mean_mosaic.reproject(**({'crs':'EPSG:3857','scale':30}))
     
     # create thumbnail and retrieve it by url
     mean_url = map_mean_mosaic.getThumbUrl({'region': region.getInfo(), 'dimensions': 256})
@@ -458,7 +458,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     region = point.buffer(BOX_SIDE / 2).bounds()
     ndvi = []
     for y in range(year_start, year_end + 1):
-        ndvi.append(OLI_SR_COLL.filterDate(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')) \
+        ndvi.append(OLI_SR_COLL.filterDate('{}-01-1'.format(y), '{}-12-31'.format(y)) \
                 .map(maskL8sr) \
                 .map(calculate_ndvi) \
                 .mean() \
@@ -479,7 +479,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
             .visualize(**{'palette': ['black'], 'opacity': 1})]) \
             .mosaic()
     
-    # Reproject ndvi mean image so it can retrieve data from every latitute 
+    # Reproject ndvi mean image so it can retrieve data from every latitude 
     # without deforming the aoi bounding box
     map_trnd_mosaic = map_trnd_mosaic.reproject(**({'crs':'EPSG:3857','scale':30}))
     
@@ -520,7 +520,7 @@ def run(params, logger):
     if year_start < 2001:
         raise InvalidParameter("Invalid starting year {}".format(year_start))
     year_end = int(params.get('year_end', None))
-    if year_start > 2019:
+    if year_end > 2019:
         raise InvalidParameter("Invalid ending year {}".format(year_end))
     lang = params.get('lang', None)
     langs =['EN', 'ES', 'PT']

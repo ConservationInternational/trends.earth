@@ -177,7 +177,14 @@ class LDMPPlugin(object):
             status_tip=self.tr('Trends.Earth Settings'),
             set_as_default_action=True)
 
-        """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        self.add_action(
+            ':/plugins/LDMP/icons/graph.svg',
+            text=self.tr(u'Plot data'),
+            add_to_toolbar=False,
+            callback=self.run_plot,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Plot time series datasets'))
+
         self.add_action(
             ':/plugins/LDMP/icons/wrench.svg',
             text=self.tr(u'Settings'),
@@ -191,13 +198,6 @@ class LDMPPlugin(object):
         #     callback=self.run_calculate,
         #     parent=self.iface.mainWindow(),
         #     status_tip=self.tr('Calculate indicators'))
-
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/graph.svg',
-        #     text=self.tr(u'Plot data'),
-        #     callback=self.run_plot,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('Plot time series datasets'))
 
         # self.add_action(
         #     ':/plugins/LDMP/icons/cloud-download.svg',
@@ -227,12 +227,13 @@ class LDMPPlugin(object):
         #     parent=self.iface.mainWindow(),
         #     status_tip=self.tr('Download raw datasets'))
 
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/info.svg',
-        #     text=self.tr(u'About'),
-        #     callback=self.run_about,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('About trends.earth'))
+        self.add_action(
+            ':/plugins/LDMP/icons/info.svg',
+            text=self.tr(u'About'),
+            add_to_toolbar=False,
+            callback=self.run_about,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('About trends.earth'))
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -269,9 +270,9 @@ class LDMPPlugin(object):
     #     self.dlg_jobs.show()
     #     result = self.dlg_jobs.exec_()
 
-    # def run_plot(self):
-    #     self.dlg_timeseries.show()
-    #     result = self.dlg_timeseries.exec_()
+    def run_plot(self):
+        self.dlg_timeseries.show()
+        result = self.dlg_timeseries.exec_()
 
     # def run_visualization(self):
     #     self.dlg_visualization.show()
@@ -281,6 +282,6 @@ class LDMPPlugin(object):
     #     self.dlg_data_io.show()
     #     result = self.dlg_data_io.exec_()
 
-    # def run_about(self):
-    #     self.dlg_about.show()
-    #     result = self.dlg_about.exec_()
+    def run_about(self):
+        self.dlg_about.show()
+        result = self.dlg_about.exec_()

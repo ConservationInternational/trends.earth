@@ -174,8 +174,15 @@ class LDMPPlugin(object):
             text=self.tr(u'Trend.Earth'),
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Trends.Earth Settings'),
+            status_tip=self.tr('Trends.Earth dock interface'),
             set_as_default_action=True)
+
+        self.add_action(
+            ':/plugins/LDMP/icons/wrench.svg',
+            text=self.tr(u'Settings'),
+            callback=self.run_settings,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
             ':/plugins/LDMP/icons/graph.svg',
@@ -184,13 +191,6 @@ class LDMPPlugin(object):
             callback=self.run_plot,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Plot time series datasets'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/wrench.svg',
-            text=self.tr(u'Settings'),
-            callback=self.run_settings,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
             ':/plugins/LDMP/icons/calculator.svg',

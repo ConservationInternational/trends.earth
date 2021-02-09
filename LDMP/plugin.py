@@ -192,6 +192,7 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth Settings'))
 
+        # TODO: remove commented code, leaved only as placeolder of old code
         # self.add_action(
         #     ':/plugins/LDMP/icons/calculator.svg',
         #     text=self.tr(u'Calculate indicators'),
@@ -256,6 +257,7 @@ class LDMPPlugin(object):
         self.dlg_settings.show()
         result = self.dlg_settings.exec_()
 
+    # TODO: remove commented code, leaved only as placeolder of old code
     # def run_download(self):
     #     self.dlg_download.show()
     #     result = self.dlg_download.exec_()
@@ -274,6 +276,7 @@ class LDMPPlugin(object):
         self.dlg_timeseries.show()
         result = self.dlg_timeseries.exec_()
 
+    # TODO: remove commented code, leaved only as placeolder of old code
     # def run_visualization(self):
     #     self.dlg_visualization.show()
     #     result = self.dlg_visualization.exec_()

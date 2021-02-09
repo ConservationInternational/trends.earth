@@ -69,9 +69,8 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.dlg_settings_advanced = DlgSettingsAdvanced()
 
         self.pushButton_register.clicked.connect(self.register)
-        self.pushButton_login.clicked.connect(self.login)
+        self.pushButton_test_connection.clicked.connect(self.login)
         self.pushButton_edit.clicked.connect(self.edit)
-        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
         self.pushButton_advanced.clicked.connect(self.advanced)
 
         self.buttonBox.accepted.connect(self.close)
@@ -91,12 +90,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             return
 
         self.dlg_settings_edit.exec_()
-
-    def forgot_pwd(self):
-        dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
-        ret = dlg_settings_edit_forgot_password.exec_()
-        if ret and dlg_settings_edit_forgot_password.ok:
-            self.done(QtWidgets.QDialog.Accepted)
 
     def advanced(self):
         result = self.dlg_settings_advanced.exec_()
@@ -187,6 +180,7 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
 
         self.setupUi(self)
 
+        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
         self.pushButton_change_user.clicked.connect(self.change_user)
         self.pushButton_update_profile.clicked.connect(self.update_profile)
         self.pushButton_delete_user.clicked.connect(self.delete)
@@ -228,6 +222,12 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
                 settings.setValue("LDMP/email", None)
                 self.close()
                 self.ok = True
+
+    def forgot_pwd(self):
+        dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
+        ret = dlg_settings_edit_forgot_password.exec_()
+        if ret and dlg_settings_edit_forgot_password.ok:
+            self.done(QtWidgets.QDialog.Accepted)
 
 
 class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword):

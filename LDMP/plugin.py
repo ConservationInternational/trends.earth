@@ -57,7 +57,7 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u'&trends.earth'))
+        self.menu = QMenu(self.tr(u'&Trends.Earth'))
         self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
@@ -192,41 +192,40 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth Settings'))
 
-        # TODO: remove commented code, leaved only as placeolder of old code
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/calculator.svg',
-        #     text=self.tr(u'Calculate indicators'),
-        #     callback=self.run_calculate,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('Calculate indicators'))
+        self.add_action(
+            ':/plugins/LDMP/icons/calculator.svg',
+            text=self.tr(u'Calculate indicators'),
+            callback=self.run_calculate,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Calculate indicators'))
 
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/cloud-download.svg',
-        #     text=self.tr(u'View Google Earth Engine tasks'),
-        #     callback=self.get_jobs,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('View cloud processing tasks'))
+        self.add_action(
+            ':/plugins/LDMP/icons/cloud-download.svg',
+            text=self.tr(u'View Google Earth Engine tasks'),
+            callback=self.get_jobs,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('View cloud processing tasks'))
 
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/document.svg',
-        #     text=self.tr(u'Visualization tool'),
-        #     callback=self.run_visualization,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('Visualize and summarize data'))
+        self.add_action(
+            ':/plugins/LDMP/icons/document.svg',
+            text=self.tr(u'Visualization tool'),
+            callback=self.run_visualization,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Visualize and summarize data'))
 
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/folder.svg',
-        #     text=self.tr(u'Load data'),
-        #     callback=self.data_io,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('Load local data'))
+        self.add_action(
+            ':/plugins/LDMP/icons/folder.svg',
+            text=self.tr(u'Load data'),
+            callback=self.data_io,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Load local data'))
 
-        # self.add_action(
-        #     ':/plugins/LDMP/icons/globe.svg',
-        #     text=self.tr(u'Download raw data'),
-        #     callback=self.run_download,
-        #     parent=self.iface.mainWindow(),
-        #     status_tip=self.tr('Download raw datasets'))
+        self.add_action(
+            ':/plugins/LDMP/icons/globe.svg',
+            text=self.tr(u'Download raw data'),
+            callback=self.run_download,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Download raw datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/info.svg',
@@ -257,33 +256,31 @@ class LDMPPlugin(object):
         self.dlg_settings.show()
         result = self.dlg_settings.exec_()
 
-    # TODO: remove commented code, leaved only as placeolder of old code
-    # def run_download(self):
-    #     self.dlg_download.show()
-    #     result = self.dlg_download.exec_()
+    def run_download(self):
+        self.dlg_download.show()
+        result = self.dlg_download.exec_()
 
-    # def run_calculate(self):
-    #     # show the dialog
-    #     self.dlg_calculate.show()
-    #     result = self.dlg_calculate.exec_()
+    def run_calculate(self):
+        # show the dialog
+        self.dlg_calculate.show()
+        result = self.dlg_calculate.exec_()
 
-    # def get_jobs(self):
-    #     # show the dialog
-    #     self.dlg_jobs.show()
-    #     result = self.dlg_jobs.exec_()
+    def get_jobs(self):
+        # show the dialog
+        self.dlg_jobs.show()
+        result = self.dlg_jobs.exec_()
 
     def run_plot(self):
         self.dlg_timeseries.show()
         result = self.dlg_timeseries.exec_()
 
-    # TODO: remove commented code, leaved only as placeolder of old code
-    # def run_visualization(self):
-    #     self.dlg_visualization.show()
-    #     result = self.dlg_visualization.exec_()
+    def run_visualization(self):
+        self.dlg_visualization.show()
+        result = self.dlg_visualization.exec_()
 
-    # def data_io(self):
-    #     self.dlg_data_io.show()
-    #     result = self.dlg_data_io.exec_()
+    def data_io(self):
+        self.dlg_data_io.show()
+        result = self.dlg_data_io.exec_()
 
     def run_about(self):
         self.dlg_about.show()

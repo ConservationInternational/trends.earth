@@ -5,10 +5,10 @@
     <file>icons/trends_earth_logo_bl.svg</file>
     <file>trends_earth_logo_square_32x32.png</file>
     <file>icons/trends_earth_logo_bl_small.png</file>
-    <file>icons/GEF_logo_small.png</file>
-    <file>icons/CI_logo_small.png</file>
-    <file>icons/NASA_logo_small.png</file>
-    <file>icons/LU_logo_small.png</file>
+    <file>icons/GEF_Logo_small.png</file>
+    <file>icons/CI_Logo_small.png</file>
+    <file>icons/NASA_Logo_small.png</file>
+    <file>icons/LU_Logo_small.png</file>
     <file>icons/calculator.svg</file>
     <file>icons/clipboard.svg</file>
     <file>icons/cloud-download.svg</file>
@@ -22,5 +22,6 @@
     <file>icons/tree.svg</file>
     <file>icons/wrench.svg</file>
     <file>icons/spinner.gif</file>
+    <file>icons/trends_earth_logo_square_32x32.ico</file>
   </qresource>
 </RCC>

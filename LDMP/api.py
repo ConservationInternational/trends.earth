@@ -27,6 +27,10 @@ from qgis.PyQt.QtCore import QCoreApplication, QSettings, QEventLoop
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from qgis.utils import iface
+from qgis.core import (
+    QgsAuthMethodConfig,
+    QgsApplication
+)
 
 from LDMP.worker import AbstractWorker, start_worker
 
@@ -34,15 +38,108 @@ from LDMP import log, debug_on
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
-
+AUTH_CONFIG_NAME = 'Trends.Earth'
 
 class tr_api(object):
     def tr(message):
         return QCoreApplication.translate("tr_api", message)
 
+def init_auth_config(email=None):
+    currentAuthConfig = None
+
+    # check if an auth method with name AUTH_CONFIG_NAME was already set
+    configs = QgsApplication.authManager().availableAuthMethodConfigs()
+    previousAuthExist = False
+    for config in configs.values():
+        if config.name() == AUTH_CONFIG_NAME:
+            currentAuthConfig = config
+            previousAuthExist = True
+            break
+
+    if not previousAuthExist:
+        # not found => craete a new one
+        currentAuthConfig = QgsAuthMethodConfig()
+        currentAuthConfig.setName(AUTH_CONFIG_NAME)
+
+    # reset it's config values to set later new password when received
+    currentAuthConfig.setMethod('Basic')
+    currentAuthConfig.setUri(API_URL + '/auth')
+    currentAuthConfig.setConfig('username', email)
+    currentAuthConfig.setConfig('password', None)
+    currentAuthConfig.setConfig('realm', None)
+
+    if not previousAuthExist:
+        # store a new auth config
+        if not QgsApplication.authManager().storeAuthenticationConfig(currentAuthConfig):
+            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot init auth configuration'))
+            return None
+    else:
+        # update existing
+         if not QgsApplication.authManager().updateAuthenticationConfig(currentAuthConfig):
+            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot update auth configuration'))
+            return None
+
+    QSettings().setValue("trends_earth/authId", currentAuthConfig.id())
+    return currentAuthConfig.id()
+
+def remove_current_auth_config():
+    authConfigId = QSettings().value("trends_earth/authId", None)
+    if not authConfigId:
+        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+        return None
+    log('remove_current_auth_config with authId {}'.format(authConfigId))
+
+    if not QgsApplication.authManager().removeAuthenticationConfig( authConfigId ):
+        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
+        return False
+
+    QSettings().setValue("trends_earth/authId", None)
+    return True
+
+def get_auth_config(authConfigId=None, warn=True):
+    if not authConfigId:
+        # not set? then retrieve from config if set
+        authConfigId = QSettings().value("trends_earth/authId", None)
+        if not authConfigId:
+            if warn:
+                iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+            return None
+    log('get_auth_config with authId {}'.format(authConfigId))
+
+    configs = QgsApplication.authManager().availableAuthMethodConfigs()
+    if not authConfigId in configs.keys():
+        if warn:
+            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
+        return None
+
+    authConfig = QgsAuthMethodConfig()
+    ok = QgsApplication.authManager().loadAuthenticationConfig(authConfigId, authConfig, True)
+    if not ok:
+        if warn:
+            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
+        return None
+    
+    if not authConfig.isValid():
+        if warn:
+            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Not valid auth configuration with authId: {}').format(authConfigId))
+        return None
+
+    # check if auth method is the only supported for no
+    if authConfig.method() != 'Basic':
+        if warn:
+            iface.messageBar().pushCritical('Trends.Earth',
+                tr_api.tr('Auth method with authId: {} is {}. Only basic auth is supported by Trend.Earth').format( authConfigId, authConfig.method() ))
+        return None
+    
+    return authConfig
 
 def get_user_email(warn=True):
-    email = QSettings().value("LDMP/email", None)
+    # get mail from authConfig
+    authConfig = get_auth_config(warn=warn)
+    if not authConfig:
+        return None
+
+    email = authConfig.config('username')
     if warn and email is None:
         QMessageBox.critical(None, tr_api.tr("Error"), tr_api.tr( "Please register with Trends.Earth before using this function."))
         return None
@@ -170,23 +267,29 @@ def get_error_status(resp):
     return (desc, status)
 
 
-def login(email=None, password=None):
-    if (email == None):
-        email = get_user_email()
-    if (password == None):
-        password = QSettings().value("LDMP/password", None)
-    if not email or not password:
-        log('API unable to login - check username/password')
+def login(authConfigId=None):
+    authConfig = get_auth_config(authConfigId=authConfigId)
+    if not authConfig :
+        log('API unable to login - setup auth configuration before')
         QMessageBox.critical(None,
-                                   tr_api.tr("Error"),
-                                   tr_api.tr("Unable to login to Trends.Earth. Check your username and password."))
+                            tr_api.tr("Error"),
+                            tr_api.tr("Unable to login to Trends.Earth. Setup auth configuration before."))
+        return None
+
+    email = authConfig.config('username')
+    password = authConfig.config('password')
+
+    if not email or not password:
+        log('API unable to login - set username/password in auth config with id: {}'.format(authConfig.id()))
+        QMessageBox.critical(None,
+                            tr_api.tr("Error"),
+                            tr_api.tr("Unable to login to Trends.Earth. Set your username and password in auth config: '{}'".format(authConfig.name())) )
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})
 
     if resp != None:
-        QSettings().setValue("LDMP/email", email)
-        QSettings().setValue("LDMP/password", password)
+        QSettings().setValue("trends_earth/authId", authConfig.id())
 
     return resp
 

@@ -16,7 +16,7 @@ from builtins import object
 import os
 
 from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu
+from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
 
 from LDMP import __version__, __release_date__, __revision__, log
@@ -57,11 +57,18 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u'&trends.earth'))
+        self.menu = QMenu(self.tr(u'&Trends.Earth'))
         self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
+
         self.toolbar = self.iface.addToolBar(u'trends.earth')
+        self.toolbar.setObjectName('trends_earth_toolbar')
+        self.toolButton = QToolButton()
+        self.toolButton.setMenu(QMenu())
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
+        self.actions.append(self.toolBtnAction)
 
         self.dlg_settings = DlgSettings()
         self.dlg_calculate = DlgCalculate()
@@ -87,6 +94,7 @@ class LDMPPlugin(object):
             enabled_flag=True,
             add_to_menu=True,
             add_to_toolbar=True,
+            set_as_default_action=False,
             status_tip=None,
             whats_this=None,
             parent=None):
@@ -113,6 +121,10 @@ class LDMPPlugin(object):
         :param add_to_toolbar: Flag indicating whether the action should also
             be added to the toolbar. Defaults to True.
         :type add_to_toolbar: bool
+
+        :param set_as_default_action: Flag indicating whether the action have to be
+            set as default shown in the added toolButton menu. Defaults to False.
+        :type set_as_default_action: bool
 
         :param status_tip: Optional text to show in a popup when mouse pointer
             hovers over the action.
@@ -141,7 +153,10 @@ class LDMPPlugin(object):
             action.setWhatsThis(whats_this)
 
         if add_to_toolbar:
-            self.toolbar.addAction(action)
+            self.toolButton.menu().addAction(action)
+
+            if set_as_default_action:
+                self.toolButton.setDefaultAction(action)
 
         if add_to_menu:
             self.menu.addAction(action)
@@ -153,7 +168,15 @@ class LDMPPlugin(object):
     def initGui(self):
         self.initProcessing()
 
-        """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        """Create Main manu icon and plugins menu entries."""
+        self.add_action(
+            ':/plugins/LDMP/icons/trends_earth_logo_square_32x32.ico',
+            text='Trends.Earth',
+            callback=self.run_docked_interface,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Trends.Earth dock interface'),
+            set_as_default_action=True)
+
         self.add_action(
             ':/plugins/LDMP/icons/wrench.svg',
             text=self.tr(u'Settings'),
@@ -162,18 +185,19 @@ class LDMPPlugin(object):
             status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
+            ':/plugins/LDMP/icons/graph.svg',
+            text=self.tr(u'Plot data'),
+            add_to_toolbar=False,
+            callback=self.run_plot,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Plot time series datasets'))
+
+        self.add_action(
             ':/plugins/LDMP/icons/calculator.svg',
             text=self.tr(u'Calculate indicators'),
             callback=self.run_calculate,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Calculate indicators'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/graph.svg',
-            text=self.tr(u'Plot data'),
-            callback=self.run_plot,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Plot time series datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/cloud-download.svg',
@@ -206,6 +230,7 @@ class LDMPPlugin(object):
         self.add_action(
             ':/plugins/LDMP/icons/info.svg',
             text=self.tr(u'About'),
+            add_to_toolbar=False,
             callback=self.run_about,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('About trends.earth'))
@@ -222,6 +247,10 @@ class LDMPPlugin(object):
         del self.toolbar
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
+
+    def run_docked_interface(self):
+        # add docked main interface
+        pass
 
     def run_settings(self):
         self.dlg_settings.show()

@@ -171,7 +171,7 @@ class LDMPPlugin(object):
         """Create Main manu icon and plugins menu entries."""
         self.add_action(
             ':/plugins/LDMP/icons/trends_earth_logo_square_32x32.ico',
-            text=self.tr(u'Trend.Earth'),
+            text='Trends.Earth',
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth dock interface'),

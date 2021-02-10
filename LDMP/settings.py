@@ -22,6 +22,7 @@ from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt import QtWidgets
 
 from qgis.utils import iface
+from qgis.core import QgsApplication
 mb = iface.messageBar()
 
 from LDMP.gui.DlgSettings import Ui_DlgSettings
@@ -33,8 +34,19 @@ from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
 
 from LDMP import binaries_available, __version__
-from LDMP.api import (get_user_email, get_user, delete_user, login, register,
-    update_user, recover_pwd)
+from LDMP.api import (
+    get_user_email,
+    get_user,
+    delete_user,
+    login,
+    register,
+    update_user,
+    recover_pwd,
+    get_auth_config,
+    init_auth_config,
+    remove_auth_config_for_user,
+    AUTH_CONFIG_NAME
+)
 from LDMP.download import download_files, get_admin_bounds
 
 settings = QSettings()
@@ -75,13 +87,29 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.buttonBox.accepted.connect(self.close)
 
+        # load gui default value from settings
+        authConfigId = settings.value("trend_earth/authId", None)
+        configs = QgsApplication.authManager().availableAuthMethodConfigs()
+        if authConfigId in configs.keys():
+            self.authConfigSelect_authentication.setConfigId(authConfigId)
+
     def register(self):
         result = self.dlg_settings_register.exec_()
 
     def login(self):
-        result = self.dlg_settings_login.exec_()
-        if result and self.dlg_settings_login.ok:
-            self.close()
+        # retrieve basic auth from QGIS authManager
+        authConfigId = self.authConfigSelect_authentication.configId()
+        
+        # try to login with current credentials
+        resp = login(authConfigId)
+        if resp:
+            username = get_user_email()
+            QtWidgets.QMessageBox.information(None,
+                    self.tr("Success"),
+                    self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
+                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(username))
+            settings.setValue("LDMP/jobs_cache", None)
+            self.ok = True
 
     def edit(self):
         if not get_user_email():
@@ -126,9 +154,8 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             self.close()
             QtWidgets.QMessageBox.information(None,
                     self.tr("Success"),
-                    self.tr(u"User registered. Your password has been emailed to {}.".format(self.email.text())))
-            settings.setValue("LDMP/email", self.email.text())
-            settings.setValue("LDMP/password", None)
+                    self.tr(u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(self.email.text(), AUTH_CONFIG_NAME)))
+            init_auth_config(email=self.email.text())
             return True
 
 
@@ -218,8 +245,7 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
                 QtWidgets.QMessageBox.information(None,
                         self.tr("Success"),
                         QtWidgets.QApplication.translate('LDMP', u"User {} deleted.".format(email)))
-                settings.setValue("LDMP/password", None)
-                settings.setValue("LDMP/email", None)
+                remove_auth_config_for_user(email)
                 self.close()
                 self.ok = True
 
@@ -265,7 +291,6 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
                 QtWidgets.QMessageBox.information(None,
                         self.tr("Success"),
                         self.tr(u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
-                settings.setValue("LDMP/password", None)
                 self.ok = True
 
 

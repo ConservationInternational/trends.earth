@@ -44,7 +44,7 @@ from LDMP.api import (
     recover_pwd,
     get_auth_config,
     init_auth_config,
-    remove_auth_config_for_user,
+    remove_current_auth_config,
     AUTH_CONFIG_NAME
 )
 from LDMP.download import download_files, get_admin_bounds
@@ -245,7 +245,7 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
                 QtWidgets.QMessageBox.information(None,
                         self.tr("Success"),
                         QtWidgets.QApplication.translate('LDMP', u"User {} deleted.".format(email)))
-                remove_auth_config_for_user(email)
+                remove_current_auth_config()
                 self.close()
                 self.ok = True
 

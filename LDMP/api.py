@@ -52,7 +52,7 @@ def init_auth_config(email=None):
     previousAuthExist = False
     for config in configs.values():
         if config.name() == AUTH_CONFIG_NAME:
-            currentAuthConfig = config.clone()
+            currentAuthConfig = config
             previousAuthExist = True
             break
 
@@ -79,35 +79,27 @@ def init_auth_config(email=None):
             iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot update auth configuration'))
             return None
 
-    QSettings().setValue("trend_earth/authId", currentAuthConfig.id())
+    QSettings().setValue("trends_earth/authId", currentAuthConfig.id())
     return currentAuthConfig.id()
 
-def remove_auth_config_for_user(email=None):
-    if email is None:
-        email = get_user_email()
+def remove_current_auth_config():
+    authConfigId = QSettings().value("trends_earth/authId", None)
+    if not authConfigId:
+        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+        return None
+    log('remove_current_auth_config with authId {}'.format(authConfigId))
 
-    # check if an auth method with name AUTH_CONFIG_NAME was already set
-    configs = QgsApplication.authManager().availableAuthMethodConfigs()
-    for config in configs.values():
-        if config.method() != 'Basic':
-            continue
+    if not QgsApplication.authManager().removeAuthenticationConfig( authConfigId ):
+        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
+        return False
 
-        if config.config('username') != email:
-            continue
-
-        if not QgsApplication.authManager().removeAuthenticationConfig( config.id() ):
-            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration for user: {}').format(email))
-            return False
-
-        QSettings().setValue("trend_earth/authId", None)
-        return True
-
-    return False
+    QSettings().setValue("trends_earth/authId", None)
+    return True
 
 def get_auth_config(authConfigId=None, warn=True):
     if not authConfigId:
         # not set? then retrieve from config if set
-        authConfigId = QSettings().value("trend_earth/authId", None)
+        authConfigId = QSettings().value("trends_earth/authId", None)
         if not authConfigId:
             if warn:
                 iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
@@ -297,7 +289,7 @@ def login(authConfigId=None):
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})
 
     if resp != None:
-        QSettings().setValue("trend_earth/authId", authConfig.id())
+        QSettings().setValue("trends_earth/authId", authConfig.id())
 
     return resp
 

@@ -18,7 +18,7 @@ import re
 import zipfile
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, pyqtSignal
 from qgis.PyQt import QtWidgets
 
 from qgis.utils import iface
@@ -42,7 +42,6 @@ from LDMP.api import (
     register,
     update_user,
     recover_pwd,
-    get_auth_config,
     init_auth_config,
     remove_current_auth_config,
     AUTH_CONFIG_NAME
@@ -80,6 +79,10 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.dlg_settings_edit = DlgSettingsEdit()
         self.dlg_settings_advanced = DlgSettingsAdvanced()
 
+        # update authConfig list if triggered by sub GUIs that can add modify or update auth configs
+        self.dlg_settings_edit.authConfigUpdated.connect(self.reloadAuthConfigurations)
+        self.dlg_settings_register.authConfigInitialised.connect(self.selectDefaultAuthConfiguration)
+
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_test_connection.clicked.connect(self.login)
         self.pushButton_edit.clicked.connect(self.edit)
@@ -88,9 +91,20 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.buttonBox.accepted.connect(self.close)
 
         # load gui default value from settings
+        self.reloadAuthConfigurations()
+
+    def reloadAuthConfigurations(self):
+        self.authConfigSelect_authentication.populateConfigSelector()
+        self.authConfigSelect_authentication.clearMessage()
+
         authConfigId = settings.value("trend_earth/authId", None)
         configs = QgsApplication.authManager().availableAuthMethodConfigs()
         if authConfigId in configs.keys():
+            self.authConfigSelect_authentication.setConfigId(authConfigId)
+    
+    def selectDefaultAuthConfiguration(self, authConfigId):
+        self.reloadAuthConfigurations()
+        if authConfigId:
             self.authConfigSelect_authentication.setConfigId(authConfigId)
 
     def register(self):
@@ -124,6 +138,9 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
+
+    authConfigInitialised = pyqtSignal(str)
+
     def __init__(self, parent=None):
         super(DlgSettingsRegister, self).__init__(parent)
 
@@ -155,7 +172,12 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             QtWidgets.QMessageBox.information(None,
                     self.tr("Success"),
                     self.tr(u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(self.email.text(), AUTH_CONFIG_NAME)))
-            init_auth_config(email=self.email.text())
+            
+            # add a new auth conf that have to be completed with pwd
+            authConfidId = init_auth_config(email=self.email.text())
+            if authConfidId:
+                self.authConfigInitialised.emit(authConfidId)
+
             return True
 
 
@@ -202,6 +224,9 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
 
 class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
+
+    authConfigUpdated = pyqtSignal()
+
     def __init__(self, parent=None):
         super(DlgSettingsEdit, self).__init__(parent)
 
@@ -245,7 +270,11 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
                 QtWidgets.QMessageBox.information(None,
                         self.tr("Success"),
                         QtWidgets.QApplication.translate('LDMP', u"User {} deleted.".format(email)))
+                
+                # remove current used config (as set in QSettings) and trigger GUI
                 remove_current_auth_config()
+                self.authConfigUpdated.emit()
+
                 self.close()
                 self.ok = True
 

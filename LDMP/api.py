@@ -97,7 +97,7 @@ def remove_auth_config_for_user(email=None):
 
         if not QgsApplication.authManager().removeAuthenticationConfig( config.id() ):
             iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration for user: {}').format(email))
-        return False
+            return False
 
         QSettings().setValue("trend_earth/authId", None)
         return True

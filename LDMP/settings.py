@@ -21,6 +21,12 @@ from pathlib import Path
 
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
 from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
+
+from qgis.core import QgsSettings
+from qgis.core import QgsCoordinateReferenceSystem
+from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
+
 
 from qgis.core import QgsApplication
 
@@ -30,7 +36,10 @@ from LDMP.gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassw
 from LDMP.gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
 from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
+
 from LDMP.gui.WidgetSettingsAdvanced import Ui_WidgetSettingsAdvanced
+from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
+from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 
 from LDMP import binaries_available, __version__, openFolder
 from LDMP.api import (
@@ -45,7 +54,7 @@ from LDMP.api import (
     remove_current_auth_config,
     AUTH_CONFIG_NAME
 )
-from LDMP.download import download_files, get_admin_bounds
+from LDMP.download import download_files, get_admin_bounds, read_json, get_cities
 from LDMP.message_bar import MessageBar
 
 settings = QSettings()
@@ -92,6 +101,19 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
         self.buttonBox.accepted.connect(self.close)
+        self.settings = QgsSettings()
+
+        scroll_container = QtWidgets.QWidget()
+        self.area_widget = AreaWidget()
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.area_widget)
+
+        scroll_container.setLayout(layout)
+
+        self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setWidget(scroll_container)
 
         # load gui default value from settings
         self.reloadAuthConfigurations()
@@ -181,6 +203,227 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 remove_current_auth_config()
                 self.reloadAuthConfigurations()
                 #self.authConfigUpdated.emit()
+
+    def accept(self):
+        self.area_widget.save_settings()
+        super().accept()
+
+
+class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
+    def __init__(self, parent=None):
+        super(AreaWidget, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.canvas = iface.mapCanvas()
+        self.settings = QgsSettings()
+        self.vector_file = None
+        self.current_cities_key = None
+
+        self.admin_bounds_key = get_admin_bounds()
+        if not self.admin_bounds_key:
+            raise ValueError('Admin boundaries not available')
+
+        self.cities = get_cities()
+        if not self.cities:
+            raise ValueError('Cities list not available')
+
+        # Populate
+        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
+        self.populate_admin_1()
+        self.populate_cities()
+        self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
+        self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
+
+        self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
+        self.area_fromadmin.clicked.connect(self.area_type_toggle)
+        self.area_fromfile.clicked.connect(self.area_type_toggle)
+
+        self.radioButton_secondLevel_region.clicked.connect(self.radioButton_secondLevel_toggle)
+        self.radioButton_secondLevel_city.clicked.connect(self.radioButton_secondLevel_toggle)
+
+        icon = QIcon(QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
+        self.area_frompoint_choose_point.setIcon(icon)
+        self.area_frompoint_choose_point.clicked.connect(self.point_chooser)
+        # TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.area_frompoint_point_x.setValidator(QDoubleValidator())
+        # TODO: Set range to only accept valid coordinates for current map coordinate system
+        self.area_frompoint_point_y.setValidator(QDoubleValidator())
+        self.area_frompoint.clicked.connect(self.area_type_toggle)
+
+        # Setup point chooser
+        self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
+        self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
+
+        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
+        self.mQgsProjectionSelectionWidget.setCrs(QgsCoordinateReferenceSystem('epsg:4326'))
+
+        self.groupBox_custom_crs.hide()
+
+        self.load_settings()
+
+    def load_settings(self):
+
+        buffer_checked = self.settings.value("trends_earth/AreaWidget/buffer_checked", False) == 'True'
+        area_from_option = self.settings.value("trends_earth/AreaWidget/area_from_option", None)
+
+        if area_from_option == 'admin':
+            self.area_fromadmin.setChecked(True)
+        elif area_from_option == 'point':
+            self.area_frompoint.setChecked(True)
+        elif area_from_option == 'file':
+            self.area_fromfile.setChecked(True)
+        self.area_frompoint_point_x.setText(self.settings.value("trends_earth/AreaWidget/area_frompoint_point_x", None))
+        self.area_frompoint_point_y.setText(self.settings.value("trends_earth/AreaWidget/area_frompoint_point_y", None))
+        self.area_fromfile_file.setText(self.settings.value("trends_earth/AreaWidget/area_fromfile_file", None))
+        self.area_type_toggle()
+
+        admin_0 = self.settings.value("trends_earth/AreaWidget/area_admin_0", None)
+        if admin_0:
+            self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
+            self.populate_admin_1()
+
+        area_from_option_secondLevel = self.settings.value("trends_earth/AreaWidget/area_from_option_secondLevel", None)
+        if area_from_option_secondLevel == 'admin':
+            self.radioButton_secondLevel_region.setChecked(True)
+        elif area_from_option_secondLevel == 'city':
+            self.radioButton_secondLevel_city.setChecked(True)
+        self.radioButton_secondLevel_toggle()
+
+        secondLevel_area_admin_1 = self.settings.value("trends_earth/AreaWidget/secondLevel_area_admin_1", None)
+        if secondLevel_area_admin_1:
+            self.secondLevel_area_admin_1.setCurrentIndex(
+                self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
+        secondLevel_city = self.settings.value("trends_earth/AreaWidget/secondLevel_city", None)
+        if secondLevel_city:
+            self.populate_cities()
+            self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
+
+        buffer_size = self.settings.value("trends_earth/AreaWidget/buffer_size", None)
+        if buffer_size:
+            self.buffer_size_km.setValue(float(buffer_size))
+        self.groupBox_buffer.setChecked(buffer_checked)
+
+    def populate_cities(self):
+        self.secondLevel_city.clear()
+        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
+        self.current_cities_key = {value['name_en']: key for key, value in self.cities[adm0_a3].items()}
+        self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
+
+    def populate_admin_1(self):
+        self.secondLevel_area_admin_1.clear()
+        self.secondLevel_area_admin_1.addItems(['All regions'])
+        self.secondLevel_area_admin_1.addItems(
+            sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
+
+    def area_type_toggle(self):
+        self.area_frompoint_point_x.setEnabled(self.area_frompoint.isChecked())
+        self.area_frompoint_point_y.setEnabled(self.area_frompoint.isChecked())
+        self.area_frompoint_choose_point.setEnabled(self.area_frompoint.isChecked())
+
+        self.groupBox_first_level.setEnabled(self.area_fromadmin.isChecked())
+        self.groupBox_second_level.setEnabled(self.area_fromadmin.isChecked())
+
+        self.area_fromfile_file.setEnabled(self.area_fromfile.isChecked())
+        self.area_fromfile_browse.setEnabled(self.area_fromfile.isChecked())
+
+    def radioButton_secondLevel_toggle(self):
+        self.secondLevel_area_admin_1.setEnabled(self.radioButton_secondLevel_region.isChecked())
+        self.secondLevel_city.setEnabled(not self.radioButton_secondLevel_region.isChecked())
+
+    def point_chooser(self):
+        log("Choosing point from canvas...")
+        self.canvas.setMapTool(self.choose_point_tool)
+        self.window().hide()
+        QtWidgets.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
+
+    def set_point_coords(self, point, button):
+        log("Set point coords")
+        # TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
+        self.point = point
+        # Disable the choose point tool
+        self.canvas.setMapTool(QgsMapToolPan(self.canvas))
+        # Don't reset_tab_on_show as it would lead to return to first tab after
+        # using the point chooser
+        self.window().reset_tab_on_showEvent = False
+        self.window().show()
+        self.window().reset_tab_on_showEvent = True
+        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
+        log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
+        self.area_frompoint_point_x.setText("{:.8f}".format(self.point.x()))
+        self.area_frompoint_point_y.setText("{:.8f}".format(self.point.y()))
+
+    def open_vector_browse(self):
+        initial_path = self.settings.value("trends_earth/input_shapefile", None)
+        if not initial_path:
+            initial_path = self.settings.value("trends_earth/input_shapefile_dir", None)
+        if not initial_path:
+            initial_path = str(Path.home())
+
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
+                                                               self.tr('Select a file defining the area of interest'),
+                                                               initial_path,
+                                                               self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
+        if vector_file:
+            if os.access(vector_file, os.R_OK):
+                self.vector_file = vector_file
+                self.area_fromfile_file.setText(vector_file)
+                return True
+            else:
+                QtWidgets.QMessageBox.critical(None,
+                                               self.tr("Error"),
+                                               self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
+                return False
+        else:
+            return False
+        
+    def save_settings(self):
+
+        self.settings.setValue("trends_earth/AreaWidget/area_admin_0", self.area_admin_0.currentText())
+        self.settings.setValue("trends_earth/AreaWidget/secondLevel_area_admin_1",
+                                 self.secondLevel_area_admin_1.currentText())
+        self.settings.setValue("trends_earth/AreaWidget/secondLevel_city", self.secondLevel_city.currentText())
+        self.settings.setValue("trends_earth/AreaWidget/area_fromfile_file", self.area_fromfile_file.text())
+        self.settings.setValue("trends_earth/AreaWidget/area_frompoint_point_x", self.area_frompoint_point_x.text())
+        self.settings.setValue("trends_earth/AreaWidget/area_frompoint_point_y", self.area_frompoint_point_y.text())
+        self.settings.setValue("trends_earth/AreaWidget/buffer_checked", str(self.groupBox_buffer.isChecked()))
+        self.settings.setValue("trends_earth/AreaWidget/buffer_size", self.buffer_size_km.value())
+
+        area_value = None
+        if self.area_frompoint.isChecked():
+            area_value = 'point'
+        elif self.area_fromadmin.isChecked():
+            area_value = 'admin'
+        elif self.area_fromfile.isChecked():
+            area_value = 'file'
+
+        if area_value is not None:
+            self.settings.setValue("trends_earth/AreaWidget/area_from_option", area_value)
+        self.settings.setValue(
+            "trends_earth/AreaWidget/secondLevel_city_button",
+            self.radioButton_secondLevel_city.isChecked())
+        self.settings.setValue(
+            "trends_earth/AreaWidget/groupBox_buffer",
+            self.groupBox_buffer.isChecked())
+        self.settings.setValue(
+            "trends_earth/AreaWidget/checkBox_custom_crs_wrap",
+            self.checkBox_custom_crs_wrap.isChecked())
+
+        if not self.radioButton_secondLevel_region.isChecked():
+            self.settings.setValue("trends_earth/AreaWidget/area_from_option_secondLevel", 'city')
+
+        if self.vector_file is not None:
+            self.settings.setValue("trends_earth/input_shapefile", self.vector_file)
+            self.settings.setValue("trends_earth/input_shapefile_dir", os.path.dirname(self.vector_file))
+
+        if self.current_cities_key is not None:
+            self.settings.setValue("trends_earth/AreaWidget/current_cities_key", self.current_cities_key)
+
+        self.settings.setValue("trends_earth/AreaWidget/custom_crs_enabled", self.groupBox_custom_crs.isChecked())
+        if self.groupBox_custom_crs.isChecked():
+            self.settings.setValue(
+                "trends_earth/AreaWidget/custom_crs",
+                self.mQgsProjectionSelectionWidget.crs().authid())
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):

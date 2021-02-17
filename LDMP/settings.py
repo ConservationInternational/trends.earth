@@ -18,12 +18,10 @@ import re
 import zipfile
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QSettings, pyqtSignal
+from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
 from qgis.PyQt import QtWidgets
 
-from qgis.utils import iface
 from qgis.core import QgsApplication
-mb = iface.messageBar()
 
 from LDMP.gui.DlgSettings import Ui_DlgSettings
 from LDMP.gui.DlgSettingsEdit import Ui_DlgSettingsEdit
@@ -47,6 +45,7 @@ from LDMP.api import (
     AUTH_CONFIG_NAME
 )
 from LDMP.download import download_files, get_admin_bounds
+from LDMP.message_bar import MessageBar
 
 settings = QSettings()
 
@@ -94,6 +93,16 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         # load gui default value from settings
         self.reloadAuthConfigurations()
 
+    def showEvent(self, event):
+        super(DlgSettings, self).showEvent(event)
+        # add message bar for all dialog communication
+        MessageBar().init()
+        self.layout().insertWidget( 0, MessageBar().get() )
+
+    def close(self):
+        super(DlgSettings, self).close()
+        MessageBar().reset()
+
     def reloadAuthConfigurations(self):
         self.authConfigSelect_authentication.populateConfigSelector()
         self.authConfigSelect_authentication.clearMessage()
@@ -115,7 +124,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         # retrieve basic auth from QGIS authManager
         authConfigId = self.authConfigSelect_authentication.configId()
         if not authConfigId:
-            iface.messageBar().pushCritical('Trends.Earth', self.tr('Please select a authentication profile'))
+            MessageBar().get().pushCritical('Trends.Earth', self.tr('Please select a authentication profile'))
             return
 
         # try to login with current credentials

@@ -35,6 +35,7 @@ from qgis.core import (
 from LDMP.worker import AbstractWorker, start_worker
 
 from LDMP import log, debug_on
+from LDMP.message_bar import MessageBar
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
@@ -71,12 +72,12 @@ def init_auth_config(email=None):
     if not previousAuthExist:
         # store a new auth config
         if not QgsApplication.authManager().storeAuthenticationConfig(currentAuthConfig):
-            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot init auth configuration'))
+            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot init auth configuration'))
             return None
     else:
         # update existing
          if not QgsApplication.authManager().updateAuthenticationConfig(currentAuthConfig):
-            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot update auth configuration'))
+            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot update auth configuration'))
             return None
 
     QSettings().setValue("trends_earth/authId", currentAuthConfig.id())
@@ -85,12 +86,12 @@ def init_auth_config(email=None):
 def remove_current_auth_config():
     authConfigId = QSettings().value("trends_earth/authId", None)
     if not authConfigId:
-        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+        MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
         return None
     log('remove_current_auth_config with authId {}'.format(authConfigId))
 
     if not QgsApplication.authManager().removeAuthenticationConfig( authConfigId ):
-        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
+        MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
         return False
 
     QSettings().setValue("trends_earth/authId", None)
@@ -102,32 +103,32 @@ def get_auth_config(authConfigId=None, warn=True):
         authConfigId = QSettings().value("trends_earth/authId", None)
         if not authConfigId:
             if warn:
-                iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+                MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
             return None
     log('get_auth_config with authId {}'.format(authConfigId))
 
     configs = QgsApplication.authManager().availableAuthMethodConfigs()
     if not authConfigId in configs.keys():
         if warn:
-            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
+            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
         return None
 
     authConfig = QgsAuthMethodConfig()
     ok = QgsApplication.authManager().loadAuthenticationConfig(authConfigId, authConfig, True)
     if not ok:
         if warn:
-            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
+            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
         return None
     
     if not authConfig.isValid():
         if warn:
-            iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Not valid auth configuration with authId: {}').format(authConfigId))
+            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Not valid auth configuration with authId: {}').format(authConfigId))
         return None
 
     # check if auth method is the only supported for no
     if authConfig.method() != 'Basic':
         if warn:
-            iface.messageBar().pushCritical('Trends.Earth',
+            MessageBar().get().pushCritical('Trends.Earth',
                 tr_api.tr('Auth method with authId: {} is {}. Only basic auth is supported by Trend.Earth').format( authConfigId, authConfig.method() ))
         return None
     

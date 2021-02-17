@@ -493,7 +493,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
 
     legend = Image.open(os.path.join(pathlib.Path(__file__).parent.absolute(), 
                              'ndvi_trd_{}.png'.format(lang.lower())))
-    title = metadata['greenness_trend']['title'][lang] + ' ({})'.format(start_date.year)
+    title = metadata['greenness_trend']['title'][lang] + ' ({} - {})'.format(year_start, year_end)
     f = plot_image_to_file(ndvi_arr_trnd, title, legend)
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)

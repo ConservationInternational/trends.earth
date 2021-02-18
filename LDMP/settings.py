@@ -54,8 +54,12 @@ from LDMP.api import (
     remove_current_auth_config,
     AUTH_CONFIG_NAME
 )
+
+from LDMP import log
 from LDMP.download import download_files, get_admin_bounds, read_json, get_cities
 from LDMP.message_bar import MessageBar
+
+settings = QSettings()
 
 settings = QSettings()
 
@@ -264,42 +268,44 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def load_settings(self):
 
-        buffer_checked = self.settings.value("trends_earth/AreaWidget/buffer_checked", False) == 'True'
-        area_from_option = self.settings.value("trends_earth/AreaWidget/area_from_option", None)
+        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False)
+        area_from_option = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
 
-        if area_from_option == 'admin':
+        if area_from_option == 'country_region' or \
+                area_from_option == 'country_city':
             self.area_fromadmin.setChecked(True)
         elif area_from_option == 'point':
             self.area_frompoint.setChecked(True)
-        elif area_from_option == 'file':
+        elif area_from_option == 'vector_layer':
             self.area_fromfile.setChecked(True)
-        self.area_frompoint_point_x.setText(self.settings.value("trends_earth/AreaWidget/area_frompoint_point_x", None))
-        self.area_frompoint_point_y.setText(self.settings.value("trends_earth/AreaWidget/area_frompoint_point_y", None))
-        self.area_fromfile_file.setText(self.settings.value("trends_earth/AreaWidget/area_fromfile_file", None))
+        self.area_frompoint_point_x.setText(self.settings.value("trends_earth/region_of_interest/point/x", None))
+        self.area_frompoint_point_y.setText(self.settings.value("trends_earth/region_of_interest/point/y", None))
+        self.area_fromfile_file.setText(self.settings.value("trends_earth/region_of_interest/vector_file", None))
         self.area_type_toggle()
 
-        admin_0 = self.settings.value("trends_earth/AreaWidget/area_admin_0", None)
+        admin_0 = self.settings.value("trends_earth/region_of_interest/country/country_name", None)
         if admin_0:
             self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
             self.populate_admin_1()
 
-        area_from_option_secondLevel = self.settings.value("trends_earth/AreaWidget/area_from_option_secondLevel", None)
-        if area_from_option_secondLevel == 'admin':
+        area_from_option_secondLevel = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
+        if area_from_option_secondLevel == 'country_region':
             self.radioButton_secondLevel_region.setChecked(True)
-        elif area_from_option_secondLevel == 'city':
+        elif area_from_option_secondLevel == 'country_city':
             self.radioButton_secondLevel_city.setChecked(True)
         self.radioButton_secondLevel_toggle()
 
-        secondLevel_area_admin_1 = self.settings.value("trends_earth/AreaWidget/secondLevel_area_admin_1", None)
+        secondLevel_area_admin_1 = self.settings.value("trends_earth/region_of_interest/country/region_name", None)
         if secondLevel_area_admin_1:
             self.secondLevel_area_admin_1.setCurrentIndex(
                 self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
-        secondLevel_city = self.settings.value("trends_earth/AreaWidget/secondLevel_city", None)
+        secondLevel_city = self.settings.value("trends_earth/region_of_interest/country/city_name", None)
+
         if secondLevel_city:
             self.populate_cities()
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
 
-        buffer_size = self.settings.value("trends_earth/AreaWidget/buffer_size", None)
+        buffer_size = self.settings.value("trends_earth/region_of_interest/buffer_size", None)
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
         self.groupBox_buffer.setChecked(buffer_checked)
@@ -379,50 +385,83 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         
     def save_settings(self):
 
-        self.settings.setValue("trends_earth/AreaWidget/area_admin_0", self.area_admin_0.currentText())
-        self.settings.setValue("trends_earth/AreaWidget/secondLevel_area_admin_1",
+        if self.area_fromadmin.isChecked():
+            self.settings.setValue(
+                "trends_earth/region_of_interest/country/country_name",
+                self.area_admin_0.currentText())
+        else:
+            self.settings.setValue(
+                "trends_earth/region_of_interest/country/country_name",
+                None)
+        if self.radioButton_secondLevel_region.isChecked():
+            self.settings.setValue("trends_earth/region_of_interest/country/region_name",
                                  self.secondLevel_area_admin_1.currentText())
-        self.settings.setValue("trends_earth/AreaWidget/secondLevel_city", self.secondLevel_city.currentText())
-        self.settings.setValue("trends_earth/AreaWidget/area_fromfile_file", self.area_fromfile_file.text())
-        self.settings.setValue("trends_earth/AreaWidget/area_frompoint_point_x", self.area_frompoint_point_x.text())
-        self.settings.setValue("trends_earth/AreaWidget/area_frompoint_point_y", self.area_frompoint_point_y.text())
-        self.settings.setValue("trends_earth/AreaWidget/buffer_checked", str(self.groupBox_buffer.isChecked()))
-        self.settings.setValue("trends_earth/AreaWidget/buffer_size", self.buffer_size_km.value())
+        else:
+            self.settings.setValue("trends_earth/region_of_interest/country/region_name",
+                                   None)
+        if self.radioButton_secondLevel_city.isChecked():
+            self.settings.setValue(
+                "trends_earth/region_of_interest/country/city_name",
+                self.secondLevel_city.currentText())
+        else:
+            self.settings.setValue(
+                "trends_earth/region_of_interest/country/city_name",
+                None)
+        if self.area_frompoint.isChecked():
+            self.settings.setValue(
+                "trends_earth/region_of_interest/point/x",
+                self.area_frompoint_point_x.text())
+            self.settings.setValue(
+                "trends_earth/region_of_interest/point/y",
+                self.area_frompoint_point_y.text())
+        else:
+            self.settings.setValue("trends_earth/region_of_interest/point/x", None)
+            self.settings.setValue("trends_earth/region_of_interest/point/y", None)
+        if self.area_fromfile.isChecked():
+            self.settings.setValue(
+                "trends_earth/region_of_interest/vector_layer",
+                self.area_fromfile_file.text())
+        else:
+            self.settings.setValue(
+                "trends_earth/region_of_interest/vector_layer",
+                None)
+
+        self.settings.setValue(
+            "trends_earth/region_of_interest/buffer_checked",
+            self.groupBox_buffer.isChecked())
+        self.settings.setValue(
+            "trends_earth/region_of_interest/buffer_size",
+            self.buffer_size_km.value())
 
         area_value = None
         if self.area_frompoint.isChecked():
             area_value = 'point'
         elif self.area_fromadmin.isChecked():
-            area_value = 'admin'
+            if self.radioButton_secondLevel_city.isChecked():
+                area_value = 'country_city'
+            else:
+                area_value = 'country_region'
         elif self.area_fromfile.isChecked():
-            area_value = 'file'
+            area_value = 'vector_layer'
 
         if area_value is not None:
-            self.settings.setValue("trends_earth/AreaWidget/area_from_option", area_value)
-        self.settings.setValue(
-            "trends_earth/AreaWidget/secondLevel_city_button",
-            self.radioButton_secondLevel_city.isChecked())
-        self.settings.setValue(
-            "trends_earth/AreaWidget/groupBox_buffer",
-            self.groupBox_buffer.isChecked())
-        self.settings.setValue(
-            "trends_earth/AreaWidget/checkBox_custom_crs_wrap",
-            self.checkBox_custom_crs_wrap.isChecked())
+            self.settings.setValue("trends_earth/region_of_interest/chosen_method", area_value)
 
-        if not self.radioButton_secondLevel_region.isChecked():
-            self.settings.setValue("trends_earth/AreaWidget/area_from_option_secondLevel", 'city')
+        self.settings.setValue(
+            "trends_earth/region_of_interest/custom_crs_wrap",
+            self.checkBox_custom_crs_wrap.isChecked())
 
         if self.vector_file is not None:
             self.settings.setValue("trends_earth/input_shapefile", self.vector_file)
             self.settings.setValue("trends_earth/input_shapefile_dir", os.path.dirname(self.vector_file))
 
         if self.current_cities_key is not None:
-            self.settings.setValue("trends_earth/AreaWidget/current_cities_key", self.current_cities_key)
+            self.settings.setValue("trends_earth/region_of_interest/current_cities_key", self.current_cities_key)
 
-        self.settings.setValue("trends_earth/AreaWidget/custom_crs_enabled", self.groupBox_custom_crs.isChecked())
+        self.settings.setValue("trends_earth/region_of_interest/custom_crs_enabled", self.groupBox_custom_crs.isChecked())
         if self.groupBox_custom_crs.isChecked():
             self.settings.setValue(
-                "trends_earth/AreaWidget/custom_crs",
+                "trends_earth/region_of_interest/custom_crs",
                 self.mQgsProjectionSelectionWidget.crs().authid())
 
 

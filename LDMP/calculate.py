@@ -817,38 +817,42 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.close()
 
     def get_city_geojson(self):
-        adm0_a3 = self.admin_bounds_key[self.settings.value("trends_earth/AreaWidget/area_admin_0")]['code']
-        wof_id = self.settings.value("trends_earth/AreaWidget/current_cities_key")[
-            self.settings.value("trends_earth/AreaWidget/secondLevel_city")
+        adm0_a3 = self.admin_bounds_key[self.settings.value(
+            "trends_earth/region_of_interest/country/country_name")]['code']
+        wof_id = self.settings.value("trends_earth/region_of_interest/current_cities_key")[
+            self.settings.value("trends_earth/region_of_interest/country/city_name")
         ]
         return (self.cities[adm0_a3][wof_id]['geojson'])
 
     def get_admin_poly_geojson(self):
-        adm0_a3 = self.admin_bounds_key[self.settings.value("trends_earth/AreaWidget/area_admin_0")]['code']
+        adm0_a3 = self.admin_bounds_key[self.settings.value(
+            "trends_earth/region_of_interest/country/country_name")]['code']
         admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
-        if not self.settings.value("trends_earth/AreaWidget/secondLevel_area_admin_1") or \
-                self.settings.value("trends_earth/AreaWidget/secondLevel_area_admin_1") == 'All regions':
+        if not self.settings.value("trends_earth/region_of_interest/country/region_name") or \
+                self.settings.value("trends_earth/region_of_interest/country/region_name") == 'All regions':
             return (admin_polys['geojson'])
         else:
-            admin_1_code = self.admin_bounds_key[self.settings.value("trends_earth/AreaWidget/area_admin_0")][
-                'admin1'][self.settings.value("trends_earth/AreaWidget/secondLevel_area_admin_1")]['code']
+            admin_1_code = self.admin_bounds_key[self.settings.value(
+                "trends_earth/region_of_interest/country/country_name")][
+                'admin1'][self.settings.value("trends_earth/region_of_interest/country/region_name")]['code']
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
-        if self.settings.value("trends_earth/AreaWidget/custom_crs_enabled"):
+        if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled"):
             crs_dst = QgsCoordinateReferenceSystem(
-                self.settings.value("trends_earth/AreaWidget/custom_crs")
+                self.settings.value("trends_earth/region_of_interest/custom_crs")
             )
         else:
             crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
 
         self.aoi = AOI(crs_dst)
 
-        if self.settings.value("trends_earth/AreaWidget/area_from_option") == 'admin':
-            if self.settings.value("trends_earth/AreaWidget/secondLevel_city_button"):
-                if not self.settings.value("trends_earth/AreaWidget/groupBox_buffer"):
+        if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
+                self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
+            if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
+                if not self.settings.value("trends_earth/region_of_interest/buffer_checked"):
                     QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
                            tr_calculate.tr("You have chosen to run calculations for a city."
                                             "You must select a buffer distance to define the "
@@ -857,10 +861,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 geojson = self.get_city_geojson()
                 self.aoi.update_from_geojson(geojson=geojson, 
                                              wrap=self.settings.value(
-                                                 "trends_earth/AreaWidget/checkBox_custom_crs_wrap"),
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
                                              datatype='point')
             else:
-                if not self.settings.value("trends_earth/AreaWidget/area_admin_0"):
+                if not self.settings.value("trends_earth/region_of_interest/country/country_name"):
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                self.tr("Choose a first level administrative boundary."))
                     return False
@@ -873,37 +877,38 @@ class DlgCalculateBase(QtWidgets.QDialog):
                     return False
                 self.aoi.update_from_geojson(geojson=geojson, 
                                              wrap=self.settings.value(
-                                                 "trends_earth/AreaWidget/checkBox_custom_crs_wrap"))
-        elif self.settings.value("trends_earth/AreaWidget/area_from_option") == 'file':
-            if not self.settings.value("trends_earth/AreaWidget/area_fromfile_file"):
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
+        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'vector_layer':
+            if not self.settings.value("trends_earth/region_of_interest/vector_layer"):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."))
                 return False
-            if not os.access(self.settings.value("trends_earth/AreaWidget/area_fromfile_file"), os.R_OK):
+            if not os.access(self.settings.value("trends_earth/region_of_interest/vector_layer"), os.R_OK):
                 QtWidgets.QMessageBox.critical(None,
                                                self.tr("Error"),
                                                self.tr("Unable to read {}.".format(
-                                                   self.settings.value("trends_earth/AreaWidget/area_fromfile_file")
+                                                   self.settings.value(
+                                                       "trends_earth/region_of_interest/vector_layer")
                                                )))
                 return False
-            self.aoi.update_from_file(f=self.settings.value("trends_earth/AreaWidget/area_fromfile_file"),
+            self.aoi.update_from_file(f=self.settings.value("trends_earth/region_of_interest/area_vector_layer"),
                                       wrap=self.settings.value(
-                                                 "trends_earth/AreaWidget/checkBox_custom_crs_wrap"))
-        elif self.settings.value("trends_earth/AreaWidget/area_from_option") == 'point':
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
+        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'point':
             # Area from point
-            if not self.settings.value("trends_earth/AreaWidget/area_frompoint_point_x") or not \
-                    self.settings.value("trends_earth/AreaWidget/area_frompoint_point_y"):
+            if not self.settings.value("trends_earth/region_of_interest/point/x") or not \
+                    self.settings.value("trends_earth/region_of_interest/point/y"):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."))
                 return False
-            point = QgsPointXY(float(self.settings.value("trends_earth/AreaWidget/area_frompoint_point_x")),
-                               float(self.settings.value("trends_earth/AreaWidget/area_frompoint_point_y")))
+            point = QgsPointXY(float(self.settings.value("trends_earth/region_of_interest/point/x")),
+                               float(self.settings.value("trends_earth/region_of_interest/point/y")))
             crs_src = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance()).transform(point)
             geojson = json.loads(QgsGeometry.fromPointXY(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.settings.value(
-                                                 "trends_earth/AreaWidget/checkBox_custom_crs_wrap"),
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
                                          datatype='point')
         else:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -915,8 +920,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                        self.tr("Unable to read area of interest."))
             return False
 
-        if self.settings.value("trends_earth/AreaWidget/groupBox_buffer"):
-            ret = self.aoi.buffer(self.settings.value("trends_earth/AreaWidget/buffer_size"))
+        if self.settings.value("trends_earth/region_of_interest/buffer_checked"):
+            ret = self.aoi.buffer(self.settings.value("trends_earth/region_of_interest/buffer_size"))
             if not ret:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Error buffering polygon"))
@@ -934,7 +939,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         # Limit processing area to be no greater than 10^7 sq km if using a 
         # custom shapefile
-        if self.settings.value("trends_earth/AreaWidget/area_from_option") != 'admin':
+        if self.settings.value("trends_earth/region_of_interest/chosen_method") != 'country_city' and \
+                self.settings.value("trends_earth/region_of_interest/chosen_method") != 'country_region':
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > self._max_area:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),

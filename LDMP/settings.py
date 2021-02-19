@@ -251,7 +251,6 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
 
         self.setupUi(self)
 
-        self.pushButton_change_user.clicked.connect(self.change_user)
         self.pushButton_update_profile.clicked.connect(self.update_profile)
         self.pushButton_delete_user.clicked.connect(self.delete)
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
@@ -259,12 +258,6 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
         self.buttonBox.rejected.connect(self.close)
 
         self.ok = False
-
-    def change_user(self):
-        dlg_settings_change_user = DlgSettingsLogin()
-        ret = dlg_settings_change_user.exec_()
-        if ret and dlg_settings_change_user.ok:
-            self.close()
 
     def update_profile(self):
         user = get_user()

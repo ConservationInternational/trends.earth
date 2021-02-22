@@ -75,18 +75,17 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
-        self.dlg_settings_edit = DlgSettingsEdit()
         self.dlg_settings_advanced = DlgSettingsAdvanced()
 
-        # update authConfig list if triggered by sub GUIs that can add modify or update auth configs
-        self.dlg_settings_edit.authConfigUpdated.connect(self.reloadAuthConfigurations)
         self.dlg_settings_register.authConfigInitialised.connect(self.selectDefaultAuthConfiguration)
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
-        self.pushButton_edit.clicked.connect(self.edit)
-        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
         self.pushButton_advanced.clicked.connect(self.advanced)
+
+        self.pushButton_update_profile.clicked.connect(self.update_profile)
+        self.pushButton_delete_user.clicked.connect(self.delete)
+        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
         self.buttonBox.accepted.connect(self.close)
 
@@ -138,22 +137,49 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             settings.setValue("LDMP/jobs_cache", None)
             self.ok = True
 
-    def edit(self):
-        if not get_user_email():
-            # Note that the get_user_email will display a message box warning 
-            # the user to register.
-            return
-
-        self.dlg_settings_edit.exec_()
-
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
-        ret = dlg_settings_edit_forgot_password.exec_()
-        if ret and dlg_settings_edit_forgot_password.ok:
-            self.done(QtWidgets.QDialog.Accepted)
+        dlg_settings_edit_forgot_password.exec_()
 
     def advanced(self):
         result = self.dlg_settings_advanced.exec_()
+
+    def update_profile(self):
+        user = get_user()
+        if not user:
+            return
+        dlg_settings_edit_update = DlgSettingsEditUpdate(user)
+        dlg_settings_edit_update.exec_()
+
+    def delete(self):
+        email = get_user_email()
+        if not email:
+            return
+
+        reply = QtWidgets.QMessageBox.question(
+            None,
+            self.tr("Delete user?"),
+            self.tr(
+                u"Are you sure you want to delete the user {}? All of your tasks will "
+                u"be lost and you will no longer be able to process data online "
+                u"using Trends.Earth.".format(email)
+            ),
+            QtWidgets.QMessageBox.Yes,
+            QtWidgets.QMessageBox.No
+        )
+        if reply == QtWidgets.QMessageBox.Yes:
+            resp = delete_user(email)
+            if resp:
+                QtWidgets.QMessageBox.information(
+                    None,
+                    self.tr("Success"),
+                    QtWidgets.QApplication.translate(
+                        'LDMP', u"User {} deleted.".format(email))
+                )
+                # remove current used config (as set in QSettings) and trigger GUI
+                remove_current_auth_config()
+                self.reloadAuthConfigurations()
+                #self.authConfigUpdated.emit()
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
@@ -240,61 +266,6 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
             settings.setValue("LDMP/jobs_cache", None)
             self.done(QtWidgets.QDialog.Accepted)
             self.ok = True
-
-
-class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
-
-    authConfigUpdated = pyqtSignal()
-
-    def __init__(self, parent=None):
-        super(DlgSettingsEdit, self).__init__(parent)
-
-        self.setupUi(self)
-
-        self.pushButton_update_profile.clicked.connect(self.update_profile)
-        self.pushButton_delete_user.clicked.connect(self.delete)
-        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
-
-        self.buttonBox.rejected.connect(self.close)
-
-        self.ok = False
-
-    def update_profile(self):
-        user = get_user()
-        if not user:
-            return
-        dlg_settings_edit_update = DlgSettingsEditUpdate(user)
-        ret = dlg_settings_edit_update.exec_()
-        if ret and dlg_settings_edit_update.ok:
-            self.close()
-
-    def delete(self):
-        email = get_user_email()
-        if not email:
-            return
-
-        reply = QtWidgets.QMessageBox.question(None, self.tr("Delete user?"),
-                                           self.tr(u"Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.".format(email)),
-                                           QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
-        if reply == QtWidgets.QMessageBox.Yes:
-            resp = delete_user(email)
-            if resp:
-                QtWidgets.QMessageBox.information(None,
-                        self.tr("Success"),
-                        QtWidgets.QApplication.translate('LDMP', u"User {} deleted.".format(email)))
-                
-                # remove current used config (as set in QSettings) and trigger GUI
-                remove_current_auth_config()
-                self.authConfigUpdated.emit()
-
-                self.close()
-                self.ok = True
-
-    def forgot_pwd(self):
-        dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
-        ret = dlg_settings_edit_forgot_password.exec_()
-        if ret and dlg_settings_edit_forgot_password.ok:
-            self.done(QtWidgets.QDialog.Accepted)
 
 
 class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword):

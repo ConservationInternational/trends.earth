@@ -852,7 +852,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
                 self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
             if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-                if not self.settings.value("trends_earth/region_of_interest/buffer_checked"):
+                if self.settings.value("trends_earth/region_of_interest/buffer_checked") != 'True':
                     QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
                            tr_calculate.tr("You have chosen to run calculations for a city."
                                             "You must select a buffer distance to define the "

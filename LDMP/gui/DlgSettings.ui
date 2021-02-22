@@ -30,18 +30,12 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+    <widget class="QgsScrollArea" name="scroll_area">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
      <property name="font">
       <font>
@@ -261,6 +255,8 @@
   <customwidget>
    <class>QgsAuthConfigSelect</class>
    <extends>QWidget</extends>
+   <class>QgsScrollArea</class>
+   <extends>QScrollArea</extends>
    <header>qgis.gui</header>
   </customwidget>
  </customwidgets>

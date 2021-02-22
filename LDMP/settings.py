@@ -107,17 +107,12 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.buttonBox.accepted.connect(self.close)
         self.settings = QgsSettings()
 
-        scroll_container = QtWidgets.QWidget()
         self.area_widget = AreaWidget()
         layout = QtWidgets.QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(self.area_widget)
 
-        scroll_container.setLayout(layout)
-
-        self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area.setWidget(scroll_container)
+        self.region_of_interest.setLayout(layout)
 
         # load gui default value from settings
         self.reloadAuthConfigurations()
@@ -268,7 +263,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def load_settings(self):
 
-        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False)
+        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False) == 'True'
         area_from_option = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
 
         if area_from_option == 'country_region' or \
@@ -327,8 +322,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_y.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_choose_point.setEnabled(self.area_frompoint.isChecked())
 
-        self.groupBox_first_level.setEnabled(self.area_fromadmin.isChecked())
+        self.area_admin_0.setEnabled(self.area_fromadmin.isChecked())
+        self.first_level_label.setEnabled(self.area_fromadmin.isChecked())
         self.groupBox_second_level.setEnabled(self.area_fromadmin.isChecked())
+        self.label_disclaimer.setEnabled(self.area_fromadmin.isChecked())
 
         self.area_fromfile_file.setEnabled(self.area_fromfile.isChecked())
         self.area_fromfile_browse.setEnabled(self.area_fromfile.isChecked())

@@ -18,11 +18,10 @@ import re
 import zipfile
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
 from qgis.PyQt import QtWidgets
 
-from qgis.utils import iface
-mb = iface.messageBar()
+from qgis.core import QgsApplication
 
 from LDMP.gui.DlgSettings import Ui_DlgSettings
 from LDMP.gui.DlgSettingsEdit import Ui_DlgSettingsEdit
@@ -33,9 +32,20 @@ from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
 
 from LDMP import binaries_available, __version__
-from LDMP.api import (get_user_email, get_user, delete_user, login, register,
-    update_user, recover_pwd)
+from LDMP.api import (
+    get_user_email,
+    get_user,
+    delete_user,
+    login,
+    register,
+    update_user,
+    recover_pwd,
+    init_auth_config,
+    remove_current_auth_config,
+    AUTH_CONFIG_NAME
+)
 from LDMP.download import download_files, get_admin_bounds
+from LDMP.message_bar import MessageBar
 
 settings = QSettings()
 
@@ -65,44 +75,117 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
-        self.dlg_settings_edit = DlgSettingsEdit()
         self.dlg_settings_advanced = DlgSettingsAdvanced()
+
+        self.dlg_settings_register.authConfigInitialised.connect(self.selectDefaultAuthConfiguration)
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
-        self.pushButton_edit.clicked.connect(self.edit)
-        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
         self.pushButton_advanced.clicked.connect(self.advanced)
 
+        self.pushButton_update_profile.clicked.connect(self.update_profile)
+        self.pushButton_delete_user.clicked.connect(self.delete)
+        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
+
         self.buttonBox.accepted.connect(self.close)
+
+        # load gui default value from settings
+        self.reloadAuthConfigurations()
+
+    def showEvent(self, event):
+        super(DlgSettings, self).showEvent(event)
+        # add message bar for all dialog communication
+        MessageBar().init()
+        self.layout().insertWidget( 0, MessageBar().get() )
+
+    def close(self):
+        super(DlgSettings, self).close()
+        MessageBar().reset()
+
+    def reloadAuthConfigurations(self):
+        self.authConfigSelect_authentication.populateConfigSelector()
+        self.authConfigSelect_authentication.clearMessage()
+
+        authConfigId = settings.value("trends_earth/authId", None)
+        configs = QgsApplication.authManager().availableAuthMethodConfigs()
+        if authConfigId in configs.keys():
+            self.authConfigSelect_authentication.setConfigId(authConfigId)
+    
+    def selectDefaultAuthConfiguration(self, authConfigId):
+        self.reloadAuthConfigurations()
+        if authConfigId:
+            self.authConfigSelect_authentication.setConfigId(authConfigId)
 
     def register(self):
         result = self.dlg_settings_register.exec_()
 
     def login(self):
-        result = self.dlg_settings_login.exec_()
-        if result and self.dlg_settings_login.ok:
-            self.close()
-
-    def edit(self):
-        if not get_user_email():
-            # Note that the get_user_email will display a message box warning 
-            # the user to register.
+        # retrieve basic auth from QGIS authManager
+        authConfigId = self.authConfigSelect_authentication.configId()
+        if not authConfigId:
+            MessageBar().get().pushCritical('Trends.Earth', self.tr('Please select a authentication profile'))
             return
 
-        self.dlg_settings_edit.exec_()
+        # try to login with current credentials
+        resp = login(authConfigId)
+        if resp:
+            username = get_user_email()
+            QtWidgets.QMessageBox.information(None,
+                    self.tr("Success"),
+                    self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
+                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(username))
+            settings.setValue("LDMP/jobs_cache", None)
+            self.ok = True
 
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
-        ret = dlg_settings_edit_forgot_password.exec_()
-        if ret and dlg_settings_edit_forgot_password.ok:
-            self.done(QtWidgets.QDialog.Accepted)
+        dlg_settings_edit_forgot_password.exec_()
 
     def advanced(self):
         result = self.dlg_settings_advanced.exec_()
 
+    def update_profile(self):
+        user = get_user()
+        if not user:
+            return
+        dlg_settings_edit_update = DlgSettingsEditUpdate(user)
+        dlg_settings_edit_update.exec_()
+
+    def delete(self):
+        email = get_user_email()
+        if not email:
+            return
+
+        reply = QtWidgets.QMessageBox.question(
+            None,
+            self.tr("Delete user?"),
+            self.tr(
+                u"Are you sure you want to delete the user {}? All of your tasks will "
+                u"be lost and you will no longer be able to process data online "
+                u"using Trends.Earth.".format(email)
+            ),
+            QtWidgets.QMessageBox.Yes,
+            QtWidgets.QMessageBox.No
+        )
+        if reply == QtWidgets.QMessageBox.Yes:
+            resp = delete_user(email)
+            if resp:
+                QtWidgets.QMessageBox.information(
+                    None,
+                    self.tr("Success"),
+                    QtWidgets.QApplication.translate(
+                        'LDMP', u"User {} deleted.".format(email))
+                )
+                # remove current used config (as set in QSettings) and trigger GUI
+                remove_current_auth_config()
+                self.reloadAuthConfigurations()
+                #self.authConfigUpdated.emit()
+
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
+
+    authConfigInitialised = pyqtSignal(str)
+
     def __init__(self, parent=None):
         super(DlgSettingsRegister, self).__init__(parent)
 
@@ -133,9 +216,13 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             self.close()
             QtWidgets.QMessageBox.information(None,
                     self.tr("Success"),
-                    self.tr(u"User registered. Your password has been emailed to {}.".format(self.email.text())))
-            settings.setValue("LDMP/email", self.email.text())
-            settings.setValue("LDMP/password", None)
+                    self.tr(u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(self.email.text(), AUTH_CONFIG_NAME)))
+            
+            # add a new auth conf that have to be completed with pwd
+            authConfidId = init_auth_config(email=self.email.text())
+            if authConfidId:
+                self.authConfigInitialised.emit(authConfidId)
+
             return True
 
 
@@ -181,55 +268,6 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
             self.ok = True
 
 
-class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
-    def __init__(self, parent=None):
-        super(DlgSettingsEdit, self).__init__(parent)
-
-        self.setupUi(self)
-
-        self.pushButton_change_user.clicked.connect(self.change_user)
-        self.pushButton_update_profile.clicked.connect(self.update_profile)
-        self.pushButton_delete_user.clicked.connect(self.delete)
-
-        self.buttonBox.rejected.connect(self.close)
-
-        self.ok = False
-
-    def change_user(self):
-        dlg_settings_change_user = DlgSettingsLogin()
-        ret = dlg_settings_change_user.exec_()
-        if ret and dlg_settings_change_user.ok:
-            self.close()
-
-    def update_profile(self):
-        user = get_user()
-        if not user:
-            return
-        dlg_settings_edit_update = DlgSettingsEditUpdate(user)
-        ret = dlg_settings_edit_update.exec_()
-        if ret and dlg_settings_edit_update.ok:
-            self.close()
-
-    def delete(self):
-        email = get_user_email()
-        if not email:
-            return
-
-        reply = QtWidgets.QMessageBox.question(None, self.tr("Delete user?"),
-                                           self.tr(u"Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.".format(email)),
-                                           QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
-        if reply == QtWidgets.QMessageBox.Yes:
-            resp = delete_user(email)
-            if resp:
-                QtWidgets.QMessageBox.information(None,
-                        self.tr("Success"),
-                        QtWidgets.QApplication.translate('LDMP', u"User {} deleted.".format(email)))
-                settings.setValue("LDMP/password", None)
-                settings.setValue("LDMP/email", None)
-                self.close()
-                self.ok = True
-
-
 class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword):
     def __init__(self, parent=None):
         super(DlgSettingsEditForgotPassword, self).__init__(parent)
@@ -265,7 +303,6 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
                 QtWidgets.QMessageBox.information(None,
                         self.tr("Success"),
                         self.tr(u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
-                settings.setValue("LDMP/password", None)
                 self.ok = True
 
 

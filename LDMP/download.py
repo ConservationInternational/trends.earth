@@ -128,13 +128,13 @@ def download_files(urls, out_folder):
         QtWidgets.QMessageBox.critical(None,
                                    tr_download.tr("Folder does not exist"),
                                    tr_download.tr("Folder {} does not exist.".format(out_folder)))
-        return
+        return None
 
     if not os.access(out_folder, os.W_OK):
         QtWidgets.QMessageBox.critical(None,
                                    tr_download.tr("Error"),
                                    tr_download.tr("Unable to write to {}.".format(out_folder)))
-        return
+        return None
 
     downloads = []
     for url in urls:
@@ -169,7 +169,6 @@ def download_files(urls, out_folder):
             downloads.extend(out_path)
 
     return downloads
-
 
 
 def get_admin_bounds():

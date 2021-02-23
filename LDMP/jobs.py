@@ -301,7 +301,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job_info = job['script_name']
                     f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                           self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
-                                                          QSettings().value("LDMP/output_dir", None),
+                                                          QSettings().value("trends_earth/advanced/base_data_directory", None),
                                                           self.tr('Base filename (*.json)'))
 
                     # Strip the extension so that it is a basename
@@ -309,7 +309,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
                     if f:
                         if os.access(os.path.dirname(f), os.W_OK):
-                            QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                            # QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
                             log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                         else:
                             QtWidgets.QMessageBox.critical(None, self.tr("Error"),

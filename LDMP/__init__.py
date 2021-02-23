@@ -17,6 +17,7 @@ import os
 import re
 import site
 import json
+import subprocess
 from tempfile import NamedTemporaryFile
 
 from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
@@ -106,3 +107,14 @@ def binaries_available():
 
 def debug_on():
     QSettings().value("LDMP/debug", False) == 'True'
+
+def openFolder(path):
+    if not path:
+        return
+
+    if sys.platform == 'darwin':
+        subprocess.check_call(['open', path])
+    elif sys.platform == 'linux':
+        subprocess.check_call(['xdg-open', path])
+    elif sys.platform == 'win32':
+        subprocess.check_call(['explorer', path])

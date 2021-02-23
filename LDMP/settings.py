@@ -86,7 +86,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
-        self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
         self.pushButton_update_profile.clicked.connect(self.update_profile)
         self.pushButton_delete_user.clicked.connect(self.delete)
@@ -407,7 +406,10 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.binaries_checkbox.setChecked(binaries_checked)
         self.binaries_toggle()
 
-        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None)
+        base_data_directory = QSettings().value(
+            "trends_earth/advanced/base_data_directory",
+            str(Path.home() / "trends_earth_data")
+        )
         self.qgsFileWidget_base_directory.setFilePath(base_data_directory)
 
     def base_directory_changed(self, new_base_directory):

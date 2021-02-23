@@ -24,9 +24,9 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
 
 from qgis.core import QgsSettings
-from qgis.core import QgsCoordinateReferenceSystem
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
+from qgis.utils import iface
 
 from qgis.core import QgsApplication
 
@@ -58,8 +58,6 @@ from LDMP.api import (
 from LDMP import log
 from LDMP.download import download_files, get_admin_bounds, read_json, get_cities
 from LDMP.message_bar import MessageBar
-
-settings = QSettings()
 
 settings = QSettings()
 
@@ -253,11 +251,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         # Setup point chooser
         self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
-
-        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
-        self.mQgsProjectionSelectionWidget.setCrs(QgsCoordinateReferenceSystem('epsg:4326'))
-
-        self.groupBox_custom_crs.hide()
 
         self.load_settings()
 
@@ -456,10 +449,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.settings.setValue("trends_earth/region_of_interest/current_cities_key", self.current_cities_key)
 
         self.settings.setValue("trends_earth/region_of_interest/custom_crs_enabled", self.groupBox_custom_crs.isChecked())
-        if self.groupBox_custom_crs.isChecked():
-            self.settings.setValue(
-                "trends_earth/region_of_interest/custom_crs",
-                self.mQgsProjectionSelectionWidget.crs().authid())
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):

@@ -16,6 +16,7 @@ import os
 import json
 import re
 import zipfile
+import subprocess
 from pathlib import Path
 
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
@@ -29,9 +30,9 @@ from LDMP.gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassw
 from LDMP.gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
 from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
-from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
+from LDMP.gui.WidgetSettingsAdvanced import Ui_WidgetSettingsAdvanced
 
-from LDMP import binaries_available, __version__
+from LDMP import binaries_available, __version__, openFolder
 from LDMP.api import (
     get_user_email,
     get_user,
@@ -73,15 +74,18 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.setupUi(self)
 
+        # add subcomponent widgets
+        self.widgetSettingsAdvanced = WidgetSettingsAdvanced()
+        self.verticalLayout_advanced.layout().insertWidget(0, self.widgetSettingsAdvanced)
+
+        # set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
-        self.dlg_settings_advanced = DlgSettingsAdvanced()
 
         self.dlg_settings_register.authConfigInitialised.connect(self.selectDefaultAuthConfiguration)
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
-        self.pushButton_advanced.clicked.connect(self.advanced)
 
         self.pushButton_update_profile.clicked.connect(self.update_profile)
         self.pushButton_delete_user.clicked.connect(self.delete)
@@ -140,9 +144,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
         dlg_settings_edit_forgot_password.exec_()
-
-    def advanced(self):
-        result = self.dlg_settings_advanced.exec_()
 
     def update_profile(self):
         user = get_user()
@@ -355,35 +356,36 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
             self.ok = True
 
 
-class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
+class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     def __init__(self, parent=None):
-        super(DlgSettingsAdvanced, self).__init__(parent)
+        super(WidgetSettingsAdvanced, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.buttonBox.accepted.connect(self.close)
         self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
         self.binaries_download_button.clicked.connect(self.binaries_download)
         self.debug_checkbox.clicked.connect(self.debug_toggle)
         self.binaries_checkbox.clicked.connect(self.binaries_toggle)
+        self.qgsFileWidget_base_directory.fileChanged.connect(self.base_directory_changed)
+        self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
 
         # Flag that can be used to indicate if binary state has changed (i.e. 
         # if new binaries have been downloaded)
         self.binary_state_changed = False
 
-    def close(self):
-        super(DlgSettingsAdvanced, self).close()
+    def closeEvent(self, event):
+        super(WidgetSettingsAdvanced, self).closeEvent(event)
         if self.binaries_checkbox.isChecked() != self.binaries_checkbox_initial or self.binary_state_changed:
             QtWidgets.QMessageBox.warning(None,
                                           self.tr("Warning"),
                                           self.tr("You must restart QGIS for these changes to take effect."))
 
     def showEvent(self, event):
-        super(DlgSettingsAdvanced, self).showEvent(event)
+        super(WidgetSettingsAdvanced, self).showEvent(event)
 
-        self.debug_checkbox.setChecked(QSettings().value("LDMP/debug", False) == 'True')
+        self.debug_checkbox.setChecked(QSettings().value("trends_earth/advanced/debug", False) == 'True')
 
-        binaries_checked = QSettings().value("LDMP/binaries_enabled", False) == 'True'
+        binaries_checked = QSettings().value("trends_earth/advanced/binaries_enabled", False) == 'True'
         # TODO: Have this actually check if they are enabled in summary_numba 
         # and calculate_numba. Right now this doesn't really check if they are 
         # enabled, just that they are available. Which should be the same 
@@ -396,13 +398,40 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
         # binaries or not has changed (needed to allow displaying a message to 
         # the user that they need to restart when this setting is changed)
 
-        binaries_folder = QSettings().value("LDMP/binaries_folder", None)
+        binaries_folder = QSettings().value("trends_earth/advanced/binaries_folder", None)
         if binaries_folder is not None:
             self.binaries_folder.setText(binaries_folder)
 
         self.binaries_checkbox_initial = binaries_checked
         self.binaries_checkbox.setChecked(binaries_checked)
         self.binaries_toggle()
+
+        base_data_directory = QSettings().value(
+            "trends_earth/advanced/base_data_directory",
+            str(Path.home() / "trends_earth_data")
+        )
+        self.qgsFileWidget_base_directory.setFilePath(base_data_directory)
+
+    def base_directory_changed(self, new_base_directory):
+        if not new_base_directory:
+            # TODO: change to MessageBar().get()
+            iface.messageBox().pushWarning('Trends.Earth', self.tr('No base data directory set'))
+            return
+
+        try:
+            if not os.path.exists(new_base_directory):
+                os.makedirs(new_base_directory)
+        except PermissionError:
+            # TODO: change to MessageBar().get()
+            iface.messageBox().pushCritical('Trends.Earth',
+                                        self.tr("Unable to write to {}. Try a different folder.".format(new_base_directory)))
+            return
+
+        QSettings().setValue("trends_earth/advanced/base_data_directory", str(new_base_directory))
+
+    def open_base_directory(self):
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None)
+        openFolder(base_data_directory)
 
     def binaries_download(self):
         out_folder = os.path.join(self.binaries_folder.text())
@@ -468,17 +497,17 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
 
     def binaries_toggle(self):
         state = self.binaries_checkbox.isChecked()
-        QSettings().setValue("LDMP/binaries_enabled", str(state))
+        QSettings().setValue("trends_earth/advanced/binaries_enabled", str(state))
         self.binaries_folder.setEnabled(state)
         self.binaries_browse_button.setEnabled(state)
         self.binaries_download_button.setEnabled(state)
         self.binaries_label.setEnabled(state)
 
     def debug_toggle(self):
-        QSettings().setValue("LDMP/debug", str(self.debug_checkbox.isChecked()))
+        QSettings().setValue("trends_earth/advanced/debug", str(self.debug_checkbox.isChecked()))
 
     def binary_folder_browse(self):
-        initial_path = QSettings().value("LDMP/binaries_folder", None)
+        initial_path = QSettings().value("trends_earth/advanced/binaries_folder", None)
         if not initial_path:
             initial_path = str(Path.home())
 
@@ -493,7 +522,7 @@ class DlgSettingsAdvanced(QtWidgets.QDialog, Ui_DlgSettingsAdvanced):
                                                self.tr(u"Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.".format(plugin_folder)))
                 return False
             if os.access(folder, os.W_OK):
-                QSettings().setValue("LDMP/binaries_folder", folder)
+                QSettings().setValue("trends_earth/advanced/binaries_folder", folder)
                 self.binaries_folder.setText(folder)
                 self.binary_state_changed = True
                 return True

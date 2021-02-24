@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
-    <height>689</height>
+    <width>608</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,6 +29,12 @@
    <string>Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_8">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QgsScrollArea" name="scroll_area">
      <property name="frameShape">
@@ -42,11 +48,20 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>593</width>
-        <height>640</height>
+        <width>599</width>
+        <height>838</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QFrame" name="region_of_interest">
          <property name="frameShape">

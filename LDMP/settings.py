@@ -23,7 +23,10 @@ from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
 
-from qgis.core import QgsSettings
+from qgis.core import QgsCoordinateReferenceSystem, \
+    QgsCoordinateTransform, \
+    QgsProject, \
+    QgsSettings
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
 from qgis.utils import iface
@@ -119,7 +122,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         super(DlgSettings, self).showEvent(event)
         # add message bar for all dialog communication
         MessageBar().init()
-        self.layout().insertWidget( 0, MessageBar().get() )
+        self.layout().insertWidget(0, MessageBar().get())
 
     def close(self):
         super(DlgSettings, self).close()
@@ -133,7 +136,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         configs = QgsApplication.authManager().availableAuthMethodConfigs()
         if authConfigId in configs.keys():
             self.authConfigSelect_authentication.setConfigId(authConfigId)
-    
+
     def selectDefaultAuthConfiguration(self, authConfigId):
         self.reloadAuthConfigurations()
         if authConfigId:
@@ -154,9 +157,10 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         if resp:
             username = get_user_email()
             QtWidgets.QMessageBox.information(None,
-                    self.tr("Success"),
-                    self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
-                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(username))
+                                              self.tr("Success"),
+                                              self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
+                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(
+                                                  username))
             settings.setValue("LDMP/jobs_cache", None)
             self.ok = True
 
@@ -199,7 +203,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 # remove current used config (as set in QSettings) and trigger GUI
                 remove_current_auth_config()
                 self.reloadAuthConfigurations()
-                #self.authConfigUpdated.emit()
+                # self.authConfigUpdated.emit()
 
     def accept(self):
         self.area_widget.save_settings()
@@ -296,7 +300,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         buffer_size = self.settings.value("trends_earth/region_of_interest/buffer_size", None)
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
-        self.groupBox_buffer.setChecked(buffer_checked)
+        self.checkbox_buffer.setChecked(buffer_checked)
 
     def populate_cities(self):
         self.secondLevel_city.clear()
@@ -311,13 +315,17 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
     def area_type_toggle(self):
+        # if self.area_frompoint.isChecked():
+        #     self.area_fromfile.setChecked(not self.area_frompoint.isChecked())
+        #     self.area_fromadmin.setChecked(not self.area_frompoint.isChecked())
+
         self.area_frompoint_point_x.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_point_y.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_choose_point.setEnabled(self.area_frompoint.isChecked())
 
         self.area_admin_0.setEnabled(self.area_fromadmin.isChecked())
         self.first_level_label.setEnabled(self.area_fromadmin.isChecked())
-        self.groupBox_second_level.setEnabled(self.area_fromadmin.isChecked())
+        self.second_level.setEnabled(self.area_fromadmin.isChecked())
         self.label_disclaimer.setEnabled(self.area_fromadmin.isChecked())
 
         self.area_fromfile_file.setEnabled(self.area_fromfile.isChecked())
@@ -345,9 +353,17 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.window().show()
         self.window().reset_tab_on_showEvent = True
         self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
-        log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
-        self.area_frompoint_point_x.setText("{:.8f}".format(self.point.x()))
-        self.area_frompoint_point_y.setText("{:.8f}".format(self.point.y()))
+
+        # Store point in EPSG:4326 crs
+        transfrom_instance = QgsCoordinateTransform(
+            QgsProject.instance().crs(),
+            QgsCoordinateReferenceSystem(4326),
+            QgsProject.instance())
+        transformed_point = transfrom_instance.transform(self.point)
+
+        log("Chose point: {}, {}.".format(transformed_point.x(), transformed_point.y()))
+        self.area_frompoint_point_x.setText("{:.8f}".format(transformed_point.x()))
+        self.area_frompoint_point_y.setText("{:.8f}".format(transformed_point.y()))
 
     def open_vector_browse(self):
         initial_path = self.settings.value("trends_earth/input_shapefile", None)
@@ -372,7 +388,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 return False
         else:
             return False
-        
+
     def save_settings(self):
 
         if self.area_fromadmin.isChecked():
@@ -385,7 +401,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 None)
         if self.radioButton_secondLevel_region.isChecked():
             self.settings.setValue("trends_earth/region_of_interest/country/region_name",
-                                 self.secondLevel_area_admin_1.currentText())
+                                   self.secondLevel_area_admin_1.currentText())
         else:
             self.settings.setValue("trends_earth/region_of_interest/country/region_name",
                                    None)
@@ -418,7 +434,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         self.settings.setValue(
             "trends_earth/region_of_interest/buffer_checked",
-            self.groupBox_buffer.isChecked())
+            self.checkbox_buffer.isChecked())
         self.settings.setValue(
             "trends_earth/region_of_interest/buffer_size",
             self.buffer_size_km.value())
@@ -448,11 +464,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if self.current_cities_key is not None:
             self.settings.setValue("trends_earth/region_of_interest/current_cities_key", self.current_cities_key)
 
-        self.settings.setValue("trends_earth/region_of_interest/custom_crs_enabled", self.groupBox_custom_crs.isChecked())
+        self.settings.setValue("trends_earth/region_of_interest/custom_crs_enabled",
+                               self.groupBox_custom_crs.isChecked())
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
-
     authConfigInitialised = pyqtSignal(str)
 
     def __init__(self, parent=None):
@@ -484,9 +500,11 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
         if resp:
             self.close()
             QtWidgets.QMessageBox.information(None,
-                    self.tr("Success"),
-                    self.tr(u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(self.email.text(), AUTH_CONFIG_NAME)))
-            
+                                              self.tr("Success"),
+                                              self.tr(
+                                                  u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(
+                                                      self.email.text(), AUTH_CONFIG_NAME)))
+
             # add a new auth conf that have to be completed with pwd
             authConfidId = init_auth_config(email=self.email.text())
             if authConfidId:
@@ -519,19 +537,20 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
     def login(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email address."))
+                                           self.tr("Enter your email address."))
             return
         elif not self.password.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your password."))
+                                           self.tr("Enter your password."))
             return
 
         resp = login(self.email.text(), self.password.text())
         if resp:
             QtWidgets.QMessageBox.information(None,
-                    self.tr("Success"),
-                    self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
-                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(self.email.text()))
+                                              self.tr("Success"),
+                                              self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
+                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(
+                                                  self.email.text()))
             settings.setValue("LDMP/jobs_cache", None)
             self.done(QtWidgets.QDialog.Accepted)
             self.ok = True
@@ -558,20 +577,24 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
     def reset_password(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Enter your email address to reset your password."))
+                                           self.tr("Enter your email address to reset your password."))
             return
 
         reply = QtWidgets.QMessageBox.question(None, self.tr("Reset password?"),
-                                           self.tr(u"Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(self.email.text())),
-                                           QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+                                               self.tr(
+                                                   u"Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(
+                                                       self.email.text())),
+                                               QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
 
         if reply == QtWidgets.QMessageBox.Yes:
             resp = recover_pwd(self.email.text())
             if resp:
                 self.close()
                 QtWidgets.QMessageBox.information(None,
-                        self.tr("Success"),
-                        self.tr(u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(self.email.text()))
+                                                  self.tr("Success"),
+                                                  self.tr(
+                                                      u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(
+                                                      self.email.text()))
                 self.ok = True
 
 
@@ -619,7 +642,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
         if resp:
             QtWidgets.QMessageBox.information(None, self.tr("Saved"),
-                                          self.tr(u"Updated information for {}.").format(self.email.text()))
+                                              self.tr(u"Updated information for {}.").format(self.email.text()))
             self.close()
             self.ok = True
 
@@ -637,7 +660,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.qgsFileWidget_base_directory.fileChanged.connect(self.base_directory_changed)
         self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
 
-        # Flag that can be used to indicate if binary state has changed (i.e. 
+        # Flag that can be used to indicate if binary state has changed (i.e.
         # if new binaries have been downloaded)
         self.binary_state_changed = False
 
@@ -654,16 +677,16 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.debug_checkbox.setChecked(QSettings().value("trends_earth/advanced/debug", False) == 'True')
 
         binaries_checked = QSettings().value("trends_earth/advanced/binaries_enabled", False) == 'True'
-        # TODO: Have this actually check if they are enabled in summary_numba 
-        # and calculate_numba. Right now this doesn't really check if they are 
-        # enabled, just that they are available. Which should be the same 
+        # TODO: Have this actually check if they are enabled in summary_numba
+        # and calculate_numba. Right now this doesn't really check if they are
+        # enabled, just that they are available. Which should be the same
         # thing, but might not always be...
         if binaries_available() and binaries_checked:
             self.binaries_label.setText(self.tr('Binaries <b>are</b> loaded.'))
         else:
             self.binaries_label.setText(self.tr('Binaries <b>are not</b> loaded.'))
-        # Set a flag that will be used to indicate whether the status of using 
-        # binaries or not has changed (needed to allow displaying a message to 
+        # Set a flag that will be used to indicate whether the status of using
+        # binaries or not has changed (needed to allow displaying a message to
         # the user that they need to restart when this setting is changed)
 
         binaries_folder = QSettings().value("trends_earth/advanced/binaries_folder", None)
@@ -692,7 +715,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         except PermissionError:
             # TODO: change to MessageBar().get()
             iface.messageBox().pushCritical('Trends.Earth',
-                                        self.tr("Unable to write to {}. Try a different folder.".format(new_base_directory)))
+                                            self.tr("Unable to write to {}. Try a different folder.".format(
+                                                new_base_directory)))
             return
 
         QSettings().setValue("trends_earth/advanced/base_data_directory", str(new_base_directory))
@@ -705,14 +729,15 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         out_folder = os.path.join(self.binaries_folder.text())
         if out_folder == '':
             QtWidgets.QMessageBox.information(None,
-                                       self.tr("Choose a folder"),
-                                       self.tr("Choose a folder before downloading binaries."))
+                                              self.tr("Choose a folder"),
+                                              self.tr("Choose a folder before downloading binaries."))
             return
 
         if not os.access(out_folder, os.W_OK):
             QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Unable to write to {}. Choose a different folder.".format(out_folder)))
+                                           self.tr("Error"),
+                                           self.tr(
+                                               "Unable to write to {}. Choose a different folder.".format(out_folder)))
             return
 
         try:
@@ -720,8 +745,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 os.makedirs(out_folder)
         except PermissionError:
             QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Unable to write to {}. Try a different folder.".format(filename)))
+                                           self.tr("Error"),
+                                           self.tr("Unable to write to {}. Try a different folder.".format(filename)))
             return None
 
         zip_filename = 'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
@@ -733,27 +758,28 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 zf.extractall(out_folder)
         except PermissionError:
             QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(out_folder)))
+                                           self.tr("Error"),
+                                           self.tr(
+                                               "Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(
+                                                   out_folder)))
             return None
         finally:
             os.remove(os.path.join(out_folder, zip_filename))
 
         if downloads is None:
             QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Error downloading binaries."))
+                                           self.tr("Error"),
+                                           self.tr("Error downloading binaries."))
         else:
             if len(downloads) > 0:
                 self.binary_state_changed = True
                 QtWidgets.QMessageBox.information(None,
-                                           self.tr("Success"),
-                                           self.tr("Downloaded binaries."))
+                                                  self.tr("Success"),
+                                                  self.tr("Downloaded binaries."))
             else:
                 QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Success"),
-                                           self.tr("All binaries up to date.".format(out_folder)))
-
+                                               self.tr("Success"),
+                                               self.tr("All binaries up to date.".format(out_folder)))
 
     def binaries_toggle(self):
         state = self.binaries_checkbox.isChecked()
@@ -779,7 +805,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             if is_subdir(folder, plugin_folder):
                 QtWidgets.QMessageBox.critical(None,
                                                self.tr("Error"),
-                                               self.tr(u"Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.".format(plugin_folder)))
+                                               self.tr(
+                                                   u"Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.".format(
+                                                       plugin_folder)))
                 return False
             if os.access(folder, os.W_OK):
                 QSettings().setValue("trends_earth/advanced/binaries_folder", folder)
@@ -788,9 +816,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 return True
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
+                                               self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
                 return False
         else:
             return False
-                
-

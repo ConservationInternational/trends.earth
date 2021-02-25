@@ -29,7 +29,7 @@ from LDMP.visualization import DlgVisualization
 from LDMP.data_io import DlgDataIO
 from LDMP.about import DlgAbout
 from LDMP.processing_provider.provider import Provider
-from LDMP.main_widget import getTrendEarthDockWidget
+from LDMP.main_widget import get_trends_earth_dockwidget
 
 from qgis.core import QgsApplication, QgsMessageLog, Qgis
 from qgis.utils import showPluginHelp
@@ -252,7 +252,7 @@ class LDMPPlugin(object):
     def run_docked_interface(self, checked):
         if checked:
             # add docked main interface
-            self.dock_widget = getTrendEarthDockWidget()
+            self.dock_widget = get_trends_earth_dockwidget()
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
             self.dock_widget.show()
         else:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>dockWidget_trend_earth</class>
- <widget class="QDockWidget" name="dockWidget_trend_earth">
+ <class>dockWidget_trends_earth</class>
+ <widget class="QDockWidget" name="dockWidget_trends_earth">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Trend.Earth</string>
+   <string>Trends.Earth</string>
   </property>
   <widget class="QWidget" name="dock_widget_vlayout">
    <layout class="QVBoxLayout" name="verticalLayout">

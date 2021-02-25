@@ -17,19 +17,21 @@ from qgis.core import QgsSettings
 
 from LDMP import __version__, log
 from LDMP.message_bar import MessageBar
-from LDMP.gui.WidgetMain import Ui_dockWidget_trend_earth
+from LDMP.gui.WidgetMain import Ui_dockWidget_trends_earth
 
 settings = QgsSettings()
 
 _widget = None
-def getTrendEarthDockWidget():
+
+
+def get_trends_earth_dockwidget():
     global _widget
     if _widget is None:
         _widget = MainWidget()
     return _widget
 
 
-class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trend_earth):
+class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def __init__(self, parent=None):
         super(MainWidget, self).__init__(parent)
 

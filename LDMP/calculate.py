@@ -28,7 +28,8 @@ from qgis.PyQt.QtCore import (QTextCodec, QSettings, pyqtSignal,
 from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
     QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
     Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
-    QgsVectorFileWriter, QgsFields, QgsWkbTypes)
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes,
+    QgsSettings)
 from qgis.utils import iface
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
@@ -645,6 +646,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
             self.where_to_run_enabled = False
             self.groupBox_where_to_run.hide()
 
+
 class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
     def __init__(self, suffixes, subclass_name, parent=None):
         super(CalculationOutputWidget, self).__init__(parent)
@@ -704,222 +706,6 @@ class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
         return True
 
 
-class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
-    def __init__(self, parent=None):
-        super(AreaWidget, self).__init__(parent)
-
-        self.setupUi(self)
-
-        self.canvas = iface.mapCanvas()
-
-        self.admin_bounds_key = get_admin_bounds()
-        if not self.admin_bounds_key:
-            raise ValueError('Admin boundaries not available')
-
-        self.cities = get_cities()
-        if not self.cities:
-            raise ValueError('Cities list not available')
-
-        # Populate
-        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
-        self.populate_admin_1()
-        self.populate_cities()
-        self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
-        self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
-
-        # Handle saving to qsettings
-        self.area_admin_0.activated.connect(self.admin_0_changed)
-        self.secondLevel_area_admin_1.activated.connect(self.admin_1_changed)
-        self.secondLevel_city.activated.connect(self.admin_city_changed)
-        self.area_frompoint_point_x.textChanged.connect(self.point_x_changed)
-        self.area_frompoint_point_y.textChanged.connect(self.point_y_changed)
-        self.area_fromfile_file.textChanged.connect(self.file_changed)
-        self.groupBox_buffer.clicked.connect(self.buffer_changed)
-        self.buffer_size_km.valueChanged.connect(self.buffer_changed)
-
-        self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
-        self.area_fromadmin.clicked.connect(self.area_type_toggle)
-        self.area_fromfile.clicked.connect(self.area_type_toggle)
-
-        self.radioButton_secondLevel_region.clicked.connect(self.radioButton_secondLevel_toggle)
-        self.radioButton_secondLevel_city.clicked.connect(self.radioButton_secondLevel_toggle)
-
-        icon = QIcon(QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
-        self.area_frompoint_choose_point.setIcon(icon)
-        self.area_frompoint_choose_point.clicked.connect(self.point_chooser)
-        #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.area_frompoint_point_x.setValidator(QDoubleValidator())
-        #TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.area_frompoint_point_y.setValidator(QDoubleValidator())
-        self.area_frompoint.clicked.connect(self.area_type_toggle)
-
-        # Setup point chooser
-        self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
-        self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
-
-        proj_crs = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
-        self.mQgsProjectionSelectionWidget.setCrs(QgsCoordinateReferenceSystem('epsg:4326'))
-
-    def showEvent(self, event):
-        super(AreaWidget, self).showEvent(event)
-
-        buffer_checked = QSettings().value("LDMP/AreaWidget/buffer_checked", False) == 'True'
-        area_from_option = QSettings().value("LDMP/AreaWidget/area_from_option", None)
-
-        if area_from_option == 'admin':
-            self.area_fromadmin.setChecked(True)
-        elif area_from_option == 'point':
-            self.area_frompoint.setChecked(True)
-        elif area_from_option == 'file':
-            self.area_fromfile.setChecked(True)
-        self.area_frompoint_point_x.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_x", None))
-        self.area_frompoint_point_y.setText(QSettings().value("LDMP/AreaWidget/area_frompoint_point_y", None))
-        self.area_fromfile_file.setText(QSettings().value("LDMP/AreaWidget/area_fromfile_file", None))
-        self.area_type_toggle(False)
-
-        admin_0 = QSettings().value("LDMP/AreaWidget/area_admin_0", None)
-        if admin_0:
-            self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
-            self.populate_admin_1()
-
-        area_from_option_secondLevel = QSettings().value("LDMP/AreaWidget/area_from_option_secondLevel", None)
-        if area_from_option_secondLevel == 'admin':
-            self.radioButton_secondLevel_region.setChecked(True)
-        elif area_from_option_secondLevel == 'city':
-            self.radioButton_secondLevel_city.setChecked(True)
-        self.radioButton_secondLevel_toggle(False)
-
-        secondLevel_area_admin_1 = QSettings().value("LDMP/AreaWidget/secondLevel_area_admin_1", None)
-        if secondLevel_area_admin_1:
-            self.secondLevel_area_admin_1.setCurrentIndex(self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
-        secondLevel_city = QSettings().value("LDMP/AreaWidget/secondLevel_city", None)
-        if secondLevel_city:
-            self.populate_cities()
-            self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
-
-        buffer_size = QSettings().value("LDMP/AreaWidget/buffer_size", None)
-        if buffer_size:
-            self.buffer_size_km.setValue(float(buffer_size))
-        self.groupBox_buffer.setChecked(buffer_checked)
-
-    def admin_0_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/area_admin_0", self.area_admin_0.currentText())
-
-    def admin_1_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/secondLevel_area_admin_1", self.secondLevel_area_admin_1.currentText())
-        
-    def admin_city_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/secondLevel_city", self.secondLevel_city.currentText())
-
-    def file_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/area_fromfile_file", self.area_fromfile_file.text())
-
-    def point_x_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/area_frompoint_point_x", self.area_frompoint_point_x.text())
-
-    def point_y_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/area_frompoint_point_y", self.area_frompoint_point_y.text())
-
-    def buffer_changed(self):
-        QSettings().setValue("LDMP/AreaWidget/buffer_checked", str(self.groupBox_buffer.isChecked()))
-        QSettings().setValue("LDMP/AreaWidget/buffer_size", self.buffer_size_km.value())
-
-    def populate_cities(self):
-        self.secondLevel_city.clear()
-        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
-        self.current_cities_key = {value['name_en']: key for key, value in self.cities[adm0_a3].items()}
-        self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
-
-    def populate_admin_1(self):
-        self.secondLevel_area_admin_1.clear()
-        self.secondLevel_area_admin_1.addItems(['All regions'])
-        self.secondLevel_area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
-
-    def area_type_toggle(self, save=True):
-        if self.area_frompoint.isChecked():
-            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'point')
-            self.area_frompoint_point_x.setEnabled(True)
-            self.area_frompoint_point_y.setEnabled(True)
-            self.area_frompoint_choose_point.setEnabled(True)
-        else:
-            self.area_frompoint_point_x.setEnabled(False)
-            self.area_frompoint_point_y.setEnabled(False)
-            self.area_frompoint_choose_point.setEnabled(False)
-
-        if self.area_fromadmin.isChecked():
-            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'admin')
-            self.groupBox_first_level.setEnabled(True)
-            self.groupBox_second_level.setEnabled(True)
-        else:
-            self.groupBox_first_level.setEnabled(False)
-            self.groupBox_second_level.setEnabled(False)
-
-        if self.area_fromfile.isChecked():
-            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option", 'file')
-            self.area_fromfile_file.setEnabled(True)
-            self.area_fromfile_browse.setEnabled(True)
-        else:
-            self.area_fromfile_file.setEnabled(False)
-            self.area_fromfile_browse.setEnabled(False)
-
-    def radioButton_secondLevel_toggle(self, save=True):
-        if self.radioButton_secondLevel_region.isChecked():
-            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option_secondLevel", 'admin')
-            self.secondLevel_area_admin_1.setEnabled(True)
-            self.secondLevel_city.setEnabled(False)
-        else:
-            if save: QSettings().setValue("LDMP/AreaWidget/area_from_option_secondLevel", 'city')
-            self.secondLevel_area_admin_1.setEnabled(False)
-            self.secondLevel_city.setEnabled(True)
-
-    def point_chooser(self):
-        log("Choosing point from canvas...")
-        self.canvas.setMapTool(self.choose_point_tool)
-        self.window().hide()
-        QtWidgets.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
-
-    def set_point_coords(self, point, button):
-        log("Set point coords")
-        #TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
-        self.point = point
-        # Disable the choose point tool
-        self.canvas.setMapTool(QgsMapToolPan(self.canvas))
-        # Don't reset_tab_on_show as it would lead to return to first tab after
-        # using the point chooser
-        self.window().reset_tab_on_showEvent = False
-        self.window().show()
-        self.window().reset_tab_on_showEvent = True
-        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
-        log("Chose point: {}, {}.".format(self.point.x(), self.point.y()))
-        self.area_frompoint_point_x.setText("{:.8f}".format(self.point.x()))
-        self.area_frompoint_point_y.setText("{:.8f}".format(self.point.y()))
-
-    def open_vector_browse(self):
-        initial_path = QSettings().value("LDMP/input_shapefile", None)
-        if not initial_path:
-            initial_path = QSettings().value("LDMP/input_shapefile_dir", None)
-        if not initial_path:
-            initial_path = str(Path.home())
-
-        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                                        self.tr('Select a file defining the area of interest'),
-                                                        initial_path,
-                                                        self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
-        if vector_file:
-            if os.access(vector_file, os.R_OK):
-                QSettings().setValue("LDMP/input_shapefile", vector_file)
-                QSettings().setValue("LDMP/input_shapefile_dir", os.path.dirname(vector_file))
-                self.area_fromfile_file.setText(vector_file)
-                return True
-            else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
-                return False
-        else:
-            return False
-                
-
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
@@ -943,6 +729,17 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
         self._max_area = 5e7 # maximum size task the tool supports
+        self.settings = QgsSettings()
+
+        self.canvas = iface.mapCanvas()
+
+        self.admin_bounds_key = get_admin_bounds()
+        if not self.admin_bounds_key:
+            raise ValueError('Admin boundaries not available')
+
+        self.cities = get_cities()
+        if not self.cities:
+            raise ValueError('Cities list not available')
 
         self.firstShowEvent.connect(self.firstShow)
 
@@ -969,9 +766,6 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 self.output_tab.set_output_summary(f)
 
     def firstShow(self):
-        self.area_tab = AreaWidget()
-        self.area_tab.setParent(self)
-        self.TabBox.addTab(self.area_tab, self.tr('Area'))
 
         if self._has_output:
             self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
@@ -985,9 +779,6 @@ class DlgCalculateBase(QtWidgets.QDialog):
         # By default show the local or cloud option
         #self.options_tab.toggle_show_where_to_run(True)
         self.options_tab.toggle_show_where_to_run(False)
-
-        # By default hide the custom crs box
-        self.area_tab.groupBox_custom_crs.hide()
         
         self.button_calculate.clicked.connect(self.btn_calculate)
         self.button_prev.clicked.connect(self.tab_back)
@@ -1026,41 +817,54 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.close()
 
     def get_city_geojson(self):
-        adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
-        wof_id = self.area_tab.current_cities_key[self.area_tab.secondLevel_city.currentText()]
-        return (self.area_tab.cities[adm0_a3][wof_id]['geojson'])
+        adm0_a3 = self.admin_bounds_key[self.settings.value(
+            "trends_earth/region_of_interest/country/country_name")]['code']
+        wof_id = self.settings.value("trends_earth/region_of_interest/current_cities_key")[
+            self.settings.value("trends_earth/region_of_interest/country/city_name")
+        ]
+        return (self.cities[adm0_a3][wof_id]['geojson'])
 
     def get_admin_poly_geojson(self):
-        adm0_a3 = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['code']
+        adm0_a3 = self.admin_bounds_key[self.settings.value(
+            "trends_earth/region_of_interest/country/country_name")]['code']
         admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
         if not admin_polys:
             return None
-        if not self.area_tab.secondLevel_area_admin_1.currentText() or self.area_tab.secondLevel_area_admin_1.currentText() == 'All regions':
+        if not self.settings.value("trends_earth/region_of_interest/country/region_name") or \
+                self.settings.value("trends_earth/region_of_interest/country/region_name") == 'All regions':
             return (admin_polys['geojson'])
         else:
-            admin_1_code = self.area_tab.admin_bounds_key[self.area_tab.area_admin_0.currentText()]['admin1'][self.area_tab.secondLevel_area_admin_1.currentText()]['code']
+            admin_1_code = self.admin_bounds_key[self.settings.value(
+                "trends_earth/region_of_interest/country/country_name")][
+                'admin1'][self.settings.value("trends_earth/region_of_interest/country/region_name")]['code']
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
-        if self.area_tab.groupBox_custom_crs.isChecked():
-            crs_dst = self.area_tab.mQgsProjectionSelectionWidget.crs()
+        if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled"):
+            crs_dst = QgsCoordinateReferenceSystem(
+                self.settings.value("trends_earth/region_of_interest/custom_crs")
+            )
         else:
             crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
 
         self.aoi = AOI(crs_dst)
 
-        if self.area_tab.area_fromadmin.isChecked():
-            if self.area_tab.radioButton_secondLevel_city.isChecked():
-                if not self.area_tab.groupBox_buffer.isChecked():
+        if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
+                self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
+            if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
+                if self.settings.value("trends_earth/region_of_interest/buffer_checked") != 'True':
                     QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                           tr_calculate.tr("You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city."))
+                           tr_calculate.tr("You have chosen to run calculations for a city."
+                                            "You must select a buffer distance to define the "
+                                           "calculation area when you are processing a city."))
                     return False
                 geojson = self.get_city_geojson()
                 self.aoi.update_from_geojson(geojson=geojson, 
-                                             wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
+                                             wrap=self.settings.value(
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
                                              datatype='point')
             else:
-                if not self.area_tab.area_admin_0.currentText():
+                if not self.settings.value("trends_earth/region_of_interest/country/country_name"):
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                self.tr("Choose a first level administrative boundary."))
                     return False
@@ -1072,31 +876,39 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                                self.tr("Unable to load administrative boundaries."))
                     return False
                 self.aoi.update_from_geojson(geojson=geojson, 
-                                             wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
-        elif self.area_tab.area_fromfile.isChecked():
-            if not self.area_tab.area_fromfile_file.text():
+                                             wrap=self.settings.value(
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
+        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'vector_layer':
+            if not self.settings.value("trends_earth/region_of_interest/vector_layer"):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a file to define the area of interest."))
                 return False
-            if not os.access(self.area_tab.area_fromfile_file.text(), os.R_OK):
+            if not os.access(self.settings.value("trends_earth/region_of_interest/vector_layer"), os.R_OK):
                 QtWidgets.QMessageBox.critical(None,
                                                self.tr("Error"),
-                                               self.tr("Unable to read {}.".format(self.area_tab.area_fromfile_file.text())))
+                                               self.tr("Unable to read {}.".format(
+                                                   self.settings.value(
+                                                       "trends_earth/region_of_interest/vector_layer")
+                                               )))
                 return False
-            self.aoi.update_from_file(f=self.area_tab.area_fromfile_file.text(),
-                                      wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked())
-        elif self.area_tab.area_frompoint.isChecked():
+            self.aoi.update_from_file(f=self.settings.value("trends_earth/region_of_interest/area_vector_layer"),
+                                      wrap=self.settings.value(
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
+        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'point':
             # Area from point
-            if not self.area_tab.area_frompoint_point_x.text() or not self.area_tab.area_frompoint_point_y.text():
+            if not self.settings.value("trends_earth/region_of_interest/point/x") or not \
+                    self.settings.value("trends_earth/region_of_interest/point/y"):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."))
                 return False
-            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
-            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsPointXY(float(self.settings.value("trends_earth/region_of_interest/point/x")),
+                               float(self.settings.value("trends_earth/region_of_interest/point/y")))
+            crs_src = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance()).transform(point)
             geojson = json.loads(QgsGeometry.fromPointXY(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
-                                         wrap=self.area_tab.checkBox_custom_crs_wrap.isChecked(),
+                                         wrap=self.settings.value(
+                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
                                          datatype='point')
         else:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -1108,8 +920,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                        self.tr("Unable to read area of interest."))
             return False
 
-        if self.area_tab.groupBox_buffer.isChecked():
-            ret = self.aoi.buffer(self.area_tab.buffer_size_km.value())
+        if self.settings.value("trends_earth/region_of_interest/buffer_checked"):
+            ret = self.aoi.buffer(self.settings.value("trends_earth/region_of_interest/buffer_size"))
             if not ret:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Error buffering polygon"))
@@ -1127,11 +939,13 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         # Limit processing area to be no greater than 10^7 sq km if using a 
         # custom shapefile
-        if not self.area_tab.area_fromadmin.isChecked():
+        if self.settings.value("trends_earth/region_of_interest/chosen_method") != 'country_city' and \
+                self.settings.value("trends_earth/region_of_interest/chosen_method") != 'country_region':
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > self._max_area:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
+                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km "
+                                "is too large. Choose a smaller area to process.".format(aoi_area)))
                 return False
 
         if self._has_output:

@@ -108,6 +108,7 @@ def binaries_available():
 def debug_on():
     QSettings().value("LDMP/debug", False) == 'True'
 
+
 def openFolder(path):
     if not path:
         return

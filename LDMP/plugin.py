@@ -15,7 +15,7 @@
 from builtins import object
 import os
 
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
 
@@ -29,13 +29,13 @@ from LDMP.visualization import DlgVisualization
 from LDMP.data_io import DlgDataIO
 from LDMP.about import DlgAbout
 from LDMP.processing_provider.provider import Provider
+from LDMP.main_widget import get_trends_earth_dockwidget
 
 from qgis.core import QgsApplication, QgsMessageLog, Qgis
 from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
 import LDMP.resources
-
 
 class LDMPPlugin(object):
     """QGIS Plugin Implementation."""
@@ -169,13 +169,14 @@ class LDMPPlugin(object):
         self.initProcessing()
 
         """Create Main manu icon and plugins menu entries."""
-        self.add_action(
+        start_action = self.add_action(
             ':/plugins/LDMP/icons/trends_earth_logo_square_32x32.ico',
             text='Trends.Earth',
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth dock interface'),
             set_as_default_action=True)
+        start_action.setCheckable(True)
 
         self.add_action(
             ':/plugins/LDMP/icons/wrench.svg',
@@ -248,9 +249,15 @@ class LDMPPlugin(object):
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
-    def run_docked_interface(self):
-        # add docked main interface
-        pass
+    def run_docked_interface(self, checked):
+        if checked:
+            # add docked main interface
+            self.dock_widget = get_trends_earth_dockwidget()
+            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+            self.dock_widget.show()
+        else:
+            if hasattr(self, 'dock_widget') and self.dock_widget.isVisible():
+                self.dock_widget.hide()
 
     def run_settings(self):
         self.dlg_settings.show()

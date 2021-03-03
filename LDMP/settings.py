@@ -23,10 +23,13 @@ from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
 
-from qgis.core import QgsCoordinateReferenceSystem, \
-    QgsCoordinateTransform, \
-    QgsProject, \
-    QgsSettings
+from qgis.core import (
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsProject,
+    QgsSettings,
+    QgsVectorLayer
+)
 from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
 from qgis.utils import iface
@@ -235,6 +238,15 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.populate_cities()
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
         self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
+        self.area_admin_0.currentIndexChanged.connect(self.generate_name_setting)
+
+        self.secondLevel_area_admin_1.currentIndexChanged.connect(self.generate_name_setting)
+        self.secondLevel_city.currentIndexChanged.connect(self.generate_name_setting)
+        self.area_frompoint_point_x.textChanged.connect(self.generate_name_setting)
+        self.area_frompoint_point_y.textChanged.connect(self.generate_name_setting)
+        self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
+        self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
+        self.checkbox_buffer.toggled.connect(self.generate_name_setting)
 
         self.area_fromfile_browse.clicked.connect(self.open_vector_browse)
         self.area_fromadmin.clicked.connect(self.area_type_toggle)
@@ -301,6 +313,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
         self.checkbox_buffer.setChecked(buffer_checked)
+        self.area_settings_name.setText(
+            self.settings.value("trends_earth/region_of_interest/area_settings_name", '')
+        )
 
     def populate_cities(self):
         self.secondLevel_city.clear()
@@ -330,16 +345,68 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         self.area_fromfile_file.setEnabled(self.area_fromfile.isChecked())
         self.area_fromfile_browse.setEnabled(self.area_fromfile.isChecked())
+        self.generate_name_setting()
 
     def radioButton_secondLevel_toggle(self):
         self.secondLevel_area_admin_1.setEnabled(self.radioButton_secondLevel_region.isChecked())
         self.secondLevel_city.setEnabled(not self.radioButton_secondLevel_region.isChecked())
+        self.generate_name_setting()
 
     def point_chooser(self):
         log("Choosing point from canvas...")
         self.canvas.setMapTool(self.choose_point_tool)
         self.window().hide()
         QtWidgets.QMessageBox.critical(None, self.tr("Point chooser"), self.tr("Click the map to choose a point."))
+
+    def generate_name_setting(self):
+        if self.area_fromadmin.isChecked():
+            if self.radioButton_secondLevel_region.isChecked():
+                name = "{}-{}".format(
+                    self.area_admin_0.currentText().lower().replace(' ', '-'),
+                    self.secondLevel_area_admin_1.currentText().lower().replace(' ', '-')
+                )
+            else:
+                name = "{}-{}".format(
+                    self.area_admin_0.currentText().lower().replace(' ', '-'),
+                    self.secondLevel_city.currentText().lower().replace(' ', '-')
+                )
+        elif self.area_frompoint.isChecked():
+            if self.area_frompoint_point_x.text() is not '' and \
+                    self.area_frompoint_point_y.text() is not '':
+                name = "pt-lon{:.3f}lat{:.3f}".format(
+                    float(self.area_frompoint_point_x.text()),
+                    float(self.area_frompoint_point_y.text())
+                )
+            else:
+                return
+        elif self.area_fromfile.isChecked():
+            if self.area_fromfile_file.text() is not '':
+                layer = QgsVectorLayer(
+                    self.area_fromfile_file.text(),
+                    "area",
+                    "ogr")
+                if layer.isValid():
+                    centroid = layer.extent().center()
+                    # Store point in EPSG:4326 crs
+                    coord_transform = QgsCoordinateTransform(
+                        layer.sourceCrs(),
+                        QgsCoordinateReferenceSystem(4326),
+                        QgsProject.instance())
+                    point = coord_transform.transform(centroid)
+                    name = "shape-lon{:.3f}lat{:.3f}".format(
+                        point.x(),
+                        point.y()
+                    )
+                else:
+                    return
+            else:
+                return
+        if self.checkbox_buffer.isChecked():
+            name = "{}-buffer-{:.3f}".format(
+                name,
+                self.buffer_size_km.value()
+            )
+        self.area_settings_name.setText(name)
 
     def set_point_coords(self, point, button):
         log("Set point coords")
@@ -355,11 +422,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
 
         # Store point in EPSG:4326 crs
-        transfrom_instance = QgsCoordinateTransform(
+        transform_instance = QgsCoordinateTransform(
             QgsProject.instance().crs(),
             QgsCoordinateReferenceSystem(4326),
             QgsProject.instance())
-        transformed_point = transfrom_instance.transform(self.point)
+        transformed_point = transform_instance.transform(self.point)
 
         log("Chose point: {}, {}.".format(transformed_point.x(), transformed_point.y()))
         self.area_frompoint_point_x.setText("{:.8f}".format(transformed_point.x()))
@@ -453,10 +520,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if area_value is not None:
             self.settings.setValue("trends_earth/region_of_interest/chosen_method", area_value)
 
-        self.settings.setValue(
-            "trends_earth/region_of_interest/custom_crs_wrap",
-            self.checkBox_custom_crs_wrap.isChecked())
-
         if self.vector_file is not None:
             self.settings.setValue("trends_earth/input_shapefile", self.vector_file)
             self.settings.setValue("trends_earth/input_shapefile_dir", os.path.dirname(self.vector_file))
@@ -464,8 +527,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if self.current_cities_key is not None:
             self.settings.setValue("trends_earth/region_of_interest/current_cities_key", self.current_cities_key)
 
-        self.settings.setValue("trends_earth/region_of_interest/custom_crs_enabled",
-                               self.groupBox_custom_crs.isChecked())
+        self.settings.setValue("trends_earth/region_of_interest/area_settings_name",
+                               self.area_settings_name.text())
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):

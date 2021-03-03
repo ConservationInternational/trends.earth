@@ -42,7 +42,6 @@ def log(message, level=0):
 
 def classFactory(iface):  # pylint: disable=invalid-name
     """Load LDMPPlugin class from file LDMP.
-
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """

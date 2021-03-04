@@ -512,7 +512,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Settings name:</string>
+           <string>Area name:</string>
           </property>
          </widget>
         </item>

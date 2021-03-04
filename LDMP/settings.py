@@ -269,6 +269,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
         self.load_settings()
+        self.generate_name_setting()
 
     def load_settings(self):
 
@@ -313,6 +314,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
         self.checkbox_buffer.setChecked(buffer_checked)
+
         self.area_settings_name.setText(
             self.settings.value("trends_earth/region_of_interest/area_settings_name", '')
         )

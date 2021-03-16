@@ -40,7 +40,7 @@ class AlgorithmBase(abc.ABC):
             group: 'AlgorithmGroup' = None, # string because forwarde declared class
         ) -> None:
         super().__init__()
-        self.type: Optional[AlgorithmNodeType] = None
+        self.algorithm_type: Optional[AlgorithmNodeType] = None
         self.group = group
         self.name = name
         self.name_details = name_details

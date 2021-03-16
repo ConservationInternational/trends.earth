@@ -69,7 +69,7 @@ class AlgorithmBase(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def child(self, row) -> Union['AlgorithmBase', None]: # string because AlgorithmBase not yet completly defined
+    def child(self, row) -> Optional['AlgorithmBase']:  # string because AlgorithmBase not yet completly defined
         pass
 
 class AlgorithmGroup(AlgorithmBase):

@@ -39,7 +39,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         super(MainWidget, self).__init__(parent)
 
         self.setupUi(self)
-        self.setupAlgorithsTree()
+        self.setupAlgorithmsTree()
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

@@ -81,7 +81,7 @@ class AlgorithmGroup(AlgorithmBase):
             algorithms: List[Union['AlgorithmDescriptor', 'AlgorithmGroup']]
         ) -> None:
         super().__init__(name, name_details, group)
-        self.type = AlgorithmNodeType.Group
+        self.algorithm_type = AlgorithmNodeType.Group
         self.group = group
         self.name = name
         self.name_details = name_details
@@ -119,7 +119,7 @@ class AlgorithmDescriptor(AlgorithmBase):
             run_mode: AlgorithmRunMode = AlgorithmRunMode.Locally,
         ) -> None:
         super().__init__(name, name_details, group)
-        self.type = AlgorithmNodeType.Leaf
+        self.algorithm_type = AlgorithmNodeType.Leaf
         self.group = group
 
         self.name = name

@@ -41,9 +41,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.setupUi(self)
         self.setupAlgorithsTree()
 
-    def setupAlgorithsTree(self):
-        # setup algoriths and it's hierarchy
-        tree = AlgorithmGroup(name='root', name_details='root detauils', group=None, algorithms=[])
+    def setupAlgorithmsTree(self):
+        # setup algorithms and their hierarchy
+        tree = AlgorithmGroup(name='root', name_details='root details', group=None, algorithms=[])
         first = AlgorithmGroup(name='firstG', name_details='first details', group=tree, algorithms=[])
         second = AlgorithmGroup(name='secondG', name_details='second details', group=tree, algorithms=[])
 

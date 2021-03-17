@@ -20,8 +20,11 @@ from qgis.PyQt.QtCore import (
     QModelIndex,
     Qt
 )
-from LDMP.models.algorithms import AlgorithmGroup, AlgorithmDescriptor
-
+from LDMP.models.algorithms import (
+    AlgorithmGroup,
+    AlgorithmDescriptor,
+    AlgorithmNodeType
+)
 
 class AlgorithmTreeModel(QAbstractItemModel):
 
@@ -54,9 +57,12 @@ class AlgorithmTreeModel(QAbstractItemModel):
         item = index.internalPointer()
         if role == Qt.DisplayRole:
             if index.column() == 0:
-                entry_string = '{}'.format(item.name)
-                if item.name_details:
-                    entry_string += '[{}]'.format(item.name_details)
+                if item.algorithm_type == AlgorithmNodeType.Details:
+                    entry_string = item.description
+                else:
+                    entry_string = '{}'.format(item.name)
+                    if item.name_details:
+                        entry_string += '[{}]'.format(item.name_details)
 
                 return entry_string
             
@@ -72,9 +78,12 @@ class AlgorithmTreeModel(QAbstractItemModel):
             return Qt.NoItemFlags
 
         # is editable only second column with popup menu
-        if index.column() == 1:
+        model = index.model()
+        item = model.data(index, Qt.ItemDataRole)
+
+        if index.column() == 0 and item.algorithm_type == AlgorithmNodeType.Algorithm:
             return Qt.ItemIsEditable | super().flags(index)
-        
+
         return super().flags(index)
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: Qt.ItemDataRole):
@@ -104,11 +113,12 @@ class AlgorithmTreeModel(QAbstractItemModel):
         childItem = index.internalPointer()
         if childItem is self.rootItem:
             return QModelIndex()
-        if childItem.getGroup() is None:
+        
+        parent = childItem.getParent()
+        if parent is None:
             return QModelIndex()
 
-        group = childItem.getGroup()
-        return self.createIndex(group.row(), 0, group)
+        return self.createIndex(parent.row(), 0, parent)
 
     def setData(self, index: QModelIndex, value, role: Qt.ItemDataRole) -> bool:
         if role != Qt.EditRole:

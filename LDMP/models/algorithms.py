@@ -22,7 +22,8 @@ from marshmallow import Schema, fields, post_load
 
 class AlgorithmNodeType(Enum):
     Group = 1,
-    Leaf = 2
+    Algorithm = 2,
+    Details = 3
 
 
 class AlgorithmRunMode(Enum):
@@ -37,25 +38,25 @@ class AlgorithmBase(abc.ABC):
     def __init__(self,
             name: str,
             name_details: Optional[str] = None,
-            group: 'AlgorithmGroup' = None, # string because forwarde declared class
+            parent: Optional[Union['AlgorithmDescriptor', 'AlgorithmGroup']] = None, # string because forward declared class
         ) -> None:
         super().__init__()
         self.algorithm_type: Optional[AlgorithmNodeType] = None
-        self.group = group
+        self.parent = parent
         self.name = name
         self.name_details = name_details
 
-    def getGroup(self) -> 'AlgorithmBase':
-        return self.group
+    def getParent(self) -> 'AlgorithmBase':
+        return self.parent
 
     def row(self) -> int:
-        if not self.group:
-            # e.g. root node/group
+        if not self.parent:
+            # e.g. root node/parent
             return 0
         
-        # look for self in parent group.algorithms
+        # look for self in parent parent.algorithms
         try:
-            return self.group.algorithms.index(self)
+            return self.parent.algorithms.index(self)
         except ValueError as ex:
             # something strange happen. Can't find myself
             return 0
@@ -77,18 +78,18 @@ class AlgorithmGroup(AlgorithmBase):
     def __init__(self,
             name: str,
             name_details: Optional[str],
-            group: 'AlgorithmGroup',
+            parent: 'AlgorithmGroup',
             algorithms: List[Union['AlgorithmDescriptor', 'AlgorithmGroup']]
         ) -> None:
-        super().__init__(name, name_details, group)
+        super().__init__(name, name_details, parent)
         self.algorithm_type = AlgorithmNodeType.Group
-        self.group = group
+        self.parent = parent
         self.name = name
         self.name_details = name_details
         self.algorithms = algorithms
 
     def columnCount(self) -> int:
-        return 2
+        return 1
 
     def rowCount(self) -> int:
         return len(self.algorithms)
@@ -114,22 +115,52 @@ class AlgorithmDescriptor(AlgorithmBase):
             name: str,
             name_details: Optional[str],
             brief_description: str,
-            description: str,
-            group: AlgorithmGroup, # e.g. an Alg can belogs to only a group => 1 to 1 limitation!
+            details: Optional['AlgorithmDetails'],
+            parent: AlgorithmGroup, # e.g. an Alg can belogs to only a parent => 1 to 1 limitation!
             run_mode: AlgorithmRunMode = AlgorithmRunMode.Locally,
         ) -> None:
-        super().__init__(name, name_details, group)
-        self.algorithm_type = AlgorithmNodeType.Leaf
-        self.group = group
+        super().__init__(name, name_details, parent)
+        self.algorithm_type = AlgorithmNodeType.Algorithm
+        self.parent = parent
 
         self.name = name
         self.name_details = name_details
         self.brief_description = brief_description,
-        self.description = description
+        self.details = details
         self.run_mode = AlgorithmRunMode.Remotely,
 
     def columnCount(self) -> int:
-        return 2
+        return 1
+    
+    def rowCount(self) -> int:
+        return 1
+
+    def child(self, row: int) -> None:
+        if row != 0:
+            return None
+        return self.details
+
+    def setDetails(self, details: 'AlgorithmDetails'):
+        self.details = details
+
+
+class AlgorithmDetails(AlgorithmBase):
+    def __init__(self,
+            name: str,
+            name_details: Optional[str],
+            description: str,
+            parent: AlgorithmDescriptor
+        ) -> None:
+        super().__init__(name, name_details, parent)
+        self.algorithm_type = AlgorithmNodeType.Details
+        self.parent = parent
+
+        self.name = name
+        self.name_details = name_details
+        self.description = description
+
+    def columnCount(self) -> int:
+        return 1
     
     def rowCount(self) -> int:
         return 0

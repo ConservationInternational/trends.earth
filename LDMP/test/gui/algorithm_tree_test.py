@@ -18,29 +18,39 @@ import os, sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../../"))
 
 
-from PyQt5.QtWidgets import QApplication, QTreeView, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QTreeView, QAbstractItemView, QHeaderView
 from PyQt5.QtTest import QAbstractItemModelTester
 
 from LDMP.models.algorithms import (
        AlgorithmGroup,
        AlgorithmDescriptor,
+       AlgorithmDetails,
        AlgorithmRunMode
 )
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
 
 # setup algoriths and it's hierarchy
-tree = AlgorithmGroup(name='root', name_details='root detauils', group=None, algorithms=[])
-first = AlgorithmGroup(name='firstG', name_details='first details', group=tree, algorithms=[])
-second = AlgorithmGroup(name='secondG', name_details='second details', group=tree, algorithms=[])
+tree = AlgorithmGroup(name='root', name_details='root detauils', parent=None, algorithms=[])
+first = AlgorithmGroup(name='firstG', name_details='first details', parent=tree, algorithms=[])
+second = AlgorithmGroup(name='secondG', name_details='second details', parent=tree, algorithms=[])
 
-alg1G1 = AlgorithmDescriptor(name='alg1G1', name_details='alg1G1 details', brief_description='alg1G1 brief descr', description='alg1G1 long description', group=first)
+alg1G1 = AlgorithmDescriptor(name='alg1G1', name_details='alg1G1 details', brief_description='alg1G1 brief descr', details=None, parent=first)
 alg1G1.run_mode = AlgorithmRunMode.Both
-alg2G1 = AlgorithmDescriptor(name='alg2G1', name_details='alg2G1 details', brief_description='alg2G1 brief descr', description='alg2G1 long description', group=first)
+alg1G1_details = AlgorithmDetails(name=None, name_details=None, description='alg1G1 long description', parent=alg1G1)
+alg1G1.setDetails(alg1G1_details)
+
+alg2G1 = AlgorithmDescriptor(name='alg2G1', name_details='alg2G1 details', brief_description='alg2G1 brief descr', details=None, parent=first)
+alg2G1_details = AlgorithmDetails(name=None, name_details=None, description='alg2G1 long description', parent=alg2G1)
+alg2G1.setDetails(alg2G1_details)
+
 first.algorithms.append(alg1G1)
 first.algorithms.append(alg2G1)
 
-alg1G2 = AlgorithmDescriptor(name='alg1G2', name_details='alg1G2 details', brief_description='alg1G2 brief descr', description='alg1G2 long description', group=second)
+alg1G2 = AlgorithmDescriptor(name='alg1G2', name_details='alg1G2 details', brief_description='alg1G2 brief descr', details=None, parent=second)
+alg1G2_details = AlgorithmDetails(name=None, name_details=None, description='alg1G2 long description', parent=alg1G2)
+alg1G2.setDetails(alg1G2_details)
+
 second.algorithms.append(alg1G2)
 
 app = QApplication(["???"])
@@ -53,6 +63,10 @@ algorithmsModel = AlgorithmTreeModel(tree)
 QAbstractItemModelTester(algorithmsModel, QAbstractItemModelTester.FailureReportingMode.Warning)
 
 view = QTreeView()
+view.resizeColumnToContents(0)
+view.resizeColumnToContents(1)
+# view.header().setSectionResizeMode(1,QHeaderView.ResizeToContents)
+# view.setColumnWidth(1, 30)
 view.setEditTriggers(QAbstractItemView.AllEditTriggers)
 view.setModel(algorithmsModel)
 view.setWindowTitle("Tree Model")

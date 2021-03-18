@@ -20,12 +20,19 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../../../"))
 
 from PyQt5.QtWidgets import QApplication, QTreeView, QAbstractItemView, QHeaderView
 from PyQt5.QtTest import QAbstractItemModelTester
+from PyQt5.QtGui import (
+       QFocusEvent,
+       QCursor
+)
+from PyQt5.QtCore import (
+       QModelIndex
+)
 
 from LDMP.models.algorithms import (
-       AlgorithmGroup,
-       AlgorithmDescriptor,
-       AlgorithmDetails,
-       AlgorithmRunMode
+   AlgorithmGroup,
+   AlgorithmDescriptor,
+   AlgorithmDetails,
+   AlgorithmRunMode
 )
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
@@ -63,10 +70,8 @@ algorithmsModel = AlgorithmTreeModel(tree)
 QAbstractItemModelTester(algorithmsModel, QAbstractItemModelTester.FailureReportingMode.Warning)
 
 view = QTreeView()
-view.resizeColumnToContents(0)
-view.resizeColumnToContents(1)
-# view.header().setSectionResizeMode(1,QHeaderView.ResizeToContents)
-# view.setColumnWidth(1, 30)
+view.mouseMoveEvent
+view.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
 view.setEditTriggers(QAbstractItemView.AllEditTriggers)
 view.setModel(algorithmsModel)
 view.setWindowTitle("Tree Model")

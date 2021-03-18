@@ -101,11 +101,6 @@ class AlgorithmGroup(AlgorithmBase):
         return self.algorithms[row]
     
     def columnName(self, column: int) -> Union[str, None]:
-        if column == 0:
-            return 'Description'
-        if column == 1:
-            return 'widget'
-        
         return None
 
 
@@ -133,6 +128,8 @@ class AlgorithmDescriptor(AlgorithmBase):
         return 1
     
     def rowCount(self) -> int:
+        if self.details is None:
+            return 0
         return 1
 
     def child(self, row: int) -> None:

@@ -81,11 +81,6 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
 
-        # text column
-        if item.item_type == AlgorithmNodeType.Group:
-            text = model.data(index, Qt.DisplayRole)
-            painter.drawText( option.rect, int(option.displayAlignment), text )
-
         # if a Algorithm => show custom widget
         if item.item_type == AlgorithmNodeType.Algorithm:
             # get default widget used to edit data
@@ -94,9 +89,7 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
             pixmap = editorWidget.grab()
 
             painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
-
-        # if a Algorithm details => show description
-        if item.item_type == AlgorithmNodeType.Details:
+        else:
             super().paint(painter, option, index)
 
     def sizeHint(self, option: QStyleOptionViewItem, index: QModelIndex):
@@ -116,11 +109,8 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         if item.item_type == AlgorithmNodeType.Algorithm:
             editorWidget = AlgorithmEditorWidget(parent)
 
-            editorWidget.labelAlgorithmName.setText(item.name)
-            if item.name_details:
-                editorWidget.lableAalgorithmNameDetail.setText('[{}]'.format(item.name_details))
-            else:
-                editorWidget.lableAalgorithmNameDetail.hide()
+            text = index.data(Qt.DisplayRole)
+            editorWidget.labelAlgorithmName.setText(text)
             
             # add run button to the toolButton menu
             editorWidget.toolButtonAlgorithmRun.setPopupMode(QToolButton.MenuButtonPopup)

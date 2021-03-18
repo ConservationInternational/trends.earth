@@ -62,7 +62,7 @@ class AlgorithmTreeModel(QAbstractItemModel):
                 else:
                     entry_string = '{}'.format(item.name)
                     if item.name_details:
-                        entry_string += '[{}]'.format(item.name_details)
+                        entry_string += ' [{}]'.format(item.name_details)
 
                 return entry_string
             
@@ -124,11 +124,4 @@ class AlgorithmTreeModel(QAbstractItemModel):
         if role != Qt.EditRole:
             return False
 
-        # item = self.data(index, Qt.ItemDataRole)
-        
-        # result = item.setData(index.column(), value)
-        # if (result):
-        #     emit dataChanged(index, index, [Qt.DisplayRole, Qt.EditRole])
-
-        # return result;
         return True

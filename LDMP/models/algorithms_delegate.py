@@ -82,12 +82,12 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         item = model.data(index, Qt.ItemDataRole)
 
         # text column
-        if item.algorithm_type == AlgorithmNodeType.Group:
+        if item.item_type == AlgorithmNodeType.Group:
             text = model.data(index, Qt.DisplayRole)
             painter.drawText( option.rect, int(option.displayAlignment), text )
 
         # if a Algorithm => show custom widget
-        if item.algorithm_type == AlgorithmNodeType.Algorithm:
+        if item.item_type == AlgorithmNodeType.Algorithm:
             # get default widget used to edit data
             editorWidget = self.createEditor(self.parent, option, index)
             editorWidget.setGeometry(option.rect)
@@ -96,14 +96,14 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
             painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
 
         # if a Algorithm details => show description
-        if item.algorithm_type == AlgorithmNodeType.Details:
+        if item.item_type == AlgorithmNodeType.Details:
             super().paint(painter, option, index)
 
     def sizeHint(self, option: QStyleOptionViewItem, index: QModelIndex):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
 
-        if item.algorithm_type == AlgorithmNodeType.Algorithm:
+        if item.item_type == AlgorithmNodeType.Algorithm:
             widget = self.createEditor(None, option, index)
             return widget.size()
         return super().sizeHint(option, index)
@@ -113,7 +113,7 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
 
-        if item.algorithm_type == AlgorithmNodeType.Algorithm:
+        if item.item_type == AlgorithmNodeType.Algorithm:
             editorWidget = AlgorithmEditorWidget(parent)
 
             editorWidget.labelAlgorithmName.setText(item.name)

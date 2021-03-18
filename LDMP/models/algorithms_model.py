@@ -57,7 +57,7 @@ class AlgorithmTreeModel(QAbstractItemModel):
         item = index.internalPointer()
         if role == Qt.DisplayRole:
             if index.column() == 0:
-                if item.algorithm_type == AlgorithmNodeType.Details:
+                if item.item_type == AlgorithmNodeType.Details:
                     entry_string = item.description
                 else:
                     entry_string = '{}'.format(item.name)
@@ -81,7 +81,7 @@ class AlgorithmTreeModel(QAbstractItemModel):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
 
-        if index.column() == 0 and item.algorithm_type == AlgorithmNodeType.Algorithm:
+        if index.column() == 0 and item.item_type == AlgorithmNodeType.Algorithm:
             return Qt.ItemIsEditable | super().flags(index)
 
         return super().flags(index)

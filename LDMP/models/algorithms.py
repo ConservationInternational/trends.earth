@@ -41,7 +41,7 @@ class AlgorithmBase(abc.ABC):
             parent: Optional[Union['AlgorithmDescriptor', 'AlgorithmGroup']] = None, # string because forward declared class
         ) -> None:
         super().__init__()
-        self.algorithm_type: Optional[AlgorithmNodeType] = None
+        self.item_type: Optional[AlgorithmNodeType] = None
         self.parent = parent
         self.name = name
         self.name_details = name_details
@@ -82,7 +82,7 @@ class AlgorithmGroup(AlgorithmBase):
             algorithms: List[Union['AlgorithmDescriptor', 'AlgorithmGroup']]
         ) -> None:
         super().__init__(name, name_details, parent)
-        self.algorithm_type = AlgorithmNodeType.Group
+        self.item_type = AlgorithmNodeType.Group
         self.parent = parent
         self.name = name
         self.name_details = name_details
@@ -120,7 +120,7 @@ class AlgorithmDescriptor(AlgorithmBase):
             run_mode: AlgorithmRunMode = AlgorithmRunMode.Locally,
         ) -> None:
         super().__init__(name, name_details, parent)
-        self.algorithm_type = AlgorithmNodeType.Algorithm
+        self.item_type = AlgorithmNodeType.Algorithm
         self.parent = parent
 
         self.name = name
@@ -152,7 +152,7 @@ class AlgorithmDetails(AlgorithmBase):
             parent: AlgorithmDescriptor
         ) -> None:
         super().__init__(name, name_details, parent)
-        self.algorithm_type = AlgorithmNodeType.Details
+        self.item_type = AlgorithmNodeType.Details
         self.parent = parent
 
         self.name = name

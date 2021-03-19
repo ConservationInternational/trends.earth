@@ -36,8 +36,12 @@ __revision__ = version_info['revision']
 __release_date__ = version_info['release_date']
 
 
+def tr(message):
+    return QCoreApplication.translate('trends.earth', message)
+
+
 def log(message, level=0):
-    QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
+    QgsMessageLog.logMessage(message, tag='trends.earth', level=level)
 
 
 def classFactory(iface):  # pylint: disable=invalid-name

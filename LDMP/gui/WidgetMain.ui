@@ -24,6 +24,11 @@
        <attribute name="title">
         <string>Algorithms</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTreeView" name="treeView_algorithms"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_datasets">
        <attribute name="title">

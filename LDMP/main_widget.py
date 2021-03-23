@@ -12,7 +12,9 @@
  ***************************************************************************/
 """
 
-from qgis.PyQt import QtWidgets
+from datetime import datetime
+
+from qgis.PyQt import QtWidgets, QtGui
 from qgis.core import QgsSettings
 
 from LDMP import __version__, log
@@ -24,8 +26,16 @@ from LDMP.models.algorithms import (
     AlgorithmRunMode,
     AlgorithmDetails
 )
+from LDMP.models.datasets import (
+    Dataset,
+    Datasets
+)
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
+
+from LDMP.models.datasets_model import DatasetsModel
+from LDMP.models.datasets_delegate import DatasetItemDelegate
+from LDMP import tr
 
 settings = QgsSettings()
 
@@ -44,7 +54,54 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         super(MainWidget, self).__init__(parent)
 
         self.setupUi(self)
+        # remove space before dataset item
+        self.treeView_datasets.setIndentation(0)
+
         self.setupAlgorithmsTree()
+        self.setupDatasets()
+
+    def setupDatasets(self):
+        # add sort actions
+        self.toolButton_sort.setMenu(QtWidgets.QMenu())
+
+        # add action entries of the pull down menu
+        byNameSortAction = QtWidgets.QAction(tr('Name'), self)
+        self.toolButton_sort.menu().addAction(byNameSortAction)
+        self.toolButton_sort.setDefaultAction(byNameSortAction)
+        byDateSortAction = QtWidgets.QAction(tr('Date'), self)
+        self.toolButton_sort.menu().addAction(byDateSortAction)
+
+        # set icons
+        icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg')
+        self.pushButton_refresh.setIcon(icon)
+        icon = QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg')
+        self.pushButton_import.setIcon(icon)
+        icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
+        self.pushButton_download.setIcon(icon)
+
+        # example of datasets
+        datasets = Datasets()
+
+        date = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+        ds1 = Dataset(name='dataset1', creation_date=date, source='Land productivity')
+        ds2 = Dataset(name='dataset2', creation_date=date, source='Downloaded from sample dataset')
+        ds3 = Dataset(name='dataset3', creation_date=date, source='Land change')
+
+        datasets.datasets.append(ds1)
+        datasets.datasets.append(ds2)
+        datasets.datasets.append(ds3)
+
+        # show it
+        datasetsModel = DatasetsModel(datasets)
+        self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
+        self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
+        self.treeView_datasets.setModel(datasetsModel)
+        delegate = DatasetItemDelegate(self.treeView_datasets)
+        self.treeView_datasets.setItemDelegate(delegate)
+
+        # configure View how to enter editing mode
+        self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

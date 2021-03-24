@@ -91,9 +91,11 @@ class Dataset(DatasetBase):
 # necessary in case of using QListView, but using TreeView to allow
 # more flexibility
 class Datasets(object):
-    def __init__(self):
+    datasets: List[Dataset]
+
+    def __init__(self, datasets: Optional[List[Dataset]] = None):
         super().__init__()
-        self.datasets: List[Dataset] = []
+        self.datasets = list(datasets) if datasets is not None else []
 
     def columnCount(self) -> int:
         return 1
@@ -101,11 +103,10 @@ class Datasets(object):
     def rowCount(self) -> int:
         return len(self.datasets)
     
-    def child(self, row: int) -> Union['Dataset', None]:
+    def child(self, row: int) -> Optional['Dataset']:
         if row < 0 or row >= len(self.datasets):
             return None
-        
         return self.datasets[row]
     
-    def columnName(self, column: int) -> Union[str, None]:
+    def columnName(self, column: int) -> Optional[str]:
         return None

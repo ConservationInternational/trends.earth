@@ -14,6 +14,7 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
+import qgis.core
 from functools import partial
 from typing import Optional, Union
 from qgis.PyQt.QtCore import (
@@ -105,27 +106,43 @@ class DatasetItemDelegate(QStyledItemDelegate):
         # get item and manipulate painter basing on item data
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
-
         if isinstance(item, Dataset):
-            editorWidget = DatasetEditorWidget(parent)
-            editorWidget.labelDatasetName.setText(item.name)
-            editorWidget.labelCreationDate.setText(item.creation_date.strftime('%Y-%m-%d %H:%M:%S'))
-            editorWidget.labelSourceName.setText(item.source)
-
-            # set icons
-            icon = QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg')
-            editorWidget.pushButtonDelete.setIcon(icon)
-            icon = QIcon(':/plugins/LDMP/icons/mActionPropertiesWidget.svg')
-            editorWidget.pushButtonDetails.setIcon(icon)
-            icon = QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg')
-            editorWidget.pushButtonLoad.setIcon(icon)
-
-            return editorWidget
+            return DatasetEditorWidget(item, parent=parent)
         else:
             return super().createEditor(parent, option, index)
 
+
 class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
-    def __init__(self, parent=None):
+
+    def __init__(self, dataset: Dataset, parent=None):
         super(DatasetEditorWidget, self).__init__(parent)
         self.setupUi(self)
-        self.setAutoFillBackground(True) # this allow to hide background prerendered pixmap
+        self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
+        self.dataset = dataset
+        self.pushButtonLoad.clicked.connect(self.load_dataset)
+        self.pushButtonDetails.clicked.connect(self.show_details)
+        self.pushButtonDelete.clicked.connect(self.delete_dataset)
+
+        self.pushButtonDelete.setIcon(
+            QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
+        self.pushButtonDetails.setIcon(
+            QIcon(':/plugins/LDMP/icons/mActionPropertiesWidget.svg'))
+        self.pushButtonLoad.setIcon(
+            QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+
+        self.labelDatasetName.setText(self.dataset.name)
+        self.labelCreationDate.setText(
+            self.dataset.creation_date.strftime('%Y-%m-%d %H:%M:%S'))
+        self.labelSourceName.setText(self.dataset.source)
+
+    def show_details(self):
+        qgis.core.QgsMessageLog.logMessage(
+            f"Details button clicked for dataset {self.dataset.name!r}")
+
+    def load_dataset(self):
+        qgis.core.QgsMessageLog.logMessage(
+            f"Load button clicked for dataset {self.dataset.name!r}")
+
+    def delete_dataset(self):
+        qgis.core.QgsMessageLog.logMessage(
+            f"Delete button clicked for dataset {self.dataset.name!r}")

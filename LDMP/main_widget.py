@@ -56,6 +56,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.setupUi(self)
         # remove space before dataset item
         self.treeView_datasets.setIndentation(0)
+        self.treeView_datasets.verticalScrollBar().setSingleStep(10)
 
         self.setupAlgorithmsTree()
         self.setupDatasets()
@@ -80,16 +81,30 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_download.setIcon(icon)
 
         # example of datasets
-        datasets = Datasets()
-
-        date = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
-        ds1 = Dataset(name='dataset1', creation_date=date, source='Land productivity')
-        ds2 = Dataset(name='dataset2', creation_date=date, source='Downloaded from sample dataset')
-        ds3 = Dataset(name='dataset3', creation_date=date, source='Land change')
-
-        datasets.datasets.append(ds1)
-        datasets.datasets.append(ds2)
-        datasets.datasets.append(ds3)
+        date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+        datasets = Datasets(
+            [
+                Dataset('dataset1', date_, 'Land productivity'),
+                Dataset('dataset2', date_, 'Downloaded from sample dataset'),
+                Dataset('dataset3', date_, 'Land change'),
+                Dataset('Productivity Trajectory', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset('Productivity Trajectory', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset('Productivity Trajectory', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset('Productivity Trajectory', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset('Productivity Trajectory', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset('Productivity Trajectory', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset(
+                    'A very very very  much much big name with a lot of many many many many words',
+                    date_,
+                    'Land Productivity (SDG 15.3.1 sub-indicator1)'
+                ),
+                Dataset(
+                    'A very very very  much much big name with a lot of many many many many words',
+                    date_,
+                    'A very very very  much much big name with a lot of many many many many words',
+                ),
+            ]
+        )
 
         # show it
         datasetsModel = DatasetsModel(datasets)

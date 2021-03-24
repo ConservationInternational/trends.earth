@@ -64,15 +64,7 @@ class DatasetsModel(QAbstractItemModel):
     def flags(self, index: QModelIndex = QModelIndex()) -> Qt.ItemFlags:
         if not index.isValid():
             return Qt.NoItemFlags
-
-        # is editable only second column with popup menu
-        model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
-
-        # if index.column() == 0:
-        #     return Qt.ItemIsEditable | super().flags(index)
-
-        return super().flags(index)
+        return Qt.ItemIsEditable | super().flags(index)
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: Qt.ItemDataRole):
         if (orientation == Qt.Horizontal and role == Qt.DisplayRole):

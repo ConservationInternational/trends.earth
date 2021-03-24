@@ -75,6 +75,9 @@
         </item>
         <item>
          <widget class="QTreeView" name="treeView_datasets">
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
           <property name="sortingEnabled">
            <bool>true</bool>
           </property>

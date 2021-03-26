@@ -92,17 +92,40 @@ alg1G3.setDetails(alg1G3_details)
 third.algorithms.append(alg1G3)
 
 # setup datasets link to the available algorithms
-tree = Datasets()
+# tree = Datasets()
 
-date = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
-ds1 = Dataset(name='dataset1', creation_date=date, source=alg1G1.name)
-ds2 = Dataset(name='dataset2', creation_date=date, source='Downloaded from sample dataset')
-ds3 = Dataset(name='dataset3', creation_date=date, source=alg3G1.name)
+# date = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+# ds1 = Dataset(name='dataset1', creation_date=date, source=alg1G1.name)
+# ds2 = Dataset(name='dataset2', creation_date=date, source='Downloaded from sample dataset')
+# ds3 = Dataset(name='dataset3', creation_date=date, source=alg3G1.name)
 
-tree.datasets.append(ds1)
-tree.datasets.append(ds2)
-tree.datasets.append(ds3)
-
+# tree.datasets.append(ds1)
+# tree.datasets.append(ds2)
+# tree.datasets.append(ds3)
+date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+tree = Datasets(
+        [
+            Dataset('1dataset1', date_, 'Land productivity'),
+            Dataset('2dataset2', date_, 'Downloaded from sample dataset'),
+            Dataset('3dataset3', date_, 'Land change'),
+            Dataset('11Productivity Trajectory1', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+            Dataset('22Productivity Trajectory2', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+            Dataset('33Productivity Trajectory3', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+            Dataset('44Productivity Trajectory4', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+            Dataset('55Productivity Trajectory5', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+            Dataset('66Productivity Trajectory6', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+            Dataset(
+                '111 A very very very  much much big name with a lot of many many many many words',
+                date_,
+                'Land Productivity (SDG 15.3.1 sub-indicator1)'
+            ),
+            Dataset(
+                '222 A very very very  much much big name with a lot of many many many many words',
+                date_,
+                'A very very very  much much big name with a lot of many many many many words',
+            ),
+        ]
+    )
 
 app = QApplication(["???"])
 
@@ -111,14 +134,13 @@ datasetsModel = DatasetsModel(tree)
 QAbstractItemModelTester(datasetsModel, QAbstractItemModelTester.FailureReportingMode.Warning)
 
 view = QTreeView()
+view.setGeometry(0,0,240, 500)
 view.setIndentation(0)
 view.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
-view.setWordWrap(True)
 view.setEditTriggers(QAbstractItemView.AllEditTriggers)
 view.setModel(datasetsModel)
 view.setWindowTitle("Tree Model")
 delegate = DatasetItemDelegate(view)
 view.setItemDelegate(delegate)
-# view.setStyleSheet("QTreeView::item {  border: 10px;  padding: 0 10px; }")
 view.show()
 app.exec()

@@ -16,7 +16,6 @@ __date__ = '2021-03-03'
 
 import qgis.core
 from functools import partial
-from typing import Optional, Union
 from qgis.PyQt.QtCore import (
     QModelIndex,
     Qt,
@@ -24,7 +23,9 @@ from qgis.PyQt.QtCore import (
     QObject,
     pyqtSignal,
     QRectF,
-    QAbstractItemModel
+    QRect,
+    QAbstractItemModel,
+    QSize
 )
 from qgis.PyQt.QtWidgets import (
     QStyleOptionViewItem,
@@ -75,6 +76,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
             return
 
         # activate editor
+        item = model.data(index, Qt.ItemDataRole)
         self.parent.openPersistentEditor(self.enteredCell)
 
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
@@ -87,8 +89,10 @@ class DatasetItemDelegate(QStyledItemDelegate):
             # get default widget used to edit data
             editorWidget = self.createEditor(self.parent, option, index)
             editorWidget.setGeometry(option.rect)
-            pixmap = editorWidget.grab()
 
+            # then grab and paint it
+            pixmap = editorWidget.grab()
+            del editorWidget
             painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
         else:
             super().paint(painter, option, index)
@@ -98,8 +102,11 @@ class DatasetItemDelegate(QStyledItemDelegate):
         item = model.data(index, Qt.ItemDataRole)
 
         if isinstance(item, Dataset):
-            widget = self.createEditor(None, option, index)
-            return widget.size()
+            widget = self.createEditor(None, option, index) # parent swet to none otherwise remain painted in the widget
+            size = widget.size()
+            del widget
+            return size
+
         return super().sizeHint(option, index)
 
     def createEditor(self, parent: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
@@ -111,6 +118,8 @@ class DatasetItemDelegate(QStyledItemDelegate):
         else:
             return super().createEditor(parent, option, index)
 
+    def updateEditorGeometry(self, editor: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
+        editor.setGeometry(option.rect)
 
 class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
@@ -136,13 +145,10 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.labelSourceName.setText(self.dataset.source)
 
     def show_details(self):
-        qgis.core.QgsMessageLog.logMessage(
-            f"Details button clicked for dataset {self.dataset.name!r}")
+        log(f"Details button clicked for dataset {self.dataset.name!r}")
 
     def load_dataset(self):
-        qgis.core.QgsMessageLog.logMessage(
-            f"Load button clicked for dataset {self.dataset.name!r}")
+        log(f"Load button clicked for dataset {self.dataset.name!r}")
 
     def delete_dataset(self):
-        qgis.core.QgsMessageLog.logMessage(
-            f"Delete button clicked for dataset {self.dataset.name!r}")
+        log(f"Delete button clicked for dataset {self.dataset.name!r}")

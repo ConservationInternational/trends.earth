@@ -84,24 +84,24 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
         datasets = Datasets(
             [
-                Dataset('1dataset1', date_, 'Land productivity'),
-                Dataset('2dataset2', date_, 'Downloaded from sample dataset'),
-                Dataset('3dataset3', date_, 'Land change'),
-                Dataset('11Productivity Trajectory1', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
-                Dataset('22Productivity Trajectory2', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
-                Dataset('33Productivity Trajectory3', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
-                Dataset('44Productivity Trajectory4', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
-                Dataset('55Productivity Trajectory5', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
-                Dataset('66Productivity Trajectory6', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)'),
+                Dataset('1dataset1', date_, 'Land productivity', run_id='run_id_1'),
+                Dataset('2dataset2', date_, 'Downloaded from sample dataset', run_id='run_id_2'),
+                Dataset('3dataset3', date_, 'Land change', run_id='run_id_3'),
+                Dataset('11Productivity Trajectory1', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_4'),
+                Dataset('22Productivity Trajectory2', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_5'),
+                Dataset('33Productivity Trajectory3', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_6'),
+                Dataset('44Productivity Trajectory4', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_7'),
+                Dataset('55Productivity Trajectory5', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_8'),
+                Dataset('66Productivity Trajectory6', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_9'),
                 Dataset(
                     '111 A very very very  much much big name with a lot of many many many many words',
                     date_,
-                    'Land Productivity (SDG 15.3.1 sub-indicator1)'
+                    'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_10'
                 ),
                 Dataset(
                     '222 A very very very  much much big name with a lot of many many many many words',
                     date_,
-                    'A very very very  much much big name with a lot of many many many many words',
+                    'A very very very  much much big name with a lot of many many many many words', run_id='run_id_11'
                 ),
             ]
         )

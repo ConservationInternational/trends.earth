@@ -143,6 +143,7 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.labelCreationDate.setText(
             self.dataset.creation_date.strftime('%Y-%m-%d %H:%M:%S'))
         self.labelSourceName.setText(self.dataset.source)
+        self.labelRunId.setText(self.dataset.run_id)
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")

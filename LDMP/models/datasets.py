@@ -38,11 +38,13 @@ class DatasetBase(abc.ABC):
     def __init__(self,
             name: str,
             creation_date: datetime,
-            source: str
+            source: str,
+            run_id: str
         ) -> None:
         super().__init__()
         self.status: DatasetStatus = DatasetStatus.not_applicable
         self.source = source
+        self.run_id = run_id
         self.name = name
         self.creation_date = creation_date
 
@@ -67,9 +69,10 @@ class Dataset(DatasetBase):
     def __init__(self,
             name: str,
             creation_date: datetime,
-            source: str
+            source: str,
+            run_id: str
         ) -> None:
-        super().__init__(name, creation_date, source)
+        super().__init__(name, creation_date, source, run_id)
         self.status: DatasetStatus = DatasetStatus.not_applicable
         self.source = source
         self.name = name

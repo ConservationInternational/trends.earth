@@ -23,5 +23,10 @@
     <file>icons/wrench.svg</file>
     <file>icons/spinner.gif</file>
     <file>icons/trends_earth_logo_square_32x32.ico</file>
+    <file>icons/mActionRefresh.svg</file>
+    <file>icons/mActionSharingImport.svg</file>
+    <file>icons/mActionDeleteSelected.svg</file>
+    <file>icons/mActionPropertiesWidget.svg</file>
+    <file>icons/mActionAddRasterLayer.svg</file>
   </qresource>
 </RCC>

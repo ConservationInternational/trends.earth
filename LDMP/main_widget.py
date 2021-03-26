@@ -12,7 +12,9 @@
  ***************************************************************************/
 """
 
-from qgis.PyQt import QtWidgets
+from datetime import datetime
+
+from qgis.PyQt import QtWidgets, QtGui
 from qgis.core import QgsSettings
 
 from LDMP import __version__, log
@@ -24,8 +26,16 @@ from LDMP.models.algorithms import (
     AlgorithmRunMode,
     AlgorithmDetails
 )
+from LDMP.models.datasets import (
+    Dataset,
+    Datasets
+)
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
+
+from LDMP.models.datasets_model import DatasetsModel
+from LDMP.models.datasets_delegate import DatasetItemDelegate
+from LDMP import tr
 
 settings = QgsSettings()
 
@@ -44,7 +54,69 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         super(MainWidget, self).__init__(parent)
 
         self.setupUi(self)
+        # remove space before dataset item
+        self.treeView_datasets.setIndentation(0)
+        self.treeView_datasets.verticalScrollBar().setSingleStep(10)
+
         self.setupAlgorithmsTree()
+        self.setupDatasets()
+
+    def setupDatasets(self):
+        # add sort actions
+        self.toolButton_sort.setMenu(QtWidgets.QMenu())
+
+        # add action entries of the pull down menu
+        byNameSortAction = QtWidgets.QAction(tr('Name'), self)
+        self.toolButton_sort.menu().addAction(byNameSortAction)
+        self.toolButton_sort.setDefaultAction(byNameSortAction)
+        byDateSortAction = QtWidgets.QAction(tr('Date'), self)
+        self.toolButton_sort.menu().addAction(byDateSortAction)
+
+        # set icons
+        icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg')
+        self.pushButton_refresh.setIcon(icon)
+        icon = QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg')
+        self.pushButton_import.setIcon(icon)
+        icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
+        self.pushButton_download.setIcon(icon)
+
+        # example of datasets
+        date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+        datasets = Datasets(
+            [
+                Dataset('1dataset1', date_, 'Land productivity', run_id='run_id_1'),
+                Dataset('2dataset2', date_, 'Downloaded from sample dataset', run_id='run_id_2'),
+                Dataset('3dataset3', date_, 'Land change', run_id='run_id_3'),
+                Dataset('11Productivity Trajectory1', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_4'),
+                Dataset('22Productivity Trajectory2', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_5'),
+                Dataset('33Productivity Trajectory3', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_6'),
+                Dataset('44Productivity Trajectory4', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_7'),
+                Dataset('55Productivity Trajectory5', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_8'),
+                Dataset('66Productivity Trajectory6', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_9'),
+                Dataset(
+                    '111 A very very very  much much big name with a lot of many many many many words',
+                    date_,
+                    'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_10'
+                ),
+                Dataset(
+                    '222 A very very very  much much big name with a lot of many many many many words',
+                    date_,
+                    'A very very very  much much big name with a lot of many many many many words', run_id='run_id_11'
+                ),
+            ]
+        )
+
+        # show it
+        datasetsModel = DatasetsModel(datasets)
+        self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
+        self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
+        self.treeView_datasets.setModel(datasetsModel)
+        delegate = DatasetItemDelegate(self.treeView_datasets)
+        self.treeView_datasets.setItemDelegate(delegate)
+
+        # configure View how to enter editing mode
+        self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

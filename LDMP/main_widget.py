@@ -121,10 +121,11 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy
         tree = AlgorithmGroup(name='root', name_details='root details', parent=None, algorithms=[])
-        land_degradation_group = AlgorithmGroup(name=tr('Land degradation'), name_details=tr('SDG 15.3.1'), parent=tree, algorithms=[])
-        urban_change_group = AlgorithmGroup(name=tr('Urban change and land consumption'), name_details=tr('SDG 11.3.1'), parent=tree, algorithms=[])
-        total_carbon_group = AlgorithmGroup(name=tr('Total carbon'), name_details=tr('above and belowground, emissions and deforestation'), parent=tree, algorithms=[])
-        potential_change_group = AlgorithmGroup(name=tr('Potential change in biomass due to restoration'), name_details=tr('above and belowground woody'), parent=tree, algorithms=[])
+        land_degradation_group = AlgorithmGroup(name=tr('SDG 15.3.1'), name_details=tr('Land degradation'), parent=tree, algorithms=[])
+        urban_change_group = AlgorithmGroup(name=tr('SDG 11.3.1'), name_details=tr('Urban change and land consumption'), parent=tree, algorithms=[])
+        experimental = AlgorithmGroup(name=tr('Experimental'), name_details=None, parent=tree, algorithms=[])
+        total_carbon_group = AlgorithmGroup(name=tr('Total carbon'), name_details=tr('above and belowground, emissions and deforestation'), parent=experimental, algorithms=[])
+        potential_change_group = AlgorithmGroup(name=tr('Potential change in biomass due to restoration'), name_details=tr('above and belowground woody'), parent=experimental, algorithms=[])
 
         # land_degradation_group
         land_roductivity_alg = AlgorithmDescriptor(name=tr('Land productivity'), name_details=None, brief_description=None, details=None, parent=land_degradation_group)
@@ -191,6 +192,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         total_carbon_group.algorithms.append(carbon_change_alg)
         total_carbon_group.algorithms.append(carbon_change_summary_alg)
+        experimental.algorithms.append(total_carbon_group)
 
         # potential_change_group
         estimate_biomass_change_alg = AlgorithmDescriptor(name=tr('Estimate biomass change'), name_details=None, brief_description=None, details=None, parent=potential_change_group)
@@ -205,12 +207,12 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         potential_change_group.algorithms.append(estimate_biomass_change_alg)
         potential_change_group.algorithms.append(estimate_biomass_summary_alg)
+        experimental.algorithms.append(potential_change_group)
 
         # populate tree
         tree.algorithms.append(land_degradation_group)
         tree.algorithms.append(urban_change_group)
-        tree.algorithms.append(total_carbon_group)
-        tree.algorithms.append(potential_change_group)
+        tree.algorithms.append(experimental)
 
         # show it
         algorithmsModel = AlgorithmTreeModel(tree)

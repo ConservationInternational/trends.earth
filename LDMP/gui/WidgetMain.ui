@@ -27,6 +27,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QTreeView" name="treeView_algorithms">
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectColumns</enum>
+          </property>
           <property name="headerHidden">
            <bool>true</bool>
           </property>

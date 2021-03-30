@@ -54,6 +54,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         super(MainWidget, self).__init__(parent)
 
         self.setupUi(self)
+
         # remove space before dataset item
         self.treeView_datasets.setIndentation(0)
         self.treeView_datasets.verticalScrollBar().setSingleStep(10)
@@ -214,6 +215,15 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         tree.algorithms.append(urban_change_group)
         tree.algorithms.append(experimental)
 
+        # set stylesheet for tree view
+        style = """
+            QTreeView::item:hover,
+            QTreeView::item:disabled:hover,
+            QTreeView::item:hover:!active, { background: transparent; background-color: transparent }
+            QTreeView::item:disabled { background: transparent; background-color: transparent }
+        """
+        self.treeView_algorithms.setStyleSheet(style)
+
         # show it
         algorithmsModel = AlgorithmTreeModel(tree)
         self.treeView_algorithms.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
@@ -224,6 +234,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # configure View how to enter editing mode
         self.treeView_algorithms.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+
 
 
     def closeEvent(self, event):

@@ -32,10 +32,13 @@ from qgis.PyQt.QtWidgets import (
     QStyledItemDelegate,
     QItemDelegate,
     QWidget,
-    QAction
+    QAction,
+    QStyle
 )
 from qgis.PyQt.QtGui import (
-    QPainter
+    QPainter,
+    QBrush,
+    QColor
 )
 from LDMP.models.algorithms import (
     AlgorithmGroup,
@@ -80,6 +83,11 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         # get item and manipulate painter basing on idetm data
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
+
+        # # set background color to avoid over effect (lighter)
+        # opt = QStyleOptionViewItem(option)
+        # opt.backgroundBrush = QBrush(QColor(Qt.transparent))
+        # option.widget.style().drawPrimitive(QStyle.PE_PanelItemViewItem, opt, painter)
 
         # if a Algorithm => show custom widget
         if item.item_type == AlgorithmNodeType.Algorithm:

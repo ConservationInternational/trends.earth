@@ -10,8 +10,8 @@
     <height>50</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
+  <property name="windowOpacity">
+   <double>0.000000000000000</double>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
